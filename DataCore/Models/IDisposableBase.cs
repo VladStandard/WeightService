@@ -15,7 +15,6 @@ namespace DataCore.Models
 
         public void CloseMethod();
 
-        //public void Dispose(bool disposing);
         public void Dispose(bool disposing);
 
         public void ReleaseManaged();

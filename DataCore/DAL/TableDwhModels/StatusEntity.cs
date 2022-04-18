@@ -5,7 +5,7 @@ using DataCore.DAL.Models;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class StatusEntity : BaseEntity
+    public class StatusEntity : BaseEntity<StatusEntity>
     {
         #region Public and private fields and properties
 

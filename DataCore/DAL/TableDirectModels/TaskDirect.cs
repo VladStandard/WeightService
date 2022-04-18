@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using System;
 
 namespace DataCore.DAL.TableDirectModels
@@ -13,7 +14,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public Guid Uid { get; set; }
         public TaskTypeDirect TaskType { get; set; }
-        public ScaleDirect Scale { get; set; }
+        public ScaleEntity Scale { get; set; }
         public bool Enabled { get; set; }
 
         #endregion
@@ -23,15 +24,15 @@ namespace DataCore.DAL.TableDirectModels
         public TaskDirect()
         {
             Uid = Guid.Empty;
-            TaskType = new TaskTypeDirect();
-            Scale = new ();
+            TaskType = new();
+            Scale = new();
             Enabled = false;
         }
 
-        public TaskDirect(Guid uid, long scaleId, string scaleDescription, Guid taskTypeUid, string taskType, bool enabled) : this()
+        public TaskDirect(Guid uid, long scaleId, Guid taskTypeUid, string taskType, bool enabled) : this()
         {
             Uid = uid;
-            Scale = new ScaleDirect(scaleId, scaleDescription);
+            Scale = new TableScaleModels.ScaleEntity(scaleId);
             TaskType = new TaskTypeDirect(taskTypeUid, taskType);
             Enabled = enabled;
             //TaskTypeUid = GetTaskTypeUid(taskName);

@@ -48,7 +48,7 @@ else
                         Text=@LocalizationCore.TableField.Scale />
                 </td>
                 <td>
-                    @if (ScaleItems == null)
+                    @if (ScaleItems == null || AppSettings.DataAccess.JsonSettings == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
@@ -70,7 +70,7 @@ else
                         Text=@LocalizationCore.TableField.Template />
                 </td>
                 <td>
-                    @if (TemplateItems == null)
+                    @if (TemplateItems == null || AppSettings.DataAccess.JsonSettings == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
@@ -94,7 +94,7 @@ else
                         Text=@LocalizationCore.TableField.NomenclatureName />
                 </td>
                 <td>
-                    @if (NomenclatureItems == null)
+                    @if (NomenclatureItems == null || AppSettings.DataAccess.JsonSettings == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }

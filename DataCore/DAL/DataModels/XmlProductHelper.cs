@@ -55,12 +55,12 @@ namespace DataCore.DAL.DataModels
                         {
                             ProductUnitEntity? item = new()
                             {
-                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
-                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
-                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
+                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
+                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
+                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
-                                Okei = GetAttribute<string>(xmlChild, "OKEI"),
-                                Description = GetAttribute<string>(xmlChild, "Description")
+                                Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
+                                Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
                             };
                             entities.Add(item);
                         }
@@ -85,8 +85,8 @@ namespace DataCore.DAL.DataModels
                         {
                             ProductBarcodeEntity? item = new()
                             {
-                                Type = GetAttribute<string>(xmlChild, "Type"),
-                                Barcode = GetAttribute<string>(xmlChild, "Barcode"),
+                                Type = GetAttribute<string>(xmlChild, "Type") ?? string.Empty,
+                                Barcode = GetAttribute<string>(xmlChild, "Barcode") ?? string.Empty,
                             };
                             entities.Add(item);
                         }
@@ -111,13 +111,13 @@ namespace DataCore.DAL.DataModels
                         {
                             ProductBoxEntity? item = new()
                             {
-                                Description = GetAttribute<string>(xmlChild, "Description"),
-                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
-                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
-                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
+                                Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
+                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
+                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
+                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
-                                Okei = GetAttribute<string>(xmlChild, "OKEI"),
-                                Unit = GetAttribute<string>(xmlChild, "Unit")
+                                Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
+                                Unit = GetAttribute<string>(xmlChild, "Unit") ?? string.Empty
                             };
                             entities.Add(item);
                             Console.WriteLine($"{nameof(item)}: {item}");
@@ -141,16 +141,16 @@ namespace DataCore.DAL.DataModels
             {
                 if (xmlProduct.HasAttributes)
                 {
-                    productEntity.Category = GetAttribute<string>(xmlProduct, "Category");
-                    productEntity.Code = GetAttribute<string>(xmlProduct, "Code");
-                    productEntity.Description = GetAttribute<string>(xmlProduct, "Description");
-                    productEntity.Comment = GetAttribute<string>(xmlProduct, "Comment");
-                    productEntity.Sku = GetAttribute<string>(xmlProduct, "SKU");
-                    productEntity.DescriptionOptional = GetAttribute<string>(xmlProduct, "DescriptionOptional");
+                    productEntity.Category = GetAttribute<string>(xmlProduct, "Category") ?? string.Empty;
+                    productEntity.Code = GetAttribute<string>(xmlProduct, "Code") ?? string.Empty;
+                    productEntity.Description = GetAttribute<string>(xmlProduct, "Description") ?? string.Empty;
+                    productEntity.Comment = GetAttribute<string>(xmlProduct, "Comment") ?? string.Empty;
+                    productEntity.Sku = GetAttribute<string>(xmlProduct, "SKU") ?? string.Empty;
+                    productEntity.DescriptionOptional = GetAttribute<string>(xmlProduct, "DescriptionOptional") ?? string.Empty;
                     productEntity.GuidMercury = GetAttribute<Guid>(xmlProduct, "GUIDMercury");
-                    productEntity.Temperature = GetAttribute<string>(xmlProduct, "Temperature");
-                    productEntity.ProductShelfLife = GetAttribute<string>(xmlProduct, "ProductShelfLife");
-                    productEntity.Brand = GetAttribute<string>(xmlProduct, "Brand");
+                    productEntity.Temperature = GetAttribute<string>(xmlProduct, "Temperature") ?? string.Empty;
+                    productEntity.ProductShelfLife = GetAttribute<string>(xmlProduct, "ProductShelfLife") ?? string.Empty;
+                    productEntity.Brand = GetAttribute<string>(xmlProduct, "Brand") ?? string.Empty;
 
                     productEntity.Units = GetProductUnitEntities(xmlProduct, "Units", "Unit");
                     productEntity.Barcodes = GetProductBarcodeEntities(xmlProduct, "Barcodes", "Barcode");
@@ -165,7 +165,7 @@ namespace DataCore.DAL.DataModels
             return productEntity;
         }
 
-        public T GetAttribute<T>(XElement xmlElement, string nameAttribute)
+        public T? GetAttribute<T>(XElement xmlElement, string nameAttribute)
         {
             if (string.IsNullOrEmpty(nameAttribute))
             {
@@ -235,16 +235,18 @@ namespace DataCore.DAL.DataModels
 
         public List<T> GetElementValue<T>(XElement xmlElement, string nameElement)
         {
-            List<T>? entities = new();
+            List<T>? items = new();
             List<XElement>? xmlEntities = xmlElement.Elements(nameElement).ToList();
             if (xmlEntities.Any())
             {
                 foreach (XElement? xmlEntity in xmlEntities)
                 {
-                    entities.Add(GetAttribute<T>(xmlEntity, null));
+                    T? item = GetAttribute<T>(xmlEntity, string.Empty);
+                    if (item != null)
+                        items.Add(item);
                 }
             }
-            return entities;
+            return items;
         }
 
         #endregion

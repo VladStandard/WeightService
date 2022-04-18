@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localization;
 using DataCore.Models;
 using System;
-using System.Collections.Generic;
 using static DataCore.Localization.Core;
 
 namespace DataCore
@@ -309,94 +307,6 @@ namespace DataCore
         public static class Paths
         {
             public const string ScalesTerminal = "C:\\Program Files (x86)\\Massa-K\\ScalesTerminal 100\\ScalesTerminal.exe";
-        }
-
-        public static class ScalesUI
-        {
-            public static List<string> ListLanguages => Lang == ShareEnums.Lang.English ? new List<string> { "Russian", "English" } : new List<string> { "Russian", "English" };
-            public static List<string> ListResolutions => Lang == ShareEnums.Lang.English ? new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
-            public static readonly decimal MassaThreshold = 0.010M;
-            public static string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-            public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
-            public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
-            public static string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";
-            public static string ButtonScalesInitShort => $">0<";
-            public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $"Order" : $"Заказ";
-            public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English ? $"Select{Environment.NewLine}PLU" : $"Выбрать{Environment.NewLine}ПЛУ";
-            public static string ButtonSelectPluWeight => Lang == ShareEnums.Lang.English ? $"Must select weight PLU!{Environment.NewLine}Or Massa-K scales are not respond!" : $"Необходимо выбрать весовую ПЛУ!{Environment.NewLine}Либо весы Масса-К не отвечают!";
-            public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? "More" : "Ещё";
-            public static string ButtonSettings => Lang == ShareEnums.Lang.English ? "Settings" : "Настройки";
-            public static string CheckPluWeightCount => Lang == ShareEnums.Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
-            public static string CheckWeightBefore(decimal currentWeight) => Lang == ShareEnums.Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {UnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
-            public static string CheckWeightIsEmpty() => Lang == ShareEnums.Lang.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
-            public static string CheckWeightThreshold(decimal weightNet) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
-            public static string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
-            public static string ChoosePlu => Lang == ShareEnums.Lang.English ? "First, you have to choose a PLU!" : "Сперва, необходимо выбрать PLU!";
-            public static string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
-            public static string Crc => "CRC";
-            public static string DeviceControlIsPreview => Lang == ShareEnums.Lang.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
-            public static string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
-            public static string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? "The database is unavailable!" : "База данных недоступна!";
-            public static string FieldCurrentTime => Lang == ShareEnums.Lang.English ? "Now" : "Сейчас";
-            public static string FieldKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-            public static string FieldProductDate => Lang == ShareEnums.Lang.English ? "Date of production" : "Дата производства";
-            public static string FieldSscc => Lang == ShareEnums.Lang.English ? "Serialized Shipping Container Code" : "Код транспортной упаковки";
-            public static string FieldSsccControlNumber => Lang == ShareEnums.Lang.English ? "Control number" : "Контрольное число";
-            public static string FieldSsccGln => Lang == ShareEnums.Lang.English ? "GLN" : "Код GLN";
-            public static string FieldSsccShort => Lang == ShareEnums.Lang.English ? "SSCC" : "Код ТУ";
-            public static string FieldSsccSynonym => Lang == ShareEnums.Lang.English ? "Synonym" : "Синоним";
-            public static string FieldSsccUnitId => Lang == ShareEnums.Lang.English ? "Unit ID" : "ИД юнита";
-            public static string FieldSsccUnitType => Lang == ShareEnums.Lang.English ? "Unit type" : "Тип юнита";
-            public static string FieldThresholdLower => Lang == ShareEnums.Lang.English ? "Lower" : "Нижнее";
-            public static string FieldThresholdNominal => Lang == ShareEnums.Lang.English ? "Nominal" : "Номинальное";
-            public static string FieldThresholds => Lang == ShareEnums.Lang.English ? "Weight thresholds" : "Пороговые значения веса";
-            public static string FieldThresholdUpper => Lang == ShareEnums.Lang.English ? "Upper" : "Верхнее";
-            public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
-            public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
-            public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
-            public static string ShippingLabels => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
-            public static string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
-            public static string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";
-            public static string MassaNotQuering => Lang == ShareEnums.Lang.English ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
-            public static string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
-            public static string MemoryFree => Lang == ShareEnums.Lang.English ? "free" : "свободно";
-            public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? "Physical memory" : "Физическая память";
-            public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? "Virtual memory" : "Виртуальная память";
-            public static string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
-            public static string OperationControl => Lang == ShareEnums.Lang.English ? "Control of operations" : "Контроль операций";
-            public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-            public static string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
-            public static string PluIsEmpty => Lang == ShareEnums.Lang.English ? "PLU not selected!" : "Не выбрана PLU!";
-            public static string PluWeight => Lang == ShareEnums.Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
-            public static string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
-            public static string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
-            public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
-            public static string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
-            public static string Registration => Lang == ShareEnums.Lang.English ? "Device registration" : "Регистрация устройства";
-            public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English ? "The monoblock is registered in the information system with the identifier" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Before restarting, map it to the current line in DeviceControl." : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
-            public static string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English ? $"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine + "Before restarting it, map it to the current line in DeviceControl" : $"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
-            public static string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
-            public static string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
-            public static string StateCorrect => Lang == ShareEnums.Lang.English ? "correct" : "верна";
-            public static string StateError => Lang == ShareEnums.Lang.English ? "error" : "ошибка";
-            public static string StateNotResponsed => Lang == ShareEnums.Lang.English ? "not responsed" : "не отвечает";
-            public static string StateResponsed => Lang == ShareEnums.Lang.English ? "responsed" : "отвечает";
-            public static string ThreadId => "ID";
-            public static string ThreadIsBackground => Lang == ShareEnums.Lang.English ? "Is background" : "Фоновый";
-            public static string ThreadName => Lang == ShareEnums.Lang.English ? "Name" : "Имя";
-            public static string ThreadPriorityLevel => Lang == ShareEnums.Lang.English ? "Priority level" : "Приоритет";
-            public static string Threads => Lang == ShareEnums.Lang.English ? "Threads" : "Потоки";
-            public static string ThreadsCount => Lang == ShareEnums.Lang.English ? "Threads count" : "Количество потоков";
-            public static string ThreadStartTime => Lang == ShareEnums.Lang.English ? "Start time" : "Время запуска";
-            public static string ThreadState => Lang == ShareEnums.Lang.English ? "State" : "Состояние";
-            public static string UnitKg => Lang == ShareEnums.Lang.English ? "kg" : "кг";
-            public static string UnitPcs => Lang == ShareEnums.Lang.English ? "pcs." : "шт.";
-            public static string UnitWeight => Lang == ShareEnums.Lang.English ? "weight" : "вес";
-            public static string WeightingControl => Lang == ShareEnums.Lang.English ? "The weight is out of bounds!" : "Вес выходит за границы!";
-            public static string WeightingMessage => Lang == ShareEnums.Lang.English ? "Weighting message" : "Сообщение взвешивания";
-            public static string WeightingProcess => Lang == ShareEnums.Lang.English ? "Weighing | Gross weight" : "Взвешивание | Вес брутто";
-            public static string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? "Command for scales" : "Команда для весов";
-            public static string WeightingStable => Lang == ShareEnums.Lang.English ? "Scales are stable | Gross weight" : "Весы стабильны | Вес брутто";
         }
 
         public static class Buttons

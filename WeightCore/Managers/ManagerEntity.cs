@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL;
-using DataCore.DAL.TableDirectModels;
+using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
+using WeightCore.Helpers;
 using WeightCore.Print;
 
 namespace WeightCore.Managers
@@ -12,10 +12,11 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        public ManagerMassa Massa { get; private set; } = new ManagerMassa();
-        public ManagerMemory Memory { get; private set; } = new ManagerMemory();
-        public ManagerPrint PrintMain { get; private set; } = new ManagerPrint();
-        public ManagerPrint PrintShipping { get; private set; } = new ManagerPrint();
+        public ManagerLabels Labels { get; private set; }
+        public ManagerMassa Massa { get; private set; }
+        public ManagerMemory Memory { get; private set; }
+        public ManagerPrint PrintMain { get; private set; }
+        public ManagerPrint PrintShipping { get; private set; }
 
         #endregion
 
@@ -23,22 +24,28 @@ namespace WeightCore.Managers
 
         public ManagerEntity()
         {
-            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+            Labels = new();
+            Massa = new();
+            Memory = new();
+            PrintMain = new();
+            PrintShipping = new();
+            Init(Close, ReleaseManaged, ReleaseUnmanaged);
         }
 
-        //~ManagerEntity()
-        //{
-        //    Massa?.Dispose(false);
-        //    Memory?.Dispose(false);
-        //    PrintMain?.Dispose(false);
-        //    PrintShipping?.Dispose(false);
-        //}
+        ~ManagerEntity()
+        {
+            Labels?.Dispose();
+            Massa?.Dispose(false);
+            Memory?.Dispose(false);
+            PrintMain?.Dispose(false);
+            PrintShipping?.Dispose(false);
+        }
 
         #endregion
 
         #region Public and private methods
 
-        public void Init(ScaleDirect currentScale, PrintBrand printBrandMain, PrintBrand printBrandShipping)
+        public void Init(ScaleEntity currentScale, PrintBrand printBrandMain, PrintBrand printBrandShipping)
         {
             Massa.Init(currentScale);
             Memory.Init();
@@ -47,48 +54,37 @@ namespace WeightCore.Managers
             PrintShipping.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
+        public new void Open()
         {
-            Open();
-            Massa.Open(sqlViewModel, isCheckWeight);
-            Memory.Open(sqlViewModel);
-            PrintMain.Open(sqlViewModel);
+            base.Open();
+            if (SessionStateHelper.Instance.IsCurrentPluCheckWeight)
+                Massa?.Open();
+            Memory?.Open();
+            PrintMain?.Open();
         }
 
-        public void OpenMassa(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
+        public new void Close()
         {
-            Massa.Open(sqlViewModel, isCheckWeight);
-        }
-
-        public void OpenMemory(SqlViewModelEntity sqlViewModel)
-        {
-            Memory.Open(sqlViewModel);
-        }
-
-        public void OpenPrint(SqlViewModelEntity sqlViewModel)
-        {
-            PrintMain.Open(sqlViewModel);
-        }
-
-        public void CloseMethod()
-        {
-            Massa.Close();
-            Memory.Close();
-            PrintMain.Close();
+            base.Close();
+            Massa?.Close();
+            Memory?.Close();
+            PrintMain?.Close();
         }
 
         public void ReleaseManaged()
         {
-            Massa.ReleaseManaged();
-            Memory.ReleaseManaged();
-            PrintMain.ReleaseManaged();
+            Labels?.ReleaseManaged();
+            Massa?.ReleaseManaged();
+            Memory?.ReleaseManaged();
+            PrintMain?.ReleaseManaged();
         }
 
         public void ReleaseUnmanaged()
         {
-            Massa.ReleaseUnmanaged();
-            Memory.ReleaseUnmanaged();
-            PrintMain.ReleaseUnmanaged();
+            Labels?.ReleaseUnmanaged();
+            Massa?.ReleaseUnmanaged();
+            Memory?.ReleaseUnmanaged();
+            PrintMain?.ReleaseUnmanaged();
         }
 
         #endregion

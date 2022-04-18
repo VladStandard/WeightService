@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.DAL.Models;
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
 using Microsoft.Data.SqlClient;
@@ -105,7 +106,7 @@ namespace DataCore.DAL
             Tasks = new List<TaskDirect>();
         }
 
-        public void SetupTasks(long? scaleId)
+        public void SetupTasks(DataAccessEntity dataAccess, long? scaleId)
         {
             if (scaleId == null)
                 return;
@@ -115,13 +116,14 @@ namespace DataCore.DAL
             Tasks = new List<TaskDirect>();
             foreach (TaskTypeDirect taskType in TaskTypes)
             {
-                TaskDirect task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
+                TaskDirect? task = TasksUtils.GetTask(dataAccess, taskType.Uid, (long)scaleId);
                 if (task == null)
                 {
                     TasksUtils.SaveNullTask(taskType, (long)scaleId, true);
-                    task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
+                    task = TasksUtils.GetTask(dataAccess, taskType.Uid, (long)scaleId);
                 }
-                Tasks.Add(task);
+                if (task != null)
+                    Tasks.Add(task);
             }
         }
 
@@ -129,7 +131,7 @@ namespace DataCore.DAL
         {
             if (Tasks == null)
                 return false;
-            // Table [TASKS] dont has records.
+            // Table [TASKS] don't has records.
             if (Tasks.Count == 0)
                 return true;
 

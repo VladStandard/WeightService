@@ -5,7 +5,7 @@ using DataCore.DAL.Models;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class InformationSystemEntity : BaseEntity
+    public class InformationSystemEntity : BaseEntity<InformationSystemEntity>
     {
         #region Public and private fields and properties
 

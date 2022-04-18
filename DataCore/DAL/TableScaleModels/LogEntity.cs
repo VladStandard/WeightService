@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Logs".
     /// </summary>
-    public class LogEntity : BaseEntity
+    public class LogEntity : BaseEntity<LogEntity>
     {
         #region Public and private fields and properties
 

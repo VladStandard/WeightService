@@ -12,7 +12,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "PLUs".
     /// </summary>
-    public class PluEntity : BaseEntity
+    public class PluEntity : BaseEntity<PluEntity>
     {
         #region Public and private fields and properties
 

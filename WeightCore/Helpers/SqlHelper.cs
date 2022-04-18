@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Helpers;
+using DataCore.Models;
 using DataCore.Utils;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
@@ -9,9 +11,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Threading;
 using WeightCore.Models;
-using WeightCore.Properties;
 
 namespace WeightCore.Helpers
 {
@@ -72,48 +74,32 @@ namespace WeightCore.Helpers
             SetConnectionString();
         }
 
-        public void Open(ShareEnums.SettingsStorage settingsStorage, string server = "", string database = "", bool integratedSecurity = false,
-            string userId = "", string password = "",
+        public void Open(ShareEnums.SettingsStorage settingsStorage, string server = "", string database = "", 
+            bool integratedSecurity = false, string userId = "", string password = "",
             bool encrypt = false, string applicationName = null,
             string workstationId = null, short connectTimeout = 15, short packetSize = 8192)
         {
-            //if (settingsStorage == ShareEnums.SettingsStorage.UseRegistry)
+            //if (settingsStorage == ShareEnums.SettingsStorage.UseConfig)
             //{
             //    server = string.Empty;
             //    database = string.Empty;
             //    userId = string.Empty;
             //    password = string.Empty;
             //    integratedSecurity = false;
-            //    if (Authentication != null)
+            //    string[] arr = Settings.Default.ConnectionString.Split(';');
+            //    if (arr.Length > 3)
             //    {
-            //        if (_reg.Exists(_reg.Root, Settings.Default.RegScalesUISql))
-            //        {
-            //            server = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUISql, nameof(Authentication.Server));
-            //            database = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUISql, nameof(Authentication.Database));
-            //            userId = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUISql, nameof(Authentication.UserId));
-            //            password = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUISql, nameof(Authentication.Password));
-            //            integratedSecurity = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUISql,
-            //                nameof(Authentication.IntegratedSecurity)).Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
-            //        }
+            //        server = arr[0].Contains("Server=") ? arr[0].Substring(7, arr[0].Length - 7) : arr[0];
+            //        database = arr[1].Contains("Database=") ? arr[1].Substring(9, arr[1].Length - 9) : arr[1];
+            //        userId = arr[2].Contains("Uid=") ? arr[2].Substring(4, arr[2].Length - 4) : arr[2];
+            //        password = arr[3].Contains("Pwd=") ? arr[3].Substring(4, arr[3].Length - 4) : arr[3];
             //    }
             //}
-            if (settingsStorage == ShareEnums.SettingsStorage.UseConfig)
-            {
-                server = string.Empty;
-                database = string.Empty;
-                userId = string.Empty;
-                password = string.Empty;
-                integratedSecurity = false;
-                string[] arr = Settings.Default.ConnectionString.Split(';');
-                if (arr.Length > 3)
-                {
-                    server = arr[0].Contains("Server=") ? arr[0].Substring(7, arr[0].Length - 7) : arr[0];
-                    database = arr[1].Contains("Database=") ? arr[1].Substring(9, arr[1].Length - 9) : arr[1];
-                    userId = arr[2].Contains("Uid=") ? arr[2].Substring(4, arr[2].Length - 4) : arr[2];
-                    password = arr[3].Contains("Pwd=") ? arr[3].Substring(4, arr[3].Length - 4) : arr[3];
-                }
-            }
-            Open(server, database, integratedSecurity, userId, password, encrypt, applicationName, workstationId, connectTimeout, packetSize);
+            //Open(server, database, integratedSecurity, userId, password, encrypt, applicationName, workstationId, connectTimeout, packetSize);
+
+            JsonSettingsBase jsonSettings = DataAccessHelper.Instance.GetJsonSettings(Directory.GetCurrentDirectory());
+            Open(jsonSettings.Sql.Server, jsonSettings.Sql.Db, jsonSettings.Sql.Trusted, jsonSettings.Sql.Username, 
+                jsonSettings.Sql.Password, encrypt, applicationName, workstationId, connectTimeout, packetSize);
         }
 
         public void SetConnectionString()

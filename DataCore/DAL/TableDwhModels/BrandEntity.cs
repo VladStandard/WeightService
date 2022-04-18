@@ -6,7 +6,7 @@ using DataCore.DAL.Utils;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class BrandEntity : BaseEntity
+    public class BrandEntity : BaseEntity<BrandEntity>
     {
         #region Public and private fields and properties
 

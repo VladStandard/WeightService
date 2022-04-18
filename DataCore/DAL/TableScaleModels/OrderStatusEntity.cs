@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "OrderStatuses".
     /// </summary>
-    public class OrderStatusEntity : BaseEntity
+    public class OrderStatusEntity : BaseEntity<OrderStatusEntity>
     {
         #region Public and private fields and properties
 

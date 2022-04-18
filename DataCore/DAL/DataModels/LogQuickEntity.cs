@@ -6,7 +6,7 @@ using System;
 
 namespace DataCore.DAL.DataModels
 {
-    public class LogQuickEntity : BaseEntity
+    public class LogQuickEntity : BaseEntity<LogQuickEntity>
     {
         #region Public and private fields and properties
 

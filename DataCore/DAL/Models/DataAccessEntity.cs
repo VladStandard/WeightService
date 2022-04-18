@@ -17,7 +17,7 @@ namespace DataCore.DAL.Models
         #region Public and private fields and properties
 
         private readonly object _locker = new();
-        public JsonSettingsEntity JsonSettings { get; private set; }
+        public JsonSettingsBase? JsonSettings { get; private set; }
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
         private ISessionFactory? _sessionFactory = null;
@@ -29,9 +29,9 @@ namespace DataCore.DAL.Models
                 {
                     if (_sessionFactory != null)
                         return _sessionFactory;
-                    if (!JsonSettings.CheckProperties(false))
+                    if (JsonSettings?.CheckProperties(true) == false)
                         return null;
-                    if (!JsonSettings.Trusted && (string.IsNullOrEmpty(JsonSettings.Username) || string.IsNullOrEmpty(JsonSettings.Password)))
+                    if (JsonSettings?.Sql.Trusted == false && (string.IsNullOrEmpty(JsonSettings.Sql.Username) || string.IsNullOrEmpty(JsonSettings.Sql.Password)))
                         throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
                     MsSqlConfiguration config = MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
                     config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
@@ -62,11 +62,11 @@ namespace DataCore.DAL.Models
 
         #region Constructor and destructor
 
-        public DataAccessEntity() : this(new()) { }
+        public DataAccessEntity() : this(new JsonSettingsBase(new(), true)) { }
 
-        public DataAccessEntity(JsonSettingsEntity jsonSettings)
+        public DataAccessEntity(JsonSettingsBase? jsonSettings)
         {
-            JsonSettings = jsonSettings;
+            JsonSettings= jsonSettings;
             Crud = new(this, SessionFactory);
         }
 
@@ -79,18 +79,18 @@ namespace DataCore.DAL.Models
         //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
         //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
-        private string GetConnectionString() => JsonSettings == null ? string.Empty : JsonSettings.Trusted
-            ? $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;" +
-              $"Trusted Connection=True;TrustServerCertificate={JsonSettings.TrustServerCertificate};"
-            : $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;" +
-              $"User ID={JsonSettings.Username};Password={JsonSettings.Password};TrustServerCertificate={JsonSettings.TrustServerCertificate};";
+        private string GetConnectionString() => JsonSettings == null ? string.Empty : JsonSettings.Sql.Trusted
+            ? $"Data Source={JsonSettings.Sql.Server};Initial Catalog={JsonSettings.Sql.Db};Persist Security Info=True;" +
+              $"Trusted Connection=True;TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};"
+            : $"Data Source={JsonSettings.Sql.Server};Initial Catalog={JsonSettings.Sql.Db};Persist Security Info=True;" +
+              $"User ID={JsonSettings.Sql.Username};Password={JsonSettings.Sql.Password};TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};";
 
-        private void AddConfigurationMappings(FluentConfiguration configuration, JsonSettingsEntity jsonSettings)
+        private void AddConfigurationMappings(FluentConfiguration configuration, JsonSettingsBase? jsonSettings)
         {
-            if (configuration == null || jsonSettings == null || string.IsNullOrEmpty(jsonSettings.Db))
+            if (configuration == null || jsonSettings == null || string.IsNullOrEmpty(jsonSettings.Sql.Db))
                 return;
 
-            switch (jsonSettings.Db.ToUpper())
+            switch (jsonSettings.Sql.Db.ToUpper())
             {
                 case "SCALESDB":
                 case "SCALES":

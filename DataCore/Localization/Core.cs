@@ -7,7 +7,8 @@ namespace DataCore.Localization
     {
         private static ShareEnums.Lang _lang;
         public static PrintHelper Print { get; private set; } = PrintHelper.Instance;
-        public static ShareEnums.Lang Lang { get => _lang; set { Print.Lang = TableField.Lang = _lang = value; } }
+        public static ScalesHelper Scales { get; private set; } = ScalesHelper.Instance;
+        public static ShareEnums.Lang Lang { get => _lang; set { Scales.Lang = Print.Lang = TableField.Lang = _lang = value; } }
         public static TableFieldHelper TableField { get; private set; } = TableFieldHelper.Instance;
 
         static Core()

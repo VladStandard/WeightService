@@ -8,6 +8,7 @@
 	<Copyright>Copyright © 2020 - 2022</Copyright>
 	<FileVersion>0.6.160</FileVersion>
     <AssemblyVersion>0.6.160</AssemblyVersion>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />

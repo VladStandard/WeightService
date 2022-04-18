@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataCore.DAL.DataModels
 {
-    public class LabelQuickEntity : BaseEntity
+    public class LabelQuickEntity : BaseEntity<LabelQuickEntity>
     {
         #region Public and private fields and properties
 

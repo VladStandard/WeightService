@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
 using DataCore.Wmi;
 using System;
 using System.Runtime.CompilerServices;
@@ -71,7 +70,7 @@ namespace WeightCore.Managers
             }, 1_000);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel)
+        public new void Open()
         {
             try
             {
@@ -82,7 +81,7 @@ namespace WeightCore.Managers
                 //    //
                 //},
                 //null, null);
-                Open(sqlViewModel, false, null, null, null);
+                Open(null, null, null);
             }
             catch (Exception ex)
             {

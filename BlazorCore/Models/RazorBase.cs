@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
-using DataCore.Localization;
 using DataCore.Models;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
@@ -21,7 +20,7 @@ using LocalizationCore = DataCore.Localization.Core;
 
 namespace BlazorCore.Models
 {
-    public class RazorBase : LayoutComponentBase
+    public class RazorBase<T> : LayoutComponentBase where T : BaseEntity<T>, new()
     {
         #region Public and private fields and properties
 
@@ -30,7 +29,7 @@ namespace BlazorCore.Models
         [Inject] public NavigationManager NavigationManager { get; set; }
         [Inject] public NotificationService NotificationService { get; set; }
         [Inject] public TooltipService TooltipService { get; set; }
-        [Parameter] public BaseEntity? ItemFilter { get; set; }
+        [Parameter] public BaseEntity<T>? ItemFilter { get; set; }
         [Parameter] public bool IsMarked { get; set; }
         [Parameter] public bool IsShowAdditionalFilter { get; set; }
         [Parameter] public bool IsShowItemsCount { get; set; }
@@ -41,18 +40,18 @@ namespace BlazorCore.Models
         [Parameter] public DbTableAction TableAction { get; set; }
         [Parameter] public Guid? IdentityUid { get; set; }
         [Parameter] public string IdentityUidStr { get => IdentityUid.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
-        [Parameter] public List<BaseEntity>? Items { get; set; }
-        [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
+        [Parameter] public List<BaseEntity<T>>? Items { get; set; }
+        [Parameter] public List<BaseEntity<T>>? ItemsFilter { get; set; }
         [Parameter] public long? IdentityId { get; set; }
-        [Parameter] public RazorBase? ParentRazor { get; set; }
+        [Parameter] public RazorBase<T>? ParentRazor { get; set; }
         [Parameter] public string? FilterCaption { get; set; }
         [Parameter] public string? FilterName { get; set; }
         [Parameter] public TableBase Table { get; set; }
         private ItemSaveCheckEntity ItemSaveCheck { get; set; }
         public AppSettingsHelper AppSettings { get; private set; }
-        public BaseEntity? Item { get; set; }
+        public BaseEntity<T>? Item { get; set; }
         public bool IsLoaded { get; set; }
-        public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
+        public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity<T>?)value; }
         public UserSettingsHelper UserSettings { get; private set; }
 
         #endregion
@@ -92,7 +91,7 @@ namespace BlazorCore.Models
 
         public void OnChangeCheckBox(object value, string name)
         {
-            RunTasks($"{Core.Strings.Method} {nameof(OnChangeCheckBox)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChangeCheckBox)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (name)
@@ -112,12 +111,12 @@ namespace BlazorCore.Models
 
         public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
         {
-            RunTasks($"{Core.Strings.Method} {nameof(OnItemValueChange)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     if (value is Lang lang)
                     {
-                        Core.Lang = lang;
+                        LocalizationCore.Lang = lang;
                         LocalizationData.Lang = lang;
                     }
                     templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
@@ -125,53 +124,52 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public void OnJsonValueChange(JsonSettingsEntity jsonSettings, string? filterName, object? value)
+        public void OnJsonValueChange(JsonSettingsBase? jsonSettings, string? filterName, object? value)
         {
-            RunTasks($"{Core.Strings.Method} {nameof(OnItemValueChange)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    switch (filterName)
+                    if (AppSettings.DataAccess.JsonSettings != null)
                     {
-                        case nameof(jsonSettings.IsDebug):
-                            if (value is bool isDebug)
-                                AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
-                            break;
-                        case nameof(jsonSettings.ItemRowCount):
-                            if (value is int itemRowCount)
-                                AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
-                            break;
-                        case nameof(jsonSettings.SectionRowCount):
-                            if (value is int sectionRowCount)
-                                AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
-                            break;
-                        case nameof(jsonSettings.Server):
-                            if (value is string server)
-                                AppSettings.DataAccess.JsonSettings.Server = server;
-                            break;
-                        case nameof(jsonSettings.Db):
-                            if (value is string db)
-                                AppSettings.DataAccess.JsonSettings.Db = db;
-                            break;
-                        case nameof(jsonSettings.Trusted):
-                            if (value is bool trusted)
-                                AppSettings.DataAccess.JsonSettings.Trusted = trusted;
-                            break;
-                        case nameof(jsonSettings.Username):
-                            if (value is string username)
-                                AppSettings.DataAccess.JsonSettings.Username = username;
-                            break;
-                        case nameof(jsonSettings.Password):
-                            if (value is string password)
-                                AppSettings.DataAccess.JsonSettings.Password = password;
-                            break;
+                        switch (filterName)
+                        {
+                            case nameof(jsonSettings.ItemRowCount):
+                                if (value is int itemRowCount)
+                                    AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
+                                break;
+                            case nameof(jsonSettings.SectionRowCount):
+                                if (value is int sectionRowCount)
+                                    AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
+                                break;
+                            case nameof(jsonSettings.Sql.Server):
+                                if (value is string server)
+                                    AppSettings.DataAccess.JsonSettings.Sql.Server = server;
+                                break;
+                            case nameof(jsonSettings.Sql.Db):
+                                if (value is string db)
+                                    AppSettings.DataAccess.JsonSettings.Sql.Db = db;
+                                break;
+                            case nameof(jsonSettings.Sql.Trusted):
+                                if (value is bool trusted)
+                                    AppSettings.DataAccess.JsonSettings.Sql.Trusted = trusted;
+                                break;
+                            case nameof(jsonSettings.Sql.Username):
+                                if (value is string username)
+                                    AppSettings.DataAccess.JsonSettings.Sql.Username = username;
+                                break;
+                            case nameof(jsonSettings.Sql.Password):
+                                if (value is string password)
+                                    AppSettings.DataAccess.JsonSettings.Sql.Password = password;
+                                break;
+                        }
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
-        public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
+        public void OnItemValueChange(BaseEntity<T>? item, string? filterName, object? value)
         {
-            RunTasks($"{Core.Strings.Method} {nameof(OnItemValueChange)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (item)
@@ -298,9 +296,9 @@ namespace BlazorCore.Models
                     new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), TemplateSeriesId } }),
                     null);
             }
-            if (filterName == nameof(scale.Printer) && value is long printerId)
+            if (filterName == nameof(scale.PrinterMain) && value is long printerId)
             {
-                scale.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                scale.PrinterMain = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
                     new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), printerId } }),
                     null);
             }
@@ -330,10 +328,10 @@ namespace BlazorCore.Models
             }
         }
 
-        public async Task ItemSelectAsync(BaseEntity item)
+        public async Task ItemSelectAsync(BaseEntity<T> item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks($"{Core.Strings.Method} {nameof(ItemSelectAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() =>
                 {
                     ItemSelect(item);
@@ -341,7 +339,7 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public void ItemSelect(BaseEntity item)
+        public void ItemSelect(BaseEntity<T> item)
         {
             if (Item != item)
                 Item = item;
@@ -365,7 +363,7 @@ namespace BlazorCore.Models
 
         public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
-            await RunTasksAsync(Core.Strings.TableRead, "", Core.Strings.DialogResultFail, "",
+            await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> { task }, continueOnCapturedContext).ConfigureAwait(false);
         }
 
@@ -448,7 +446,8 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.BarCodeTypes:
                     if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idBarcodeType))
                     {
-                        Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
+                        Item = (BaseEntity<T>)(BaseEntity<object>)
+                            AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idBarcodeType }, }), null);
                     }
                     break;
@@ -621,8 +620,8 @@ namespace BlazorCore.Models
 
         public static ConfirmOptions GetConfirmOptions() => new()
         {
-            OkButtonText = Core.Strings.DialogButtonYes,
-            CancelButtonText = Core.Strings.DialogButtonCancel,
+            OkButtonText = LocalizationCore.Strings.DialogButtonYes,
+            CancelButtonText = LocalizationCore.Strings.DialogButtonCancel,
             //    ShowTitle = true,
             //    ShowClose = true,
             //    Bottom = null,
@@ -713,7 +712,7 @@ namespace BlazorCore.Models
             try
             {
                 string question = string.IsNullOrEmpty(questionAdd)
-                    ? Core.Strings.DialogQuestion
+                    ? LocalizationCore.Strings.DialogQuestion
                     : questionAdd;
                 if (DialogService != null)
                 {
@@ -731,17 +730,17 @@ namespace BlazorCore.Models
             }
         }
 
-        public static string GetPath(string uriItemRoute, BaseEntity? item, long? id) =>
+        public static string GetPath(string uriItemRoute, BaseEntity<T>? item, long? id) =>
             item == null || id == null ? string.Empty : $"{uriItemRoute}/{id}";
 
-        public static string GetPath(string uriItemRoute, BaseEntity? item, Guid? uid) =>
+        public static string GetPath(string uriItemRoute, BaseEntity<T>? item, Guid? uid) =>
             item == null || uid == null ? string.Empty : $"{uriItemRoute}/{uid}";
 
         #endregion
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(bool isNewWindow, BaseEntity? item, DbTableAction tableAction)
+        public void RouteItemNavigate(bool isNewWindow, BaseEntity<T>? item, DbTableAction tableAction)
         {
             string page = RouteItemNavigatePage();
             if (string.IsNullOrEmpty(page))
@@ -840,7 +839,7 @@ namespace BlazorCore.Models
             return page;
         }
 
-        private void RouteItemNavigatePrepareTableSystem(BaseEntity item)
+        private void RouteItemNavigatePrepareTableSystem(BaseEntity<T> item)
         {
             switch (ProjectsEnums.GetTableSystem(Table.Name))
             {
@@ -868,7 +867,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void RouteItemNavigatePrepareTableScale(BaseEntity item)
+        private void RouteItemNavigatePrepareTableScale(BaseEntity<T> item)
         {
             switch (ProjectsEnums.GetTableScale(Table.Name))
             {
@@ -925,12 +924,12 @@ namespace BlazorCore.Models
             }
         }
 
-        private void RouteItemNavigatePrepareTableDwh(BaseEntity item)
+        private void RouteItemNavigatePrepareTableDwh(BaseEntity<T> item)
         {
             //
         }
 
-        private void RouteItemNavigateForItem(BaseEntity? item, string page, DbTableAction tableAction)
+        private void RouteItemNavigateForItem(BaseEntity<T>? item, string page, DbTableAction tableAction)
         {
             switch (tableAction)
             {
@@ -1103,8 +1102,8 @@ namespace BlazorCore.Models
         public async Task ItemCancelAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks(Core.Strings.TableCancel, Core.Strings.DialogResultSuccess,
-                Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel,
+            RunTasks(LocalizationCore.Strings.TableCancel, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
                 new Task(() =>
                 {
                     RouteSectionNavigate(false);
@@ -1116,9 +1115,9 @@ namespace BlazorCore.Models
             if (ParentRazor?.Item != null)
             {
                 if (ParentRazor.Item.IdentityName == ColumnName.Id)
-                    return Core.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
                 else if (ParentRazor.Item.IdentityName == ColumnName.Uid)
-                    return Core.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
             }
             return string.Empty;
         }
@@ -1230,8 +1229,8 @@ namespace BlazorCore.Models
         public async Task ItemSaveAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasksWithQeustion(Core.Strings.TableSave, Core.Strings.DialogResultSuccess,
-                Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocalizationCore.Strings.TableSave, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     switch (Table)
@@ -1259,7 +1258,7 @@ namespace BlazorCore.Models
                 return;
             BaseEntity? item = isParentRazor ? ParentRazor?.Item : Item;
 
-            RunTasks($"{Core.Strings.Method} {nameof(ActionNewAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionNewAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -1283,7 +1282,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{Core.Strings.Method} {nameof(ActionCopyAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionCopyAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     RouteItemNavigate(isNewWindow, item, DbTableAction.Copy);
@@ -1301,7 +1300,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{Core.Strings.Method} {nameof(ActionEditAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionEditAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     RouteItemNavigate(isNewWindow, item, DbTableAction.Edit);
@@ -1319,7 +1318,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{Core.Strings.Method} {nameof(ActionSaveAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionSaveAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     await GuiRefreshWithWaitAsync();
@@ -1336,7 +1335,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{Core.Strings.Method} {nameof(ActionMarkAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionMarkAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.MarkedEntity(item);
@@ -1354,8 +1353,8 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasksWithQeustion(Core.Strings.TableDelete, Core.Strings.DialogResultSuccess,
-                Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.DeleteEntity(item);
@@ -1370,8 +1369,8 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocalizationCore.Print.ResourcesClear, Core.Strings.DialogResultSuccess,
-                Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocalizationCore.Print.ResourcesClear, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
@@ -1403,8 +1402,8 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocalizationCore.Print.ResourcesLoadTtf, Core.Strings.DialogResultSuccess,
-                Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocalizationCore.Print.ResourcesLoadTtf, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(

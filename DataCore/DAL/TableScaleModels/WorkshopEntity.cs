@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "WorkShops".
     /// </summary>
-    public class WorkShopEntity : BaseEntity
+    public class WorkShopEntity : BaseEntity<WorkShopEntity>
     {
         #region Public and private fields and properties
 

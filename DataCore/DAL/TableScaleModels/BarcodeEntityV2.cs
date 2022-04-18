@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "BarCodes".
     /// </summary>
-    public class BarCodeEntityV2 : BaseEntity
+    public class BarCodeEntityV2 : BaseEntity<BarCodeEntityV2>
     {
         #region Public and private fields and properties
 

@@ -56,7 +56,7 @@ namespace ZabbixStubService.Zabbix
             {
                 _listenerThread = new Thread(t =>
                 {
-                    while (!_token.IsCancellationRequested)
+                    while (_token != null && !_token.IsCancellationRequested)
                     {
                         lock (_locker)
                         {

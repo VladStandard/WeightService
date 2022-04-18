@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Access".
     /// </summary>
-    public class AccessEntity : BaseEntity
+    public class AccessEntity : BaseEntity<AccessEntity>
     {
         #region Public and private fields and properties
 

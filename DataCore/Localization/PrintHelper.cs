@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Threading;
+
 namespace DataCore.Localization
 {
     public class PrintHelper

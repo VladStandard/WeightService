@@ -2,9 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using System;
+using LocalizationCore = DataCore.Localization.Core;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using System;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 
@@ -141,7 +142,7 @@ namespace ScalesUI.Forms
 
             if (SessionState.CurrentPlu.IsCheckWeight == true && SessionState.WeighingSettings.CurrentLabelsCountMain > 1)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(this, LocalizationData.ScalesUI.CheckPluWeightCount);
+                GuiUtils.WpfForm.ShowNewOperationControl(this, LocalizationCore.Scales.CheckPluWeightCount);
                 SessionState.WeighingSettings.CurrentLabelsCountMain = 1;
             }
             fieldPalletSize.Text = $"{SessionState.WeighingSettings.CurrentLabelsCountMain}";

@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Templates".
     /// </summary>
-    public class TemplateEntity : BaseEntity
+    public class TemplateEntity : BaseEntity<TemplateEntity>
     {
         #region Public and private fields and properties
 

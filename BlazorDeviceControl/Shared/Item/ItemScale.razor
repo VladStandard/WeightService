@@ -99,18 +99,18 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Printer, ItemCast.Printer, ItemCast.Printer?.IdentityId)
+                        Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterMain, ItemCast.PrinterMain?.IdentityId)
                         Text=@LocalizationCore.Print.NameMain />
                 </td>
                 <td>
-                    @if (PrinterItems == null || ItemCast.Printer == null)
+                    @if (PrinterItems == null || ItemCast.PrinterMain == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
                         <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                            @bind-Value=@ItemCast.Printer.IdentityId >
+                            @bind-Value=@ItemCast.PrinterMain.IdentityId >
                             @foreach (PrinterEntity item in PrinterItems)
                             {
                                 <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
@@ -127,18 +127,18 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Printer, ItemCast.ShippingPrinter, ItemCast.ShippingPrinter?.IdentityId)
+                        Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.IdentityId)
                         Text=@LocalizationCore.Print.NameShipping />
                 </td>
                 <td>
-                    @if (ShippingPrinterItems == null || ItemCast.ShippingPrinter == null)
+                    @if (ShippingPrinterItems == null || ItemCast.PrinterShipping == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
                         <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                            @bind-Value=@ItemCast.ShippingPrinter.IdentityId >
+                            @bind-Value=@ItemCast.PrinterShipping.IdentityId >
                             @foreach (PrinterEntity item in ShippingPrinterItems)
                             {
                                 <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>

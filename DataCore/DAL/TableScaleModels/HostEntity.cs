@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Hosts".
     /// </summary>
-    public class HostEntity : BaseEntity
+    public class HostEntity : BaseEntity<HostEntity>
     {
         #region Public and private fields and properties
 

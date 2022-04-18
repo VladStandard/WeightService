@@ -18,8 +18,8 @@ namespace DataCore.DAL.TableScaleModels
             References(x => x.TemplateDefault).Column("TemplateIdDefault").Not.Nullable();
             References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
             References(x => x.WorkShop).Column("WorkShopId").Not.Nullable();
-            References(x => x.Printer).Column("ZebraPrinterId").Nullable();
-            References(x => x.ShippingPrinter).Column("SHIPPING_PRINTER_ID").Nullable();
+            References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
+            References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
             References(x => x.Host).Column("HostId").Nullable();
             Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150);
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();

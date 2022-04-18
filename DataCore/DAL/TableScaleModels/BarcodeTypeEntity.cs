@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// Table "BarCodeTypes".
     /// </summary>
     [Obsolete(@"Use BarcodeTypeEntityV2")]
-    public class BarcodeTypeEntity : BaseEntity
+    public class BarcodeTypeEntity : BaseEntity<BarcodeTypeEntity>
     {
         #region Public and private fields and properties
 

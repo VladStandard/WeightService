@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Apps".
     /// </summary>
-    public class AppEntity : BaseEntity
+    public class AppEntity : BaseEntity<AppEntity>
     {
         #region Public and private fields and properties
 

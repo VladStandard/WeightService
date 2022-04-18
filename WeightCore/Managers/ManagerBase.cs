@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
 using DataCore.DAL.DataModels;
 using DataCore.Models;
 using Nito.AsyncEx;
@@ -90,15 +89,7 @@ namespace WeightCore.Managers
             stopwatch.Stop();
         }
 
-        public void DebugLog(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
-        {
-            CheckIsDisposed();
-            if (Debug.IsDebug)
-                Log.Information(message, filePath, lineNumber, memberName);
-        }
-
-        public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight,
-            ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
+        public void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
             CloseMethod();
             if (IsOpenedMethod) return;
@@ -114,25 +105,9 @@ namespace WeightCore.Managers
             CtsRequest = null;
             CtsResponse = null;
 
-            switch (TaskType)
-            {
-                case ProjectsEnums.TaskType.MassaManager:
-                    if (isCheckWeight)
-                    {
-                        OpenTaskReopen(reopenCallback);
-                        OpenTaskRequest(requestCallback);
-                        OpenTaskResponse(responseCallback);
-                    }
-                    break;
-                default:
-                    if (sqlViewModel.IsTaskEnabled(TaskType))
-                    {
-                        OpenTaskReopen(reopenCallback);
-                        OpenTaskRequest(requestCallback);
-                        OpenTaskResponse(responseCallback);
-                    }
-                    break;
-            }
+            OpenTaskReopen(reopenCallback);
+            OpenTaskRequest(requestCallback);
+            OpenTaskResponse(responseCallback);
         }
 
         private void OpenTaskBase(Task task, CancellationTokenSource cts)
@@ -154,6 +129,7 @@ namespace WeightCore.Managers
 
             TaskReopen = Task.Run(async () =>
             {
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 MutexReopen = new AsyncLock();
                 while (MutexReopen != null && CtsReopen != null)
                 {
@@ -192,6 +168,7 @@ namespace WeightCore.Managers
 
             TaskRequest = Task.Run(async () =>
             {
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 MutexRequest = new AsyncLock();
                 while (MutexRequest != null && CtsRequest != null)
                 {
@@ -200,7 +177,7 @@ namespace WeightCore.Managers
                         // AsyncLock can be locked asynchronously
                         using (await MutexRequest.LockAsync(CtsRequest.Token))
                         {
-                            if (CtsRequest.IsCancellationRequested)
+                            if (CtsRequest == null || CtsRequest.IsCancellationRequested)
                                 break;
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
@@ -230,6 +207,7 @@ namespace WeightCore.Managers
 
             TaskResponse = Task.Run(async () =>
             {
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 MutexResponse = new AsyncLock();
                 while (MutexResponse != null && CtsResponse != null)
                 {
@@ -238,7 +216,7 @@ namespace WeightCore.Managers
                         // AsyncLock can be locked asynchronously
                         using (await MutexResponse.LockAsync(CtsResponse.Token))
                         {
-                            if (CtsResponse.IsCancellationRequested)
+                            if (CtsResponse == null || CtsResponse.IsCancellationRequested)
                                 break;
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
@@ -279,8 +257,6 @@ namespace WeightCore.Managers
             MutexReopen = null;
             MutexRequest = null;
             MutexResponse = null;
-
-            DebugLog($"{TaskType} is closed");
         }
 
         public void ReleaseManaged()

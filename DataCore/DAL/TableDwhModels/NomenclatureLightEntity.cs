@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class NomenclatureLightEntity : BaseEntity
+    public class NomenclatureLightEntity : BaseEntity<NomenclatureLightEntity>
     {
         #region Public and private fields and properties
 

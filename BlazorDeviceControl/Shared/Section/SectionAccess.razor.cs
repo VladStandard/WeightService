@@ -3,7 +3,6 @@
 
 using DataCore;
 using DataCore.DAL.Models;
-using DataCore.DAL.TableScaleModels;
 using DataCore.Localization;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;

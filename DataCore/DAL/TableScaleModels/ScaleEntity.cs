@@ -3,23 +3,24 @@
 
 using DataCore.DAL.Models;
 using System;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Tab;e "Scales".
+    /// Table "Scales".
     /// </summary>
-    public class ScaleEntity : BaseEntity
+    public class ScaleEntity : BaseEntity<ScaleEntity>
     {
         #region Public and private fields and properties
 
         public virtual TemplateEntity? TemplateDefault { get; set; }
         public virtual TemplateEntity? TemplateSeries { get; set; }
         public virtual WorkShopEntity WorkShop { get; set; }
-        public virtual PrinterEntity? Printer { get; set; }
+        public virtual PrinterEntity? PrinterMain { get; set; }
         public virtual bool IsShipping { get; set; }
         public virtual bool IsKneading { get; set; }
-        public virtual PrinterEntity? ShippingPrinter { get; set; }
+        public virtual PrinterEntity? PrinterShipping { get; set; }
         public virtual byte ShippingLength { get; set; }
         public virtual HostEntity? Host { get; set; }
         public virtual string Description { get; set; }
@@ -31,7 +32,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual short? DeviceReceiveTimeout { get; set; }
         public virtual string DeviceComPort { get; set; }
         public virtual string ZebraIp { get; set; }
-        public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
+        [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
         public virtual bool UseOrder { get; set; }
         public virtual string VerScalesUi { get; set; }
@@ -52,8 +53,8 @@ namespace DataCore.DAL.TableScaleModels
             TemplateDefault = new();
             TemplateSeries = new();
             WorkShop = new();
-            Printer = new();
-            ShippingPrinter = new();
+            PrinterMain = new();
+            PrinterShipping = new();
             IsShipping = false;
             IsKneading = false;
             ShippingLength = 0;
@@ -83,8 +84,9 @@ namespace DataCore.DAL.TableScaleModels
             string? strTemplateDefault = TemplateDefault != null ? TemplateDefault.IdentityId.ToString() : "null";
             string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.IdentityId.ToString() : "null";
             string? strWorkShop = WorkShop != null ? WorkShop.IdentityId.ToString() : "null";
-            string? strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
-            string? strPrinterVehicle = ShippingPrinter != null ? ShippingPrinter.IdentityId.ToString() : "null";
+            string? strPrinterMain = PrinterMain != null ? PrinterMain.IdentityId.ToString() : "null";
+            string? strPrinterShipping = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
+            string? strPrinterVehicle = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
             string? strHost = Host != null ? Host.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Description)}: {Description}. " +
@@ -104,8 +106,9 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(TemplateSeries)}: {strTemplateSeries}. " +
                    $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
                    $"{nameof(WorkShop)}: {strWorkShop}. " +
-                   $"{nameof(Printer)}: {strPrinter}. " +
-                   $"{nameof(ShippingPrinter)}: {strPrinterVehicle}. " +
+                   $"{nameof(PrinterMain)}: {strPrinterMain}. " +
+                   $"{nameof(PrinterShipping)}: {strPrinterShipping}. " +
+                   $"{nameof(PrinterShipping)}: {strPrinterVehicle}. " +
                    $"{nameof(IsShipping)}: {IsShipping}. " +
                    $"{nameof(IsKneading)}: {IsKneading}. " +
                    $"{nameof(ShippingLength)}: {ShippingLength}. " +
@@ -134,8 +137,8 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(DeviceNumber, entity.DeviceNumber) &&
                    Equals(ScaleFactor, entity.ScaleFactor) &&
                    WorkShop.Equals(entity.WorkShop) &&
-                   Printer != null && entity.Printer != null && Printer.Equals(entity.Printer) &&
-                   ShippingPrinter != null && entity.ShippingPrinter != null && ShippingPrinter.Equals(entity.ShippingPrinter) &&
+                   PrinterMain != null && entity.PrinterMain != null && PrinterMain.Equals(entity.PrinterMain) &&
+                   PrinterShipping != null && entity.PrinterShipping != null && PrinterShipping.Equals(entity.PrinterShipping) &&
                    IsShipping.Equals(entity.IsShipping) &&
                    IsKneading.Equals(entity.IsKneading) &&
                    ShippingLength.Equals(entity.ShippingLength) &&
@@ -168,9 +171,9 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (WorkShop != null && !WorkShop.EqualsDefault())
                 return false;
-            if (Printer != null && !Printer.EqualsDefault())
+            if (PrinterMain != null && !PrinterMain.EqualsDefault())
                 return false;
-            if (ShippingPrinter != null && !ShippingPrinter.EqualsDefault())
+            if (PrinterShipping != null && !PrinterShipping.EqualsDefault())
                 return false;
             if (Host != null && !Host.EqualsDefault())
                 return false;
@@ -200,8 +203,8 @@ namespace DataCore.DAL.TableScaleModels
             item.TemplateDefault = TemplateDefault != null ? (TemplateEntity)TemplateDefault.Clone() : null;
             item.TemplateSeries = TemplateSeries != null ? (TemplateEntity)TemplateSeries.Clone() : null;
             item.WorkShop = (WorkShopEntity)WorkShop.Clone();
-            item.Printer = Printer != null ? (PrinterEntity)Printer.Clone() : null;
-            item.ShippingPrinter = ShippingPrinter != null ? (PrinterEntity)ShippingPrinter.Clone() : null;
+            item.PrinterMain = PrinterMain != null ? (PrinterEntity)PrinterMain.Clone() : null;
+            item.PrinterShipping = PrinterShipping != null ? (PrinterEntity)PrinterShipping.Clone() : null;
             item.IsShipping = IsShipping;
             item.IsKneading = IsKneading;
             item.ShippingLength = ShippingLength;

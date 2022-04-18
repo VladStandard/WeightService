@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Xml.Serialization;
@@ -15,7 +16,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public long Id { get; set; }
         public Guid UUID { get; set; }
-        public ScaleDirect Scale { get; set; }
+        public ScaleEntity Scale { get; set; }
         public DateTime CreateDate { get; set; }
         public SsccDirect Sscc { get; set; }
         public PluDirect Plu { get; set; }
@@ -44,7 +45,7 @@ namespace DataCore.DAL.TableDirectModels
             Scale = new();
         }
 
-        public ProductSeriesDirect(ScaleDirect scale) : this()
+        public ProductSeriesDirect(ScaleEntity scale) : this()
         {
             Scale = scale;
             Load();
@@ -61,13 +62,13 @@ namespace DataCore.DAL.TableDirectModels
 
         public void Load()
         {
-            if (Scale == null || Scale.Id == default) 
+            if (Scale == null || Scale.IdentityId == default) 
             {
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
 
             SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
-                new SqlParameter("@SCALE_ID", System.Data.SqlDbType.VarChar, 38) { Value = Scale.Id }, (SqlDataReader reader) =>
+                new SqlParameter("@SCALE_ID", System.Data.SqlDbType.VarChar, 38) { Value = Scale.IdentityId }, (SqlDataReader reader) =>
                 {
                     byte count = 0;
                     while (reader.Read())

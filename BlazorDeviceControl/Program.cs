@@ -23,11 +23,11 @@ namespace BlazorDeviceControl
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-#if DEBUG
-                config.AddJsonFile("appsettings.Debug.json", optional: true, reloadOnChange: true);
-#else
-                config.AddJsonFile("appsettings.Release.json", optional: true, reloadOnChange: true);
-#endif
+//#if DEBUG
+//                config.AddJsonFile("appsettings.Debug.json", optional: true, reloadOnChange: true);
+//#else
+//                config.AddJsonFile("appsettings.Release.json", optional: true, reloadOnChange: true);
+//#endif
             })
             ;
     }

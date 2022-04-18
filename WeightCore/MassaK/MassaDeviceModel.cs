@@ -31,13 +31,13 @@ namespace WeightCore.MassaK
 
         #region Constructor and destructor
 
-        public MassaDeviceModel(string portName, int readTimeout, int writeTimeout, ResponseCallback responseCallback)
+        public MassaDeviceModel(string portName, short? readTimeout, short? writeTimeout, ResponseCallback responseCallback)
         {
             Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
 
             PortName = portName;
-            ReadTimeout = readTimeout;
-            WriteTimeout = writeTimeout;
+            ReadTimeout = readTimeout ?? 100;
+            WriteTimeout = writeTimeout ?? 100;
             SerialPortController = new ISerialPortController(this);
             _responseCallback = responseCallback;
         }

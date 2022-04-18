@@ -6,7 +6,7 @@ using DataCore.DAL.Utils;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class NomenclatureEntity : BaseEntity
+    public class NomenclatureEntity : BaseEntity<NomenclatureEntity>
     {
         #region Public and private fields and properties
 

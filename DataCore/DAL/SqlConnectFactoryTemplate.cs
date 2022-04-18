@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.TableDirectModels;
-using DataCore.Utils;
 using Microsoft.Data.SqlClient;
 
 namespace DataCore.DAL
@@ -47,21 +45,21 @@ namespace DataCore.DAL
             return result;
         }
 
-        public void UpdateTemplate(ScaleDirect scale)
-        {
-            SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = scale.Id },
-                new SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 150) { Value = scale.Description },
-                new SqlParameter("@Port", System.Data.SqlDbType.SmallInt) { Value = scale.DevicePort },
-                new SqlParameter("@SendTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceWriteTimeout },
-                new SqlParameter("@ReceiveTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceReadTimeout },
-                new SqlParameter("@ComPort", System.Data.SqlDbType.VarChar, 5) { Value = StringUtils.GetStringNullValueTrim(scale.DeviceComPort, 5) },
-                new SqlParameter("@UseOrder", System.Data.SqlDbType.SmallInt) { Value = scale.UseOrder == true ? 1 : 0 },
-                new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
-                new SqlParameter("@ScaleFactor", System.Data.SqlDbType.Int) { Value = scale.ScaleFactor },
-            };
-            SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
-        }
+        //public void UpdateTemplate(ScaleDirect scale)
+        //{
+        //    SqlParameter[] parameters = new SqlParameter[] {
+        //        new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = scale.Id },
+        //        new SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 150) { Value = scale.Description },
+        //        new SqlParameter("@Port", System.Data.SqlDbType.SmallInt) { Value = scale.DevicePort },
+        //        new SqlParameter("@SendTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceWriteTimeout },
+        //        new SqlParameter("@ReceiveTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceReadTimeout },
+        //        new SqlParameter("@ComPort", System.Data.SqlDbType.VarChar, 5) { Value = StringUtils.GetStringNullValueTrim(scale.DeviceComPort, 5) },
+        //        new SqlParameter("@UseOrder", System.Data.SqlDbType.SmallInt) { Value = scale.UseOrder == true ? 1 : 0 },
+        //        new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
+        //        new SqlParameter("@ScaleFactor", System.Data.SqlDbType.Int) { Value = scale.ScaleFactor },
+        //    };
+        //    SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
+        //}
 
         #endregion
     }

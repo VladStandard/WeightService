@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WeightCore.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server=PALYCH\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;</Value>
-    </Setting>
     <Setting Name="AppNameWeightCore" Type="System.String" Scope="User">
       <Value Profile="(Default)">WeightCore</Value>
     </Setting>

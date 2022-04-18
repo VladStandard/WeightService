@@ -12,7 +12,7 @@ namespace DataCore.DAL.Models
         Uid,
     }
 
-    public class BaseEntity : ICloneable
+    public class BaseEntity<T> : BaseSerializeEntity<T>, ICloneable where T : new()
     {
         #region Public and private fields and properties
 
@@ -89,7 +89,7 @@ namespace DataCore.DAL.Models
             return isIdentityEmpty;
         }
 
-        public virtual bool Equals(BaseEntity entity)
+        public virtual bool Equals(BaseEntity<T> entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -107,7 +107,7 @@ namespace DataCore.DAL.Models
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((BaseEntity)obj);
+            return Equals((BaseEntity<T>)obj);
         }
 
         public virtual bool EqualsDefault() => Equals(IdentityName, ColumnName.Default) &&
@@ -117,7 +117,7 @@ namespace DataCore.DAL.Models
                 Equals(ChangeDt, default) &&
                 Equals(IsMarked, false);
 
-        public virtual object Clone() => new BaseEntity()
+        public virtual object Clone() => new BaseEntity<T>()
         {
             IdentityName = IdentityName,
             IdentityId = IdentityId,

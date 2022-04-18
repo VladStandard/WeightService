@@ -43,7 +43,7 @@ namespace WeightCore.Zpl
             xmlInput = xmlInput.Replace(nameof(PluDirect), "PluEntity");
             xmlInput = xmlInput.Replace(nameof(ProductionFacilityDirect), "ProductionFacilityEntity");
             xmlInput = xmlInput.Replace(nameof(ProductSeriesDirect), "ProductSeriesEntity");
-            xmlInput = xmlInput.Replace(nameof(ScaleDirect), "ScaleEntity");
+            //xmlInput = xmlInput.Replace(nameof(ScaleDirect), "ScaleEntity");
             xmlInput = xmlInput.Replace(nameof(DataCore.DAL.TableScaleModels.ScaleEntity), "ScaleEntity");
             xmlInput = xmlInput.Replace(nameof(SsccDirect), "SsccEntity");
             xmlInput = xmlInput.Replace(nameof(TaskDirect), "TaskEntity");

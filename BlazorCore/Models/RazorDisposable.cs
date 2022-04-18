@@ -1,11 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.DAL.Models;
 using System;
 
 namespace BlazorCore.Models
 {
-    public class RazorDisposable : RazorBase, IDisposable
+    public class RazorDisposable<T> : RazorBase<T>, IDisposable where T : BaseEntity<T>, new()
     {
         #region IDisposable
 

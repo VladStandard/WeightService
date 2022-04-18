@@ -57,7 +57,7 @@ namespace DataCore.DAL.Models
             ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
         }
 
-        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
         {
             T[]? result = new T[0];
             ExecuteTransaction((session) =>
@@ -82,7 +82,7 @@ namespace DataCore.DAL.Models
         }
 
         private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults)
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             Type type = typeof(T);
             ICriteria criteria = session.CreateCriteria(type);
@@ -178,7 +178,7 @@ namespace DataCore.DAL.Models
         }
 
         public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults,
-            string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+            string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
         {
             T[]? result = new T[0];
             ExecuteTransaction((session) =>
@@ -231,7 +231,7 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public void FillReferences<T>(T item) where T : BaseEntity, new()
+        public void FillReferences<T>(T item) where T : BaseEntity<T>, new()
         {
             FillReferencesSystem(item);
             FillReferencesDatas(item);
@@ -239,7 +239,7 @@ namespace DataCore.DAL.Models
             FillReferencesDwh(item);
         }
 
-        private void FillReferencesSystem<T>(T item) where T : BaseEntity, new()
+        private void FillReferencesSystem<T>(T item) where T : BaseEntity<T>, new()
         {
             switch (item)
             {
@@ -284,7 +284,7 @@ namespace DataCore.DAL.Models
             }
         }
 
-        private void FillReferencesDatas<T>(T item) where T : BaseEntity, new()
+        private void FillReferencesDatas<T>(T item) where T : BaseEntity<T>, new()
         {
             switch (item)
             {
@@ -297,7 +297,7 @@ namespace DataCore.DAL.Models
             }
         }
 
-        private void FillReferencesScales<T>(T item) where T : BaseEntity, new()
+        private void FillReferencesScales<T>(T item) where T : BaseEntity<T>, new()
         {
             switch (item)
             {
@@ -413,7 +413,8 @@ namespace DataCore.DAL.Models
                         scale.TemplateDefault = scale.TemplateDefault?.IdentityId == null ? new() : GetEntity<TemplateEntity>(scale.TemplateDefault.IdentityId);
                         scale.TemplateSeries = scale.TemplateSeries?.IdentityId == null ? new() : GetEntity<TemplateEntity>(scale.TemplateSeries.IdentityId);
                         scale.WorkShop = scale.WorkShop?.IdentityId == null ? new() : GetEntity<WorkShopEntity>(scale.WorkShop.IdentityId);
-                        scale.Printer = scale.Printer?.IdentityId == null ? new() : GetEntity<PrinterEntity>(scale.Printer.IdentityId);
+                        scale.PrinterMain = scale.PrinterMain?.IdentityId == null ? new() : GetEntity<PrinterEntity>(scale.PrinterMain.IdentityId);
+                        scale.PrinterShipping = scale.PrinterShipping?.IdentityId == null ? new() : GetEntity<PrinterEntity>(scale.PrinterShipping.IdentityId);
                         scale.Host = scale.Host?.IdentityId == null ? new() : GetEntity<HostEntity>(scale.Host.IdentityId);
                     }
                     break;
@@ -469,7 +470,7 @@ namespace DataCore.DAL.Models
             }
         }
 
-        private void FillReferencesDwh<T>(T item) where T : BaseEntity, new()
+        private void FillReferencesDwh<T>(T item) where T : BaseEntity<T>, new()
         {
             switch (item)
             {
@@ -533,7 +534,7 @@ namespace DataCore.DAL.Models
 
         public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             T? item = new();
             ExecuteTransaction((session) =>
@@ -546,14 +547,14 @@ namespace DataCore.DAL.Models
             return item;
         }
 
-        public T GetEntity<T>(long? id) where T : BaseEntity, new()
+        public T GetEntity<T>(long? id) where T : BaseEntity<T>, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IdentityId.ToString(), id } }),
                 new FieldOrderEntity(ShareEnums.DbField.IdentityId, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public T GetEntity<T>(Guid? uid) where T : BaseEntity, new()
+        public T GetEntity<T>(Guid? uid) where T : BaseEntity<T>, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IdentityUid.ToString(), uid } }),
@@ -562,7 +563,7 @@ namespace DataCore.DAL.Models
 
         public T[]? GetEntities<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults = 0,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             T[]? items = GetEntitiesWithoutReferences<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
             if (items != null)
@@ -581,7 +582,7 @@ namespace DataCore.DAL.Models
         //    return DataAccess.GetEntitiesNative<T>(fieldsSelect, from, valuesParams, filePath, lineNumber, memberName);
         //}
 
-        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
         {
             T[]? result = new T[0];
             ExecuteTransaction((session) =>
@@ -603,7 +604,7 @@ namespace DataCore.DAL.Models
 
         public T[] GetEntitiesNativeMapping<T>(string query,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
             => GetEntitiesNativeMappingInside<T>(query, filePath, lineNumber, memberName);
 
         public object[] GetEntitiesNativeObject(string query,
@@ -656,7 +657,7 @@ namespace DataCore.DAL.Models
 
         public void SaveEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -701,7 +702,7 @@ namespace DataCore.DAL.Models
 
         public void UpdateEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -814,7 +815,7 @@ namespace DataCore.DAL.Models
 
         public void DeleteEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity
+            where T : BaseEntity<T>, new()
         {
             if (item.EqualsEmpty()) return;
             ExecuteTransaction((session) => { session.Delete(item); }, filePath, lineNumber, memberName);
@@ -822,7 +823,7 @@ namespace DataCore.DAL.Models
 
         public void MarkedEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity
+            where T : BaseEntity<T>, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -933,7 +934,7 @@ namespace DataCore.DAL.Models
             }
         }
 
-        public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+        public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
         {
             bool result = false;
             ExecuteTransaction((session) =>
@@ -945,7 +946,7 @@ namespace DataCore.DAL.Models
 
         public bool ExistsEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             if (item.EqualsEmpty()) return false;
             //return DataAccess.ExistsEntity(item, filePath, lineNumber, memberName);
@@ -953,7 +954,7 @@ namespace DataCore.DAL.Models
         }
 
         public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity? order,
-            string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+            string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
         {
             bool result = false;
             ExecuteTransaction((session) =>
@@ -965,7 +966,7 @@ namespace DataCore.DAL.Models
 
         public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity? order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity<T>, new()
         {
             //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
             return ExistsEntityInside<T>(fieldList, order, filePath, lineNumber, memberName);

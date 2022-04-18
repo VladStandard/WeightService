@@ -21,7 +21,6 @@ namespace BlazorDeviceControl.Shared.Item
         public string VerApp => DataCoreUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
         public string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
         public string VerLibDataCore => DataCoreUtuls.GetLibVersion();
-        public string IsDebug => $@"{Core.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
         public List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
         private uint DbCurSize { get; set; } = 0;

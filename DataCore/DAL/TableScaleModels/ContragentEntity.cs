@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// Table "Contragents".
     /// </summary>
     [Obsolete(@"Use ContragentEntityV2")]
-    public class ContragentEntity : BaseEntity
+    public class ContragentEntity : BaseEntity<ContragentEntity>
     {
         #region Public and private fields and properties
 

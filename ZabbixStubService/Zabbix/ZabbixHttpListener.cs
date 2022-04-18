@@ -78,7 +78,7 @@ namespace ZabbixStubService.Zabbix
                         if (CheckHttpAccessAll(_listener))
                         {
                             _listener.Start();
-                            while (!_token.IsCancellationRequested)
+                            while (_token != null && !_token.IsCancellationRequested)
                             {
                                 lock (_locker)
                                 {

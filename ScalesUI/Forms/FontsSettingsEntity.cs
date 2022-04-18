@@ -32,7 +32,7 @@ namespace ScalesUI.Forms
             FontLabelsGray = new("Microsoft Sans Serif", 9.00f, FontStyle.Regular);
             FontLabelsBlack = new("Microsoft Sans Serif", 12.00f, FontStyle.Bold);
             FontButtons = new Font("Microsoft Sans Serif", 12.00F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            FontLabelsTitle = new("Microsoft Sans Serif", 20.00f, FontStyle.Bold & FontStyle.Underline);
+            FontLabelsTitle = new("Microsoft Sans Serif", 28.00f, FontStyle.Bold & FontStyle.Underline);
             FontLabelsMaximum = new("Microsoft Sans Serif", 35f, FontStyle.Bold);
         }
 

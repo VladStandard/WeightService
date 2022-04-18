@@ -50,16 +50,19 @@ namespace ScalesUI.Forms
                 TopMost = !Debug.IsDebug;
 
                 // Загружить при кажом открытии формы.
+                //if (SessionState != null)
+                //    SessionState.CurrentScale = ScalesUtils.GetScale(SessionState.Host?.ScaleId);
                 if (SessionState != null)
-                    SessionState.CurrentScale = ScalesUtils.GetScale(SessionState.Host?.ScaleId);
+                    SessionState.CurrentScale = SessionState.DataAccess.Dal.Crud
+                        .GetEntity<DataCore.DAL.TableScaleModels.ScaleEntity>(SessionState.Host?.ScaleId);
 
                 // Определить COM-порт.
                 DefaultComPortName();
 
                 if (SessionState?.CurrentScale != null)
                 {
-                    fieldSendTimeout.Text = SessionState.CurrentScale.DeviceWriteTimeout.ToString();
-                    fieldReceiveTimeOut.Text = SessionState.CurrentScale.DeviceReadTimeout.ToString();
+                    fieldSendTimeout.Text = SessionState.CurrentScale.DeviceSendTimeout.ToString();
+                    fieldReceiveTimeOut.Text = SessionState.CurrentScale.DeviceReceiveTimeout.ToString();
                     fieldZebraTcpAddress.Text = SessionState.CurrentScale.PrinterMain.Ip;
                     fieldZebraTcpPort.Text = SessionState.CurrentScale.PrinterMain.Port.ToString();
                     fieldDescription.Text = SessionState.CurrentScale.Description;
@@ -137,10 +140,11 @@ namespace ScalesUI.Forms
                 Application.DoEvents();
                 // Data.
                 SessionState.CurrentScale.DeviceComPort = fieldComPort.Text;
-                SessionState.CurrentScale.DeviceWriteTimeout = short.Parse(fieldSendTimeout.Text);
-                SessionState.CurrentScale.DeviceReadTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                SessionState.CurrentScale.VerScalesUI = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
-                ScalesUtils.Update(SessionState.CurrentScale);
+                SessionState.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
+                SessionState.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
+                SessionState.CurrentScale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
+                //ScalesUtils.Update(SessionState.CurrentScale);
+                SessionState.DataAccess.Dal.Crud.UpdateEntity(SessionState.CurrentScale);
                 // Settings.
                 Properties.Settings.Default.Save();
             }
@@ -212,7 +216,7 @@ namespace ScalesUI.Forms
             {
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Caption = LocalizationCore.Scales.OperationControl;
                 wpfPageLoader.MessageBox.Message = LocalizationCore.Print.WarningOpenCover;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonRetryVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = System.Windows.Visibility.Visible;

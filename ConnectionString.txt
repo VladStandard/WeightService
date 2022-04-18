@@ -1,0 +1,5 @@
+Debug
+Data Source=CREATIO\INS1;Initial Catalog=SCALES;Persist Security Info=False;User ID=scale01;Password=scale01;TrustServerCertificate=True
+
+Release
+Data Source=PALYCH\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;User ID=scale01;Password=scale01;TrustServerCertificate=True

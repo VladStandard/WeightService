@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Organizations".
     /// </summary>
-    public class OrganizationEntity : BaseEntity
+    public class OrganizationEntity : BaseEntity<OrganizationEntity>
     {
         #region Public and private fields and properties
 

@@ -1,50 +1,48 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using System;
 
-namespace DataCore.DAL.TableScaleModels
+namespace DataCore.DAL.Models
 {
     /// <summary>
-    /// Table "BarCodeTypes".
+    /// Table "Access".
     /// </summary>
-    public class BarCodeTypeEntityV2 : BaseEntity<BarCodeTypeEntityV2>
+    public class BaseDummyEntity : BaseEntity<BaseDummyEntity>
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; }
+        //
 
         #endregion
 
         #region Constructor and destructor
 
-        public BarCodeTypeEntityV2() : this(Guid.Empty)
+        public BaseDummyEntity() : this(Guid.Empty)
         {
             //
         }
 
-        public BarCodeTypeEntityV2(Guid uid) : base(uid)
+        public BaseDummyEntity(Guid uid) : base(uid)
         {
-            Name = string.Empty;
+            //
         }
-        
+
         #endregion
 
         #region Public and private methods
 
         public override string ToString()
         {
-            return base.ToString() +
-                $"{nameof(Name)}: {Name}. ";
+            return base.ToString();
         }
 
-        public virtual bool Equals(BarCodeTypeEntityV2 entity)
+        public virtual bool Equals(BaseDummyEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                Equals(Name, entity.Name);
+            return base.Equals(entity);
         }
 
         public override bool Equals(object obj)
@@ -52,7 +50,7 @@ namespace DataCore.DAL.TableScaleModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((BarCodeTypeEntityV2)obj);
+            return Equals((BaseDummyEntity)obj);
         }
 
         public override int GetHashCode()
@@ -62,19 +60,17 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new BarCodeTypeEntityV2());
+            return Equals(new AccessEntity());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
-                Equals(Name, string.Empty);
+            return base.EqualsDefault();
         }
 
         public override object Clone()
         {
-            BarCodeTypeEntityV2 item = (BarCodeTypeEntityV2)base.Clone();
-            item.Name = Name;
+            BaseDummyEntity item = (BaseDummyEntity)base.Clone();
             return item;
         }
 

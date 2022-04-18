@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
-using DataCore.Utils;
 using System;
 
 namespace DataCore.DAL.TableScaleModels
@@ -10,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "WeithingFacts".
     /// </summary>
-    public class WeithingFactEntity : BaseEntity
+    public class WeithingFactEntity : BaseEntity<WeithingFactEntity>
     {
         #region Public and private fields and properties
 

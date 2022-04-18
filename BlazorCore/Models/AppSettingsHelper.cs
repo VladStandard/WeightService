@@ -3,11 +3,13 @@
 
 using DataCore;
 using DataCore.DAL.Models;
+using DataCore.Helpers;
 using DataCore.Localization;
 using DataCore.Models;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace BlazorCore.Models
@@ -25,9 +27,9 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
-        public DataAccessEntity DataAccess { get; private set; } = new DataAccessEntity();
+        public bool IsFirstLoad { get; set; }
+        public DataAccessEntity DataAccess { get; private set; }
         public DataSourceDicsEntity DataSourceDics { get; private init; } = new();
-        public bool IsDebug => DataAccess.JsonSettings.IsDebug == true;
         public MemoryEntity Memory { get; set; } = new();
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
@@ -48,12 +50,14 @@ namespace BlazorCore.Models
         public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
             ? 0f : (float)(Memory.MemorySize.PhysicalCurrent.MegaBytes) * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
-        public string SqlServerDescription => DataAccess.JsonSettings is { Server: { } }
-            ? DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
+        public string SqlServerDescription => DataAccess.JsonSettings?.Sql is { Server: { } }
+            ? DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? Core.Strings.Main.ServerRelease : Core.Strings.Main.ServerDevelop
             : Core.Strings.Main.NotLoad;
-        public bool IsSqlServerRelease => DataAccess.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => DataAccess.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerRelease => DataAccess.JsonSettings?.Sql is { Server: { } } && 
+            DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => DataAccess.JsonSettings?.Sql is { Server: { } } && 
+            DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 
@@ -61,7 +65,14 @@ namespace BlazorCore.Models
 
         public AppSettingsHelper()
         {
-            //
+            if (!IsFirstLoad)
+            {
+                IsFirstLoad = true;
+            }
+            string dir = Directory.GetCurrentDirectory();
+            JsonSettingsBase? jsonSettings = DataAccessHelper.Instance.GetJsonSettings(dir);
+            SetupJsonSettings(jsonSettings); 
+            DataAccess = new DataAccessEntity();
         }
 
         #endregion
@@ -80,7 +91,7 @@ namespace BlazorCore.Models
             Memory.MemorySize.Open();
         }
 
-        public void SetupJsonSettings(JsonSettingsEntity jsonSettings)
+        public void SetupJsonSettings(JsonSettingsBase? jsonSettings)
         {
             DataAccess = new DataAccessEntity(jsonSettings);
         }

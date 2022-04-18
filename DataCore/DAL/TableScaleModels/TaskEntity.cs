@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Tasks".
     /// </summary>
-    public class TaskEntity : BaseEntity
+    public class TaskEntity : BaseEntity<TaskEntity>
     {
         #region Public and private fields and properties
 

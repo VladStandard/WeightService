@@ -45,7 +45,7 @@ namespace WeightCore.XamlPages
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            SessionState.SqlViewModel.SetupTasks(SessionState.Host?.ScaleId);
+            SessionState.SqlViewModel.SetupTasks(SessionState.DataAccess.Dal, SessionState.Host?.ScaleId);
 
             System.Windows.Controls.Grid gridTasks = new();
             

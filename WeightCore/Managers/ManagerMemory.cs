@@ -2,10 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
 using DataCore.Memory;
 using System;
-using WeightCore.Helpers;
 
 namespace WeightCore.Managers
 {
@@ -33,11 +31,11 @@ namespace WeightCore.Managers
             Init(ProjectsEnums.TaskType.MemoryManager, null, 1_000);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel)
+        public new void Open()
         {
             try
             {
-                Open(sqlViewModel, false,
+                Open(
                 () =>
                 {
                     MemorySize.Open();

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
@@ -15,9 +16,8 @@ namespace DataCore.DAL.TableDirectModels
         #region Public and private fields and properties
 
         public long Id { get; set; } = default;
-        public TemplateDirect Temp { get; set; } = new TemplateDirect();
-        public long ScaleId { get; set; } = default;
-        public ScaleDirect Scale { get; set; } = new ScaleDirect();
+        public TemplateDirect Template { get; set; } = new TemplateDirect();
+        public ScaleEntity Scale { get; set; }
         public string ProductSeries { get; set; } = string.Empty;
 
         private PluDirect _plu;
@@ -95,7 +95,6 @@ namespace DataCore.DAL.TableDirectModels
 
         public WeighingFactDirect()
         {
-            ScaleId = 0;
             NetWeight = 0;
             TareWeight = 0;
             ScaleFactor = 1000;
@@ -104,16 +103,15 @@ namespace DataCore.DAL.TableDirectModels
 
             _plu = new PluDirect();
             PLU = new PluDirect();
-            Temp = new TemplateDirect();
-            Scale = new ScaleDirect();
+            Template = new TemplateDirect();
+            Scale = new();
             ProductSeries = string.Empty;
             Sscc = new SsccDirect();
         }
 
-        public WeighingFactDirect(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
+        public WeighingFactDirect(ScaleEntity scale, PluDirect plu, DateTime productDate, int kneadingNumber,
             int? scaleFactor, decimal netWeight, decimal tareWeight)
         {
-            ScaleId = scale.Id;
             ScaleFactor = scaleFactor;
             Scale = scale;
             PLU = _plu = plu;
@@ -150,7 +148,7 @@ namespace DataCore.DAL.TableDirectModels
         {
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@OrderID", SqlDbType.VarChar, 38) { Value = DBNull.Value },
-                new SqlParameter("@ScaleID", SqlDbType.VarChar, 38) { Value = ScaleId },
+                new SqlParameter("@ScaleID", SqlDbType.VarChar, 38) { Value = Scale.IdentityId },
                 new SqlParameter("@PLU", SqlDbType.Int) { Value = PLU.PLU },
                 new SqlParameter("@NetWeight", SqlDbType.Decimal) { Value = NetWeight },
                 new SqlParameter("@TareWeight", SqlDbType.Decimal) { Value = TareWeight },

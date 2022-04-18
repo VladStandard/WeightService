@@ -13,6 +13,7 @@ namespace DataCore
             MassaManager,
             MemoryManager,
             PrintManager,
+            LabelManager,
         }
 
         public enum DefaultSetting

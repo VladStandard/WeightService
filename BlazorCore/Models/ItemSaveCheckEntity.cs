@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Localization;
 using Radzen;
@@ -297,7 +298,7 @@ namespace BlazorCore.Models
             scale.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, scale, Core.Strings.TableItem.Device);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.Printer, Core.Strings.TableItem.Printer);
+                success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, Core.Strings.TableItem.Printer);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, scale.Host, Core.Strings.TableItem.Host);
             //if (success)

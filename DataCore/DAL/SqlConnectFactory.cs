@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Helpers;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
@@ -21,10 +22,10 @@ namespace DataCore.DAL
 
         #region Public and private fields and properties
 
-        public string? ConnectionString { get; private set; }
         private readonly object _locker = new();
         public delegate void ExecuteReaderCallback(SqlDataReader reader);
         public delegate T? ExecuteReaderCallback<T>(SqlDataReader reader);
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
 
         #endregion
 
@@ -32,12 +33,7 @@ namespace DataCore.DAL
 
         public SqlConnectFactory()
         {
-            SetConnection(string.Empty);
-        }
-
-        public SqlConnectFactory(string connectionString)
-        {
-            SetConnection(connectionString);
+            //
         }
 
         #endregion
@@ -46,24 +42,16 @@ namespace DataCore.DAL
 
         protected SqlConnection GetSqlConnection()
         {
-            return new SqlConnection(ConnectionString);
-        }
-
-        public void SetConnection(string connectionString)
-        {
-            lock (_locker)
-            {
-                ConnectionString = connectionString;
-            }
+            return new SqlConnection(DataAccess.ConnectionString);
         }
 
         public SqlConnection GetConnection()
         {
             lock (_locker)
             {
-                if (string.IsNullOrEmpty(ConnectionString))
+                if (string.IsNullOrEmpty(DataAccess.ConnectionString))
                 {
-                    throw new Exception($"Factory not initialized. Call this method with param {nameof(ConnectionString)}");
+                    throw new Exception($"Factory not initialized. Call this method with param {nameof(DataAccess.ConnectionString)}");
                 }
             }
             return _instance.GetSqlConnection();

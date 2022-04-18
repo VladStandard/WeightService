@@ -22,7 +22,8 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public bool ProcessChecks(NotificationService? notificationService, BaseEntity? item, string field)
+        public bool ProcessChecks<T>(NotificationService? notificationService, BaseEntity<T>? item, string field)
+            where T : BaseEntity<T>, new()
         {
             bool result = item != null;
             string detailAddition = Environment.NewLine;

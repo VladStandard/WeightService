@@ -6,7 +6,7 @@ using DataCore.DAL.TableScaleModels;
 
 namespace DataCore.DAL.DataModels
 {
-    public class DeviceEntity : BaseEntity
+    public class DeviceEntity : BaseEntity<DeviceEntity>
     {
         #region Public and private fields and properties
 

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -18,41 +19,25 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public ScaleDirect Scale { get; set; } = new ScaleDirect();
-        public long Id { get; set; } = default;
+        public bool IsCheckWeight { get; set; }
+        public decimal GoodsFixWeight { get; set; }
+        public decimal GoodsTareWeight { get; set; }
+        public decimal LowerWeightThreshold { get; set; }
+        public decimal NominalWeight { get; set; }
+        public decimal UpperWeightThreshold { get; set; }
         public int PLU { get; set; } = default;
-        public string RRefGoods { get; set; } = string.Empty;
-        public string GoodsName { get; set; } = string.Empty;
+        public int? GoodsBoxQuantly { get; set; }
+        public int? GoodsShelfLifeDays { get; set; }
+        public long Id { get; set; } = default;
+        public long? TemplateID { get; set; }
+        public string EAN13 { get; set; } = string.Empty;
         public string GoodsDescription { get; set; } = string.Empty;
         public string GoodsFullName { get; set; } = string.Empty;
+        public string GoodsName { get; set; } = string.Empty;
         public string GTIN { get; set; } = string.Empty;
-        public string EAN13 { get; set; } = string.Empty;
         public string ITF14 { get; set; } = string.Empty;
-        public int? GoodsShelfLifeDays { get; set; }
-        public decimal GoodsTareWeight { get; set; }
-        public decimal GoodsFixWeight { get; set; }
-        public int? GoodsBoxQuantly { get; set; }
-        /// <summary>
-        /// Верхнее значение веса короба.
-        /// </summary>
-        public decimal UpperWeightThreshold { get; set; }
-        /// <summary>
-        /// Номинальный вес короба.
-        /// </summary>
-        public decimal NominalWeight { get; set; }
-        /// <summary>
-        /// Нижнее значение веса короба.
-        /// </summary>
-        public decimal LowerWeightThreshold { get; set; }
-        /// <summary>
-        /// Весовая продукция.
-        /// </summary>
-        public bool IsCheckWeight { get; set; }
-        /// <summary>
-        /// ID шаблона.
-        /// </summary>
-        public long? TemplateID { get; set; }
-        //  [XmlIgnoreAttribute]
+        public string RRefGoods { get; set; } = string.Empty;
+        public ScaleEntity Scale { get; set; }
         public TemplateDirect Template { get; set; }
 
         #endregion
@@ -61,10 +46,31 @@ namespace DataCore.DAL.TableDirectModels
 
         public PluDirect()
         {
+            EAN13 = string.Empty;
+            GoodsBoxQuantly = null;
+            GoodsDescription = string.Empty;
+            GoodsFixWeight = 0;
+            GoodsFullName = string.Empty;
+            GoodsName = string.Empty;
+            GoodsShelfLifeDays = null;
+            GoodsTareWeight = 0;
+            GTIN = string.Empty;
+            Id = 0;
+            IsCheckWeight = false;
+            ITF14 = string.Empty;
+            LowerWeightThreshold = 0;
+            NominalWeight = 0;
+            PLU = 0;
+            RRefGoods = string.Empty;
+            Scale = new();
+            Template = new();
+            TemplateID = null;
+            UpperWeightThreshold = 0;
+            
             Load();
         }
 
-        public PluDirect(ScaleDirect scale, int plu)
+        public PluDirect(ScaleEntity scale, int plu) : this()
         {
             Scale = scale;
             PLU = plu;
@@ -157,11 +163,11 @@ namespace DataCore.DAL.TableDirectModels
             else
             {
                 //Scale.Load();
-                Template = new TemplateDirect(Scale.TemplateIdDefault);
+                Template = new TemplateDirect(Scale.TemplateDefault?.IdentityId);
             }
         }
 
-        public SqlCommand GetLoadCmd(SqlConnection con)
+        public SqlCommand? GetLoadCmd(SqlConnection con)
         {
             if (con == null || Scale == null)
                 return null;
@@ -187,7 +193,7 @@ select
 from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
                     ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             SqlCommand cmd = new(query, con);
-            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.BigInt) { Value = Scale.Id });
+            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.BigInt) { Value = Scale.IdentityId });
             cmd.Parameters.Add(new SqlParameter("@PLU", SqlDbType.Int) { Value = PLU });
             cmd.Prepare();
             return cmd;
@@ -198,7 +204,7 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
             if (Id == default) return;
             using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
-            SqlCommand cmd = GetLoadCmd(con);
+            SqlCommand? cmd = GetLoadCmd(con);
             if (cmd != null)
             {
                 using SqlDataReader reader = cmd.ExecuteReader();
@@ -230,7 +236,7 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
             con.Close();
         }
 
-        public SqlCommand GetPluListCmd(SqlConnection con, long scaleId)
+        public SqlCommand? GetPluListCmd(SqlConnection con, long scaleId)
         {
             if (con == null)
                 return null;
@@ -262,7 +268,7 @@ order by [PLU]
             return cmd;
         }
 
-        public List<PluDirect> GetPluList(ScaleDirect scale)
+        public List<PluDirect> GetPluList(ScaleEntity scale)
         {
             List<PluDirect> result = new();
             using (SqlConnection con = SqlConnect.GetConnection())
@@ -270,7 +276,7 @@ order by [PLU]
                 con.Open();
                 if (scale != null)
                 {
-                    SqlCommand cmd = GetPluListCmd(con, scale.Id);
+                    SqlCommand? cmd = GetPluListCmd(con, scale.IdentityId);
                     if (cmd != null)
                     {
                         using SqlDataReader reader = cmd.ExecuteReader();

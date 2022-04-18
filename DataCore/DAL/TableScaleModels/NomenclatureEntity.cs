@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Nomenclatures".
     /// </summary>
-    public class NomenclatureEntity : BaseEntity
+    public class NomenclatureEntity : BaseEntity<NomenclatureEntity>
     {
         #region Public and private fields and properties
 

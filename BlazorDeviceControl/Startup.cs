@@ -1,10 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
-using DataCore.Models;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +20,6 @@ namespace BlazorDeviceControl
         #region Public and private fields and properties
 
         public IConfiguration Configuration { get; }
-        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
 
         #endregion
 
@@ -41,7 +38,7 @@ namespace BlazorDeviceControl
             services.AddServerSideBlazor();
             // Inject.
             services.AddHotKeys();
-            services.AddSingleton<JsonSettingsEntity>();
+            //services.AddSingleton<JsonSettingsBase>();
             services.AddScoped<ContextMenuService>();
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
@@ -94,9 +91,6 @@ namespace BlazorDeviceControl
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
-
-            JsonSettingsEntity jsonSettings = new(Configuration, true);
-            AppSettings.SetupJsonSettings(jsonSettings);
         }
 
         #endregion

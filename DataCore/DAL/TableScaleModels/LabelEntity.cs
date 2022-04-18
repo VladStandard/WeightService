@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Labels".
     /// </summary>
-    public class LabelEntity : BaseEntity
+    public class LabelEntity : BaseEntity<LabelEntity>
     {
         #region Public and private fields and properties
 

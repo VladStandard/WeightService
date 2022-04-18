@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Errors".
     /// </summary>
-    public class ErrorEntity : BaseEntity
+    public class ErrorEntity : BaseEntity<ErrorEntity>
     {
         #region Public and private fields and properties
 

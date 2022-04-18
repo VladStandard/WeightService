@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "PrinterTypes".
     /// </summary>
-    public class PrinterTypeEntity : BaseEntity
+    public class PrinterTypeEntity : BaseEntity<PrinterTypeEntity>
     {
         #region Public and private fields and properties
 

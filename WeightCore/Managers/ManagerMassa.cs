@@ -2,8 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
-using DataCore.DAL.TableDirectModels;
+using DataCore.DAL.TableScaleModels;
 using System;
 using System.Collections.Concurrent;
 using WeightCore.MassaK;
@@ -44,23 +43,22 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(ScaleDirect currentScale)
+        public void Init(ScaleEntity currentScale)
         {
             Init(ProjectsEnums.TaskType.MassaManager,
             () =>
             {
                 if (currentScale != null)
-                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout,
-                        currentScale.DeviceWriteTimeout, GetData);
+                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout, GetData);
             },
             5_000, 250, 500, 3_000, 1_000);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
+        public new void Open()
         {
             try
             {
-                Open(sqlViewModel, isCheckWeight,
+                Open(
                 () =>
                 {
                     MassaDevice?.Open();

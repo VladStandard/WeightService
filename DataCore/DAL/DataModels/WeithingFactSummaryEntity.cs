@@ -6,7 +6,7 @@ using System;
 
 namespace DataCore.DAL.DataModels
 {
-    public class WeithingFactSummaryEntity : BaseEntity
+    public class WeithingFactSummaryEntity : BaseEntity<WeithingFactSummaryEntity>
     {
         #region Public and private fields and properties
 
