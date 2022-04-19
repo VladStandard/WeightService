@@ -68,6 +68,8 @@ namespace DataCore.Localization
         public string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";
         public string MassaNotQuering => Lang == ShareEnums.Lang.English ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
         public string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
+        public string MemoryAll => Lang == ShareEnums.Lang.English ? "all" : "всего";
+        public string MemoryBusy => Lang == ShareEnums.Lang.English ? "busy" : "занято";
         public string MemoryFree => Lang == ShareEnums.Lang.English ? "free" : "свободно";
         public string MemoryPhysical => Lang == ShareEnums.Lang.English ? "Physical memory" : "Физическая память";
         public string MemoryVirtual => Lang == ShareEnums.Lang.English ? "Virtual memory" : "Виртуальная память";

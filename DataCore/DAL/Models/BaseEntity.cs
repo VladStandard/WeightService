@@ -12,7 +12,8 @@ namespace DataCore.DAL.Models
         Uid,
     }
 
-    public class BaseEntity<T> : BaseSerializeEntity<T>, ICloneable where T : new()
+    //public class BaseEntity : BaseSerializeEntity, ICloneable
+    public class BaseEntity : ICloneable
     {
         #region Public and private fields and properties
 
@@ -22,7 +23,7 @@ namespace DataCore.DAL.Models
         public virtual DateTime CreateDt { get; set; }
         public virtual Guid IdentityUid { get; set; }
         public virtual long IdentityId { get; set; }
-        public virtual string IdentityUidStr { get => IdentityUid.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        public virtual string IdentityUidStr { get => (IdentityUid.ToString() is string str) ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 
         #endregion
 
@@ -89,17 +90,17 @@ namespace DataCore.DAL.Models
             return isIdentityEmpty;
         }
 
-        public virtual bool Equals(BaseEntity<T> entity)
+        public virtual bool Equals(BaseEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
             return
-                IdentityName.Equals(entity.IdentityName) &&
-                IdentityId.Equals(entity.IdentityId) &&
-                IdentityUid.Equals(entity.IdentityUid) &&
-                Equals(CreateDt, entity.CreateDt) &&
-                Equals(ChangeDt, entity.ChangeDt) &&
-                Equals(IsMarked, entity.IsMarked);
+                IdentityName.Equals(item.IdentityName) &&
+                IdentityId.Equals(item.IdentityId) &&
+                IdentityUid.Equals(item.IdentityUid) &&
+                Equals(CreateDt, item.CreateDt) &&
+                Equals(ChangeDt, item.ChangeDt) &&
+                Equals(IsMarked, item.IsMarked);
         }
 
         public override bool Equals(object obj)
@@ -107,7 +108,7 @@ namespace DataCore.DAL.Models
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((BaseEntity<T>)obj);
+            return Equals((BaseEntity)obj);
         }
 
         public virtual bool EqualsDefault() => Equals(IdentityName, ColumnName.Default) &&
@@ -117,7 +118,7 @@ namespace DataCore.DAL.Models
                 Equals(ChangeDt, default) &&
                 Equals(IsMarked, false);
 
-        public virtual object Clone() => new BaseEntity<T>()
+        public virtual object Clone() => new BaseEntity()
         {
             IdentityName = IdentityName,
             IdentityId = IdentityId,

@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// Table "BarCodeTypes".
     /// </summary>
     [Obsolete(@"Use BarcodeTypeEntityV2")]
-    public class BarcodeTypeEntity : BaseEntity<BarcodeTypeEntity>
+    public class BarcodeTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -40,12 +40,12 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Name)}: {Name}.";
         }
 
-        public virtual bool Equals(BarcodeTypeEntity entity)
+        public virtual bool Equals(BarcodeTypeEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name);
         }
 
         public override bool Equals(object obj)

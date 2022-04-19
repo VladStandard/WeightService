@@ -53,7 +53,7 @@ namespace WebApiTerra1000.Controllers
                     TerraUtils.Sql.GetParameters(startDate, endDate));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Summary} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 

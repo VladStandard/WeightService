@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Errors".
     /// </summary>
-    public class ErrorEntity : BaseEntity<ErrorEntity>
+    public class ErrorEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -52,16 +52,16 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(InnerException)}: {InnerException}. ";
         }
 
-        public virtual bool Equals(ErrorEntity entity)
+        public virtual bool Equals(ErrorEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(FilePath, entity.FilePath) &&
-                   Equals(LineNumber, entity.LineNumber) &&
-                   Equals(MemberName, entity.MemberName) &&
-                   Equals(Exception, entity.Exception) &&
-                   Equals(InnerException, entity.InnerException);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(FilePath, item.FilePath) &&
+                   Equals(LineNumber, item.LineNumber) &&
+                   Equals(MemberName, item.MemberName) &&
+                   Equals(Exception, item.Exception) &&
+                   Equals(InnerException, item.InnerException);
         }
 
         public override bool Equals(object obj)

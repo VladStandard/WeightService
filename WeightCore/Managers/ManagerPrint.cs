@@ -91,7 +91,7 @@ namespace WeightCore.Managers
 
         public new void CloseMethod()
         {
-            base.CloseMethod();
+            base.Close();
         }
 
         public new void ReleaseManaged()

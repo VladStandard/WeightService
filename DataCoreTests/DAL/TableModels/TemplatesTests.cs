@@ -30,7 +30,7 @@
 //                foreach (Guid guid in TestsEnums.GetGuid())
 //                foreach (string s in TestsEnums.GetString())
 //                {
-//                    TemplateEntity entity = new()
+//                    TemplateEntity item = new()
 //                    {
 //                        Id = i,
 //                        CreateDate = dt,
@@ -40,8 +40,8 @@
 //                        Title = s,
 //                        ImageData = TestsEnums.GetBytes().ToArray(),
 //                    };
-//                    _ = entity.ToString();
-//                    Assert.AreEqual(false, entityNew.Equals(entity));
+//                    _ = item.ToString();
+//                    Assert.AreEqual(false, entityNew.Equals(item));
 //                }
 //            });
 
@@ -58,7 +58,7 @@
 //                    string title = "TemplatesEntity test";
 //                    string titleChange = "TemplatesEntity test change";
 //                    // SaveEntity
-//                    TemplateEntity entity = new()
+//                    TemplateEntity item = new()
 //                    {
 //                        CreateDate = DateTime.Now,
 //                        ChangeDt = DateTime.Now,
@@ -67,10 +67,10 @@
 //                        Title = title,
 //                        ImageData = null,
 //                    };
-//                    DataAccessUtilsTests.DataAccess.TemplatesCrud.SaveEntity(entity);
+//                    DataAccessUtilsTests.DataAccess.TemplatesCrud.SaveEntity(item);
 //                    // UpdateEntity
-//                    entity.Title = titleChange;
-//                    DataAccessUtilsTests.DataAccess.TemplatesCrud.UpdateEntity(entity);
+//                    item.Title = titleChange;
+//                    DataAccessUtilsTests.DataAccess.TemplatesCrud.UpdateEntity(item);
 //                    // GetEntities
 //                    foreach (TemplateEntity entityGet in DataAccessUtilsTests.DataAccess.TemplatesCrud.GetEntities<TemplateEntity>(null, null))
 //                    {

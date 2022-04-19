@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Printers".
     /// </summary>
-    public class PrinterEntity : BaseEntity<PrinterEntity>
+    public class PrinterEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -71,21 +71,21 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
         }
 
-        public virtual bool Equals(PrinterEntity entity)
+        public virtual bool Equals(PrinterEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(Ip, entity.Ip) &&
-                   Equals(Port, entity.Port) &&
-                   Equals(Password, entity.Password) &&
-                   Equals(PrinterType, entity.PrinterType) &&
-                   Equals(MacAddress, entity.MacAddress) &&
-                   Equals(PeelOffSet, entity.PeelOffSet) &&
-                   Equals(DarknessLevel, entity.DarknessLevel) &&
-                   Equals(HttpStatusCode, entity.HttpStatusCode) &&
-                   Equals(HttpStatusException, entity.HttpStatusException);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name) &&
+                   Equals(Ip, item.Ip) &&
+                   Equals(Port, item.Port) &&
+                   Equals(Password, item.Password) &&
+                   Equals(PrinterType, item.PrinterType) &&
+                   Equals(MacAddress, item.MacAddress) &&
+                   Equals(PeelOffSet, item.PeelOffSet) &&
+                   Equals(DarknessLevel, item.DarknessLevel) &&
+                   Equals(HttpStatusCode, item.HttpStatusCode) &&
+                   Equals(HttpStatusException, item.HttpStatusException);
         }
 
         public override bool Equals(object obj)

@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Tasks".
     /// </summary>
-    public class TaskEntity : BaseEntity<TaskEntity>
+    public class TaskEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -47,14 +47,14 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Enabled)}: {Enabled}. ";
         }
 
-        public virtual bool Equals(TaskEntity entity)
+        public virtual bool Equals(TaskEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                TaskType.Equals(entity.TaskType) &&
-                Scale.Equals(entity.Scale) &&
-                Equals(Enabled, entity.Enabled);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                TaskType.Equals(item.TaskType) &&
+                Scale.Equals(item.Scale) &&
+                Equals(Enabled, item.Enabled);
         }
 
         public override bool Equals(object obj)

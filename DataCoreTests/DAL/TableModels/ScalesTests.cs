@@ -29,7 +29,7 @@
 //                                foreach (bool b in TestsEnums.GetBool())
 //                                    foreach (System.DateTime dt in TestsEnums.GetDateTime())
 //                                    {
-//                                        ScaleEntity entity = new()
+//                                        ScaleEntity item = new()
 //                                        {
 //                                            Id = i,
 //                                            CreateDate = dt,
@@ -53,8 +53,8 @@
 //                                            DeviceNumber = i,
 //                                            ScaleFactor = i
 //                                        };
-//                                        _ = entity.ToString();
-//                                        Assert.AreEqual(false, entityNew.Equals(entity));
+//                                        _ = item.ToString();
+//                                        Assert.AreEqual(false, entityNew.Equals(item));
 //                                    }
 //            });
 
@@ -69,10 +69,10 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                // GetEntities.
-//                foreach (ScaleEntity entity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ScaleEntity>(null,
+//                foreach (ScaleEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ScaleEntity>(null,
 //                    new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Description, Direction = ShareEnums.DbOrderDirection.Desc }))
 //                {
-//                    TestContext.WriteLine(entity.ToString());
+//                    TestContext.WriteLine(item.ToString());
 //                    TestContext.WriteLine();
 //                }
 //            });

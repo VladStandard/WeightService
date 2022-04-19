@@ -12,7 +12,6 @@ namespace DataCore.Memory
     {
         #region Public and private fields and properties
 
-        public DateTime DtChanged { get; private set; } = default;
         public MemorySizeConvertEntity? VirtualCurrent { get; private set; }
         public MemorySizeConvertEntity? PhysicalCurrent { get; private set; }
         public MemorySizeConvertEntity? VirtualFree { get; private set; }
@@ -27,7 +26,7 @@ namespace DataCore.Memory
 
         public MemorySizeEntity() : base()
         {
-            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+            Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
             PhysicalCurrent = new MemorySizeConvertEntity();
             VirtualCurrent = new MemorySizeConvertEntity();
@@ -46,8 +45,6 @@ namespace DataCore.Memory
             base.Open();
             CheckIsDisposed();
 
-            DtChanged = DateTime.Now;
-
             if (PhysicalCurrent != null)
                 PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
             if (VirtualCurrent != null)
@@ -63,14 +60,13 @@ namespace DataCore.Memory
             }
         }
 
-        public void CloseMethod()
+        public new void Close()
         {
-            //
+            base.Close();
         }
 
         public void ReleaseManaged()
         {
-            DtChanged = default;
             VirtualCurrent = null;
             PhysicalCurrent = null;
             VirtualFree = null;

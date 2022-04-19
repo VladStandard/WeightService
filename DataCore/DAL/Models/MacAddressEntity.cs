@@ -61,12 +61,12 @@ namespace DataCore.DAL.Models
             return $"{nameof(Value)}: {ValuePrettyLookMinus}.";
         }
 
-        public virtual bool Equals(MacAddressEntity entity)
+        public virtual bool Equals(MacAddressEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                Equals(Value, entity.Value);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                Equals(Value, item.Value);
         }
 
         public override bool Equals(object obj)

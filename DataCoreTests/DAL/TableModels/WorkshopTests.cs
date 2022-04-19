@@ -24,7 +24,7 @@
 //                foreach (DateTime dt in TestsEnums.GetDateTime())
 //                foreach (Guid guid in TestsEnums.GetGuid())
 //                {
-//                                WorkshopEntity entity = new()
+//                                WorkshopEntity item = new()
 //                                {
 //                        Id = i,
 //                        ProductionFacility = new ProductionFacilityEntity(),
@@ -33,8 +33,8 @@
 //                        ChangeDt = dt,
 //                        IdRRef = guid
 //                    };
-//                    _ = entity.ToString();
-//                    Assert.AreEqual(false, entityNew.Equals(entity));
+//                    _ = item.ToString();
+//                    Assert.AreEqual(false, entityNew.Equals(item));
 //                }
 //            });
 
@@ -65,7 +65,7 @@
 //                facility = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList().FirstOrDefault();
 //                for (int i = iStart; i < iEnd; i++)
 //                {
-//                    WorkshopEntity entity = new()
+//                    WorkshopEntity item = new()
 //                    {
 //                        ProductionFacility = facility,
 //                        Name = nameWorkshop1,
@@ -73,25 +73,25 @@
 //                        ChangeDt = DateTime.Now,
 //                        IdRRef = Guid.Empty,
 //                    };
-//                    DataAccessUtilsTests.DataAccess.WorkshopsCrud.SaveEntity(entity);
+//                    DataAccessUtilsTests.DataAccess.WorkshopsCrud.SaveEntity(item);
 //                }
 //                // GetEntities
-//                foreach (WorkshopEntity entity in DataAccessUtilsTests.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(null, null))
+//                foreach (WorkshopEntity item in DataAccessUtilsTests.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(null, null))
 //                {
-//                    if (entity.ProductionFacility.Name.Equals(nameFafility))
+//                    if (item.ProductionFacility.Name.Equals(nameFafility))
 //                    {
 //                        // UpdateEntity
-//                        entity.Name = nameWorkshop2;
-//                        DataAccessUtilsTests.DataAccess.WorkshopsCrud.UpdateEntity(entity);
+//                        item.Name = nameWorkshop2;
+//                        DataAccessUtilsTests.DataAccess.WorkshopsCrud.UpdateEntity(item);
 //                    }
 //                }
 //                // GetEntities
-//                foreach (WorkshopEntity entity in DataAccessUtilsTests.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(null, null))
+//                foreach (WorkshopEntity item in DataAccessUtilsTests.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(null, null))
 //                {
-//                    if (entity.Name.Equals(nameWorkshop1) || entity.Name.Equals(nameWorkshop2))
+//                    if (item.Name.Equals(nameWorkshop1) || item.Name.Equals(nameWorkshop2))
 //                    {
 //                        // DeleteEntity
-//                        DataAccessUtilsTests.DataAccess.WorkshopsCrud.DeleteEntity(entity);
+//                        DataAccessUtilsTests.DataAccess.WorkshopsCrud.DeleteEntity(item);
 //                    }
 //                }
 //                // DeleteEntity

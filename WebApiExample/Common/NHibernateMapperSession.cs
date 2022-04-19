@@ -43,14 +43,14 @@ namespace WebApiExample.Common
             }
         }
 
-        public async Task Save(object entity)
+        public async Task Save(object item)
         {
-            await _session.SaveOrUpdateAsync(entity);
+            await _session.SaveOrUpdateAsync(item);
         }
 
-        public async Task Delete(object entity)
+        public async Task Delete(object item)
         {
-            await _session.DeleteAsync(entity);
+            await _session.DeleteAsync(item);
         }
     }
 }

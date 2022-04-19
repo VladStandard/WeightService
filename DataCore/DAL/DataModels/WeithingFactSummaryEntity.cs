@@ -6,7 +6,7 @@ using System;
 
 namespace DataCore.DAL.DataModels
 {
-    public class WeithingFactSummaryEntity : BaseEntity<WeithingFactSummaryEntity>
+    public class WeithingFactSummaryEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -48,16 +48,16 @@ namespace DataCore.DAL.DataModels
                    $"{nameof(Printer)}: {Printer}. ";
         }
 
-        public virtual bool Equals(WeithingFactSummaryEntity entity)
+        public virtual bool Equals(WeithingFactSummaryEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(WeithingDate, entity.WeithingDate) &&
-                   Equals(Count, entity.Count) &&
-                   Equals(Scale, entity.Scale) &&
-                   Equals(Host, entity.Host) &&
-                   Equals(Printer, entity.Printer);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(WeithingDate, item.WeithingDate) &&
+                   Equals(Count, item.Count) &&
+                   Equals(Scale, item.Scale) &&
+                   Equals(Host, item.Host) &&
+                   Equals(Printer, item.Printer);
         }
 
         public override bool Equals(object obj)

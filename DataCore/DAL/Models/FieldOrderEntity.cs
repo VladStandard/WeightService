@@ -31,13 +31,13 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public virtual bool Equals(FieldOrderEntity entity)
+        public virtual bool Equals(FieldOrderEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return Use.Equals(entity.Use) &&
-                   Name.Equals(entity.Name) &&
-                   Direction.Equals(entity.Direction);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return Use.Equals(item.Use) &&
+                   Name.Equals(item.Name) &&
+                   Direction.Equals(item.Direction);
         }
 
         public override bool Equals(object obj)

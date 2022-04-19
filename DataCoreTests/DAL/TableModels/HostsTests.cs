@@ -29,7 +29,7 @@
 //                                foreach (bool b in TestsEnums.GetBool())
 //                                    foreach (int bytes in TestsEnums.GetBytes())
 //                                    {
-//                                        HostEntity entity = new()
+//                                        HostEntity item = new()
 //                                        {
 //                                            Id = i,
 //                                            CreateDate = dt,
@@ -41,8 +41,8 @@
 //                                            IsMarked = b,
 //                                            SettingsFile = s,
 //                                        };
-//                                        _ = entity.ToString();
-//                                        Assert.AreEqual(false, entityNew.Equals(entity));
+//                                        _ = item.ToString();
+//                                        Assert.AreEqual(false, entityNew.Equals(item));
 //                                    }
 //            });
 
@@ -57,11 +57,11 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                // GetEntities.
-//                foreach (HostEntity entity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<HostEntity>(null,
+//                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<HostEntity>(null,
 //                    new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
 //                {
-//                    TestContext.WriteLine(entity.ToString());
-//                    TestContext.WriteLine($"SettingsFile: {entity.SettingsFile}");
+//                    TestContext.WriteLine(item.ToString());
+//                    TestContext.WriteLine($"SettingsFile: {item.SettingsFile}");
 //                    TestContext.WriteLine();
 //                }
 //            });
@@ -77,10 +77,10 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                // GetEntities.
-//                foreach (HostEntity entity in DataAccessUtilsTests.DataAccess.Crud.GetFreeHosts(null))
+//                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.Crud.GetFreeHosts(null))
 //                {
-//                    TestContext.WriteLine(entity.ToString());
-//                    TestContext.WriteLine($"SettingsFile: {entity.SettingsFile}");
+//                    TestContext.WriteLine(item.ToString());
+//                    TestContext.WriteLine($"SettingsFile: {item.SettingsFile}");
 //                    TestContext.WriteLine();
 //                }
 //            });

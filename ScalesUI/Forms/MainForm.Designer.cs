@@ -33,8 +33,8 @@
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.fieldPrintProgressShipping = new System.Windows.Forms.ProgressBar();
-            this.fieldPrintLabelsShipping = new System.Windows.Forms.Label();
-            this.labelPrintLabelsShipping = new System.Windows.Forms.Label();
+            this.fieldPrintShipping = new System.Windows.Forms.Label();
+            this.labelPrintShipping = new System.Windows.Forms.Label();
             this.fieldThreshold = new System.Windows.Forms.Label();
             this.labelThreshold = new System.Windows.Forms.Label();
             this.fieldSscc = new System.Windows.Forms.Label();
@@ -51,8 +51,7 @@
             this.fieldMassaQueries = new System.Windows.Forms.Label();
             this.fieldMassaGet = new System.Windows.Forms.Label();
             this.fieldMassaManager = new System.Windows.Forms.Label();
-            this.labelPrintLabelsMain = new System.Windows.Forms.Label();
-            this.fieldMemoryManager = new System.Windows.Forms.Label();
+            this.labelPrintMain = new System.Windows.Forms.Label();
             this.fieldPrintProgressMain = new System.Windows.Forms.ProgressBar();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.labelWeightTare = new System.Windows.Forms.Label();
@@ -60,7 +59,7 @@
             this.labelProductDate = new System.Windows.Forms.Label();
             this.fieldProductDate = new System.Windows.Forms.Label();
             this.fieldKneading = new System.Windows.Forms.Label();
-            this.fieldPrintLabelsMain = new System.Windows.Forms.Label();
+            this.fieldPrintMain = new System.Windows.Forms.Label();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
             this.tableLayoutPanelRight = new System.Windows.Forms.TableLayoutPanel();
@@ -129,8 +128,8 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.999924F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5000009F));
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintProgressShipping, 3, 9);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintLabelsShipping, 2, 9);
-            this.tableLayoutPanelMain.Controls.Add(this.labelPrintLabelsShipping, 1, 9);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 9);
+            this.tableLayoutPanelMain.Controls.Add(this.labelPrintShipping, 1, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldThreshold, 2, 6);
             this.tableLayoutPanelMain.Controls.Add(this.labelThreshold, 1, 6);
             this.tableLayoutPanelMain.Controls.Add(this.fieldSscc, 2, 7);
@@ -147,8 +146,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueries, 1, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGet, 2, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaManager, 1, 10);
-            this.tableLayoutPanelMain.Controls.Add(this.labelPrintLabelsMain, 1, 8);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManager, 1, 13);
+            this.tableLayoutPanelMain.Controls.Add(this.labelPrintMain, 1, 8);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintProgressMain, 3, 8);
             this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 2);
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightTare, 1, 3);
@@ -159,7 +157,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.labelProductDate, 1, 4);
             this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 4);
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 5);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintLabelsMain, 2, 8);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintMain, 2, 8);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelRight, 3, 3);
@@ -195,39 +193,39 @@
             this.fieldPrintProgressShipping.Size = new System.Drawing.Size(96, 17);
             this.fieldPrintProgressShipping.TabIndex = 67;
             // 
-            // fieldPrintLabelsShipping
+            // fieldPrintShipping
             // 
-            this.fieldPrintLabelsShipping.AutoSize = true;
-            this.fieldPrintLabelsShipping.BackColor = System.Drawing.Color.Transparent;
-            this.fieldPrintLabelsShipping.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintLabelsShipping.Enabled = false;
-            this.fieldPrintLabelsShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPrintLabelsShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintLabelsShipping.Location = new System.Drawing.Point(325, 385);
-            this.fieldPrintLabelsShipping.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldPrintLabelsShipping.Name = "fieldPrintLabelsShipping";
-            this.fieldPrintLabelsShipping.Size = new System.Drawing.Size(587, 17);
-            this.fieldPrintLabelsShipping.TabIndex = 66;
-            this.fieldPrintLabelsShipping.Text = "fieldPrintLabelsShipping";
-            this.fieldPrintLabelsShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldPrintShipping.AutoSize = true;
+            this.fieldPrintShipping.BackColor = System.Drawing.Color.Transparent;
+            this.fieldPrintShipping.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldPrintShipping.Enabled = false;
+            this.fieldPrintShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPrintShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.fieldPrintShipping.Location = new System.Drawing.Point(325, 385);
+            this.fieldPrintShipping.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldPrintShipping.Name = "fieldPrintShipping";
+            this.fieldPrintShipping.Size = new System.Drawing.Size(587, 17);
+            this.fieldPrintShipping.TabIndex = 66;
+            this.fieldPrintShipping.Text = "fieldPrintLabelsShipping";
+            this.fieldPrintShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelPrintLabelsShipping
+            // labelPrintShipping
             // 
-            this.labelPrintLabelsShipping.AutoSize = true;
-            this.labelPrintLabelsShipping.BackColor = System.Drawing.Color.Transparent;
-            this.labelPrintLabelsShipping.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelPrintLabelsShipping.Enabled = false;
-            this.labelPrintLabelsShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPrintLabelsShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.labelPrintLabelsShipping.Location = new System.Drawing.Point(8, 385);
-            this.labelPrintLabelsShipping.Margin = new System.Windows.Forms.Padding(3);
-            this.labelPrintLabelsShipping.Name = "labelPrintLabelsShipping";
-            this.labelPrintLabelsShipping.Size = new System.Drawing.Size(311, 17);
-            this.labelPrintLabelsShipping.TabIndex = 65;
-            this.labelPrintLabelsShipping.Text = "labelPrintLabelsShipping";
-            this.labelPrintLabelsShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelPrintLabelsShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
-            this.labelPrintLabelsShipping.DoubleClick += new System.EventHandler(this.FieldPrintManager_Click);
+            this.labelPrintShipping.AutoSize = true;
+            this.labelPrintShipping.BackColor = System.Drawing.Color.Transparent;
+            this.labelPrintShipping.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelPrintShipping.Enabled = false;
+            this.labelPrintShipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelPrintShipping.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.labelPrintShipping.Location = new System.Drawing.Point(8, 385);
+            this.labelPrintShipping.Margin = new System.Windows.Forms.Padding(3);
+            this.labelPrintShipping.Name = "labelPrintShipping";
+            this.labelPrintShipping.Size = new System.Drawing.Size(311, 17);
+            this.labelPrintShipping.TabIndex = 65;
+            this.labelPrintShipping.Text = "labelPrintLabelsShipping";
+            this.labelPrintShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelPrintShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
+            this.labelPrintShipping.DoubleClick += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldThreshold
             // 
@@ -479,42 +477,24 @@
             this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // labelPrintLabelsMain
+            // labelPrintMain
             // 
-            this.labelPrintLabelsMain.AutoSize = true;
-            this.labelPrintLabelsMain.BackColor = System.Drawing.Color.Transparent;
-            this.labelPrintLabelsMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelPrintLabelsMain.Enabled = false;
-            this.labelPrintLabelsMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPrintLabelsMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.labelPrintLabelsMain.Location = new System.Drawing.Point(8, 362);
-            this.labelPrintLabelsMain.Margin = new System.Windows.Forms.Padding(3);
-            this.labelPrintLabelsMain.Name = "labelPrintLabelsMain";
-            this.labelPrintLabelsMain.Size = new System.Drawing.Size(311, 17);
-            this.labelPrintLabelsMain.TabIndex = 43;
-            this.labelPrintLabelsMain.Text = "labelPrintLabelsMain";
-            this.labelPrintLabelsMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelPrintLabelsMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
-            this.labelPrintLabelsMain.DoubleClick += new System.EventHandler(this.FieldPrintManager_Click);
-            this.labelPrintLabelsMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
-            // 
-            // fieldMemoryManager
-            // 
-            this.fieldMemoryManager.AutoSize = true;
-            this.fieldMemoryManager.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMemoryManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMemoryManager.Enabled = false;
-            this.fieldMemoryManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemoryManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMemoryManager.Location = new System.Drawing.Point(8, 477);
-            this.fieldMemoryManager.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMemoryManager.Name = "fieldMemoryManager";
-            this.fieldMemoryManager.Size = new System.Drawing.Size(311, 17);
-            this.fieldMemoryManager.TabIndex = 42;
-            this.fieldMemoryManager.Text = "fieldMemoryManager";
-            this.fieldMemoryManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMemoryManager.Visible = false;
-            this.fieldMemoryManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.labelPrintMain.AutoSize = true;
+            this.labelPrintMain.BackColor = System.Drawing.Color.Transparent;
+            this.labelPrintMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelPrintMain.Enabled = false;
+            this.labelPrintMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelPrintMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.labelPrintMain.Location = new System.Drawing.Point(8, 362);
+            this.labelPrintMain.Margin = new System.Windows.Forms.Padding(3);
+            this.labelPrintMain.Name = "labelPrintMain";
+            this.labelPrintMain.Size = new System.Drawing.Size(311, 17);
+            this.labelPrintMain.TabIndex = 43;
+            this.labelPrintMain.Text = "labelPrintLabelsMain";
+            this.labelPrintMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelPrintMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
+            this.labelPrintMain.DoubleClick += new System.EventHandler(this.FieldPrintManager_Click);
+            this.labelPrintMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintProgressMain
             // 
@@ -628,22 +608,22 @@
             this.fieldKneading.Visible = false;
             this.fieldKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldPrintLabelsMain
+            // fieldPrintMain
             // 
-            this.fieldPrintLabelsMain.AutoSize = true;
-            this.fieldPrintLabelsMain.BackColor = System.Drawing.Color.Transparent;
-            this.fieldPrintLabelsMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintLabelsMain.Enabled = false;
-            this.fieldPrintLabelsMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPrintLabelsMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintLabelsMain.Location = new System.Drawing.Point(325, 362);
-            this.fieldPrintLabelsMain.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldPrintLabelsMain.Name = "fieldPrintLabelsMain";
-            this.fieldPrintLabelsMain.Size = new System.Drawing.Size(587, 17);
-            this.fieldPrintLabelsMain.TabIndex = 37;
-            this.fieldPrintLabelsMain.Text = "fieldPrintLabelsMain";
-            this.fieldPrintLabelsMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldPrintLabelsMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.fieldPrintMain.AutoSize = true;
+            this.fieldPrintMain.BackColor = System.Drawing.Color.Transparent;
+            this.fieldPrintMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldPrintMain.Enabled = false;
+            this.fieldPrintMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPrintMain.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.fieldPrintMain.Location = new System.Drawing.Point(325, 362);
+            this.fieldPrintMain.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldPrintMain.Name = "fieldPrintMain";
+            this.fieldPrintMain.Size = new System.Drawing.Size(587, 17);
+            this.fieldPrintMain.TabIndex = 37;
+            this.fieldPrintMain.Text = "fieldPrintLabelsMain";
+            this.fieldPrintMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldPrintMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTitle
             // 
@@ -659,6 +639,7 @@
             this.fieldTitle.TabIndex = 20;
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldTitle.Click += new System.EventHandler(this.FieldsHiddenVisible_Click);
             this.fieldTitle.DoubleClick += new System.EventHandler(this.FieldTitle_DoubleClick);
             this.fieldTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
@@ -760,10 +741,9 @@
         private System.Windows.Forms.ProgressBar fieldPrintProgressMain;
         private System.Windows.Forms.Label fieldProductDate;
         private System.Windows.Forms.Label fieldKneading;
-        private System.Windows.Forms.Label fieldPrintLabelsMain;
+        private System.Windows.Forms.Label fieldPrintMain;
         private System.Windows.Forms.Label fieldMassaManager;
-        private System.Windows.Forms.Label labelPrintLabelsMain;
-        private System.Windows.Forms.Label fieldMemoryManager;
+        private System.Windows.Forms.Label labelPrintMain;
         private System.Windows.Forms.Label fieldMassaGet;
         private System.Windows.Forms.Label fieldMassaQueries;
         private System.Windows.Forms.Label fieldMassaSet;
@@ -782,8 +762,8 @@
         private System.Windows.Forms.ComboBox fieldResolution;
         private System.Windows.Forms.Label labelThreshold;
         private System.Windows.Forms.Label fieldThreshold;
-        private System.Windows.Forms.Label fieldPrintLabelsShipping;
-        private System.Windows.Forms.Label labelPrintLabelsShipping;
+        private System.Windows.Forms.Label fieldPrintShipping;
+        private System.Windows.Forms.Label labelPrintShipping;
         private System.Windows.Forms.ProgressBar fieldPrintProgressShipping;
     }
 }

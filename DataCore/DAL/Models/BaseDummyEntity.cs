@@ -9,7 +9,7 @@ namespace DataCore.DAL.Models
     /// <summary>
     /// Table "Access".
     /// </summary>
-    public class BaseDummyEntity : BaseEntity<BaseDummyEntity>
+    public class BaseDummyEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -38,11 +38,11 @@ namespace DataCore.DAL.Models
             return base.ToString();
         }
 
-        public virtual bool Equals(BaseDummyEntity entity)
+        public virtual bool Equals(BaseDummyEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item);
         }
 
         public override bool Equals(object obj)

@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Templates".
     /// </summary>
-    public class TemplateEntity : BaseEntity<TemplateEntity>
+    public class TemplateEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -50,15 +50,15 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(ImageData)}: {ImageData}. ";
         }
 
-        public virtual bool Equals(TemplateEntity entity)
+        public virtual bool Equals(TemplateEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(CategoryId, entity.CategoryId) &&
-                   Equals(IdRRef, entity.IdRRef) &&
-                   Equals(Title, entity.Title) &&
-                   Equals(ImageData, entity.ImageData);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(CategoryId, item.CategoryId) &&
+                   Equals(IdRRef, item.IdRRef) &&
+                   Equals(Title, item.Title) &&
+                   Equals(ImageData, item.ImageData);
         }
 
         public override bool Equals(object obj)

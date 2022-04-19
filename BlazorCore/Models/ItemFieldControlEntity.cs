@@ -22,8 +22,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public bool ProcessChecks<T>(NotificationService? notificationService, BaseEntity<T>? item, string field)
-            where T : BaseEntity<T>, new()
+        public bool ProcessChecks(NotificationService? notificationService, BaseEntity? item, string field)
         {
             bool result = item != null;
             string detailAddition = Environment.NewLine;
@@ -112,7 +111,7 @@ namespace BlazorCore.Models
             return true;
         }
 
-        public void Access(ref bool result, ref string detailAddition, AccessEntity access)
+        public static void Access(ref bool result, ref string detailAddition, AccessEntity access)
         {
             if (access.EqualsDefault())
                 result = false;
@@ -121,14 +120,14 @@ namespace BlazorCore.Models
                 detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldUser}" + Environment.NewLine;
                 result = false;
             }
-            if (access.Rights < 0 || access.Rights > 3)
+            if (access.Rights > 3)
             {
                 detailAddition += $"{Core.Strings.FieldIsNotInRange}: {Core.Strings.Main.AccessRights}" + Environment.NewLine;
                 result = false;
             }
         }
 
-        public void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeEntityV2 barCodeType)
+        public static void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeEntityV2 barCodeType)
         {
             if (barCodeType.EqualsDefault())
                 result = false;
@@ -139,7 +138,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Contragent(ref bool result, ref string detailAddition, ContragentEntityV2 contragent)
+        public static void Contragent(ref bool result, ref string detailAddition, ContragentEntityV2 contragent)
         {
             if (contragent.EqualsDefault())
                 result = false;
@@ -150,7 +149,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Host(ref bool result, ref string detailAddition, HostEntity host)
+        public static void Host(ref bool result, ref string detailAddition, HostEntity host)
         {
             if (host.EqualsDefault())
                 result = false;
@@ -171,7 +170,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Label(ref bool result, ref string detailAddition, LabelEntity label)
+        public static void Label(ref bool result, ref string detailAddition, LabelEntity label)
         {
             if (label.EqualsDefault())
                 result = false;
@@ -182,7 +181,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Nomenclature(ref bool result, ref string detailAddition, NomenclatureEntity nomenclature)
+        public static void Nomenclature(ref bool result, ref string detailAddition, NomenclatureEntity nomenclature)
         {
             if (nomenclature.EqualsDefault())
                 result = false;
@@ -193,19 +192,19 @@ namespace BlazorCore.Models
             }
         }
 
-        private void Order(ref bool result, ref string detailAddition, OrderEntity order)
+        private static void Order(ref bool result, ref string detailAddition, OrderEntity order)
         {
             if (order.EqualsDefault())
                 result = false;
         }
 
-        private void OrderStatus(ref bool result, ref string detailAddition, OrderStatusEntity orderStatus)
+        private static void OrderStatus(ref bool result, ref string detailAddition, OrderStatusEntity orderStatus)
         {
             if (orderStatus.EqualsDefault())
                 result = false;
         }
 
-        private void OrderType(ref bool result, ref string detailAddition, OrderTypeEntity orderType)
+        private static void OrderType(ref bool result, ref string detailAddition, OrderTypeEntity orderType)
         {
             if (orderType.EqualsDefault())
                 result = false;
@@ -227,19 +226,19 @@ namespace BlazorCore.Models
             }
         }
 
-        private void Printer(ref bool result, ref string detailAddition, PrinterEntity printer)
+        private static void Printer(ref bool result, ref string detailAddition, PrinterEntity printer)
         {
             if (printer.EqualsDefault())
                 result = false;
         }
 
-        private void PrinterResource(ref bool result, ref string detailAddition, PrinterResourceEntity printerResource)
+        private static void PrinterResource(ref bool result, ref string detailAddition, PrinterResourceEntity printerResource)
         {
             if (printerResource.EqualsDefault())
                 result = false;
         }
 
-        public void PrinterType(ref bool result, ref string detailAddition, PrinterTypeEntity printerType)
+        public static void PrinterType(ref bool result, ref string detailAddition, PrinterTypeEntity printerType)
         {
             if (printerType.EqualsDefault())
                 result = false;
@@ -250,7 +249,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void ProductionFacility(ref bool result, ref string detailAddition, ProductionFacilityEntity productionFacility)
+        private static void ProductionFacility(ref bool result, ref string detailAddition, ProductionFacilityEntity productionFacility)
         {
             if (productionFacility.EqualsDefault())
                 result = false;
@@ -261,13 +260,13 @@ namespace BlazorCore.Models
             }
         }
 
-        private void ProductSeries(ref bool result, ref string detailAddition, ProductSeriesEntity productSeries)
+        private static void ProductSeries(ref bool result, ref string detailAddition, ProductSeriesEntity productSeries)
         {
             if (productSeries.EqualsDefault())
                 result = false;
         }
 
-        private void Scale(ref bool result, ref string detailAddition, ScaleEntity scale)
+        private static void Scale(ref bool result, ref string detailAddition, ScaleEntity scale)
         {
             if (scale.EqualsDefault())
                 result = false;
@@ -278,13 +277,13 @@ namespace BlazorCore.Models
             }
         }
 
-        private void Task(ref bool result, ref string detailAddition, TaskEntity task)
+        private static void Task(ref bool result, ref string detailAddition, TaskEntity task)
         {
             if (task.EqualsDefault())
                 result = false;
         }
 
-        private void TaskType(ref bool result, ref string detailAddition, TaskTypeEntity taskType)
+        private static void TaskType(ref bool result, ref string detailAddition, TaskTypeEntity taskType)
         {
             if (taskType.EqualsDefault())
                 result = false;
@@ -295,7 +294,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void TemplateResource(ref bool result, ref string detailAddition, TemplateResourceEntity templateResource)
+        private static void TemplateResource(ref bool result, ref string detailAddition, TemplateResourceEntity templateResource)
         {
             if (templateResource.EqualsDefault())
                 result = false;
@@ -306,7 +305,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Template(ref bool result, ref string detailAddition, TemplateEntity template)
+        public static void Template(ref bool result, ref string detailAddition, TemplateEntity template)
         {
             if (template.EqualsDefault())
                 result = false;
@@ -322,13 +321,13 @@ namespace BlazorCore.Models
             }
         }
 
-        public void WeithingFact(ref bool result, ref string detailAddition, WeithingFactEntity weithingFact)
+        public static void WeithingFact(ref bool result, ref string detailAddition, WeithingFactEntity weithingFact)
         {
             if (weithingFact.EqualsDefault())
                 result = false;
         }
 
-        private void Workshop(ref bool result, ref string detailAddition, WorkShopEntity workshop)
+        private static void Workshop(ref bool result, ref string detailAddition, WorkShopEntity workshop)
         {
             if (workshop.EqualsDefault())
                 result = false;

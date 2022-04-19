@@ -92,50 +92,50 @@
 //            StateHasChanged();
 //        }
 
-//        private void RowSelect(NomenclatureEntity entity)
+//        private void RowSelect(NomenclatureEntity item)
 //        {
-//            IncludeEntity = entity;
+//            IncludeEntity = item;
 //        }
 
-//        private async Task RowSelectAsync(NomenclatureEntity entity)
+//        private async Task RowSelectAsync(NomenclatureEntity item)
 //        {
-//            Task task = new Task(() => RowSelect(entity));
+//            Task task = new Task(() => RowSelect(item));
 //            await BlazorSettings.RunTasks(LocalizationStrings.TableSelect, "", LocalizationStrings.DialogResultFail, "",
 //                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
 
-//        private async Task RowDoubleClickAsync(NomenclatureEntity entity, bool isNewWindow)
+//        private async Task RowDoubleClickAsync(NomenclatureEntity item, bool isNewWindow)
 //        {
-//            Task task = new Task(() => ActionEditAsync(entity, isNewWindow).ConfigureAwait(false));
+//            Task task = new Task(() => ActionEditAsync(item, isNewWindow).ConfigureAwait(false));
 //            await BlazorSettings.RunTasks(LocalizationStrings.TableEdit, "", LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
 //                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
 
-//        private async Task ActionEditAsync(NomenclatureEntity entity, bool isNewWindow)
+//        private async Task ActionEditAsync(NomenclatureEntity item, bool isNewWindow)
 //        {
-//            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
+//            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, item, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
 //            await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
 //                LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
-//                new List<Task> { task }, GuiRefreshAsync, entity?.Name).ConfigureAwait(false);
+//                new List<Task> { task }, GuiRefreshAsync, item?.Name).ConfigureAwait(false);
 //        }
 
-//        private void ExcludeEntity(NomenclatureEntity entity)
+//        private void ExcludeEntity(NomenclatureEntity item)
 //        {
-//            if (entity == null || entity.EqualsDefault())
+//            if (item == null || item.EqualsDefault())
 //                return;
 //            BlazorSettings.SqlDataAccess.NomenclatureCrud.ExecQueryNative(
 //                "execute [MDM].[NomenclatureSetNotRelevance] :Id",
-//                new Dictionary<string, object> { { "Id", entity.Id } });
+//                new Dictionary<string, object> { { "Id", item.Id } });
 
 //            GetDataAsync().ConfigureAwait(true);
 //        }
 
-//        private async Task ExcludeEntityAsync(NomenclatureEntity entity)
+//        private async Task ExcludeEntityAsync(NomenclatureEntity item)
 //        {
-//            Task task = new Task(() => { ExcludeEntity(entity); });
+//            Task task = new Task(() => { ExcludeEntity(item); });
 //            await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableMasterExclude,
 //                LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
-//                new List<Task> { task }, GuiRefreshAsync, entity?.Name).ConfigureAwait(false);
+//                new List<Task> { task }, GuiRefreshAsync, item?.Name).ConfigureAwait(false);
 //        }
 
 //        #endregion

@@ -6,7 +6,7 @@ using System;
 
 namespace BlazorCore.Models
 {
-    public class RazorDisposable<T> : RazorBase<T>, IDisposable where T : BaseEntity<T>, new()
+    public class RazorDisposable<T> : RazorBase, IDisposable where T : BaseEntity, new()
     {
         #region IDisposable
 

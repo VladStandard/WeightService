@@ -22,22 +22,17 @@ namespace MdmControlCore.XML
 
         #region Constructor and destructor
 
-        private ProductHelper() { Setup(); }
-
-        public void Setup()
-        {
-            // Setup methods
-        }
+        private ProductHelper() { }
 
         #endregion
 
         #region Public and private methods
 
-        public string GetXmlWrapp(string value)
+        public static string GetXmlWrapp(string value)
         {
-            var xmlBegin = @"<?xml version=""1.0"" encoding=""utf-8""?>";
-            var xmlRootBegin = "<root>";
-            var xmlRootEnd = "</root>";
+            string xmlBegin = @"<?xml version=""1.0"" encoding=""utf-8""?>";
+            string xmlRootBegin = "<root>";
+            string xmlRootEnd = "</root>";
             if (!value.StartsWith(xmlRootBegin) && !value.EndsWith(xmlRootEnd))
             {
                 value = xmlRootBegin + Environment.NewLine + value + Environment.NewLine + xmlRootEnd;
@@ -51,18 +46,18 @@ namespace MdmControlCore.XML
 
         public List<ProductUnitEntity> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            var entities = new List<ProductUnitEntity>();
-            var xmlEntities = xmlElement.Elements(nameSection).ToList();
+            List<ProductUnitEntity> entities = new List<ProductUnitEntity>();
+            List<XElement> xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement xmlEntity in xmlEntities)
                 {
-                    var xmlChilds = xmlEntity.Elements(nameElement).ToList();
+                    List<XElement> xmlChilds = xmlEntity.Elements(nameElement).ToList();
                     if (xmlChilds.Any())
                     {
-                        foreach (var xmlChild in xmlChilds)
+                        foreach (XElement xmlChild in xmlChilds)
                         {
-                            var entity = new ProductUnitEntity
+                            ProductUnitEntity item = new ProductUnitEntity
                             {
                                 Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
                                 Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
@@ -71,7 +66,7 @@ namespace MdmControlCore.XML
                                 Okei = GetAttribute<string>(xmlChild, "OKEI"),
                                 Description = GetAttribute<string>(xmlChild, "Description")
                             };
-                            entities.Add(entity);
+                            entities.Add(item);
                         }
                     }
                 }
@@ -81,23 +76,23 @@ namespace MdmControlCore.XML
 
         public List<ProductBarcodeEntity> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            var entities = new List<ProductBarcodeEntity>();
-            var xmlEntities = xmlElement.Elements(nameSection).ToList();
+            List<ProductBarcodeEntity> entities = new List<ProductBarcodeEntity>();
+            List<XElement> xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement xmlEntity in xmlEntities)
                 {
-                    var xmlChilds = xmlEntity.Elements(nameElement).ToList();
+                    List<XElement> xmlChilds = xmlEntity.Elements(nameElement).ToList();
                     if (xmlChilds.Any())
                     {
-                        foreach (var xmlChild in xmlChilds)
+                        foreach (XElement xmlChild in xmlChilds)
                         {
-                            var entity = new ProductBarcodeEntity
+                            ProductBarcodeEntity item = new ProductBarcodeEntity
                             {
                                 Type = GetAttribute<string>(xmlChild, "Type"),
                                 Barcode = GetAttribute<string>(xmlChild, "Barcode"),
                             };
-                            entities.Add(entity);
+                            entities.Add(item);
                         }
                     }
                 }
@@ -107,18 +102,18 @@ namespace MdmControlCore.XML
 
         public List<ProductBoxEntity> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            var entities = new List<ProductBoxEntity>();
-            var xmlEntities = xmlElement.Elements(nameSection).ToList();
+            List<ProductBoxEntity> entities = new List<ProductBoxEntity>();
+            List<XElement> xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement xmlEntity in xmlEntities)
                 {
-                    var xmlChilds = xmlEntity.Elements(nameElement).ToList();
+                    List<XElement> xmlChilds = xmlEntity.Elements(nameElement).ToList();
                     if (xmlChilds.Any())
                     {
-                        foreach (var xmlChild in xmlChilds)
+                        foreach (XElement xmlChild in xmlChilds)
                         {
-                            var entity = new ProductBoxEntity
+                            ProductBoxEntity item = new ProductBoxEntity
                             {
                                 Description = GetAttribute<string>(xmlChild, "Description"),
                                 Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
@@ -128,7 +123,7 @@ namespace MdmControlCore.XML
                                 Okei = GetAttribute<string>(xmlChild, "OKEI"),
                                 Unit = GetAttribute<string>(xmlChild, "Unit")
                             };
-                            entities.Add(entity);
+                            entities.Add(item);
                         }
                     }
                 }
@@ -138,13 +133,13 @@ namespace MdmControlCore.XML
 
         public ProductEntity GetProductEntity(string value)
         {
-            var productEntity = new ProductEntity();
+            ProductEntity productEntity = new ProductEntity();
             if (string.IsNullOrEmpty(value))
                 return productEntity;
 
-            var xmlDoc = XDocument.Parse(GetXmlWrapp(value));
-            var xmlRoot = xmlDoc.Element("root");
-            var xmlProduct = xmlRoot?.Element("Product");
+            XDocument xmlDoc = XDocument.Parse(GetXmlWrapp(value));
+            XElement xmlRoot = xmlDoc.Element("root");
+            XElement xmlProduct = xmlRoot?.Element("Product");
             if (xmlProduct != null)
             {
                 if (xmlProduct.HasAttributes)
@@ -173,7 +168,7 @@ namespace MdmControlCore.XML
             return productEntity;
         }
 
-        public T GetAttribute<T>(XElement xmlElement, string nameAttribute)
+        public static T GetAttribute<T>(XElement xmlElement, string nameAttribute)
         {
             if (string.IsNullOrEmpty(nameAttribute))
             {
@@ -185,21 +180,21 @@ namespace MdmControlCore.XML
                     }
                     if (typeof(T) == typeof(decimal))
                     {
-                        if (decimal.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (decimal.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out decimal value))
                         {
                             return (T)Convert.ChangeType(value, typeof(decimal));
                         }
                     }
                     if (typeof(T) == typeof(int))
                     {
-                        if (int.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (int.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out int value))
                         {
                             return (T)Convert.ChangeType(value, typeof(int));
                         }
                     }
                     if (typeof(T) == typeof(Guid))
                     {
-                        if (Guid.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (Guid.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out Guid value))
                         {
                             return (T)Convert.ChangeType(value, typeof(Guid));
                         }
@@ -208,7 +203,7 @@ namespace MdmControlCore.XML
             }
             else
             {
-                var xmlAttribute = xmlElement.Attribute(nameAttribute);
+                XAttribute xmlAttribute = xmlElement.Attribute(nameAttribute);
                 if (xmlAttribute != null)
                 {
                     if (typeof(T) == typeof(string))
@@ -217,37 +212,37 @@ namespace MdmControlCore.XML
                     }
                     if (typeof(T) == typeof(decimal))
                     {
-                        if (decimal.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (decimal.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out decimal value))
                         {
                             return (T)Convert.ChangeType(value, typeof(decimal));
                         }
                     }
                     if (typeof(T) == typeof(int))
                     {
-                        if (int.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (int.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out int value))
                         {
                             return (T)Convert.ChangeType(value, typeof(int));
                         }
                     }
                     if (typeof(T) == typeof(Guid))
                     {
-                        if (Guid.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (Guid.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out Guid value))
                         {
                             return (T)Convert.ChangeType(value, typeof(Guid));
                         }
                     }
                 }
             }
-            return default(T);
+            return default;
         }
 
         public List<T> GetElementValue<T>(XElement xmlElement, string nameElement)
         {
-            var entities = new List<T>();
-            var xmlEntities = xmlElement.Elements(nameElement).ToList();
+            List<T> entities = new List<T>();
+            List<XElement> xmlEntities = xmlElement.Elements(nameElement).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement xmlEntity in xmlEntities)
                 {
                     entities.Add(GetAttribute<T>(xmlEntity, null));
                 }

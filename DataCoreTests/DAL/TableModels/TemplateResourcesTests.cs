@@ -29,7 +29,7 @@
 //                            foreach (string s in TestsEnums.GetString())
 //                                foreach (bool b in TestsEnums.GetBool())
 //                                {
-//                                    TemplateResourceEntity entity = new()
+//                                    TemplateResourceEntity item = new()
 //                                    {
 //                                        Id = i,
 //                                        CreateDate = dt,
@@ -41,8 +41,8 @@
 //                                        IdRRef = guid,
 //                                        IsMarked = b,
 //                                    };
-//                                    _ = entity.ToString();
-//                                    Assert.AreEqual(false, entityNew.Equals(entity));
+//                                    _ = item.ToString();
+//                                    Assert.AreEqual(false, entityNew.Equals(item));
 //                                }
 //            });
 
@@ -58,7 +58,7 @@
 //                {
 //                    int id = DataAccessUtilsTests.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null,
 //                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Id, Direction = ShareEnums.DbOrderDirection.Desc }).Id;
-//                    TemplateResourceEntity entity = new()
+//                    TemplateResourceEntity item = new()
 //                    {
 //                        Id = id + 1,
 //                        Name = "TemplateResourcesEntity name",
@@ -66,20 +66,20 @@
 //                        CreateDate = DateTime.Now,
 //                        ChangeDt = DateTime.Now,
 //                    };
-//                    DataAccessUtilsTests.DataAccess.Crud.SaveEntity(entity);
+//                    DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
 
-//                    entity.Description = "Updated";
-//                    DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(entity);
+//                    item.Description = "Updated";
+//                    DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(item);
 
 //                    //var result = DataAccessUtils.DataAccess.TemplateResourceCrud.LoadResource(
-//                    //    entity.Id, entity.Name, "New description", "GRF", 
+//                    //    item.Id, item.Name, "New description", "GRF", 
 //                    //    Encoding.ASCII.GetBytes("new data"));
 //                    //Assert.AreEqual(1, result);
 
 //                    // GetEntities.
 //                    foreach (TemplateResourceEntity entityGet in DataAccessUtilsTests.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null))
 //                    {
-//                        if (Equals(entityGet.Name, entity.Name))
+//                        if (Equals(entityGet.Name, item.Name))
 //                        {
 //                            // DeleteEntity.
 //                            //DataAccessUtils.DataAccess.TemplateResourcesCrud.DeleteEntity(entityGet);

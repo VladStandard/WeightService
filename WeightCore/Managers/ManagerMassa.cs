@@ -86,7 +86,7 @@ namespace WeightCore.Managers
 
         public new void CloseMethod()
         {
-            base.CloseMethod();
+            base.Close();
 
             MassaDevice?.Close();
             while (Requests?.Count > 0)

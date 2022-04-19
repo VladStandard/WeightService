@@ -93,29 +93,29 @@
 //            await GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(false);
 //        }
 
-//        private void RowSelect(ShareEnums.TableDwh table, NomenclatureLightEntity entity)
+//        private void RowSelect(ShareEnums.TableDwh table, NomenclatureLightEntity item)
 //        {
 //            switch (table)
 //            {
 //                case ShareEnums.TableDwh.NomenclatureMaster:
-//                    ItemMaster = entity;
+//                    ItemMaster = item;
 //                    break;
 //                case ShareEnums.TableDwh.NomenclatureNonNormalize:
-//                    ItemNonNormilize = entity;
+//                    ItemNonNormilize = item;
 //                    break;
 //            }
 //        }
 
-//        private async Task RowSelectAsync(ShareEnums.TableDwh table, NomenclatureLightEntity entity)
+//        private async Task RowSelectAsync(ShareEnums.TableDwh table, NomenclatureLightEntity item)
 //        {
-//            Task task = new Task(() => RowSelect(table, entity));
+//            Task task = new Task(() => RowSelect(table, item));
 //            await BlazorSettings.RunTasks(LocalizationStrings.TableSelect, "", LocalizationStrings.DialogResultFail, "",
 //                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
 
-//        private async Task RowDoubleClickAsync(ShareEnums.TableDwh table, NomenclatureLightEntity entity, bool isNewWindow)
+//        private async Task RowDoubleClickAsync(ShareEnums.TableDwh table, NomenclatureLightEntity item, bool isNewWindow)
 //        {
-//            Task task = new Task(() => ActionEditAsync(table, entity, isNewWindow).ConfigureAwait(false));
+//            Task task = new Task(() => ActionEditAsync(table, item, isNewWindow).ConfigureAwait(false));
 //            await BlazorSettings.RunTasks(LocalizationStrings.TableEdit, "", LocalizationStrings.DialogResultFail, "",
 //            new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
@@ -187,13 +187,13 @@
 //                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
 
-//        private void SetEntityRelevance(NomenclatureLightEntity entity, short? relevance)
+//        private void SetEntityRelevance(NomenclatureLightEntity item, short? relevance)
 //        {
-//            if (entity == null || entity.EqualsDefault())
+//            if (item == null || item.EqualsDefault())
 //                return;
 //            BlazorSettings.SqlDataAccess.NomenclatureCrud.ExecQueryNative(
 //                "execute [MDM].[NomenclatureUpdateRelevance] :Id, :Value",
-//                new Dictionary<string, object> { { "Id", entity.Id }, { "Value", relevance } });
+//                new Dictionary<string, object> { { "Id", item.Id }, { "Value", relevance } });
 
 //            GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(true);
 //        }
@@ -220,7 +220,7 @@
 //            }
 //        }
 
-//        private async Task ActionEditAsync(ShareEnums.TableDwh table, NomenclatureLightEntity entity, bool isNewWindow)
+//        private async Task ActionEditAsync(ShareEnums.TableDwh table, NomenclatureLightEntity item, bool isNewWindow)
 //        {
 //            Task task = null;
 //            string title = string.Empty;
@@ -228,14 +228,14 @@
 //            {
 //                case ShareEnums.TableDwh.NomenclatureMaster:
 //                    task = new Task(() => {
-//                        BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, LocalizationStrings.UriRouteNomenclatureMaster, isNewWindow)
+//                        BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, item, LocalizationStrings.UriRouteNomenclatureMaster, isNewWindow)
 //                            .ConfigureAwait(true);
 //                    });
 //                    title = LocalizationStrings.TableMasterEdit;
 //                    break;
 //                case ShareEnums.TableDwh.NomenclatureNonNormalize:
 //                    task = new Task(() => {
-//                        BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, LocalizationStrings.UriRouteNomenclatureNonNormilise, isNewWindow)
+//                        BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, item, LocalizationStrings.UriRouteNomenclatureNonNormilise, isNewWindow)
 //                            .ConfigureAwait(true);
 //                    });
 //                    title = LocalizationStrings.TableNonNormalizeEdit;

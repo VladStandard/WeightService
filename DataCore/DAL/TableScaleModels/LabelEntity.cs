@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Labels".
     /// </summary>
-    public class LabelEntity : BaseEntity<LabelEntity>
+    public class LabelEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -62,14 +62,14 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Zpl)}: {ZplInfo}. ";
         }
 
-        public virtual bool Equals(LabelEntity entity)
+        public virtual bool Equals(LabelEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   WeithingFact.Equals(entity.WeithingFact) &&
-                   Equals(Label, entity.Label) &&
-                   Equals(Zpl, entity.Zpl);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   WeithingFact.Equals(item.WeithingFact) &&
+                   Equals(Label, item.Label) &&
+                   Equals(Zpl, item.Zpl);
         }
 
         public override bool Equals(object obj)

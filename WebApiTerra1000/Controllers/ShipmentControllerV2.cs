@@ -74,7 +74,7 @@ namespace WebApiTerra1000.Controllers
                     }
                 }
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 
@@ -125,7 +125,7 @@ namespace WebApiTerra1000.Controllers
                     }
                 }
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeEntity<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
+                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
             }), format);
         }
 

@@ -24,11 +24,8 @@ namespace WeightCore.Managers
         private Label FieldMassaQueries { get; set; }
         private Label FieldMassaSet { get; set; }
         private Label FieldMassaSetCrc { get; set; }
-        private Label FieldMemoryManager { get; set; }
-        private Label FieldMemoryManagerTotal { get; set; }
         private Label FieldPlu { get; set; }
         private Label FieldProductDate { get; set; }
-        private Label FieldTasks { get; set; }
         private Label FieldWeightNetto { get; set; }
         private Label FieldWeightTare { get; set; }
         private Label LabelKneading { get; set; }
@@ -37,7 +34,10 @@ namespace WeightCore.Managers
         private Label LabelWeightTare { get; set; }
         private PluDirect CurrentPlu => SessionStateHelper.Instance.CurrentPlu;
         private ProgressBar FieldMassaQueriesProgress { get; set; }
-        private ProgressBar FieldMemoryProgress { get; set; }
+        public Label FieldPrintMain { get; private set; }
+        public Label FieldPrintShipping { get; private set; }
+        public Label LabelPrintMain { get; private set; }
+        public Label LabelPrintShipping { get; private set; }
 
         #endregion
 
@@ -55,8 +55,8 @@ namespace WeightCore.Managers
         public void Init(Label labelProductDate, Label fieldProductDate, Label labelKneading, Label fieldKneading,
             Label fieldPlu, Label labelWeightNetto, Label fieldWeightNetto, Label labelWeightTare, Label fieldWeightTare,
             Label fieldMassaManager, Label fieldMassaComPort, Label fieldMassaQueries, ProgressBar fieldMassaQueriesProgress,
-            Label fieldMemoryManager, Label fieldMemoryManagerTotal, Label fieldTasks, ProgressBar fieldMemoryProgress,
-            Label fieldMassaGet, Label fieldMassaGetCrc, Label fieldMassaSet, Label fieldMassaSetCrc)
+            Label fieldMassaGet, Label fieldMassaGetCrc, Label fieldMassaSet, Label fieldMassaSetCrc,
+            Label labelPrintMain, Label fieldPrintMain, Label labelPrintShipping, Label fieldPrintShipping)
         {
             Init(ProjectsEnums.TaskType.LabelManager,
             () =>
@@ -74,14 +74,14 @@ namespace WeightCore.Managers
                 FieldMassaComPort = fieldMassaComPort;
                 FieldMassaQueries = fieldMassaQueries;
                 FieldMassaQueriesProgress = fieldMassaQueriesProgress;
-                FieldMemoryManager = fieldMemoryManager;
-                FieldMemoryManagerTotal = fieldMemoryManagerTotal;
-                FieldTasks = fieldTasks;
-                FieldMemoryProgress = fieldMemoryProgress;
                 FieldMassaGet = fieldMassaGet;
                 FieldMassaGetCrc = fieldMassaGetCrc;
                 FieldMassaSet = fieldMassaSet;
                 FieldMassaSetCrc = fieldMassaSetCrc;
+                LabelPrintMain = labelPrintMain;
+                FieldPrintMain = fieldPrintMain;
+                LabelPrintShipping = labelPrintShipping;
+                FieldPrintShipping = fieldPrintShipping;
             },
             5_000, 250, 250, 250, 1_000);
         }
@@ -98,14 +98,26 @@ namespace WeightCore.Managers
                     OpenWeights();
                     OpenResponseGetMassa();
                     OpenKneading();
-                    OpenMemory();
                     OpenMasseSet();
+                    OpenPrint();
                 }, null, null);
             }
             catch (Exception ex)
             {
                 Exception.Catch(null, ref ex, false);
             }
+        }
+
+        private void OpenPrint()
+        {
+            OpenPrint(LabelPrintMain, LocalizationCore.Print.NameMain, FieldPrintMain,
+                $"{LocalizationCore.Scales.Labels}: {SessionStateHelper.Instance.CurrentLabelsMain} / " +
+                $"{SessionStateHelper.Instance.WeighingSettings.CurrentLabelsCountMain}",
+                SessionStateHelper.Instance.Manager.PrintMain);
+            OpenPrint(LabelPrintShipping, LocalizationCore.Print.NameShipping, FieldPrintShipping,
+                $"{LocalizationCore.Scales.Labels}: {SessionStateHelper.Instance.CurrentLabelsShipping} / " +
+                $"{SessionStateHelper.Instance.WeighingSettings.CurrentLabelsCountShipping}",
+                SessionStateHelper.Instance.Manager.PrintShipping);
         }
 
         private void OpenMasseSet()
@@ -251,38 +263,51 @@ namespace WeightCore.Managers
             }
         }
 
-        private void OpenMemory()
+        private void OpenPrint(Label labelPrint, string caption, Label fieldPrint, string value, ManagerPrint managerPrint)
         {
-            if (SessionStateHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrint, caption);
+            //SessionStateHelper.Instance.LabelsCurrent = SessionStateHelper.Instance.Manager.Print.UserLabelCount < SessionStateHelper.Instance.LabelsCount
+            //    ? SessionStateHelper.Instance.Manager.Print.UserLabelCount : SessionStateHelper.Instance.LabelsCount;
+
+            // LabelsCurrent
+            if (SessionStateHelper.Instance.CurrentLabelsMain < 1)
+                SessionStateHelper.Instance.CurrentLabelsMain = 1;
+
+            switch (SessionStateHelper.Instance.PrintBrandMain)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManager,
-                    $"{LocalizationCore.Scales.Memory}: " +
-                    (SessionStateHelper.Instance.Manager?.Memory?.MemorySize?.PhysicalCurrent != null
-                        ? $"{SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0}" : "-") +
-                    (SessionStateHelper.Instance.Manager?.Memory != null ? $" MB {SessionStateHelper.Instance.Manager.Memory.ProgressString}" : $" MB "));
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManagerTotal,
-                    SessionStateHelper.Instance.Manager?.Memory?.MemorySize?.DtChanged.ToString(@"HH:mm:ss") +
-                    $"  {LocalizationCore.Scales.MemoryPhysical}: {LocalizationCore.Scales.MemoryFree} " +
-                    (SessionStateHelper.Instance.Manager?.Memory?.MemorySize?.PhysicalFree != null && SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalTotal != null
-                        ? $"{SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +
-                          $" из {SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB."
-                        : "- из - MB."));
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(FieldMemoryProgress,
-                    SessionStateHelper.Instance.Manager?.Memory?.MemorySize?.PhysicalTotal != null
-                    ? (int)SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes : 0);
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(FieldMemoryProgress, 0);
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMemoryProgress,
-                    SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalTotal != null && SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalFree != null
-                    ? (int)(SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes -
-                    SessionStateHelper.Instance.Manager.Memory.MemorySize.PhysicalFree.MegaBytes) : 0);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocalizationCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
-                SessionStateHelper.Instance.Manager.Memory.ProgressString = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.Memory.ProgressString);
+                case Print.PrintBrand.Zebra:
+                    if (SessionStateHelper.Instance.ProgramState == ShareEnums.ProgramState.IsRun &&
+                        SessionStateHelper.Instance.StopwatchPrintMain.Elapsed.TotalSeconds > 5)
+                    {
+                        //SessionStateHelper.Instance.Manager.PrintMain.SetCurrentStatus();
+                        SessionStateHelper.Instance.StopwatchPrintMain.Restart();
+                    }
+                    if (managerPrint.CurrentStatus != null)
+                    {
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint,
+                            $"{LocalizationCore.Print.ModelZebra} {SessionStateHelper.Instance.CurrentScale.PrinterMain.Ip}: " +
+                            (managerPrint.CurrentStatus.isReadyToPrint
+                                ? $"{LocalizationCore.Print.Available}"
+                                : $"{LocalizationCore.Print.Unavailable}"
+                            ) + $" | {LocalizationCore.Print.SensorPeeler}: {managerPrint.SensorPeelerStatus} | {value} | {SessionStateHelper.Instance.Manager.PrintMain.ProgressString}"
+                        );
+                    }
+                    break;
+                case Print.PrintBrand.TSC:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint,
+                        $"{LocalizationCore.Print.ModelTsc}: {SessionStateHelper.Instance.Manager.PrintMain.Win32Printer()?.PrinterStatusDescription} " +
+                        $"{SessionStateHelper.Instance.Manager.PrintMain.ProgressString}");
+                    break;
+                case Print.PrintBrand.Default:
+                default:
+                    break;
             }
+            SessionStateHelper.Instance.Manager.PrintMain.ProgressString = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.PrintMain.ProgressString);
         }
 
         public new void CloseMethod()
         {
-            base.CloseMethod();
+            base.Close();
         }
 
         public new void ReleaseManaged()

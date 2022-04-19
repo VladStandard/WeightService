@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "BarCodes".
     /// </summary>
-    public class BarCodeEntityV2 : BaseEntity<BarCodeEntityV2>
+    public class BarCodeEntityV2 : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -51,15 +51,15 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Nomenclature)}: {strNomenclature}. ";
         }
 
-        public virtual bool Equals(BarCodeEntityV2 entity)
+        public virtual bool Equals(BarCodeEntityV2 item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                Equals(Value, entity.Value) &&
-                BarcodeType != null && entity.BarcodeType != null && BarcodeType.Equals(entity.BarcodeType) &&
-                Contragent != null && entity.Contragent != null && Contragent.Equals(entity.Contragent) &&
-                Nomenclature != null && entity.Nomenclature != null && Nomenclature.Equals(entity.Nomenclature);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                Equals(Value, item.Value) &&
+                BarcodeType != null && item.BarcodeType != null && BarcodeType.Equals(item.BarcodeType) &&
+                Contragent != null && item.Contragent != null && Contragent.Equals(item.Contragent) &&
+                Nomenclature != null && item.Nomenclature != null && Nomenclature.Equals(item.Nomenclature);
         }
 
         public override bool Equals(object obj)

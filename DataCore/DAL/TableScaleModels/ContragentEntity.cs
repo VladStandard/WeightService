@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// Table "Contragents".
     /// </summary>
     [Obsolete(@"Use ContragentEntityV2")]
-    public class ContragentEntity : BaseEntity<ContragentEntity>
+    public class ContragentEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -43,13 +43,13 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. ";
         }
 
-        public virtual bool Equals(ContragentEntity entity)
+        public virtual bool Equals(ContragentEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name) &&
+                   Equals(SerializedRepresentationObject, item.SerializedRepresentationObject);
         }
 
         public override bool Equals(object obj)

@@ -26,13 +26,13 @@
 //                foreach (int i in TestsEnums.GetInt())
 //                    foreach (string s in TestsEnums.GetString())
 //                    {
-//                        BarcodeTypeEntityV2 entity = new()
+//                        BarcodeTypeEntityV2 item = new()
 //                        {
 //                            Id = i,
 //                            Name = s
 //                        };
-//                        _ = entity.ToString();
-//                        Assert.AreEqual(false, entityNew.Equals(entity));
+//                        _ = item.ToString();
+//                        Assert.AreEqual(false, entityNew.Equals(item));
 //                    }
 //            });
 
@@ -41,13 +41,13 @@
 
 //        public BarcodeTypeEntityV2 EntityCreate(string name)
 //        {
-//            //var entity = new BarCodeTypesEntity
+//            //var item = new BarCodeTypesEntity
 //            //{
 //            //    //Id = -1,
 //            //    Name = name
 //            //};
 //            //// Не сохранять.
-//            //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(entity);
+//            //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(item);
 //            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(
 //                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Name.ToString(), name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
@@ -68,12 +68,12 @@
 //                // GetEntities
 //                BarcodeTypeEntityV2[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<BarcodeTypeEntityV2>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (BarcodeTypeEntityV2 entity in entities)
+//                foreach (BarcodeTypeEntityV2 item in entities)
 //                {
-//                    if (entity.Name.Equals(name + " changed"))
+//                    if (item.Name.Equals(name + " changed"))
 //                    {
 //                        // DeleteEntity - Не удалять
-//                        //DataAccessUtils.DataAccess.BarCodeTypesCrud.DeleteEntity(entity);
+//                        //DataAccessUtils.DataAccess.BarCodeTypesCrud.DeleteEntity(item);
 //                    }
 //                }
 //            });

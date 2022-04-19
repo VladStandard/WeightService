@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "OrderStatuses".
     /// </summary>
-    public class OrderStatusEntity : BaseEntity<OrderStatusEntity>
+    public class OrderStatusEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -45,14 +45,14 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(CurrentStatus)}: {CurrentStatus}.";
         }
 
-        public virtual bool Equals(OrderStatusEntity entity)
+        public virtual bool Equals(OrderStatusEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(OrderId, entity.OrderId) &&
-                   Equals(CurrentDate, entity.CurrentDate) &&
-                   Equals(CurrentStatus, entity.CurrentStatus);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(OrderId, item.OrderId) &&
+                   Equals(CurrentDate, item.CurrentDate) &&
+                   Equals(CurrentStatus, item.CurrentStatus);
         }
 
         public override bool Equals(object obj)

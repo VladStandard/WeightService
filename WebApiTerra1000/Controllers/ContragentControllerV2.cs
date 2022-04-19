@@ -55,7 +55,7 @@ namespace WebApiTerra1000.Controllers
                     code != null ? TerraUtils.Sql.GetParametersV2(code) : TerraUtils.Sql.GetParametersV2(id));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 
@@ -96,7 +96,7 @@ namespace WebApiTerra1000.Controllers
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url);
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 
@@ -115,7 +115,7 @@ namespace WebApiTerra1000.Controllers
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 

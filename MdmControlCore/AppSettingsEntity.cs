@@ -60,7 +60,7 @@ namespace MdmControlCore
 
         public override string ToString()
         {
-            var strTrusted = Trusted ? $"{nameof(Trusted)}: true." : $"{nameof(Username)}: {Username}. {nameof(Password)}: {Password}.";
+            string strTrusted = Trusted ? $"{nameof(Trusted)}: true." : $"{nameof(Username)}: {Username}. {nameof(Password)}: {Password}.";
             return $"{nameof(Server)}: { Server}. " +
                    $"{nameof(Db)}: {Db}. " +
                    $"{strTrusted}";

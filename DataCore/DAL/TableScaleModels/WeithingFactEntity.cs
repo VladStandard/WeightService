@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "WeithingFacts".
     /// </summary>
-    public class WeithingFactEntity : BaseEntity<WeithingFactEntity>
+    public class WeithingFactEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -73,22 +73,22 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Kneading)}: {Kneading}.";
         }
 
-        public virtual bool Equals(WeithingFactEntity entity)
+        public virtual bool Equals(WeithingFactEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Plu.Equals(entity.Plu) &&
-                   Scale.Equals(entity.Scale) &&
-                   Serie.Equals(entity.Serie) &&
-                   Order.Equals(entity.Order) &&
-                   Equals(Sscc, entity.Sscc) &&
-                   Equals(WeithingDate, entity.WeithingDate) &&
-                   Equals(NetWeight, entity.NetWeight) &&
-                   Equals(TareWeight, entity.TareWeight) &&
-                   Equals(ProductDate, entity.ProductDate) &&
-                   Equals(RegNum, entity.RegNum) &&
-                   Equals(Kneading, entity.Kneading);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Plu.Equals(item.Plu) &&
+                   Scale.Equals(item.Scale) &&
+                   Serie.Equals(item.Serie) &&
+                   Order.Equals(item.Order) &&
+                   Equals(Sscc, item.Sscc) &&
+                   Equals(WeithingDate, item.WeithingDate) &&
+                   Equals(NetWeight, item.NetWeight) &&
+                   Equals(TareWeight, item.TareWeight) &&
+                   Equals(ProductDate, item.ProductDate) &&
+                   Equals(RegNum, item.RegNum) &&
+                   Equals(Kneading, item.Kneading);
         }
 
         public override bool Equals(object obj)

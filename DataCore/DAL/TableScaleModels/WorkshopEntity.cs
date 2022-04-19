@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "WorkShops".
     /// </summary>
-    public class WorkShopEntity : BaseEntity<WorkShopEntity>
+    public class WorkShopEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -46,14 +46,14 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(IdRRef)}: {IdRRef}. ";
         }
 
-        public virtual bool Equals(WorkShopEntity entity)
+        public virtual bool Equals(WorkShopEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   ProductionFacility.Equals(entity.ProductionFacility) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(IdRRef, entity.IdRRef);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   ProductionFacility.Equals(item.ProductionFacility) &&
+                   Equals(Name, item.Name) &&
+                   Equals(IdRRef, item.IdRRef);
         }
 
         public override bool Equals(object obj)

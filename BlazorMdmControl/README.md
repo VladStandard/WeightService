@@ -20,8 +20,8 @@ Hotkeys for nomenclatures page:
 - Enter     -- Edit master record
 
 Hotkeys for nomenclature page:
-- Ctrl + S  -- Save entity
-- Backspace -- Close entity
+- Ctrl + S  -- Save item
+- Backspace -- Close item
 
 ## Back to the home page
 - [README](../README.md)

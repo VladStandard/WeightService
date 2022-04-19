@@ -10,7 +10,7 @@ using WebApiTerra1000.Utils;
 namespace WebApiTerra1000.Common
 {
     [XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-    public class SqlSimpleV3Entity : BaseSerializeEntity<SqlSimpleV3Entity>
+    public class SqlSimpleV3Entity : BaseSerializeDeprecatedEntity<SqlSimpleV3Entity>
     {
         #region Public and private fields and properties
 

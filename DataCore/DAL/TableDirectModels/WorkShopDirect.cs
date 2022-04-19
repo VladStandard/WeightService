@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class WorkShopDirect : BaseSerializeEntity<WorkShopDirect>
+    public class WorkShopDirect : BaseSerializeDeprecatedEntity<WorkShopDirect>
     {
         #region Public and private fields and properties
 

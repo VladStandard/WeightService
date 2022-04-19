@@ -28,7 +28,7 @@
 //                            foreach (bool b in TestsEnums.GetBool())
 //                                foreach (string s in TestsEnums.GetString())
 //                                {
-//                                    ProductSeriesEntity entity = new()
+//                                    ProductSeriesEntity item = new()
 //                                    {
 //                                        Id = i,
 //                                        //ScaleId = scaleId,
@@ -38,8 +38,8 @@
 //                                        IsClose = b,
 //                                        Sscc = s
 //                                    };
-//                                    _ = entity.ToString();
-//                                    Assert.AreEqual(false, entityNew.Equals(entity));
+//                                    _ = item.ToString();
+//                                    Assert.AreEqual(false, entityNew.Equals(item));
 //                                }
 //            });
 
@@ -60,7 +60,7 @@
 //                // SaveEntity
 //                for (int i = iStart; i < iEnd; i++)
 //                {
-//                    ProductSeriesEntity entity = new()
+//                    ProductSeriesEntity item = new()
 //                    {
 //                        //ScaleId = i.ToString(),
 //                        Scale = new ScaleEntity(),
@@ -69,28 +69,28 @@
 //                        IsClose = false,
 //                        Sscc = sscc1,
 //                    };
-//                    DataAccessUtilsTests.DataAccess.ProductSeriesCrud.SaveEntity(entity);
+//                    DataAccessUtilsTests.DataAccess.ProductSeriesCrud.SaveEntity(item);
 //                }
 //                // UpdateEntity
-//                foreach (ProductSeriesEntity entity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductSeriesEntity>(null, null))
+//                foreach (ProductSeriesEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductSeriesEntity>(null, null))
 //                {
-//                    if (entity.Scale.Id < 0)
+//                    if (item.Scale.Id < 0)
 //                    {
-//                        entity.Sscc = sscc2;
-//                        DataAccessUtilsTests.DataAccess.ProductSeriesCrud.UpdateEntity(entity);
+//                        item.Sscc = sscc2;
+//                        DataAccessUtilsTests.DataAccess.ProductSeriesCrud.UpdateEntity(item);
 //                    }
 //                }
 //                // GetEntities
 //                ProductSeriesEntity[] entities = DataAccessUtilsTests.DataAccess.ProductSeriesCrud.GetEntities<ProductSeriesEntity>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (ProductSeriesEntity entity in entities)
+//                foreach (ProductSeriesEntity item in entities)
 //                {
-//                    if (!entity.EqualsDefault())
+//                    if (!item.EqualsDefault())
 //                    {
-//                        if (entity.Scale.Id < 0)
+//                        if (item.Scale.Id < 0)
 //                        {
 //                            // DeleteEntity
-//                            DataAccessUtilsTests.DataAccess.ProductSeriesCrud.DeleteEntity(entity);
+//                            DataAccessUtilsTests.DataAccess.ProductSeriesCrud.DeleteEntity(item);
 //                        }
 //                    }
 //                }

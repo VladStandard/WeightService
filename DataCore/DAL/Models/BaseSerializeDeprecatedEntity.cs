@@ -14,17 +14,17 @@ using static DataCore.ShareEnums;
 namespace DataCore.DAL.Models
 {
     [Serializable()]
-    public class BaseSerializeEntity
+    public class BaseSerializeDeprecatedEntity<T> where T : new()
     {
         #region Public and private fields and properties
 
-        [XmlIgnore] public virtual SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+        [XmlIgnore] public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
         #region Public and private methods
 
-        public virtual XmlWriterSettings GetXmlWriterSettings() => new()
+        public XmlWriterSettings GetXmlWriterSettings() => new()
         {
             ConformanceLevel = ConformanceLevel.Document,
             OmitXmlDeclaration = false, // не подавлять xml заголовок
@@ -36,9 +36,9 @@ namespace DataCore.DAL.Models
             IndentChars = "\t"          // сиволы отступа
         };
 
-        public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
+        public string SerializeAsJson() => JsonConvert.SerializeObject(this);
 
-        public virtual string SerializeAsXmlWithEmptyNamespaces<T>() where T : new()
+        public string SerializeAsXmlWithEmptyNamespaces()
         {
             // Don't use it.
             // XmlSerializer xmlSerializer = new(typeof(T));
@@ -54,7 +54,7 @@ namespace DataCore.DAL.Models
             return stringWriter.ToString();
         }
 
-        public virtual string SerializeAsXml<T>() where T : new()
+        public string SerializeAsXml()
         {
             // Don't use it.
             // XmlSerializer xmlSerializer = new(typeof(T));
@@ -65,7 +65,7 @@ namespace DataCore.DAL.Models
             return stringWriter.ToString();
         }
 
-        public virtual T DeserializeFromXml<T>(string xml) where T : new()
+        public static T DeserializeFromXml(string xml)
         {
             // Don't use it.
             // XmlSerializer xmlSerializer = new(typeof(T));
@@ -74,7 +74,7 @@ namespace DataCore.DAL.Models
             return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
         }
 
-        public virtual T DeserializeFromXmlVersion2<T>(string xml) where T : new()
+        public static T DeserializeFromXmlVersion2(string xml)
         {
             // Don't use it.
             // XmlSerializer xmlSerializer = new(typeof(T));
@@ -89,7 +89,7 @@ namespace DataCore.DAL.Models
             return result;
         }
 
-        public virtual string SerializeAsHtml() => @$"
+        public string SerializeAsHtml() => @$"
 <html>
     <body>
         {this}
@@ -97,11 +97,11 @@ namespace DataCore.DAL.Models
 </html>
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-        public virtual string SerializeAsText() => ToString();
+        public string SerializeAsText() => ToString();
 
-        public virtual ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
+        public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
 
-        public virtual string GetContentType(FormatType format) => format switch
+        private static string GetContentType(FormatType format) => format switch
         {
             FormatType.Xml => "application/xml",
             FormatType.Json => "application/json",
@@ -111,21 +111,21 @@ namespace DataCore.DAL.Models
             _ => throw GetArgumentException(nameof(format)),
         };
 
-        public virtual ContentResult GetResultInside(FormatType format, object content, HttpStatusCode statusCode) => new()
+        private static ContentResult GetResultInside(FormatType format, object content, HttpStatusCode statusCode) => new()
         {
             ContentType = GetContentType(format),
             StatusCode = (int)statusCode,
             Content = content is string ? content as string : content?.ToString()
         };
 
-        public virtual ContentResult GetResult(FormatType format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
+        public static ContentResult GetResult(FormatType format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
 
-        public virtual ContentResult GetResult<T>(FormatType format, HttpStatusCode statusCode) where T : new()
+        public ContentResult GetResult(FormatType format, HttpStatusCode statusCode)
         {
             return format switch
             {
                 FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
-                FormatType.Xml => GetResult(format, SerializeAsXml<T>(), statusCode),
+                FormatType.Xml => GetResult(format, SerializeAsXml(), statusCode),
                 FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
                 FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
                 _ => throw GetArgumentException(nameof(format)),

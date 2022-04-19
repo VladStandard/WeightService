@@ -23,13 +23,13 @@
 
 //                foreach (int i in TestsEnums.GetInt())
 //                {
-//                    DeviceEntity entity = new DeviceEntity
+//                    DeviceEntity item = new DeviceEntity
 //                    {
 //                        Id = i,
 //                        Scales = new ScaleEntity(),
 //                    };
-//                    _ = entity.ToString();
-//                    Assert.AreEqual(false, entityNew.Equals(entity));
+//                    _ = item.ToString();
+//                    Assert.AreEqual(false, entityNew.Equals(item));
 //                }
 //            });
 
@@ -46,7 +46,7 @@
 //                int i = 0;
 //                foreach (ScaleEntity scalesEntity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ScaleEntity>(null, null))
 //                {
-//                    DeviceEntity entity = new DeviceEntity
+//                    DeviceEntity item = new DeviceEntity
 //                    {
 //                        Id = i,
 //                        Scales = scalesEntity,

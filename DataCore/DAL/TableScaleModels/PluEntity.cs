@@ -12,7 +12,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "PLUs".
     /// </summary>
-    public class PluEntity : BaseEntity<PluEntity>
+    public class PluEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -241,29 +241,29 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(CheckWeight)}: {CheckWeight}. ";
         }
 
-        public virtual bool Equals(PluEntity entity)
+        public virtual bool Equals(PluEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Template, entity.Template) &&
-                   Equals(Scale, entity.Scale) &&
-                   Equals(Nomenclature, entity.Nomenclature) &&
-                   Equals(GoodsName, entity.GoodsName) &&
-                   Equals(GoodsFullName, entity.GoodsFullName) &&
-                   Equals(GoodsDescription, entity.GoodsDescription) &&
-                   Equals(Gtin, entity.Gtin) &&
-                   Equals(Ean13, entity.Ean13) &&
-                   Equals(Itf14, entity.Itf14) &&
-                   Equals(GoodsShelfLifeDays, entity.GoodsShelfLifeDays) &&
-                   Equals(GoodsTareWeight, entity.GoodsTareWeight) &&
-                   Equals(GoodsBoxQuantly, entity.GoodsBoxQuantly) &&
-                   Equals(Plu, entity.Plu) &&
-                   Equals(Active, entity.Active) &&
-                   Equals(UpperWeightThreshold, entity.UpperWeightThreshold) &&
-                   Equals(NominalWeight, entity.NominalWeight) &&
-                   Equals(LowerWeightThreshold, entity.LowerWeightThreshold) &&
-                   Equals(CheckWeight, entity.CheckWeight);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Template, item.Template) &&
+                   Equals(Scale, item.Scale) &&
+                   Equals(Nomenclature, item.Nomenclature) &&
+                   Equals(GoodsName, item.GoodsName) &&
+                   Equals(GoodsFullName, item.GoodsFullName) &&
+                   Equals(GoodsDescription, item.GoodsDescription) &&
+                   Equals(Gtin, item.Gtin) &&
+                   Equals(Ean13, item.Ean13) &&
+                   Equals(Itf14, item.Itf14) &&
+                   Equals(GoodsShelfLifeDays, item.GoodsShelfLifeDays) &&
+                   Equals(GoodsTareWeight, item.GoodsTareWeight) &&
+                   Equals(GoodsBoxQuantly, item.GoodsBoxQuantly) &&
+                   Equals(Plu, item.Plu) &&
+                   Equals(Active, item.Active) &&
+                   Equals(UpperWeightThreshold, item.UpperWeightThreshold) &&
+                   Equals(NominalWeight, item.NominalWeight) &&
+                   Equals(LowerWeightThreshold, item.LowerWeightThreshold) &&
+                   Equals(CheckWeight, item.CheckWeight);
         }
 
         public override bool Equals(object obj)

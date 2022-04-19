@@ -68,7 +68,7 @@ namespace MdmControlCore.Utils
         
         public static IEnumerable<TypeEntity<short>> GetEnumRelevenaceStatusesRus()
         {
-            var result = new List<TypeEntity<short>>
+            List<TypeEntity<short>> result = new List<TypeEntity<short>>
             {
                 new("Неизвестно", 0),
                 new("Актуально", 1),
@@ -84,7 +84,7 @@ namespace MdmControlCore.Utils
         
         public static IEnumerable<TypeEntity<short>> GetEnumNormilizationStatusesRus()
         {
-            var result = new List<TypeEntity<short>>
+            List<TypeEntity<short>> result = new List<TypeEntity<short>>
             {
                 new("Ненормализована", 0),
                 new("Нормализована полностью", 1),

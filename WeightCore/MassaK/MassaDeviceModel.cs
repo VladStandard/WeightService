@@ -33,7 +33,7 @@ namespace WeightCore.MassaK
 
         public MassaDeviceModel(string portName, short? readTimeout, short? writeTimeout, ResponseCallback responseCallback)
         {
-            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+            Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
             PortName = portName;
             ReadTimeout = readTimeout ?? 100;
@@ -116,7 +116,7 @@ namespace WeightCore.MassaK
             SendBytesCount += massaExchange.Request.Length;
         }
 
-        public void CloseMethod()
+        public void Close()
         {
             if (IsClosedMethod) return;
             IsOpenedMethod = false;
@@ -128,7 +128,7 @@ namespace WeightCore.MassaK
 
         public void ReleaseManaged()
         {
-            CloseMethod();
+            Close();
 
             //SerialPortController.SerialPortModel.SerialPort.Dispose();
             //SerialPortController.SerialPortModel.SerialPort = null;

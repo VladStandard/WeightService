@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class NomenclatureLightEntity : BaseEntity<NomenclatureLightEntity>
+    public class NomenclatureLightEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -66,21 +66,21 @@ namespace DataCore.DAL.TableDwhModels
                    $"{nameof(MasterId)}: {MasterId}. ";
         }
 
-        public virtual bool Equals(NomenclatureLightEntity entity)
+        public virtual bool Equals(NomenclatureLightEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Code, entity.Code) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(Parents, entity.Parents) &&
-                   Equals(NameFull, entity.NameFull) &&
-                   Equals(IsService, entity.IsService) &&
-                   Equals(IsProduct, entity.IsProduct) &&
-                   Equals(InformationSystem, entity.InformationSystem) &&
-                   Equals(RelevanceStatus, entity.RelevanceStatus) &&
-                   Equals(NormalizationStatus, entity.NormalizationStatus) &&
-                   Equals(MasterId, entity.MasterId);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Code, item.Code) &&
+                   Equals(Name, item.Name) &&
+                   Equals(Parents, item.Parents) &&
+                   Equals(NameFull, item.NameFull) &&
+                   Equals(IsService, item.IsService) &&
+                   Equals(IsProduct, item.IsProduct) &&
+                   Equals(InformationSystem, item.InformationSystem) &&
+                   Equals(RelevanceStatus, item.RelevanceStatus) &&
+                   Equals(NormalizationStatus, item.NormalizationStatus) &&
+                   Equals(MasterId, item.MasterId);
         }
 
         public override bool Equals(object obj)

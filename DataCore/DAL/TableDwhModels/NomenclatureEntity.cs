@@ -6,7 +6,7 @@ using DataCore.DAL.Utils;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class NomenclatureEntity : BaseEntity<NomenclatureEntity>
+    public class NomenclatureEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -146,46 +146,46 @@ namespace DataCore.DAL.TableDwhModels
                    $"{nameof(MasterId)}: {MasterId}. ";
         }
 
-        public virtual bool Equals(NomenclatureEntity entity)
+        public virtual bool Equals(NomenclatureEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Code, entity.Code) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(Parents, entity.Parents) &&
-                   Equals(Article, entity.Article) &&
-                   Equals(Weighted, entity.Weighted) &&
-                   Equals(GuidMercury, entity.GuidMercury) &&
-                   Equals(KeepTrackOfCharacteristics, entity.KeepTrackOfCharacteristics) &&
-                   Equals(NameFull, entity.NameFull) &&
-                   Equals(Comment, entity.Comment) &&
-                   Equals(IsService, entity.IsService) &&
-                   Equals(IsProduct, entity.IsProduct) &&
-                   Equals(AdditionalDescriptionOfNomenclature, entity.AdditionalDescriptionOfNomenclature) &&
-                   Equals(NomenclatureGroupCostBytes, entity.NomenclatureGroupCostBytes) &&
-                   Equals(NomenclatureGroupCost, entity.NomenclatureGroupCost) &&
-                   Equals(NomenclatureGroupBytes, entity.NomenclatureGroupBytes) &&
-                   Equals(NomenclatureGroup, entity.NomenclatureGroup) &&
-                   Equals(ArticleCost, entity.ArticleCost) &&
-                   Equals(BrandBytes, entity.BrandBytes) &&
-                   Equals(Brand, entity.Brand) &&
-                   Equals(NomenclatureTypeBytes, entity.NomenclatureTypeBytes) &&
-                   Equals(NomenclatureType, entity.NomenclatureType) &&
-                   Equals(VatRate, entity.VatRate) &&
-                   Equals(Unit, entity.Unit) &&
-                   Equals(Weight, entity.Weight) &&
-                   Equals(BoxTypeId, entity.BoxTypeId) &&
-                   Equals(BoxTypeName, entity.BoxTypeName) &&
-                   Equals(PackTypeId, entity.PackTypeId) &&
-                   Equals(PackTypeName, entity.PackTypeName) &&
-                   Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject) &&
-                   Equals(Status, entity.Status) &&
-                   Equals(InformationSystem, entity.InformationSystem) &&
-                   Equals(CodeInIs, entity.CodeInIs) &&
-                   Equals(RelevanceStatus, entity.RelevanceStatus) &&
-                   Equals(NormalizationStatus, entity.NormalizationStatus) &&
-                   Equals(MasterId, entity.MasterId);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Code, item.Code) &&
+                   Equals(Name, item.Name) &&
+                   Equals(Parents, item.Parents) &&
+                   Equals(Article, item.Article) &&
+                   Equals(Weighted, item.Weighted) &&
+                   Equals(GuidMercury, item.GuidMercury) &&
+                   Equals(KeepTrackOfCharacteristics, item.KeepTrackOfCharacteristics) &&
+                   Equals(NameFull, item.NameFull) &&
+                   Equals(Comment, item.Comment) &&
+                   Equals(IsService, item.IsService) &&
+                   Equals(IsProduct, item.IsProduct) &&
+                   Equals(AdditionalDescriptionOfNomenclature, item.AdditionalDescriptionOfNomenclature) &&
+                   Equals(NomenclatureGroupCostBytes, item.NomenclatureGroupCostBytes) &&
+                   Equals(NomenclatureGroupCost, item.NomenclatureGroupCost) &&
+                   Equals(NomenclatureGroupBytes, item.NomenclatureGroupBytes) &&
+                   Equals(NomenclatureGroup, item.NomenclatureGroup) &&
+                   Equals(ArticleCost, item.ArticleCost) &&
+                   Equals(BrandBytes, item.BrandBytes) &&
+                   Equals(Brand, item.Brand) &&
+                   Equals(NomenclatureTypeBytes, item.NomenclatureTypeBytes) &&
+                   Equals(NomenclatureType, item.NomenclatureType) &&
+                   Equals(VatRate, item.VatRate) &&
+                   Equals(Unit, item.Unit) &&
+                   Equals(Weight, item.Weight) &&
+                   Equals(BoxTypeId, item.BoxTypeId) &&
+                   Equals(BoxTypeName, item.BoxTypeName) &&
+                   Equals(PackTypeId, item.PackTypeId) &&
+                   Equals(PackTypeName, item.PackTypeName) &&
+                   Equals(SerializedRepresentationObject, item.SerializedRepresentationObject) &&
+                   Equals(Status, item.Status) &&
+                   Equals(InformationSystem, item.InformationSystem) &&
+                   Equals(CodeInIs, item.CodeInIs) &&
+                   Equals(RelevanceStatus, item.RelevanceStatus) &&
+                   Equals(NormalizationStatus, item.NormalizationStatus) &&
+                   Equals(MasterId, item.MasterId);
         }
 
         public override bool Equals(object obj)

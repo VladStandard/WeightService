@@ -6,7 +6,7 @@ using DataCore.DAL.TableScaleModels;
 
 namespace DataCore.DAL.DataModels
 {
-    public class DeviceEntity : BaseEntity<DeviceEntity>
+    public class DeviceEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -42,10 +42,10 @@ namespace DataCore.DAL.DataModels
 
         public override bool Equals(object obj)
         {
-            if (obj is DeviceEntity entity)
+            if (obj is DeviceEntity item)
             {
                 return
-                   Scales == null && entity.Scales == null || Scales != null && Scales.Equals(entity.Scales);
+                   Scales == null && item.Scales == null || Scales != null && Scales.Equals(item.Scales);
             }
             return false;
         }

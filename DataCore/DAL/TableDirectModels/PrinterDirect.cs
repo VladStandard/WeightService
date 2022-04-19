@@ -9,7 +9,7 @@ using System.Threading;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class PrinterDirect : BaseSerializeEntity<PrinterDirect>
+    public class PrinterDirect : BaseSerializeDeprecatedEntity<PrinterDirect>
     {
         #region Design pattern "Lazy Singleton"
 

@@ -99,6 +99,7 @@ namespace DataCore.Localization
                 public static string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
             }
             #region Menu
+            public static string From => Lang == ShareEnums.Lang.English ? "from" : "из";
             public static string FileChoose => Lang == ShareEnums.Lang.English ? "Select a file" : "Выбрать файл";
             public static string FileDialog => Lang == ShareEnums.Lang.English ? "File dialog" : "Файловый диалог";
             public static string FileDownload => Lang == ShareEnums.Lang.English ? "Download a file" : "Скачать файл";

@@ -50,13 +50,13 @@ namespace BlazorCore.Models
         public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
             ? 0f : (float)(Memory.MemorySize.PhysicalCurrent.MegaBytes) * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
-        public string SqlServerDescription => DataAccess.JsonSettings?.Sql is { Server: { } }
+        public string SqlServerDescription => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } }
             ? DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? Core.Strings.Main.ServerRelease : Core.Strings.Main.ServerDevelop
             : Core.Strings.Main.NotLoad;
-        public bool IsSqlServerRelease => DataAccess.JsonSettings?.Sql is { Server: { } } && 
+        public bool IsSqlServerRelease => DataAccess.JsonSettings != null && DataAccess.JsonSettings?.Sql is { Server: { } } && 
             DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => DataAccess.JsonSettings?.Sql is { Server: { } } && 
+        public bool IsSqlServerDebug => DataAccess.JsonSettings != null && DataAccess.JsonSettings?.Sql is { Server: { } } && 
             DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion

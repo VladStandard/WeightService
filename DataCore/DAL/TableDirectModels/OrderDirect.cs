@@ -11,7 +11,7 @@ using System.Text;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class OrderDirect : BaseSerializeEntity<OrderDirect>
+    public class OrderDirect : BaseSerializeDeprecatedEntity<OrderDirect>
     {
         #region Public and private fields and properties
 

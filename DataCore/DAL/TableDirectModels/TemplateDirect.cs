@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class TemplateDirect : BaseSerializeEntity<TemplateDirect>
+    public class TemplateDirect : BaseSerializeDeprecatedEntity<TemplateDirect>
     {
         #region Public and private fields and properties
 

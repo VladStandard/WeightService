@@ -6,7 +6,7 @@ using System;
 
 namespace DataCore.DAL.DataModels
 {
-    public class LogQuickEntity : BaseEntity<LogQuickEntity>
+    public class LogQuickEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -60,21 +60,21 @@ namespace DataCore.DAL.DataModels
                    $"{nameof(Message)}: {Message}. ";
         }
 
-        public virtual bool Equals(LogQuickEntity entity)
+        public virtual bool Equals(LogQuickEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(CreateDt, entity.CreateDt) &&
-                   Equals(Scale, entity.Scale) &&
-                   Equals(Host, entity.Host) &&
-                   Equals(App, entity.App) &&
-                   Equals(Version, entity.Version) &&
-                   Equals(File, entity.File) &&
-                   Equals(Line, entity.Line) &&
-                   Equals(Member, entity.Member) &&
-                   Equals(Icon, entity.Icon) &&
-                   Equals(Message, entity.Message);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(CreateDt, item.CreateDt) &&
+                   Equals(Scale, item.Scale) &&
+                   Equals(Host, item.Host) &&
+                   Equals(App, item.App) &&
+                   Equals(Version, item.Version) &&
+                   Equals(File, item.File) &&
+                   Equals(Line, item.Line) &&
+                   Equals(Member, item.Member) &&
+                   Equals(Icon, item.Icon) &&
+                   Equals(Message, item.Message);
         }
 
         public override bool Equals(object obj)

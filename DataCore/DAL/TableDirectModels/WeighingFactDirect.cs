@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class WeighingFactDirect : BaseSerializeEntity<WeighingFactDirect>
+    public class WeighingFactDirect : BaseSerializeDeprecatedEntity<WeighingFactDirect>
     {
         #region Public and private fields and properties
 

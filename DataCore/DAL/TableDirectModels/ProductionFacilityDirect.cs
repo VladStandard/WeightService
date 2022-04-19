@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class ProductionFacilityDirect : BaseSerializeEntity<ProductionFacilityDirect>
+    public class ProductionFacilityDirect : BaseSerializeDeprecatedEntity<ProductionFacilityDirect>
     {
         #region Public and private fields and properties
 

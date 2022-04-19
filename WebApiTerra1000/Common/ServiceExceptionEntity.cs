@@ -9,7 +9,7 @@ using WebApiTerra1000.Utils;
 namespace WebApiTerra1000.Common
 {
     [XmlRoot(TerraConsts.Exception, Namespace = "", IsNullable = false)]
-    public class ServiceExceptionEntity : BaseSerializeEntity<ServiceExceptionEntity>
+    public class ServiceExceptionEntity : BaseSerializeDeprecatedEntity<ServiceExceptionEntity>
     {
         #region Public and private fields and properties
 

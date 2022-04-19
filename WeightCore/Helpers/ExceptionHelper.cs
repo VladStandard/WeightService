@@ -5,6 +5,7 @@ using DataCore.DAL.DataModels;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeightCore.Gui;
 
@@ -50,6 +51,13 @@ namespace WeightCore.Helpers
                     GuiUtils.WpfForm.ShowNewCatch(owner, message, filePath, lineNumber, memberName);
                 }
             }
+        }
+
+        public void Catch(IWin32Window owner, ref TaskCanceledException tcex, bool isShowException,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            Exception ex = (tcex.InnerException != null) ? new(tcex.Message, tcex.InnerException) : new(tcex.Message);
+            Catch(owner, ref ex, isShowException, filePath, lineNumber, memberName);
         }
 
         #endregion

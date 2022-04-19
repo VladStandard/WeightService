@@ -6,7 +6,7 @@ using DataCore.DAL.Utils;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class NomenclatureGroupEntity : BaseEntity<NomenclatureGroupEntity>
+    public class NomenclatureGroupEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -46,15 +46,15 @@ namespace DataCore.DAL.TableDwhModels
                    $"{nameof(CodeInIs)}.Length: {CodeInIs?.Length ?? 0}. ";
         }
 
-        public virtual bool Equals(NomenclatureGroupEntity entity)
+        public virtual bool Equals(NomenclatureGroupEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(StatusId, entity.StatusId) &&
-                   Equals(InformationSystem, entity.InformationSystem) &&
-                   Equals(CodeInIs, entity.CodeInIs);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name) &&
+                   Equals(StatusId, item.StatusId) &&
+                   Equals(InformationSystem, item.InformationSystem) &&
+                   Equals(CodeInIs, item.CodeInIs);
         }
 
         public override bool Equals(object obj)

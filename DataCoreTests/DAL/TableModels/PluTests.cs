@@ -28,7 +28,7 @@
 //                                foreach (System.DateTime dt in TestsEnums.GetDateTime())
 //                                    foreach (bool b in TestsEnums.GetBool())
 //                                    {
-//                                        PluEntity entity = new()
+//                                        PluEntity item = new()
 //                                        {
 //                                            Id = i,
 //                                            CreateDate = dt,
@@ -48,8 +48,8 @@
 //                                            Plu = i,
 //                                            Active = b
 //                                        };
-//                                        _ = entity.ToString();
-//                                        Assert.AreEqual(false, entityNew.Equals(entity));
+//                                        _ = item.ToString();
+//                                        Assert.AreEqual(false, entityNew.Equals(item));
 //                                    }
 //            });
 

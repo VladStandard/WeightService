@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Contragents".
     /// </summary>
-    public class ContragentEntityV2 : BaseEntity<ContragentEntityV2>
+    public class ContragentEntityV2 : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -56,16 +56,16 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Xml)}.Length: {Xml?.Length ?? 0}. ";
         }
 
-        public virtual bool Equals(ContragentEntityV2 entity)
+        public virtual bool Equals(ContragentEntityV2 item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(FullName, entity.FullName) &&
-                   Equals(IdRRef, entity.IdRRef) &&
-                   Equals(DwhId, entity.DwhId) &&
-                   Equals(Xml, entity.Xml);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name) &&
+                   Equals(FullName, item.FullName) &&
+                   Equals(IdRRef, item.IdRRef) &&
+                   Equals(DwhId, item.DwhId) &&
+                   Equals(Xml, item.Xml);
         }
 
         public override bool Equals(object obj)

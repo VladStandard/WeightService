@@ -26,15 +26,15 @@
 //                        foreach (string s in TestsEnums.GetString())
 //                            foreach (byte bytes in TestsEnums.GetBytes())
 //                            {
-//                                OrderStatusEntity entity = new()
+//                                OrderStatusEntity item = new()
 //                                {
 //                                    Id = i,
 //                                    OrderId = s,
 //                                    CurrentDate = dt,
 //                                    CurrentStatus = bytes
 //                                };
-//                                _ = entity.ToString();
-//                                Assert.AreEqual(false, entityNew.Equals(entity));
+//                                _ = item.ToString();
+//                                Assert.AreEqual(false, entityNew.Equals(item));
 //                            }
 //            });
 

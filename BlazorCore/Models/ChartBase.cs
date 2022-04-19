@@ -41,12 +41,12 @@ namespace BlazorCore.Models
                             i++;
                         }
                     }
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
+                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(item => item.Date).ToArray();
                     result = new ChartCountEntity[entitiesGroupCreated.Length];
                     i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupCreated)
+                    foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupCreated)
                     {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
+                        result[i] = new ChartCountEntity(item.Key, item.Count());
                         i++;
                     }
                     break;
@@ -60,12 +60,12 @@ namespace BlazorCore.Models
                             i++;
                         }
                     }
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupModified = entitiesDateModified.GroupBy(entity => entity.Date).ToArray();
+                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupModified = entitiesDateModified.GroupBy(item => item.Date).ToArray();
                     result = new ChartCountEntity[entitiesGroupModified.Length];
                     i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupModified)
+                    foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupModified)
                     {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
+                        result[i] = new ChartCountEntity(item.Key, item.Count());
                         i++;
                     }
                     break;
@@ -83,36 +83,36 @@ namespace BlazorCore.Models
             {
                 case ShareEnums.DbField.CreateDt:
                     List<ChartCountEntity> entitiesDateCreated = new();
-                    foreach (NomenclatureEntity entity in items)
+                    foreach (NomenclatureEntity item in items)
                     {
-                        if (entity.CreateDt != default)
-                            entitiesDateCreated.Add(new ChartCountEntity(entity.CreateDt.Date, 1));
+                        if (item.CreateDt != default)
+                            entitiesDateCreated.Add(new ChartCountEntity(item.CreateDt.Date, 1));
                         i++;
                     }
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
+                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(item => item.Date).ToArray();
                     result = new ChartCountEntity[entitiesGroupCreated.Length];
                     i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupCreated)
+                    foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupCreated)
                     {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
+                        result[i] = new ChartCountEntity(item.Key, item.Count());
                         i++;
                     }
                     break;
                 case ShareEnums.DbField.ChangeDt:
                     List<ChartCountEntity> entitiesDateModified = new();
-                    foreach (NomenclatureEntity entity in items)
+                    foreach (NomenclatureEntity item in items)
                     {
-                        if (entity.ChangeDt != default)
-                            entitiesDateModified.Add(new ChartCountEntity(entity.ChangeDt.Date, 1));
+                        if (item.ChangeDt != default)
+                            entitiesDateModified.Add(new ChartCountEntity(item.ChangeDt.Date, 1));
                         i++;
                     }
 
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesModied = entitiesDateModified.GroupBy(entity => entity.Date).ToArray();
+                    IGrouping<DateTime, ChartCountEntity>[] entitiesModied = entitiesDateModified.GroupBy(item => item.Date).ToArray();
                     result = new ChartCountEntity[entitiesModied.Length];
                     i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesModied)
+                    foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesModied)
                     {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
+                        result[i] = new ChartCountEntity(item.Key, item.Count());
                         i++;
                     }
 

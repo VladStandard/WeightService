@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Logs".
     /// </summary>
-    public class LogEntity : BaseEntity<LogEntity>
+    public class LogEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -66,20 +66,20 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Message)}: {Message}. ";
         }
 
-        public virtual bool Equals(LogEntity entity)
+        public virtual bool Equals(LogEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Scale, entity.Scale) &&
-                   Equals(Host, entity.Host) &&
-                   Equals(App, entity.App) &&
-                   Equals(Version, entity.Version) &&
-                   Equals(File, entity.File) &&
-                   Equals(Line, entity.Line) &&
-                   Equals(Member, entity.Member) &&
-                   Equals(LogType, entity.LogType) &&
-                   Equals(Message, entity.Message);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Scale, item.Scale) &&
+                   Equals(Host, item.Host) &&
+                   Equals(App, item.App) &&
+                   Equals(Version, item.Version) &&
+                   Equals(File, item.File) &&
+                   Equals(Line, item.Line) &&
+                   Equals(Member, item.Member) &&
+                   Equals(LogType, item.LogType) &&
+                   Equals(Message, item.Message);
         }
 
         public override bool Equals(object obj)

@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Access".
     /// </summary>
-    public class AccessEntity : BaseEntity<AccessEntity>
+    public class AccessEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -42,13 +42,13 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Rights)}: {Rights}. ";
         }
 
-        public virtual bool Equals(AccessEntity entity)
+        public virtual bool Equals(AccessEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(User, entity.User) &&
-                   Equals(Rights, entity.Rights);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(User, item.User) &&
+                   Equals(Rights, item.Rights);
         }
 
         public override bool Equals(object obj)

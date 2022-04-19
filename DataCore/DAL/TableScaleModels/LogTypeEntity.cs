@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "LogTypes".
     /// </summary>
-    public class LogTypeEntity : BaseEntity<LogTypeEntity>
+    public class LogTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -42,13 +42,13 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Icon)}: {Icon}. ";
         }
 
-        public virtual bool Equals(LogTypeEntity entity)
+        public virtual bool Equals(LogTypeEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Number, entity.Number) &&
-                   Equals(Icon, entity.Icon);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Number, item.Number) &&
+                   Equals(Icon, item.Icon);
         }
 
         public override bool Equals(object obj)

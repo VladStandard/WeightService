@@ -50,7 +50,7 @@ namespace WeightCore.Managers
 
         public ManagerBase() : base()
         {
-            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+            Init(Close, ReleaseManaged, ReleaseUnmanaged);
         }
 
         public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback,
@@ -91,7 +91,7 @@ namespace WeightCore.Managers
 
         public void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
-            CloseMethod();
+            Close();
             if (IsOpenedMethod) return;
             IsOpenedMethod = true;
             IsClosedMethod = false;
@@ -121,6 +121,46 @@ namespace WeightCore.Managers
                 task.Dispose();
         }
 
+        //[Obsolete(@"Use OpenTaskReopen")]
+        //private void OpenTaskReopenDeprecated(ReopenCallback callback,
+        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        //{
+        //    OpenTaskBase(TaskReopen, CtsReopen);
+        //    CtsReopen = new CancellationTokenSource();
+
+        //    TaskReopen = Task.Run(async () =>
+        //    {
+        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        //        MutexReopen = new AsyncLock();
+        //        while (MutexReopen != null && CtsReopen != null)
+        //        {
+        //            try
+        //            {
+        //                // AsyncLock can be locked asynchronously
+        //                using (await MutexReopen.LockAsync(CtsReopen.Token))
+        //                {
+        //                    if (CtsReopen.IsCancellationRequested)
+        //                        break;
+        //                    // It's safe to await while the lock is held
+        //                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+        //                    callback?.Invoke();
+        //                    //WaitSync(WaitReopen);
+        //                }
+        //            }
+        //            catch (TaskCanceledException tcex)
+        //            {
+        //                // Not the problem.
+        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                WaitSync(WaitException);
+        //            }
+        //        }
+        //    });
+        //}
+
         private void OpenTaskReopen(ReopenCallback callback,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
@@ -136,20 +176,22 @@ namespace WeightCore.Managers
                     try
                     {
                         // AsyncLock can be locked asynchronously
-                        using (await MutexReopen.LockAsync(CtsReopen.Token))
+                        AwaitableDisposable<IDisposable> lockTask = MutexReopen.LockAsync(CtsReopen.Token);
+                        if (CtsReopen.IsCancellationRequested)
+                            break;
+                        using (await lockTask)
                         {
-                            if (CtsReopen.IsCancellationRequested)
-                                break;
                             // It's safe to await while the lock is held
-                            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(true);
                             callback?.Invoke();
-                            //WaitSync(WaitReopen);
                         }
+                        WaitSync(WaitReopen);
                     }
-                    catch (TaskCanceledException)
+                    catch (TaskCanceledException tcex)
                     {
-                        // Console.WriteLine(tcex.Message);
                         // Not the problem.
+                        Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+                        WaitSync(WaitException);
                     }
                     catch (Exception ex)
                     {
@@ -159,6 +201,46 @@ namespace WeightCore.Managers
                 }
             });
         }
+
+        //[Obsolete(@"Use OpenTaskRequest")]
+        //private void OpenTaskRequestDeprecated(RequestCallback callback,
+        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        //{
+        //    OpenTaskBase(TaskRequest, CtsRequest);
+        //    CtsRequest = new CancellationTokenSource();
+
+        //    TaskRequest = Task.Run(async () =>
+        //    {
+        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        //        MutexRequest = new AsyncLock();
+        //        while (MutexRequest != null && CtsRequest != null)
+        //        {
+        //            try
+        //            {
+        //                // AsyncLock can be locked asynchronously
+        //                using (await MutexRequest.LockAsync(CtsRequest.Token))
+        //                {
+        //                    if (CtsRequest == null || CtsRequest.IsCancellationRequested)
+        //                        break;
+        //                    // It's safe to await while the lock is held
+        //                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+        //                    callback?.Invoke();
+        //                    //WaitSync(WaitRequest);
+        //                }
+        //            }
+        //            catch (TaskCanceledException tcex)
+        //            {
+        //                // Not the problem.
+        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                WaitSync(WaitException);
+        //            }
+        //        }
+        //    });
+        //}
 
         private void OpenTaskRequest(RequestCallback callback,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -175,20 +257,22 @@ namespace WeightCore.Managers
                     try
                     {
                         // AsyncLock can be locked asynchronously
-                        using (await MutexRequest.LockAsync(CtsRequest.Token))
+                        AwaitableDisposable<IDisposable> lockTask = MutexRequest.LockAsync(CtsRequest.Token);
+                        if (CtsRequest.IsCancellationRequested)
+                            break;
+                        using (await lockTask)
                         {
-                            if (CtsRequest == null || CtsRequest.IsCancellationRequested)
-                                break;
                             // It's safe to await while the lock is held
-                            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitRequest)).ConfigureAwait(true);
                             callback?.Invoke();
-                            //WaitSync(WaitRequest);
                         }
+                        WaitSync(WaitRequest);
                     }
-                    catch (TaskCanceledException)
+                    catch (TaskCanceledException tcex)
                     {
-                        // Console.WriteLine(tcex.Message);
                         // Not the problem.
+                        Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+                        WaitSync(WaitException);
                     }
                     catch (Exception ex)
                     {
@@ -198,6 +282,46 @@ namespace WeightCore.Managers
                 }
             });
         }
+
+        //[Obsolete(@"Deprecated method")]
+        //private void OpenTaskResponseDeprecated(ResponseCallback callback,
+        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        //{
+        //    OpenTaskBase(TaskResponse, CtsResponse);
+        //    CtsResponse = new CancellationTokenSource();
+
+        //    TaskResponse = Task.Run(async () =>
+        //    {
+        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        //        MutexResponse = new AsyncLock();
+        //        while (MutexResponse != null && CtsResponse != null)
+        //        {
+        //            try
+        //            {
+        //                // AsyncLock can be locked asynchronously
+        //                using (await MutexResponse.LockAsync(CtsResponse.Token))
+        //                {
+        //                    if (CtsResponse == null || CtsResponse.IsCancellationRequested)
+        //                        break;
+        //                    // It's safe to await while the lock is held
+        //                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+        //                    callback?.Invoke();
+        //                    //WaitSync(WaitResponse);
+        //                }
+        //            }
+        //            catch (TaskCanceledException tcex)
+        //            {
+        //                // Not the problem.
+        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                WaitSync(WaitException);
+        //            }
+        //        }
+        //    });
+        //}
 
         private void OpenTaskResponse(ResponseCallback callback,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -212,22 +336,24 @@ namespace WeightCore.Managers
                 while (MutexResponse != null && CtsResponse != null)
                 {
                     try
-                    {
+                    {                        
                         // AsyncLock can be locked asynchronously
-                        using (await MutexResponse.LockAsync(CtsResponse.Token))
+                        AwaitableDisposable<IDisposable> lockTask = MutexResponse.LockAsync(CtsResponse.Token);
+                        if (CtsResponse.IsCancellationRequested)
+                            break;
+                        using (await lockTask)
                         {
-                            if (CtsResponse == null || CtsResponse.IsCancellationRequested)
-                                break;
                             // It's safe to await while the lock is held
-                            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitResponse)).ConfigureAwait(true);
                             callback?.Invoke();
-                            //WaitSync(WaitResponse);
                         }
+                        WaitSync(WaitResponse);
                     }
-                    catch (TaskCanceledException)
+                    catch (TaskCanceledException tcex)
                     {
-                        // Console.WriteLine(tcex.Message);
                         // Not the problem.
+                        Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+                        WaitSync(WaitException);
                     }
                     catch (Exception ex)
                     {
@@ -238,7 +364,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void CloseMethod()
+        public new void Close()
         {
             if (IsClosedMethod) return;
             IsOpenedMethod = false;
@@ -249,7 +375,7 @@ namespace WeightCore.Managers
             CtsRequest?.Cancel();
             CtsResponse?.Cancel();
 
-            //WaitSync(WaitClose);
+            WaitSync(WaitClose);
             //WaitSync(WaitClose, TaskReopen);
             //WaitSync(WaitClose, TaskRequest);
             //WaitSync(WaitClose, TaskResponse);
@@ -257,11 +383,13 @@ namespace WeightCore.Managers
             MutexReopen = null;
             MutexRequest = null;
             MutexResponse = null;
+
+            base.Close();
         }
 
         public void ReleaseManaged()
         {
-            CloseMethod();
+            Close();
 
             CtsReopen?.Cancel();
             CtsReopen?.Dispose();

@@ -10,7 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Scales".
     /// </summary>
-    public class ScaleEntity : BaseEntity<ScaleEntity>
+    public class ScaleEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -115,34 +115,34 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Host)}: {strHost}. ";
         }
 
-        public virtual bool Equals(ScaleEntity entity)
+        public virtual bool Equals(ScaleEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   TemplateDefault != null && entity.TemplateDefault != null && TemplateDefault.Equals(entity.TemplateDefault) &&
-                   TemplateSeries != null && entity.TemplateSeries != null && TemplateSeries.Equals(entity.TemplateSeries) &&
-                   Equals(Description, entity.Description) &&
-                   Equals(IdRRef, entity.IdRRef) &&
-                   Equals(DeviceIp, entity.DeviceIp) &&
-                   Equals(DevicePort, entity.DevicePort) &&
-                   Equals(DeviceMac, entity.DeviceMac) &&
-                   Equals(DeviceSendTimeout, entity.DeviceSendTimeout) &&
-                   Equals(DeviceReceiveTimeout, entity.DeviceReceiveTimeout) &&
-                   Equals(DeviceComPort, entity.DeviceComPort) &&
-                   Equals(ZebraIp, entity.ZebraIp) &&
-                   Equals(ZebraPort, entity.ZebraPort) &&
-                   Equals(UseOrder, entity.UseOrder) &&
-                   Equals(VerScalesUi, entity.VerScalesUi) &&
-                   Equals(DeviceNumber, entity.DeviceNumber) &&
-                   Equals(ScaleFactor, entity.ScaleFactor) &&
-                   WorkShop.Equals(entity.WorkShop) &&
-                   PrinterMain != null && entity.PrinterMain != null && PrinterMain.Equals(entity.PrinterMain) &&
-                   PrinterShipping != null && entity.PrinterShipping != null && PrinterShipping.Equals(entity.PrinterShipping) &&
-                   IsShipping.Equals(entity.IsShipping) &&
-                   IsKneading.Equals(entity.IsKneading) &&
-                   ShippingLength.Equals(entity.ShippingLength) &&
-                   Host != null && entity.Host != null && Host.Equals(entity.Host);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   TemplateDefault != null && item.TemplateDefault != null && TemplateDefault.Equals(item.TemplateDefault) &&
+                   TemplateSeries != null && item.TemplateSeries != null && TemplateSeries.Equals(item.TemplateSeries) &&
+                   Equals(Description, item.Description) &&
+                   Equals(IdRRef, item.IdRRef) &&
+                   Equals(DeviceIp, item.DeviceIp) &&
+                   Equals(DevicePort, item.DevicePort) &&
+                   Equals(DeviceMac, item.DeviceMac) &&
+                   Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
+                   Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
+                   Equals(DeviceComPort, item.DeviceComPort) &&
+                   Equals(ZebraIp, item.ZebraIp) &&
+                   Equals(ZebraPort, item.ZebraPort) &&
+                   Equals(UseOrder, item.UseOrder) &&
+                   Equals(VerScalesUi, item.VerScalesUi) &&
+                   Equals(DeviceNumber, item.DeviceNumber) &&
+                   Equals(ScaleFactor, item.ScaleFactor) &&
+                   WorkShop.Equals(item.WorkShop) &&
+                   PrinterMain != null && item.PrinterMain != null && PrinterMain.Equals(item.PrinterMain) &&
+                   PrinterShipping != null && item.PrinterShipping != null && PrinterShipping.Equals(item.PrinterShipping) &&
+                   IsShipping.Equals(item.IsShipping) &&
+                   IsKneading.Equals(item.IsKneading) &&
+                   ShippingLength.Equals(item.ShippingLength) &&
+                   Host != null && item.Host != null && Host.Equals(item.Host);
         }
 
         public override bool Equals(object obj)

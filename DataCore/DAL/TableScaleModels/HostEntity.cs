@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Hosts".
     /// </summary>
-    public class HostEntity : BaseEntity<HostEntity>
+    public class HostEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -67,17 +67,17 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(SettingsFile)}: {strSettingsFileString}. ";
         }
 
-        public virtual bool Equals(HostEntity entity)
+        public virtual bool Equals(HostEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(AccessDt, entity.AccessDt) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(Ip, entity.Ip) &&
-                   Equals(MacAddress, entity.MacAddress) &&
-                   Equals(IdRRef, entity.IdRRef) &&
-                   Equals(SettingsFile, entity.SettingsFile);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(AccessDt, item.AccessDt) &&
+                   Equals(Name, item.Name) &&
+                   Equals(Ip, item.Ip) &&
+                   Equals(MacAddress, item.MacAddress) &&
+                   Equals(IdRRef, item.IdRRef) &&
+                   Equals(SettingsFile, item.SettingsFile);
         }
 
         public override bool Equals(object obj)

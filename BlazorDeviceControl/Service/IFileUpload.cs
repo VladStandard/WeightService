@@ -13,6 +13,6 @@ namespace BlazorDeviceControl.Service
     {
         Task UploadAsync(IFileListEntry file);
         Task UploadAsync(string name, Stream stream);
-        Task UploadAsync(DataAccessEntity dataAccess, TemplateResourceEntity? entity, Stream stream);
+        Task UploadAsync(DataAccessEntity dataAccess, TemplateResourceEntity? item, Stream stream);
     }
 }

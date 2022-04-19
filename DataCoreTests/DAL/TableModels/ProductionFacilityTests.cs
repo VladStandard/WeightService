@@ -29,7 +29,7 @@
 //                        foreach (DateTime dt in TestsEnums.GetDateTime())
 //                            foreach (Guid guid in TestsEnums.GetGuid())
 //                            {
-//                                ProductionFacilityEntity entity = new()
+//                                ProductionFacilityEntity item = new()
 //                                {
 //                                    Id = i,
 //                                    Name = s,
@@ -37,8 +37,8 @@
 //                                    ChangeDt = dt,
 //                                    IdRRef = guid
 //                                };
-//                                _ = entity.ToString();
-//                                Assert.AreEqual(false, entityNew.Equals(entity));
+//                                _ = item.ToString();
+//                                Assert.AreEqual(false, entityNew.Equals(item));
 //                            }
 //            });
 
@@ -47,7 +47,7 @@
 
 //        public ProductionFacilityEntity EntityCreate(string name)
 //        {
-//            ProductionFacilityEntity entity = new()
+//            ProductionFacilityEntity item = new()
 //            {
 //                Id = -1,
 //                Name = name,
@@ -55,7 +55,7 @@
 //                ChangeDt = DateTime.Now,
 //                IdRRef = Guid.Empty
 //            };
-//            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(entity);
+//            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
 //            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
 //                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Name.ToString(), name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
@@ -76,12 +76,12 @@
 //                // GetEntities
 //                ProductionFacilityEntity[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (ProductionFacilityEntity entity in entities)
+//                foreach (ProductionFacilityEntity item in entities)
 //                {
-//                    if (entity.Name.Equals(entityNew.Name) || entity.Name.Equals(name))
+//                    if (item.Name.Equals(entityNew.Name) || item.Name.Equals(name))
 //                    {
 //                        // DeleteEntity
-//                        DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(entity);
+//                        DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(item);
 //                    }
 //                }
 //            }

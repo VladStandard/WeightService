@@ -42,15 +42,15 @@ namespace BlazorDeviceControl.Service
             ms.WriteTo(file);
         }
 
-        public async Task UploadAsync(DataAccessEntity dataAccess, TemplateResourceEntity entity, Stream stream)
+        public async Task UploadAsync(DataAccessEntity? dataAccess, TemplateResourceEntity? item, Stream stream)
         {
-            if (dataAccess == null || entity == null)
+            if (dataAccess == null || item == null)
                 return;
 
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            entity.ImageData = new(DataUtils.GetBytes(stream, true));
-            dataAccess.Crud.UpdateEntity(entity);
+            item.ImageData = new(DataUtils.GetBytes(stream, true));
+            dataAccess.Crud.UpdateEntity(item);
         }
     }
 }

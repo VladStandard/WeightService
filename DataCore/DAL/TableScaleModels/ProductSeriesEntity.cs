@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "ProductSeries".
     /// </summary>
-    public class ProductSeriesEntity : BaseEntity<ProductSeriesEntity>
+    public class ProductSeriesEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -45,15 +45,15 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Sscc)}: {Sscc}.";
         }
 
-        public virtual bool Equals(ProductSeriesEntity entity)
+        public virtual bool Equals(ProductSeriesEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(CreateDt, entity.CreateDt) &&
-                   Equals(Scale, entity.Scale) &&
-                   Equals(IsClose, entity.IsClose) &&
-                   Equals(Sscc, entity.Sscc);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(CreateDt, item.CreateDt) &&
+                   Equals(Scale, item.Scale) &&
+                   Equals(IsClose, item.IsClose) &&
+                   Equals(Sscc, item.Sscc);
         }
 
         public override bool Equals(object obj)

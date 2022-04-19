@@ -48,7 +48,6 @@ namespace WeightCore.Managers
         public void Init(ScaleEntity currentScale, PrintBrand printBrandMain, PrintBrand printBrandShipping)
         {
             Massa.Init(currentScale);
-            Memory.Init();
             PrintMain.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
             PrintShipping.Init(printBrandShipping, currentScale.PrinterShipping.Name, currentScale.PrinterShipping.Ip, currentScale.PrinterShipping.Port);
             PrintShipping.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
@@ -59,7 +58,6 @@ namespace WeightCore.Managers
             base.Open();
             if (SessionStateHelper.Instance.IsCurrentPluCheckWeight)
                 Massa?.Open();
-            Memory?.Open();
             PrintMain?.Open();
         }
 
@@ -67,7 +65,6 @@ namespace WeightCore.Managers
         {
             base.Close();
             Massa?.Close();
-            Memory?.Close();
             PrintMain?.Close();
         }
 

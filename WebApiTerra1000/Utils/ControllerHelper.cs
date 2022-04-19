@@ -29,12 +29,7 @@ namespace WebApiTerra1000.Common
 
         #region Constructor and destructor
 
-        public ControllerHelper() { Setup(); }
-
-        public void Setup()
-        {
-
-        }
+        public ControllerHelper() { }
 
         #endregion
 

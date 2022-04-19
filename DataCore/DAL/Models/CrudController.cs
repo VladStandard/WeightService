@@ -57,7 +57,7 @@ namespace DataCore.DAL.Models
             ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
         }
 
-        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
+        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecuteTransaction((session) =>
@@ -82,7 +82,7 @@ namespace DataCore.DAL.Models
         }
 
         private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults)
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
             Type type = typeof(T);
             ICriteria criteria = session.CreateCriteria(type);
@@ -178,7 +178,7 @@ namespace DataCore.DAL.Models
         }
 
         public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults,
-            string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
+            string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecuteTransaction((session) =>
@@ -231,7 +231,7 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public void FillReferences<T>(T item) where T : BaseEntity<T>, new()
+        public void FillReferences<T>(T? item) where T : BaseEntity, new()
         {
             FillReferencesSystem(item);
             FillReferencesDatas(item);
@@ -239,8 +239,9 @@ namespace DataCore.DAL.Models
             FillReferencesDwh(item);
         }
 
-        private void FillReferencesSystem<T>(T item) where T : BaseEntity<T>, new()
+        private void FillReferencesSystem<T>(T? item) where T : BaseEntity, new()
         {
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case AccessEntity access:
@@ -284,8 +285,9 @@ namespace DataCore.DAL.Models
             }
         }
 
-        private void FillReferencesDatas<T>(T item) where T : BaseEntity<T>, new()
+        private void FillReferencesDatas<T>(T? item) where T : BaseEntity, new()
         {
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case DeviceEntity device:
@@ -297,8 +299,9 @@ namespace DataCore.DAL.Models
             }
         }
 
-        private void FillReferencesScales<T>(T item) where T : BaseEntity<T>, new()
+        private void FillReferencesScales<T>(T? item) where T : BaseEntity, new()
         {
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case BarCodeEntityV2 barcode:
@@ -470,8 +473,9 @@ namespace DataCore.DAL.Models
             }
         }
 
-        private void FillReferencesDwh<T>(T item) where T : BaseEntity<T>, new()
+        private void FillReferencesDwh<T>(T? item) where T : BaseEntity, new()
         {
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case BrandEntity brand:
@@ -534,7 +538,7 @@ namespace DataCore.DAL.Models
 
         public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
             T? item = new();
             ExecuteTransaction((session) =>
@@ -547,14 +551,14 @@ namespace DataCore.DAL.Models
             return item;
         }
 
-        public T GetEntity<T>(long? id) where T : BaseEntity<T>, new()
+        public T GetEntity<T>(long? id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IdentityId.ToString(), id } }),
                 new FieldOrderEntity(ShareEnums.DbField.IdentityId, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public T GetEntity<T>(Guid? uid) where T : BaseEntity<T>, new()
+        public T GetEntity<T>(Guid? uid) where T : BaseEntity, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IdentityUid.ToString(), uid } }),
@@ -563,12 +567,12 @@ namespace DataCore.DAL.Models
 
         public T[]? GetEntities<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults = 0,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
             T[]? items = GetEntitiesWithoutReferences<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
             if (items != null)
             {
-                foreach (T item in items)
+                foreach (T? item in items)
                 {
                     FillReferences(item);
                 }
@@ -582,7 +586,7 @@ namespace DataCore.DAL.Models
         //    return DataAccess.GetEntitiesNative<T>(fieldsSelect, from, valuesParams, filePath, lineNumber, memberName);
         //}
 
-        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
+        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecuteTransaction((session) =>
@@ -604,7 +608,7 @@ namespace DataCore.DAL.Models
 
         public T[] GetEntitiesNativeMapping<T>(string query,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
             => GetEntitiesNativeMappingInside<T>(query, filePath, lineNumber, memberName);
 
         public object[] GetEntitiesNativeObject(string query,
@@ -655,12 +659,11 @@ namespace DataCore.DAL.Models
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             => ExecQueryNativeInside(query, parameters, filePath, lineNumber, memberName);
 
-        public void SaveEntity<T>(T item,
+        public void SaveEntity<T>(T? item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
-            if (item.EqualsEmpty()) return;
-
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case AccessEntity access:
@@ -700,12 +703,11 @@ namespace DataCore.DAL.Models
             }
         }
 
-        public void UpdateEntity<T>(T item,
+        public void UpdateEntity<T>(T? item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
-            if (item.EqualsEmpty()) return;
-
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case AccessEntity access:
@@ -813,20 +815,19 @@ namespace DataCore.DAL.Models
             }
         }
 
-        public void DeleteEntity<T>(T item,
+        public void DeleteEntity<T>(T? item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity
         {
-            if (item.EqualsEmpty()) return;
+            if (item == null || item.EqualsEmpty()) return;
             ExecuteTransaction((session) => { session.Delete(item); }, filePath, lineNumber, memberName);
         }
 
-        public void MarkedEntity<T>(T item,
+        public void MarkedEntity<T>(T? item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity
         {
-            if (item.EqualsEmpty()) return;
-
+            if (item == null || item.EqualsEmpty()) return;
             switch (item)
             {
                 case AccessEntity access:
@@ -934,8 +935,9 @@ namespace DataCore.DAL.Models
             }
         }
 
-        public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
+        public bool ExistsEntityInside<T>(T? item, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
+            if (item == null || item.EqualsEmpty()) return false;
             bool result = false;
             ExecuteTransaction((session) =>
             {
@@ -944,17 +946,16 @@ namespace DataCore.DAL.Models
             return result;
         }
 
-        public bool ExistsEntity<T>(T item,
+        public bool ExistsEntity<T>(T? item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
-            if (item.EqualsEmpty()) return false;
-            //return DataAccess.ExistsEntity(item, filePath, lineNumber, memberName);
+            if (item == null || item.EqualsEmpty()) return false;
             return ExistsEntityInside(item, filePath, lineNumber, memberName);
         }
 
         public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity? order,
-            string filePath, int lineNumber, string memberName) where T : BaseEntity<T>, new()
+            string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             bool result = false;
             ExecuteTransaction((session) =>
@@ -966,7 +967,7 @@ namespace DataCore.DAL.Models
 
         public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity? order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity<T>, new()
+            where T : BaseEntity, new()
         {
             //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
             return ExistsEntityInside<T>(fieldList, order, filePath, lineNumber, memberName);
@@ -981,24 +982,24 @@ namespace DataCore.DAL.Models
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
             List<HostEntity>? items = new();
-            foreach (object? entity in entities)
+            foreach (object? item in entities)
             {
-                if (entity is object[] { Length: 10 } item)
+                if (item is object[] { Length: 10 } obj)
                 {
-                    if (long.TryParse(Convert.ToString(item[0]), out long idOut))
+                    if (long.TryParse(Convert.ToString(obj[0]), out long idOut))
                     {
                         HostEntity host = new()
                         {
                             IdentityId = idOut,
-                            CreateDt = Convert.ToDateTime(item[1]),
-                            ChangeDt = Convert.ToDateTime(item[2]),
-                            AccessDt = Convert.ToDateTime(item[3]),
-                            Name = Convert.ToString(item[4]),
-                            Ip = Convert.ToString(item[5]),
-                            MacAddress = new MacAddressEntity(Convert.ToString(item[6])),
-                            IdRRef = Guid.Parse(Convert.ToString(item[7])),
-                            IsMarked = Convert.ToBoolean(item[8]),
-                            SettingsFile = Convert.ToString(item[9]),
+                            CreateDt = Convert.ToDateTime(obj[1]),
+                            ChangeDt = Convert.ToDateTime(obj[2]),
+                            AccessDt = Convert.ToDateTime(obj[3]),
+                            Name = Convert.ToString(obj[4]),
+                            Ip = Convert.ToString(obj[5]),
+                            MacAddress = new MacAddressEntity(Convert.ToString(obj[6])),
+                            IdRRef = Guid.Parse(Convert.ToString(obj[7])),
+                            IsMarked = Convert.ToBoolean(obj[8]),
+                            SettingsFile = Convert.ToString(obj[9]),
                         };
                         if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                             items.Add(host);
@@ -1013,24 +1014,24 @@ namespace DataCore.DAL.Models
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
             List<HostEntity>? items = new();
-            foreach (object? entity in entities)
+            foreach (object? item in entities)
             {
-                if (entity is object[] { Length: 12 } item)
+                if (item is object[] { Length: 12 } obj)
                 {
-                    if (long.TryParse(Convert.ToString(item[0]), out long idOut))
+                    if (long.TryParse(Convert.ToString(obj[0]), out long idOut))
                     {
                         HostEntity host = new()
                         {
                             IdentityId = idOut,
-                            CreateDt = Convert.ToDateTime(item[1]),
-                            ChangeDt = Convert.ToDateTime(item[2]),
-                            AccessDt = Convert.ToDateTime(item[3]),
-                            Name = Convert.ToString(item[4]),
-                            Ip = Convert.ToString(item[7]),
-                            MacAddress = new MacAddressEntity(Convert.ToString(item[8])),
-                            IdRRef = Guid.Parse(Convert.ToString(item[9])),
-                            IsMarked = Convert.ToBoolean(item[10]),
-                            SettingsFile = Convert.ToString(item[11]),
+                            CreateDt = Convert.ToDateTime(obj[1]),
+                            ChangeDt = Convert.ToDateTime(obj[2]),
+                            AccessDt = Convert.ToDateTime(obj[3]),
+                            Name = Convert.ToString(obj[4]),
+                            Ip = Convert.ToString(obj[7]),
+                            MacAddress = new MacAddressEntity(Convert.ToString(obj[8])),
+                            IdRRef = Guid.Parse(Convert.ToString(obj[9])),
+                            IsMarked = Convert.ToBoolean(obj[10]),
+                            SettingsFile = Convert.ToString(obj[11]),
                         };
                         if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                             items.Add(host);

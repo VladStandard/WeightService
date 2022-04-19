@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class NomenclatureUnitDirect : BaseSerializeEntity<NomenclatureUnitDirect>
+    public class NomenclatureUnitDirect : BaseSerializeDeprecatedEntity<NomenclatureUnitDirect>
     {
         #region Public and private fields and properties
 

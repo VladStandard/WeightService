@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "OrderTypes".
     /// </summary>
-    public class OrderTypeEntity : BaseEntity<OrderTypeEntity>
+    public class OrderTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -38,12 +38,12 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Description)}: {Description}.";
         }
 
-        public virtual bool Equals(OrderTypeEntity entity)
+        public virtual bool Equals(OrderTypeEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Description, entity.Description);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Description, item.Description);
         }
 
         public override bool Equals(object obj)

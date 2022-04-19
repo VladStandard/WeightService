@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Apps".
     /// </summary>
-    public class AppEntity : BaseEntity<AppEntity>
+    public class AppEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -39,12 +39,12 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Name)}: {Name}. ";
         }
 
-        public virtual bool Equals(AppEntity entity)
+        public virtual bool Equals(AppEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name);
         }
 
         public override bool Equals(object obj)

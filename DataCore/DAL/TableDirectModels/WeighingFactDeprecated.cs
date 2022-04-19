@@ -101,8 +101,8 @@
 
 //        public override bool Equals(object obj)
 //        {
-//            if (obj is WeighingFactEntity entity)
-//                return RegId.Equals(entity.RegId);
+//            if (obj is WeighingFactEntity item)
+//                return RegId.Equals(item.RegId);
 //            return false;
 //        }
 

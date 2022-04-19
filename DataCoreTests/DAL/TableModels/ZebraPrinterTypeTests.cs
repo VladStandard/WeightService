@@ -22,13 +22,13 @@
 //                foreach (int i in TestsEnums.GetInt())
 //                foreach (string s in TestsEnums.GetString())
 //                {
-//                        PrinterTypeEntity entity = new()
+//                        PrinterTypeEntity item = new()
 //                    {
 //                        Name = s,
 //                    };
-//                    entity.IdentityId = i;
-//                    _ = entity.ToString();
-//                    Assert.AreEqual(false, entityNew.Equals(entity));
+//                    item.IdentityId = i;
+//                    _ = item.ToString();
+//                    Assert.AreEqual(false, entityNew.Equals(item));
 //                }
 //            });
 
@@ -65,24 +65,24 @@
 //                    const string name = "ZebraPrinterType test";
 //                    const string name2 = "ZebraPrinterType test 2";
 //                    // GetEntities
-//                    foreach (PrinterEntity entity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
+//                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
 //                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                    {
-//                        if (entity.Name.Equals(name))
+//                        if (item.Name.Equals(name))
 //                        {
 //                            // UpdateEntity
-//                            entity.Name = name2;
-//                            DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(entity);
+//                            item.Name = name2;
+//                            DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(item);
 //                        }
 //                    }
 //                    // GetEntities
-//                    foreach (PrinterEntity entity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
+//                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
 //                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                    {
-//                        if (entity.Name.Equals(name2))
+//                        if (item.Name.Equals(name2))
 //                        {
 //                            // DeleteEntity
-//                            DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(entity);
+//                            DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(item);
 //                        }
 //                    }
 //                }

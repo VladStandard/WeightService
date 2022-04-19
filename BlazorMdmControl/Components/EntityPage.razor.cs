@@ -37,10 +37,10 @@
 //            await base.OnInitializedAsync().ConfigureAwait(true);
 //        }
 
-//        private bool FieldControlDeny(BaseEntity entity, string field)
+//        private bool FieldControlDeny(BaseEntity item, string field)
 //        {
-//            bool result = entity != null;
-//            if (entity is NomenclatureEntity nomenclatureEntity)
+//            bool result = item != null;
+//            if (item is NomenclatureEntity nomenclatureEntity)
 //            {
 //                if (nomenclatureEntity.EqualsDefault())
 //                    result = false;

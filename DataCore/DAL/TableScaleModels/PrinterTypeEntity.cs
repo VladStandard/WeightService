@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "PrinterTypes".
     /// </summary>
-    public class PrinterTypeEntity : BaseEntity<PrinterTypeEntity>
+    public class PrinterTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -38,12 +38,12 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Name)}: {Name}. ";
         }
 
-        public virtual bool Equals(PrinterTypeEntity entity)
+        public virtual bool Equals(PrinterTypeEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name);
         }
 
         public override bool Equals(object obj)

@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class SsccDirect : BaseSerializeEntity<SsccDirect>
+    public class SsccDirect : BaseSerializeDeprecatedEntity<SsccDirect>
     {
         #region Public and private fields and properties
 

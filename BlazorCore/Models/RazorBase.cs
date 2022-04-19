@@ -20,7 +20,7 @@ using LocalizationCore = DataCore.Localization.Core;
 
 namespace BlazorCore.Models
 {
-    public class RazorBase<T> : LayoutComponentBase where T : BaseEntity<T>, new()
+    public class RazorBase : LayoutComponentBase
     {
         #region Public and private fields and properties
 
@@ -29,7 +29,7 @@ namespace BlazorCore.Models
         [Inject] public NavigationManager NavigationManager { get; set; }
         [Inject] public NotificationService NotificationService { get; set; }
         [Inject] public TooltipService TooltipService { get; set; }
-        [Parameter] public BaseEntity<T>? ItemFilter { get; set; }
+        [Parameter] public BaseEntity? ItemFilter { get; set; }
         [Parameter] public bool IsMarked { get; set; }
         [Parameter] public bool IsShowAdditionalFilter { get; set; }
         [Parameter] public bool IsShowItemsCount { get; set; }
@@ -39,19 +39,19 @@ namespace BlazorCore.Models
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
         [Parameter] public DbTableAction TableAction { get; set; }
         [Parameter] public Guid? IdentityUid { get; set; }
-        [Parameter] public string IdentityUidStr { get => IdentityUid.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
-        [Parameter] public List<BaseEntity<T>>? Items { get; set; }
-        [Parameter] public List<BaseEntity<T>>? ItemsFilter { get; set; }
+        [Parameter] public string IdentityUidStr { get => (IdentityUid?.ToString() is string str) ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        [Parameter] public List<BaseEntity>? Items { get; set; }
+        [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
         [Parameter] public long? IdentityId { get; set; }
-        [Parameter] public RazorBase<T>? ParentRazor { get; set; }
+        [Parameter] public RazorBase? ParentRazor { get; set; }
         [Parameter] public string? FilterCaption { get; set; }
         [Parameter] public string? FilterName { get; set; }
         [Parameter] public TableBase Table { get; set; }
         private ItemSaveCheckEntity ItemSaveCheck { get; set; }
         public AppSettingsHelper AppSettings { get; private set; }
-        public BaseEntity<T>? Item { get; set; }
+        public BaseEntity? Item { get; set; }
         public bool IsLoaded { get; set; }
-        public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity<T>?)value; }
+        public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
         public UserSettingsHelper UserSettings { get; private set; }
 
         #endregion
@@ -167,7 +167,7 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public void OnItemValueChange(BaseEntity<T>? item, string? filterName, object? value)
+        public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
@@ -310,7 +310,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void OnItemValueChangeTemplate(string? filterName, object? value, TemplateEntity template)
+        private static void OnItemValueChangeTemplate(string? filterName, object? value, TemplateEntity template)
         {
             if (filterName == nameof(template.CategoryId) && value is string categoryId)
             {
@@ -328,7 +328,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public async Task ItemSelectAsync(BaseEntity<T> item)
+        public async Task ItemSelectAsync(BaseEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
@@ -339,7 +339,7 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public void ItemSelect(BaseEntity<T> item)
+        public void ItemSelect(BaseEntity item)
         {
             if (Item != item)
                 Item = item;
@@ -446,8 +446,7 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.BarCodeTypes:
                     if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idBarcodeType))
                     {
-                        Item = (BaseEntity<T>)(BaseEntity<object>)
-                            AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idBarcodeType }, }), null);
                     }
                     break;
@@ -730,17 +729,17 @@ namespace BlazorCore.Models
             }
         }
 
-        public static string GetPath(string uriItemRoute, BaseEntity<T>? item, long? id) =>
+        public static string GetPath(string uriItemRoute, BaseEntity? item, long? id) =>
             item == null || id == null ? string.Empty : $"{uriItemRoute}/{id}";
 
-        public static string GetPath(string uriItemRoute, BaseEntity<T>? item, Guid? uid) =>
+        public static string GetPath(string uriItemRoute, BaseEntity? item, Guid? uid) =>
             item == null || uid == null ? string.Empty : $"{uriItemRoute}/{uid}";
 
         #endregion
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(bool isNewWindow, BaseEntity<T>? item, DbTableAction tableAction)
+        public void RouteItemNavigate(bool isNewWindow, BaseEntity? item, DbTableAction tableAction)
         {
             string page = RouteItemNavigatePage();
             if (string.IsNullOrEmpty(page))
@@ -839,7 +838,7 @@ namespace BlazorCore.Models
             return page;
         }
 
-        private void RouteItemNavigatePrepareTableSystem(BaseEntity<T> item)
+        private void RouteItemNavigatePrepareTableSystem(BaseEntity item)
         {
             switch (ProjectsEnums.GetTableSystem(Table.Name))
             {
@@ -867,7 +866,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void RouteItemNavigatePrepareTableScale(BaseEntity<T> item)
+        private void RouteItemNavigatePrepareTableScale(BaseEntity item)
         {
             switch (ProjectsEnums.GetTableScale(Table.Name))
             {
@@ -924,12 +923,12 @@ namespace BlazorCore.Models
             }
         }
 
-        private void RouteItemNavigatePrepareTableDwh(BaseEntity<T> item)
+        private static void RouteItemNavigatePrepareTableDwh(BaseEntity item)
         {
             //
         }
 
-        private void RouteItemNavigateForItem(BaseEntity<T>? item, string page, DbTableAction tableAction)
+        private void RouteItemNavigateForItem(BaseEntity? item, string page, DbTableAction tableAction)
         {
             switch (tableAction)
             {

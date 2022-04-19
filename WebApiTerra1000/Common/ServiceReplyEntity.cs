@@ -8,7 +8,7 @@ using WebApiTerra1000.Utils;
 namespace WebApiTerra1000.Common
 {
     [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-    public class ServiceReplyEntity : BaseSerializeEntity<ServiceReplyEntity>
+    public class ServiceReplyEntity : BaseSerializeDeprecatedEntity<ServiceReplyEntity>
     {
         #region Public and private fields and properties
 

@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Orders".
     /// </summary>
-    public class OrderEntity : BaseEntity<OrderEntity>
+    public class OrderEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -70,21 +70,21 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Templates)}: {strTemplates}.";
         }
 
-        public virtual bool Equals(OrderEntity entity)
+        public virtual bool Equals(OrderEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   OrderTypes.Equals(entity.OrderTypes) &&
-                   Equals(ProductDate, entity.ProductDate) &&
-                   Equals(PlaneBoxCount, entity.PlaneBoxCount) &&
-                   Equals(PlanePalletCount, entity.PlanePalletCount) &&
-                   Equals(PlanePackingOperationBeginDate, entity.PlanePackingOperationBeginDate) &&
-                   Equals(PlanePackingOperationEndDate, entity.PlanePackingOperationEndDate) &&
-                   Scales.Equals(entity.Scales) &&
-                   Plu.Equals(entity.Plu) &&
-                   Equals(IdRRef, entity.IdRRef) &&
-                   Templates.Equals(entity.Templates);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   OrderTypes.Equals(item.OrderTypes) &&
+                   Equals(ProductDate, item.ProductDate) &&
+                   Equals(PlaneBoxCount, item.PlaneBoxCount) &&
+                   Equals(PlanePalletCount, item.PlanePalletCount) &&
+                   Equals(PlanePackingOperationBeginDate, item.PlanePackingOperationBeginDate) &&
+                   Equals(PlanePackingOperationEndDate, item.PlanePackingOperationEndDate) &&
+                   Scales.Equals(item.Scales) &&
+                   Plu.Equals(item.Plu) &&
+                   Equals(IdRRef, item.IdRRef) &&
+                   Templates.Equals(item.Templates);
         }
 
         public override bool Equals(object obj)

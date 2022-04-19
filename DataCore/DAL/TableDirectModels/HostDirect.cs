@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class HostDirect : BaseSerializeEntity<HostDirect>
+    public class HostDirect : BaseSerializeDeprecatedEntity<HostDirect>
     {
         #region Public and private fields and properties
 

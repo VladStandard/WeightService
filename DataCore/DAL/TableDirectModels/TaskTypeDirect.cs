@@ -8,7 +8,7 @@ using System;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class TaskTypeDirect : BaseSerializeEntity<TaskTypeDirect>
+    public class TaskTypeDirect : BaseSerializeDeprecatedEntity<TaskTypeDirect>
     {
         #region Public and private fields and properties
 

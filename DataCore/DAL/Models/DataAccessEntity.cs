@@ -66,7 +66,7 @@ namespace DataCore.DAL.Models
 
         public DataAccessEntity(JsonSettingsBase? jsonSettings)
         {
-            JsonSettings= jsonSettings;
+            JsonSettings = jsonSettings;
             Crud = new(this, SessionFactory);
         }
 

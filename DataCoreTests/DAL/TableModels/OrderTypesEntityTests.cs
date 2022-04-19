@@ -26,13 +26,13 @@
 //                foreach (int i in TestsEnums.GetInt())
 //                    foreach (string s in TestsEnums.GetString())
 //                    {
-//                        OrderTypeEntity entity = new()
+//                        OrderTypeEntity item = new()
 //                        {
 //                            Id = i,
 //                            Description = s
 //                        };
-//                        _ = entity.ToString();
-//                        Assert.AreEqual(false, entityNew.Equals(entity));
+//                        _ = item.ToString();
+//                        Assert.AreEqual(false, entityNew.Equals(item));
 //                    }
 //            });
 
@@ -44,12 +44,12 @@
 //            if (!DataAccessUtilsTests.DataAccess.OrderTypesCrud.ExistsEntity<OrderTypeEntity>(new FieldListEntity(
 //                new Dictionary<string, object> { { ShareEnums.DbField.Description.ToString(), description } }), null))
 //            {
-//                OrderTypeEntity entity = new()
+//                OrderTypeEntity item = new()
 //                {
 //                    Id = -1,
 //                    Description = description
 //                };
-//                DataAccessUtilsTests.DataAccess.OrderTypesCrud.SaveEntity(entity);
+//                DataAccessUtilsTests.DataAccess.OrderTypesCrud.SaveEntity(item);
 //            }
 //            return DataAccessUtilsTests.DataAccess.OrderTypesCrud.GetEntity<OrderTypeEntity>(new FieldListEntity(
 //                new Dictionary<string, object> { { ShareEnums.DbField.Description.ToString(), description } }),
@@ -72,12 +72,12 @@
 //                // GetEntities
 //                OrderTypeEntity[] nomenclatureUnits = DataAccessUtilsTests.DataAccess.OrderTypesCrud.GetEntities<OrderTypeEntity>(null, null);
 //                Assert.AreEqual(true, nomenclatureUnits.Length > 0);
-//                foreach (OrderTypeEntity entity in nomenclatureUnits)
+//                foreach (OrderTypeEntity item in nomenclatureUnits)
 //                {
-//                    if (entity.Description.Equals(description + " changed"))
+//                    if (item.Description.Equals(description + " changed"))
 //                    {
 //                        // DeleteEntity
-//                        //DataAccessUtils.DataAccess.OrderTypesCrud.DeleteEntity(entity);
+//                        //DataAccessUtils.DataAccess.OrderTypesCrud.DeleteEntity(item);
 //                    }
 //                }
 //            });

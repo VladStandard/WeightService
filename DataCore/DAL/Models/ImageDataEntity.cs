@@ -53,11 +53,11 @@ namespace DataCore.DAL.Models
             return $"{nameof(Info)}: {Info}. ";
         }
 
-        public virtual bool Equals(ImageDataEntity entity)
+        public virtual bool Equals(ImageDataEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return Equals(Value, entity.Value);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return Equals(Value, item.Value);
         }
         
         public override bool Equals(object obj)

@@ -13,7 +13,7 @@ namespace DataCore.Models
         public delegate void ReleaseManagedCallback();
         public delegate void ReleaseUnmanagedCallback();
 
-        public void CloseMethod();
+        public void Close();
 
         public void Dispose(bool disposing);
 

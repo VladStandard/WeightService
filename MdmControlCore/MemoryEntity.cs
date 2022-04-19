@@ -50,7 +50,7 @@ namespace MdmControlCore
                     MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
                     MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-                    callRefresh?.Invoke().ConfigureAwait(false);
+                    _ = (callRefresh?.Invoke().ConfigureAwait(false));
                     Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
                 }
             }

@@ -5,7 +5,7 @@ using DataCore.DAL.Models;
 
 namespace DataCore.DAL.TableDwhModels
 {
-    public class InformationSystemEntity : BaseEntity<InformationSystemEntity>
+    public class InformationSystemEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -47,16 +47,16 @@ namespace DataCore.DAL.TableDwhModels
                 $"{nameof(StatusId)}: {StatusId}. ";
         }
 
-        public virtual bool Equals(InformationSystemEntity entity)
+        public virtual bool Equals(InformationSystemEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(ConnectString1, entity.ConnectString1) &&
-                   Equals(ConnectString2, entity.ConnectString2) &&
-                   Equals(ConnectString3, entity.ConnectString3) &&
-                   Equals(StatusId, entity.StatusId);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Name, item.Name) &&
+                   Equals(ConnectString1, item.ConnectString1) &&
+                   Equals(ConnectString2, item.ConnectString2) &&
+                   Equals(ConnectString3, item.ConnectString3) &&
+                   Equals(StatusId, item.StatusId);
         }
 
         public override bool Equals(object obj)

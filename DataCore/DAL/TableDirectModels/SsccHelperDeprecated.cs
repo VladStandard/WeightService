@@ -70,7 +70,7 @@
 //                    {
 //                        while (reader.Read())
 //                        {
-//                            var entity = new SsccEntity()
+//                            var item = new SsccEntity()
 //                            {
 //                                SSCC = reader.GetString(0),
 //                                GLN = reader.GetString(1),
@@ -79,7 +79,7 @@
 //                                SynonymSSCC = reader.GetString(4),
 //                                Check = reader.GetInt32(5)
 //                            };
-//                            _ssccStack.Push(entity);
+//                            _ssccStack.Push(item);
 //                        }
 //                    }
 //                }

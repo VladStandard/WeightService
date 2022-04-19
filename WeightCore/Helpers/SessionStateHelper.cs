@@ -20,6 +20,7 @@ using WeightCore.Managers;
 using WeightCore.Print;
 using WeightCore.Zpl;
 using DataCore.DAL.TableScaleModels;
+using System.Diagnostics;
 
 namespace WeightCore.Helpers
 {
@@ -91,6 +92,11 @@ namespace WeightCore.Helpers
         public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
         public bool IsCurrentPluCheckWeight => CurrentPlu?.IsCheckWeight == true;
         public WeighingSettingsEntity WeighingSettings { get; set; }
+        public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
+        public Stopwatch StopwatchMain { get; private set; }
+        public Stopwatch StopwatchMassa { get; private set; }
+        public Stopwatch StopwatchPrintMain { get; private set; }
+        public Stopwatch StopwatchPrintShipping { get; private set; }
 
         #endregion
 
@@ -101,7 +107,7 @@ namespace WeightCore.Helpers
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
             //CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
-            CurrentScale = DataAccess.Dal.Crud.GetEntity<DataCore.DAL.TableScaleModels.ScaleEntity>(Host.ScaleId);
+            CurrentScale = DataAccess.Dal.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
 
             ProductDate = DateTime.Now;
             CurrentLabelsMain = 1;
@@ -112,6 +118,22 @@ namespace WeightCore.Helpers
 
             Manager = new();
             WeighingSettings = new();
+        }
+
+        public void StopwatchStartNew()
+        {
+            StopwatchMain = Stopwatch.StartNew();
+            StopwatchPrintMain = Stopwatch.StartNew();
+            StopwatchPrintShipping = Stopwatch.StartNew();
+            StopwatchMassa = Stopwatch.StartNew();
+        }
+
+        public void StopwatchStop()
+        {
+            StopwatchMain.Stop();
+            StopwatchPrintMain.Stop();
+            StopwatchPrintShipping.Stop();
+            StopwatchMassa.Stop();
         }
 
         //~SessionStateHelper()

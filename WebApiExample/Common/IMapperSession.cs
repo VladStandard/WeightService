@@ -12,9 +12,8 @@ namespace WebApiExample.Common
         Task Commit();
         Task Rollback();
         void CloseTransaction();
-        Task Save(object entity);
-        Task Delete(object entity);
-
+        Task Save(object item);
+        Task Delete(object item);
         IQueryable<object> Books { get; }
     }
 }

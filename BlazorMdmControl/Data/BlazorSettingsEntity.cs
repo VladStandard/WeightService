@@ -106,7 +106,7 @@
 
 //        #region Public and private methods
 
-//        public async Task ActionAsync(ShareEnums.TableDwh table, ShareEnums.DbTableAction tableAction, BaseEntity entity, string page, bool isNewWindow,
+//        public async Task ActionAsync(ShareEnums.TableDwh table, ShareEnums.DbTableAction tableAction, BaseEntity item, string page, bool isNewWindow,
 //            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 //        {
 //            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -114,7 +114,7 @@
 //            {
 //                if (table == ShareEnums.TableDwh.Default)
 //                    return;
-//                if (entity == null || entity.EqualsDefault())
+//                if (item == null || item.EqualsDefault())
 //                    return;
 
 //                switch (tableAction)
@@ -127,17 +127,17 @@
 //                            case ShareEnums.TableDwh.NomenclatureMaster:
 //                            case ShareEnums.TableDwh.NomenclatureNonNormalize:
 //                                //if (!isNewWindow)
-//                                Navigation.NavigateTo($"{page}/{entity.Id}");
+//                                Navigation.NavigateTo($"{page}/{item.Id}");
 //                                //else
-//                                //    await JsRuntime.InvokeAsync<object>("open", $"{page}/{entity.Id}", "_blank").ConfigureAwait(false);
+//                                //    await JsRuntime.InvokeAsync<object>("open", $"{page}/{item.Id}", "_blank").ConfigureAwait(false);
 //                                break;
 //                        }
 //                        break;
 //                    case ShareEnums.DbTableAction.Delete:
-//                        SqlDataAccess.Crud.DeleteEntity(entity);
+//                        SqlDataAccess.Crud.DeleteEntity(item);
 //                        break;
 //                    case ShareEnums.DbTableAction.Mark:
-//                        SqlDataAccess.Crud.MarkedEntity(entity);
+//                        SqlDataAccess.Crud.MarkedEntity(item);
 //                        break;
 //                }
 //            }
@@ -171,17 +171,17 @@
 //            {
 //                case ShareEnums.DbField.CreateDate:
 //                    List<ChartCountEntity> entitiesDateCreated = new();
-//                    foreach (NomenclatureEntity entity in entities)
+//                    foreach (NomenclatureEntity item in entities)
 //                    {
-//                        entitiesDateCreated.Add(new ChartCountEntity(entity.CreateDate.Date, 1));
+//                        entitiesDateCreated.Add(new ChartCountEntity(item.CreateDate.Date, 1));
 //                        i++;
 //                    }
-//                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
+//                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(item => item.Date).ToArray();
 //                    result = new ChartCountEntity[entitiesGroupCreated.Length];
 //                    i = 0;
-//                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupCreated)
+//                    foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupCreated)
 //                    {
-//                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
+//                        result[i] = new ChartCountEntity(item.Key, item.Count());
 //                        i++;
 //                    }
 //                    break;

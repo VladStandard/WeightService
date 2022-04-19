@@ -9,7 +9,7 @@ using System.Data;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class ZplLabelDirect : BaseSerializeEntity<ZplLabelDirect>
+    public class ZplLabelDirect : BaseSerializeDeprecatedEntity<ZplLabelDirect>
     {
         #region Public and private fields and properties
 

@@ -28,7 +28,7 @@
 //                    foreach (DateTime dt in TestsEnums.GetDateTime())
 //                        foreach (string s in TestsEnums.GetString())
 //                        {
-//                            NomenclatureEntity entity = new()
+//                            NomenclatureEntity item = new()
 //                            {
 //                                Id = i,
 //                                CreateDate = dt,
@@ -37,8 +37,8 @@
 //                                Name = s,
 //                                SerializedRepresentationObject = s,
 //                            };
-//                            _ = entity.ToString();
-//                            Assert.AreEqual(false, entityNew.Equals(entity));
+//                            _ = item.ToString();
+//                            Assert.AreEqual(false, entityNew.Equals(item));
 //                        }
 //            });
 
@@ -52,7 +52,7 @@
 
 //            Assert.Throws<Exception>(() =>
 //            {
-//                NomenclatureEntity entity = new()
+//                NomenclatureEntity item = new()
 //                {
 //                    Id = -1,
 //                    CreateDate = DateTime.Now,
@@ -61,7 +61,7 @@
 //                    Name = "NomenclatureEntity test",
 //                    SerializedRepresentationObject = default,
 //                };
-//                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(entity);
+//                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
 //            });
 
 //            TestsUtils.MethodComplete();
@@ -90,13 +90,13 @@
 //                // GetEntities
 //                NomenclatureEntity[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<NomenclatureEntity>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (NomenclatureEntity entity in entities)
+//                foreach (NomenclatureEntity item in entities)
 //                {
-//                    if (entity.Name.Equals(name))
+//                    if (item.Name.Equals(name))
 //                    {
-//                        _ = entity.ToString();
+//                        _ = item.ToString();
 //                        // DeleteEntity
-//                        //DataAccessUtils.DataAccess.ContragentsCrud.DeleteEntity(entity);
+//                        //DataAccessUtils.DataAccess.ContragentsCrud.DeleteEntity(item);
 //                    }
 //                }
 //            });

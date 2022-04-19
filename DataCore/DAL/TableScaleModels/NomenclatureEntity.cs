@@ -8,7 +8,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Nomenclatures".
     /// </summary>
-    public class NomenclatureEntity : BaseEntity<NomenclatureEntity>
+    public class NomenclatureEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -49,15 +49,15 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Weighted)}: {Weighted}. ";
         }
 
-        public virtual bool Equals(NomenclatureEntity entity)
+        public virtual bool Equals(NomenclatureEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
-                   Equals(Code, entity.Code) &&
-                   Equals(Name, entity.Name) &&
-                   Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject) &&
-                   Equals(Weighted, entity.Weighted);
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            return base.Equals(item) &&
+                   Equals(Code, item.Code) &&
+                   Equals(Name, item.Name) &&
+                   Equals(SerializedRepresentationObject, item.SerializedRepresentationObject) &&
+                   Equals(Weighted, item.Weighted);
         }
 
         public override bool Equals(object obj)

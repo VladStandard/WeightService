@@ -15,7 +15,7 @@ using System.Xml.Linq;
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class PluDirect : BaseSerializeEntity<PluDirect>
+    public class PluDirect : BaseSerializeDeprecatedEntity<PluDirect>
     {
         #region Public and private fields and properties
 

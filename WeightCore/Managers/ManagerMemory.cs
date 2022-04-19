@@ -4,6 +4,10 @@
 using DataCore;
 using DataCore.Memory;
 using System;
+using System.Diagnostics;
+using System.Windows.Forms;
+using WeightCore.Helpers;
+using LocalizationCore = DataCore.Localization.Core;
 
 namespace WeightCore.Managers
 {
@@ -11,7 +15,10 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        public MemorySizeEntity MemorySize { get; private set; } = new MemorySizeEntity();
+        private Label FieldMemoryManagerTotal { get; set; }
+        private Label FieldTasks { get; set; }
+        private ProgressBar FieldMemoryProgress { get; set; }
+        public MemorySizeEntity MemorySize { get; private set; }
 
         #endregion
 
@@ -19,16 +26,25 @@ namespace WeightCore.Managers
 
         public ManagerMemory() : base()
         {
-            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+            Init(Close, ReleaseManaged, ReleaseUnmanaged);
         }
 
         #endregion
 
         #region Public and private methods
 
-        public void Init()
+        public void Init(Label fieldMemoryManagerTotal, Label fieldTasks, ProgressBar fieldMemoryProgress)
         {
-            Init(ProjectsEnums.TaskType.MemoryManager, null, 1_000);
+            Init(ProjectsEnums.TaskType.MemoryManager,
+                () =>
+                {
+                    MemorySize = new();
+                    FieldMemoryManagerTotal = fieldMemoryManagerTotal;
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManagerTotal, $"{LocalizationCore.Scales.Memory}");
+                    FieldTasks = fieldTasks;
+                    FieldMemoryProgress = fieldMemoryProgress;
+                },
+                1_000, 5_000, 5_000, 1_000, 1_000);
         }
 
         public new void Open()
@@ -39,6 +55,7 @@ namespace WeightCore.Managers
                 () =>
                 {
                     MemorySize.Open();
+                    OpenMemory();
                 },
                 null,
                 null);
@@ -49,18 +66,46 @@ namespace WeightCore.Managers
             }
         }
 
-        public new void CloseMethod()
+        private void OpenMemory()
         {
-            base.CloseMethod();
+            if (SessionStateHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManagerTotal,
+                    $"{LocalizationCore.Scales.Memory} | " +
+                    $"{LocalizationCore.Scales.MemoryFree}: " +
+                        (MemorySize.PhysicalFree != null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : $"- MB") +
+                    $" | {LocalizationCore.Scales.MemoryBusy}: " + 
+                        (MemorySize.PhysicalCurrent != null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : $"- MB") +
+                    $" | {LocalizationCore.Scales.MemoryAll}: " +
+                        (MemorySize.PhysicalTotal != null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : $"- MB")
+                    );
+
+                MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(FieldMemoryProgress,
+                    MemorySize.PhysicalTotal != null
+                    ? (int)MemorySize.PhysicalTotal.MegaBytes : 0);
+                MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(FieldMemoryProgress, 0);
+                MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMemoryProgress,
+                    MemorySize.PhysicalTotal != null && MemorySize.PhysicalFree != null
+                    ? (int)(MemorySize.PhysicalTotal.MegaBytes - MemorySize.PhysicalFree.MegaBytes) : 0);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocalizationCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
+            }
+        }
+
+        public new void Close()
+        {
+            base.Close();
         }
 
         public new void ReleaseManaged()
         {
             base.ReleaseManaged();
 
-            MemorySize?.Close();
-            MemorySize?.Dispose(false);
-            MemorySize = null;
+            if (MemorySize != null)
+            {
+                MemorySize.Close();
+                MemorySize.Dispose(false);
+                MemorySize = null;
+            }
         }
 
         public new void ReleaseUnmanaged()

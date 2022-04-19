@@ -130,33 +130,33 @@ namespace DataCore.DAL.DataModels
                 $"{nameof(Packs)}: {strPacks}";
         }
 
-        public virtual bool Equals(XmlProductEntity entity)
+        public virtual bool Equals(XmlProductEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            if (Units != null && entity.Units != null)
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
+            if (Units != null && item.Units != null)
             {
-                if (Units.Count != entity.Units.Count)
+                if (Units.Count != item.Units.Count)
                     return false;
                 for (int i = 0; i < Units.Count; i++)
                 {
-                    if (!Units[i].Equals(entity.Units[i]))
+                    if (!Units[i].Equals(item.Units[i]))
                         return false;
                 }
             }
             return
-                string.Equals(Category, entity.Category, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(Code, entity.Code, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(Description, entity.Description, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(Comment, entity.Comment, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(Sku, entity.Sku, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(DescriptionOptional, entity.DescriptionOptional, StringComparison.InvariantCultureIgnoreCase) &&
-                Equals(GuidMercury, entity.GuidMercury) &&
-                string.Equals(Temperature, entity.Temperature, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(ProductShelfLife, entity.ProductShelfLife, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(Brand, entity.Brand, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(NameFull, entity.NameFull, StringComparison.InvariantCultureIgnoreCase) &&
-                string.Equals(AdditionalDescriptionOfNomenclature, entity.AdditionalDescriptionOfNomenclature, StringComparison.InvariantCultureIgnoreCase);
+                string.Equals(Category, item.Category, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(Code, item.Code, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(Description, item.Description, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(Comment, item.Comment, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(Sku, item.Sku, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(DescriptionOptional, item.DescriptionOptional, StringComparison.InvariantCultureIgnoreCase) &&
+                Equals(GuidMercury, item.GuidMercury) &&
+                string.Equals(Temperature, item.Temperature, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(ProductShelfLife, item.ProductShelfLife, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(Brand, item.Brand, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(NameFull, item.NameFull, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(AdditionalDescriptionOfNomenclature, item.AdditionalDescriptionOfNomenclature, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public virtual bool EqualsNew()
@@ -190,17 +190,17 @@ namespace DataCore.DAL.DataModels
                 $"{nameof(Description)}: {Description}. ";
         }
 
-        public virtual bool Equals(ProductUnitEntity entity)
+        public virtual bool Equals(ProductUnitEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
             return
-                Equals(Heft, entity.Heft) &&
-                Equals(Capacity, entity.Capacity) &&
-                Equals(Rate, entity.Rate) &&
-                Equals(Threshold, entity.Threshold) &&
-                Equals(Okei, entity.Okei) &&
-                Equals(Description, entity.Description);
+                Equals(Heft, item.Heft) &&
+                Equals(Capacity, item.Capacity) &&
+                Equals(Rate, item.Rate) &&
+                Equals(Threshold, item.Threshold) &&
+                Equals(Okei, item.Okei) &&
+                Equals(Description, item.Description);
         }
 
         public virtual bool EqualsNew()
@@ -224,13 +224,13 @@ namespace DataCore.DAL.DataModels
                 $"{nameof(Barcode)}: {Barcode}. ";
         }
 
-        public virtual bool Equals(ProductBarcodeEntity entity)
+        public virtual bool Equals(ProductBarcodeEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
             return
-                Equals(Type, entity.Type) &&
-                Equals(Barcode, entity.Barcode);
+                Equals(Type, item.Type) &&
+                Equals(Barcode, item.Barcode);
         }
 
         public virtual bool EqualsNew()
@@ -273,18 +273,18 @@ namespace DataCore.DAL.DataModels
                 $"{nameof(Unit)}: {Unit}. ";
         }
 
-        public virtual bool Equals(ProductBoxEntity entity)
+        public virtual bool Equals(ProductBoxEntity item)
         {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
+            if (item is null) return false;
+            if (ReferenceEquals(this, item)) return true;
             return
-                Equals(Description, entity.Description) &&
-                Equals(Heft, entity.Heft) &&
-                Equals(Capacity, entity.Capacity) &&
-                Equals(Rate, entity.Rate) &&
-                Equals(Threshold, entity.Threshold) &&
-                Equals(Okei, entity.Okei) &&
-                Equals(Unit, entity.Unit);
+                Equals(Description, item.Description) &&
+                Equals(Heft, item.Heft) &&
+                Equals(Capacity, item.Capacity) &&
+                Equals(Rate, item.Rate) &&
+                Equals(Threshold, item.Threshold) &&
+                Equals(Okei, item.Okei) &&
+                Equals(Unit, item.Unit);
         }
 
         public virtual bool EqualsNew()

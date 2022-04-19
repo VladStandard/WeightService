@@ -30,8 +30,8 @@
 //- F8        -- Delete master record
 //- Enter     -- Edit master record
 //Hotkeys for nomenclature page:
-//- Ctrl + S  -- Save entity
-//- Backspace -- Close entity
+//- Ctrl + S  -- Save item
+//- Backspace -- Close item
 //";
 //        }
 
