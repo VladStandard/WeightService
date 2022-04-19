@@ -97,7 +97,7 @@ namespace DataCore.Models
 
         public void Close()
         {
-            // For Close - don't use check for sisposing.
+            // For Close - don't use check for disposing.
             //CheckIsDisposed(filePath, lineNumber, memberName);
             lock (_locker)
             {

@@ -41,6 +41,7 @@ namespace DataCore.Localization
         public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
         public string ChoosePlu => Lang == ShareEnums.Lang.English ? "First, you have to choose a PLU!" : "Сперва, необходимо выбрать PLU!";
         public string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
+        public string ComPort => Lang == ShareEnums.Lang.English ? "COM-port" : "COM-порт";
         public string Crc => "CRC";
         public string DeviceControlIsPreview => Lang == ShareEnums.Lang.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
         public string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
@@ -56,10 +57,10 @@ namespace DataCore.Localization
         public string FieldSsccSynonym => Lang == ShareEnums.Lang.English ? "Synonym" : "Синоним";
         public string FieldSsccUnitId => Lang == ShareEnums.Lang.English ? "Unit ID" : "ИД юнита";
         public string FieldSsccUnitType => Lang == ShareEnums.Lang.English ? "Unit type" : "Тип юнита";
-        public string FieldThresholdLower => Lang == ShareEnums.Lang.English ? "Lower" : "Нижнее";
-        public string FieldThresholdNominal => Lang == ShareEnums.Lang.English ? "Nominal" : "Номинальное";
+        public string FieldThresholdLower => Lang == ShareEnums.Lang.English ? "lower" : "нижнее";
+        public string FieldThresholdNominal => Lang == ShareEnums.Lang.English ? "nominal" : "номинальное";
         public string FieldThresholds => Lang == ShareEnums.Lang.English ? "Weight thresholds" : "Пороговые значения веса";
-        public string FieldThresholdUpper => Lang == ShareEnums.Lang.English ? "Upper" : "Верхнее";
+        public string FieldThresholdUpper => Lang == ShareEnums.Lang.English ? "upper" : "верхнее";
         public string FieldTime => Lang == ShareEnums.Lang.English ? "Time" : "Время";
         public string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
         public string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
@@ -73,6 +74,7 @@ namespace DataCore.Localization
         public string MemoryFree => Lang == ShareEnums.Lang.English ? "free" : "свободно";
         public string MemoryPhysical => Lang == ShareEnums.Lang.English ? "Physical memory" : "Физическая память";
         public string MemoryVirtual => Lang == ShareEnums.Lang.English ? "Virtual memory" : "Виртуальная память";
+        public string Message => Lang == ShareEnums.Lang.English ? "Message" : "Сообщение";
         public string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
         public string OperationControl => Lang == ShareEnums.Lang.English ? "Control of operations" : "Контроль операций";
         public string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
@@ -90,6 +92,7 @@ namespace DataCore.Localization
         public string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
         public string ShippingLabels => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
         public string StateCorrect => Lang == ShareEnums.Lang.English ? "correct" : "верна";
+        public string StateDisable => Lang == ShareEnums.Lang.English ? "disable" : "отключено";
         public string StateError => Lang == ShareEnums.Lang.English ? "error" : "ошибка";
         public string StateNotResponsed => Lang == ShareEnums.Lang.English ? "not responsed" : "не отвечает";
         public string StateResponsed => Lang == ShareEnums.Lang.English ? "responsed" : "отвечает";

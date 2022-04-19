@@ -44,7 +44,7 @@ namespace WeightCore.Managers
                     FieldTasks = fieldTasks;
                     FieldMemoryProgress = fieldMemoryProgress;
                 },
-                1_000, 5_000, 5_000, 1_000, 1_000);
+                1_000, 1_000, 1_000, 1_000, 1_000);
         }
 
         public new void Open()
@@ -55,10 +55,13 @@ namespace WeightCore.Managers
                 () =>
                 {
                     MemorySize.Open();
-                    OpenMemory();
                 },
                 null,
-                null);
+                () =>
+                {
+                    Response();
+                }
+                );
             }
             catch (Exception ex)
             {
@@ -66,7 +69,7 @@ namespace WeightCore.Managers
             }
         }
 
-        private void OpenMemory()
+        private void Response()
         {
             if (SessionStateHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
@@ -98,14 +101,14 @@ namespace WeightCore.Managers
 
         public new void ReleaseManaged()
         {
-            base.ReleaseManaged();
-
             if (MemorySize != null)
             {
                 MemorySize.Close();
                 MemorySize.Dispose(false);
                 MemorySize = null;
             }
+            
+            base.ReleaseManaged();
         }
 
         public new void ReleaseUnmanaged()

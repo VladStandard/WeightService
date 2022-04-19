@@ -104,8 +104,6 @@
 
 //        public new void ReleaseManaged()
 //        {
-//            base.ReleaseManaged();
-
 //            switch (PrintBrand)
 //            {
 //                case PrintBrand.Default:
@@ -124,13 +122,15 @@
 //            Documents?.Dispose();
 //            Documents = null;
 //            Wmi = null;
+
+//            base.ReleaseManaged();
 //        }
 
 //        public new void ReleaseUnmanaged()
 //        {
-//            base.ReleaseUnmanaged();
-
 //            Peeler = null;
+
+//            base.ReleaseUnmanaged();
 //        }
 
 //        public void Send(string printCmd)

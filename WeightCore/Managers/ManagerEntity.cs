@@ -3,8 +3,6 @@
 
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
-using WeightCore.Helpers;
-using WeightCore.Print;
 
 namespace WeightCore.Managers
 {
@@ -45,27 +43,14 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(ScaleEntity currentScale, PrintBrand printBrandMain, PrintBrand printBrandShipping)
-        {
-            Massa.Init(currentScale);
-            PrintMain.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
-            PrintShipping.Init(printBrandShipping, currentScale.PrinterShipping.Name, currentScale.PrinterShipping.Ip, currentScale.PrinterShipping.Port);
-            PrintShipping.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
-        }
-
         public new void Open()
         {
             base.Open();
-            if (SessionStateHelper.Instance.IsCurrentPluCheckWeight)
-                Massa?.Open();
-            PrintMain?.Open();
         }
 
         public new void Close()
         {
             base.Close();
-            Massa?.Close();
-            PrintMain?.Close();
         }
 
         public void ReleaseManaged()
@@ -74,6 +59,7 @@ namespace WeightCore.Managers
             Massa?.ReleaseManaged();
             Memory?.ReleaseManaged();
             PrintMain?.ReleaseManaged();
+            PrintShipping?.ReleaseManaged();
         }
 
         public void ReleaseUnmanaged()
@@ -82,6 +68,7 @@ namespace WeightCore.Managers
             Massa?.ReleaseUnmanaged();
             Memory?.ReleaseUnmanaged();
             PrintMain?.ReleaseUnmanaged();
+            PrintShipping?.ReleaseUnmanaged();
         }
 
         #endregion

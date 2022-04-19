@@ -9,7 +9,6 @@ namespace WeightCore.MassaK
 {
     public class ResponseParseEntity
     {
-        public DateTime DtCreated { get; private set; }
         public MassaCmdType CmdType { get; }
         public byte[] Response { get; }
         public byte[] Header { get; private set; }
@@ -86,6 +85,7 @@ namespace WeightCore.MassaK
                 return 0x00;
             }
         }
+        
         public string Message
         {
             get
@@ -196,9 +196,10 @@ namespace WeightCore.MassaK
                         if (Command == 0xF0) return "Принята неизвестная команда";
                         break;
                 }
-                return null;
+                return string.Empty;
             }
         }
+
         public ResponseMassaEntity Massa { get; set; }
         public ResponseScaleParEntity ScalePar { get; set; }
         private MassaCrcHelper MassaCrc { get; set; } = MassaCrcHelper.Instance;
@@ -206,7 +207,6 @@ namespace WeightCore.MassaK
 
         public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
         {
-            DtCreated = DateTime.Now;
             CmdType = cmdType;
             Response = response;
             Header = new byte[3];

@@ -29,7 +29,6 @@ namespace WeightCore.Managers
         public CancellationTokenSource CtsReopen { get; set; }
         public CancellationTokenSource CtsRequest { get; set; }
         public CancellationTokenSource CtsResponse { get; set; }
-        public string ProgressString { get; set; }
         public ushort WaitReopen { get; set; }
         public ushort WaitRequest { get; set; }
         public ushort WaitResponse { get; set; }

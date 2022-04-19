@@ -3,9 +3,9 @@
 
 using DataCore;
 using DataCore.DAL.TableDirectModels;
-using DataCore.Utils;
+using DataCore.Helpers;
 using System;
-using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 using WeightCore.Helpers;
 using LocalizationCore = DataCore.Localization.Core;
@@ -17,27 +17,15 @@ namespace WeightCore.Managers
         #region Public and private fields and properties
 
         private Label FieldKneading { get; set; }
-        private Label FieldMassaComPort { get; set; }
-        private Label FieldMassaGet { get; set; }
-        private Label FieldMassaGetCrc { get; set; }
-        private Label FieldMassaManager { get; set; }
-        private Label FieldMassaQueries { get; set; }
-        private Label FieldMassaSet { get; set; }
-        private Label FieldMassaSetCrc { get; set; }
         private Label FieldPlu { get; set; }
         private Label FieldProductDate { get; set; }
-        private Label FieldWeightNetto { get; set; }
-        private Label FieldWeightTare { get; set; }
+        private Label FieldSscc { get; set; }
+        private Label FieldTitle { get; set; }
         private Label LabelKneading { get; set; }
         private Label LabelProductDate { get; set; }
-        private Label LabelWeightNetto { get; set; }
-        private Label LabelWeightTare { get; set; }
         private PluDirect CurrentPlu => SessionStateHelper.Instance.CurrentPlu;
-        private ProgressBar FieldMassaQueriesProgress { get; set; }
         public Label FieldPrintMain { get; private set; }
         public Label FieldPrintShipping { get; private set; }
-        public Label LabelPrintMain { get; private set; }
-        public Label LabelPrintShipping { get; private set; }
 
         #endregion
 
@@ -45,45 +33,47 @@ namespace WeightCore.Managers
 
         public ManagerLabels() : base()
         {
-            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+            Init(Close, ReleaseManaged, ReleaseUnmanaged);
         }
 
         #endregion
 
         #region Public and private methods
 
-        public void Init(Label labelProductDate, Label fieldProductDate, Label labelKneading, Label fieldKneading,
-            Label fieldPlu, Label labelWeightNetto, Label fieldWeightNetto, Label labelWeightTare, Label fieldWeightTare,
-            Label fieldMassaManager, Label fieldMassaComPort, Label fieldMassaQueries, ProgressBar fieldMassaQueriesProgress,
-            Label fieldMassaGet, Label fieldMassaGetCrc, Label fieldMassaSet, Label fieldMassaSetCrc,
-            Label labelPrintMain, Label fieldPrintMain, Label labelPrintShipping, Label fieldPrintShipping)
+        public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, 
+            Label labelProductDate, Label fieldProductDate, Label labelKneading, Label fieldKneading)
         {
             Init(ProjectsEnums.TaskType.LabelManager,
             () =>
             {
+                FieldTitle = fieldTitle;
+                FieldPlu = fieldPlu;
+                FieldSscc = fieldSscc;
                 LabelProductDate = labelProductDate;
                 FieldProductDate = fieldProductDate;
                 LabelKneading = labelKneading;
                 FieldKneading = fieldKneading;
-                FieldPlu = fieldPlu;
-                LabelWeightNetto = labelWeightNetto;
-                FieldWeightNetto = fieldWeightNetto;
-                LabelWeightTare = labelWeightTare;
-                FieldWeightTare = fieldWeightTare;
-                FieldMassaManager = fieldMassaManager;
-                FieldMassaComPort = fieldMassaComPort;
-                FieldMassaQueries = fieldMassaQueries;
-                FieldMassaQueriesProgress = fieldMassaQueriesProgress;
-                FieldMassaGet = fieldMassaGet;
-                FieldMassaGetCrc = fieldMassaGetCrc;
-                FieldMassaSet = fieldMassaSet;
-                FieldMassaSetCrc = fieldMassaSetCrc;
-                LabelPrintMain = labelPrintMain;
-                FieldPrintMain = fieldPrintMain;
-                LabelPrintShipping = labelPrintShipping;
-                FieldPrintShipping = fieldPrintShipping;
+                
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocalizationCore.Scales.Plu);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocalizationCore.Scales.FieldSscc);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocalizationCore.Scales.FieldTime);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocalizationCore.Scales.FieldDate);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocalizationCore.Scales.FieldKneading);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
+                
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
+                if (SessionStateHelper.Instance.CurrentScale?.IsKneading == true)
+                {
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
+                }
             },
-            5_000, 250, 250, 250, 1_000);
+            1_000, 1_000, 1_000, 1_000, 1_000);
         }
 
         public new void Open()
@@ -93,14 +83,15 @@ namespace WeightCore.Managers
                 Open(
                 () =>
                 {
-                    OpenProductDate();
-                    OpenPlu();
-                    OpenWeights();
-                    OpenResponseGetMassa();
-                    OpenKneading();
-                    OpenMasseSet();
-                    OpenPrint();
-                }, null, null);
+                    OpenTitle();
+                },
+                () =>
+                {
+                    RequestProductDate();
+                    RequestPlu();
+                    RequestKneading();
+                },
+                null);
             }
             catch (Exception ex)
             {
@@ -108,67 +99,85 @@ namespace WeightCore.Managers
             }
         }
 
-        private void OpenPrint()
+        private void OpenTitle()
         {
-            OpenPrint(LabelPrintMain, LocalizationCore.Print.NameMain, FieldPrintMain,
-                $"{LocalizationCore.Scales.Labels}: {SessionStateHelper.Instance.CurrentLabelsMain} / " +
-                $"{SessionStateHelper.Instance.WeighingSettings.CurrentLabelsCountMain}",
-                SessionStateHelper.Instance.Manager.PrintMain);
-            OpenPrint(LabelPrintShipping, LocalizationCore.Print.NameShipping, FieldPrintShipping,
-                $"{LocalizationCore.Scales.Labels}: {SessionStateHelper.Instance.CurrentLabelsShipping} / " +
-                $"{SessionStateHelper.Instance.WeighingSettings.CurrentLabelsCountShipping}",
-                SessionStateHelper.Instance.Manager.PrintShipping);
+            switch (SessionStateHelper.Instance.SqlViewModel.PublishType)
+            {
+                case ShareEnums.PublishType.Debug:
+                case ShareEnums.PublishType.Dev:
+                    SetTitleSwitchDev();
+                    break;
+                case ShareEnums.PublishType.Release:
+                    SetTitleSwitchRelease();
+                    break;
+                case ShareEnums.PublishType.Default:
+                default:
+                    SetTitleSwitchDefault();
+                    break;
+            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocalizationCore.Scales.FieldSscc}: {SessionStateHelper.Instance.ProductSeries.Sscc.SSCC}");
         }
 
-        private void OpenMasseSet()
+        private void SetTitleSwitchDev()
         {
-            if (SessionStateHelper.Instance.Manager.Massa.ResponseParseSet == null)
+            switch (SessionStateHelper.Instance.ProgramState)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, $"{LocalizationCore.Scales.WeightingScaleCmd}: ...");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, $"{LocalizationCore.Scales.Crc}: ...");
+                case ShareEnums.ProgramState.IsLoad:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
+                        $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription} | {LocalizationCore.Scales.ProgramLoad}");
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
+                        $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}");
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
+                        $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription} | {LocalizationCore.Scales.ProgramExit}");
+                    break;
             }
-            else
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet,
-                    $"{SessionStateHelper.Instance.Manager.Massa.ResponseParseSet.DtCreated:HH:mm:ss}  " +
-                    $"{LocalizationCore.Scales.WeightingScaleCmd}: " +
-                    SessionStateHelper.Instance.Manager.Massa.ResponseParseSet.Message);
-                //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, $"{LocalizationCore.Scales.Crc}: " +
-                //    (SessionStateHelper.Instance.Manager.Massa.ResponseParseSet.IsValidAll
-                //    ? $"{LocalizationCore.Scales.StateCorrect} {SessionStateHelper.Instance.Manager.Massa.ProgressStringResponse}"
-                //    : $"{LocalizationCore.Scales.StateError}! {SessionStateHelper.Instance.Manager.Massa.ProgressStringResponse}"));
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, $"{LocalizationCore.Scales.Crc}: " +
-                    (SessionStateHelper.Instance.Manager.Massa.ResponseParseSet.IsValidAll
-                    ? $"{LocalizationCore.Scales.StateCorrect}" : $"{LocalizationCore.Scales.StateError}!"));
-                //SessionStateHelper.Instance.Manager.Massa.ProgressStringResponse = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.Massa.ProgressStringResponse);
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightYellow);
         }
 
-        private void OpenResponseGetMassa()
+        private void SetTitleSwitchRelease()
         {
-            if (SessionStateHelper.Instance.Manager.Massa.ResponseParseGet == null)
+            switch (SessionStateHelper.Instance.ProgramState)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, $"{LocalizationCore.Scales.WeightingMessage}: ...");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocalizationCore.Scales.Crc}: ...");
+                case ShareEnums.ProgramState.IsLoad:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName + $"  {LocalizationCore.Scales.ProgramLoad}");
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName + $"  {LocalizationCore.Scales.ProgramExit}");
+                    break;
             }
-            else
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet,
-                    $"{SessionStateHelper.Instance.Manager.Massa.ResponseParseGet.DtCreated:HH:mm:ss)}  " +
-                    $"{LocalizationCore.Scales.WeightingMessage}: " +
-                    SessionStateHelper.Instance.Manager.Massa.ResponseParseGet.Message);
-                //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocalizationCore.Scales.Crc}: " +
-                //    (SessionStateHelper.Instance.Manager.Massa.ResponseParseGet.IsValidAll
-                //    ? $"{LocalizationCore.Scales.StateCorrect} {SessionStateHelper.Instance.Manager.Massa.ProgressStringRequest}"
-                //    : $"{LocalizationCore.Scales.StateError}! {SessionStateHelper.Instance.Manager.Massa.ProgressStringRequest}"));
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocalizationCore.Scales.Crc}: " +
-                    (SessionStateHelper.Instance.Manager.Massa.ResponseParseGet.IsValidAll
-                    ? $"{LocalizationCore.Scales.StateCorrect}" : $"{LocalizationCore.Scales.StateError}!"));
-                //SessionStateHelper.Instance.Manager.Massa.ProgressStringRequest = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.Massa.ProgressStringRequest);
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightGreen);
         }
 
-        private void OpenProductDate()
+        private void SetTitleSwitchDefault()
+        {
+            switch (SessionStateHelper.Instance.ProgramState)
+            {
+                case ShareEnums.ProgramState.IsLoad:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
+                        $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}." +
+                        $"  {LocalizationCore.Scales.ProgramLoad}");
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
+                        $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}.");
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
+                        $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}." +
+                        $"  {LocalizationCore.Scales.ProgramExit}");
+                    break;
+            }
+            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.IndianRed);
+        }
+
+        private void RequestProductDate()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate,
                 $"{LocalizationCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
@@ -176,11 +185,11 @@ namespace WeightCore.Managers
                 $"{LocalizationCore.Scales.FieldDate}: {SessionStateHelper.Instance.ProductDate:dd.MM.yyyy}");
         }
 
-        private void OpenPlu()
+        private void RequestPlu()
         {
             if (CurrentPlu == null)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, $"{@LocalizationCore.Scales.Plu}");
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocalizationCore.Scales.Plu);
             }
             else
             {
@@ -200,118 +209,27 @@ namespace WeightCore.Managers
             }
         }
 
-        private void OpenKneading()
+        private void RequestKneading()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocalizationCore.Scales.FieldKneading);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading,
-                $"{SessionStateHelper.Instance.WeighingSettings.Kneading}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, $"{LocalizationCore.Scales.FieldKneading}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, $"{SessionStateHelper.Instance.WeighingSettings.Kneading}");
         }
 
-        private void OpenWeights()
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocalizationCore.Scales.FieldWeightTare);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, CurrentPlu != null
-                ? $"{CurrentPlu.GoodsTareWeight:0.000} {LocalizationCore.Scales.UnitKg}"
-                : $"0,000 {LocalizationCore.Scales.UnitKg}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocalizationCore.Scales.FieldWeightNetto);
-
-            if (SessionStateHelper.Instance.Manager.Massa != null)
-            {
-                SessionStateHelper.Instance.Manager.Massa.ProgressString = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.Massa.ProgressString);
-                if (CurrentPlu == null)
-                {
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-                    //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager,
-                    //    $"{0:0.000} {LocalizationCore.Scales.UnitKg} {SessionStateHelper.Instance.Manager.Massa.ProgressString}");
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-                }
-                else
-                {
-                    decimal weight = SessionStateHelper.Instance.Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{weight:0.000} {LocalizationCore.Scales.UnitKg}");
-                    //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, SessionStateHelper.Instance.Manager.Massa.IsStable == 0
-                    //    ? $"{@LocalizationCore.Scales.WeightingProcess}: {SessionStateHelper.Instance.Manager.Massa.WeightNet:0.000} " +
-                    //      $"{LocalizationCore.Scales.UnitKg} {SessionStateHelper.Instance.Manager.Massa.ProgressString}"
-                    //    : $"{@LocalizationCore.Scales.WeightingStable}: {SessionStateHelper.Instance.Manager.Massa.WeightNet:0.000} " +
-                    //      $"{LocalizationCore.Scales.UnitKg} {SessionStateHelper.Instance.Manager.Massa.ProgressString}");
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, SessionStateHelper.Instance.Manager.Massa.IsStable == 0
-                        ? $"{@LocalizationCore.Scales.WeightingProcess}: {SessionStateHelper.Instance.Manager.Massa.WeightNet:0.000} " +
-                          $"{LocalizationCore.Scales.UnitKg}"
-                        : $"{@LocalizationCore.Scales.WeightingStable}: {SessionStateHelper.Instance.Manager.Massa.WeightNet:0.000} " +
-                          $"{LocalizationCore.Scales.UnitKg}");
-                }
-                if (SessionStateHelper.Instance.Manager.Massa.MassaDevice != null)
-                {
-                    //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaComPort, SessionStateHelper.Instance.Manager.Massa.MassaDevice.IsConnected
-                    //    ? $"{LocalizationCore.Scales.ComPortState}: {LocalizationCore.Scales.StateResponsed} " +
-                    //      $"{SessionStateHelper.Instance.Manager.Massa.ProgressString}"
-                    //    : $"{LocalizationCore.Scales.ComPortState}: {LocalizationCore.Scales.StateNotResponsed} " +
-                    //      $"{SessionStateHelper.Instance.Manager.Massa.ProgressString}");
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaComPort, SessionStateHelper.Instance.Manager.Massa.MassaDevice.IsConnected
-                        ? $"{LocalizationCore.Scales.ComPortState}: {LocalizationCore.Scales.StateResponsed}"
-                        : $"{LocalizationCore.Scales.ComPortState}: {LocalizationCore.Scales.StateNotResponsed}");
-                }
-                // Очередь сообщений весов.
-                //MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaQueries,
-                //    $"{LocalizationCore.Scales.ScaleQueue}: {SessionStateHelper.Instance.Manager.Massa.Requests?.Count} {SessionStateHelper.Instance.Manager.Massa.ProgressStringQueries}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaQueries,
-                    $"{LocalizationCore.Scales.ScaleQueue}: {SessionStateHelper.Instance.Manager.Massa.Requests?.Count}");
-                //SessionStateHelper.Instance.Manager.Massa.ProgressStringQueries = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.Massa.ProgressStringQueries);
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMassaQueriesProgress,
-                    SessionStateHelper.Instance.Manager.Massa.Requests != null
-                        ? SessionStateHelper.Instance.Manager.Massa.Requests.Count : 0);
-            }
-        }
-
-        private void OpenPrint(Label labelPrint, string caption, Label fieldPrint, string value, ManagerPrint managerPrint)
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrint, caption);
-            //SessionStateHelper.Instance.LabelsCurrent = SessionStateHelper.Instance.Manager.Print.UserLabelCount < SessionStateHelper.Instance.LabelsCount
-            //    ? SessionStateHelper.Instance.Manager.Print.UserLabelCount : SessionStateHelper.Instance.LabelsCount;
-
-            // LabelsCurrent
-            if (SessionStateHelper.Instance.CurrentLabelsMain < 1)
-                SessionStateHelper.Instance.CurrentLabelsMain = 1;
-
-            switch (SessionStateHelper.Instance.PrintBrandMain)
-            {
-                case Print.PrintBrand.Zebra:
-                    if (SessionStateHelper.Instance.ProgramState == ShareEnums.ProgramState.IsRun &&
-                        SessionStateHelper.Instance.StopwatchPrintMain.Elapsed.TotalSeconds > 5)
-                    {
-                        //SessionStateHelper.Instance.Manager.PrintMain.SetCurrentStatus();
-                        SessionStateHelper.Instance.StopwatchPrintMain.Restart();
-                    }
-                    if (managerPrint.CurrentStatus != null)
-                    {
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint,
-                            $"{LocalizationCore.Print.ModelZebra} {SessionStateHelper.Instance.CurrentScale.PrinterMain.Ip}: " +
-                            (managerPrint.CurrentStatus.isReadyToPrint
-                                ? $"{LocalizationCore.Print.Available}"
-                                : $"{LocalizationCore.Print.Unavailable}"
-                            ) + $" | {LocalizationCore.Print.SensorPeeler}: {managerPrint.SensorPeelerStatus} | {value} | {SessionStateHelper.Instance.Manager.PrintMain.ProgressString}"
-                        );
-                    }
-                    break;
-                case Print.PrintBrand.TSC:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint,
-                        $"{LocalizationCore.Print.ModelTsc}: {SessionStateHelper.Instance.Manager.PrintMain.Win32Printer()?.PrinterStatusDescription} " +
-                        $"{SessionStateHelper.Instance.Manager.PrintMain.ProgressString}");
-                    break;
-                case Print.PrintBrand.Default:
-                default:
-                    break;
-            }
-            SessionStateHelper.Instance.Manager.PrintMain.ProgressString = StringUtils.GetProgressString(SessionStateHelper.Instance.Manager.PrintMain.ProgressString);
-        }
-
-        public new void CloseMethod()
+        public new void Close()
         {
             base.Close();
         }
 
         public new void ReleaseManaged()
         {
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, false);
+            
             base.ReleaseManaged();
         }
 

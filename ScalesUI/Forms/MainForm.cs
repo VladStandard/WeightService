@@ -38,7 +38,6 @@ namespace ScalesUI.Forms
 
         #region Private fields and properties
 
-        private bool IsProgramStateIsRunVisible { get; set; }
         private bool IsShowInfoLabels { get; set; }
         private Button ButtonKneading { get; set; }
         private Button ButtonMore { get; set; }
@@ -51,7 +50,6 @@ namespace ScalesUI.Forms
         private FontsSettingsEntity FontsSettings { get; set; }
         private readonly object _lockerDays;
         private readonly object _lockerSeconds;
-        private string AppName { get; set; }
         private TableLayoutPanel TableLayoutPanelButtons { get; set; }
 
         #endregion
@@ -66,7 +64,6 @@ namespace ScalesUI.Forms
             _lockerSeconds = new();
             FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !Debug.IsDebug;
-            AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -74,7 +71,9 @@ namespace ScalesUI.Forms
             bool isCmdSuccess = false;
             try
             {
-                SessionState.StopwatchStartNew();
+                SessionState.AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
+                SessionState.StopwatchMain = Stopwatch.StartNew();
+                SessionState.StopwatchMassa = Stopwatch.StartNew();
                 FontsSettings = new();
                 ButtonsSettingsEntity buttonsSettings = new()
                 {
@@ -94,7 +93,6 @@ namespace ScalesUI.Forms
 
                 MainForm_LoadResources();
                 SessionState.NewPallet();
-                SetLabels();
 
                 Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), delegate { ScheduleEveryDays(); },
                     "jobScheduleEveryDays", "triggerScheduleEveryDays", "triggerGroupScheduleEveryDays");
@@ -115,15 +113,28 @@ namespace ScalesUI.Forms
 
                 if (isCmdSuccess)
                 {
-                    SessionState.Manager.Init(SessionState.CurrentScale, SessionState.PrintBrandMain, SessionState.PrintBrandShipping);
-                    SessionState.Manager.Labels.Init(labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldPlu,
-                        labelWeightNetto, fieldWeightNetto, labelWeightTare, fieldWeightTare, fieldMassaManager, fieldMassaComPort,
-                        fieldMassaQueries, fieldMassaQueriesProgress, fieldMassaGet, fieldMassaGetCrc, fieldMassaSet, fieldMassaSetCrc,
-                        labelPrintMain, fieldPrintMain, labelPrintShipping, fieldPrintShipping);
+                    // Labels.
+                    SessionState.Manager.Labels.Init(fieldTitle, fieldPlu, fieldSscc, 
+                        labelProductDate, fieldProductDate, labelKneading, fieldKneading);
                     SessionState.Manager.Labels.Open();
+                    // Memory.
                     SessionState.Manager.Memory.Init(fieldMemoryManagerTotal, fieldTasks, fieldMemoryProgress);
                     SessionState.Manager.Memory.Open();
-                    SessionState.Manager.Open();
+                    // PrintMain.
+                    SessionState.Manager.PrintMain.Init(SessionState.PrintBrandMain, 
+                        SessionState.CurrentScale.PrinterMain.Name, SessionState.CurrentScale.PrinterMain.Ip,
+                        SessionState.CurrentScale.PrinterMain.Port, fieldPrintMain, true);
+                    SessionState.Manager.PrintMain.Open(true);
+                    // PrintShipping.
+                    SessionState.Manager.PrintShipping.Init(SessionState.PrintBrandShipping, 
+                        SessionState.CurrentScale.PrinterShipping.Name, SessionState.CurrentScale.PrinterShipping.Ip,
+                        SessionState.CurrentScale.PrinterShipping.Port, fieldPrintShipping, false);
+                    SessionState.Manager.PrintShipping.Open(false);
+                    // Massa.
+                    SessionState.Manager.Massa.Init(labelWeightNetto, fieldWeightNetto, labelWeightTare, fieldWeightTare, 
+                        fieldMassaQueriesProgress, fieldThreshold, fieldMassaGet, 
+                        fieldMassaGetCrc, fieldMassaSet, fieldMassaSetCrc, fieldMassaScalePar);
+                    SessionState.Manager.Massa.Open();
                 }
                 ManagerBase.WaitSync(0_100);
                 //ButtonScalesInit_Click(sender, e);
@@ -178,9 +189,6 @@ namespace ScalesUI.Forms
                 Quartz.Close();
                 Quartz.Dispose();
                 Quartz = null;
-                SetLabels();
-                ManagerBase.WaitSync(0_100);
-                ScheduleControlsVisible();
                 ManagerBase.WaitSync(0_100);
                 //SessionState.Dispose(true);
                 ManagerBase.WaitSync(0_100);
@@ -194,7 +202,8 @@ namespace ScalesUI.Forms
             finally
             {
                 Log.Information(LocalizationData.Program.IsClosed + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
-                SessionState.StopwatchStop();
+                SessionState.StopwatchMain.Stop();
+                SessionState.StopwatchMassa.Stop();
             }
         }
 
@@ -243,24 +252,17 @@ namespace ScalesUI.Forms
             fieldProductDate.Font = FontsSettings.FontLabelsTitle;
 
             // FontLabelsGray.
-            labelThreshold.Font = FontsSettings.FontLabelsGray;
             fieldThreshold.Font = FontsSettings.FontLabelsGray;
-            labelSscc.Font = FontsSettings.FontLabelsGray;
             fieldSscc.Font = FontsSettings.FontLabelsGray;
             fieldTasks.Font = FontsSettings.FontLabelsGray;
-            labelPrintMain.Font = FontsSettings.FontLabelsGray;
-            labelPrintShipping.Font = FontsSettings.FontLabelsGray;
             fieldPrintMain.Font = FontsSettings.FontLabelsGray;
             fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
             fieldPrintProgressMain.Font = FontsSettings.FontLabelsGray;
             fieldPrintProgressShipping.Font = FontsSettings.FontLabelsGray;
-            fieldMassaManager.Font = FontsSettings.FontLabelsGray;
             fieldMassaScalePar.Font = FontsSettings.FontLabelsGray;
             fieldMassaGetCrc.Font = FontsSettings.FontLabelsGray;
-            fieldMassaComPort.Font = FontsSettings.FontLabelsGray;
             fieldMassaGet.Font = FontsSettings.FontLabelsGray;
             fieldMassaSetCrc.Font = FontsSettings.FontLabelsGray;
-            fieldMassaQueries.Font = FontsSettings.FontLabelsGray;
             fieldMassaSet.Font = FontsSettings.FontLabelsGray;
             fieldMassaQueriesProgress.Font = FontsSettings.FontLabelsGray;
             fieldMemoryManagerTotal.Font = FontsSettings.FontLabelsGray;
@@ -385,131 +387,6 @@ namespace ScalesUI.Forms
                 if (Quartz == null)
                     return;
                 ScheduleMassaManager();
-                ScheduleControlsVisible();
-                SetLabels();
-            }
-        }
-
-        private void SetLabels()
-        {
-            switch (SessionState.SqlViewModel.PublishType)
-            {
-                case ShareEnums.PublishType.Debug:
-                case ShareEnums.PublishType.Dev:
-                    SetTitleSwitchDev();
-                    break;
-                case ShareEnums.PublishType.Release:
-                    SetTitleSwitchRelease();
-                    break;
-                case ShareEnums.PublishType.Default:
-                default:
-                    SetTitleSwitchDefault();
-                    break;
-            }
-            MDSoft.WinFormsUtils.InvokeControl.SetText(labelSscc, LocalizationCore.Scales.FieldSscc);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldSscc, SessionState.ProductSeries.Sscc.SSCC);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(labelThreshold, LocalizationCore.Scales.FieldThresholds);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldThreshold, SessionState.CurrentPlu == null ? string.Empty :
-                $"{LocalizationCore.Scales.FieldThresholdLower}: {SessionState.CurrentPlu.LowerWeightThreshold:0.000} {LocalizationCore.Scales.UnitKg} | " +
-                $"{LocalizationCore.Scales.FieldThresholdNominal}: {SessionState.CurrentPlu.NominalWeight:0.000} {LocalizationCore.Scales.UnitKg} | " +
-                $"{LocalizationCore.Scales.FieldThresholdUpper}: {SessionState.CurrentPlu.UpperWeightThreshold:0.000} {LocalizationCore.Scales.UnitKg}");
-        }
-
-        private void SetTitleSwitchDev()
-        {
-            switch (SessionState.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName +
-                        $" SQL: {SessionState.SqlViewModel.PublishDescription} | {LocalizationCore.Scales.ProgramLoad}");
-                    break;
-                case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName +
-                        $" SQL: {SessionState.SqlViewModel.PublishDescription}");
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName +
-                        $" SQL: {SessionState.SqlViewModel.PublishDescription} | {LocalizationCore.Scales.ProgramExit}");
-                    break;
-            }
-            fieldTitle.BackColor = Color.LightYellow;
-        }
-
-        private void SetTitleSwitchRelease()
-        {
-            switch (SessionState.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName + $"  {LocalizationCore.Scales.ProgramLoad}");
-                    break;
-                case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName);
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName + $"  {LocalizationCore.Scales.ProgramExit}");
-                    break;
-            }
-            fieldTitle.BackColor = Color.LightGreen;
-        }
-
-        private void SetTitleSwitchDefault()
-        {
-            switch (SessionState.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                        $@"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}. SQL: {SessionState.SqlViewModel.PublishDescription}." +
-                        $"  {LocalizationCore.Scales.ProgramLoad}");
-                    break;
-                case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                        $@"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}. SQL: {SessionState.SqlViewModel.PublishDescription}.");
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                        $@"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}. SQL: {SessionState.SqlViewModel.PublishDescription}." +
-                        $"  {LocalizationCore.Scales.ProgramExit}");
-                    break;
-            }
-            fieldTitle.BackColor = Color.IndianRed;
-        }
-
-        private void ScheduleControlsVisible()
-        {
-            switch (SessionState.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsRun:
-                    if (!IsProgramStateIsRunVisible)
-                    {
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPlu, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, true);
-                        //MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, true);
-                        //MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, true);
-                        IsProgramStateIsRunVisible = true;
-                    }
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    IsProgramStateIsRunVisible = false;
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPlu, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, false);
-                    //MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, false);
-                    //MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(pictureBoxClose, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTasks, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, false);
-                    break;
-                case ShareEnums.ProgramState.Default:
-                case ShareEnums.ProgramState.IsLoad:
-                default:
-                    IsProgramStateIsRunVisible = false;
-                    break;
             }
         }
 
@@ -524,24 +401,6 @@ namespace ScalesUI.Forms
             {
                 SessionState.Manager.Massa.Open();
                 SessionState.StopwatchMassa.Restart();
-            }
-
-            // Schedule - Request parameters.
-            ScheduleMassaManagerRequestGetScalePar();
-        }
-
-        private void ScheduleMassaManagerRequestGetScalePar()
-        {
-            if (SessionState.Manager.Massa.ResponseParseScalePar == null)
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar, $"{LocalizationCore.Scales.RequestParameters}: ...");
-            }
-            else
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar,
-                    SessionState.Manager.Massa.ResponseParseScalePar.DtCreated.ToString(@"HH:mm:ss") +
-                    $"  {LocalizationCore.Scales.RequestParameters}: " +
-                    SessionState.Manager.Massa.ResponseParseScalePar.Message);
             }
         }
 
@@ -566,35 +425,52 @@ namespace ScalesUI.Forms
 
         private void FieldPrintManager_Click(object sender, EventArgs e)
         {
-            WmiWin32PrinterEntity win32Printer = SessionState.Manager.PrintMain.Win32Printer();
-            if (win32Printer == null)
-                return;
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog,
+                22, 16, 16)
+            { Width = 700, Height = 650 };
             wpfPageLoader.Text = LocalizationCore.Print.InfoCaption;
             wpfPageLoader.MessageBox.Caption = LocalizationCore.Print.InfoCaption;
-            wpfPageLoader.MessageBox.Message =
-                $"{LocalizationCore.Print.Name}: {win32Printer.Name}" + Environment.NewLine +
+            wpfPageLoader.MessageBox.Message = 
+                GetPrintInfo(SessionState.Manager.PrintMain.Win32Printer(), true) + Environment.NewLine + Environment.NewLine + 
+                GetPrintInfo(SessionState.Manager.PrintShipping.Win32Printer(), false);
+            wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
+            wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomVisibility = Visibility.Visible;
+            wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomContent = LocalizationCore.Print.ClearQueue;
+            DialogResult result = wpfPageLoader.ShowDialog(this);
+            wpfPageLoader.Close();
+            wpfPageLoader.Dispose();
+            if (result == DialogResult.Retry)
+            {
+                SessionState.Manager.PrintMain.ClearPrintBuffer(true, SessionState.Manager.PrintMain.CurrentLabels);
+                SessionState.Manager.PrintShipping.ClearPrintBuffer(true, SessionState.Manager.PrintShipping.CurrentLabels);
+            }
+        }
+
+        private string GetPrintInfo(WmiWin32PrinterEntity win32Printer, bool isMain)
+        {
+            string caption = isMain 
+                ? SessionState.Manager.PrintMain.PrintBrand == WeightCore.Print.PrintBrand.Zebra
+                    ? LocalizationCore.Print.NameMainZebra : LocalizationCore.Print.NameMainTsc
+                : SessionState.Manager.PrintShipping.PrintBrand == WeightCore.Print.PrintBrand.Zebra
+                    ? LocalizationCore.Print.NameShippingZebra : LocalizationCore.Print.NameShippingTsc;
+            string peeler = isMain
+                ? SessionState.Manager.PrintMain.ZebraPeelerStatus : SessionState.Manager.PrintShipping.ZebraPeelerStatus;
+            string printMode = isMain
+                ? SessionState.Manager.PrintMain.GetZebraPrintMode() :
+                SessionState.Manager.PrintShipping.GetZebraPrintMode();
+            return $"{caption}: {win32Printer.Name}" + Environment.NewLine +
                 $"{LocalizationCore.Print.Driver}: {win32Printer.DriverName}" + Environment.NewLine +
                 $"{LocalizationCore.Print.Port}: {win32Printer.PortName}" + Environment.NewLine +
                 $"{LocalizationCore.Print.StateCode}: {win32Printer.PrinterState}" + Environment.NewLine +
                 $"{LocalizationCore.Print.StatusCode}: {win32Printer.PrinterStatus}" + Environment.NewLine +
                 $"{LocalizationCore.Print.Status}: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
                 $"{LocalizationCore.Print.State} (ENG): {win32Printer.Status}" + Environment.NewLine +
-                $"{LocalizationCore.Print.State}: {win32Printer.StatusDescription}";
-            wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
-            wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomVisibility = Visibility.Visible;
-            wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomContent = LocalizationCore.Print.ClearQueue;
-            //wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-            DialogResult result = wpfPageLoader.ShowDialog(this);
-            wpfPageLoader.Close();
-            wpfPageLoader.Dispose();
-            if (result == DialogResult.Retry)
-            {
-                SessionState.Manager.PrintMain.ClearPrintBuffer(true, SessionState.CurrentLabelsMain);
-            }
+                $"{LocalizationCore.Print.State}: {win32Printer.StatusDescription}" + Environment.NewLine +
+                $"{LocalizationCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
+                $"{LocalizationCore.Print.Mode}: {printMode}" + Environment.NewLine;
         }
 
-        private void FieldSscc_DoubleClick(object sender, EventArgs e)
+        private void FieldSscc_Click(object sender, EventArgs e)
         {
             using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
             wpfPageLoader.Text = LocalizationCore.Scales.FieldSsccShort;
@@ -700,7 +576,6 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocalizationCore.Print.ActionPrint);
                 ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocalizationCore.Scales.ListResolutions,
                     Debug.IsDebug ? 2 : LocalizationCore.Scales.ListResolutions.Count - 1);
-                SetLabels();
             }
             catch (Exception ex)
             {
@@ -898,7 +773,6 @@ namespace ScalesUI.Forms
             try
             {
                 SessionState.NewPallet();
-                SetLabels();
             }
             catch (Exception ex)
             {

@@ -35,6 +35,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
+        public string AppName { get; set; }
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public ManagerEntity Manager { get; private set; }
         public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
@@ -93,10 +94,8 @@ namespace WeightCore.Helpers
         public bool IsCurrentPluCheckWeight => CurrentPlu?.IsCheckWeight == true;
         public WeighingSettingsEntity WeighingSettings { get; set; }
         public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
-        public Stopwatch StopwatchMain { get; private set; }
-        public Stopwatch StopwatchMassa { get; private set; }
-        public Stopwatch StopwatchPrintMain { get; private set; }
-        public Stopwatch StopwatchPrintShipping { get; private set; }
+        public Stopwatch StopwatchMain { get; set; }
+        public Stopwatch StopwatchMassa { get; set; }
 
         #endregion
 
@@ -110,30 +109,15 @@ namespace WeightCore.Helpers
             CurrentScale = DataAccess.Dal.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
 
             ProductDate = DateTime.Now;
-            CurrentLabelsMain = 1;
 
             // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new(CurrentScale);
             //ProductSeries.Load();
 
             Manager = new();
+            Manager.PrintMain.CurrentLabels = 1;
+            Manager.PrintShipping.CurrentLabels = 1;
             WeighingSettings = new();
-        }
-
-        public void StopwatchStartNew()
-        {
-            StopwatchMain = Stopwatch.StartNew();
-            StopwatchPrintMain = Stopwatch.StartNew();
-            StopwatchPrintShipping = Stopwatch.StartNew();
-            StopwatchMassa = Stopwatch.StartNew();
-        }
-
-        public void StopwatchStop()
-        {
-            StopwatchMain.Stop();
-            StopwatchPrintMain.Stop();
-            StopwatchPrintShipping.Stop();
-            StopwatchMassa.Stop();
         }
 
         //~SessionStateHelper()
@@ -156,11 +140,9 @@ namespace WeightCore.Helpers
 
         #region CurrentBox
 
-        public int CurrentLabelsMain { get; set; }
-        public int CurrentLabelsShipping { get; set; }
         public void NewPallet()
         {
-            CurrentLabelsMain = 1;
+            Manager.PrintMain.CurrentLabels = 1;
             ProductSeries.Load();
             //if (Manager == null || Manager.Print == null)
             //    return;
@@ -215,7 +197,8 @@ namespace WeightCore.Helpers
             private set
             {
                 _currentPlu = value;
-                CurrentLabelsMain = 1;
+                Manager.PrintMain.CurrentLabels = 1;
+                Manager.PrintShipping.CurrentLabels = 1;
                 if (Manager == null || Manager.PrintMain == null)
                     return;
                 //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
@@ -468,7 +451,7 @@ namespace WeightCore.Helpers
             // Шаблон без указания кол-ва.
             else
             {
-                for (int i = CurrentLabelsMain; i <= WeighingSettings.CurrentLabelsCountMain; i++)
+                for (int i = Manager.PrintMain.CurrentLabels; i <= WeighingSettings.CurrentLabelsCountMain; i++)
                 {
                     // Печать этикетки.
                     PrintLabel(template, isClearBuffer);
@@ -517,7 +500,10 @@ namespace WeightCore.Helpers
 
                 // Print.
                 if (isClearBuffer)
-                    Manager.PrintMain.ClearPrintBuffer(true, CurrentLabelsMain);
+                {
+                    Manager.PrintMain.ClearPrintBuffer(true, Manager.PrintMain.CurrentLabels);
+                    Manager.PrintShipping.ClearPrintBuffer(true, Manager.PrintShipping.CurrentLabels);
+                }
                 Manager.PrintMain.SendCmd(printCmd);
             }
             catch (Exception ex)

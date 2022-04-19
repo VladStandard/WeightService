@@ -103,8 +103,8 @@ namespace WeightCore.Gui
             {
                 LogHelper.Instance.Error(message, filePath, lineNumber, memberName);
                 return ShowNew(owner, LocalizationCore.Scales.Exception,
-                    $"{@LocalizationCore.Scales.Method}: {memberName}." + Environment.NewLine +
-                    $"{@LocalizationCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
+                    $"{LocalizationCore.Scales.Method}: {memberName}." + Environment.NewLine +
+                    $"{LocalizationCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
                     new() { ButtonOkVisibility = Visibility.Visible });
             }
         }
