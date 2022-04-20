@@ -3,13 +3,11 @@
 
 using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class ZplLabelDirect : BaseSerializeDeprecatedEntity<ZplLabelDirect>
+    public class ZplLabelDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
 

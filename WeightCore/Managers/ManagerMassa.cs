@@ -94,7 +94,7 @@ namespace WeightCore.Managers
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, true);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, true);
             },
-            1_000, 0_200, 0_300, 1_000, 1_000);
+            new(waitReopen: 5_000, waitRequest: 0_100, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
         }
 
         public new void Open()
@@ -102,6 +102,7 @@ namespace WeightCore.Managers
             try
             {
                 Open(
+                // Reopen.
                 () =>
                 {
                     if (SessionStateHelper.Instance.CurrentPlu?.IsCheckWeight == true)
@@ -125,6 +126,7 @@ namespace WeightCore.Managers
                             $"{LocalizationCore.Scales.FieldThresholdUpper}: {SessionStateHelper.Instance.CurrentPlu.UpperWeightThreshold:0.000} {LocalizationCore.Scales.UnitKg}"));
                     }
                 },
+                // Request.
                 () =>
                 {
                     if (SessionStateHelper.Instance.CurrentPlu?.IsCheckWeight == true)
@@ -132,7 +134,7 @@ namespace WeightCore.Managers
                         if (MassaDevice?.IsConnected == true)
                             GetMassa();
                         else
-                            ClearRequests(0);
+                            ClearRequestsByLimit(0);
                         RequestMassa();
                         RequestGetMassa();
                         RequestSetMassa();
@@ -169,12 +171,13 @@ namespace WeightCore.Managers
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaQueriesProgress, false);
                     }
                 },
+                // Response.
                 () =>
                 {
                     if (SessionStateHelper.Instance.CurrentPlu?.IsCheckWeight == true)
                     {
                         if (MassaDevice?.IsConnected == true)
-                            OpenResponse();
+                            Response();
                         else
                             ResetMassa();
                     }
@@ -307,7 +310,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Control
 
-        public void ClearRequests(ushort limit)
+        public void ClearRequestsByLimit(ushort limit)
         {
             if (Requests.Count > limit)
             {
@@ -315,9 +318,9 @@ namespace WeightCore.Managers
             }
         }
 
-        public void OpenResponse()
+        public void Response()
         {
-            ClearRequests(100);
+            ClearRequestsByLimit(100);
 
             foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
             {

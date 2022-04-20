@@ -8,8 +8,7 @@ using System.Collections.Generic;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class NomenclatureDirect : BaseSerializeDeprecatedEntity<NomenclatureDirect>
+    public class NomenclatureDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
 

@@ -78,7 +78,7 @@ namespace WeightCore.Managers
                     }
                     TscDriver.Init(name);
                 },
-                1_000, 1_000, 1_000, 1_000, 1_000);
+                new(waitReopen: 1_000, waitRequest: 2_000, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
         }
 
         public void Open(bool isMain)

@@ -10,8 +10,7 @@ using System.Xml.Linq;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class WeighingFactDirect : BaseSerializeDeprecatedEntity<WeighingFactDirect>
+    public class WeighingFactDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
 

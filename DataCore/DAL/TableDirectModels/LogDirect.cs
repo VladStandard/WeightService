@@ -8,8 +8,7 @@ using System;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class LogDirect : BaseSerializeDeprecatedEntity<LogDirect>
+    public class LogDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
 

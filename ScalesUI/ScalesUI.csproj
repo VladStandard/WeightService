@@ -404,7 +404,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\ButtonsSettingsEntity.cs" />
-    <Compile Include="Forms\FontsSettingsEntity.cs" />
     <Compile Include="Forms\OrderDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>

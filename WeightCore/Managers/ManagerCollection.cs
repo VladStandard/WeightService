@@ -1,12 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 
 namespace WeightCore.Managers
 {
-    public class ManagerEntity : DisposableBase
+    public class ManagerCollection : DisposableBase
     {
         #region Public and private fields and properties
 
@@ -20,7 +19,7 @@ namespace WeightCore.Managers
 
         #region Constructor and destructor
 
-        public ManagerEntity()
+        public ManagerCollection()
         {
             Labels = new();
             Massa = new();
@@ -30,7 +29,7 @@ namespace WeightCore.Managers
             Init(Close, ReleaseManaged, ReleaseUnmanaged);
         }
 
-        ~ManagerEntity()
+        ~ManagerCollection()
         {
             Labels?.Dispose();
             Massa?.Dispose(false);

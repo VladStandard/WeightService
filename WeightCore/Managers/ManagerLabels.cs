@@ -73,7 +73,7 @@ namespace WeightCore.Managers
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
                 }
             },
-            1_000, 1_000, 1_000, 1_000, 1_000);
+            new(1_000, 0_500, 0_500, 1_000, 5_000));
         }
 
         public new void Open()

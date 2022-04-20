@@ -15,7 +15,7 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        private Label FieldMemoryManagerTotal { get; set; }
+        private Label FieldMemory { get; set; }
         private Label FieldTasks { get; set; }
         public MemorySizeEntity MemorySize { get; private set; }
 
@@ -32,17 +32,24 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(Label fieldMemoryManagerTotal, Label fieldTasks)
+        public void Init(Label fieldMemory, Label fieldTasks)
         {
             Init(ProjectsEnums.TaskType.MemoryManager,
                 () =>
                 {
                     MemorySize = new();
-                    FieldMemoryManagerTotal = fieldMemoryManagerTotal;
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManagerTotal, $"{LocalizationCore.Scales.Memory}");
+                    FieldMemory = fieldMemory;
                     FieldTasks = fieldTasks;
+                    
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocalizationCore.Scales.Memory);
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocalizationCore.Scales.Threads);
+
+                    if (Debug.IsDebug && !fieldMemory.Visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, true);
+                    if (Debug.IsDebug && !fieldTasks.Visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
                 },
-                1_000, 1_000, 1_000, 1_000, 1_000);
+                new());
         }
 
         public new void Open()
@@ -71,7 +78,7 @@ namespace WeightCore.Managers
         {
             if (SessionStateHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManagerTotal,
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
                     $"{LocalizationCore.Scales.Memory} | " +
                     $"{LocalizationCore.Scales.MemoryFree}: " +
                         (MemorySize.PhysicalFree != null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : $"- MB") +
@@ -91,6 +98,9 @@ namespace WeightCore.Managers
 
         public new void ReleaseManaged()
         {
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, false);
+
             if (MemorySize != null)
             {
                 MemorySize.Close();

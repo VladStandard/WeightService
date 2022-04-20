@@ -3,13 +3,11 @@
 
 using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Threading;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class PrinterDirect : BaseSerializeDeprecatedEntity<PrinterDirect>
+    public class PrinterDirect : BaseSerializeEntity
     {
         #region Design pattern "Lazy Singleton"
 

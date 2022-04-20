@@ -23,7 +23,7 @@ using DataCore.Localizations;
 
 namespace WeightCore.Helpers
 {
-    public class SessionStateHelper : BaseViewModel//, IDisposable
+    public class SessionStateHelper : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
@@ -36,7 +36,7 @@ namespace WeightCore.Helpers
 
         public string AppName { get; set; }
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public ManagerEntity Manager { get; private set; }
+        public ManagerCollection Manager { get; private set; }
         public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
         public LogHelper Log { get; private set; } = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
@@ -478,7 +478,7 @@ namespace WeightCore.Helpers
                 CurrentWeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
-                string xmlInput = CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces();
+                string xmlInput = CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
                 string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
 
                 // Replace ZPL's pics.

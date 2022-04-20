@@ -38,8 +38,7 @@
             this.fieldSscc = new System.Windows.Forms.Label();
             this.fieldTasks = new System.Windows.Forms.Label();
             this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
-            this.fieldMemoryProgress = new System.Windows.Forms.ProgressBar();
-            this.fieldMemoryManagerTotal = new System.Windows.Forms.Label();
+            this.fieldMemory = new System.Windows.Forms.Label();
             this.fieldMassaSetCrc = new System.Windows.Forms.Label();
             this.fieldMassaGetCrc = new System.Windows.Forms.Label();
             this.fieldMassaScalePar = new System.Windows.Forms.Label();
@@ -127,10 +126,9 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintShipping, 1, 8);
             this.tableLayoutPanelMain.Controls.Add(this.fieldThreshold, 1, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldSscc, 1, 6);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldTasks, 3, 7);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldTasks, 3, 13);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueriesProgress, 3, 12);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryProgress, 3, 13);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManagerTotal, 1, 13);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMemory, 1, 13);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetCrc, 3, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetCrc, 3, 10);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaScalePar, 1, 10);
@@ -149,7 +147,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintMain, 1, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 1, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelRight, 3, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelRight, 3, 3);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -249,7 +247,7 @@
             this.fieldTasks.Enabled = false;
             this.fieldTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTasks.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTasks.Location = new System.Drawing.Point(915, 339);
+            this.fieldTasks.Location = new System.Drawing.Point(915, 477);
             this.fieldTasks.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTasks.Name = "fieldTasks";
             this.fieldTasks.Size = new System.Drawing.Size(99, 17);
@@ -272,34 +270,23 @@
             this.fieldMassaQueriesProgress.Visible = false;
             this.fieldMassaQueriesProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldMemoryProgress
+            // fieldMemory
             // 
-            this.fieldMemoryProgress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMemoryProgress.Enabled = false;
-            this.fieldMemoryProgress.Location = new System.Drawing.Point(915, 477);
-            this.fieldMemoryProgress.Name = "fieldMemoryProgress";
-            this.fieldMemoryProgress.Size = new System.Drawing.Size(99, 17);
-            this.fieldMemoryProgress.TabIndex = 54;
-            this.fieldMemoryProgress.Visible = false;
-            this.fieldMemoryProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
-            // 
-            // fieldMemoryManagerTotal
-            // 
-            this.fieldMemoryManagerTotal.AutoSize = true;
-            this.fieldMemoryManagerTotal.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelMain.SetColumnSpan(this.fieldMemoryManagerTotal, 2);
-            this.fieldMemoryManagerTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMemoryManagerTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemoryManagerTotal.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMemoryManagerTotal.Location = new System.Drawing.Point(8, 477);
-            this.fieldMemoryManagerTotal.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMemoryManagerTotal.Name = "fieldMemoryManagerTotal";
-            this.fieldMemoryManagerTotal.Size = new System.Drawing.Size(901, 17);
-            this.fieldMemoryManagerTotal.TabIndex = 53;
-            this.fieldMemoryManagerTotal.Text = "fieldMemoryManagerTotal";
-            this.fieldMemoryManagerTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMemoryManagerTotal.Visible = false;
-            this.fieldMemoryManagerTotal.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.fieldMemory.AutoSize = true;
+            this.fieldMemory.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelMain.SetColumnSpan(this.fieldMemory, 2);
+            this.fieldMemory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMemory.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.fieldMemory.Location = new System.Drawing.Point(8, 477);
+            this.fieldMemory.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMemory.Name = "fieldMemory";
+            this.fieldMemory.Size = new System.Drawing.Size(901, 17);
+            this.fieldMemory.TabIndex = 53;
+            this.fieldMemory.Text = "fieldMemory";
+            this.fieldMemory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMemory.Visible = false;
+            this.fieldMemory.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaSetCrc
             // 
@@ -567,7 +554,7 @@
             this.tableLayoutPanelRight.Controls.Add(this.fieldLang, 0, 1);
             this.tableLayoutPanelRight.Controls.Add(this.fieldResolution, 0, 0);
             this.tableLayoutPanelRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelRight.Location = new System.Drawing.Point(915, 96);
+            this.tableLayoutPanelRight.Location = new System.Drawing.Point(915, 156);
             this.tableLayoutPanelRight.Name = "tableLayoutPanelRight";
             this.tableLayoutPanelRight.RowCount = 2;
             this.tableLayoutPanelRight.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -647,8 +634,7 @@
         private System.Windows.Forms.Label fieldMassaScalePar;
         private System.Windows.Forms.Label fieldMassaSetCrc;
         private System.Windows.Forms.Label fieldMassaGetCrc;
-        private System.Windows.Forms.Label fieldMemoryManagerTotal;
-        private System.Windows.Forms.ProgressBar fieldMemoryProgress;
+        private System.Windows.Forms.Label fieldMemory;
         private System.Windows.Forms.ProgressBar fieldMassaQueriesProgress;
         private System.Windows.Forms.Label fieldTasks;
         private System.Windows.Forms.Label fieldSscc;

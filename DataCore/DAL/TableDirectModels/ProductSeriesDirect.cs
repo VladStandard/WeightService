@@ -9,8 +9,7 @@ using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class ProductSeriesDirect : BaseSerializeDeprecatedEntity<ProductSeriesDirect>
+    public class ProductSeriesDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
 

@@ -346,6 +346,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gui\FontsSettingsEntity.cs" />
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\XamlPages\VisibilitySettingsEntity.cs" />
@@ -389,7 +390,8 @@
     <Compile Include="Managers\ManagerPrintDeprecated.cs" />
     <Compile Include="Managers\ManagerMassa.cs" />
     <Compile Include="Managers\ManagerMemory.cs" />
-    <Compile Include="Managers\ManagerEntity.cs" />
+    <Compile Include="Managers\ManagerCollection.cs" />
+    <Compile Include="Managers\ManagerWaitConfig.cs" />
     <Compile Include="MassaK\MassaCrcHelper.cs" />
     <Compile Include="MassaK\MassaEnums.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />

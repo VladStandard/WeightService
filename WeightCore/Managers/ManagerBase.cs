@@ -29,11 +29,7 @@ namespace WeightCore.Managers
         public CancellationTokenSource CtsReopen { get; set; }
         public CancellationTokenSource CtsRequest { get; set; }
         public CancellationTokenSource CtsResponse { get; set; }
-        public ushort WaitReopen { get; set; }
-        public ushort WaitRequest { get; set; }
-        public ushort WaitResponse { get; set; }
-        public ushort WaitException { get; set; }
-        public ushort WaitClose { get; set; }
+        public ManagerWaitConfig WaitConfig { get; set; }
         public string ExceptionMsg { get; set; }
         public bool IsResponse { get; set; }
         public Task TaskReopen { get; set; } = null;
@@ -50,21 +46,15 @@ namespace WeightCore.Managers
         public ManagerBase() : base()
         {
             Init(Close, ReleaseManaged, ReleaseUnmanaged);
+            WaitConfig = new();
         }
 
-        public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback,
-            ushort waitReopen = 0, ushort waitRequest = 0, ushort waitResponse = 0, ushort waitClose = 0, ushort waitException = 0)
+        public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback, ManagerWaitConfig waitConfig)
         {
             lock (_locker)
             {
                 TaskType = taskType;
-
-                WaitReopen = waitReopen == 0 ? (ushort)1_000 : waitReopen;
-                WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
-                WaitResponse = waitResponse == 0 ? (ushort)500 : waitResponse;
-                WaitClose = waitClose == 0 ? (ushort)2_000 : waitClose;
-                WaitException = waitException == 0 ? (ushort)1_000 : waitException;
-
+                WaitConfig = waitConfig;
                 initCallback?.Invoke();
             }
         }
@@ -115,7 +105,7 @@ namespace WeightCore.Managers
             if (task == null) return;
             
             cts?.Cancel();
-            task.Wait(WaitClose);
+            task.Wait(WaitConfig.WaitClose);
             if (task.IsCompleted)
                 task.Dispose();
         }
@@ -184,18 +174,18 @@ namespace WeightCore.Managers
                             //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(true);
                             callback?.Invoke();
                         }
-                        WaitSync(WaitReopen);
+                        WaitSync(WaitConfig.WaitReopen);
                     }
                     catch (TaskCanceledException tcex)
                     {
                         // Not the problem.
                         Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                        WaitSync(WaitException);
+                        WaitSync(WaitConfig.WaitException);
                     }
                     catch (Exception ex)
                     {
                         Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
-                        WaitSync(WaitException);
+                        WaitSync(WaitConfig.WaitException);
                     }
                 }
             });
@@ -265,18 +255,18 @@ namespace WeightCore.Managers
                             //await Task.Delay(TimeSpan.FromMilliseconds(WaitRequest)).ConfigureAwait(true);
                             callback?.Invoke();
                         }
-                        WaitSync(WaitRequest);
+                        WaitSync(WaitConfig.WaitRequest);
                     }
                     catch (TaskCanceledException tcex)
                     {
                         // Not the problem.
                         Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                        WaitSync(WaitException);
+                        WaitSync(WaitConfig.WaitException);
                     }
                     catch (Exception ex)
                     {
                         Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
-                        WaitSync(WaitException);
+                        WaitSync(WaitConfig.WaitException);
                     }
                 }
             });
@@ -346,18 +336,18 @@ namespace WeightCore.Managers
                             //await Task.Delay(TimeSpan.FromMilliseconds(WaitResponse)).ConfigureAwait(true);
                             callback?.Invoke();
                         }
-                        WaitSync(WaitResponse);
+                        WaitSync(WaitConfig.WaitResponse);
                     }
                     catch (TaskCanceledException tcex)
                     {
                         // Not the problem.
                         Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                        WaitSync(WaitException);
+                        WaitSync(WaitConfig.WaitException);
                     }
                     catch (Exception ex)
                     {
                         Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
-                        WaitSync(WaitException);
+                        WaitSync(WaitConfig.WaitException);
                     }
                 }
             });
@@ -374,10 +364,7 @@ namespace WeightCore.Managers
             CtsRequest?.Cancel();
             CtsResponse?.Cancel();
 
-            WaitSync(WaitClose);
-            //WaitSync(WaitClose, TaskReopen);
-            //WaitSync(WaitClose, TaskRequest);
-            //WaitSync(WaitClose, TaskResponse);
+            WaitSync(WaitConfig.WaitClose);
 
             MutexReopen = null;
             MutexRequest = null;

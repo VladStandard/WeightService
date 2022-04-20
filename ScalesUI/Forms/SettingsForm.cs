@@ -3,6 +3,7 @@
 
 using DataCore;
 using DataCore.DAL.DataModels;
+using DataCore.DAL.TableDirectModels;
 using DataCore.Localizations;
 using DataCore.Settings;
 using Microsoft.Data.SqlClient;
@@ -68,7 +69,8 @@ namespace ScalesUI.Forms
                 }
 
                 if (SessionState?.CurrentWeighingFact != null)
-                    fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces();
+                    fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact
+                        .SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
                 //fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
 
                 fieldGuid.Text = SessionState?.CurrentScaleId.ToString();

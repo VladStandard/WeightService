@@ -11,8 +11,7 @@ using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
-    [Serializable]
-    public class TemplateDirect : BaseSerializeDeprecatedEntity<TemplateDirect>
+    public class TemplateDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
 
