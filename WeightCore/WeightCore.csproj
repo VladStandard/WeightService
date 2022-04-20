@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.UI.Xaml.2.7.1\build\Microsoft.UI.Xaml.props" Condition="Exists('..\packages\Microsoft.UI.Xaml.2.7.1\build\Microsoft.UI.Xaml.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -349,7 +348,7 @@
   <ItemGroup>
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
-    <Compile Include="XamlPages\VisibilitySettingsEntity.cs" />
+    <Compile Include="Gui\XamlPages\VisibilitySettingsEntity.cs" />
     <Compile Include="Gui\GridCustomizator.cs" />
     <Compile Include="Gui\GuiUtils.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
@@ -428,14 +427,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="XamlPages\MessageBoxEntity.cs" />
-    <Compile Include="XamlPages\PagePluList.xaml.cs">
+    <Compile Include="Gui\XamlPages\MessageBoxEntity.cs" />
+    <Compile Include="Gui\XamlPages\PagePluList.xaml.cs">
       <DependentUpon>PagePluList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XamlPages\PageMessageBox.xaml.cs">
+    <Compile Include="Gui\XamlPages\PageMessageBox.xaml.cs">
       <DependentUpon>PageMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XamlPages\PageSqlSettings.xaml.cs">
+    <Compile Include="Gui\XamlPages\PageSqlSettings.xaml.cs">
       <DependentUpon>PageSqlSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Zpl\ZplConverterHelper.cs" />
@@ -490,15 +489,15 @@
     <Content Include="Zpl templates\Requests.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="XamlPages\PagePluList.xaml">
+    <Page Include="Gui\XamlPages\PagePluList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XamlPages\PageMessageBox.xaml">
+    <Page Include="Gui\XamlPages\PageMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XamlPages\PageSqlSettings.xaml">
+    <Page Include="Gui\XamlPages\PageSqlSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -521,7 +520,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.UI.Xaml.2.7.1\build\Microsoft.UI.Xaml.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.UI.Xaml.2.7.1\build\Microsoft.UI.Xaml.props'))" />
     <Error Condition="!Exists('..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.3\build\System.Text.Json.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.1185.39\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.1185.39\build\Microsoft.Web.WebView2.targets'))" />
   </Target>

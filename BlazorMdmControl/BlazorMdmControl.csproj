@@ -11,8 +11,8 @@
 	<AssemblyName>BlazorMdmControl</AssemblyName>
     <RootNamespace>BlazorMdmControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<AssemblyVersion>0.6.490</AssemblyVersion>
-    <FileVersion>0.6.490</FileVersion>
+	<AssemblyVersion>0.6.500</AssemblyVersion>
+    <FileVersion>0.6.500</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>

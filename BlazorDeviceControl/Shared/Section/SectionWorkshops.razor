@@ -7,8 +7,8 @@
 @using DataCore.DAL
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -18,36 +18,36 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.WorkShops SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Sections.WorkShops SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="WorkShopEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="WorkShopEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="WorkShopEntity" Title=@LocalizationCore.TableField.WorkShopName Width="50%" >
+                TItem="WorkShopEntity" Title=@LocaleCore.TableField.WorkShopName Width="50%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.WorkShop}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.WorkShop}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="WorkShopEntity" Title=@LocalizationCore.TableField.ProductionFacilityName Width="50%" >
+                TItem="WorkShopEntity" Title=@LocaleCore.TableField.ProductionFacilityName Width="50%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.ProductionFacility.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.ProductionFacility.IdentityId}")
                         Text=@itemCast.ProductionFacility.Name />
                 </Template>
             </RadzenGridColumn>

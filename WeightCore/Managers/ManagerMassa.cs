@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using static WeightCore.MassaK.MassaEnums;
-using LocalizationCore = DataCore.Localization.Core;
+using LocalizationCore = DataCore.Localizations.LocaleCore;
 
 namespace WeightCore.Managers
 {

@@ -2,6 +2,7 @@
 @page "/component/actionssave"
 @using BlazorCore
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
 @using static DataCore.ShareEnums
 
@@ -18,7 +19,7 @@
                 <RadzenButton Click=@(args => ItemSaveAsync(true)) 
                     class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
-                    Text=@LocalizationData.DeviceControl.TableActionSave 
+                    Text=@LocaleData.DeviceControl.TableActionSave 
                 />
             }
             @if (ButtonSettings.IsShowCancel)
@@ -26,7 +27,7 @@
                 <RadzenButton Click=@(args => ItemCancelAsync(true))
                     class="radzenButtonLong" ButtonStyle=@ButtonStyle.Secondary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
-                    Text=@LocalizationData.DeviceControl.TableActionCancel 
+                    Text=@LocaleData.DeviceControl.TableActionCancel 
                 />
             }
         }

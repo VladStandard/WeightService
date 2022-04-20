@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.DAL;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace BlazorCore.Models
         public IdentityEntity Identity { get; private set; }
         public HotKeys? HotKeys { get; private set; }
         public HotKeysContext? HotKeysContext { get; set; }
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
 
         #endregion
 
@@ -43,33 +45,30 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void SetupAccessRights(DataAccessEntity dataAccess)
+        public void SetupAccessRights()
         {
-            if (dataAccess != null)
-            {
-                AccessEntity? access = dataAccess.Crud.GetEntity<AccessEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.User.ToString(), Identity.Name } }),
-                    null
-                );
-                Identity.SetAccessRights(access.Rights);
-                //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(
-                //    SqlQueries.DbServiceManaging.Tables.Access.GetAccessRights(Identity.Name),
-                //    filePath, lineNumber, memberName);
-                //if (objects.Length == 1)
-                //{
-                //    if (objects[0] is object[] { Length: 5 } item)
-                //    {
-                //        if (Guid.TryParse(Convert.ToString(item[0]), out _))
-                //        {
-                //            if (item[4] != null)
-                //            {
-                //                Identity.SetAccessRights((AccessRights)Convert.ToByte(item[4]));
-                //                return;
-                //            }
-                //        }
-                //    }
-                //}
-            }
+            AccessEntity? access = DataAccess.Crud.GetEntity<AccessEntity>(
+                new FieldListEntity(new Dictionary<string, object?> { { DbField.User.ToString(), Identity.Name } }),
+                null
+            );
+            Identity.SetAccessRights(access.Rights);
+            //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(
+            //    SqlQueries.DbServiceManaging.Tables.Access.GetAccessRights(Identity.Name),
+            //    filePath, lineNumber, memberName);
+            //if (objects.Length == 1)
+            //{
+            //    if (objects[0] is object[] { Length: 5 } item)
+            //    {
+            //        if (Guid.TryParse(Convert.ToString(item[0]), out _))
+            //        {
+            //            if (item[4] != null)
+            //            {
+            //                Identity.SetAccessRights((AccessRights)Convert.ToByte(item[4]));
+            //                return;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         public void SetupHotKeys(HotKeys? hotKeys)

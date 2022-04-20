@@ -1,11 +1,10 @@
 ﻿@page "/"
 @using BlazorCore
-@using DataCore.Localization
 @using DataCore;
-@using LocalizationCore = DataCore.Localization.Core
+@using DataCore.Localizations
 
 <h2>
-    <RadzenLabel Text=@LocalizationCore.Strings.Main.Company />
+    <RadzenLabel Text=@LocaleCore.Strings.Main.Company />
 </h2>
 
 <IndexInside />

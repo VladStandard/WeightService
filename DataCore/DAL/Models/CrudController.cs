@@ -18,7 +18,6 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public DataAccessEntity DataAccess { get; private set; }
         public DataConfigurationEntity DataConfig { get; private set; }
         public ISessionFactory? SessionFactory { get; private set; }
         private delegate void ExecCallback(ISession session);
@@ -27,9 +26,8 @@ namespace DataCore.DAL.Models
 
         #region Constructor and destructor
 
-        public CrudController(DataAccessEntity dataAccess, ISessionFactory? sessionFactory)
+        public CrudController(ISessionFactory? sessionFactory)
         {
-            DataAccess = dataAccess;
             DataConfig = new DataConfigurationEntity();
             SessionFactory = sessionFactory;
         }
@@ -494,15 +492,15 @@ namespace DataCore.DAL.Models
                     if (!nomenclature.EqualsEmpty())
                     {
                         //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
-                        //    nomenclatureEntity.Brand = DataAccess.BrandCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
+                        //    nomenclatureEntity.Brand = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
                         //if (nomenclatureEntity.InformationSystem?.IdentityId != null)
-                        //    nomenclatureEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureEntity.InformationSystem.Id);
+                        //    nomenclatureEntity.InformationSystem = GetEntity(nomenclatureEntity.InformationSystem.Id);
                         //if (nomenclatureEntity.NomenclatureGroupCostBytes != null && nomenclatureEntity.NomenclatureGroupCostBytes.Length > 0)
-                        //    nomenclatureEntity.NomenclatureGroupCost = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
+                        //    nomenclatureEntity.NomenclatureGroupCost = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
                         //if (nomenclatureEntity.NomenclatureGroupBytes != null && nomenclatureEntity.NomenclatureGroupBytes.Length > 0)
-                        //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
+                        //    nomenclatureEntity.NomenclatureGroup = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
                         //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
-                        //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
+                        //    nomenclatureEntity.NomenclatureType = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
                         nomenclature.Status = nomenclature.Status?.IdentityId == null ? new() : GetEntity<StatusEntity>(nomenclature.Status.IdentityId);
                     }
                     break;
@@ -980,7 +978,7 @@ namespace DataCore.DAL.Models
         public List<HostEntity> GetFreeHosts(long? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
+            object[]? entities = GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
             List<HostEntity>? items = new();
             foreach (object? item in entities)
             {
@@ -1012,7 +1010,7 @@ namespace DataCore.DAL.Models
         public List<HostEntity> GetBusyHosts(long? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
+            object[]? entities = GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
             List<HostEntity>? items = new();
             foreach (object? item in entities)
             {

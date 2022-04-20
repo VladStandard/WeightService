@@ -2,8 +2,8 @@
 @page "/component/itemdates"
 @using BlazorCore
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
@@ -15,11 +15,11 @@
         else
         {
             <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 14px; "
-                Text=@LocalizationCore.TableField.CreateDt />
+                Text=@LocaleCore.TableField.CreateDt />
             <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 14px; "
                 Text=@CreateDt />
             <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 14px; "
-                Text=@LocalizationCore.TableField.ChangeDt />
+                Text=@LocaleCore.TableField.ChangeDt />
             <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 14px; "
                 Text=@ChangeDt />
         }

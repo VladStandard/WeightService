@@ -3,12 +3,12 @@
 
 using DataCore;
 using DataCore.DAL.TableDirectModels;
-using DataCore.Helpers;
+using DataCore.Localizations;
+using DataCore.Settings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using LocalizationCore = DataCore.Localization.Core;
 
 namespace WeightCore.Managers
 {
@@ -55,11 +55,11 @@ namespace WeightCore.Managers
                 FieldKneading = fieldKneading;
                 
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocalizationCore.Scales.Plu);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocalizationCore.Scales.FieldSscc);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocalizationCore.Scales.FieldTime);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocalizationCore.Scales.FieldDate);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocalizationCore.Scales.FieldKneading);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocaleCore.Scales.FieldTime);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocaleCore.Scales.FieldKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
                 
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
@@ -115,94 +115,55 @@ namespace WeightCore.Managers
                     SetTitleSwitchDefault();
                     break;
             }
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocalizationCore.Scales.FieldSscc}: {SessionStateHelper.Instance.ProductSeries.Sscc.SSCC}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {SessionStateHelper.Instance.ProductSeries.Sscc.SSCC}");
         }
 
         private void SetTitleSwitchDev()
         {
-            switch (SessionStateHelper.Instance.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
-                        $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription} | {LocalizationCore.Scales.ProgramLoad}");
-                    break;
-                case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
-                        $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}");
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
-                        $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription} | {LocalizationCore.Scales.ProgramExit}");
-                    break;
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName +
+                $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightYellow);
         }
 
         private void SetTitleSwitchRelease()
         {
-            switch (SessionStateHelper.Instance.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName + $"  {LocalizationCore.Scales.ProgramLoad}");
-                    break;
-                case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName + $"  {LocalizationCore.Scales.ProgramExit}");
-                    break;
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightGreen);
         }
 
         private void SetTitleSwitchDefault()
         {
-            switch (SessionStateHelper.Instance.ProgramState)
-            {
-                case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
-                        $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}." +
-                        $"  {LocalizationCore.Scales.ProgramLoad}");
-                    break;
-                case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
-                        $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}.");
-                    break;
-                case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
-                        $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}." +
-                        $"  {LocalizationCore.Scales.ProgramExit}");
-                    break;
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
+                $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.CurrentScale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}.");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.IndianRed);
         }
 
         private void RequestProductDate()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate,
-                $"{LocalizationCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
+                $"{LocaleCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate,
-                $"{LocalizationCore.Scales.FieldDate}: {SessionStateHelper.Instance.ProductDate:dd.MM.yyyy}");
+                $"{LocaleCore.Scales.FieldDate}: {SessionStateHelper.Instance.ProductDate:dd.MM.yyyy}");
         }
 
         private void RequestPlu()
         {
             if (CurrentPlu == null)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocalizationCore.Scales.Plu);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
             }
             else
             {
                 if (CurrentPlu.IsCheckWeight == true)
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu,
-                        $"{LocalizationCore.Scales.PluWeight}: " +
+                        $"{LocaleCore.Scales.PluWeight}: " +
                         $"{CurrentPlu.PLU} | {CurrentPlu.GoodsName}");
                 }
                 else
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu,
-                        $"{LocalizationCore.Scales.PluCount}: " +
+                        $"{LocaleCore.Scales.PluCount}: " +
                         $"{CurrentPlu.PLU} | {CurrentPlu.GoodsName}");
 
                 }
@@ -211,7 +172,7 @@ namespace WeightCore.Managers
 
         private void RequestKneading()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, $"{LocalizationCore.Scales.FieldKneading}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, $"{LocaleCore.Scales.FieldKneading}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, $"{SessionStateHelper.Instance.WeighingSettings.Kneading}");
         }
 

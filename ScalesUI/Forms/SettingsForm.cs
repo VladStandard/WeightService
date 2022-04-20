@@ -3,8 +3,8 @@
 
 using DataCore;
 using DataCore.DAL.DataModels;
-using DataCore.DAL.Utils;
-using DataCore.Helpers;
+using DataCore.Localizations;
+using DataCore.Settings;
 using Microsoft.Data.SqlClient;
 using System;
 using System.IO.Ports;
@@ -17,7 +17,6 @@ using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Zpl;
 using static DataCore.ShareEnums;
-using LocalizationCore = DataCore.Localization.Core;
 
 namespace ScalesUI.Forms
 {
@@ -53,7 +52,7 @@ namespace ScalesUI.Forms
                 //if (SessionState != null)
                 //    SessionState.CurrentScale = ScalesUtils.GetScale(SessionState.Host?.ScaleId);
                 if (SessionState != null)
-                    SessionState.CurrentScale = SessionState.DataAccess.Dal.Crud
+                    SessionState.CurrentScale = SessionState.DataAccess.Crud?
                         .GetEntity<DataCore.DAL.TableScaleModels.ScaleEntity>(SessionState.Host?.ScaleId);
 
                 // Определить COM-порт.
@@ -70,7 +69,7 @@ namespace ScalesUI.Forms
 
                 if (SessionState?.CurrentWeighingFact != null)
                     fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces();
-                    //fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
+                //fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
 
                 fieldGuid.Text = SessionState?.CurrentScaleId.ToString();
                 //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
@@ -144,7 +143,7 @@ namespace ScalesUI.Forms
                 SessionState.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
                 SessionState.CurrentScale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
                 //ScalesUtils.Update(SessionState.CurrentScale);
-                SessionState.DataAccess.Dal.Crud.UpdateEntity(SessionState.CurrentScale);
+                SessionState.DataAccess.Crud?.UpdateEntity(SessionState.CurrentScale);
                 // Settings.
                 Properties.Settings.Default.Save();
             }
@@ -216,8 +215,8 @@ namespace ScalesUI.Forms
             {
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationCore.Scales.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationCore.Print.WarningOpenCover;
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocaleCore.Print.WarningOpenCover;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonRetryVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.Localization();

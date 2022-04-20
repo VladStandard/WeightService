@@ -146,7 +146,7 @@
 //                NotificationMessage msg = new()
 //                {
 //                    Severity = NotificationSeverity.Error,
-//                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
+//                    Summary = $"{LocaleCore.Strings.Main.MethodError} [{memberName}]!",
 //                    Detail = ex.Message,
 //                    Duration = LocalizationStrings.Timeout
 //                };
@@ -315,7 +315,7 @@
 //        {
 //            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 //            ConfirmOptions confirmOptions = GetConfirmOptions();
-            
+
 //            try
 //            {
 //                string question = string.IsNullOrEmpty(questionAdd) ? LocalizationStrings.DialogQuestion : questionAdd;

@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localization;
+using DataCore.Localizations;
 
 namespace DataCore.Wmi
 {
@@ -38,7 +38,7 @@ namespace DataCore.Wmi
 
         public string GetPrinterStatusDescription()
         {
-            if (Core.Lang == ShareEnums.Lang.Russian)
+            if (LocaleCore.Lang == ShareEnums.Lang.Russian)
             {
                 return PrinterStatus switch
                 {
@@ -105,7 +105,7 @@ namespace DataCore.Wmi
 
         public string GetStatusDescription()
         {
-            if (Core.Lang == ShareEnums.Lang.Russian)
+            if (LocaleCore.Lang == ShareEnums.Lang.Russian)
             {
                 return Status switch
                 {

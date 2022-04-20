@@ -539,7 +539,6 @@
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldTitle.Visible = false;
-            this.fieldTitle.Click += new System.EventHandler(this.FieldsHiddenVisible_Click);
             this.fieldTitle.DoubleClick += new System.EventHandler(this.FieldTitle_DoubleClick);
             this.fieldTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 

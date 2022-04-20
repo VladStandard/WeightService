@@ -6,9 +6,9 @@
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
 @using DataCore.DAL.TableScaleModels;
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
-@using static DataCore.LocalizationData.DeviceControl
+@using static DataCore.Localizations.LocaleData.DeviceControl
 
 @if (!IsLoaded)
 {
@@ -17,25 +17,25 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.WeithingFacts SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Sections.WeithingFacts SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="WeithingFactEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.WeithingDate
+                Title=@LocaleCore.TableField.WeithingDate
                 Type="date" Width="17.5%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
@@ -44,31 +44,31 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.DayOfWeek
-                Type="string" Width="10%">
+                Title=@LocaleCore.TableField.DayOfWeek
+                Type="string" Width="12.5%">
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactEntity" Property="Scale.Description" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Scale
-                Type="string" Width="27.5%" />
+                Title=@LocaleCore.TableField.Scale
+                Type="string" Width="25.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="Plu.GoodsName" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.GoodsName
-                Type="string" Width="20%" />
+                Title=@LocaleCore.TableField.GoodsName
+                Type="string" Width="20.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="Plu.Ean13" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Ean13
-                Type="string" Width="20%" />
+                Title=@LocaleCore.TableField.Ean13
+                Type="string" Width="20.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="TareWeight" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.TareWeight
-                Type="decimal" Width="15%" />
+                Title=@LocaleCore.TableField.TareWeight
+                Type="decimal" Width="15.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="NetWeight" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.NetWeight
-                Type="decimal" Width="15%" />
+                Title=@LocaleCore.TableField.NetWeight
+                Type="decimal" Width="15.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="RegNum" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.RegNum
-                Type="int" Width="20%" />
+                Title=@LocaleCore.TableField.RegNum
+                Type="int" Width="20.0%" />
         </Columns>
     </RadzenGrid>
 

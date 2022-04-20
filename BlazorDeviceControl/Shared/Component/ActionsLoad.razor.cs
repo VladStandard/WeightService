@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localization;
+using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared.Component
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();

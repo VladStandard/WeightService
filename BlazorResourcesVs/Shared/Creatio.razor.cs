@@ -32,9 +32,9 @@
 //            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 //            var sites = new List<WebSiteEntity>
 //            {
-//                new WebSiteEntity(LocalizationData.Resources.CreatioCreDevDmName, LocalizationData.Resources.CreatioCreDevDmLink, LocalizationData.Resources.CreatioCreDevDmDev),
-//                new WebSiteEntity(LocalizationData.Resources.CreatioCreDevIaName, LocalizationData.Resources.CreatioCreDevIaLink, LocalizationData.Resources.CreatioCreDevIaDev),
-//                new WebSiteEntity(LocalizationData.Resources.CreatioCreTestName, LocalizationData.Resources.CreatioCreTestLink, LocalizationData.Resources.CreatioCreTestDev),
+//                new WebSiteEntity(LocaleData.Resources.CreatioCreDevDmName, LocaleData.Resources.CreatioCreDevDmLink, LocaleData.Resources.CreatioCreDevDmDev),
+//                new WebSiteEntity(LocaleData.Resources.CreatioCreDevIaName, LocaleData.Resources.CreatioCreDevIaLink, LocaleData.Resources.CreatioCreDevIaDev),
+//                new WebSiteEntity(LocaleData.Resources.CreatioCreTestName, LocaleData.Resources.CreatioCreTestLink, LocaleData.Resources.CreatioCreTestDev),
 //            };
 //            LocalSites = sites;
 //        }

@@ -6,7 +6,7 @@ using DataCore;
 using DataCore.DAL.DataModels;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
-using DataCore.Localization;
+using DataCore.Localizations;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
@@ -57,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();
@@ -119,7 +119,7 @@ namespace BlazorDeviceControl.Shared.Item
             {
                 switch (name)
                 {
-                    case nameof(LocalizationData.DeviceControl.TableActionClear):
+                    case nameof(LocaleData.DeviceControl.TableActionClear):
                         ItemCast.Nomenclature = new();
                         ItemCast.GoodsName = string.Empty;
                         ItemCast.GoodsFullName = string.Empty;
@@ -131,7 +131,7 @@ namespace BlazorDeviceControl.Shared.Item
                         ItemCast.GoodsBoxQuantly = 0;
                         ItemCast.GoodsTareWeight = 0;
                         break;
-                    case nameof(LocalizationData.DeviceControl.TableActionFill):
+                    case nameof(LocaleData.DeviceControl.TableActionFill):
                         if (string.IsNullOrEmpty(ItemCast.GoodsName))
                             ItemCast.GoodsName = ItemCast.XmlGoodsName;
                         if (string.IsNullOrEmpty(ItemCast.GoodsFullName))
@@ -189,7 +189,7 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"{Core.Strings.Main.MethodError} [{nameof(OnClickFieldsFill)}]!",
+                    Summary = $"{LocaleCore.Strings.Main.MethodError} [{nameof(OnClickFieldsFill)}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };

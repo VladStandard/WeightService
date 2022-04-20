@@ -5,8 +5,8 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using System.Globalization
 
 @if (!IsLoaded)
@@ -16,32 +16,32 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationCore.Print.Resource SetParameters=@SetParametersAsync />
+        Title=@LocaleCore.Print.Resource SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.TableField.Id</td>
+                <td>@LocaleCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationCore.TableField.Marked</td>
+                <td>@LocaleCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.Print.Name</td>
+                <td>@LocaleCore.Print.Name</td>
                 <td>
                     @if (PrinterItems == null)
                     {
@@ -61,12 +61,12 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Description</td>
+                <td>@LocaleCore.TableField.Description</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Description />
 				</td>
-                <td>@LocalizationCore.TableField.Resource</td>
+                <td>@LocaleCore.TableField.Resource</td>
                 <td>
                     @if (ResourceItems == null)
                     {

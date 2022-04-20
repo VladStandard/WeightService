@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.460] - 2022-04-14
+## [0.6.500] - 2022-04-20
 ### Changed
 - MainForm
 ### Описание обновления:
-- 
+- Рефакторинг и оптимизация менеджера потоков.
+
+## [0.6.460] - 2022-04-14
+### Changed
+- MainForm
 
 ## [0.6.450] - 2022-04-13
 ### Changed

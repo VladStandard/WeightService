@@ -6,8 +6,8 @@
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
 @using DataCore.DAL.DataModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -17,50 +17,50 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync />
+        Title=@LocaleCore.Strings.SysLogs SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="LogQuickEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
                 TItem="LogQuickEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="15%" >
+                Title=@LocaleCore.TableField.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Title=@LocalizationCore.TableField.Host Type="string" Width="12%" >
+                TItem="LogQuickEntity" Title=@LocaleCore.TableField.Host Type="string" Width="12%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
                         Text=@itemCast.Host />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="App" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.App Type="string" Width="7%" />
+                Title=@LocaleCore.TableField.App Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="File" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.File Type="string" Width="12%" />
+                Title=@LocaleCore.TableField.File Type="string" Width="12%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Line" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.Row Type="int" Width="5%">
+                Title=@LocaleCore.TableField.Row Type="int" Width="5%">
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Member" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Member Type="string" Width="14%" />
+                Title=@LocaleCore.TableField.Member Type="string" Width="14%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Icon" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Icon Type="string" Width="7%" />
+                Title=@LocaleCore.TableField.Icon Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Message" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Message Type="string" Width="28%">
+                Title=@LocaleCore.TableField.Message Type="string" Width="28%">
                 <Template Context="logItem">
                     <RadzenLabel 
                         Style="height: 80%; width=80%; white-space: pre-wrap; " 

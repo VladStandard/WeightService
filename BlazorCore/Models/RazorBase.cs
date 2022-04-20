@@ -4,8 +4,10 @@
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Files;
+using DataCore.Localizations;
 using DataCore.Models;
-using DataCore.Utils;
+using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
@@ -16,7 +18,6 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
-using LocalizationCore = DataCore.Localization.Core;
 
 namespace BlazorCore.Models
 {
@@ -91,7 +92,7 @@ namespace BlazorCore.Models
 
         public void OnChangeCheckBox(object value, string name)
         {
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChangeCheckBox)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnChangeCheckBox)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (name)
@@ -111,25 +112,25 @@ namespace BlazorCore.Models
 
         public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
         {
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     if (value is Lang lang)
                     {
-                        LocalizationCore.Lang = lang;
-                        LocalizationData.Lang = lang;
+                        LocaleCore.Lang = lang;
+                        LocaleData.Lang = lang;
                     }
                     templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
-        public void OnJsonValueChange(JsonSettingsBase? jsonSettings, string? filterName, object? value)
+        public void OnJsonValueChange(JsonSettingsEntity? jsonSettings, string? filterName, object? value)
         {
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    if (AppSettings.DataAccess.JsonSettings != null)
+                    if (AppSettings.DataAccess?.JsonSettings != null)
                     {
                         switch (filterName)
                         {
@@ -169,7 +170,7 @@ namespace BlazorCore.Models
 
         public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
         {
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (item)
@@ -331,7 +332,7 @@ namespace BlazorCore.Models
         public async Task ItemSelectAsync(BaseEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(() =>
                 {
                     ItemSelect(item);
@@ -363,7 +364,7 @@ namespace BlazorCore.Models
 
         public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
-            await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
+            await RunTasksAsync(LocaleCore.Strings.TableRead, "", LocaleCore.Strings.DialogResultFail, "",
                 new List<Task> { task }, continueOnCapturedContext).ConfigureAwait(false);
         }
 
@@ -614,13 +615,13 @@ namespace BlazorCore.Models
         public async Task HotKeysMenuRoot()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            NavigationManager?.NavigateTo(LocalizationData.DeviceControl.UriRouteSection.Root);
+            NavigationManager?.NavigateTo(LocaleData.DeviceControl.UriRouteSection.Root);
         }
 
         public static ConfirmOptions GetConfirmOptions() => new()
         {
-            OkButtonText = LocalizationCore.Strings.DialogButtonYes,
-            CancelButtonText = LocalizationCore.Strings.DialogButtonCancel,
+            OkButtonText = LocaleCore.Strings.DialogButtonYes,
+            CancelButtonText = LocaleCore.Strings.DialogButtonCancel,
             //    ShowTitle = true,
             //    ShowClose = true,
             //    Bottom = null,
@@ -711,7 +712,7 @@ namespace BlazorCore.Models
             try
             {
                 string question = string.IsNullOrEmpty(questionAdd)
-                    ? LocalizationCore.Strings.DialogQuestion
+                    ? LocaleCore.Strings.DialogQuestion
                     : questionAdd;
                 if (DialogService != null)
                 {
@@ -765,22 +766,22 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableSystem.Default:
                             break;
                         case ProjectsEnums.TableSystem.Logs:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Log;
+                            page = LocaleData.DeviceControl.UriRouteItem.Log;
                             break;
                         case ProjectsEnums.TableSystem.Accesses:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Access;
+                            page = LocaleData.DeviceControl.UriRouteItem.Access;
                             break;
                         case ProjectsEnums.TableSystem.Errors:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Error;
+                            page = LocaleData.DeviceControl.UriRouteItem.Error;
                             break;
                         case ProjectsEnums.TableSystem.LogTypes:
-                            page = LocalizationData.DeviceControl.UriRouteItem.LogType;
+                            page = LocaleData.DeviceControl.UriRouteItem.LogType;
                             break;
                         case ProjectsEnums.TableSystem.Tasks:
-                            page = LocalizationData.DeviceControl.UriRouteItem.TaskModule;
+                            page = LocaleData.DeviceControl.UriRouteItem.TaskModule;
                             break;
                         case ProjectsEnums.TableSystem.TasksTypes:
-                            page = LocalizationData.DeviceControl.UriRouteItem.TaskTypeModule;
+                            page = LocaleData.DeviceControl.UriRouteItem.TaskTypeModule;
                             break;
                     }
                     break;
@@ -788,49 +789,49 @@ namespace BlazorCore.Models
                     switch (ProjectsEnums.GetTableScale(Table.Name))
                     {
                         case ProjectsEnums.TableScale.BarCodeTypes:
-                            page = LocalizationData.DeviceControl.UriRouteItem.BarCodeType;
+                            page = LocaleData.DeviceControl.UriRouteItem.BarCodeType;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Contragent;
+                            page = LocaleData.DeviceControl.UriRouteItem.Contragent;
                             break;
                         case ProjectsEnums.TableScale.Hosts:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Host;
+                            page = LocaleData.DeviceControl.UriRouteItem.Host;
                             break;
                         case ProjectsEnums.TableScale.Labels:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Label;
+                            page = LocaleData.DeviceControl.UriRouteItem.Label;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Nomenclature;
+                            page = LocaleData.DeviceControl.UriRouteItem.Nomenclature;
                             break;
                         case ProjectsEnums.TableScale.Plus:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Plu;
+                            page = LocaleData.DeviceControl.UriRouteItem.Plu;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            page = LocalizationData.DeviceControl.UriRouteItem.PrinterResource;
+                            page = LocaleData.DeviceControl.UriRouteItem.PrinterResource;
                             break;
                         case ProjectsEnums.TableScale.Printers:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Printer;
+                            page = LocaleData.DeviceControl.UriRouteItem.Printer;
                             break;
                         case ProjectsEnums.TableScale.PrintersTypes:
-                            page = LocalizationData.DeviceControl.UriRouteItem.PrinterType;
+                            page = LocaleData.DeviceControl.UriRouteItem.PrinterType;
                             break;
                         case ProjectsEnums.TableScale.ProductionFacilities:
-                            page = LocalizationData.DeviceControl.UriRouteItem.ProductionFacility;
+                            page = LocaleData.DeviceControl.UriRouteItem.ProductionFacility;
                             break;
                         case ProjectsEnums.TableScale.Scales:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Scale;
+                            page = LocaleData.DeviceControl.UriRouteItem.Scale;
                             break;
                         case ProjectsEnums.TableScale.TemplatesResources:
-                            page = LocalizationData.DeviceControl.UriRouteItem.TemplateResource;
+                            page = LocaleData.DeviceControl.UriRouteItem.TemplateResource;
                             break;
                         case ProjectsEnums.TableScale.Templates:
-                            page = LocalizationData.DeviceControl.UriRouteItem.Template;
+                            page = LocaleData.DeviceControl.UriRouteItem.Template;
                             break;
                         case ProjectsEnums.TableScale.WeithingFacts:
-                            page = LocalizationData.DeviceControl.UriRouteItem.WeithingFact;
+                            page = LocaleData.DeviceControl.UriRouteItem.WeithingFact;
                             break;
                         case ProjectsEnums.TableScale.Workshops:
-                            page = LocalizationData.DeviceControl.UriRouteItem.WorkShop;
+                            page = LocaleData.DeviceControl.UriRouteItem.WorkShop;
                             break;
                     }
                     break;
@@ -989,7 +990,7 @@ namespace BlazorCore.Models
 
         public void RouteSectionNavigateToRoot()
         {
-            NavigationManager?.NavigateTo(LocalizationData.DeviceControl.UriRouteSection.Root);
+            NavigationManager?.NavigateTo(LocaleData.DeviceControl.UriRouteSection.Root);
         }
 
         public void RouteSectionNavigate(bool isNewWindow)
@@ -1023,22 +1024,22 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableSystem.Default:
                             break;
                         case ProjectsEnums.TableSystem.Accesses:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Access;
+                            page = LocaleData.DeviceControl.UriRouteSection.Access;
                             break;
                         case ProjectsEnums.TableSystem.Logs:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Logs;
+                            page = LocaleData.DeviceControl.UriRouteSection.Logs;
                             break;
                         case ProjectsEnums.TableSystem.LogTypes:
-                            page = LocalizationData.DeviceControl.UriRouteSection.LogTypes;
+                            page = LocaleData.DeviceControl.UriRouteSection.LogTypes;
                             break;
                         case ProjectsEnums.TableSystem.Errors:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Errors;
+                            page = LocaleData.DeviceControl.UriRouteSection.Errors;
                             break;
                         case ProjectsEnums.TableSystem.Tasks:
-                            page = LocalizationData.DeviceControl.UriRouteSection.TaskModules;
+                            page = LocaleData.DeviceControl.UriRouteSection.TaskModules;
                             break;
                         case ProjectsEnums.TableSystem.TasksTypes:
-                            page = LocalizationData.DeviceControl.UriRouteSection.TaskTypeModules;
+                            page = LocaleData.DeviceControl.UriRouteSection.TaskTypeModules;
                             break;
                     }
                     break;
@@ -1046,49 +1047,49 @@ namespace BlazorCore.Models
                     switch (ProjectsEnums.GetTableScale(Table.Name))
                     {
                         case ProjectsEnums.TableScale.BarCodeTypes:
-                            page = LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes;
+                            page = LocaleData.DeviceControl.UriRouteSection.BarCodeTypes;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Contragents;
+                            page = LocaleData.DeviceControl.UriRouteSection.Contragents;
                             break;
                         case ProjectsEnums.TableScale.Hosts:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Hosts;
+                            page = LocaleData.DeviceControl.UriRouteSection.Hosts;
                             break;
                         case ProjectsEnums.TableScale.Labels:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Labels;
+                            page = LocaleData.DeviceControl.UriRouteSection.Labels;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Nomenclatures;
+                            page = LocaleData.DeviceControl.UriRouteSection.Nomenclatures;
                             break;
                         case ProjectsEnums.TableScale.Plus:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Plus;
+                            page = LocaleData.DeviceControl.UriRouteSection.Plus;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            page = LocalizationData.DeviceControl.UriRouteSection.PrinterResources;
+                            page = LocaleData.DeviceControl.UriRouteSection.PrinterResources;
                             break;
                         case ProjectsEnums.TableScale.Printers:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Printers;
+                            page = LocaleData.DeviceControl.UriRouteSection.Printers;
                             break;
                         case ProjectsEnums.TableScale.PrintersTypes:
-                            page = LocalizationData.DeviceControl.UriRouteSection.PrinterTypes;
+                            page = LocaleData.DeviceControl.UriRouteSection.PrinterTypes;
                             break;
                         case ProjectsEnums.TableScale.ProductionFacilities:
-                            page = LocalizationData.DeviceControl.UriRouteSection.ProductionFacilities;
+                            page = LocaleData.DeviceControl.UriRouteSection.ProductionFacilities;
                             break;
                         case ProjectsEnums.TableScale.Scales:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Scales;
+                            page = LocaleData.DeviceControl.UriRouteSection.Scales;
                             break;
                         case ProjectsEnums.TableScale.TemplatesResources:
-                            page = LocalizationData.DeviceControl.UriRouteSection.TemplateResources;
+                            page = LocaleData.DeviceControl.UriRouteSection.TemplateResources;
                             break;
                         case ProjectsEnums.TableScale.Templates:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Templates;
+                            page = LocaleData.DeviceControl.UriRouteSection.Templates;
                             break;
                         case ProjectsEnums.TableScale.WeithingFacts:
-                            page = LocalizationData.DeviceControl.UriRouteSection.WeithingFacts;
+                            page = LocaleData.DeviceControl.UriRouteSection.WeithingFacts;
                             break;
                         case ProjectsEnums.TableScale.Workshops:
-                            page = LocalizationData.DeviceControl.UriRouteSection.WorkShops;
+                            page = LocaleData.DeviceControl.UriRouteSection.WorkShops;
                             break;
                     }
                     break;
@@ -1101,8 +1102,8 @@ namespace BlazorCore.Models
         public async Task ItemCancelAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks(LocalizationCore.Strings.TableCancel, LocalizationCore.Strings.DialogResultSuccess,
-                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
+            RunTasks(LocaleCore.Strings.TableCancel, LocaleCore.Strings.DialogResultSuccess,
+                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel,
                 new Task(() =>
                 {
                     RouteSectionNavigate(false);
@@ -1114,9 +1115,9 @@ namespace BlazorCore.Models
             if (ParentRazor?.Item != null)
             {
                 if (ParentRazor.Item.IdentityName == ColumnName.Id)
-                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
+                    return LocaleCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
                 else if (ParentRazor.Item.IdentityName == ColumnName.Uid)
-                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
+                    return LocaleCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
             }
             return string.Empty;
         }
@@ -1228,8 +1229,8 @@ namespace BlazorCore.Models
         public async Task ItemSaveAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasksWithQeustion(LocalizationCore.Strings.TableSave, LocalizationCore.Strings.DialogResultSuccess,
-                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Strings.TableSave, LocaleCore.Strings.DialogResultSuccess,
+                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     switch (Table)
@@ -1257,7 +1258,7 @@ namespace BlazorCore.Models
                 return;
             BaseEntity? item = isParentRazor ? ParentRazor?.Item : Item;
 
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionNewAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionNewAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -1281,7 +1282,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionCopyAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionCopyAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     RouteItemNavigate(isNewWindow, item, DbTableAction.Copy);
@@ -1299,7 +1300,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionEditAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionEditAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     RouteItemNavigate(isNewWindow, item, DbTableAction.Edit);
@@ -1317,7 +1318,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionSaveAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionSaveAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     await GuiRefreshWithWaitAsync();
@@ -1334,7 +1335,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionMarkAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionMarkAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.MarkedEntity(item);
@@ -1352,8 +1353,8 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
-                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Strings.TableDelete, LocaleCore.Strings.DialogResultSuccess,
+                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.DeleteEntity(item);
@@ -1368,8 +1369,8 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocalizationCore.Print.ResourcesClear, LocalizationCore.Strings.DialogResultSuccess,
-                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Strings.DialogResultSuccess,
+                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
@@ -1401,8 +1402,8 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocalizationCore.Print.ResourcesLoadTtf, LocalizationCore.Strings.DialogResultSuccess,
-                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Strings.DialogResultSuccess,
+                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(

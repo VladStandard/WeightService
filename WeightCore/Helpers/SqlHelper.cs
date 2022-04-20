@@ -2,9 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Helpers;
-using DataCore.Models;
-using DataCore.Utils;
+using DataCore.DAL;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System;
@@ -35,6 +33,7 @@ namespace WeightCore.Helpers
 
         #region Public fields and properties
 
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public DbConnection Connection { get; set; }
         public DbProviderFactory ProviderFactory { get; private set; }
         public short ConnectTimeout { get; private set; }
@@ -74,7 +73,7 @@ namespace WeightCore.Helpers
             SetConnectionString();
         }
 
-        public void Open(ShareEnums.SettingsStorage settingsStorage, string server = "", string database = "", 
+        public void Open(ShareEnums.SettingsStorage settingsStorage, string server = "", string database = "",
             bool integratedSecurity = false, string userId = "", string password = "",
             bool encrypt = false, string applicationName = null,
             string workstationId = null, short connectTimeout = 15, short packetSize = 8192)
@@ -97,9 +96,10 @@ namespace WeightCore.Helpers
             //}
             //Open(server, database, integratedSecurity, userId, password, encrypt, applicationName, workstationId, connectTimeout, packetSize);
 
-            JsonSettingsBase jsonSettings = DataAccessHelper.Instance.GetJsonSettings(Directory.GetCurrentDirectory());
-            Open(jsonSettings.Sql.Server, jsonSettings.Sql.Db, jsonSettings.Sql.Trusted, jsonSettings.Sql.Username, 
-                jsonSettings.Sql.Password, encrypt, applicationName, workstationId, connectTimeout, packetSize);
+            DataAccess.Setup(Directory.GetCurrentDirectory());
+            Open(DataAccess.JsonSettings.Sql.Server, DataAccess.JsonSettings.Sql.Db, DataAccess.JsonSettings.Sql.Trusted,
+                DataAccess.JsonSettings.Sql.Username, DataAccess.JsonSettings.Sql.Password, 
+                encrypt, applicationName, workstationId, connectTimeout, packetSize);
         }
 
         public void SetConnectionString()

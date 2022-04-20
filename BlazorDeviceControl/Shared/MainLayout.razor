@@ -1,8 +1,8 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using Microsoft.AspNetCore.Authorization
 
 <RadzenDialog />
@@ -46,25 +46,25 @@
                     @if (UserSettings.Identity.AccessRightsIsRead)
                     {
                         <RadzenMenu Style="margin-left: -20px; margin-top: 0px; align-content: center; background-color: transparent; " >
-                            <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocalizationCore.Strings.MenuSystem >
+                            <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Strings.MenuSystem >
                                 <RadzenMenuItem Icon="home" Style="background-color: transparent; "
-                                    Text=@LocalizationCore.Strings.MenuMain Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
+                                    Text=@LocaleCore.Strings.MenuMain Path=@LocaleData.DeviceControl.UriRouteSection.Root />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@StringUtils.FormatCurDtRus(true) Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
+                                    Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleData.DeviceControl.UriRouteSection.Root />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@AppSettings.MemoryInfo Path=@LocalizationData.DeviceControl.UriRouteSection.Root 
+                                    Text=@AppSettings.MemoryInfo Path=@LocaleData.DeviceControl.UriRouteSection.Root 
                                     Click=@MemoryClearAsync />
                                 <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                    Text=@UserSettings.Identity.NameWithRights Path=@LocalizationData.DeviceControl.UriRouteSection.Access
+                                    Text=@UserSettings.Identity.NameWithRights Path=@LocaleData.DeviceControl.UriRouteSection.Access
                                     Click=@(args => SetParametersAsync(new())) />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@LocalizationCore.Strings.MenuInfo Path=@LocalizationData.DeviceControl.UriRouteItem.Info />
+                                    Text=@LocaleCore.Strings.MenuInfo Path=@LocaleData.DeviceControl.UriRouteItem.Info />
                             </RadzenMenuItem>
-                            <RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocalizationCore.Strings.MenuReports >
+                            <RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Strings.MenuReports >
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@LocalizationCore.Strings.SysLogs Path=@LocalizationData.DeviceControl.UriRouteSection.Logs />
+                                    Text=@LocaleCore.Strings.SysLogs Path=@LocaleData.DeviceControl.UriRouteSection.Logs />
                                 <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                    Text=@LocalizationCore.Strings.SysErrors Path=@LocalizationData.DeviceControl.UriRouteSection.Errors />
+                                    Text=@LocaleCore.Strings.SysErrors Path=@LocaleData.DeviceControl.UriRouteSection.Errors />
                             </RadzenMenuItem>
                         </RadzenMenu>
                     }

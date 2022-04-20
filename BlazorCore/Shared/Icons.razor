@@ -19,16 +19,16 @@
         Data=@ListIcons TItem="string"
         AllowFiltering=false AllowPaging=true AllowSorting=true 
         FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode=FilterMode.Advanced
-        PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount >
+        PageSize=@AppSettings.SectionRowCount >
         <Columns >
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="50%">
+                Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="50%">
                 <Template Context="icon">
                     <RadzenIcon Icon=@icon />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.ChangeDt Type="date" Width="50%">
+                Title=@LocaleCore.TableField.ChangeDt Type="date" Width="50%">
                 <Template Context="icon">
                     <RadzenLabel Text=@icon Disabled=false ReadOnly=true />
                 </Template>

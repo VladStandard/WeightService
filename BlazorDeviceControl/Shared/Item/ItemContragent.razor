@@ -4,8 +4,8 @@
 @page "/item/contragent/{IdentityUidStr}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 
 @if (!IsLoaded)
 {
@@ -14,52 +14,52 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Items.Contragent SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Items.Contragent SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.TableField.Uid</td>
+                <td>@LocaleCore.TableField.Uid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
-                <td>@LocalizationCore.TableField.Marked</td>
+                <td>@LocaleCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Name</td>
+                <td>@LocaleCore.TableField.Name</td>
                 <td colspan=3>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.FullName</td>
+                <td>@LocaleCore.TableField.FullName</td>
                 <td colspan=3>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.FullName />
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.IdRRef</td>
+                <td>@LocaleCore.TableField.IdRRef</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
                         Disabled=false ReadOnly=true
                         TValue="string" @bind-Value=@ItemCast.IdRRefAsString />
                 </td>
-                <td>@LocalizationCore.TableField.IdDwh</td>
+                <td>@LocaleCore.TableField.IdDwh</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
@@ -67,7 +67,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Xml</td>
+                <td>@LocaleCore.TableField.Xml</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true

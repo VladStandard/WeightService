@@ -1,19 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
+using DataCore.DAL;
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
-using DataCore.DAL;
-using DataCore.Helpers;
-using DataCore;
-using LocalizationCore = DataCore.Localization.Core;
+using DataCore.Localizations;
+using DataCore.Settings;
 using ScalesUI.Forms;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
-using System;
 using WeightCore.Gui;
 
 // ReSharper disable IdentifierTypo
@@ -24,7 +24,7 @@ namespace ScalesUI
         #region Public and private fields and properties
 
         private static AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
-        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+        private static DataAccessHelper DataAccess { get; set; } = DataAccessHelper.Instance;
 
         #endregion
 
@@ -38,8 +38,8 @@ namespace ScalesUI
                 Guid uid = HostsUtils.TokenWrite(conectionString);
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = LocalizationCore.Scales.RegistrationWarning1(uid);
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
+                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning1(uid);
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonYesVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.Localization();
@@ -63,7 +63,7 @@ namespace ScalesUI
                     message += Environment.NewLine + ex.InnerException;
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationCore.Scales.Exception;
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Exception;
                 wpfPageLoader.MessageBox.Message = message;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.Localization();
@@ -82,15 +82,15 @@ namespace ScalesUI
         internal static void MainInside(
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            AppVersion.Setup(Assembly.GetExecutingAssembly());
             try
             {
-                SqlConnect.GetConnection();
+                AppVersion.Setup(Assembly.GetExecutingAssembly());
+                DataAccess.Setup(Directory.GetCurrentDirectory());
             }
             catch (Exception ex)
             {
                 GuiUtils.WpfForm.ShowNewCatch(null,
-                    LocalizationCore.Scales.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message,
+                    LocaleCore.Scales.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message,
                     filePath, lineNumber, memberName);
                 throw new Exception(ex.Message);
             }
@@ -98,7 +98,7 @@ namespace ScalesUI
             // Exit.
             if (!HostsUtils.TokenExist())
             {
-                TokenWrite(DataAccessHelper.Instance.ConnectionString);
+                TokenWrite(DataAccess.ConnectionString);
                 Application.Exit();
                 return;
             }
@@ -109,8 +109,8 @@ namespace ScalesUI
             {
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = LocalizationCore.Scales.RegistrationWarning2(host.IdRRef);
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
+                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning2(host.IdRRef);
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 wpfPageLoader.ShowDialog();

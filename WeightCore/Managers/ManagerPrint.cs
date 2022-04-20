@@ -12,7 +12,7 @@ using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
-using LocalizationCore = DataCore.Localization.Core;
+using LocalizationCore = DataCore.Localizations.LocaleCore;
 using System.Windows.Forms;
 using WeightCore.Helpers;
 

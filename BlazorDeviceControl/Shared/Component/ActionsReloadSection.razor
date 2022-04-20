@@ -1,8 +1,8 @@
 ﻿@inherits Shared.Component.ActionsReloadBase
 @page "/component/actions_reload_section"
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ProjectsEnums
 @using static DataCore.ShareEnums
 
@@ -17,12 +17,12 @@
     }
     else
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowTop100 />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocaleCore.Strings.ActionIsShowTop100 />
         <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowTop100
             Change=@(args => OnChangeCheckBox(args, nameof(IsShowTop100)))
         />
 
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocaleCore.Strings.ActionIsShowMarked />
         <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
             Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
         />
@@ -31,7 +31,7 @@
             class="radzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
             Disabled=@AppSettings.DataAccess.IsDisabled 
             Click=@(args => SetParameters.InvokeAsync())
-            MouseEnter="@(args => TooltipService?.Open(args, LocalizationData.DeviceControl.TableReadData))"
+            MouseEnter="@(args => TooltipService?.Open(args, LocaleData.DeviceControl.TableReadData))"
         />
         
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />

@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorInputFile;
-using DataCore.DAL.Models;
+using DataCore.DAL;
 using DataCore.DAL.TableScaleModels;
 using DataCore.DAL.Utils;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +14,7 @@ namespace BlazorDeviceControl.Service
 {
     public class FileUpload : IFileUpload
     {
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         private readonly IWebHostEnvironment _environment;
         public FileUpload(IWebHostEnvironment environment)
         {
@@ -42,15 +43,15 @@ namespace BlazorDeviceControl.Service
             ms.WriteTo(file);
         }
 
-        public async Task UploadAsync(DataAccessEntity? dataAccess, TemplateResourceEntity? item, Stream stream)
+        public async Task UploadAsync(TemplateResourceEntity? item, Stream stream)
         {
-            if (dataAccess == null || item == null)
+            if (item == null)
                 return;
 
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             item.ImageData = new(DataUtils.GetBytes(stream, true));
-            dataAccess.Crud.UpdateEntity(item);
+            DataAccess.Crud?.UpdateEntity(item);
         }
     }
 }

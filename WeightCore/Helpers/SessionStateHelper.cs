@@ -5,9 +5,7 @@ using DataCore.DAL.DataModels;
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
 using DataCore.DAL;
-using DataCore.Helpers;
 using DataCore;
-using LocalizationCore = DataCore.Localization.Core;
 using MvvmHelpers;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -21,6 +19,7 @@ using WeightCore.Print;
 using WeightCore.Zpl;
 using DataCore.DAL.TableScaleModels;
 using System.Diagnostics;
+using DataCore.Localizations;
 
 namespace WeightCore.Helpers
 {
@@ -53,7 +52,7 @@ namespace WeightCore.Helpers
             set
             {
                 _currentScale = value;
-                SqlViewModel.SetupTasks(DataAccess.Dal, Host?.ScaleId);
+                SqlViewModel.SetupTasks(Host?.ScaleId);
                 OnPropertyChanged();
             }
         }
@@ -93,9 +92,7 @@ namespace WeightCore.Helpers
         public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
         public bool IsCurrentPluCheckWeight => CurrentPlu?.IsCheckWeight == true;
         public WeighingSettingsEntity WeighingSettings { get; set; }
-        public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
         public Stopwatch StopwatchMain { get; set; }
-        public Stopwatch StopwatchMassa { get; set; }
 
         #endregion
 
@@ -106,7 +103,7 @@ namespace WeightCore.Helpers
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
             //CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
-            CurrentScale = DataAccess.Dal.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
+            CurrentScale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
 
             ProductDate = DateTime.Now;
 
@@ -207,14 +204,7 @@ namespace WeightCore.Helpers
 
         public void SetCurrentPlu(PluDirect plu)
         {
-            if (CurrentPlu != plu)
-                CurrentPlu = plu;
-        }
-
-        public void ClearCurrentPlu()
-        {
-            if (CurrentPlu != null)
-                CurrentPlu = null;
+            CurrentPlu = plu;
         }
 
         #endregion
@@ -230,7 +220,7 @@ namespace WeightCore.Helpers
         {
             if (CurrentPlu == null)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocalizationCore.Scales.PluIsEmpty, 
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect, 
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -247,7 +237,7 @@ namespace WeightCore.Helpers
         {
             if (Manager == null || Manager.Massa == null)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocalizationCore.Scales.MassaNotFound,
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaNotFound,
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -264,10 +254,10 @@ namespace WeightCore.Helpers
             if (!IsCurrentPluCheckWeight)
                 return true;
             decimal weight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
-            if (weight < LocalizationCore.Scales.MassaThreshold)
+            if (weight < LocaleCore.Scales.MassaThreshold)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-                    LocalizationCore.Scales.CheckWeightThreshold(weight),
+                    LocaleCore.Scales.CheckWeightThreshold(weight),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -284,10 +274,10 @@ namespace WeightCore.Helpers
             if (!IsCurrentPluCheckWeight)
                 return true;
             decimal weight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
-            if (weight > LocalizationCore.Scales.MassaThreshold)
+            if (weight > LocaleCore.Scales.MassaThreshold)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-                    LocalizationCore.Scales.CheckWeightThreshold(weight),
+                    LocaleCore.Scales.CheckWeightThreshold(weight),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return result == DialogResult.Cancel;
             }
@@ -313,7 +303,7 @@ namespace WeightCore.Helpers
                 isCheck = true;
             if (!isCheck)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocalizationCore.Scales.CheckWeightThresholds(
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
                     CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.NominalWeight, CurrentPlu.LowerWeightThreshold),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
@@ -419,9 +409,9 @@ namespace WeightCore.Helpers
             //{
             //    // WPF MessageBox.
             //    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-            //    wpfPageLoader.MessageBox.Caption = LocalizationCore.Scales.OperationControl;
+            //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
             //    wpfPageLoader.MessageBox.Message =
-            //        LocalizationCore.Scales.WeightingControl + Environment.NewLine +
+            //        LocaleCore.Scales.WeightingControl + Environment.NewLine +
             //        $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
             //        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
             //        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +

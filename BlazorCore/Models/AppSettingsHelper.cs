@@ -2,14 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL.Models;
-using DataCore.Helpers;
-using DataCore.Localization;
-using DataCore.Models;
+using DataCore.DAL;
+using DataCore.Localizations;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.IO;
 using System.Threading;
 
 namespace BlazorCore.Models
@@ -27,37 +24,38 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
-        public bool IsFirstLoad { get; set; }
-        public DataAccessEntity DataAccess { get; private set; }
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        public DataAccessHelper DataAccessHelp { get; private set; } = DataAccessHelper.Instance;
         public DataSourceDicsEntity DataSourceDics { get; private init; } = new();
         public MemoryEntity Memory { get; set; } = new();
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
+        public int SectionRowCount => DataAccess.JsonSettings == null ? 100 : DataAccess.JsonSettings.SectionRowCount;
         public static int Delay => 5_000;
         public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{Core.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
-            : $"{Core.Strings.Memory}: - MB";
+            ? $"{LocaleCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
+            : $"{LocaleCore.Strings.Memory}: - MB";
         public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{Core.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
-            : $"{Core.Strings.Memory}: - MB";
+            ? $"{LocaleCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
+            : $"{LocaleCore.Strings.Memory}: - MB";
         public string MemoryInfoShort => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
             ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
-              $"{Core.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-            : $"{Core.Strings.Memory}: - MB";
+              $"{LocaleCore.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
+            : $"{LocaleCore.Strings.Memory}: - MB";
         public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
-            || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
-            ? 0f : (float)(Memory.MemorySize.PhysicalCurrent.MegaBytes) * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
+            || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
+            ? 0f : (float)Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
         public string SqlServerDescription => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } }
-            ? DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
-                ? Core.Strings.Main.ServerRelease : Core.Strings.Main.ServerDevelop
-            : Core.Strings.Main.NotLoad;
-        public bool IsSqlServerRelease => DataAccess.JsonSettings != null && DataAccess.JsonSettings?.Sql is { Server: { } } && 
-            DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => DataAccess.JsonSettings != null && DataAccess.JsonSettings?.Sql is { Server: { } } && 
-            DataAccess.JsonSettings.Sql.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+            ? DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
+                ? LocaleCore.Strings.Main.ServerRelease : LocaleCore.Strings.Main.ServerDevelop
+            : LocaleCore.Strings.Main.NotLoad;
+        public bool IsSqlServerRelease => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } } &&
+            DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } } &&
+            DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 
@@ -65,21 +63,13 @@ namespace BlazorCore.Models
 
         public AppSettingsHelper()
         {
-            if (!IsFirstLoad)
-            {
-                IsFirstLoad = true;
-            }
-            string dir = Directory.GetCurrentDirectory();
-            JsonSettingsBase? jsonSettings = DataAccessHelper.Instance.GetJsonSettings(dir);
-            SetupJsonSettings(jsonSettings); 
-            DataAccess = new DataAccessEntity();
+            //
         }
 
         #endregion
 
         #region Public and private methods
 
-        //public void SetupMemory(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
         public void SetupMemory()
         {
             if (Memory != null)
@@ -89,11 +79,6 @@ namespace BlazorCore.Models
             Memory = new(1_000, 5_000);
             //Memory.OpenAsync(callRefreshAsync);
             Memory.MemorySize.Open();
-        }
-
-        public void SetupJsonSettings(JsonSettingsBase? jsonSettings)
-        {
-            DataAccess = new DataAccessEntity(jsonSettings);
         }
 
         #endregion

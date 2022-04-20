@@ -5,8 +5,8 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 
 @if (!IsLoaded)
 {
@@ -15,38 +15,38 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Items.Log SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Items.Log SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.TableField.Uid</td>
+                <td>@LocaleCore.TableField.Uid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
-                <td>@LocalizationCore.TableField.Marked</td>
+                <td>@LocaleCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Host</td>
+                <td>@LocaleCore.TableField.Host</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.Host.Name />
 				</td>
-                <td>@LocalizationCore.TableField.App</td>
+                <td>@LocaleCore.TableField.App</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -54,13 +54,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Version</td>
+                <td>@LocaleCore.TableField.Version</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.Version />
 				</td>
-                <td>@LocalizationCore.TableField.File</td>
+                <td>@LocaleCore.TableField.File</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -68,13 +68,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Row</td>
+                <td>@LocaleCore.TableField.Row</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@ItemCast.Line />
 				</td>
-                <td>@LocalizationCore.TableField.Member</td>
+                <td>@LocaleCore.TableField.Member</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -82,7 +82,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.LogType</td>
+                <td>@LocaleCore.TableField.LogType</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -90,7 +90,7 @@ else
 				</td>
             </tr>
             <tr >
-                <td>@LocalizationCore.TableField.Message</td>
+                <td>@LocaleCore.TableField.Message</td>
                 <td colspan=3 rowspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 

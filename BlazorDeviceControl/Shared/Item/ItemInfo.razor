@@ -2,24 +2,24 @@
 @page "/item/info"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 <ActionsReloadItem ParentRazor=@this 
-    Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync />
+    Title=@LocaleCore.Strings.SysInfo SetParameters=@SetParametersAsync />
     
-<MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
+<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.Main.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <thead>
         <tr>
-            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
-            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
+            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.Main.SettingName</th>
+            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.Main.SettingValue</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>@LocalizationCore.Strings.Main.VerApp</td>
+            <td>@LocaleCore.Strings.Main.VerApp</td>
             @if (string.IsNullOrEmpty(VerApp))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -30,7 +30,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.VerLibBlazorCore</td>
+            <td>@LocaleCore.Strings.Main.VerLibBlazorCore</td>
             @if (string.IsNullOrEmpty(VerLibDataCore))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -41,7 +41,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.VerLibDataCore</td>
+            <td>@LocaleCore.Strings.Main.VerLibDataCore</td>
             @if (string.IsNullOrEmpty(VerLibDataCore))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -52,7 +52,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.HostName</td>
+            <td>@LocaleCore.Strings.Main.HostName</td>
             @if (string.IsNullOrEmpty(Environment.MachineName))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -63,7 +63,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.SqlServer</td>
+            <td>@LocaleCore.Strings.SqlServer</td>
             @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings?.Sql.Server))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -74,7 +74,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.SqlDb</td>
+            <td>@LocaleCore.Strings.SqlDb</td>
             @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings?.Sql.Db))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -87,11 +87,11 @@
         <tr>
             @if (AppSettings.DataAccess.JsonSettings?.Sql.Trusted == true)
             {
-                <td>@LocalizationCore.Strings.WindowsUser</td>
+                <td>@LocaleCore.Strings.WindowsUser</td>
             }
             else
             {
-                <td>@LocalizationCore.Strings.SqlUser</td>
+                <td>@LocaleCore.Strings.SqlUser</td>
             }
             @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings?.Sql.Username))
             {
@@ -103,7 +103,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.SqlDbCurSize</td>
+            <td>@LocaleCore.Strings.SqlDbCurSize</td>
             @if (DbCurSize == 0)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -114,7 +114,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.SqlDbFillSize</td>
+            <td>@LocaleCore.Strings.SqlDbFillSize</td>
             @if (DbFillSize == 0)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -130,7 +130,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Memory</td>
+            <td>@LocaleCore.Strings.Memory</td>
             @if (AppSettings.Memory == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -141,7 +141,7 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.MemoryFillSize</td>
+            <td>@LocaleCore.Strings.MemoryFillSize</td>
             @if (AppSettings.Memory == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -160,17 +160,17 @@
 </MudSimpleTable>
 <br />
 
-<MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.UserSettings</MudElement>
+<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.Main.UserSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <thead>
         <tr>
-            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
-            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
+            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.Main.SettingName</th>
+            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.Main.SettingValue</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>@LocalizationCore.Strings.Main.AuthorizingUserName</td>
+            <td>@LocaleCore.Strings.Main.AuthorizingUserName</td>
             @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -181,11 +181,11 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.AccessRights</td>
+            <td>@LocaleCore.Strings.Main.AccessRights</td>
             <td><MudElement Class="ma-0">@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.Language</td>
+            <td>@LocaleCore.Strings.Main.Language</td>
             @if (TemplateLanguages == null || AppSettings.DataAccess.JsonSettings == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
@@ -197,7 +197,7 @@
                         Disabled=false TValue=@ShareEnums.Lang
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                         Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                        ValueProperty="Value" Value=@LocalizationCore.Lang
+                        ValueProperty="Value" Value=@LocaleCore.Lang
                         Change=@(args => OnLocalizationValueChange(TemplateLanguages, args)) 
                     />
                 </td>

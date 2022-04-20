@@ -1,6 +1,6 @@
 ﻿@using BlazorCore
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
@@ -20,7 +20,7 @@
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(Shared.MainLayout)">
-                <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.PageError</MudElement>
+                <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.Main.PageError</MudElement>
             </LayoutView>
         </NotFound>
     </Router>

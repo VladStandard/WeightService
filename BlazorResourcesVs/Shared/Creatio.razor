@@ -5,27 +5,27 @@
 @inject NavigationManager NavigationManager
 
 <h2>
-    <RadzenLabel Text=@LocalizationData.Resources.CreatioTitle />
+    <RadzenLabel Text=@LocaleData.Resources.CreatioTitle />
 </h2>
 
 <body>
-    <RadzenLabel Text=@LocalizationData.Resources.CreatioOfficialTitle />
+    <RadzenLabel Text=@LocaleData.Resources.CreatioOfficialTitle />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioAcademyPath Text=@LocalizationData.Resources.CreatioAcademyText />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioMarketplacePath Text=@LocalizationData.Resources.CreatioMarketplaceText
+    <RadzenLink Path=@LocaleData.Resources.CreatioAcademyPath Text=@LocaleData.Resources.CreatioAcademyText />
+    <RadzenLink Path=@LocaleData.Resources.CreatioMarketplacePath Text=@LocaleData.Resources.CreatioMarketplaceText
                 Style="margin-left: 20px" />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioCommunityPath Text=@LocalizationData.Resources.CreatioCommunityText
+    <RadzenLink Path=@LocaleData.Resources.CreatioCommunityPath Text=@LocaleData.Resources.CreatioCommunityText
                 Style="margin-left: 20px" />
     <br />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioWebinarsPath Text=@LocalizationData.Resources.CreatioWebinarsText />
-    <RadzenTextBox bind-Value=@LocalizationData.Resources.CreatioWebinarsPath ReadOnly=true />
+    <RadzenLink Path=@LocaleData.Resources.CreatioWebinarsPath Text=@LocaleData.Resources.CreatioWebinarsText />
+    <RadzenTextBox bind-Value=@LocaleData.Resources.CreatioWebinarsPath ReadOnly=true />
     <br />
     <br />
-    <RadzenLabel Text=@LocalizationData.Resources.CreatioTableTitle Style="align-self: center" />
+    <RadzenLabel Text=@LocaleData.Resources.CreatioTableTitle Style="align-self: center" />
     @if (LocalSites == null)
     {
-        <p><em>@LocalizationData.Share.DataLoading</em></p>
+        <p><em>@LocaleData.Share.DataLoading</em></p>
     }
     else
     {
@@ -33,34 +33,34 @@
                     AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                     AllowPaging="true" PageSize="20" AllowSorting="true" ColumnWidth="200px">
             <Columns>
-                <RadzenGridColumn TItem="WebSiteEntity" Property="Name" Title=@LocalizationData.Resources.CreatioTableFieldName Type="string" />
-                <RadzenGridColumn TItem="WebSiteEntity" Property="Link" Title=@LocalizationData.Resources.CreatioTableFieldLink Type="string" />
-                <RadzenGridColumn TItem="WebSiteEntity" Property="Dev" Title=@LocalizationData.Resources.CreatioTableFieldDev Type="string" />
+                <RadzenGridColumn TItem="WebSiteEntity" Property="Name" Title=@LocaleData.Resources.CreatioTableFieldName Type="string" />
+                <RadzenGridColumn TItem="WebSiteEntity" Property="Link" Title=@LocaleData.Resources.CreatioTableFieldLink Type="string" />
+                <RadzenGridColumn TItem="WebSiteEntity" Property="Dev" Title=@LocaleData.Resources.CreatioTableFieldDev Type="string" />
             </Columns>
         </RadzenGrid>
     }
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioCreStudyPath Text=@LocalizationData.Resources.CreatioCreStudyText />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioCreStudyDevPath Text=@LocalizationData.Resources.CreatioCreStudyDevText
+    <RadzenLink Path=@LocaleData.Resources.CreatioCreStudyPath Text=@LocaleData.Resources.CreatioCreStudyText />
+    <RadzenLink Path=@LocaleData.Resources.CreatioCreStudyDevPath Text=@LocaleData.Resources.CreatioCreStudyDevText
                 Style="margin-left: 20px" />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioCreUpgradePath Text=@LocalizationData.Resources.CreatioCreUpgradeText />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioCreUpgradeDevPath Text=@LocalizationData.Resources.CreatioCreUpgradeDevText
+    <RadzenLink Path=@LocaleData.Resources.CreatioCreUpgradePath Text=@LocaleData.Resources.CreatioCreUpgradeText />
+    <RadzenLink Path=@LocaleData.Resources.CreatioCreUpgradeDevPath Text=@LocaleData.Resources.CreatioCreUpgradeDevText
                 Style="margin-left: 0" />
     <br />
     <br />
-    <RadzenLabel Text=@LocalizationData.Resources.CreatioRemoteTitle />
+    <RadzenLabel Text=@LocaleData.Resources.CreatioRemoteTitle />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioTerrasoftPrePath Text=@LocalizationData.Resources.CreatioTerrasoftPreText />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioTerrasoftPreDevPath Text=@LocalizationData.Resources.CreatioTerrasoftPreDevText
+    <RadzenLink Path=@LocaleData.Resources.CreatioTerrasoftPrePath Text=@LocaleData.Resources.CreatioTerrasoftPreText />
+    <RadzenLink Path=@LocaleData.Resources.CreatioTerrasoftPreDevPath Text=@LocaleData.Resources.CreatioTerrasoftPreDevText
                 Style="margin-left: 9px" />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioTerrasoftPre2Path Text=@LocalizationData.Resources.CreatioTerrasoftPre2Text />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioTerrasoftPre2DevPath Text=@LocalizationData.Resources.CreatioTerrasoftPre2DevText
+    <RadzenLink Path=@LocaleData.Resources.CreatioTerrasoftPre2Path Text=@LocaleData.Resources.CreatioTerrasoftPre2Text />
+    <RadzenLink Path=@LocaleData.Resources.CreatioTerrasoftPre2DevPath Text=@LocaleData.Resources.CreatioTerrasoftPre2DevText
                 Style="margin-left: 0" />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioTerrasoftPath Text=@LocalizationData.Resources.CreatioTerrasoftText />
-    <RadzenLink Path=@LocalizationData.Resources.CreatioTerrasoftDevPath Text=@LocalizationData.Resources.CreatioTerrasoftDevText
+    <RadzenLink Path=@LocaleData.Resources.CreatioTerrasoftPath Text=@LocaleData.Resources.CreatioTerrasoftText />
+    <RadzenLink Path=@LocaleData.Resources.CreatioTerrasoftDevPath Text=@LocaleData.Resources.CreatioTerrasoftDevText
                 Style="margin-left: 40px" />
 </body>
 *@

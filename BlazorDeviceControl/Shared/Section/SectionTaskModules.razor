@@ -7,8 +7,8 @@
 @using DataCore.DAL
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -18,32 +18,32 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.TaskModules SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Sections.TaskModules SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TaskEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="TaskEntity" Title=@LocalizationCore.TableField.Host Type="string" Width="45%" >
+                TItem="TaskEntity" Title=@LocaleCore.TableField.Host Type="string" Width="45%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.TaskModule}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.TaskModule}/{itemCast.IdentityUid}")
                         Text=@itemCast.Scale?.Host?.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TaskEntity" TextAlign=TextAlign.Left Type="string" Width="45%"
-                Title=@LocalizationCore.TableField.TaskType >
+                Title=@LocaleCore.TableField.TaskType >
                 <Template Context="itemCast">
                     <RadzenLabel Text=@itemCast.TaskType?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TaskEntity" Property="Enabled" TextAlign=TextAlign.Center Width="10%" 
-                Title=@LocalizationCore.TableField.Enabled >
+                Title=@LocaleCore.TableField.Enabled >
                 <Template Context="itemCast">
                     <RadzenCheckBox TValue="bool" @bind-Value=@itemCast.Enabled Disabled=@Disabled />
                 </Template>

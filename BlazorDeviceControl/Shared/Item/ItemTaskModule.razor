@@ -6,6 +6,7 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
 
 @if (!IsLoaded)
@@ -15,8 +16,8 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Items.TaskModule SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Items.TaskModule SetParameters=@SetParametersAsync />
 
-    <TaskModules Uid=@ItemCast?.IdentityUid />
+    <SectionTaskModules Uid=@ItemCast?.IdentityUid />
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
 }

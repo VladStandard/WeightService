@@ -1,5 +1,5 @@
 ﻿using DataCore.Models;
-using DataCore.Utils;
+using DataCore.Protocols;
 using System.Collections.Generic;
 using static DataCore.ShareEnums;
 
@@ -14,8 +14,8 @@ namespace BlazorDeviceControl.Shared.Component
 
         public MudPage()
         {
-            ComPorts = PortUtils.GetListTypeComPorts(Lang.Russian);
-            ListComPorts = PortUtils.GetListComPorts(Lang.Russian);
+            ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.Russian);
+            ListComPorts = SerialPortsUtils.GetListComPorts(Lang.Russian);
         }
     }
 }

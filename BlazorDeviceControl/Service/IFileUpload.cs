@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorInputFile;
-using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using System.IO;
 using System.Threading.Tasks;
@@ -13,6 +12,6 @@ namespace BlazorDeviceControl.Service
     {
         Task UploadAsync(IFileListEntry file);
         Task UploadAsync(string name, Stream stream);
-        Task UploadAsync(DataAccessEntity dataAccess, TemplateResourceEntity? item, Stream stream);
+        Task UploadAsync(TemplateResourceEntity? item, Stream stream);
     }
 }

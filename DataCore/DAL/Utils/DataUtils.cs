@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localization;
+using DataCore.Localizations;
 using System;
 using System.Drawing;
 using System.IO;
@@ -30,19 +30,19 @@ namespace DataCore.DAL.Utils
         public static string GetBytesLength(byte[] bytes)
         {
             if (bytes == null)
-                return $"{Core.Strings.Main.DataSizeVolume}: 0 {Core.Strings.Main.DataSizeBytes}";
+                return $"{LocaleCore.Strings.Main.DataSizeVolume}: 0 {LocaleCore.Strings.Main.DataSizeBytes}";
             if (Encoding.Default.GetString(bytes).Length > 1024 * 1024)
-                return $"{Core.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {Core.Strings.Main.DataSizeMBytes}";
+                return $"{LocaleCore.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.Main.DataSizeMBytes}";
             if (Encoding.Default.GetString(bytes).Length > 1024)
-                return $"{Core.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {Core.Strings.Main.DataSizeKBytes}";
-            return $"{Core.Strings.Main.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {Core.Strings.Main.DataSizeBytes}";
+                return $"{LocaleCore.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocaleCore.Strings.Main.DataSizeKBytes}";
+            return $"{LocaleCore.Strings.Main.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocaleCore.Strings.Main.DataSizeBytes}";
         }
 
         public static string GetStringLength(string str)
         {
             if (string.IsNullOrEmpty(str))
-                return $"{Core.Strings.Main.DataSizeLength}: 0 {Core.Strings.Main.DataSizeChars}";
-            return $"{Core.Strings.Main.DataSizeLength}: {str.Length:### ###} {Core.Strings.Main.DataSizeChars}";
+                return $"{LocaleCore.Strings.Main.DataSizeLength}: 0 {LocaleCore.Strings.Main.DataSizeChars}";
+            return $"{LocaleCore.Strings.Main.DataSizeLength}: {str.Length:### ###} {LocaleCore.Strings.Main.DataSizeChars}";
         }
 
         //public virtual async Task<byte[]> GetBytes(Stream stream, bool useBase64)

@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.Models;
 using DataCore.DAL.TableDirectModels;
 using DataCore.Utils;
 using Microsoft.Data.SqlClient;
@@ -14,6 +13,7 @@ namespace DataCore.DAL.Utils
         #region Public and private fields and properties
 
         public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+        public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
 
         #endregion
 
@@ -75,7 +75,7 @@ namespace DataCore.DAL.Utils
             return result;
         }
 
-        public static TaskDirect? GetTask(DataAccessEntity dataAccess, Guid taskTypeUid, long scaleId)
+        public static TaskDirect? GetTask(Guid taskTypeUid, long scaleId)
         {
             TaskDirect? result = null;
             using (SqlConnection con = SqlConnect.GetConnection())
@@ -97,7 +97,7 @@ namespace DataCore.DAL.Utils
                                 Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
                                 TaskType = TasksTypeUtils.GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
                                 //Scale = ScalesUtils.GetScale(dataAccess, SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                                Scale = dataAccess.Crud.GetEntity<TableScaleModels.ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Scale = DataAccess.Crud.GetEntity<TableScaleModels.ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
                                 Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
@@ -109,7 +109,7 @@ namespace DataCore.DAL.Utils
             return result;
         }
 
-        public static TaskDirect? GetTask(DataAccessEntity dataAccess, Guid taskUid)
+        public static TaskDirect? GetTask(Guid taskUid)
         {
             TaskDirect? result = null;
             using (SqlConnection con = SqlConnect.GetConnection())
@@ -130,7 +130,7 @@ namespace DataCore.DAL.Utils
                                 Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
                                 TaskType = TasksTypeUtils.GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
                                 //Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                                Scale = dataAccess.Crud.GetEntity<TableScaleModels.ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Scale = DataAccess.Crud.GetEntity<TableScaleModels.ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
                                 Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }

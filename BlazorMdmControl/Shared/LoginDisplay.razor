@@ -2,11 +2,11 @@
 @page "/login"
 @using BlazorCore
 @using DataCore
-@using LocalizationCore = DataCore.Localization.Core
+@using DataCore.Localizations
 
 <AuthorizeView>
     <Authorizing>
-        <div>@LocalizationCore.Strings.Main.AuthorizingProcess</div>
+        <div>@LocaleCore.Strings.Main.AuthorizingProcess</div>
     </Authorizing>
     <Authorized>
         @if (context.User.Identity != null)
@@ -17,6 +17,6 @@
         <div>User detect error!</div>
     </Authorized>
     <NotAuthorized>
-        <div>@LocalizationCore.Strings.Main.AuthorizingNot</div>
+        <div>@LocaleCore.Strings.Main.AuthorizingNot</div>
     </NotAuthorized>
 </AuthorizeView>

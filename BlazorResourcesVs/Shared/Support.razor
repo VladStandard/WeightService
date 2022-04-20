@@ -1,12 +1,14 @@
 ﻿@page "/support"
-@using DataCore
+@using DataCore;
+@using DataCore.Localizations
+using DataCore.Localizations
 
 <h2>
-    <RadzenLabel Text=@LocalizationData.Resources.SupportTitle />
+    <RadzenLabel Text=@LocaleData.Resources.SupportTitle />
 </h2>
 
 <body>
-    <RadzenLink Path=@LocalizationData.Resources.SupportCreatio Text=@LocalizationData.Resources.SupportLinkCreatioText />
+    <RadzenLink Path=@LocaleData.Resources.SupportCreatio Text=@LocaleData.Resources.SupportLinkCreatioText />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.SupportLinkHelpPath Text=@LocalizationData.Resources.SupportLinkHelpText Icon="email" />
+    <RadzenLink Path=@LocaleData.Resources.SupportLinkHelpPath Text=@LocaleData.Resources.SupportLinkHelpText Icon="email" />
 </body>

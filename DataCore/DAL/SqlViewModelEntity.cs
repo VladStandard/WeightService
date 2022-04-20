@@ -1,11 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.Models;
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
+using DataCore.Localizations;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -24,6 +25,7 @@ namespace DataCore.DAL
 
         #region Public and private fields and properties
 
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         private ShareEnums.PublishType _publishType = ShareEnums.PublishType.Default;
         public ShareEnums.PublishType PublishType
         {
@@ -75,6 +77,36 @@ namespace DataCore.DAL
             }
         }
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+        private string? _host;
+        public string? Host
+        {
+            get => _host;
+            set
+            {
+                _host = value;
+                OnPropertyChanged();
+            }
+        }
+        private string? _buttonsOkCaption;
+        public string? ButtonsOkCaption
+        {
+            get => _buttonsOkCaption;
+            set
+            {
+                _buttonsOkCaption = value;
+                OnPropertyChanged();
+            }
+        }
+        private string? _buttonsCancelCaption;
+        public string? ButtonsCancelCaption
+        {
+            get => _buttonsCancelCaption;
+            set
+            {
+                _buttonsCancelCaption = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -104,9 +136,12 @@ namespace DataCore.DAL
 
             TaskTypes = new List<TaskTypeDirect>();
             Tasks = new List<TaskDirect>();
+            Host = Environment.MachineName;
+            ButtonsOkCaption = LocaleData.Buttons.Ok;
+            ButtonsCancelCaption = LocaleData.Buttons.Cancel;
         }
 
-        public void SetupTasks(DataAccessEntity dataAccess, long? scaleId)
+        public void SetupTasks(long? scaleId)
         {
             if (scaleId == null)
                 return;
@@ -116,11 +151,11 @@ namespace DataCore.DAL
             Tasks = new List<TaskDirect>();
             foreach (TaskTypeDirect taskType in TaskTypes)
             {
-                TaskDirect? task = TasksUtils.GetTask(dataAccess, taskType.Uid, (long)scaleId);
+                TaskDirect? task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
                 if (task == null)
                 {
                     TasksUtils.SaveNullTask(taskType, (long)scaleId, true);
-                    task = TasksUtils.GetTask(dataAccess, taskType.Uid, (long)scaleId);
+                    task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
                 }
                 if (task != null)
                     Tasks.Add(task);
@@ -137,7 +172,7 @@ namespace DataCore.DAL
 
             foreach (TaskDirect task in Tasks)
             {
-                if (string.Equals(task.TaskType.Name, taskType.ToString(), System.StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(task.TaskType.Name, taskType.ToString(), StringComparison.InvariantCultureIgnoreCase))
                 {
                     return task.Enabled;
                 }

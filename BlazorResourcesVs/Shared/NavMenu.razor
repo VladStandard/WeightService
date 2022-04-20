@@ -1,9 +1,8 @@
-﻿@using DataCore.Localization
-@using DataCore;
-@using LocalizationCore = DataCore.Localization.Core
+﻿@using DataCore;
+@using DataCore.Localizations
 
 <div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">@LocalizationCore.Strings.Main.Company</a>
+    <a class="navbar-brand" href="">@LocaleCore.Strings.Main.Company</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,42 +12,42 @@
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="contacts">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.ContactsTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.ContactsTitle
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="sysadmin">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.SysAdmin
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.SysAdmin
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="redmine">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.RedmineTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.RedmineTitle
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="zabbix">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.ZabbixTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.ZabbixTitle
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="creatio">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.CreatioTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.CreatioTitle
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="versioncontrol">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.VersionControlTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.VersionControlTitle
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="iis">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.IisServerTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.IisServerTitle
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="support">
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.Resources.SupportTitle
+                <span class="oi oi-list" aria-hidden="true"></span> @LocaleData.Resources.SupportTitle
             </NavLink>
         </li>
     </ul>

@@ -4,8 +4,8 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -15,61 +15,61 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.Plus SetParameters=@SetParametersAsync 
+        Title=@LocaleData.DeviceControl.Sections.Plus SetParameters=@SetParametersAsync 
         IsShowMarkedItems=@IsShowMarkedItems IsShowAdditionalFilter=@IsShowAdditionalFilter 
         ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
-        FilterCaption=LocalizationData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
+        FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="PluEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationCore.TableField.Plu Type="string" Width="5%" >
+            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.TableField.Plu Type="string" Width="5%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.Plu.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="Active" Width="4%" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.Active >
+                Title=@LocaleCore.TableField.Active >
                 <Template Context="pluEntity">
                     <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.CheckWeight >
+                Title=@LocaleCore.TableField.CheckWeight >
                 <Template Context="pluEntity">
                     <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.CheckWeight Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"
-                Title=@LocalizationCore.TableField.GoodsName >
+                Title=@LocaleCore.TableField.GoodsName >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.GoodsName />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"
-                Title=@LocalizationCore.TableField.Template >
+                Title=@LocaleCore.TableField.Template >
                 <Template Context="pluEntity">
                     <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Template.Title></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="Gtin" Width="11%" TextAlign=TextAlign.Center 
-                Title=@LocalizationCore.TableField.Gtin />
+                Title=@LocaleCore.TableField.Gtin />
             <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Width="3%" TextAlign=TextAlign.Center
                 Title="" >
                 <Template Context="pluEntity">
@@ -84,17 +84,17 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="21%"
-                Title=@LocalizationCore.TableField.NomenclatureName >
+                Title=@LocaleCore.TableField.NomenclatureName >
                 <Template Context="pluEntity">
                     <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Nomenclature.Name></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Width="5%" TextAlign=TextAlign.Center 
-                Title=@LocalizationCore.TableField.ShelfLifeDays />
+                Title=@LocaleCore.TableField.ShelfLifeDays />
             <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Width="5%" TextAlign=TextAlign.Center 
-                Title=@LocalizationCore.TableField.GoodsTareWeight />
+                Title=@LocaleCore.TableField.GoodsTareWeight />
             <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Width="5%" TextAlign=TextAlign.Center 
-                Title=@LocalizationCore.TableField.GoodsBoxQuantly />
+                Title=@LocaleCore.TableField.GoodsBoxQuantly />
         </Columns>
     </RadzenGrid>
 

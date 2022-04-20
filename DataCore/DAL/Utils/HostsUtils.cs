@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.TableDirectModels;
-using DataCore.Utils;
+using DataCore.Protocols;
 using Microsoft.Data.SqlClient;
 using System;
 using System.IO;

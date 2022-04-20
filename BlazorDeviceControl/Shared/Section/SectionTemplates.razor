@@ -7,8 +7,8 @@
 @using DataCore.DAL
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -18,18 +18,18 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.Templates SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Sections.Templates SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="TemplateEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="TemplateEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
@@ -37,12 +37,12 @@ else
             }
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="CategoryId" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.CategoryName Width="15%" />
+                Title=@LocaleCore.TableField.CategoryName Width="15%" />
             <RadzenGridColumn 
-                TItem="TemplateEntity" Title=@LocalizationCore.TableField.Title Width="85%" >
+                TItem="TemplateEntity" Title=@LocaleCore.TableField.Title Width="85%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.IdentityId}")
                         Text=@itemCast.Title />
                 </Template>
             </RadzenGridColumn>

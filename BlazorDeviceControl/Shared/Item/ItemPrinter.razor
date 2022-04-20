@@ -7,9 +7,9 @@
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
-@using static DataCore.LocalizationData.DeviceControl
+@using static DataCore.Localizations.LocaleData.DeviceControl
 @using static DataCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
@@ -19,37 +19,37 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationCore.Print.Name SetParameters=@SetParametersAsync />
+        Title=@LocaleCore.Print.Name SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.TableField.Id</td>
+                <td>@LocaleCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationCore.TableField.Marked</td>
+                <td>@LocaleCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Name</td>
+                <td>@LocaleCore.TableField.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
                 </td>
-                <td>@LocalizationCore.Print.Mac</td>
+                <td>@LocaleCore.Print.Mac</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.MacAddress.Value />
@@ -59,7 +59,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank"
                         Path=@ItemCast.Link 
-                        Text=@LocalizationCore.Print.ControlPanel />
+                        Text=@LocaleCore.Print.ControlPanel />
                 </td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
@@ -68,7 +68,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.IdentityId)
-                        Text=@LocalizationCore.Print.Type />
+                        Text=@LocaleCore.Print.Type />
                 </td>
                 <td>
                     @if (PrinterTypes == null)
@@ -88,19 +88,19 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.Print.Port</td>
+                <td>@LocaleCore.Print.Port</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="short" @bind-Value=@ItemCast.Port />
                 </td>
-                <td>@LocalizationCore.Print.Password</td>
+                <td>@LocaleCore.Print.Password</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Password />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.Print.StatusCode</td>
+                <td>@LocaleCore.Print.StatusCode</td>
                 <td>
                     <RadzenIcon Style="width: 16%; align-content: center; "
                         Icon=@(ItemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
@@ -109,7 +109,7 @@ else
                 </td>
                 @if (ItemCast.HttpStatusException != null)
                 {
-                    <td>@LocalizationCore.TableField.HttpStatusException</td>
+                    <td>@LocaleCore.TableField.HttpStatusException</td>
                     <td>
                         <RadzenLabel Style="width: 100%; " 
                             Text=@(ItemCast.HttpStatusException != null ? ItemCast.HttpStatusException.Message : "") />
@@ -117,25 +117,25 @@ else
                 }
                 else
                 {
-                    <td colspan=2>@LocalizationCore.TableField.HttpStatusNoException</td>
+                    <td colspan=2>@LocaleCore.TableField.HttpStatusNoException</td>
                 }
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.Actions</td>
+                <td>@LocaleData.DeviceControl.Actions</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocalizationCore.Print.ResourcesClear Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocaleCore.Print.ResourcesClear Disabled=@AppSettings.DataAccess.IsDisabled />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "TTF"))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocalizationCore.Print.ResourcesLoadTtf Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@AppSettings.DataAccess.IsDisabled />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "GRF"))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocalizationCore.Print.ResourcesLoadGrf Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@AppSettings.DataAccess.IsDisabled />
 				</td>
             </tr>
         </tbody>

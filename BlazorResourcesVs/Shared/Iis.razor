@@ -1,27 +1,28 @@
 ﻿@page "/iis"
-@using DataCore
+@using DataCore;
+@using DataCore.Localizations
 
 <h2>
-    <RadzenLabel Text=@LocalizationData.Resources.IisServerTitle />
+    <RadzenLabel Text=@LocaleData.Resources.IisServerTitle />
 </h2>
 
 <body>
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorDevicePath Text=@LocalizationData.Resources.IisServerBlazorDeviceText />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorDevicePath Text=@LocaleData.Resources.IisServerBlazorDeviceText />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorBackupPath Text=@LocalizationData.Resources.IisServerBlazorBackupText />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorBackupPath Text=@LocaleData.Resources.IisServerBlazorBackupText />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorExamplePath Text=@LocalizationData.Resources.IisServerBlazorExampleText />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorExamplePath Text=@LocaleData.Resources.IisServerBlazorExampleText />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorDao1Path Text=@LocalizationData.Resources.IisServerBlazorDao1Text />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorDao1Path Text=@LocaleData.Resources.IisServerBlazorDao1Text />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorDao2Path Text=@LocalizationData.Resources.IisServerBlazorDao2Text />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorDao2Path Text=@LocaleData.Resources.IisServerBlazorDao2Text />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorDbDocPath Text=@LocalizationData.Resources.IisServerBlazorDbDocText />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorDbDocPath Text=@LocaleData.Resources.IisServerBlazorDbDocText />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorResourcesVsPath Text=@LocalizationData.Resources.IisServerBlazorResourcesVsText />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorResourcesVsPath Text=@LocaleData.Resources.IisServerBlazorResourcesVsText />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorSmart1Path Text=@LocalizationData.Resources.IisServerBlazorSmart1Text />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorSmart1Path Text=@LocaleData.Resources.IisServerBlazorSmart1Text />
     <br />
-    <RadzenLink Path=@LocalizationData.Resources.IisServerBlazorSmart2Path Text=@LocalizationData.Resources.IisServerBlazorSmart2Text />
+    <RadzenLink Path=@LocaleData.Resources.IisServerBlazorSmart2Path Text=@LocaleData.Resources.IisServerBlazorSmart2Text />
     <br />
 </body>

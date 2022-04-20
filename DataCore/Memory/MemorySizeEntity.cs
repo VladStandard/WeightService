@@ -3,7 +3,6 @@
 
 using DataCore.Models;
 using DataCore.Wmi;
-using System;
 using System.Diagnostics;
 
 namespace DataCore.Memory

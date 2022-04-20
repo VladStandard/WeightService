@@ -4,9 +4,9 @@
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
-using DataCore.Localization;
+using DataCore.Localizations;
 using DataCore.Models;
-using DataCore.Utils;
+using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +69,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();
@@ -80,7 +80,7 @@ namespace BlazorDeviceControl.Shared.Item
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
                     // ComPorts
-                    ComPorts = PortUtils.GetListTypeComPorts(Lang.English);
+                    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
                     // ScaleFactor
                     ItemCast.ScaleFactor ??= 1000;
                     // Other.

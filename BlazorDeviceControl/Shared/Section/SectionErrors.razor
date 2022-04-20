@@ -7,8 +7,8 @@
 @using DataCore
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -18,40 +18,40 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync />
+        Title=@LocaleCore.Strings.SysLogs SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="ErrorEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
                 TItem="ErrorEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="15%" >
+                Title=@LocaleCore.TableField.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ErrorEntity" Title=@LocalizationCore.TableField.File Type="string" Width="13%" >
+                TItem="ErrorEntity" Title=@LocaleCore.TableField.File Type="string" Width="13%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
                         Text=@itemCast.FilePathShort />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="LineNumber" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.Row Type="int" Width="6%" />
+                Title=@LocaleCore.TableField.Row Type="int" Width="6%" />
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="MemberName" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Member Type="string" Width="12%" />
+                Title=@LocaleCore.TableField.Member Type="string" Width="12%" />
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="Exception" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Exception Type="int" Width="54%">
+                Title=@LocaleCore.TableField.Exception Type="int" Width="54%">
             </RadzenGridColumn>
         </Columns>
     </RadzenGrid>

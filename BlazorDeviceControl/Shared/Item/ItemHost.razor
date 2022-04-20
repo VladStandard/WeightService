@@ -5,8 +5,8 @@
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using Microsoft.VisualBasic.CompilerServices
 
 @if (!IsLoaded)
@@ -16,49 +16,49 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Items.Host SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Items.Host SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.TableField.Id</td>
+                <td>@LocaleCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationCore.TableField.Marked</td>
+                <td>@LocaleCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.Name</td>
+                <td>@LocaleCore.TableField.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
-                <td>@LocalizationCore.TableField.DeviceIp</td>
+                <td>@LocaleCore.TableField.DeviceIp</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Ip />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationCore.TableField.IdRRef</td>
+                <td>@LocaleCore.TableField.IdRRef</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.IdRRefAsString />
                 </td>
-                <td>@LocalizationCore.TableField.DeviceMac</td>
+                <td>@LocaleCore.TableField.DeviceMac</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.MacAddress.Value />
@@ -66,7 +66,7 @@ else
             </tr>
             <tr >
                 <td>
-                    <RadzenLabel Style="width: 100%;" Text=@LocalizationCore.TableField.SettingsFile />
+                    <RadzenLabel Style="width: 100%;" Text=@LocaleCore.TableField.SettingsFile />
                 </td>
                 <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; height: 50%; font-size: 12px; line-height: 20px; "

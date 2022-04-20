@@ -3,13 +3,13 @@
 
 using DataCore;
 using DataCore.DAL.DataModels;
+using DataCore.Localizations;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
-using WeightCore.XamlPages;
-using LocalizationCore = DataCore.Localization.Core;
+using WeightCore.Gui.XamlPages;
 
 namespace WeightCore.Gui
 {
@@ -67,8 +67,8 @@ namespace WeightCore.Gui
             /// <param name="isDebug"></param>
             public static DialogResult ShowNewSettings(IWin32Window owner, bool isDebug)
             {
-                DialogResult resultWpf = ShowNew(owner, LocalizationCore.Scales.OperationControl,
-                    LocalizationCore.Scales.DeviceControlIsPreview,
+                DialogResult resultWpf = ShowNew(owner, LocaleCore.Scales.OperationControl,
+                    LocaleCore.Scales.DeviceControlIsPreview,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (resultWpf == DialogResult.Yes)
                     Process.Start(isDebug
@@ -87,7 +87,7 @@ namespace WeightCore.Gui
             public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, VisibilitySettingsEntity visibility = null)
             {
                 LogHelper.Instance.Information(message);
-                return ShowNew(owner, LocalizationCore.Scales.OperationControl, message,
+                return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
                     visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
             }
 
@@ -102,9 +102,9 @@ namespace WeightCore.Gui
                 string filePath, int lineNumber, string memberName)
             {
                 LogHelper.Instance.Error(message, filePath, lineNumber, memberName);
-                return ShowNew(owner, LocalizationCore.Scales.Exception,
-                    $"{LocalizationCore.Scales.Method}: {memberName}." + Environment.NewLine +
-                    $"{LocalizationCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
+                return ShowNew(owner, LocaleCore.Scales.Exception,
+                    $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
+                    $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
                     new() { ButtonOkVisibility = Visibility.Visible });
             }
         }

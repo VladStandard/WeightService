@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using LocalizationCore = DataCore.Localization.Core;
+using LocalizationCore = DataCore.Localizations.LocaleCore;
 
 namespace WeightCore.Managers
 {
@@ -17,7 +17,6 @@ namespace WeightCore.Managers
 
         private Label FieldMemoryManagerTotal { get; set; }
         private Label FieldTasks { get; set; }
-        private ProgressBar FieldMemoryProgress { get; set; }
         public MemorySizeEntity MemorySize { get; private set; }
 
         #endregion
@@ -33,7 +32,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(Label fieldMemoryManagerTotal, Label fieldTasks, ProgressBar fieldMemoryProgress)
+        public void Init(Label fieldMemoryManagerTotal, Label fieldTasks)
         {
             Init(ProjectsEnums.TaskType.MemoryManager,
                 () =>
@@ -42,7 +41,6 @@ namespace WeightCore.Managers
                     FieldMemoryManagerTotal = fieldMemoryManagerTotal;
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemoryManagerTotal, $"{LocalizationCore.Scales.Memory}");
                     FieldTasks = fieldTasks;
-                    FieldMemoryProgress = fieldMemoryProgress;
                 },
                 1_000, 1_000, 1_000, 1_000, 1_000);
         }
@@ -82,14 +80,6 @@ namespace WeightCore.Managers
                     $" | {LocalizationCore.Scales.MemoryAll}: " +
                         (MemorySize.PhysicalTotal != null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : $"- MB")
                     );
-
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(FieldMemoryProgress,
-                    MemorySize.PhysicalTotal != null
-                    ? (int)MemorySize.PhysicalTotal.MegaBytes : 0);
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(FieldMemoryProgress, 0);
-                MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMemoryProgress,
-                    MemorySize.PhysicalTotal != null && MemorySize.PhysicalFree != null
-                    ? (int)(MemorySize.PhysicalTotal.MegaBytes - MemorySize.PhysicalFree.MegaBytes) : 0);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocalizationCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
             }
         }

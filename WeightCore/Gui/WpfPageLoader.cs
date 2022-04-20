@@ -8,8 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using WeightCore.Gui.XamlPages;
 using WeightCore.Helpers;
-using WeightCore.XamlPages;
 
 namespace WeightCore.Gui
 {
@@ -40,7 +40,7 @@ namespace WeightCore.Gui
             SessionState.IsWpfPageLoaderClose = false;
         }
 
-        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None, 
+        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
             double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
             ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") : this()

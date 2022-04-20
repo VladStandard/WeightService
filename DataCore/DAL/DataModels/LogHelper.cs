@@ -3,7 +3,7 @@
 
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
-using DataCore.Helpers;
+using DataCore.Settings;
 using System.Runtime.CompilerServices;
 using System.Threading;
 

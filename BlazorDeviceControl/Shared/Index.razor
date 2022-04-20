@@ -2,13 +2,14 @@
 @page "/"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
+@using DataCore.Localizations
 @using DataCore.Utils
 @using Microsoft.AspNetCore.Authorization
 
-<MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationData.DeviceControl.Index</MudElement>
+<MudElement HtmlTag="h3" Style="width: 100%;">@LocaleData.DeviceControl.Index</MudElement>
 
 <div>
-    <RadzenLabel Style="margin-left: 0px; margin-top: 2%; " Text=@LocalizationData.DeviceControl.IndexContinue />
+    <RadzenLabel Style="margin-left: 0px; margin-top: 2%; " Text=@LocaleData.DeviceControl.IndexContinue />
 </div>
 
 <div>

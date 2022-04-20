@@ -5,8 +5,8 @@
 @using DataCore
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
+@using DataCore.Localizations
 @using DataCore.Utils
-@using LocalizationCore = DataCore.Localization.Core
 @using Microsoft.VisualBasic.CompilerServices
 @using static DataCore.ShareEnums
 
@@ -17,18 +17,18 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.Contragents SetParameters=@SetParametersAsync />
+        Title=@LocaleData.DeviceControl.Sections.Contragents SetParameters=@SetParametersAsync />
     
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ContragentEntityV2" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="200px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="200px">
         <Columns >
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="ContragentEntityV2" TextAlign=TextAlign.Center 
-                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
@@ -36,32 +36,32 @@ else
             }
             <RadzenGridColumn 
                 TItem="ContragentEntityV2" TextAlign=TextAlign.Center
-                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="20%">
+                Title=@LocaleCore.TableField.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityUid}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ContragentEntityV2" TextAlign=TextAlign.Center
-                    Title=@LocalizationCore.TableField.ChangeDt Type="date" Width="20%">
+                    Title=@LocaleCore.TableField.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityUid}")
                         Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ContragentEntityV2" Title=@LocalizationCore.TableField.Name Width="25%" >
+                TItem="ContragentEntityV2" Title=@LocaleCore.TableField.Name Width="25%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Contragent}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Contragent}/{itemCast.IdentityUid}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ContragentEntityV2" Property="FullName" TextAlign=TextAlign.Left
-                Title=@LocalizationCore.TableField.Name
+                Title=@LocaleCore.TableField.Name
                 Type="string" Width="35%" />
         </Columns>
     </RadzenGrid>

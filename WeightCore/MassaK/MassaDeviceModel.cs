@@ -116,7 +116,7 @@ namespace WeightCore.MassaK
             SendBytesCount += massaExchange.Request.Length;
         }
 
-        public void Close()
+        public new void Close()
         {
             if (IsClosedMethod) return;
             IsOpenedMethod = false;
@@ -124,6 +124,7 @@ namespace WeightCore.MassaK
             CheckIsDisposed();
 
             SerialPortController.ClosePort();
+            base.Close();
         }
 
         public void ReleaseManaged()

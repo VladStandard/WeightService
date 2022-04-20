@@ -15,7 +15,7 @@ using DataCore.DAL.TableScaleModels;
 using BlazorCore.Models;
 using DataCore.DAL.Models;
 using static DataCore.ShareEnums;
-using DataCore.Localization;
+using DataCore.Localizations;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -59,7 +59,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
                 new Task(async() => {
                     Default();
                     await GuiRefreshWithWaitAsync();
@@ -79,7 +79,7 @@ namespace BlazorDeviceControl.Shared.Item
             NotificationMessage msg = new()
             {
                 Severity = NotificationSeverity.Error,
-                Summary = $"{Core.Strings.Main.MethodError} [{name}]!",
+                Summary = $"{LocaleCore.Strings.Main.MethodError} [{name}]!",
                 Detail = args.Message,
                 Duration = AppSettingsHelper.Delay
             };
@@ -91,7 +91,7 @@ namespace BlazorDeviceControl.Shared.Item
             foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
             {
                 if (FileUpload != null)
-                    await FileUpload.UploadAsync(AppSettings.DataAccess, ItemCast, file.OpenReadStream(10_000_000));
+                    await FileUpload.UploadAsync(ItemCast, file.OpenReadStream(10_000_000));
             }
             await InvokeAsync(StateHasChanged);
         }

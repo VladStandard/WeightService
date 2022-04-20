@@ -1,15 +1,15 @@
 ﻿@page "/indexinside"
 @using BlazorCore
 @using DataCore
-@using LocalizationCore = DataCore.Localization.Core
+@using DataCore.Localizations
 
 <RadzenPanel AllowCollapse="false" Style="width:100%; margin-bottom: 20px; height:50%;">
     <HeaderTemplate>
-        <RadzenLabel Text=@LocalizationCore.Strings.Main.Index Style="align-self: center; width: 100%; height: 25px; " />
+        <RadzenLabel Text=@LocaleCore.Strings.Main.Index Style="align-self: center; width: 100%; height: 25px; " />
     </HeaderTemplate>
     <ChildContent>
         <span class="text-wrap">
-            @LocalizationCore.Strings.Main.IndexDescription
+            @LocaleCore.Strings.Main.IndexDescription
         </span>
     </ChildContent>
 </RadzenPanel>
