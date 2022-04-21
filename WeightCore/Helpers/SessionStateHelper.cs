@@ -100,17 +100,15 @@ namespace WeightCore.Helpers
 
         public SessionStateHelper()
         {
+            //DataAccess.Setup(Directory.GetCurrentDirectory());
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
             //CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
             CurrentScale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
-
             ProductDate = DateTime.Now;
-
             // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new(CurrentScale);
             //ProductSeries.Load();
-
             Manager = new();
             Manager.PrintMain.CurrentLabels = 1;
             Manager.PrintShipping.CurrentLabels = 1;
@@ -479,7 +477,7 @@ namespace WeightCore.Helpers
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
                 string xmlInput = CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
-                string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
+                string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
 
                 // Replace ZPL's pics.
                 PrintCmdReplacePics(ref printCmd);

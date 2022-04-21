@@ -37,7 +37,7 @@
             this.fieldThreshold = new System.Windows.Forms.Label();
             this.fieldSscc = new System.Windows.Forms.Label();
             this.fieldTasks = new System.Windows.Forms.Label();
-            this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
+            this.fieldMassaProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemory = new System.Windows.Forms.Label();
             this.fieldMassaSetCrc = new System.Windows.Forms.Label();
             this.fieldMassaGetCrc = new System.Windows.Forms.Label();
@@ -127,7 +127,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldThreshold, 1, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldSscc, 1, 6);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTasks, 3, 13);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueriesProgress, 3, 12);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaProgress, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemory, 1, 13);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetCrc, 3, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetCrc, 3, 10);
@@ -258,17 +258,17 @@
             this.fieldTasks.DoubleClick += new System.EventHandler(this.FieldTasks_DoubleClick);
             this.fieldTasks.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldMassaQueriesProgress
+            // fieldMassaProgress
             // 
-            this.fieldMassaQueriesProgress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaQueriesProgress.Enabled = false;
-            this.fieldMassaQueriesProgress.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(915, 454);
-            this.fieldMassaQueriesProgress.Name = "fieldMassaQueriesProgress";
-            this.fieldMassaQueriesProgress.Size = new System.Drawing.Size(99, 17);
-            this.fieldMassaQueriesProgress.TabIndex = 55;
-            this.fieldMassaQueriesProgress.Visible = false;
-            this.fieldMassaQueriesProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.fieldMassaProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaProgress.Enabled = false;
+            this.fieldMassaProgress.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.fieldMassaProgress.Location = new System.Drawing.Point(915, 454);
+            this.fieldMassaProgress.Name = "fieldMassaProgress";
+            this.fieldMassaProgress.Size = new System.Drawing.Size(99, 17);
+            this.fieldMassaProgress.TabIndex = 55;
+            this.fieldMassaProgress.Visible = false;
+            this.fieldMassaProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMemory
             // 
@@ -401,7 +401,7 @@
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxClose.TabIndex = 19;
             this.pictureBoxClose.TabStop = false;
-            this.pictureBoxClose.Click += new System.EventHandler(this.PictureBoxClose_Click);
+            this.pictureBoxClose.Click += new System.EventHandler(this.ActionClose_Click);
             this.pictureBoxClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelWeightTare
@@ -544,7 +544,7 @@
             this.fieldPlu.Text = "PLU";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldPlu.Visible = false;
-            this.fieldPlu.Click += new System.EventHandler(this.ButtonPlu_Click);
+            this.fieldPlu.Click += new System.EventHandler(this.ActionPlu_Click);
             this.fieldPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // tableLayoutPanelRight
@@ -566,6 +566,7 @@
             // 
             this.fieldLang.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fieldLang.Enabled = false;
             this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldLang.FormattingEnabled = true;
             this.fieldLang.Location = new System.Drawing.Point(3, 30);
@@ -579,6 +580,7 @@
             // 
             this.fieldResolution.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fieldResolution.Enabled = false;
             this.fieldResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldResolution.FormattingEnabled = true;
             this.fieldResolution.Location = new System.Drawing.Point(3, 3);
@@ -635,7 +637,7 @@
         private System.Windows.Forms.Label fieldMassaSetCrc;
         private System.Windows.Forms.Label fieldMassaGetCrc;
         private System.Windows.Forms.Label fieldMemory;
-        private System.Windows.Forms.ProgressBar fieldMassaQueriesProgress;
+        private System.Windows.Forms.ProgressBar fieldMassaProgress;
         private System.Windows.Forms.Label fieldTasks;
         private System.Windows.Forms.Label fieldSscc;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelRight;

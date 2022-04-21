@@ -48,7 +48,7 @@ namespace WeightCore.Helpers
 
                 if (isShowException)
                 {
-                    GuiUtils.WpfForm.ShowNewCatch(owner, message, filePath, lineNumber, memberName);
+                    GuiUtils.WpfForm.ShowNewCatch(owner, message, true, filePath, lineNumber, memberName);
                 }
             }
         }

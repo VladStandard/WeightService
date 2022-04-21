@@ -56,7 +56,7 @@ else
                 TItem="NomenclatureEntity" TextAlign=TextAlign.Center Width="5%" 
                 Title=@LocaleCore.Table.Weighted >
                 <Template Context="itemCast">
-                    <RadzenCheckBox TValue="bool" @bind-Value=@itemCast.Weighted Disabled=true />
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 

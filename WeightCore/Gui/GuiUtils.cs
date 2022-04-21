@@ -99,9 +99,10 @@ namespace WeightCore.Gui
             /// <param name="lineNumber"></param>
             /// <param name="memberName"></param>
             public static DialogResult ShowNewCatch(IWin32Window owner, string message,
-                string filePath, int lineNumber, string memberName)
+                bool isLog, string filePath, int lineNumber, string memberName)
             {
-                LogHelper.Instance.Error(message, filePath, lineNumber, memberName);
+                if (isLog)
+                    LogHelper.Instance.Error(message, filePath, lineNumber, memberName);
                 return ShowNew(owner, LocaleCore.Scales.Exception,
                     $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
                     $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
@@ -151,6 +152,7 @@ namespace WeightCore.Gui
                 Button button = new()
                 {
                     Name = name,
+                    Enabled = false,
                     BackColor = Color.Transparent,
                     Dock = DockStyle.Fill,
                     ForeColor = System.Drawing.SystemColors.ControlText,

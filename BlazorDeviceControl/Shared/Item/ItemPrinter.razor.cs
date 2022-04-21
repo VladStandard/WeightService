@@ -75,7 +75,7 @@ namespace BlazorDeviceControl.Shared.Item
                         ItemCast.MacAddress.Default();
                     }
                     ButtonSettings = new(false, false, false, false, false, true, true);
-                    await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
+                    //await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);

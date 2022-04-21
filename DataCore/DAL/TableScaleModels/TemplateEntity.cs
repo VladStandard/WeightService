@@ -3,6 +3,7 @@
 
 using DataCore.DAL.Models;
 using System;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableScaleModels
 {
@@ -16,7 +17,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual string CategoryId { get; set; }
         public virtual Guid IdRRef { get; set; }
         public virtual string Title { get; set; }
-        public virtual ImageDataEntity ImageData { get; set; }
+        [XmlIgnore] public virtual ImageDataEntity ImageData { get; set; }
         public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 
         #endregion

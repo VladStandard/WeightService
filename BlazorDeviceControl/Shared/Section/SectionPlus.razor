@@ -45,13 +45,13 @@ else
             <RadzenGridColumn TItem="PluEntity" Property="Active" Width="4%" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.Active >
                 <Template Context="pluEntity">
-                    <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled=false ReadOnly=true />
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.Active />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CheckWeight >
                 <Template Context="pluEntity">
-                    <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.CheckWeight Disabled=false ReadOnly=true />
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.CheckWeight />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"

@@ -127,6 +127,41 @@ namespace DataCore.DAL
             return JsonSettings != null;
         }
 
+        public bool DownloadAppSettings(string dirLocal)
+        {
+            string dirRemote = @"\\palych\Install\VSSoft\appsettings\";
+            if (!Directory.Exists(dirRemote))
+                return false;
+
+            if (!DownloadFile(dirLocal, dirRemote, "appsettings.json"))
+                return false;
+            if (!DownloadFile(dirLocal, dirRemote, "appsettings.Debug.json"))
+                return false;
+            if (!DownloadFile(dirLocal, dirRemote, "appsettings.Release.json"))
+                return false;
+
+            return true;
+        }
+
+        private static bool DownloadFile(string dirLocal, string dirRemote, string file)
+        {
+            string filePath = Path.Combine(dirRemote, file);
+            if (!File.Exists(filePath))
+                return false;
+
+            StreamReader streamReader = File.OpenText(filePath);
+            string content = streamReader.ReadToEnd();
+            streamReader.Close();
+            if (string.IsNullOrEmpty(content))
+                return false;
+
+            StreamWriter streamWriter = File.CreateText(Path.Combine(dirLocal, file));
+            streamWriter.Write(content);
+            streamWriter.Close();
+            
+            return true;
+        }
+
         // This code have exception: 
         // SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
         // (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)

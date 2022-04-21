@@ -36,7 +36,7 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="ScaleEntity" Title=@LocaleCore.Table.Description Type="string" Width="15%" >
+                TItem="ScaleEntity" Title=@LocaleCore.Table.Description Type="string" Width="14%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.IdentityId}")
@@ -44,33 +44,81 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Host.Name" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Host 
-                Type="string" Width="15%" />
+                TItem="ScaleEntity" Title=@LocaleCore.Table.Host Type="string" Width="14%" >
+                <Template Context="itemCast">
+                    @if (itemCast.Host == null)
+                    {
+                        <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                            Text=@LocaleCore.Table.TableFieldNotFound />
+                    }
+                    else
+                    {
+                        <RadzenLink Style="width: 100%; margin-left: 0px; "
+                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Host.IdentityId}")
+                            Text=@itemCast.Host.Name />
+                    }
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Host.Ip" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.DeviceIp 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Printer.Name" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Print.Name
-                Type="string" Width="15%" />
+                TItem="ScaleEntity" Title=@LocaleCore.Print.NameMain Type="string" Width="13%" >
+                <Template Context="itemCast">
+                    @if (itemCast.PrinterMain == null)
+                    {
+                        <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                            Text=@LocaleCore.Table.TableFieldNotFound />
+                    }
+                    else
+                    {
+                        <RadzenLink Style="width: 100%; margin-left: 0px; "
+                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.PrinterMain.IdentityId}")
+                            Text=@itemCast.PrinterMain.Name />
+                    }
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Title=@LocaleCore.Print.NameShipping Type="string" Width="13%" >
+                <Template Context="itemCast">
+                    @if (itemCast.PrinterShipping == null)
+                    {
+                        <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                            Text=@LocaleCore.Table.TableFieldNotFound />
+                    }
+                    else
+                    {
+                        <RadzenLink Style="width: 100%; margin-left: 0px; "
+                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.PrinterShipping.IdentityId}")
+                            Text=@itemCast.PrinterShipping.Name />
+                    }
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="WorkShop.Name" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WorkShopName 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.IsShippingShort
+                Type="string" Width="5%">
+                <Template Context="itemCast">
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsShipping />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ScaleEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.Order
                 Type="string" Width="5%">
                 <Template Context="itemCast">
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.UseOrder />
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.UseOrder />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ScaleEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.TemplateDefault 
-                Type="string" Width="30%">
+                Type="string" Width="16%">
                 <Template Context="itemCast">
                     <RadzenLabel Text=@(itemCast.TemplateDefault != null ? itemCast.TemplateDefault.Title : "")
                         Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />

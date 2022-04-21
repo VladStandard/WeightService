@@ -34,22 +34,29 @@ namespace WeightCore.Managers
 
         public void Init(Label fieldMemory, Label fieldTasks)
         {
-            Init(ProjectsEnums.TaskType.MemoryManager,
-                () =>
-                {
-                    MemorySize = new();
-                    FieldMemory = fieldMemory;
-                    FieldTasks = fieldTasks;
-                    
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocalizationCore.Scales.Memory);
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocalizationCore.Scales.Threads);
+            try
+            {
+                Init(ProjectsEnums.TaskType.MemoryManager,
+                    () =>
+                    {
+                        MemorySize = new();
+                        FieldMemory = fieldMemory;
+                        FieldTasks = fieldTasks;
 
-                    if (Debug.IsDebug && !fieldMemory.Visible)
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, true);
-                    if (Debug.IsDebug && !fieldTasks.Visible)
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
-                },
-                new());
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocalizationCore.Scales.Memory);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocalizationCore.Scales.Threads);
+
+                        if (Debug.IsDebug && !fieldMemory.Visible)
+                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, true);
+                        if (Debug.IsDebug && !fieldTasks.Visible)
+                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
+                    },
+                    new());
+            }
+            catch (Exception ex)
+            {
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public new void Open()

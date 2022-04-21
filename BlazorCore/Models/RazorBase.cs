@@ -1150,8 +1150,6 @@ namespace BlazorCore.Models
         {
             switch (tableScale)
             {
-                case ProjectsEnums.TableScale.Default:
-                    break;
                 case ProjectsEnums.TableScale.BarCodeTypes:
                     ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
@@ -1161,18 +1159,8 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Hosts:
                     ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
-                case ProjectsEnums.TableScale.Labels:
-                    break;
                 case ProjectsEnums.TableScale.Nomenclatures:
                     ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
-                    break;
-                case ProjectsEnums.TableScale.Orders:
-                    break;
-                case ProjectsEnums.TableScale.OrdersStatuses:
-                    break;
-                case ProjectsEnums.TableScale.OrdersTypes:
-                    break;
-                case ProjectsEnums.TableScale.Organizations:
                     break;
                 case ProjectsEnums.TableScale.Plus:
                     ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
@@ -1189,42 +1177,19 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.ProductionFacilities:
                     ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
-                case ProjectsEnums.TableScale.ProductSeries:
-                    break;
                 case ProjectsEnums.TableScale.Scales:
                     ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
-                    break;
-                case ProjectsEnums.TableScale.TemplatesResources:
                     break;
                 case ProjectsEnums.TableScale.Templates:
                     ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
                     break;
-                case ProjectsEnums.TableScale.WeithingFacts:
-                    break;
                 case ProjectsEnums.TableScale.Workshops:
                     ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
-                case ProjectsEnums.TableScale.BarCodes:
+                default:
                     break;
             }
         }
-
-        //private void ItemDwhSave(ProjectsEnums.TableDwh tableDwh)
-        //{
-        //    switch (tableDwh)
-        //    {
-        //        case ProjectsEnums.TableDwh.Default:
-        //            break;
-        //        case ProjectsEnums.TableDwh.InformationSystem:
-        //            break;
-        //        case ProjectsEnums.TableDwh.Nomenclature:
-        //            break;
-        //        case ProjectsEnums.TableDwh.NomenclatureMaster:
-        //            break;
-        //        case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
-        //            break;
-        //    }
-        //}
 
         public async Task ItemSaveAsync(bool continueOnCapturedContext)
         {
@@ -1241,9 +1206,8 @@ namespace BlazorCore.Models
                         case TableScaleEntity:
                             ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
                             break;
-                            //case TableDwhEntity:
-                            //    ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
-                            //    break;
+                        default:
+                            break;
                     }
                     RouteSectionNavigate(false);
                     await GuiRefreshWithWaitAsync();

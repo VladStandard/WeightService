@@ -73,7 +73,6 @@ namespace ScalesUI.Forms
                 SessionState.AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
                 MainForm_ButtonsCreate();
                 MainForm_LoadResources();
-                MainForm_SetInfoVisible();
                 SessionState.NewPallet();
             }
             catch (Exception ex)
@@ -83,7 +82,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-                ComboBoxFieldLoad(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
+                SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
                 Log.Information(LocaleData.Program.IsLoaded + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
                 SessionState.StopwatchMain.Stop();
             }
@@ -106,7 +105,7 @@ namespace ScalesUI.Forms
                 finally
                 {
                     MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-                    ComboBoxFieldLoad(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
+                    SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
                     Log.Information(LocaleData.Program.IsLoaded + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
                     SessionState.StopwatchMain.Stop();
                 }
@@ -117,27 +116,33 @@ namespace ScalesUI.Forms
         {
             // Labels.
             SessionState.Manager.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
-                labelProductDate, fieldProductDate, labelKneading, fieldKneading);
+                labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
+                ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint, 
+                ButtonScalesInit, ButtonScalesTerminal);
             SessionState.Manager.Labels.Open();
             // Memory.
             SessionState.Manager.Memory.Init(fieldMemory, fieldTasks);
             SessionState.Manager.Memory.Open();
             // Massa.
             SessionState.Manager.Massa.Init(labelWeightNetto, fieldWeightNetto, labelWeightTare, fieldWeightTare,
-                fieldMassaQueriesProgress, fieldThreshold, fieldMassaGet,
+                fieldMassaProgress, fieldThreshold, fieldMassaGet,
                 fieldMassaGetCrc, fieldMassaSet, fieldMassaSetCrc, fieldMassaScalePar);
             SessionState.Manager.Massa.Open();
             // PrintMain.
-            SessionState.Manager.PrintMain.Init(SessionState.PrintBrandMain,
+            SessionState.Manager.PrintMain.Init(SessionState.PrintBrandMain, SessionState.CurrentScale.PrinterMain,
                 SessionState.CurrentScale.PrinterMain.Name, SessionState.CurrentScale.PrinterMain.Ip,
                 SessionState.CurrentScale.PrinterMain.Port, fieldPrintMain, true);
             SessionState.Manager.PrintMain.Open(true);
             // PrintShipping.
-            SessionState.Manager.PrintShipping.Init(SessionState.PrintBrandShipping,
-                SessionState.CurrentScale.PrinterShipping.Name, SessionState.CurrentScale.PrinterShipping.Ip,
-                SessionState.CurrentScale.PrinterShipping.Port, fieldPrintShipping, false);
-            SessionState.Manager.PrintShipping.Open(false);
+            if (SessionState.CurrentScale.IsShipping)
+            {
+                SessionState.Manager.PrintShipping.Init(SessionState.PrintBrandShipping, SessionState.CurrentScale.PrinterShipping,
+                    SessionState.CurrentScale.PrinterShipping.Name, SessionState.CurrentScale.PrinterShipping.Ip,
+                    SessionState.CurrentScale.PrinterShipping.Port, fieldPrintShipping, false);
+                SessionState.Manager.PrintShipping.Open(false);
+            }
             //ButtonScalesInit_Click(sender, e);
+            SessionState.Manager.Labels.SetControlsVisible();
         }
 
         private void MainForm_LoadResources([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -210,7 +215,7 @@ namespace ScalesUI.Forms
         {
             if (Equals(e.Button, MouseButtons.Middle))
             {
-                ButtonPrint_Click(sender, e);
+                ActionPrint_Click(sender, e);
             }
         }
 
@@ -238,7 +243,7 @@ namespace ScalesUI.Forms
             fieldMassaGet.Font = FontsSettings.FontLabelsGray;
             fieldMassaSetCrc.Font = FontsSettings.FontLabelsGray;
             fieldMassaSet.Font = FontsSettings.FontLabelsGray;
-            fieldMassaQueriesProgress.Font = FontsSettings.FontLabelsGray;
+            fieldMassaProgress.Font = FontsSettings.FontLabelsGray;
             fieldMemory.Font = FontsSettings.FontLabelsGray;
 
             labelWeightNetto.Font = FontsSettings.FontLabelsBlack;
@@ -288,68 +293,62 @@ namespace ScalesUI.Forms
             if (buttonsSettings.IsScalesTerminal)
             {
                 ButtonScalesTerminal = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesTerminal), column++);
-                ButtonScalesTerminal.Click += new EventHandler(ButtonScalesTerminal_Click);
+                ButtonScalesTerminal.Click += new EventHandler(ActionScalesTerminal_Click);
                 ButtonScalesTerminal.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsScalesInit)
             {
                 ButtonScalesInit = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesInit), column++);
-                ButtonScalesInit.Click += new EventHandler(ButtonScalesInit_Click);
+                ButtonScalesInit.Click += new EventHandler(ActionScalesInit_Click);
                 ButtonScalesInit.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsOrder)
             {
                 ButtonOrder = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonOrder), column++);
-                ButtonOrder.Click += new EventHandler(ButtonOrder_Click);
+                ButtonOrder.Click += new EventHandler(ActionOrder_Click);
                 ButtonOrder.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsNewPallet)
             {
                 ButtonNewPallet = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonNewPallet), column++);
-                ButtonNewPallet.Click += new EventHandler(ButtonNewPallet_Click);
+                ButtonNewPallet.Click += new EventHandler(ActionNewPallet_Click);
                 ButtonNewPallet.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsKneading)
             {
                 ButtonKneading = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonKneading), column++);
-                ButtonKneading.Click += new EventHandler(ButtonKneading_Click);
+                ButtonKneading.Click += new EventHandler(ActionKneading_Click);
                 ButtonKneading.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsPlu)
             {
                 ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPlu), column++);
-                ButtonPlu.Click += new EventHandler(ButtonPlu_Click);
+                ButtonPlu.Click += new EventHandler(ActionPlu_Click);
                 ButtonPlu.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsMore)
             {
                 ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonMore), column++);
-                ButtonMore.Click += new EventHandler(ButtonMore_Click);
+                ButtonMore.Click += new EventHandler(ActionMore_Click);
                 ButtonMore.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsPrint)
             {
                 ButtonPrint = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPrint), column++);
-                ButtonPrint.Click += new EventHandler(ButtonPrint_Click);
+                ButtonPrint.Click += new EventHandler(ActionPrint_Click);
                 ButtonPrint.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(TableLayoutPanelButtons, column);
         }
 
-        private void MainForm_SetInfoVisible()
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, Debug.IsDebug);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, Debug.IsDebug);
-        }
-        
         #endregion
 
         #region Public and private methods - Schedulers
@@ -365,33 +364,41 @@ namespace ScalesUI.Forms
             }
         }
 
-        //private void ScheduleEverySeconds()
-        //{
-        //    lock (_lockerSeconds)
-        //    {
-        //        if (Quartz == null)
-        //            return;
-        //        //
-        //    }
-        //}
-
         #endregion
 
         #region Private methods
 
-        private void ComboBoxFieldLoad(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+        public void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
         {
             if (comboBox == null || sourceList == null || sourceList.Count == 0 || selectedIndex < 0)
                 return;
-            int backupIndex = comboBox.SelectedIndex;
-            comboBox.SelectedIndexChanged -= eventHandler;
-            comboBox.Items.Clear();
-            comboBox.Items.AddRange(sourceList.ToArray());
-            comboBox.SelectedIndex = selectedIndex <= 0
-                ? backupIndex <= 0 ? 0 : backupIndex
-                : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
-            comboBox.SelectedIndexChanged += eventHandler;
-            eventHandler.Invoke(comboBox, null);
+
+            if (comboBox.InvokeRequired)
+            {
+                comboBox.Invoke((Action)delegate
+                {
+                    Work(comboBox, eventHandler, sourceList, selectedIndex);
+                });
+            }
+            else
+            {
+                Work(comboBox, eventHandler, sourceList, selectedIndex);
+            }
+
+            static void Work(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+            {
+                comboBox.SelectedIndexChanged -= eventHandler;
+                
+                int backupIndex = comboBox.SelectedIndex;
+                comboBox.Items.Clear();
+                comboBox.Items.AddRange(sourceList.ToArray());
+                comboBox.SelectedIndex = selectedIndex <= 0
+                    ? backupIndex <= 0 ? 0 : backupIndex
+                    : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
+
+                comboBox.SelectedIndexChanged += eventHandler;
+                eventHandler.Invoke(comboBox, null);
+            }
         }
 
         private void FieldPrintManager_Click(object sender, EventArgs e)
@@ -482,11 +489,6 @@ namespace ScalesUI.Forms
             wpfPageLoader.Dispose();
         }
 
-        private void PictureBoxClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -545,7 +547,7 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
-                ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
+                SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
                     Debug.IsDebug ? 2 : LocaleCore.Scales.ListResolutions.Count - 1);
             }
             catch (Exception ex)
@@ -583,9 +585,14 @@ namespace ScalesUI.Forms
 
         #endregion
 
-        #region Public and private methods - Buttons
+        #region Public and private methods - Actions
 
-        private void ButtonScalesTerminal_Click(object sender, EventArgs e)
+        private void ActionClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ActionScalesTerminal_Click(object sender, EventArgs e)
         {
             try
             {
@@ -621,7 +628,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonScalesInit_Click(object sender, EventArgs e)
+        private void ActionScalesInit_Click(object sender, EventArgs e)
         {
             try
             {
@@ -665,7 +672,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonOrder_Click(object sender, EventArgs e)
+        private void ActionOrder_Click(object sender, EventArgs e)
         {
             try
             {
@@ -716,7 +723,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonNewPallet_Click(object sender, EventArgs e)
+        private void ActionNewPallet_Click(object sender, EventArgs e)
         {
             try
             {
@@ -732,7 +739,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonKneading_Click(object sender, EventArgs e)
+        private void ActionKneading_Click(object sender, EventArgs e)
         {
             try
             {
@@ -753,7 +760,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonPlu_Click(object sender, EventArgs e)
+        private void ActionPlu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -778,7 +785,7 @@ namespace ScalesUI.Forms
                     //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
                     // сразу перейдем к форме с замесами, размерами паллет и прочее
-                    ButtonMore_Click(null, null);
+                    ActionMore_Click(null, null);
                 }
                 else
                 {
@@ -797,7 +804,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonMore_Click(object sender, EventArgs e)
+        private void ActionMore_Click(object sender, EventArgs e)
         {
             try
             {
@@ -831,7 +838,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonPrint_Click(object sender, EventArgs e)
+        private void ActionPrint_Click(object sender, EventArgs e)
         {
             try
             {

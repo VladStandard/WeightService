@@ -127,7 +127,6 @@ namespace WeightCore.Gui
                         //PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
                         SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
-                    case ProjectsEnums.Page.Default:
                     default:
                         break;
                 }

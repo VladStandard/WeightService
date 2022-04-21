@@ -20,12 +20,12 @@ namespace DataCore.Localizations
 
         #region Public and private fields and properties
 
-        public string AccessLevel => Lang == ShareEnums.Lang.English ? "___" : "Уровень доступа";
-        public string Active => Lang == ShareEnums.Lang.English ? "___" : "Активно";
-        public string App => Lang == ShareEnums.Lang.English ? "___" : "Программа";
+        public string AccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
+        public string Active => Lang == ShareEnums.Lang.English ? "Active" : "Активно";
+        public string App => Lang == ShareEnums.Lang.English ? "Program" : "Программа";
         public string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
         public string BarCodeTypeId => Lang == ShareEnums.Lang.English ? "___" : "ID типа ШК";
-        public string Brand => Lang == ShareEnums.Lang.English ? "___" : "Brand";
+        public string Brand => Lang == ShareEnums.Lang.English ? "Brand" : "Бренд";
         public string CategoryId => Lang == ShareEnums.Lang.English ? "___" : "ID категории";
         public string CategoryName => Lang == ShareEnums.Lang.English ? "Category" : "Категория";
         public string ChangeDt => Lang == ShareEnums.Lang.English ? "Edit date" : "Дата редактирования";
@@ -92,6 +92,7 @@ namespace DataCore.Localizations
         public string IsClose => Lang == ShareEnums.Lang.English ? "Is close" : "Закрыто";
         public string IsShipping => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
         public string IsShippingLength => Lang == ShareEnums.Lang.English ? "Count of labels in a box" : "Количество этикеток в коробе";
+        public string IsShippingShort => Lang == ShareEnums.Lang.English ? "Shipping" : "Трансп.";
         public string Itf14 => "ITF14";
         public string Kneding => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
         public string LabelTemplate => Lang == ShareEnums.Lang.English ? "Label template" : "Шаблон этикетки";
@@ -142,6 +143,7 @@ namespace DataCore.Localizations
         public string TableCreate => Lang == ShareEnums.Lang.English ? "Create record" : "Создать запись";
         public string TableDelete => Lang == ShareEnums.Lang.English ? "Delete record" : "Удалить запись";
         public string TableEdit => Lang == ShareEnums.Lang.English ? "Edit record" : "Редактировать запись";
+        public string TableFieldNotFound => Lang == ShareEnums.Lang.English ? "Not found" : "Не найдено";
         public string TableIncludes => Lang == ShareEnums.Lang.English ? "Included records" : "Вложенные записи";
         public string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
         public string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";

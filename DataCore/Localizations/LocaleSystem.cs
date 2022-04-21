@@ -26,6 +26,7 @@ namespace DataCore.Localizations
         public string SystemInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
         public string SystemLogin => Lang == ShareEnums.Lang.English ? "Log in" : "Вход";
         public string SystemLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Логи";
+        public string SystemSettingsNotFound => Lang == ShareEnums.Lang.English ? "Settings not found!" : "Настройки не найдены!";
         public string SystemWindowsUser => Lang == ShareEnums.Lang.English ? "Windows-user" : "Windows-пользователь";
 
         #endregion

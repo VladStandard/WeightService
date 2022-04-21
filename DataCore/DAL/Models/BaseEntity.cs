@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.Models
 {
@@ -12,13 +13,13 @@ namespace DataCore.DAL.Models
         Uid,
     }
 
-    //public class BaseEntity : BaseSerializeEntity, ICloneable
-    public class BaseEntity : ICloneable
+    public class BaseEntity : BaseSerializeEntity, ICloneable
+    //public class BaseEntity : ICloneable
     {
         #region Public and private fields and properties
 
         public virtual bool IsMarked { get; set; }
-        public virtual ColumnName IdentityName { get; private set; }
+        [XmlIgnore] public virtual ColumnName IdentityName { get; private set; }
         public virtual DateTime ChangeDt { get; set; }
         public virtual DateTime CreateDt { get; set; }
         public virtual Guid IdentityUid { get; set; }

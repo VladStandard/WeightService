@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.TableDirectModels;
 using DataCore.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,8 @@ using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
 using WeightCore.Print.Native;
+using TableDirectModels = DataCore.DAL.TableDirectModels;
+using TableScaleModels = DataCore.DAL.TableScaleModels;
 
 namespace WeightCore.Zpl
 {
@@ -34,31 +35,31 @@ namespace WeightCore.Zpl
 
         public static void XmlReplace(ref string xmlInput)
         {
-            //xmlInput = xmlInput.Replace(nameof(BarCodeDirect), "BarCodeEntity");
-            //xmlInput = xmlInput.Replace(nameof(ContregentDirect), "ContregentEntity");
-            xmlInput = xmlInput.Replace(nameof(HostDirect), "HostEntity");
-            xmlInput = xmlInput.Replace(nameof(LogDirect), "LogEntity");
-            xmlInput = xmlInput.Replace(nameof(NomenclatureDirect), "NomenclatureEntity");
-            xmlInput = xmlInput.Replace(nameof(OrderDirect), "OrderEntity");
-            xmlInput = xmlInput.Replace(nameof(PluDirect), "PluEntity");
-            xmlInput = xmlInput.Replace(nameof(ProductionFacilityDirect), "ProductionFacilityEntity");
-            xmlInput = xmlInput.Replace(nameof(ProductSeriesDirect), "ProductSeriesEntity");
-            //xmlInput = xmlInput.Replace(nameof(ScaleDirect), "ScaleEntity");
-            xmlInput = xmlInput.Replace(nameof(DataCore.DAL.TableScaleModels.ScaleEntity), "ScaleEntity");
-            xmlInput = xmlInput.Replace(nameof(SsccDirect), "SsccEntity");
-            xmlInput = xmlInput.Replace(nameof(TaskDirect), "TaskEntity");
-            xmlInput = xmlInput.Replace(nameof(TemplateDirect), "TemplateEntity");
-            xmlInput = xmlInput.Replace(nameof(WeighingFactDirect), "WeighingFactEntity");
-            xmlInput = xmlInput.Replace(nameof(WorkShopDirect), "WorkShopEntity");
-            xmlInput = xmlInput.Replace(nameof(PrinterDirect), "ZebraPrinterEntity");
-            xmlInput = xmlInput.Replace(nameof(ZplLabelDirect), "ZplLabelEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.LogDirect), "LogEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.ProductionFacilityDirect), "ProductionFacilityEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
+
+            xmlInput = xmlInput.Replace(nameof(TableScaleModels.ScaleEntity), "ScaleEntity");
+            xmlInput = xmlInput.Replace(nameof(TableScaleModels.PrinterEntity), "PrinterEntity");
+            xmlInput = xmlInput.Replace(nameof(TableScaleModels.TemplateEntity), "TemplateEntity");
         }
 
-        public static string XsltTransformationPipe(string xslInput, string xmlInput, bool useEntityReplace)
+        public static string XsltTransformationPipe(string xslInput, string xmlInput)
         {
-            if (useEntityReplace)
-                XmlReplace(ref xmlInput);
+            XmlReplace(ref xmlInput);
             string result;
+
             using (StringReader stringReaderXslt = new(xslInput.Trim())) // xslInput is a string that contains xsl
             {
                 using StringReader stringReaderXml = new(xmlInput.Trim()); // xmlInput is a string that contains xml
@@ -73,6 +74,7 @@ namespace WeightCore.Zpl
                 result = stringWriter.ToString();
                 result = ToCodePoints(result);
             }
+            
             return result;
         }
 

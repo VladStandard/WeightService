@@ -58,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Section
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     foreach (PrinterEntity item in ItemsCast)
                     {
-                        await item.SetHttpStatusAsync().ConfigureAwait(true);
+                        //await item.SetHttpStatusAsync().ConfigureAwait(true);
                     }
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();

@@ -15,6 +15,7 @@ using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using LocalizationCore = DataCore.Localizations.LocaleCore;
 using System.Windows.Forms;
 using WeightCore.Helpers;
+using DataCore.DAL.TableScaleModels;
 
 namespace WeightCore.Managers
 {
@@ -29,12 +30,13 @@ namespace WeightCore.Managers
         public int Port { get; private set; }
         public Label FieldPrint { get; private set; }
         public PrintBrand PrintBrand { get; private set; }
-        public ZebraPrinterStatus ZebraStatus { get; private set; }
+        public PrinterEntity Printer { get; private set; }
         public string Ip { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
         public TscPrintControlHelper TscDriver { get; private set; } = TscPrintControlHelper.Instance;
         public WmiWin32PrinterEntity Win32Printer() => Wmi.GetWin32Printer(TscDriver.PrintName);
         public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
+        public ZebraPrinterStatus ZebraStatus { get; private set; }
 
         #endregion
 
@@ -50,35 +52,40 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(PrintBrand printBrand, string name, string ip, int port, Label fieldPrint, bool isMain)
+        public void Init(PrintBrand printBrand, PrinterEntity printer,
+            string name, string ip, int port, Label fieldPrint, bool isMain)
         {
-            Init(ProjectsEnums.TaskType.MemoryManager, 
-                () => {
-                    PrintBrand = printBrand;
-                    if (PrintBrand == PrintBrand.Zebra)
+            try
+            {
+                Init(ProjectsEnums.TaskType.MemoryManager,
+                    () =>
                     {
-                        Ip = ip;
-                        Port = port;
-                        ZebraConnection = ZebraConnectionBuilder.Build($"{Ip}");
-                        ZebraConnection.Open();
-                        FieldPrint = fieldPrint;
-                        switch (SessionStateHelper.Instance.PrintBrandMain)
+                        PrintBrand = printBrand;
+                        Printer = printer;
+                        switch (PrintBrand)
                         {
                             case PrintBrand.Zebra:
+                                Ip = ip;
+                                Port = port;
+
+                                FieldPrint = fieldPrint;
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocalizationCore.Print.NameMainZebra : LocalizationCore.Print.NameShippingZebra)} | {Ip}");
                                 break;
                             case PrintBrand.TSC:
+                                TscDriver.Init(name);
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocalizationCore.Print.NameMainTsc : LocalizationCore.Print.NameShippingTsc)} | {Ip}");
                                 break;
                         }
-                        
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
-                    }
-                    TscDriver.Init(name);
-                },
-                new(waitReopen: 1_000, waitRequest: 2_000, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
+                    },
+                    new(waitReopen: 2_000, waitRequest: 2_000, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
+            }
+            catch (Exception ex)
+            {
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public void Open(bool isMain)
@@ -86,7 +93,9 @@ namespace WeightCore.Managers
             try
             {
                 Open(
-                    null,
+                    () => {
+                        OpenInside();
+                    },
                     () => {
                         Request();
                     },
@@ -103,22 +112,37 @@ namespace WeightCore.Managers
             }
         }
 
+        private void OpenInside()
+        {
+            if (Printer != null || ZebraConnection == null || ZebraConnection.Connected == false)
+            {
+                Printer.SetHttpStatus(1_000);
+                if (Printer.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    ZebraConnection = ZebraConnectionBuilder.Build($"{Ip}");
+                    ZebraConnection.Open();
+                }
+            }
+        }
+
         private void Request()
         {
-            switch (SessionStateHelper.Instance.PrintBrandMain)
+            switch (PrintBrand)
             {
                 case PrintBrand.Zebra:
-                    ZebraStatus = ZebraDriver?.GetCurrentStatus();
+                    if (ZebraConnection?.Connected == true)
+                        ZebraStatus = ZebraDriver?.GetCurrentStatus();
+                    break;
+                case PrintBrand.TSC:
                     break;
             }
         }
 
         private void Response(bool isMain, string value)
         {
-            //SessionStateHelper.Instance.LabelsCurrent = SessionStateHelper.Instance.Manager.Print.UserLabelCount < SessionStateHelper.Instance.LabelsCount
-            //    ? SessionStateHelper.Instance.Manager.Print.UserLabelCount : SessionStateHelper.Instance.LabelsCount;
+            //LabelsCurrent = UserLabelCount < LabelsCount ? UserLabelCount : LabelsCount;
             if (CurrentLabels < 1) CurrentLabels = 1;
-            switch (SessionStateHelper.Instance.PrintBrandMain)
+            switch (PrintBrand)
             {
                 case PrintBrand.Zebra:
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
@@ -129,7 +153,7 @@ namespace WeightCore.Managers
                 case PrintBrand.TSC:
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                         $"{(isMain ? LocalizationCore.Print.NameMainTsc : LocalizationCore.Print.NameShippingTsc)} | {Ip} | " +
-                        $"{SessionStateHelper.Instance.Manager.PrintMain.Win32Printer()?.PrinterStatusDescription} ");
+                        $"{Win32Printer()?.PrinterStatusDescription} ");
                     break;
             }
         }
@@ -257,7 +281,7 @@ namespace WeightCore.Managers
                         else
                         {
                             GuiUtils.WpfForm.ShowNewCatch(null, $"{LocalizationCore.Print.SensorPeeler}: {ZebraPeelerStatus}",
-                                filePath, lineNumber, memberName);
+                                true, filePath, lineNumber, memberName);
                         }
                     }
                 }

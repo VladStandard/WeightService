@@ -45,7 +45,7 @@ else
                 TItem="TaskEntity" Property="Enabled" TextAlign=TextAlign.Center Width="10%" 
                 Title=@LocaleCore.Table.Enabled >
                 <Template Context="itemCast">
-                    <RadzenCheckBox TValue="bool" @bind-Value=@itemCast.Enabled Disabled=@Disabled />
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Enabled />
                 </Template>
             </RadzenGridColumn>
         </Columns>

@@ -30,8 +30,8 @@ namespace ScalesUI
 
         #region Public and private methods
 
-        internal static void TokenWrite(string conectionString, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
-                    [CallerMemberName] string memberName = "")
+        internal static void TokenWrite(string conectionString, 
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -85,13 +85,25 @@ namespace ScalesUI
             try
             {
                 AppVersion.Setup(Assembly.GetExecutingAssembly());
-                DataAccess.Setup(Directory.GetCurrentDirectory());
+                if (!DataAccess.Setup(Directory.GetCurrentDirectory()))
+                {
+                    if (!DataAccess.DownloadAppSettings(Directory.GetCurrentDirectory()))
+                    {
+                        MessageBox.Show(LocaleCore.System.SystemSettingsNotFound);
+                        return;
+                    }
+                    if (!DataAccess.Setup(Directory.GetCurrentDirectory()))
+                    {
+                        MessageBox.Show(LocaleCore.System.SystemSettingsNotFound);
+                        return;
+                    }
+                }
             }
             catch (Exception ex)
             {
                 GuiUtils.WpfForm.ShowNewCatch(null,
                     LocaleCore.Scales.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message,
-                    filePath, lineNumber, memberName);
+                    false, filePath, lineNumber, memberName);
                 throw new Exception(ex.Message);
             }
 

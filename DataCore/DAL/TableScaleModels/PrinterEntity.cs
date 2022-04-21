@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using RestSharp;
 using System;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableScaleModels
 {
@@ -25,8 +26,8 @@ namespace DataCore.DAL.TableScaleModels
         public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
-        public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; }
-        public virtual Exception? HttpStatusException { get; set; }
+        [XmlIgnore] public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; }
+        [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
 
         #endregion
 
@@ -139,24 +140,27 @@ namespace DataCore.DAL.TableScaleModels
             return item;
         }
 
-        public virtual async Task SetHttpStatusAsync(int timeOut = 100, bool continueOnCapturedContext = true)
+        public virtual void SetHttpStatus(int timeOut)
         {
+            if (HttpStatusCode == System.Net.HttpStatusCode.OK)
+                return;
             HttpStatusCode = System.Net.HttpStatusCode.BadRequest;
             HttpStatusException = null;
-            RestSharp.RestClientOptions options = new(Link)
+            RestClientOptions options = new(Link)
             {
                 UseDefaultCredentials = true,
                 ThrowOnAnyError = true,
                 Timeout = timeOut,
             };
-            RestSharp.RestClient client = new(options);
+            RestClient client = new(options);
             RestRequest request = new();
             try
             {
-                RestResponse response = await client.GetAsync(request).ConfigureAwait(continueOnCapturedContext);
+                //RestResponse response = await client.GetAsync(request).ConfigureAwait(continueOnCapturedContext);
+                RestResponse response = client.GetAsync(request).ConfigureAwait(true).GetAwaiter().GetResult();
                 HttpStatusCode = response.StatusCode;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 HttpStatusException = ex;
             }

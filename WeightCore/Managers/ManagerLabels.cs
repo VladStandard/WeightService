@@ -16,6 +16,16 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
+        private Button ButtonKneading { get; set; }
+        private Button ButtonMore { get; set; }
+        private Button ButtonNewPallet { get; set; }
+        private Button ButtonOrder { get; set; }
+        private Button ButtonPlu { get; set; }
+        private Button ButtonPrint { get; set; }
+        private Button ButtonScalesInit { get; set; }
+        private Button ButtonScalesTerminal { get; set; }
+        private ComboBox FieldLang { get; set; }
+        private ComboBox FieldResolution { get; set; }
         private Label FieldKneading { get; set; }
         private Label FieldPlu { get; set; }
         private Label FieldProductDate { get; set; }
@@ -24,8 +34,6 @@ namespace WeightCore.Managers
         private Label LabelKneading { get; set; }
         private Label LabelProductDate { get; set; }
         private PluDirect CurrentPlu => SessionStateHelper.Instance.CurrentPlu;
-        public Label FieldPrintMain { get; private set; }
-        public Label FieldPrintShipping { get; private set; }
 
         #endregion
 
@@ -40,40 +48,59 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, 
-            Label labelProductDate, Label fieldProductDate, Label labelKneading, Label fieldKneading)
+        public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate, 
+            Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
+            Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
+            Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal)
         {
-            Init(ProjectsEnums.TaskType.LabelManager,
-            () =>
+            try
             {
-                FieldTitle = fieldTitle;
-                FieldPlu = fieldPlu;
-                FieldSscc = fieldSscc;
-                LabelProductDate = labelProductDate;
-                FieldProductDate = fieldProductDate;
-                LabelKneading = labelKneading;
-                FieldKneading = fieldKneading;
-                
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocaleCore.Scales.FieldTime);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocaleCore.Scales.FieldKneading);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
-                
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
-                if (SessionStateHelper.Instance.CurrentScale?.IsKneading == true)
-                {
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
-                }
-            },
-            new(1_000, 0_500, 0_500, 1_000, 5_000));
+                Init(ProjectsEnums.TaskType.LabelManager,
+                    () =>
+                    {
+                        FieldTitle = fieldTitle;
+                        FieldPlu = fieldPlu;
+                        FieldSscc = fieldSscc;
+                        LabelProductDate = labelProductDate;
+                        FieldProductDate = fieldProductDate;
+                        LabelKneading = labelKneading;
+                        FieldKneading = fieldKneading;
+                        FieldResolution = fieldResolution;
+                        FieldLang = fieldLang;
+                        ButtonKneading = buttonKneading;
+                        ButtonMore = buttonMore;
+                        ButtonNewPallet = buttonNewPallet;
+                        ButtonOrder = buttonOrder;
+                        ButtonPlu = buttonPlu;
+                        ButtonPrint = buttonPrint;
+                        ButtonScalesInit = buttonScalesInit;
+                        ButtonScalesTerminal = buttonScalesTerminal;
+
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocaleCore.Scales.FieldTime);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocaleCore.Scales.FieldKneading);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
+
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
+                        if (SessionStateHelper.Instance.CurrentScale?.IsKneading == true)
+                        {
+                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
+                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
+                        }
+                    },
+                    new(1_000, 0_500, 0_500, 1_000, 5_000));
+            }
+            catch (Exception ex)
+            {
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public new void Open()
@@ -197,6 +224,23 @@ namespace WeightCore.Managers
         public new void ReleaseUnmanaged()
         {
             base.ReleaseUnmanaged();
+        }
+
+        public void SetControlsVisible()
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldResolution, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldLang, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldResolution, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldLang, Debug.IsDebug);
+
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonKneading, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonMore, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonNewPallet, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonOrder, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonPlu, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonPrint, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesInit, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesTerminal, true);
         }
 
         #endregion

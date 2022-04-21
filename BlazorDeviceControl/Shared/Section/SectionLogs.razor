@@ -31,11 +31,11 @@ else
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
-                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss.fff") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Title=@LocaleCore.Table.Host Type="string" Width="12%" >
+                TItem="LogQuickEntity" Title=@LocaleCore.Table.Host Type="string" Width="14%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
@@ -53,14 +53,14 @@ else
                 Title=@LocaleCore.Table.Row Type="int" Width="5%">
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Member" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Member Type="string" Width="14%" />
+                TItem="LogQuickEntity" Property="Version" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Member Type="string" Width="5%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Icon" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Icon Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Message" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Message Type="string" Width="28%">
+                Title=@LocaleCore.Table.Message Type="string" Width="35%">
                 <Template Context="logItem">
                     <RadzenLabel 
                         Style="height: 80%; width=80%; white-space: pre-wrap; " 

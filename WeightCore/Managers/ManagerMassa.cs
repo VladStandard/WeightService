@@ -27,7 +27,7 @@ namespace WeightCore.Managers
         private Label LabelWeightNetto { get; set; }
         private Label LabelWeightTare { get; set; }
         private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
-        private ProgressBar FieldMassaQueriesProgress { get; set; }
+        private ProgressBar FieldMassaProgress { get; set; }
         private readonly object _locker = new();
         public BlockingCollection<MassaExchangeEntity> Requests { get; private set; } = new();
         public byte IsStable { get; private set; }
@@ -54,47 +54,54 @@ namespace WeightCore.Managers
         #region Public and private methods
 
         public void Init(Label labelWeightNetto, Label fieldWeightNetto, Label labelWeightTare, Label fieldWeightTare,
-            ProgressBar fieldMassaQueriesProgress, Label fieldThreshold,
+            ProgressBar fieldMassaProgress, Label fieldThreshold,
             Label fieldMassaGet, Label fieldMassaGetCrc, Label fieldMassaSet, Label fieldMassaSetCrc, Label fieldMassaScalePar)
         {
-            Init(ProjectsEnums.TaskType.MassaManager,
-            () =>
+            try
             {
-                if (SessionStateHelper.Instance.CurrentScale != null)
-                {
-                    MassaDevice = new(SessionStateHelper.Instance.CurrentScale.DeviceComPort,
-                        SessionStateHelper.Instance.CurrentScale.DeviceReceiveTimeout,
-                        SessionStateHelper.Instance.CurrentScale.DeviceSendTimeout, GetData);
-                }
-                LabelWeightNetto = labelWeightNetto;
-                FieldWeightNetto = fieldWeightNetto;
-                LabelWeightTare = labelWeightTare;
-                FieldWeightTare = fieldWeightTare;
-                FieldMassaQueriesProgress = fieldMassaQueriesProgress;
-                FieldThreshold = fieldThreshold;
-                FieldMassaGet = fieldMassaGet;
-                FieldMassaGetCrc = fieldMassaGetCrc;
-                FieldMassaSet = fieldMassaSet;
-                FieldMassaSetCrc = fieldMassaSetCrc;
-                FieldMassaScalePar = fieldMassaScalePar;
+                Init(ProjectsEnums.TaskType.MassaManager,
+                    () =>
+                    {
+                        if (SessionStateHelper.Instance.CurrentScale != null)
+                        {
+                            MassaDevice = new(SessionStateHelper.Instance.CurrentScale.DeviceComPort,
+                                SessionStateHelper.Instance.CurrentScale.DeviceReceiveTimeout,
+                                SessionStateHelper.Instance.CurrentScale.DeviceSendTimeout, GetData);
+                        }
+                        LabelWeightNetto = labelWeightNetto;
+                        FieldWeightNetto = fieldWeightNetto;
+                        LabelWeightTare = labelWeightTare;
+                        FieldWeightTare = fieldWeightTare;
+                        FieldMassaProgress = fieldMassaProgress;
+                        FieldThreshold = fieldThreshold;
+                        FieldMassaGet = fieldMassaGet;
+                        FieldMassaGetCrc = fieldMassaGetCrc;
+                        FieldMassaSet = fieldMassaSet;
+                        FieldMassaSetCrc = fieldMassaSetCrc;
+                        FieldMassaScalePar = fieldMassaScalePar;
 
-                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocalizationCore.Scales.FieldWeightNetto);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocalizationCore.Scales.FieldWeightTare);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocalizationCore.Scales.FieldThresholds);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocalizationCore.Scales.ComPort);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocalizationCore.Scales.Crc);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocalizationCore.Scales.ScaleQueue);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocalizationCore.Scales.Crc);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocalizationCore.Scales.RequestParameters);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocalizationCore.Scales.FieldWeightNetto);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocalizationCore.Scales.FieldWeightTare);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocalizationCore.Scales.FieldThresholds);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocalizationCore.Scales.ComPort);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocalizationCore.Scales.Crc);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocalizationCore.Scales.ScaleQueue);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocalizationCore.Scales.Crc);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocalizationCore.Scales.RequestParameters);
 
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightNetto, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, true);
-            },
-            new(waitReopen: 5_000, waitRequest: 0_100, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightNetto, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, true);
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, true);
+                    },
+                    new(waitReopen: 5_000, waitRequest: 0_100, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
+            }
+            catch (Exception ex)
+            {
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public new void Open()
@@ -148,8 +155,8 @@ namespace WeightCore.Managers
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, true);
                         if (!FieldMassaSetCrc.Visible)
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, true);
-                        if (!FieldMassaQueriesProgress.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaQueriesProgress, true);
+                        if (!FieldMassaProgress.Visible)
+                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, true);
                     }
                     else {
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, $"{LocalizationCore.Scales.ComPort}: {LocalizationCore.Scales.StateDisable}");
@@ -167,8 +174,8 @@ namespace WeightCore.Managers
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, false);
                         if (FieldMassaSetCrc.Visible)
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, false);
-                        if (FieldMassaQueriesProgress.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaQueriesProgress, false);
+                        if (FieldMassaProgress.Visible)
+                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, false);
                     }
                 },
                 // Response.
@@ -225,7 +232,7 @@ namespace WeightCore.Managers
 
         private void RequestSetMassa()
         {
-            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMassaQueriesProgress, Requests != null ? Requests.Count : 0);
+            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMassaProgress, Requests != null ? Requests.Count : 0);
             if (SessionStateHelper.Instance.CurrentPlu?.IsCheckWeight == true)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet,
@@ -280,7 +287,7 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaQueriesProgress, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, false);
