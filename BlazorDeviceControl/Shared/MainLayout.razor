@@ -46,9 +46,9 @@
                     @if (UserSettings.Identity.AccessRightsIsRead)
                     {
                         <RadzenMenu Style="margin-left: -20px; margin-top: 0px; align-content: center; background-color: transparent; " >
-                            <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Strings.MenuSystem >
+                            <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuSystem >
                                 <RadzenMenuItem Icon="home" Style="background-color: transparent; "
-                                    Text=@LocaleCore.Strings.MenuMain Path=@LocaleData.DeviceControl.UriRouteSection.Root />
+                                    Text=@LocaleCore.Menu.MenuMain Path=@LocaleData.DeviceControl.UriRouteSection.Root />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                     Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleData.DeviceControl.UriRouteSection.Root />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
@@ -58,9 +58,9 @@
                                     Text=@UserSettings.Identity.NameWithRights Path=@LocaleData.DeviceControl.UriRouteSection.Access
                                     Click=@(args => SetParametersAsync(new())) />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@LocaleCore.Strings.MenuInfo Path=@LocaleData.DeviceControl.UriRouteItem.Info />
+                                    Text=@LocaleCore.Menu.MenuInfo Path=@LocaleData.DeviceControl.UriRouteItem.Info />
                             </RadzenMenuItem>
-                            <RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Strings.MenuReports >
+                            <RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuReports >
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                     Text=@LocaleCore.Strings.SysLogs Path=@LocaleData.DeviceControl.UriRouteSection.Logs />
                                 <RadzenMenuItem Icon="error" Style="background-color: transparent; "

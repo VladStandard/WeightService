@@ -29,19 +29,19 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Uid</td>
+                <td>@LocaleCore.Table.Uid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Name</td>
+                <td>@LocaleCore.Table.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />

@@ -10,7 +10,7 @@ namespace DataCore.Localizations
     public static class LocaleData
     {
         private static ShareEnums.Lang _lang;
-        public static ShareEnums.Lang Lang { get => _lang; set { _lang = value; } }
+        public static ShareEnums.Lang Lang { get => _lang; set => _lang = value; }
 
         static LocaleData()
         {
@@ -323,8 +323,6 @@ namespace DataCore.Localizations
 
         public static class Methods
         {
-            #region Public and private methods
-
             public static string GetItemTitle(TableBase table)
             {
                 string result = string.Empty;
@@ -516,8 +514,6 @@ namespace DataCore.Localizations
 
                 return result;
             }
-
-            #endregion
         }
     }
 }

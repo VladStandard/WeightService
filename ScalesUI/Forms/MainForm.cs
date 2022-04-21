@@ -367,15 +367,15 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ScheduleEverySeconds()
-        {
-            lock (_lockerSeconds)
-            {
-                if (Quartz == null)
-                    return;
-                //
-            }
-        }
+        //private void ScheduleEverySeconds()
+        //{
+        //    lock (_lockerSeconds)
+        //    {
+        //        if (Quartz == null)
+        //            return;
+        //        //
+        //    }
+        //}
 
         #endregion
 

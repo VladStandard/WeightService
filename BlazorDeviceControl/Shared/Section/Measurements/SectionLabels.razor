@@ -28,7 +28,7 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.CreateDt Type="date" Width="15%" >
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
@@ -36,7 +36,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Title=@LocaleCore.TableField.Scale Type="string" Width="30%" >
+                TItem="LabelQuickEntity" Title=@LocaleCore.Table.Scale Type="string" Width="30%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
@@ -45,19 +45,19 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="PluId" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.Plu Type="int" Width="10%" />
+                Title=@LocaleCore.Table.Plu Type="int" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="NetWeight" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.NetWeight Type="decimal" Width="10%" />
+                Title=@LocaleCore.Table.NetWeight Type="decimal" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="TareWeight" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.TareWeight Type="decimal" Width="10%" />
+                Title=@LocaleCore.Table.TareWeight Type="decimal" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="RegNum" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.RegNum Type="int" Width="10%" />
+                Title=@LocaleCore.Table.RegNum Type="int" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="ZplInfo" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.ImageDataInfo Type="string" Width="15%" />
+                Title=@LocaleCore.Table.ImageDataInfo Type="string" Width="15%" />
         </Columns>
     </RadzenGrid>
 

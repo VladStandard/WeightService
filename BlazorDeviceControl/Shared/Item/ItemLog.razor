@@ -28,25 +28,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Uid</td>
+                <td>@LocaleCore.Table.Uid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Host</td>
+                <td>@LocaleCore.Table.Host</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.Host.Name />
 				</td>
-                <td>@LocaleCore.TableField.App</td>
+                <td>@LocaleCore.Table.App</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -54,13 +54,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Version</td>
+                <td>@LocaleCore.Table.Version</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.Version />
 				</td>
-                <td>@LocaleCore.TableField.File</td>
+                <td>@LocaleCore.Table.File</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -68,13 +68,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Row</td>
+                <td>@LocaleCore.Table.Row</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@ItemCast.Line />
 				</td>
-                <td>@LocaleCore.TableField.Member</td>
+                <td>@LocaleCore.Table.Member</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -82,7 +82,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.LogType</td>
+                <td>@LocaleCore.Table.LogType</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -90,7 +90,7 @@ else
 				</td>
             </tr>
             <tr >
-                <td>@LocaleCore.TableField.Message</td>
+                <td>@LocaleCore.Table.Message</td>
                 <td colspan=3 rowspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 

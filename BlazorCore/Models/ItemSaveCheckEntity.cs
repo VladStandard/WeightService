@@ -52,7 +52,7 @@ namespace BlazorCore.Models
             if (barcodeType == null || uid == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocaleCore.Strings.TableItem.BarcodeType);
+            bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocaleCore.Table.BarcodeType);
             if (success)
             {
                 barcodeType.ChangeDt = DateTime.Now;
@@ -78,7 +78,7 @@ namespace BlazorCore.Models
             if (contragent == null || uid == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, contragent, LocaleCore.Strings.TableItem.Contragent);
+            bool success = FieldControl.ProcessChecks(notificationService, contragent, LocaleCore.Table.Contragent);
             if (success)
             {
                 contragent.ChangeDt = DateTime.Now;
@@ -103,7 +103,7 @@ namespace BlazorCore.Models
             if (host == null || id == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, host, LocaleCore.Strings.TableItem.Host);
+            bool success = FieldControl.ProcessChecks(notificationService, host, LocaleCore.Table.Host);
             if (success)
             {
                 host.ChangeDt = DateTime.Now;
@@ -129,7 +129,7 @@ namespace BlazorCore.Models
             if (nomenclature == null || id == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocaleCore.Strings.TableItem.Nomenclature);
+            bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocaleCore.Table.Nomenclature);
             if (success)
             {
                 nomenclature.ChangeDt = DateTime.Now;
@@ -155,13 +155,13 @@ namespace BlazorCore.Models
                 return;
 
             plu.ChangeDt = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, plu, LocaleCore.Strings.TableItem.Plu);
+            bool success = FieldControl.ProcessChecks(notificationService, plu, LocaleCore.Table.Plu);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Scale, LocaleCore.Strings.TableItem.Device);
+                success = FieldControl.ProcessChecks(notificationService, plu.Scale, LocaleCore.Table.Device);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Template, LocaleCore.Strings.TableItem.LabelTemplate);
+                success = FieldControl.ProcessChecks(notificationService, plu.Template, LocaleCore.Table.LabelTemplate);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, LocaleCore.Strings.TableItem.Product);
+                success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, LocaleCore.Table.Product);
             if (success)
             {
                 plu.ChangeDt = DateTime.Now;
@@ -188,9 +188,9 @@ namespace BlazorCore.Models
                 return;
 
             printer.ChangeDt = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, printer, LocaleCore.Strings.TableItem.Printer);
+            bool success = FieldControl.ProcessChecks(notificationService, printer, LocaleCore.Table.Printer);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, printer.PrinterType, LocaleCore.Strings.TableItem.PrinterType);
+                success = FieldControl.ProcessChecks(notificationService, printer.PrinterType, LocaleCore.Table.PrinterType);
             if (success)
             {
                 printer.ChangeDt = DateTime.Now;
@@ -216,7 +216,7 @@ namespace BlazorCore.Models
             if (printerResource == null || id == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocaleCore.Strings.TableItem.PrinterResource);
+            bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocaleCore.Table.PrinterResource);
             if (success)
             {
                 printerResource.ChangeDt = DateTime.Now;
@@ -242,7 +242,7 @@ namespace BlazorCore.Models
             if (printerType == null || id == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, printerType, LocaleCore.Strings.TableItem.PrinterType);
+            bool success = FieldControl.ProcessChecks(notificationService, printerType, LocaleCore.Table.PrinterType);
             if (success)
             {
                 printerType.ChangeDt = DateTime.Now;
@@ -268,7 +268,7 @@ namespace BlazorCore.Models
             if (productionFacility == null || id == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocaleCore.Strings.TableItem.ProductionFacility);
+            bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocaleCore.Table.ProductionFacility);
             if (success)
             {
                 productionFacility.ChangeDt = DateTime.Now;
@@ -295,15 +295,15 @@ namespace BlazorCore.Models
                 return;
 
             scale.ChangeDt = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, scale, LocaleCore.Strings.TableItem.Device);
+            bool success = FieldControl.ProcessChecks(notificationService, scale, LocaleCore.Table.Device);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, LocaleCore.Strings.TableItem.Printer);
+                success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Strings.TableItem.Host);
+                success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Table.Host);
             //if (success)
             //    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocalizationCore.Strings.TableItem.TemplateDefault);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Strings.TableItem.Workshop);
+                success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Table.Workshop);
             if (success)
             {
                 scale.ChangeDt = DateTime.Now;
@@ -331,11 +331,11 @@ namespace BlazorCore.Models
             if (task == null || uid == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, task, LocaleCore.Strings.TableItem.TaskModule);
+            bool success = FieldControl.ProcessChecks(notificationService, task, LocaleCore.Table.TaskModule);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, task.TaskType, LocaleCore.Strings.TableItem.TaskType);
+                success = FieldControl.ProcessChecks(notificationService, task.TaskType, LocaleCore.Table.TaskType);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, task.Scale, LocaleCore.Strings.TableItem.Device);
+                success = FieldControl.ProcessChecks(notificationService, task.Scale, LocaleCore.Table.Device);
             if (success)
             {
                 task.ChangeDt = DateTime.Now;
@@ -361,7 +361,7 @@ namespace BlazorCore.Models
             if (taskType == null || uid == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, taskType, LocaleCore.Strings.TableItem.TaskModuleType);
+            bool success = FieldControl.ProcessChecks(notificationService, taskType, LocaleCore.Table.TaskModuleType);
             if (success)
             {
                 taskType.ChangeDt = DateTime.Now;
@@ -387,7 +387,7 @@ namespace BlazorCore.Models
             if (template == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, template, LocaleCore.Strings.TableItem.Template);
+            bool success = FieldControl.ProcessChecks(notificationService, template, LocaleCore.Table.Template);
             if (success)
             {
                 template.ChangeDt = DateTime.Now;
@@ -413,7 +413,7 @@ namespace BlazorCore.Models
             if (workShop == null || id == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, workShop, LocaleCore.Strings.TableItem.Workshop);
+            bool success = FieldControl.ProcessChecks(notificationService, workShop, LocaleCore.Table.Workshop);
             if (success)
             {
                 workShop.ChangeDt = DateTime.Now;

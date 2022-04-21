@@ -32,19 +32,19 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Name</td>
+                <td>@LocaleCore.Table.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
@@ -109,7 +109,7 @@ else
                 </td>
                 @if (ItemCast.HttpStatusException != null)
                 {
-                    <td>@LocaleCore.TableField.HttpStatusException</td>
+                    <td>@LocaleCore.Table.HttpStatusException</td>
                     <td>
                         <RadzenLabel Style="width: 100%; " 
                             Text=@(ItemCast.HttpStatusException != null ? ItemCast.HttpStatusException.Message : "") />
@@ -117,7 +117,7 @@ else
                 }
                 else
                 {
-                    <td colspan=2>@LocaleCore.TableField.HttpStatusNoException</td>
+                    <td colspan=2>@LocaleCore.Table.HttpStatusNoException</td>
                 }
             </tr>
             <tr>

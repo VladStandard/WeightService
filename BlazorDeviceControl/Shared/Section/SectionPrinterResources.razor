@@ -26,18 +26,18 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="PrinterResourceEntity" TextAlign=TextAlign.Center 
-                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="IdentityId"
-                Title=@LocaleCore.TableField.Id Type="int" Width="10%" />
+                Title=@LocaleCore.Table.Id Type="int" Width="10%" />
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
-                Title=@LocaleCore.TableField.Description Type="string" Width="30%" />
+                Title=@LocaleCore.Table.Description Type="string" Width="30%" />
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
-                Title=@LocaleCore.TableField.Resource Type="string" Width="30%" />
+                Title=@LocaleCore.Table.Resource Type="string" Width="30%" />
         </Columns>
     </RadzenGrid>
 

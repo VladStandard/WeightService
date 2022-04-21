@@ -24,7 +24,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.WeithingDate
+                Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="15%">
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
@@ -32,7 +32,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.DayOfWeek
+                Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="15%">
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
@@ -40,10 +40,10 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign=TextAlign.Center
-                                Title=@LocaleCore.TableField.Count
+                                Title=@LocaleCore.Table.Count
                                 Type="int" Width="15%" />
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign=TextAlign.Left
-                                Title=@LocaleCore.TableField.Scale
+                                Title=@LocaleCore.Table.Scale
                                 Type="string" Width="55%" />
         </Columns>
     </RadzenGrid>

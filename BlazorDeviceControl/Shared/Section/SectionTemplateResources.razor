@@ -28,10 +28,10 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Type" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.Type 
+                Title=@LocaleCore.Table.Type 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Title=@LocaleCore.TableField.Name Width="25%" >
+                TItem="TemplateResourceEntity" Title=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.TemplateResource}/{itemCast.IdentityId}")
@@ -40,11 +40,11 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Description"
-                Title=@LocaleCore.TableField.Description 
+                Title=@LocaleCore.Table.Description 
                 Type="string" Width="40%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="ImageData.Info"
-                Title=@LocaleCore.TableField.ImageDataInfo 
+                Title=@LocaleCore.Table.ImageDataInfo 
                 Type="string" Width="25%" />
         </Columns>
     </RadzenGrid>

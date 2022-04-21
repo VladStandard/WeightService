@@ -29,13 +29,13 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
@@ -61,12 +61,12 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Description</td>
+                <td>@LocaleCore.Table.Description</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Description />
 				</td>
-                <td>@LocaleCore.TableField.Resource</td>
+                <td>@LocaleCore.Table.Resource</td>
                 <td>
                     @if (ResourceItems == null)
                     {

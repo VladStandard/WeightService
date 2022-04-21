@@ -27,7 +27,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="TaskEntity" Title=@LocaleCore.TableField.Host Type="string" Width="45%" >
+                TItem="TaskEntity" Title=@LocaleCore.Table.Host Type="string" Width="45%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.TaskModule}/{itemCast.IdentityUid}")
@@ -36,14 +36,14 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TaskEntity" TextAlign=TextAlign.Left Type="string" Width="45%"
-                Title=@LocaleCore.TableField.TaskType >
+                Title=@LocaleCore.Table.TaskType >
                 <Template Context="itemCast">
                     <RadzenLabel Text=@itemCast.TaskType?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TaskEntity" Property="Enabled" TextAlign=TextAlign.Center Width="10%" 
-                Title=@LocaleCore.TableField.Enabled >
+                Title=@LocaleCore.Table.Enabled >
                 <Template Context="itemCast">
                     <RadzenCheckBox TValue="bool" @bind-Value=@itemCast.Enabled Disabled=@Disabled />
                 </Template>

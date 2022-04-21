@@ -29,25 +29,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Scale</td>
+                <td>@LocaleCore.Table.Scale</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.WeithingFact.Scale.Description />
 				</td>
-                <td>@LocaleCore.TableField.Plu</td>
+                <td>@LocaleCore.Table.Plu</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -55,13 +55,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.WeithingDate</td>
+                <td>@LocaleCore.Table.WeithingDate</td>
                 <td>
                     <RadzenDatePicker Style="width: 100%; text-align: center; background-color: lightgray; " 
                         TValue="string" Value=@ItemCast.WeithingFact.WeithingDate 
                         Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
-                <td>@LocaleCore.TableField.ProductDate</td>
+                <td>@LocaleCore.Table.ProductDate</td>
                 <td>
                     <RadzenDatePicker Style="width: 100%; text-align: center; background-color: lightgray; " 
                         TValue="string" Value=@ItemCast.WeithingFact.ProductDate 
@@ -69,13 +69,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.NetWeight</td>
+                <td>@LocaleCore.Table.NetWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="decimal" @bind-Value=@ItemCast.WeithingFact.NetWeight />
 				</td>
-                <td>@LocaleCore.TableField.TareWeight</td>
+                <td>@LocaleCore.Table.TareWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -83,13 +83,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.RegNum</td>
+                <td>@LocaleCore.Table.RegNum</td>
                 <td >
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="int?" @bind-Value=@ItemCast.WeithingFact.RegNum />
 				</td>
-                <td>@LocaleCore.TableField.Kneding</td>
+                <td>@LocaleCore.Table.Kneding</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -97,7 +97,7 @@ else
                 </td>
             </tr>
             <tr >
-                <td>@LocaleCore.TableField.Zpl</td>
+                <td>@LocaleCore.Table.Zpl</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 

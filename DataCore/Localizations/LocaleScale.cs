@@ -18,9 +18,10 @@ namespace DataCore.Localizations
 
         #endregion
 
+        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+
         #region Public and private fields and properties
 
-        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
         public List<string> ListLanguages => Lang == ShareEnums.Lang.English ? new List<string> { "Russian", "English" } : new List<string> { "Russian", "English" };
         public List<string> ListResolutions => Lang == ShareEnums.Lang.English ? new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
         public readonly decimal MassaThreshold = 0.010M;
@@ -34,10 +35,26 @@ namespace DataCore.Localizations
         public string ButtonSetKneading => Lang == ShareEnums.Lang.English ? "More" : "Ещё";
         public string ButtonSettings => Lang == ShareEnums.Lang.English ? "Settings" : "Настройки";
         public string CheckPluWeightCount => Lang == ShareEnums.Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
-        public string CheckWeightBefore(decimal currentWeight) => Lang == ShareEnums.Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {UnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
-        public string CheckWeightIsEmpty() => Lang == ShareEnums.Lang.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
-        public string CheckWeightThreshold(decimal weightNet) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
-        public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
+        public string CheckWeightBefore(decimal currentWeight)
+        {
+            return Lang == ShareEnums.Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {UnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
+        }
+
+        public string CheckWeightIsEmpty()
+        {
+            return Lang == ShareEnums.Lang.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
+        }
+
+        public string CheckWeightThreshold(decimal weightNet)
+        {
+            return Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
+        }
+
+        public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold)
+        {
+            return Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
+        }
+
         public string ComPort => Lang == ShareEnums.Lang.English ? "COM-port" : "COM-порт";
         public string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
         public string Crc => "CRC";
@@ -66,6 +83,7 @@ namespace DataCore.Localizations
         public string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
         public string MassaNotFound => Lang == ShareEnums.Lang.English ? "The scales has not been found!" : "Весы не обнаружены!";
         public string MassaNotQuering => Lang == ShareEnums.Lang.English ? "The scales are not respond!" : "Весы не отвечают!";
+        public string MassaNotRespond => Lang == ShareEnums.Lang.English ? $"The scales Massa-K are not respond!" : $"Весы Масса-К не отвечают!";
         public string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
         public string MemoryAll => Lang == ShareEnums.Lang.English ? "all" : "всего";
         public string MemoryBusy => Lang == ShareEnums.Lang.English ? "busy" : "занято";
@@ -80,15 +98,26 @@ namespace DataCore.Localizations
         public string PluNotSelect => Lang == ShareEnums.Lang.English ? "PLU is not selected!" : "ПЛУ не выбрана!";
         public string PluNotSelectWeight => Lang == ShareEnums.Lang.English ? "Weight PLU is not selected!" : "Весовая ПЛУ не выбрана!";
         public string PluWeight => Lang == ShareEnums.Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
-        public string MassaNotRespond => Lang == ShareEnums.Lang.English ? $"The scales Massa-K are not respond!" : $"Весы Масса-К не отвечают!";
         public string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
         public string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
-        public string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
-        public string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
+        public string ProgramNotFound(string fileName)
+        {
+            return Lang == ShareEnums.Lang.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
+        }
+
         public string QuestionPerformOperation => Lang == ShareEnums.Lang.English ? "Perform the operation?" : "Выполнить операцию?";
+        public string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
         public string Registration => Lang == ShareEnums.Lang.English ? "Device registration" : "Регистрация устройства";
-        public string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English ? "The monoblock is registered in the information system with the identifier" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Before restarting, map it to the current line in DeviceControl." : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
-        public string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English ? $"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine + "Before restarting it, map it to the current line in DeviceControl" : $"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
+        public string RegistrationWarning1(Guid uid)
+        {
+            return Lang == ShareEnums.Lang.English ? "The monoblock is registered in the information system with the identifier" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Before restarting, map it to the current line in DeviceControl." : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
+        }
+
+        public string RegistrationWarning2(Guid uid)
+        {
+            return Lang == ShareEnums.Lang.English ? $"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine + "Before restarting it, map it to the current line in DeviceControl" : $"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
+        }
+
         public string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
         public string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
         public string ShippingLabels => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";

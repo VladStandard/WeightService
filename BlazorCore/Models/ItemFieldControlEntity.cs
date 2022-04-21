@@ -117,12 +117,12 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(access.User))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldUser}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldUser}" + Environment.NewLine;
                 result = false;
             }
             if (access.Rights > 3)
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsNotInRange}: {LocaleCore.Strings.Main.AccessRights}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsNotInRange}: {LocaleCore.Strings.Main.AccessRights}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -133,7 +133,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(barCodeType.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -144,7 +144,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(contragent.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -155,17 +155,17 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(host.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
             if (Equals(host.IdRRef, Guid.Empty))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldIdRRef}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldIdRRef}" + Environment.NewLine;
                 result = false;
             }
             if (string.IsNullOrEmpty(host.Ip))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldIpAddress}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldIpAddress}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -176,7 +176,7 @@ namespace BlazorCore.Models
                 result = false;
             if (label.Label.Length == 0)
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldLabel}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldLabel}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -187,7 +187,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(nomenclature.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -221,7 +221,7 @@ namespace BlazorCore.Models
                 }), null);
             if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
             {
-                detailAddition += $"{LocaleCore.Strings.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -244,7 +244,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(printerType.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -255,7 +255,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(productionFacility.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -272,7 +272,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(scale.Description))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldDescription}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldDescription}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -289,7 +289,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(taskType.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -300,7 +300,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(templateResource.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -311,12 +311,12 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(template.Title))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldTitle}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldTitle}" + Environment.NewLine;
                 result = false;
             }
             if (string.IsNullOrEmpty(template.CategoryId))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldCategory}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldCategory}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -333,7 +333,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(workshop.Name))
             {
-                detailAddition += $"{LocaleCore.Strings.FieldIsEmpty}: {LocaleCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }

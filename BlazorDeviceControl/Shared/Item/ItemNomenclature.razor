@@ -27,37 +27,37 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Weighted</td>
+                <td>@LocaleCore.Table.Weighted</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Weighted />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Name</td>
+                <td>@LocaleCore.Table.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
-                <td>@LocaleCore.TableField.Code</td>
+                <td>@LocaleCore.Table.Code</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@ItemCast.Code />
 				</td>
             </tr>
             <tr >
-                <td>@LocaleCore.TableField.Xml</td>
+                <td>@LocaleCore.Table.Xml</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; " Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@ItemCast.SerializedRepresentationObject Rows=20 />

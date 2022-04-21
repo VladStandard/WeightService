@@ -33,19 +33,19 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Description</td>
+                <td>@LocaleCore.Table.Description</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Description />
@@ -53,7 +53,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.IdentityId)
-                        Text=@LocaleCore.TableField.Host />
+                        Text=@LocaleCore.Table.Host />
                 </td>
                 <td>
                     @if (HostItems == null || ItemCast.Host == null)
@@ -73,7 +73,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.DeviceComPort</td>
+                <td>@LocaleCore.Table.DeviceComPort</td>
                 <td>
                     @if (ComPorts == null)
                     {
@@ -90,7 +90,7 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocaleCore.TableField.DeviceReceiveTimeout</td>
+                <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" 
                         Disabled=false TValue="short?" @bind-Value=@ItemCast.DeviceReceiveTimeout />
@@ -118,7 +118,7 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocaleCore.TableField.DeviceSendTimeout</td>
+                <td>@LocaleCore.Table.DeviceSendTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="short?" @bind-Value=@ItemCast.DeviceSendTimeout />
@@ -146,13 +146,13 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocaleCore.TableField.IsShipping</td>
+                <td>@LocaleCore.Table.IsShipping</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsShipping />
                 </td>
             </tr>
             <tr>
-                <td >@LocaleCore.TableField.IsShippingLength</td>
+                <td >@LocaleCore.Table.IsShippingLength</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         Name="fieldDeviceNumber"
@@ -160,7 +160,7 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.DeviceNumber</td>
+                <td>@LocaleCore.Table.DeviceNumber</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         Name="fieldDeviceNumber"
@@ -169,7 +169,7 @@ else
                         Component="fieldDeviceNumber" Min="0"
                         Text=@LocaleCore.Strings.InputControlMuchZero Popup=true Style="position: absolute;" />
 				</td>
-                <td>@LocaleCore.TableField.UseOrder</td>
+                <td>@LocaleCore.Table.UseOrder</td>
                 <td>
                     <RadzenCheckBox Disabled=false 
                         TValue="bool" @bind-Value=@ItemCast.UseOrder />
@@ -179,7 +179,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.IdentityId)
-                        Text=@LocaleCore.TableField.TemplateDefault />
+                        Text=@LocaleCore.Table.TemplateDefault />
                 </td>
                 <td>
                     @if (TemplatesDefaultItems == null || ItemCast.TemplateDefault == null)
@@ -200,7 +200,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.IdentityId)
-                        Text=@LocaleCore.TableField.TemplateSeries />
+                        Text=@LocaleCore.Table.TemplateSeries />
                 </td>
                 <td>
                     @if (TemplatesSeriesItems == null || ItemCast.TemplateSeries == null)
@@ -223,7 +223,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.WorkShop, ItemCast.WorkShop, ItemCast.WorkShop.IdentityId)
-                        Text=@LocaleCore.TableField.WorkShopName />
+                        Text=@LocaleCore.Table.WorkShopName />
                 </td>
                 <td>
                     @if (WorkShopItems == null || ItemCast.WorkShop == null)
@@ -241,7 +241,7 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocaleCore.TableField.ScaleFactor</td>
+                <td>@LocaleCore.Table.ScaleFactor</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="int?" @bind-Value=@ItemCast.ScaleFactor />

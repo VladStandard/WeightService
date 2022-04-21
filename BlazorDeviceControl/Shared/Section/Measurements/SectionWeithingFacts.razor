@@ -28,14 +28,14 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center 
-                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.WeithingDate
+                Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="17.5%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
@@ -44,7 +44,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.DayOfWeek
+                Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="12.5%">
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
@@ -52,22 +52,22 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactEntity" Property="Scale.Description" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.Scale
+                Title=@LocaleCore.Table.Scale
                 Type="string" Width="25.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="Plu.GoodsName" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.GoodsName
+                Title=@LocaleCore.Table.GoodsName
                 Type="string" Width="20.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="Plu.Ean13" TextAlign=TextAlign.Left
-                Title=@LocaleCore.TableField.Ean13
+                Title=@LocaleCore.Table.Ean13
                 Type="string" Width="20.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="TareWeight" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.TareWeight
+                Title=@LocaleCore.Table.TareWeight
                 Type="decimal" Width="15.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="NetWeight" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.NetWeight
+                Title=@LocaleCore.Table.NetWeight
                 Type="decimal" Width="15.0%" />
             <RadzenGridColumn TItem="WeithingFactEntity" Property="RegNum" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.RegNum
+                Title=@LocaleCore.Table.RegNum
                 Type="int" Width="20.0%" />
         </Columns>
     </RadzenGrid>

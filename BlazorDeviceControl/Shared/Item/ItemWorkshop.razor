@@ -28,25 +28,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Name</td>
+                <td>@LocaleCore.Table.Name</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: left;" 
                         Disabled=false ReadOnly=false
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
-                <td>@LocaleCore.TableField.IdRRef</td>
+                <td>@LocaleCore.Table.IdRRef</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; " 
                         Disabled=false ReadOnly=false
@@ -57,7 +57,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.IdentityId)
-                        Text=@LocaleCore.TableField.ProductionFacilityName />
+                        Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>
                 <td>
                     @if (ProductionFacilities == null)
@@ -72,7 +72,7 @@ else
                             ValueProperty="IdentityId" Value=@ItemCast.ProductionFacility.IdentityId
                             Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ProductionFacility), args)) >
                             <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocaleCore.TableField.Name Width="100%" />
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocaleCore.Table.Name Width="100%" />
                             </Columns>
                         </RadzenDropDownDataGrid>
                     }

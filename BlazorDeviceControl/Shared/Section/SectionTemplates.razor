@@ -29,7 +29,7 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="TemplateEntity" TextAlign=TextAlign.Center 
-                    Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
@@ -37,9 +37,9 @@ else
             }
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="CategoryId" TextAlign=TextAlign.Center
-                Title=@LocaleCore.TableField.CategoryName Width="15%" />
+                Title=@LocaleCore.Table.CategoryName Width="15%" />
             <RadzenGridColumn 
-                TItem="TemplateEntity" Title=@LocaleCore.TableField.Title Width="85%" >
+                TItem="TemplateEntity" Title=@LocaleCore.Table.Title Width="85%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.IdentityId}")

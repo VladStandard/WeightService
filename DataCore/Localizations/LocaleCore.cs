@@ -5,16 +5,29 @@ namespace DataCore.Localizations
 {
     public static class LocaleCore
     {
+        #region Public and private fields and properties
+
         private static ShareEnums.Lang _lang;
+        public static ShareEnums.Lang Lang
+        {
+            get => _lang;
+            set => Menu.Lang = Print.Lang = Scales.Lang = Table.Lang = _lang = value;
+        }
+        public static LocaleMenu Menu { get; private set; } = LocaleMenu.Instance;
         public static LocalePrint Print { get; private set; } = LocalePrint.Instance;
         public static LocaleScale Scales { get; private set; } = LocaleScale.Instance;
-        public static ShareEnums.Lang Lang { get => _lang; set { Scales.Lang = Print.Lang = TableField.Lang = _lang = value; } }
-        public static LocaleTable TableField { get; private set; } = LocaleTable.Instance;
+        public static LocaleTable Table { get; private set; } = LocaleTable.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
 
         static LocaleCore()
         {
             Lang = ShareEnums.Lang.Russian;
         }
+
+        #endregion
 
         public static class Strings
         {
@@ -54,10 +67,26 @@ namespace DataCore.Localizations
                 public static string IdentityError => Lang == ShareEnums.Lang.English ? "User error!" : "Ошибка пользователя";
                 public static string Index => Lang == ShareEnums.Lang.English ? "Inside resources" : "Внутренние ресурсы";
                 public static string IndexDescription => Lang == ShareEnums.Lang.English ? "The site was created to help you navigate through the company's internal resources" : "Сайт создан для помощи в навигации по внутренним ресурсам компании";
-                public static string IsEnableHe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включен" : "Отключен";
-                public static string IsEnableIt(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включено" : "Отключено";
-                public static string IsEnableShe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включена" : "Отключена";
-                public static string IsYes(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Yes" : "No" : isTrue ? "Да" : "Нет";
+                public static string IsEnableHe(bool isTrue)
+                {
+                    return Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включен" : "Отключен";
+                }
+
+                public static string IsEnableIt(bool isTrue)
+                {
+                    return Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включено" : "Отключено";
+                }
+
+                public static string IsEnableShe(bool isTrue)
+                {
+                    return Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включена" : "Отключена";
+                }
+
+                public static string IsYes(bool isTrue)
+                {
+                    return Lang == ShareEnums.Lang.English ? isTrue ? "Yes" : "No" : isTrue ? "Да" : "Нет";
+                }
+
                 public static string ItemsCount => Lang == ShareEnums.Lang.English ? "Count of records" : "Количество записей";
                 public static string Language => Lang == ShareEnums.Lang.English ? "Language" : "Язык";
                 public static string LanguageDetect => Lang == ShareEnums.Lang.English ? "English" : "Русский";
@@ -77,47 +106,6 @@ namespace DataCore.Localizations
                 public static string VerLibDataCore => Lang == ShareEnums.Lang.English ? "DataCore lib version" : "Версия библиотеки DataCore";
                 public static string VerProgram => Lang == ShareEnums.Lang.English ? "Program version" : "Версия программы";
             }
-            public static class TableItem
-            {
-                public static string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
-                public static string Contragent => Lang == ShareEnums.Lang.English ? "Contragent" : "Контрагент";
-                public static string Device => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
-                public static string Host => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
-                public static string LabelTemplate => Lang == ShareEnums.Lang.English ? "Label template" : "Шаблон этикетки";
-                public static string Nomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
-                public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-                public static string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
-                public static string PrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
-                public static string PrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
-                public static string Product => Lang == ShareEnums.Lang.English ? "Product" : "Продукт";
-                public static string ProductionFacility => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
-                public static string TaskModule => Lang == ShareEnums.Lang.English ? "Task module" : "Модуль задачи";
-                public static string TaskModuleType => Lang == ShareEnums.Lang.English ? "Task module type" : "Тип модуля задачи";
-                public static string TaskType => Lang == ShareEnums.Lang.English ? "Task type" : "Тип задачи";
-                public static string Template => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
-                public static string TemplateDefault => Lang == ShareEnums.Lang.English ? "Default template" : "Шаблон по-умолчанию";
-                public static string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
-            }
-            #region Menu
-            public static string From => Lang == ShareEnums.Lang.English ? "from" : "из";
-            public static string FileChoose => Lang == ShareEnums.Lang.English ? "Select a file" : "Выбрать файл";
-            public static string FileDialog => Lang == ShareEnums.Lang.English ? "File dialog" : "Файловый диалог";
-            public static string FileDownload => Lang == ShareEnums.Lang.English ? "Download a file" : "Скачать файл";
-            public static string FileSaveDialog => Lang == ShareEnums.Lang.English ? "Specify the file name to save" : "Указать имя файла для сохранения";
-            public static string FileUpload => Lang == ShareEnums.Lang.English ? "Upload a file" : "Загрузить файл";
-            public static string Login => Lang == ShareEnums.Lang.English ? "Login" : "Логин";
-            public static string MenuAccess => Lang == ShareEnums.Lang.English ? "Menu access" : "Доступ к меню";
-            public static string MenuAccessAllow => Lang == ShareEnums.Lang.English ? "Menu access allowed" : "Доступ к меню разрешён";
-            public static string MenuAccessDeny => Lang == ShareEnums.Lang.English ? "Menu access denied" : "Доступ к меню запрещён";
-            public static string MenuHome => Lang == ShareEnums.Lang.English ? "Home" : "Домой";
-            public static string MenuInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
-            public static string MenuMain => Lang == ShareEnums.Lang.English ? "Main" : "Главная";
-            public static string MenuReferences => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
-            public static string MenuReports => Lang == ShareEnums.Lang.English ? "Reports" : "Журналы";
-            public static string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";
-            public static string MenuSystem => Lang == ShareEnums.Lang.English ? "System" : "Система";
-            public static string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
-            #endregion
             #region Action
             public static string ActionAccessAllow => Lang == ShareEnums.Lang.English ? "Access to actions allowed" : "Доступ к действиям разрешён";
             public static string ActionAccessDeny => Lang == ShareEnums.Lang.English ? "Access to actions denied" : "Доступ к действиям запрещён";
@@ -146,10 +134,6 @@ namespace DataCore.Localizations
             public static string SectionLog => Lang == ShareEnums.Lang.English ? "Log" : "Лог";
             #endregion
             #endregion
-            #region Chart
-            public static string Chart => Lang == ShareEnums.Lang.English ? "Chart" : "Диаграмма";
-            public static string ChartSmooth => Lang == ShareEnums.Lang.English ? "Chart smooth" : "Скруглить";
-            #endregion
             #region System
             public static string SysAccess => Lang == ShareEnums.Lang.English ? "Access" : "Доступ";
             public static string SysAccount => Lang == ShareEnums.Lang.English ? "Account" : "Аккаунт";
@@ -157,35 +141,6 @@ namespace DataCore.Localizations
             public static string SysInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
             public static string SysLogin => Lang == ShareEnums.Lang.English ? "Log in" : "Вход";
             public static string SysLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Логи";
-            #endregion
-            #region Table
-            public static string TableTab => Lang == ShareEnums.Lang.English ? "Switch between panels" : "Переключиться между панелями";
-            public static string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";
-            public static string TableReadCancel => Lang == ShareEnums.Lang.English ? "Cancel data reading" : "Отмена чтения данных";
-            public static string TableEdit => Lang == ShareEnums.Lang.English ? "Edit record" : "Редактировать запись";
-            public static string TableClear => Lang == ShareEnums.Lang.English ? "Deactivate active record" : "Деактивировать активную запись";
-            public static string TableCreate => Lang == ShareEnums.Lang.English ? "Create record" : "Создать запись";
-            public static string TableDelete => Lang == ShareEnums.Lang.English ? "Delete record" : "Удалить запись";
-            public static string TableSelect => Lang == ShareEnums.Lang.English ? "Highlight record" : "Выделить запись";
-            public static string TableIncludes => Lang == ShareEnums.Lang.English ? "Included records" : "Вложенные записи";
-            public static string TableSave => Lang == ShareEnums.Lang.English ? "Save record" : "Сохранить запись";
-            public static string TableCancel => Lang == ShareEnums.Lang.English ? "Close record" : "Закрыть запись";
-            public static string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
-            #endregion
-            #region Table fields
-            public static string FieldCategory => Lang == ShareEnums.Lang.English ? "Category" : "Категория";
-            public static string FieldCount => Lang == ShareEnums.Lang.English ? "Count" : "Количество";
-            public static string FieldCreated => Lang == ShareEnums.Lang.English ? "Created" : "Создано";
-            public static string FieldDescription => Lang == ShareEnums.Lang.English ? "Description" : "Описание";
-            public static string FieldIdRRef => Lang == ShareEnums.Lang.English ? "ID 1C" : "ID 1С";
-            public static string FieldIpAddress => Lang == ShareEnums.Lang.English ? "Ip-address" : "IP-адрес";
-            public static string FieldIsEmpty => Lang == ShareEnums.Lang.English ? "Empty field" : "Пустое поле";
-            public static string FieldIsNotInRange => Lang == ShareEnums.Lang.English ? "Field is not in the range" : "Поле не находится в диапазоне";
-            public static string FieldLabel => Lang == ShareEnums.Lang.English ? "Label" : "Этикетка";
-            public static string FieldModified => Lang == ShareEnums.Lang.English ? "Modified" : "Изменено";
-            public static string FieldName => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
-            public static string FieldTitle => Lang == ShareEnums.Lang.English ? "Title" : "Заголовок";
-            public static string FieldUser => Lang == ShareEnums.Lang.English ? "User" : "Пользователь";
             #endregion
             #region Dialog
             public static string DialogQuestion => Lang == ShareEnums.Lang.English ? "Perform the operation?" : "Выполнить операцию?";

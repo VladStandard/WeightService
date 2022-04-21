@@ -16,12 +16,14 @@ namespace DataCore.Localizations
 
         #endregion
 
+        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+
         #region Public and private fields and properties
 
-        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
         public string AccessLevel => Lang == ShareEnums.Lang.English ? "___" : "Уровень доступа";
         public string Active => Lang == ShareEnums.Lang.English ? "___" : "Активно";
         public string App => Lang == ShareEnums.Lang.English ? "___" : "Программа";
+        public string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
         public string BarCodeTypeId => Lang == ShareEnums.Lang.English ? "___" : "ID типа ШК";
         public string Brand => Lang == ShareEnums.Lang.English ? "___" : "Brand";
         public string CategoryId => Lang == ShareEnums.Lang.English ? "___" : "ID категории";
@@ -32,12 +34,14 @@ namespace DataCore.Localizations
         public string Code => Lang == ShareEnums.Lang.English ? "___" : "Код";
         public string Comment => Lang == ShareEnums.Lang.English ? "___" : "Комментарий";
         public string ConsumerName => Lang == ShareEnums.Lang.English ? "___" : "ConsumerName";
+        public string Contragent => Lang == ShareEnums.Lang.English ? "Contragent" : "Контрагент";
         public string ContragentId => Lang == ShareEnums.Lang.English ? "___" : "ID контрагента";
         public string Count => Lang == ShareEnums.Lang.English ? "___" : "Количество";
         public string CreateDt => Lang == ShareEnums.Lang.English ? "___" : "Дата создания";
         public string Date => Lang == ShareEnums.Lang.English ? "Date" : "Дата";
         public string DayOfWeek => Lang == ShareEnums.Lang.English ? "___" : "День недели";
         public string Description => Lang == ShareEnums.Lang.English ? "___" : "Описание";
+        public string Device => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
         public string DeviceComPort => Lang == ShareEnums.Lang.English ? "COM-port" : "COM-порт";
         public string DeviceIp => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";
         public string DeviceMac => Lang == ShareEnums.Lang.English ? "MAC-address" : "MAC-адрес";
@@ -48,6 +52,19 @@ namespace DataCore.Localizations
         public string Ean13 => "EAN13";
         public string Enabled => Lang == ShareEnums.Lang.English ? "Enabled" : "Активно";
         public string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Исключение";
+        public string FieldCategory => Lang == ShareEnums.Lang.English ? "Category" : "Категория";
+        public string FieldCount => Lang == ShareEnums.Lang.English ? "Count" : "Количество";
+        public string FieldCreated => Lang == ShareEnums.Lang.English ? "Created" : "Создано";
+        public string FieldDescription => Lang == ShareEnums.Lang.English ? "Description" : "Описание";
+        public string FieldIdRRef => Lang == ShareEnums.Lang.English ? "ID 1C" : "ID 1С";
+        public string FieldIpAddress => Lang == ShareEnums.Lang.English ? "Ip-address" : "IP-адрес";
+        public string FieldIsEmpty => Lang == ShareEnums.Lang.English ? "Empty field" : "Пустое поле";
+        public string FieldIsNotInRange => Lang == ShareEnums.Lang.English ? "Field is not in the range" : "Поле не находится в диапазоне";
+        public string FieldLabel => Lang == ShareEnums.Lang.English ? "Label" : "Этикетка";
+        public string FieldModified => Lang == ShareEnums.Lang.English ? "Modified" : "Изменено";
+        public string FieldName => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
+        public string FieldTitle => Lang == ShareEnums.Lang.English ? "Title" : "Заголовок";
+        public string FieldUser => Lang == ShareEnums.Lang.English ? "User" : "Пользователь";
         public string File => Lang == ShareEnums.Lang.English ? "File" : "Файл";
         public string FilePath => Lang == ShareEnums.Lang.English ? "File path" : "Путь к файлу";
         public string FullName => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
@@ -77,6 +94,7 @@ namespace DataCore.Localizations
         public string IsShippingLength => Lang == ShareEnums.Lang.English ? "Count of labels in a box" : "Количество этикеток в коробе";
         public string Itf14 => "ITF14";
         public string Kneding => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
+        public string LabelTemplate => Lang == ShareEnums.Lang.English ? "Label template" : "Шаблон этикетки";
         public string Level => Lang == ShareEnums.Lang.English ? "Level" : "Уровень";
         public string Line => Lang == ShareEnums.Lang.English ? "Line" : "Линия";
         public string LogType => Lang == ShareEnums.Lang.English ? "Log type" : "Тип лога";
@@ -88,6 +106,7 @@ namespace DataCore.Localizations
         public string Name => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
         public string NameFull => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
         public string NetWeight => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
+        public string Nomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
         public string NomenclatureId => Lang == ShareEnums.Lang.English ? "Nomenclature ID" : "ID номенклатуры";
         public string NomenclatureName => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
         public string NomenclatureType => Lang == ShareEnums.Lang.English ? "Type of nomenclature" : "Тип номенклатуры";
@@ -100,7 +119,12 @@ namespace DataCore.Localizations
         public string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
         public string PluDescription => Lang == ShareEnums.Lang.English ? "Use the `|` symbol to move the line." : "Для переноса строки используйте символ `|`";
         public string PluNumber => Lang == ShareEnums.Lang.English ? "# PLU" : "№ ПЛУ";
+        public string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
+        public string PrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
+        public string PrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
+        public string Product => Lang == ShareEnums.Lang.English ? "Product" : "Продукт";
         public string ProductDate => Lang == ShareEnums.Lang.English ? "Product date" : "Дата продукции";
+        public string ProductionFacility => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
         public string ProductionFacilityName => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
         public string RegNum => Lang == ShareEnums.Lang.English ? "#" : "№";
         public string Resource => Lang == ShareEnums.Lang.English ? "Resource" : "Ресурс";
@@ -113,7 +137,21 @@ namespace DataCore.Localizations
         public string Sscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
         public string State => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
         public string Storage => Lang == ShareEnums.Lang.English ? "Storage" : "Склад";
+        public string TableCancel => Lang == ShareEnums.Lang.English ? "Close record" : "Закрыть запись";
+        public string TableClear => Lang == ShareEnums.Lang.English ? "Deactivate active record" : "Деактивировать активную запись";
+        public string TableCreate => Lang == ShareEnums.Lang.English ? "Create record" : "Создать запись";
+        public string TableDelete => Lang == ShareEnums.Lang.English ? "Delete record" : "Удалить запись";
+        public string TableEdit => Lang == ShareEnums.Lang.English ? "Edit record" : "Редактировать запись";
+        public string TableIncludes => Lang == ShareEnums.Lang.English ? "Included records" : "Вложенные записи";
+        public string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
+        public string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";
+        public string TableReadCancel => Lang == ShareEnums.Lang.English ? "Cancel data reading" : "Отмена чтения данных";
+        public string TableSave => Lang == ShareEnums.Lang.English ? "Save record" : "Сохранить запись";
+        public string TableSelect => Lang == ShareEnums.Lang.English ? "Highlight record" : "Выделить запись";
+        public string TableTab => Lang == ShareEnums.Lang.English ? "Switch between panels" : "Переключиться между панелями";
         public string TareWeight => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
+        public string TaskModule => Lang == ShareEnums.Lang.English ? "Task module" : "Модуль задачи";
+        public string TaskModuleType => Lang == ShareEnums.Lang.English ? "Task module type" : "Тип модуля задачи";
         public string TaskType => Lang == ShareEnums.Lang.English ? "Task type" : "Тип задачи";
         public string Template => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
         public string TemplateDefault => Lang == ShareEnums.Lang.English ? "Default template" : "Шаблон по-умолчанию";
@@ -132,6 +170,7 @@ namespace DataCore.Localizations
         public string Version => Lang == ShareEnums.Lang.English ? "Version" : "Версия";
         public string Weighted => Lang == ShareEnums.Lang.English ? "Weighted" : "Весовая";
         public string WeithingDate => Lang == ShareEnums.Lang.English ? "Weighing date" : "Дата взвешивания";
+        public string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
         public string WorkShopId => Lang == ShareEnums.Lang.English ? "Workshop ID" : "ID цеха";
         public string WorkShopName => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
         public string Xml => "XML";

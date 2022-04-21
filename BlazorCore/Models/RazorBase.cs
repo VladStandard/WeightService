@@ -364,7 +364,7 @@ namespace BlazorCore.Models
 
         public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
-            await RunTasksAsync(LocaleCore.Strings.TableRead, "", LocaleCore.Strings.DialogResultFail, "",
+            await RunTasksAsync(LocaleCore.Table.TableRead, "", LocaleCore.Strings.DialogResultFail, "",
                 new List<Task> { task }, continueOnCapturedContext).ConfigureAwait(false);
         }
 
@@ -1102,7 +1102,7 @@ namespace BlazorCore.Models
         public async Task ItemCancelAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks(LocaleCore.Strings.TableCancel, LocaleCore.Strings.DialogResultSuccess,
+            RunTasks(LocaleCore.Table.TableCancel, LocaleCore.Strings.DialogResultSuccess,
                 LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel,
                 new Task(() =>
                 {
@@ -1229,7 +1229,7 @@ namespace BlazorCore.Models
         public async Task ItemSaveAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasksWithQeustion(LocaleCore.Strings.TableSave, LocaleCore.Strings.DialogResultSuccess,
+            RunTasksWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Strings.DialogResultSuccess,
                 LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
@@ -1353,7 +1353,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasksWithQeustion(LocaleCore.Strings.TableDelete, LocaleCore.Strings.DialogResultSuccess,
+            RunTasksWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Strings.DialogResultSuccess,
                 LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {

@@ -27,25 +27,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Title</td>
+                <td>@LocaleCore.Table.Title</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Title />
 				</td>
                 <td>
-                    <RadzenLabel Style="width: 100%; text-align: center; " Text=@LocaleCore.TableField.CategoryName />
+                    <RadzenLabel Style="width: 100%; text-align: center; " Text=@LocaleCore.Table.CategoryName />
                 </td>
                 <td>
                     @if (TemplateCategories == null)
@@ -64,7 +64,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.ImageData</td>
+                <td>@LocaleCore.Table.ImageData</td>
                 <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; " Disabled=false ReadOnly=false
                         TValue="string" @bind-Value=@ItemCast.ImageData.ValueUnicode Rows=26 />

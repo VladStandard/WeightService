@@ -30,13 +30,13 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocaleCore.TableField.Id</td>
+                <td>@LocaleCore.Table.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocaleCore.TableField.Marked</td>
+                <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
@@ -45,7 +45,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
-                        Text=@LocaleCore.TableField.Scale />
+                        Text=@LocaleCore.Table.Scale />
                 </td>
                 <td>
                     @if (ScaleItems == null || AppSettings.DataAccess?.JsonSettings == null)
@@ -67,7 +67,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.IdentityId)
-                        Text=@LocaleCore.TableField.Template />
+                        Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
                     @if (TemplateItems == null || AppSettings.DataAccess?.JsonSettings == null)
@@ -91,7 +91,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.IdentityId)
-                        Text=@LocaleCore.TableField.NomenclatureName />
+                        Text=@LocaleCore.Table.NomenclatureName />
                 </td>
                 <td>
                     @if (NomenclatureItems == null || AppSettings.DataAccess?.JsonSettings == null)
@@ -110,40 +110,40 @@ else
                             />
                     }
 				</td>
-                <td>@LocaleCore.TableField.Active</td>
+                <td>@LocaleCore.Table.Active</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Active />
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.UpperWeightThreshold</td>
+                <td>@LocaleCore.Table.UpperWeightThreshold</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.UpperWeightThreshold />
 				</td>
-                <td>@LocaleCore.TableField.CheckWeight</td>
+                <td>@LocaleCore.Table.CheckWeight</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.CheckWeight />
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.NominalWeight</td>
+                <td>@LocaleCore.Table.NominalWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.NominalWeight />
 				</td>
-                <td>@LocaleCore.TableField.PluNumber</td>
+                <td>@LocaleCore.Table.PluNumber</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false TValue="int" @bind-Value=@ItemCast.Plu />
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.LowerWeightThreshold</td>
+                <td>@LocaleCore.Table.LowerWeightThreshold</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.LowerWeightThreshold />
 				</td>
-                <td>@LocaleCore.TableField.ShelfLifeDays</td>
+                <td>@LocaleCore.Table.ShelfLifeDays</td>
                 <td>
                     <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsShelfLifeDays))) />
@@ -154,7 +154,7 @@ else
             <tr>
                 <td colspan=2>
                     <RadzenLabel Style="width: 100%; text-align: center; font-size: 12px; " 
-                        Text=@LocaleCore.TableField.GoodsTareWeightDescription />
+                        Text=@LocaleCore.Table.GoodsTareWeightDescription />
                 </td>
                 <td colspan=2>
                     <RadzenLabel Style="width: 100%; text-align: center; font-size: 12px; " 
@@ -162,14 +162,14 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.GoodsTareWeight</td>
+                <td>@LocaleCore.Table.GoodsTareWeight</td>
                 <td>
                     <RadzenButton Style="width: 15%; margin-right: 1%; height: 25px; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.CalcGoodsTareWeight))) />
                     <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.GoodsTareWeight />
                 </td>
-                <td>@LocaleCore.TableField.GoodsBoxQuantly</td>
+                <td>@LocaleCore.Table.GoodsBoxQuantly</td>
                 <td>
                     <RadzenButton Style="width: 15%; margin-right: 1%; height: 25px; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsBoxQuantly))) />
@@ -178,7 +178,7 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Ean13</td>
+                <td>@LocaleCore.Table.Ean13</td>
                 <td colspan=3 >
                     <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlEan13))) />
@@ -189,7 +189,7 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Gtin</td>
+                <td>@LocaleCore.Table.Gtin</td>
                 <td colspan=3>
                     <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="aspect_ratio"
                         ButtonStyle=@ButtonStyle.Secondary Click=@(args => OnClickFieldsFill(nameof(Barcode.GetGtin))) />
@@ -202,7 +202,7 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Itf14</td>
+                <td>@LocaleCore.Table.Itf14</td>
                 <td colspan=3>
                     <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlItf14))) />
@@ -224,14 +224,14 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.Name</td>
+                <td>@LocaleCore.Table.Name</td>
                 <td>
                     <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsName))) />
                     <RadzenTextBox Style="width: 75%; margin-right: 1%; " Disabled=false 
                         TValue="string" @bind-value=@ItemCast.GoodsName />
 				</td>
-                <td>@LocaleCore.TableField.GoodsFullName</td>
+                <td>@LocaleCore.Table.GoodsFullName</td>
                 <td>
                     <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsFullName))) />
@@ -240,7 +240,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.GoodsDescription</td>
+                <td>@LocaleCore.Table.GoodsDescription</td>
                 <td colspan=3>
                     <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
@@ -249,7 +249,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.TableField.PluDescription</td>
+                <td>@LocaleCore.Table.PluDescription</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.XmlGoodsDescription Rows=3 />

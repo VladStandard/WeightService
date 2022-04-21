@@ -16,9 +16,10 @@ namespace DataCore.Localizations
 
         #endregion
 
+        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+
         #region Public and private fields and properties
 
-        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
         public string ActionPrint => Lang == ShareEnums.Lang.English ? "Print" : "Печать";
         public string Available => Lang == ShareEnums.Lang.English ? "available" : "доступен";
         public string ClearQueue => Lang == ShareEnums.Lang.English ? "Clear queue" : "Очистить очередь";
@@ -29,18 +30,18 @@ namespace DataCore.Localizations
         public string Ip => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";
         public string Mac => Lang == ShareEnums.Lang.English ? "MAC-address" : "MAC-адрес";
         public string Mode => Lang == ShareEnums.Lang.English ? "Mode" : "Режим";
-        public string ModeUnknown => Lang == ShareEnums.Lang.English ? "Unknown" : "Неизвестный";
-        public string ModeRewind => Lang == ShareEnums.Lang.English ? "Rewind" : "Перемотка";
-        public string ModePeelOff => Lang == ShareEnums.Lang.English ? "Peel-Off" : "Отклеивание";
-        public string ModeTearOff => Lang == ShareEnums.Lang.English ? "Tear-Off" : "Отрывание";
-        public string ModeCutter => Lang == ShareEnums.Lang.English ? "Cutter" : "Отрезание";
         public string ModeApplicator => Lang == ShareEnums.Lang.English ? "Applicator" : "Аппликатор";
+        public string ModeCutter => Lang == ShareEnums.Lang.English ? "Cutter" : "Отрезание";
         public string ModeDelayedCut => Lang == ShareEnums.Lang.English ? "Delayed Cut" : "Отложенный срез";
+        public string ModeKiosk => Lang == ShareEnums.Lang.English ? "Kiosk" : "Киоск";
         public string ModeLinerlessPeel => Lang == ShareEnums.Lang.English ? "Linerless Peel" : "Бесслойный пилинг";
         public string ModeLinerlessRewind => Lang == ShareEnums.Lang.English ? "Linerless Rewind" : "Бесслойная перемотка";
         public string ModePartialCutter => Lang == ShareEnums.Lang.English ? "Partial Cutter" : "Частичная резка";
+        public string ModePeelOff => Lang == ShareEnums.Lang.English ? "Peel-Off" : "Отклеивание";
+        public string ModeRewind => Lang == ShareEnums.Lang.English ? "Rewind" : "Перемотка";
         public string ModeRfid => Lang == ShareEnums.Lang.English ? "RFID" : "РФИД";
-        public string ModeKiosk => Lang == ShareEnums.Lang.English ? "Kiosk" : "Киоск";
+        public string ModeTearOff => Lang == ShareEnums.Lang.English ? "Tear-Off" : "Отрывание";
+        public string ModeUnknown => Lang == ShareEnums.Lang.English ? "Unknown" : "Неизвестный";
         public string Name => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
         public string NameMain => Lang == ShareEnums.Lang.English ? "Main printer" : "Основной принтер";
         public string NameMainTsc => Lang == ShareEnums.Lang.English ? "Main printer TSC" : "Основной принтер TSC";
