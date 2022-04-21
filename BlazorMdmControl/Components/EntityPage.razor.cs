@@ -83,7 +83,7 @@
 //                NotificationMessage msg = new NotificationMessage
 //                {
 //                    Severity = NotificationSeverity.Error,
-//                    Summary = $"{LocaleCore.Strings.Main.MethodError} [{memberName}]!",
+//                    Summary = $"{LocaleCore.Strings.MethodError} [{memberName}]!",
 //                    Detail = ex.Message,
 //                    Duration = LocalizationStrings.Timeout
 //                };

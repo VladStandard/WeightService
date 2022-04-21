@@ -17,12 +17,12 @@
     }
     else
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocaleCore.Strings.ActionIsShowTop100 />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocaleCore.Action.ActionIsShowTop100 />
         <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowTop100
             Change=@(args => OnChangeCheckBox(args, nameof(IsShowTop100)))
         />
 
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocaleCore.Strings.ActionIsShowMarked />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocaleCore.Action.ActionIsShowMarked />
         <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
             Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
         />

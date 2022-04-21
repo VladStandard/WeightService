@@ -26,7 +26,7 @@ namespace BlazorCore.Models
             if (access == null || uid == null)
                 return;
 
-            bool success = FieldControl.ProcessChecks(notificationService, access, LocaleCore.Strings.Main.AccessRights);
+            bool success = FieldControl.ProcessChecks(notificationService, access, LocaleCore.Strings.AccessRights);
             if (success)
             {
                 access.ChangeDt = DateTime.Now;

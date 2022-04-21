@@ -92,7 +92,7 @@ namespace BlazorCore.Models
 
         public void OnChangeCheckBox(object value, string name)
         {
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnChangeCheckBox)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnChangeCheckBox)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (name)
@@ -112,7 +112,7 @@ namespace BlazorCore.Models
 
         public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
         {
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     if (value is Lang lang)
@@ -127,7 +127,7 @@ namespace BlazorCore.Models
 
         public void OnJsonValueChange(JsonSettingsEntity? jsonSettings, string? filterName, object? value)
         {
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     if (AppSettings.DataAccess?.JsonSettings != null)
@@ -170,7 +170,7 @@ namespace BlazorCore.Models
 
         public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
         {
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (item)
@@ -332,7 +332,7 @@ namespace BlazorCore.Models
         public async Task ItemSelectAsync(BaseEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ItemSelectAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(() =>
                 {
                     ItemSelect(item);
@@ -364,7 +364,7 @@ namespace BlazorCore.Models
 
         public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
-            await RunTasksAsync(LocaleCore.Table.TableRead, "", LocaleCore.Strings.DialogResultFail, "",
+            await RunTasksAsync(LocaleCore.Table.TableRead, "", LocaleCore.Dialog.DialogResultFail, "",
                 new List<Task> { task }, continueOnCapturedContext).ConfigureAwait(false);
         }
 
@@ -620,8 +620,8 @@ namespace BlazorCore.Models
 
         public static ConfirmOptions GetConfirmOptions() => new()
         {
-            OkButtonText = LocaleCore.Strings.DialogButtonYes,
-            CancelButtonText = LocaleCore.Strings.DialogButtonCancel,
+            OkButtonText = LocaleCore.Dialog.DialogButtonYes,
+            CancelButtonText = LocaleCore.Dialog.DialogButtonCancel,
             //    ShowTitle = true,
             //    ShowClose = true,
             //    Bottom = null,
@@ -712,7 +712,7 @@ namespace BlazorCore.Models
             try
             {
                 string question = string.IsNullOrEmpty(questionAdd)
-                    ? LocaleCore.Strings.DialogQuestion
+                    ? LocaleCore.Dialog.DialogQuestion
                     : questionAdd;
                 if (DialogService != null)
                 {
@@ -1102,8 +1102,8 @@ namespace BlazorCore.Models
         public async Task ItemCancelAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks(LocaleCore.Table.TableCancel, LocaleCore.Strings.DialogResultSuccess,
-                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel,
+            RunTasks(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess,
+                LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel,
                 new Task(() =>
                 {
                     RouteSectionNavigate(false);
@@ -1115,9 +1115,9 @@ namespace BlazorCore.Models
             if (ParentRazor?.Item != null)
             {
                 if (ParentRazor.Item.IdentityName == ColumnName.Id)
-                    return LocaleCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
+                    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
                 else if (ParentRazor.Item.IdentityName == ColumnName.Uid)
-                    return LocaleCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
+                    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
             }
             return string.Empty;
         }
@@ -1229,8 +1229,8 @@ namespace BlazorCore.Models
         public async Task ItemSaveAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasksWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Strings.DialogResultSuccess,
-                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
+                LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     switch (Table)
@@ -1258,7 +1258,7 @@ namespace BlazorCore.Models
                 return;
             BaseEntity? item = isParentRazor ? ParentRazor?.Item : Item;
 
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionNewAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionNewAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -1282,7 +1282,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionCopyAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionCopyAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     RouteItemNavigate(isNewWindow, item, DbTableAction.Copy);
@@ -1300,7 +1300,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionEditAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionEditAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     RouteItemNavigate(isNewWindow, item, DbTableAction.Edit);
@@ -1318,7 +1318,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionSaveAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionSaveAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     await GuiRefreshWithWaitAsync();
@@ -1335,7 +1335,7 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(ActionMarkAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionMarkAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.MarkedEntity(item);
@@ -1343,7 +1343,7 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+        public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isParentRazor)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1353,8 +1353,8 @@ namespace BlazorCore.Models
 
             if (item == null)
                 return;
-            RunTasksWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Strings.DialogResultSuccess,
-                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogResultSuccess,
+                LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.DeleteEntity(item);
@@ -1369,8 +1369,8 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Strings.DialogResultSuccess,
-                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Dialog.DialogResultSuccess,
+                LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
@@ -1402,8 +1402,8 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Strings.DialogResultSuccess,
-                LocaleCore.Strings.DialogResultFail, LocaleCore.Strings.DialogResultCancel, GetQuestionAdd(),
+            RunTasksWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Dialog.DialogResultSuccess,
+                LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(

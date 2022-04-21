@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared
 
         #region Public and private methods
 
-        private async void MemoryClearAsync(Radzen.MenuItemEventArgs args)
+        private static async void MemoryClearAsync(Radzen.MenuItemEventArgs args)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             GC.Collect();
@@ -53,7 +53,7 @@ namespace BlazorDeviceControl.Shared
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();
@@ -62,7 +62,7 @@ namespace BlazorDeviceControl.Shared
                 }), true);
 
             // Don't change it, because GuiRefreshAsync can get exception!
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     AppSettings.SetupMemory();

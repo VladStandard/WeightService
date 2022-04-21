@@ -49,7 +49,6 @@ namespace ScalesUI.Forms
         private Button ButtonScalesTerminal { get; set; }
         private FontsSettingsEntity FontsSettings { get; set; }
         private readonly object _lockerDays;
-        private readonly object _lockerSeconds;
         private TableLayoutPanel TableLayoutPanelButtons { get; set; }
 
         #endregion
@@ -60,7 +59,6 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
             _lockerDays = new();
-            _lockerSeconds = new();
         }
 
         private void MainForm_Load(object sender, EventArgs e)

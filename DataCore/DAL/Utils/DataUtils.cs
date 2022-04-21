@@ -30,19 +30,19 @@ namespace DataCore.DAL.Utils
         public static string GetBytesLength(byte[] bytes)
         {
             if (bytes == null)
-                return $"{LocaleCore.Strings.Main.DataSizeVolume}: 0 {LocaleCore.Strings.Main.DataSizeBytes}";
+                return $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}";
             if (Encoding.Default.GetString(bytes).Length > 1024 * 1024)
-                return $"{LocaleCore.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.Main.DataSizeMBytes}";
+                return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
             if (Encoding.Default.GetString(bytes).Length > 1024)
-                return $"{LocaleCore.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocaleCore.Strings.Main.DataSizeKBytes}";
-            return $"{LocaleCore.Strings.Main.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocaleCore.Strings.Main.DataSizeBytes}";
+                return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
+            return $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
         }
 
         public static string GetStringLength(string str)
         {
             if (string.IsNullOrEmpty(str))
-                return $"{LocaleCore.Strings.Main.DataSizeLength}: 0 {LocaleCore.Strings.Main.DataSizeChars}";
-            return $"{LocaleCore.Strings.Main.DataSizeLength}: {str.Length:### ###} {LocaleCore.Strings.Main.DataSizeChars}";
+                return $"{LocaleCore.Strings.DataSizeLength}: 0 {LocaleCore.Strings.DataSizeChars}";
+            return $"{LocaleCore.Strings.DataSizeLength}: {str.Length:### ###} {LocaleCore.Strings.DataSizeChars}";
         }
 
         //public virtual async Task<byte[]> GetBytes(Stream stream, bool useBase64)

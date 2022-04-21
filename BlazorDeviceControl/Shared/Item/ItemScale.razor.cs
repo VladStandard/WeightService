@@ -56,7 +56,7 @@ namespace BlazorDeviceControl.Shared.Item
             ButtonSettings = new();
         }
 
-        private List<string> GetListComPorts()
+        private static List<string> GetListComPorts()
         {
             List<string> result = new();
             for (int i = 1; i < 256; i++)
@@ -69,7 +69,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();

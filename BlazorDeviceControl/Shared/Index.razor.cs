@@ -9,7 +9,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        public string UserDescription => LocaleCore.Strings.Main.AuthorizingUserName + " : " + UserSettings.Identity.Name;
+        public string UserDescription => LocaleCore.Strings.AuthorizingUserName + " : " + UserSettings.Identity.Name;
 
         #endregion
 

@@ -34,7 +34,7 @@
         }
         @if (ButtonSettings.IsShowDelete && UserSettings.Identity.AccessRightsIsWrite)
         {
-            <RadzenButton Click=@(args => ActionDeleteAsync(UserSettings, false, true))
+            <RadzenButton Click=@(args => ActionDeleteAsync(UserSettings, true))
                 class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                 Text=@LocaleData.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
         }

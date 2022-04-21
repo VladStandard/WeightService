@@ -12,7 +12,7 @@
             ButtonStyle=@ButtonStyle.Primary
             Click=@(args => SetParameters.InvokeAsync())
             MouseEnter="@(args => TooltipService?.Open(args, LocaleData.DeviceControl.TableReadData))"
-            Text=@LocaleCore.Strings.Main.AppName
+            Text=@LocaleCore.Strings.AppName
         />
     </a>
     <button class="navbar-toggler" @onclick=@ToggleNavMenu>

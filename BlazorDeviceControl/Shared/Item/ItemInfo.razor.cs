@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Item
         public List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
         private uint DbCurSize { get; set; } = 0;
-        private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.Main.From} {DbMaxSize:### ###} MB";
+        private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
         private uint DbMaxSize { get; set; } = 10_240;
         private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
         private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
@@ -50,7 +50,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();

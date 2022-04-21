@@ -16,15 +16,15 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocaleCore.Strings.Main.AccessRights SetParameters=@SetParametersAsync />
+        Title=@LocaleCore.Strings.AccessRights SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordValue</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@ else
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.User />
 				</td>
-                <td>@LocaleCore.Strings.Main.AccessRights</td>
+                <td>@LocaleCore.Strings.AccessRights</td>
                 <td>
                     <RadzenDropDown Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                         Disabled=false TValue=@ShareEnums.AccessRights

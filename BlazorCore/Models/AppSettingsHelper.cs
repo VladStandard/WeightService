@@ -34,24 +34,24 @@ namespace BlazorCore.Models
         public static int Delay => 5_000;
         public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{LocaleCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
-            : $"{LocaleCore.Strings.Memory}: - MB";
+            ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
+            : $"{LocaleCore.Memory.Memory}: - MB";
         public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{LocaleCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
-            : $"{LocaleCore.Strings.Memory}: - MB";
+            ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
+            : $"{LocaleCore.Memory.Memory}: - MB";
         public string MemoryInfoShort => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
             ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
-              $"{LocaleCore.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-            : $"{LocaleCore.Strings.Memory}: - MB";
+              $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
+            : $"{LocaleCore.Memory.Memory}: - MB";
         public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
             ? 0f : (float)Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
         public string SqlServerDescription => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } }
             ? DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
-                ? LocaleCore.Strings.Main.ServerRelease : LocaleCore.Strings.Main.ServerDevelop
-            : LocaleCore.Strings.Main.NotLoad;
+                ? LocaleCore.Strings.ServerRelease : LocaleCore.Strings.ServerDevelop
+            : LocaleCore.Strings.NotLoad;
         public bool IsSqlServerRelease => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } } &&
             DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
         public bool IsSqlServerDebug => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } } &&

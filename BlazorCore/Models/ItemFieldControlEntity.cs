@@ -100,8 +100,8 @@ namespace BlazorCore.Models
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Warning,
-                    Summary = LocaleCore.Strings.DataControl,
-                    Detail = $"{LocaleCore.Strings.DataControlField} [{field}]!" +
+                    Summary = LocaleCore.Action.ActionDataControl,
+                    Detail = $"{LocaleCore.Action.ActionDataControlField} [{field}]!" +
                         (Equals(detailAddition, Environment.NewLine) ? string.Empty : detailAddition),
                     Duration = AppSettingsHelper.Delay
                 };
@@ -122,7 +122,7 @@ namespace BlazorCore.Models
             }
             if (access.Rights > 3)
             {
-                detailAddition += $"{LocaleCore.Table.FieldIsNotInRange}: {LocaleCore.Strings.Main.AccessRights}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.FieldIsNotInRange}: {LocaleCore.Strings.AccessRights}" + Environment.NewLine;
                 result = false;
             }
         }

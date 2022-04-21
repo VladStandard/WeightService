@@ -6,7 +6,7 @@
 
 <AuthorizeView>
     <Authorizing>
-        <div>@LocaleCore.Strings.Main.AuthorizingProcess</div>
+        <div>@LocaleCore.Strings.AuthorizingProcess</div>
     </Authorizing>
     <Authorized>
         @if (context.User.Identity != null)
@@ -17,6 +17,6 @@
         <div>User detect error!</div>
     </Authorized>
     <NotAuthorized>
-        <div>@LocaleCore.Strings.Main.AuthorizingNot</div>
+        <div>@LocaleCore.Strings.AuthorizingNot</div>
     </NotAuthorized>
 </AuthorizeView>

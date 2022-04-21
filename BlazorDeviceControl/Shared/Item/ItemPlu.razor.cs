@@ -57,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocaleCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();
@@ -189,7 +189,7 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"{LocaleCore.Strings.Main.MethodError} [{nameof(OnClickFieldsFill)}]!",
+                    Summary = $"{LocaleCore.Strings.MethodError} [{nameof(OnClickFieldsFill)}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };

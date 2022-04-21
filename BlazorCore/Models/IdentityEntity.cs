@@ -46,14 +46,14 @@ namespace BlazorCore.Models
 
         public void SetAccessRights(byte accessRights) => SetAccessRights((ShareEnums.AccessRights)accessRights);
 
-        public string GetName() => string.IsNullOrEmpty(Name) ? LocaleCore.Strings.Main.DataLoading : Name;
+        public string GetName() => string.IsNullOrEmpty(Name) ? LocaleCore.Strings.DataLoading : Name;
 
         public static string GetDescriptionAccessRights(ShareEnums.AccessRights accessRights) => accessRights switch
         {
-            ShareEnums.AccessRights.Read => LocaleCore.Strings.Main.AccessRightsRead,
-            ShareEnums.AccessRights.Write => LocaleCore.Strings.Main.AccessRightsWrite,
-            ShareEnums.AccessRights.Admin => LocaleCore.Strings.Main.AccessRightsAdmin,
-            _ => LocaleCore.Strings.Main.AccessRightsNone,
+            ShareEnums.AccessRights.Read => LocaleCore.Strings.AccessRightsRead,
+            ShareEnums.AccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
+            ShareEnums.AccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
+            _ => LocaleCore.Strings.AccessRightsNone,
         };
 
         public static string GetDescriptionAccessRights(byte accessRights) => GetDescriptionAccessRights((ShareEnums.AccessRights)accessRights);
