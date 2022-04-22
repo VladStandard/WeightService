@@ -33,10 +33,8 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+        public override string ToString() =>
+            base.ToString();
 
         public virtual bool Equals(BaseDummyEntity item)
         {

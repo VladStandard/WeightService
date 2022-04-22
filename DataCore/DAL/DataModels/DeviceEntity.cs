@@ -30,10 +30,8 @@ namespace DataCore.DAL.DataModels
 
         #region Public and private methods - override
 
-        public override string ToString()
-        {
-            return $"{nameof(Scales)}: {Scales}.";
-        }
+        public override string ToString() =>
+            $"{nameof(Scales)}: {Scales}.";
 
         public override int GetHashCode()
         {

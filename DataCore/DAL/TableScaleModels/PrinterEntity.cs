@@ -4,7 +4,6 @@
 using DataCore.DAL.Models;
 using RestSharp;
 using System;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableScaleModels
@@ -56,21 +55,18 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            string? strPrinterType = PrinterType != null ? PrinterType.IdentityId.ToString() : "null";
-            return base.ToString() +
-                   $"{nameof(Name)}: {Name}. " +
-                   $"{nameof(Ip)}: {Ip}. " +
-                   $"{nameof(Port)}: {Port}. " +
-                   $"{nameof(Password)}: {Password}. " +
-                   $"{nameof(PrinterType)}: {strPrinterType}. " +
-                   $"{nameof(MacAddress)}: {MacAddress}. " +
-                   $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
-                   $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
-                   $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " + 
-                   $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(Name)}: {Name}. " +
+            $"{nameof(Ip)}: {Ip}. " +
+            $"{nameof(Port)}: {Port}. " +
+            $"{nameof(Password)}: {Password}. " +
+            $"{nameof(PrinterType)}: {(PrinterType != null ? PrinterType.IdentityId.ToString() : "null")}. " +
+            $"{nameof(MacAddress)}: {MacAddress}. " +
+            $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
+            $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
+            $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " +
+            $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
 
         public virtual bool Equals(PrinterEntity item)
         {

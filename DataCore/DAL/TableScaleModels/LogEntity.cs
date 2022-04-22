@@ -51,9 +51,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strHost = Host != null ? Host.IdentityId.ToString() : "null";
-            string? strApp = App != null ? App.IdentityUid.ToString() : "null";
-            string? strLogType = LogType != null ? LogType.IdentityUid.ToString() : "null";
+            string strHost = Host != null ? Host.IdentityId.ToString() : "null";
+            string strApp = App != null ? App.IdentityUid.ToString() : "null";
+            string strLogType = LogType != null ? LogType.IdentityUid.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {strHost}. " +

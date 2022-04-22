@@ -24,44 +24,128 @@ namespace DataCore.DAL
 
         #region Public and private fields and properties
 
-        public string ConnectionString { get; private set; }
-        private readonly object _locker = new();
-        public JsonSettingsEntity? JsonSettings { get; private set; }
-
-        private NHibernate.ISessionFactory? _sessionFactory = null;
-        private NHibernate.ISessionFactory? GetSessionFactory()
-        {
-            lock (_locker)
-            {
-                if (_sessionFactory != null)
-                    return _sessionFactory;
-                if (JsonSettings == null || JsonSettings.CheckProperties(true) == false)
-                    return null;
-                if (JsonSettings.Sql.Trusted == false && (string.IsNullOrEmpty(JsonSettings.Sql.Username) || string.IsNullOrEmpty(JsonSettings.Sql.Password)))
-                    throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
-                FluentNHibernate.Cfg.Db.MsSqlConfiguration config = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012
-                    .ConnectionString(GetConnectionString());
-                config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
-                FluentNHibernate.Cfg.FluentConfiguration configuration = FluentNHibernate.Cfg.Fluently.Configure().Database(config);
-                AddConfigurationMappings(configuration, JsonSettings);
-                //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
-                //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
-                configuration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
-                // Be careful. If there are errors in the mapping, this line will make an Exception!
-                _sessionFactory = configuration.BuildSessionFactory();
-                return _sessionFactory;
-            }
-        }
-        public NHibernate.ISession? OpenSession() => GetSessionFactory()?.OpenSession();
-
-        public CrudController? Crud { get; private set; }
-
-        public bool IsDisabled
+        private string _connectionString;
+        public string ConnectionString
         {
             get
             {
+                if (!string.IsNullOrEmpty(_connectionString))
+                    return _connectionString;
+                return string.Empty;
+            }
+        }
+        private readonly object _locker = new();
+        
+        private JsonSettingsEntity? _jsonSettings;
+        public JsonSettingsEntity JsonSettings
+        {
+            get {
+                if (_jsonSettings == null)
+                    throw new ArgumentException($"{nameof(DataAccessHelper)}.{nameof(JsonSettings)} is null!");
+                _jsonSettings.CheckProperties(true);
+                return _jsonSettings;
+            }
+        }
+
+        private FluentNHibernate.Cfg.Db.MsSqlConfiguration? _sqlConfiguration;
+        /// <summary>
+        /// Get MsSqlConfiguration.
+        /// Be careful. If setup _sqlConfiguration.DefaultSchema, this line will make an Exception!
+        /// </summary>
+        private FluentNHibernate.Cfg.Db.MsSqlConfiguration SqlConfiguration
+        {
+            get
+            {
+                if (_sqlConfiguration != null)
+                    return _sqlConfiguration;
+                _sqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
+                _sqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
+                //_sqlConfiguration.DefaultSchema(JsonSettings.Sql.Schema);
+                return _sqlConfiguration;
+            }
+        }
+
+        private FluentNHibernate.Cfg.FluentConfiguration? _fluentConfiguration;
+        /// <summary>
+        /// Get FluentConfiguration.
+        /// Be careful. If there are errors in the mapping, this line will make an Exception!
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public FluentNHibernate.Cfg.FluentConfiguration FluentConfiguration
+        {
+            get
+            {
+                if (_fluentConfiguration != null)
+                    return _fluentConfiguration;
+                _fluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
+                AddConfigurationMappings(_fluentConfiguration, JsonSettings);
+                //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
+                //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
+                _fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                return _fluentConfiguration;
+            }
+        }
+
+        private NHibernate.ISessionFactory? _sessionFactory = null;
+        private NHibernate.ISessionFactory SessionFactory
+        {
+            get
+            {
+                lock (_locker)
+                {
+                    if (_sessionFactory != null)
+                        return _sessionFactory;
+                    _sessionFactory = FluentConfiguration.BuildSessionFactory();
+                    return _sessionFactory;
+                }
+            }
+        }
+
+        public NHibernate.ISession? OpenSession() => SessionFactory.OpenSession();
+
+        public bool CloseSessionFactory()
+        {
+            using NHibernate.ISessionFactory? session = SessionFactory;
+            if (session != null)
+            {
+                session.Close();
+                session.Dispose();
+                return true;
+            }
+            return false;
+        }
+
+        private CrudController? _crud;
+        public CrudController Crud
+        {
+            get {
+                if (_crud != null)
+                    return _crud;
+                return new CrudController(SessionFactory);
+            }
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                bool result = false;
                 NHibernate.ISession? session = OpenSession();
-                return session == null || !session.IsConnected;
+                if (session != null)
+                {
+                    try
+                    {
+                        result = !session.IsConnected;
+                    }
+                    finally
+                    {
+                        session.Disconnect();
+                        session.Close();
+                        session.Dispose();
+                    }
+                }
+                return result;
             }
         }
 
@@ -71,8 +155,9 @@ namespace DataCore.DAL
 
         public DataAccessHelper()
         {
-            ConnectionString = string.Empty;
-            Crud = null;
+            _connectionString = string.Empty;
+            _fluentConfiguration = null;
+            _crud = null;
         }
 
         #endregion
@@ -97,7 +182,7 @@ namespace DataCore.DAL
 
         public bool Setup(string dir)
         {
-            JsonSettings = null;
+            object? jsonObject = null;
             string file =
 #if DEBUG
                 Path.Combine(dir, "appsettings.Debug.json");
@@ -108,7 +193,7 @@ namespace DataCore.DAL
             {
                 using StreamReader streamReader = File.OpenText(file);
                 JsonSerializer serializer = new();
-                object? jsonObject = (JsonSettingsEntity?)serializer.Deserialize(streamReader, typeof(JsonSettingsEntity));
+                jsonObject = (JsonSettingsEntity?)serializer.Deserialize(streamReader, typeof(JsonSettingsEntity));
                 if (jsonObject is JsonSettingsEntity jsonSettings)
                 {
                     Microsoft.Data.SqlClient.SqlConnectionStringBuilder sqlConnectionStringBuilder = new();
@@ -118,13 +203,12 @@ namespace DataCore.DAL
                     sqlConnectionStringBuilder["User ID"] = jsonSettings.Sql.Username;
                     sqlConnectionStringBuilder["Password"] = jsonSettings.Sql.Password;
                     sqlConnectionStringBuilder["TrustServerCertificate"] = jsonSettings.Sql.TrustServerCertificate;
-                    //sqlConnectionStringBuilder["Schema"] = jsonSettings.Schema;
-                    ConnectionString = sqlConnectionStringBuilder.ConnectionString;
-                    JsonSettings = jsonSettings;
-                    Crud = new(GetSessionFactory());
+                    _connectionString = sqlConnectionStringBuilder.ConnectionString;
+                    _jsonSettings = jsonSettings;
+                    _crud = new(SessionFactory);
                 }
             }
-            return JsonSettings != null;
+            return jsonObject != null;
         }
 
         public bool DownloadAppSettings(string dirLocal)
@@ -171,69 +255,67 @@ namespace DataCore.DAL
         //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
         //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
-        private string GetConnectionString() => JsonSettings == null ? string.Empty : JsonSettings.Sql.Trusted
+        private string GetConnectionString() => JsonSettings.Sql.Trusted
             ? $"Data Source={JsonSettings.Sql.Server};Initial Catalog={JsonSettings.Sql.Db};Persist Security Info=True;" +
               $"Trusted Connection=True;TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};"
             : $"Data Source={JsonSettings.Sql.Server};Initial Catalog={JsonSettings.Sql.Db};Persist Security Info=True;" +
-              $"User ID={JsonSettings.Sql.Username};Password={JsonSettings.Sql.Password};TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};";
+              $"User ID={JsonSettings.Sql.Username};Password={JsonSettings.Sql.Password};" +
+              $"TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};";
 
-        private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration configuration, JsonSettingsEntity? jsonSettings)
+        private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsEntity jsonSettings)
         {
-            if (configuration == null || jsonSettings == null || string.IsNullOrEmpty(jsonSettings.Sql.Db))
-                return;
-
             switch (jsonSettings.Sql.Db.ToUpper())
             {
                 case "SCALESDB":
                 case "SCALES":
-                    AddConfigurationMappingsForScale(configuration);
+                    AddConfigurationMappingsForScale(fluentConfiguration);
                     break;
                 case "VSDWH":
-                    AddConfigurationMappingsForDwh(configuration);
+                    AddConfigurationMappingsForDwh(fluentConfiguration);
                     break;
             }
         }
 
-        private void AddConfigurationMappingsForScale(FluentNHibernate.Cfg.FluentConfiguration configuration)
+        private void AddConfigurationMappingsForScale(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
         {
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeMapV2>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeMapV2>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMapV2>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogTypeMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskTypeMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WeithingFactMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeMapV2>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeMapV2>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMapV2>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogTypeMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskTypeMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WeithingFactMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
         }
 
-        private void AddConfigurationMappingsForDwh(FluentNHibernate.Cfg.FluentConfiguration configuration)
+        private void AddConfigurationMappingsForDwh(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
         {
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.BrandMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.InformationSystemMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureGroupMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureLightMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureTypeMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.BrandMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.InformationSystemMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureGroupMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureLightMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureTypeMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
         }
 
         #endregion

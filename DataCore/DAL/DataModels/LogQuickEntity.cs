@@ -46,19 +46,17 @@ namespace DataCore.DAL.DataModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $"{nameof(Scale)}: {Scale}. " +
-                   $"{nameof(Host)}: {Host}. " +
-                   $"{nameof(App)}: {App}. " +
-                   $"{nameof(Version)}: {Version}. " +
-                   $"{nameof(File)}: {File}. " +
-                   $"{nameof(Line)}: {Line}. " +
-                   $"{nameof(Member)}: {Member}. " +
-                   $"{nameof(Icon)}: {Icon}. " +
-                   $"{nameof(Message)}: {Message}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(Scale)}: {Scale}. " +
+            $"{nameof(Host)}: {Host}. " +
+            $"{nameof(App)}: {App}. " +
+            $"{nameof(Version)}: {Version}. " +
+            $"{nameof(File)}: {File}. " +
+            $"{nameof(Line)}: {Line}. " +
+            $"{nameof(Member)}: {Member}. " +
+            $"{nameof(Icon)}: {Icon}. " +
+            $"{nameof(Message)}: {Message}. ";
 
         public virtual bool Equals(LogQuickEntity item)
         {

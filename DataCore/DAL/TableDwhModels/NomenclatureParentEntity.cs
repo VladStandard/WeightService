@@ -14,10 +14,7 @@ namespace DataCore.DAL.TableDwhModels
             Parents = new string[0];
         }
 
-        public override string ToString()
-        {
-            return
-                $"{nameof(Parents)}: {string.Join(",", Parents)}. ";
-        }
+        public override string ToString() => 
+            $"{nameof(Parents)}: {string.Join(",", Parents)}. ";
     }
 }

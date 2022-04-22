@@ -39,7 +39,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strProductionFacility = ProductionFacility != null ? ProductionFacility.IdentityId.ToString() : "null";
+            string strProductionFacility = ProductionFacility != null ? ProductionFacility.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(ProductionFacility)}: {strProductionFacility}. " +
                    $"{nameof(Name)}: {Name}. " +

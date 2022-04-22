@@ -38,15 +38,13 @@ namespace DataCore.DAL.DataModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $"{nameof(WeithingDate)}: {WeithingDate}. " +
-                   $"{nameof(Count)}: {Count}. " +
-                   $"{nameof(Scale)}: {Scale}. " +
-                   $"{nameof(Host)}: {Host}. " +
-                   $"{nameof(Printer)}: {Printer}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(WeithingDate)}: {WeithingDate}. " +
+            $"{nameof(Count)}: {Count}. " +
+            $"{nameof(Scale)}: {Scale}. " +
+            $"{nameof(Host)}: {Host}. " +
+            $"{nameof(Printer)}: {Printer}. ";
 
         public virtual bool Equals(WeithingFactSummaryEntity item)
         {

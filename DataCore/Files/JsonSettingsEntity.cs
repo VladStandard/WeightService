@@ -50,12 +50,14 @@ namespace DataCore.Files
                     throw new ArgumentNullException(Sql.Server, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.Server)} IsNullOrEmpty!");
                 return false;
             }
+            
             if (string.IsNullOrEmpty(Sql.Db))
             {
                 if (isGenerateException)
                     throw new ArgumentNullException(Sql.Db, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.Db)} IsNullOrEmpty!");
                 return false;
             }
+            
             if (!Sql.Trusted)
             {
                 if (string.IsNullOrEmpty(Sql.Username))

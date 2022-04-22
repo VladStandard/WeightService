@@ -22,8 +22,7 @@ namespace DataCore.Models
 
         #region Public and private methods
 
-        public override string ToString() =>
-            $"{nameof(Name)}: {Name}";
+        public override string ToString() => $"{nameof(Name)}: {Name}. ";
 
         #endregion
     }

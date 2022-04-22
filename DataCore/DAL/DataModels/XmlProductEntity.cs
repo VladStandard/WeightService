@@ -179,16 +179,13 @@ namespace DataCore.DAL.DataModels
         public string Okei { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public override string ToString()
-        {
-            return
-                $"{nameof(Heft)}: {Heft}. " +
-                $"{nameof(Capacity)}: {Capacity}. " +
-                $"{nameof(Rate)}: {Rate}. " +
-                $"{nameof(Threshold)}: {Threshold}. " +
-                $"{nameof(Okei)}: {Okei}. " +
-                $"{nameof(Description)}: {Description}. ";
-        }
+        public override string ToString() => 
+            $"{nameof(Heft)}: {Heft}. " +
+            $"{nameof(Capacity)}: {Capacity}. " +
+            $"{nameof(Rate)}: {Rate}. " +
+            $"{nameof(Threshold)}: {Threshold}. " +
+            $"{nameof(Okei)}: {Okei}. " +
+            $"{nameof(Description)}: {Description}. ";
 
         public virtual bool Equals(ProductUnitEntity item)
         {
@@ -217,12 +214,9 @@ namespace DataCore.DAL.DataModels
         public string Type { get; set; } = string.Empty;
         public string Barcode { get; set; } = string.Empty;
 
-        public override string ToString()
-        {
-            return
-                $"{nameof(Type)}: {Type}. " +
-                $"{nameof(Barcode)}: {Barcode}. ";
-        }
+        public override string ToString() => 
+            $"{nameof(Type)}: {Type}. " +
+            $"{nameof(Barcode)}: {Barcode}. ";
 
         public virtual bool Equals(ProductBarcodeEntity item)
         {
@@ -261,17 +255,14 @@ namespace DataCore.DAL.DataModels
         public string Okei { get; set; } = string.Empty;
         public string Unit { get; set; } = string.Empty;
 
-        public override string ToString()
-        {
-            return
-                $"{nameof(Description)}: {Description}. " +
-                $"{nameof(Heft)}: {Heft}. " +
-                $"{nameof(Capacity)}: {Capacity}. " +
-                $"{nameof(Rate)}: {Rate}. " +
-                $"{nameof(Threshold)}: {Threshold}. " +
-                $"{nameof(Okei)}: {Okei}. " +
-                $"{nameof(Unit)}: {Unit}. ";
-        }
+        public override string ToString() => 
+            $"{nameof(Description)}: {Description}. " +
+            $"{nameof(Heft)}: {Heft}. " +
+            $"{nameof(Capacity)}: {Capacity}. " +
+            $"{nameof(Rate)}: {Rate}. " +
+            $"{nameof(Threshold)}: {Threshold}. " +
+            $"{nameof(Okei)}: {Okei}. " +
+            $"{nameof(Unit)}: {Unit}. ";
 
         public virtual bool Equals(ProductBoxEntity item)
         {

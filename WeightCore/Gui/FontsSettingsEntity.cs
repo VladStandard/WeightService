@@ -22,7 +22,7 @@ namespace ScalesUI.Forms
 
         public FontsSettingsEntity()
         {
-            Resize(8.00f);
+            Resize(7.00f);
         }
 
         public void Transform(int width, int height)

@@ -24,6 +24,7 @@ namespace WeightCore.Managers
         private Button ButtonPrint { get; set; }
         private Button ButtonScalesInit { get; set; }
         private Button ButtonScalesTerminal { get; set; }
+        private PictureBox PictureBoxClose { get; set; }
         private ComboBox FieldLang { get; set; }
         private ComboBox FieldResolution { get; set; }
         private Label FieldKneading { get; set; }
@@ -51,7 +52,7 @@ namespace WeightCore.Managers
         public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate, 
             Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
             Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
-            Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal)
+            Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose)
         {
             try
             {
@@ -75,6 +76,7 @@ namespace WeightCore.Managers
                         ButtonPrint = buttonPrint;
                         ButtonScalesInit = buttonScalesInit;
                         ButtonScalesTerminal = buttonScalesTerminal;
+                        PictureBoxClose = pictureBoxClose;
 
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, SessionStateHelper.Instance.AppName);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
@@ -83,19 +85,8 @@ namespace WeightCore.Managers
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocaleCore.Scales.FieldKneading);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
-
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
-                        if (SessionStateHelper.Instance.CurrentScale?.IsKneading == true)
-                        {
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
-                        }
                     },
-                    new(1_000, 0_500, 0_500, 1_000, 5_000));
+                    new(1_000, 0_500, 0_500, 0_050, 5_000));
             }
             catch (Exception ex)
             {
@@ -217,6 +208,7 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, false);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(PictureBoxClose, false);
             
             base.ReleaseManaged();
         }
@@ -228,10 +220,16 @@ namespace WeightCore.Managers
 
         public void SetControlsVisible()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldResolution, Debug.IsDebug);
-            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldLang, Debug.IsDebug);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldResolution, Debug.IsDebug);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldLang, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
+            if (SessionStateHelper.Instance.CurrentScale?.IsKneading == true)
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
+            }
 
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonKneading, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonMore, true);
@@ -241,6 +239,23 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonPrint, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesInit, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesTerminal, true);
+            
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonKneading, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonMore, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonNewPallet, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonOrder, false);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonPlu, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonPrint, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesInit, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScalesTerminal, true);
+
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(PictureBoxClose, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(PictureBoxClose, true);
+
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldResolution, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldLang, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldResolution, Debug.IsDebug);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldLang, Debug.IsDebug);
         }
 
         #endregion

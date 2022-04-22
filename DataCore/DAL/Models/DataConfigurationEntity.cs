@@ -16,11 +16,9 @@ namespace DataCore.DAL.Models
             PageSize = pageSize;
         }
 
-        public override string ToString()
-        {
-            return $"{nameof(OrderAsc)}: {OrderAsc}. " +
-                   $"{nameof(PageNo)}: {PageNo}. " +
-                   $"{nameof(PageSize)}: {PageSize}.";
-        }
+        public override string ToString() =>
+            $"{nameof(OrderAsc)}: {OrderAsc}. " +
+            $"{nameof(PageNo)}: {PageNo}. " +
+            $"{nameof(PageSize)}: {PageSize}.";
     }
 }

@@ -48,10 +48,8 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return $"{nameof(Info)}: {Info}. ";
-        }
+        public override string ToString() =>
+            $"{nameof(Info)}: {Info}. ";
 
         public virtual bool Equals(ImageDataEntity item)
         {

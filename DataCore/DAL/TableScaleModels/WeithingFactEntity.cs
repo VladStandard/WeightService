@@ -55,10 +55,10 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
-            string? strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
-            string? strSeries = Serie != null ? Serie.IdentityId.ToString() : "null";
-            string? strOrder = Order != null ? Order.IdentityId.ToString() : "null";
+            string strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
+            string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
+            string strSeries = Serie != null ? Serie.IdentityId.ToString() : "null";
+            string strOrder = Order != null ? Order.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Plu)}: {strPlu}. " +
                    $"{nameof(Scale)}: {strScale}. " +

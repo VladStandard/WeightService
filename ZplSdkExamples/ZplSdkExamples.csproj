@@ -87,8 +87,8 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="Csv, Version=2.0.67.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Csv.2.0.67\lib\net40\Csv.dll</HintPath>
+    <Reference Include="Csv, Version=2.0.80.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Csv.2.0.80\lib\net40\Csv.dll</HintPath>
     </Reference>
     <Reference Include="MDSoft.WpfUtils, Version=0.1.111.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MDSoft.WpfUtils.0.1.111\lib\net472\MDSoft.WpfUtils.dll</HintPath>

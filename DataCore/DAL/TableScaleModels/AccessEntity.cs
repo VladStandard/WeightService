@@ -3,13 +3,14 @@
 
 using DataCore.DAL.Models;
 using System;
+using System.Runtime.Serialization;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
     /// Table "Access".
     /// </summary>
-    public class AccessEntity : BaseEntity
+    public class AccessEntity : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
 
@@ -35,12 +36,10 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $"{nameof(User)}: {User}. " +
-                   $"{nameof(Rights)}: {Rights}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(User)}: {User}. " +
+            $"{nameof(Rights)}: {Rights}. ";
 
         public virtual bool Equals(AccessEntity item)
         {
@@ -82,6 +81,13 @@ namespace DataCore.DAL.TableScaleModels
             item.User = User;
             item.Rights = Rights;
             return item;
+        }
+
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(User), User);
+            info.AddValue(nameof(Rights), Rights);
         }
 
         #endregion

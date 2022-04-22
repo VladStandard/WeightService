@@ -56,8 +56,8 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strAccessDt = AccessDt != null ? AccessDt.ToString() : "null";
-            string? strSettingsFileString = SettingsFile != null ? SettingsFile.Length.ToString() : "null";
+            string strAccessDt = AccessDt != null ? AccessDt.ToString() : "null";
+            string strSettingsFileString = SettingsFile != null ? SettingsFile.Length.ToString() : "null";
             return base.ToString() +
                    $"{nameof(AccessDt)}: {strAccessDt}. " +
                    $"{nameof(Name)}: {Name}. " +

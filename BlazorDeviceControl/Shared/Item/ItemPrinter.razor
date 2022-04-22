@@ -125,17 +125,17 @@ else
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocaleCore.Print.ResourcesClear Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocaleCore.Print.ResourcesClear Disabled=@(!AppSettings.DataAccess.IsConnected) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "TTF"))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!AppSettings.DataAccess.IsConnected) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "GRF"))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!AppSettings.DataAccess.IsConnected) />
 				</td>
             </tr>
         </tbody>

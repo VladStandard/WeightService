@@ -102,12 +102,12 @@ namespace DataCore.DAL.TableDwhModels
 
         public override string ToString()
         {
-            var strBrand = Brand != null ? Brand.IdentityId.ToString() : "null";
-            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
-            var strNomenclatureGroup = NomenclatureGroup != null ? NomenclatureGroup.IdentityId.ToString() : "null";
-            var strNomenclatureGroupCost = NomenclatureGroupCost != null ? NomenclatureGroupCost.IdentityId.ToString() : "null";
-            var strNomenclatureType = NomenclatureType != null ? NomenclatureType.IdentityId.ToString() : "null";
-            var strStatus = Status != null ? Status.IdentityId.ToString() : "null";
+            string strBrand = Brand != null ? Brand.IdentityId.ToString() : "null";
+            string strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
+            string strNomenclatureGroup = NomenclatureGroup != null ? NomenclatureGroup.IdentityId.ToString() : "null";
+            string strNomenclatureGroupCost = NomenclatureGroupCost != null ? NomenclatureGroupCost.IdentityId.ToString() : "null";
+            string strNomenclatureType = NomenclatureType != null ? NomenclatureType.IdentityId.ToString() : "null";
+            string strStatus = Status != null ? Status.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Code)}: {Code}. " +
                    $"{nameof(Name)}: {Name}. " +

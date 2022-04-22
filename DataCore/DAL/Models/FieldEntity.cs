@@ -45,11 +45,9 @@ namespace DataCore.DAL.Models
             return Name.GetHashCode();
         }
 
-        public override string ToString()
-        {
-            return $"{nameof(Name)}: {Name}. " +
-                   $"{nameof(Value)}: {Value}.";
-        }
+        public override string ToString() =>
+            $"{nameof(Name)}: {Name}. " +
+            $"{nameof(Value)}: {Value}. ";
 
         #endregion
     }

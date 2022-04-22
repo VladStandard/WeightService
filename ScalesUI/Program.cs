@@ -140,7 +140,7 @@ namespace ScalesUI
             _ = new Mutex(true, Application.ProductName, out bool createdNew);
             if (!createdNew)
             {
-                MessageBox.Show($@"Application {Application.ProductName} already running!");
+                MessageBox.Show($@"{LocaleCore.Strings.Application} {Application.ProductName} already running!");
                 Application.Exit();
             }
             else

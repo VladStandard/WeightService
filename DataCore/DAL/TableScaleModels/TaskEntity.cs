@@ -39,8 +39,8 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strTaskType = TaskType != null ? TaskType.IdentityUid.ToString() : "null";
-            string? strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
+            string strTaskType = TaskType != null ? TaskType.IdentityUid.ToString() : "null";
+            string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
             return base.ToString() +
                 $"{nameof(TaskType)}: {strTaskType}. " +
                 $"{nameof(Scale)}: {strScale}. " +

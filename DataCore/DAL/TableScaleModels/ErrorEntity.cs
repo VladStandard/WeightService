@@ -42,15 +42,13 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods - override
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $"{nameof(FilePath)}: {FilePath}. " +
-                   $"{nameof(LineNumber)}: {LineNumber}. " +
-                   $"{nameof(MemberName)}: {MemberName}. " +
-                   $"{nameof(Exception)}: {Exception}. " +
-                   $"{nameof(InnerException)}: {InnerException}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(FilePath)}: {FilePath}. " +
+            $"{nameof(LineNumber)}: {LineNumber}. " +
+            $"{nameof(MemberName)}: {MemberName}. " +
+            $"{nameof(Exception)}: {Exception}. " +
+            $"{nameof(InnerException)}: {InnerException}. ";
 
         public virtual bool Equals(ErrorEntity item)
         {

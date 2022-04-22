@@ -38,7 +38,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
+            string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Scale)}: {strScale}. " +
                    $"{nameof(IsClose)}: {IsClose}. " +

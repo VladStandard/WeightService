@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace DataCore.DAL.Models
@@ -13,8 +14,7 @@ namespace DataCore.DAL.Models
         Uid,
     }
 
-    public class BaseEntity : BaseSerializeEntity, ICloneable
-    //public class BaseEntity : ICloneable
+    public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
     {
         #region Public and private fields and properties
 
@@ -24,7 +24,7 @@ namespace DataCore.DAL.Models
         public virtual DateTime CreateDt { get; set; }
         public virtual Guid IdentityUid { get; set; }
         public virtual long IdentityId { get; set; }
-        public virtual string IdentityUidStr { get => (IdentityUid.ToString() is string str) ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        [XmlIgnore] public virtual string IdentityUidStr { get => (IdentityUid.ToString() is string str) ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 
         #endregion
 
@@ -64,12 +64,10 @@ namespace DataCore.DAL.Models
                 ColumnName.Uid => $"{nameof(IdentityUid)}: {IdentityUid}. ",
                 _ => $"{nameof(IdentityName)}: {IdentityName}. ",
             };
-            string strCreateDt = CreateDt != null ? CreateDt.ToString() : "null";
-            string strChangeDt = ChangeDt != null ? ChangeDt.ToString() : "null";
             return
                 $"{nameof(IdentityName)}: {strIdenttity}. " +
-                $"{nameof(CreateDt)}: {strCreateDt}. " +
-                $"{nameof(ChangeDt)}: {strChangeDt}. " +
+                $"{nameof(CreateDt)}: {(CreateDt != null ? CreateDt.ToString() : "null")}. " +
+                $"{nameof(ChangeDt)}: {(ChangeDt != null ? ChangeDt.ToString() : "null")}. " +
                 $"{nameof(IsMarked)}: {IsMarked}. ";
         }
 
@@ -110,6 +108,16 @@ namespace DataCore.DAL.Models
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((BaseEntity)obj);
+        }
+
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(IsMarked), IsMarked);
+            info.AddValue(nameof(ChangeDt), ChangeDt);
+            info.AddValue(nameof(CreateDt), CreateDt);
+            info.AddValue(nameof(IdentityUid), IdentityUid);
+            info.AddValue(nameof(IdentityId), IdentityId);
         }
 
         public virtual bool EqualsDefault() => Equals(IdentityName, ColumnName.Default) &&

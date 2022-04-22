@@ -41,9 +41,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strBarcodeType = BarcodeType != null ? BarcodeType.IdentityUid.ToString() : "null";
-            string? strContragent = Contragent != null ? Contragent.IdentityUid.ToString() : "null";
-            string? strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
+            string strBarcodeType = BarcodeType != null ? BarcodeType.IdentityUid.ToString() : "null";
+            string strContragent = Contragent != null ? Contragent.IdentityUid.ToString() : "null";
+            string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
             return base.ToString() +
                 $"{nameof(Value)}: {Value}. " +
                 $"{nameof(BarcodeType)}: {strBarcodeType}. " +

@@ -67,20 +67,18 @@ namespace DataCore.DAL.DataModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $"{nameof(ScaleId)}: {ScaleId}. " +
-                   $"{nameof(ScaleDescription)}: {ScaleDescription}. " +
-                   $"{nameof(PluId)}: {PluId}. " +
-                   $"{nameof(WeithingDate)}: {WeithingDate}. " +
-                   $"{nameof(NetWeight)}: {NetWeight}. " +
-                   $"{nameof(TareWeight)}: {TareWeight}. " +
-                   $"{nameof(ProductDate)}: {ProductDate}. " +
-                   $"{nameof(RegNum)}: {RegNum}. " +
-                   $"{nameof(Kneading)}: {Kneading}. " +
-                   $"{nameof(ZplInfo)}: {ZplInfo}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(ScaleId)}: {ScaleId}. " +
+            $"{nameof(ScaleDescription)}: {ScaleDescription}. " +
+            $"{nameof(PluId)}: {PluId}. " +
+            $"{nameof(WeithingDate)}: {WeithingDate}. " +
+            $"{nameof(NetWeight)}: {NetWeight}. " +
+            $"{nameof(TareWeight)}: {TareWeight}. " +
+            $"{nameof(ProductDate)}: {ProductDate}. " +
+            $"{nameof(RegNum)}: {RegNum}. " +
+            $"{nameof(Kneading)}: {Kneading}. " +
+            $"{nameof(ZplInfo)}: {ZplInfo}. ";
 
         public virtual bool Equals(LabelQuickEntity item)
         {

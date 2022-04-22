@@ -41,13 +41,11 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                $"{nameof(Code)}: {Code}. " +
-                $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " + 
-                $"{nameof(Weighted)}: {Weighted}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(Code)}: {Code}. " +
+            $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " +
+            $"{nameof(Weighted)}: {Weighted}. ";
 
         public virtual bool Equals(NomenclatureEntity item)
         {

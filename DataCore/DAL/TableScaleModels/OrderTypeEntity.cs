@@ -32,11 +32,9 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                $"{nameof(Description)}: {Description}.";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(Description)}: {Description}. ";
 
         public virtual bool Equals(OrderTypeEntity item)
         {

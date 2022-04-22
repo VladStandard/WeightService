@@ -55,7 +55,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strWeithingFact = WeithingFact != null ? WeithingFact.IdentityId.ToString() : "null";
+            string strWeithingFact = WeithingFact != null ? WeithingFact.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(WeithingFact)}: {strWeithingFact}. " +
                    $"{nameof(Label)}: {LabelString}. " +

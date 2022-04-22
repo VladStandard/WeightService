@@ -36,7 +36,7 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public ISession? GetSession() => SessionFactory?.OpenSession();
+        public ISession? OpenSession() => SessionFactory?.OpenSession();
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
@@ -104,7 +104,7 @@ namespace DataCore.DAL.Models
 
         private void ExecuteTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName, bool isException = false)
         {
-            using ISession? session = GetSession();
+            using ISession? session = OpenSession();
             Exception? exception = null;
             if (session != null)
             {
@@ -123,7 +123,10 @@ namespace DataCore.DAL.Models
                 }
                 finally
                 {
+                    transaction.Dispose();
                     session.Disconnect();
+                    session.Close();
+                    session.Dispose();
                 }
             }
             if (!isException && exception != null)

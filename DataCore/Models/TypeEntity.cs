@@ -14,11 +14,6 @@ namespace DataCore.Models
             Value = value;
         }
 
-        public override string ToString()
-        {
-            return
-                $"{nameof(Name)}: {Name}. " +
-                $"{nameof(Value)}: {Value}. ";
-        }
+        public override string ToString() => $"{nameof(Name)}: {Name}. " + $"{nameof(Value)}: {Value}. ";
     }
 }

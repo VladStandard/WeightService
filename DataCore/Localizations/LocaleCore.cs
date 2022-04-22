@@ -42,7 +42,8 @@ namespace DataCore.Localizations
             public static string AccessRightsNone => Lang == ShareEnums.Lang.English ? "No rights" : "Нет прав";
             public static string AccessRightsRead => Lang == ShareEnums.Lang.English ? "Read rights" : "Права на чтение";
             public static string AccessRightsWrite => Lang == ShareEnums.Lang.English ? "Write rights" : "Права на запись";
-            public static string AppName => Lang == ShareEnums.Lang.English ? "Devices Control" : "Управление устройствами";
+            public static string AppDevicesControlName => Lang == ShareEnums.Lang.English ? "Devices Control" : "Управление устройствами";
+            public static string Application => Lang == ShareEnums.Lang.English ? "Application" : "Приложение";
             public static string AppSettings => Lang == ShareEnums.Lang.English ? "App settings" : "Настройки приложения";
             public static string Authorization => Lang == ShareEnums.Lang.English ? "Authorization" : "Авторизация";
             public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";

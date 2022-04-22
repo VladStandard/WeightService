@@ -42,14 +42,12 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $"{nameof(CategoryId)}: {CategoryId}. " +
-                   $"{nameof(IdRRef)}: {IdRRef}. " +
-                   $"{nameof(Title)}: {Title}. " +
-                   $"{nameof(ImageData)}: {ImageData}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(CategoryId)}: {CategoryId}. " +
+            $"{nameof(IdRRef)}: {IdRRef}. " +
+            $"{nameof(Title)}: {Title}. " +
+            $"{nameof(ImageData)}: {ImageData}. ";
 
         public virtual bool Equals(TemplateEntity item)
         {

@@ -38,8 +38,8 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
-            string? strResource = Resource != null ? Resource.IdentityId.ToString() : "null";
+            string strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
+            string strResource = Resource != null ? Resource.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Printer)}: {strPrinter}. " +
                    $"{nameof(Resource)}: {strResource}. " +

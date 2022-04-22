@@ -56,10 +56,8 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return $"{nameof(Value)}: {ValuePrettyLookMinus}.";
-        }
+        public override string ToString() =>
+            $"{nameof(Value)}: {ValuePrettyLookMinus}. ";
 
         public virtual bool Equals(MacAddressEntity item)
         {

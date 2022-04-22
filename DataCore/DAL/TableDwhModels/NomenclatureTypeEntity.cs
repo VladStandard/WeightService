@@ -40,7 +40,7 @@ namespace DataCore.DAL.TableDwhModels
 
         public override string ToString()
         {
-            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
+            string strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(GoodsForSale)}: {GoodsForSale}. " +

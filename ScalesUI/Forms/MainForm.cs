@@ -118,7 +118,7 @@ namespace ScalesUI.Forms
             SessionState.Manager.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                 labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
                 ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint, 
-                ButtonScalesInit, ButtonScalesTerminal);
+                ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose);
             SessionState.Manager.Labels.Open();
             // Memory.
             SessionState.Manager.Memory.Init(fieldMemory, fieldTasks);
@@ -251,7 +251,6 @@ namespace ScalesUI.Forms
             labelKneading.Font = FontsSettings.FontLabelsBlack;
             fieldKneading.Font = FontsSettings.FontLabelsBlack;
             labelProductDate.Font = FontsSettings.FontLabelsBlack;
-            fieldResolution.Font = FontsSettings.FontLabelsBlack;
 
             if (ButtonScalesTerminal != null)
                 ButtonScalesTerminal.Font = FontsSettings.FontButtons;

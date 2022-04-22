@@ -25,9 +25,11 @@ namespace DataCore.Wmi
         public string Vendor { get; set; }
         public string Version { get; set; }
 
-        public override string ToString()
-        {
-            return $"Name: {Name}; Vendor: {Vendor}; Version: {Version}; Guid: {Guid}; Language: {Language}.";
-        }
+        public override string ToString() =>
+            $"{nameof(Name)}: {Name}. " +
+            $"{nameof(Vendor)}: {Vendor}. " +
+            $"{nameof(Version)}: {Version}. " +
+            $"{nameof(Guid)}: {Guid}. " +
+            $"{nameof(Language)}: {Language}.";
     }
 }

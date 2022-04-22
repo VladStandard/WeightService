@@ -53,10 +53,10 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strOrderTypes = OrderTypes != null ? OrderTypes.IdentityId.ToString() : "null";
-            string? strScales = Scales != null ? Scales.IdentityId.ToString() : "null";
-            string? strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
-            string? strTemplates = Templates != null ? Templates.IdentityId.ToString() : "null";
+            string strOrderTypes = OrderTypes != null ? OrderTypes.IdentityId.ToString() : "null";
+            string strScales = Scales != null ? Scales.IdentityId.ToString() : "null";
+            string strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
+            string strTemplates = Templates != null ? Templates.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(OrderTypes)}: {strOrderTypes}. " +
                    $"{nameof(ProductDate)}: {ProductDate}. " +

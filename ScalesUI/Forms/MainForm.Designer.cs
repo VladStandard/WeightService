@@ -401,6 +401,7 @@
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxClose.TabIndex = 19;
             this.pictureBoxClose.TabStop = false;
+            this.pictureBoxClose.Visible = false;
             this.pictureBoxClose.Click += new System.EventHandler(this.ActionClose_Click);
             this.pictureBoxClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 

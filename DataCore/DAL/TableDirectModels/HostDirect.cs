@@ -41,13 +41,10 @@ namespace DataCore.DAL.TableDirectModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return
-                $"{nameof(Name)}: {Name}." +
-                $"{nameof(Ip)}: {Ip}." +
-                $"{nameof(Mac)}: {Mac}.";
-        }
+        public override string ToString() => 
+            $"{nameof(Name)}: {Name}. " +
+            $"{nameof(Ip)}: {Ip}. " +
+            $"{nameof(Mac)}: {Mac}. ";
 
         #endregion
     }

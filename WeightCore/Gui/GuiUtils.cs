@@ -153,6 +153,7 @@ namespace WeightCore.Gui
                 {
                     Name = name,
                     Enabled = false,
+                    Visible = false,
                     BackColor = Color.Transparent,
                     Dock = DockStyle.Fill,
                     ForeColor = System.Drawing.SystemColors.ControlText,

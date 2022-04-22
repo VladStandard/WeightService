@@ -80,21 +80,7 @@ namespace WeightCore.Managers
                         FieldMassaSetCrc = fieldMassaSetCrc;
                         FieldMassaScalePar = fieldMassaScalePar;
 
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocalizationCore.Scales.FieldWeightNetto);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocalizationCore.Scales.FieldWeightTare);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocalizationCore.Scales.FieldThresholds);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocalizationCore.Scales.ComPort);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocalizationCore.Scales.Crc);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocalizationCore.Scales.ScaleQueue);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocalizationCore.Scales.Crc);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocalizationCore.Scales.RequestParameters);
-
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightNetto, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, true);
+                        SetControlsTextDefault();
                     },
                     new(waitReopen: 5_000, waitRequest: 0_100, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
             }
@@ -118,14 +104,10 @@ namespace WeightCore.Managers
                     }
                     if (SessionStateHelper.Instance.CurrentPlu == null)
                     {
-                        if (FieldThreshold.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, false);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, 
                             $"{LocalizationCore.Scales.FieldThresholds}: {LocalizationCore.Scales.StateDisable}");
                     }
                     else {
-                        if (!FieldThreshold.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, true);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, $"{LocalizationCore.Scales.FieldThresholds}: " +
                             (SessionStateHelper.Instance.CurrentPlu == null ? $"{LocalizationCore.Scales.StateDisable}" :
                             $"{LocalizationCore.Scales.FieldThresholdLower}: {SessionStateHelper.Instance.CurrentPlu.LowerWeightThreshold:0.000} {LocalizationCore.Scales.UnitKg} | " +
@@ -136,6 +118,7 @@ namespace WeightCore.Managers
                 // Request.
                 () =>
                 {
+                    SetControlsVisible(true, true);
                     if (SessionStateHelper.Instance.CurrentPlu?.IsCheckWeight == true)
                     {
                         if (MassaDevice?.IsConnected == true)
@@ -145,37 +128,12 @@ namespace WeightCore.Managers
                         RequestMassa();
                         RequestGetMassa();
                         RequestSetMassa();
-                        if (!FieldMassaGet.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, true);
-                        if (!FieldMassaSet.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSet, true);
-                        if (!FieldMassaScalePar.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaScalePar, true);
-                        if (!FieldMassaGetCrc.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, true);
-                        if (!FieldMassaSetCrc.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, true);
-                        if (!FieldMassaProgress.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, true);
+                        SetControlsVisible(false, true);
                     }
-                    else {
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, $"{LocalizationCore.Scales.ComPort}: {LocalizationCore.Scales.StateDisable}");
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocalizationCore.Scales.Crc}");
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, $"{LocalizationCore.Scales.ScaleQueue} : {LocalizationCore.Scales.StateDisable}");
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, $"{LocalizationCore.Scales.Crc}");
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, $"{LocalizationCore.Scales.RequestParameters}: {LocalizationCore.Scales.StateDisable}");
-                        if (FieldMassaGet.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, false);
-                        if (FieldMassaSet.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSet, false);
-                        if (FieldMassaScalePar.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaScalePar, false);
-                        if (FieldMassaGetCrc.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, false);
-                        if (FieldMassaSetCrc.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, false);
-                        if (FieldMassaProgress.Visible)
-                            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, false);
+                    else
+                    {
+                        SetControlsTextDefault();
+                        SetControlsVisible(false, false);
                     }
                 },
                 // Response.
@@ -193,6 +151,61 @@ namespace WeightCore.Managers
             catch (Exception ex)
             {
                 Exception.Catch(null, ref ex, false);
+            }
+        }
+
+        private void SetControlsTextDefault()
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocalizationCore.Scales.FieldWeightNetto);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocalizationCore.Scales.FieldWeightTare);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocalizationCore.Scales.FieldThresholds);
+            
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocalizationCore.Scales.ComPort);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocalizationCore.Scales.Crc);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocalizationCore.Scales.ScaleQueue);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocalizationCore.Scales.Crc);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocalizationCore.Scales.RequestParameters);
+        }
+
+        private void SetControlsVisible(bool isTop, bool isVisible)
+        {
+            if (isTop)
+            {
+                if (LabelWeightNetto.Visible != isVisible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightNetto, isVisible);
+                if (FieldWeightNetto.Visible != isVisible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, isVisible);
+                if (LabelWeightTare.Visible != isVisible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, isVisible);
+                if (FieldWeightTare.Visible != isVisible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, isVisible);
+            }
+            else {
+                if (SessionStateHelper.Instance.CurrentPlu == null)
+                {
+                    if (FieldThreshold.Visible != isVisible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, isVisible);
+                }
+                else
+                {
+                    if (!FieldThreshold.Visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, true);
+                }
+
+                if (FieldMassaGet.Visible != isVisible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, isVisible);
+                if (!FieldMassaSet.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSet, isVisible);
+                if (!FieldMassaScalePar.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaScalePar, isVisible);
+                if (!FieldMassaGetCrc.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, isVisible);
+                if (!FieldMassaSetCrc.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, isVisible);
+                if (!FieldMassaProgress.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, isVisible);
             }
         }
 
@@ -283,17 +296,8 @@ namespace WeightCore.Managers
 
         public new void ReleaseManaged()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightNetto, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSet, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, false);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaScalePar, false);
+            SetControlsVisible(true, false);
+            SetControlsVisible(false, false);
 
             ResponseParseScalePar = null;
             ResponseParseGet = null;

@@ -81,13 +81,13 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strTemplateDefault = TemplateDefault != null ? TemplateDefault.IdentityId.ToString() : "null";
-            string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.IdentityId.ToString() : "null";
-            string? strWorkShop = WorkShop != null ? WorkShop.IdentityId.ToString() : "null";
-            string? strPrinterMain = PrinterMain != null ? PrinterMain.IdentityId.ToString() : "null";
-            string? strPrinterShipping = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
-            string? strPrinterVehicle = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
-            string? strHost = Host != null ? Host.IdentityId.ToString() : "null";
+            string strTemplateDefault = TemplateDefault != null ? TemplateDefault.IdentityId.ToString() : "null";
+            string strTemplateSeries = TemplateSeries != null ? TemplateSeries.IdentityId.ToString() : "null";
+            string strWorkShop = WorkShop != null ? WorkShop.IdentityId.ToString() : "null";
+            string strPrinterMain = PrinterMain != null ? PrinterMain.IdentityId.ToString() : "null";
+            string strPrinterShipping = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
+            string strPrinterVehicle = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
+            string strHost = Host != null ? Host.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Description)}: {Description}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +

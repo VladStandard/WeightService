@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -14,7 +15,7 @@ using static DataCore.ShareEnums;
 namespace DataCore.DAL.Models
 {
     [Serializable()]
-    public class BaseSerializeEntity
+    public class BaseSerializeEntity : ISerializable
     {
         #region Public and private fields and properties
 
@@ -130,6 +131,11 @@ namespace DataCore.DAL.Models
                 FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
                 _ => throw GetArgumentException(nameof(format)),
             };
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            //info.AddValue(nameof(SqlConnect), SqlConnect);
         }
 
         #endregion

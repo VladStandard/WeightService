@@ -37,13 +37,11 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                $"{nameof(OrderId)}: {OrderId}. " +
-                $"{nameof(CurrentDate)}: {CurrentDate}. " +
-                $"{nameof(CurrentStatus)}: {CurrentStatus}.";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(OrderId)}: {OrderId}. " +
+            $"{nameof(CurrentDate)}: {CurrentDate}. " +
+            $"{nameof(CurrentStatus)}: {CurrentStatus}. ";
 
         public virtual bool Equals(OrderStatusEntity item)
         {

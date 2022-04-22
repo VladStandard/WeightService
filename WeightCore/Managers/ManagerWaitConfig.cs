@@ -22,7 +22,7 @@ namespace WeightCore.Managers
             WaitReopen = waitReopen == 0 ? (ushort)1_000 : waitReopen;
             WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
             WaitResponse = waitResponse == 0 ? (ushort)500 : waitResponse;
-            WaitClose = waitClose == 0 ? (ushort)2_000 : waitClose;
+            WaitClose = waitClose == 0 ? (ushort)0_200 : waitClose;
             WaitException = waitException == 0 ? (ushort)1_000 : waitException;
         }
 

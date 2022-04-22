@@ -37,15 +37,13 @@ namespace DataCore.DAL.TableDwhModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            return base.ToString() +
-                $"{nameof(Name)}: {Name}. " +
-                $"{nameof(ConnectString1)}: {ConnectString1}. " +
-                $"{nameof(ConnectString2)}: {ConnectString2}. " +
-                $"{nameof(ConnectString3)}: {ConnectString3}. " +
-                $"{nameof(StatusId)}: {StatusId}. ";
-        }
+        public override string ToString() =>
+            base.ToString() +
+            $"{nameof(Name)}: {Name}. " +
+            $"{nameof(ConnectString1)}: {ConnectString1}. " +
+            $"{nameof(ConnectString2)}: {ConnectString2}. " +
+            $"{nameof(ConnectString3)}: {ConnectString3}. " +
+            $"{nameof(StatusId)}: {StatusId}. ";
 
         public virtual bool Equals(InformationSystemEntity item)
         {

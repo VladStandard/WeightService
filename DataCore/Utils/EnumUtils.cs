@@ -25,8 +25,8 @@ namespace DataCore.Utils
         // https://stackoverflow.com/questions/79126/create-generic-method-constraining-t-to-an-enum
         public static Dictionary<int, string> EnumNamedValues<T>() where T : Enum
         {
-            var result = new Dictionary<int, string>();
-            var values = Enum.GetValues(typeof(T));
+            Dictionary<int, string>? result = new Dictionary<int, string>();
+            Array? values = Enum.GetValues(typeof(T));
 
             foreach (int item in values)
                 result.Add(item, Enum.GetName(typeof(T), item));
@@ -92,7 +92,7 @@ namespace DataCore.Utils
 
         public static IEnumerable<TypeEntity<short>> GetEnumRelevenaceStatusesRus()
         {
-            var result = new List<TypeEntity<short>>
+            List<TypeEntity<short>>? result = new List<TypeEntity<short>>
             {
                 new TypeEntity<short>("Неизвестно", 0),
                 new TypeEntity<short>("Актуально", 1),
@@ -108,7 +108,7 @@ namespace DataCore.Utils
 
         public static IEnumerable<TypeEntity<short>> GetEnumNormilizationStatusesRus()
         {
-            var result = new List<TypeEntity<short>>
+            List<TypeEntity<short>>? result = new List<TypeEntity<short>>
             {
                 new TypeEntity<short>("Ненормализована", 0),
                 new TypeEntity<short>("Нормализована полностью", 1),

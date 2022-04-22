@@ -5,9 +5,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
-    <FileVersion>0.6.520.0</FileVersion>
-    <AssemblyVersion>0.6.520.0</AssemblyVersion>
-    <Version>0.6.520.0</Version>
+    <FileVersion>0.6.525.0</FileVersion>
+    <AssemblyVersion>0.6.525.0</AssemblyVersion>
+    <Version>0.6.525.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />
