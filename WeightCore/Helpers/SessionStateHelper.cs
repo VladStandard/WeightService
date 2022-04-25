@@ -94,13 +94,42 @@ namespace WeightCore.Helpers
         public WeighingSettingsEntity WeighingSettings { get; set; }
         public Stopwatch StopwatchMain { get; set; }
 
+        public static readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+31);
+        public static readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
+        private DateTime _productDate;
+        public DateTime ProductDate
+        {
+            get => _productDate;
+            set
+            {
+                _productDate = value;
+                if (Manager == null || Manager.PrintMain == null)
+                    return;
+            }
+        }
+
+        private PluDirect _currentPlu;
+        [XmlElement]
+        public PluDirect CurrentPlu
+        {
+            get => _currentPlu;
+            private set
+            {
+                _currentPlu = value;
+                Manager.PrintMain.CurrentLabels = 1;
+                Manager.PrintShipping.CurrentLabels = 1;
+                if (Manager == null || Manager.PrintMain == null)
+                    return;
+                //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
+            }
+        }
+
         #endregion
 
         #region Constructor and destructor
 
         public SessionStateHelper()
         {
-            //DataAccess.Setup(Directory.GetCurrentDirectory());
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
             //CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
@@ -115,25 +144,9 @@ namespace WeightCore.Helpers
             WeighingSettings = new();
         }
 
-        //~SessionStateHelper()
-        //{
-        //    Dispose();
-        //}
-
-        //public void Dispose()
-        //{
-        //    Dispose(false);
-        //}
-
-        //public virtual void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //        Manager?.Dispose(disposing);
-        //}
-
         #endregion
 
-        #region CurrentBox
+        #region Public and private methods
 
         public void NewPallet()
         {
@@ -142,26 +155,6 @@ namespace WeightCore.Helpers
             //if (Manager == null || Manager.Print == null)
             //    return;
             //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
-        }
-
-        #endregion
-
-        #region ProductDate
-
-        public static readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+31);
-        public static readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
-
-        private DateTime _productDate;
-
-        public DateTime ProductDate
-        {
-            get => _productDate;
-            set
-            {
-                _productDate = value;
-                if (Manager == null || Manager.PrintMain == null)
-                    return;
-            }
         }
 
         public void RotateProductDate(ProjectsEnums.Direction direction)
@@ -180,34 +173,10 @@ namespace WeightCore.Helpers
             }
         }
 
-        #endregion
-
-        #region PluEntity
-
-        private PluDirect _currentPlu;
-        [XmlElement(IsNullable = true)]
-        public PluDirect CurrentPlu
-        {
-            get => _currentPlu;
-            private set
-            {
-                _currentPlu = value;
-                Manager.PrintMain.CurrentLabels = 1;
-                Manager.PrintShipping.CurrentLabels = 1;
-                if (Manager == null || Manager.PrintMain == null)
-                    return;
-                //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
-            }
-        }
-
         public void SetCurrentPlu(PluDirect plu)
         {
             CurrentPlu = plu;
         }
-
-        #endregion
-
-        #region PrintMethods
 
         /// <summary>
         /// Check PLU is empty.

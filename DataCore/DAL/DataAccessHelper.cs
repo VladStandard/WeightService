@@ -24,6 +24,7 @@ namespace DataCore.DAL
 
         #region Public and private fields and properties
 
+        public string DirLanAppSettings => @"\\palych\Install\VSSoft\appsettings\";
         private string _connectionString;
         public string ConnectionString
         {
@@ -130,13 +131,12 @@ namespace DataCore.DAL
         {
             get
             {
-                bool result = false;
                 NHibernate.ISession? session = OpenSession();
                 if (session != null)
                 {
                     try
                     {
-                        result = !session.IsConnected;
+                        return session.IsConnected;
                     }
                     finally
                     {
@@ -145,7 +145,7 @@ namespace DataCore.DAL
                         session.Dispose();
                     }
                 }
-                return result;
+                return false;
             }
         }
 
@@ -164,9 +164,9 @@ namespace DataCore.DAL
 
         #region Public and private methods
 
-        public bool SetupForBlazorApp(string contentRootPath)
+        public bool SetupForBlazorApp(string rootDir)
         {
-            if (Setup(contentRootPath))
+            if (Setup(rootDir))
                 return true;
             string subDir =
 #if DEBUG
@@ -174,9 +174,22 @@ namespace DataCore.DAL
 #else
                 @"bin\x64\Release\net6.0\";
 #endif
-            string dir = Path.Combine(contentRootPath, subDir);
+            string dir = Path.Combine(rootDir, subDir);
             if (Setup(dir))
                 return true;
+            else
+                if (DownloadAppSettings(dir) && Setup(dir))
+                    return true;
+            return false;
+        }
+
+        public bool SetupForTests(string rootDir)
+        {
+            if (Setup(rootDir))
+                return true;
+            else
+                if (DownloadAppSettings(rootDir) && Setup(rootDir))
+                    return true;
             return false;
         }
 
@@ -213,15 +226,14 @@ namespace DataCore.DAL
 
         public bool DownloadAppSettings(string dirLocal)
         {
-            string dirRemote = @"\\palych\Install\VSSoft\appsettings\";
-            if (!Directory.Exists(dirRemote))
+            if (!Directory.Exists(DirLanAppSettings))
                 return false;
 
-            if (!DownloadFile(dirLocal, dirRemote, "appsettings.json"))
+            if (!DownloadFile(dirLocal, DirLanAppSettings, "appsettings.json"))
                 return false;
-            if (!DownloadFile(dirLocal, dirRemote, "appsettings.Debug.json"))
+            if (!DownloadFile(dirLocal, DirLanAppSettings, "appsettings.Debug.json"))
                 return false;
-            if (!DownloadFile(dirLocal, dirRemote, "appsettings.Release.json"))
+            if (!DownloadFile(dirLocal, DirLanAppSettings, "appsettings.Release.json"))
                 return false;
 
             return true;

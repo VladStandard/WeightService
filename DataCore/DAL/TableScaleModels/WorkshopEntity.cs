@@ -78,7 +78,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             if (ProductionFacility != null && !ProductionFacility.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Name, string.Empty) &&
                    Equals(IdRRef, Guid.Empty);
         }

@@ -78,7 +78,7 @@ namespace DataCore.DAL.DataModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(WeithingDate, DateTime.MinValue) &&
                    Equals(Count, 0) &&
                    Equals(Scale, string.Empty) &&

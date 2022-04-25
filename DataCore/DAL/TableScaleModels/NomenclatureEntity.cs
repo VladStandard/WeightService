@@ -78,7 +78,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Code, string.Empty) &&
                    Equals(Name, string.Empty) &&
                    Equals(SerializedRepresentationObject, string.Empty) &&

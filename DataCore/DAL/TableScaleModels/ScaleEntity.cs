@@ -177,7 +177,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (Host != null && !Host.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Description, string.Empty) &&
                    Equals(IdRRef, Guid.Empty) &&
                    Equals(DeviceIp, string.Empty) &&

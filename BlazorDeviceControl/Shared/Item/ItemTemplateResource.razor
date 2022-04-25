@@ -95,7 +95,7 @@ else
 {
     <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                     AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                    Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
+                    Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name" 
                     ValueProperty="Value"
                     Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
 }

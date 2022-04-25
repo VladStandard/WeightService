@@ -73,10 +73,10 @@ namespace DataCore.DAL.TableScaleModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(OrderId, string.Empty) &&
                    Equals(CurrentDate, DateTime.MinValue) &&
-                   Equals(CurrentStatus, 0x00);
+                   Equals(CurrentStatus, (byte)0x00);
         }
 
         public override object Clone()

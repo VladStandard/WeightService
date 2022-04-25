@@ -83,7 +83,7 @@ namespace DataCore.DAL.TableDwhModels
         {
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Name, string.Empty) &&
                    Equals(GoodsForSale, false) &&
                    Equals(StatusId, 0) &&

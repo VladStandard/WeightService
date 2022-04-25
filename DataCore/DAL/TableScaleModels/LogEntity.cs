@@ -108,7 +108,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (LogType != null && !LogType.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Scale, string.Empty) &&
                    Equals(Version, string.Empty) &&
                    Equals(File, string.Empty) &&

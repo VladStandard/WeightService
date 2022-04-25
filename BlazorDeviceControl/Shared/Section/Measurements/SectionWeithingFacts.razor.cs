@@ -55,7 +55,8 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                         Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
                             (IsShowMarkedItems == true) ? null
                                 : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
-                            new FieldOrderEntity(DbField.WeithingDate, DbOrderDirection.Desc), IsShowTop100 ? 100 : 0)
+                            new FieldOrderEntity(DbField.WeithingDate, DbOrderDirection.Desc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, true, true, true, true, false, false);

@@ -80,7 +80,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (Resource != null && !Resource.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Description, string.Empty);
         }
 

@@ -23,11 +23,11 @@ else
         Data=@ItemsCast TItem="LogQuickEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
                 TItem="LogQuickEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="14%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
@@ -35,7 +35,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Title=@LocaleCore.Table.Host Type="string" Width="14%" >
+                TItem="LogQuickEntity" Title=@LocaleCore.Table.Host Type="string" Width="13%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
@@ -53,8 +53,8 @@ else
                 Title=@LocaleCore.Table.Row Type="int" Width="5%">
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Version" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Member Type="string" Width="5%" />
+                TItem="LogQuickEntity" Property="Version" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.Version Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Icon" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Icon Type="string" Width="7%" />
@@ -63,8 +63,8 @@ else
                 Title=@LocaleCore.Table.Message Type="string" Width="35%">
                 <Template Context="logItem">
                     <RadzenLabel 
-                        Style="height: 80%; width=80%; white-space: pre-wrap; " 
-                        Text=@logItem.Message Disabled=false />
+                        Style="white-space: pre-wrap; " 
+                        Text=@logItem.Message />
                 </Template>
             </RadzenGridColumn>
         </Columns>

@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared.Component
                 IsShowItemsCount = ParentRazor.IsShowItemsCount;
                 IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
                 IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
-                IsShowTop100 = ParentRazor.IsShowTop100;
+                IsSelectTopRows = ParentRazor.IsSelectTopRows;
             }
         }
 

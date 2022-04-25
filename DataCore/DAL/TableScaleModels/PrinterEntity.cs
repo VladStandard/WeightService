@@ -109,7 +109,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (MacAddress != null && !MacAddress.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Name, string.Empty) &&
                    Equals(Ip, string.Empty) &&
                    Equals(Port, 0) &&

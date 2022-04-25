@@ -30,7 +30,7 @@ namespace BlazorCore.Models
         public MemoryEntity Memory { get; set; } = new();
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
-        public int SectionRowCount => DataAccess.JsonSettings == null ? 100 : DataAccess.JsonSettings.SectionRowCount;
+        public int SectionRowsCount => DataAccess.JsonSettings == null ? 100 : DataAccess.JsonSettings.SectionRowsCount;
         public static int Delay => 5_000;
         public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null

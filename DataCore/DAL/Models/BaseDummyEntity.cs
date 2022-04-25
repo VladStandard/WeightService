@@ -63,7 +63,7 @@ namespace DataCore.DAL.Models
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault();
+            return base.EqualsDefault(IdentityName);
         }
 
         public override object Clone()

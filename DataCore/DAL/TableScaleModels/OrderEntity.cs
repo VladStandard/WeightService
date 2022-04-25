@@ -115,7 +115,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (Templates != null && !Templates.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(ProductDate, DateTime.MinValue) &&
                    Equals(PlaneBoxCount, null) &&
                    Equals(PlanePalletCount, null) &&

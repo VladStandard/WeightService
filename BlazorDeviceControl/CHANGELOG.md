@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.530] - 2022-04-25
+### Fixed
+- DataCore.Files.JsonSettingsEntity
+### Описание обновления:
+- Настройки приложения: параметр "Отображать первые х строк"
+
 ## [0.6.520] - 2022-04-21
 ### Fixed
 - Shared.Section.SectionScales

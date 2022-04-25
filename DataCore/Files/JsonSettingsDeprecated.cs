@@ -87,22 +87,22 @@
 //                    Configuration[$"{nameof(IsDebug)}"] = value.ToString();
 //            }
 //        }
-//        public int SectionRowCount
+//        public int SectionRowsCount
 //        {
-//            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(SectionRowCount)}"]);
+//            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(SectionRowsCount)}"]);
 //            set
 //            {
 //                if (Configuration != null)
-//                    Configuration[$"{nameof(SectionRowCount)}"] = value.ToString();
+//                    Configuration[$"{nameof(SectionRowsCount)}"] = value.ToString();
 //            }
 //        }
-//        public int ItemRowCount
+//        public int ItemRowsCount
 //        {
-//            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(ItemRowCount)}"]);
+//            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(ItemRowsCount)}"]);
 //            set
 //            {
 //                if (Configuration != null)
-//                    Configuration[$"{nameof(ItemRowCount)}"] = value.ToString();
+//                    Configuration[$"{nameof(ItemRowsCount)}"] = value.ToString();
 //            }
 //        }
 
@@ -130,8 +130,8 @@
 //                   $"{strTrusted} " +
 //                   $"{nameof(TrustServerCertificate)}: {TrustServerCertificate}. " +
 //                   $"{nameof(IsDebug)}: {IsDebug}. " +
-//                   $"{nameof(SectionRowCount)}: {SectionRowCount}. " +
-//                   $"{nameof(ItemRowCount)}: {ItemRowCount}. ";
+//                   $"{nameof(SectionRowsCount)}: {SectionRowsCount}. " +
+//                   $"{nameof(ItemRowsCount)}: {ItemRowsCount}. ";
 //        }
 
 //        public bool CheckProperties(bool isGenerateException)

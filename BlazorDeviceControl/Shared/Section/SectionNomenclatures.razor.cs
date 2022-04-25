@@ -52,7 +52,8 @@ namespace BlazorDeviceControl.Shared.Section
 
                     if (AppSettings.DataAccess != null)
                         Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
+                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;

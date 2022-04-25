@@ -78,7 +78,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             if (Scale != null && !Scale.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(IsClose, false) &&
                    Equals(Sscc, string.Empty);
         }

@@ -14,16 +14,17 @@ namespace DataCore.DAL.Models
         Uid,
     }
 
+    [Serializable]
     public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
     {
         #region Public and private fields and properties
 
-        public virtual bool IsMarked { get; set; }
         [XmlIgnore] public virtual ColumnName IdentityName { get; private set; }
-        public virtual DateTime ChangeDt { get; set; }
-        public virtual DateTime CreateDt { get; set; }
         public virtual Guid IdentityUid { get; set; }
         public virtual long IdentityId { get; set; }
+        public virtual DateTime CreateDt { get; set; }
+        public virtual DateTime ChangeDt { get; set; }
+        public virtual bool IsMarked { get; set; }
         [XmlIgnore] public virtual string IdentityUidStr { get => (IdentityUid.ToString() is string str) ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 
         #endregion
@@ -52,9 +53,29 @@ namespace DataCore.DAL.Models
             IdentityUid = identityUid;
         }
 
+        public BaseEntity(SerializationInfo info, StreamingContext context)
+        {
+            IdentityName = GetColumnName(info.GetString(nameof(IdentityName)));
+            CreateDt = info.GetDateTime(nameof(CreateDt));
+            ChangeDt = info.GetDateTime(nameof(ChangeDt));
+            IsMarked = info.GetBoolean(nameof(IsMarked));
+            IdentityUid = Guid.Parse(info.GetString(nameof(IdentityUid)));
+            IdentityId = info.GetInt64(nameof(IdentityId));
+        }
+
         #endregion
 
         #region Public and private methods
+
+        private ColumnName GetColumnName(string columnName)
+        {
+            return columnName switch
+            {
+                "Id" => ColumnName.Id,
+                "Uid" => ColumnName.Uid,
+                _ => ColumnName.Default,
+            };
+        }
 
         public override string ToString()
         {
@@ -120,12 +141,28 @@ namespace DataCore.DAL.Models
             info.AddValue(nameof(IdentityId), IdentityId);
         }
 
-        public virtual bool EqualsDefault() => Equals(IdentityName, ColumnName.Default) &&
-                Equals(IdentityId, 0) &&
+        [Obsolete(@"Use EqualsDefault(ColumnName columnName)")]
+        public virtual bool EqualsDefault()
+        {
+            return
+                Equals(IdentityName, ColumnName.Default) &&
+                Equals(IdentityId, (long)0) &&
                 Equals(IdentityUid, Guid.Empty) &&
-                Equals(CreateDt, default) &&
-                Equals(ChangeDt, default) &&
+                Equals(CreateDt, DateTime.MinValue) &&
+                Equals(ChangeDt, DateTime.MinValue) &&
                 Equals(IsMarked, false);
+        }
+
+        public virtual bool EqualsDefault(ColumnName columnName)
+        {
+            return
+                Equals(IdentityName, columnName) &&
+                Equals(IdentityId, (long)0) &&
+                Equals(IdentityUid, Guid.Empty) &&
+                Equals(CreateDt, DateTime.MinValue) &&
+                Equals(ChangeDt, DateTime.MinValue) &&
+                Equals(IsMarked, false);
+        }
 
         public virtual object Clone() => new BaseEntity()
         {
@@ -136,6 +173,16 @@ namespace DataCore.DAL.Models
             ChangeDt = ChangeDt,
             IsMarked = IsMarked,
         };
+
+        public virtual void Setup(BaseEntity baseItem)
+        {
+            IdentityName = baseItem.IdentityName;
+            IdentityId = baseItem.IdentityId;
+            IdentityUid = baseItem.IdentityUid;
+            CreateDt = baseItem.CreateDt;
+            ChangeDt = baseItem.ChangeDt;
+            IsMarked = baseItem.IsMarked;
+        }
 
         #endregion
     }

@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-
+    <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Errata" Version="0.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
@@ -15,26 +12,14 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
   </ItemGroup>
-
   <ItemGroup>
+    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.Debug.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-    </None>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.Release.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
-    <AssemblyVersion>0.6.525.0</AssemblyVersion>
-    <FileVersion>0.6.525.0</FileVersion>
-    <Version>0.6.525.0</Version>
+    <AssemblyVersion>0.6.530.0</AssemblyVersion>
+    <FileVersion>0.6.530.0</FileVersion>
+    <Version>0.6.530.0</Version>
   </PropertyGroup>
 </Project>

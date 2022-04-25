@@ -156,6 +156,50 @@
                 </td>
             }
         </tr>
+        <tr>
+            <td>@LocaleCore.Settings.SectionRowsCount</td>
+            @if (AppSettings.DataAccess.JsonSettings == null)
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.SectionRowsCount</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocaleCore.Settings.ItemRowsCount</td>
+            @if (AppSettings.DataAccess.JsonSettings == null)
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.ItemRowsCount</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocaleCore.Settings.SelectTopRowsCount</td>
+            @if (AppSettings.DataAccess.JsonSettings == null)
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.SelectTopRowsCount</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocaleCore.Settings.AllowedHosts</td>
+            @if (AppSettings.DataAccess.JsonSettings == null)
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.AllowedHosts</MudElement></td>
+            }
+        </tr>
     </tbody>
 </MudSimpleTable>
 <br />
@@ -196,7 +240,7 @@
                     <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                         Disabled=false TValue=@ShareEnums.Lang
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
+                        Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name" 
                         ValueProperty="Value" Value=@LocaleCore.Lang
                         Change=@(args => OnLocalizationValueChange(TemplateLanguages, args)) 
                     />

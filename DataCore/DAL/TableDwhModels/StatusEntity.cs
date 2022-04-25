@@ -61,7 +61,7 @@ namespace DataCore.DAL.TableDwhModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Name, string.Empty);
         }
 

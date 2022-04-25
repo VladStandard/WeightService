@@ -10,6 +10,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Table "Access".
     /// </summary>
+    [Serializable]
     public class AccessEntity : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
@@ -32,12 +33,27 @@ namespace DataCore.DAL.TableScaleModels
             Rights = 0x00;
         }
 
+        public AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            User = info.GetString(nameof(User));
+            Rights = info.GetByte(nameof(Rights));
+        }
+
+        private AccessEntity(BaseEntity baseItem) : this()
+        {
+            base.Setup(baseItem);
+        }
+
         #endregion
 
         #region Public and private methods
 
         public override string ToString() =>
             base.ToString() +
+            $"{nameof(User)}: {User}. " +
+            $"{nameof(Rights)}: {Rights}. ";
+
+        public virtual string ToStringShort() =>
             $"{nameof(User)}: {User}. " +
             $"{nameof(Rights)}: {Rights}. ";
 
@@ -70,18 +86,22 @@ namespace DataCore.DAL.TableScaleModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(User, string.Empty) &&
-                   Equals(Rights, 0x00);
+                   Equals(Rights, (byte)0x00);
         }
 
         public override object Clone()
         {
-            AccessEntity item = (AccessEntity)base.Clone();
-            item.User = User;
-            item.Rights = Rights;
+            AccessEntity item = new((BaseEntity)base.Clone())
+            {
+                User = User,
+                Rights = Rights,
+            };
             return item;
         }
+
+        public virtual AccessEntity CloneCast() => (AccessEntity)Clone();
 
         public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {

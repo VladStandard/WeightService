@@ -61,7 +61,7 @@ namespace DataCore.DAL.DataModels
         {
             if (Scales != null && !Scales.EqualsDefault())
                 return false;
-            return base.EqualsDefault();
+            return base.EqualsDefault(IdentityName);
         }
 
         public override object Clone()

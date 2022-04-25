@@ -54,7 +54,8 @@ namespace BlazorDeviceControl.Shared.Section
                     if (AppSettings.DataAccess != null)
                     {
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                            SqlQueries.DbServiceManaging.Tables.Logs.GetLogs(IsShowTop100 ? 100 : 0));
+                            SqlQueries.DbServiceManaging.Tables.Logs.GetLogs(
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0));
                         Items = new List<LogQuickEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {

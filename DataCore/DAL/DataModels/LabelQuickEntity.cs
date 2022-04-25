@@ -118,7 +118,7 @@ namespace DataCore.DAL.DataModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(ScaleId, 0) &&
                    Equals(ScaleDescription, string.Empty) &&
                    Equals(PluId, 0) &&

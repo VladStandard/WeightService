@@ -119,7 +119,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (Order != null && !Order.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Sscc, string.Empty) &&
                    Equals(WeithingDate, DateTime.MinValue) &&
                    Equals(NetWeight, 0) &&

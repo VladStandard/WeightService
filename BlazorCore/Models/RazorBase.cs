@@ -36,7 +36,7 @@ namespace BlazorCore.Models
         [Parameter] public bool IsShowItemsCount { get; set; }
         [Parameter] public bool IsShowMarkedFilter { get; set; }
         [Parameter] public bool IsShowMarkedItems { get; set; }
-        [Parameter] public bool IsShowTop100 { get; set; }
+        [Parameter] public bool IsSelectTopRows { get; set; }
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
         [Parameter] public DbTableAction TableAction { get; set; }
         [Parameter] public Guid? IdentityUid { get; set; }
@@ -69,7 +69,7 @@ namespace BlazorCore.Models
             IsShowItemsCount = false;
             IsShowMarkedFilter = false;
             IsShowMarkedItems = false;
-            IsShowTop100 = true;
+            IsSelectTopRows = true;
             Item = null;
             ItemFilter = null;
             Items = null;
@@ -101,7 +101,7 @@ namespace BlazorCore.Models
                             if (value is bool isShowMarkedItems)
                                 IsShowMarkedItems = isShowMarkedItems;
                             break;
-                        case nameof(IsShowTop100):
+                        case nameof(IsSelectTopRows):
                             if (value is bool isShowTOp100)
                                 IsShowMarkedItems = isShowTOp100;
                             break;
@@ -134,13 +134,13 @@ namespace BlazorCore.Models
                     {
                         switch (filterName)
                         {
-                            case nameof(jsonSettings.ItemRowCount):
+                            case nameof(jsonSettings.ItemRowsCount):
                                 if (value is int itemRowCount)
-                                    AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
+                                    AppSettings.DataAccess.JsonSettings.ItemRowsCount = itemRowCount;
                                 break;
-                            case nameof(jsonSettings.SectionRowCount):
+                            case nameof(jsonSettings.SectionRowsCount):
                                 if (value is int sectionRowCount)
-                                    AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
+                                    AppSettings.DataAccess.JsonSettings.SectionRowsCount = sectionRowCount;
                                 break;
                             case nameof(jsonSettings.Sql.Server):
                                 if (value is string server)

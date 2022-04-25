@@ -83,7 +83,7 @@ else
         <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsEntity" @bind-Value=@ItemObject
                     RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
+                    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
                     AllowSorting=true ColumnWidth="200px">
             <Columns>
                 <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="IdentityId" Title=@LocaleCore.TableField.Id
@@ -120,7 +120,7 @@ else
         <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesEntity" @bind-Value=@ItemObject
                     RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
+                    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
                     AllowSorting=true ColumnWidth="200px">
             <Columns>
                 <RadzenGridColumn TItem="BarCodesEntity" Property="IdentityId" Title=@LocaleCore.TableField.Id

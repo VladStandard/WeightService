@@ -292,7 +292,7 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (Nomenclature != null && !Nomenclature.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(GoodsName, string.Empty) &&
                    Equals(GoodsFullName, string.Empty) &&
                    Equals(GoodsDescription, string.Empty) &&

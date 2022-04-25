@@ -220,7 +220,7 @@ namespace DataCore.DAL.TableDwhModels
                 return false;
             if (Status != null && !Status.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Code, string.Empty) &&
                    Equals(Name, string.Empty) &&
                    Equals(Parents, string.Empty) &&

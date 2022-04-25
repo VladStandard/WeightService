@@ -82,7 +82,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(FilePath, string.Empty) &&
                    Equals(LineNumber, 0) &&
                    Equals(MemberName, string.Empty) &&

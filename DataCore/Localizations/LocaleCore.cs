@@ -11,8 +11,8 @@ namespace DataCore.Localizations
         public static ShareEnums.Lang Lang
         {
             get => _lang;
-            set => Action.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang = Scales.Lang =
-                Sql.Lang = System.Lang = Table.Lang = _lang = value;
+            set => Action.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang = 
+                Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = _lang = value;
         }
         public static LocaleAction Action { get; private set; } = LocaleAction.Instance;
         public static LocaleDialog Dialog { get; private set; } = LocaleDialog.Instance;
@@ -20,6 +20,7 @@ namespace DataCore.Localizations
         public static LocaleMenu Menu { get; private set; } = LocaleMenu.Instance;
         public static LocalePrint Print { get; private set; } = LocalePrint.Instance;
         public static LocaleScale Scales { get; private set; } = LocaleScale.Instance;
+        public static LocaleSettings Settings { get; private set; } = LocaleSettings.Instance;
         public static LocaleSql Sql { get; private set; } = LocaleSql.Instance;
         public static LocaleSystem System { get; private set; } = LocaleSystem.Instance;
         public static LocaleTable Table { get; private set; } = LocaleTable.Instance;

@@ -94,7 +94,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             if (WeithingFact != null && !WeithingFact.EqualsDefault())
                 return false;
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Label, new byte[0]) &&
                    Equals(Zpl, string.Empty);
         }

@@ -52,7 +52,7 @@ else
                     <RadzenDropDown Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                         Disabled=false TValue=@ShareEnums.AccessRights
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
+                        Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
                         TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 
                         ValueProperty="Value" Value=@Rights 
                     />

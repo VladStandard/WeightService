@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
-    <FileVersion>0.6.525.0</FileVersion>
-    <AssemblyVersion>0.6.525.0</AssemblyVersion>
-    <Version>0.6.525.0</Version>
+    <FileVersion>0.6.530.0</FileVersion>
+    <AssemblyVersion>0.6.530.0</AssemblyVersion>
+    <Version>0.6.530.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />

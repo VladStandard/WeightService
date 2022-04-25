@@ -595,8 +595,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (GuiUtils.WpfForm.ShowNewPinCode(this))
-                {
+                //if (GuiUtils.WpfForm.ShowNewPinCode(this))
+                //{
                     DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
                         $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                         new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
@@ -614,7 +614,7 @@ namespace ScalesUI.Forms
                         GuiUtils.WpfForm.ShowNewOperationControl(this,
                             LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal));
                     }
-                }
+                //}
                 SessionState.Manager.Open();
             }
             catch (Exception ex)

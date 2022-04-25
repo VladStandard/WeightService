@@ -3,13 +3,15 @@
 
 using DataCore.DAL.Models;
 using System;
+using System.Runtime.Serialization;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
     /// Table "Apps".
     /// </summary>
-    public class AppEntity : BaseEntity
+    [Serializable]
+    public class AppEntity : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
 
@@ -27,6 +29,16 @@ namespace DataCore.DAL.TableScaleModels
         public AppEntity(Guid uid) : base(uid)
         {
             Name = string.Empty;
+        }
+
+        public AppEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            Name = info.GetString(nameof(Name));
+        }
+
+        public AppEntity(BaseEntity baseItem) : this()
+        {
+            base.Setup(baseItem);
         }
 
         #endregion
@@ -65,15 +77,25 @@ namespace DataCore.DAL.TableScaleModels
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() &&
+            return base.EqualsDefault(IdentityName) &&
                    Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            AppEntity item = (AppEntity)base.Clone();
-            item.Name = Name;
+            AppEntity item = new((BaseEntity)base.Clone())
+            {
+                Name = Name,
+            };
             return item;
+        }
+
+        public virtual AppEntity CloneCast() => (AppEntity)Clone();
+
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(Name), Name);
         }
 
         #endregion

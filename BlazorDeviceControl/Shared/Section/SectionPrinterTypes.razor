@@ -24,7 +24,7 @@ else
         Data=@ItemsCast TItem="PrinterTypeEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="PrinterTypeEntity" Title=@LocaleCore.Print.Name 
                 Type="string" Width="100%" >

@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Nullable>enable</Nullable>
-    <FileVersion>0.6.525.0</FileVersion>
-    <AssemblyVersion>0.6.525.0</AssemblyVersion>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+    <FileVersion>0.6.530.0</FileVersion>
+    <AssemblyVersion>0.6.530.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
@@ -54,6 +54,6 @@
   </ItemGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
-    <Version>0.6.525.0</Version>
+    <Version>0.6.530.0</Version>
   </PropertyGroup>
 </Project>
