@@ -195,7 +195,7 @@ namespace BlazorDeviceControl.Shared.Item
                 };
                 NotificationService?.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+                AppSettings.DataAccess.Log.LogError(ex, filePath, lineNumber, memberName);
             }
         }
 

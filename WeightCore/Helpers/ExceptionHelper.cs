@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.DataModels;
+using DataCore.DAL;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -17,6 +17,12 @@ namespace WeightCore.Helpers
 
         private static ExceptionHelper _instance;
         public static ExceptionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+        #endregion
+
+        #region Public and private fields and properties
+
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
 
         #endregion
 
@@ -39,9 +45,7 @@ namespace WeightCore.Helpers
         {
             lock (_locker)
             {
-                LogHelper.Instance.Error(ex.Message, filePath, lineNumber, memberName);
-                if (ex.InnerException != null)
-                    LogHelper.Instance.Error(ex.InnerException.Message, filePath, lineNumber, memberName);
+                DataAccess.Log.LogError(ex, filePath, lineNumber, memberName);
                 string message = ex.Message;
                 if (ex.InnerException != null)
                     message += Environment.NewLine + ex.InnerException.Message;

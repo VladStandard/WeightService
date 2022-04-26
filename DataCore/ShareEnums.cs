@@ -130,6 +130,7 @@ namespace DataCore
             User,
             Value,
             WeithingDate,
+            Number,
         }
 
         public enum DbOrderDirection

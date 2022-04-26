@@ -3,7 +3,7 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
-using DataCore.DAL.Models;
+using DataCore.DAL.Controllers;
 using DataCore.Files;
 using System;
 using System.Threading;
@@ -142,6 +142,18 @@ namespace DataCore.DAL
                 return _json = new JsonController();
             }
             set => _json = value;
+        }
+
+        private LogController? _log;
+        public LogController Log
+        {
+            get
+            {
+                if (_log != null)
+                    return _log;
+                return _log = new LogController();
+            }
+            set => _log = value;
         }
 
         public bool IsConnected

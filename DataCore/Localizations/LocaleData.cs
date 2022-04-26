@@ -77,6 +77,12 @@ namespace DataCore.Localizations
                 public const string Info = "/section/info";
                 public const string Labels = "/section/measurements/labels";
                 public const string Logs = "/section/logs";
+                public const string LogsNones = "/section/logs_nones";
+                public const string LogsInformations = "/section/logs_informations";
+                public const string LogsErrors = "/section/logs_errors";
+                public const string LogsQuestions = "/section/logs_questions";
+                public const string LogsStops = "/section/logs_stops";
+                public const string LogsWarnings = "/section/logs_warnings";
                 public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
                 public const string Plus = "/section/plus";

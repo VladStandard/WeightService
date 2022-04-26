@@ -34,7 +34,7 @@ namespace WeightCore.Gui.XamlPages
             InitializeComponent();
 
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = new PluDirect().GetPluList(SessionState.CurrentScale);
+            _pluList = new PluDirect().GetPluList(SessionState.Scale);
             
             object context = FindResource("SqlViewModel");
             if (context is SqlViewModelEntity sqlViewModel)

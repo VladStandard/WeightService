@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.DataModels;
+using DataCore.DAL.Models;
 using DataCore.DAL.TableDwhModels;
 using DataCore.DAL.TableScaleModels;
 using FluentNHibernate.Conventions;
@@ -12,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace DataCore.DAL.Models
+namespace DataCore.DAL.Controllers
 {
     public class CrudController
     {
@@ -20,7 +21,7 @@ namespace DataCore.DAL.Models
 
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public DataConfigurationEntity DataConfig { get; private set; }
-        private delegate void ExecCallback(ISession session);
+        public delegate void ExecCallback(ISession session);
 
         #endregion
 
@@ -34,23 +35,6 @@ namespace DataCore.DAL.Models
         #endregion
 
         #region Public and private methods
-
-        public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
-        {
-            long idLast = GetEntity<ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.IdentityId, ShareEnums.DbOrderDirection.Desc)).IdentityId;
-            ErrorEntity error = new()
-            {
-                IdentityId = idLast + 1,
-                CreateDt = DateTime.Now,
-                ChangeDt = DateTime.Now,
-                FilePath = filePath,
-                LineNumber = lineNumber,
-                MemberName = memberName,
-                Exception = ex.Message,
-                InnerException = ex.InnerException == null ? string.Empty : ex.InnerException.Message,
-            };
-            ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
-        }
 
         public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
@@ -99,7 +83,7 @@ namespace DataCore.DAL.Models
             return criteria;
         }
 
-        private void ExecuteTransaction(ExecCallback callback, 
+        public void ExecuteTransaction(ExecCallback callback,
             string filePath, int lineNumber, string memberName, bool isException = false)
         {
             using ISession? session = DataAccess.SessionFactory.OpenSession();
@@ -129,7 +113,7 @@ namespace DataCore.DAL.Models
             }
             if (!isException && exception != null)
             {
-                LogExceptionToSql(exception, filePath, lineNumber, memberName);
+                DataAccess.Log.LogError(exception, filePath, lineNumber, memberName);
             }
         }
 
@@ -240,7 +224,7 @@ namespace DataCore.DAL.Models
 
         private void FillReferencesSystem<T>(T? item) where T : BaseEntity, new()
         {
-            if (item == null || item.EqualsEmpty()) return;
+            if (item == null) return;
             switch (item)
             {
                 case AccessEntity access:
@@ -286,7 +270,7 @@ namespace DataCore.DAL.Models
 
         private void FillReferencesDatas<T>(T? item) where T : BaseEntity, new()
         {
-            if (item == null || item.EqualsEmpty()) return;
+            if (item == null) return;
             switch (item)
             {
                 case DeviceEntity device:
@@ -300,7 +284,7 @@ namespace DataCore.DAL.Models
 
         private void FillReferencesScales<T>(T? item) where T : BaseEntity, new()
         {
-            if (item == null || item.EqualsEmpty()) return;
+            if (item == null) return;
             switch (item)
             {
                 case BarCodeEntityV2 barcode:
@@ -474,7 +458,7 @@ namespace DataCore.DAL.Models
 
         private void FillReferencesDwh<T>(T? item) where T : BaseEntity, new()
         {
-            if (item == null || item.EqualsEmpty()) return;
+            if (item == null) return;
             switch (item)
             {
                 case BrandEntity brand:
@@ -662,13 +646,19 @@ namespace DataCore.DAL.Models
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             where T : BaseEntity, new()
         {
-            if (item == null || item.EqualsEmpty()) return;
+            //if (item == null) return;
             switch (item)
             {
                 case AccessEntity access:
                     ExecuteTransaction((session) =>
                     {
                         session.Save(access);
+                    }, filePath, lineNumber, memberName);
+                    break;
+                case LogEntity log:
+                    ExecuteTransaction((session) =>
+                    {
+                        session.Save(log);
                     }, filePath, lineNumber, memberName);
                     break;
                 case BarCodeTypeEntityV2 barcodeType:

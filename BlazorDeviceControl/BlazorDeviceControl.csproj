@@ -97,6 +97,10 @@
     <Watch Remove="Shared\Item\Measurements\ItemWf.razor" />
     <Watch Remove="Shared\Item\RadzenPage.razor" />
     <Watch Remove="Shared\Item\Measurements\ItemLabel.razor" />
+    <Watch Remove="Shared\Section\Logs\SectionLogsNones.razor" />
+    <Watch Remove="Shared\Section\Logs\SectionLogsQuestions.razor" />
+    <Watch Remove="Shared\Section\Logs\SectionLogsStops.razor" />
+    <Watch Remove="Shared\Section\Logs\SectionLogsWarnings.razor" />
     <Watch Remove="Shared\Section\SectionAccess.razor" />
     <Watch Remove="Shared\Section\SectionBarCodes.razor" />
     <Watch Remove="Shared\Section\SectionBarCodeTypes.razor" />
@@ -105,6 +109,8 @@
     <Watch Remove="Shared\Section\SectionHosts.razor" />
     <Watch Remove="Shared\Section\SectionInfo.razor" />
     <Watch Remove="Shared\Section\SectionLogs.razor" />
+    <Watch Remove="Shared\Section\SectionLogsErrors.razor" />
+    <Watch Remove="Shared\Section\SectionLogsInformations.razor" />
     <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
     <Watch Remove="Shared\Section\SectionPlus.razor" />
     <Watch Remove="Shared\Section\SectionPrinterResources.razor" />

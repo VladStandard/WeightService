@@ -20,23 +20,29 @@ namespace DataCore.Settings
 
         #endregion
 
+        #region Public and private fields and properties
+
+        public string App { get; private set; }
+        public string AppName { get; private set; }
+        public string AppDescription { get; set; }
+        public string AppTitle { get; private set; }
+        public string Version { get; private set; }
+
+        #endregion
+
         #region Constructor and destructor
 
         public AppVersionHelper()
         {
-            //
+            App = string.Empty;
+            AppName = string.Empty;
+            AppDescription = string.Empty;
+            AppTitle = string.Empty;
+            Version = string.Empty;
         }
 
         #endregion
-
-        #region Public and private fields and properties
-
-        public string App { get; private set; } = string.Empty;
-        public string AppTitle { get; private set; } = string.Empty;
-        public string Version { get; private set; } = string.Empty;
-
-        #endregion
-
+        
         #region Public and private methods
 
         public string GetCurrentVersion(Assembly assembly, AppVerCountDigits countDigits, List<AppVerStringFormat>? stringFormats = null)

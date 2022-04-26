@@ -89,6 +89,18 @@ a, .btn-link {
     border-color: transparent;
 }
 
+.RadzenProgressBar {
+    margin-top: 3px;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+    width: 100%;
+    height: 22px;
+    font-size: 14px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
 .MudSelect {
     margin-top: 0%;
     margin-bottom: 0%;

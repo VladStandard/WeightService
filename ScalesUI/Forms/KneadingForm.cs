@@ -137,10 +137,10 @@ namespace ScalesUI.Forms
 
         private void CheckWeightCount()
         {
-            if (SessionState.CurrentPlu == null)
+            if (SessionState.Plu == null)
                 return;
 
-            if (SessionState.CurrentPlu.IsCheckWeight == true && SessionState.WeighingSettings.CurrentLabelsCountMain > 1)
+            if (SessionState.Plu.IsCheckWeight == true && SessionState.WeighingSettings.CurrentLabelsCountMain > 1)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount);
                 SessionState.WeighingSettings.CurrentLabelsCountMain = 1;

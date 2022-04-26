@@ -36,7 +36,6 @@ namespace WeightCore.Zpl
         public static void XmlReplace(ref string xmlInput)
         {
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.LogDirect), "LogEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");

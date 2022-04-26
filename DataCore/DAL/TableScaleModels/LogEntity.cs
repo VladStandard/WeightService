@@ -13,14 +13,13 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual string Scale { get; set; }
-        public virtual HostEntity Host { get; set; }
-        public virtual AppEntity App { get; set; }
+        public virtual HostEntity? Host { get; set; }
+        public virtual AppEntity? App { get; set; }
+        public virtual LogTypeEntity? LogType { get; set; }
         public virtual string Version { get; set; }
         public virtual string File { get; set; }
         public virtual int Line { get; set; }
         public virtual string Member { get; set; }
-        public virtual LogTypeEntity LogType { get; set; }
         public virtual string Message { get; set; }
 
         #endregion
@@ -34,14 +33,13 @@ namespace DataCore.DAL.TableScaleModels
 
         public LogEntity(Guid uid) : base(uid)
         {
-            Scale = string.Empty;
-            Host = new();
-            App = new();
+            Host = null;
+            App = null;
+            LogType = null;
             Version = string.Empty;
             File = string.Empty;
             Line = 0;
             Member = string.Empty;
-            LogType = new();
             Message = string.Empty;
         }
 
@@ -55,14 +53,13 @@ namespace DataCore.DAL.TableScaleModels
             string strApp = App != null ? App.IdentityUid.ToString() : "null";
             string strLogType = LogType != null ? LogType.IdentityUid.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {strHost}. " +
                    $"{nameof(App)}: {strApp}. " +
+                   $"{nameof(LogType)}: {strLogType}. " +
                    $"{nameof(Version)}: {Version}. " +
                    $"{nameof(File)}: {File}. " +
                    $"{nameof(Line)}: {Line}. " +
                    $"{nameof(Member)}: {Member}. " +
-                   $"{nameof(LogType)}: {strLogType}. " +
                    $"{nameof(Message)}: {Message}. ";
         }
 
@@ -71,14 +68,13 @@ namespace DataCore.DAL.TableScaleModels
             if (item is null) return false;
             if (ReferenceEquals(this, item)) return true;
             return base.Equals(item) &&
-                   Equals(Scale, item.Scale) &&
                    Equals(Host, item.Host) &&
                    Equals(App, item.App) &&
+                   Equals(LogType, item.LogType) &&
                    Equals(Version, item.Version) &&
                    Equals(File, item.File) &&
                    Equals(Line, item.Line) &&
                    Equals(Member, item.Member) &&
-                   Equals(LogType, item.LogType) &&
                    Equals(Message, item.Message);
         }
 
@@ -109,7 +105,6 @@ namespace DataCore.DAL.TableScaleModels
             if (LogType != null && !LogType.EqualsDefault())
                 return false;
             return base.EqualsDefault(IdentityName) &&
-                   Equals(Scale, string.Empty) &&
                    Equals(Version, string.Empty) &&
                    Equals(File, string.Empty) &&
                    Equals(Line, 0) &&
@@ -120,14 +115,13 @@ namespace DataCore.DAL.TableScaleModels
         public override object Clone()
         {
             LogEntity item = (LogEntity)base.Clone();
-            item.Scale = Scale;
-            item.Host = (HostEntity)Host.Clone();
-            item.App = (AppEntity)App.Clone();
+            item.Host = Host == null ? null : (HostEntity)Host.Clone();
+            item.App = App == null ? null : (AppEntity)App.Clone();
+            item.LogType = LogType == null ? null : (LogTypeEntity)LogType.Clone();
             item.Version = Version;
             item.File = File;
             item.Line = Line;
             item.Member = Member;
-            item.LogType = (LogTypeEntity)LogType.Clone();
             item.Message = Message;
             return item;
         }

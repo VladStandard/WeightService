@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL.DataModels;
 using DataCore.DAL.TableDirectModels;
 using DataCore.Localizations;
 using DataCore.Settings;
@@ -28,7 +27,6 @@ namespace ScalesUI.Forms
         private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
-        private LogHelper Log { get; set; } = LogHelper.Instance;
         private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
 
         #endregion
@@ -53,27 +51,27 @@ namespace ScalesUI.Forms
                 //if (SessionState != null)
                 //    SessionState.CurrentScale = ScalesUtils.GetScale(SessionState.Host?.ScaleId);
                 if (SessionState != null)
-                    SessionState.CurrentScale = SessionState.DataAccess.Crud?
+                    SessionState.Scale = SessionState.DataAccess.Crud?
                         .GetEntity<DataCore.DAL.TableScaleModels.ScaleEntity>(SessionState.Host?.ScaleId);
 
                 // Определить COM-порт.
                 DefaultComPortName();
 
-                if (SessionState?.CurrentScale != null)
+                if (SessionState?.Scale != null)
                 {
-                    fieldSendTimeout.Text = SessionState.CurrentScale.DeviceSendTimeout.ToString();
-                    fieldReceiveTimeOut.Text = SessionState.CurrentScale.DeviceReceiveTimeout.ToString();
-                    fieldZebraTcpAddress.Text = SessionState.CurrentScale.PrinterMain.Ip;
-                    fieldZebraTcpPort.Text = SessionState.CurrentScale.PrinterMain.Port.ToString();
-                    fieldDescription.Text = SessionState.CurrentScale.Description;
+                    fieldSendTimeout.Text = SessionState.Scale.DeviceSendTimeout.ToString();
+                    fieldReceiveTimeOut.Text = SessionState.Scale.DeviceReceiveTimeout.ToString();
+                    fieldZebraTcpAddress.Text = SessionState.Scale.PrinterMain.Ip;
+                    fieldZebraTcpPort.Text = SessionState.Scale.PrinterMain.Port.ToString();
+                    fieldDescription.Text = SessionState.Scale.Description;
                 }
 
-                if (SessionState?.CurrentWeighingFact != null)
-                    fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact
+                if (SessionState?.WeighingFact != null)
+                    fieldCurrentWeightFact.Text = SessionState.WeighingFact
                         .SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
                 //fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
 
-                fieldGuid.Text = SessionState?.CurrentScaleId.ToString();
+                fieldGuid.Text = SessionState?.Scale.IdentityId.ToString();
                 //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
             }
             catch (Exception ex)
@@ -140,12 +138,12 @@ namespace ScalesUI.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
                 // Data.
-                SessionState.CurrentScale.DeviceComPort = fieldComPort.Text;
-                SessionState.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
-                SessionState.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                SessionState.CurrentScale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
+                SessionState.Scale.DeviceComPort = fieldComPort.Text;
+                SessionState.Scale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
+                SessionState.Scale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
+                SessionState.Scale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
                 //ScalesUtils.Update(SessionState.CurrentScale);
-                SessionState.DataAccess.Crud?.UpdateEntity(SessionState.CurrentScale);
+                SessionState.DataAccess.Crud?.UpdateEntity(SessionState.Scale);
                 // Settings.
                 Properties.Settings.Default.Save();
             }
@@ -173,11 +171,11 @@ namespace ScalesUI.Forms
                 Application.DoEvents();
 
                 ZplConverterHelper zp = new();
-                zp.LogoClear(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port);
-                zp.FontsClear(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port);
-                if (SessionState.CurrentScale.UseOrder == true)
+                zp.LogoClear(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port);
+                zp.FontsClear(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port);
+                if (SessionState.Scale.UseOrder == true)
                 {
-                    if (SessionState.CurrentOrder == null)
+                    if (SessionState.Order == null)
                     {
                         const string message = "Не определен PLU";
                         const string caption = "Операция недоступна!";
@@ -185,20 +183,20 @@ namespace ScalesUI.Forms
                         return;
                     }
 
-                    zp.LogoUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentOrder.Template.Logo);
-                    zp.FontsUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentOrder.Template.Fonts);
+                    zp.LogoUpload(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port, SessionState.Order.Template.Logo);
+                    zp.FontsUpload(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port, SessionState.Order.Template.Fonts);
                 }
                 else
                 {
-                    if (SessionState.CurrentPlu == null)
+                    if (SessionState.Plu == null)
                     {
                         const string message = "Не определен PLU";
                         const string caption = "Операция недоступна!";
                         MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    zp.LogoUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentPlu.Template.Logo);
-                    zp.FontsUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentPlu.Template.Fonts);
+                    zp.LogoUpload(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port, SessionState.Plu.Template.Logo);
+                    zp.FontsUpload(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port, SessionState.Plu.Template.Fonts);
                 }
             }
             catch (Exception ex)
@@ -233,7 +231,7 @@ namespace ScalesUI.Forms
                     Application.DoEvents();
 
                     ZplConverterHelper zp = new();
-                    zp.Сalibration(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port);
+                    zp.Сalibration(SessionState.Scale.PrinterMain.Ip, SessionState.Scale.PrinterMain.Port);
                 }
             }
             catch (Exception ex)
@@ -341,9 +339,9 @@ namespace ScalesUI.Forms
                 System.Collections.Generic.List<string> listComPorts = SerialPort.GetPortNames().ToList();
                 // Текущий порт из настроек.
                 string curPort = string.Empty;
-                if (SessionState?.CurrentScale?.DeviceComPort != null)
+                if (SessionState?.Scale?.DeviceComPort != null)
                 {
-                    curPort = SessionState.CurrentScale.DeviceComPort;
+                    curPort = SessionState.Scale.DeviceComPort;
                     if (!string.IsNullOrEmpty(curPort))
                     {
                         bool find = false;
@@ -392,7 +390,7 @@ namespace ScalesUI.Forms
                 catch (Exception ex)
                 {
                     labelSqlStatus.Text = $@"Ошибка подключения! {ex.Message}";
-                    Log.Error(ex.Message);
+                    SessionState.DataAccess.Log.LogError(ex);
                 }
                 con.Close();
             }

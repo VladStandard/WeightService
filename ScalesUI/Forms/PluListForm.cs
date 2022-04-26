@@ -36,7 +36,7 @@ namespace ScalesUI.Forms
             InitializeComponent();
             
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            PluList = new PluDirect().GetPluList(SessionState.CurrentScale);
+            PluList = new PluDirect().GetPluList(SessionState.Scale);
         }
 
         #endregion
@@ -54,7 +54,7 @@ namespace ScalesUI.Forms
                 Top = Owner.Top;
                 //StartPosition = FormStartPosition.CenterParent;
 
-                OrderList = new PluDirect().GetPluList(SessionState.CurrentScale);
+                OrderList = new PluDirect().GetPluList(SessionState.Scale);
 
                 PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
@@ -189,14 +189,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.CurrentOrder = null;
+                SessionState.Order = null;
                 int tabIndex = 0;
                 if (sender is Control control)
                     tabIndex = control.TabIndex;
                 if (OrderList?.Count >= tabIndex)
                 {
                     SessionState.SetCurrentPlu(OrderList[tabIndex]);
-                    SessionState.CurrentPlu.LoadTemplate();
+                    SessionState.Plu.LoadTemplate();
                     //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
                     //_sessionState.WeightReal = 0;
                     DialogResult = DialogResult.OK;

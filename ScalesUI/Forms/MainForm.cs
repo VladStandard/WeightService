@@ -2,7 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL.DataModels;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
@@ -20,6 +21,7 @@ using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
+using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
 {
@@ -30,7 +32,6 @@ namespace ScalesUI.Forms
         private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
-        private LogHelper Log { get; set; } = LogHelper.Instance;
         private ProcHelper Proc { get; set; } = ProcHelper.Instance;
         private QuartzHelper Quartz { get; set; } = QuartzHelper.Instance;
         private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
@@ -67,10 +68,16 @@ namespace ScalesUI.Forms
             {
                 SessionState.StopwatchMain = Stopwatch.StartNew();
                 SessionState.StopwatchMain.Restart();
+                SessionState.DataAccess.Log.Host = SessionState.Scale.Host;
+                string appName = typeof(Program).Assembly.GetName().Name;
+                SessionState.DataAccess.Log.App = SessionState.DataAccess.Crud.GetEntity<AppEntity>(
+                    new FieldListEntity(new Dictionary<string, object> { { DbField.Name.ToString(),
+                    appName } }),
+                    null);
+                
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
                 FontsSettings = new();
-                SessionState.AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
                 MainForm_ButtonsCreate();
                 MainForm_LoadResources();
                 SessionState.NewPallet();
@@ -83,7 +90,6 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                Log.Information(LocaleData.Program.IsLoaded + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
                 SessionState.StopwatchMain.Stop();
             }
 
@@ -106,7 +112,8 @@ namespace ScalesUI.Forms
                 {
                     MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                     SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                    Log.Information(LocaleData.Program.IsLoaded + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
+                    SessionState.DataAccess.Log.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}");
+                    SessionState.DataAccess.Log.LogInformation(LocaleData.Program.IsLoaded + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
                     SessionState.StopwatchMain.Stop();
                 }
             }).ConfigureAwait(false);
@@ -117,7 +124,7 @@ namespace ScalesUI.Forms
             // Labels.
             SessionState.Manager.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                 labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint, 
+                ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                 ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose);
             SessionState.Manager.Labels.Open();
             // Memory.
@@ -129,16 +136,16 @@ namespace ScalesUI.Forms
                 fieldMassaGetCrc, fieldMassaSet, fieldMassaSetCrc, fieldMassaScalePar);
             SessionState.Manager.Massa.Open();
             // PrintMain.
-            SessionState.Manager.PrintMain.Init(SessionState.PrintBrandMain, SessionState.CurrentScale.PrinterMain,
-                SessionState.CurrentScale.PrinterMain.Name, SessionState.CurrentScale.PrinterMain.Ip,
-                SessionState.CurrentScale.PrinterMain.Port, fieldPrintMain, true);
+            SessionState.Manager.PrintMain.Init(SessionState.PrintBrandMain, SessionState.Scale.PrinterMain,
+                SessionState.Scale.PrinterMain.Name, SessionState.Scale.PrinterMain.Ip,
+                SessionState.Scale.PrinterMain.Port, fieldPrintMain, true);
             SessionState.Manager.PrintMain.Open(true);
             // PrintShipping.
-            if (SessionState.CurrentScale.IsShipping)
+            if (SessionState.Scale.IsShipping)
             {
-                SessionState.Manager.PrintShipping.Init(SessionState.PrintBrandShipping, SessionState.CurrentScale.PrinterShipping,
-                    SessionState.CurrentScale.PrinterShipping.Name, SessionState.CurrentScale.PrinterShipping.Ip,
-                    SessionState.CurrentScale.PrinterShipping.Port, fieldPrintShipping, false);
+                SessionState.Manager.PrintShipping.Init(SessionState.PrintBrandShipping, SessionState.Scale.PrinterShipping,
+                    SessionState.Scale.PrinterShipping.Name, SessionState.Scale.PrinterShipping.Ip,
+                    SessionState.Scale.PrinterShipping.Port, fieldPrintShipping, false);
                 SessionState.Manager.PrintShipping.Open(false);
             }
             //ButtonScalesInit_Click(sender, e);
@@ -206,7 +213,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                Log.Information(LocaleData.Program.IsClosed + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
+                SessionState.DataAccess.Log.LogInformation(LocaleData.Program.IsClosed + $" {nameof(SessionState.StopwatchMain.Elapsed)}: {SessionState.StopwatchMain.Elapsed}.");
                 SessionState.StopwatchMain.Stop();
             }
         }
@@ -277,13 +284,13 @@ namespace ScalesUI.Forms
                 IsKneading = false,
                 IsMore = true,
                 IsNewPallet = true,
-                IsOrder = SessionState.CurrentScale.UseOrder,
+                IsOrder = SessionState.Scale.UseOrder,
                 IsPlu = true,
                 IsPrint = true,
                 IsScalesInit = true,
                 IsScalesTerminal = true,
             };
-            
+
             int column = 0;
 
             TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -359,7 +366,7 @@ namespace ScalesUI.Forms
                 if (Quartz == null)
                     return;
                 SessionState.ProductDate = DateTime.Now;
-                Log.Information("ScheduleIsNextDay");
+                SessionState.DataAccess.Log.LogInformation("ScheduleIsNextDay");
             }
         }
 
@@ -387,7 +394,7 @@ namespace ScalesUI.Forms
             static void Work(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
             {
                 comboBox.SelectedIndexChanged -= eventHandler;
-                
+
                 int backupIndex = comboBox.SelectedIndex;
                 comboBox.Items.Clear();
                 comboBox.Items.AddRange(sourceList.ToArray());
@@ -407,8 +414,8 @@ namespace ScalesUI.Forms
             { Width = 700, Height = 650 };
             wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
             wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
-            wpfPageLoader.MessageBox.Message = 
-                GetPrintInfo(SessionState.Manager.PrintMain.Win32Printer(), true) + Environment.NewLine + Environment.NewLine + 
+            wpfPageLoader.MessageBox.Message =
+                GetPrintInfo(SessionState.Manager.PrintMain.Win32Printer(), true) + Environment.NewLine + Environment.NewLine +
                 GetPrintInfo(SessionState.Manager.PrintShipping.Win32Printer(), false);
             wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
             wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomVisibility = Visibility.Visible;
@@ -425,7 +432,7 @@ namespace ScalesUI.Forms
 
         private string GetPrintInfo(WmiWin32PrinterEntity win32Printer, bool isMain)
         {
-            string caption = isMain 
+            string caption = isMain
                 ? SessionState.Manager.PrintMain.PrintBrand == WeightCore.Print.PrintBrand.Zebra
                     ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameMainTsc
                 : SessionState.Manager.PrintShipping.PrintBrand == WeightCore.Print.PrintBrand.Zebra
@@ -521,7 +528,6 @@ namespace ScalesUI.Forms
                 CenterToScreen();
                 FontsSettings.Transform(Width, Height);
                 MainForm_FontsSet();
-                Log.Information($"Screen resolution: {Width} x {Height}");
             }
             catch (Exception ex)
             {
@@ -564,12 +570,12 @@ namespace ScalesUI.Forms
             try
             {
                 SessionState.Manager.Massa.Close();
-                
+
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
                 wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                
+
                 SessionState.Manager.Massa.Open();
             }
             catch (Exception ex)
@@ -597,23 +603,23 @@ namespace ScalesUI.Forms
             {
                 //if (GuiUtils.WpfForm.ShowNewPinCode(this))
                 //{
-                    DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
-                        $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
-                    if (result != DialogResult.Yes)
-                        return;
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
+                    $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                if (result != DialogResult.Yes)
+                    return;
 
-                    // Run app.
-                    if (File.Exists(LocaleData.Paths.ScalesTerminal))
-                    {
-                        SessionState.Manager.Massa.Close();
-                        Proc.Run(LocaleData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
-                    }
-                    else
-                    {
-                        GuiUtils.WpfForm.ShowNewOperationControl(this,
-                            LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal));
-                    }
+                // Run app.
+                if (File.Exists(LocaleData.Paths.ScalesTerminal))
+                {
+                    SessionState.Manager.Massa.Close();
+                    Proc.Run(LocaleData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
+                }
+                else
+                {
+                    GuiUtils.WpfForm.ShowNewOperationControl(this,
+                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal));
+                }
                 //}
                 SessionState.Manager.Open();
             }
@@ -631,7 +637,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (!SessionState.IsCurrentPluCheckWeight)
+                if (!SessionState.IsPluCheckWeight)
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight);
                     return;
@@ -677,7 +683,7 @@ namespace ScalesUI.Forms
             {
                 SessionState.Manager.Massa.Close();
 
-                if (SessionState.CurrentOrder == null)
+                if (SessionState.Order == null)
                 {
                     using OrderListForm settingsForm = new();
                     settingsForm.ShowDialog(this);
@@ -692,7 +698,7 @@ namespace ScalesUI.Forms
                     settingsForm.Dispose();
                     if (result == DialogResult.Retry)
                     {
-                        SessionState.CurrentOrder = null;
+                        SessionState.Order = null;
                     }
                     if (result == DialogResult.OK)
                     {
@@ -703,13 +709,13 @@ namespace ScalesUI.Forms
                         //ws.Kneading = (int)settingsForm.currentKneading;
                     }
                 }
-                if (SessionState.CurrentOrder != null)
+                if (SessionState.Order != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, SessionState.CurrentOrder.PlaneBoxCount);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, SessionState.Order.PlaneBoxCount);
                     MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, SessionState.CurrentOrder.FactBoxCount);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, SessionState.Order.FactBoxCount);
                 }
-                
+
                 SessionState.Manager.Massa.Open();
             }
             catch (Exception ex)
@@ -807,7 +813,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (SessionState.CurrentPlu == null)
+                if (SessionState.Plu == null)
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect);
                     return;

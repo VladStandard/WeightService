@@ -12,8 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.540] - 2022-04-26
 ## Changed
-- DataCore
 - BlazorDeviceControl
+- DataCore
+- DataCoreTests
 - ScalesUI
 ### Removed
 - ScalesCore

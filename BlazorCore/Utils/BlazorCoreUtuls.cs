@@ -43,6 +43,7 @@ namespace DataCore.Utils
             public static string RadzenPanelMenu => "RadzenPanelMenu";
             public static string RadzenPanelMenuItem => "RadzenPanelMenuItem";
             public static string RadzenPanelMenuSubItem => "RadzenPanelMenuSubItem";
+            public static string RadzenProgressBar => "RadzenProgressBar";
         }
 
         #endregion

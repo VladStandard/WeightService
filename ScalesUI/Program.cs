@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.DAL;
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
-using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Settings;
 using ScalesUI.Forms;

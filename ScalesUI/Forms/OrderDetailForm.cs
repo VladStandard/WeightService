@@ -35,7 +35,7 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
                 listBox1.Items.Clear();
-                foreach (string prop in SessionState.CurrentOrder.ToString().Split('\n'))
+                foreach (string prop in SessionState.Order.ToString().Split('\n'))
                 {
                     listBox1.Items.Add(prop);
                 }
@@ -63,8 +63,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Paused);
-                SessionState.CurrentOrder = null;
+                SessionState.Order.SetStatus(ProjectsEnums.OrderStatus.Paused);
+                SessionState.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -78,8 +78,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Performed);
-                SessionState.CurrentOrder = null;
+                SessionState.Order.SetStatus(ProjectsEnums.OrderStatus.Performed);
+                SessionState.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -93,8 +93,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.InProgress);
-                SessionState.CurrentOrder = null;
+                SessionState.Order.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+                SessionState.Order = null;
                 DialogResult = DialogResult.OK;
                 Close();
             }

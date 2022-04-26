@@ -130,39 +130,36 @@ namespace BlazorCore.Models
             RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    if (AppSettings.DataAccess?.JsonSettingsLocal != null)
+                    switch (filterName)
                     {
-                        switch (filterName)
-                        {
-                            case nameof(jsonSettings.ItemRowsCount):
-                                if (value is int itemRowCount)
-                                    AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount = itemRowCount;
-                                break;
-                            case nameof(jsonSettings.SectionRowsCount):
-                                if (value is int sectionRowCount)
-                                    AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount = sectionRowCount;
-                                break;
-                            case nameof(jsonSettings.Sql.DataSource):
-                                if (value is string server)
-                                    AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource = server;
-                                break;
-                            case nameof(jsonSettings.Sql.InitialCatalog):
-                                if (value is string db)
-                                    AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog = db;
-                                break;
-                            case nameof(jsonSettings.Sql.PersistSecurityInfo):
-                                if (value is bool trusted)
-                                    AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo = trusted;
-                                break;
-                            case nameof(jsonSettings.Sql.UserId):
-                                if (value is string username)
-                                    AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId = username;
-                                break;
-                            case nameof(jsonSettings.Sql.Password):
-                                if (value is string password)
-                                    AppSettings.DataAccess.JsonSettingsLocal.Sql.Password = password;
-                                break;
-                        }
+                        case nameof(jsonSettings.ItemRowsCount):
+                            if (value is int itemRowCount)
+                                AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount = itemRowCount;
+                            break;
+                        case nameof(jsonSettings.SectionRowsCount):
+                            if (value is int sectionRowCount)
+                                AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount = sectionRowCount;
+                            break;
+                        case nameof(jsonSettings.Sql.DataSource):
+                            if (value is string server)
+                                AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource = server;
+                            break;
+                        case nameof(jsonSettings.Sql.InitialCatalog):
+                            if (value is string db)
+                                AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog = db;
+                            break;
+                        case nameof(jsonSettings.Sql.PersistSecurityInfo):
+                            if (value is bool trusted)
+                                AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo = trusted;
+                            break;
+                        case nameof(jsonSettings.Sql.UserId):
+                            if (value is string username)
+                                AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId = username;
+                            break;
+                        case nameof(jsonSettings.Sql.Password):
+                            if (value is string password)
+                                AppSettings.DataAccess.JsonSettingsLocal.Sql.Password = password;
+                            break;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -702,7 +699,7 @@ namespace BlazorCore.Models
                     NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
             }
             // SQL log.
-            AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            AppSettings.DataAccess.Log.LogError(ex, filePath, lineNumber, memberName);
         }
 
         public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,

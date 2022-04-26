@@ -7,49 +7,73 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace DataCore.DAL.Models
+namespace DataCore.DAL.Controllers
 {
     public class JsonController
     {
         #region Public and private fields and properties
 
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public const string RemoteDir = @"\\palych\Install\VSSoft\appsettings\";
+        public const string RemoteDir =
+#if DEBUG
+            @"\\palych\Install\VSSoft\appsettings\";
+#else
+            @"h:\Install\VSSoft\appsettings\";
+#endif
+
         public const string FileName =
 #if DEBUG
-                "appsettings.Debug.json";
+            "appsettings.Debug.json";
 #else
-                "appsettings.Release.json";
+            "appsettings.Release.json";
 #endif
         public const string BlazorSubDir =
 #if DEBUG
-                @"bin\x64\Debug\net6.0\";
+            @"bin\x64\Debug\net6.0\";
 #else
-                @"bin\x64\Release\net6.0\";
+            @"bin\x64\Release\net6.0\";
 #endif
 
-        #endregion
+#endregion
 
-        #region Constructor and destructor
+#region Constructor and destructor
 
         public JsonController()
         {
             //
         }
 
-        #endregion
+#endregion
 
-        #region Public and private methods
+#region Public and private methods
 
         public void SetupForBlazorApp(string localDir)
         {
-            CheckUpdates(localDir);
-            // IIS folder.
-            if (Setup(localDir))
-                return;
-            // Local folder.
-            if (!Setup(Path.Combine(localDir, BlazorSubDir)))
-                throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+            string subDir = Path.Combine(localDir, BlazorSubDir);
+            if (Directory.Exists(subDir))
+            {
+                // Local folder.
+                CheckUpdates(subDir);
+                if (!Setup(subDir))
+                    throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+            }
+            else
+            {
+                // IIS publish folder.
+                CheckUpdates(localDir);
+                if (!Setup(localDir))
+                {
+                    StreamWriter streamWriter;
+                    string localFileLog = Path.Combine(localDir, $"{FileName}.log");
+                    streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
+                    streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} LocaleCore.System.JsonSettingsLocalFileException");
+                    streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(localDir)}: {localDir}");
+                    streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(FileName)}: {FileName}");
+                    streamWriter.Close();
+                    streamWriter.Dispose();
+                    throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+                }
+            }
         }
 
         public void SetupForTests(string localDir)
@@ -99,8 +123,6 @@ namespace DataCore.DAL.Models
                     DataAccess.JsonSettingsRemote.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
                 }
             }
-            //if (DataAccess.Crud != null && DataAccess.JsonSettingsLocal != null)
-            //    DataAccess.Crud = new();
             return jsonObject != null;
         }
 
@@ -139,13 +161,20 @@ namespace DataCore.DAL.Models
 
         private ushort GetLocalVersion(string localDir)
         {
-            string file = Path.Combine(localDir, FileName);
-            using StreamReader streamReader = File.OpenText(file);
+            string localFile = Path.Combine(localDir, FileName);
+            if (!File.Exists(localFile))
+                return 0;
+
+            using StreamReader streamReader = File.OpenText(localFile);
             string content = streamReader.ReadToEnd();
             streamReader.Close();
             streamReader.Dispose();
             if (string.IsNullOrEmpty(content))
-                throw new Exception(LocaleCore.System.JsonSettingsFileIsEmpty(file));
+            {
+                //throw new Exception(LocaleCore.System.JsonSettingsFileIsEmpty(localFile));
+                return 0;
+            }
+
             if (content.Contains(nameof(JsonSettingsEntity.Version)))
             {
                 string[] lines = content.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
@@ -159,14 +188,13 @@ namespace DataCore.DAL.Models
                         string strVersion = line.Substring(posStart, length);
                         if (ushort.TryParse(strVersion, out ushort result))
                             return result;
-                        throw new Exception(LocaleCore.System.JsonSettingsParseVersionException(file));
+                        //throw new Exception(LocaleCore.System.JsonSettingsParseVersionException(localFile));
                     }
                 }
             }
-
             return 0;
         }
 
-        #endregion
+#endregion
     }
 }

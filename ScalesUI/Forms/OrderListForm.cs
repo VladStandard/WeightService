@@ -40,7 +40,7 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
 
-                OrdList = new OrderDirect().GetOrderList(SessionState.CurrentScale);
+                OrdList = new OrderDirect().GetOrderList(SessionState.Scale);
                 if (OrdList.Count < Offset)
                 {
                     btnLeftRoll.Visible = false;
@@ -130,9 +130,9 @@ namespace ScalesUI.Forms
                 //the names are changed!
                 btn.Click += delegate
                 {
-                    SessionState.CurrentOrder = OrdList[btn.TabIndex];
-                    SessionState.CurrentOrder.LoadTemplate();
-                    SessionState.SetCurrentPlu(SessionState.CurrentOrder.PLU);
+                    SessionState.Order = OrdList[btn.TabIndex];
+                    SessionState.Order.LoadTemplate();
+                    SessionState.SetCurrentPlu(SessionState.Order.PLU);
                     //ws.CurrentPLU.LoadTemplate();
                     //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
                     //_sessionState.WeightReal = 0;

@@ -31,9 +31,16 @@ namespace DataCore.Localizations
         public string SystemAccess => Lang == ShareEnums.Lang.English ? "Access" : "Доступ";
         public string SystemAccount => Lang == ShareEnums.Lang.English ? "Account" : "Аккаунт";
         public string SystemErrors => Lang == ShareEnums.Lang.English ? "Errors" : "Ошибки";
+        public string SystemErrorsObsolete => Lang == ShareEnums.Lang.English ? "Obsolete errors" : "Устаревшие ошибки";
         public string SystemInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
         public string SystemLogin => Lang == ShareEnums.Lang.English ? "Log in" : "Вход";
         public string SystemLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Логи";
+        public string SystemLogsNones => Lang == ShareEnums.Lang.English ? "Nones logs" : "Логи без типа";
+        public string SystemLogsInformations => Lang == ShareEnums.Lang.English ? "Informations logs" : "Логи инфо";
+        public string SystemLogsErrors => Lang == ShareEnums.Lang.English ? "Error logs" : "Логи ошибок";
+        public string SystemLogsQuestions => Lang == ShareEnums.Lang.English ? "Questions logs" : "Логи вопросов";
+        public string SystemLogsStops => Lang == ShareEnums.Lang.English ? "Stops logs" : "Логи остановов";
+        public string SystemLogsWarnings => Lang == ShareEnums.Lang.English ? "Warnings logs" : "Логи предупреждений";
         public string SystemWindowsUser => Lang == ShareEnums.Lang.English ? "Windows-user" : "Windows-пользователь";
 
         #endregion

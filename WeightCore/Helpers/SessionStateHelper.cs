@@ -1,25 +1,28 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL.DataModels;
-using DataCore.DAL.TableDirectModels;
-using DataCore.DAL.Utils;
-using DataCore.DAL;
 using DataCore;
+using DataCore.DAL;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableDirectModels;
+using DataCore.DAL.TableScaleModels;
+using DataCore.DAL.Utils;
+using DataCore.Localizations;
+using DataCore.Settings;
 using MvvmHelpers;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Windows.Forms;
 using System.Windows;
+using System.Windows.Forms;
 using System.Xml.Serialization;
-using System;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Print;
 using WeightCore.Zpl;
-using DataCore.DAL.TableScaleModels;
-using System.Diagnostics;
-using DataCore.Localizations;
+using static DataCore.ShareEnums;
 
 namespace WeightCore.Helpers
 {
@@ -34,51 +37,32 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        public string AppName { get; set; }
+        public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public ManagerCollection Manager { get; private set; }
         public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
-        public LogHelper Log { get; private set; } = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
         public HostDirect Host { get; private set; }
-        public int CurrentScaleId { get; }
-        public OrderDirect CurrentOrder { get; set; }
-        //[XmlElement(IsNullable = true)]
-        private ScaleEntity _currentScale;
-        public ScaleEntity CurrentScale
+        public OrderDirect Order { get; set; }
+        private ScaleEntity _scale;
+        public ScaleEntity Scale
         {
-            get => _currentScale;
+            get => _scale;
             set
             {
-                _currentScale = value;
+                _scale = value;
                 SqlViewModel.SetupTasks(Host?.ScaleId);
                 OnPropertyChanged();
             }
         }
-        public PrintBrand PrintBrandMain => CurrentScale?.PrinterMain != null && 
-            CurrentScale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-        public PrintBrand PrintBrandShipping => CurrentScale?.PrinterShipping != null && 
-            CurrentScale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+        public PrintBrand PrintBrandMain => Scale?.PrinterMain != null &&
+            Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+        public PrintBrand PrintBrandShipping => Scale?.PrinterShipping != null &&
+            Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
         [XmlElement(IsNullable = true)]
-        public WeighingFactDirect CurrentWeighingFact { get; private set; }
-        private int _currentPage;
-        /// <summary>
-        /// Текущая страница.
-        /// </summary>
-        public int CurrentPage
-        {
-            get => _currentPage;
-            set
-            {
-                _currentPage = value;
-                OnPropertyChanged();
-            }
-        }
+        public WeighingFactDirect WeighingFact { get; private set; }
         private bool _isWpfPageLoaderClose;
-        /// <summary>
-        /// Close WpfPageLoader form.
-        /// </summary>
         public bool IsWpfPageLoaderClose
         {
             get => _isWpfPageLoaderClose;
@@ -90,7 +74,7 @@ namespace WeightCore.Helpers
             }
         }
         public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
-        public bool IsCurrentPluCheckWeight => CurrentPlu?.IsCheckWeight == true;
+        public bool IsPluCheckWeight => Plu?.IsCheckWeight == true;
         public WeighingSettingsEntity WeighingSettings { get; set; }
         public Stopwatch StopwatchMain { get; set; }
 
@@ -108,14 +92,14 @@ namespace WeightCore.Helpers
             }
         }
 
-        private PluDirect _currentPlu;
+        private PluDirect _plu;
         [XmlElement]
-        public PluDirect CurrentPlu
+        public PluDirect Plu
         {
-            get => _currentPlu;
+            get => _plu;
             private set
             {
-                _currentPlu = value;
+                _plu = value;
                 Manager.PrintMain.CurrentLabels = 1;
                 Manager.PrintShipping.CurrentLabels = 1;
                 if (Manager == null || Manager.PrintMain == null)
@@ -132,11 +116,11 @@ namespace WeightCore.Helpers
         {
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
-            //CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
-            CurrentScale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
+            Scale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
+            AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
             ProductDate = DateTime.Now;
             // начинается новыя серия, упаковки продукции, новая паллета
-            ProductSeries = new(CurrentScale);
+            ProductSeries = new(Scale);
             //ProductSeries.Load();
             Manager = new();
             Manager.PrintMain.CurrentLabels = 1;
@@ -175,7 +159,7 @@ namespace WeightCore.Helpers
 
         public void SetCurrentPlu(PluDirect plu)
         {
-            CurrentPlu = plu;
+            Plu = plu;
         }
 
         /// <summary>
@@ -185,9 +169,9 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public bool CheckPluIsEmpty(IWin32Window owner)
         {
-            if (CurrentPlu == null)
+            if (Plu == null)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect, 
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -218,12 +202,12 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public bool CheckWeightIsNegative(IWin32Window owner)
         {
-            if (!IsCurrentPluCheckWeight)
+            if (!IsPluCheckWeight)
                 return true;
-            decimal weight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+            decimal weight = Manager.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight < LocaleCore.Scales.MassaThreshold)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+                GuiUtils.WpfForm.ShowNewOperationControl(owner,
                     LocaleCore.Scales.CheckWeightThreshold(weight),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
@@ -238,12 +222,12 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public bool CheckWeightIsPositive(IWin32Window owner)
         {
-            if (!IsCurrentPluCheckWeight)
+            if (!IsPluCheckWeight)
                 return true;
-            decimal weight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+            decimal weight = Manager.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight > LocaleCore.Scales.MassaThreshold)
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner,
                     LocaleCore.Scales.CheckWeightThreshold(weight),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return result == DialogResult.Cancel;
@@ -258,12 +242,12 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public bool CheckWeightThresholds(IWin32Window owner)
         {
-            if (!IsCurrentPluCheckWeight)
+            if (!IsPluCheckWeight)
                 return true;
             bool isCheck = false;
-            if (CurrentPlu.NominalWeight > 0)
+            if (Plu.NominalWeight > 0)
             {
-                if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold && CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
+                if (WeighingFact.NetWeight >= Plu.LowerWeightThreshold && WeighingFact.NetWeight <= Plu.UpperWeightThreshold)
                     isCheck = true;
             }
             else
@@ -271,7 +255,7 @@ namespace WeightCore.Helpers
             if (!isCheck)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.NominalWeight, CurrentPlu.LowerWeightThreshold),
+                    WeighingFact.NetWeight, Plu.UpperWeightThreshold, Plu.NominalWeight, Plu.LowerWeightThreshold),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -281,20 +265,20 @@ namespace WeightCore.Helpers
         public void PrintLabel(bool isClearBuffer)
         {
             TemplateDirect template = null;
-            if (CurrentOrder != null && CurrentScale != null && CurrentScale.UseOrder == true)
+            if (Order != null && Scale != null && Scale.UseOrder == true)
             {
-                template = CurrentOrder.Template;
-                CurrentOrder.FactBoxCount++;
+                template = Order.Template;
+                Order.FactBoxCount++;
             }
-            else if (CurrentPlu != null && CurrentScale != null && CurrentScale.UseOrder != true)
+            else if (Plu != null && Scale != null && Scale.UseOrder != true)
             {
-                template = CurrentPlu.Template;
+                template = Plu.Template;
             }
 
             // Template exist.
             if (template != null)
             {
-                switch (IsCurrentPluCheckWeight)
+                switch (IsPluCheckWeight)
                 {
                     case true:
                         PrintLabel(template, isClearBuffer);
@@ -305,7 +289,7 @@ namespace WeightCore.Helpers
                 }
             }
 
-            CurrentWeighingFact = null;
+            WeighingFact = null;
         }
 
         /// <summary>
@@ -397,7 +381,7 @@ namespace WeightCore.Helpers
             //}
 
             // Шаблон с указанием кол-ва и не весовой продукт.
-            if (template.XslContent.Contains("^PQ1") && !IsCurrentPluCheckWeight)
+            if (template.XslContent.Contains("^PQ1") && !IsPluCheckWeight)
             {
                 // Изменить кол-во этикеток.
                 if (WeighingSettings.CurrentLabelsCountMain > 1)
@@ -421,12 +405,12 @@ namespace WeightCore.Helpers
         /// </summary>
         public void SetCurrentWeighingFact()
         {
-            if (IsCurrentPluCheckWeight)
-                CurrentWeighingFact = new(CurrentScale, CurrentPlu, ProductDate, WeighingSettings.Kneading,
-                    CurrentPlu.Scale.ScaleFactor, Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
+            if (IsPluCheckWeight)
+                WeighingFact = new(Scale, Plu, ProductDate, WeighingSettings.Kneading,
+                    Plu.Scale.ScaleFactor, Manager.Massa.WeightNet - Plu.GoodsTareWeight, Plu.GoodsTareWeight);
             else
-                CurrentWeighingFact = new(CurrentScale, CurrentPlu, ProductDate, WeighingSettings.Kneading,
-                    CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
+                WeighingFact = new(Scale, Plu, ProductDate, WeighingSettings.Kneading,
+                    Plu.Scale.ScaleFactor, Plu.NominalWeight, Plu.GoodsTareWeight);
         }
 
         /// <summary>
@@ -442,16 +426,16 @@ namespace WeightCore.Helpers
         {
             try
             {
-                CurrentWeighingFact.Save();
+                WeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
-                string xmlInput = CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
+                string xmlInput = WeighingFact.SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
                 string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
 
                 // Replace ZPL's pics.
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
-                PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
+                PrintSaveLabel(printCmd, WeighingFact.Id);
                 if (Manager == null || Manager.PrintMain == null)
                     return;
 

@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL.DataModels;
 using DataCore.Models;
 using Nito.AsyncEx;
 using System;
@@ -22,7 +21,6 @@ namespace WeightCore.Managers
         public ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
         public ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         public DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        public LogHelper Log { get; set; } = LogHelper.Instance;
         public AsyncLock MutexReopen { get; private set; }
         public AsyncLock MutexRequest { get; private set; }
         public AsyncLock MutexResponse { get; private set; }
@@ -103,7 +101,7 @@ namespace WeightCore.Managers
         {
             CheckIsDisposed();
             if (task == null) return;
-            
+
             cts?.Cancel();
             task.Wait(WaitConfig.WaitClose);
             if (task.IsCompleted)
@@ -325,7 +323,7 @@ namespace WeightCore.Managers
                 while (MutexResponse != null && CtsResponse != null)
                 {
                     try
-                    {                        
+                    {
                         // AsyncLock can be locked asynchronously
                         AwaitableDisposable<IDisposable> lockTask = MutexResponse.LockAsync(CtsResponse.Token);
                         if (CtsResponse.IsCancellationRequested)
@@ -383,7 +381,7 @@ namespace WeightCore.Managers
             CtsRequest?.Dispose();
             CtsResponse?.Cancel();
             CtsResponse?.Dispose();
-            
+
             if (TaskReopen != null)
             {
                 TaskReopen.Wait(100);

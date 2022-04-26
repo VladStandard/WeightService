@@ -19,7 +19,7 @@
         Data=@ListIcons TItem="string"
         AllowFiltering=false AllowPaging=true AllowSorting=true 
         FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode=FilterMode.Advanced
-        PageSize=@AppSettings.SectionRowsCount >
+        PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount >
         <Columns >
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="50%">

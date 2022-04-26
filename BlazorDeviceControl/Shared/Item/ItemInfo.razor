@@ -4,6 +4,7 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using DataCore.Utils
+@using static DataCore.Utils.BlazorCoreUtuls
 @using static DataCore.ShareEnums
 
 <ActionsReloadItem ParentRazor=@this 
@@ -122,8 +123,7 @@
             else
             {
                 <td>
-                    <RadzenProgressBar 
-                        Style="margin-top: 4px; margin-left: 0%; width: 90%; height: 22px; "
+                    <RadzenProgressBar class=@GetCssName.RadzenProgressBar
                         Value=@DbFillSize ShowValue="true" 
                     />
                 </td>
@@ -149,8 +149,7 @@
             else
             {
                 <td>
-                    <RadzenProgressBar 
-                        Style="margin-top: 4px; margin-left: 0%; width: 90%; height: 22px; "
+                    <RadzenProgressBar class=@GetCssName.RadzenProgressBar
                         Value=@AppSettings.MemoryFillSize ShowValue="true" 
                     />
                 </td>
@@ -158,47 +157,23 @@
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SectionRowsCount</td>
-            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement></td>
-            }
+            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement></td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.ItemRowsCount</td>
-            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement></td>
-            }
+            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement></td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SelectTopRowsCount</td>
-            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement></td>
-            }
+            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement></td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Settings.Version</td>
+            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Version</MudElement></td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.AllowedHosts</td>
-            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement></td>
-            }
+            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement></td>
         </tr>
     </tbody>
 </MudSimpleTable>
@@ -230,7 +205,7 @@
         </tr>
         <tr>
             <td>@LocaleCore.Strings.Language</td>
-            @if (TemplateLanguages == null || AppSettings.DataAccess.JsonSettingsLocal == null)
+            @if (TemplateLanguages == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }

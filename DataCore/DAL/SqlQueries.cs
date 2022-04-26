@@ -8,6 +8,25 @@ namespace DataCore.DAL
     {
 		public static string GetTopRecords(int topRecords) =>
 			topRecords == 0 ? string.Empty : $"TOP {topRecords}";
+		
+		public static string GetWhereIsMarked(bool isShowMarkedItems, string alias) =>
+			isShowMarkedItems ? string.Empty : $"WHERE {alias}.[IS_MARKED] = 0";
+
+        public static string GetWhereIsMarkedAndNumber(bool isShowMarkedItems, string aliasLog, string aliasLogType, Guid logTypeUid)
+        {
+            if (isShowMarkedItems)
+            {
+                if (logTypeUid != Guid.Empty)
+					return $"WHERE {aliasLogType}.[UID] = '{logTypeUid}'";
+			}
+			else
+            {
+				if (logTypeUid != Guid.Empty)
+					return $"WHERE {aliasLog}.[IS_MARKED] = 0 AND {aliasLogType}.[UID] = '{logTypeUid}'";
+				return $"WHERE {aliasLog}.[IS_MARKED] = 0";
+			}
+			return string.Empty;
+		}
 
 		public static class DbSystem
         {
@@ -114,7 +133,7 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetLogs(int topRecords) => $@"
+                    public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
 -- Table LOGS diagram summary
 select {GetTopRecords(topRecords)}
 	 [l].[UID]
@@ -133,6 +152,7 @@ left join [db_scales].[Hosts] [h] on [h].[ID] = [l].[HOST_ID]
 left join [db_scales].[Scales] [s] on [s].[HostId] = [h].[ID]
 left join [db_scales].[APPS] [a] on [a].[UID] = [l].[APP_UID]
 left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
+{GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
 order by [l].[CREATE_DT] desc
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }

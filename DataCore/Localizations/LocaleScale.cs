@@ -92,6 +92,7 @@ namespace DataCore.Localizations
         public string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English ? $"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine + "Before restarting it, map it to the current line in DeviceControl" : $"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
         public string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
         public string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
+        public string ScreenResolution => Lang == ShareEnums.Lang.English ? "Screen resolution" : "Разрешение экрана";
         public string ShippingLabels => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
         public string StateCorrect => Lang == ShareEnums.Lang.English ? "correct" : "верна";
         public string StateDisable => Lang == ShareEnums.Lang.English ? "disable" : "отключено";

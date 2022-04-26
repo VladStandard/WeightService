@@ -24,7 +24,7 @@ else
         Data=@ItemsCast TItem="ErrorEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.SectionRowsCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
                 TItem="ErrorEntity" TextAlign=TextAlign.Center
@@ -45,13 +45,13 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="LineNumber" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.Row Type="int" Width="6%" />
+                Title=@LocaleCore.Table.Row Type="int" Width="4%" />
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="MemberName" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Member Type="string" Width="12%" />
+                Title=@LocaleCore.Table.Member Type="string" Width="18%" />
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="Exception" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Exception Type="int" Width="54%">
+                Title=@LocaleCore.Table.Exception Type="int" Width="50%">
             </RadzenGridColumn>
         </Columns>
     </RadzenGrid>

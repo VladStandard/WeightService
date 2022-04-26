@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.DAL;
 using DataCore.DAL.DataModels;
 using DataCore.Localizations;
 using System;
@@ -23,6 +24,8 @@ namespace WeightCore.Gui
         /// </summary>
         public static class WpfForm
         {
+            public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+
             /// <summary>
             /// Show pin-code form.
             /// </summary>
@@ -86,7 +89,7 @@ namespace WeightCore.Gui
             /// <param name="message"></param>
             public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, VisibilitySettingsEntity visibility = null)
             {
-                LogHelper.Instance.Information(message);
+                DataAccess.Log.LogInformation(message);
                 return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
                     visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
             }
@@ -102,7 +105,7 @@ namespace WeightCore.Gui
                 bool isLog, string filePath, int lineNumber, string memberName)
             {
                 if (isLog)
-                    LogHelper.Instance.Error(message, filePath, lineNumber, memberName);
+                    DataAccess.Log.LogError(message, filePath, lineNumber, memberName);
                 return ShowNew(owner, LocaleCore.Scales.Exception,
                     $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
                     $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
