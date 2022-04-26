@@ -94,7 +94,7 @@ namespace BlazorDeviceControl
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            AppSettings.DataAccess.SetupForBlazorApp(env.ContentRootPath);
+            AppSettings.DataAccess.Json.SetupForBlazorApp(env.ContentRootPath);
         }
 
         #endregion

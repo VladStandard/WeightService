@@ -20,13 +20,20 @@ namespace DataCore.Localizations
 
         #region Public and private fields and properties
 
+        public string JsonSettingsLocalFileException => Lang == ShareEnums.Lang.English ? "Exception in json-settings file!" : "Ошибка файла json-настроек!";
+        public string JsonSettingsFileIsEmpty(string file) => Lang == ShareEnums.Lang.English ? $"Json-settings file is empty! {file}" : $"Файл json-настроек пуст! {file}";
+        public string JsonSettingsFileNotFound(string file) => Lang == ShareEnums.Lang.English ? $"Json-settings file not found! {file}" : $"Локальный файл json-настроек не найден! {file}";
+        public string JsonSettingsLocalFileNotFound => Lang == ShareEnums.Lang.English ? "Local json-settings file not found!" : "Локальный файл json-настроек не найден!";
+        public string JsonSettingsParseVersionException(string file) => Lang == ShareEnums.Lang.English ? $"Error parsing the json-settings file version! {file}" : $"Ошибка парсинга версии файла json-настроек! {file}";
+        public string JsonSettingsRemoteFileException => Lang == ShareEnums.Lang.English ? "Remote json-settings file exception!" : "Ошибка удалённых json-настроек!";
+        public string JsonSettingsRemoteFileNotFound => Lang == ShareEnums.Lang.English ? "Remote json-settings file not found!" : "Удалённый файл json-настроек не найден!";
+        public string JsonSettingsRemoteFolderNotFound => Lang == ShareEnums.Lang.English ? "Remote json-settings folder not found!" : "Удалённый каталог json-настроек не найден!";
         public string SystemAccess => Lang == ShareEnums.Lang.English ? "Access" : "Доступ";
         public string SystemAccount => Lang == ShareEnums.Lang.English ? "Account" : "Аккаунт";
         public string SystemErrors => Lang == ShareEnums.Lang.English ? "Errors" : "Ошибки";
         public string SystemInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
         public string SystemLogin => Lang == ShareEnums.Lang.English ? "Log in" : "Вход";
         public string SystemLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Логи";
-        public string SystemSettingsNotFound => Lang == ShareEnums.Lang.English ? "Settings not found!" : "Настройки не найдены!";
         public string SystemWindowsUser => Lang == ShareEnums.Lang.English ? "Windows-user" : "Windows-пользователь";
 
         #endregion

@@ -41,16 +41,16 @@ namespace DataCore.DAL
 
         protected SqlConnection GetSqlConnection()
         {
-            return new SqlConnection(DataAccess.ConnectionString);
+            return new SqlConnection(DataAccess.JsonSettingsLocal.ConnectionString);
         }
 
         public SqlConnection GetConnection()
         {
             lock (_locker)
             {
-                if (string.IsNullOrEmpty(DataAccess.ConnectionString))
+                if (string.IsNullOrEmpty(DataAccess.JsonSettingsLocal.ConnectionString))
                 {
-                    throw new Exception($"Factory not initialized. Call this method with param {nameof(DataAccess.ConnectionString)}");
+                    throw new Exception($"Factory not initialized. Call this method with param {nameof(DataAccess.JsonSettingsLocal.ConnectionString)}");
                 }
             }
             return _instance.GetSqlConnection();

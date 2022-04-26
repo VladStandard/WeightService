@@ -15,8 +15,6 @@ namespace DataCoreTests.DAL.DataModels
         [Test]
         public void BarcodeHelper_GetEanCheckDigit_Throws()
         {
-            TestsUtils.MethodStart();
-
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 Barcode.GetEanCheckDigit("4607100235477");
@@ -26,15 +24,11 @@ namespace DataCoreTests.DAL.DataModels
                 Barcode.GetEanCheckDigit("4607100235859");
                 Barcode.GetEanCheckDigit("4607100234869");
             });
-
-            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void BarcodeHelper_GetGtinCheckDigitV1_Throws()
         {
-            TestsUtils.MethodStart();
-
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 Barcode.GetGtinCheckDigitV1("460710023547");
@@ -58,15 +52,11 @@ namespace DataCoreTests.DAL.DataModels
                 Barcode.GetGtinCheckDigitV3("460710023585");
                 Barcode.GetGtinCheckDigitV3("460710023486");
             });
-
-            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void BarcodeHelper_GetEanCheckDigit_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 Assert.AreEqual(7, Barcode.GetEanCheckDigit("460710023547"));
@@ -76,15 +66,11 @@ namespace DataCoreTests.DAL.DataModels
                 Assert.AreEqual(9, Barcode.GetEanCheckDigit("460710023585"));
                 Assert.AreEqual(9, Barcode.GetEanCheckDigit("460710023486"));
             });
-
-            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void BarcodeHelper_GetGtinCheckDigit_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 Assert.AreEqual(6, Barcode.GetGtinCheckDigitV1("4607100235477"));
@@ -108,15 +94,11 @@ namespace DataCoreTests.DAL.DataModels
                 Assert.AreEqual(0, Barcode.GetGtinCheckDigitV3("4607100235859"));
                 Assert.AreEqual(0, Barcode.GetGtinCheckDigitV3("4607100234869"));
             });
-
-            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void BarcodeHelper_GetGtin_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 Assert.AreEqual("46071002354776", Barcode.GetGtin("4607100235477", EnumGtinVariant.Var1));
@@ -140,8 +122,6 @@ namespace DataCoreTests.DAL.DataModels
                 Assert.AreEqual("46071002358590", Barcode.GetGtin("4607100235859"));
                 Assert.AreEqual("46071002348690", Barcode.GetGtin("4607100234869"));
             });
-
-            TestsUtils.MethodComplete();
         }
     }
 }

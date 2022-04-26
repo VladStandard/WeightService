@@ -63,7 +63,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 (IsShowMarkedItems == true) ? null
                                     : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                 new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
                     else
@@ -76,7 +76,7 @@ namespace BlazorDeviceControl.Shared.Section
                                     : new FieldListEntity(new Dictionary<string, object?> {
                                         { DbField.IsMarked.ToString(), false }, { DbField.CategoryId.ToString(), TemplateCategory } }),
                                 new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, true, true, true, true, false, false);

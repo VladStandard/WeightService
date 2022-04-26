@@ -12,8 +12,6 @@ namespace DataProjectsCoreTests.DAL
         [Test]
         public void SqlConnectFactory_ExecuteReader_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 TestContext.WriteLine($"[db_scales].[Scales]");
@@ -27,8 +25,6 @@ namespace DataProjectsCoreTests.DAL
                 Assert.AreEqual(1, 1);
             });
             TestContext.WriteLine();
-
-            TestsUtils.MethodComplete();
         }
     }
 }

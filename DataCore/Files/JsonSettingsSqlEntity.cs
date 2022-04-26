@@ -11,12 +11,15 @@ namespace DataCore.Files
     {
         #region Public and private fields and properties
 
-        public string Server { get; set; }
-        public string Db { get; set; }
-        public bool Trusted { get; set; }
-        public string Username { get; set; }
+        public string DataSource { get; set; }
+        public string InitialCatalog { get; set; }
+        public bool PersistSecurityInfo { get; set; }
+        public bool IntegratedSecurity { get; set; }
+        public string UserId { get; set; }
         public string Password { get; set; }
         public string Schema { get; set; }
+        public ushort ConnectTimeout { get; set; }
+        public bool Encrypt { get; set; }
         public bool TrustServerCertificate { get; set; }
 
         #endregion
@@ -25,24 +28,30 @@ namespace DataCore.Files
 
         public JsonSettingsSqlEntity()
         {
-            Server = string.Empty;
-            Db = string.Empty;
-            Trusted = default;
-            Username = string.Empty;
+            DataSource = string.Empty;
+            InitialCatalog = string.Empty;
+            PersistSecurityInfo = false;
+            IntegratedSecurity = false;
+            UserId = string.Empty;
             Password = string.Empty;
             Schema = string.Empty;
+            ConnectTimeout = 15;
+            Encrypt = false;
             TrustServerCertificate = false;
         }
 
         public JsonSettingsSqlEntity(SerializationInfo info, StreamingContext context)
         {
-            Server = info.GetString(nameof(Server));
-            Db = info.GetString(nameof(Db));
-            Trusted = info.GetBoolean(nameof(Trusted));
-            Username = info.GetString(nameof(Username));
-            Password = info.GetString(nameof(Password));
-            Schema = info.GetString(nameof(Schema));
-            TrustServerCertificate = info.GetBoolean(nameof(TrustServerCertificate));
+            DataSource = info.GetString("Data Source");
+            InitialCatalog = info.GetString("Initial Catalog");
+            PersistSecurityInfo = info.GetBoolean("Persist Security Info");
+            IntegratedSecurity = info.GetBoolean("Integrated Security");
+            UserId = info.GetString("User ID");
+            Password = info.GetString("Password");
+            Schema = info.GetString("Schema");
+            Encrypt = info.GetBoolean("Encrypt");
+            ConnectTimeout = info.GetUInt16("Connect Timeout");
+            TrustServerCertificate = info.GetBoolean("TrustServerCertificate");
         }
 
         #endregion
@@ -51,22 +60,29 @@ namespace DataCore.Files
 
         public override string ToString()
         {
-            string strTrusted = Trusted ? $"{nameof(Trusted)}: {Trusted}. " : $"{nameof(Username)}: {Username}. {nameof(Password)}: {Password}. ";
-            return $"{nameof(Server)}: {Server}. " +
-                $"{nameof(Db)}: {Db}. " +
+            string strTrusted = IntegratedSecurity 
+                ? $"{nameof(IntegratedSecurity)}: {IntegratedSecurity}. " 
+                : $"{nameof(UserId)}: {UserId}. {nameof(Password)}: {Password}. ";
+            return $"{nameof(DataSource)}: {DataSource}. " +
+                $"{nameof(InitialCatalog)}: {InitialCatalog}. " +
                 $"{strTrusted} " +
+                $"{nameof(ConnectTimeout)}: {ConnectTimeout}. " + 
+                $"{nameof(Encrypt)}: {Encrypt}. " + 
                 $"{nameof(TrustServerCertificate)}: {TrustServerCertificate}. ";
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(nameof(Server), Server);
-            info.AddValue(nameof(Db), Db);
-            info.AddValue(nameof(Trusted), Trusted);
-            info.AddValue(nameof(Username), Username);
-            info.AddValue(nameof(Password), Password);
-            info.AddValue(nameof(Schema), Schema);
-            info.AddValue(nameof(TrustServerCertificate), TrustServerCertificate);
+            info.AddValue("Data Source", DataSource);
+            info.AddValue("Initial Catalog", InitialCatalog);
+            info.AddValue("Persist Security Info", PersistSecurityInfo);
+            info.AddValue("Integrated Security", IntegratedSecurity);
+            info.AddValue("User ID", UserId);
+            info.AddValue("Password", Password);
+            info.AddValue("Schema", Schema);
+            info.AddValue("Encrypt", Encrypt);
+            info.AddValue("Connect Timeout", ConnectTimeout);
+            info.AddValue("TrustServerCertificate", TrustServerCertificate);
         }
 
         #endregion

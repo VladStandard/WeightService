@@ -208,16 +208,6 @@ namespace DataCore
         }
 
         /// <summary>
-        /// Хранилище настроек.
-        /// </summary>
-        public enum SettingsStorage
-        {
-            UseParams,
-            //UseRegistry,
-            UseConfig,
-        }
-
-        /// <summary>
         /// Уровень подробности строки подключения.
         /// </summary>
         public enum ConStringLevel

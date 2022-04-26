@@ -13,8 +13,6 @@ namespace DataCoreTests.DAL.TableDirectModels
         [Test]
         public void GetFreeHosts_Exec_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 foreach (long? id in TestsEnums.GetLongNullable())
@@ -32,15 +30,11 @@ namespace DataCoreTests.DAL.TableDirectModels
                 }
             });
             TestContext.WriteLine();
-
-            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void GetBusyHosts_Exec_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 foreach (int? id in TestsEnums.GetIntNullable())
@@ -58,8 +52,6 @@ namespace DataCoreTests.DAL.TableDirectModels
                 }
             });
             TestContext.WriteLine();
-
-            TestsUtils.MethodComplete();
         }
     }
 }

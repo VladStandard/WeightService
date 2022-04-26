@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.DAL;
 using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
+using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Settings;
 using ScalesUI.Forms;
@@ -85,19 +86,7 @@ namespace ScalesUI
             try
             {
                 AppVersion.Setup(Assembly.GetExecutingAssembly());
-                if (!DataAccess.Setup(Directory.GetCurrentDirectory()))
-                {
-                    if (!DataAccess.DownloadAppSettings(Directory.GetCurrentDirectory()))
-                    {
-                        MessageBox.Show(LocaleCore.System.SystemSettingsNotFound);
-                        return;
-                    }
-                    if (!DataAccess.Setup(Directory.GetCurrentDirectory()))
-                    {
-                        MessageBox.Show(LocaleCore.System.SystemSettingsNotFound);
-                        return;
-                    }
-                }
+                DataAccess.Json.SetupForScales(Directory.GetCurrentDirectory());
             }
             catch (Exception ex)
             {
@@ -110,7 +99,7 @@ namespace ScalesUI
             // Exit.
             if (!HostsUtils.TokenExist())
             {
-                TokenWrite(DataAccess.ConnectionString);
+                TokenWrite(DataAccess.JsonSettingsLocal.ConnectionString);
                 Application.Exit();
                 return;
             }

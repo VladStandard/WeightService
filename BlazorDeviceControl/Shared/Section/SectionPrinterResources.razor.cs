@@ -61,14 +61,14 @@ namespace BlazorDeviceControl.Shared.Section
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     null,
                                     new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                     ?.ToList<BaseEntity>();
                             else
                             {
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
                                     new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                     ?.ToList<BaseEntity>();
                             }
                         }
@@ -79,7 +79,7 @@ namespace BlazorDeviceControl.Shared.Section
                                     new FieldListEntity(new Dictionary<string, object?> {
                                         { DbField.IsMarked.ToString(), false } }),
                                     new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                     ?.ToList<BaseEntity>();
                             else
                             {
@@ -87,7 +87,7 @@ namespace BlazorDeviceControl.Shared.Section
                                     new FieldListEntity(new Dictionary<string, object?> {
                                         { $"Printer.{DbField.IdentityId}", printerId }, { DbField.IsMarked.ToString(), false } }),
                                     new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                     ?.ToList<BaseEntity>();
                             }
                         }

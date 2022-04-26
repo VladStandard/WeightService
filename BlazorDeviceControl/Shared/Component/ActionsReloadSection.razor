@@ -18,7 +18,7 @@
     else
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " 
-        Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettings.SelectTopRowsCount) />
+        Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
         <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsSelectTopRows
             Change=@(args => OnChangeCheckBox(args, nameof(IsSelectTopRows)))
         />
@@ -42,7 +42,7 @@
             <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@FilterCaption />
             <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                 AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                Data=@ItemsFilter PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name" 
+                Data=@ItemsFilter PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name" 
                 ValueProperty="Value" Value=@ItemFilter 
                 Change=@(args => OnItemValueChange(ItemFilter, FilterName, args)) />
         }

@@ -50,25 +50,23 @@ namespace WeightCoreTests.Models
 
             foreach (ushort port in EnumValuesUtils.GetUshort())
             {
-                foreach (bool usePort in EnumValuesUtils.GetBool())
+                foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
                 {
-                    foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
+                    foreach (bool integratedSecurity in EnumValuesUtils.GetBool())
                     {
-                        foreach (bool integratedSecurity in EnumValuesUtils.GetBool())
+                        foreach (bool encrypt in EnumValuesUtils.GetBool())
                         {
-                            foreach (bool encrypt in EnumValuesUtils.GetBool())
+                            foreach (string userId in EnumValuesUtils.GetString())
                             {
-                                foreach (string userId in EnumValuesUtils.GetString())
+                                foreach (string password in EnumValuesUtils.GetString())
                                 {
-                                    foreach (string password in EnumValuesUtils.GetString())
+                                    foreach (string database in EnumValuesUtils.GetString())
                                     {
-                                        foreach (string database in EnumValuesUtils.GetString())
+                                        foreach (string server in EnumValuesUtils.GetString())
                                         {
-                                            foreach (string server in EnumValuesUtils.GetString())
-                                            {
-                                                Assert.DoesNotThrow(() => { SqlAuthentication sqlAu = new(server, database, persistSecurityInfo, integratedSecurity, userId, password, encrypt, usePort, port); });
-                                                TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");
-                                            }
+                                            Assert.DoesNotThrow(() => { SqlAuthentication sqlAu = new(server, database, 
+                                                persistSecurityInfo, integratedSecurity, userId, password, encrypt, port); });
+                                            TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");
                                         }
                                     }
                                 }
@@ -89,10 +87,10 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            SqlAuthentication sqlAu = new(null, null, null, null);
+            SqlAuthentication sqlAu = new();
             Assert.IsFalse(sqlAu.Exists());
 
-            sqlAu = new SqlAuthentication("server", "database", "user", "password");
+            sqlAu = new SqlAuthentication();
             Assert.IsTrue(sqlAu.Exists());
 
             TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {stopwatch.Elapsed}");

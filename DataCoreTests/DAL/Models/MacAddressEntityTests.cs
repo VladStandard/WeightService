@@ -13,8 +13,6 @@ namespace DataCoreTests.DAL.Models
         [Test]
         public void MacEntityTests_Ctor_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
             {
                 MacAddressEntity mac = new();
@@ -23,8 +21,6 @@ namespace DataCoreTests.DAL.Models
                     mac = new(address);
                 }
             }));
-
-            TestsUtils.MethodComplete();
         }
     }
 }

@@ -25,8 +25,6 @@ namespace DataCoreTests.Schedulers
         [Test]
         public void OpenClose_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 TestContext.WriteLine("Open");
@@ -36,8 +34,6 @@ namespace DataCoreTests.Schedulers
                 TestContext.WriteLine("Close");
             });
             TestContext.WriteLine();
-
-            TestsUtils.MethodComplete();
         }
 
         //[Test]

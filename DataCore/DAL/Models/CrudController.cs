@@ -18,25 +18,22 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public DataConfigurationEntity DataConfig { get; private set; }
-        public ISessionFactory? SessionFactory { get; private set; }
         private delegate void ExecCallback(ISession session);
 
         #endregion
 
         #region Constructor and destructor
 
-        public CrudController(ISessionFactory? sessionFactory)
+        public CrudController()
         {
             DataConfig = new DataConfigurationEntity();
-            SessionFactory = sessionFactory;
         }
 
         #endregion
 
         #region Public and private methods
-
-        public ISession? OpenSession() => SessionFactory?.OpenSession();
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
@@ -102,9 +99,10 @@ namespace DataCore.DAL.Models
             return criteria;
         }
 
-        private void ExecuteTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName, bool isException = false)
+        private void ExecuteTransaction(ExecCallback callback, 
+            string filePath, int lineNumber, string memberName, bool isException = false)
         {
-            using ISession? session = OpenSession();
+            using ISession? session = DataAccess.SessionFactory.OpenSession();
             Exception? exception = null;
             if (session != null)
             {

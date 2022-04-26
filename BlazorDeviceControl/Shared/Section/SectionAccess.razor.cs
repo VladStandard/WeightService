@@ -56,7 +56,7 @@ namespace BlazorDeviceControl.Shared.Section
                             (IsShowMarkedItems == true) ? null
                                 : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, false, true, true, true, false, false);

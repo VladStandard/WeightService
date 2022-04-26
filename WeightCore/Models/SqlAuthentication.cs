@@ -12,7 +12,20 @@ namespace WeightCore.Models
     {
         #region Constructor
 
-        public SqlAuthentication(string server, string database, bool persistSecurityInfo, bool integratedSecurity, string userId, string password, bool encrypt, bool usePort, ushort port)
+        public SqlAuthentication()
+        {
+            Server = string.Empty;
+            Database = string.Empty;
+            PersistSecurityInfo = false;
+            IntegratedSecurity = false;
+            UserId = string.Empty;
+            Password = string.Empty;
+            Encrypt = false;
+            Port = 1433;
+        }
+
+        public SqlAuthentication(string server, string database, bool persistSecurityInfo, bool integratedSecurity, 
+            string userId, string password, bool encrypt, ushort port)
         {
             Server = server;
             Database = database;
@@ -21,21 +34,7 @@ namespace WeightCore.Models
             UserId = userId;
             Password = password;
             Encrypt = encrypt;
-            UsePort = usePort;
             Port = port;
-        }
-
-        public SqlAuthentication(string server, string database, string userId, string password, bool usePort = false, ushort port = 1433) :
-            this(server, database, false, false, userId, password, false, usePort, port)
-        {
-        }
-
-        public SqlAuthentication(string server, string database, bool integratedSecurity, string userId, string password, bool encrypt, bool usePort = false, ushort port = 1433) : this(server, database, false, integratedSecurity, userId, password, encrypt, usePort, port)
-        {
-        }
-
-        public SqlAuthentication(string server, string database, bool encrypt) : this(server, database, false, true, string.Empty, string.Empty, encrypt, false, 1433)
-        {
         }
 
         #endregion
@@ -45,7 +44,6 @@ namespace WeightCore.Models
         public bool Encrypt { get; }
         public bool IntegratedSecurity { get; set; }
         public bool PersistSecurityInfo { get; }
-        public bool UsePort { get; }
         public string Database { get; set; }
         public string Password { get; set; }
         public string Server { get; set; }
@@ -71,7 +69,10 @@ namespace WeightCore.Models
         public override string ToString()
         {
             return
-                $@"Data Source={Server}{(UsePort ? $",{Port}" : "")}; Initial Catalog={Database}; Persist Security Info={PersistSecurityInfo}; Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";
+                $"Data Source={Server}{(Port > 0 ? $",{Port}" : "")}; " +
+                $"Initial Catalog={Database}; " +
+                $"Persist Security Info={PersistSecurityInfo}; " +
+                $"Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace WeightCore.Models
         /// <returns></returns>
         public string AsString(ProjectsEnums.ConStringLevel conStringLevel)
         {
-            if (!UsePort)
+            if (Port <= 0)
             {
                 if (conStringLevel == ProjectsEnums.ConStringLevel.Full)
                     return $@"Data Source={Server}; Initial Catalog={Database}; Persist Security Info={PersistSecurityInfo}; Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";

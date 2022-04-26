@@ -33,7 +33,7 @@ namespace DataCoreTests.DAL.TableScaleModels
                 {
                     foreach (bool isShowTop in TestsEnums.GetBool())
                     {
-                        List<BaseEntity>? items = AppUtils.AppSettings.DataAccess.Crud.GetEntities<AppEntity>(
+                        List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<AppEntity>(
                                (isShowMarkedItems == true) ? null
                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), isShowTop ? 0_100 : 0)
@@ -41,7 +41,7 @@ namespace DataCoreTests.DAL.TableScaleModels
                         if (items != null)
                         {
                             List<AppEntity> itemsCast = items.Select(x => (AppEntity)x).ToList();
-                            AppUtils.AppSettings.DataAccess.Crud.GetEntities<AppEntity>(null, null);
+                            TestsUtils.DataAccess.Crud.GetEntities<AppEntity>(null, null);
                             if (itemsCast.Count > 0)
                             {
                                 foreach (AppEntity item in itemsCast)

@@ -64,28 +64,28 @@
         </tr>
         <tr>
             <td>@LocaleCore.Sql.SqlServer</td>
-            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings?.Sql.Server))
+            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal?.Sql.DataSource))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings?.Sql.Server</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal?.Sql.DataSource</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocaleCore.Sql.SqlDb</td>
-            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings?.Sql.Db))
+            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal?.Sql.InitialCatalog))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.Sql.Db</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog</MudElement></td>
             }
         </tr>
         <tr>
-            @if (AppSettings.DataAccess.JsonSettings?.Sql.Trusted == true)
+            @if (AppSettings.DataAccess.JsonSettingsLocal?.Sql.PersistSecurityInfo == true)
             {
                 <td>@LocaleCore.System.SystemWindowsUser</td>
             }
@@ -93,13 +93,13 @@
             {
                 <td>@LocaleCore.Sql.SqlUser</td>
             }
-            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings?.Sql.Username))
+            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal?.Sql.UserId))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.Sql.Username</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId</MudElement></td>
             }
         </tr>
         <tr>
@@ -158,46 +158,46 @@
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SectionRowsCount</td>
-            @if (AppSettings.DataAccess.JsonSettings == null)
+            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.SectionRowsCount</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocaleCore.Settings.ItemRowsCount</td>
-            @if (AppSettings.DataAccess.JsonSettings == null)
+            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.ItemRowsCount</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SelectTopRowsCount</td>
-            @if (AppSettings.DataAccess.JsonSettings == null)
+            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.SelectTopRowsCount</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocaleCore.Settings.AllowedHosts</td>
-            @if (AppSettings.DataAccess.JsonSettings == null)
+            @if (AppSettings.DataAccess.JsonSettingsLocal == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.AllowedHosts</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement></td>
             }
         </tr>
     </tbody>
@@ -230,7 +230,7 @@
         </tr>
         <tr>
             <td>@LocaleCore.Strings.Language</td>
-            @if (TemplateLanguages == null || AppSettings.DataAccess.JsonSettings == null)
+            @if (TemplateLanguages == null || AppSettings.DataAccess.JsonSettingsLocal == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
@@ -240,7 +240,7 @@
                     <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                         Disabled=false TValue=@ShareEnums.Lang
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name" 
+                        Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name" 
                         ValueProperty="Value" Value=@LocaleCore.Lang
                         Change=@(args => OnLocalizationValueChange(TemplateLanguages, args)) 
                     />

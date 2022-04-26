@@ -14,7 +14,7 @@ namespace DataCoreTests.Files
         {
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine($"{nameof(AppUtils.AppSettings.DataAccess.JsonSettings)}: {AppUtils.AppSettings.DataAccess.JsonSettings}");
+                TestContext.WriteLine($"{nameof(TestsUtils.DataAccess.JsonSettingsLocal)}: {TestsUtils.DataAccess.JsonSettingsLocal}");
             });
 
         }

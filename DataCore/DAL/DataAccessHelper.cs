@@ -1,12 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
+// https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.DAL.Models;
 using DataCore.Files;
-using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Threading;
 
 namespace DataCore.DAL
@@ -24,28 +23,32 @@ namespace DataCore.DAL
 
         #region Public and private fields and properties
 
-        public string DirLanAppSettings => @"\\palych\Install\VSSoft\appsettings\";
-        private string _connectionString;
-        public string ConnectionString
+        private readonly object _locker = new();
+
+        private JsonSettingsEntity? _jsonSettingsLocal;
+        public JsonSettingsEntity JsonSettingsLocal
         {
             get
             {
-                if (!string.IsNullOrEmpty(_connectionString))
-                    return _connectionString;
-                return string.Empty;
+                if (_jsonSettingsLocal == null)
+                    throw new ArgumentException($"{nameof(DataAccessHelper)}.{nameof(JsonSettingsLocal)} is null!");
+                _jsonSettingsLocal.CheckProperties(true);
+                return _jsonSettingsLocal;
             }
+            set => _jsonSettingsLocal = value;
         }
-        private readonly object _locker = new();
-        
-        private JsonSettingsEntity? _jsonSettings;
-        public JsonSettingsEntity JsonSettings
+
+        private JsonSettingsEntity? _jsonSettingsRemote;
+        public JsonSettingsEntity JsonSettingsRemote
         {
-            get {
-                if (_jsonSettings == null)
-                    throw new ArgumentException($"{nameof(DataAccessHelper)}.{nameof(JsonSettings)} is null!");
-                _jsonSettings.CheckProperties(true);
-                return _jsonSettings;
+            get
+            {
+                if (_jsonSettingsRemote == null)
+                    throw new ArgumentException($"{nameof(DataAccessHelper)}.{nameof(JsonSettingsRemote)} is null!");
+                _jsonSettingsRemote.CheckProperties(true);
+                return _jsonSettingsRemote;
             }
+            set => _jsonSettingsRemote = value;
         }
 
         private FluentNHibernate.Cfg.Db.MsSqlConfiguration? _sqlConfiguration;
@@ -80,7 +83,7 @@ namespace DataCore.DAL
                 if (_fluentConfiguration != null)
                     return _fluentConfiguration;
                 _fluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
-                AddConfigurationMappings(_fluentConfiguration, JsonSettings);
+                AddConfigurationMappings(_fluentConfiguration, JsonSettingsLocal);
                 //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
                 //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
                 _fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
@@ -89,7 +92,7 @@ namespace DataCore.DAL
         }
 
         private NHibernate.ISessionFactory? _sessionFactory = null;
-        private NHibernate.ISessionFactory SessionFactory
+        public NHibernate.ISessionFactory SessionFactory
         {
             get
             {
@@ -120,11 +123,25 @@ namespace DataCore.DAL
         private CrudController? _crud;
         public CrudController Crud
         {
-            get {
+            get
+            {
                 if (_crud != null)
                     return _crud;
-                return new CrudController(SessionFactory);
+                return _crud = new CrudController();
             }
+            set => _crud = value;
+        }
+
+        private JsonController? _json;
+        public JsonController Json
+        {
+            get
+            {
+                if (_json != null)
+                    return _json;
+                return _json = new JsonController();
+            }
+            set => _json = value;
         }
 
         public bool IsConnected
@@ -155,7 +172,6 @@ namespace DataCore.DAL
 
         public DataAccessHelper()
         {
-            _connectionString = string.Empty;
             _fluentConfiguration = null;
             _crud = null;
         }
@@ -163,100 +179,6 @@ namespace DataCore.DAL
         #endregion
 
         #region Public and private methods
-
-        public bool SetupForBlazorApp(string rootDir)
-        {
-            if (Setup(rootDir))
-                return true;
-            string subDir =
-#if DEBUG
-                @"bin\x64\Debug\net6.0\";
-#else
-                @"bin\x64\Release\net6.0\";
-#endif
-            string dir = Path.Combine(rootDir, subDir);
-            if (Setup(dir))
-                return true;
-            else
-                if (DownloadAppSettings(dir) && Setup(dir))
-                    return true;
-            return false;
-        }
-
-        public bool SetupForTests(string rootDir)
-        {
-            if (Setup(rootDir))
-                return true;
-            else
-                if (DownloadAppSettings(rootDir) && Setup(rootDir))
-                    return true;
-            return false;
-        }
-
-        public bool Setup(string dir)
-        {
-            object? jsonObject = null;
-            string file =
-#if DEBUG
-                Path.Combine(dir, "appsettings.Debug.json");
-#else
-                Path.Combine(dir, "appsettings.Release.json");
-#endif
-            if (File.Exists(file))
-            {
-                using StreamReader streamReader = File.OpenText(file);
-                JsonSerializer serializer = new();
-                jsonObject = (JsonSettingsEntity?)serializer.Deserialize(streamReader, typeof(JsonSettingsEntity));
-                if (jsonObject is JsonSettingsEntity jsonSettings)
-                {
-                    Microsoft.Data.SqlClient.SqlConnectionStringBuilder sqlConnectionStringBuilder = new();
-                    sqlConnectionStringBuilder["Data Source"] = jsonSettings.Sql.Server;
-                    sqlConnectionStringBuilder["Initial Catalog"] = jsonSettings.Sql.Db;
-                    sqlConnectionStringBuilder["Persist Security Info"] = jsonSettings.Sql.Trusted;
-                    sqlConnectionStringBuilder["User ID"] = jsonSettings.Sql.Username;
-                    sqlConnectionStringBuilder["Password"] = jsonSettings.Sql.Password;
-                    sqlConnectionStringBuilder["TrustServerCertificate"] = jsonSettings.Sql.TrustServerCertificate;
-                    _connectionString = sqlConnectionStringBuilder.ConnectionString;
-                    _jsonSettings = jsonSettings;
-                    _crud = new(SessionFactory);
-                }
-            }
-            return jsonObject != null;
-        }
-
-        public bool DownloadAppSettings(string dirLocal)
-        {
-            if (!Directory.Exists(DirLanAppSettings))
-                return false;
-
-            if (!DownloadFile(dirLocal, DirLanAppSettings, "appsettings.json"))
-                return false;
-            if (!DownloadFile(dirLocal, DirLanAppSettings, "appsettings.Debug.json"))
-                return false;
-            if (!DownloadFile(dirLocal, DirLanAppSettings, "appsettings.Release.json"))
-                return false;
-
-            return true;
-        }
-
-        private static bool DownloadFile(string dirLocal, string dirRemote, string file)
-        {
-            string filePath = Path.Combine(dirRemote, file);
-            if (!File.Exists(filePath))
-                return false;
-
-            StreamReader streamReader = File.OpenText(filePath);
-            string content = streamReader.ReadToEnd();
-            streamReader.Close();
-            if (string.IsNullOrEmpty(content))
-                return false;
-
-            StreamWriter streamWriter = File.CreateText(Path.Combine(dirLocal, file));
-            streamWriter.Write(content);
-            streamWriter.Close();
-            
-            return true;
-        }
 
         // This code have exception: 
         // SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
@@ -267,16 +189,17 @@ namespace DataCore.DAL
         //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
         //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
-        private string GetConnectionString() => JsonSettings.Sql.Trusted
-            ? $"Data Source={JsonSettings.Sql.Server};Initial Catalog={JsonSettings.Sql.Db};Persist Security Info=True;" +
-              $"Trusted Connection=True;TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};"
-            : $"Data Source={JsonSettings.Sql.Server};Initial Catalog={JsonSettings.Sql.Db};Persist Security Info=True;" +
-              $"User ID={JsonSettings.Sql.Username};Password={JsonSettings.Sql.Password};" +
-              $"TrustServerCertificate={JsonSettings.Sql.TrustServerCertificate};";
+        private string GetConnectionString() =>
+            $"Data Source={JsonSettingsLocal.Sql.DataSource}; " +
+            $"Initial Catalog={JsonSettingsLocal.Sql.InitialCatalog}; " +
+            $"Persist Security Info={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
+            $"Integrated Security={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
+            (JsonSettingsLocal.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsLocal.Sql.UserId}; Password={JsonSettingsLocal.Sql.Password}; ") +
+            $"TrustServerCertificate={JsonSettingsLocal.Sql.TrustServerCertificate}; ";
 
         private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsEntity jsonSettings)
         {
-            switch (jsonSettings.Sql.Db.ToUpper())
+            switch (jsonSettings.Sql.InitialCatalog.ToUpper())
             {
                 case "SCALESDB":
                 case "SCALES":

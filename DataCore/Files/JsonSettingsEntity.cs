@@ -15,7 +15,9 @@ namespace DataCore.Files
         public int SectionRowsCount { get; set; }
         public int ItemRowsCount { get; set; }
         public int SelectTopRowsCount { get; set; }
+        public ushort Version { get; set; }
         public string AllowedHosts { get; set; }
+        public string ConnectionString { get; set; }
 
         #endregion
 
@@ -28,6 +30,8 @@ namespace DataCore.Files
             ItemRowsCount = 0;
             SelectTopRowsCount = 0;
             AllowedHosts = string.Empty;
+            Version = 0;
+            ConnectionString = string.Empty;
             CheckProperties(isCheckProperties);
         }
 
@@ -39,7 +43,9 @@ namespace DataCore.Files
             SectionRowsCount = info.GetInt32(nameof(SectionRowsCount));
             ItemRowsCount = info.GetInt32(nameof(ItemRowsCount));
             SelectTopRowsCount = info.GetInt32(nameof(SelectTopRowsCount));
+            Version = info.GetUInt16(nameof(Version));
             AllowedHosts = info.GetString(nameof(AllowedHosts));
+            ConnectionString = string.Empty;
         }
 
         #endregion
@@ -48,35 +54,36 @@ namespace DataCore.Files
 
         public override string ToString()
         {
-            return Sql.ToString() + 
+            return Sql.ToString() +
                 $"{nameof(SectionRowsCount)}: {SectionRowsCount}. " +
-                $"{nameof(ItemRowsCount)}: {ItemRowsCount}. " + 
-                $"{nameof(SelectTopRowsCount)}: {SelectTopRowsCount}. " + 
+                $"{nameof(ItemRowsCount)}: {ItemRowsCount}. " +
+                $"{nameof(SelectTopRowsCount)}: {SelectTopRowsCount}. " +
+                $"{nameof(Version)}: {Version}. " +
                 $"{nameof(AllowedHosts)}: {AllowedHosts}. ";
         }
 
         public bool CheckProperties(bool isGenerateException)
         {
-            if (string.IsNullOrEmpty(Sql.Server))
+            if (string.IsNullOrEmpty(Sql.DataSource))
             {
                 if (isGenerateException)
-                    throw new ArgumentNullException(Sql.Server, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.Server)} IsNullOrEmpty!");
+                    throw new ArgumentNullException(Sql.DataSource, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.DataSource)} IsNullOrEmpty!");
                 return false;
             }
-            
-            if (string.IsNullOrEmpty(Sql.Db))
+
+            if (string.IsNullOrEmpty(Sql.InitialCatalog))
             {
                 if (isGenerateException)
-                    throw new ArgumentNullException(Sql.Db, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.Db)} IsNullOrEmpty!");
+                    throw new ArgumentNullException(Sql.InitialCatalog, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.InitialCatalog)} IsNullOrEmpty!");
                 return false;
             }
-            
-            if (!Sql.Trusted)
+
+            if (!Sql.PersistSecurityInfo)
             {
-                if (string.IsNullOrEmpty(Sql.Username))
+                if (string.IsNullOrEmpty(Sql.UserId))
                 {
                     if (isGenerateException)
-                        throw new ArgumentNullException(Sql.Username, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.Username)} IsNullOrEmpty!");
+                        throw new ArgumentNullException(Sql.UserId, $"{nameof(JsonSettingsEntity)}.{nameof(Sql.UserId)} IsNullOrEmpty!");
                     return false;
                 }
                 if (string.IsNullOrEmpty(Sql.Password))
@@ -86,6 +93,14 @@ namespace DataCore.Files
                     return false;
                 }
             }
+
+            if (Version == 0)
+            {
+                if (isGenerateException)
+                    throw new ArgumentNullException(Sql.InitialCatalog, $"{nameof(JsonSettingsEntity)}.{nameof(Version)} == 0!");
+                return false;
+            }
+
             return true;
         }
 
@@ -95,6 +110,7 @@ namespace DataCore.Files
             info.AddValue(nameof(SectionRowsCount), SectionRowsCount);
             info.AddValue(nameof(ItemRowsCount), ItemRowsCount);
             info.AddValue(nameof(SelectTopRowsCount), SelectTopRowsCount);
+            info.AddValue(nameof(Version), Version);
             info.AddValue(nameof(AllowedHosts), AllowedHosts);
         }
 

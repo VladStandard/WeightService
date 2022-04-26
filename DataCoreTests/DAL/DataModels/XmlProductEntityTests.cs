@@ -141,8 +141,6 @@ namespace DataCoreTests.DAL.DataModels
         [Test]
         public void XmlProductEntity_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrow(() =>
             {
                 for (int i = 1; i < 7; i++)
@@ -152,8 +150,6 @@ namespace DataCoreTests.DAL.DataModels
                     //TestContext.WriteLine();
                 }
             });
-
-            TestsUtils.MethodComplete();
         }
     }
 }

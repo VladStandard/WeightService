@@ -133,8 +133,6 @@ namespace LabelPrint.Views
         /// <param name="e"></param>
         private void ButtonSqlLoadConfig_Click(object sender, RoutedEventArgs e)
         {
-            //_settings.SqlHelp.Open(ShareEnums.SettingsStorage.UseConfig);
-            // Загрузить в интерфейс настройки SQL-подключения.
             SqlLoadGui();
             //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ProjectsEnums.ConStringLevel.Middle);
         }

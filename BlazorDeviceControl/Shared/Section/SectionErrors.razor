@@ -28,15 +28,15 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="ErrorEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="14%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
-                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss.fff") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ErrorEntity" Title=@LocaleCore.Table.File Type="string" Width="13%" >
+                TItem="ErrorEntity" Title=@LocaleCore.Table.File Type="string" Width="14%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")

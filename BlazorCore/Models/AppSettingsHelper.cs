@@ -30,7 +30,7 @@ namespace BlazorCore.Models
         public MemoryEntity Memory { get; set; } = new();
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
-        public int SectionRowsCount => DataAccess.JsonSettings == null ? 100 : DataAccess.JsonSettings.SectionRowsCount;
+        public int SectionRowsCount => DataAccess.JsonSettingsLocal == null ? 100 : DataAccess.JsonSettingsLocal.SectionRowsCount;
         public static int Delay => 5_000;
         public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
@@ -48,14 +48,14 @@ namespace BlazorCore.Models
         public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
             ? 0f : (float)Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
-        public string SqlServerDescription => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } }
-            ? DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
+        public string SqlServerDescription => DataAccess.JsonSettingsLocal != null && DataAccess.JsonSettingsLocal.Sql is { DataSource: { } }
+            ? DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? LocaleCore.Strings.ServerRelease : LocaleCore.Strings.ServerDevelop
             : LocaleCore.Strings.NotLoad;
-        public bool IsSqlServerRelease => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } } &&
-            DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => DataAccess.JsonSettings != null && DataAccess.JsonSettings.Sql is { Server: { } } &&
-            DataAccess.JsonSettings.Sql.Server.Contains(LocaleData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerRelease => DataAccess.JsonSettingsLocal != null && DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&
+            DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => DataAccess.JsonSettingsLocal != null && DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&
+            DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 

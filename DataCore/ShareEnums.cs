@@ -147,12 +147,6 @@ namespace DataCore
             Res_1920х1080,
         }
 
-        public enum SettingsStorage
-        {
-            UseParams,
-            UseConfig,
-        }
-
         public enum Result
         {
             /// <summary>

@@ -162,8 +162,9 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Проверить SQL-подключение.
+        /// Check SQL-connection.
         /// </summary>
+        /// <param name="language"></param>
         /// <returns></returns>
         public bool SqlConCheck(ShareEnums.Lang language)
         {
@@ -180,7 +181,7 @@ namespace WeightCore.Helpers
                 return false;
             }
 
-            SqlHelp.Open(ShareEnums.SettingsStorage.UseParams, SqlHelp.Authentication.Server, SqlHelp.Authentication.Database, SqlHelp.Authentication.IntegratedSecurity, SqlHelp.Authentication.UserId, SqlHelp.Authentication.Password);
+            SqlHelp.Open();
             SqlHelp.OpenConnection(language);
             if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
             {

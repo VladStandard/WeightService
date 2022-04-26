@@ -9,7 +9,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.IO;
 using System.Threading;
 using WeightCore.Models;
 
@@ -26,7 +25,7 @@ namespace WeightCore.Helpers
         public static SqlHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
         private SqlHelper()
         {
-            Open(ShareEnums.SettingsStorage.UseConfig);
+            Open();
         }
 
         #endregion
@@ -58,10 +57,10 @@ namespace WeightCore.Helpers
 
         #region Public methods
 
-        public void Open(string server, string database, bool integratedSecurity, string userId, string password, bool encrypt,
-            string applicationName = null, string workstationId = null, short connectTimeout = 15, short packetSize = 8192)
+        public void Open(string applicationName = null, string workstationId = null, short connectTimeout = 15, short packetSize = 8192)
         {
-            Authentication = new SqlAuthentication(server, database, integratedSecurity, userId, password, encrypt, false);
+            //DataAccess.Setup(Directory.GetCurrentDirectory());
+            //Authentication = new SqlAuthentication(server, database, integratedSecurity, userId, password, encrypt, false);
             ApplicationName = !string.IsNullOrEmpty(applicationName) ? applicationName : "ScalesUI";
             ConnectTimeout = connectTimeout;
             if (ConnectTimeout < 15)
@@ -71,35 +70,6 @@ namespace WeightCore.Helpers
                 PacketSize = 512;
             WorkstationId = workstationId;
             SetConnectionString();
-        }
-
-        public void Open(ShareEnums.SettingsStorage settingsStorage, string server = "", string database = "",
-            bool integratedSecurity = false, string userId = "", string password = "",
-            bool encrypt = false, string applicationName = null,
-            string workstationId = null, short connectTimeout = 15, short packetSize = 8192)
-        {
-            //if (settingsStorage == ShareEnums.SettingsStorage.UseConfig)
-            //{
-            //    server = string.Empty;
-            //    database = string.Empty;
-            //    userId = string.Empty;
-            //    password = string.Empty;
-            //    integratedSecurity = false;
-            //    string[] arr = Settings.Default.ConnectionString.Split(';');
-            //    if (arr.Length > 3)
-            //    {
-            //        server = arr[0].Contains("Server=") ? arr[0].Substring(7, arr[0].Length - 7) : arr[0];
-            //        database = arr[1].Contains("Database=") ? arr[1].Substring(9, arr[1].Length - 9) : arr[1];
-            //        userId = arr[2].Contains("Uid=") ? arr[2].Substring(4, arr[2].Length - 4) : arr[2];
-            //        password = arr[3].Contains("Pwd=") ? arr[3].Substring(4, arr[3].Length - 4) : arr[3];
-            //    }
-            //}
-            //Open(server, database, integratedSecurity, userId, password, encrypt, applicationName, workstationId, connectTimeout, packetSize);
-
-            DataAccess.Setup(Directory.GetCurrentDirectory());
-            Open(DataAccess.JsonSettings.Sql.Server, DataAccess.JsonSettings.Sql.Db, DataAccess.JsonSettings.Sql.Trusted,
-                DataAccess.JsonSettings.Sql.Username, DataAccess.JsonSettings.Sql.Password, 
-                encrypt, applicationName, workstationId, connectTimeout, packetSize);
         }
 
         public void SetConnectionString()

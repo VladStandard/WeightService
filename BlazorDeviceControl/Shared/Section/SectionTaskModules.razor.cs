@@ -70,12 +70,12 @@ namespace BlazorDeviceControl.Shared.Section
                         }), null);
                         Items = TaskItem == null || TaskItem.EqualsDefault() == true
                             ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null,
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>()
                             : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
                                 new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", TaskItem.Scale.IdentityId } }), 
                                 null,
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettings.SelectTopRowsCount : 0)
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                 ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, true, true, true, true, false, false);
