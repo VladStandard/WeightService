@@ -136,7 +136,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(VerScalesUi, item.VerScalesUi) &&
                    Equals(DeviceNumber, item.DeviceNumber) &&
                    Equals(ScaleFactor, item.ScaleFactor) &&
-                   WorkShop.Equals(item.WorkShop) &&
+                   WorkShop != null && item.WorkShop != null && WorkShop.Equals(item.WorkShop) &&
                    PrinterMain != null && item.PrinterMain != null && PrinterMain.Equals(item.PrinterMain) &&
                    PrinterShipping != null && item.PrinterShipping != null && PrinterShipping.Equals(item.PrinterShipping) &&
                    IsShipping.Equals(item.IsShipping) &&
@@ -181,20 +181,22 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Description, string.Empty) &&
                    Equals(IdRRef, Guid.Empty) &&
                    Equals(DeviceIp, string.Empty) &&
-                   Equals(DevicePort, 0) &&
+                   Equals(DevicePort, (short)0) &&
                    Equals(DeviceMac, string.Empty) &&
                    Equals(DeviceSendTimeout, null) &&
                    Equals(DeviceReceiveTimeout, null) &&
                    Equals(DeviceComPort, string.Empty) &&
+
                    Equals(ZebraIp, string.Empty) &&
                    Equals(ZebraPort, null) &&
                    Equals(UseOrder, false) &&
                    Equals(VerScalesUi, string.Empty) &&
+
                    Equals(DeviceNumber, null) &&
                    Equals(ScaleFactor, null) &&
                    Equals(IsShipping, false) &&
                    Equals(IsKneading, false) &&
-                   Equals(ShippingLength, 0);
+                   Equals(ShippingLength, (byte)0);
         }
 
         public override object Clone()

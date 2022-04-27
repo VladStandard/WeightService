@@ -14,7 +14,7 @@ namespace DataCoreTests
 
         static TestsUtils()
         {
-            DataAccess.Json.SetupForTests(Directory.GetCurrentDirectory(),
+            DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
                 NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
         }
     }

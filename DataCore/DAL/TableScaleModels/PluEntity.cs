@@ -28,7 +28,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual short GoodsShelfLifeDays { get; set; }
         public virtual decimal GoodsTareWeight { get; set; }
         public virtual int GoodsBoxQuantly { get; set; }
-        public virtual int Plu { get; set; }
+        public virtual int PluNumber { get; set; }
         public virtual bool Active { get; set; }
         public virtual decimal UpperWeightThreshold { get; set; }
         public virtual decimal NominalWeight { get; set; }
@@ -65,7 +65,7 @@ namespace DataCore.DAL.TableScaleModels
             GoodsShelfLifeDays = 0;
             GoodsTareWeight = 0;
             GoodsBoxQuantly = 0;
-            Plu = 0;
+            PluNumber = 0;
             Active = false;
             UpperWeightThreshold = 0;
             NominalWeight = 0;
@@ -233,7 +233,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(GoodsShelfLifeDays)}: {GoodsShelfLifeDays}. " +
                    $"{nameof(GoodsTareWeight)}: {GoodsTareWeight}. " +
                    $"{nameof(GoodsBoxQuantly)}: {GoodsBoxQuantly}. " +
-                   $"{nameof(Plu)}: {Plu}. " +
+                   $"{nameof(PluNumber)}: {PluNumber}. " +
                    $"{nameof(Active)}: {Active}. " +
                    $"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
                    $"{nameof(NominalWeight)}: {NominalWeight}. " +
@@ -258,7 +258,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(GoodsShelfLifeDays, item.GoodsShelfLifeDays) &&
                    Equals(GoodsTareWeight, item.GoodsTareWeight) &&
                    Equals(GoodsBoxQuantly, item.GoodsBoxQuantly) &&
-                   Equals(Plu, item.Plu) &&
+                   Equals(PluNumber, item.PluNumber) &&
                    Equals(Active, item.Active) &&
                    Equals(UpperWeightThreshold, item.UpperWeightThreshold) &&
                    Equals(NominalWeight, item.NominalWeight) &&
@@ -299,14 +299,14 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Gtin, string.Empty) &&
                    Equals(Ean13, string.Empty) &&
                    Equals(Itf14, string.Empty) &&
-                   Equals(GoodsShelfLifeDays, 0) &&
-                   Equals(GoodsTareWeight, 0) &&
+                   Equals(GoodsShelfLifeDays, (short)0) &&
+                   Equals(GoodsTareWeight, (decimal)0) &&
                    Equals(GoodsBoxQuantly, 0) &&
-                   Equals(Plu, 0) &&
+                   Equals(PluNumber, 0) &&
                    Equals(Active, false) &&
-                   Equals(UpperWeightThreshold, 0) &&
-                   Equals(NominalWeight, 0) &&
-                   Equals(LowerWeightThreshold, 0) &&
+                   Equals(UpperWeightThreshold, (decimal)0) &&
+                   Equals(NominalWeight, (decimal)0) &&
+                   Equals(LowerWeightThreshold, (decimal)0) &&
                    Equals(CheckWeight, false);
         }
 
@@ -325,7 +325,7 @@ namespace DataCore.DAL.TableScaleModels
             item.GoodsShelfLifeDays = GoodsShelfLifeDays;
             item.GoodsTareWeight = GoodsTareWeight;
             item.GoodsBoxQuantly = GoodsBoxQuantly;
-            item.Plu = Plu;
+            item.PluNumber = PluNumber;
             item.Active = Active;
             item.UpperWeightThreshold = UpperWeightThreshold;
             item.NominalWeight = NominalWeight;

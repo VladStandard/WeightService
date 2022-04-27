@@ -95,7 +95,7 @@ namespace BlazorDeviceControl
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            AppSettings.DataAccess.Json.SetupForBlazorApp(env.ContentRootPath, 
+            AppSettings.DataAccess.JsonControl.SetupForBlazorApp(env.ContentRootPath, 
                 NetUtils.GetLocalHostName(false), nameof(BlazorDeviceControl));
         }
 

@@ -49,6 +49,11 @@ namespace DataCore.DAL.TableScaleModels
             Kneading = null;
         }
 
+        private WeithingFactEntity(BaseEntity baseItem) : this()
+        {
+            base.Setup(baseItem);
+        }
+
         #endregion
 
         #region Public and private methods
@@ -78,10 +83,10 @@ namespace DataCore.DAL.TableScaleModels
             if (item is null) return false;
             if (ReferenceEquals(this, item)) return true;
             return base.Equals(item) &&
-                   Plu.Equals(item.Plu) &&
-                   Scale.Equals(item.Scale) &&
-                   Serie.Equals(item.Serie) &&
-                   Order.Equals(item.Order) &&
+                   Plu != null && item.Plu != null && Plu.Equals(item.Plu) &&
+                   Scale != null && item.Scale != null && Scale.Equals(item.Scale) &&
+                   Serie != null && item.Serie != null && Serie.Equals(item.Serie) &&
+                   Order != null && item.Order != null && Order.Equals(item.Order) &&
                    Equals(Sscc, item.Sscc) &&
                    Equals(WeithingDate, item.WeithingDate) &&
                    Equals(NetWeight, item.NetWeight) &&
@@ -122,8 +127,8 @@ namespace DataCore.DAL.TableScaleModels
             return base.EqualsDefault(IdentityName) &&
                    Equals(Sscc, string.Empty) &&
                    Equals(WeithingDate, DateTime.MinValue) &&
-                   Equals(NetWeight, 0) &&
-                   Equals(TareWeight, 0) &&
+                   Equals(NetWeight, (decimal)0) &&
+                   Equals(TareWeight, (decimal)0) &&
                    Equals(ProductDate, DateTime.MinValue) &&
                    Equals(RegNum, null) &&
                    Equals(Kneading, null);
@@ -131,7 +136,11 @@ namespace DataCore.DAL.TableScaleModels
 
         public override object Clone()
         {
-            WeithingFactEntity item = (WeithingFactEntity)base.Clone();
+            WeithingFactEntity item = new((BaseEntity)base.Clone())
+            {
+                //
+            };
+
             item.Plu = (PluEntity)Plu.Clone();
             item.Scale = (ScaleEntity)Scale.Clone();
             item.Serie = (ProductSeriesEntity)Serie.Clone();
@@ -146,6 +155,8 @@ namespace DataCore.DAL.TableScaleModels
             return item;
         }
 
+        public virtual WeithingFactEntity CloneCast() => (WeithingFactEntity)Clone();
+        
         #endregion
     }
 }

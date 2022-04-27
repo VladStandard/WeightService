@@ -85,7 +85,7 @@ namespace ScalesUI
             try
             {
                 AppVersion.Setup(Assembly.GetExecutingAssembly());
-                DataAccess.Json.SetupForScales(Directory.GetCurrentDirectory());
+                DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
             }
             catch (Exception ex)
             {

@@ -217,11 +217,11 @@ namespace BlazorCore.Models
             PluEntity[]? pluEntities = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                 new FieldListEntity(new Dictionary<string, object?> {
                     { $"Scale.{DbField.IdentityId}", plu.Scale.IdentityId },
-                    { DbField.Plu.ToString(), plu.Plu }
+                    { DbField.Plu.ToString(), plu.PluNumber }
                 }), null);
             if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
             {
-                detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
+                detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {plu.PluNumber}" + Environment.NewLine;
                 result = false;
             }
         }

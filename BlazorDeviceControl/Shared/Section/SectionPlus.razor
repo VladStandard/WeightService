@@ -39,7 +39,7 @@ else
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
-                        Text=@itemCast.Plu.ToString() />
+                        Text=@itemCast.PluNumber.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="Active" Width="4%" TextAlign=TextAlign.Center

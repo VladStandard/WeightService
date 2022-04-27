@@ -77,8 +77,8 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Ip, item.Ip) &&
                    Equals(Port, item.Port) &&
                    Equals(Password, item.Password) &&
-                   Equals(PrinterType, item.PrinterType) &&
-                   Equals(MacAddress, item.MacAddress) &&
+                   PrinterType != null && item.PrinterType != null && PrinterType.Equals(item.PrinterType) &&
+                   MacAddress != null && item.MacAddress != null && MacAddress.Equals(item.MacAddress) &&
                    Equals(PeelOffSet, item.PeelOffSet) &&
                    Equals(DarknessLevel, item.DarknessLevel) &&
                    Equals(HttpStatusCode, item.HttpStatusCode) &&
@@ -112,10 +112,10 @@ namespace DataCore.DAL.TableScaleModels
             return base.EqualsDefault(IdentityName) &&
                    Equals(Name, string.Empty) &&
                    Equals(Ip, string.Empty) &&
-                   Equals(Port, 0) &&
+                   Equals(Port, (short)0) &&
                    Equals(Password, string.Empty) &&
                    Equals(PeelOffSet, false) &&
-                   Equals(DarknessLevel, 0) &&
+                   Equals(DarknessLevel, (short)0) &&
                    Equals(HttpStatusCode, System.Net.HttpStatusCode.BadRequest) &&
                    Equals(HttpStatusException, null);
         }

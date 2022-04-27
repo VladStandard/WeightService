@@ -57,7 +57,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(CategoryId, item.CategoryId) &&
                    Equals(IdRRef, item.IdRRef) &&
                    Equals(Title, item.Title) &&
-                   Equals(ImageData, item.ImageData);
+                   ImageData.Equals(item.ImageData);
         }
 
         public override bool Equals(object obj)
@@ -84,7 +84,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(CategoryId, string.Empty) &&
                    Equals(IdRRef, Guid.Empty) &&
                    Equals(Title, string.Empty) &&
-                   Equals(ImageData, new());
+                   ImageData.EqualsDefault();
         }
 
         public override object Clone()

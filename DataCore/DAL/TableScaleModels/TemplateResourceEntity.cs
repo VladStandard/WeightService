@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.Utils;
 using System;
 
 namespace DataCore.DAL.TableScaleModels
@@ -59,7 +60,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Description, item.Description) &&
                    Equals(Type, item.Type) &&
                    Equals(IdRRef, item.IdRRef) &&
-                   Equals(ImageData, item.ImageData);
+                   ImageData != null && item.ImageData != null && ImageData.Equals(item.ImageData);
         }
 
         public override bool Equals(object obj)
@@ -86,7 +87,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Name, string.Empty) &&
                    Equals(Description, string.Empty) &&
                    Equals(Type, string.Empty) &&
-                   Equals(ImageData, new()) &&
+                   ImageData != null && ImageData.Equals(new())  &&
                    Equals(IdRRef, Guid.Empty);
         }
 

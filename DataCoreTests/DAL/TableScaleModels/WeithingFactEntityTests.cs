@@ -11,14 +11,14 @@ using static DataCore.ShareEnums;
 namespace DataCoreTests.DAL.TableScaleModels
 {
     [TestFixture]
-    internal class AppEntityTests
+    internal class WeithingFactEntityTests
     {
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
             Assert.DoesNotThrow(() =>
             {
-                AppEntity item = new();
+                WeithingFactEntity item = new();
                 Assert.AreEqual(true, item.EqualsNew());
                 Assert.AreEqual(true, item.EqualsDefault());
             });
@@ -31,25 +31,25 @@ namespace DataCoreTests.DAL.TableScaleModels
             {
                 foreach (bool isShowMarkedItems in TestsEnums.GetBool())
                 {
-                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<AppEntity>(
+                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<WeithingFactEntity>(
                             (isShowMarkedItems == true) ? null
                                 : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
-                            10)
+                            null, 10)
                         ?.ToList<BaseEntity>();
                     if (items != null)
                     {
-                        List<AppEntity> itemsCast = items.Select(x => (AppEntity)x).ToList();
+                        List<WeithingFactEntity> itemsCast = items.Select(x => (WeithingFactEntity)x).ToList();
                         if (itemsCast.Count > 0)
                         {
-                            foreach (AppEntity item in itemsCast)
+                            foreach (WeithingFactEntity item in itemsCast)
                             {
-                                AppEntity itemCopy = item.CloneCast();
+                                WeithingFactEntity itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
-                                AppEntity itemChange = new()
+                                WeithingFactEntity itemChange = new()
                                 {
-                                    Name = $"{item.Name}_changed",
+                                    TareWeight = 1_000,
+                                    NetWeight = 1_000,
                                 };
                                 _ = itemChange.ToString();
                                 Assert.AreNotEqual(true, itemChange.Equals(item));

@@ -63,8 +63,7 @@ namespace DataCore.DAL.Models
         {
             if (item is null) return false;
             if (ReferenceEquals(this, item)) return true;
-            return base.Equals(item) &&
-                Equals(Value, item.Value);
+            return Equals(Value, item.Value);
         }
 
         public override bool Equals(object obj)

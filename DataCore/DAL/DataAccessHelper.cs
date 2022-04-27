@@ -156,16 +156,16 @@ namespace DataCore.DAL
             set => _crudHost = value;
         }
 
-        private JsonSettingsController? _json;
-        public JsonSettingsController Json
+        private JsonSettingsController? _jsonControl;
+        public JsonSettingsController JsonControl
         {
             get
             {
-                if (_json != null)
-                    return _json;
-                return _json = new JsonSettingsController();
+                if (_jsonControl != null)
+                    return _jsonControl;
+                return _jsonControl = new JsonSettingsController();
             }
-            set => _json = value;
+            set => _jsonControl = value;
         }
 
         private LogController? _log;

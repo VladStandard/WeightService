@@ -31,32 +31,29 @@ namespace DataCoreTests.DAL.TableScaleModels
             {
                 foreach (bool isShowMarkedItems in TestsEnums.GetBool())
                 {
-                    foreach (bool isShowTop in TestsEnums.GetBool())
+                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>(
+                            (isShowMarkedItems == true) ? null
+                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
+                            10)
+                        ?.ToList<BaseEntity>();
+                    if (items != null)
                     {
-                        List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>(
-                               (isShowMarkedItems == true) ? null
-                                   : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                               new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), isShowTop ? 0_100 : 0)
-                           ?.ToList<BaseEntity>();
-                        if (items != null)
+                        List<AccessEntity> itemsCast = items.Select(x => (AccessEntity)x).ToList();
+                        if (itemsCast.Count > 0)
                         {
-                            List<AccessEntity> itemsCast = items.Select(x => (AccessEntity)x).ToList();
-                            TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>(null, null);
-                            if (itemsCast.Count > 0)
+                            foreach (AccessEntity item in itemsCast)
                             {
-                                foreach (AccessEntity item in itemsCast)
+                                AccessEntity itemCopy = item.CloneCast();
+                                Assert.AreEqual(true, item.Equals(itemCopy));
+                                Assert.AreEqual(true, itemCopy.Equals(item));
+                                AccessEntity itemChange = new()
                                 {
-                                    AccessEntity itemCopy = item.CloneCast();
-                                    Assert.AreEqual(true, item.Equals(itemCopy));
-                                    Assert.AreEqual(true, itemCopy.Equals(item));
-                                    AccessEntity itemChange = new()
-                                    {
-                                        User = $"{item.User}_changed",
-                                    };
-                                    _ = itemChange.ToString();
-                                    Assert.AreNotEqual(true, itemChange.Equals(item));
-                                    Assert.AreNotEqual(true, item.Equals(itemChange));
-                                }
+                                    User = $"{item.User}_changed",
+                                };
+                                _ = itemChange.ToString();
+                                Assert.AreNotEqual(true, itemChange.Equals(item));
+                                Assert.AreNotEqual(true, item.Equals(itemChange));
                             }
                         }
                     }

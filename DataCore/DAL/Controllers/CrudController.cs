@@ -433,16 +433,8 @@ namespace DataCore.DAL.Controllers
                 case WeithingFactEntity weithingFact:
                     if (!weithingFact.EqualsEmpty())
                     {
-                        //weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(weithingFact.Plu.IdentityId);
-                        weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<DbField, object?> {
-                                { DbField.Plu, (int)weithingFact.Plu.IdentityId },
-                                //{ DbField.ScaleId.ToString(), (int)weithingFact.Scale.IdentityId },
-                            }),
-                            null
-                            //new FieldOrderEntity(DbField.Plu, DbOrderDirection.Desc)
-                            );
-                        ;
+                        weithingFact.Plu = GetEntity<PluEntity>(
+                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Plu, (int)weithingFact.Plu.IdentityId } }));
                         weithingFact.Scale = weithingFact.Scale?.IdentityId == null ? new() : GetEntity<ScaleEntity>(weithingFact.Scale.IdentityId);
                         weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? new() : GetEntity<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
                         weithingFact.Order = weithingFact.Order?.IdentityId == null ? new() : GetEntity<OrderEntity>(weithingFact.Order.IdentityId);

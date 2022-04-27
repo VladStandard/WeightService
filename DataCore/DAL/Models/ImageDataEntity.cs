@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Utils;
+using DataCore.Utils;
 using System.Text;
 
 namespace DataCore.DAL.Models
@@ -55,7 +56,7 @@ namespace DataCore.DAL.Models
         {
             if (item is null) return false;
             if (ReferenceEquals(this, item)) return true;
-            return Equals(Value, item.Value);
+            return ByteUtils.Equals(Value, item.Value);
         }
         
         public override bool Equals(object obj)
@@ -78,7 +79,7 @@ namespace DataCore.DAL.Models
 
         public virtual bool EqualsDefault()
         {
-            return Equals(Value, new byte[0]);
+            return ByteUtils.Equals(Value, new byte[0]);
         }
 
         public void SetTemplateValue()
