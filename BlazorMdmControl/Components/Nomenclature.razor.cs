@@ -73,8 +73,8 @@
 
 //        private void GetData()
 //        {
-//            Item = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntity(new FieldListEntity(new Dictionary<string, object?>
-//            { { ShareEnums.DbField.Id.ToString(), ItemId } }), null);
+//            Item = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntity(new FieldListEntity(new Dictionary<DbField, object?>
+//            { { ShareEnums.DbField.Id, ItemId } }));
 
 //            BrandEntities = BlazorSettings.SqlDataAccess.BrandCrud.GetEntities(null,
 //                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
@@ -114,7 +114,7 @@
 //                    if (value is long idBrand)
 //                    {
 //                        Item.Brand = BlazorSettings.SqlDataAccess.BrandCrud.GetEntity(
-//                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idBrand } }), null);
+//                            new FieldListEntity(new Dictionary<DbField, object> { { ShareEnums.DbField.Id, idBrand } }));
 //                        Item.BrandBytes = Item.Brand.CodeInIs;
 //                    }
 //                    break;
@@ -122,7 +122,7 @@
 //                    if (value is long idNomenclatureGroup)
 //                    {
 //                        Item.NomenclatureGroup = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntity(
-//                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureGroup } }), null);
+//                            new FieldListEntity(new Dictionary<DbField, object> { { ShareEnums.DbField.Id, idNomenclatureGroup } }), null);
 //                        Item.NomenclatureGroupBytes = Item.NomenclatureGroup.CodeInIs;
 //                    }
 //                    break;
@@ -130,7 +130,7 @@
 //                    if (value is long idNomenclatureGroupCost)
 //                    {
 //                        Item.NomenclatureGroupCost = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntity(
-//                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureGroupCost } }), null);
+//                            new FieldListEntity(new Dictionary<DbField, object> { { ShareEnums.DbField.Id, idNomenclatureGroupCost } }));
 //                        Item.NomenclatureGroupCostBytes = Item.NomenclatureGroupCost.CodeInIs;
 //                    }
 //                    break;
@@ -138,7 +138,7 @@
 //                    if (value is long idNomenclatureTypes)
 //                    {
 //                        Item.NomenclatureType = BlazorSettings.SqlDataAccess.NomenclatureTypeCrud.GetEntity(
-//                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureTypes } }), null);
+//                            new FieldListEntity(new Dictionary<DbField, object> { { ShareEnums.DbField.Id, idNomenclatureTypes } }));
 //                        Item.NomenclatureTypeBytes = Item.NomenclatureType.CodeInIs;
 //                    }
 //                    break;
@@ -146,14 +146,14 @@
 //                    if (value is long idStatus)
 //                    {
 //                        Item.Status = BlazorSettings.SqlDataAccess.StatusCrud.GetEntity(
-//                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idStatus } }), null);
+//                            new FieldListEntity(new Dictionary<DbField, object> { { ShareEnums.DbField.Id, idStatus } }));
 //                    }
 //                    break;
 //                case "InformationSystems":
 //                    if (value is long idInformationSystem)
 //                    {
 //                        Item.InformationSystem = BlazorSettings.SqlDataAccess.InformationSystemCrud.GetEntity(
-//                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idInformationSystem } }), null);
+//                            new FieldListEntity(new Dictionary<DbField, object> { { ShareEnums.DbField.Id, idInformationSystem } }));
 //                    }
 //                    break;
 //                case "RelevanceStatuses":

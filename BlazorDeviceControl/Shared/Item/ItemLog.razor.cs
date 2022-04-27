@@ -57,8 +57,7 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> 
-                                { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
+                                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityUid, IdentityUid } }), null);
                             break;
                     }
                     ButtonSettings = new(false, false, false, false, false, false, true);

@@ -53,8 +53,7 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> 
-                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
                             break;
                     }
                     ButtonSettings = new(false, false, false, false, false, true, true);

@@ -20,7 +20,7 @@ namespace DataCoreTests.DAL.TableDirectModels
                     foreach (bool? isMarked in TestsEnums.GetBoolNullable())
                     {
                         TestContext.WriteLine($"{nameof(id)}: {id}. {nameof(isMarked)}: {isMarked}");
-                        List<HostEntity> hosts = TestsUtils.DataAccess.Crud.GetFreeHosts(id, isMarked);
+                        List<HostEntity> hosts = TestsUtils.DataAccess.CrudHost.GetFree(id, isMarked);
                         foreach (HostEntity host in hosts)
                         {
                             TestContext.WriteLine($"{host}");
@@ -42,7 +42,7 @@ namespace DataCoreTests.DAL.TableDirectModels
                     foreach (bool? isMarked in TestsEnums.GetBoolNullable())
                     {
                         TestContext.WriteLine($"{nameof(id)}: {id}. {nameof(isMarked)}: {isMarked}");
-                        List<HostEntity> hosts = TestsUtils.DataAccess.Crud.GetBusyHosts(null, null);
+                        List<HostEntity> hosts = TestsUtils.DataAccess.CrudHost.GetBusy(null, null);
                         foreach (HostEntity host in hosts)
                         {
                             TestContext.WriteLine($"{host}");

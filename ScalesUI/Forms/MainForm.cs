@@ -68,13 +68,7 @@ namespace ScalesUI.Forms
             {
                 SessionState.StopwatchMain = Stopwatch.StartNew();
                 SessionState.StopwatchMain.Restart();
-                SessionState.DataAccess.Log.Host = SessionState.Scale.Host;
-                string appName = typeof(Program).Assembly.GetName().Name;
-                SessionState.DataAccess.Log.App = SessionState.DataAccess.Crud.GetEntity<AppEntity>(
-                    new FieldListEntity(new Dictionary<string, object> { { DbField.Name.ToString(),
-                    appName } }),
-                    null);
-                
+                SessionState.DataAccess.Log.Setup(SessionState.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
                 FontsSettings = new();

@@ -67,8 +67,7 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
-                                new FieldListEntity(new Dictionary<string, object?>
-                                { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
+                                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityUid, IdentityUid } }), null);
                             break;
                     }
                     TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);

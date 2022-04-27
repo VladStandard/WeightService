@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL;
+using DataCore.Protocols;
 using System.IO;
 
 namespace DataCoreTests
@@ -13,7 +14,8 @@ namespace DataCoreTests
 
         static TestsUtils()
         {
-            DataAccess.Json.SetupForTests(Directory.GetCurrentDirectory());
+            DataAccess.Json.SetupForTests(Directory.GetCurrentDirectory(),
+                NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
         }
     }
 }

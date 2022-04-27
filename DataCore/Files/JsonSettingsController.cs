@@ -1,18 +1,21 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Files;
+using DataCore.DAL;
 using DataCore.Localizations;
+using DataCore.Settings;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Reflection;
 
-namespace DataCore.DAL.Controllers
+namespace DataCore.Files
 {
-    public class JsonController
+    public class JsonSettingsController
     {
         #region Public and private fields and properties
 
+        public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public const string RemoteDir =
 #if DEBUG
@@ -27,6 +30,7 @@ namespace DataCore.DAL.Controllers
 #else
             "appsettings.Release.json";
 #endif
+        public string ExceptionFileName(string localDir) => Path.Combine(localDir, $"{FileName}.log");
         public const string BlazorSubDir =
 #if DEBUG
             @"bin\x64\Debug\net6.0\";
@@ -34,54 +38,59 @@ namespace DataCore.DAL.Controllers
             @"bin\x64\Release\net6.0\";
 #endif
 
-#endregion
+        #endregion
 
-#region Constructor and destructor
+        #region Constructor and destructor
 
-        public JsonController()
+        public JsonSettingsController()
         {
             //
         }
 
-#endregion
+        #endregion
 
-#region Public and private methods
+        #region Public and private methods
 
-        public void SetupForBlazorApp(string localDir)
+        public void SetupForBlazorApp(string localDir, string? hostName, string? appName)
         {
-            string subDir = Path.Combine(localDir, BlazorSubDir);
-            if (Directory.Exists(subDir))
+            try
             {
-                // Local folder.
-                CheckUpdates(subDir);
-                if (!Setup(subDir))
-                    throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
-            }
-            else
-            {
-                // IIS publish folder.
-                CheckUpdates(localDir);
-                if (!Setup(localDir))
+                AppVersion.Setup(Assembly.GetExecutingAssembly());
+                string subDir = Path.Combine(localDir, BlazorSubDir);
+                if (Directory.Exists(subDir))
                 {
-                    StreamWriter streamWriter;
-                    string localFileLog = Path.Combine(localDir, $"{FileName}.log");
-                    streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
-                    streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} LocaleCore.System.JsonSettingsLocalFileException");
-                    streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(localDir)}: {localDir}");
-                    streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(FileName)}: {FileName}");
-                    streamWriter.Close();
-                    streamWriter.Dispose();
-                    throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+                    // Local folder.
+                    CheckUpdates(subDir);
+                    if (!Setup(subDir))
+                        throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
                 }
+                else
+                {
+                    // IIS publish folder.
+                    CheckUpdates(localDir);
+                    if (!Setup(localDir))
+                        throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+                }
+
+                DataAccess.Log.Setup(hostName, appName);
+                DataAccess.Log.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
+            }
+            catch (Exception ex)
+            {
+                DataAccess.Log.LogToFile(ExceptionFileName(localDir), ex.Message);
+                if (ex.InnerException != null)
+                    DataAccess.Log.LogToFile(ExceptionFileName(localDir), $"{FileName}.log", ex.InnerException.Message);
             }
         }
 
-        public void SetupForTests(string localDir)
+        public void SetupForTests(string localDir, string? hostName, string? appName)
         {
             CheckUpdates(localDir);
 
             if (!Setup(localDir))
                 throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+
+            DataAccess.Log.Setup(hostName, appName);
         }
 
         public void SetupForScales(string localDir)
@@ -112,6 +121,8 @@ namespace DataCore.DAL.Controllers
                 sqlConnectionStringBuilder["Encrypt"] = getJjsonSettings.Sql.Encrypt;
                 sqlConnectionStringBuilder["Connect Timeout"] = getJjsonSettings.Sql.ConnectTimeout;
                 sqlConnectionStringBuilder["TrustServerCertificate"] = getJjsonSettings.Sql.TrustServerCertificate;
+                if (getJjsonSettings == null)
+                    throw new Exception(LocaleCore.System.JsonSettingsRemoteFileException);
                 if (!isRemote)
                 {
                     DataAccess.JsonSettingsLocal = getJjsonSettings;
@@ -135,8 +146,6 @@ namespace DataCore.DAL.Controllers
                 throw new Exception(LocaleCore.System.JsonSettingsRemoteFileNotFound);
 
             Setup(RemoteDir, true);
-            if (DataAccess.JsonSettingsRemote == null)
-                throw new Exception(LocaleCore.System.JsonSettingsRemoteFileException);
 
             ushort version = GetLocalVersion(localDir);
             if (version == 0 || version < DataAccess.JsonSettingsRemote.Version)
@@ -195,6 +204,6 @@ namespace DataCore.DAL.Controllers
             return 0;
         }
 
-#endregion
+        #endregion
     }
 }

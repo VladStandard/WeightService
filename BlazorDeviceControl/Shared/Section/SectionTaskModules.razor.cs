@@ -65,9 +65,7 @@ namespace BlazorDeviceControl.Shared.Section
                     if (AppSettings.DataAccess != null)
                     {
                         TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {
-                            { DbField.IdentityUid.ToString(), IdentityUid },
-                        }), null);
+                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityUid, IdentityUid } }));
                         Items = TaskItem == null || TaskItem.EqualsDefault() == true
                             ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null,
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

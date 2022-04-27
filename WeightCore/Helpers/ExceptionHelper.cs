@@ -45,7 +45,7 @@ namespace WeightCore.Helpers
         {
             lock (_locker)
             {
-                DataAccess.Log.LogError(ex, filePath, lineNumber, memberName);
+                DataAccess.Log.LogError(ex, null, null, filePath, lineNumber, memberName);
                 string message = ex.Message;
                 if (ex.InnerException != null)
                     message += Environment.NewLine + ex.InnerException.Message;

@@ -116,10 +116,12 @@ namespace DataCore
             CreateDt,
             Description,
             GoodsName,
+            HostName,
             IdentityId,
             IdentityUid,
             IsMarked,
             Name,
+            Number,
             Plu,
             PrinterId,
             Scale_Id,
@@ -130,7 +132,6 @@ namespace DataCore
             User,
             Value,
             WeithingDate,
-            Number,
         }
 
         public enum DbOrderDirection

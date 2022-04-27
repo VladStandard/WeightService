@@ -50,8 +50,7 @@ namespace BlazorDeviceControl.Shared.Item
                     await GuiRefreshWithWaitAsync();
 
                     ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> {{ DbField.IdentityUid.ToString(), IdentityUid },
-                    }), null);
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityUid, IdentityUid } }));
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
                     ButtonSettings = new(false, false, false, false, false, true, true);

@@ -15,6 +15,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual DateTime AccessDt { get; set; }
         public virtual string Name { get; set; }
+        public virtual string HostName { get; set; }
         public virtual string Ip { get; set; }
         public virtual MacAddressEntity MacAddress { get; set; }
         public virtual string MacAddressValue
@@ -44,6 +45,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             AccessDt = DateTime.MinValue;
             Name = string.Empty;
+            HostName = string.Empty;
             Ip = string.Empty;
             MacAddress = new();
             SettingsFile = string.Empty;
@@ -61,6 +63,7 @@ namespace DataCore.DAL.TableScaleModels
             return base.ToString() +
                    $"{nameof(AccessDt)}: {strAccessDt}. " +
                    $"{nameof(Name)}: {Name}. " +
+                   $"{nameof(HostName)}: {HostName}. " +
                    $"{nameof(Ip)}: {Ip}. " +
                    $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
@@ -74,6 +77,7 @@ namespace DataCore.DAL.TableScaleModels
             return base.Equals(item) &&
                    Equals(AccessDt, item.AccessDt) &&
                    Equals(Name, item.Name) &&
+                   Equals(HostName, item.HostName) &&
                    Equals(Ip, item.Ip) &&
                    Equals(MacAddress, item.MacAddress) &&
                    Equals(IdRRef, item.IdRRef) &&
@@ -105,9 +109,10 @@ namespace DataCore.DAL.TableScaleModels
             return base.EqualsDefault(IdentityName) &&
                    Equals(AccessDt, DateTime.MinValue) &&
                    Equals(Name, string.Empty) &&
+                   Equals(HostName, string.Empty) &&
                    Equals(Ip, string.Empty) &&
                    Equals(IdRRef, Guid.Empty) &&
-                   Equals(SettingsFile, new byte[0]);
+                   Equals(SettingsFile, string.Empty);
         }
 
         public override object Clone()
@@ -115,6 +120,7 @@ namespace DataCore.DAL.TableScaleModels
             HostEntity item = (HostEntity)base.Clone();
             item.AccessDt = AccessDt;
             item.Name = Name;
+            item.HostName = HostName;
             item.Ip = Ip;
             item.MacAddress = (MacAddressEntity)MacAddress.Clone();
             item.IdRRef = IdRRef;

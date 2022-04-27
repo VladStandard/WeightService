@@ -57,7 +57,7 @@
 //            };
 //            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
 //            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-//                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Name.ToString(), name } }),
+//                new FieldListEntity(new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }
 

@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.540] - 2022-04-26
+## [0.6.550] - 2022-04-27
 ### Fixed
 - DataCore.Files.JsonSettingsEntity
 - Shared.Section.Logs
@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Добавлен раздел: "Логи вопросов"
 - Добавлен раздел: "Логи остановов"
 - Добавлен раздел: "Логи предупреждений"
+- Регистрация запуска веб-приложения
+- Регистрация логов ошибок веб-приложения
 
 ## [0.6.520] - 2022-04-21
 ### Fixed

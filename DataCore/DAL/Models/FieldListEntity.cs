@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
+using static DataCore.ShareEnums;
 
 namespace DataCore.DAL.Models
 {
@@ -20,6 +21,12 @@ namespace DataCore.DAL.Models
         {
             Use = true;
             Fields = fields;
+        }
+
+        public FieldListEntity(Dictionary<DbField, object?> fields)
+        {
+            Use = true;
+            Fields = GetFields(fields);
         }
 
         public FieldListEntity()
@@ -45,6 +52,19 @@ namespace DataCore.DAL.Models
             return $"{nameof(Use)}: {Use}. {strFields}";
         }
 
+        private Dictionary<string, object?> GetFields(Dictionary<DbField, object?> fields)
+        {
+            Dictionary<string, object?> result = new();
+            if (fields != null && fields.Count > 0)
+            {
+                foreach (KeyValuePair<DbField, object?> field in fields)
+                {
+                    result.Add(field.Key.ToString(), field.Value);
+                }
+            }
+            return result;
+        }
+        
         #endregion
     }
 }

@@ -78,15 +78,13 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault(IdentityName) &&
-                   Equals(Name, string.Empty);
+                Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            AppEntity item = new((BaseEntity)base.Clone())
-            {
-                Name = Name,
-            };
+            AppEntity item = new((BaseEntity)base.Clone());
+            item.Name = Name;
             return item;
         }
 

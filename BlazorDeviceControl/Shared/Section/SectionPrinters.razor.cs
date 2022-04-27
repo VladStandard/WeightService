@@ -52,15 +52,15 @@ namespace BlazorDeviceControl.Shared.Section
 
                     if (AppSettings.DataAccess != null)
                         Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                             new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     ButtonSettings = new(true, true, true, true, true, false, false);
-                    foreach (PrinterEntity item in ItemsCast)
-                    {
-                        //await item.SetHttpStatusAsync().ConfigureAwait(true);
-                    }
+                    //foreach (PrinterEntity item in ItemsCast)
+                    //{
+                    //    //await item.SetHttpStatusAsync().ConfigureAwait(true);
+                    //}
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);

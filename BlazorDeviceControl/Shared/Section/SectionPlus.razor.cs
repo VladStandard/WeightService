@@ -73,8 +73,7 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             if (scaleId == null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { 
-                                        { DbField.IsMarked.ToString(), false } }),
+                                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                                     new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                     ?.ToList<BaseEntity>();

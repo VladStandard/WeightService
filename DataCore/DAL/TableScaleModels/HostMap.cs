@@ -16,6 +16,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
             Map(x => x.AccessDt).CustomSqlType("DATETIME").Column("ACCESS_DT").Not.Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(150).Nullable();
+            Map(x => x.HostName).CustomSqlType("NVARCHAR").Column("HOSTNAME").Length(255).Nullable();
             Map(x => x.Ip).CustomSqlType("VARCHAR").Column("IP").Length(15).Nullable();
             Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("MAC").Length(35).Nullable();
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Not.Nullable();

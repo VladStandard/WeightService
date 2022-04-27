@@ -105,7 +105,7 @@ namespace WeightCore.Gui
                 bool isLog, string filePath, int lineNumber, string memberName)
             {
                 if (isLog)
-                    DataAccess.Log.LogError(message, filePath, lineNumber, memberName);
+                    DataAccess.Log.LogError(message, null, null, filePath, lineNumber, memberName);
                 return ShowNew(owner, LocaleCore.Scales.Exception,
                     $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
                     $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,

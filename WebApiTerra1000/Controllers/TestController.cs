@@ -22,7 +22,7 @@ namespace WebApiTerra1000.Controllers
     {
         #region Public and private fields and properties
 
-        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private readonly AppVersionHelper AppVersion = AppVersionHelper.Instance;
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace WebApiTerra1000.Controllers
         public ContentResult GetInfo(FormatType format = FormatType.Xml) =>
             Controller.RunTask(new Task<ContentResult>(() =>
             {
-                _appVersion.Setup(Assembly.GetExecutingAssembly());
+                AppVersion.Setup(Assembly.GetExecutingAssembly());
 
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
@@ -51,7 +51,7 @@ namespace WebApiTerra1000.Controllers
                 string response = sqlQuery.UniqueResult<string>();
                 transaction.Commit();
 
-                return new ServiceInfoEntity(_appVersion.App, _appVersion.Version,
+                return new ServiceInfoEntity(AppVersion.App, AppVersion.Version,
                     DateTime.Now.ToString(CultureInfo.InvariantCulture),
                     response.ToString(CultureInfo.InvariantCulture),
                     session.Connection.ConnectionString.ToString(),

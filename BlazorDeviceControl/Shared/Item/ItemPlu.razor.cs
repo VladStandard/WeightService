@@ -72,17 +72,16 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                                new FieldListEntity(new Dictionary<string, object?>
-                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
                             break;
                     }
 
                     ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
                         ?.ToList();
                     TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
                         ?.ToList();
                     NomenclatureItems = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
@@ -186,16 +185,7 @@ namespace BlazorDeviceControl.Shared.Item
             }
             catch (Exception ex)
             {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocaleCore.Strings.MethodError} [{nameof(OnClickFieldsFill)}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService?.Notify(msg);
-                Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-                AppSettings.DataAccess.Log.LogError(ex, filePath, lineNumber, memberName);
+                RunTasksCatch(ex, Table.Name, memberName, filePath, lineNumber, memberName);
             }
         }
 

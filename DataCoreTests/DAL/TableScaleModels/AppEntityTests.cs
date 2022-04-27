@@ -35,7 +35,7 @@ namespace DataCoreTests.DAL.TableScaleModels
                     {
                         List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<AppEntity>(
                                (isShowMarkedItems == true) ? null
-                                   : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                                   : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                                new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), isShowTop ? 0_100 : 0)
                            ?.ToList<BaseEntity>();
                         if (items != null)

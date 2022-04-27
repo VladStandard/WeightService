@@ -14,15 +14,36 @@ namespace DataCore.Protocols
 
         public static string GetLocalIpAddress()
         {
-            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList)
+            try
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (IPAddress ip in host.AddressList)
                 {
-                    return ip.ToString();
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
                 }
             }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
+            catch (Exception ex)
+            {
+                throw new Exception($"Exception in {nameof(GetLocalIpAddress)}", ex);
+            }
+            return string.Empty;
+        }
+
+        public static string GetLocalHostName(bool isThrow)
+        {
+            try
+            {
+                return Dns.GetHostName();
+            }
+            catch (Exception ex)
+            {
+                if (isThrow)
+                    throw new Exception($"Exception in {nameof(GetLocalHostName)}", ex);
+            }
+            return string.Empty;
         }
 
         public static string GetMacAddress()

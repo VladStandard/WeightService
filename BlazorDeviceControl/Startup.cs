@@ -4,6 +4,7 @@
 using BlazorCore.Models;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
+using DataCore.Protocols;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -94,7 +95,8 @@ namespace BlazorDeviceControl
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            AppSettings.DataAccess.Json.SetupForBlazorApp(env.ContentRootPath);
+            AppSettings.DataAccess.Json.SetupForBlazorApp(env.ContentRootPath, 
+                NetUtils.GetLocalHostName(false), nameof(BlazorDeviceControl));
         }
 
         #endregion

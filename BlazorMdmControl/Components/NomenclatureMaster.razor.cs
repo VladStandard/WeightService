@@ -71,8 +71,8 @@
 
 //        private void GetData()
 //        {
-//            IncludeEntities = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object> {
-//            //{ ShareEnums.DbField.IsProduct.ToString(), true },
+//            IncludeEntities = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<DbField, object> {
+//            //{ ShareEnums.DbField.IsProduct, true },
 //            { ShareEnums.DbField.MasterId.ToString(), ItemId },
 //        }),
 //                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);

@@ -61,7 +61,7 @@ namespace BlazorDeviceControl.Shared.Section
                         if (AppSettings.DataAccess != null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                                 (IsShowMarkedItems == true) ? null
-                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                                    : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                                 new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
                                 IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
@@ -71,10 +71,8 @@ namespace BlazorDeviceControl.Shared.Section
                         if (AppSettings.DataAccess != null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                                 (IsShowMarkedItems == true)
-                                    ? new FieldListEntity(new Dictionary<string, object?> {
-                                        { DbField.CategoryId.ToString(), TemplateCategory } })
-                                    : new FieldListEntity(new Dictionary<string, object?> {
-                                        { DbField.IsMarked.ToString(), false }, { DbField.CategoryId.ToString(), TemplateCategory } }),
+                                    ? new FieldListEntity(new Dictionary<DbField, object?> { { DbField.CategoryId, TemplateCategory } })
+                                    : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false }, { DbField.CategoryId, TemplateCategory } }),
                                 new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
                                 IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();

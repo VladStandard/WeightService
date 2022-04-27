@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static DataCore.ShareEnums;
 
 namespace DataCore.DAL.Controllers
 {
@@ -76,7 +77,7 @@ namespace DataCore.DAL.Controllers
             }
             if (order != null && order is { Use: true })
             {
-                Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc
+                Order fieldOrder = order.Direction == DbOrderDirection.Asc
                     ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
                 criteria.AddOrder(fieldOrder);
             }
@@ -113,7 +114,7 @@ namespace DataCore.DAL.Controllers
             }
             if (!isException && exception != null)
             {
-                DataAccess.Log.LogError(exception, filePath, lineNumber, memberName);
+                DataAccess.Log.LogError(exception, null, null, filePath, lineNumber, memberName);
             }
         }
 
@@ -434,12 +435,12 @@ namespace DataCore.DAL.Controllers
                     {
                         //weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(weithingFact.Plu.IdentityId);
                         weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {
-                                { ShareEnums.DbField.Plu.ToString(), (int)weithingFact.Plu.IdentityId },
-                                //{ ShareEnums.DbField.ScaleId.ToString(), (int)weithingFact.Scale.IdentityId },
+                            new FieldListEntity(new Dictionary<DbField, object?> {
+                                { DbField.Plu, (int)weithingFact.Plu.IdentityId },
+                                //{ DbField.ScaleId.ToString(), (int)weithingFact.Scale.IdentityId },
                             }),
                             null
-                            //new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Desc)
+                            //new FieldOrderEntity(DbField.Plu, DbOrderDirection.Desc)
                             );
                         ;
                         weithingFact.Scale = weithingFact.Scale?.IdentityId == null ? new() : GetEntity<ScaleEntity>(weithingFact.Scale.IdentityId);
@@ -477,15 +478,15 @@ namespace DataCore.DAL.Controllers
                     if (!nomenclature.EqualsEmpty())
                     {
                         //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
-                        //    nomenclatureEntity.Brand = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
+                        //    nomenclatureEntity.Brand = GetEntity(DbField.CodeInIs, nomenclatureEntity.BrandBytes);
                         //if (nomenclatureEntity.InformationSystem?.IdentityId != null)
                         //    nomenclatureEntity.InformationSystem = GetEntity(nomenclatureEntity.InformationSystem.Id);
                         //if (nomenclatureEntity.NomenclatureGroupCostBytes != null && nomenclatureEntity.NomenclatureGroupCostBytes.Length > 0)
-                        //    nomenclatureEntity.NomenclatureGroupCost = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
+                        //    nomenclatureEntity.NomenclatureGroupCost = GetEntity(DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
                         //if (nomenclatureEntity.NomenclatureGroupBytes != null && nomenclatureEntity.NomenclatureGroupBytes.Length > 0)
-                        //    nomenclatureEntity.NomenclatureGroup = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
+                        //    nomenclatureEntity.NomenclatureGroup = GetEntity(DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
                         //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
-                        //    nomenclatureEntity.NomenclatureType = GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
+                        //    nomenclatureEntity.NomenclatureType = GetEntity(DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
                         nomenclature.Status = nomenclature.Status?.IdentityId == null ? new() : GetEntity<StatusEntity>(nomenclature.Status.IdentityId);
                     }
                     break;
@@ -519,7 +520,7 @@ namespace DataCore.DAL.Controllers
             }
         }
 
-        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order,
+        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             where T : BaseEntity, new()
         {
@@ -537,15 +538,15 @@ namespace DataCore.DAL.Controllers
         public T GetEntity<T>(long? id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IdentityId.ToString(), id } }),
-                new FieldOrderEntity(ShareEnums.DbField.IdentityId, ShareEnums.DbOrderDirection.Desc));
+                new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), id } }),
+                new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc));
         }
 
         public T GetEntity<T>(Guid? uid) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IdentityUid.ToString(), uid } }),
-                new FieldOrderEntity(ShareEnums.DbField.IdentityUid, ShareEnums.DbOrderDirection.Desc));
+                new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityUid.ToString(), uid } }),
+                new FieldOrderEntity(DbField.IdentityUid, DbOrderDirection.Desc));
         }
 
         public T[]? GetEntities<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults = 0,
@@ -646,48 +647,14 @@ namespace DataCore.DAL.Controllers
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             where T : BaseEntity, new()
         {
-            //if (item == null) return;
             switch (item)
             {
-                case AccessEntity access:
-                    ExecuteTransaction((session) =>
-                    {
-                        session.Save(access);
-                    }, filePath, lineNumber, memberName);
-                    break;
-                case LogEntity log:
-                    ExecuteTransaction((session) =>
-                    {
-                        session.Save(log);
-                    }, filePath, lineNumber, memberName);
-                    break;
-                case BarCodeTypeEntityV2 barcodeType:
-                    ExecuteTransaction((session) =>
-                    {
-                        session.Save(barcodeType);
-                    }, filePath, lineNumber, memberName);
-                    break;
                 case ContragentEntityV2 contragent:
-                    throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                case HostEntity host:
-                    ExecuteTransaction((session) =>
-                    {
-                        session.Save(host);
-                    }, filePath, lineNumber, memberName);
-                    break;
+                    throw new Exception($"{nameof(SaveEntity)} for {nameof(TableScaleModels.ContragentEntityV2)} is deny!");
                 case TableScaleModels.NomenclatureEntity nomenclature:
-                    throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                case PrinterTypeEntity printerType:
-                    ExecuteTransaction((session) =>
-                    {
-                        session.Save(printerType);
-                    }, filePath, lineNumber, memberName);
-                    break;
-                case TemplateEntity template:
-                    ExecuteTransaction((session) =>
-                    {
-                        session.Save(template);
-                    }, filePath, lineNumber, memberName);
+                    throw new Exception($"{nameof(SaveEntity)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
+                default:
+                    ExecuteTransaction((session) => { session.Save(item); }, filePath, lineNumber, memberName);
                     break;
             }
         }
@@ -697,111 +664,8 @@ namespace DataCore.DAL.Controllers
             where T : BaseEntity, new()
         {
             if (item == null || item.EqualsEmpty()) return;
-            switch (item)
-            {
-                case AccessEntity access:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(access); }, filePath, lineNumber, memberName);
-                    break;
-                case AppEntity app:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(app); }, filePath, lineNumber, memberName);
-                    break;
-                case ErrorEntity error:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(error); }, filePath, lineNumber, memberName);
-                    break;
-                case HostEntity host:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
-                    host.ChangeDt = DateTime.Now;
-                    break;
-                case LogEntity log:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(log); }, filePath, lineNumber, memberName);
-                    break;
-                case LogTypeEntity logType:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
-                    break;
-                case BarCodeTypeEntityV2 barcodeType:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
-                    break;
-                case ContragentEntityV2 contragent:
-                    contragent.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
-                    break;
-                case LabelEntity label:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(label); }, filePath, lineNumber, memberName);
-                    break;
-                case OrderEntity order:
-                    order.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
-                    break;
-                case OrderStatusEntity orderStatus:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(orderStatus); }, filePath, lineNumber, memberName);
-                    break;
-                case OrderTypeEntity orderType:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(orderType); }, filePath, lineNumber, memberName);
-                    break;
-                case PluEntity plu:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
-                    break;
-                case ProductionFacilityEntity productionFacility:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(productionFacility); }, filePath, lineNumber, memberName);
-                    break;
-                case ProductSeriesEntity productSeries:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(productSeries); }, filePath, lineNumber, memberName);
-                    break;
-                case ScaleEntity scale:
-                    scale.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
-                    break;
-                case TemplateEntity template:
-                    template.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(template); }, filePath, lineNumber, memberName);
-                    break;
-                case TemplateResourceEntity templateResource:
-                    templateResource.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(templateResource); }, filePath, lineNumber, memberName);
-                    break;
-                case WeithingFactEntity weithingFact:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(weithingFact); }, filePath, lineNumber, memberName);
-                    break;
-                case WorkShopEntity workshop:
-                    workshop.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(workshop); }, filePath, lineNumber, memberName);
-                    break;
-                case PrinterEntity printer:
-                    printer.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(printer); }, filePath, lineNumber, memberName);
-                    break;
-                case PrinterResourceEntity printerResource:
-                    printerResource.ChangeDt = DateTime.Now;
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(printerResource); }, filePath, lineNumber, memberName);
-                    break;
-                case PrinterTypeEntity printerType:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(printerType); }, filePath, lineNumber, memberName);
-                    break;
-                case BrandEntity brand:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(brand); }, filePath, lineNumber, memberName);
-                    break;
-                case InformationSystemEntity informationSystem:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(informationSystem); }, filePath, lineNumber, memberName);
-                    break;
-                case TableDwhModels.NomenclatureEntity nomenclature:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclature); }, filePath, lineNumber, memberName);
-                    break;
-                case NomenclatureGroupEntity nomenclatureGroup:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclatureGroup); }, filePath, lineNumber, memberName);
-                    break;
-                case NomenclatureLightEntity nomenclatureLight:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclatureLight); }, filePath, lineNumber, memberName);
-                    break;
-                case NomenclatureTypeEntity nomenclatureType:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclatureType); }, filePath, lineNumber, memberName);
-                    break;
-                case StatusEntity status:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(status); }, filePath, lineNumber, memberName);
-                    break;
-                default:
-                    ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
-                    break;
-            }
+            item.ChangeDt = DateTime.Now;
+            ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public void DeleteEntity<T>(T? item,
@@ -960,74 +824,6 @@ namespace DataCore.DAL.Controllers
         {
             //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
             return ExistsEntityInside<T>(fieldList, order, filePath, lineNumber, memberName);
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public List<HostEntity> GetFreeHosts(long? id, bool? isMarked,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            object[]? entities = GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
-            List<HostEntity>? items = new();
-            foreach (object? item in entities)
-            {
-                if (item is object[] { Length: 10 } obj)
-                {
-                    if (long.TryParse(Convert.ToString(obj[0]), out long idOut))
-                    {
-                        HostEntity host = new()
-                        {
-                            IdentityId = idOut,
-                            CreateDt = Convert.ToDateTime(obj[1]),
-                            ChangeDt = Convert.ToDateTime(obj[2]),
-                            AccessDt = Convert.ToDateTime(obj[3]),
-                            Name = Convert.ToString(obj[4]),
-                            Ip = Convert.ToString(obj[5]),
-                            MacAddress = new MacAddressEntity(Convert.ToString(obj[6])),
-                            IdRRef = Guid.Parse(Convert.ToString(obj[7])),
-                            IsMarked = Convert.ToBoolean(obj[8]),
-                            SettingsFile = Convert.ToString(obj[9]),
-                        };
-                        if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
-                            items.Add(host);
-                    }
-                }
-            }
-            return items;
-        }
-
-        public List<HostEntity> GetBusyHosts(long? id, bool? isMarked,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            object[]? entities = GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
-            List<HostEntity>? items = new();
-            foreach (object? item in entities)
-            {
-                if (item is object[] { Length: 12 } obj)
-                {
-                    if (long.TryParse(Convert.ToString(obj[0]), out long idOut))
-                    {
-                        HostEntity host = new()
-                        {
-                            IdentityId = idOut,
-                            CreateDt = Convert.ToDateTime(obj[1]),
-                            ChangeDt = Convert.ToDateTime(obj[2]),
-                            AccessDt = Convert.ToDateTime(obj[3]),
-                            Name = Convert.ToString(obj[4]),
-                            Ip = Convert.ToString(obj[7]),
-                            MacAddress = new MacAddressEntity(Convert.ToString(obj[8])),
-                            IdRRef = Guid.Parse(Convert.ToString(obj[9])),
-                            IsMarked = Convert.ToBoolean(obj[10]),
-                            SettingsFile = Convert.ToString(obj[11]),
-                        };
-                        if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
-                            items.Add(host);
-                    }
-                }
-            }
-            return items;
         }
 
         #endregion

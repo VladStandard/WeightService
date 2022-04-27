@@ -123,8 +123,8 @@
 //        private void GetDataMaster()
 //        {
 //            ItemMaster = null;
-//            ItemsMaster = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
-//            { ShareEnums.DbField.IsProduct.ToString(), true },
+//            ItemsMaster = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<DbField, object>{
+//            { ShareEnums.DbField.IsProduct, true },
 //            { $"InformationSystem.{DbField.IdentityId}", 7 },
 //            }),
 //                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
@@ -135,14 +135,14 @@
 //            ItemNonNormilize = null;
 //            ItemsNonNormilize = new List<NomenclatureLightEntity>();
 //            if (UseIsProductNonNormilize)
-//                ItemsNonNormilize = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
-//                { ShareEnums.DbField.IsProduct.ToString(), true },
-//                { ShareEnums.DbField.MasterId.ToString(), null },
+//                ItemsNonNormilize = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<DbField, object>{
+//                { ShareEnums.DbField.IsProduct, true },
+//                { ShareEnums.DbField.MasterId, null },
 //                }),
 //                    new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 //            else
-//                ItemsNonNormilize = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
-//                { ShareEnums.DbField.MasterId.ToString(), null },
+//                ItemsNonNormilize = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<DbField, object>{
+//                { ShareEnums.DbField.MasterId, null },
 //                }),
 //                    new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 //        }

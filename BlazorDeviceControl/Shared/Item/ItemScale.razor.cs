@@ -76,7 +76,7 @@ namespace BlazorDeviceControl.Shared.Item
                     await GuiRefreshWithWaitAsync();
 
                     ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
                     // ComPorts
@@ -85,27 +85,27 @@ namespace BlazorDeviceControl.Shared.Item
                     ItemCast.ScaleFactor ??= 1000;
                     // Other.
                     TemplatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
                         ?.ToList();
                     TemplatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
                         ?.ToList();
                     WorkShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         null)
                         ?.ToList();
                     PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         null)
                         ?.ToList();
                     ShippingPrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         null)
                         ?.ToList();
                     HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
-                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
                         ?.ToList();
                     ButtonSettings = new(false, false, false, false, false, true, true);

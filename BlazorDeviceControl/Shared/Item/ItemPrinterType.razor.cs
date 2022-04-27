@@ -59,8 +59,7 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-                                new FieldListEntity(new Dictionary<string, object?>
-                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
                             break;
                     }
                     if (IdentityId != null && TableAction == DbTableAction.New)

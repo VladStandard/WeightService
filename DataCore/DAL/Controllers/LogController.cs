@@ -7,6 +7,7 @@ using DataCore.Settings;
 using DataCore.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using static DataCore.ShareEnums;
 
@@ -16,10 +17,10 @@ namespace DataCore.DAL.Controllers
     {
         #region Public and private fields and properties
 
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public AppEntity? App { get; set; }
-        public HostEntity? Host { get; set; }
         private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
+        public AppEntity? App { get; set; }
+        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        public HostEntity? Host { get; set; }
 
         #endregion
 
@@ -33,6 +34,18 @@ namespace DataCore.DAL.Controllers
         #endregion
 
         #region Public and private methods
+
+        public void Setup(string? hostName, string? appName)
+        {
+            HostEntity? host = DataAccess.CrudHost.GetOrCreateNew(hostName);
+
+            if (host != null && !host.EqualsDefault())
+                Host = host;
+
+            AppEntity? app = DataAccess.CrudApp.GetOrCreateNew(appName);
+            if (app != null && !app.EqualsDefault())
+                App = app;
+        }
 
         [Obsolete(@"Use LogError")]
         public void Error(Exception ex, string filePath, int lineNumber, string memberName)
@@ -52,48 +65,68 @@ namespace DataCore.DAL.Controllers
             DataAccess.Crud.ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
         }
 
-        public void LogError(Exception ex,
+        public void LogToFile(string localFileLog, string message,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            StreamWriter streamWriter;
+            streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
+            streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
+            streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(message)}: {message}");
+            streamWriter.Close();
+            streamWriter.Dispose();
+        }
+
+        public void LogError(Exception ex, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (ex != null)
-                Log(ex.Message, LogType.Error, filePath, memberName, lineNumber);
+                Log(ex.Message, LogType.Error, filePath, memberName, lineNumber, hostName, appName);
             if (ex?.InnerException != null)
-                Log(ex.InnerException.Message, LogType.Error, filePath, memberName, lineNumber);
+                Log(ex.InnerException.Message, LogType.Error, filePath, memberName, lineNumber, hostName, appName);
         }
 
-        public void LogError(string message,
+        public void LogError(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            Log(message, LogType.Error, filePath, memberName, lineNumber);
+            Log(message, LogType.Error, filePath, memberName, lineNumber, hostName, appName);
         }
 
-        public void LogStop(string message,
+        public void LogStop(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            Log(message, LogType.Stop, filePath, memberName, lineNumber);
+            Log(message, LogType.Stop, filePath, memberName, lineNumber, hostName, appName);
 
-        public void LogInformation(string message,
+        public void LogInformation(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            Log(message, LogType.Information, filePath, memberName, lineNumber);
+            Log(message, LogType.Information, filePath, memberName, lineNumber, hostName, appName);
 
-        public void LogWarning(string message,
+        public void LogWarning(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            Log(message, LogType.Warning, filePath, memberName, lineNumber);
+            Log(message, LogType.Warning, filePath, memberName, lineNumber, hostName, appName);
 
-        private void Log(string message, LogType logType, string filePath, string memberName, int lineNumber)
+        private void Log(string message, LogType logType, string filePath, string memberName, int lineNumber,
+             string? hostName = null, string? appName = null)
         {
             StringUtils.SetStringValueTrim(ref filePath, 32, true);
             StringUtils.SetStringValueTrim(ref memberName, 32);
             byte logNumber = (byte)logType;
             StringUtils.SetStringValueTrim(ref message, 1024);
             LogTypeEntity? logTypeItem = DataAccess.Crud.GetEntity<LogTypeEntity>(
-                new FieldListEntity(new Dictionary<string, object?> { { DbField.Number.ToString(), logNumber } }),
-                null);
+                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Number, logNumber } }));
+
+            HostEntity? host = Host;
+            AppEntity? app = App;
+
+            if (!string.IsNullOrEmpty(hostName))
+                host = DataAccess.CrudHost.GetOrCreateNew(hostName);
+            if (!string.IsNullOrEmpty(appName))
+                app = DataAccess.CrudApp.GetOrCreateNew(appName);
+
             LogEntity log = new() {
                 CreateDt = DateTime.Now,
                 ChangeDt = DateTime.Now,
                 IsMarked = false,
-                Host = Host,
-                App = App,
+                Host = host,
+                App = app,
                 LogType = logTypeItem,
                 Version = AppVersion.Version,
                 File = filePath,
@@ -104,9 +137,10 @@ namespace DataCore.DAL.Controllers
             DataAccess.Crud.SaveEntity(log);
         }
 
-        public void SaveQuestion(string message, string filePath, string memberName, int lineNumber)
+        public void LogQuestion(string message, string filePath, string memberName, int lineNumber,
+            string? hostName = null, string? appName = null)
         {
-            Log(message, LogType.Question, filePath, memberName, lineNumber);
+            Log(message, LogType.Question, filePath, memberName, lineNumber, hostName, appName);
         }
 
         public Guid SaveApp(string name)
@@ -120,9 +154,7 @@ namespace DataCore.DAL.Controllers
         public long? GetHostId(string name)
         {
             StringUtils.SetStringValueTrim(ref name, 150);
-            HostEntity? host = DataAccess.Crud.GetEntity<HostEntity>(
-                new FieldListEntity(new Dictionary<string, object?> { { DbField.Name.ToString(), name } }),
-                null);
+            HostEntity? host = DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Name, name } }));
             return host?.IdentityId;
         }
 

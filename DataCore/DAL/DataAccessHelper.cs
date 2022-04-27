@@ -132,14 +132,38 @@ namespace DataCore.DAL
             set => _crud = value;
         }
 
-        private JsonController? _json;
-        public JsonController Json
+        private CrudAppController? _crudApp;
+        public CrudAppController CrudApp
+        {
+            get
+            {
+                if (_crudApp != null)
+                    return _crudApp;
+                return _crudApp = new CrudAppController();
+            }
+            set => _crudApp = value;
+        }
+
+        private CrudHostController? _crudHost;
+        public CrudHostController CrudHost
+        {
+            get
+            {
+                if (_crudHost != null)
+                    return _crudHost;
+                return _crudHost = new CrudHostController();
+            }
+            set => _crudHost = value;
+        }
+
+        private JsonSettingsController? _json;
+        public JsonSettingsController Json
         {
             get
             {
                 if (_json != null)
                     return _json;
-                return _json = new JsonController();
+                return _json = new JsonSettingsController();
             }
             set => _json = value;
         }
