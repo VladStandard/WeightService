@@ -3,11 +3,11 @@
 
 using BlazorCore.Models;
 using DataCore;
-using DataCore.DAL.DataModels;
-using DataCore.DAL.Models;
-using DataCore.DAL.TableScaleModels;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.DataModels;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -91,7 +91,7 @@ namespace BlazorDeviceControl.Shared.Item
                     //// Проверка шаблона.
                     //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                     //{
-                    //    PluItem.Templates = (TemplateEntity)PluItem.Scale.TemplateDefault.Clone();
+                    //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast;
                     //}
                     //// Номер PLU.
                     //if (PluItem.Plu == 0)

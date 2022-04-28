@@ -3,8 +3,8 @@
 
 using BlazorCore.Models;
 using DataCore;
-using DataCore.DAL.Models;
-using DataCore.DAL.TableScaleModels;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;

@@ -5,7 +5,7 @@
 //using System.Runtime.CompilerServices;
 //using System.Threading.Tasks;
 //using DataCore;
-//using DataCore.DAL.Models;
+//using DataCore.Sql.Models;
 //using MdmControlBlazor.Utils;
 //using Microsoft.AspNetCore.Components;
 //using Microsoft.AspNetCore.Components.Web;

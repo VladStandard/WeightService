@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL.TableScaleModels;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
@@ -277,29 +277,29 @@ namespace BlazorDeviceControl.Shared.Component
                 case ProjectsEnums.TableDwh.Default:
                     break;
                 case ProjectsEnums.TableDwh.InformationSystem:
-                    DataCore.DAL.TableDwhModels.InformationSystemEntity? informationSystem = 
-                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.InformationSystemEntity>(IdentityId);
+                    DataCore.Sql.TableDwhModels.InformationSystemEntity? informationSystem = 
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.Sql.TableDwhModels.InformationSystemEntity>(IdentityId);
                     if (informationSystem != null)
                     {
                     }
                     break;
                 case ProjectsEnums.TableDwh.Nomenclature:
-                    DataCore.DAL.TableDwhModels.NomenclatureEntity? nomenclature =
-                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.NomenclatureEntity>(IdentityId);
+                    DataCore.Sql.TableDwhModels.NomenclatureEntity? nomenclature =
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.Sql.TableDwhModels.NomenclatureEntity>(IdentityId);
                     if (nomenclature != null)
                     {
                     }
                     break;
                 case ProjectsEnums.TableDwh.NomenclatureMaster:
-                    DataCore.DAL.TableDwhModels.NomenclatureEntity? nomenclatureMaster =
-                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.NomenclatureEntity>(IdentityId);
+                    DataCore.Sql.TableDwhModels.NomenclatureEntity? nomenclatureMaster =
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.Sql.TableDwhModels.NomenclatureEntity>(IdentityId);
                     if (nomenclatureMaster != null)
                     {
                     }
                     break;
                 case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
-                    DataCore.DAL.TableDwhModels.NomenclatureEntity? nomenclatureNonNormilize =
-                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.NomenclatureEntity>(IdentityId);
+                    DataCore.Sql.TableDwhModels.NomenclatureEntity? nomenclatureNonNormilize =
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.Sql.TableDwhModels.NomenclatureEntity>(IdentityId);
                     if (nomenclatureNonNormilize != null)
                     {
                     }

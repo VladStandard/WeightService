@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL.TableDirectModels;
+using DataCore.Sql.TableDirectModels;
 using DataCore.Localizations;
 using DataCore.Settings;
 using Microsoft.Data.SqlClient;
@@ -52,7 +52,7 @@ namespace ScalesUI.Forms
                 //    SessionState.CurrentScale = ScalesUtils.GetScale(SessionState.Host?.ScaleId);
                 if (SessionState != null)
                     SessionState.Scale = SessionState.DataAccess.Crud?
-                        .GetEntity<DataCore.DAL.TableScaleModels.ScaleEntity>(SessionState.Host?.ScaleId);
+                        .GetEntity<DataCore.Sql.TableScaleModels.ScaleEntity>(SessionState.Host?.ScaleId);
 
                 // Определить COM-порт.
                 DefaultComPortName();

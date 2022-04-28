@@ -2,8 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
-using DataCore.DAL.DataModels;
+using DataCore.Sql;
 using DataCore.Localizations;
 using System;
 using System.Diagnostics;

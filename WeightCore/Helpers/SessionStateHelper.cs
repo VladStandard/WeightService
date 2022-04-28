@@ -2,16 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
-using DataCore.DAL.Models;
-using DataCore.DAL.TableDirectModels;
-using DataCore.DAL.TableScaleModels;
-using DataCore.DAL.Utils;
+using DataCore.Sql;
+using DataCore.Sql.TableDirectModels;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Settings;
 using MvvmHelpers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -22,7 +19,7 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Print;
 using WeightCore.Zpl;
-using static DataCore.ShareEnums;
+using DataCore.Sql.Controllers;
 
 namespace WeightCore.Helpers
 {

@@ -3,9 +3,9 @@
 
 using BlazorCore.Models;
 using DataCore;
-using DataCore.DAL;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;

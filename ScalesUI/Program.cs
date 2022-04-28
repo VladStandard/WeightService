@@ -2,11 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
-using DataCore.DAL.TableDirectModels;
-using DataCore.DAL.Utils;
+using DataCore.Sql;
 using DataCore.Localizations;
 using DataCore.Settings;
+using DataCore.Sql.TableDirectModels;
 using ScalesUI.Forms;
 using System;
 using System.IO;
@@ -15,6 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using DataCore.Sql.Controllers;
 
 // ReSharper disable IdentifierTypo
 namespace ScalesUI

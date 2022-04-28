@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.DAL;
-using DataCore.DAL.Models;
-using DataCore.DAL.TableScaleModels;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql;
+using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;

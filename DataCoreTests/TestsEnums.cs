@@ -33,9 +33,9 @@ namespace DataCoreTests
         /// List of string values.
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetString()
+        public static List<string?> GetString()
         {
-            return new List<string>() { null, "", string.Empty };
+            return new List<string?>() { null, "", string.Empty };
         }
 
         /// <summary>

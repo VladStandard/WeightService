@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels;
+using RestSharp;
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -58,6 +60,31 @@ namespace DataCore.Protocols
                 }
             }
             return macAddresses;
+        }
+
+        public static void SetHttpStatus(PrinterEntity printer, int timeOut)
+        {
+            if (printer.HttpStatusCode == HttpStatusCode.OK)
+                return;
+            printer.HttpStatusCode = HttpStatusCode.BadRequest;
+            printer.HttpStatusException = null;
+            RestClientOptions options = new(printer.Link)
+            {
+                UseDefaultCredentials = true,
+                ThrowOnAnyError = true,
+                Timeout = timeOut,
+            };
+            RestClient client = new(options);
+            RestRequest request = new();
+            try
+            {
+                RestResponse response = client.GetAsync(request).ConfigureAwait(true).GetAwaiter().GetResult();
+                printer.HttpStatusCode = response.StatusCode;
+            }
+            catch (Exception ex)
+            {
+                printer.HttpStatusException = ex;
+            }
         }
 
         #endregion

@@ -15,7 +15,8 @@ using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using LocalizationCore = DataCore.Localizations.LocaleCore;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using DataCore.DAL.TableScaleModels;
+using DataCore.Sql.TableScaleModels;
+using DataCore.Protocols;
 
 namespace WeightCore.Managers
 {
@@ -116,7 +117,7 @@ namespace WeightCore.Managers
         {
             if (Printer != null || ZebraConnection == null || ZebraConnection.Connected == false)
             {
-                Printer.SetHttpStatus(1_000);
+                NetUtils.SetHttpStatus(Printer, 1_000);
                 if (Printer.HttpStatusCode == System.Net.HttpStatusCode.OK)
                 {
                     ZebraConnection = ZebraConnectionBuilder.Build($"{Ip}");

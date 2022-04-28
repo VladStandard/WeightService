@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorInputFile;
-using DataCore.DAL;
-using DataCore.DAL.TableScaleModels;
-using DataCore.DAL.Utils;
+using DataCore.Sql;
+using DataCore.Sql.TableScaleModels;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
@@ -50,8 +50,8 @@ namespace BlazorDeviceControl.Service
 
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            item.ImageData = new(DataUtils.GetBytes(stream, true));
-            DataAccess.Crud?.UpdateEntity(item);
+            item.ImageData = new() { Value = DataUtils.GetBytes(stream, true) };
+            DataAccess.Crud.UpdateEntity(item);
         }
     }
 }

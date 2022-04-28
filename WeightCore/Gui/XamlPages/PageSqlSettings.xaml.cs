@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.DAL;
-using DataCore.DAL.TableDirectModels;
-using DataCore.DAL.Utils;
+using DataCore.Sql.TableDirectModels;
+using DataCore.Sql;
 using System.Windows.Forms;
 using WeightCore.Helpers;
+using DataCore.Sql.Controllers;
 
 namespace WeightCore.Gui.XamlPages
 {

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableDirectModels;
 using DataCore.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
 using WeightCore.Print.Native;
-using TableDirectModels = DataCore.DAL.TableDirectModels;
-using TableScaleModels = DataCore.DAL.TableScaleModels;
+using TableDirectModels = DataCore.Sql.TableDirectModels;
+using TableScaleModels = DataCore.Sql.TableScaleModels;
 
 namespace WeightCore.Zpl
 {
@@ -35,7 +36,7 @@ namespace WeightCore.Zpl
 
         public static void XmlReplace(ref string xmlInput)
         {
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
+            xmlInput = xmlInput.Replace(nameof(HostDirect), "HostEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");

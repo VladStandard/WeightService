@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataCore;
 using DataCore.Models;
-using DataCore.DAL.TableScaleModels;
+using DataCore.Sql.TableScaleModels;
 using BlazorCore.Models;
-using DataCore.DAL.Models;
+using DataCore.Sql.Models;
 using static DataCore.ShareEnums;
 using DataCore.Localizations;
 
