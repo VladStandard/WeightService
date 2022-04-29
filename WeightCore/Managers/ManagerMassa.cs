@@ -2,13 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Localizations;
 using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Windows.Forms;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using static WeightCore.MassaK.MassaEnums;
-using LocalizationCore = DataCore.Localizations.LocaleCore;
 
 namespace WeightCore.Managers
 {
@@ -30,8 +31,31 @@ namespace WeightCore.Managers
         private ProgressBar FieldMassaProgress { get; set; }
         private readonly object _locker = new();
         public BlockingCollection<MassaExchangeEntity> Requests { get; private set; } = new();
-        public byte IsStable { get; private set; }
+        private readonly int _stableMilliseconds = 1_000;
+        public Stopwatch StopwatchStable { get; private set; } = new();
+        private bool _isStable;
+        public bool IsStable
+        {
+            get
+            {
+                if (!_isStable || StopwatchStable.Elapsed.TotalMilliseconds < _stableMilliseconds)
+                    return false;
+                return _isStable;
+            }
+            private set
+            {
+                if (_isStable != value)
+                    StopwatchStable.Restart();
+                _isStable = value;
+            }
+        }
+        /// <summary>
+        /// Вес брутто.
+        /// </summary>
         public decimal WeightGross { get; private set; }
+        /// <summary>
+        /// Вес нетто.
+        /// </summary>
         public decimal WeightNet { get; private set; }
         public int CurrentError { get; private set; }
         public int ScaleFactor { get; set; } = 1_000;
@@ -62,11 +86,11 @@ namespace WeightCore.Managers
                 Init(ProjectsEnums.TaskType.MassaManager,
                     () =>
                     {
-                        if (SessionStateHelper.Instance.Scale != null)
+                        if (UserSessionHelper.Instance.Scale != null)
                         {
-                            MassaDevice = new(SessionStateHelper.Instance.Scale.DeviceComPort,
-                                SessionStateHelper.Instance.Scale.DeviceReceiveTimeout,
-                                SessionStateHelper.Instance.Scale.DeviceSendTimeout, GetData);
+                            MassaDevice = new(UserSessionHelper.Instance.Scale.DeviceComPort,
+                                UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
+                                UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
                         }
                         LabelWeightNetto = labelWeightNetto;
                         FieldWeightNetto = fieldWeightNetto;
@@ -98,28 +122,25 @@ namespace WeightCore.Managers
                 // Reopen.
                 () =>
                 {
-                    if (SessionStateHelper.Instance.Plu?.IsCheckWeight == true)
+                    if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
                     {
                         MassaDevice?.Open();
                     }
-                    if (SessionStateHelper.Instance.Plu == null)
-                    {
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, 
-                            $"{LocalizationCore.Scales.FieldThresholds}: {LocalizationCore.Scales.StateDisable}");
-                    }
-                    else {
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, $"{LocalizationCore.Scales.FieldThresholds}: " +
-                            (SessionStateHelper.Instance.Plu == null ? $"{LocalizationCore.Scales.StateDisable}" :
-                            $"{LocalizationCore.Scales.FieldThresholdLower}: {SessionStateHelper.Instance.Plu.LowerWeightThreshold:0.000} {LocalizationCore.Scales.UnitKg} | " +
-                            $"{LocalizationCore.Scales.FieldThresholdNominal}: {SessionStateHelper.Instance.Plu.NominalWeight:0.000} {LocalizationCore.Scales.UnitKg} | " +
-                            $"{LocalizationCore.Scales.FieldThresholdUpper}: {SessionStateHelper.Instance.Plu.UpperWeightThreshold:0.000} {LocalizationCore.Scales.UnitKg}"));
-                    }
+                    
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, 
+                        $"{LocaleCore.Scales.FieldThresholds}: " +
+                        (UserSessionHelper.Instance.Plu == null 
+                        ? $"{LocaleCore.Scales.StateDisable}"
+                        :
+                        $"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.Plu.LowerWeightThreshold:0.000} {LocaleCore.Scales.UnitKg} | " +
+                        $"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.Plu.NominalWeight:0.000} {LocaleCore.Scales.UnitKg} | " +
+                        $"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.Plu.UpperWeightThreshold:0.000} {LocaleCore.Scales.UnitKg}"));
                 },
                 // Request.
                 () =>
                 {
                     SetControlsVisible(true, true);
-                    if (SessionStateHelper.Instance.Plu?.IsCheckWeight == true)
+                    if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
                     {
                         if (MassaDevice?.IsConnected == true)
                             GetMassa();
@@ -139,7 +160,7 @@ namespace WeightCore.Managers
                 // Response.
                 () =>
                 {
-                    if (SessionStateHelper.Instance.Plu?.IsCheckWeight == true)
+                    if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
                     {
                         if (MassaDevice?.IsConnected == true)
                             Response();
@@ -156,17 +177,17 @@ namespace WeightCore.Managers
 
         private void SetControlsTextDefault()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocalizationCore.Scales.FieldWeightNetto);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocalizationCore.Scales.FieldWeightTare);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocalizationCore.Scales.FieldThresholds);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocaleCore.Scales.FieldWeightNetto);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocaleCore.Scales.FieldWeightTare);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocaleCore.Scales.FieldThresholds);
             
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocalizationCore.Scales.ComPort);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocalizationCore.Scales.Crc);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocalizationCore.Scales.ScaleQueue);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocalizationCore.Scales.Crc);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocalizationCore.Scales.RequestParameters);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.ComPort);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocaleCore.Scales.Crc);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocaleCore.Scales.ScaleQueue);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocaleCore.Scales.Crc);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocaleCore.Scales.RequestParameters);
         }
 
         private void SetControlsVisible(bool isTop, bool isVisible)
@@ -183,7 +204,7 @@ namespace WeightCore.Managers
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, isVisible);
             }
             else {
-                if (SessionStateHelper.Instance.Plu == null)
+                if (UserSessionHelper.Instance.Plu == null)
                 {
                     if (FieldThreshold.Visible != isVisible)
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, isVisible);
@@ -212,48 +233,34 @@ namespace WeightCore.Managers
         private void RequestMassa()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare,
-                SessionStateHelper.Instance.Plu != null
-                ? $"{SessionStateHelper.Instance.Plu.GoodsTareWeight:0.000} {LocalizationCore.Scales.UnitKg}"
-                : $"0,000 {LocalizationCore.Scales.UnitKg}");
+                UserSessionHelper.Instance.Plu != null
+                ? $"{UserSessionHelper.Instance.Plu.GoodsTareWeight:0.000} {LocaleCore.Scales.UnitKg}"
+                : $"0,000 {LocaleCore.Scales.UnitKg}");
 
-            if (SessionStateHelper.Instance.Plu == null)
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocalizationCore.Scales.UnitKg}");
-            }
-            else
-            {
-                decimal weight = WeightNet - SessionStateHelper.Instance.Plu.GoodsTareWeight;
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{weight:0.000} {LocalizationCore.Scales.UnitKg}");
-            }
+            decimal weight = UserSessionHelper.Instance.Plu == null ? 0 : WeightNet - UserSessionHelper.Instance.Plu.GoodsTareWeight;
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, IsStable
+                ? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
+                : $"{LocaleCore.Scales.WeightingIsCalc}");
+                  //$" ({(int)StopwatchStable.Elapsed.Add(TimeSpan.FromMilliseconds(-_stableMilliseconds)).TotalMilliseconds})");
 
-            if (SessionStateHelper.Instance.Plu == null)
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar,
-                    $"{0:0.000} {LocalizationCore.Scales.UnitKg} | {LocalizationCore.Scales.RequestParameters}" +
-                    (ResponseParseScalePar == null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
-            }
-            else
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar,
-                    (IsStable == 0
-                    ? $"{LocalizationCore.Scales.WeightingProcess}: {WeightNet:0.000} {LocalizationCore.Scales.UnitKg} | " +
-                    $"{LocalizationCore.Scales.RequestParameters}"
-                    : $"{LocalizationCore.Scales.WeightingStable}: {WeightNet:0.000} {LocalizationCore.Scales.UnitKg}") +
-                    (ResponseParseScalePar == null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar,
+                $"{LocaleCore.Scales.WeightingProcess}: " +
+                (UserSessionHelper.Instance.Plu == null ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
+                $"{LocaleCore.Scales.UnitKg} | {LocaleCore.Scales.RequestParameters}" +
+                (ResponseParseScalePar == null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
         }
 
         private void RequestSetMassa()
         {
             MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMassaProgress, Requests != null ? Requests.Count : 0);
-            if (SessionStateHelper.Instance.Plu?.IsCheckWeight == true)
+            if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet,
-                    $"{LocalizationCore.Scales.ScaleQueue}: {Requests?.Count} | {LocalizationCore.Scales.WeightingScaleCmd}: " +
+                    $"{LocaleCore.Scales.ScaleQueue}: {Requests?.Count} | {LocaleCore.Scales.WeightingScaleCmd}: " +
                     (ResponseParseSet == null ? $"..." : ResponseParseSet.Message));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc,
-                    $"{LocalizationCore.Scales.Crc}: " + (ResponseParseSet == null
-                    ? $"..." : (ResponseParseSet.IsValidAll ? $"{LocalizationCore.Scales.StateCorrect}" : $"{LocalizationCore.Scales.StateError}!"
+                    $"{LocaleCore.Scales.Crc}: " + (ResponseParseSet == null
+                    ? $"..." : (ResponseParseSet.IsValidAll ? $"{LocaleCore.Scales.StateCorrect}" : $"{LocaleCore.Scales.StateError}!"
                 )));
             }
         }
@@ -262,29 +269,30 @@ namespace WeightCore.Managers
         {
             string massaDevice = MassaDevice != null
                 ? MassaDevice.IsConnected
-                    ? $"{LocalizationCore.Scales.ComPort}: {LocalizationCore.Scales.StateResponsed} | "
-                    : $"{LocalizationCore.Scales.ComPort}: {LocalizationCore.Scales.StateNotResponsed} | "
-                : $"{LocalizationCore.Scales.ComPort}: {LocalizationCore.Scales.StateDisable} | ";
-            if (SessionStateHelper.Instance.Plu?.IsCheckWeight == true)
+                    ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
+                    : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | "
+                : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
+            if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
             {
                 if (ResponseParseGet == null)
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, massaDevice +
-                        $"{LocalizationCore.Scales.Message}: ...");
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocalizationCore.Scales.Crc}: ...");
+                        $"{LocaleCore.Scales.Message}: ...");
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocaleCore.Scales.Crc}: ...");
                 }
                 else
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, massaDevice +
-                        $"{LocalizationCore.Scales.Message}: {ResponseParseGet.Message}");
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocalizationCore.Scales.Crc}: " +
-                        (ResponseParseGet.IsValidAll ? $"{LocalizationCore.Scales.StateCorrect}" : $"{LocalizationCore.Scales.StateError}!"));
+                        $"{LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocaleCore.Scales.Crc}: " +
+                        (ResponseParseGet.IsValidAll ? $"{LocaleCore.Scales.StateCorrect}" : $"{LocaleCore.Scales.StateError}!"));
                 }
             }
         }
 
         public new void Close()
         {
+            StopwatchStable.Stop();
             MassaDevice?.Close();
             while (Requests?.Count > 0)
             {
@@ -449,7 +457,7 @@ namespace WeightCore.Managers
                         // 4 байта. Текущая масса тары со знаком
                         WeightGross = WeightNet + weightTare;
                         // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
-                        IsStable = massaExchange.ResponseParse.Massa.Stable;
+                        IsStable = massaExchange.ResponseParse.Massa.IsStable == 0x01;
                         // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
                         //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                         break;
@@ -460,7 +468,6 @@ namespace WeightCore.Managers
         public void ResetMassa()
         {
             WeightGross = WeightNet = 0;
-            IsStable = 1;
         }
 
         public void GetInit()

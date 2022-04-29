@@ -141,9 +141,9 @@ namespace WeightCore.Zpl
 
         public static string ZplPrintConfigurationLabel() => $"~WC";
 
-        public static string ZplHostStatusReturn() => $"~HS";
+        public static string ZplHostStatusReturn => $"~HS";
 
-        public static string ZplClearPrintBuffer() => $"^XA~JA^XZ";
+        public static string ZplClearPrintBuffer => $"^XA~JA^XZ";
 
         public static string ZplFontDownloadCommand(string ttfName, byte[] b, bool addHeaderFooter = true)
         {

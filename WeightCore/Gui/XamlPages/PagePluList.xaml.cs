@@ -17,7 +17,7 @@ namespace WeightCore.Gui.XamlPages
     {
         #region Private fields and properties
 
-        public SessionStateHelper SessionState { get; private set; } = SessionStateHelper.Instance;
+        public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; }
         private readonly List<PluDirect> _pluList;
         public int RowCount { get; } = 5;
@@ -34,14 +34,14 @@ namespace WeightCore.Gui.XamlPages
             InitializeComponent();
 
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = new PluDirect().GetPluList(SessionState.Scale);
+            _pluList = new PluDirect().GetPluList(UserSession.Scale);
             
             object context = FindResource("SqlViewModel");
             if (context is SqlViewModelEntity sqlViewModel)
             {
                 sqlViewModel = SqlViewModel;
             }
-            SqlViewModel = SessionState.SqlViewModel;
+            SqlViewModel = UserSession.SqlViewModel;
         }
 
         #endregion

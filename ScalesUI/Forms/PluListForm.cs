@@ -21,7 +21,7 @@ namespace ScalesUI.Forms
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
         public int ColumnCount { get; } = 4;
         public int CurrentPage { get; private set; }
         public int PageSize { get; } = 20;
@@ -36,7 +36,7 @@ namespace ScalesUI.Forms
             InitializeComponent();
             
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            PluList = new PluDirect().GetPluList(SessionState.Scale);
+            PluList = new PluDirect().GetPluList(UserSession.Scale);
         }
 
         #endregion
@@ -54,7 +54,7 @@ namespace ScalesUI.Forms
                 Top = Owner.Top;
                 //StartPosition = FormStartPosition.CenterParent;
 
-                OrderList = new PluDirect().GetPluList(SessionState.Scale);
+                OrderList = new PluDirect().GetPluList(UserSession.Scale);
 
                 PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
@@ -189,14 +189,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Order = null;
+                UserSession.Order = null;
                 int tabIndex = 0;
                 if (sender is Control control)
                     tabIndex = control.TabIndex;
                 if (OrderList?.Count >= tabIndex)
                 {
-                    SessionState.SetCurrentPlu(OrderList[tabIndex]);
-                    SessionState.Plu.LoadTemplate();
+                    UserSession.SetCurrentPlu(OrderList[tabIndex]);
+                    UserSession.Plu.LoadTemplate();
                     //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
                     //_sessionState.WeightReal = 0;
                     DialogResult = DialogResult.OK;

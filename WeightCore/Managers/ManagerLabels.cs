@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.TableDirectModels;
 using DataCore.Localizations;
 using DataCore.Settings;
 using System;
@@ -34,7 +33,6 @@ namespace WeightCore.Managers
         private Label FieldTitle { get; set; }
         private Label LabelKneading { get; set; }
         private Label LabelProductDate { get; set; }
-        private PluDirect CurrentPlu => SessionStateHelper.Instance.Plu;
 
         #endregion
 
@@ -119,7 +117,7 @@ namespace WeightCore.Managers
 
         private void OpenTitle()
         {
-            switch (SessionStateHelper.Instance.SqlViewModel.PublishType)
+            switch (UserSessionHelper.Instance.SqlViewModel.PublishType)
             {
                 case ShareEnums.PublishType.Debug:
                 case ShareEnums.PublishType.Dev:
@@ -133,13 +131,13 @@ namespace WeightCore.Managers
                     SetTitleSwitchDefault();
                     break;
             }
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {SessionStateHelper.Instance.ProductSeries.Sscc.SSCC}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.SSCC}");
         }
 
         private void SetTitleSwitchDev()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppName +
-                $" SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}");
+                $" SQL: {UserSessionHelper.Instance.SqlViewModel.PublishDescription}");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightYellow);
         }
 
@@ -152,7 +150,7 @@ namespace WeightCore.Managers
         private void SetTitleSwitchDefault()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
-                $@"{AppVersionHelper.Instance.AppTitle}.  {SessionStateHelper.Instance.Scale.Description}. SQL: {SessionStateHelper.Instance.SqlViewModel.PublishDescription}.");
+                $@"{AppVersionHelper.Instance.AppTitle}.  {UserSessionHelper.Instance.Scale.Description}. SQL: {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.IndianRed);
         }
 
@@ -161,28 +159,28 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate,
                 $"{LocaleCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate,
-                $"{LocaleCore.Scales.FieldDate}: {SessionStateHelper.Instance.ProductDate:dd.MM.yyyy}");
+                $"{LocaleCore.Scales.FieldDate}: {UserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
         }
 
         private void RequestPlu()
         {
-            if (CurrentPlu == null)
+            if (UserSessionHelper.Instance.Plu == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
             }
             else
             {
-                if (CurrentPlu.IsCheckWeight == true)
+                if (UserSessionHelper.Instance.Plu.IsCheckWeight == true)
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu,
                         $"{LocaleCore.Scales.PluWeight}: " +
-                        $"{CurrentPlu.PLU} | {CurrentPlu.GoodsName}");
+                        $"{UserSessionHelper.Instance.Plu.PLU} | {UserSessionHelper.Instance.Plu.GoodsName}");
                 }
                 else
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu,
                         $"{LocaleCore.Scales.PluCount}: " +
-                        $"{CurrentPlu.PLU} | {CurrentPlu.GoodsName}");
+                        $"{UserSessionHelper.Instance.Plu.PLU} | {UserSessionHelper.Instance.Plu.GoodsName}");
 
                 }
             }
@@ -191,7 +189,7 @@ namespace WeightCore.Managers
         private void RequestKneading()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, $"{LocaleCore.Scales.FieldKneading}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, $"{SessionStateHelper.Instance.WeighingSettings.Kneading}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, $"{UserSessionHelper.Instance.WeighingSettings.Kneading}");
         }
 
         public new void Close()
@@ -225,7 +223,7 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
-            if (SessionStateHelper.Instance.Scale?.IsKneading == true)
+            if (UserSessionHelper.Instance.Scale?.IsKneading == true)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);

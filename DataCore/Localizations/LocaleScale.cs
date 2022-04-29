@@ -65,9 +65,11 @@ namespace DataCore.Localizations
         public string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
         public string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
         public string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
-        public string MassaNotFound => Lang == ShareEnums.Lang.English ? "The scales has not been found!" : "Весы не обнаружены!";
-        public string MassaNotQuering => Lang == ShareEnums.Lang.English ? "The scales are not respond!" : "Весы не отвечают!";
-        public string MassaNotRespond => Lang == ShareEnums.Lang.English ? $"The scales Massa-K are not respond!" : $"Весы Масса-К не отвечают!";
+        public string MassaIsNotCalc => Lang == ShareEnums.Lang.English ? "The weight has not been calculated!" : "Вес не расчитан!";
+        public string MassaWaitStable => Lang == ShareEnums.Lang.English ? "Wait for the weight platform to stabilize." : "Дождитесь стабилизации весовой платформы.";
+        public string MassaIsNotFound => Lang == ShareEnums.Lang.English ? "The scales has not been found!" : "Весы не обнаружены!";
+        public string MassaIsNotQuering => Lang == ShareEnums.Lang.English ? "The scales are not respond!" : "Весы не отвечают!";
+        public string MassaIsNotRespond => Lang == ShareEnums.Lang.English ? $"The scales Massa-K are not respond!" : $"Весы Масса-К не отвечают!";
         public string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
         public string MemoryAll => Lang == ShareEnums.Lang.English ? "all" : "всего";
         public string MemoryBusy => Lang == ShareEnums.Lang.English ? "busy" : "занято";
@@ -111,10 +113,14 @@ namespace DataCore.Localizations
         public string UnitPcs => Lang == ShareEnums.Lang.English ? "pcs." : "шт.";
         public string UnitWeight => Lang == ShareEnums.Lang.English ? "weight" : "вес";
         public string WeightingControl => Lang == ShareEnums.Lang.English ? "The weight is out of bounds!" : "Вес выходит за границы!";
+        public string WeightingIsCalc => Lang == ShareEnums.Lang.English ? "Stable is calculated" : "Рассчитывается вес";
+        public string WeightingIsStableDescription => Lang == ShareEnums.Lang.English ? "Scales are stable | Gross weight" : "Весы стабильны | Вес брутто";
+        public string WeightingIsStableFlag => Lang == ShareEnums.Lang.English ? "Stable" : "Стабилизация";
+        public string WeightingIsStableNo => Lang == ShareEnums.Lang.English ? "Scale are not stable" : "Весы не стабильны";
+        public string WeightingIsStableYes => Lang == ShareEnums.Lang.English ? "Scale are stable" : "Весы стабильны";
         public string WeightingMessage => Lang == ShareEnums.Lang.English ? "Weighting message" : "Сообщение взвешивания";
         public string WeightingProcess => Lang == ShareEnums.Lang.English ? "Weighing | Gross weight" : "Взвешивание | Вес брутто";
         public string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? "Command for scales" : "Команда для весов";
-        public string WeightingStable => Lang == ShareEnums.Lang.English ? "Scales are stable | Gross weight" : "Весы стабильны | Вес брутто";
 
         #endregion
     }

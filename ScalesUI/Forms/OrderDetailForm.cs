@@ -14,7 +14,7 @@ namespace ScalesUI.Forms
 
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
                 listBox1.Items.Clear();
-                foreach (string prop in SessionState.Order.ToString().Split('\n'))
+                foreach (string prop in UserSession.Order.ToString().Split('\n'))
                 {
                     listBox1.Items.Add(prop);
                 }
@@ -63,8 +63,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Order.SetStatus(ProjectsEnums.OrderStatus.Paused);
-                SessionState.Order = null;
+                UserSession.Order.SetStatus(ProjectsEnums.OrderStatus.Paused);
+                UserSession.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -78,8 +78,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Order.SetStatus(ProjectsEnums.OrderStatus.Performed);
-                SessionState.Order = null;
+                UserSession.Order.SetStatus(ProjectsEnums.OrderStatus.Performed);
+                UserSession.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -93,8 +93,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Order.SetStatus(ProjectsEnums.OrderStatus.InProgress);
-                SessionState.Order = null;
+                UserSession.Order.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+                UserSession.Order = null;
                 DialogResult = DialogResult.OK;
                 Close();
             }

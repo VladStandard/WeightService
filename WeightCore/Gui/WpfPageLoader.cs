@@ -21,7 +21,7 @@ namespace WeightCore.Gui
         private ElementHost ElementHost { get; set; }
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private PagePluList PluList { get; set; }
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
         public bool UseOwnerSize { get; set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
         public PageMessageBox PageMessageBoxItem { get; private set; }
@@ -37,7 +37,7 @@ namespace WeightCore.Gui
             InitializeComponent();
 
             Page = ProjectsEnums.Page.Default;
-            SessionState.IsWpfPageLoaderClose = false;
+            UserSession.IsWpfPageLoaderClose = false;
         }
 
         public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
@@ -110,14 +110,14 @@ namespace WeightCore.Gui
                         PluList.InitializeComponent();
                         ElementHost.Child = PluList;
                         //PluList.Loaded += PluListOnLoaded;
-                        SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        UserSession.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.SqlSettings:
                         SqlSettings = new PageSqlSettings();
                         SqlSettings.InitializeComponent();
                         ElementHost.Child = SqlSettings;
                         //SqlSettings.Loaded += SqlSettingsOnLoaded;
-                        SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        UserSession.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.MessageBox:
                         PageMessageBoxItem = new PageMessageBox();
@@ -125,7 +125,7 @@ namespace WeightCore.Gui
                         ElementHost.Child = PageMessageBoxItem;
                         PageMessageBoxItem.MessageBox = MessageBox;
                         //PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
-                        SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        UserSession.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     default:
                         break;
@@ -141,7 +141,7 @@ namespace WeightCore.Gui
         {
             try
             {
-                SessionState.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
+                UserSession.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
                 Close();
             }
             catch (Exception ex)

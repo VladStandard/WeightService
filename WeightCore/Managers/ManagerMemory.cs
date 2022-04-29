@@ -2,12 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Localizations;
 using DataCore.Memory;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using LocalizationCore = DataCore.Localizations.LocaleCore;
 
 namespace WeightCore.Managers
 {
@@ -43,8 +43,8 @@ namespace WeightCore.Managers
                         FieldMemory = fieldMemory;
                         FieldTasks = fieldTasks;
 
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocalizationCore.Scales.Memory);
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocalizationCore.Scales.Threads);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory, LocaleCore.Scales.Memory);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, LocaleCore.Scales.Threads);
 
                         if (Debug.IsDebug && !fieldMemory.Visible)
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, true);
@@ -83,18 +83,18 @@ namespace WeightCore.Managers
 
         private void Response()
         {
-            if (SessionStateHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+            if (UserSessionHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
-                    $"{LocalizationCore.Scales.Memory} | " +
-                    $"{LocalizationCore.Scales.MemoryFree}: " +
+                    $"{LocaleCore.Scales.Memory} | " +
+                    $"{LocaleCore.Scales.MemoryFree}: " +
                         (MemorySize.PhysicalFree != null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : $"- MB") +
-                    $" | {LocalizationCore.Scales.MemoryBusy}: " + 
+                    $" | {LocaleCore.Scales.MemoryBusy}: " + 
                         (MemorySize.PhysicalCurrent != null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : $"- MB") +
-                    $" | {LocalizationCore.Scales.MemoryAll}: " +
+                    $" | {LocaleCore.Scales.MemoryAll}: " +
                         (MemorySize.PhysicalTotal != null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : $"- MB")
                     );
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocalizationCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
             }
         }
 

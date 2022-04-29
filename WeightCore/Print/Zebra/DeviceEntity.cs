@@ -35,7 +35,7 @@ namespace WeightCore.Print.Zebra
             if (Requests.Count > 0)
                 Requests = new BlockingCollection<string>();
 
-            Requests.Add(ZplPipeUtils.ZplClearPrintBuffer());
+            Requests.Add(ZplPipeUtils.ZplClearPrintBuffer);
         }
 
         public void SetOdometorUserLabel(int value)

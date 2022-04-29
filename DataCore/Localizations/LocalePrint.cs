@@ -23,9 +23,20 @@ namespace DataCore.Localizations
         public string ActionPrint => Lang == ShareEnums.Lang.English ? "Print" : "Печать";
         public string Available => Lang == ShareEnums.Lang.English ? "available" : "доступен";
         public string ClearQueue => Lang == ShareEnums.Lang.English ? "Clear queue" : "Очистить очередь";
+        public string Communication => Lang == ShareEnums.Lang.English ? "Communication" : "Связь";
         public string ControlPanel => Lang == ShareEnums.Lang.English ? "Printer control panel" : "Панель управления принтером";
         public string DarknessLevel => Lang == ShareEnums.Lang.English ? "Level of darkness" : "Уровень темноты";
+        public string DeviceCheckConnect => Lang == ShareEnums.Lang.English ? "Check the device connection." : "Проверьте подключение устройства.";
+        public string DeviceCommunication => Lang == ShareEnums.Lang.English ? "Communication with the printer" : "Связь с принтером";
+        public string DeviceIsUnavailable => Lang == ShareEnums.Lang.English ? "Printer is unavailable!" : "Принтер не доступен!";
+        public string DeviceMainCheckStatus => Lang == ShareEnums.Lang.English ? "Check the main printer status!" : "Проверьте состояние основного принтера!";
+        public string DeviceMainIsUnavailable => Lang == ShareEnums.Lang.English ? "Main printer is unavailable!" : "Основной принтер не доступен!";
+        public string DeviceName => Lang == ShareEnums.Lang.English ? "Printer name" : "Имя принтера";
+        public string DeviceNameIsUnavailable => Lang == ShareEnums.Lang.English ? "Name is unavailable" : "Имя не доступно";
+        public string DeviceShippingCheckStatus => Lang == ShareEnums.Lang.English ? "Check the shipping printer status!" : "Проверьте состояние транспортного принтера!";
+        public string DeviceShippingIsUnavailable => Lang == ShareEnums.Lang.English ? "Shipping printer is unavailable!" : "Транспортный принтер не доступен!";
         public string Driver => Lang == ShareEnums.Lang.English ? "Driver" : "Драйвер";
+        public string HttpStatusCode => Lang == ShareEnums.Lang.English ? "Http status code" : "Код состояния Http";
         public string InfoCaption => Lang == ShareEnums.Lang.English ? "Printer info" : "Информация о принтере";
         public string Ip => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";
         public string Mac => Lang == ShareEnums.Lang.English ? "MAC-address" : "MAC-адрес";
@@ -56,6 +67,7 @@ namespace DataCore.Localizations
         public string PeelOffSet => Lang == ShareEnums.Lang.English ? "Offset" : "Смещение";
         public string Port => Lang == ShareEnums.Lang.English ? "Printer port" : "Порт принтера";
         public string PortShort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
+        public string PrinterStatus => Lang == ShareEnums.Lang.English ? "Printer status" : "Состояние принтера";
         public string Resource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
         public string Resources => Lang == ShareEnums.Lang.English ? "Printer resources" : "Ресурсы принтера";
         public string ResourcesClear => Lang == ShareEnums.Lang.English ? "Clear resources" : "Удалить ресурсы";
@@ -64,7 +76,7 @@ namespace DataCore.Localizations
         public string SensorPeeler => Lang == ShareEnums.Lang.English ? "Sensor Peeler" : "Датчик Peeler";
         public string State => Lang == ShareEnums.Lang.English ? "State" : "Состояние";
         public string StateCode => Lang == ShareEnums.Lang.English ? "State code" : "Код состояния";
-        public string Status => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
+        public string Status => Lang == ShareEnums.Lang.English ? "Status" : "Состояние";
         public string StatusCode => Lang == ShareEnums.Lang.English ? "Status code" : "Код статуса";
         public string StatusIsHeadCold => Lang == ShareEnums.Lang.English ? "Is cold" : "Холодный";
         public string StatusIsHeadOpen => Lang == ShareEnums.Lang.English ? "Is open" : "Открыт";
@@ -75,7 +87,7 @@ namespace DataCore.Localizations
         public string StatusIsReadyToPrint => Lang == ShareEnums.Lang.English ? "Is ready" : "Готов";
         public string StatusIsReceiveBufferFull => Lang == ShareEnums.Lang.English ? "Receive buffer full" : "Буфер приема заполнен";
         public string StatusIsRibbonOut => Lang == ShareEnums.Lang.English ? "Ribbon out" : "Лента на выходе";
-        public string StatusUnavailable => Lang == ShareEnums.Lang.English ? "unavailable" : "не доступен";
+        public string StatusIsUnavailable => Lang == ShareEnums.Lang.English ? "Status is unavailable" : "Статус не доступен";
         public string Type => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
         public string Types => Lang == ShareEnums.Lang.English ? "Printer types" : "Типы принтеров";
         public string WarningOpenCover => Lang == ShareEnums.Lang.English ? "Open the cover of the separator before proceeding with the calibration!" : "Прежде чем продолжить калибровку, откройте крышку отделителя!";

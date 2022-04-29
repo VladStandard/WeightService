@@ -11,10 +11,11 @@ namespace DataCore.Localizations
         public static ShareEnums.Lang Lang
         {
             get => _lang;
-            set => Action.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang = 
+            set => Action.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang = 
                 Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = _lang = value;
         }
         public static LocaleAction Action { get; private set; } = LocaleAction.Instance;
+        public static LocaleConvert Convert { get; private set; } = LocaleConvert.Instance;
         public static LocaleDeviceControl DeviceControl { get; private set; } = LocaleDeviceControl.Instance;
         public static LocaleDialog Dialog { get; private set; } = LocaleDialog.Instance;
         public static LocaleMemory Memory { get; private set; } = LocaleMemory.Instance;

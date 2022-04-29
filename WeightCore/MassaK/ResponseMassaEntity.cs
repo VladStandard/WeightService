@@ -28,7 +28,7 @@ namespace WeightCore.MassaK
                 };
             }
         }
-        public byte Stable;
+        public byte IsStable;
         public byte Net;
         public byte Zero;
         public int Tare;
@@ -39,7 +39,7 @@ namespace WeightCore.MassaK
                 return;
             Weight = BitConverter.ToInt32(response.Skip(6).Take(4).ToArray(), 0);
             Division = response[10];
-            Stable = response[11];
+            IsStable = response[11];
             Net = response[12];
             Zero = response[13];
             Tare = BitConverter.ToInt32(response.Skip(14).Take(4).ToArray(), 0);

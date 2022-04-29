@@ -397,10 +397,9 @@
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Managers\ManagerPrint.cs" />
-    <Compile Include="Managers\ManagerPrintDeprecated.cs" />
     <Compile Include="Managers\ManagerMassa.cs" />
     <Compile Include="Managers\ManagerMemory.cs" />
-    <Compile Include="Managers\ManagerCollection.cs" />
+    <Compile Include="Managers\ManagerControllerHelper.cs" />
     <Compile Include="Managers\ManagerWaitConfig.cs" />
     <Compile Include="MassaK\MassaCrcHelper.cs" />
     <Compile Include="MassaK\MassaEnums.cs" />
@@ -408,7 +407,7 @@
     <Compile Include="MassaK\MassaDeviceModel.cs" />
     <Compile Include="MassaK\MassaRequestHelper.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
-    <Compile Include="Helpers\SessionStateHelper.cs" />
+    <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />
     <Compile Include="MassaK\ResponseScaleParEntity.cs" />

@@ -27,18 +27,18 @@ namespace WeightCore.Helpers
         }
         private byte LabelsCountMinValue => 1;
         private byte LabelsCountMaxValue => 130;
-        private byte _currentLabelsCountMain;
-        public byte CurrentLabelsCountMain
+        private byte _labelsCountMain;
+        public byte LabelsCountMain
         {
-            get => _currentLabelsCountMain;
+            get => _labelsCountMain;
             set
             {
                 if (value < KneadingMinValue)
-                    _currentLabelsCountMain = LabelsCountMinValue;
+                    _labelsCountMain = LabelsCountMinValue;
                 else if (value > KneadingMaxValue)
-                    _currentLabelsCountMain = LabelsCountMaxValue;
+                    _labelsCountMain = LabelsCountMaxValue;
                 else
-                    _currentLabelsCountMain = value;
+                    _labelsCountMain = value;
             }
         }
         public byte CurrentLabelsCountShipping { get; set; }
@@ -67,7 +67,7 @@ namespace WeightCore.Helpers
         public WeighingSettingsEntity()
         {
             Kneading = KneadingMinValue;
-            CurrentLabelsCountMain = LabelsCountMinValue;
+            LabelsCountMain = LabelsCountMinValue;
         }
 
         #endregion

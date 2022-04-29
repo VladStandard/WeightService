@@ -13,7 +13,7 @@ namespace WeightCore.Gui.XamlPages
     {
         #region Private fields and properties
 
-        public SessionStateHelper SessionState { get; private set; } = SessionStateHelper.Instance;
+        public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
 
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
 
@@ -346,55 +346,55 @@ namespace WeightCore.Gui.XamlPages
         public void ButtonCustom_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonYes_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Yes;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonRetry_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonNo_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.No;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonIgnore_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Ignore;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonCancel_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Cancel;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonAbort_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Abort;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonOk_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.OK;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonClose_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Cancel;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         private void Button_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)

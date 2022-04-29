@@ -23,12 +23,12 @@ using DataCore.Sql.Controllers;
 
 namespace WeightCore.Helpers
 {
-    public class SessionStateHelper : BaseViewModel
+    public class UserSessionHelper : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
-        private static SessionStateHelper _instance;
-        public static SessionStateHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        private static UserSessionHelper _instance;
+        public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace WeightCore.Helpers
 
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public ManagerCollection Manager { get; private set; }
+        public ManagerControllerHelper ManagerControl { get; private set; } = ManagerControllerHelper.Instance;
         public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
@@ -84,7 +84,7 @@ namespace WeightCore.Helpers
             set
             {
                 _productDate = value;
-                if (Manager == null || Manager.PrintMain == null)
+                if (ManagerControl == null || ManagerControl.PrintMain == null)
                     return;
             }
         }
@@ -97,32 +97,30 @@ namespace WeightCore.Helpers
             private set
             {
                 _plu = value;
-                Manager.PrintMain.CurrentLabels = 1;
-                Manager.PrintShipping.CurrentLabels = 1;
-                if (Manager == null || Manager.PrintMain == null)
-                    return;
-                //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
+                ManagerControl.PrintMain.LabelsCount = 1;
+                ManagerControl.PrintShipping.LabelsCount = 1;
             }
         }
+        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SessionStateHelper()
+        public UserSessionHelper()
         {
-            // Load ID host from file.
-            Host = HostsUtils.TokenRead();
-            Scale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
-            AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
-            ProductDate = DateTime.Now;
-            // начинается новыя серия, упаковки продукции, новая паллета
-            ProductSeries = new(Scale);
-            //ProductSeries.Load();
-            Manager = new();
-            Manager.PrintMain.CurrentLabels = 1;
-            Manager.PrintShipping.CurrentLabels = 1;
-            WeighingSettings = new();
+            lock (_locker)
+            {
+                // Load ID host from file.
+                Host = HostsUtils.TokenRead();
+                Scale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
+                AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
+                ProductDate = DateTime.Now;
+                // начинается новыя серия, упаковки продукции, новая паллета
+                ProductSeries = new(Scale);
+                //ProductSeries.Load();
+                WeighingSettings = new();
+            }
         }
 
         #endregion
@@ -131,7 +129,7 @@ namespace WeightCore.Helpers
 
         public void NewPallet()
         {
-            Manager.PrintMain.CurrentLabels = 1;
+            ManagerControl.PrintMain.LabelsCount = 1;
             ProductSeries.Load();
             //if (Manager == null || Manager.Print == null)
             //    return;
@@ -183,9 +181,64 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public bool CheckWeightMassaDeviceExists(IWin32Window owner)
         {
-            if (Manager == null || Manager.Massa == null)
+            if (ManagerControl == null || ManagerControl.Massa == null)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaNotFound,
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
+                    new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check Massa-K is stable.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckWeightMassaIsStable(IWin32Window owner)
+        {
+            if (Plu.IsCheckWeight && !ManagerControl.Massa.IsStable)
+            {
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
+                    new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check printer connection.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckPrintIsConnect(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+        {
+            if (!managerPrint.Printer.IsPing)
+            {
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain 
+                    ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
+                    : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
+                    new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check printer status on ready.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="managerPrint"></param>
+        /// <param name="isMain"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool CheckPrintStatusReady(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+        {
+            if (!managerPrint.CheckDeviceStatus())
+            {
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
+                    ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
+                    : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -201,7 +254,7 @@ namespace WeightCore.Helpers
         {
             if (!IsPluCheckWeight)
                 return true;
-            decimal weight = Manager.Massa.WeightNet - Plu.GoodsTareWeight;
+            decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight < LocaleCore.Scales.MassaThreshold)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner,
@@ -221,7 +274,7 @@ namespace WeightCore.Helpers
         {
             if (!IsPluCheckWeight)
                 return true;
-            decimal weight = Manager.Massa.WeightNet - Plu.GoodsTareWeight;
+            decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight > LocaleCore.Scales.MassaThreshold)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner,
@@ -262,12 +315,12 @@ namespace WeightCore.Helpers
         public void PrintLabel(bool isClearBuffer)
         {
             TemplateDirect template = null;
-            if (Order != null && Scale != null && Scale.UseOrder == true)
+            if (Order != null && Scale != null && Scale.IsOrder == true)
             {
                 template = Order.Template;
                 Order.FactBoxCount++;
             }
-            else if (Plu != null && Scale != null && Scale.UseOrder != true)
+            else if (Plu != null && Scale != null && Scale.IsOrder != true)
             {
                 template = Plu.Template;
             }
@@ -381,15 +434,15 @@ namespace WeightCore.Helpers
             if (template.XslContent.Contains("^PQ1") && !IsPluCheckWeight)
             {
                 // Изменить кол-во этикеток.
-                if (WeighingSettings.CurrentLabelsCountMain > 1)
-                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{WeighingSettings.CurrentLabelsCountMain}");
+                if (WeighingSettings.LabelsCountMain > 1)
+                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
                 // Печать этикетки.
                 PrintLabel(template, isClearBuffer);
             }
             // Шаблон без указания кол-ва.
             else
             {
-                for (int i = Manager.PrintMain.CurrentLabels; i <= WeighingSettings.CurrentLabelsCountMain; i++)
+                for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
                 {
                     // Печать этикетки.
                     PrintLabel(template, isClearBuffer);
@@ -400,11 +453,11 @@ namespace WeightCore.Helpers
         /// <summary>
         /// Вывести серию этикеток по заданному размеру паллеты.
         /// </summary>
-        public void SetCurrentWeighingFact()
+        public void SetWeighingFact()
         {
             if (IsPluCheckWeight)
                 WeighingFact = new(Scale, Plu, ProductDate, WeighingSettings.Kneading,
-                    Plu.Scale.ScaleFactor, Manager.Massa.WeightNet - Plu.GoodsTareWeight, Plu.GoodsTareWeight);
+                    Plu.Scale.ScaleFactor, ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight, Plu.GoodsTareWeight);
             else
                 WeighingFact = new(Scale, Plu, ProductDate, WeighingSettings.Kneading,
                     Plu.Scale.ScaleFactor, Plu.NominalWeight, Plu.GoodsTareWeight);
@@ -433,16 +486,17 @@ namespace WeightCore.Helpers
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, WeighingFact.Id);
-                if (Manager == null || Manager.PrintMain == null)
+                if (ManagerControl == null || ManagerControl.PrintMain == null)
                     return;
 
                 // Print.
                 if (isClearBuffer)
                 {
-                    Manager.PrintMain.ClearPrintBuffer(true, Manager.PrintMain.CurrentLabels);
-                    Manager.PrintShipping.ClearPrintBuffer(true, Manager.PrintShipping.CurrentLabels);
+                    ManagerControl.PrintMain.ClearPrintBuffer();
+                    if (Scale.IsOrder)
+                        ManagerControl.PrintShipping.ClearPrintBuffer();
                 }
-                Manager.PrintMain.SendCmd(printCmd);
+                ManagerControl.PrintMain.SendCmd(printCmd);
             }
             catch (Exception ex)
             {

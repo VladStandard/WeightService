@@ -1,3 +1,4 @@
+-- https://www.zebra.com/content/dam/zebra_new_ia/en-us/manuals/printers/common/programming/zpl-zbi2-pm-en.pdf
 USE [ScalesDB]
 GO
 

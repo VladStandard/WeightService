@@ -16,7 +16,7 @@ namespace WeightCore.Gui.XamlPages
     {
         #region Private fields and properties
 
-        public SessionStateHelper SessionState { get; private set; } = SessionStateHelper.Instance;
+        public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; }
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
@@ -36,7 +36,7 @@ namespace WeightCore.Gui.XamlPages
             {
                 sqlViewModel = SqlViewModel;
             }
-            SqlViewModel = SessionState.SqlViewModel;
+            SqlViewModel = UserSession.SqlViewModel;
         }
 
         #endregion
@@ -45,7 +45,7 @@ namespace WeightCore.Gui.XamlPages
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            SessionState.SqlViewModel.SetupTasks(SessionState.Host?.ScaleId);
+            UserSession.SqlViewModel.SetupTasks(UserSession.Host?.ScaleId);
 
             System.Windows.Controls.Grid gridTasks = new();
             
@@ -60,7 +60,7 @@ namespace WeightCore.Gui.XamlPages
             }
             
             // Rows.
-            for (int row = 0; row < SessionState.SqlViewModel.Tasks.Count; row++)
+            for (int row = 0; row < UserSession.SqlViewModel.Tasks.Count; row++)
             {
                 // Row.
                 System.Windows.Controls.RowDefinition rows = new()
@@ -71,7 +71,7 @@ namespace WeightCore.Gui.XamlPages
                 // Task caption.
                 System.Windows.Controls.Label labelTaskCaption = new()
                 {
-                    Content = SessionState.SqlViewModel.Tasks[row].TaskType.Name,
+                    Content = UserSession.SqlViewModel.Tasks[row].TaskType.Name,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment = System.Windows.VerticalAlignment.Center,
                 };
@@ -85,13 +85,13 @@ namespace WeightCore.Gui.XamlPages
                     Height = 30,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalContentAlignment = System.Windows.VerticalAlignment.Center,
-                    Tag = SessionState.SqlViewModel.Tasks[row]
+                    Tag = UserSession.SqlViewModel.Tasks[row]
                 };
                 System.Windows.Controls.ComboBoxItem itemTrue = new() { Content = "True" };
                 comboBoxTaskEnabled.Items.Add(itemTrue);
                 System.Windows.Controls.ComboBoxItem itemFalse = new() { Content = "False" };
                 comboBoxTaskEnabled.Items.Add(itemFalse);
-                comboBoxTaskEnabled.SelectedItem = SessionState.SqlViewModel.Tasks[row].Enabled ? itemTrue : itemFalse;
+                comboBoxTaskEnabled.SelectedItem = UserSession.SqlViewModel.Tasks[row].Enabled ? itemTrue : itemFalse;
                 System.Windows.Controls.Grid.SetColumn(comboBoxTaskEnabled, 1);
                 System.Windows.Controls.Grid.SetRow(comboBoxTaskEnabled, row);
                 gridTasks.Children.Add(comboBoxTaskEnabled);
@@ -121,13 +121,13 @@ namespace WeightCore.Gui.XamlPages
             }
 
             Result = DialogResult.OK;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonClose_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Result = DialogResult.Cancel;
-            SessionState.IsWpfPageLoaderClose = true;
+            UserSession.IsWpfPageLoaderClose = true;
         }
 
         #endregion

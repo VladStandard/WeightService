@@ -12,11 +12,13 @@ using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
-using LocalizationCore = DataCore.Localizations.LocaleCore;
 using System.Windows.Forms;
-using WeightCore.Helpers;
 using DataCore.Sql.TableScaleModels;
 using DataCore.Protocols;
+using DataCore.Localizations;
+using WeightCore.Helpers;
+using System.Net.NetworkInformation;
+using WeightCore.Zpl;
 
 namespace WeightCore.Managers
 {
@@ -27,7 +29,7 @@ namespace WeightCore.Managers
         private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
         private ZebraPrinter _zebraDriver;
         public Connection ZebraConnection { get; private set; }
-        public int CurrentLabels { get; set; }
+        public int LabelsCount { get; set; }
         public int Port { get; private set; }
         public Label FieldPrint { get; private set; }
         public PrintBrand PrintBrand { get; private set; }
@@ -35,7 +37,7 @@ namespace WeightCore.Managers
         public string Ip { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
         public TscPrintControlHelper TscDriver { get; private set; } = TscPrintControlHelper.Instance;
-        public WmiWin32PrinterEntity Win32Printer() => Wmi.GetWin32Printer(TscDriver.PrintName);
+        public WmiWin32PrinterEntity Win32Printer => Wmi.GetWin32Printer(TscDriver.PrintName);
         public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
         public ZebraPrinterStatus ZebraStatus { get; private set; }
 
@@ -45,7 +47,7 @@ namespace WeightCore.Managers
 
         public ManagerPrint() : base()
         {
-            CurrentLabels = 0;
+            LabelsCount = 0;
             Init(Close, ReleaseManaged, ReleaseUnmanaged);
         }
 
@@ -68,20 +70,19 @@ namespace WeightCore.Managers
                             case PrintBrand.Zebra:
                                 Ip = ip;
                                 Port = port;
-
                                 FieldPrint = fieldPrint;
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                                    $"{(isMain ? LocalizationCore.Print.NameMainZebra : LocalizationCore.Print.NameShippingZebra)} | {Ip}");
+                                    $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Ip}");
                                 break;
                             case PrintBrand.TSC:
                                 TscDriver.Init(name);
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                                    $"{(isMain ? LocalizationCore.Print.NameMainTsc : LocalizationCore.Print.NameShippingTsc)} | {Ip}");
+                                    $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Ip}");
                                 break;
                         }
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
                     },
-                    new(waitReopen: 2_000, waitRequest: 2_000, waitResponse: 0_100, waitClose: 1_000, waitException: 5_000));
+                    new(waitReopen: 5_000, waitRequest: 2_000, waitResponse: 0_100, waitClose: 1_000, waitException: 2_500));
             }
             catch (Exception ex)
             {
@@ -95,15 +96,15 @@ namespace WeightCore.Managers
             {
                 Open(
                     () => {
-                        OpenInside();
+                        Reopen();
                     },
                     () => {
                         Request();
                     },
                     () => {
                         Response(isMain,
-                            $"{LocalizationCore.Scales.Labels}: {CurrentLabels} / " +
-                            $"{SessionStateHelper.Instance.WeighingSettings.CurrentLabelsCountMain}");
+                            $"{LocaleCore.Scales.Labels}: {LabelsCount} / " +
+                            $"{UserSessionHelper.Instance.WeighingSettings.LabelsCountMain}");
                     }
                     );
             }
@@ -113,110 +114,151 @@ namespace WeightCore.Managers
             }
         }
 
-        private void OpenInside()
+        private void Reopen()
         {
-            if (Printer != null || ZebraConnection == null || ZebraConnection.Connected == false)
-            {
-                NetUtils.SetHttpStatus(Printer, 1_000);
-                if (Printer.HttpStatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    ZebraConnection = ZebraConnectionBuilder.Build($"{Ip}");
-                    ZebraConnection.Open();
-                }
-            }
+            NetUtils.RequestPing(Printer, 0_500);
         }
 
-        private void Request()
+        private void Request([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            switch (PrintBrand)
+            if (Printer?.PingStatus == IPStatus.Success)
             {
-                case PrintBrand.Zebra:
-                    if (ZebraConnection?.Connected == true)
-                        ZebraStatus = ZebraDriver?.GetCurrentStatus();
-                    break;
-                case PrintBrand.TSC:
-                    break;
+                switch (PrintBrand)
+                {
+                    case PrintBrand.Zebra:
+                        if (ZebraConnection == null)
+                            ZebraConnection = ZebraConnectionBuilder.Build(Ip);
+                        if (!ZebraConnection.Connected)
+                            ZebraConnection.Open();
+                        //if (!ZebraDriver.Connection.Connected)
+                        //    ZebraDriver.Connection.Open();
+                        if (Printer == null || ZebraDriver == null || ZebraConnection == null || !ZebraConnection.Connected)
+                            ZebraStatus = null;
+                        else
+                        {
+                            try
+                            {
+                                ZebraStatus = ZebraDriver.GetCurrentStatus();
+                            }
+                            catch (Exception ex)
+                            {
+                                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                                SendCmdToZebra(ZplPipeUtils.ZplHostStatusReturn);
+                            }
+                        }
+                        break;
+                    case PrintBrand.TSC:
+                        break;
+                }
             }
         }
 
         private void Response(bool isMain, string value)
         {
-            //LabelsCurrent = UserLabelCount < LabelsCount ? UserLabelCount : LabelsCount;
-            if (CurrentLabels < 1) CurrentLabels = 1;
+            //if (LabelsCount < 1) LabelsCount = 1;
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
+                $"{GetDeviceName(isMain)} | " +
+                $"{LocaleCore.Print.Communication} ({Ip}): {Printer.PingStatus} | " +
+                $"{LocaleCore.Print.Status}: {GetDeviceStatus()} | {value}");
+        }
+
+        public string GetDeviceName(bool isMain)
+        {
+            return isMain
+            ? PrintBrand switch
+            {
+                PrintBrand.Zebra => LocaleCore.Print.NameMainZebra,
+                PrintBrand.TSC => LocaleCore.Print.NameMainTsc,
+                _ => LocaleCore.Print.DeviceName,
+            }
+            : PrintBrand switch
+            {
+                PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
+                PrintBrand.TSC => LocaleCore.Print.NameShippingTsc,
+                _ => LocaleCore.Print.DeviceNameIsUnavailable,
+            };
+        }
+
+        public string GetDeviceStatus()
+        {
             switch (PrintBrand)
             {
                 case PrintBrand.Zebra:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                        $"{(isMain ? LocalizationCore.Print.NameMainZebra : LocalizationCore.Print.NameShippingZebra)} | {Ip} | " +
-                        $"{GetZebraStatus()} | {value}"
-                    );
+                    if (ZebraStatus == null)
+                        return LocaleCore.Print.StatusIsUnavailable;
+                    lock (ZebraStatus)
+                    {
+                        if (ZebraStatus.isHeadCold)
+                            return LocaleCore.Print.StatusIsHeadCold;
+                        else if (ZebraStatus.isHeadOpen)
+                            return LocaleCore.Print.StatusIsHeadOpen;
+                        else if (ZebraStatus.isHeadTooHot)
+                            return LocaleCore.Print.StatusIsHeadTooHot;
+                        else if (ZebraStatus.isPaperOut)
+                            return LocaleCore.Print.StatusIsPaperOut;
+                        else if (ZebraStatus.isPartialFormatInProgress)
+                            return LocaleCore.Print.StatusIsPartialFormatInProgress;
+                        else if (ZebraStatus.isPaused)
+                            return LocaleCore.Print.StatusIsPaused;
+                        else if (ZebraStatus.isReadyToPrint)
+                            return LocaleCore.Print.StatusIsReadyToPrint;
+                        else if (ZebraStatus.isReceiveBufferFull)
+                            return LocaleCore.Print.StatusIsReceiveBufferFull;
+                        else if (ZebraStatus.isRibbonOut)
+                            return LocaleCore.Print.StatusIsRibbonOut;
+                    }
                     break;
                 case PrintBrand.TSC:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                        $"{(isMain ? LocalizationCore.Print.NameMainTsc : LocalizationCore.Print.NameShippingTsc)} | {Ip} | " +
-                        $"{Win32Printer()?.PrinterStatusDescription} ");
-                    break;
+                    return $"{Win32Printer?.PrinterStatusDescription}";
             }
+            return LocaleCore.Print.StatusIsUnavailable;
         }
 
-        public string GetZebraStatus()
+        public bool CheckDeviceStatus()
         {
-            if (ZebraStatus == null)
-                return LocalizationCore.Print.StatusUnavailable;
-            lock (ZebraStatus)
+            switch (PrintBrand)
             {
-                if (ZebraStatus.isHeadCold)
-                    return LocalizationCore.Print.StatusIsHeadCold;
-                else if (ZebraStatus.isHeadOpen)
-                    return LocalizationCore.Print.StatusIsHeadOpen;
-                else if (ZebraStatus.isHeadTooHot)
-                    return LocalizationCore.Print.StatusIsHeadTooHot;
-                else if (ZebraStatus.isPaperOut)
-                    return LocalizationCore.Print.StatusIsPaperOut;
-                else if (ZebraStatus.isPartialFormatInProgress)
-                    return LocalizationCore.Print.StatusIsPartialFormatInProgress;
-                else if (ZebraStatus.isPaused)
-                    return LocalizationCore.Print.StatusIsPaused;
-                else if (ZebraStatus.isReadyToPrint)
-                    return LocalizationCore.Print.StatusIsReadyToPrint;
-                else if (ZebraStatus.isReceiveBufferFull)
-                    return LocalizationCore.Print.StatusIsReceiveBufferFull;
-                else if (ZebraStatus.isRibbonOut)
-                    return LocalizationCore.Print.StatusIsRibbonOut;
+                case PrintBrand.Zebra:
+                    if (ZebraStatus == null)
+                        return false;
+                    return GetDeviceStatus() == LocaleCore.Print.StatusIsReadyToPrint;
+                case PrintBrand.TSC:
+                    //return $"{Win32Printer?.PrinterStatusDescription}";
+                    return false;
             }
-            return LocalizationCore.Print.StatusUnavailable;
+            return false;
         }
 
         public string GetZebraPrintMode()
         {
             if (ZebraStatus == null)
-                return LocalizationCore.Print.ModeUnknown;
+                return LocaleCore.Print.ModeUnknown;
             lock (ZebraStatus)
             {
                 if (ZebraStatus.printMode == ZplPrintMode.REWIND)
-                    return LocalizationCore.Print.ModeRewind;
+                    return LocaleCore.Print.ModeRewind;
                 else if (ZebraStatus.printMode == ZplPrintMode.PEEL_OFF)
-                    return LocalizationCore.Print.ModePeelOff;
+                    return LocaleCore.Print.ModePeelOff;
                 else if (ZebraStatus.printMode == ZplPrintMode.TEAR_OFF)
-                    return LocalizationCore.Print.ModeTearOff;
+                    return LocaleCore.Print.ModeTearOff;
                 else if (ZebraStatus.printMode == ZplPrintMode.CUTTER)
-                    return LocalizationCore.Print.ModeCutter;
+                    return LocaleCore.Print.ModeCutter;
                 else if (ZebraStatus.printMode == ZplPrintMode.APPLICATOR)
-                    return LocalizationCore.Print.ModeApplicator;
+                    return LocaleCore.Print.ModeApplicator;
                 else if (ZebraStatus.printMode == ZplPrintMode.DELAYED_CUT)
-                    return LocalizationCore.Print.ModeDelayedCut;
+                    return LocaleCore.Print.ModeDelayedCut;
                 else if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_PEEL)
-                    return LocalizationCore.Print.ModeLinerlessPeel;
+                    return LocaleCore.Print.ModeLinerlessPeel;
                 else if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_REWIND)
-                    return LocalizationCore.Print.ModeLinerlessRewind;
+                    return LocaleCore.Print.ModeLinerlessRewind;
                 else if (ZebraStatus.printMode == ZplPrintMode.PARTIAL_CUTTER)
-                    return LocalizationCore.Print.ModePartialCutter;
+                    return LocaleCore.Print.ModePartialCutter;
                 else if (ZebraStatus.printMode == ZplPrintMode.RFID)
-                    return LocalizationCore.Print.ModeRfid;
+                    return LocaleCore.Print.ModeRfid;
                 else if (ZebraStatus.printMode == ZplPrintMode.KIOSK)
-                    return LocalizationCore.Print.ModeKiosk;
+                    return LocaleCore.Print.ModeKiosk;
             }
-            return LocalizationCore.Print.ModeUnknown;
+            return LocaleCore.Print.ModeUnknown;
         }
 
         public new void Close()
@@ -281,7 +323,7 @@ namespace WeightCore.Managers
                         }
                         else
                         {
-                            GuiUtils.WpfForm.ShowNewCatch(null, $"{LocalizationCore.Print.SensorPeeler}: {ZebraPeelerStatus}",
+                            GuiUtils.WpfForm.ShowNewCatch(null, $"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}",
                                 true, filePath, lineNumber, memberName);
                         }
                     }
@@ -312,7 +354,7 @@ namespace WeightCore.Managers
             }
         }
 
-        public void ClearPrintBuffer(bool isSetOdometer, int odometerValue)
+        public void ClearPrintBuffer(int odometerValue = -1)
         {
             CheckIsDisposed();
 
@@ -327,11 +369,11 @@ namespace WeightCore.Managers
                     TscDriver.ClearBuffer();
                     break;
             }
-            if (isSetOdometer)
+            if (odometerValue >= 0)
                 SetOdometorUserLabel(odometerValue);
         }
 
-        private void SetOdometorUserLabel(int value)
+        public void SetOdometorUserLabel(int value)
         {
             CheckIsDisposed();
 
@@ -340,7 +382,27 @@ namespace WeightCore.Managers
                 case PrintBrand.Default:
                     break;
                 case PrintBrand.Zebra:
-                    SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+                    //SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+                    SendCmdToZebra($@"! U1 setvar ""odometer.user_label_count"" ""{value}""");
+                    break;
+                case PrintBrand.TSC:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void GetOdometorUserLabel()
+        {
+            CheckIsDisposed();
+
+            switch (PrintBrand)
+            {
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    //SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+                    SendCmdToZebra($@"! U1 getvar ""odometer.user_label_count""");
                     break;
                 case PrintBrand.TSC:
                     break;

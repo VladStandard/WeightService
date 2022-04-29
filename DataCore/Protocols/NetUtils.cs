@@ -62,7 +62,7 @@ namespace DataCore.Protocols
             return macAddresses;
         }
 
-        public static void SetHttpStatus(PrinterEntity printer, int timeOut)
+        public static void RequestHttpStatus(PrinterEntity printer, int timeOut)
         {
             if (printer.HttpStatusCode == HttpStatusCode.OK)
                 return;
@@ -74,7 +74,7 @@ namespace DataCore.Protocols
                 ThrowOnAnyError = true,
                 Timeout = timeOut,
             };
-            RestClient client = new(options);
+            using RestClient client = new(options);
             RestRequest request = new();
             try
             {
@@ -85,6 +85,26 @@ namespace DataCore.Protocols
             {
                 printer.HttpStatusException = ex;
             }
+        }
+
+        public static bool RequestPing(PrinterEntity printer, int timeOut)
+        {
+            if (printer == null)
+                return false;
+            if (printer.PingStatus == IPStatus.Success)
+                return true;
+            try
+            {
+                using Ping ping = new();
+                PingReply pingReply = ping.Send(printer.Ip, timeOut);
+                return (printer.PingStatus = pingReply.Status) == IPStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                printer.HttpStatusException = ex;
+                printer.PingStatus = IPStatus.Unknown;
+            }
+            return false;
         }
 
         #endregion

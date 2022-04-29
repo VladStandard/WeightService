@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Models;
 using System;
+using System.Net.NetworkInformation;
 using System.Xml.Serialization;
 
 namespace DataCore.Sql.TableScaleModels
@@ -25,7 +26,10 @@ namespace DataCore.Sql.TableScaleModels
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
         [XmlIgnore] public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; }
+        [XmlIgnore] public virtual IPStatus PingStatus { get; set; }
+        [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
         [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
+        [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == System.Net.HttpStatusCode.OK;
 
         #endregion
 

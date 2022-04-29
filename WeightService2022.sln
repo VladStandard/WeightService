@@ -34,13 +34,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fonts", "Fonts", "{F5635B3B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}"
 	ProjectSection(SolutionItems) = preProject
+		Resources\Templates\Configure Printer Connectivity DHCP.sql = Resources\Templates\Configure Printer Connectivity DHCP.sql
+		Resources\Templates\Configure Printer Connectivity IP.sql = Resources\Templates\Configure Printer Connectivity IP.sql
 		Resources\Templates\Convert XML to TXT simple.xsl = Resources\Templates\Convert XML to TXT simple.xsl
+		Resources\Templates\Data3ProductSeriesEntity.xml = Resources\Templates\Data3ProductSeriesEntity.xml
 		Resources\Templates\styledata.xml = Resources\Templates\styledata.xml
+		Resources\Templates\Template80x100_Summ 300 dpi.xml.json = Resources\Templates\Template80x100_Summ 300 dpi.xml.json
+		Resources\Templates\Template80x100_Summ.xslt = Resources\Templates\Template80x100_Summ.xslt
 		Resources\Templates\Template80x100unit.xml = Resources\Templates\Template80x100unit.xml
+		Resources\Templates\Template80x100unit_CODE128_300dpi.xml = Resources\Templates\Template80x100unit_CODE128_300dpi.xml
+		Resources\Templates\Template80x100unit_CODE128_300dpi.xml.json = Resources\Templates\Template80x100unit_CODE128_300dpi.xml.json
+		Resources\Templates\Template80x100unit_I2OF5_203dpi.xml = Resources\Templates\Template80x100unit_I2OF5_203dpi.xml
+		Resources\Templates\Template80x100unit_I2OF5_300dpi.xml = Resources\Templates\Template80x100unit_I2OF5_300dpi.xml
+		Resources\Templates\Template80x100unit_PDF417_300dpi.xml = Resources\Templates\Template80x100unit_PDF417_300dpi.xml
+		Resources\Templates\Template80x100weight.xml = Resources\Templates\Template80x100weight.xml
+		Resources\Templates\Template80x100weight_I2OF5_203dpi.xml = Resources\Templates\Template80x100weight_I2OF5_203dpi.xml
+		Resources\Templates\Template80x100weight_I2OF5_300dpi.xml = Resources\Templates\Template80x100weight_I2OF5_300dpi.xml
 		Resources\Templates\Template90x60unit.xml = Resources\Templates\Template90x60unit.xml
+		Resources\Templates\Template90x60weight.xml = Resources\Templates\Template90x60weight.xml
+		Resources\Templates\Test TEST.sql = Resources\Templates\Test TEST.sql
+		Resources\Templates\test.sql = Resources\Templates\test.sql
 		Resources\Templates\WeighingFactEntityObject1.xml = Resources\Templates\WeighingFactEntityObject1.xml
+		Resources\Templates\Zebra commands.sql = Resources\Templates\Zebra commands.sql
 		Resources\Templates\~Template80x100unit.xml = Resources\Templates\~Template80x100unit.xml
 		Resources\Templates\~Template90x60unit.xml = Resources\Templates\~Template90x60unit.xml
+		Resources\Templates\Загрузить логотипы из таблицы ресурсов.sql = Resources\Templates\Загрузить логотипы из таблицы ресурсов.sql
+		Resources\Templates\Загрузить шрифты из таблицы ресурсов.sql = Resources\Templates\Загрузить шрифты из таблицы ресурсов.sql
+		Resources\Templates\Калибровать принтер.sql = Resources\Templates\Калибровать принтер.sql
+		Resources\Templates\ТЕСТ Этикетка.sql = Resources\Templates\ТЕСТ Этикетка.sql
+		Resources\Templates\Установить насыщенность печати.sql = Resources\Templates\Установить насыщенность печати.sql
+		Resources\Templates\Установить режим отделителя Print Mode to Peel-off.sql = Resources\Templates\Установить режим отделителя Print Mode to Peel-off.sql
+		Resources\Templates\Этикетки на комплект.sql = Resources\Templates\Этикетки на комплект.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}"
@@ -618,7 +642,7 @@ Global
 		{99E4F265-9C8D-44A0-B5F3-F05D9AA54487} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

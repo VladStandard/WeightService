@@ -24,7 +24,7 @@ namespace WeightCore.Print.Zebra
             bool noErrors = false;
             bool noWarnings = false;
 
-            if (request == ZplPipeUtils.ZplHostStatusReturn())
+            if (request == ZplPipeUtils.ZplHostStatusReturn)
             {
                 if (msg.Contains("PRINTER STATUS"))
                 {

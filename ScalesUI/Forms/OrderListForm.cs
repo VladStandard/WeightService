@@ -21,7 +21,7 @@ namespace ScalesUI.Forms
         private int NumPage { get; set; } = 0;
         private int Offset { get; set; } = 9;
         private List<OrderDirect> OrdList { get; set; } = null;
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
 
-                OrdList = new OrderDirect().GetOrderList(SessionState.Scale);
+                OrdList = new OrderDirect().GetOrderList(UserSession.Scale);
                 if (OrdList.Count < Offset)
                 {
                     btnLeftRoll.Visible = false;
@@ -130,9 +130,9 @@ namespace ScalesUI.Forms
                 //the names are changed!
                 btn.Click += delegate
                 {
-                    SessionState.Order = OrdList[btn.TabIndex];
-                    SessionState.Order.LoadTemplate();
-                    SessionState.SetCurrentPlu(SessionState.Order.PLU);
+                    UserSession.Order = OrdList[btn.TabIndex];
+                    UserSession.Order.LoadTemplate();
+                    UserSession.SetCurrentPlu(UserSession.Order.PLU);
                     //ws.CurrentPLU.LoadTemplate();
                     //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
                     //_sessionState.WeightReal = 0;

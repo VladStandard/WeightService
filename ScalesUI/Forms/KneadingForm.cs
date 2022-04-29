@@ -20,7 +20,7 @@ namespace ScalesUI.Forms
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private byte SaveKneading { get; }
         private byte SavePalletSize { get; }
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
 
         #endregion
 
@@ -30,9 +30,9 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            SaveProductDate = SessionState.ProductDate;
-            SaveKneading = SessionState.WeighingSettings.Kneading;
-            SavePalletSize = SessionState.WeighingSettings.CurrentLabelsCountMain;
+            SaveProductDate = UserSession.ProductDate;
+            SaveKneading = UserSession.WeighingSettings.Kneading;
+            SavePalletSize = UserSession.WeighingSettings.LabelsCountMain;
         }
 
         #endregion
@@ -65,7 +65,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldProdDate.Text = SessionState.ProductDate.ToString("dd.MM.yyyy");
+                fieldProdDate.Text = UserSession.ProductDate.ToString("dd.MM.yyyy");
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldKneading.Text = $"{SessionState.WeighingSettings.Kneading}";
+                fieldKneading.Text = $"{UserSession.WeighingSettings.Kneading}";
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace ScalesUI.Forms
                 numberInputForm.Close();
                 numberInputForm.Dispose();
                 if (result == DialogResult.OK)
-                    SessionState.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
+                    UserSession.WeighingSettings.Kneading = (byte)numberInputForm.InputValue;
                 GuiUpdate();
             }
             catch (Exception ex)
@@ -123,9 +123,9 @@ namespace ScalesUI.Forms
             {
                 CheckWeightCount();
                 DialogResult = DialogResult.Cancel;
-                SessionState.ProductDate = SaveProductDate;
-                SessionState.WeighingSettings.Kneading = SaveKneading;
-                SessionState.WeighingSettings.CurrentLabelsCountMain = SavePalletSize;
+                UserSession.ProductDate = SaveProductDate;
+                UserSession.WeighingSettings.Kneading = SaveKneading;
+                UserSession.WeighingSettings.LabelsCountMain = SavePalletSize;
                 Close();
             }
             catch (Exception ex)
@@ -137,15 +137,15 @@ namespace ScalesUI.Forms
 
         private void CheckWeightCount()
         {
-            if (SessionState.Plu == null)
+            if (UserSession.Plu == null)
                 return;
 
-            if (SessionState.Plu.IsCheckWeight == true && SessionState.WeighingSettings.CurrentLabelsCountMain > 1)
+            if (UserSession.Plu.IsCheckWeight == true && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount);
-                SessionState.WeighingSettings.CurrentLabelsCountMain = 1;
+                UserSession.WeighingSettings.LabelsCountMain = 1;
             }
-            fieldPalletSize.Text = $"{SessionState.WeighingSettings.CurrentLabelsCountMain}";
+            fieldPalletSize.Text = $"{UserSession.WeighingSettings.LabelsCountMain}";
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
@@ -167,7 +167,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.RotateProductDate(ProjectsEnums.Direction.Right);
+                UserSession.RotateProductDate(ProjectsEnums.Direction.Right);
                 ShowProductDate();
             }
             catch (Exception ex)
@@ -180,7 +180,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.RotateProductDate(ProjectsEnums.Direction.Left);
+                UserSession.RotateProductDate(ProjectsEnums.Direction.Left);
                 ShowProductDate();
             }
             catch (Exception ex)
@@ -193,10 +193,10 @@ namespace ScalesUI.Forms
         {
             try
             {
-                int n = SessionState.WeighingSettings.CurrentLabelsCountMain == 1 ? 9 : 10;
+                int n = UserSession.WeighingSettings.LabelsCountMain == 1 ? 9 : 10;
                 for (int i = 0; i < n; i++)
                 {
-                    SessionState.WeighingSettings.CurrentLabelsCountMain++;
+                    UserSession.WeighingSettings.LabelsCountMain++;
                     ShowPalletSize();
                 }
             }
@@ -208,14 +208,14 @@ namespace ScalesUI.Forms
 
         private void ShowPalletSize()
         {
-            fieldPalletSize.Text = SessionState.WeighingSettings.CurrentLabelsCountMain.ToString();
+            fieldPalletSize.Text = UserSession.WeighingSettings.LabelsCountMain.ToString();
         }
 
         private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
         {
             try
             {
-                SessionState.WeighingSettings.CurrentLabelsCountMain++;
+                UserSession.WeighingSettings.LabelsCountMain++;
                 ShowPalletSize();
             }
             catch (Exception ex)
@@ -228,7 +228,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.WeighingSettings.CurrentLabelsCountMain--;
+                UserSession.WeighingSettings.LabelsCountMain--;
                 ShowPalletSize();
             }
             catch (Exception ex)
@@ -262,7 +262,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.WeighingSettings.CurrentLabelsCountMain = count;
+                UserSession.WeighingSettings.LabelsCountMain = count;
                 ShowPalletSize();
             }
             catch (Exception ex)

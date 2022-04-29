@@ -34,7 +34,7 @@ namespace DataCore.Sql.TableScaleModels
         public virtual string ZebraIp { get; set; }
         [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
-        public virtual bool UseOrder { get; set; }
+        public virtual bool IsOrder { get; set; }
         public virtual string VerScalesUi { get; set; }
         public virtual int? DeviceNumber { get; set; }
         public virtual int? ScaleFactor { get; set; }
@@ -69,7 +69,7 @@ namespace DataCore.Sql.TableScaleModels
             DeviceComPort = string.Empty;
             ZebraIp = string.Empty;
             ZebraPort = default;
-            UseOrder = false;
+            IsOrder = false;
             VerScalesUi = string.Empty;
             DeviceNumber = default;
             ScaleFactor = default;
@@ -99,7 +99,7 @@ namespace DataCore.Sql.TableScaleModels
                    $"{nameof(DeviceComPort)}: {DeviceComPort}. " +
                    $"{nameof(ZebraIp)}: {ZebraIp}. " +
                    $"{nameof(ZebraPort)}: {ZebraPort}. " +
-                   $"{nameof(UseOrder)}: {UseOrder}. " +
+                   $"{nameof(IsOrder)}: {IsOrder}. " +
                    $"{nameof(VerScalesUi)}: {VerScalesUi}. " +
                    $"{nameof(DeviceNumber)}: {DeviceNumber}. " +
                    $"{nameof(TemplateDefault)}: {strTemplateDefault}. " +
@@ -142,7 +142,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(DeviceComPort, item.DeviceComPort) &&
                    Equals(ZebraIp, item.ZebraIp) &&
                    Equals(ZebraPort, item.ZebraPort) &&
-                   Equals(UseOrder, item.UseOrder) &&
+                   Equals(IsOrder, item.IsOrder) &&
                    Equals(VerScalesUi, item.VerScalesUi) &&
                    Equals(DeviceNumber, item.DeviceNumber) &&
                    Equals(ScaleFactor, item.ScaleFactor) &&
@@ -195,7 +195,7 @@ namespace DataCore.Sql.TableScaleModels
 
                    Equals(ZebraIp, string.Empty) &&
                    Equals(ZebraPort, null) &&
-                   Equals(UseOrder, false) &&
+                   Equals(IsOrder, false) &&
                    Equals(VerScalesUi, string.Empty) &&
 
                    Equals(DeviceNumber, null) &&
@@ -228,7 +228,7 @@ namespace DataCore.Sql.TableScaleModels
                 DeviceComPort = DeviceComPort,
                 ZebraIp = ZebraIp,
                 ZebraPort = ZebraPort,
-                UseOrder = UseOrder,
+                IsOrder = IsOrder,
                 VerScalesUi = VerScalesUi,
                 DeviceNumber = DeviceNumber,
                 ScaleFactor = ScaleFactor,

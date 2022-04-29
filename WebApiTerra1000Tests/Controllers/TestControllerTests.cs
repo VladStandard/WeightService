@@ -46,7 +46,7 @@ namespace DataProjectsCoreTests.DAL
                 ThrowOnAnyError = true,
                 Timeout = 60_000,
             };
-            RestSharp.RestClient client = new(options);
+            using RestSharp.RestClient client = new(options);
             RestRequest request = new RestSharp.RestRequest()
                 .AddQueryParameter("format", "json");
             RestResponse response = await client.GetAsync(request);

@@ -301,7 +301,7 @@ namespace BlazorCore.Models
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Table.Host);
             //if (success)
-            //    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocalizationCore.Strings.TableItem.TemplateDefault);
+            //    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocaleCore.Strings.TableItem.TemplateDefault);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Table.Workshop);
             if (success)
