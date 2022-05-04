@@ -3,7 +3,7 @@
 
 using System;
 
-namespace WeightCore.Models
+namespace DataCore.Sql.Models
 {
     /// <summary>
     /// Table field.

@@ -15,10 +15,6 @@ namespace DataCore.Models
         /// </summary>
         public bool IsOpened { get; private set; }
         /// <summary>
-        /// Closed state.
-        /// </summary>
-        public bool IsClosed { get; private set; }
-        /// <summary>
         /// Disposed state.
         /// </summary>
         public bool IsDisposed { get; private set; }
@@ -51,7 +47,6 @@ namespace DataCore.Models
             ReleaseManagedResourcesCaller = null;
             ReleaseUnmanagedResourcesCaller = null;
             IsOpened = false;
-            IsClosed = false;
             IsDisposed = false;
         }
 
@@ -91,7 +86,6 @@ namespace DataCore.Models
             {
                 if (IsOpened) return;
                 IsOpened = true;
-                IsClosed = false;
             }
         }
 
@@ -101,9 +95,8 @@ namespace DataCore.Models
             //CheckIsDisposed(filePath, lineNumber, memberName);
             lock (_locker)
             {
-                if (IsClosed) return;
+                if (!IsOpened) return;
                 IsOpened = false;
-                IsClosed = true;
                 CloseCaller?.Invoke();
             }
         }

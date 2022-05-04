@@ -3,7 +3,7 @@
 
 using DataCore;
 
-namespace WeightCore.Models
+namespace DataCore.Sql.Models
 {
     /// <summary>
     /// SQL-авторизация.
@@ -24,7 +24,7 @@ namespace WeightCore.Models
             Port = 1433;
         }
 
-        public SqlAuthentication(string server, string database, bool persistSecurityInfo, bool integratedSecurity, 
+        public SqlAuthentication(string server, string database, bool persistSecurityInfo, bool integratedSecurity,
             string userId, string password, bool encrypt, ushort port)
         {
             Server = server;

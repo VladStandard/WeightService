@@ -197,7 +197,7 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public bool CheckWeightMassaIsStable(IWin32Window owner)
         {
-            if (Plu.IsCheckWeight && !ManagerControl.Massa.IsStable)
+            if (Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
                     new() { ButtonCancelVisibility = Visibility.Visible });
@@ -255,7 +255,7 @@ namespace WeightCore.Helpers
             if (!IsPluCheckWeight)
                 return true;
             decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
-            if (weight < LocaleCore.Scales.MassaThreshold)
+            if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner,
                     LocaleCore.Scales.CheckWeightThreshold(weight),
@@ -275,7 +275,7 @@ namespace WeightCore.Helpers
             if (!IsPluCheckWeight)
                 return true;
             decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
-            if (weight > LocaleCore.Scales.MassaThreshold)
+            if (weight > LocaleCore.Scales.MassaThresholdValue)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner,
                     LocaleCore.Scales.CheckWeightThreshold(weight),

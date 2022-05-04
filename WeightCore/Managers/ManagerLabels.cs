@@ -76,7 +76,7 @@ namespace WeightCore.Managers
                         ButtonScalesTerminal = buttonScalesTerminal;
                         PictureBoxClose = pictureBoxClose;
 
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppName);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate, LocaleCore.Scales.FieldTime);
@@ -136,21 +136,24 @@ namespace WeightCore.Managers
 
         private void SetTitleSwitchDev()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppName +
-                $" SQL: {UserSessionHelper.Instance.SqlViewModel.PublishDescription}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle +
+                $". {UserSessionHelper.Instance.Scale.Description}" +
+                $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightYellow);
         }
 
         private void SetTitleSwitchRelease()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppName);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle +
+                $". {UserSessionHelper.Instance.Scale.Description}");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightGreen);
         }
 
         private void SetTitleSwitchDefault()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle,
-                $@"{AppVersionHelper.Instance.AppTitle}.  {UserSessionHelper.Instance.Scale.Description}. SQL: {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle + 
+                $". {UserSessionHelper.Instance.Scale.Description}" +
+                $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.IndianRed);
         }
 

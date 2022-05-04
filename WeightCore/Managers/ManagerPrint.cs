@@ -82,7 +82,7 @@ namespace WeightCore.Managers
                         }
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
                     },
-                    new(waitReopen: 5_000, waitRequest: 2_000, waitResponse: 0_100, waitClose: 1_000, waitException: 2_500));
+                    new(waitReopen: 2_000, waitRequest: 1_000, waitResponse: 0_150, waitClose: 0_150, waitException: 2_500));
             }
             catch (Exception ex)
             {
@@ -105,8 +105,7 @@ namespace WeightCore.Managers
                         Response(isMain,
                             $"{LocaleCore.Scales.Labels}: {LabelsCount} / " +
                             $"{UserSessionHelper.Instance.WeighingSettings.LabelsCountMain}");
-                    }
-                    );
+                    });
             }
             catch (Exception ex)
             {
@@ -144,6 +143,7 @@ namespace WeightCore.Managers
                             {
                                 Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
                                 SendCmdToZebra(ZplPipeUtils.ZplHostStatusReturn);
+                                //WaitSync(WaitConfig.WaitException);
                             }
                         }
                         break;

@@ -406,14 +406,13 @@
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
     <Compile Include="MassaK\MassaDeviceModel.cs" />
     <Compile Include="MassaK\MassaRequestHelper.cs" />
+    <Compile Include="MassaK\MassaStableEntity.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
     <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />
     <Compile Include="MassaK\ResponseScaleParEntity.cs" />
     <Compile Include="Models\ResultXmlRead.cs" />
-    <Compile Include="Models\SqlAuthentication.cs" />
-    <Compile Include="Models\SqlTableField.cs" />
     <Compile Include="Models\WindowResolution.cs" />
     <Compile Include="Models\XmlTag.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />

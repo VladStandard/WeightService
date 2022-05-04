@@ -2,28 +2,29 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Protocols;
+using DataCore.Sql;
 using MDSoft.SerialPorts;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace WeightCore.MassaK
 {
-    public partial class MassaDeviceModel : DisposableBase, IDisposableBase, ISerialPortView
+    public partial class MassaDeviceModel : DisposableBase, IDisposableBase
     {
         #region Public and private fields and properties
 
-        public bool IsClosedMethod { get; set; }
-        public bool IsConnected => SerialPortController.SerialPortModel?.SerialPort?.IsOpen == true;
-        public bool IsOpenedMethod { get; set; }
+        public bool IsConnected => PortController.Port?.SerialPort?.IsOpen == true;
         public int ReadTimeout { get; private set; }
         public int WriteTimeout { get; private set; }
         public string PortName { get; private set; }
 
         public BytesHelper Bytes { get; private set; } = BytesHelper.Instance;
-        private ISerialPortController SerialPortController { get; set; }
+        private SerialPortController PortController { get; set; }
         public int SendBytesCount { get; private set; } = 0;
         public int ReceiveBytesCount { get; private set; } = 0;
-        public delegate void ResponseCallback(MassaExchangeEntity massaExchange, byte[] response);
-        private readonly ResponseCallback _responseCallback = null;
+        public delegate void MassaResponseCallback(MassaExchangeEntity massaExchange, byte[] response);
+        private readonly MassaResponseCallback _massaCallback = null;
         private MassaExchangeEntity _massaExchange = null;
         private readonly object _locker = new();
 
@@ -31,27 +32,27 @@ namespace WeightCore.MassaK
 
         #region Constructor and destructor
 
-        public MassaDeviceModel(string portName, short? readTimeout, short? writeTimeout, ResponseCallback responseCallback)
+        public MassaDeviceModel(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
         {
             Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
             PortName = portName;
             ReadTimeout = readTimeout ?? 100;
             WriteTimeout = writeTimeout ?? 100;
-            SerialPortController = new ISerialPortController(this);
-            _responseCallback = responseCallback;
+            _massaCallback = massaCallback;
+            PortController = new(PortOpenCallback, PortCloseCallback, PortMassaResponseCallback, PortExceptionCallback);
         }
 
         #endregion
 
         #region Public and private methods - ISerialPortView
 
-        public void SetController(ISerialPortController controller)
+        public void SetController(SerialPortController controller)
         {
-            SerialPortController = controller;
+            PortController = controller;
         }
 
-        public void OpenComEvent(object sender, SerialPortEventArgs e)
+        public void PortOpenCallback(object sender, SerialPortEventArgs e)
         {
             if (e.IsOpened)
             {
@@ -63,7 +64,7 @@ namespace WeightCore.MassaK
             }
         }
 
-        public void CloseComEvent(object sender, SerialPortEventArgs e)
+        public void PortCloseCallback(object sender, SerialPortEventArgs e)
         {
             // Close successfully.
             if (!e.IsOpened)
@@ -72,15 +73,21 @@ namespace WeightCore.MassaK
             }
         }
 
-        public void ReceiveDataEvent(object sender, SerialPortEventArgs e)
+        public void PortMassaResponseCallback(object sender, SerialPortEventArgs e)
         {
             lock (_locker)
             {
                 CheckIsDisposed();
                 ReceiveBytesCount += e.ReceivedBytes.Length;
-                _responseCallback?.Invoke(_massaExchange, e.ReceivedBytes);
+                _massaCallback?.Invoke(_massaExchange, e.ReceivedBytes);
                 _massaExchange = null;
             }
+        }
+
+        public void PortExceptionCallback(Exception ex,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            DataAccessHelper.Instance.Log.LogError(ex, NetUtils.GetLocalHostName(false), nameof(MassaDeviceModel), filePath, lineNumber, memberName);
         }
 
         #endregion
@@ -90,9 +97,8 @@ namespace WeightCore.MassaK
         public new void Open()
         {
             base.Open();
-            if (IsOpenedMethod) return;
-            IsOpenedMethod = true;
-            IsClosedMethod = false;
+            //if (IsOpened) return;
+            if (PortController.Port.SerialPort.IsOpen) return;
 
             try
             {
@@ -100,7 +106,7 @@ namespace WeightCore.MassaK
                 {
                     throw new ArgumentNullException(PortName);
                 }
-                SerialPortController.OpenPort(PortName, ReadTimeout, WriteTimeout);
+                PortController.OpenPort(PortName, ReadTimeout, WriteTimeout);
             }
             catch (Exception)
             {
@@ -112,19 +118,18 @@ namespace WeightCore.MassaK
         {
             CheckIsDisposed();
             _massaExchange = massaExchange;
-            SerialPortController.SendData(massaExchange.Request);
+            PortController.SendData(massaExchange.Request);
             SendBytesCount += massaExchange.Request.Length;
         }
 
         public new void Close()
         {
-            if (IsClosedMethod) return;
-            IsOpenedMethod = false;
-            IsClosedMethod = true;
+            base.Close();
+            
+            //if (!IsOpened) return;
             CheckIsDisposed();
 
-            SerialPortController.ClosePort();
-            base.Close();
+            PortController.ClosePort();
         }
 
         public void ReleaseManaged()

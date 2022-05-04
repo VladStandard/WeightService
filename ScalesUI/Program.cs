@@ -2,9 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql;
+using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Settings;
+using DataCore.Sql;
+using DataCore.Sql.Controllers;
 using DataCore.Sql.TableDirectModels;
 using ScalesUI.Forms;
 using System;
@@ -14,7 +16,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
-using DataCore.Sql.Controllers;
 
 // ReSharper disable IdentifierTypo
 namespace ScalesUI
@@ -30,7 +31,7 @@ namespace ScalesUI
 
         #region Public and private methods
 
-        internal static void TokenWrite(string conectionString, 
+        internal static void TokenWrite(string conectionString,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
@@ -47,11 +48,11 @@ namespace ScalesUI
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                if (result == DialogResult.OK)
-                {
-                    Clipboard.SetText($@"{uid}");
-                    return;
-                }
+                //if (result == DialogResult.OK)
+                //{
+                //    Clipboard.SetText($"{uid}");
+                //    return;
+                //}
             }
             catch (Exception ex)
             {
@@ -85,7 +86,8 @@ namespace ScalesUI
             try
             {
                 AppVersion.Setup(Assembly.GetExecutingAssembly());
-                DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
+                FileLogHelper.Instance.FileName = HostsUtils.FilePathLog;
+                DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory(), true);
             }
             catch (Exception ex)
             {
@@ -117,10 +119,10 @@ namespace ScalesUI
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                if (result == DialogResult.OK)
-                {
-                    Clipboard.SetText($@"{host.IdRRef}");
-                }
+                //if (result == DialogResult.OK)
+                //{
+                //    Clipboard.SetText($"{host.IdRRef}");
+                //}
                 Application.Exit();
                 return;
             }

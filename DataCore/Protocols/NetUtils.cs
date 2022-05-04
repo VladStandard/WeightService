@@ -91,8 +91,6 @@ namespace DataCore.Protocols
         {
             if (printer == null)
                 return false;
-            if (printer.PingStatus == IPStatus.Success)
-                return true;
             try
             {
                 using Ping ping = new();

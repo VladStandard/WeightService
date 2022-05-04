@@ -3,6 +3,7 @@
 
 using DataCore;
 using DataCore.Sql;
+using DataCore.Sql.Models;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System;
@@ -10,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
-using WeightCore.Models;
 
 namespace WeightCore.Helpers
 {

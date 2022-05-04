@@ -3,19 +3,43 @@
 
 using System;
 using System.IO.Ports;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace MDSoft.SerialPorts
 {
-    public delegate void SerialPortEventHandler(object sender, SerialPortEventArgs e);
+    public delegate void PortCallback(object sender, SerialPortEventArgs e);
+    //public delegate void PortOpenCallback(object sender, SerialPortEventArgs e);
+    //public delegate void PortCloseCallback(object sender, SerialPortEventArgs e);
+    //public delegate void PortResponseCallback(object sender, SerialPortEventArgs e);
+    public delegate void PortExceptionCallback(Exception ex, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "");
 
-    public class SerialPortModel
+    public class SerialPortEntity
     {
+        #region Public and private fields and properties
+
         public SerialPort SerialPort { get; private set; } = new();
-        public event SerialPortEventHandler ComReceiveDataEvent = null;
-        public event SerialPortEventHandler ComOpenEvent = null;
-        public event SerialPortEventHandler ComCloseEvent = null;
+        public PortCallback OpenCallback;
+        public PortCallback CloseCallback;
+        public PortCallback ResponseCallback;
+        public PortExceptionCallback ExceptionCallback;
         private readonly object _locker = new();
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public SerialPortEntity(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, PortExceptionCallback exceptionCallback)
+        {
+            OpenCallback = openCallback;
+            CloseCallback = closeCallback;
+            ResponseCallback = responseCallback;
+            ExceptionCallback = exceptionCallback;
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -25,21 +49,23 @@ namespace MDSoft.SerialPorts
             }
             lock (_locker)
             {
-                int len = SerialPort.BytesToRead;
-                byte[] data = new byte[len];
                 try
                 {
+                    int len = SerialPort.BytesToRead;
+                    byte[] data = new byte[len];
+                    
                     SerialPort.Read(data, 0, len);
+                    
+                    SerialPortEventArgs args = new()
+                    {
+                        ReceivedBytes = data
+                    };
+                    ResponseCallback?.Invoke(this, args);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //
+                    ExceptionCallback?.Invoke(ex);
                 }
-                SerialPortEventArgs args = new()
-                {
-                    ReceivedBytes = data
-                };
-                ComReceiveDataEvent?.Invoke(this, args);
             }
         }
 
@@ -53,17 +79,18 @@ namespace MDSoft.SerialPorts
             try
             {
                 SerialPort.Write(bytes, 0, bytes.Length);
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                ExceptionCallback?.Invoke(ex);
             }
-            return true;
+            return false;
         }
 
         public void Open(SerialPort serialPort)
         {
-            Open(serialPort.PortName, serialPort.BaudRate.ToString(), serialPort.DataBits.ToString(), serialPort.StopBits.ToString(), 
+            Open(serialPort.PortName, serialPort.BaudRate.ToString(), serialPort.DataBits.ToString(), serialPort.StopBits.ToString(),
                 serialPort.Parity.ToString(), serialPort.Handshake.ToString(), serialPort.ReadTimeout, serialPort.WriteTimeout);
         }
 
@@ -108,12 +135,14 @@ namespace MDSoft.SerialPorts
                 SerialPort.Open();
                 SerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
                 args.IsOpened = true;
+
+                OpenCallback?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 args.IsOpened = false;
+                ExceptionCallback?.Invoke(ex);
             }
-            ComOpenEvent?.Invoke(this, args);
         }
 
         /**
@@ -154,12 +183,16 @@ namespace MDSoft.SerialPorts
             {
                 SerialPort.Close();
                 SerialPort.DataReceived -= new SerialDataReceivedEventHandler(DataReceived);
+
+                CloseCallback?.Invoke(this, args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 args.IsOpened = true;
+                ExceptionCallback?.Invoke(ex);
             }
-            ComCloseEvent?.Invoke(this, args);
         }
+
+        #endregion
     }
 }

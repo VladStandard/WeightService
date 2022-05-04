@@ -202,7 +202,6 @@ namespace ScalesUI.Forms
                     Quartz.Close();
                     Quartz.Dispose();
                 }
-                ManagerBase.WaitSync(0_100);
                 UserSession.ManagerControl.Labels.Close();
                 UserSession.ManagerControl.Massa.Close();
                 UserSession.ManagerControl.Memory.Close();

@@ -5,22 +5,19 @@ using System.Text;
 
 namespace MDSoft.SerialPorts
 {
-    public class ISerialPortController
+    public class SerialPortController
     {
         #region Public and private fields and properties
 
-        public SerialPortModel SerialPortModel { get; private set; } = new();
+        public SerialPortEntity Port { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ISerialPortController(ISerialPortView view)
+        public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, PortExceptionCallback exceptionCallback)
         {
-            view.SetController(this);
-            SerialPortModel.ComCloseEvent += new SerialPortEventHandler(view.CloseComEvent);
-            SerialPortModel.ComOpenEvent += new SerialPortEventHandler(view.OpenComEvent);
-            SerialPortModel.ComReceiveDataEvent += new SerialPortEventHandler(view.ReceiveDataEvent);
+            Port = new(openCallback, closeCallback, responseCallback, exceptionCallback);
         }
 
         #endregion
@@ -29,14 +26,14 @@ namespace MDSoft.SerialPorts
 
         public bool SendData(byte[] data)
         {
-            return SerialPortModel.Send(data);
+            return Port.Send(data);
         }
 
         public bool SendData(string str)
         {
             if (str != null && str != "")
             {
-                return SerialPortModel.Send(Encoding.Default.GetBytes(str));
+                return Port.Send(Encoding.Default.GetBytes(str));
             }
             return true;
         }
@@ -45,7 +42,7 @@ namespace MDSoft.SerialPorts
         {
             if (portName != null && portName != "")
             {
-                SerialPortModel.Open(portName, baudRate, dataBits, stopBits, parity, handshake);
+                Port.Open(portName, baudRate, dataBits, stopBits, parity, handshake);
             }
         }
 
@@ -53,13 +50,13 @@ namespace MDSoft.SerialPorts
         {
             if (!string.IsNullOrEmpty(portName))
             {
-                SerialPortModel.Open(SerialPortUtils.GetSerialPort(portName, readTimeout, writeTimeout));
+                Port.Open(SerialPortUtils.GetSerialPort(portName, readTimeout, writeTimeout));
             }
         }
 
         public void ClosePort()
         {
-            SerialPortModel.Close();
+            Port.Close();
         }
 
         #endregion

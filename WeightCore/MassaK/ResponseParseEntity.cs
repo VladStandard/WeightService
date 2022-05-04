@@ -237,7 +237,7 @@ namespace WeightCore.MassaK
 
                 Crc = Response.Skip(5 + LenAsUshort).Take(2).ToArray();
                 CrcCalc = MassaCrc.CrcGet(Body);
-                IsValidCrc = Crc[0] == CrcCalc[0] && Crc[1] == CrcCalc[1];
+                IsValidCrc = Crc.Length > 0 && Crc[0] == CrcCalc[0] && Crc[1] == CrcCalc[1];
 
                 switch (CmdType)
                 {

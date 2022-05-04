@@ -6,15 +6,16 @@ using System.Text;
 using System.IO.Ports;
 using System.Windows.Forms;
 using MDSoft.SerialPorts;
+using System.Runtime.CompilerServices;
 
 namespace SerialPortExchangeTool
 {
-    public partial class MainForm : Form, ISerialPortView
+    public partial class MainForm : Form
     {
         #region Public and private fields and properties
 
         public BytesHelper Bytes { get; private set; } = BytesHelper.Instance;
-        private ISerialPortController SerialPortController { get; set; }
+        private SerialPortController PortController { get; set; }
         private int SendBytesCount { get; set; } = 0;
         private int ReceiveBytesCount { get; set; } = 0;
 
@@ -26,8 +27,8 @@ namespace SerialPortExchangeTool
         {
             InitializeComponent();
 
-            SerialPortController = new ISerialPortController(this);
             Initialize();
+            PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
             statusTimeLabel.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             toolStripStatusTx.Text = "Sent: 0";
             toolStripStatusRx.Text = "Received: 0";
@@ -38,11 +39,6 @@ namespace SerialPortExchangeTool
         #endregion
 
         #region Public and private methods
-
-        public void SetController(ISerialPortController controller)
-        {
-            SerialPortController = controller;
-        }
 
         private void Initialize()
         {
@@ -87,11 +83,11 @@ namespace SerialPortExchangeTool
             }
         }
 
-        public void OpenComEvent(object sender, SerialPortEventArgs e)
+        public void PortOpenCallback(object sender, SerialPortEventArgs e)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<object, SerialPortEventArgs>(OpenComEvent), sender, e);
+                Invoke(new Action<object, SerialPortEventArgs>(PortOpenCallback), sender, e);
                 return;
             }
 
@@ -126,11 +122,11 @@ namespace SerialPortExchangeTool
             }
         }
 
-        public void CloseComEvent(object sender, SerialPortEventArgs e)
+        public void PortCloseCallback(object sender, SerialPortEventArgs e)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<object, SerialPortEventArgs>(CloseComEvent), sender, e);
+                Invoke(new Action<object, SerialPortEventArgs>(PortCloseCallback), sender, e);
                 return;
             }
 
@@ -155,13 +151,13 @@ namespace SerialPortExchangeTool
             }
         }
 
-        public void ReceiveDataEvent(object sender, SerialPortEventArgs e)
+        public void PortResponseCallback(object sender, SerialPortEventArgs e)
         {
             if (InvokeRequired)
             {
                 try
                 {
-                    Invoke(new Action<object, SerialPortEventArgs>(ReceiveDataEvent), sender, e);
+                    Invoke(new Action<object, SerialPortEventArgs>(PortResponseCallback), sender, e);
                 }
                 catch (Exception)
                 {
@@ -189,6 +185,21 @@ namespace SerialPortExchangeTool
             }
         }
 
+        public void PortExceptionCallback(Exception ex,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<Exception, string, int, string>(PortExceptionCallback), ex);
+                return;
+            }
+
+            string message = ex.Message;
+            if (ex.InnerException != null)
+                message += Environment.NewLine + ex.InnerException.ToString();
+            MessageBox.Show(message);
+        }
+
         private void Receivetbx_TextChanged(object sender, EventArgs e)
         {
             receivetbx.SelectionStart = receivetbx.Text.Length;
@@ -204,11 +215,11 @@ namespace SerialPortExchangeTool
         {
             if (openCloseSpbtn.Text == "Open")
             {
-                SerialPortController.OpenPort(comListCbx.Text, baudRateCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, parityCbx.Text, handshakingcbx.Text);
+                PortController.OpenPort(comListCbx.Text, baudRateCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, parityCbx.Text, handshakingcbx.Text);
             }
             else
             {
-                SerialPortController.ClosePort();
+                PortController.ClosePort();
             }
         }
 
@@ -252,7 +263,7 @@ namespace SerialPortExchangeTool
                 //send bytes to serial port
                 byte[] bytes = Bytes.Hex2Bytes(sendText);
                 sendbtn.Enabled = false;//wait return
-                flag = SerialPortController.SendData(bytes);
+                flag = PortController.SendData(bytes);
                 sendbtn.Enabled = true;
                 SendBytesCount += bytes.Length;
             }
@@ -260,7 +271,7 @@ namespace SerialPortExchangeTool
             {
                 //send String to serial port
                 sendbtn.Enabled = false;//wait return
-                flag = SerialPortController.SendData(sendText);
+                flag = PortController.SendData(sendText);
                 sendbtn.Enabled = true;
                 SendBytesCount += sendText.Length;
             }

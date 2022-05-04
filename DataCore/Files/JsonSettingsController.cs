@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Reflection;
+using DataCore.Protocols;
 
 namespace DataCore.Files
 {
@@ -17,11 +18,12 @@ namespace DataCore.Files
 
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public const string RemoteDir =
+        public FileLogHelper FileLog { get; private set; } = FileLogHelper.Instance;
+        public string RemoteDir =
 #if DEBUG
             @"\\palych\Install\VSSoft\appsettings\";
 #else
-            @"h:\Install\VSSoft\appsettings\";
+            (NetUtils.GetLocalHostName(false) == "PSQLM04" || NetUtils.GetLocalHostName(false) == "DIISM04" ? @"h:\Install\VSSoft\appsettings\" : @"\\palych\Install\VSSoft\appsettings\");
 #endif
 
         public const string FileName =
@@ -60,14 +62,14 @@ namespace DataCore.Files
                 if (Directory.Exists(subDir))
                 {
                     // Local folder.
-                    CheckUpdates(subDir);
+                    CheckUpdates(subDir, false);
                     if (!Setup(subDir))
                         throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
                 }
                 else
                 {
                     // IIS publish folder.
-                    CheckUpdates(localDir);
+                    CheckUpdates(localDir, false);
                     if (!Setup(localDir))
                         throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
                 }
@@ -85,7 +87,7 @@ namespace DataCore.Files
 
         public void SetupForTests(string localDir, string? hostName, string? appName)
         {
-            CheckUpdates(localDir);
+            CheckUpdates(localDir, false);
 
             if (!Setup(localDir))
                 throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
@@ -93,19 +95,27 @@ namespace DataCore.Files
             DataAccess.Log.Setup(hostName, appName);
         }
 
-        public void SetupForScales(string localDir)
+        public void SetupForScales(string localDir, bool isFileLog)
         {
-            CheckUpdates(localDir);
+            CheckUpdates(localDir, isFileLog);
 
-            if (!Setup(localDir))
+            if (!Setup(localDir, false, isFileLog))
+            {
+                if (isFileLog)
+                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsLocalFileException);
                 throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
+            }
         }
 
-        private bool Setup(string dir, bool isRemote = false)
+        private bool Setup(string dir, bool isRemote = false, bool isFileLog = false)
         {
             string file = Path.Combine(dir, FileName);
             if (!File.Exists(file))
+            {
+                if (isFileLog)
+                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileNotFound(file));
                 throw new Exception(LocaleCore.System.JsonSettingsFileNotFound(file));
+            }
 
             using StreamReader streamReader = File.OpenText(file);
             JsonSerializer serializer = new();
@@ -122,7 +132,11 @@ namespace DataCore.Files
                 sqlConnectionStringBuilder["Connect Timeout"] = getJjsonSettings.Sql.ConnectTimeout;
                 sqlConnectionStringBuilder["TrustServerCertificate"] = getJjsonSettings.Sql.TrustServerCertificate;
                 if (getJjsonSettings == null)
+                {
+                    if (isFileLog)
+                        FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileException);
                     throw new Exception(LocaleCore.System.JsonSettingsRemoteFileException);
+                }
                 if (!isRemote)
                 {
                     DataAccess.JsonSettingsLocal = getJjsonSettings;
@@ -137,13 +151,26 @@ namespace DataCore.Files
             return jsonObject != null;
         }
 
-        public void CheckUpdates(string localDir)
+        public void CheckUpdates(string localDir, bool isFileLog)
         {
+            if (isFileLog)
+                FileLog.WriteMessage($"{nameof(localDir)}: {localDir}");
             if (!Directory.Exists(RemoteDir))
+            {
+                if (isFileLog)
+                {
+                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
+                    FileLog.WriteMessage(RemoteDir);
+                }
                 throw new Exception(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
+            }
             string remoteFile = Path.Combine(RemoteDir, FileName);
             if (!File.Exists(remoteFile))
+            {
+                if (isFileLog)
+                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileNotFound);
                 throw new Exception(LocaleCore.System.JsonSettingsRemoteFileNotFound);
+            }
 
             Setup(RemoteDir, true);
 
@@ -159,7 +186,11 @@ namespace DataCore.Files
                 streamReader.Close();
                 streamReader.Dispose();
                 if (string.IsNullOrEmpty(content))
+                {
+                    if (isFileLog)
+                        FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
                     throw new Exception(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
+                }
 
                 using StreamWriter streamWriter = File.CreateText(Path.Combine(localDir, FileName));
                 streamWriter.Write(content);
