@@ -143,15 +143,15 @@ namespace ScalesUI.Forms
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
                     ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
-                    ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose);
+                    ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose, 
+                    fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
                 UserSession.ManagerControl.Labels.Open();
                 // Memory.
                 UserSession.ManagerControl.Memory.Init(fieldMemory, fieldTasks);
                 UserSession.ManagerControl.Memory.Open();
                 // Massa.
                 UserSession.ManagerControl.Massa.Init(labelWeightNetto, fieldWeightNetto, labelWeightTare, fieldWeightTare,
-                    fieldMassaProgress, fieldThreshold, fieldMassaGet,
-                    fieldMassaGetCrc, fieldMassaSet, fieldMassaSetCrc, fieldMassaScalePar);
+                    fieldMassaThreshold, fieldMassaGet, fieldMassaPluDescription);
                 UserSession.ManagerControl.Massa.Open();
                 // PrintMain.
                 UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain,
@@ -241,19 +241,16 @@ namespace ScalesUI.Forms
             fieldPlu.Font = FontsSettings.FontLabelsMaximum;
             fieldProductDate.Font = FontsSettings.FontLabelsMaximum;
 
-            fieldThreshold.Font = FontsSettings.FontLabelsGray;
+            fieldMassaThreshold.Font = FontsSettings.FontLabelsGray;
             fieldSscc.Font = FontsSettings.FontLabelsGray;
             fieldTasks.Font = FontsSettings.FontLabelsGray;
             fieldPrintMain.Font = FontsSettings.FontLabelsGray;
             fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
-            fieldPrintProgressMain.Font = FontsSettings.FontLabelsGray;
-            fieldPrintProgressShipping.Font = FontsSettings.FontLabelsGray;
-            fieldMassaScalePar.Font = FontsSettings.FontLabelsGray;
-            fieldMassaGetCrc.Font = FontsSettings.FontLabelsGray;
+            fieldMassaPluDescription.Font = FontsSettings.FontLabelsGray;
+            fieldMassaManager.Font = FontsSettings.FontLabelsGray;
             fieldMassaGet.Font = FontsSettings.FontLabelsGray;
-            fieldMassaSetCrc.Font = FontsSettings.FontLabelsGray;
-            fieldMassaSet.Font = FontsSettings.FontLabelsGray;
-            fieldMassaProgress.Font = FontsSettings.FontLabelsGray;
+            fieldPrintMainManager.Font = FontsSettings.FontLabelsGray;
+            fieldPrintShippingManager.Font = FontsSettings.FontLabelsGray;
             fieldMemory.Font = FontsSettings.FontLabelsGray;
 
             labelWeightNetto.Font = FontsSettings.FontLabelsBlack;
@@ -480,7 +477,7 @@ namespace ScalesUI.Forms
             wpfPageLoader.Dispose();
         }
 
-        private void FieldTasks_DoubleClick(object sender, EventArgs e)
+        private void FieldTasks_Click(object sender, EventArgs e)
         {
             string message = string.Empty;
             foreach (ProcessThread thread in Process.GetCurrentProcess().Threads)
@@ -649,7 +646,7 @@ namespace ScalesUI.Forms
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight);
                     return;
                 }
-                if (!UserSession.ManagerControl.Massa.MassaDevice.IsConnected)
+                if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond);
                     return;
@@ -716,12 +713,12 @@ namespace ScalesUI.Forms
                         //ws.Kneading = (int)settingsForm.currentKneading;
                     }
                 }
-                if (UserSession.Order != null)
-                {
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.Order.PlaneBoxCount);
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.Order.FactBoxCount);
-                }
+                //if (UserSession.Order != null)
+                //{
+                //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.Order.PlaneBoxCount);
+                //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
+                //    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.Order.FactBoxCount);
+                //}
 
                 UserSession.ManagerControl.Massa.Open();
             }

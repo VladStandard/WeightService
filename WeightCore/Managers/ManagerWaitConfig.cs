@@ -17,8 +17,8 @@ namespace WeightCore.Managers
         public ushort WaitReopen { get; set; }
         public ushort WaitRequest { get; set; }
         public ushort WaitResponse { get; set; }
-        public readonly ushort WaitSleep = 0_100;
-        public readonly ushort WaitLowLimit = 0_100;
+        public readonly ushort WaitSleep = 0_050;
+        public readonly ushort WaitLowLimit = 0_050;
         public readonly ushort WaitHighLimit = 5_000;
         public Stopwatch StopwatchReopen { get; set; }
         public Stopwatch StopwatchRequest { get; set; }
@@ -40,7 +40,7 @@ namespace WeightCore.Managers
             StopwatchResponse = Stopwatch.StartNew();
         }
 
-        public ManagerWaitConfig() : this(1_000, 1_000, 1_000, 1_000, 1_000) { }
+        public ManagerWaitConfig() : this(1_000, 0_250, 0_250, 1_000, 1_000) { }
 
         public void WaitSync(ushort miliSeconds = 0, bool isDoEvents = true)
         {

@@ -7,24 +7,24 @@ namespace WeightCore.MassaK
 {
     public class MassaStableEntity
     {
-        public ushort WaitMilliseconds => 0_250;
+        public ushort WaitMilliseconds => 0_100;
         public Stopwatch StopwatchStable { get; private set; } = new();
         private bool _isStable;
         public bool IsStable
         {
             get
             {
-                if (!_isStable)
-                    return false;
                 if ((ushort)StopwatchStable.Elapsed.TotalMilliseconds < WaitMilliseconds)
                     return false;
-                return true;
+                return _isStable;
             }
             set
             {
                 if (_isStable != value)
+                {
                     StopwatchStable.Restart();
-                _isStable = value;
+                    _isStable = value;
+                }
             }
         }
     }

@@ -10,21 +10,24 @@ using System.Runtime.CompilerServices;
 
 namespace WeightCore.MassaK
 {
-    public partial class MassaDeviceModel : DisposableBase, IDisposableBase
+    public partial class MassaDeviceEntity : DisposableBase, IDisposableBase
     {
         #region Public and private fields and properties
 
-        public bool IsConnected => PortController.Port?.SerialPort?.IsOpen == true;
+        public bool IsOpenPort => PortController.SerialPort.IsOpen == true;
+        public bool IsOpenResult { get; set; }
+        public bool IsCloseResult { get; set; }
+        public bool IsResponseResult { get; set; }
+        public bool IsExceptionResult { get; set; }
         public int ReadTimeout { get; private set; }
         public int WriteTimeout { get; private set; }
         public string PortName { get; private set; }
-
         public BytesHelper Bytes { get; private set; } = BytesHelper.Instance;
-        private SerialPortController PortController { get; set; }
+        public SerialPortController PortController { get; private set; }
         public int SendBytesCount { get; private set; } = 0;
         public int ReceiveBytesCount { get; private set; } = 0;
         public delegate void MassaResponseCallback(MassaExchangeEntity massaExchange, byte[] response);
-        private readonly MassaResponseCallback _massaCallback = null;
+        private readonly MassaResponseCallback _massaResponseCallback = null;
         private MassaExchangeEntity _massaExchange = null;
         private readonly object _locker = new();
 
@@ -32,15 +35,19 @@ namespace WeightCore.MassaK
 
         #region Constructor and destructor
 
-        public MassaDeviceModel(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
+        public MassaDeviceEntity(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
         {
             Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
             PortName = portName;
-            ReadTimeout = readTimeout ?? 100;
-            WriteTimeout = writeTimeout ?? 100;
-            _massaCallback = massaCallback;
-            PortController = new(PortOpenCallback, PortCloseCallback, PortMassaResponseCallback, PortExceptionCallback);
+            ReadTimeout = readTimeout ?? 0_100;
+            WriteTimeout = writeTimeout ?? 0_100;
+            _massaResponseCallback = massaCallback;
+            PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
+            IsOpenResult = false;
+            IsCloseResult = false;
+            IsResponseResult = false;
+            IsExceptionResult = false;
         }
 
         #endregion
@@ -54,32 +61,39 @@ namespace WeightCore.MassaK
 
         public void PortOpenCallback(object sender, SerialPortEventArgs e)
         {
-            if (e.IsOpened)
+            if (e.SerialPort.IsOpen)
             {
-                //
+                IsOpenResult = true;
+                IsCloseResult = false;
             }
             else
             {
-                //
+                IsOpenResult = false;
             }
         }
 
         public void PortCloseCallback(object sender, SerialPortEventArgs e)
         {
             // Close successfully.
-            if (!e.IsOpened)
+            if (!e.SerialPort.IsOpen)
             {
-                //
+                IsCloseResult = true;
+                IsOpenResult = false;
+            }
+            else
+            {
+                IsCloseResult = false;
             }
         }
 
-        public void PortMassaResponseCallback(object sender, SerialPortEventArgs e)
+        public void PortResponseCallback(object sender, SerialPortEventArgs e)
         {
             lock (_locker)
             {
+                IsResponseResult = true;
                 CheckIsDisposed();
                 ReceiveBytesCount += e.ReceivedBytes.Length;
-                _massaCallback?.Invoke(_massaExchange, e.ReceivedBytes);
+                _massaResponseCallback?.Invoke(_massaExchange, e.ReceivedBytes);
                 _massaExchange = null;
             }
         }
@@ -87,7 +101,8 @@ namespace WeightCore.MassaK
         public void PortExceptionCallback(Exception ex,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            DataAccessHelper.Instance.Log.LogError(ex, NetUtils.GetLocalHostName(false), nameof(MassaDeviceModel), filePath, lineNumber, memberName);
+            IsExceptionResult = true;
+            DataAccessHelper.Instance.Log.LogError(ex, NetUtils.GetLocalHostName(false), nameof(MassaDeviceEntity), filePath, lineNumber, memberName);
         }
 
         #endregion
@@ -97,47 +112,33 @@ namespace WeightCore.MassaK
         public new void Open()
         {
             base.Open();
-            //if (IsOpened) return;
-            if (PortController.Port.SerialPort.IsOpen) return;
+            //if (IsOpen) return;
+            if (IsOpenPort) return;
 
-            try
-            {
-                if (string.IsNullOrEmpty(PortName))
-                {
-                    throw new ArgumentNullException(PortName);
-                }
-                PortController.OpenPort(PortName, ReadTimeout, WriteTimeout);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            PortController.Open(PortName, ReadTimeout, WriteTimeout);
         }
 
         public void SendData(MassaExchangeEntity massaExchange)
         {
             CheckIsDisposed();
             _massaExchange = massaExchange;
-            PortController.SendData(massaExchange.Request);
+            PortController.Send(massaExchange.Request);
             SendBytesCount += massaExchange.Request.Length;
         }
 
         public new void Close()
         {
             base.Close();
-            
-            //if (!IsOpened) return;
+
+            //if (!IsOpen) return;
             CheckIsDisposed();
 
-            PortController.ClosePort();
+            PortController.Close();
         }
 
         public void ReleaseManaged()
         {
             Close();
-
-            //SerialPortController.SerialPortModel.SerialPort.Dispose();
-            //SerialPortController.SerialPortModel.SerialPort = null;
         }
 
         public void ReleaseUnmanaged()

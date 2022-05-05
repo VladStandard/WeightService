@@ -33,6 +33,9 @@ namespace WeightCore.Managers
         private Label FieldTitle { get; set; }
         private Label LabelKneading { get; set; }
         private Label LabelProductDate { get; set; }
+        private Label FieldPrintMainManager { get; set; }
+        private Label FieldPrintShippingManager { get; set; }
+        private Label FieldMassaManager { get; set; }
 
         #endregion
 
@@ -50,7 +53,8 @@ namespace WeightCore.Managers
         public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate, 
             Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
             Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
-            Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose)
+            Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose,
+            Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
         {
             try
             {
@@ -75,6 +79,9 @@ namespace WeightCore.Managers
                         ButtonScalesInit = buttonScalesInit;
                         ButtonScalesTerminal = buttonScalesTerminal;
                         PictureBoxClose = pictureBoxClose;
+                        FieldPrintMainManager = fieldPrintMainManager;
+                        FieldPrintShippingManager = fieldPrintShippingManager;
+                        FieldMassaManager = fieldMassaManager;
 
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
@@ -83,8 +90,11 @@ namespace WeightCore.Managers
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate, LocaleCore.Scales.FieldDate);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(LabelKneading, LocaleCore.Scales.FieldKneading);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, string.Empty);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager, LocaleCore.Print.PrintManager);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, LocaleCore.Scales.MassaManager);
                     },
-                    new(1_000, 0_500, 0_500, 0_050, 5_000));
+                    new(waitReopen: 2_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
             }
             catch (Exception ex)
             {
@@ -106,6 +116,7 @@ namespace WeightCore.Managers
                     RequestProductDate();
                     RequestPlu();
                     RequestKneading();
+                    RequestMassaDevice();
                 },
                 null);
             }
@@ -195,6 +206,29 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldKneading, $"{UserSessionHelper.Instance.WeighingSettings.Kneading}");
         }
 
+        private void RequestMassaDevice()
+        {
+            // FieldPrintManager.
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager,
+                $"{ManagerControllerHelper.Instance.PrintMain.ReopenCount} | " +
+                $"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
+                $"{ManagerControllerHelper.Instance.PrintMain.ResponseCount}"
+            );
+            if (UserSessionHelper.Instance.Scale.IsShipping)
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager,
+                    $"{ManagerControllerHelper.Instance.PrintMain.ReopenCount} | " +
+                    $"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
+                    $"{ManagerControllerHelper.Instance.PrintMain.ResponseCount}"
+                );
+
+            // FieldMassaManager.
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager,
+                $"{ManagerControllerHelper.Instance.Massa.ReopenCount} | " +
+                $"{ManagerControllerHelper.Instance.Massa.RequestCount} | " +
+                $"{ManagerControllerHelper.Instance.Massa.ResponseCount}"
+            );
+        }
+
         public new void Close()
         {
             base.Close();
@@ -223,7 +257,8 @@ namespace WeightCore.Managers
         {
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
+            if (UserSessionHelper.Instance.Scale.IsShipping && !FieldSscc.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
             if (UserSessionHelper.Instance.Scale?.IsKneading == true)
@@ -257,6 +292,14 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldLang, Debug.IsDebug);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldResolution, Debug.IsDebug);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(FieldLang, Debug.IsDebug);
+
+            if (Debug.IsDebug && !FieldPrintMainManager.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintMainManager, true);
+            if (UserSessionHelper.Instance.Scale.IsShipping)
+                if (Debug.IsDebug && !FieldPrintShippingManager.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintShippingManager, true);
+            if (Debug.IsDebug && !FieldMassaManager.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaManager, true);
         }
 
         #endregion

@@ -15,7 +15,7 @@ namespace WeightCore.MassaK
         public int ScaleFactor { get; set; } = 1_000;
         public int WeightTare { get; set; } = 0;
         public MassaCmdType CmdType { get; set; } = MassaCmdType.Nack;
-        public ResponseParseEntity ResponseParse { get; set; } = null;
+        public ResponseParseEntity ResponseParse { get; set; }
 
         #endregion
 
@@ -24,6 +24,7 @@ namespace WeightCore.MassaK
         public MassaExchangeEntity(MassaCmdType cmdType)
         {
             CmdType = cmdType;
+            ResponseParse = new ResponseParseEntity(CmdType, new byte[0]);
         }
 
         public MassaExchangeEntity(MassaCmdType cmdType, int weightTare, int scaleFactor = 1_000)

@@ -9,6 +9,35 @@ namespace MDSoft.SerialPorts
 {
     public static class SerialPortUtils
     {
+        #region Public and private fields and properties
+
+        public enum BaudRate
+        {
+            Value_100 = 100,
+            Value_300 = 300,
+            Value_600 = 600,
+            Value_1200 = 1_200,
+            Value_2400 = 2_400,
+            Value_4800 = 4_800,
+            Value_9600 = 9_600,
+            Value_19200 = 19_200,
+            Value_38400 = 38_400,
+            Value_57600 = 57_600,
+            Value_115200 = 115_200,
+            Value_128000 = 128_000,
+            Value_256000 = 256_000,
+        }
+
+        public enum DataBits
+        {
+            Value_5 = 5,
+            Value_6 = 6,
+            Value_7 = 7,
+            Value_8 = 8,
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public static SerialPort GetSerialPort(string portName) => new(portName)
@@ -48,7 +77,7 @@ namespace MDSoft.SerialPorts
         public static List<string> GetBaudRates()
         {
             List<string> result = new();
-            foreach (object value in Enum.GetValues(typeof(SerialPortEnums.BaudRate)))
+            foreach (object value in Enum.GetValues(typeof(BaudRate)))
             {
                 result.Add(((int)value).ToString());
             }
@@ -60,7 +89,7 @@ namespace MDSoft.SerialPorts
         public static List<string> GetDataBits()
         {
             List<string> result = new();
-            foreach (object value in Enum.GetValues(typeof(SerialPortEnums.DataBits)))
+            foreach (object value in Enum.GetValues(typeof(DataBits)))
             {
                 result.Add(((int)value).ToString());
             }

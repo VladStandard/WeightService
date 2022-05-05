@@ -82,7 +82,7 @@ namespace WeightCore.Managers
                         }
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
                     },
-                    new(waitReopen: 2_000, waitRequest: 1_000, waitResponse: 0_150, waitClose: 0_150, waitException: 2_500));
+                    new(waitReopen: 2_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace WeightCore.Managers
 
         private void Reopen()
         {
-            NetUtils.RequestPing(Printer, 0_500);
+            NetUtils.RequestPing(Printer, 1_000);
         }
 
         private void Request([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -143,7 +143,6 @@ namespace WeightCore.Managers
                             {
                                 Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
                                 SendCmdToZebra(ZplPipeUtils.ZplHostStatusReturn);
-                                //WaitSync(WaitConfig.WaitException);
                             }
                         }
                         break;
@@ -155,11 +154,8 @@ namespace WeightCore.Managers
 
         private void Response(bool isMain, string value)
         {
-            //if (LabelsCount < 1) LabelsCount = 1;
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                $"{GetDeviceName(isMain)} | " +
-                $"{LocaleCore.Print.Communication} ({Ip}): {Printer.PingStatus} | " +
-                $"{LocaleCore.Print.Status}: {GetDeviceStatus()} | {value}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint, 
+                $"{GetDeviceNameShort(isMain)} | {Ip}: {Printer.PingStatus} | {GetDeviceStatus()} | {value}");
         }
 
         public string GetDeviceName(bool isMain)
@@ -175,6 +171,23 @@ namespace WeightCore.Managers
             {
                 PrintBrand.Zebra => LocaleCore.Print.NameShippingZebra,
                 PrintBrand.TSC => LocaleCore.Print.NameShippingTsc,
+                _ => LocaleCore.Print.DeviceNameIsUnavailable,
+            };
+        }
+
+        public string GetDeviceNameShort(bool isMain)
+        {
+            return isMain
+            ? PrintBrand switch
+            {
+                PrintBrand.Zebra => LocaleCore.Print.NameMainZebraShort,
+                PrintBrand.TSC => LocaleCore.Print.NameMainTscShort,
+                _ => LocaleCore.Print.DeviceNameShort,
+            }
+            : PrintBrand switch
+            {
+                PrintBrand.Zebra => LocaleCore.Print.NameShippingZebraShort,
+                PrintBrand.TSC => LocaleCore.Print.NameShippingTscShort,
                 _ => LocaleCore.Print.DeviceNameIsUnavailable,
             };
         }

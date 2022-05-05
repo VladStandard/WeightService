@@ -19,12 +19,25 @@ namespace DataCore.Files
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public FileLogHelper FileLog { get; private set; } = FileLogHelper.Instance;
-        public string RemoteDir =
-#if DEBUG
-            @"\\palych\Install\VSSoft\appsettings\";
-#else
-            (NetUtils.GetLocalHostName(false) == "PSQLM04" || NetUtils.GetLocalHostName(false) == "DIISM04" ? @"h:\Install\VSSoft\appsettings\" : @"\\palych\Install\VSSoft\appsettings\");
-#endif
+        private string _remoteDir;
+        public string RemoteDir
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_remoteDir) && Directory.Exists(_remoteDir))
+                    return _remoteDir;
+                string tempDir = @"\\palych\Install\VSSoft\appsettings\";
+                if (Directory.Exists(tempDir))
+                    _remoteDir = tempDir;
+                else
+                {
+                    tempDir = @"h:\Install\VSSoft\appsettings\";
+                    if (Directory.Exists(tempDir))
+                        _remoteDir = tempDir;
+                }
+                return _remoteDir;
+            }
+        }
 
         public const string FileName =
 #if DEBUG
@@ -46,7 +59,7 @@ namespace DataCore.Files
 
         public JsonSettingsController()
         {
-            //
+            _remoteDir = string.Empty;
         }
 
         #endregion

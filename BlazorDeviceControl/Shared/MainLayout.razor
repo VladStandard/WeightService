@@ -12,20 +12,20 @@
 
 <AuthorizeView>
     <Authorizing>
-        @UserSettings.Identity.Name = null;
+        @UserSettings.Identity.UserName = null;
     </Authorizing>
     <Authorized>
         @if (!string.IsNullOrEmpty(context.User.Identity?.Name))
         {
-            UserSettings.Identity.Name = context.User.Identity.Name;
+            UserSettings.Identity.UserName = context.User.Identity.Name;
         }
         else
         {
-            UserSettings.Identity.Name = string.Empty;
+            UserSettings.Identity.UserName = string.Empty;
         }
     </Authorized>
     <NotAuthorized>
-        @UserSettings.Identity.Name = null;
+        @UserSettings.Identity.UserName = null;
     </NotAuthorized>
 </AuthorizeView>
 
@@ -55,7 +55,8 @@
                                     Text=@AppSettings.MemoryInfo Path=@LocaleData.DeviceControl.UriRouteSection.Root 
                                     Click=@MemoryClearAsync />
                                 <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                    Text=@UserSettings.Identity.NameWithRights Path=@LocaleData.DeviceControl.UriRouteSection.Access
+                                    Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights()}]") 
+                                    Path=@LocaleData.DeviceControl.UriRouteSection.Access
                                     Click=@(args => SetParametersAsync(new())) />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                     Text=@LocaleCore.Menu.MenuInfo Path=@LocaleData.DeviceControl.UriRouteItem.Info />

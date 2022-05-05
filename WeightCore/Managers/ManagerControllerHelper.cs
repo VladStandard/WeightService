@@ -24,7 +24,7 @@ namespace WeightCore.Managers
         public ManagerMemory Memory { get; private set; }
         public ManagerPrint PrintMain { get; private set; }
         public ManagerPrint PrintShipping { get; private set; }
-        private object _locker = new object();
+        private readonly object _locker = new();
 
         #endregion
 

@@ -190,18 +190,18 @@
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.AuthorizingUserName</td>
-            @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
+            @if (string.IsNullOrEmpty(UserSettings.Identity.UserName))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@UserSettings.Identity.Name</MudElement></td>
+                <td><MudElement Class="ma-0">@UserSettings.Identity.UserName</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocaleCore.Strings.AccessRights</td>
-            <td><MudElement Class="ma-0">@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
+            <td><MudElement Class="ma-0">@UserSettings.Identity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
         </tr>
         <tr>
             <td>@LocaleCore.Strings.Language</td>

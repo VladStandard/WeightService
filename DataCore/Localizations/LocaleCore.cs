@@ -49,6 +49,9 @@ namespace DataCore.Localizations
             public static string Application => Lang == ShareEnums.Lang.English ? "Application" : "Приложение";
             public static string AppSettings => Lang == ShareEnums.Lang.English ? "App settings" : "Настройки приложения";
             public static string Authorization => Lang == ShareEnums.Lang.English ? "Authorization" : "Авторизация";
+            public static string AuthorizingApAddress => Lang == ShareEnums.Lang.English ? "IP address" : "IP-адрес";
+            public static string AuthorizingHostName => Lang == ShareEnums.Lang.English ? "Host name" : "Имя компьютера";
+            public static string AuthorizingId => Lang == ShareEnums.Lang.English ? "ID" : "ИД";
             public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
             public static string AuthorizingProcess => Lang == ShareEnums.Lang.English ? "Authorizing ..." : "Авторизация ...";
             public static string AuthorizingSuccess => Lang == ShareEnums.Lang.English ? "Success authorized" : "Успешная авторизация";

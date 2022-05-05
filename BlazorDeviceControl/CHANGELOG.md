@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.580] - 2022-05-05
+### Fixed
+- Shared.Index
+### Описание обновления:
+- Главная страница: добавлена информация о системе пользователя
+
 ## [0.6.550] - 2022-04-27
 ### Fixed
 - DataCore.Files.JsonSettingsEntity

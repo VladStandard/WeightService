@@ -209,6 +209,7 @@ namespace WeightCore.MassaK
         {
             CmdType = cmdType;
             Response = response;
+            Massa = new(Response);
             Header = new byte[3];
             IsValidHeaders = false;
             Len = new byte[2];
@@ -217,7 +218,7 @@ namespace WeightCore.MassaK
             IsValidCommand = false;
             IsValidCrc = false;
 
-            if (Response?.Length > 0)
+            if (Response.Length > 0)
             {
                 Header[0] = Response[0];
                 Header[1] = Response[1];
@@ -242,7 +243,7 @@ namespace WeightCore.MassaK
                 switch (CmdType)
                 {
                     case MassaCmdType.GetMassa:
-                        Massa = new ResponseMassaEntity(Response);
+                        Massa = new(Response);
                         break;
                     case MassaCmdType.GetScalePar:
                         ScalePar = new ResponseScaleParEntity(Response);

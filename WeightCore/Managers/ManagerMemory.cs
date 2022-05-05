@@ -51,7 +51,7 @@ namespace WeightCore.Managers
                         if (Debug.IsDebug && !fieldTasks.Visible)
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
                     },
-                    new());
+                    new(waitReopen: 2_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
             }
             catch (Exception ex)
             {

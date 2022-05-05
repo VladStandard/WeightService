@@ -63,7 +63,7 @@ else
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.AccessLevel Type="string" Width="30%">
                 <Template Context="accessItem">
-                    <RadzenLabel Text=@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(accessItem.Rights) Disabled=false ReadOnly=true />
+                    <RadzenLabel Text=@UserSettings.Identity.GetDescriptionAccessRights(accessItem.Rights) Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
         </Columns>

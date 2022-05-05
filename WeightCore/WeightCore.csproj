@@ -404,7 +404,7 @@
     <Compile Include="MassaK\MassaCrcHelper.cs" />
     <Compile Include="MassaK\MassaEnums.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
-    <Compile Include="MassaK\MassaDeviceModel.cs" />
+    <Compile Include="MassaK\MassaDeviceEntity.cs" />
     <Compile Include="MassaK\MassaRequestHelper.cs" />
     <Compile Include="MassaK\MassaStableEntity.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />

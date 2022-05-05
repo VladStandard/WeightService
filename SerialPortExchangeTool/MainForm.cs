@@ -91,7 +91,7 @@ namespace SerialPortExchangeTool
                 return;
             }
 
-            if (e.IsOpened)
+            if (e.SerialPort.IsOpen)
             {
                 statuslabel.Text = comListCbx.Text + " Opend";
                 openCloseSpbtn.Text = "Close";
@@ -131,7 +131,7 @@ namespace SerialPortExchangeTool
             }
 
             // Close successfully.
-            if (!e.IsOpened)
+            if (!e.SerialPort.IsOpen)
             {
                 statuslabel.Text = comListCbx.Text + " Closed";
                 openCloseSpbtn.Text = "Open";
@@ -215,11 +215,11 @@ namespace SerialPortExchangeTool
         {
             if (openCloseSpbtn.Text == "Open")
             {
-                PortController.OpenPort(comListCbx.Text, baudRateCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, parityCbx.Text, handshakingcbx.Text);
+                PortController.Open(comListCbx.Text, baudRateCbx.Text, parityCbx.Text, dataBitsCbx.Text, stopBitsCbx.Text, handshakingcbx.Text);
             }
             else
             {
-                PortController.ClosePort();
+                PortController.Close();
             }
         }
 
@@ -263,7 +263,7 @@ namespace SerialPortExchangeTool
                 //send bytes to serial port
                 byte[] bytes = Bytes.Hex2Bytes(sendText);
                 sendbtn.Enabled = false;//wait return
-                flag = PortController.SendData(bytes);
+                flag = PortController.Send(bytes);
                 sendbtn.Enabled = true;
                 SendBytesCount += bytes.Length;
             }
@@ -271,7 +271,7 @@ namespace SerialPortExchangeTool
             {
                 //send String to serial port
                 sendbtn.Enabled = false;//wait return
-                flag = PortController.SendData(sendText);
+                flag = PortController.Send(sendText);
                 sendbtn.Enabled = true;
                 SendBytesCount += sendText.Length;
             }

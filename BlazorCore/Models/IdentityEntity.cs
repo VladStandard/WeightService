@@ -11,25 +11,28 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        public string Name { get; set; }
-        public ShareEnums.AccessRights AccessRights { get; private set; }
-        public string NameWithRights => $"{GetName()} [{GetDescriptionAccessRights(AccessRights)}]";
+        public bool AccessRightsIsAdmin => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Admin;
         public bool AccessRightsIsNone => (byte)AccessRights == (byte)ShareEnums.AccessRights.None;
         public bool AccessRightsIsRead => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Read;
         public bool AccessRightsIsWrite => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Write;
-        public bool AccessRightsIsAdmin => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Admin;
+        public ShareEnums.AccessRights AccessRights { get; private set; }
+        public string? Id { get; set; }
+        public string? IpAddress { get; set; }
+        public string? UserName { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public IdentityEntity(string name, ShareEnums.AccessRights accessRights)
+        public IdentityEntity(ShareEnums.AccessRights accessRights, string userName, string id, string ipAddress)
         {
-            Name = name;
             AccessRights = accessRights;
+            Id = id;
+            IpAddress = ipAddress;
+            UserName = userName;
         }
 
-        public IdentityEntity() : this(string.Empty, ShareEnums.AccessRights.None) { }
+        public IdentityEntity() : this(ShareEnums.AccessRights.None, string.Empty, string.Empty, string.Empty) { }
 
         #endregion
 
@@ -38,7 +41,7 @@ namespace BlazorCore.Models
         public override string ToString()
         {
             return
-                $"{nameof(Name)}: {Name}. " + Environment.NewLine +
+                $"{nameof(UserName)}: {UserName}. " + Environment.NewLine +
                 AccessRights == null ? $"{nameof(AccessRights)}: null. " : $"{nameof(AccessRights)}: {AccessRights}. ";
         }
 
@@ -46,17 +49,20 @@ namespace BlazorCore.Models
 
         public void SetAccessRights(byte accessRights) => SetAccessRights((ShareEnums.AccessRights)accessRights);
 
-        public string GetName() => string.IsNullOrEmpty(Name) ? LocaleCore.Strings.DataLoading : Name;
-
-        public static string GetDescriptionAccessRights(ShareEnums.AccessRights accessRights) => accessRights switch
+        public string GetDescriptionAccessRights(ShareEnums.AccessRights accessRights = ShareEnums.AccessRights.None)
         {
-            ShareEnums.AccessRights.Read => LocaleCore.Strings.AccessRightsRead,
-            ShareEnums.AccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
-            ShareEnums.AccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
-            _ => LocaleCore.Strings.AccessRightsNone,
-        };
+            if (accessRights == ShareEnums.AccessRights.None)
+                accessRights = AccessRights;
+            return accessRights switch
+            {
+                ShareEnums.AccessRights.Read => LocaleCore.Strings.AccessRightsRead,
+                ShareEnums.AccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
+                ShareEnums.AccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
+                _ => LocaleCore.Strings.AccessRightsNone,
+            };
+        }
 
-        public static string GetDescriptionAccessRights(byte accessRights) => GetDescriptionAccessRights((ShareEnums.AccessRights)accessRights);
+        public string GetDescriptionAccessRights(byte accessRights) => GetDescriptionAccessRights((ShareEnums.AccessRights)accessRights);
 
         #endregion
     }

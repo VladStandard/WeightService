@@ -10,25 +10,44 @@ namespace DataCore.Models
     {
         #region Public and private fields and properties
 
-        /// <summary>
-        /// Opened state.
-        /// </summary>
-        public bool IsOpened { get; private set; }
-        /// <summary>
-        /// Disposed state.
-        /// </summary>
-        public bool IsDisposed { get; private set; }
-        /// <summary>
-        /// Callback method to close.
-        /// </summary>
+        public bool IsOpen { get; private set; }
+        private readonly ushort _maxCount = ushort.MaxValue;
+        private ushort _reopenCount;
+        public ushort ReopenCount
+        {
+            get => _reopenCount;
+            set
+            {
+                if (value >= _maxCount)
+                    value = 0;
+                _reopenCount = value;
+            }
+        }
+        private ushort _requestCount;
+        public ushort RequestCount
+        {
+            get => _requestCount;
+            set
+            {
+                if (value >= _maxCount)
+                    value = 0;
+                _requestCount = value;
+            }
+        }
+        private ushort _responseCount;
+        public ushort ResponseCount
+        {
+            get => _responseCount;
+            set
+            {
+                if (value >= _maxCount)
+                    value = 0;
+                _responseCount = value;
+            }
+        }
+        public bool IsDispose { get; private set; }
         public CloseCallback? CloseCaller { get; private set; }
-        /// <summary>
-        /// Callback method to release managed resources.
-        /// </summary>
         public ReleaseManagedCallback? ReleaseManagedResourcesCaller { get; private set; }
-        /// <summary>
-        /// Callback method to release unmanaged resources.
-        /// </summary>
         public ReleaseUnmanagedCallback? ReleaseUnmanagedResourcesCaller { get; private set; }
         private readonly object _locker = new();
 
@@ -46,8 +65,8 @@ namespace DataCore.Models
             CloseCaller = null;
             ReleaseManagedResourcesCaller = null;
             ReleaseUnmanagedResourcesCaller = null;
-            IsOpened = false;
-            IsDisposed = false;
+            IsOpen = false;
+            IsDispose = false;
         }
 
         public void Init(CloseCallback close, ReleaseManagedCallback releaseManaged, ReleaseUnmanagedCallback releaseUnmanaged)
@@ -73,7 +92,7 @@ namespace DataCore.Models
 
         public void CheckIsDisposed()
         {
-            if (IsDisposed)
+            if (IsDispose)
             {
                 throw new ObjectDisposedException("Object has been disposed!");
             }
@@ -84,8 +103,8 @@ namespace DataCore.Models
             CheckIsDisposed();
             lock (_locker)
             {
-                if (IsOpened) return;
-                IsOpened = true;
+                if (IsOpen) return;
+                IsOpen = true;
             }
         }
 
@@ -95,8 +114,8 @@ namespace DataCore.Models
             //CheckIsDisposed(filePath, lineNumber, memberName);
             lock (_locker)
             {
-                if (!IsOpened) return;
-                IsOpened = false;
+                if (!IsOpen) return;
+                IsOpen = false;
                 CloseCaller?.Invoke();
             }
         }
@@ -113,7 +132,7 @@ namespace DataCore.Models
 
             lock (_locker)
             {
-                if (!IsDisposed)
+                if (!IsDispose)
                 {
                     // Releasing managed resources.
                     if (disposing)
@@ -127,7 +146,7 @@ namespace DataCore.Models
                     ReleaseUnmanagedResourcesCaller = null;
 
                     // Resource release flag.
-                    IsDisposed = true;
+                    IsDispose = true;
                 }
 
                 // Disable the garbage collector from calling the destructor.

@@ -24,9 +24,9 @@ namespace DataCore.Localizations
 
         public List<string> ListLanguages => Lang == ShareEnums.Lang.English ? new List<string> { "Russian", "English" } : new List<string> { "Russian", "English" };
         public List<string> ListResolutions => Lang == ShareEnums.Lang.English ? new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
-        public readonly decimal MassaThresholdValue = 0.010M;
-        public readonly decimal MassaThresholdPositive = 0.050M;
         public readonly decimal MassaThresholdNegative = -1.000M;
+        public readonly decimal MassaThresholdPositive = 0.050M;
+        public readonly decimal MassaThresholdValue = 0.010M;
         public string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
         public string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
         public string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
@@ -67,11 +67,14 @@ namespace DataCore.Localizations
         public string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
         public string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
         public string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
+        public string MassaDevice => Lang == ShareEnums.Lang.English ? "Massa-K" : "Масса-К";
+        public string MassaExchange => Lang == ShareEnums.Lang.English ? "Massa exchange" : "Масса обмен";
         public string MassaIsNotCalc => Lang == ShareEnums.Lang.English ? "The weight has not been calculated!" : "Вес не расчитан!";
-        public string MassaWaitStable => Lang == ShareEnums.Lang.English ? "Wait for the weight platform to stabilize." : "Дождитесь стабилизации весовой платформы.";
+        public string MassaManager => Lang == ShareEnums.Lang.English ? "Massa manager" : "Менеджер массы";
         public string MassaIsNotFound => Lang == ShareEnums.Lang.English ? "The scales has not been found!" : "Весы не обнаружены!";
         public string MassaIsNotQuering => Lang == ShareEnums.Lang.English ? "The scales are not respond!" : "Весы не отвечают!";
         public string MassaIsNotRespond => Lang == ShareEnums.Lang.English ? $"The scales Massa-K are not respond!" : $"Весы Масса-К не отвечают!";
+        public string MassaWaitStable => Lang == ShareEnums.Lang.English ? "Wait for the weight platform to stabilize." : "Дождитесь стабилизации весовой платформы.";
         public string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
         public string MemoryAll => Lang == ShareEnums.Lang.English ? "all" : "всего";
         public string MemoryBusy => Lang == ShareEnums.Lang.English ? "busy" : "занято";

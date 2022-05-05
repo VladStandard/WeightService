@@ -28,7 +28,6 @@ namespace WeightCore.Managers
         public CancellationTokenSource CtsResponse { get; set; }
         public ManagerWaitConfig WaitConfig { get; set; }
         public string ExceptionMsg { get; set; }
-        public bool IsResponse { get; set; }
         public Task TaskReopen { get; set; } = null;
         public Task TaskRequest { get; set; } = null;
         public Task TaskResponse { get; set; } = null;
@@ -57,7 +56,7 @@ namespace WeightCore.Managers
         public void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
             Close();
-            //if (IsOpened) return;
+            //if (IsOpen) return;
             Open();
 
             MutexReopen = null;
@@ -173,8 +172,10 @@ namespace WeightCore.Managers
 
             TaskReopen = Task.Run(async () =>
             {
-                while (IsOpened)
+                ReopenCount = 0;
+                while (IsOpen)
                 {
+                    ReopenCount++;
                     if (MutexReopen == null)
                         MutexReopen = new AsyncLock();
                     if (CtsReopen == null)
@@ -194,11 +195,15 @@ namespace WeightCore.Managers
                                 callback.Invoke();
                         }
                     }
-                    catch (TaskCanceledException tcex)
+                    //catch (TaskCanceledException tcex)
+                    //{
+                    //    // Not the problem.
+                    //    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+                    //    WaitConfig.WaitSync(WaitConfig.WaitException);
+                    //}
+                    catch (TaskCanceledException)
                     {
                         // Not the problem.
-                        Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                        WaitConfig.WaitSync(WaitConfig.WaitException);
                     }
                     catch (Exception ex)
                     {
@@ -298,8 +303,10 @@ namespace WeightCore.Managers
 
             TaskRequest = Task.Run(async () =>
             {
-                while (IsOpened)
+                RequestCount = 0;
+                while (IsOpen)
                 {
+                    RequestCount++;
                     if (MutexRequest == null)
                         MutexRequest = new AsyncLock();
                     if (CtsRequest == null)
@@ -319,11 +326,15 @@ namespace WeightCore.Managers
                                 callback.Invoke();
                         }
                     }
-                    catch (TaskCanceledException tcex)
+                    //catch (TaskCanceledException tcex)
+                    //{
+                    //    // Not the problem.
+                    //    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+                    //    WaitConfig.WaitSync(WaitConfig.WaitException);
+                    //}
+                    catch (TaskCanceledException)
                     {
                         // Not the problem.
-                        Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                        WaitConfig.WaitSync(WaitConfig.WaitException);
                     }
                     catch (Exception ex)
                     {
@@ -423,8 +434,10 @@ namespace WeightCore.Managers
 
             TaskResponse = Task.Run(async () =>
             {
-                while (IsOpened)
+                ResponseCount = 0;
+                while (IsOpen)
                 {
+                    ResponseCount++;
                     if (MutexResponse == null)
                         MutexResponse = new AsyncLock();
                     if (CtsResponse == null)
@@ -444,11 +457,15 @@ namespace WeightCore.Managers
                                 callback.Invoke();
                         }
                     }
-                    catch (TaskCanceledException tcex)
+                    //catch (TaskCanceledException tcex)
+                    //{
+                    //    // Not the problem.
+                    //    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+                    //    WaitConfig.WaitSync(WaitConfig.WaitException);
+                    //}
+                    catch (TaskCanceledException)
                     {
                         // Not the problem.
-                        Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                        WaitConfig.WaitSync(WaitConfig.WaitException);
                     }
                     catch (Exception ex)
                     {
@@ -463,7 +480,7 @@ namespace WeightCore.Managers
         {
             base.Close();
 
-            //if (!IsOpened) return;
+            //if (!IsOpen) return;
             CheckIsDisposed();
 
             CtsReopen?.Cancel();

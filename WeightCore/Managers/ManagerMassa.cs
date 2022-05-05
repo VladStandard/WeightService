@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.Localizations;
 using System;
-using System.Collections.Concurrent;
 using System.Windows.Forms;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
@@ -17,19 +16,16 @@ namespace WeightCore.Managers
         #region Public and private fields and properties
 
         private Label FieldMassaGet { get; set; }
-        private Label FieldMassaGetCrc { get; set; }
-        private Label FieldMassaScalePar { get; set; }
-        private Label FieldMassaSet { get; set; }
-        private Label FieldMassaSetCrc { get; set; }
-        private Label FieldThreshold { get; set; }
+        private Label FieldMassaPluDescription { get; set; }
+        private Label FieldMassaThreshold { get; set; }
         private Label FieldWeightNetto { get; set; }
         private Label FieldWeightTare { get; set; }
         private Label LabelWeightNetto { get; set; }
         private Label LabelWeightTare { get; set; }
         private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
-        private ProgressBar FieldMassaProgress { get; set; }
         private readonly object _locker = new();
-        public BlockingCollection<MassaExchangeEntity> Requests { get; private set; } = new();
+        //private BlockingCollection<MassaExchangeEntity> Requests { get; set; } = new();
+        private MassaExchangeEntity MassaExchange { get; set; }
         public MassaStableEntity MassaStable { get; private set; } = new();
         public MassaStableEntity MassaStableEmpty { get; private set; } = new();
         /// <summary>
@@ -42,7 +38,7 @@ namespace WeightCore.Managers
         public decimal WeightNet { get; private set; }
         public int CurrentError { get; private set; }
         public int ScaleFactor { get; set; } = 1_000;
-        public MassaDeviceModel MassaDevice { get; private set; }
+        public MassaDeviceEntity MassaDevice { get; private set; }
         public ResponseParseEntity ResponseParseGet { get; private set; } = null;
         public ResponseParseEntity ResponseParseScalePar { get; private set; } = null;
         public ResponseParseEntity ResponseParseSet { get; private set; } = null;
@@ -61,8 +57,7 @@ namespace WeightCore.Managers
         #region Public and private methods
 
         public void Init(Label labelWeightNetto, Label fieldWeightNetto, Label labelWeightTare, Label fieldWeightTare,
-            ProgressBar fieldMassaProgress, Label fieldThreshold,
-            Label fieldMassaGet, Label fieldMassaGetCrc, Label fieldMassaSet, Label fieldMassaSetCrc, Label fieldMassaScalePar)
+            Label fieldMassaThreshold, Label fieldMassaGet, Label fieldMassaPluDescription)
         {
             try
             {
@@ -79,17 +74,13 @@ namespace WeightCore.Managers
                         FieldWeightNetto = fieldWeightNetto;
                         LabelWeightTare = labelWeightTare;
                         FieldWeightTare = fieldWeightTare;
-                        FieldMassaProgress = fieldMassaProgress;
-                        FieldThreshold = fieldThreshold;
+                        FieldMassaThreshold = fieldMassaThreshold;
                         FieldMassaGet = fieldMassaGet;
-                        FieldMassaGetCrc = fieldMassaGetCrc;
-                        FieldMassaSet = fieldMassaSet;
-                        FieldMassaSetCrc = fieldMassaSetCrc;
-                        FieldMassaScalePar = fieldMassaScalePar;
+                        FieldMassaPluDescription = fieldMassaPluDescription;
 
                         SetControlsTextDefault();
                     },
-                    new(waitReopen: 2_000, waitRequest: 0_150, waitResponse: 0_150, waitClose: 0_150, waitException: 2_500));
+                    new(waitReopen: 2_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
             }
             catch (Exception ex)
             {
@@ -115,7 +106,7 @@ namespace WeightCore.Managers
                 // Response.
                 () =>
                 {
-                    //Response();
+                    Response();
                 });
             }
             catch (Exception ex)
@@ -128,7 +119,7 @@ namespace WeightCore.Managers
         {
             if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
                 MassaDevice?.Open();
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold,
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold,
                 $"{LocaleCore.Scales.FieldThresholds}: " + (
                     UserSessionHelper.Instance.Plu == null
                     ? $"{LocaleCore.Scales.StateDisable}"
@@ -142,41 +133,46 @@ namespace WeightCore.Managers
         {
             if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
             {
-                if (MassaDevice?.IsConnected == true)
+                if (MassaDevice?.IsOpenPort == true)
                     GetMassa();
-                else
-                    ClearRequestsByLimit(0);
+                //else
+                //    ClearRequestsByLimit(0);
 
-                if (MassaDevice?.IsConnected == true)
+                if (MassaDevice?.IsOpenPort == true)
                 {
-                    ClearRequestsByLimit(100);
-                    foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
-                    {
-                        if (MassaDevice == null || massaExchange == null) return;
-                        SendData(massaExchange);
-                    }
-                    Requests = new BlockingCollection<MassaExchangeEntity>();
+                    //ClearRequestsByLimit(100);
+                    //if (Requests.Count > 0)
+                    //{
+                    //    foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
+                    //    {
+                    //        if (MassaDevice == null || massaExchange == null) return;
+                    //        SendData(massaExchange);
+                    //    }
+                    //}
+                    //Requests = new BlockingCollection<MassaExchangeEntity>();
+                    if (MassaExchange != null)
+                        SendData(MassaExchange);
                 }
                 else
                 {
                     ResetMassa();
                 }
             }
-            else
-            {
-            }
         }
 
-        //private void Response()
-        //{
-        //    if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
-        //    {
-                
-        //    }
-        //    else
-        //    {
-        //    }
-        //}
+        private void Response()
+        {
+            if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
+            {
+                SetControlsText();
+                SetControlsVisible(false, true);
+            }
+            else
+            {
+                SetControlsTextDefault();
+                SetControlsVisible(false, false);
+            }
+        }
 
         private void SetControlsTextDefault()
         {
@@ -184,19 +180,16 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocaleCore.Scales.FieldWeightTare);
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldThreshold, LocaleCore.Scales.FieldThresholds);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, LocaleCore.Scales.FieldThresholds);
 
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.ComPort);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, LocaleCore.Scales.Crc);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet, LocaleCore.Scales.ScaleQueue);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc, LocaleCore.Scales.Crc);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar, LocaleCore.Scales.RequestParameters);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription, LocaleCore.Scales.RequestParameters);
         }
 
         private void SetControlsText()
         {
             string massaDevice = MassaDevice != null
-                ? MassaDevice.IsConnected
+                ? MassaDevice.IsOpenPort
                     ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
                     : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | "
                 : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
@@ -204,24 +197,12 @@ namespace WeightCore.Managers
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, massaDevice +
                     $"{LocaleCore.Scales.Message}: ...");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocaleCore.Scales.Crc}: ...");
             }
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, massaDevice +
                     $"{LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGetCrc, $"{LocaleCore.Scales.Crc}: " +
-                    (ResponseParseGet.IsValidAll ? $"{LocaleCore.Scales.StateCorrect}" : $"{LocaleCore.Scales.StateError}!"));
             }
-
-            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(FieldMassaProgress, Requests != null ? Requests.Count : 0);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSet,
-                $"{LocaleCore.Scales.ScaleQueue}: {Requests?.Count} | {LocaleCore.Scales.WeightingScaleCmd}: " +
-                (ResponseParseSet == null ? $"..." : ResponseParseSet.Message));
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaSetCrc,
-                $"{LocaleCore.Scales.Crc}: " + (ResponseParseSet == null
-                ? $"..." : (ResponseParseSet.IsValidAll ? $"{LocaleCore.Scales.StateCorrect}" : $"{LocaleCore.Scales.StateError}!"
-            )));
 
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare,
                 UserSessionHelper.Instance.Plu != null
@@ -238,7 +219,7 @@ namespace WeightCore.Managers
 #else
                 $"{LocaleCore.Scales.WeightingIsCalc}");
 #endif
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaScalePar,
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
                 $"{LocaleCore.Scales.WeightingProcess}: " +
                 (UserSessionHelper.Instance.Plu == null ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
                 $"{LocaleCore.Scales.UnitKg} | {LocaleCore.Scales.RequestParameters}" +
@@ -262,40 +243,33 @@ namespace WeightCore.Managers
             {
                 if (UserSessionHelper.Instance.Plu == null)
                 {
-                    if (FieldThreshold.Visible != isVisible)
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, isVisible);
+                    if (FieldMassaThreshold.Visible != isVisible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaThreshold, isVisible);
                 }
                 else
                 {
-                    if (!FieldThreshold.Visible)
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldThreshold, true);
+                    if (!FieldMassaThreshold.Visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaThreshold, true);
                 }
 
                 if (FieldMassaGet.Visible != isVisible)
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGet, isVisible);
-                if (!FieldMassaSet.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSet, isVisible);
-                if (!FieldMassaScalePar.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaScalePar, isVisible);
-                if (!FieldMassaGetCrc.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaGetCrc, isVisible);
-                if (!FieldMassaSetCrc.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaSetCrc, isVisible);
-                if (!FieldMassaProgress.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaProgress, isVisible);
+                if (!FieldMassaPluDescription.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaPluDescription, isVisible);
             }
         }
 
         public new void Close()
         {
             base.Close();
-            
+
             MassaStable.StopwatchStable.Stop();
             MassaDevice?.Close();
-            while (Requests?.Count > 0)
-            {
-                Requests.Take();
-            }
+            MassaExchange = null;
+            //while (Requests?.Count > 0)
+            //{
+            //    Requests.Take();
+            //}
         }
 
         public new void ReleaseManaged()
@@ -307,11 +281,10 @@ namespace WeightCore.Managers
             ResponseParseGet = null;
             ResponseParseSet = null;
 
-            Requests?.Dispose();
-            Requests = null;
+            //Requests?.Dispose();
+            MassaExchange = null;
             MassaRequest = null;
             MassaDevice?.Dispose(true);
-            MassaDevice = null;
 
             base.ReleaseManaged();
         }
@@ -325,13 +298,13 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Control
 
-        public void ClearRequestsByLimit(ushort countLimit)
-        {
-            if (Requests.Count > countLimit)
-            {
-                Requests = new BlockingCollection<MassaExchangeEntity>();
-            }
-        }
+        //public void ClearRequestsByLimit(ushort countLimit)
+        //{
+        //    if (Requests.Count > countLimit)
+        //    {
+        //        Requests = new BlockingCollection<MassaExchangeEntity>();
+        //    }
+        //}
 
         private void SendData(MassaExchangeEntity massaExchange)
         {
@@ -380,8 +353,7 @@ namespace WeightCore.Managers
         {
             lock (_locker)
             {
-                IsResponse = response != null;
-                if (!IsResponse)
+                if (response == null || response.Length == 0)
                     return;
 
                 if (massaExchange != null)
@@ -389,17 +361,6 @@ namespace WeightCore.Managers
                     massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
                     ParseSetResponse(massaExchange);
                     ParseSetMassa(massaExchange);
-                }
-
-                if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
-                {
-                    SetControlsText();
-                    SetControlsVisible(false, true);
-                }
-                else
-                {
-                    SetControlsTextDefault();
-                    SetControlsVisible(false, false);
                 }
             }
         }
@@ -437,26 +398,23 @@ namespace WeightCore.Managers
 
         private void ParseSetMassa(MassaExchangeEntity massaExchange)
         {
-            if (massaExchange?.ResponseParse?.Massa != null)
+            switch (massaExchange.CmdType)
             {
-                switch (massaExchange.CmdType)
-                {
-                    case MassaCmdType.GetMassa:
-                        // 1 байт. Цена деления в значении массы нетто и массы тары:
-                        // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
-                        ScaleFactor = massaExchange.ResponseParse.Massa.ScaleFactor;
-                        // 4 байта. Текущая масса нетто со знаком
-                        WeightNet = massaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
-                        // 4 байта. Текущая масса тары со знаком
-                        decimal weightTare = massaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
-                        // 4 байта. Текущая масса тары со знаком
-                        WeightGross = WeightNet + weightTare;
-                        // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
-                        MassaStable.IsStable = massaExchange.ResponseParse.Massa.IsStable == 0x01;
-                        // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
-                        //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
-                        break;
-                }
+                case MassaCmdType.GetMassa:
+                    // 1 байт. Цена деления в значении массы нетто и массы тары:
+                    // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
+                    ScaleFactor = massaExchange.ResponseParse.Massa.ScaleFactor;
+                    // 4 байта. Текущая масса нетто со знаком
+                    WeightNet = massaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
+                    // 4 байта. Текущая масса тары со знаком
+                    decimal weightTare = massaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
+                    // 4 байта. Текущая масса тары со знаком
+                    WeightGross = WeightNet + weightTare;
+                    // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
+                    MassaStable.IsStable = massaExchange.ResponseParse.Massa.IsStable == 0x01;
+                    // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
+                    //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
+                    break;
             }
         }
 
@@ -481,14 +439,14 @@ namespace WeightCore.Managers
             SetZero();
         }
 
-        public void GetInit1() => Requests.Add(new MassaExchangeEntity(MassaCmdType.UdpPoll));
-        public void GetInit2() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetInit2));
-        public void GetInit3() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetInit3));
-        public void GetMassa() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetMassa));
-        public void GetScalePar() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetScalePar));
-        public void GetScaleParAfter() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetScaleParAfter));
-        public void SetTareWeight(int weightTare) => Requests.Add(new MassaExchangeEntity(MassaCmdType.SetTare, weightTare));
-        public void SetZero() => Requests.Add(new MassaExchangeEntity(MassaCmdType.SetZero));
+        public void GetInit1() => MassaExchange = new(MassaCmdType.UdpPoll);
+        public void GetInit2() => MassaExchange = new(MassaCmdType.GetInit2);
+        public void GetInit3() => MassaExchange = new(MassaCmdType.GetInit3);
+        public void GetMassa() => MassaExchange = new(MassaCmdType.GetMassa);
+        public void GetScalePar() => MassaExchange = new(MassaCmdType.GetScalePar);
+        public void GetScaleParAfter() => MassaExchange = new(MassaCmdType.GetScaleParAfter);
+        public void SetTareWeight(int weightTare) => MassaExchange = new(MassaCmdType.SetTare, weightTare);
+        public void SetZero() => MassaExchange = new(MassaCmdType.SetZero);
 
         #endregion
     }

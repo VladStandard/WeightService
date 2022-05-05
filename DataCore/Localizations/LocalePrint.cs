@@ -32,7 +32,8 @@ namespace DataCore.Localizations
         public string DeviceMainCheckStatus => Lang == ShareEnums.Lang.English ? "Check the main printer status!" : "Проверьте состояние основного принтера!";
         public string DeviceMainIsUnavailable => Lang == ShareEnums.Lang.English ? "Main printer is unavailable!" : "Основной принтер не доступен!";
         public string DeviceName => Lang == ShareEnums.Lang.English ? "Printer name" : "Имя принтера";
-        public string DeviceNameIsUnavailable => Lang == ShareEnums.Lang.English ? "Name is unavailable" : "Имя не доступно";
+        public string DeviceNameIsUnavailable => Lang == ShareEnums.Lang.English ? "Device is unavailable" : "Устройство не доступно";
+        public string DeviceNameShort => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
         public string DeviceShippingCheckStatus => Lang == ShareEnums.Lang.English ? "Check the shipping printer status!" : "Проверьте состояние транспортного принтера!";
         public string DeviceShippingIsUnavailable => Lang == ShareEnums.Lang.English ? "Shipping printer is unavailable!" : "Транспортный принтер не доступен!";
         public string Driver => Lang == ShareEnums.Lang.English ? "Driver" : "Драйвер";
@@ -56,11 +57,15 @@ namespace DataCore.Localizations
         public string Name => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
         public string NameMain => Lang == ShareEnums.Lang.English ? "Main printer" : "Основной принтер";
         public string NameMainTsc => Lang == ShareEnums.Lang.English ? "Main printer TSC" : "Основной принтер TSC";
+        public string NameMainTscShort => Lang == ShareEnums.Lang.English ? "TSC" : "TSC";
         public string NameMainZebra => Lang == ShareEnums.Lang.English ? "Main printer Zebra" : "Основной принтер Zebra";
+        public string NameMainZebraShort => Lang == ShareEnums.Lang.English ? "Zebra" : "Zebra";
         public string Names => Lang == ShareEnums.Lang.English ? "Printers" : "Принтеры";
         public string NameShipping => Lang == ShareEnums.Lang.English ? "Shipping printer" : "Транспортный принтер";
         public string NameShippingTsc => Lang == ShareEnums.Lang.English ? "Shipping printer TSC" : "Транспортный принтер TSC";
+        public string NameShippingTscShort => Lang == ShareEnums.Lang.English ? "Shipping TSC" : "Транспортный TSC";
         public string NameShippingZebra => Lang == ShareEnums.Lang.English ? "Shipping printer Zebra" : "Транспортный принтер Zebra";
+        public string NameShippingZebraShort => Lang == ShareEnums.Lang.English ? "Shipping Zebra" : "Транспортный Zebra";
         public string NamesMain => Lang == ShareEnums.Lang.English ? "Main printers" : "Основные принтеры";
         public string NamesShipping => Lang == ShareEnums.Lang.English ? "Shipping printers" : "Транспортные принтеры";
         public string Password => Lang == ShareEnums.Lang.English ? "Printer password" : "Пароль принтера";
@@ -68,6 +73,7 @@ namespace DataCore.Localizations
         public string Port => Lang == ShareEnums.Lang.English ? "Printer port" : "Порт принтера";
         public string PortShort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
         public string PrinterStatus => Lang == ShareEnums.Lang.English ? "Printer status" : "Состояние принтера";
+        public string PrintManager => Lang == ShareEnums.Lang.English ? "Print manager" : "Менеджер принтера";
         public string Resource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
         public string Resources => Lang == ShareEnums.Lang.English ? "Printer resources" : "Ресурсы принтера";
         public string ResourcesClear => Lang == ShareEnums.Lang.English ? "Clear resources" : "Удалить ресурсы";

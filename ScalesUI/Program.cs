@@ -48,11 +48,6 @@ namespace ScalesUI
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                //if (result == DialogResult.OK)
-                //{
-                //    Clipboard.SetText($"{uid}");
-                //    return;
-                //}
             }
             catch (Exception ex)
             {
@@ -105,11 +100,10 @@ namespace ScalesUI
                 return;
             }
 
-            HostDirect host = HostsUtils.TokenRead();
             // Exit.
+            HostDirect host = HostsUtils.TokenRead();
             if (host.ScaleId == 0)
             {
-                // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
                 wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning2(host.IdRRef);
@@ -119,10 +113,6 @@ namespace ScalesUI
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                //if (result == DialogResult.OK)
-                //{
-                //    Clipboard.SetText($"{host.IdRRef}");
-                //}
                 Application.Exit();
                 return;
             }

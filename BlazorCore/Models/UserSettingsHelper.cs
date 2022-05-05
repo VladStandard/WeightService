@@ -48,7 +48,7 @@ namespace BlazorCore.Models
         public void SetupAccessRights()
         {
             AccessEntity? access = DataAccess.Crud.GetEntity<AccessEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.User, Identity.Name } }));
+                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.User, Identity.UserName } }));
             Identity.SetAccessRights(access.Rights);
             //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(
             //    SqlQueries.DbServiceManaging.Tables.Access.GetAccessRights(Identity.Name),
