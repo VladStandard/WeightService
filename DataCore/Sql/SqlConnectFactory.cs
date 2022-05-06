@@ -179,10 +179,11 @@ namespace DataCore.Sql
             ExecuteNonQuery(query, new SqlParameter[] { parameter });
         }
 
-        public void ExecuteNonQuery(string query, SqlParameter[] parameters)
+        public int ExecuteNonQuery(string query, SqlParameter[] parameters)
         {
             lock (_locker)
             {
+                int result = 0;
                 using SqlConnection con = GetConnection();
                 con.Open();
                 using (SqlCommand cmd = new(query))
@@ -192,9 +193,10 @@ namespace DataCore.Sql
                     if (parameters?.Length > 0)
                         cmd.Parameters.AddRange(parameters);
                     //cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.ExecuteNonQuery();
+                    result = cmd.ExecuteNonQuery();
                 }
                 con.Close();
+                return result;
             }
         }
 

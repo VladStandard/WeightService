@@ -48,7 +48,7 @@ namespace DataCore.Protocols
             return string.Empty;
         }
 
-        public static string GetMacAddress()
+        public static string GetLocalMacAddress()
         {
             string macAddresses = string.Empty;
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())

@@ -7,6 +7,7 @@ using DataCore.Settings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WeightCore.Gui;
 using WeightCore.Helpers;
 
 namespace WeightCore.Managers
@@ -94,11 +95,11 @@ namespace WeightCore.Managers
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
                         MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, LocaleCore.Scales.MassaManager);
                     },
-                    new(waitReopen: 2_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
+                    new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 
@@ -122,7 +123,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 

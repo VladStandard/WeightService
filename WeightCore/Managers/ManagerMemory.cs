@@ -7,6 +7,7 @@ using DataCore.Memory;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using WeightCore.Gui;
 using WeightCore.Helpers;
 
 namespace WeightCore.Managers
@@ -51,11 +52,11 @@ namespace WeightCore.Managers
                         if (Debug.IsDebug && !fieldTasks.Visible)
                             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
                     },
-                    new(waitReopen: 2_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
+                    new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 
@@ -77,7 +78,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 

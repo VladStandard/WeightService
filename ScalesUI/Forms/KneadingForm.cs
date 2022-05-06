@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System;
 using WeightCore.Gui;
@@ -17,7 +16,6 @@ namespace ScalesUI.Forms
 
         private DateTime SaveProductDate { get; }
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private byte SaveKneading { get; }
         private byte SavePalletSize { get; }
         private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
@@ -53,7 +51,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -61,7 +59,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ShowProductDate([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ShowProductDate()
         {
             try
             {
@@ -69,11 +67,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(ex);
             }
         }
 
-        private void GuiUpdate([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void GuiUpdate()
         {
             try
             {
@@ -81,7 +79,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -100,7 +98,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -113,7 +111,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -131,7 +129,7 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 DialogResult = DialogResult.Abort;
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -142,7 +140,7 @@ namespace ScalesUI.Forms
 
             if (UserSession.Plu.IsCheckWeight == true && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount);
+                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true);
                 UserSession.WeighingSettings.LabelsCountMain = 1;
             }
             fieldPalletSize.Text = $"{UserSession.WeighingSettings.LabelsCountMain}";
@@ -159,7 +157,7 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 DialogResult = DialogResult.Abort;
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -172,7 +170,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -185,7 +183,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -202,7 +200,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -220,7 +218,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -233,7 +231,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -257,8 +255,7 @@ namespace ScalesUI.Forms
             SetLabelsCount(1);
         }
 
-        private void SetLabelsCount(byte count,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void SetLabelsCount(byte count)
         {
             try
             {
@@ -267,7 +264,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -282,7 +279,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 

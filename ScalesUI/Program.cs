@@ -1,13 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Files;
 using DataCore.Localizations;
+using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
 using DataCore.Sql.Controllers;
-using DataCore.Sql.TableDirectModels;
+using DataCore.Sql.TableScaleModels;
 using ScalesUI.Forms;
 using System;
 using System.IO;
@@ -17,7 +17,6 @@ using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
 
-// ReSharper disable IdentifierTypo
 namespace ScalesUI
 {
     internal static class Program
@@ -31,44 +30,6 @@ namespace ScalesUI
 
         #region Public and private methods
 
-        internal static void TokenWrite(string conectionString,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                Guid uid = HostsUtils.TokenWrite(conectionString);
-                // WPF MessageBox.
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning1(uid);
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonYesVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonNoVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-                wpfPageLoader.ShowDialog();
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
-            }
-            catch (Exception ex)
-            {
-                filePath = Path.GetFileName(filePath);
-                string message = $"Файл: {filePath}" + Environment.NewLine +
-                                 $"Метод: {memberName}. Строка: {lineNumber}" + Environment.NewLine + Environment.NewLine +
-                                 ex.Message;
-                if (ex.InnerException != null)
-                    message += Environment.NewLine + ex.InnerException;
-                // WPF MessageBox.
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Exception;
-                wpfPageLoader.MessageBox.Message = message;
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-                wpfPageLoader.ShowDialog();
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
-            }
-        }
-
         [STAThread]
         internal static void Main()
         {
@@ -80,54 +41,61 @@ namespace ScalesUI
         {
             try
             {
+                // Setup.
                 AppVersion.Setup(Assembly.GetExecutingAssembly());
                 FileLogHelper.Instance.FileName = HostsUtils.FilePathLog;
                 DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory(), true);
+
+                // Host.
+                string hostName = NetUtils.GetLocalHostName(false);
+                HostEntity host = HostsUtils.GetHostEntity(hostName);
+                if (host.IdentityId == 0)
+                {
+                    GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
+                    host = HostsUtils.GetHostEntity(hostName);
+                }
+                if (host.IdentityId == 0)
+                {
+                    string message = LocaleCore.Scales.RegistrationWarningHostNotFound(hostName);
+                    GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+                    //DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
+                    Application.Exit();
+                    return;
+                }
+
+                // Scale.
+                ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
+                if (scale.IdentityId == 0)
+                {
+                    string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);
+                    GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+                    DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
+                    Application.Exit();
+                    return;
+                }
+
+                // Mutex.
+                _ = new Mutex(true, Application.ProductName, out bool createdNew);
+                if (!createdNew)
+                {
+                    string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
+                    GuiUtils.WpfForm.ShowNewRegistration(message);
+                    DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
+                    Application.Exit();
+                    return;
+                }
+                else
+                {
+                    DataAccess.Log.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description), hostName, nameof(ScalesUI));
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new MainForm());
+                }
             }
             catch (Exception ex)
             {
-                GuiUtils.WpfForm.ShowNewCatch(null,
-                    LocaleCore.Scales.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message,
-                    false, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(null, ex, false, true, filePath, lineNumber, memberName);
                 throw new Exception(ex.Message);
-            }
-
-            // Exit.
-            if (!HostsUtils.TokenExist())
-            {
-                TokenWrite(DataAccess.JsonSettingsLocal.ConnectionString);
-                Application.Exit();
-                return;
-            }
-
-            // Exit.
-            HostDirect host = HostsUtils.TokenRead();
-            if (host.ScaleId == 0)
-            {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning2(host.IdRRef);
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-                wpfPageLoader.ShowDialog();
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
-                Application.Exit();
-                return;
-            }
-
-            _ = new Mutex(true, Application.ProductName, out bool createdNew);
-            if (!createdNew)
-            {
-                MessageBox.Show($@"{LocaleCore.Strings.Application} {Application.ProductName} already running!");
-                Application.Exit();
-            }
-            else
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
             }
         }
 

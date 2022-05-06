@@ -385,7 +385,6 @@
     <Compile Include="Helpers\AppHelper.cs" />
     <Compile Include="Helpers\CollectionsHelper.cs" />
     <Compile Include="Helpers\DebugHelper.cs" />
-    <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\HardwareHelper.cs" />
     <Compile Include="Helpers\ProcHelper.cs" />
     <Compile Include="Helpers\RegHelper.cs" />

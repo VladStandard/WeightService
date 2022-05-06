@@ -15,6 +15,7 @@ namespace DataCore.Sql.TableDirectModels
         public long Id { get; set; }
         public long ScaleId { get; set; }
         public string? Name { get; set; }
+        [XmlIgnore] public string? HostName { get; set; }
         public string? Ip { get; set; }
         public string? Mac { get; set; }
         public Guid IdRRef { get; set; }
@@ -30,6 +31,7 @@ namespace DataCore.Sql.TableDirectModels
             Id = 0;
             ScaleId = 0;
             Name = string.Empty;
+            HostName = string.Empty;
             Ip = string.Empty;
             Mac = string.Empty;
             IdRRef = Guid.Empty;
@@ -43,6 +45,7 @@ namespace DataCore.Sql.TableDirectModels
 
         public override string ToString() =>
             $"{nameof(Name)}: {Name}. " +
+            $"{nameof(HostName)}: {HostName}. " +
             $"{nameof(Ip)}: {Ip}. " +
             $"{nameof(Mac)}: {Mac}. ";
 

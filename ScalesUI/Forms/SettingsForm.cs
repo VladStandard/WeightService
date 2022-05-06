@@ -10,7 +10,6 @@ using System;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
@@ -26,7 +25,6 @@ namespace ScalesUI.Forms
 
         private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
 
         #endregion
@@ -50,9 +48,9 @@ namespace ScalesUI.Forms
                 // Загружить при кажом открытии формы.
                 //if (UserSession != null)
                 //    UserSession.CurrentScale = ScalesUtils.GetScale(UserSession.Host?.ScaleId);
-                if (UserSession != null)
-                    UserSession.Scale = UserSession.DataAccess.Crud?
-                        .GetEntity<DataCore.Sql.TableScaleModels.ScaleEntity>(UserSession.Host?.ScaleId);
+                //if (UserSession != null)
+                //    UserSession.Scale = UserSession.DataAccess.Crud
+                //        .GetEntity<DataCore.Sql.TableScaleModels.ScaleEntity>(UserSession.Host?.ScaleId);
 
                 // Определить COM-порт.
                 DefaultComPortName();
@@ -76,7 +74,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -103,7 +101,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -120,7 +118,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -150,7 +148,7 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 result = false;
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -201,7 +199,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -223,7 +221,6 @@ namespace ScalesUI.Forms
                 wpfPageLoader.ShowDialog(this);
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
                 if (result == DialogResult.Retry)
                 {
                     UseWaitCursor = true;
@@ -236,7 +233,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -252,7 +249,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -268,7 +265,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -301,7 +298,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -317,7 +314,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -329,7 +326,7 @@ namespace ScalesUI.Forms
 
         #region Private methods - Кнопки по умолчанию
 
-        private void DefaultComPortName([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void DefaultComPortName()
         {
             try
             {
@@ -368,7 +365,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -396,7 +393,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -429,7 +426,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -445,7 +442,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {

@@ -4,6 +4,7 @@
 using DataCore;
 using System;
 using System.Windows.Forms;
+using WeightCore.Gui;
 using WeightCore.Helpers;
 
 namespace ScalesUI.Forms
@@ -13,7 +14,6 @@ namespace ScalesUI.Forms
         #region Public and private fields and properties
 
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
 
         #endregion
@@ -42,7 +42,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -55,7 +55,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -70,7 +70,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -85,7 +85,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -100,7 +100,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 

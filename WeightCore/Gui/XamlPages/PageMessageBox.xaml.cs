@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Windows;
 using System.Windows.Controls;
 using WeightCore.Helpers;
 
@@ -13,9 +14,8 @@ namespace WeightCore.Gui.XamlPages
     {
         #region Private fields and properties
 
-        public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
-
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
+        public RoutedEventHandler OnClose { get; set; }
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace WeightCore.Gui.XamlPages
 
         #region Public and private methods
 
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ushort colCount = GetGridColCount();
             ushort rowCount = GetGridRowCount();
@@ -58,37 +58,37 @@ namespace WeightCore.Gui.XamlPages
             Grid gridMain = new()
             {
                 DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
-                Margin = new System.Windows.Thickness(2),
+                Margin = new Thickness(2),
             };
             gridMain.KeyUp += Button_KeyUp;
 
             Grid.SetColumn(gridMain, 0);
             for (ushort col = 0; col < colCount; col++)
             {
-                ColumnDefinition column = new() { Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) };
+                ColumnDefinition column = new() { Width = new GridLength(1, System.Windows.GridUnitType.Star) };
                 gridMain.ColumnDefinitions.Add(column);
             }
 
             Grid.SetRow(gridMain, 0);
             if (rowCount <= 1)
             {
-                RowDefinition row = new() { Height = new System.Windows.GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
+                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row);
             }
             else if (rowCount == 2)
             {
-                RowDefinition row = new() { Height = new System.Windows.GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
+                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row);
-                RowDefinition row2 = new() { Height = new System.Windows.GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
+                RowDefinition row2 = new() { Height = new GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row2);
             }
             else if (rowCount == 3)
             {
-                RowDefinition row = new() { Height = new System.Windows.GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
+                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row);
-                RowDefinition row2 = new() { Height = new System.Windows.GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
+                RowDefinition row2 = new() { Height = new GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row2);
-                RowDefinition row3 = new() { Height = new System.Windows.GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
+                RowDefinition row3 = new() { Height = new GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row3);
             }
 
@@ -134,7 +134,7 @@ namespace WeightCore.Gui.XamlPages
                 TextBlock field = new()
                 {
                     DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeCaption,
                     FontWeight = System.Windows.FontWeights.Bold,
                     FontStretch = System.Windows.FontStretches.Expanded,
@@ -164,7 +164,7 @@ namespace WeightCore.Gui.XamlPages
                 TextBlock field = new()
                 {
                     DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeMessage,
                     FontWeight = System.Windows.FontWeights.Regular,
                     FontStretch = System.Windows.FontStretches.Normal,
@@ -194,7 +194,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonCustomContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -213,7 +213,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonYesContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -232,7 +232,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonRetryContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -251,7 +251,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonNoContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -270,7 +270,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonIgnoreContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -289,7 +289,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonCancelContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -308,7 +308,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonAbortContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -327,7 +327,7 @@ namespace WeightCore.Gui.XamlPages
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonOkContent,
-                    Margin = new System.Windows.Thickness(2),
+                    Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
                 };
@@ -343,58 +343,52 @@ namespace WeightCore.Gui.XamlPages
 
         #region Public and private methods - Actions
 
-        public void ButtonCustom_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonCustom_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonYes_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonYes_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Yes;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonRetry_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonRetry_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonNo_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonNo_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.No;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonIgnore_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonIgnore_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Ignore;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonCancel_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Cancel;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonAbort_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonAbort_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.Abort;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonOk_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Result = System.Windows.Forms.DialogResult.OK;
-            UserSession.IsWpfPageLoaderClose = true;
-        }
-
-        public void ButtonClose_OnClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            MessageBox.Result = System.Windows.Forms.DialogResult.Cancel;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
         private void Button_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)

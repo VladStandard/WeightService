@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.Localizations;
 using System;
 using System.Windows.Forms;
+using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 using static WeightCore.MassaK.MassaEnums;
@@ -80,11 +81,11 @@ namespace WeightCore.Managers
 
                         SetControlsTextDefault();
                     },
-                    new(waitReopen: 2_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
+                    new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 
@@ -111,7 +112,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 

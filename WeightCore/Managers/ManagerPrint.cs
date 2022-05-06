@@ -82,11 +82,11 @@ namespace WeightCore.Managers
                         }
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
                     },
-                    new(waitReopen: 2_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 1_000, waitException: 2_500));
+                    new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 
@@ -109,7 +109,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false);
+                GuiUtils.WpfForm.CatchException(null, ex, true, false);
             }
         }
 
@@ -118,7 +118,7 @@ namespace WeightCore.Managers
             NetUtils.RequestPing(Printer, 1_000);
         }
 
-        private void Request([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void Request()
         {
             if (Printer?.PingStatus == IPStatus.Success)
             {
@@ -141,7 +141,7 @@ namespace WeightCore.Managers
                             }
                             catch (Exception ex)
                             {
-                                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                                GuiUtils.WpfForm.CatchException(null, ex, true, false);
                                 SendCmdToZebra(ZplPipeUtils.ZplHostStatusReturn);
                             }
                         }
@@ -222,7 +222,7 @@ namespace WeightCore.Managers
                     }
                     break;
                 case PrintBrand.TSC:
-                    return $"{Win32Printer?.PrinterStatusDescription}";
+                    return $"{Win32Printer.PrinterStatusDescription}";
             }
             return LocaleCore.Print.StatusIsUnavailable;
         }
@@ -303,6 +303,11 @@ namespace WeightCore.Managers
         public void SendCmd(string printCmd)
         {
             CheckIsDisposed();
+            if (string.IsNullOrEmpty(printCmd))
+                return;
+            if (Printer.PingStatus != IPStatus.Success)
+                return;
+
             switch (PrintBrand)
             {
                 case PrintBrand.Zebra:
@@ -311,16 +316,12 @@ namespace WeightCore.Managers
                 case PrintBrand.TSC:
                     SendCmdToTsc(printCmd);
                     break;
-                case PrintBrand.Default:
-                default:
-                    break;
             }
         }
 
-        private void SendCmdToZebra(string printCmd,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void SendCmdToZebra(string printCmd)
         {
-            if (string.IsNullOrEmpty(printCmd) || ZebraDriver == null)
+            if (ZebraDriver == null || GetDeviceStatus() != LocaleCore.Print.StatusIsReadyToPrint)
                 return;
             try
             {
@@ -336,23 +337,19 @@ namespace WeightCore.Managers
                         }
                         else
                         {
-                            GuiUtils.WpfForm.ShowNewCatch(null, $"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}",
-                                true, filePath, lineNumber, memberName);
+                            GuiUtils.WpfForm.CatchException(new Exception($"{LocaleCore.Print.SensorPeeler}: {ZebraPeelerStatus}"));
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(ex);
             }
         }
 
-        private void SendCmdToTsc(string printCmd,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void SendCmdToTsc(string printCmd)
         {
-            if (string.IsNullOrEmpty(printCmd))
-                return;
             try
             {
                 string docReplace = printCmd.Replace("|", "\\&");
@@ -363,7 +360,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(ex);
             }
         }
 

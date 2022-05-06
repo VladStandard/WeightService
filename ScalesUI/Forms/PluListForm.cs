@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -18,7 +17,6 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
         private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
@@ -64,12 +62,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
-        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities, int x, int y,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities, int x, int y)
         {
             Control[,] controls = new Control[x, y];
             try
@@ -87,13 +84,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             return controls;
         }
 
-        private Control CreateNewControl(PluDirect plu, int pageNumber, int i,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private Control CreateNewControl(PluDirect plu, int pageNumber, int i)
         {
             Button button = null;
             try
@@ -167,7 +163,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             return button;
         }
@@ -181,7 +177,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -205,7 +201,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -226,7 +222,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -248,7 +244,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 

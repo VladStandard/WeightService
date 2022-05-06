@@ -12,7 +12,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -29,7 +28,6 @@ namespace ScalesUI.Forms
 
         private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private ProcHelper Proc { get; set; } = ProcHelper.Instance;
         private QuartzHelper Quartz { get; set; } = QuartzHelper.Instance;
         private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
@@ -75,7 +73,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -97,7 +95,7 @@ namespace ScalesUI.Forms
                 }
                 catch (Exception ex)
                 {
-                    Exception.Catch(this, ref ex, true);
+                    GuiUtils.WpfForm.CatchException(this, ex);
                 }
                 finally
                 {
@@ -110,7 +108,7 @@ namespace ScalesUI.Forms
             }).ConfigureAwait(false);
         }
 
-        private void LoadResources([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void LoadResources()
         {
             try
             {
@@ -127,7 +125,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(ex);
             }
             finally
             {
@@ -135,7 +133,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void LoadManagerControl([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void LoadManagerControl()
         {
             try
             {
@@ -173,7 +171,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(ex);
             }
             finally
             {
@@ -212,7 +210,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -425,7 +423,6 @@ namespace ScalesUI.Forms
             wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomContent = LocaleCore.Print.ClearQueue;
             DialogResult result = wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
-            wpfPageLoader.Dispose();
             if (result == DialogResult.Retry)
             {
                 UserSession.ManagerControl.PrintMain.ClearPrintBuffer(1);
@@ -474,7 +471,6 @@ namespace ScalesUI.Forms
             wpfPageLoader.MessageBox.VisibilitySettings.Localization();
             wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
-            wpfPageLoader.Dispose();
         }
 
         private void FieldTasks_Click(object sender, EventArgs e)
@@ -496,7 +492,6 @@ namespace ScalesUI.Forms
             wpfPageLoader.MessageBox.VisibilitySettings.Localization();
             wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
-            wpfPageLoader.Dispose();
         }
 
         private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
@@ -535,7 +530,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -561,7 +556,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -578,13 +573,12 @@ namespace ScalesUI.Forms
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
                 wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
 
                 UserSession.ManagerControl.Massa.Open();
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -605,10 +599,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                //if (GuiUtils.WpfForm.ShowNewPinCode(this))
-                //{
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
-                    $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?", true,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result != DialogResult.Yes)
                     return;
@@ -622,14 +613,13 @@ namespace ScalesUI.Forms
                 else
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
-                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal));
+                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true);
                 }
-                //}
                 UserSession.ManagerControl.Open();
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -643,16 +633,16 @@ namespace ScalesUI.Forms
             {
                 if (!UserSession.IsPluCheckWeight)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight);
+                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true);
                     return;
                 }
                 if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond);
+                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true);
                     return;
                 }
 
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation,
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, 
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result != DialogResult.Yes)
                     return;
@@ -673,7 +663,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -724,7 +714,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -740,7 +730,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -761,7 +751,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -805,7 +795,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -819,7 +809,7 @@ namespace ScalesUI.Forms
             {
                 if (UserSession.Plu == null)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect);
+                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true);
                     return;
                 }
 
@@ -839,7 +829,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -880,7 +870,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {

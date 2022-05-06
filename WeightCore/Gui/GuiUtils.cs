@@ -10,6 +10,11 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 using WeightCore.Gui.XamlPages;
+using System.Runtime.CompilerServices;
+using Microsoft.Data.SqlClient;
+using DataCore.Protocols;
+using System.Xml.Linq;
+using DataCore.Sql.TableScaleModels;
 
 namespace WeightCore.Gui
 {
@@ -58,8 +63,20 @@ namespace WeightCore.Gui
                 else
                     resultWpf = wpfPageLoader.ShowDialog();
                 wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
                 return resultWpf;
+            }
+
+            public static DialogResult ShowNewRegistration(string message)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
+                wpfPageLoader.MessageBox.Message = message;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
+                wpfPageLoader.ShowDialog();
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                return result;
             }
 
             /// <summary>
@@ -86,29 +103,141 @@ namespace WeightCore.Gui
             /// </summary>
             /// <param name="owner"></param>
             /// <param name="message"></param>
-            public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, VisibilitySettingsEntity visibility = null)
+            public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, VisibilitySettingsEntity visibility = null)
             {
-                DataAccess.Log.LogInformation(message);
+                if (isLog)
+                    DataAccess.Log.LogInformation(message);
                 return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
                     visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
             }
 
+            public static Guid ShowNewHostSaveInFile()
+            {
+                Guid uid = Guid.NewGuid();
+                XDocument doc = new();
+                XElement root = new("root");
+                root.Add(new XElement("ID", uid));
+                // new XElement("EncryptConnectionString", new XCData(EncryptDecryptUtils.Encrypt(connectionString)))
+                doc.Add(root);
+
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
+                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonNoVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
+                wpfPageLoader.ShowDialog();
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                if (result == DialogResult.Yes)
+                {
+                    doc.Save(DataCore.Sql.Controllers.HostsUtils.FilePathToken);
+                }
+                wpfPageLoader.Close();
+                return uid;
+            }
+            
+            public static DialogResult ShowNewHostSaveInDb(Guid uid)
+            {
+                DialogResult result = ShowNewOperationControl(null,
+                    LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
+                    false, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                if (result == DialogResult.Yes)
+                {
+                    DataCore.Sql.Controllers.HostsUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
+                       new SqlParameter[]
+                       {
+                        new SqlParameter("@uid", System.Data.SqlDbType.UniqueIdentifier) { Value = uid.ToString() },
+                        new SqlParameter("@name", System.Data.SqlDbType.NVarChar, 150) { Value = Environment.MachineName },
+                        new SqlParameter("@ip", System.Data.SqlDbType.VarChar, 15) { Value = NetUtils.GetLocalIpAddress() },
+                        new SqlParameter("@mac", System.Data.SqlDbType.VarChar, 35) { Value = NetUtils.GetLocalMacAddress() },
+                       }
+                   );
+                }
+                return result;
+            }
+            
+            public static DialogResult ShowNewHostSaveInDb(string hostName, string ip, string mac)
+            {
+                DialogResult result = ShowNewOperationControl(null,
+                    LocaleCore.Scales.HostNotFound(hostName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
+                    false, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                if (result == DialogResult.Yes)
+                {
+                    HostEntity host = new() {
+                        Name = hostName,
+                        HostName = hostName,
+                        Ip = ip,
+                        MacAddress = new(mac),
+                        IdRRef = Guid.NewGuid(),
+                        CreateDt = DateTime.Now,
+                        ChangeDt = DateTime.Now,
+                        AccessDt = DateTime.Now,
+                        IsMarked = false,
+                        SettingsFile = string.Empty,
+                    };
+                    DataAccess.Crud.SaveEntity(host);
+                }
+                return result;
+            }
+            
             /// <summary>
-            /// Show catch form.
+            /// Show new host not found.
+            /// </summary>
+            /// <param name="uid"></param>
+            /// <returns></returns>
+            public static DialogResult ShowNewHostNotFound(Guid uid)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
+                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning(uid);
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
+                wpfPageLoader.ShowDialog();
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                return result;
+            }
+
+            /// <summary>
+            /// Show catch exception window.
             /// </summary>
             /// <param name="owner"></param>
-            /// <param name="message"></param>
+            /// <param name="ex"></param>
+            /// <param name="isLog"></param>
+            /// <param name="filePath"></param>
             /// <param name="lineNumber"></param>
             /// <param name="memberName"></param>
-            public static DialogResult ShowNewCatch(IWin32Window owner, string message,
-                bool isLog, string filePath, int lineNumber, string memberName)
+            /// <returns></returns>
+            public static DialogResult CatchException(IWin32Window owner, Exception ex, bool isLog = true, bool isShowWindow = true,
+                [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             {
                 if (isLog)
-                    DataAccess.Log.LogError(message, null, null, filePath, lineNumber, memberName);
-                return ShowNew(owner, LocaleCore.Scales.Exception,
-                    $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
-                    $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + message,
-                    new() { ButtonOkVisibility = Visibility.Visible });
+                    DataAccess.Log.LogError(ex, null, null, filePath, lineNumber, memberName);
+                string message = ex.Message;
+                if (ex.InnerException != null)
+                    message += ex.InnerException.Message;
+                if (isShowWindow)
+                    return ShowNew(owner, LocaleCore.Scales.Exception,
+                        $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
+                        $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message,
+                        new() { ButtonOkVisibility = Visibility.Visible });
+                return DialogResult.OK;
+            }
+
+            /// <summary>
+            /// Show catch exception window.
+            /// </summary>
+            /// <param name="owner"></param>
+            /// <param name="ex"></param>
+            /// <param name="isLog"></param>
+            /// <param name="filePath"></param>
+            /// <param name="lineNumber"></param>
+            /// <param name="memberName"></param>
+            /// <returns></returns>
+            public static DialogResult CatchException(Exception ex, 
+                [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+            {
+                return CatchException(null, ex, true, true, filePath, lineNumber, memberName);
             }
         }
 
@@ -177,7 +306,7 @@ namespace WeightCore.Gui
             public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel tableLayoutPanel, int column)
             {
                 tableLayoutPanel.ColumnCount = column;
-                float size = 100 / tableLayoutPanel.ColumnCount;
+                float size = (float) 100 / tableLayoutPanel.ColumnCount;
                 if (tableLayoutPanel.ColumnStyles.Count > 0)
                     tableLayoutPanel.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, size);
                 if (tableLayoutPanel.ColumnCount > 1)

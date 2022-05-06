@@ -4,7 +4,6 @@
 using DataCore;
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -19,9 +18,7 @@ namespace WeightCore.Gui
 
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private ElementHost ElementHost { get; set; }
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private PagePluList PluList { get; set; }
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
         public bool UseOwnerSize { get; set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
         public PageMessageBox PageMessageBoxItem { get; private set; }
@@ -37,13 +34,11 @@ namespace WeightCore.Gui
             InitializeComponent();
 
             Page = ProjectsEnums.Page.Default;
-            UserSession.IsWpfPageLoaderClose = false;
         }
 
         public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
             double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
-            ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") : this()
+            ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
         {
             try
             {
@@ -59,7 +54,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, false, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -110,14 +105,14 @@ namespace WeightCore.Gui
                         PluList.InitializeComponent();
                         ElementHost.Child = PluList;
                         //PluList.Loaded += PluListOnLoaded;
-                        UserSession.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        PluList.OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.SqlSettings:
                         SqlSettings = new PageSqlSettings();
                         SqlSettings.InitializeComponent();
                         ElementHost.Child = SqlSettings;
                         //SqlSettings.Loaded += SqlSettingsOnLoaded;
-                        UserSession.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        SqlSettings.OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.MessageBox:
                         PageMessageBoxItem = new PageMessageBox();
@@ -125,7 +120,7 @@ namespace WeightCore.Gui
                         ElementHost.Child = PageMessageBoxItem;
                         PageMessageBoxItem.MessageBox = MessageBox;
                         //PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
-                        UserSession.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        PageMessageBoxItem.OnClose += WpfPageLoader_OnClose;
                         break;
                     default:
                         break;
@@ -133,7 +128,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, false);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -141,12 +136,11 @@ namespace WeightCore.Gui
         {
             try
             {
-                UserSession.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
                 Close();
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, false);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -178,7 +172,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, false);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 

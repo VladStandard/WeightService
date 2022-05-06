@@ -5,9 +5,9 @@ using DataCore;
 using DataCore.Models;
 using Nito.AsyncEx;
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.Gui;
 using WeightCore.Helpers;
 using static DataCore.Models.IDisposableBase;
 
@@ -18,7 +18,6 @@ namespace WeightCore.Managers
         #region Public and private fields and properties - Manager
 
         public ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
-        public ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         public DebugHelper Debug { get; set; } = DebugHelper.Instance;
         public AsyncLock MutexReopen { get; private set; }
         public AsyncLock MutexRequest { get; private set; }
@@ -116,7 +115,7 @@ namespace WeightCore.Managers
         //            }
         //            catch (Exception ex)
         //            {
-        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
         //                WaitSync(WaitException);
         //            }
         //        }
@@ -158,15 +157,14 @@ namespace WeightCore.Managers
         //            }
         //            catch (Exception ex)
         //            {
-        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
         //                WaitSync(WaitConfig.WaitException);
         //            }
         //        }
         //    });
         //}
 
-        private void OpenTaskReopen(ReopenCallback callback,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void OpenTaskReopen(ReopenCallback callback)
         {
             OpenTaskBase(TaskReopen, CtsReopen);
 
@@ -207,7 +205,7 @@ namespace WeightCore.Managers
                     }
                     catch (Exception ex)
                     {
-                        Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                        GuiUtils.WpfForm.CatchException(null, ex, true, false);
                         WaitConfig.WaitSync(WaitConfig.WaitException);
                     }
                 }
@@ -247,7 +245,7 @@ namespace WeightCore.Managers
         //            }
         //            catch (Exception ex)
         //            {
-        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
         //                WaitSync(WaitException);
         //            }
         //        }
@@ -289,15 +287,14 @@ namespace WeightCore.Managers
         //            }
         //            catch (Exception ex)
         //            {
-        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
         //                WaitSync(WaitConfig.WaitException);
         //            }
         //        }
         //    });
         //}
 
-        private void OpenTaskRequest(RequestCallback callback,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void OpenTaskRequest(RequestCallback callback)
         {
             OpenTaskBase(TaskRequest, CtsRequest);
 
@@ -338,7 +335,7 @@ namespace WeightCore.Managers
                     }
                     catch (Exception ex)
                     {
-                        Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                        GuiUtils.WpfForm.CatchException(null, ex, true, false);
                         WaitConfig.WaitSync(WaitConfig.WaitException);
                     }
                 }
@@ -378,7 +375,7 @@ namespace WeightCore.Managers
         //            }
         //            catch (Exception ex)
         //            {
-        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
         //                WaitSync(WaitException);
         //            }
         //        }
@@ -420,15 +417,14 @@ namespace WeightCore.Managers
         //            }
         //            catch (Exception ex)
         //            {
-        //                Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
         //                WaitSync(WaitConfig.WaitException);
         //            }
         //        }
         //    });
         //}
 
-        private void OpenTaskResponse(ResponseCallback callback,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void OpenTaskResponse(ResponseCallback callback)
         {
             OpenTaskBase(TaskResponse, CtsResponse);
 
@@ -469,7 +465,7 @@ namespace WeightCore.Managers
                     }
                     catch (Exception ex)
                     {
-                        Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                        GuiUtils.WpfForm.CatchException(null, ex, true, false);
                         WaitConfig.WaitSync(WaitConfig.WaitException);
                     }
                 }

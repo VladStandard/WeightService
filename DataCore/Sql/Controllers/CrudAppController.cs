@@ -53,6 +53,20 @@ namespace DataCore.Sql.Controllers
             return app;
         }
 
+        public AppEntity? GetEntity(string? appName)
+        {
+            AppEntity? app = null;
+            if (!string.IsNullOrEmpty(appName) && appName is string strName)
+            {
+                app = DataAccess.Crud.GetEntity<AppEntity>(
+                    new FieldListEntity(new Dictionary<DbField, object?> {
+                        { DbField.Name, appName },
+                        { DbField.IsMarked, false },
+                    }));
+            }
+            return app;
+        }
+
         #endregion
     }
 }

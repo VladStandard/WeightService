@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Reflection;
-using DataCore.Protocols;
 
 namespace DataCore.Files
 {
@@ -18,7 +17,7 @@ namespace DataCore.Files
 
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public FileLogHelper FileLog { get; private set; } = FileLogHelper.Instance;
+        //public FileLogHelper FileLog { get; private set; } = FileLogHelper.Instance;
         private string _remoteDir;
         public string RemoteDir
         {
@@ -60,6 +59,7 @@ namespace DataCore.Files
         public JsonSettingsController()
         {
             _remoteDir = string.Empty;
+            FileLogHelper.Instance.Recreate();
         }
 
         #endregion
@@ -114,8 +114,8 @@ namespace DataCore.Files
 
             if (!Setup(localDir, false, isFileLog))
             {
-                if (isFileLog)
-                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsLocalFileException);
+                //if (isFileLog)
+                //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsLocalFileException);
                 throw new Exception(LocaleCore.System.JsonSettingsLocalFileException);
             }
         }
@@ -125,8 +125,8 @@ namespace DataCore.Files
             string file = Path.Combine(dir, FileName);
             if (!File.Exists(file))
             {
-                if (isFileLog)
-                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileNotFound(file));
+                //if (isFileLog)
+                //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileNotFound(file));
                 throw new Exception(LocaleCore.System.JsonSettingsFileNotFound(file));
             }
 
@@ -146,8 +146,8 @@ namespace DataCore.Files
                 sqlConnectionStringBuilder["TrustServerCertificate"] = getJjsonSettings.Sql.TrustServerCertificate;
                 if (getJjsonSettings == null)
                 {
-                    if (isFileLog)
-                        FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileException);
+                    //if (isFileLog)
+                    //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileException);
                     throw new Exception(LocaleCore.System.JsonSettingsRemoteFileException);
                 }
                 if (!isRemote)
@@ -166,22 +166,22 @@ namespace DataCore.Files
 
         public void CheckUpdates(string localDir, bool isFileLog)
         {
-            if (isFileLog)
-                FileLog.WriteMessage($"{nameof(localDir)}: {localDir}");
+            //if (isFileLog)
+            //    FileLog.WriteMessage($"{nameof(localDir)}: {localDir}");
             if (!Directory.Exists(RemoteDir))
             {
-                if (isFileLog)
-                {
-                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
-                    FileLog.WriteMessage(RemoteDir);
-                }
+                //if (isFileLog)
+                //{
+                //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
+                //    FileLog.WriteMessage(RemoteDir);
+                //}
                 throw new Exception(LocaleCore.System.JsonSettingsRemoteFolderNotFound);
             }
             string remoteFile = Path.Combine(RemoteDir, FileName);
             if (!File.Exists(remoteFile))
             {
-                if (isFileLog)
-                    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileNotFound);
+                //if (isFileLog)
+                //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileNotFound);
                 throw new Exception(LocaleCore.System.JsonSettingsRemoteFileNotFound);
             }
 
@@ -200,8 +200,8 @@ namespace DataCore.Files
                 streamReader.Dispose();
                 if (string.IsNullOrEmpty(content))
                 {
-                    if (isFileLog)
-                        FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
+                    //if (isFileLog)
+                    //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
                     throw new Exception(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
                 }
 

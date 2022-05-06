@@ -6,6 +6,7 @@ using DataCore.Sql;
 using System.Windows.Forms;
 using WeightCore.Helpers;
 using DataCore.Sql.Controllers;
+using System.Windows;
 
 namespace WeightCore.Gui.XamlPages
 {
@@ -22,6 +23,7 @@ namespace WeightCore.Gui.XamlPages
         public int ColumnCount { get; } = 4;
         public int PageSize { get; } = 20;
         public DialogResult Result { get; private set; }
+        public RoutedEventHandler OnClose { get; set; }
 
         #endregion
 
@@ -43,9 +45,9 @@ namespace WeightCore.Gui.XamlPages
 
         #region Public and private methods
 
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            UserSession.SqlViewModel.SetupTasks(UserSession.Host?.ScaleId);
+            UserSession.SqlViewModel.SetupTasks(UserSession.Scale.IdentityId);
 
             System.Windows.Controls.Grid gridTasks = new();
             
@@ -54,7 +56,7 @@ namespace WeightCore.Gui.XamlPages
             {
                 System.Windows.Controls.ColumnDefinition column = new()
                 {
-                    Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
+                    Width = new GridLength(1, System.Windows.GridUnitType.Star)
                 };
                 gridTasks.ColumnDefinitions.Add(column);
             }
@@ -65,7 +67,7 @@ namespace WeightCore.Gui.XamlPages
                 // Row.
                 System.Windows.Controls.RowDefinition rows = new()
                 {
-                    Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
+                    Height = new GridLength(1, System.Windows.GridUnitType.Star)
                 };
                 gridTasks.RowDefinitions.Add(rows);
                 // Task caption.
@@ -100,7 +102,7 @@ namespace WeightCore.Gui.XamlPages
             tabTasks.Content = gridTasks;
         }
 
-        public void ButtonOk_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
         {
             if (tabTasks.Content is System.Windows.Controls.Grid gridTasks)
             {
@@ -121,13 +123,13 @@ namespace WeightCore.Gui.XamlPages
             }
 
             Result = DialogResult.OK;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
-        public void ButtonClose_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        public void ButtonClose_OnClick(object sender, RoutedEventArgs e)
         {
             Result = DialogResult.Cancel;
-            UserSession.IsWpfPageLoaderClose = true;
+            OnClose?.Invoke(sender, e);
         }
 
         #endregion

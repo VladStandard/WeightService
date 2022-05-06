@@ -35,8 +35,16 @@ else
                     </Template>
                 </RadzenGridColumn>
             }
+            <RadzenGridColumn TItem="HostEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="15.0%">
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.IdentityId}")
+                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostEntity" Title=@LocaleCore.Table.Name Width="25.0%" >
+                TItem="HostEntity" Title=@LocaleCore.Table.Name Width="20.0%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.IdentityId}")
@@ -44,11 +52,9 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Ip" Title=@LocaleCore.Table.DeviceIp
-                Type="string" Width="25.0%" />
+                TItem="HostEntity" Property="Ip" Title=@LocaleCore.Table.DeviceIp Type="string" Width="20.0%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="IdRRef" Title=@LocaleCore.Table.IdRRef
-                Type="string" Width="25.0%" />
+                TItem="HostEntity" Property="IdRRef" Title=@LocaleCore.Table.IdRRef Type="string" Width="20.0%" />
             <RadzenGridColumn 
                 TItem="HostEntity" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocaleCore.Table.DeviceMac
                 Type="string" Width="25.0%" />

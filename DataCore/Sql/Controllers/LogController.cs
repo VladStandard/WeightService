@@ -37,7 +37,7 @@ namespace DataCore.Sql.Controllers
 
         public void Setup(string? hostName, string? appName)
         {
-            HostEntity? host = DataAccess.CrudHost.GetOrCreateNew(hostName);
+            HostEntity? host = DataAccess.CrudHost.GetEntity(hostName);
 
             if (host != null && !host.EqualsDefault())
                 Host = host;
@@ -117,7 +117,7 @@ namespace DataCore.Sql.Controllers
             AppEntity? app = App;
 
             if (!string.IsNullOrEmpty(hostName))
-                host = DataAccess.CrudHost.GetOrCreateNew(hostName);
+                host = DataAccess.CrudHost.GetEntity(hostName);
             if (!string.IsNullOrEmpty(appName))
                 app = DataAccess.CrudApp.GetOrCreateNew(appName);
 

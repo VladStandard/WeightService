@@ -101,9 +101,7 @@ namespace WeightCore.Gui.XamlPages
             FontSizeCaption = 30;
             FontSizeMessage = 26;
             FontSizeButton = 22;
-
             VisibilitySettings = new();
-
             Result = DialogResult.Cancel;
         }
 

@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using WeightCore.Gui;
 using WeightCore.Helpers;
 
 namespace ScalesUI.Forms
@@ -17,7 +17,6 @@ namespace ScalesUI.Forms
         #region Public and private fields and properties
 
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private int NumPage { get; set; } = 0;
         private int Offset { get; set; } = 9;
         private List<OrderDirect> OrdList { get; set; } = null;
@@ -75,7 +74,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -88,11 +87,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
-        private void AddRow(int i, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void AddRow(int i)
         {
             try
             {
@@ -104,12 +103,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
-        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderDirect order,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderDirect order)
         {
             try
             {
@@ -143,12 +141,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
-        private void DropButtons(TableLayoutPanel panel,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void DropButtons(TableLayoutPanel panel)
         {
             try
             {
@@ -156,12 +153,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
-        private void GetPage(TableLayoutPanel panel, int offset = 0, int rowCount = 10,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void GetPage(TableLayoutPanel panel, int offset = 0, int rowCount = 10)
         {
             try
             {
@@ -187,7 +183,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -201,7 +197,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
 
@@ -214,7 +210,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
     }

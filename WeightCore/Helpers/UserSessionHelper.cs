@@ -2,15 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Localizations;
+using DataCore.Protocols;
+using DataCore.Settings;
 using DataCore.Sql;
+using DataCore.Sql.Controllers;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
-using DataCore.Localizations;
-using DataCore.Settings;
 using MvvmHelpers;
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
@@ -19,7 +20,6 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Print;
 using WeightCore.Zpl;
-using DataCore.Sql.Controllers;
 
 namespace WeightCore.Helpers
 {
@@ -37,10 +37,9 @@ namespace WeightCore.Helpers
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public ManagerControllerHelper ManagerControl { get; private set; } = ManagerControllerHelper.Instance;
-        public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
-        public HostDirect Host { get; private set; }
+        //public HostDirect Host { get; private set; }
         public OrderDirect Order { get; set; }
         private ScaleEntity _scale;
         public ScaleEntity Scale
@@ -49,7 +48,7 @@ namespace WeightCore.Helpers
             set
             {
                 _scale = value;
-                SqlViewModel.SetupTasks(Host?.ScaleId);
+                SqlViewModel.SetupTasks(_scale.IdentityId);
                 OnPropertyChanged();
             }
         }
@@ -59,18 +58,6 @@ namespace WeightCore.Helpers
             Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
         [XmlElement(IsNullable = true)]
         public WeighingFactDirect WeighingFact { get; private set; }
-        private bool _isWpfPageLoaderClose;
-        public bool IsWpfPageLoaderClose
-        {
-            get => _isWpfPageLoaderClose;
-            set
-            {
-                _isWpfPageLoaderClose = value;
-                WpfPageLoader_OnClose?.Invoke(null, null);
-                OnPropertyChanged();
-            }
-        }
-        public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
         public bool IsPluCheckWeight => Plu?.IsCheckWeight == true;
         public WeighingSettingsEntity WeighingSettings { get; set; }
         public Stopwatch StopwatchMain { get; set; }
@@ -111,9 +98,9 @@ namespace WeightCore.Helpers
         {
             lock (_locker)
             {
-                // Load ID host from file.
-                Host = HostsUtils.TokenRead();
-                Scale = DataAccess.Crud.GetEntity<ScaleEntity>(Host.ScaleId);
+                HostEntity host = HostsUtils.GetHostEntity(NetUtils.GetLocalHostName(false));
+                Scale = HostsUtils.GetScaleEntity(host.IdentityId);
+
                 AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
                 ProductDate = DateTime.Now;
                 // начинается новыя серия, упаковки продукции, новая паллета
@@ -167,7 +154,7 @@ namespace WeightCore.Helpers
             if (Plu == null)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
 
@@ -184,7 +171,7 @@ namespace WeightCore.Helpers
             if (ManagerControl == null || ManagerControl.Massa == null)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
             return true;
@@ -200,7 +187,7 @@ namespace WeightCore.Helpers
             if (Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
             return true;
@@ -215,10 +202,10 @@ namespace WeightCore.Helpers
         {
             if (!managerPrint.Printer.IsPing)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain 
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
                     ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
                     : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
             return true;
@@ -239,7 +226,7 @@ namespace WeightCore.Helpers
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
                     ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
                     : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
             return true;
@@ -258,7 +245,7 @@ namespace WeightCore.Helpers
             if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner,
-                    LocaleCore.Scales.CheckWeightThreshold(weight),
+                    LocaleCore.Scales.CheckWeightThreshold(weight), true,
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -278,7 +265,7 @@ namespace WeightCore.Helpers
             if (weight > LocaleCore.Scales.MassaThresholdValue)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner,
-                    LocaleCore.Scales.CheckWeightThreshold(weight),
+                    LocaleCore.Scales.CheckWeightThreshold(weight), true,
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return result == DialogResult.Cancel;
             }
@@ -306,7 +293,7 @@ namespace WeightCore.Helpers
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
                     WeighingFact.NetWeight, Plu.UpperWeightThreshold, Plu.NominalWeight, Plu.LowerWeightThreshold),
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
             return true;
@@ -468,11 +455,7 @@ namespace WeightCore.Helpers
         /// </summary>
         /// <param name="template"></param>
         /// <param name="isClearBuffer"></param>
-        /// <param name="filePath"></param>
-        /// <param name="lineNumber"></param>
-        /// <param name="memberName"></param>
-        private void PrintLabel(TemplateDirect template, bool isClearBuffer,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void PrintLabel(TemplateDirect template, bool isClearBuffer)
         {
             try
             {
@@ -500,7 +483,7 @@ namespace WeightCore.Helpers
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, true, filePath, lineNumber, memberName);
+                GuiUtils.WpfForm.CatchException(ex);
             }
         }
 

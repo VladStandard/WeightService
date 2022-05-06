@@ -24,6 +24,7 @@ namespace WeightCore.Gui.XamlPages
         public int ColumnCount { get; } = 4;
         public int PageSize { get; } = 20;
         public DialogResult Result { get; private set; }
+        public RoutedEventHandler OnClose { get; set; }
 
         #endregion
 
@@ -147,7 +148,7 @@ namespace WeightCore.Gui.XamlPages
         public void ButtonClose_OnClick(object sender, RoutedEventArgs e)
         {
             Result = DialogResult.Cancel;
-            //    //Close();
+            OnClose?.Invoke(sender, e);
         }
 
         //private void ButtonPlu_Click(object sender, EventArgs e)

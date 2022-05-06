@@ -14,12 +14,21 @@ namespace DataCore.Files
         private static FileLogHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static FileLogHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
         public string FileName { get; set; } = "";
 
         #endregion
 
         #region public methods
+
+        public void Recreate()
+        {
+            if (string.IsNullOrEmpty(FileName) || !File.Exists(FileName))
+                return;
+            else
+            {
+                File.Delete(FileName);
+            }
+        }
 
         public void WriteMessage(string message)
         {

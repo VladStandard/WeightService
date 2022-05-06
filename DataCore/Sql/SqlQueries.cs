@@ -273,12 +273,13 @@ where [Name] = @host and [IdRRef] = @idrref
 SELECT [ID]
 FROM [DB_SCALES].[HOSTS] 
 where [IdRRef] = @idrref
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetHostByUid => @"
 select
 	 [H].[ID]
 	,[H].[NAME]
+	,[H].[HOSTNAME]
 	,[H].[IP]
 	,[H].[MAC]
 	,[H].[IDRREF]
@@ -291,9 +292,32 @@ from [db_scales].[HOSTS] [H]
 left join [db_scales].[SCALES] [SCALES] on [H].[ID] = [SCALES].[HOSTID]
 where [H].[MARKED] = 0 and [H].[IDRREF] = @idrref
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-                }
 
-                public static class Labels
+                    public static string GetHostByHostName => @"
+SELECT
+	 [H].[ID]
+	,[H].[NAME]
+	,[H].[HOSTNAME]
+	,[H].[IP]
+	,[H].[MAC]
+	,[H].[IDRREF]
+	,[H].[MARKED]
+	,[H].[SETTINGSFILE]
+	,[H].[ACCESS_DT]
+	,[SCALES].[ID] [SCALE_ID]
+	,[SCALES].[DESCRIPTION] [SCALE_DESCRIPTION]
+FROM [db_scales].[HOSTS] [H]
+LEFT JOIN [db_scales].[SCALES] [SCALES] ON [H].[ID] = [SCALES].[HOSTID]
+WHERE [H].[MARKED] = 0 AND [H].[HOSTNAME] = @HOST_NAME
+				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+					public static string InsertNew => @"
+INSERT INTO [db_scales].[HOSTS] (IdRRef, NAME, MAC, IP, SettingsFile) 
+VALUES(@uid, @name, @mac, @ip, @doc)
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				}
+
+				public static class Labels
                 {
                     public static string Save => @"
 INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])

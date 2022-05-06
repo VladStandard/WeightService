@@ -63,6 +63,25 @@ namespace DataCore.Sql.Controllers
             return host;
         }
 
+        public HostEntity? GetEntity(string? hostName)
+        {
+            HostEntity? host = null;
+            if (!string.IsNullOrEmpty(hostName) && hostName is string strName)
+            {
+                host = DataAccess.Crud.GetEntity<HostEntity>(
+                    new FieldListEntity(new Dictionary<DbField, object?> {
+                        { DbField.HostName, hostName },
+                        { DbField.IsMarked, false },
+                    }));
+                if (host != null && !host.EqualsDefault())
+                {
+                    host.AccessDt = DateTime.Now;
+                    DataAccess.Crud.UpdateEntity(host);
+                }
+            }
+            return host;
+        }
+
         public List<HostEntity> GetFree(long? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
