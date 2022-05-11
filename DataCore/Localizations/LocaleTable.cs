@@ -105,6 +105,7 @@ namespace DataCore.Localizations
         public string Member => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
         public string Message => Lang == ShareEnums.Lang.English ? "Message" : "Сообщение";
         public string Name => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
+        public string NamePretty => Lang == ShareEnums.Lang.English ? "Pretty name" : "Красивое наименование";
         public string NameFull => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
         public string NetWeight => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
         public string Nomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";

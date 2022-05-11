@@ -2,7 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using System;
+using System.Collections.Generic;
+using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.DataModels
 {
@@ -126,6 +129,28 @@ namespace DataCore.Sql.DataModels
         }
 
         public new virtual LogQuickEntity CloneCast => (LogQuickEntity)Clone();
+
+        public virtual long GetScaleIdentityId(DataAccessHelper dataAccess)
+        {
+            if (dataAccess != null && !string.IsNullOrEmpty(Scale))
+            {
+                ScaleEntity scale = dataAccess.Crud.GetEntity<ScaleEntity>(
+                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Description, Scale } }));
+                return scale.IdentityId;
+            }
+            return 0;
+        }
+
+        public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
+        {
+            if (dataAccess != null && !string.IsNullOrEmpty(Host))
+            {
+                HostEntity host = dataAccess.Crud.GetEntity<HostEntity>(
+                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.HostName, Host } }));
+                return host.IdentityId;
+            }
+            return 0;
+        }
 
         #endregion
     }

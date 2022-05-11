@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.600] - 2022-05-11
+### Fixed
+- Shared.SectionLogs
+### Описание обновления:
+- Обновлены раздел и страница логов
+- Обновлены раздел и страница хостов
+
 ## [0.6.580] - 2022-05-05
 ### Fixed
 - Shared.Index
