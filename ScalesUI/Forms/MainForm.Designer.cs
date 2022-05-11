@@ -172,7 +172,6 @@
             this.fieldPrintShippingManager.AutoSize = true;
             this.fieldPrintShippingManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldPrintShippingManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintShippingManager.Enabled = false;
             this.fieldPrintShippingManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintShippingManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldPrintShippingManager.Location = new System.Drawing.Point(915, 362);
@@ -257,7 +256,6 @@
             this.fieldTasks.AutoSize = true;
             this.fieldTasks.BackColor = System.Drawing.Color.Transparent;
             this.fieldTasks.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldTasks.Enabled = false;
             this.fieldTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldTasks.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldTasks.Location = new System.Drawing.Point(915, 477);
@@ -295,7 +293,6 @@
             this.fieldPrintMainManager.AutoSize = true;
             this.fieldPrintMainManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldPrintMainManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintMainManager.Enabled = false;
             this.fieldPrintMainManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPrintMainManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldPrintMainManager.Location = new System.Drawing.Point(915, 339);
@@ -313,7 +310,6 @@
             this.fieldMassaManager.AutoSize = true;
             this.fieldMassaManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaManager.Enabled = false;
             this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldMassaManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaManager.Location = new System.Drawing.Point(915, 431);
