@@ -330,9 +330,9 @@ INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
 	VALUES (@ID, @ZPL)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetLabels => @"
+                    public static string GetLabels(int topRecords) => @$"
 -- Table Select Labels
-SELECT
+SELECT {GetTopRecords(topRecords)}
 	[L].[ID]
    ,[L].[CREATEDATE]
    ,[L].[LABEL]
@@ -550,9 +550,9 @@ values(@name)
 
                 public static class WeithingFacts
                 {
-                    public static string GetWeithingFacts => @"
+                    public static string GetWeithingFacts(int topRecords) => @$"
 -- Table WeithingFact diagram summary
-select
+SELECT {GetTopRecords(topRecords)}
 	 cast([wf].[WeithingDate] as date) [WeithingDate]
 	,count(*) [Count]
 	,[s].[Description] [Scale]

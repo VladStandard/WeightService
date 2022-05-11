@@ -80,31 +80,32 @@ namespace DataCore.Sql.Controllers
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (ex != null)
-                Log(ex.Message, LogType.Error, filePath, memberName, lineNumber, hostName, appName);
+                Log(ex.Message, LogType.Error, filePath, lineNumber, memberName, hostName, appName);
             if (ex?.InnerException != null)
-                Log(ex.InnerException.Message, LogType.Error, filePath, memberName, lineNumber, hostName, appName);
+                Log(ex.InnerException.Message, LogType.Error, filePath, lineNumber, memberName, hostName, appName);
         }
 
         public void LogError(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            Log(message, LogType.Error, filePath, memberName, lineNumber, hostName, appName);
+            Log(message, LogType.Error, filePath, lineNumber, memberName, hostName, appName);
         }
 
         public void LogStop(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            Log(message, LogType.Stop, filePath, memberName, lineNumber, hostName, appName);
+            Log(message, LogType.Stop, filePath, lineNumber, memberName, hostName, appName);
 
         public void LogInformation(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            Log(message, LogType.Information, filePath, memberName, lineNumber, hostName, appName);
+            Log(message, LogType.Information, filePath, lineNumber, memberName, hostName, appName);
 
         public void LogWarning(string message, string? hostName = null, string? appName = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            Log(message, LogType.Warning, filePath, memberName, lineNumber, hostName, appName);
+            Log(message, LogType.Warning, filePath, lineNumber, memberName, hostName, appName);
 
-        private void Log(string message, LogType logType, string filePath, string memberName, int lineNumber,
-             string? hostName = null, string? appName = null)
+        public void Log(string message, LogType logType,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "",
+            string? hostName = null, string? appName = null)
         {
             StringUtils.SetStringValueTrim(ref filePath, 32, true);
             StringUtils.SetStringValueTrim(ref memberName, 32);
@@ -141,7 +142,7 @@ namespace DataCore.Sql.Controllers
         public void LogQuestion(string message, string filePath, string memberName, int lineNumber,
             string? hostName = null, string? appName = null)
         {
-            Log(message, LogType.Question, filePath, memberName, lineNumber, hostName, appName);
+            Log(message, LogType.Question, filePath, lineNumber, memberName, hostName, appName);
         }
 
         public Guid SaveApp(string name)

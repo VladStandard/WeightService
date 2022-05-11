@@ -101,8 +101,9 @@ namespace ScalesUI.Forms
                 {
                     MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                     SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                    UserSession.DataAccess.Log.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}");
-                    UserSession.DataAccess.Log.LogInformation(LocaleData.Program.IsLoaded + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.");
+                    UserSession.DataAccess.Log.Log($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}", 
+                        LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.DataAccess.Log.Log(LocaleData.Program.IsLoaded + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.");
                     UserSession.StopwatchMain.Stop();
                 }
             }).ConfigureAwait(false);
@@ -599,8 +600,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?", true,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?", 
+                    true, LogType.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 if (result != DialogResult.Yes)
                     return;
 
@@ -613,7 +615,8 @@ namespace ScalesUI.Forms
                 else
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
-                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true);
+                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogType.Warning, null,
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 }
                 UserSession.ManagerControl.Open();
             }
@@ -633,17 +636,20 @@ namespace ScalesUI.Forms
             {
                 if (!UserSession.IsPluCheckWeight)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true);
+                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true, LogType.Warning, null,
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     return;
                 }
                 if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true);
+                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogType.Warning, null,
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     return;
                 }
 
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, 
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 if (result != DialogResult.Yes)
                     return;
 
@@ -809,7 +815,8 @@ namespace ScalesUI.Forms
             {
                 if (UserSession.Plu == null)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true);
+                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true, LogType.Warning, null,
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     return;
                 }
 

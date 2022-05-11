@@ -7,6 +7,7 @@ using System;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using DataCore.Localizations;
+using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
 {
@@ -140,7 +141,8 @@ namespace ScalesUI.Forms
 
             if (UserSession.Plu.IsCheckWeight == true && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true);
+                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 UserSession.WeighingSettings.LabelsCountMain = 1;
             }
             fieldPalletSize.Text = $"{UserSession.WeighingSettings.LabelsCountMain}";

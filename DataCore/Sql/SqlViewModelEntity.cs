@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using DataCore.Sql.Controllers;
+using DataCore.Protocols;
+using DataCore.Sql.TableScaleModels;
 
 namespace DataCore.Sql
 {
@@ -76,13 +78,23 @@ namespace DataCore.Sql
             }
         }
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
-        private string? _host;
-        public string? Host
+        private string? _hostName;
+        public string? HostName
         {
-            get => _host;
+            get => _hostName;
             set
             {
-                _host = value;
+                _hostName = value;
+                OnPropertyChanged();
+            }
+        }
+        private string? _scaleName;
+        public string? ScaleName
+        {
+            get => _scaleName;
+            set
+            {
+                _scaleName = value;
                 OnPropertyChanged();
             }
         }
@@ -135,7 +147,13 @@ namespace DataCore.Sql
 
             TaskTypes = new List<TaskTypeDirect>();
             Tasks = new List<TaskDirect>();
-            Host = Environment.MachineName;
+            
+            //HostName = Environment.MachineName;
+            HostName = NetUtils.GetLocalHostName(false);
+            HostEntity host = HostsUtils.GetHostEntity(HostName);
+            ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
+            ScaleName = scale.Description;
+
             ButtonsOkCaption = LocaleData.Buttons.Ok;
             ButtonsCancelCaption = LocaleData.Buttons.Cancel;
         }

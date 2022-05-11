@@ -29,12 +29,12 @@
                 <TabItem Width="100" Height="25" >
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="SQL" Foreground="Blue" />
+                            <TextBlock Text="Главная" Foreground="Blue" />
                         </StackPanel>
                     </TabItem.Header>
                     <Grid >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.4*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -55,31 +55,19 @@
                         <Label Margin="2" Grid.Column="1" Grid.Row="1" 
                                Content="{Binding Path=PublishDescription, Mode=OneWay, IsAsync=True}" 
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="Источник данных" 
+                        <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="Хост" 
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                         <Label Margin="2" Grid.Column="1" Grid.Row="2" 
-                               Content="{Binding Path=DataAccess.JsonSettings.Sql.Server, Mode=OneWay, IsAsync=True}" 
+                               Content="{Binding Path=HostName, Mode=OneWay, IsAsync=True}" 
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="3" Content="База данных" 
+                        <Label Margin="2" Grid.Column="0" Grid.Row="3" Content="АРМ" 
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                         <Label Margin="2" Grid.Column="1" Grid.Row="3" 
-                               Content="{Binding Path=DataAccess.JsonSettings.Sql.Db, Mode=OneWay, IsAsync=True}" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="4" Content="Имя ПК" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="1" Grid.Row="4" 
-                               Content="{Binding Path=Host, Mode=OneWay, IsAsync=True}" 
+                               Content="{Binding Path=ScaleName, Mode=OneWay, IsAsync=True}" 
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                     </Grid>
                 </TabItem>
-                <TabItem Width="150" Name="tabTasks" >
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Менеджер задач" Foreground="Blue" />
-                        </StackPanel>
-                    </TabItem.Header>
-                </TabItem>
-            </TabControl>
+             </TabControl>
         </Border>
 
         <Button Margin="2" Grid.Column="0" Grid.Row="5" FontSize="16" 

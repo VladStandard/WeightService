@@ -54,7 +54,8 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                     if (AppSettings.DataAccess != null)
                     {
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                            SqlQueries.DbScales.Tables.Labels.GetLabels);
+                            SqlQueries.DbScales.Tables.Labels.GetLabels(
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
                         Items = new List<LabelQuickEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {

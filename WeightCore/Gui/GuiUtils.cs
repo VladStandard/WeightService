@@ -15,6 +15,7 @@ using Microsoft.Data.SqlClient;
 using DataCore.Protocols;
 using System.Xml.Linq;
 using DataCore.Sql.TableScaleModels;
+using static DataCore.ShareEnums;
 
 namespace WeightCore.Gui
 {
@@ -103,10 +104,17 @@ namespace WeightCore.Gui
             /// </summary>
             /// <param name="owner"></param>
             /// <param name="message"></param>
-            public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, VisibilitySettingsEntity visibility = null)
+            /// <param name="isLog"></param>
+            /// <param name="logType"></param>
+            /// <param name="visibility"></param>
+            /// <returns></returns>
+            public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogType logType,
+                VisibilitySettingsEntity visibility = null,
+                string hostName = "", string appName = "", 
+                [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             {
                 if (isLog)
-                    DataAccess.Log.LogInformation(message);
+                    DataAccess.Log.Log(message, logType, filePath, lineNumber, memberName, hostName, appName);
                 return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
                     visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
             }
@@ -139,8 +147,9 @@ namespace WeightCore.Gui
             public static DialogResult ShowNewHostSaveInDb(Guid uid)
             {
                 DialogResult result = ShowNewOperationControl(null,
-                    LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
-                    false, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                    LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb, 
+                    false, LogType.Information,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result == DialogResult.Yes)
                 {
                     DataCore.Sql.Controllers.HostsUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
@@ -160,7 +169,8 @@ namespace WeightCore.Gui
             {
                 DialogResult result = ShowNewOperationControl(null,
                     LocaleCore.Scales.HostNotFound(hostName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                    false, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                    false, LogType.Information,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result == DialogResult.Yes)
                 {
                     HostEntity host = new() {

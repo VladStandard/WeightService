@@ -54,7 +54,8 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                     if (AppSettings.DataAccess != null)
                     {
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
+                            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
                         Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {

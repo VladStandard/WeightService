@@ -20,6 +20,7 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Print;
 using WeightCore.Zpl;
+using static DataCore.ShareEnums;
 
 namespace WeightCore.Helpers
 {
@@ -154,7 +155,9 @@ namespace WeightCore.Helpers
             if (Plu == null)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
-                    true, new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
 
@@ -171,7 +174,9 @@ namespace WeightCore.Helpers
             if (ManagerControl == null || ManagerControl.Massa == null)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
-                    true, new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;
@@ -187,7 +192,9 @@ namespace WeightCore.Helpers
             if (Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-                    true, new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;
@@ -205,7 +212,9 @@ namespace WeightCore.Helpers
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
                     ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
                     : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-                    true, new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;
@@ -226,7 +235,9 @@ namespace WeightCore.Helpers
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
                     ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
                     : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-                    true, new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;
@@ -244,9 +255,10 @@ namespace WeightCore.Helpers
             decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner,
-                    LocaleCore.Scales.CheckWeightThreshold(weight), true,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), 
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;
@@ -264,9 +276,10 @@ namespace WeightCore.Helpers
             decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight > LocaleCore.Scales.MassaThresholdValue)
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner,
-                    LocaleCore.Scales.CheckWeightThreshold(weight), true,
-                    new() { ButtonCancelVisibility = Visibility.Visible });
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), 
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return result == DialogResult.Cancel;
             }
             return true;
@@ -293,7 +306,9 @@ namespace WeightCore.Helpers
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
                     WeighingFact.NetWeight, Plu.UpperWeightThreshold, Plu.NominalWeight, Plu.LowerWeightThreshold),
-                    true, new() { ButtonCancelVisibility = Visibility.Visible });
+                    true, LogType.Warning,
+                    new() { ButtonCancelVisibility = Visibility.Visible },
+                    Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;

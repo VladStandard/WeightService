@@ -99,28 +99,28 @@ namespace WeightCore.Gui.XamlPages
                 gridTasks.Children.Add(comboBoxTaskEnabled);
             }
             // Fill tab.
-            tabTasks.Content = gridTasks;
+            //tabTasks.Content = gridTasks;
         }
 
         public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
         {
-            if (tabTasks.Content is System.Windows.Controls.Grid gridTasks)
-            {
-                foreach (object item in gridTasks.Children)
-                {
-                    if (item is System.Windows.Controls.ComboBox comboBoxTaskEnabled)
-                    {
-                        if (comboBoxTaskEnabled.Tag is TaskDirect taskItem)
-                        {
-                            if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
-                            {
-                                TasksUtils.SaveTask(taskItem, 
-                                    string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
-                            }
-                        }
-                    }
-                }
-            }
+            //if (tabTasks.Content is System.Windows.Controls.Grid gridTasks)
+            //{
+            //    foreach (object item in gridTasks.Children)
+            //    {
+            //        if (item is System.Windows.Controls.ComboBox comboBoxTaskEnabled)
+            //        {
+            //            if (comboBoxTaskEnabled.Tag is TaskDirect taskItem)
+            //            {
+            //                if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
+            //                {
+            //                    TasksUtils.SaveTask(taskItem, 
+            //                        string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             Result = DialogResult.OK;
             OnClose?.Invoke(sender, e);
