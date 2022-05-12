@@ -114,7 +114,7 @@ namespace WeightCore.Gui
                 [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             {
                 if (isLog)
-                    DataAccess.Log.Log(message, logType, filePath, lineNumber, memberName, hostName, appName);
+                    DataAccess.Log.Log(message, logType, hostName, appName, filePath, lineNumber, memberName);
                 return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
                     visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
             }

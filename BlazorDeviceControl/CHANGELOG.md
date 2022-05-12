@@ -8,10 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.610] - 2022-05-12
 ### Fixed
-- Shared.SectionWeithingFactsAggregation
+- Shared.SectionAccess
 - Shared.SectionLabels
+- Shared.SectionWeithingFactsAggregation
 ### Описание обновления:
 - Обновлён раздел агр. взвешивания
+- Обновлён раздел доступа пользователей
 - Обновлён раздел этикеток
 
 ## [0.6.605] - 2022-05-11

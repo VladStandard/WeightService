@@ -112,6 +112,26 @@ a, .btn-link {
     border-color: transparent;
 }
 
+.rz-datatable-none > td {
+    background-color: transparent;
+}
+.rz-datatable-read > td {
+    background-color: lightyellow;
+}
+.rz-datatable-write > td {
+    background-color: lightgreen;
+}
+.rz-datatable-admin > td {
+    background-color: lightgreen;
+}
+
+.rz-datatable-my > td {
+    background-color: rgb(186 184 200 / 0.05);
+}
+.row-highlight-my > td {
+    background-color: transparent;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

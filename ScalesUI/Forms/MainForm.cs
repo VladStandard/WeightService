@@ -103,7 +103,8 @@ namespace ScalesUI.Forms
                     SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
                     UserSession.DataAccess.Log.Log($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}", 
                         LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                    UserSession.DataAccess.Log.Log(LocaleData.Program.IsLoaded + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.");
+                    UserSession.DataAccess.Log.Log(LocaleData.Program.IsLoaded + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+                        LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     UserSession.StopwatchMain.Stop();
                 }
             }).ConfigureAwait(false);
@@ -365,7 +366,7 @@ namespace ScalesUI.Forms
                 if (Quartz == null)
                     return;
                 UserSession.ProductDate = DateTime.Now;
-                UserSession.DataAccess.Log.LogInformation("ScheduleIsNextDay");
+                UserSession.DataAccess.Log.LogInformation(LocaleCore.Scales.ScheduleForNextDay);
             }
         }
 

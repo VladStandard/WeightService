@@ -49,7 +49,7 @@ namespace BlazorCore.Models
 
         public void SetAccessRights(byte accessRights) => SetAccessRights((ShareEnums.AccessRights)accessRights);
 
-        public string GetDescriptionAccessRights(ShareEnums.AccessRights accessRights = ShareEnums.AccessRights.None)
+        public string GetDescriptionAccessRights(ShareEnums.AccessRights accessRights)
         {
             if (accessRights == ShareEnums.AccessRights.None)
                 accessRights = AccessRights;
@@ -63,6 +63,36 @@ namespace BlazorCore.Models
         }
 
         public string GetDescriptionAccessRights(byte accessRights) => GetDescriptionAccessRights((ShareEnums.AccessRights)accessRights);
+
+        public string GetColorAccessRights(ShareEnums.AccessRights accessRights, uint rowCounter)
+        {
+            if (accessRights == ShareEnums.AccessRights.None)
+                accessRights = AccessRights;
+            return accessRights switch
+            {
+                ShareEnums.AccessRights.Read => rowCounter % 2 == 0 ? "rz-datatable-even-read" : "rz-datatable-odd-read",
+                ShareEnums.AccessRights.Write => rowCounter % 2 == 0 ? "rz-datatable-even-write" : "rz-datatable-odd-write",
+                ShareEnums.AccessRights.Admin => rowCounter % 2 == 0 ? "rz-datatable-even-admin" : "rz-datatable-odd-admin",
+                _ => rowCounter % 2 == 0 ? "rz-datatable-even-none" : "rz-datatable-odd-none",
+            };
+        }
+
+        public string GetColorAccessRights(byte accessRights, uint rowCounter) => GetColorAccessRights((ShareEnums.AccessRights)accessRights, rowCounter);
+
+        public string GetColorAccessRights(ShareEnums.AccessRights accessRights)
+        {
+            if (accessRights == ShareEnums.AccessRights.None)
+                accessRights = AccessRights;
+            return accessRights switch
+            {
+                ShareEnums.AccessRights.Read => "rz-datatable-read",
+                ShareEnums.AccessRights.Write => "rz-datatable-write",
+                ShareEnums.AccessRights.Admin => "rz-datatable-admin",
+                _ => ".rz-datatable-none",
+            };
+        }
+
+        public string GetColorAccessRights(byte accessRights) => GetColorAccessRights((ShareEnums.AccessRights)accessRights);
 
         #endregion
     }

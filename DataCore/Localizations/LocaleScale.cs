@@ -27,6 +27,7 @@ namespace DataCore.Localizations
         public readonly decimal MassaThresholdNegative = -1.000M;
         public readonly decimal MassaThresholdPositive = 0.050M;
         public readonly decimal MassaThresholdValue = 0.010M;
+        public string AlreadyRunning => Lang == ShareEnums.Lang.English ? "already running" : "уже запущено";
         public string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
         public string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
         public string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
@@ -102,13 +103,13 @@ namespace DataCore.Localizations
         public string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
         public string QuestionWriteToDb => Lang == ShareEnums.Lang.English ? "Add new record into the DB?" : "Добавить новую запись в БД?";
         public string Registration => Lang == ShareEnums.Lang.English ? "Device registration" : "Регистрация устройства";
+        public string RegistrationSuccess(string hostName, string scaleName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' is found. ARM '{scaleName}' is found." : $"Хост '{hostName}' найден. АРМ '{scaleName}' найден.";
         public string RegistrationWarning(Guid uid) => Lang == ShareEnums.Lang.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
         public string RegistrationWarningHostNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' not found!" : $"Хост '{hostName}' не найден!";
-        public string RegistrationSuccess(string hostName, string scaleName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' is found. ARM '{scaleName}' is found." : $"Хост '{hostName}' найден. АРМ '{scaleName}' найден.";
-        public string AlreadyRunning => Lang == ShareEnums.Lang.English ? "already running" : "уже запущено";
         public string RegistrationWarningScaleNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"ARM for host '{hostName}' not found!" : $"АРМ для хоста '{hostName}' не найден!";
         public string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
         public string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
+        public string ScheduleForNextDay => Lang == ShareEnums.Lang.English ? "Schedule for next day" : "Расписание на следующий день";
         public string ScreenResolution => Lang == ShareEnums.Lang.English ? "Screen resolution" : "Разрешение экрана";
         public string ShippingLabels => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
         public string StateCorrect => Lang == ShareEnums.Lang.English ? "correct" : "верна";

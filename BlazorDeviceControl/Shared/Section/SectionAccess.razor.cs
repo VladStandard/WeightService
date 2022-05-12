@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
+using Radzen;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -19,6 +20,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<AccessEntity> ItemsCast => Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList();
+        //private uint RowCounter { get; set; } = 0;
 
         #endregion
 
@@ -50,19 +52,22 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
-                            (IsShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                        ?.ToList<BaseEntity>();
-                    }
+                    Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
+                        (IsShowMarkedItems == true) ? null
+                            : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
+                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                    ?.ToList<BaseEntity>();
                     ButtonSettings = new(true, false, true, true, true, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
+        }
+        
+        public void RowRender(RowRenderEventArgs<AccessEntity> args)
+        {
+            args.Attributes.Add("class", UserSettings.Identity.GetColorAccessRights(args.Data.Rights));
+            //RowCounter += 1;
         }
 
         #endregion

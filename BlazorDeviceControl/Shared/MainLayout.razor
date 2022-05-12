@@ -55,7 +55,7 @@
                                     Text=@AppSettings.MemoryInfo Path=@LocaleData.DeviceControl.UriRouteSection.Root 
                                     Click=@MemoryClearAsync />
                                 <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                    Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights()}]") 
+                                    Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights(ShareEnums.AccessRights.None)}]") 
                                     Path=@LocaleData.DeviceControl.UriRouteSection.Access
                                     Click=@(args => SetParametersAsync(new())) />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
