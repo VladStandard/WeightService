@@ -37,9 +37,12 @@ namespace DataCore.Sql.TableScaleModels
             Nomenclature = new();
         }
 
-        public BarCodeEntityV2(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected BarCodeEntityV2(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Value = info.GetString(nameof(Value));
+            BarcodeType = (BarCodeTypeEntityV2)info.GetValue(nameof(BarcodeType), typeof(BarCodeTypeEntityV2));
+            Contragent = (ContragentEntityV2)info.GetValue(nameof(Contragent), typeof(ContragentEntityV2));
+            Nomenclature = (NomenclatureEntity)info.GetValue(nameof(Nomenclature), typeof(NomenclatureEntity));
         }
 
         #endregion
@@ -114,6 +117,15 @@ namespace DataCore.Sql.TableScaleModels
         }
 
         public new virtual BarCodeEntityV2 CloneCast() => (BarCodeEntityV2)Clone();
+
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(Value), Value);
+            info.AddValue(nameof(BarcodeType), BarcodeType);
+            info.AddValue(nameof(Contragent), Contragent);
+            info.AddValue(nameof(Nomenclature), Nomenclature);
+        }
 
         #endregion
     }

@@ -33,7 +33,7 @@ namespace DataCore.Sql.TableScaleModels
             Rights = 0x00;
         }
 
-        public AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             User = info.GetString(nameof(User));
             Rights = info.GetByte(nameof(Rights));

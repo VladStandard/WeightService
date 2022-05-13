@@ -40,7 +40,7 @@ namespace DataCore.Sql.TableScaleModels
             ImageDataValue = new byte[0];
         }
 
-        public TemplateEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TemplateEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             CategoryId = info.GetString(nameof(CategoryId));
             IdRRef = Guid.Parse(info.GetString(nameof(IdRRef)));

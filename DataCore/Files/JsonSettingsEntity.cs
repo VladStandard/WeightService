@@ -17,7 +17,8 @@ namespace DataCore.Files
         public int SelectTopRowsCount { get; set; }
         public ushort Version { get; set; }
         public string AllowedHosts { get; set; }
-        public string ConnectionString { get; set; }
+        [NonSerialized] private string _connectionString;
+        public string ConnectionString { get => _connectionString; set => _connectionString = value; }
 
         #endregion
 
@@ -31,13 +32,13 @@ namespace DataCore.Files
             SelectTopRowsCount = 0;
             AllowedHosts = string.Empty;
             Version = 0;
-            ConnectionString = string.Empty;
+            ConnectionString = _connectionString = string.Empty;
             CheckProperties(isCheckProperties);
         }
 
         public JsonSettingsEntity() : this(new(), false) { }
 
-        public JsonSettingsEntity(SerializationInfo info, StreamingContext context)
+        protected JsonSettingsEntity(SerializationInfo info, StreamingContext context)
         {
             Sql = (JsonSettingsSqlEntity)info.GetValue(nameof(Sql), typeof(JsonSettingsSqlEntity));
             SectionRowsCount = info.GetInt32(nameof(SectionRowsCount));
@@ -45,7 +46,7 @@ namespace DataCore.Files
             SelectTopRowsCount = info.GetInt32(nameof(SelectTopRowsCount));
             Version = info.GetUInt16(nameof(Version));
             AllowedHosts = info.GetString(nameof(AllowedHosts));
-            ConnectionString = string.Empty;
+            ConnectionString = _connectionString = string.Empty;
         }
 
         #endregion

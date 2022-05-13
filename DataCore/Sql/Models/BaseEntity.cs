@@ -57,7 +57,7 @@ namespace DataCore.Sql.Models
             IdentityUid = identityUid;
         }
 
-        public BaseEntity(SerializationInfo info, StreamingContext context)
+        protected BaseEntity(SerializationInfo info, StreamingContext context)
         {
             IdentityName = GetColumnName(info.GetString(nameof(IdentityName)));
             CreateDt = info.GetDateTime(nameof(CreateDt));

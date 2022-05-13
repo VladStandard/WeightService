@@ -75,7 +75,7 @@ namespace DataCore.Sql.TableScaleModels
             CheckWeight = false;
         }
 
-        public PluEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected PluEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Template = (TemplateEntity)info.GetValue(nameof(Template), typeof(TemplateEntity));
             Scale = (ScaleEntity)info.GetValue(nameof(Scale), typeof(ScaleEntity));

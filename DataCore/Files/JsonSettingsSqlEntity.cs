@@ -40,7 +40,7 @@ namespace DataCore.Files
             TrustServerCertificate = false;
         }
 
-        public JsonSettingsSqlEntity(SerializationInfo info, StreamingContext context)
+        protected JsonSettingsSqlEntity(SerializationInfo info, StreamingContext context)
         {
             DataSource = info.GetString("Data Source");
             InitialCatalog = info.GetString("Initial Catalog");

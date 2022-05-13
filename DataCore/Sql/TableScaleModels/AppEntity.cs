@@ -31,7 +31,7 @@ namespace DataCore.Sql.TableScaleModels
             Name = string.Empty;
         }
 
-        public AppEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected AppEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Name = info.GetString(nameof(Name));
         }

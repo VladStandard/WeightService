@@ -30,7 +30,7 @@ namespace DataCore.Sql.Models
             //
         }
 
-        public BaseSerializeEntity(SerializationInfo info, StreamingContext context)
+        protected BaseSerializeEntity(SerializationInfo info, StreamingContext context)
         {
             //
         }
