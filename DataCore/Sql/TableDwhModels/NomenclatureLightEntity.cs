@@ -120,24 +120,22 @@ namespace DataCore.Sql.TableDwhModels
 
         public new virtual object Clone()
         {
-            NomenclatureLightEntity item = new()
-            {
-                Code = Code,
-                Name = Name,
-                Parents = Parents,
-                NameFull = NameFull,
-                IsService = IsService,
-                IsProduct = IsProduct,
-                InformationSystem = InformationSystem.CloneCast,
-                RelevanceStatus = RelevanceStatus,
-                NormalizationStatus = NormalizationStatus,
-                MasterId = MasterId,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            NomenclatureLightEntity item = new();
+            item.Code = Code;
+            item.Name = Name;
+            item.Parents = Parents;
+            item.NameFull = NameFull;
+            item.IsService = IsService;
+            item.IsProduct = IsProduct;
+            item.InformationSystem = InformationSystem.CloneCast();
+            item.RelevanceStatus = RelevanceStatus;
+            item.NormalizationStatus = NormalizationStatus;
+            item.MasterId = MasterId;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual NomenclatureLightEntity CloneCast => (NomenclatureLightEntity)Clone();
+        public new virtual NomenclatureLightEntity CloneCast() => (NomenclatureLightEntity)Clone();
 
         #endregion
     }

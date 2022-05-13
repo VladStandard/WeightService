@@ -85,17 +85,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            TaskEntity item = new()
-            {
-                TaskType = TaskType.CloneCast,
-                Scale = Scale.CloneCast,
-                Enabled = Enabled,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            TaskEntity item = new();
+            item.TaskType = TaskType.CloneCast();
+            item.Scale = Scale.CloneCast();
+            item.Enabled = Enabled;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual TaskEntity CloneCast => (TaskEntity)Clone();
+        public new virtual TaskEntity CloneCast() => (TaskEntity)Clone();
 
         #endregion
     }

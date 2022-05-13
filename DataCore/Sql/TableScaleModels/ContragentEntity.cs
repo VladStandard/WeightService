@@ -77,16 +77,14 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            ContragentEntity item = new()
-            {
-                Name = Name,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            ContragentEntity item = new();
+            item.Name = Name;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual ContragentEntity CloneCast => (ContragentEntity)Clone();
+        public new virtual ContragentEntity CloneCast() => (ContragentEntity)Clone();
 
         #endregion
     }

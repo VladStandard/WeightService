@@ -69,11 +69,11 @@ namespace DataCore.Sql.Models
         public new virtual object Clone()
         {
             BaseDummyEntity item = new();
-            item.Setup(((BaseEntity)this).CloneCast);
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual BaseDummyEntity CloneCast => (BaseDummyEntity)Clone();
+        public new virtual BaseDummyEntity CloneCast() => (BaseDummyEntity)Clone();
 
         #endregion
     }

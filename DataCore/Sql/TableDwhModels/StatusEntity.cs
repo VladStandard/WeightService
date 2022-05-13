@@ -67,15 +67,13 @@ namespace DataCore.Sql.TableDwhModels
 
         public new virtual object Clone()
         {
-            StatusEntity item = new()
-            {
-                Name = Name,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            StatusEntity item = new();
+            item.Name = Name;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual StatusEntity CloneCast => (StatusEntity)Clone();
+        public new virtual StatusEntity CloneCast() => (StatusEntity)Clone();
 
         #endregion
     }

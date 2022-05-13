@@ -130,24 +130,22 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            OrderEntity item = new()
-            {
-                OrderTypes = OrderTypes.CloneCast,
-                ProductDate = ProductDate,
-                PlaneBoxCount = PlaneBoxCount,
-                PlanePalletCount = PlanePalletCount,
-                PlanePackingOperationBeginDate = PlanePackingOperationBeginDate,
-                PlanePackingOperationEndDate = PlanePackingOperationEndDate,
-                Scales = Scales.CloneCast,
-                Plu = Plu.CloneCast,
-                IdRRef = IdRRef,
-                Templates = Templates.CloneCast,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            OrderEntity item = new();
+            item.OrderTypes = OrderTypes.CloneCast();
+            item.ProductDate = ProductDate;
+            item.PlaneBoxCount = PlaneBoxCount;
+            item.PlanePalletCount = PlanePalletCount;
+            item.PlanePackingOperationBeginDate = PlanePackingOperationBeginDate;
+            item.PlanePackingOperationEndDate = PlanePackingOperationEndDate;
+            item.Scales = Scales.CloneCast();
+            item.Plu = Plu.CloneCast();
+            item.IdRRef = IdRRef;
+            item.Templates = Templates.CloneCast();
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual OrderEntity CloneCast => (OrderEntity)Clone();
+        public new virtual OrderEntity CloneCast() => (OrderEntity)Clone();
 
         #endregion
     }

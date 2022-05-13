@@ -70,15 +70,13 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            OrderTypeEntity item = new()
-            {
-                Description = Description,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            OrderTypeEntity item = new();
+            item.Description = Description;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual OrderTypeEntity CloneCast => (OrderTypeEntity)Clone();
+        public new virtual OrderTypeEntity CloneCast() => (OrderTypeEntity)Clone();
 
         #endregion
     }

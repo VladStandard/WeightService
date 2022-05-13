@@ -112,23 +112,21 @@ namespace DataCore.Sql.DataModels
 
         public new virtual object Clone()
         {
-            LogQuickEntity item = new()
-            {
-                Scale = Scale,
-                Host = Host,
-                App = App,
-                Version = Version,
-                File = File,
-                Line = Line,
-                Member = Member,
-                Icon = Icon,
-                Message = Message,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            LogQuickEntity item = new();
+            item.Scale = Scale;
+            item.Host = Host;
+            item.App = App;
+            item.Version = Version;
+            item.File = File;
+            item.Line = Line;
+            item.Member = Member;
+            item.Icon = Icon;
+            item.Message = Message;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual LogQuickEntity CloneCast => (LogQuickEntity)Clone();
+        public new virtual LogQuickEntity CloneCast() => (LogQuickEntity)Clone();
 
         public virtual long GetScaleIdentityId(DataAccessHelper dataAccess)
         {

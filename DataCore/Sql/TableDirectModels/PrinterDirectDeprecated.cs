@@ -1,42 +1,4 @@
-﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-//using DataShareCore.DAL.Models;
-//using Microsoft.Data.SqlClient;
-//using System;
-//using System.Collections.Generic;
-//using System.Xml.Serialization;
-
-//namespace DataCore.Sql.TableDirectModels
-//{
-//    [Serializable]
-//    public class ZebraPrinterDirect : BaseSerializeEntity<ZebraPrinterDirect>
-//    {
-//        [XmlIgnore] public Dictionary<string, string> Fonts { get; set; }
-//        [XmlIgnore] public Dictionary<string, string> Logo { get; set; }
-
-//        public ZebraPrinterDirect()
-//        {
-//            Init();
-//        }
-
-//        public ZebraPrinterDirect(long? id)
-//        {
-//            Init();
-//            if (id != null)
-//            {
-//                Id = (int)id;
-//                Load();
-//            }
-//        }
-
-//        private void Init()
-//        {
-//            Fonts = new Dictionary<string, string>();
-//            Logo = new Dictionary<string, string>();
-//        }
-
-//        public void Load()
+﻿//        public void Load()
 //        {
 //            using (SqlConnection con = SqlConnectFactory.GetConnection())
 //            {

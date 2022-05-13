@@ -117,22 +117,20 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            LogEntity item = new()
-            {
-                Host = Host?.CloneCast,
-                App = App?.CloneCast,
-                LogType = LogType?.CloneCast,
-                Version = Version,
-                File = File,
-                Line = Line,
-                Member = Member,
-                Message = Message,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            LogEntity item = new();
+            item.Host = Host?.CloneCast();
+            item.App = App?.CloneCast();
+            item.LogType = LogType?.CloneCast();
+            item.Version = Version;
+            item.File = File;
+            item.Line = Line;
+            item.Member = Member;
+            item.Message = Message;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual LogEntity CloneCast => (LogEntity)Clone();
+        public new virtual LogEntity CloneCast() => (LogEntity)Clone();
 
         #endregion
     }

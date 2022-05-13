@@ -92,19 +92,17 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            ErrorEntity item = new()
-            {
-                FilePath = FilePath,
-                LineNumber = LineNumber,
-                MemberName = MemberName,
-                Exception = Exception,
-                InnerException = InnerException,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            ErrorEntity item = new();
+            item.FilePath = FilePath;
+            item.LineNumber = LineNumber;
+            item.MemberName = MemberName;
+            item.Exception = Exception;
+            item.InnerException = InnerException;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual ErrorEntity CloneCast => (ErrorEntity)Clone();
+        public new virtual ErrorEntity CloneCast() => (ErrorEntity)Clone();
 
         #endregion
     }

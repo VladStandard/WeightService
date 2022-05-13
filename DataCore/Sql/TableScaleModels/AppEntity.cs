@@ -78,15 +78,13 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            AppEntity item = new()
-            {
-                Name = Name,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            AppEntity item = new();
+            item.Name = Name;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual AppEntity CloneCast => (AppEntity)Clone();
+        public new virtual AppEntity CloneCast() => (AppEntity)Clone();
 
         public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {

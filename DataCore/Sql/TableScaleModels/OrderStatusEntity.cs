@@ -81,17 +81,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            OrderStatusEntity item = new()
-            {
-                OrderId = OrderId,
-                CurrentDate = CurrentDate,
-                CurrentStatus = CurrentStatus,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            OrderStatusEntity item = new();
+            item.OrderId = OrderId;
+            item.CurrentDate = CurrentDate;
+            item.CurrentStatus = CurrentStatus;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual OrderStatusEntity CloneCast => (OrderStatusEntity)Clone();
+        public new virtual OrderStatusEntity CloneCast() => (OrderStatusEntity)Clone();
 
         #endregion
     }

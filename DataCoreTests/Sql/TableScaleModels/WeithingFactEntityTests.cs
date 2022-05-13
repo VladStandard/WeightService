@@ -43,7 +43,7 @@ namespace DataCoreTests.Sql.TableScaleModels
                         {
                             foreach (WeithingFactEntity item in itemsCast)
                             {
-                                WeithingFactEntity itemCopy = item.CloneCast;
+                                WeithingFactEntity itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
                                 WeithingFactEntity itemChange = new()

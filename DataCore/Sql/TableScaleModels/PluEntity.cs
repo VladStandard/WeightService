@@ -6,13 +6,15 @@ using DataCore.Sql.Models;
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace DataCore.Sql.TableScaleModels
 {
     /// <summary>
     /// Table "PLUs".
     /// </summary>
-    public class PluEntity : BaseEntity
+    [Serializable]
+    public class PluEntity : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
 
@@ -71,6 +73,19 @@ namespace DataCore.Sql.TableScaleModels
             NominalWeight = 0;
             LowerWeightThreshold = 0;
             CheckWeight = false;
+        }
+
+        public PluEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            Template = (TemplateEntity)info.GetValue(nameof(Template), typeof(TemplateEntity));
+            Scale = (ScaleEntity)info.GetValue(nameof(Scale), typeof(ScaleEntity));
+            Nomenclature = (NomenclatureEntity)info.GetValue(nameof(Nomenclature), typeof(NomenclatureEntity));
+            GoodsName = info.GetString(nameof(GoodsName));
+            GoodsFullName = info.GetString(nameof(GoodsFullName));
+            GoodsDescription = info.GetString(nameof(GoodsDescription));
+            Gtin = info.GetString(nameof(Gtin));
+            Ean13 = info.GetString(nameof(Ean13));
+            Itf14 = info.GetString(nameof(Itf14));
         }
 
         #endregion
@@ -315,33 +330,45 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            PluEntity item = new()
-            {
-                Template = Template.CloneCast,
-                Scale = Scale.CloneCast,
-                Nomenclature = Nomenclature.CloneCast,
-                GoodsName = GoodsName,
-                GoodsFullName = GoodsFullName,
-                GoodsDescription = GoodsDescription,
-                Gtin = Gtin,
-                Ean13 = Ean13,
-                Itf14 = Itf14,
-                GoodsShelfLifeDays = GoodsShelfLifeDays,
-                GoodsTareWeight = GoodsTareWeight,
-                GoodsBoxQuantly = GoodsBoxQuantly,
-                PluNumber = PluNumber,
-                Active = Active,
-                UpperWeightThreshold = UpperWeightThreshold,
-                NominalWeight = NominalWeight,
-                LowerWeightThreshold = LowerWeightThreshold,
-                CheckWeight = CheckWeight,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            PluEntity item = new();
+            item.Template = Template.CloneCast();
+            item.Scale = Scale.CloneCast();
+            item.Nomenclature = Nomenclature.CloneCast();
+            item.GoodsName = GoodsName;
+            item.GoodsFullName = GoodsFullName;
+            item.GoodsDescription = GoodsDescription;
+            item.Gtin = Gtin;
+            item.Ean13 = Ean13;
+            item.Itf14 = Itf14;
+            item.GoodsShelfLifeDays = GoodsShelfLifeDays;
+            item.GoodsTareWeight = GoodsTareWeight;
+            item.GoodsBoxQuantly = GoodsBoxQuantly;
+            item.PluNumber = PluNumber;
+            item.Active = Active;
+            item.UpperWeightThreshold = UpperWeightThreshold;
+            item.NominalWeight = NominalWeight;
+            item.LowerWeightThreshold = LowerWeightThreshold;
+            item.CheckWeight = CheckWeight;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual PluEntity CloneCast => (PluEntity)Clone();
+        public new virtual PluEntity CloneCast() => (PluEntity)Clone();
 
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(Template), Template);
+            info.AddValue(nameof(Scale), Scale);
+            info.AddValue(nameof(Nomenclature), Nomenclature);
+            info.AddValue(nameof(GoodsName), GoodsName);
+            info.AddValue(nameof(GoodsFullName), GoodsFullName);
+            info.AddValue(nameof(GoodsDescription), GoodsDescription);
+            info.AddValue(nameof(Gtin), Gtin);
+            info.AddValue(nameof(Ean13), Ean13);
+            info.AddValue(nameof(Itf14), Itf14);
+        }
+        
         private T GetXmlValue<T>(XmlProductEntity xmlProduct, string name,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {

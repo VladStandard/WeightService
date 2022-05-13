@@ -112,6 +112,7 @@ namespace DataCore.Files
             info.AddValue(nameof(SelectTopRowsCount), SelectTopRowsCount);
             info.AddValue(nameof(Version), Version);
             info.AddValue(nameof(AllowedHosts), AllowedHosts);
+            //info.AddValue(nameof(ConnectionString), ConnectionString);
         }
 
         #endregion

@@ -80,17 +80,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            OrganizationEntity item = new()
-            {
-                Name = Name,
-                Gln = Gln,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            OrganizationEntity item = new();
+            item.Name = Name;
+            item.Gln = Gln;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual OrganizationEntity CloneCast => (OrganizationEntity)Clone();
+        public new virtual OrganizationEntity CloneCast() => (OrganizationEntity)Clone();
 
         #endregion
     }

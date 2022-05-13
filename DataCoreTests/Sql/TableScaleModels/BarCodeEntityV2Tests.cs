@@ -44,7 +44,7 @@ namespace DataCoreTests.Sql.TableScaleModels
                         {
                             foreach (BarCodeEntityV2 item in itemsCast)
                             {
-                                BarCodeEntityV2 itemCopy = item.CloneCast;
+                                BarCodeEntityV2 itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
                                 BarCodeEntityV2 itemChange = new()

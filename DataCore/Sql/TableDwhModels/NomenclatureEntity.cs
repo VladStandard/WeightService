@@ -258,49 +258,47 @@ namespace DataCore.Sql.TableDwhModels
 
         public new virtual object Clone()
         {
-            NomenclatureEntity item = new()
-            {
-                Code = Code,
-                Name = Name,
-                Parents = Parents,
-                Article = Article,
-                Weighted = Weighted,
-                GuidMercury = GuidMercury,
-                KeepTrackOfCharacteristics = KeepTrackOfCharacteristics,
-                NameFull = NameFull,
-                Comment = Comment,
-                IsService = IsService,
-                IsProduct = IsProduct,
-                AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature,
-                NomenclatureGroupCostBytes = DataUtils.ByteClone(NomenclatureGroupCostBytes),
-                NomenclatureGroupCost = NomenclatureGroupCost.CloneCast,
-                NomenclatureGroupBytes = DataUtils.ByteClone(NomenclatureGroupBytes),
-                NomenclatureGroup = NomenclatureGroup.CloneCast,
-                ArticleCost = DataUtils.ByteClone(ArticleCost),
-                BrandBytes = DataUtils.ByteClone(BrandBytes),
-                Brand = Brand.CloneCast,
-                NomenclatureTypeBytes = DataUtils.ByteClone(NomenclatureTypeBytes),
-                NomenclatureType = NomenclatureType.CloneCast,
-                VatRate = VatRate,
-                Unit = Unit,
-                Weight = Weight,
-                BoxTypeId = DataUtils.ByteClone(BoxTypeId),
-                BoxTypeName = BoxTypeName,
-                PackTypeId = DataUtils.ByteClone(PackTypeId),
-                PackTypeName = PackTypeName,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-                Status = Status.CloneCast,
-                InformationSystem = InformationSystem.CloneCast,
-                CodeInIs = DataUtils.ByteClone(CodeInIs),
-                RelevanceStatus = RelevanceStatus,
-                NormalizationStatus = NormalizationStatus,
-                MasterId = MasterId,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            NomenclatureEntity item = new();
+            item.Code = Code;
+            item.Name = Name;
+            item.Parents = Parents;
+            item.Article = Article;
+            item.Weighted = Weighted;
+            item.GuidMercury = GuidMercury;
+            item.KeepTrackOfCharacteristics = KeepTrackOfCharacteristics;
+            item.NameFull = NameFull;
+            item.Comment = Comment;
+            item.IsService = IsService;
+            item.IsProduct = IsProduct;
+            item.AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature;
+            item.NomenclatureGroupCostBytes = DataUtils.ByteClone(NomenclatureGroupCostBytes);
+            item.NomenclatureGroupCost = NomenclatureGroupCost.CloneCast();
+            item.NomenclatureGroupBytes = DataUtils.ByteClone(NomenclatureGroupBytes);
+            item.NomenclatureGroup = NomenclatureGroup.CloneCast();
+            item.ArticleCost = DataUtils.ByteClone(ArticleCost);
+            item.BrandBytes = DataUtils.ByteClone(BrandBytes);
+            item.Brand = Brand.CloneCast();
+            item.NomenclatureTypeBytes = DataUtils.ByteClone(NomenclatureTypeBytes);
+            item.NomenclatureType = NomenclatureType.CloneCast();
+            item.VatRate = VatRate;
+            item.Unit = Unit;
+            item.Weight = Weight;
+            item.BoxTypeId = DataUtils.ByteClone(BoxTypeId);
+            item.BoxTypeName = BoxTypeName;
+            item.PackTypeId = DataUtils.ByteClone(PackTypeId);
+            item.PackTypeName = PackTypeName;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            item.Status = Status.CloneCast();
+            item.InformationSystem = InformationSystem.CloneCast();
+            item.CodeInIs = DataUtils.ByteClone(CodeInIs);
+            item.RelevanceStatus = RelevanceStatus;
+            item.NormalizationStatus = NormalizationStatus;
+            item.MasterId = MasterId;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual NomenclatureEntity CloneCast => (NomenclatureEntity)Clone();
+        public new virtual NomenclatureEntity CloneCast() => (NomenclatureEntity)Clone();
 
         #endregion
     }

@@ -133,24 +133,22 @@ namespace DataCore.Sql.DataModels
 
         public new virtual object Clone()
         {
-            LabelQuickEntity item = new()
-            {
-                ScaleId = ScaleId,
-                ScaleDescription = ScaleDescription,
-                PluId = PluId,
-                WeithingDate = WeithingDate,
-                NetWeight = NetWeight,
-                TareWeight = TareWeight,
-                ProductDate = ProductDate,
-                RegNum = RegNum,
-                Label = DataUtils.ByteClone(Label),
-                Zpl = Zpl,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            LabelQuickEntity item = new();
+            item.ScaleId = ScaleId;
+            item.ScaleDescription = ScaleDescription;
+            item.PluId = PluId;
+            item.WeithingDate = WeithingDate;
+            item.NetWeight = NetWeight;
+            item.TareWeight = TareWeight;
+            item.ProductDate = ProductDate;
+            item.RegNum = RegNum;
+            item.Label = DataUtils.ByteClone(Label);
+            item.Zpl = Zpl;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual LabelQuickEntity CloneCast => (LabelQuickEntity)Clone();
+        public new virtual LabelQuickEntity CloneCast() => (LabelQuickEntity)Clone();
 
         #endregion
     }

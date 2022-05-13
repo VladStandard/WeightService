@@ -89,7 +89,7 @@ namespace BlazorDeviceControl.Shared.Item
                     //// Проверка шаблона.
                     //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                     //{
-                    //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast;
+                    //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast();
                     //}
                     //// Номер PLU.
                     //if (PluItem.Plu == 0)

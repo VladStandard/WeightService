@@ -88,16 +88,14 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            AccessEntity item = new()
-            { 
-                User = User,
-                Rights = Rights,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            AccessEntity item = new();
+            item.User = User;
+            item.Rights = Rights;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual AccessEntity CloneCast => (AccessEntity)Clone();
+        public new virtual AccessEntity CloneCast() => (AccessEntity)Clone();
 
         public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {

@@ -76,16 +76,14 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            ProductionFacilityEntity item = new()
-            {
-                Name = Name,
-                IdRRef = IdRRef,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            ProductionFacilityEntity item = new();
+            item.Name = Name;
+            item.IdRRef = IdRRef;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual ProductionFacilityEntity CloneCast => (ProductionFacilityEntity)Clone();
+        public new virtual ProductionFacilityEntity CloneCast() => (ProductionFacilityEntity)Clone();
 
         #endregion
     }

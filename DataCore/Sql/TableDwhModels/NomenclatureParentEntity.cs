@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableDwhModels
         public NomenclatureParentEntity(string[] parents)
         {
             Parents = parents;
-            Parents = new string[0];
+            //Parents = new string[0];
         }
 
         public override string ToString() => 

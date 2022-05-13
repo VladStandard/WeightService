@@ -93,19 +93,17 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            TemplateResourceEntity item = new()
-            {
-                Name = Name,
-                Description = Description,
-                Type = Type,
-                IdRRef = IdRRef,
-                ImageData = ImageData.CloneCast,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            TemplateResourceEntity item = new();
+            item.Name = Name;
+            item.Description = Description;
+            item.Type = Type;
+            item.IdRRef = IdRRef;
+            item.ImageData = ImageData.CloneCast();
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual TemplateResourceEntity CloneCast => (TemplateResourceEntity)Clone();
+        public new virtual TemplateResourceEntity CloneCast() => (TemplateResourceEntity)Clone();
 
         #endregion
     }

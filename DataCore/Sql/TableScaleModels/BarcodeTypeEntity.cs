@@ -72,15 +72,13 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            BarcodeTypeEntity item = new()
-            {
-                Name = Name,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            BarcodeTypeEntity item = new();
+            item.Name = Name;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual BarcodeTypeEntity CloneCast => (BarcodeTypeEntity)Clone();
+        public new virtual BarcodeTypeEntity CloneCast() => (BarcodeTypeEntity)Clone();
 
         #endregion
     }

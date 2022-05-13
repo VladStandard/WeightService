@@ -87,18 +87,16 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            NomenclatureEntity item = new()
-            {
-                Code = Code,
-                Name = Name,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-                Weighted = Weighted,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            NomenclatureEntity item = new();
+            item.Code = Code;
+            item.Name = Name;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            item.Weighted = Weighted;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual NomenclatureEntity CloneCast => (NomenclatureEntity)Clone();
+        public new virtual NomenclatureEntity CloneCast() => (NomenclatureEntity)Clone();
 
         #endregion
     }

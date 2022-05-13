@@ -88,18 +88,16 @@ namespace DataCore.Sql.TableDwhModels
 
         public new virtual object Clone()
         {
-            NomenclatureGroupEntity item = new()
-            {
-                Name = Name,
-                StatusId = StatusId,
-                InformationSystem = InformationSystem.CloneCast,
-                CodeInIs = DataUtils.ByteClone(CodeInIs),
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            NomenclatureGroupEntity item = new();
+            item.Name = Name;
+            item.StatusId = StatusId;
+            item.InformationSystem = InformationSystem.CloneCast();
+            item.CodeInIs = DataUtils.ByteClone(CodeInIs);
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual NomenclatureGroupEntity CloneCast => (NomenclatureGroupEntity)Clone();
+        public new virtual NomenclatureGroupEntity CloneCast() => (NomenclatureGroupEntity)Clone();
 
         #endregion
     }

@@ -99,7 +99,7 @@ namespace DataCore.Sql.Models
             return item;
         }
 
-        public MacAddressEntity CloneCast => (MacAddressEntity)Clone();
+        public MacAddressEntity CloneCast() => (MacAddressEntity)Clone();
 
         public void Default()
         {

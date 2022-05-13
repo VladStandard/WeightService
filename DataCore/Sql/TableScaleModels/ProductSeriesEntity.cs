@@ -86,17 +86,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            ProductSeriesEntity item = new()
-            {
-                Scale = Scale.CloneCast,
-                IsClose = IsClose,
-                Sscc = Sscc,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            ProductSeriesEntity item = new();
+            item.Scale = Scale.CloneCast();
+            item.IsClose = IsClose;
+            item.Sscc = Sscc;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual ProductSeriesEntity CloneCast => (ProductSeriesEntity)Clone();
+        public new virtual ProductSeriesEntity CloneCast() => (ProductSeriesEntity)Clone();
 
         #endregion
     }

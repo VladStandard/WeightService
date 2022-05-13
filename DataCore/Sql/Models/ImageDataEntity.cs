@@ -139,7 +139,7 @@ namespace DataCore.Sql.Models
             return item;
         }
 
-        public ImageDataEntity CloneCast => (ImageDataEntity)Clone();
+        public ImageDataEntity CloneCast() => (ImageDataEntity)Clone();
 
         #endregion
     }

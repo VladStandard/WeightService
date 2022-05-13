@@ -207,37 +207,35 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            ScaleEntity item = new()
-            {
-                TemplateDefault = TemplateDefault?.CloneCast,
-                TemplateSeries = TemplateSeries?.CloneCast,
-                WorkShop = WorkShop.CloneCast,
-                PrinterMain = PrinterMain?.CloneCast,
-                PrinterShipping = PrinterShipping?.CloneCast,
-                IsShipping = IsShipping,
-                IsKneading = IsKneading,
-                ShippingLength = ShippingLength,
-                Host = Host?.CloneCast,
-                Description = Description,
-                IdRRef = IdRRef,
-                DeviceIp = DeviceIp,
-                DevicePort = DevicePort,
-                DeviceMac = DeviceMac,
-                DeviceSendTimeout = DeviceSendTimeout,
-                DeviceReceiveTimeout = DeviceReceiveTimeout,
-                DeviceComPort = DeviceComPort,
-                ZebraIp = ZebraIp,
-                ZebraPort = ZebraPort,
-                IsOrder = IsOrder,
-                VerScalesUi = VerScalesUi,
-                DeviceNumber = DeviceNumber,
-                ScaleFactor = ScaleFactor,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            ScaleEntity item = new();
+            item.TemplateDefault = TemplateDefault?.CloneCast();
+            item.TemplateSeries = TemplateSeries?.CloneCast();
+            item.WorkShop = WorkShop.CloneCast();
+            item.PrinterMain = PrinterMain?.CloneCast();
+            item.PrinterShipping = PrinterShipping?.CloneCast();
+            item.IsShipping = IsShipping;
+            item.IsKneading = IsKneading;
+            item.ShippingLength = ShippingLength;
+            item.Host = Host?.CloneCast();
+            item.Description = Description;
+            item.IdRRef = IdRRef;
+            item.DeviceIp = DeviceIp;
+            item.DevicePort = DevicePort;
+            item.DeviceMac = DeviceMac;
+            item.DeviceSendTimeout = DeviceSendTimeout;
+            item.DeviceReceiveTimeout = DeviceReceiveTimeout;
+            item.DeviceComPort = DeviceComPort;
+            item.ZebraIp = ZebraIp;
+            item.ZebraPort = ZebraPort;
+            item.IsOrder = IsOrder;
+            item.VerScalesUi = VerScalesUi;
+            item.DeviceNumber = DeviceNumber;
+            item.ScaleFactor = ScaleFactor;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual ScaleEntity CloneCast => (ScaleEntity)Clone();
+        public new virtual ScaleEntity CloneCast() => (ScaleEntity)Clone();
 
         #endregion
     }

@@ -87,19 +87,17 @@ namespace DataCore.Sql.TableDwhModels
 
         public new virtual object Clone()
         {
-            InformationSystemEntity item = new()
-            {
-                Name = Name,
-                ConnectString1 = Name,
-                ConnectString2 = Name,
-                ConnectString3 = Name,
-                StatusId = StatusId,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            InformationSystemEntity item = new();
+            item.Name = Name;
+            item.ConnectString1 = ConnectString1;
+            item.ConnectString2 = ConnectString2;
+            item.ConnectString3 = ConnectString3;
+            item.StatusId = StatusId;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual InformationSystemEntity CloneCast => (InformationSystemEntity)Clone();
+        public new virtual InformationSystemEntity CloneCast() => (InformationSystemEntity)Clone();
 
         #endregion
     }

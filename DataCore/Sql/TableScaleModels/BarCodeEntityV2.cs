@@ -3,13 +3,15 @@
 
 using DataCore.Sql.Models;
 using System;
+using System.Runtime.Serialization;
 
 namespace DataCore.Sql.TableScaleModels
 {
     /// <summary>
     /// Table "BarCodes".
     /// </summary>
-    public class BarCodeEntityV2 : BaseEntity
+    [Serializable]
+    public class BarCodeEntityV2 : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
 
@@ -34,7 +36,12 @@ namespace DataCore.Sql.TableScaleModels
             Contragent = new();
             Nomenclature = new();
         }
-        
+
+        public BarCodeEntityV2(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            Value = info.GetString(nameof(Value));
+        }
+
         #endregion
 
         #region Public and private methods
@@ -97,18 +104,16 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            BarCodeEntityV2 item = new()
-            {
-                Value = Value,
-                BarcodeType = BarcodeType?.CloneCast,
-                Contragent = Contragent?.CloneCast,
-                Nomenclature = Nomenclature?.CloneCast,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            BarCodeEntityV2 item = new();
+            item.Value = Value;
+            item.BarcodeType = BarcodeType?.CloneCast();
+            item.Contragent = Contragent?.CloneCast();
+            item.Nomenclature = Nomenclature?.CloneCast();
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual BarCodeEntityV2 CloneCast => (BarCodeEntityV2)Clone();
+        public new virtual BarCodeEntityV2 CloneCast() => (BarCodeEntityV2)Clone();
 
         #endregion
     }

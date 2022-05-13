@@ -44,7 +44,7 @@ namespace DataCoreTests.Sql.TableScaleModels
                         {
                             foreach (WorkShopEntity item in itemsCast)
                             {
-                                WorkShopEntity itemCopy = item.CloneCast;
+                                WorkShopEntity itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
                                 WorkShopEntity itemChange = new()

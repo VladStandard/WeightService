@@ -93,19 +93,17 @@ namespace DataCore.Sql.TableDwhModels
 
         public new virtual object Clone()
         {
-            BrandEntity item = new()
-            {
-                Code = Code,
-                Name = Name,
-                StatusId = StatusId,
-                InformationSystem = InformationSystem.CloneCast,
-                CodeInIs = DataUtils.ByteClone(CodeInIs),
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            BrandEntity item = new();
+            item.Code = Code;
+            item.Name = Name;
+            item.StatusId = StatusId;
+            item.InformationSystem = InformationSystem.CloneCast();
+            item.CodeInIs = DataUtils.ByteClone(CodeInIs);
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual BrandEntity CloneCast => (BrandEntity)Clone();
+        public new virtual BrandEntity CloneCast() => (BrandEntity)Clone();
 
         #endregion
     }

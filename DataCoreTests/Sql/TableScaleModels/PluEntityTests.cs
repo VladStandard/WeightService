@@ -44,7 +44,7 @@ namespace DataCoreTests.Sql.TableScaleModels
                         {
                             foreach (PluEntity item in itemsCast)
                             {
-                                PluEntity itemCopy = item.CloneCast;
+                                PluEntity itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
                                 PluEntity itemChange = new()

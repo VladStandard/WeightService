@@ -23,16 +23,27 @@ namespace DataCore.Sql.Models
 
         #endregion
 
+        #region Constructor and destructor
+
+        public BaseSerializeEntity()
+        {
+            //
+        }
+
+        public BaseSerializeEntity(SerializationInfo info, StreamingContext context)
+        {
+            //
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public virtual XmlWriterSettings GetXmlWriterSettings() => new()
         {
             ConformanceLevel = ConformanceLevel.Document,
             OmitXmlDeclaration = false, // не подавлять xml заголовок
-            Encoding = Encoding.UTF8,   // кодировка
-                                        // Какого то кипариса! эта настройка не работает
-                                        // и UTF16 записывается в шапку XML
-                                        // типа Visual Studio работает только с UTF16
+            Encoding = Encoding.UTF8,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
             Indent = true,              // добавлять отступы
             IndentChars = "\t"          // сиволы отступа
         };

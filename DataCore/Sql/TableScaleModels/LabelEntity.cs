@@ -102,17 +102,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            LabelEntity item = new()
-            {
-                WeithingFact = WeithingFact.CloneCast,
-                Label = DataUtils.ByteClone(Label),
-                Zpl = Zpl,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            LabelEntity item = new();
+            item.WeithingFact = WeithingFact.CloneCast();
+            item.Label = DataUtils.ByteClone(Label);
+            item.Zpl = Zpl;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual LabelEntity CloneCast => (LabelEntity)Clone();
+        public new virtual LabelEntity CloneCast() => (LabelEntity)Clone();
 
         #endregion
     }

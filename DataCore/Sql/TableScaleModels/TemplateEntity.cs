@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Models;
 using System;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace DataCore.Sql.TableScaleModels
@@ -10,7 +11,8 @@ namespace DataCore.Sql.TableScaleModels
     /// <summary>
     /// Table "Templates".
     /// </summary>
-    public class TemplateEntity : BaseEntity
+    [Serializable]
+    public class TemplateEntity : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
 
@@ -36,6 +38,14 @@ namespace DataCore.Sql.TableScaleModels
             Title = string.Empty;
             ImageData = new();
             ImageDataValue = new byte[0];
+        }
+
+        public TemplateEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            CategoryId = info.GetString(nameof(CategoryId));
+            IdRRef = Guid.Parse(info.GetString(nameof(IdRRef)));
+            Title = info.GetString(nameof(Title));
+            ImageData = (ImageDataEntity)info.GetValue(nameof(ImageData), typeof(ImageDataEntity));
         }
 
         #endregion
@@ -90,18 +100,25 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            TemplateEntity item = new()
-            {
-                CategoryId = CategoryId,
-                IdRRef = IdRRef,
-                Title = Title,
-                ImageData = ImageData.CloneCast,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            TemplateEntity item = new();
+            item.CategoryId = CategoryId;
+            item.IdRRef = IdRRef;
+            item.Title = Title;
+            item.ImageData = ImageData.CloneCast();
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual TemplateEntity CloneCast => (TemplateEntity)Clone();
+        public new virtual TemplateEntity CloneCast() => (TemplateEntity)Clone();
+
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(CategoryId), CategoryId);
+            info.AddValue(nameof(IdRRef), IdRRef);
+            info.AddValue(nameof(Title), Title);
+            info.AddValue(nameof(ImageData), ImageData);
+        }
 
         #endregion
     }

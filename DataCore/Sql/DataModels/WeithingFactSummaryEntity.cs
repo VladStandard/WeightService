@@ -88,19 +88,17 @@ namespace DataCore.Sql.DataModels
 
         public new virtual object Clone()
         {
-            WeithingFactSummaryEntity item = new()
-            {
-                WeithingDate = WeithingDate,
-                Count = Count,
-                Scale = Scale,
-                Host = Host,
-                Printer = Printer,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            WeithingFactSummaryEntity item = new();
+            item.WeithingDate = WeithingDate;
+            item.Count = Count;
+            item.Scale = Scale;
+            item.Host = Host;
+            item.Printer = Printer;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual WeithingFactSummaryEntity CloneCast => (WeithingFactSummaryEntity)Clone();
+        public new virtual WeithingFactSummaryEntity CloneCast() => (WeithingFactSummaryEntity)Clone();
 
         #endregion
     }

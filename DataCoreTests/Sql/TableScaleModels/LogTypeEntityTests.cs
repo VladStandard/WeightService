@@ -44,7 +44,7 @@ namespace DataCoreTests.Sql.TableScaleModels
                         {
                             foreach (LogTypeEntity item in itemsCast)
                             {
-                                LogTypeEntity itemCopy = item.CloneCast;
+                                LogTypeEntity itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
                                 LogTypeEntity itemChange = new()

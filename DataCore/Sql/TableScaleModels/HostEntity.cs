@@ -118,21 +118,19 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            HostEntity item = new()
-            {
-                AccessDt = AccessDt,
-                Name = Name,
-                HostName = HostName,
-                Ip = Ip,
-                MacAddress = MacAddress.CloneCast,
-                IdRRef = IdRRef,
-                SettingsFile = SettingsFile,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            HostEntity item = new();
+            item.AccessDt = AccessDt;
+            item.Name = Name;
+            item.HostName = HostName;
+            item.Ip = Ip;
+            item.MacAddress = MacAddress.CloneCast();
+            item.IdRRef = IdRRef;
+            item.SettingsFile = SettingsFile;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual HostEntity CloneCast => (HostEntity)Clone();
+        public new virtual HostEntity CloneCast() => (HostEntity)Clone();
 
         #endregion
     }

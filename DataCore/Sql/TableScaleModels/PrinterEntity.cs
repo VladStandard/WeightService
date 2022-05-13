@@ -127,24 +127,22 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            PrinterEntity item = new()
-            {
-                Name = Name,
-                Ip = Ip,
-                Port = Port,
-                Password = Password,
-                PrinterType = PrinterType.CloneCast,
-                MacAddress = MacAddress.CloneCast,
-                PeelOffSet = PeelOffSet,
-                DarknessLevel = DarknessLevel,
-                HttpStatusCode = HttpStatusCode,
-                HttpStatusException = HttpStatusException,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            PrinterEntity item = new();
+            item.Name = Name;
+            item.Ip = Ip;
+            item.Port = Port;
+            item.Password = Password;
+            item.PrinterType = PrinterType.CloneCast();
+            item.MacAddress = MacAddress.CloneCast();
+            item.PeelOffSet = PeelOffSet;
+            item.DarknessLevel = DarknessLevel;
+            item.HttpStatusCode = HttpStatusCode;
+            item.HttpStatusException = HttpStatusException;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual PrinterEntity CloneCast => (PrinterEntity)Clone();
+        public new virtual PrinterEntity CloneCast() => (PrinterEntity)Clone();
 
         #endregion
     }

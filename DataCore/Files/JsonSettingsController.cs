@@ -144,12 +144,6 @@ namespace DataCore.Files
                 sqlConnectionStringBuilder["Encrypt"] = getJjsonSettings.Sql.Encrypt;
                 sqlConnectionStringBuilder["Connect Timeout"] = getJjsonSettings.Sql.ConnectTimeout;
                 sqlConnectionStringBuilder["TrustServerCertificate"] = getJjsonSettings.Sql.TrustServerCertificate;
-                if (getJjsonSettings == null)
-                {
-                    //if (isFileLog)
-                    //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsRemoteFileException);
-                    throw new Exception(LocaleCore.System.JsonSettingsRemoteFileException);
-                }
                 if (!isRemote)
                 {
                     DataAccess.JsonSettingsLocal = getJjsonSettings;

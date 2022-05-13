@@ -20,7 +20,7 @@
 //                TemplateResourceEntity entityNew = new();
 //                Assert.AreEqual(true, entityNew.EqualsNew());
 //                Assert.AreEqual(true, entityNew.EqualsDefault());
-//                object entityCopy = entityNew.CloneCast;
+//                object entityCopy = entityNew.CloneCast();
 //                Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
 //                foreach (int i in TestsEnums.GetInt())

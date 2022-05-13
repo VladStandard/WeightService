@@ -135,25 +135,23 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            WeithingFactEntity item = new()
-            {
-                Plu = Plu.CloneCast,
-                Scale = Scale.CloneCast,
-                Serie = Serie?.CloneCast,
-                Order = Order?.CloneCast,
-                Sscc = Sscc,
-                WeithingDate = WeithingDate,
-                NetWeight = NetWeight,
-                TareWeight = TareWeight,
-                ProductDate = ProductDate,
-                RegNum = RegNum,
-                Kneading = Kneading,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            WeithingFactEntity item = new();
+            item.Plu = Plu.CloneCast();
+            item.Scale = Scale.CloneCast();
+            item.Serie = Serie?.CloneCast();
+            item.Order = Order?.CloneCast();
+            item.Sscc = Sscc;
+            item.WeithingDate = WeithingDate;
+            item.NetWeight = NetWeight;
+            item.TareWeight = TareWeight;
+            item.ProductDate = ProductDate;
+            item.RegNum = RegNum;
+            item.Kneading = Kneading;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual WeithingFactEntity CloneCast => (WeithingFactEntity)Clone();
+        public new virtual WeithingFactEntity CloneCast() => (WeithingFactEntity)Clone();
         
         #endregion
     }

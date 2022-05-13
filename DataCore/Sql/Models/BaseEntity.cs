@@ -25,7 +25,11 @@ namespace DataCore.Sql.Models
         public virtual DateTime CreateDt { get; set; }
         public virtual DateTime ChangeDt { get; set; }
         public virtual bool IsMarked { get; set; }
-        [XmlIgnore] public virtual string IdentityUidStr { get => IdentityUid.ToString() is string str ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        [XmlIgnore] public virtual string IdentityUidStr
+        {
+            get => IdentityUid.ToString() is string str ? str : Guid.Empty.ToString(); 
+            set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
+        }
 
         #endregion
 
@@ -61,6 +65,7 @@ namespace DataCore.Sql.Models
             IsMarked = info.GetBoolean(nameof(IsMarked));
             IdentityUid = Guid.Parse(info.GetString(nameof(IdentityUid)));
             IdentityId = info.GetInt64(nameof(IdentityId));
+            IdentityUidStr = info.GetString(nameof(IdentityUidStr));
         }
 
         #endregion
@@ -141,6 +146,8 @@ namespace DataCore.Sql.Models
             info.AddValue(nameof(CreateDt), CreateDt);
             info.AddValue(nameof(IdentityUid), IdentityUid);
             info.AddValue(nameof(IdentityId), IdentityId);
+            info.AddValue(nameof(IdentityName), IdentityName);
+            info.AddValue(nameof(IdentityUidStr), IdentityUidStr);
         }
 
         [Obsolete(@"Use EqualsDefault(ColumnName columnName)")]
@@ -176,7 +183,7 @@ namespace DataCore.Sql.Models
             IsMarked = IsMarked,
         };
 
-        public virtual BaseEntity CloneCast => (BaseEntity)Clone();
+        public virtual BaseEntity CloneCast() => (BaseEntity)Clone();
 
         public virtual void Setup(BaseEntity baseItem)
         {

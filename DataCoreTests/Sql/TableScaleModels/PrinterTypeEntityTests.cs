@@ -44,7 +44,7 @@ namespace DataCoreTests.Sql.TableScaleModels
                         {
                             foreach (PrinterTypeEntity item in itemsCast)
                             {
-                                PrinterTypeEntity itemCopy = item.CloneCast;
+                                PrinterTypeEntity itemCopy = item.CloneCast();
                                 Assert.AreEqual(true, item.Equals(itemCopy));
                                 Assert.AreEqual(true, itemCopy.Equals(item));
                                 PrinterTypeEntity itemChange = new()

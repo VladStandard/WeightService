@@ -76,16 +76,14 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            LogTypeEntity item = new()
-            {
-                Number = Number,
-                Icon = Icon,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            LogTypeEntity item = new();
+            item.Number = Number;
+            item.Icon = Icon;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual LogTypeEntity CloneCast => (LogTypeEntity)Clone();
+        public new virtual LogTypeEntity CloneCast() => (LogTypeEntity)Clone();
 
         #endregion
     }

@@ -88,17 +88,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            PrinterResourceEntity item = new()
-            {
-                Printer = Printer.CloneCast,
-                Resource = Resource.CloneCast,
-                Description = Description,
-            };
-            item.Setup(((BaseEntity)this).CloneCast);
+            PrinterResourceEntity item = new();
+            item.Printer = Printer.CloneCast();
+            item.Resource = Resource.CloneCast();
+            item.Description = Description;
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual PrinterResourceEntity CloneCast => (PrinterResourceEntity)Clone();
+        public new virtual PrinterResourceEntity CloneCast() => (PrinterResourceEntity)Clone();
 
         #endregion
     }

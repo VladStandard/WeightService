@@ -68,13 +68,13 @@ namespace DataCore.Sql.DataModels
         {
             DeviceEntity item = new()
             {
-                Scales = Scales.CloneCast,
+                Scales = Scales.CloneCast(),
             };
-            item.Setup(((BaseEntity)this).CloneCast);
+            item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }
 
-        public new virtual DeviceEntity CloneCast => (DeviceEntity)Clone();
+        public new virtual DeviceEntity CloneCast() => (DeviceEntity)Clone();
 
         #endregion
     }

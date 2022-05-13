@@ -1,15 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels;
 using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Runtime.Serialization;
 using System.Xml.Linq;
 
 namespace DataCore.Sql.TableDirectModels
@@ -98,7 +98,6 @@ namespace DataCore.Sql.TableDirectModels
         public XDocument GetBtXmlNamedSubString()
         {
             IDictionary<string, object> dict = ObjectToDictionary(this);
-
             XDocument doc = new(
                 new XElement("XMLScript", new XAttribute("Version", "2.0"),
                 new XElement("Command",
@@ -108,7 +107,6 @@ namespace DataCore.Sql.TableDirectModels
                         new XAttribute("Key", x.Key),
                         new XElement("Value", x.Value)))
                 ))));
-
             return doc;
         }
 
@@ -139,18 +137,9 @@ namespace DataCore.Sql.TableDirectModels
 
         public override string ToString()
         {
-            StringBuilder sb = new();
-            sb.Append($"({PLU})");
-            sb.Append($" {GoodsName}");
-            //sb.Append($"GoodsDescription : {this.GoodsDescription};\n");
-            //sb.Append($"GoodsFullName : {this.GoodsFullName};\n");
-            //sb.Append($"GTIN : {this.GTIN};\n");
-            //sb.Append($"GLN : {this.GLN};\n");
-            //sb.Append($"GoodsShelfLifeDays : {this.GoodsShelfLifeDays};\n");
-            //sb.Append($"GoodsTareWeight : {this.GoodsTareWeight};\n");
-            //sb.Append($"GoodsBoxQuantly : {this.GoodsBoxQuantly};\n");
-            //sb.Append($"TemplateName : {this.TemplateID};\n");
-            return sb.ToString();
+            return base.ToString() +
+                   $"{nameof(PLU)}: {PLU}. " +
+                   $"{nameof(GoodsName)}: {GoodsName}. ";
         }
 
         public void LoadTemplate()
@@ -161,7 +150,6 @@ namespace DataCore.Sql.TableDirectModels
             }
             else
             {
-                //Scale.Load();
                 Template = new TemplateDirect(Scale.TemplateDefault?.IdentityId);
             }
         }
