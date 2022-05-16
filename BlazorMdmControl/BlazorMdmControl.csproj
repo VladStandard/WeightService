@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>0.6.630.0</Version>
+    <Version>0.6.640.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>3563a665-3c2d-469d-ba4c-f85bb5c0c1af</UserSecretsId>
@@ -11,8 +11,8 @@
 	<AssemblyName>BlazorMdmControl</AssemblyName>
     <RootNamespace>BlazorMdmControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<AssemblyVersion>0.6.630.0</AssemblyVersion>
-    <FileVersion>0.6.630.0</FileVersion>
+	<AssemblyVersion>0.6.640.0</AssemblyVersion>
+    <FileVersion>0.6.640.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>
