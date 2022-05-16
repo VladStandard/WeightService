@@ -129,44 +129,12 @@ namespace WeightCore.Managers
 
         private void OpenTitle()
         {
-            switch (UserSessionHelper.Instance.SqlViewModel.PublishType)
-            {
-                case ShareEnums.PublishType.Debug:
-                case ShareEnums.PublishType.Dev:
-                    SetTitleSwitchDev();
-                    break;
-                case ShareEnums.PublishType.Release:
-                    SetTitleSwitchRelease();
-                    break;
-                case ShareEnums.PublishType.Default:
-                default:
-                    SetTitleSwitchDefault();
-                    break;
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle +
+                $". {UserSessionHelper.Instance.Scale.Description}" +
+                $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
+            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, 
+                UserSessionHelper.Instance.SqlViewModel.PublishType == ShareEnums.PublishType.Default ? Color.IndianRed : Color.Transparent);
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.SSCC}");
-        }
-
-        private void SetTitleSwitchDev()
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle +
-                $". {UserSessionHelper.Instance.Scale.Description}" +
-                $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
-            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightYellow);
-        }
-
-        private void SetTitleSwitchRelease()
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle +
-                $". {UserSessionHelper.Instance.Scale.Description}");
-            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.LightGreen);
-        }
-
-        private void SetTitleSwitchDefault()
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle + 
-                $". {UserSessionHelper.Instance.Scale.Description}" +
-                $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
-            MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, Color.IndianRed);
         }
 
         private void RequestProductDate()

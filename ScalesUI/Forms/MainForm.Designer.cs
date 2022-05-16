@@ -131,7 +131,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaManager, 3, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaPluDescription, 1, 10);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGet, 1, 11);
-            this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 1);
+            this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 0);
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightTare, 1, 3);
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightNetto, 1, 2);
             this.tableLayoutPanelMain.Controls.Add(this.fieldWeightNetto, 2, 2);
@@ -364,9 +364,10 @@
             this.pictureBoxClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxClose.Image = global::ScalesUI.Properties.Resources.exit_1;
-            this.pictureBoxClose.Location = new System.Drawing.Point(915, 36);
+            this.pictureBoxClose.Location = new System.Drawing.Point(915, 3);
             this.pictureBoxClose.Name = "pictureBoxClose";
-            this.pictureBoxClose.Size = new System.Drawing.Size(99, 54);
+            this.tableLayoutPanelMain.SetRowSpan(this.pictureBoxClose, 2);
+            this.pictureBoxClose.Size = new System.Drawing.Size(99, 87);
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxClose.TabIndex = 19;
             this.pictureBoxClose.TabStop = false;
@@ -484,14 +485,14 @@
             // fieldTitle
             // 
             this.fieldTitle.AutoSize = true;
-            this.fieldTitle.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.tableLayoutPanelMain.SetColumnSpan(this.fieldTitle, 5);
+            this.fieldTitle.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanelMain.SetColumnSpan(this.fieldTitle, 3);
             this.fieldTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldTitle.ForeColor = System.Drawing.Color.Blue;
+            this.fieldTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldTitle.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldTitle.Location = new System.Drawing.Point(3, 0);
             this.fieldTitle.Name = "fieldTitle";
-            this.fieldTitle.Size = new System.Drawing.Size(1018, 33);
+            this.fieldTitle.Size = new System.Drawing.Size(906, 33);
             this.fieldTitle.TabIndex = 20;
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

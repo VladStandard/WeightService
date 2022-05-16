@@ -350,6 +350,7 @@ namespace ScalesUI.Forms
                 ButtonPrint = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPrint), column++);
                 ButtonPrint.Click += new EventHandler(ActionPrint_Click);
                 ButtonPrint.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+                ButtonPrint.Focus();
             }
 
             GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(TableLayoutPanelButtons, column);
@@ -872,6 +873,16 @@ namespace ScalesUI.Forms
                 if (UserSession.Scale.IsShipping)
                     if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintShipping, false))
                         return;
+                // Debug check.
+                if (Debug.IsDebug)
+                {
+                    DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
+                        true, LogType.Warning,
+                        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                        UserSession.Scale.Host.HostName, nameof(WeightCore));
+                    if (dialogResult != DialogResult.Yes)
+                        return;
+                }
 
                 UserSession.PrintLabel(false);
                 //UserSession.Manager.Massa.Open();

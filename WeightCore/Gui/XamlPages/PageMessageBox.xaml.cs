@@ -1,8 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using WeightCore.Helpers;
 
 namespace WeightCore.Gui.XamlPages
@@ -16,6 +18,7 @@ namespace WeightCore.Gui.XamlPages
 
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
         public RoutedEventHandler OnClose { get; set; }
+        public Grid GridMain { get; private set; }
 
         #endregion
 
@@ -34,85 +37,87 @@ namespace WeightCore.Gui.XamlPages
         {
             ushort colCount = GetGridColCount();
             ushort rowCount = GetGridRowCount();
-            Grid gridMain = GetGridMain(colCount, rowCount);
+            GridMain = GetGridMain(colCount, rowCount);
 
             ushort row = 0;
-            GetFieldCaption(gridMain, colCount, ref row);
-            GetFieldMessage(gridMain, colCount, ref row);
+            GetFieldCaption(GridMain, colCount, ref row);
+            GetFieldMessage(GridMain, colCount, ref row);
 
             ushort col = 0;
-            GetButtonCustom(gridMain, ref col, row);
-            GetButtonYes(gridMain, ref col, row);
-            GetButtonRetry(gridMain, ref col, row);
-            GetButtonNo(gridMain, ref col, row);
-            GetButtonIgnore(gridMain, ref col, row);
-            GetButtonCancel(gridMain, ref col, row);
-            GetButtonAbort(gridMain, ref col, row);
-            GetButtonOk(gridMain, ref col, row);
+            GetButtonCustom(GridMain, ref col, row);
+            GetButtonYes(GridMain, ref col, row);
+            GetButtonRetry(GridMain, ref col, row);
+            GetButtonNo(GridMain, ref col, row);
+            GetButtonIgnore(GridMain, ref col, row);
+            GetButtonCancel(GridMain, ref col, row);
+            GetButtonAbort(GridMain, ref col, row);
+            GetButtonOk(GridMain, ref col, row);
 
-            borderMain.Child = gridMain;
+            borderMain.Child = GridMain;
+            SetButtonFocus();
         }
 
         private Grid GetGridMain(ushort colCount, ushort rowCount)
         {
-            Grid gridMain = new()
+            Grid GridMain = new()
             {
                 DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
                 Margin = new Thickness(2),
             };
-            gridMain.KeyUp += Button_KeyUp;
+            GridMain.KeyUp += Button_KeyUp;
 
-            Grid.SetColumn(gridMain, 0);
+            Grid.SetColumn(GridMain, 0);
             for (ushort col = 0; col < colCount; col++)
             {
-                ColumnDefinition column = new() { Width = new GridLength(1, System.Windows.GridUnitType.Star) };
-                gridMain.ColumnDefinitions.Add(column);
+                ColumnDefinition column = new() { Width = new GridLength(1, GridUnitType.Star) };
+                GridMain.ColumnDefinitions.Add(column);
             }
 
-            Grid.SetRow(gridMain, 0);
+            Grid.SetRow(GridMain, 0);
             if (rowCount <= 1)
             {
-                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
-                gridMain.RowDefinitions.Add(row);
+                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeCaption, GridUnitType.Star) };
+                GridMain.RowDefinitions.Add(row);
             }
             else if (rowCount == 2)
             {
-                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
-                gridMain.RowDefinitions.Add(row);
-                RowDefinition row2 = new() { Height = new GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
-                gridMain.RowDefinitions.Add(row2);
+                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeMessage, GridUnitType.Star) };
+                GridMain.RowDefinitions.Add(row);
+                RowDefinition row2 = new() { Height = new GridLength(MessageBox.SizeButton, GridUnitType.Star) };
+                GridMain.RowDefinitions.Add(row2);
             }
             else if (rowCount == 3)
             {
-                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
-                gridMain.RowDefinitions.Add(row);
-                RowDefinition row2 = new() { Height = new GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
-                gridMain.RowDefinitions.Add(row2);
-                RowDefinition row3 = new() { Height = new GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
-                gridMain.RowDefinitions.Add(row3);
+                RowDefinition row = new() { Height = new GridLength(MessageBox.SizeCaption, GridUnitType.Star) };
+                GridMain.RowDefinitions.Add(row);
+                RowDefinition row2 = new() { Height = new GridLength(MessageBox.SizeMessage, GridUnitType.Star) };
+                GridMain.RowDefinitions.Add(row2);
+                RowDefinition row3 = new() { Height = new GridLength(MessageBox.SizeButton, GridUnitType.Star) };
+                GridMain.RowDefinitions.Add(row3);
             }
 
-            return gridMain;
+            FocusManager.SetIsFocusScope(GridMain, true);
+            return GridMain;
         }
 
         private ushort GetGridColCount()
         {
             ushort count = 0;
-            if (MessageBox.VisibilitySettings.ButtonCustomVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonCustomVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonYesVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonYesVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonRetryVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonRetryVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonNoVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonNoVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonCancelVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonCancelVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonAbortVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonAbortVisibility == Visibility.Visible)
                 count++;
-            if (MessageBox.VisibilitySettings.ButtonOkVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonOkVisibility == Visibility.Visible)
                 count++;
             return count;
         }
@@ -127,7 +132,7 @@ namespace WeightCore.Gui.XamlPages
             return count;
         }
 
-        private void GetFieldCaption(Grid gridMain, ushort colCount, ref ushort row)
+        private void GetFieldCaption(Grid GridMain, ushort colCount, ref ushort row)
         {
             if (!string.IsNullOrEmpty(MessageBox.Caption))
             {
@@ -136,14 +141,14 @@ namespace WeightCore.Gui.XamlPages
                     DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeCaption,
-                    FontWeight = System.Windows.FontWeights.Bold,
-                    FontStretch = System.Windows.FontStretches.Expanded,
-                    TextDecorations = System.Windows.TextDecorations.Underline,
-                    TextWrapping = System.Windows.TextWrapping.Wrap,
+                    FontWeight = FontWeights.Bold,
+                    FontStretch = FontStretches.Expanded,
+                    TextDecorations = TextDecorations.Underline,
+                    TextWrapping = TextWrapping.Wrap,
                     Background = System.Windows.Media.Brushes.Transparent,
-                    TextAlignment = System.Windows.TextAlignment.Center,
-                    VerticalAlignment = System.Windows.VerticalAlignment.Center,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
                 };
                 System.Windows.Data.Binding binding = new("Caption") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = MessageBox };
                 System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
@@ -151,12 +156,12 @@ namespace WeightCore.Gui.XamlPages
                 Grid.SetColumn(field, 0);
                 Grid.SetColumnSpan(field, colCount);
                 Grid.SetRow(field, row);
-                gridMain.Children.Add(field);
+                GridMain.Children.Add(field);
                 row++;
             }
         }
 
-        private void GetFieldMessage(Grid gridMain, ushort colCount, ref ushort row)
+        private void GetFieldMessage(Grid GridMain, ushort colCount, ref ushort row)
         {
             if (!string.IsNullOrEmpty(MessageBox.Message))
             {
@@ -166,13 +171,13 @@ namespace WeightCore.Gui.XamlPages
                     DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeMessage,
-                    FontWeight = System.Windows.FontWeights.Regular,
-                    FontStretch = System.Windows.FontStretches.Normal,
-                    TextWrapping = System.Windows.TextWrapping.Wrap,
+                    FontWeight = FontWeights.Regular,
+                    FontStretch = FontStretches.Normal,
+                    TextWrapping = TextWrapping.Wrap,
                     Background = System.Windows.Media.Brushes.Transparent,
-                    TextAlignment = System.Windows.TextAlignment.Center,
-                    VerticalAlignment = System.Windows.VerticalAlignment.Center,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
                 };
                 System.Windows.Data.Binding binding = new("Message") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = MessageBox };
                 System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
@@ -182,161 +187,185 @@ namespace WeightCore.Gui.XamlPages
                 Grid.SetColumn(scrollViewer, 0);
                 Grid.SetColumnSpan(scrollViewer, colCount);
                 Grid.SetRow(scrollViewer, row);
-                gridMain.Children.Add(scrollViewer);
+                GridMain.Children.Add(scrollViewer);
                 row++;
             }
         }
 
-        private void GetButtonCustom(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonCustom(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonCustomVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonCustomVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonCustomContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonCustom_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonYes(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonYes(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonYesVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonYesVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonYesContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonYes_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonRetry(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonRetry(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonRetryVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonRetryVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonRetryContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonRetry_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonNo(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonNo(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonNoVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonNoVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonNoContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonNo_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonIgnore(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonIgnore(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonIgnoreContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonIgnore_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonCancel(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonCancel(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonCancelVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonCancelVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonCancelContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonCancel_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonAbort(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonAbort(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonAbortVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonAbortVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonAbortContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonAbort_OnClick;
                 col++;
             }
         }
 
-        private void GetButtonOk(Grid gridMain, ref ushort col, ushort row)
+        private void GetButtonOk(Grid GridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.VisibilitySettings.ButtonOkVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonOkVisibility == Visibility.Visible)
             {
                 Button button = new()
                 {
                     Content = MessageBox.VisibilitySettings.ButtonOkContent,
                     Margin = new Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
-                    FontWeight = System.Windows.FontWeights.Bold,
+                    FontWeight = FontWeights.Bold,
                 };
                 Grid.SetColumn(button, col);
                 Grid.SetRow(button, row);
-                gridMain.Children.Add(button);
+                GridMain.Children.Add(button);
                 button.Click += ButtonOk_OnClick;
                 col++;
             }
+        }
+
+        private void SetButtonFocus()
+        {
+            foreach (object child in GridMain.Children)
+            {
+                if (child is Button button)
+                {
+                    //button.IsDefault = true;
+                    //button.Focus();
+                    button.KeyUp += Button_KeyUp;
+                    button.Focusable = true;
+                    Keyboard.Focus(button);
+                    FocusManager.SetFocusedElement(GridMain, button);
+                }
+            }
+
+            //FocusNavigationDirection focusNavigationDirection = FocusNavigationDirection.First;
+            //TraversalRequest request = new(focusNavigationDirection);
+            //UIElement element = Keyboard.FocusedElement as UIElement;
+            //if (element != null)
+            //{
+            //    element.MoveFocus(request);
+            //}
         }
 
         #endregion
@@ -391,9 +420,9 @@ namespace WeightCore.Gui.XamlPages
             OnClose?.Invoke(sender, e);
         }
 
-        private void Button_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Button_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Escape)
+            if (e.Key == Key.Escape)
             {
                 ButtonCancel_OnClick(sender, e);
             }

@@ -30,23 +30,23 @@ namespace ScalesUI.Forms
             float baseSize;
             if (width >= 1920 && height >= 1080)
             {
-                baseSize = 16.00f;
+                baseSize = 15.00f;
             }
             else if (width >= 1600 && height >= 1024)
             {
-                baseSize = 14.00f;
+                baseSize = 13.00f;
             }
             else if (width >= 1366 && height >= 768)
             {
-                baseSize = 12.00f;
+                baseSize = 11.00f;
             }
             else if (width >= 1024 && height >= 768)
             {
-                baseSize = 10.00f;
+                baseSize = 9.00f;
             }
             else
             {
-                baseSize = 9.00f;
+                baseSize = 8.00f;
             }
 
             Resize(baseSize);
@@ -58,7 +58,7 @@ namespace ScalesUI.Forms
             FontLabelsGray = new Font("Microsoft Sans Serif", baseSize + 1.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
             FontButtons = new Font("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
             FontLabelsBlack = new Font("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
-            FontLabelsTitle = new Font("Microsoft Sans Serif", baseSize + 13.00f, FontStyle.Bold, GraphicsUnit.Point, 204);
+            FontLabelsTitle = new Font("Microsoft Sans Serif", baseSize + 7.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
             FontLabelsMaximum = new Font("Microsoft Sans Serif", baseSize + 16.00f, FontStyle.Bold, GraphicsUnit.Point, 204);
         }
 

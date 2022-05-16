@@ -125,9 +125,25 @@ namespace DataCore.Sql
 
         public SqlViewModelEntity()
         {
+            SetPublish();
+
+            TaskTypes = new List<TaskTypeDirect>();
+            Tasks = new List<TaskDirect>();
+
+            //HostName = Environment.MachineName;
+            HostName = NetUtils.GetLocalHostName(false);
+            HostEntity host = HostsUtils.GetHostEntity(HostName);
+            ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
+            ScaleName = scale.Description;
+
+            ButtonsOkCaption = LocaleCore.Buttons.Ok;
+            ButtonsCancelCaption = LocaleCore.Buttons.Cancel;
+        }
+
+        private void SetPublish()
+        {
             PublishType = ShareEnums.PublishType.Default;
             PublishDescription = "Неизвестный сервер";
-
             SqlInstance = GetInstance();
             if (SqlInstance.Equals("INS1"))
             {
@@ -144,18 +160,6 @@ namespace DataCore.Sql
                 PublishType = ShareEnums.PublishType.Release;
                 PublishDescription = "Продуктовый сервер";
             }
-
-            TaskTypes = new List<TaskTypeDirect>();
-            Tasks = new List<TaskDirect>();
-            
-            //HostName = Environment.MachineName;
-            HostName = NetUtils.GetLocalHostName(false);
-            HostEntity host = HostsUtils.GetHostEntity(HostName);
-            ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
-            ScaleName = scale.Description;
-
-            ButtonsOkCaption = LocaleData.Buttons.Ok;
-            ButtonsCancelCaption = LocaleData.Buttons.Cancel;
         }
 
         public void SetupTasks(long? scaleId)

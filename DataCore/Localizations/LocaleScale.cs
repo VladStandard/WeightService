@@ -53,6 +53,7 @@ namespace DataCore.Localizations
         public string FieldDate => Lang == ShareEnums.Lang.English ? "Date" : "Дата";
         public string FieldKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
         public string FieldProductDate => Lang == ShareEnums.Lang.English ? "Date of production" : "Дата производства";
+        public string FieldPalletSize => Lang == ShareEnums.Lang.English ? "Pallet size" : "Размер паллеты";
         public string FieldSscc => Lang == ShareEnums.Lang.English ? "Serialized Shipping Container Code" : "Код транспортной упаковки";
         public string FieldSsccControlNumber => Lang == ShareEnums.Lang.English ? "Control number" : "Контрольное число";
         public string FieldSsccGln => Lang == ShareEnums.Lang.English ? "GLN" : "Код GLN";

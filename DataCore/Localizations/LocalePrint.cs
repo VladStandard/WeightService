@@ -74,6 +74,7 @@ namespace DataCore.Localizations
         public string PortShort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
         public string PrinterStatus => Lang == ShareEnums.Lang.English ? "Printer status" : "Состояние принтера";
         public string PrintManager => Lang == ShareEnums.Lang.English ? "Print manager" : "Менеджер принтера";
+        public string QuestionPrint => Lang == ShareEnums.Lang.English ? "Continue printing?" : "Продолжить печать?";
         public string Resource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
         public string Resources => Lang == ShareEnums.Lang.English ? "Printer resources" : "Ресурсы принтера";
         public string ResourcesClear => Lang == ShareEnums.Lang.English ? "Clear resources" : "Удалить ресурсы";

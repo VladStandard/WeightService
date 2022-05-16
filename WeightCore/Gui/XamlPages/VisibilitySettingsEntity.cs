@@ -64,14 +64,14 @@ namespace WeightCore.Gui.XamlPages
 
         public void Localization()
         {
-            ButtonAbortContent = LocaleData.Buttons.Abort;
-            ButtonCancelContent = LocaleData.Buttons.Cancel;
-            ButtonCustomContent = LocaleData.Buttons.Custom;
-            ButtonIgnoreContent = LocaleData.Buttons.Ignore;
-            ButtonNoContent = LocaleData.Buttons.No;
-            ButtonOkContent = LocaleData.Buttons.Ok;
-            ButtonRetryContent = LocaleData.Buttons.Retry;
-            ButtonYesContent = LocaleData.Buttons.Yes;
+            ButtonAbortContent = LocaleCore.Buttons.Abort;
+            ButtonCancelContent = LocaleCore.Buttons.Cancel;
+            ButtonCustomContent = LocaleCore.Buttons.Custom;
+            ButtonIgnoreContent = LocaleCore.Buttons.Ignore;
+            ButtonNoContent = LocaleCore.Buttons.No;
+            ButtonOkContent = LocaleCore.Buttons.Ok;
+            ButtonRetryContent = LocaleCore.Buttons.Retry;
+            ButtonYesContent = LocaleCore.Buttons.Yes;
         }
 
         #endregion

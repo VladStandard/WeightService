@@ -2,12 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using System.Windows.Forms;
+using DataCore.Localizations;
 using System;
+using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using DataCore.Localizations;
-using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
 {
@@ -49,6 +48,8 @@ namespace ScalesUI.Forms
                 Top = Owner.Top;
                 StartPosition = FormStartPosition.CenterParent;
                 ShowPalletSize();
+                SetGuiConfig();
+                SetGuiLocalize();
             }
             catch (Exception ex)
             {
@@ -141,8 +142,8 @@ namespace ScalesUI.Forms
 
             if (UserSession.Plu.IsCheckWeight == true && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                //GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
+                //    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 UserSession.WeighingSettings.LabelsCountMain = 1;
             }
             fieldPalletSize.Text = $"{UserSession.WeighingSettings.LabelsCountMain}";
@@ -283,6 +284,33 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
+        }
+
+        private void SetGuiConfig()
+        {
+            // Kneading.
+            labelKneading.Visible = UserSession.Scale.IsKneading;
+            fieldKneading.Visible = UserSession.Scale.IsKneading;
+            buttonKneading.Visible = UserSession.Scale.IsKneading;
+            // Pallet size.
+            labelPalletSize.Visible = !UserSession.Plu.IsCheckWeight;
+            fieldPalletSize.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonPalletSizePrev.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonPalletSizeNext.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonPalletSize10.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonSet1.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonSet40.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonSet60.Visible = !UserSession.Plu.IsCheckWeight;
+            buttonSet120.Visible = !UserSession.Plu.IsCheckWeight;
+        }
+
+        private void SetGuiLocalize()
+        {
+            labelKneading.Text = LocaleCore.Scales.FieldKneading;
+            labelProdDate.Text = LocaleCore.Scales.FieldProductDate;
+            labelPalletSize.Text = LocaleCore.Scales.FieldPalletSize;
+            buttonOk.Text = LocaleCore.Buttons.Ok;
+            buttonCancel.Text = LocaleCore.Buttons.Cancel;
         }
 
         #endregion

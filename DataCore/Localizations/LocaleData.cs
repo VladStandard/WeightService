@@ -315,18 +315,6 @@ namespace DataCore.Localizations
             public const string ScalesTerminal = "C:\\Program Files (x86)\\Massa-K\\ScalesTerminal 100\\ScalesTerminal.exe";
         }
 
-        public static class Buttons
-        {
-            public static string Abort => Lang == ShareEnums.Lang.English ? "Abort" : "Прервать";
-            public static string Cancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
-            public static string Custom => Lang == ShareEnums.Lang.English ? "Custom" : "Кастом";
-            public static string Ignore => Lang == ShareEnums.Lang.English ? "Ignore" : "Игнорировать";
-            public static string No => Lang == ShareEnums.Lang.English ? "No" : "Нет";
-            public static string Ok => Lang == ShareEnums.Lang.English ? "Ok" : "Ок";
-            public static string Retry => Lang == ShareEnums.Lang.English ? "Retry" : "Повторить";
-            public static string Yes => Lang == ShareEnums.Lang.English ? "Yes" : "Да";
-        }
-
         public static class Methods
         {
             public static string GetItemTitle(TableBase table)

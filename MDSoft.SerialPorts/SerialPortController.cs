@@ -192,21 +192,20 @@ namespace MDSoft.SerialPorts
 
         private void CloseThread()
         {
-            SerialPortEventArgs args = new()
-            {
-                SerialPort = new()
-            };
+            SerialPortEventArgs args = new() { SerialPort = new() };
             try
             {
                 SerialPort.Close();
                 SerialPort.DataReceived -= new SerialDataReceivedEventHandler(DataReceived);
-
-                CloseCallback?.Invoke(this, args);
             }
             catch (Exception ex)
             {
                 args.SerialPort = new();
                 ExceptionCallback?.Invoke(ex);
+            }
+            finally
+            {
+                CloseCallback?.Invoke(this, args);
             }
         }
 
