@@ -37,7 +37,7 @@ namespace WeightCore.Helpers
         public AppHelper App { get; private set; } = AppHelper.Instance;
         private CollectionsHelper Collections { get; set; } = CollectionsHelper.Instance;
         private ProcHelper Proc { get; set; } = ProcHelper.Instance;
-        private RegHelper Win { get; set; } = RegHelper.Instance;
+        private RegHelper Reg { get; set; } = RegHelper.Instance;
         private WinInfoHelper WinInfo { get; set; } = WinInfoHelper.Instance;
 
         #endregion
@@ -251,7 +251,7 @@ namespace WeightCore.Helpers
             }
 
             // Проверить установку драйвера.
-            if (Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Virtual Comport Driver",
+            if (Reg.SearchingSoftware(ShareEnums.WinProvider.Registry, "Virtual Comport Driver",
                 ShareEnums.StringTemplate.Equals).Vendor.
                 Equals("STMicroelectronics", StringComparison.InvariantCultureIgnoreCase))
                 return;

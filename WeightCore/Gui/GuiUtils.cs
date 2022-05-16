@@ -30,6 +30,7 @@ namespace WeightCore.Gui
         public static class WpfForm
         {
             public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+            public static WpfPageLoader WpfPage { get; set; }
 
             /// <summary>
             /// Show pin-code form.
@@ -45,6 +46,32 @@ namespace WeightCore.Gui
                 return resultPsw == DialogResult.OK;
             }
 
+            public static bool IsExistsWpfPage(IWin32Window owner, ref DialogResult resultWpf)
+            {
+                if (WpfPage != null)
+                {
+                    if (!WpfPage.Visible)
+                    {
+                        if (owner != null)
+                            resultWpf = WpfPage.ShowDialog(owner);
+                        else
+                            resultWpf = WpfPage.ShowDialog();
+                    }
+                    WpfPage.Activate();
+                    return true;
+                }
+                return false;
+            }
+
+            public static void CloseIfExistsWpfPage()
+            {
+                if (WpfPage != null)
+                {
+                    WpfPage.Close();
+                    WpfPage.Dispose();
+                }
+            }
+
             /// <summary>
             /// Show new form.
             /// </summary>
@@ -53,30 +80,36 @@ namespace WeightCore.Gui
             /// <param name="message"></param>
             public static DialogResult ShowNew(IWin32Window owner, string caption, string message, VisibilitySettingsEntity visibilitySettings)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = caption;
-                wpfPageLoader.MessageBox.Message = message;
-                wpfPageLoader.MessageBox.VisibilitySettings = visibilitySettings;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
+                CloseIfExistsWpfPage();
+                
                 DialogResult resultWpf;
+                WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                WpfPage.MessageBox.Caption = caption;
+                WpfPage.MessageBox.Message = message;
+                WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
+                WpfPage.MessageBox.VisibilitySettings.Localization();
                 if (owner != null)
-                    resultWpf = wpfPageLoader.ShowDialog(owner);
+                    resultWpf = WpfPage.ShowDialog(owner);
                 else
-                    resultWpf = wpfPageLoader.ShowDialog();
-                wpfPageLoader.Close();
+                    resultWpf = WpfPage.ShowDialog();
+                WpfPage.Close();
+                WpfPage.Dispose();
                 return resultWpf;
             }
 
             public static DialogResult ShowNewRegistration(string message)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = message;
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-                wpfPageLoader.ShowDialog();
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
+                CloseIfExistsWpfPage();
+
+                WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
+                WpfPage.MessageBox.Message = message;
+                WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
+                WpfPage.MessageBox.VisibilitySettings.Localization();
+                WpfPage.ShowDialog();
+                DialogResult result = WpfPage.MessageBox.Result;
+                WpfPage.Close();
+                WpfPage.Dispose();
                 return result;
             }
 
@@ -121,6 +154,8 @@ namespace WeightCore.Gui
 
             public static Guid ShowNewHostSaveInFile()
             {
+                CloseIfExistsWpfPage();
+
                 Guid uid = Guid.NewGuid();
                 XDocument doc = new();
                 XElement root = new("root");
@@ -128,19 +163,20 @@ namespace WeightCore.Gui
                 // new XElement("EncryptConnectionString", new XCData(EncryptDecryptUtils.Encrypt(connectionString)))
                 doc.Add(root);
 
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonNoVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-                wpfPageLoader.ShowDialog();
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                if (result == DialogResult.Yes)
+                DialogResult resultWpf = new();
+                WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
+                WpfPage.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
+                WpfPage.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
+                WpfPage.MessageBox.VisibilitySettings.ButtonNoVisibility = Visibility.Visible;
+                WpfPage.MessageBox.VisibilitySettings.Localization();
+                WpfPage.ShowDialog();
+                if (resultWpf == DialogResult.Yes)
                 {
                     doc.Save(DataCore.Sql.Controllers.HostsUtils.FilePathToken);
                 }
-                wpfPageLoader.Close();
+                WpfPage.Close();
+                WpfPage.Dispose();
                 return uid;
             }
             
@@ -197,14 +233,17 @@ namespace WeightCore.Gui
             /// <returns></returns>
             public static DialogResult ShowNewHostNotFound(Guid uid)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.Registration;
-                wpfPageLoader.MessageBox.Message = LocaleCore.Scales.RegistrationWarning(uid);
-                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-                wpfPageLoader.ShowDialog();
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
+                CloseIfExistsWpfPage();
+
+                WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
+                WpfPage.MessageBox.Message = LocaleCore.Scales.RegistrationWarning(uid);
+                WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
+                WpfPage.MessageBox.VisibilitySettings.Localization();
+                WpfPage.ShowDialog();
+                DialogResult result = WpfPage.MessageBox.Result;
+                WpfPage.Close();
+                WpfPage.Dispose();
                 return result;
             }
 
@@ -249,6 +288,12 @@ namespace WeightCore.Gui
             {
                 return CatchException(null, ex, true, true, filePath, lineNumber, memberName);
             }
+        }
+
+        public static void Dispose()
+        {
+            WpfForm.WpfPage?.Close();
+            WpfForm.WpfPage?.Dispose();
         }
 
         public static class WinForm

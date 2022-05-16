@@ -120,13 +120,13 @@ namespace WeightCore.Managers
         {
             if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
                 MassaDevice?.Open();
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold,
-                $"{LocaleCore.Scales.FieldThresholds}: " + (
-                    UserSessionHelper.Instance.Plu == null
-                    ? $"{LocaleCore.Scales.StateDisable}"
-                    : $"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.Plu.LowerWeightThreshold:0.000} {LocaleCore.Scales.UnitKg} | " +
-                      $"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.Plu.NominalWeight:0.000} {LocaleCore.Scales.UnitKg} | " +
-                      $"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.Plu.UpperWeightThreshold:0.000} {LocaleCore.Scales.UnitKg}"));
+            if (UserSessionHelper.Instance.Plu == null)
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: {LocaleCore.Scales.StateDisable}");
+            else
+                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: " +
+                    $"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.Plu.LowerWeightThreshold:0.000} {LocaleCore.Scales.UnitKg} | " +
+                    $"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.Plu.NominalWeight:0.000} {LocaleCore.Scales.UnitKg} | " +
+                    $"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.Plu.UpperWeightThreshold:0.000} {LocaleCore.Scales.UnitKg}");
             SetControlsVisible(true, true);
         }
 
@@ -170,7 +170,8 @@ namespace WeightCore.Managers
             }
             else
             {
-                SetControlsTextDefault();
+                if (UserSessionHelper.Instance.Plu == null)
+                    SetControlsTextDefault();
                 SetControlsVisible(false, false);
             }
         }

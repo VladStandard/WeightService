@@ -6,6 +6,7 @@ using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
 using DataCore.Wmi;
+using Gma.System.MouseKeyHook;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -47,6 +48,7 @@ namespace ScalesUI.Forms
         private FontsSettingsEntity FontsSettings { get; set; }
         private readonly object _lockerDays = new();
         private TableLayoutPanel TableLayoutPanelButtons { get; set; }
+        private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
 
         #endregion
 
@@ -67,6 +69,7 @@ namespace ScalesUI.Forms
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
                 FontsSettings = new();
+                KeyboardMouseSubscribe();
                 MainForm_ButtonsCreate();
                 LoadResources();
                 UserSession.NewPallet();
@@ -181,21 +184,12 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void MainForm_KeyUp(object sender, KeyEventArgs e)
-        {
-            if ((e.Control && e.Alt && e.KeyCode == Keys.Q)
-                || (e.Alt && e.KeyCode == Keys.X)
-                || (e.Control && e.KeyCode == Keys.Q)
-                || e.KeyCode == Keys.Escape)
-            {
-                Close();
-            }
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
+                KeyboardMouseUnsuscribe();
+                GuiUtils.Dispose();
                 UserSession.StopwatchMain.Restart();
                 if (Quartz != null)
                 {
@@ -223,10 +217,10 @@ namespace ScalesUI.Forms
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            if (Equals(e.Button, MouseButtons.Middle))
-            {
-                ActionPrint_Click(sender, e);
-            }
+            //if (Equals(e.Button, MouseButtons.Middle))
+            //{
+            //    ActionPrint_Click(sender, e);
+            //}
         }
 
         private void MainForm_FontsSet()
@@ -300,56 +294,48 @@ namespace ScalesUI.Forms
             {
                 ButtonScalesTerminal = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesTerminal), column++);
                 ButtonScalesTerminal.Click += new EventHandler(ActionScalesTerminal_Click);
-                ButtonScalesTerminal.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsScalesInit)
             {
                 ButtonScalesInit = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesInit), column++);
                 ButtonScalesInit.Click += new EventHandler(ActionScalesInit_Click);
-                ButtonScalesInit.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsOrder)
             {
                 ButtonOrder = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonOrder), column++);
                 ButtonOrder.Click += new EventHandler(ActionOrder_Click);
-                ButtonOrder.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsNewPallet)
             {
                 ButtonNewPallet = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonNewPallet), column++);
                 ButtonNewPallet.Click += new EventHandler(ActionNewPallet_Click);
-                ButtonNewPallet.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsKneading)
             {
                 ButtonKneading = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonKneading), column++);
                 ButtonKneading.Click += new EventHandler(ActionKneading_Click);
-                ButtonKneading.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsPlu)
             {
                 ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPlu), column++);
                 ButtonPlu.Click += new EventHandler(ActionPlu_Click);
-                ButtonPlu.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsMore)
             {
                 ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonMore), column++);
                 ButtonMore.Click += new EventHandler(ActionMore_Click);
-                ButtonMore.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (buttonsSettings.IsPrint)
             {
                 ButtonPrint = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPrint), column++);
                 ButtonPrint.Click += new EventHandler(ActionPrint_Click);
-                ButtonPrint.KeyUp += new KeyEventHandler(MainForm_KeyUp);
                 ButtonPrint.Focus();
             }
 
@@ -373,7 +359,39 @@ namespace ScalesUI.Forms
 
         #endregion
 
-        #region Private methods
+        #region Public and private methods - MouseHook
+
+        private void KeyboardMouseSubscribe()
+        {
+            KeyboardMouseEvents = Hook.GlobalEvents();
+            KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+            KeyboardMouseEvents.KeyUp += KeyUpExt;
+        }
+
+        private void KeyboardMouseUnsuscribe()
+        {
+            KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+            KeyboardMouseEvents.KeyUp += KeyUpExt;
+            KeyboardMouseEvents.Dispose();
+        }
+
+        private void MouseDownExt(object sender, MouseEventExtArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+                ActionPrint_Click(sender, e);
+        }
+
+        private void KeyUpExt(object sender, KeyEventArgs e)
+        {
+            if ((e.Control && e.KeyCode == Keys.X) || (e.Control && e.KeyCode == Keys.C) || e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
+        
+        #endregion
+
+        #region Public and private methods - Controls
 
         public void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
         {
