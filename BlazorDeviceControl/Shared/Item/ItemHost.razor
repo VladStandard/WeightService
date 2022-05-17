@@ -70,17 +70,3 @@ else
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }
-@*
-                <td>@LocaleCore.Table.IdRRef</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.IdRRefAsString />
-                </td>
-                <td>
-                    <RadzenLabel Style="width: 100%;" Text=@LocaleCore.Table.SettingsFile />
-                </td>
-                <td colspan=3 >
-                    <RadzenTextArea Style="width: 100%; height: 50%; font-size: 12px; line-height: 20px; "
-                        Disabled=false TValue="string" @bind-Value=@ItemCast.SettingsFile Rows=6 />
-                </td>
-*@

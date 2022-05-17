@@ -12,7 +12,7 @@ namespace TSCLIB_DLL_IN_C_Sharp
 
         #region Public and private fields and properties
 
-        private TSCSDK.driver _driver = new();
+        private readonly TSCSDK.driver _driver = new();
         public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
 
         #endregion
@@ -28,7 +28,7 @@ namespace TSCLIB_DLL_IN_C_Sharp
 
         #region Public and private methods
 
-        private void buttonPrintSendCmd_Click(object sender, EventArgs e)
+        private void ButtonPrintSendCmd_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(fieldPortName.Text))
                 return;
@@ -54,13 +54,19 @@ namespace TSCLIB_DLL_IN_C_Sharp
             }
         }
 
-        private void buttonLibInit_Click(object sender, EventArgs e)
+        private void ButtonLibInit_Click(object sender, EventArgs e)
         {
             TscPrintControl.Init(fieldPortName.Text);
             MessageBox.Show("Init complete.");
         }
 
-        private void buttonLibSendCmd_Click(object sender, EventArgs e)
+        private void ButtonLibInitv2_Click(object sender, EventArgs e)
+        {
+            TscPrintControl.Init(fieldPortIp.Text, Convert.ToInt32(fieldPortPort.Text));
+            MessageBox.Show("Init complete.");
+        }
+
+        private void ButtonLibSendCmd_Click(object sender, EventArgs e)
         {
             TscPrintControl.SendCmd(fieldCmd.Text);
             MessageBox.Show("Send cmd complete.");

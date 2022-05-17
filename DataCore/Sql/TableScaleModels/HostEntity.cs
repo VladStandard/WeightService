@@ -30,7 +30,6 @@ namespace DataCore.Sql.TableScaleModels
             get => IdRRef.ToString();
             set => IdRRef = Guid.Parse(value);
         }
-        public virtual string SettingsFile { get; set; }
 
         #endregion
 
@@ -48,7 +47,6 @@ namespace DataCore.Sql.TableScaleModels
             HostName = string.Empty;
             Ip = string.Empty;
             MacAddress = new();
-            SettingsFile = string.Empty;
             IdRRef = Guid.Empty;
         }
 
@@ -59,15 +57,13 @@ namespace DataCore.Sql.TableScaleModels
         public override string ToString()
         {
             string strAccessDt = AccessDt != null ? AccessDt.ToString() : "null";
-            string strSettingsFileString = SettingsFile != null ? SettingsFile.Length.ToString() : "null";
             return base.ToString() +
                    $"{nameof(AccessDt)}: {strAccessDt}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(HostName)}: {HostName}. " +
                    $"{nameof(Ip)}: {Ip}. " +
                    $"{nameof(MacAddress)}: {MacAddress}. " +
-                   $"{nameof(IdRRef)}: {IdRRef}. " +
-                   $"{nameof(SettingsFile)}: {strSettingsFileString}. ";
+                   $"{nameof(IdRRef)}: {IdRRef}. ";
         }
 
         public virtual bool Equals(HostEntity item)
@@ -81,8 +77,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(Name, item.Name) &&
                    Equals(HostName, item.HostName) &&
                    Equals(Ip, item.Ip) &&
-                   Equals(IdRRef, item.IdRRef) &&
-                   Equals(SettingsFile, item.SettingsFile);
+                   Equals(IdRRef, item.IdRRef);
         }
 
         public override bool Equals(object obj)
@@ -112,8 +107,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(Name, string.Empty) &&
                    Equals(HostName, string.Empty) &&
                    Equals(Ip, string.Empty) &&
-                   Equals(IdRRef, Guid.Empty) &&
-                   Equals(SettingsFile, string.Empty);
+                   Equals(IdRRef, Guid.Empty);
         }
 
         public new virtual object Clone()
@@ -125,7 +119,6 @@ namespace DataCore.Sql.TableScaleModels
             item.Ip = Ip;
             item.MacAddress = MacAddress.CloneCast();
             item.IdRRef = IdRRef;
-            item.SettingsFile = SettingsFile;
             item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }

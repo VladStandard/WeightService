@@ -21,7 +21,6 @@ namespace DataCore.Sql.TableScaleModels
             Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("MAC").Length(35).Nullable();
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Not.Nullable();
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-            Map(x => x.SettingsFile).CustomSqlType("XML").Column("SettingsFile").Nullable().Length(int.MaxValue);
         }
     }
 }

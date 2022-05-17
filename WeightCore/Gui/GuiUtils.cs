@@ -219,7 +219,6 @@ namespace WeightCore.Gui
                         ChangeDt = DateTime.Now,
                         AccessDt = DateTime.Now,
                         IsMarked = false,
-                        SettingsFile = string.Empty,
                     };
                     DataAccess.Crud.SaveEntity(host);
                 }

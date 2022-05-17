@@ -134,7 +134,6 @@ namespace DataCore.Localizations
         public string Scale => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
         public string ScaleFactor => Lang == ShareEnums.Lang.English ? "Scale factor" : "Коэф. масштабирования";
         public string ScaleId => Lang == ShareEnums.Lang.English ? "Scale ID" : "ID весов";
-        public string SettingsFile => Lang == ShareEnums.Lang.English ? "Settings file" : "Файл настроек";
         public string ShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life (days)" : "Срок годности (суток)";
         public string Sscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
         public string State => Lang == ShareEnums.Lang.English ? "Status" : "Статус";

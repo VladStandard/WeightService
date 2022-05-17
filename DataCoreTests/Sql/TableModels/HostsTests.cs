@@ -39,7 +39,6 @@
 //                                            MacAddress = new DataShareCore.DAL.Models.MacAddressEntity(s),
 //                                            IdRRef = guid,
 //                                            IsMarked = b,
-//                                            SettingsFile = s,
 //                                        };
 //                                        _ = item.ToString();
 //                                        Assert.AreEqual(false, entityNew.Equals(item));
@@ -61,7 +60,6 @@
 //                    new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
 //                {
 //                    TestContext.WriteLine(item.ToString());
-//                    TestContext.WriteLine($"SettingsFile: {item.SettingsFile}");
 //                    TestContext.WriteLine();
 //                }
 //            });
@@ -80,7 +78,6 @@
 //                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.Crud.GetFreeHosts(null))
 //                {
 //                    TestContext.WriteLine(item.ToString());
-//                    TestContext.WriteLine($"SettingsFile: {item.SettingsFile}");
 //                    TestContext.WriteLine();
 //                }
 //            });

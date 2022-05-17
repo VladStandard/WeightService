@@ -39,9 +39,6 @@ namespace DataCore.Sql.Controllers
                 result.Mac = SqlConnect.GetValueAsNullable<string>(reader, "MAC");
                 result.IdRRef = SqlConnect.GetValueAsNotNullable<Guid>(reader, "IDRREF");
                 result.IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "MARKED");
-                string? settingFile = SqlConnect.GetValueAsNullable<string>(reader, "SETTINGSFILE");
-                if (settingFile is string sf)
-                    result.SettingsFile = XDocument.Parse(sf);
                 result.ScaleId = SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID");
             }
             return result;

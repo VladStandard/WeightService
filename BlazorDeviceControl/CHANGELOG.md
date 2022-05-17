@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.640] - 2022-05-17
+### Fixed
+- Shared.SectionPLus
+### Описание обновления:
+- Обновлён ПЛУ
+
 ## [0.6.610] - 2022-05-12
 ### Fixed
 - Shared.SectionAccess

@@ -70,7 +70,7 @@ namespace DataCore.Sql.Controllers
             {
                 host = DataAccess.Crud.GetEntity<HostEntity>(
                     new FieldListEntity(new Dictionary<DbField, object?> {
-                        { DbField.HostName, hostName },
+                        { DbField.HostName, strName },
                         { DbField.IsMarked, false },
                     }));
                 if (host != null && !host.EqualsDefault())
@@ -104,7 +104,6 @@ namespace DataCore.Sql.Controllers
                             MacAddress = new MacAddressEntity(Convert.ToString(obj[6])),
                             IdRRef = Guid.Parse(Convert.ToString(obj[7])),
                             IsMarked = Convert.ToBoolean(obj[8]),
-                            SettingsFile = Convert.ToString(obj[9]),
                         };
                         if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                             items.Add(host);
@@ -136,7 +135,6 @@ namespace DataCore.Sql.Controllers
                             MacAddress = new MacAddressEntity(Convert.ToString(obj[8])),
                             IdRRef = Guid.Parse(Convert.ToString(obj[9])),
                             IsMarked = Convert.ToBoolean(obj[10]),
-                            SettingsFile = Convert.ToString(obj[11]),
                         };
                         if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                             items.Add(host);

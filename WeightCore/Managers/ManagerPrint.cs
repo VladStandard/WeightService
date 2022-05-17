@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.Wmi;
 using System;
-using System.Runtime.CompilerServices;
 using WeightCore.Gui;
 using WeightCore.Print;
 using WeightCore.Print.Tsc;
@@ -30,11 +29,9 @@ namespace WeightCore.Managers
         private ZebraPrinter _zebraDriver;
         public Connection ZebraConnection { get; private set; }
         public int LabelsCount { get; set; }
-        public int Port { get; private set; }
         public Label FieldPrint { get; private set; }
         public PrintBrand PrintBrand { get; private set; }
         public PrinterEntity Printer { get; private set; }
-        public string Ip { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
         public TscPrintControlHelper TscDriver { get; private set; } = TscPrintControlHelper.Instance;
         public WmiWin32PrinterEntity Win32Printer => Wmi.GetWin32Printer(TscDriver.PrintName);
@@ -55,29 +52,31 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(PrintBrand printBrand, PrinterEntity printer,
-            string name, string ip, int port, Label fieldPrint, bool isMain)
+        public void Init(PrintBrand printBrand, PrinterEntity printer, Label fieldPrint, bool isMain)
         {
             try
             {
                 Init(ProjectsEnums.TaskType.MemoryManager,
                     () =>
                     {
+                        //string name = printer.Name;
+                        //string ip = printer.Ip;
+                        //int port = printer.Port;
                         PrintBrand = printBrand;
                         Printer = printer;
                         switch (PrintBrand)
                         {
                             case PrintBrand.Zebra:
-                                Ip = ip;
-                                Port = port;
+                                //Ip = printer.Ip;
+                                //Port = printer.Port;
                                 FieldPrint = fieldPrint;
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                                    $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Ip}");
+                                    $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
                                 break;
                             case PrintBrand.TSC:
-                                TscDriver.Init(name);
+                                TscDriver.Init(printer.Ip, printer.Port);
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                                    $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Ip}");
+                                    $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
                                 break;
                         }
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
@@ -126,7 +125,7 @@ namespace WeightCore.Managers
                 {
                     case PrintBrand.Zebra:
                         if (ZebraConnection == null)
-                            ZebraConnection = ZebraConnectionBuilder.Build(Ip);
+                            ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
                         if (!ZebraConnection.Connected)
                             ZebraConnection.Open();
                         //if (!ZebraDriver.Connection.Connected)
@@ -155,7 +154,7 @@ namespace WeightCore.Managers
         private void Response(bool isMain, string value)
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint, 
-                $"{GetDeviceNameShort(isMain)} | {Ip}: {Printer.PingStatus} | {GetDeviceStatus()} | {value}");
+                $"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | {GetDeviceStatus()} | {value}");
         }
 
         public string GetDeviceName(bool isMain)

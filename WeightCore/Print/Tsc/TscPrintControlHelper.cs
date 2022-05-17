@@ -11,16 +11,14 @@ namespace WeightCore.Print.Tsc
     {
         #region Design pattern "Lazy Singleton"
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static TscPrintControlHelper _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static TscPrintControlHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public and private fields and properties
 
-        private TSCSDK.driver _tscDriver = new();
+        private readonly TSCSDK.driver _tscDriver = new();
         private string _printName;
         public string PrintName
         {
@@ -128,8 +126,7 @@ namespace WeightCore.Print.Tsc
 
         #region Constructor
 
-        public void Init(string printIp, int printPort, PrintLabelSize size = PrintLabelSize.Size80x100, 
-            PrintDpi dpi = PrintDpi.Dpi300)
+        public void Init(string printIp, int printPort, PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
         {
             Init(size, dpi);
 

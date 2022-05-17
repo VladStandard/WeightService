@@ -231,7 +231,6 @@ SELECT
    ,[H].[MAC]
    ,[H].[IdRRef]
    ,[H].[Marked]
-   ,[H].[SettingsFile]
 FROM [db_scales].[Hosts] [H]
 LEFT JOIN [db_scales].[Scales] [S] ON [H].[Id] = [S].[HOSTID]
 WHERE [H].[Id] IN (SELECT [HOSTID]
@@ -255,7 +254,6 @@ SELECT
    ,[H].[MAC]
    ,[H].[IDRREF]
    ,[H].[MARKED]
-   ,[H].[SETTINGSFILE]
 FROM [DB_SCALES].[HOSTS] [H]
 WHERE [H].[ID] NOT IN (SELECT [HOSTID]
 	FROM [DB_SCALES].[SCALES] [S]
@@ -285,7 +283,6 @@ select
 	,[H].[MAC]
 	,[H].[IDRREF]
 	,[H].[MARKED]
-	,[H].[SETTINGSFILE]
 	,[H].[ACCESS_DT]
 	,[SCALES].[ID] [SCALE_ID]
 	,[SCALES].[DESCRIPTION] [SCALE_DESCRIPTION]
@@ -303,7 +300,6 @@ SELECT
 	,[H].[MAC]
 	,[H].[IDRREF]
 	,[H].[MARKED]
-	,[H].[SETTINGSFILE]
 	,[H].[ACCESS_DT]
 	,[SCALES].[ID] [SCALE_ID]
 	,[SCALES].[DESCRIPTION] [SCALE_DESCRIPTION]
@@ -313,7 +309,7 @@ WHERE [H].[MARKED] = 0 AND [H].[HOSTNAME] = @HOST_NAME
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string InsertNew => @"
-INSERT INTO [db_scales].[HOSTS] (IdRRef, NAME, MAC, IP, SettingsFile) 
+INSERT INTO [db_scales].[HOSTS] (IdRRef, NAME, MAC, IP) 
 VALUES(@uid, @name, @mac, @ip, @doc)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 				}

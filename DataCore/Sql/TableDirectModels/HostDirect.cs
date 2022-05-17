@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Models;
 using System;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DataCore.Sql.TableDirectModels
@@ -20,7 +19,6 @@ namespace DataCore.Sql.TableDirectModels
         public string? Mac { get; set; }
         public Guid IdRRef { get; set; }
         public bool IsMarked { get; set; }
-        [XmlIgnore] public XDocument? SettingsFile { get; set; }
 
         #endregion
 
@@ -36,7 +34,6 @@ namespace DataCore.Sql.TableDirectModels
             Mac = string.Empty;
             IdRRef = Guid.Empty;
             IsMarked = false;
-            SettingsFile = null;
         }
 
         #endregion

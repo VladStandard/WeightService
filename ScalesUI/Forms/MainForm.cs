@@ -157,17 +157,13 @@ namespace ScalesUI.Forms
                     fieldMassaThreshold, fieldMassaGet, fieldMassaPluDescription);
                 UserSession.ManagerControl.Massa.Open();
                 // PrintMain.
-                UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain,
-                    UserSession.Scale.PrinterMain.Name, UserSession.Scale.PrinterMain.Ip,
-                    UserSession.Scale.PrinterMain.Port, fieldPrintMain, true);
+                UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, true);
                 UserSession.ManagerControl.PrintMain.Open(true);
                 UserSession.ManagerControl.PrintMain.SetOdometorUserLabel(1);
                 // PrintShipping.
                 if (UserSession.Scale.IsShipping)
                 {
-                    UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping,
-                        UserSession.Scale.PrinterShipping.Name, UserSession.Scale.PrinterShipping.Ip,
-                        UserSession.Scale.PrinterShipping.Port, fieldPrintShipping, false);
+                    UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, false);
                     UserSession.ManagerControl.PrintShipping.Open(false);
                     UserSession.ManagerControl.PrintShipping.SetOdometorUserLabel(1);
                 }
@@ -462,7 +458,7 @@ namespace ScalesUI.Forms
             WmiWin32PrinterEntity win32Printer = managerPrint.Win32Printer;
             return
                 $"{managerPrint.GetDeviceName(isMain)}" + Environment.NewLine +
-                $"{LocaleCore.Print.DeviceCommunication} ({managerPrint.Ip}): {managerPrint.Printer.PingStatus}" + Environment.NewLine +
+                $"{LocaleCore.Print.DeviceCommunication} ({managerPrint.Printer.Ip}): {managerPrint.Printer.PingStatus}" + Environment.NewLine +
                 $"{LocaleCore.Print.PrinterStatus}: {managerPrint.GetDeviceStatus()}" + Environment.NewLine +
                 Environment.NewLine +
                 $"{LocaleCore.Print.Driver}: {win32Printer.DriverName}" + Environment.NewLine +

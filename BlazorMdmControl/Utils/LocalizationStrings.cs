@@ -240,7 +240,6 @@ namespace MdmControlBlazor.Utils
         public const string TableFieldSscc = @"SSCC";
         public const string TableFieldValue = @"Значение";
         public const string TableFieldMarked = @"В архиве";
-        public const string TableFieldSettingsFile = @"Файл настроек";
         public const string TableFieldPackWeight = @"PackWeight";
         public const string TableFieldPackQuantly = @"PackQuantly";
         public const string TableFieldBarCodeTypeId = @"ID типа ШК";
