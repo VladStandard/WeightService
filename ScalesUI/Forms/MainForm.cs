@@ -211,14 +211,6 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void MainForm_MouseUp(object sender, MouseEventArgs e)
-        {
-            //if (Equals(e.Button, MouseButtons.Middle))
-            //{
-            //    ActionPrint_Click(sender, e);
-            //}
-        }
-
         private void MainForm_FontsSet()
         {
             fieldResolution.Font = FontsSettings.FontMinimum;
@@ -891,7 +883,7 @@ namespace ScalesUI.Forms
                 if (Debug.IsDebug)
                 {
                     DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
-                        true, LogType.Warning,
+                        true, LogType.Question,
                         new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                         UserSession.Scale.Host.HostName, nameof(WeightCore));
                     if (dialogResult != DialogResult.Yes)

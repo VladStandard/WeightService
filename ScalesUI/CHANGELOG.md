@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.650] - 2022-05-18
+## [0.6.670] - 2022-05-18
 ### Changed
 - Fixed TSC print driver
 

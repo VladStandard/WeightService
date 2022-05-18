@@ -2,22 +2,22 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Localizations;
+using DataCore.Protocols;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Wmi;
 using System;
+using System.Net.NetworkInformation;
+using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Helpers;
 using WeightCore.Print;
 using WeightCore.Print.Tsc;
+using WeightCore.Zpl;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
-using System.Windows.Forms;
-using DataCore.Sql.TableScaleModels;
-using DataCore.Protocols;
-using DataCore.Localizations;
-using WeightCore.Helpers;
-using System.Net.NetworkInformation;
-using WeightCore.Zpl;
 
 namespace WeightCore.Managers
 {
@@ -61,10 +61,11 @@ namespace WeightCore.Managers
                     {
                         PrintBrand = printBrand;
                         Printer = printer;
+                        FieldPrint = fieldPrint;
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
                         switch (PrintBrand)
                         {
                             case PrintBrand.Zebra:
-                                FieldPrint = fieldPrint;
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
                                 break;
@@ -74,7 +75,6 @@ namespace WeightCore.Managers
                                     $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
                                 break;
                         }
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrint, true);
                     },
                     new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
             }
@@ -89,13 +89,16 @@ namespace WeightCore.Managers
             try
             {
                 Open(
-                    () => {
+                    () =>
+                    {
                         Reopen();
                     },
-                    () => {
+                    () =>
+                    {
                         Request();
                     },
-                    () => {
+                    () =>
+                    {
                         Response(isMain,
                             $"{LocaleCore.Scales.Labels}: {LabelsCount} / " +
                             $"{UserSessionHelper.Instance.WeighingSettings.LabelsCountMain}");
@@ -146,7 +149,7 @@ namespace WeightCore.Managers
 
         private void Response(bool isMain, string value)
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint, 
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                 $"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | {GetDeviceStatus()} | {value}");
         }
 
@@ -214,22 +217,22 @@ namespace WeightCore.Managers
                     }
                     break;
                 case PrintBrand.TSC:
-                    return $"{TscWmiPrinter.PrinterStatusDescription}";
+                    return TscWmiPrinter.PrinterStatusDescription;
             }
             return LocaleCore.Print.StatusIsUnavailable;
         }
 
         public bool CheckDeviceStatus()
         {
+            string status = GetDeviceStatus();
             switch (PrintBrand)
             {
                 case PrintBrand.Zebra:
                     if (ZebraStatus == null)
                         return false;
-                    return GetDeviceStatus() == LocaleCore.Print.StatusIsReadyToPrint;
+                    return status == LocaleCore.Print.StatusIsReadyToPrint;
                 case PrintBrand.TSC:
-                    //return $"{Win32Printer?.PrinterStatusDescription}";
-                    return false;
+                    return status == LocaleCore.Print.StatusIsReadyToPrint;
             }
             return false;
         }
@@ -281,14 +284,14 @@ namespace WeightCore.Managers
             }
             ZebraConnection = null;
             Wmi = null;
-            
+
             base.ReleaseManaged();
         }
 
         public new void ReleaseUnmanaged()
         {
             ZebraPeelerStatus = string.Empty;
-            
+
             base.ReleaseUnmanaged();
         }
 

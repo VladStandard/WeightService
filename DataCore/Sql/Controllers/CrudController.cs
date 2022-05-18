@@ -435,8 +435,13 @@ namespace DataCore.Sql.Controllers
                 case WeithingFactEntity weithingFact:
                     if (!weithingFact.EqualsEmpty())
                     {
+                        //weithingFact.Plu = GetEntity<PluEntity>(
+                        //    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, (long)weithingFact.Plu.IdentityId } }));
                         weithingFact.Plu = GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, (long)weithingFact.Plu.IdentityId } }));
+                            new FieldListEntity(new Dictionary<DbField, object?> {
+                                { DbField.Scale, weithingFact.Scale.IdentityId },
+                                { DbField.Plu, weithingFact.Plu.IdentityId },
+                            }));
                         weithingFact.Scale = GetEntity<ScaleEntity>(weithingFact.Scale.IdentityId);
                         weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntity<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
                         weithingFact.Order = weithingFact.Order?.IdentityId == null ? null : GetEntity<OrderEntity>(weithingFact.Order.IdentityId);

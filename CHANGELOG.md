@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.650] - 2022-05-18
+## [0.6.670] - 2022-05-18
 ### Changed
 - DataCore
 - ScalesUI
@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed TSC print driver
 ### Описание обновления:
 - Исправление драйвера печати принтера TSC
+- WS-T-157. ScalesUI. BugFix TSC Print. Preview concept
+- WS-T-158. TSC Print. BugFix test
 
 ## [0.6.640] - 2022-05-17
 ### Added

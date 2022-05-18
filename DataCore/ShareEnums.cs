@@ -124,6 +124,7 @@ namespace DataCore
             Number,
             Plu,
             PrinterId,
+            Scale,
             Scale_Id,
             ScaleId,
             Task_Uid,

@@ -205,6 +205,8 @@ namespace BlazorDeviceControl.Shared.Component
                     WeithingFactEntity? weithingFact = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(IdentityId);
                     if (weithingFact != null)
                     {
+                        CreateDt = weithingFact.CreateDt.ToString();
+                        ChangeDt = weithingFact.ChangeDt.ToString();
                     }
                     break;
                 case ProjectsEnums.TableScale.Workshops:

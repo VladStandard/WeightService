@@ -45,7 +45,8 @@ namespace DataCore.Wmi
                     Win32PrinterStatusEnum.Idle => "Бездействие",
                     Win32PrinterStatusEnum.Paused => "Пауза",
                     Win32PrinterStatusEnum.Error => "Ошибка",
-                    Win32PrinterStatusEnum.PendingDeletion => "Ожидание печати", // Ожидание удаления
+                    //Win32PrinterStatusEnum.PendingDeletion => "Ожидание печати", // Ожидание удаления
+                    Win32PrinterStatusEnum.PendingDeletion => LocaleCore.Print.StatusIsReadyToPrint,
                     Win32PrinterStatusEnum.PaperJam => "Застревание бумаги",
                     Win32PrinterStatusEnum.PaperOut => "Выдача бумаги",
                     Win32PrinterStatusEnum.ManualFeed => "Ручная подача",

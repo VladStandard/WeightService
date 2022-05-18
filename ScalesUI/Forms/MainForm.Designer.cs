@@ -76,7 +76,6 @@
             this.labelWeightNetto.Text = "labelWeightNetto";
             this.labelWeightNetto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWeightNetto.Visible = false;
-            this.labelWeightNetto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldWeightTare
             // 
@@ -93,7 +92,6 @@
             this.fieldWeightTare.Text = "0,000";
             this.fieldWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldWeightTare.Visible = false;
-            this.fieldWeightTare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldWeightNetto
             // 
@@ -110,7 +108,6 @@
             this.fieldWeightNetto.Text = "0,000";
             this.fieldWeightNetto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldWeightNetto.Visible = false;
-            this.fieldWeightNetto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // tableLayoutPanelMain
             // 
@@ -165,7 +162,6 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1024, 668);
             this.tableLayoutPanelMain.TabIndex = 7;
-            this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintShippingManager
             // 
@@ -192,7 +188,6 @@
             this.fieldPrintProgressShipping.Size = new System.Drawing.Size(99, 17);
             this.fieldPrintProgressShipping.TabIndex = 67;
             this.fieldPrintProgressShipping.Visible = false;
-            this.fieldPrintProgressShipping.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintShipping
             // 
@@ -211,7 +206,6 @@
             this.fieldPrintShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldPrintShipping.Visible = false;
             this.fieldPrintShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
-            this.fieldPrintShipping.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaThreshold
             // 
@@ -229,7 +223,6 @@
             this.fieldMassaThreshold.Text = "fieldMassaThreshold";
             this.fieldMassaThreshold.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaThreshold.Visible = false;
-            this.fieldMassaThreshold.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldSscc
             // 
@@ -249,7 +242,6 @@
             this.fieldSscc.Visible = false;
             this.fieldSscc.Click += new System.EventHandler(this.FieldSscc_Click);
             this.fieldSscc.DoubleClick += new System.EventHandler(this.FieldSscc_Click);
-            this.fieldSscc.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTasks
             // 
@@ -268,7 +260,6 @@
             this.fieldTasks.Visible = false;
             this.fieldTasks.Click += new System.EventHandler(this.FieldTasks_Click);
             this.fieldTasks.DoubleClick += new System.EventHandler(this.FieldTasks_Click);
-            this.fieldTasks.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMemory
             // 
@@ -286,7 +277,6 @@
             this.fieldMemory.Text = "fieldMemory";
             this.fieldMemory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMemory.Visible = false;
-            this.fieldMemory.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintMainManager
             // 
@@ -303,7 +293,6 @@
             this.fieldPrintMainManager.Text = "fieldPrintMainManager";
             this.fieldPrintMainManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldPrintMainManager.Visible = false;
-            this.fieldPrintMainManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaManager
             // 
@@ -320,7 +309,6 @@
             this.fieldMassaManager.Text = "fieldMassaManager";
             this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldMassaManager.Visible = false;
-            this.fieldMassaManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaPluDescription
             // 
@@ -338,7 +326,6 @@
             this.fieldMassaPluDescription.Text = "fieldMassaPluDescription";
             this.fieldMassaPluDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaPluDescription.Visible = false;
-            this.fieldMassaPluDescription.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaGet
             // 
@@ -356,7 +343,6 @@
             this.fieldMassaGet.Text = "fieldMassaGet";
             this.fieldMassaGet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaGet.Visible = false;
-            this.fieldMassaGet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // pictureBoxClose
             // 
@@ -373,7 +359,6 @@
             this.pictureBoxClose.TabStop = false;
             this.pictureBoxClose.Visible = false;
             this.pictureBoxClose.Click += new System.EventHandler(this.ActionClose_Click);
-            this.pictureBoxClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelWeightTare
             // 
@@ -391,7 +376,6 @@
             this.labelWeightTare.Text = "labelWeightTare";
             this.labelWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWeightTare.Visible = false;
-            this.labelWeightTare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelKneading
             // 
@@ -409,7 +393,6 @@
             this.labelKneading.Text = "labelKneading";
             this.labelKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelKneading.Visible = false;
-            this.labelKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelProductDate
             // 
@@ -427,7 +410,6 @@
             this.labelProductDate.Text = "labelProductDate";
             this.labelProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelProductDate.Visible = false;
-            this.labelProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldProductDate
             // 
@@ -444,7 +426,6 @@
             this.fieldProductDate.Text = "fieldProductDate";
             this.fieldProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldProductDate.Visible = false;
-            this.fieldProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldKneading
             // 
@@ -461,7 +442,6 @@
             this.fieldKneading.Text = "fieldKneading";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldKneading.Visible = false;
-            this.fieldKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintMain
             // 
@@ -480,7 +460,6 @@
             this.fieldPrintMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldPrintMain.Visible = false;
             this.fieldPrintMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
-            this.fieldPrintMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTitle
             // 
@@ -498,7 +477,6 @@
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldTitle.Visible = false;
             this.fieldTitle.DoubleClick += new System.EventHandler(this.FieldTitle_DoubleClick);
-            this.fieldTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPlu
             // 
@@ -516,7 +494,6 @@
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldPlu.Visible = false;
             this.fieldPlu.Click += new System.EventHandler(this.ActionPlu_Click);
-            this.fieldPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // tableLayoutPanelRight
             // 
@@ -545,7 +522,6 @@
             this.fieldLang.Size = new System.Drawing.Size(93, 21);
             this.fieldLang.TabIndex = 57;
             this.fieldLang.Visible = false;
-            this.fieldLang.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldResolution
             // 
@@ -559,7 +535,6 @@
             this.fieldResolution.Size = new System.Drawing.Size(93, 21);
             this.fieldResolution.TabIndex = 30;
             this.fieldResolution.Visible = false;
-            this.fieldResolution.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // MainForm
             // 
@@ -577,7 +552,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
