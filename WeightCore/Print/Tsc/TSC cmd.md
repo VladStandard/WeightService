@@ -1,6 +1,8 @@
----------------------------------------------------------------------------------------------------
-TSC_TSPL_TSPL2_Programming.pdf
----------------------------------------------------------------------------------------------------
+# TSC cmd
+- TSC_TSPL_TSPL2_Programming.pdf
+
+## Cmd
+```
 SPEED 3
 DENSITY 10
 DIRECTION 1
@@ -9,7 +11,10 @@ GAP 0.00,0.0
 CLS
 PUTBMP 10,10,"REC5.BMP"
 PRINT 1
----------------------------------------------------------------------------------------------------
+```
+
+## Cmd
+```
 SPEED 3
 DENSITY 10
 DIRECTION 1
@@ -20,14 +25,20 @@ PUTPCX 200,888,"EAC.BMP"
 PUTBMP 315,888,"FISH.BMP"
 PUTBMP 435,888,"TEMP6.BMP"
 PRINT 1
----------------------------------------------------------------------------------------------------
+```
+
+## Cmd
+```
 DIRECTION 1
 CLS
 PUTBMP 200,888,"EAC.BMP",8,80
 PUTBMP 315,888,"FISH.BMP",8,80
 PUTBMP 435,888,"TEMP6.BMP",8,80
 PRINT 1
----------------------------------------------------------------------------------------------------
+```
+
+## Cmd
+```
 SIZE - defines the label width and length
 GAP - gap distance between two labels
 	GAP 3.50 mm, 0.00 mm
@@ -100,4 +111,4 @@ BLOCK - prints paragraph on label
 SET GAP - 
 	SET GAP n/AUTO/OFF/0,/REVERSE/OBVERSE
 	SET GAP 6,
----------------------------------------------------------------------------------------------------
+```

@@ -6,7 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <tsc:TscPrintControlHelper x:Key="PrintControlEntityViewModel" />
+        <tsc:TscDriverHelper x:Key="PrintControlEntityViewModel" />
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintLabelSize">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="print:PrintLabelSize"/>
@@ -15,6 +15,11 @@
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintDpi">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="print:PrintDpi"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintChannel">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="print:PrintChannel"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Application.Resources>

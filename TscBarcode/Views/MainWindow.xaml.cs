@@ -16,7 +16,7 @@ namespace TscBarcode.Views
     {
         #region Public and private fields and properties
 
-        public TscPrintControlHelper PrintControl { get; set; }
+        public TscDriverHelper TscDriver { get; private set; } = TscDriverHelper.Instance;
 
         #endregion
 
@@ -27,24 +27,25 @@ namespace TscBarcode.Views
             InitializeComponent();
 
             object context = FindResource("PrintControlEntityViewModel");
-            if (context is TscPrintControlHelper printControl)
+            if (context is TscDriverHelper printControl)
             {
-                PrintControl = printControl;
-                if (string.IsNullOrEmpty(PrintControl.PrintIp))
-                    PrintControl.PrintIp = "192.168.7.41";
+                TscDriver = printControl;
+                TscDriver.Properties.PrintName = "SCALES-PRN-005";
+                TscDriver.Properties.PrintIp = "192.168.4.159";
+                TscDriver.Properties.PrintPort = 9100;
             }
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            ButtonClose_Click(sender, null);
+            //
         }
 
         #endregion
 
         #region Public and private methods
 
-        private void ButtonUsb_Click(object sender, RoutedEventArgs e)
+        private void Usb_Click(object sender, RoutedEventArgs e)
         {
             //string WT1 = "TSC Printers";
             //string B1 = "20080101";
@@ -71,117 +72,86 @@ namespace TscBarcode.Views
             //TscLib.closeport();
         }
 
-        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        private void SetupByName_Click(object sender, RoutedEventArgs e)
         {
-            //PrintControl.Open();
+            TscDriver.Setup(PrintChannel.Name, TscDriver.Properties.PrintName, TscDriver.Properties.Size, TscDriver.Properties.Dpi);
         }
 
-        private void ButtonCmdCalibrate_Click(object sender, RoutedEventArgs e)
+        private void SetupByIpPort_Click(object sender, RoutedEventArgs e)
         {
-            //PrintControl.CmdSendCustom("GAPDETECT");
+            TscDriver.Setup(PrintChannel.Ethernet, TscDriver.Properties.PrintIp, TscDriver.Properties.PrintPort, TscDriver.Properties.Size, TscDriver.Properties.Dpi);
         }
 
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        private void CmdCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            //PrintControl.Close();
+            TscDriver.SendCmd("GAPDETECT");
         }
 
-        private void ButtonCmdSendCustom_Click(object sender, RoutedEventArgs e)
+        private void CmdSendCustom_Click(object sender, RoutedEventArgs e)
         {
-            //PrintControl.CmdSendCustom(PrintControl.Text);
+            TscDriver.SendCmd(TscDriver.Cmd);
         }
 
-        private void ButtonCmdConvertZpl_Click(object sender, RoutedEventArgs e)
+        private void CmdConvertZpl_Click(object sender, RoutedEventArgs e) => TscDriver.CmdConvertZpl(true);
+
+        private void CmdSetCutter_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdConvertZpl(true);
+            TscDriver.SendCmdCutter(TscDriver.Properties.CutterValue);
         }
 
-        private void ButtonCmdSetCutter_Click(object sender, RoutedEventArgs e)
+        private void CmdPrintTest_Click(object sender, RoutedEventArgs e)
         {
-            //if (PrintControl.CutterValue >= 0)
-            //    PrintControl.CmdSendCustom($"SET CUTTER {PrintControl.CutterValue}");
+            TscDriver.SendCmdTest();
         }
 
-        private void ButtonCmdPrintTest_Click(object sender, RoutedEventArgs e)
+        private void Feed_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Name))
-                return;
-            TSCSDK.driver tscDriver = new();
-            if (!tscDriver.openport(Name))
-                return;
-            tscDriver.clearbuffer();
-
-            tscDriver.barcode("100", "200", "128", "100", "1", "0", "3", "3", "123456789");
-            tscDriver.printerfont("100", "100", "3", "0", "1", "1", "Printer Font Test");
-            tscDriver.sendcommand("BOX 50,50,500,400,3\n");
-            tscDriver.printlabel("1", "1");
-
-            tscDriver.closeport();
-        }
-
-        private void ButtonCmdClearBuffer_Click(object sender, RoutedEventArgs e)
-        {
-            //PrintControl.CmdClearBuffer();
-        }
-
-        private void ButtonPrintSetupReset_Click(object sender, RoutedEventArgs e)
-        {
-            PrintControl.SetupHardware();
-        }
-
-        private void ButtonPrintSetup_Click(object sender, RoutedEventArgs e)
-        {
-            PrintControl.SetupHardware(PrintControl.Size);
-        }
-
-        private void ButtonFeed_Click(object sender, RoutedEventArgs e)
-        {
-            var value = PrintControl.Dpi switch
+            var value = TscDriver.Properties.Dpi switch
             {
-                PrintDpi.Dpi100 => 4 * PrintControl.FeedMm,
-                PrintDpi.Dpi200 => 8 * PrintControl.FeedMm,
-                PrintDpi.Dpi300 => 12 * PrintControl.FeedMm,
-                PrintDpi.Dpi400 => 16 * PrintControl.FeedMm,
-                PrintDpi.Dpi500 => 20 * PrintControl.FeedMm,
-                PrintDpi.Dpi600 => 24 * PrintControl.FeedMm,
-                PrintDpi.Dpi700 => 28 * PrintControl.FeedMm,
-                PrintDpi.Dpi800 => 32 * PrintControl.FeedMm,
-                PrintDpi.Dpi900 => 36 * PrintControl.FeedMm,
-                PrintDpi.Dpi1000 => 40 * PrintControl.FeedMm,
-                PrintDpi.Dpi1100 => 44 * PrintControl.FeedMm,
-                PrintDpi.Dpi1200 => 48 * PrintControl.FeedMm,
-                _ => throw new ArgumentOutOfRangeException(nameof(PrintControl.Dpi), PrintControl.Dpi, null),
+                PrintDpi.Dpi100 => 4 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi200 => 8 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi300 => 12 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi400 => 16 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi500 => 20 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi600 => 24 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi700 => 28 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi800 => 32 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi900 => 36 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi1000 => 40 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi1100 => 44 * TscDriver.Properties.FeedMm,
+                PrintDpi.Dpi1200 => 48 * TscDriver.Properties.FeedMm,
+                _ => throw new ArgumentOutOfRangeException(nameof(TscDriver.Properties.Dpi), TscDriver.Properties.Dpi, null),
             };
             if (value > 0)
-                PrintControl.SendCmd($"FEED {value}");
+                TscDriver.SendCmd($"FEED {value}");
         }
 
         #endregion
 
         #region Public and private methods - ZPL
 
-        public void ButtonGetZpl1_OnClick(object sender, RoutedEventArgs e)
+        public void GetZpl1_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.TextPrepare = ZplSamples.GetSample1;
-            PrintControl.CmdConvertZpl(true);
+            TscDriver.TextPrepare = ZplSamples.GetSample1;
+            TscDriver.CmdConvertZpl(true);
         }
 
-        public void ButtonGetZpl2_OnClick(object sender, RoutedEventArgs e)
+        public void GetZpl2_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.TextPrepare = ZplSamples.GetSample2;
-            PrintControl.CmdConvertZpl(true);
+            TscDriver.TextPrepare = ZplSamples.GetSample2;
+            TscDriver.CmdConvertZpl(true);
         }
 
-        public void ButtonGetZpl3_OnClick(object sender, RoutedEventArgs e)
+        public void GetZpl3_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.TextPrepare = ZplSamples.GetSample3;
-            PrintControl.CmdConvertZpl(true);
+            TscDriver.TextPrepare = ZplSamples.GetSample3;
+            TscDriver.CmdConvertZpl(true);
         }
 
-        public void ButtonGetZplFull_OnClick(object sender, RoutedEventArgs e)
+        public void GetZplFull_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.TextPrepare = ZplSamples.GetSampleFull;
-            PrintControl.CmdConvertZpl(true);
+            TscDriver.TextPrepare = ZplSamples.GetSampleFull;
+            TscDriver.CmdConvertZpl(true);
         }
 
         #endregion

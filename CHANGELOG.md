@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.650] - 2022-05-18
+### Changed
+- DataCore
+- ScalesUI
+- WeightCore
+- Fixed TSC print driver
+### Описание обновления:
+- Исправление драйвера печати принтера TSC
+
 ## [0.6.640] - 2022-05-17
 ### Added
 - New branch 'preview'

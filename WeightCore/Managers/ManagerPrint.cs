@@ -33,8 +33,8 @@ namespace WeightCore.Managers
         public PrintBrand PrintBrand { get; private set; }
         public PrinterEntity Printer { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
-        public TscPrintControlHelper TscDriver { get; private set; } = TscPrintControlHelper.Instance;
-        public WmiWin32PrinterEntity Win32Printer => Wmi.GetWin32Printer(TscDriver.PrintName);
+        public TscDriverHelper TscDriver { get; private set; } = TscDriverHelper.Instance;
+        public WmiWin32PrinterEntity TscWmiPrinter => Wmi.GetWin32Printer(TscDriver.Properties.PrintName);
         public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
         public ZebraPrinterStatus ZebraStatus { get; private set; }
 
@@ -59,22 +59,17 @@ namespace WeightCore.Managers
                 Init(ProjectsEnums.TaskType.MemoryManager,
                     () =>
                     {
-                        //string name = printer.Name;
-                        //string ip = printer.Ip;
-                        //int port = printer.Port;
                         PrintBrand = printBrand;
                         Printer = printer;
                         switch (PrintBrand)
                         {
                             case PrintBrand.Zebra:
-                                //Ip = printer.Ip;
-                                //Port = printer.Port;
                                 FieldPrint = fieldPrint;
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
                                 break;
                             case PrintBrand.TSC:
-                                TscDriver.Init(printer.Ip, printer.Port);
+                                TscDriver.Setup(PrintChannel.Name, printer.Name, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
                                 break;
@@ -128,8 +123,6 @@ namespace WeightCore.Managers
                             ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
                         if (!ZebraConnection.Connected)
                             ZebraConnection.Open();
-                        //if (!ZebraDriver.Connection.Connected)
-                        //    ZebraDriver.Connection.Open();
                         if (Printer == null || ZebraDriver == null || ZebraConnection == null || !ZebraConnection.Connected)
                             ZebraStatus = null;
                         else
@@ -221,7 +214,7 @@ namespace WeightCore.Managers
                     }
                     break;
                 case PrintBrand.TSC:
-                    return $"{Win32Printer.PrinterStatusDescription}";
+                    return $"{TscWmiPrinter.PrinterStatusDescription}";
             }
             return LocaleCore.Print.StatusIsUnavailable;
         }
@@ -375,7 +368,7 @@ namespace WeightCore.Managers
                     SendCmdToZebra("^XA~JA^XZ");
                     break;
                 case PrintBrand.TSC:
-                    TscDriver.ClearBuffer();
+                    //TscDriver.ClearBuffer();
                     break;
             }
             if (odometerValue >= 0)

@@ -455,19 +455,19 @@ namespace ScalesUI.Forms
             string printMode = isMain
                 ? UserSession.ManagerControl.PrintMain.GetZebraPrintMode() :
                 UserSession.ManagerControl.PrintShipping.GetZebraPrintMode();
-            WmiWin32PrinterEntity win32Printer = managerPrint.Win32Printer;
+            WmiWin32PrinterEntity wmiPrinter = managerPrint.TscWmiPrinter;
             return
                 $"{managerPrint.GetDeviceName(isMain)}" + Environment.NewLine +
                 $"{LocaleCore.Print.DeviceCommunication} ({managerPrint.Printer.Ip}): {managerPrint.Printer.PingStatus}" + Environment.NewLine +
                 $"{LocaleCore.Print.PrinterStatus}: {managerPrint.GetDeviceStatus()}" + Environment.NewLine +
                 Environment.NewLine +
-                $"{LocaleCore.Print.Driver}: {win32Printer.DriverName}" + Environment.NewLine +
-                $"{LocaleCore.Print.Port}: {win32Printer.PortName}" + Environment.NewLine +
-                $"{LocaleCore.Print.StateCode}: {win32Printer.PrinterState}" + Environment.NewLine +
-                $"{LocaleCore.Print.StatusCode}: {win32Printer.PrinterStatus}" + Environment.NewLine +
-                $"{LocaleCore.Print.Status}: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
-                $"{LocaleCore.Print.State} (ENG): {win32Printer.Status}" + Environment.NewLine +
-                $"{LocaleCore.Print.State}: {win32Printer.StatusDescription}" + Environment.NewLine +
+                $"{LocaleCore.Print.Driver}: {wmiPrinter.DriverName}" + Environment.NewLine +
+                $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
+                $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
+                $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
+                $"{LocaleCore.Print.Status}: {wmiPrinter.PrinterStatusDescription}" + Environment.NewLine +
+                $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
+                $"{LocaleCore.Print.State}: {wmiPrinter.StatusDescription}" + Environment.NewLine +
                 $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
                 $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
         }

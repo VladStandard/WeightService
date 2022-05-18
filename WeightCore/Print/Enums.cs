@@ -112,4 +112,10 @@ namespace WeightCore.Print
         Zebra,
         TSC,
     }
+
+    public enum PrintChannel
+    {
+        Name,
+        Ethernet,
+    }
 }

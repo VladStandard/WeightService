@@ -3,6 +3,7 @@
 
 using System;
 using System.Windows.Forms;
+using WeightCore.Print;
 using WeightCore.Print.Tsc;
 
 namespace TSCLIB_DLL_IN_C_Sharp
@@ -13,7 +14,7 @@ namespace TSCLIB_DLL_IN_C_Sharp
         #region Public and private fields and properties
 
         private readonly TSCSDK.driver _driver = new();
-        public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
+        public TscDriverHelper TscPrintControl { get; private set; } = TscDriverHelper.Instance;
 
         #endregion
 
@@ -56,13 +57,14 @@ namespace TSCLIB_DLL_IN_C_Sharp
 
         private void ButtonLibInit_Click(object sender, EventArgs e)
         {
-            TscPrintControl.Init(fieldPortName.Text);
+            TscPrintControl.Setup(PrintChannel.Name, fieldPortName.Text, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
             MessageBox.Show("Init complete.");
         }
 
         private void ButtonLibInitv2_Click(object sender, EventArgs e)
         {
-            TscPrintControl.Init(fieldPortIp.Text, Convert.ToInt32(fieldPortPort.Text));
+            TscPrintControl.Setup(PrintChannel.Ethernet, fieldPortIp.Text, Convert.ToInt32(fieldPortPort.Text),
+                PrintLabelSize.Size80x100, PrintDpi.Dpi300);
             MessageBox.Show("Init complete.");
         }
 

@@ -1,12 +1,11 @@
----------------------------------------------------------------------------------------------------
-ZPL requests
+# ZPL requests
 zpl-zbi2-pm-en.pdf
----------------------------------------------------------------------------------------------------
+
 ^XA~JA^XZ
----------------------------------------------------------------------------------------------------
+
 ! U1 setvar \"odometer.user_label_count\" \"1\"
 ! U1 setvar "odometer.user_label_count" "1"
----------------------------------------------------------------------------------------------------
+
 ! U1 setvar "media.type" "label"
 ! U1 setvar "media.sense_mode" "gap"
 -- Calibration
@@ -25,7 +24,7 @@ zpl-zbi2-pm-en.pdf
 	These values are used at power-on.
 	Default:  a value must be specified
 ^XA~JA~JC^XZ
----------------------------------------------------------------------------------------------------
+
 ^B2 - 053 - Interleaved 2 of 5 Bar Code
 ^BC - 080 - Code 128 Bar Code (Subsets A, B, and C)
 ^BY - 134 - Bar Code Field Default
@@ -42,4 +41,3 @@ zpl-zbi2-pm-en.pdf
 ^XA - 347 - Start Format | Begin label
 ^XZ - 352 - End Format | End label
 ^XG - 350 - Recall Graphic
----------------------------------------------------------------------------------------------------

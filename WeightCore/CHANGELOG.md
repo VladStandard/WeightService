@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.650] - 2022-05-18
+### Changed
+- Fixed TSC print driver
+- Fixed TSC print ethernet
+
 ## [0.6.590] - 2022-05-06
 ### Removed
 - ExceptionHelper

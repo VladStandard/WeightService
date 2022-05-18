@@ -150,6 +150,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CHANGELOG.md = CHANGELOG.md
 		ConnectionString.txt = ConnectionString.txt
 		LICENSE.md = LICENSE.md
+		Publish lifecycle.md = Publish lifecycle.md
+		Publish resources.md = Publish resources.md
 		README.md = README.md
 		TO_DO_LIST.md = TO_DO_LIST.md
 		TROUBLE_SHOOTING.md = TROUBLE_SHOOTING.md
@@ -642,7 +644,7 @@ Global
 		{99E4F265-9C8D-44A0-B5F3-F05D9AA54487} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal
