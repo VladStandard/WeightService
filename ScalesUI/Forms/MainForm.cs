@@ -786,7 +786,7 @@ namespace ScalesUI.Forms
                 UserSession.ManagerControl.Massa.Close();
 
                 // PLU form.
-                using PluListForm pluListForm = new() { Owner = this };
+                using SelectPluForm pluListForm = new() { Owner = this };
                 DialogResult result = pluListForm.ShowDialog(this);
                 pluListForm.Close();
                 pluListForm.Dispose();

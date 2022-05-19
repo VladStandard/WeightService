@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Localizations;
 using DataCore.Sql.TableDirectModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using WeightCore.Helpers;
 
 namespace ScalesUI.Forms
 {
-    public partial class PluListForm : Form
+    public partial class SelectPluForm : Form
     {
         #region Private fields and properties
 
@@ -29,12 +30,9 @@ namespace ScalesUI.Forms
 
         #region Constructor and destructor
 
-        public PluListForm()
+        public SelectPluForm()
         {
             InitializeComponent();
-            
-            //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            PluList = new PluDirect().GetPluList(UserSession.Scale);
         }
 
         #endregion
@@ -45,20 +43,18 @@ namespace ScalesUI.Forms
         {
             try
             {
+                PluList = new PluDirect().GetPluList(UserSession.Scale);
+                OrderList = new PluDirect().GetPluList(UserSession.Scale);
+                PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+                Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
+                GridCustomizatorClass.PageBuilder(PluListGrid, controls);
+
+                labelCurrentPage.Text = $"{LocaleCore.Scales.PluPage} {CurrentPage}";
                 TopMost = !Debug.IsDebug;
                 Width = Owner.Width;
                 Height = Owner.Height;
                 Left = Owner.Left;
                 Top = Owner.Top;
-                //StartPosition = FormStartPosition.CenterParent;
-
-                OrderList = new PluDirect().GetPluList(UserSession.Scale);
-
-                PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-                Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
-                GridCustomizatorClass.PageBuilder(PluListGrid, controls);
-
-                labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
             }
             catch (Exception ex)
             {
@@ -193,8 +189,6 @@ namespace ScalesUI.Forms
                 {
                     UserSession.SetCurrentPlu(OrderList[tabIndex]);
                     UserSession.Plu.LoadTemplate();
-                    //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
-                    //_sessionState.WeightReal = 0;
                     DialogResult = DialogResult.OK;
                 }
                 Close();

@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - WS-T-157. ScalesUI. BugFix TSC Print. Preview concept
 - WS-T-158. TSC Print. BugFix test
 - WS-T-161. Управление устройствами. Раздел и страница взвешиваний
+- WS-T-163. Весовые этикетки. Логирование выбора ПЛУ
 
 ## [0.6.640] - 2022-05-17
 ### Added

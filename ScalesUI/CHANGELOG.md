@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Fixed TSC print driver
 - Fixed SettingsForm
+### Описание обновления:
+- Весовые этикетки. Логирование выбора ПЛУ
 
 ## [0.6.640] - 2022-05-16
 ### Changed

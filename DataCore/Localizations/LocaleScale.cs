@@ -96,6 +96,8 @@ namespace DataCore.Localizations
         public string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
         public string PluNotSelect => Lang == ShareEnums.Lang.English ? "PLU is not selected!" : "ПЛУ не выбрана!";
         public string PluNotSelectWeight => Lang == ShareEnums.Lang.English ? "Weight PLU is not selected!" : "Весовая ПЛУ не выбрана!";
+        public string PluPage => Lang == ShareEnums.Lang.English ? "Page" : "Страница";
+        public string PluSet(long id, int number, string name) => Lang == ShareEnums.Lang.English ? $"Selected PLU: {id} | {number} | {name}" : $"Выбрана ПЛУ: {id} | {number} | {name}";
         public string PluWeight => Lang == ShareEnums.Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
         public string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
         public string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
@@ -104,7 +106,7 @@ namespace DataCore.Localizations
         public string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
         public string QuestionWriteToDb => Lang == ShareEnums.Lang.English ? "Add new record into the DB?" : "Добавить новую запись в БД?";
         public string Registration => Lang == ShareEnums.Lang.English ? "Device registration" : "Регистрация устройства";
-        public string RegistrationSuccess(string hostName, string scaleName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' is found. ARM '{scaleName}' is found." : $"Хост '{hostName}' найден. АРМ '{scaleName}' найден.";
+        public string RegistrationSuccess(string hostName, string scaleName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' and ARM '{scaleName}' are found." : $"Хост '{hostName}' и АРМ '{scaleName}' найдены.";
         public string RegistrationWarning(Guid uid) => Lang == ShareEnums.Lang.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
         public string RegistrationWarningHostNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' not found!" : $"Хост '{hostName}' не найден!";
         public string RegistrationWarningScaleNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"ARM for host '{hostName}' not found!" : $"АРМ для хоста '{hostName}' не найден!";

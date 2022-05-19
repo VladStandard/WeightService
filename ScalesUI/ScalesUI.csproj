@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <PublishUrl>\\palych\Install\VSSoft\Scales-2-Preview\</PublishUrl>
     <Install>true</Install>
@@ -500,11 +501,11 @@
     <Compile Include="Forms\OrderListForm.Designer.cs">
       <DependentUpon>OrderListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PluListForm.cs">
+    <Compile Include="Forms\SelectPluForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PluListForm.Designer.cs">
-      <DependentUpon>PluListForm.cs</DependentUpon>
+    <Compile Include="Forms\SelectPluForm.Designer.cs">
+      <DependentUpon>SelectPluForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\KneadingForm.cs">
       <SubType>Form</SubType>
@@ -550,8 +551,8 @@
     <EmbeddedResource Include="Forms\OrderListForm.resx">
       <DependentUpon>OrderListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PluListForm.resx">
-      <DependentUpon>PluListForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SelectPluForm.resx">
+      <DependentUpon>SelectPluForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KneadingForm.resx">
       <DependentUpon>KneadingForm.cs</DependentUpon>
@@ -622,8 +623,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
