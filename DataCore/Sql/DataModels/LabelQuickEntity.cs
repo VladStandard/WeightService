@@ -15,6 +15,8 @@ namespace DataCore.Sql.DataModels
         public virtual long ScaleId { get; set; }
         public virtual string ScaleDescription { get; set; }
         public virtual int PluId { get; set; }
+        public virtual int PluNumber { get; set; }
+        public virtual string PluGoodName { get; set; }
         public virtual DateTime WeithingDate { get; set; }
         public virtual decimal NetWeight { get; set; }
         public virtual decimal TareWeight { get; set; }
@@ -53,6 +55,8 @@ namespace DataCore.Sql.DataModels
             ScaleId = 0;
             ScaleDescription = string.Empty;
             PluId = 0;
+            PluNumber = 0;
+            PluGoodName = string.Empty;
             WeithingDate = DateTime.MinValue;
             NetWeight = 0;
             TareWeight = 0;
@@ -72,6 +76,8 @@ namespace DataCore.Sql.DataModels
             $"{nameof(ScaleId)}: {ScaleId}. " +
             $"{nameof(ScaleDescription)}: {ScaleDescription}. " +
             $"{nameof(PluId)}: {PluId}. " +
+            $"{nameof(PluNumber)}: {PluNumber}. " +
+            $"{nameof(PluGoodName)}: {PluGoodName}. " +
             $"{nameof(WeithingDate)}: {WeithingDate}. " +
             $"{nameof(NetWeight)}: {NetWeight}. " +
             $"{nameof(TareWeight)}: {TareWeight}. " +
@@ -88,6 +94,8 @@ namespace DataCore.Sql.DataModels
                    Equals(ScaleId, item.ScaleId) &&
                    Equals(ScaleDescription, item.ScaleDescription) &&
                    Equals(PluId, item.PluId) &&
+                   Equals(PluNumber, item.PluNumber) &&
+                   Equals(PluGoodName, item.PluGoodName) &&
                    Equals(WeithingDate, item.WeithingDate) &&
                    Equals(NetWeight, item.NetWeight) &&
                    Equals(TareWeight, item.TareWeight) &&
@@ -122,6 +130,8 @@ namespace DataCore.Sql.DataModels
                    Equals(ScaleId, 0) &&
                    Equals(ScaleDescription, string.Empty) &&
                    Equals(PluId, 0) &&
+                   Equals(PluNumber, 0) &&
+                   Equals(PluGoodName, string.Empty) &&
                    Equals(WeithingDate, DateTime.MinValue) &&
                    Equals(NetWeight, 0) &&
                    Equals(TareWeight, 0) &&
@@ -137,6 +147,8 @@ namespace DataCore.Sql.DataModels
             item.ScaleId = ScaleId;
             item.ScaleDescription = ScaleDescription;
             item.PluId = PluId;
+            item.PluNumber = PluNumber;
+            item.PluGoodName = PluGoodName;
             item.WeithingDate = WeithingDate;
             item.NetWeight = NetWeight;
             item.TareWeight = TareWeight;

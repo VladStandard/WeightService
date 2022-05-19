@@ -119,6 +119,7 @@ namespace DataCore.Localizations
         public string PackTypeId => Lang == ShareEnums.Lang.English ? "Package type ID" : "ID типа упаковки";
         public string PackWeight => Lang == ShareEnums.Lang.English ? "Package weight" : "Вес упаковки";
         public string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
+        public string PluId => Lang == ShareEnums.Lang.English ? "ID PLU" : "ИД ПЛУ";
         public string PluDescription => Lang == ShareEnums.Lang.English ? "Use the `|` symbol to move the line." : "Для переноса строки используйте символ `|`";
         public string PluNumber => Lang == ShareEnums.Lang.English ? "# PLU" : "№ ПЛУ";
         public string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";

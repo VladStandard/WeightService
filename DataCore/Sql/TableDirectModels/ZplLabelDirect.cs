@@ -12,7 +12,6 @@ namespace DataCore.Sql.TableDirectModels
         #region Public and private fields and properties
 
         public long WeighingFactId { get; set; }
-        public string? Label { get; set; }
         public string? Zpl { get; set; }
 
         #endregion
@@ -22,7 +21,6 @@ namespace DataCore.Sql.TableDirectModels
         public ZplLabelDirect()
         {
             WeighingFactId = default;
-            Label = default;
             Zpl = default;
         }
 
@@ -30,14 +28,14 @@ namespace DataCore.Sql.TableDirectModels
 
         #region Public and private methods
 
-        public void Save()
-        {
-            SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", SqlDbType.BigInt) { Value = WeighingFactId },
-                new SqlParameter("@LABEL", SqlDbType.NVarChar) { Value = Label },
-            };
-            SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.Save, parameters);
-        }
+        //public void Save()
+        //{
+        //    SqlParameter[] parameters = new SqlParameter[] {
+        //        new SqlParameter("@ID", SqlDbType.BigInt) { Value = WeighingFactId },
+        //        new SqlParameter("@LABEL", SqlDbType.NVarChar) { Value = Label },
+        //    };
+        //    SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.Save, parameters);
+        //}
 
         public void SaveZpl()
         {

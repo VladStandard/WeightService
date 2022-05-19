@@ -32,14 +32,20 @@ else
             <tr>
                 <td>@LocaleCore.Table.Id</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true 
-                        TValue="long" @bind-Value=@ItemCast.IdentityId />
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.IdentityId.ToString() />
 				</td>
                 <td>@LocaleCore.Table.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.PluNumber</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.PluNumber.ToString() />
+				</td>
             </tr>
             <tr>
                 <td>
@@ -131,10 +137,6 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.NominalWeight />
-				</td>
-                <td>@LocaleCore.Table.PluNumber</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false TValue="int" @bind-Value=@ItemCast.PluNumber />
 				</td>
             </tr>
             <tr>

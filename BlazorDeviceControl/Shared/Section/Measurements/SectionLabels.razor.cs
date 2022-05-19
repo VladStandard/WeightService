@@ -65,19 +65,20 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                                 {
                                     Items.Add(new LabelQuickEntity()
                                     {
-                                        IdentityId = id,
+                                        IdentityId = id, // item[1]
                                         CreateDt = Convert.ToDateTime(item[1]),
-                                        //Label = Convert.ToByte(item[2]),
-                                        ScaleId = Convert.ToInt64(item[3]),
-                                        ScaleDescription = Convert.ToString(item[4]),
-                                        PluId = Convert.ToInt32(item[5]),
-                                        WeithingDate = Convert.ToDateTime(item[6]),
-                                        NetWeight = Convert.ToDecimal(item[7]),
-                                        TareWeight = Convert.ToDecimal(item[8]),
-                                        ProductDate = Convert.ToDateTime(item[9]),
-                                        RegNum = Convert.ToInt32(item[10]),
-                                        Kneading = Convert.ToInt32(item[11]),
-                                        Zpl = Convert.ToString(item[12]),
+                                        ScaleId = Convert.ToInt64(item[2]),
+                                        ScaleDescription = Convert.ToString(item[3]),
+                                        PluId = Convert.ToInt32(item[4]),
+                                        PluNumber = Convert.ToInt32(item[5]),
+                                        PluGoodName = Convert.ToString(item[6]),
+                                        WeithingDate = Convert.ToDateTime(item[7]),
+                                        NetWeight = Convert.ToDecimal(item[8]),
+                                        TareWeight = Convert.ToDecimal(item[9]),
+                                        ProductDate = Convert.ToDateTime(item[10]),
+                                        RegNum = Convert.ToInt32(item[11]),
+                                        Kneading = Convert.ToInt32(item[12]),
+                                        Zpl = Convert.ToString(item[13]),
                                     });
                                 }
                             }

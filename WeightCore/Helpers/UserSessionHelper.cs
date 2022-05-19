@@ -381,7 +381,6 @@ namespace WeightCore.Helpers
             ZplLabelDirect zplLabel = new()
             {
                 WeighingFactId = weithingFactId,
-                Label = printCmd,
                 Zpl = printCmd,
             };
             zplLabel.SaveZpl();

@@ -323,7 +323,7 @@ INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])
 
                     public static string SaveZpl => @"
 INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
-	VALUES (@ID, @ZPL)
+VALUES (@ID, @ZPL)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetLabels(int topRecords) => @$"
@@ -331,10 +331,11 @@ INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
 SELECT {GetTopRecords(topRecords)}
 	[L].[ID]
    ,[L].[CREATEDATE]
-   ,[L].[LABEL]
-   ,[WF].[SCALEID]
+   ,[S].[ID] [SCALE_ID]
    ,[S].[DESCRIPTION]
-   ,[WF].[PLUID]
+   ,[PLU].[ID] [PLU_ID]
+   ,[PLU].[PLU] [PLU_NUMBER]
+   ,[PLU].[GOODSNAME] [PLU_NAME]
    ,[WF].[WEITHINGDATE]
    ,[WF].[NETWEIGHT]
    ,[WF].[TAREWEIGHT]
@@ -342,10 +343,11 @@ SELECT {GetTopRecords(topRecords)}
    ,[WF].[REGNUM]
    ,[WF].[KNEADING]
    ,[L].[ZPL]
-   ,REPLACE(REPLACE([L].[ZPL], CHAR(13), ''), CHAR(10), '') [ZPL_STR]
+   --,REPLACE(REPLACE([L].[ZPL], CHAR(13), ''), CHAR(10), '') [ZPL_STR]
 FROM [DB_SCALES].[LABELS] [L]
 LEFT JOIN [DB_SCALES].[WEITHINGFACT] [WF] ON [L].[WEITHINGFACTID] = [WF].[ID]
 LEFT JOIN [DB_SCALES].[SCALES] [S] ON [WF].[SCALEID] = [S].[ID]
+LEFT JOIN [DB_SCALES].[PLU] [PLU] ON [WF].[SCALEID] = [PLU].[SCALEID] AND [WF].[PLUID] = [PLU].[PLU]
 ORDER BY [CREATEDATE] DESC
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
