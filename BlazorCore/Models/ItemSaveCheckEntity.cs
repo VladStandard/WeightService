@@ -381,8 +381,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Template(NotificationService? notificationService, TemplateEntity? template, long? id, 
-            DbTableAction? parentTableAction)
+        public void Template(NotificationService? notificationService, TemplateEntity? template, long? id, DbTableAction? parentTableAction)
         {
             if (template == null)
                 return;
@@ -407,8 +406,32 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Workshop(NotificationService? notificationService, WorkShopEntity? workShop, 
-            long? id, DbTableAction tableAction)
+        public void TemplateResource(NotificationService? notificationService, TemplateResourceEntity? templateResource, long? id, DbTableAction? parentTableAction)
+        {
+            if (templateResource == null)
+                return;
+
+            bool success = FieldControl.ProcessChecks(notificationService, templateResource, LocaleCore.Table.TemplateResource);
+            if (success)
+            {
+                templateResource.ChangeDt = DateTime.Now;
+                if (parentTableAction == DbTableAction.New)
+                {
+                    templateResource.CreateDt = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(templateResource);
+                }
+                else
+                {
+                    if (id is long lid)
+                    {
+                        templateResource.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(templateResource);
+                    }
+                }
+            }
+        }
+
+        public void Workshop(NotificationService? notificationService, WorkShopEntity? workShop, long? id, DbTableAction tableAction)
         {
             if (workShop == null || id == null)
                 return;

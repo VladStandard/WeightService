@@ -30,9 +30,8 @@ else
             <tr>
                 <td>@LocaleCore.Table.Id</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.IdentityId />
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.IdentityId.ToString() />
 				</td>
                 <td>@LocaleCore.Table.Marked</td>
                 <td>
@@ -42,32 +41,27 @@ else
             <tr>
                 <td>@LocaleCore.Table.Name</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Name />
+                    <RadzenTextBox Style="width: 100%; text-align: center; " 
+                        Disabled=false ReadOnly=false @bind-Value=@ItemCast.Name />
 				</td>
                 <td>@LocaleCore.Table.Description</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Description />
+                    <RadzenTextBox Style="width: 100%; text-align: center; " 
+                        Disabled=false ReadOnly=false @bind-Value=@ItemCast.Description />
 				</td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Type</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Type />
-				</td>
-                <td>@LocaleCore.Table.IdRRef</td>
-                <td >
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false ReadOnly=true
-                        TValue="string" @Value=@ItemCast.IdRRef />
+                    <RadzenTextBox Style="width: 100%; text-align: center; " 
+                        Disabled=false ReadOnly=false @bind-Value=@ItemCast.Type />
 				</td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.ImageData</td>
-                <td >
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.ImageData.Info />
+                <td colspan=3 >
+                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; " 
+                        Disabled=false ReadOnly=false @bind-Value=@ItemCast.ImageData.ValueUnicode Rows=25 />
 				</td>
             </tr>
         </tbody>

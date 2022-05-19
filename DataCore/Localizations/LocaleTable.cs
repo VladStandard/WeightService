@@ -157,6 +157,7 @@ namespace DataCore.Localizations
         public string TaskModuleType => Lang == ShareEnums.Lang.English ? "Task module type" : "Тип модуля задачи";
         public string TaskType => Lang == ShareEnums.Lang.English ? "Task type" : "Тип задачи";
         public string Template => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
+        public string TemplateResource => Lang == ShareEnums.Lang.English ? "Template resource" : "Ресурс шаблона";
         public string TemplateDefault => Lang == ShareEnums.Lang.English ? "Default template" : "Шаблон по-умолчанию";
         public string TemplateId => Lang == ShareEnums.Lang.English ? "Template ID" : "ID шаблона";
         public string TemplateIdDefault => Lang == ShareEnums.Lang.English ? "Default template ID" : "ID шаблона по-умолчанию";

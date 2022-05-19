@@ -26,10 +26,15 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
-            <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Property="Type" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.Type 
-                Type="string" Width="10%" />
+            @if (@IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="TemplateResourceEntity" TextAlign=TextAlign.Center 
+                    Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast">
+                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
+                    </Template>
+                </RadzenGridColumn>
+            }
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Title=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast">
@@ -38,6 +43,10 @@ else
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="TemplateResourceEntity" Property="Type" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.Type 
+                Type="string" Width="10%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Description"
                 Title=@LocaleCore.Table.Description 

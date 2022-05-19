@@ -1181,6 +1181,9 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Templates:
                     ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
                     break;
+                case ProjectsEnums.TableScale.TemplatesResources:
+                    ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
+                    break;
                 case ProjectsEnums.TableScale.Workshops:
                     ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;

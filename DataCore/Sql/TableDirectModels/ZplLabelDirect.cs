@@ -28,15 +28,6 @@ namespace DataCore.Sql.TableDirectModels
 
         #region Public and private methods
 
-        //public void Save()
-        //{
-        //    SqlParameter[] parameters = new SqlParameter[] {
-        //        new SqlParameter("@ID", SqlDbType.BigInt) { Value = WeighingFactId },
-        //        new SqlParameter("@LABEL", SqlDbType.NVarChar) { Value = Label },
-        //    };
-        //    SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.Save, parameters);
-        //}
-
         public void SaveZpl()
         {
             SqlParameter[] parameters = new SqlParameter[] {

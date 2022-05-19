@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.685] - 2022-05-19
+## [0.6.690] - 2022-05-19
 ### Fixed
 - Shared.Section.Measurements.SectionWeithingFacts
 ### Описание обновления:
 - Обновление раздела и страница 'Взвешивания'
 - Обновление раздела и страница 'Этикетки'
+- Обновление раздела и страница 'Шаблоны и ресурсы'
 
 ## [0.6.640] - 2022-05-17
 ### Fixed

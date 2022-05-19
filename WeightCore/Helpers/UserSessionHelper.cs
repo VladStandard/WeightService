@@ -7,10 +7,12 @@ using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
 using DataCore.Sql.Controllers;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MvvmHelpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -359,12 +361,19 @@ namespace WeightCore.Helpers
                 case PrintBrand.Zebra:
                     break;
                 case PrintBrand.TSC:
-                    TemplateDirect templateEac = new("EAC_107x109_090");
-                    TemplateDirect templateFish = new("FISH_94x115_000");
                     TemplateDirect templateTemp6 = new("TEMP6_116x113_090");
-                    value = value.Replace("[EAC_107x109_090]", templateEac.XslContent);
-                    value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
+                    TemplateDirect templateFish = new("FISH_94x115_000");
+                    TemplateResourceEntity resourceEac = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                        new FieldListEntity(new Dictionary<string, object> {
+                        { $"{nameof(TemplateResourceEntity.Name)}", "EAC.DAT" },
+                        { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
+                    }));
                     value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
+                    value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
+                    value = value.Replace("[EAC_107x109_090]", resourceEac.ImageData.ValueAscii);
+                    value = value.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
+                    value = value.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
+                    value = value.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
                     break;
                 default:
                     break;

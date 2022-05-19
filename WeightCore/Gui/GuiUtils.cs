@@ -16,6 +16,7 @@ using DataCore.Protocols;
 using System.Xml.Linq;
 using DataCore.Sql.TableScaleModels;
 using static DataCore.ShareEnums;
+using WeightCore.Helpers;
 
 namespace WeightCore.Gui
 {
@@ -260,7 +261,7 @@ namespace WeightCore.Gui
                 [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             {
                 if (isLog)
-                    DataAccess.Log.LogError(ex, null, null, filePath, lineNumber, memberName);
+                    DataAccess.Log.LogError(ex, UserSessionHelper.Instance.Scale.Host.HostName, null, filePath, lineNumber, memberName);
                 string message = ex.Message;
                 if (ex.InnerException != null)
                     message += ex.InnerException.Message;
