@@ -141,7 +141,7 @@ namespace ScalesUI.Forms
                 UserSession.Scale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
                 UserSession.Scale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
                 //ScalesUtils.Update(UserSession.CurrentScale);
-                UserSession.DataAccess.Crud?.UpdateEntity(UserSession.Scale);
+                UserSession.DataAccess.Crud.UpdateEntity(UserSession.Scale);
                 // Settings.
                 Properties.Settings.Default.Save();
             }

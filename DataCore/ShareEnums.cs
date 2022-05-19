@@ -123,6 +123,7 @@ namespace DataCore
             Name,
             Number,
             Plu,
+            PluNumber,
             PrinterId,
             Scale,
             Scale_Id,
