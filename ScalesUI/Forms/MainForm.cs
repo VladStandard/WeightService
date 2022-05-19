@@ -45,7 +45,7 @@ namespace ScalesUI.Forms
         private Button ButtonPrint { get; set; }
         private Button ButtonScalesInit { get; set; }
         private Button ButtonScalesTerminal { get; set; }
-        private FontsSettingsEntity FontsSettings { get; set; }
+        public FontsSettingsHelper FontsSettings { get; private set; } = FontsSettingsHelper.Instance;
         private readonly object _lockerDays = new();
         private TableLayoutPanel TableLayoutPanelButtons { get; set; }
         private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
@@ -68,7 +68,6 @@ namespace ScalesUI.Forms
                 UserSession.DataAccess.Log.Setup(UserSession.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
-                FontsSettings = new();
                 KeyboardMouseSubscribe();
                 MainForm_ButtonsCreate();
                 LoadResources();

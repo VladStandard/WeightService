@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.680] - 2022-05-19
+## [0.6.685] - 2022-05-19
 ### Changed
 - DataCore
 - ScalesUI
@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - WS-T-158. TSC Print. BugFix test
 - WS-T-161. Управление устройствами. Раздел и страница взвешиваний
 - WS-T-163. Весовые этикетки. Логирование выбора ПЛУ
+- WS-T-164. Весовые этикетки. Исправление статуса принтера TSC
 
 ## [0.6.640] - 2022-05-17
 ### Added

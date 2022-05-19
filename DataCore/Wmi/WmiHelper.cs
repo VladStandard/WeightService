@@ -92,6 +92,7 @@ namespace DataCore.Wmi
                 string printerState = string.Empty;
                 short printerStatus = -1;
                 if (items.Count > 0)
+                {
                     foreach (ManagementObject item in items)
                     {
                         driverName = Convert.ToString(item["DriverName"]);
@@ -100,6 +101,7 @@ namespace DataCore.Wmi
                         printerState = Convert.ToString(item["PrinterState"]);
                         printerStatus = Convert.ToInt16(item["PrinterStatus"]);
                     }
+                }
                 return new WmiWin32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
             }
         }

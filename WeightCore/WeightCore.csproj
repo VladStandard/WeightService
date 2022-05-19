@@ -356,7 +356,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gui\FontsSettingsEntity.cs" />
+    <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />

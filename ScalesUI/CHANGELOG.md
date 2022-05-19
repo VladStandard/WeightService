@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.680] - 2022-05-19
+## [0.6.685] - 2022-05-19
 ### Changed
 - Fixed TSC print driver
 - Fixed SettingsForm
 ### Описание обновления:
-- Весовые этикетки. Логирование выбора ПЛУ
+- Логирование выбора ПЛУ
+- Исправление статуса принтера TSC
 
 ## [0.6.640] - 2022-05-16
 ### Changed

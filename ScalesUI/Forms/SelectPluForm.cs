@@ -21,6 +21,7 @@ namespace ScalesUI.Forms
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
         private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
+        public FontsSettingsHelper FontsSettings { get; private set; } = FontsSettingsHelper.Instance;
         public int ColumnCount { get; } = 4;
         public int CurrentPage { get; private set; }
         public int PageSize { get; } = 20;
@@ -95,7 +96,8 @@ namespace ScalesUI.Forms
 
                 button = new()
                 {
-                    Font = new Font("Arial", 18, FontStyle.Bold),
+                    //Font = new Font("Arial", 18, FontStyle.Bold),
+                    Font = FontsSettings.FontLabelsBlack,
                     Text = Environment.NewLine + plu.GoodsName,
                     Name = "btn_" + i,
                     Dock = DockStyle.Fill,
@@ -115,7 +117,8 @@ namespace ScalesUI.Forms
                 decimal mashtabH = 0.05M;
                 Label label = new()
                 {
-                    Font = new Font("Arial", 20, FontStyle.Bold),
+                    //Font = new Font("Arial", 20, FontStyle.Bold),
+                    Font = FontsSettings.FontLabelsBlack,
                     Text = plu.PLU.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Parent = button,
@@ -138,7 +141,8 @@ namespace ScalesUI.Forms
                 mashtabW = 0.11M;
                 Label labelCount = new()
                 {
-                    Font = new Font("Arial", 20, FontStyle.Bold),
+                    //Font = new Font("Arial", 20, FontStyle.Bold),
+                    Font = FontsSettings.FontLabelsBlack,
                     Text = plu.IsCheckWeight == false ? @"шт" : @"вес",
                     TextAlign = ContentAlignment.MiddleCenter,
                     Parent = button,

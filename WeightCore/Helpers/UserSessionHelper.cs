@@ -143,7 +143,7 @@ namespace WeightCore.Helpers
         public void SetCurrentPlu(PluDirect plu)
         {
             if ((Plu = plu) != null)
-                DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(Plu.Id, Plu.PLU, Plu.GoodsName)}", Scale.Host.HostName, nameof(ScalesUI));
+                DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(Plu.Id, Plu.PLU, Plu.GoodsName)}", Scale.Host.HostName);
         }
 
         /// <summary>

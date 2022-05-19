@@ -257,6 +257,25 @@ namespace WeightCore.Print.Tsc
             }
         }
 
+        public void SendCmdClearBuffer()
+        {
+            switch (Properties.Channel)
+            {
+                case PrintChannel.Name:
+                    TSCSDK.driver driver = new();
+                    driver.openport(Properties.PrintName);
+                    driver.clearbuffer();
+                    driver.closeport();
+                    break;
+                case PrintChannel.Ethernet:
+                    TSCSDK.ethernet ethernet = new();
+                    ethernet.openport(Properties.PrintIp, Properties.PrintPort);
+                    ethernet.clearbuffer();
+                    ethernet.closeport();
+                    break;
+            }
+        }
+
         public void SendCmdGap(double gapSize = 3.5, double gapOffset = 0.0)
         {
             string strGapSize = $"{gapSize}".Replace(',', '.');

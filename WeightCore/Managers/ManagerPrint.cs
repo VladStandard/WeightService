@@ -70,9 +70,11 @@ namespace WeightCore.Managers
                                     $"{(isMain ? LocaleCore.Print.NameMainZebra : LocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
                                 break;
                             case PrintBrand.TSC:
-                                TscDriver.Setup(PrintChannel.Name, printer.Name, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
+                                //TscDriver.Setup(PrintChannel.Name, printer.Name, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
+                                TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
+                                TscDriver.Properties.PrintName = printer.Name;
                                 break;
                         }
                     },
@@ -371,7 +373,7 @@ namespace WeightCore.Managers
                     SendCmdToZebra("^XA~JA^XZ");
                     break;
                 case PrintBrand.TSC:
-                    //TscDriver.ClearBuffer();
+                    TscDriver.SendCmdClearBuffer();
                     break;
             }
             if (odometerValue >= 0)

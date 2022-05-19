@@ -2,11 +2,19 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Drawing;
+using System.Threading;
 
-namespace ScalesUI.Forms
+namespace WeightCore.Gui
 {
-    public class FontsSettingsEntity
+    public class FontsSettingsHelper
     {
+        #region Design pattern "Lazy Singleton"
+
+        private static FontsSettingsHelper _instance;
+        public static FontsSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+        #endregion
+
         #region Public and private fields and properties
 
         public Font FontButtons { get; set; }
@@ -20,7 +28,7 @@ namespace ScalesUI.Forms
 
         #region Constructor and destructor
 
-        public FontsSettingsEntity()
+        public FontsSettingsHelper()
         {
             Resize(7.00f);
         }
