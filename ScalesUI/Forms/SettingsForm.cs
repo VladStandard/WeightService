@@ -2,13 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.TableDirectModels;
 using DataCore.Localizations;
 using DataCore.Settings;
-using Microsoft.Data.SqlClient;
+using DataCore.Sql.TableDirectModels;
 using System;
-using System.IO.Ports;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -45,32 +42,10 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
 
-                // Загружить при кажом открытии формы.
-                //if (UserSession != null)
-                //    UserSession.CurrentScale = ScalesUtils.GetScale(UserSession.Host?.ScaleId);
-                //if (UserSession != null)
-                //    UserSession.Scale = UserSession.DataAccess.Crud
-                //        .GetEntity<DataCore.Sql.TableScaleModels.ScaleEntity>(UserSession.Host?.ScaleId);
-
                 // Определить COM-порт.
-                DefaultComPortName();
-
-                if (UserSession?.Scale != null)
-                {
-                    fieldSendTimeout.Text = UserSession.Scale.DeviceSendTimeout.ToString();
-                    fieldReceiveTimeOut.Text = UserSession.Scale.DeviceReceiveTimeout.ToString();
-                    fieldZebraTcpAddress.Text = UserSession.Scale.PrinterMain.Ip;
-                    fieldZebraTcpPort.Text = UserSession.Scale.PrinterMain.Port.ToString();
-                    fieldDescription.Text = UserSession.Scale.Description;
-                }
-
                 if (UserSession?.WeighingFact != null)
                     fieldCurrentWeightFact.Text = UserSession.WeighingFact
                         .SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
-                //fieldCurrentWeightFact.Text = UserSession.CurrentWeighingFact.SerializeObject();
-
-                fieldGuid.Text = UserSession?.Scale.IdentityId.ToString();
-                //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
             }
             catch (Exception ex)
             {
@@ -82,34 +57,10 @@ namespace ScalesUI.Forms
 
         #region Public and private methods
 
-        private void FieldComPort_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                fielcComPortFind.Text = @"COM-порт не существует!";
-                string curPort = fieldComPort.Items[fieldComPort.SelectedIndex].ToString();
-                fielcComPortFind.Text = $@"{curPort}-порт не существует!";
-
-                foreach (string portName in SerialPort.GetPortNames())
-                {
-                    if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        fielcComPortFind.Text = $@"{curPort}-порт найден.";
-                        break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                GuiUtils.WpfForm.CatchException(this, ex);
-            }
-        }
-
         private void ButtonClose_Click(object sender, EventArgs e)
         {
             try
             {
-                UseWaitCursor = true;
                 Thread.Sleep(10);
                 Application.DoEvents();
 
@@ -120,10 +71,6 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
 
         private void ButtonSaveOption_Click(object sender, EventArgs e)
@@ -131,16 +78,8 @@ namespace ScalesUI.Forms
             bool result = true;
             try
             {
-                // GUI.
-                UseWaitCursor = true;
-                Thread.Sleep(10);
-                Application.DoEvents();
                 // Data.
-                UserSession.Scale.DeviceComPort = fieldComPort.Text;
-                UserSession.Scale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
-                UserSession.Scale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
                 UserSession.Scale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
-                //ScalesUtils.Update(UserSession.CurrentScale);
                 UserSession.DataAccess.Crud.UpdateEntity(UserSession.Scale);
                 // Settings.
                 Properties.Settings.Default.Save();
@@ -149,10 +88,6 @@ namespace ScalesUI.Forms
             {
                 result = false;
                 GuiUtils.WpfForm.CatchException(this, ex);
-            }
-            finally
-            {
-                UseWaitCursor = false;
             }
 
             // GUI.
@@ -164,10 +99,6 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UseWaitCursor = true;
-                Thread.Sleep(10);
-                Application.DoEvents();
-
                 ZplConverterHelper zp = new();
                 zp.LogoClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
                 zp.FontsClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
@@ -201,10 +132,6 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
 
         private void BtnCalibrate_Click(object sender, EventArgs e)
@@ -223,10 +150,6 @@ namespace ScalesUI.Forms
                 wpfPageLoader.Close();
                 if (result == DialogResult.Retry)
                 {
-                    UseWaitCursor = true;
-                    Thread.Sleep(10);
-                    Application.DoEvents();
-
                     ZplConverterHelper zp = new();
                     zp.Сalibration(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
                 }
@@ -234,10 +157,6 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
-            }
-            finally
-            {
-                UseWaitCursor = false;
             }
         }
 
@@ -267,17 +186,8 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
 
-        /// <summary>
-        /// Калибровать.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ButtonPrintCalibrate_Click(object sender, EventArgs e)
         {
             try
@@ -300,10 +210,6 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
 
         private void ButtonPrintOptions_Click(object sender, EventArgs e)
@@ -316,90 +222,11 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
 
         #endregion
 
         #region Private methods - Кнопки по умолчанию
-
-        private void DefaultComPortName()
-        {
-            try
-            {
-                fieldComPort.Items.Clear();
-
-                // Получить список COM-портов.
-                System.Collections.Generic.List<string> listComPorts = SerialPort.GetPortNames().ToList();
-                // Текущий порт из настроек.
-                string curPort = string.Empty;
-                if (UserSession?.Scale?.DeviceComPort != null)
-                {
-                    curPort = UserSession.Scale.DeviceComPort;
-                    if (!string.IsNullOrEmpty(curPort))
-                    {
-                        bool find = false;
-                        foreach (string portName in listComPorts)
-                        {
-                            if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                find = true;
-                                break;
-                            }
-                        }
-                        if (!find)
-                            fieldComPort.Items.Add(curPort);
-                    }
-                }
-                // Сортировка.
-                listComPorts = listComPorts.OrderBy(o => o).ToList();
-                // Заполнить список.
-                foreach (string portName in listComPorts)
-                {
-                    fieldComPort.Items.Add(portName);
-                    fieldComPort.Text = curPort;
-                }
-            }
-            catch (Exception ex)
-            {
-                GuiUtils.WpfForm.CatchException(this, ex);
-            }
-            finally
-            {
-                UseWaitCursor = false;
-            }
-        }
-
-        private void ButtonSqlCheck_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using SqlConnection con = new(fieldSqlConnectionString.Text);
-                con.Open();
-                try
-                {
-                    //Properties.Settings.Default.ConnectionString = fieldSqlConnectionString.Text;
-                    labelSqlStatus.Text = @"Подключение выполнено.";
-                }
-                catch (Exception ex)
-                {
-                    labelSqlStatus.Text = $@"Ошибка подключения! {ex.Message}";
-                    UserSession.DataAccess.Log.LogError(ex);
-                }
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                GuiUtils.WpfForm.CatchException(this, ex);
-            }
-            finally
-            {
-                UseWaitCursor = false;
-            }
-        }
 
         private void ButtonMassaParam_Click(object sender, EventArgs e)
         {
@@ -428,10 +255,6 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
 
         private void ButtonPrintCancelAll_Click(object sender, EventArgs e)
@@ -444,15 +267,7 @@ namespace ScalesUI.Forms
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
-            finally
-            {
-                UseWaitCursor = false;
-            }
         }
-
-        #endregion
-
-        #region Commented
 
         //https://developer.zebra.com/thread/33293
         //string zplImageData = string.Empty;

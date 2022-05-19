@@ -357,6 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Gui\FontsSettingsEntity.cs" />
+    <Compile Include="Gui\SerialPortsUtils.cs" />
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\XamlPages\VisibilitySettingsEntity.cs" />
