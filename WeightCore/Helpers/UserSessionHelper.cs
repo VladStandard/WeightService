@@ -361,19 +361,24 @@ namespace WeightCore.Helpers
                 case PrintBrand.Zebra:
                     break;
                 case PrintBrand.TSC:
-                    TemplateDirect templateTemp6 = new("TEMP6_116x113_090");
-                    TemplateDirect templateFish = new("FISH_94x115_000");
+                    TemplateResourceEntity resourceTemp6 = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                        new FieldListEntity(new Dictionary<string, object> {
+                        { $"{nameof(TemplateResourceEntity.Name)}", "TEMP6.DAT" },
+                        { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
+                    }));
+                    TemplateResourceEntity resourceFish = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                        new FieldListEntity(new Dictionary<string, object> {
+                        { $"{nameof(TemplateResourceEntity.Name)}", "FISH.DAT" },
+                        { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
+                    }));
                     TemplateResourceEntity resourceEac = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
                         new FieldListEntity(new Dictionary<string, object> {
                         { $"{nameof(TemplateResourceEntity.Name)}", "EAC.DAT" },
                         { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
                     }));
-                    value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
-                    value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
-                    value = value.Replace("[EAC_107x109_090]", resourceEac.ImageData.ValueAscii);
-                    value = value.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
-                    value = value.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
-                    value = value.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
+                    value = value.Replace("[TEMP6_116x113_090]", resourceTemp6.ImageData.ValueUnicode);
+                    value = value.Replace("[FISH_94x115_000]", resourceFish.ImageData.ValueUnicode);
+                    value = value.Replace("[EAC_107x109_090]", resourceEac.ImageData.ValueUnicode);
                     break;
                 default:
                     break;
