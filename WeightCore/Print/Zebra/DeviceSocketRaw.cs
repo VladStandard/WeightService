@@ -17,7 +17,7 @@ namespace WeightCore.Print.Zebra
 
         public override string SendStringToPrinter(string szString)
         {
-            string zpl = ZplPipeUtils.ToCodePoints(szString);
+            string zpl = ZplUtils.ToCodePoints(szString);
             RawPrinterHelper.SendStringToPrinter(PrinterName, zpl);
             return "";
         }

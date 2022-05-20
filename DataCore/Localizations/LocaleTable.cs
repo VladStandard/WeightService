@@ -98,6 +98,7 @@ namespace DataCore.Localizations
         public string LabelTemplate => Lang == ShareEnums.Lang.English ? "Label template" : "Шаблон этикетки";
         public string Level => Lang == ShareEnums.Lang.English ? "Level" : "Уровень";
         public string Line => Lang == ShareEnums.Lang.English ? "Line" : "Линия";
+        public string Link => Lang == ShareEnums.Lang.English ? "Link" : "Ссылка";
         public string LogType => Lang == ShareEnums.Lang.English ? "Log type" : "Тип лога";
         public string LowerWeightThreshold => Lang == ShareEnums.Lang.English ? "Lower value of the box weight" : "Нижнее значение веса короба";
         public string Marked => Lang == ShareEnums.Lang.English ? "In the archive" : "В архиве";
@@ -157,6 +158,7 @@ namespace DataCore.Localizations
         public string TaskModuleType => Lang == ShareEnums.Lang.English ? "Task module type" : "Тип модуля задачи";
         public string TaskType => Lang == ShareEnums.Lang.English ? "Task type" : "Тип задачи";
         public string Template => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
+        public string TemplateLabelary => Lang == ShareEnums.Lang.English ? "Web-site Labelary" : "Веб-сайт Labelary";
         public string TemplateResource => Lang == ShareEnums.Lang.English ? "Template resource" : "Ресурс шаблона";
         public string TemplateDefault => Lang == ShareEnums.Lang.English ? "Default template" : "Шаблон по-умолчанию";
         public string TemplateId => Lang == ShareEnums.Lang.English ? "Template ID" : "ID шаблона";

@@ -99,6 +99,12 @@ else
                         Path=@GetPath(UriRouteItem.Template, ItemCast.WeithingFact.Plu.Template, ItemCast.WeithingFact.Plu.Template.IdentityId)
                         Text=@ItemCast.WeithingFact.Plu.Template.Title />
                 </td>
+                <td>@LocaleCore.Table.Link</td>
+                <td>
+                    <RadzenLink Style="width: 100%; text-align: center; " 
+                        Path=@LinkLabelary
+                        Text=@LocaleCore.Table.TemplateLabelary />
+                </td>
             </tr>
             <tr >
                 <td>@LocaleCore.Table.Zpl</td>

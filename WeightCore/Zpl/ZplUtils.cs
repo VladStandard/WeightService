@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableDirectModels;
 using DataCore.Utils;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ using TableScaleModels = DataCore.Sql.TableScaleModels;
 
 namespace WeightCore.Zpl
 {
-    public static class ZplPipeUtils
+    public static class ZplUtils
     {
         #region Public and private fields and properties
 
@@ -32,11 +31,10 @@ namespace WeightCore.Zpl
 
         #region pipe's
 
-        public static string FakePipe(string zplCommand) => zplCommand;
-
-        public static void XmlReplace(ref string xmlInput)
+        public static void XmlCompatibleReplace(ref string xmlInput)
         {
-            xmlInput = xmlInput.Replace(nameof(HostDirect), "HostEntity");
+            // TableDirectModels.
+            xmlInput = xmlInput.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
@@ -49,26 +47,27 @@ namespace WeightCore.Zpl
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
             xmlInput = xmlInput.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
-
+            // TableScaleModels.
             xmlInput = xmlInput.Replace(nameof(TableScaleModels.ScaleEntity), "ScaleEntity");
             xmlInput = xmlInput.Replace(nameof(TableScaleModels.PrinterEntity), "PrinterEntity");
             xmlInput = xmlInput.Replace(nameof(TableScaleModels.TemplateEntity), "TemplateEntity");
         }
 
-        public static string XsltTransformationPipe(string xslInput, string xmlInput)
+        public static string XsltTransformation(string xslInput, string xmlInput)
         {
-            XmlReplace(ref xmlInput);
+            XmlCompatibleReplace(ref xmlInput);
             string result;
 
-            using (StringReader stringReaderXslt = new(xslInput.Trim())) // xslInput is a string that contains xsl
+            using (StringReader stringReaderXslt = new(xslInput.Trim()))
             {
-                using StringReader stringReaderXml = new(xmlInput.Trim()); // xmlInput is a string that contains xml
+                using StringReader stringReaderXml = new(xmlInput.Trim());
                 using XmlReader xmlReaderXslt = XmlReader.Create(stringReaderXslt);
                 using XmlReader xmlReaderXml = XmlReader.Create(stringReaderXml);
                 XslCompiledTransform xslt = new();
                 xslt.Load(xmlReaderXslt);
                 using StringWriter stringWriter = new();
-                using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings); // use OutputSettings of xsl, so it can be output as HTML
+                // use OutputSettings of xsl, so it can be output as HTML
+                using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
                 
                 xslt.Transform(xmlReaderXml, xmlWriter);
                 result = stringWriter.ToString();
@@ -78,7 +77,7 @@ namespace WeightCore.Zpl
             return result;
         }
 
-        public static string ZplCommandPipeByIp(string ip, int port, string zplCommand)
+        public static string ZplCmdByIp(string ip, int port, string zplCommand)
         {
             StringBuilder result = new();
             try
@@ -97,7 +96,7 @@ namespace WeightCore.Zpl
             return result.ToString();
         }
 
-        public static string ZplCommandPipeByRaw(string printerName, string zplCommand)
+        public static string ZplCmdByRaw(string printerName, string zplCommand)
         {
             StringBuilder result = new();
             try

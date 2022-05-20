@@ -34,6 +34,7 @@ namespace DataCore.Localizations
             public static string IndexContinue => Lang == ShareEnums.Lang.English ? "Click on a menu section to continue." : "Нажмите на раздел меню, чтобы продолжить.";
             public static string LinkEmail => "morozov_dv@kolbasa-vs.ru";
             public static string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
+            public static string LinkLabelary => "http://labelary.com/viewer.html";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
             #region URI route item

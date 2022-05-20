@@ -44,8 +44,7 @@ namespace ScalesUI.Forms
 
                 // Определить COM-порт.
                 if (UserSession?.WeighingFact != null)
-                    fieldCurrentWeightFact.Text = UserSession.WeighingFact
-                        .SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
+                    fieldCurrentWeightFact.Text = UserSession.WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
             }
             catch (Exception ex)
             {
@@ -180,7 +179,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.ManagerControl.PrintMain.SendCmd(ZplPipeUtils.ZplPowerOnReset());
+                UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -198,7 +197,7 @@ namespace ScalesUI.Forms
                     case WeightCore.Print.PrintBrand.Default:
                         break;
                     case WeightCore.Print.PrintBrand.Zebra:
-                        UserSession.ManagerControl.PrintMain.SendCmd(ZplPipeUtils.ZplCalibration());
+                        UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplCalibration());
                         break;
                     case WeightCore.Print.PrintBrand.TSC:
                         break;
@@ -216,7 +215,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.ManagerControl.PrintMain.SendCmd(ZplPipeUtils.ZplPrintConfigurationLabel());
+                UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -261,7 +260,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.ManagerControl.PrintMain.SendCmd(ZplPipeUtils.ZplClearPrintBuffer);
+                UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplClearPrintBuffer);
             }
             catch (Exception ex)
             {

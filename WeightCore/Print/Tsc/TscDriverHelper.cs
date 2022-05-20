@@ -310,7 +310,7 @@ namespace WeightCore.Print.Tsc
 
         public void CmdConvertZpl(bool isUsePicReplace)
         {
-            Cmd = ZplPipeUtils.ToCodePoints(TextPrepare);
+            Cmd = ZplUtils.ToCodePoints(TextPrepare);
             if (isUsePicReplace)
             {
                 Cmd = Cmd.Replace("[EAC_107x109_090]", ZplSamples.GetEac);

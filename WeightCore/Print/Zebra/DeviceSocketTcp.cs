@@ -18,7 +18,7 @@ namespace WeightCore.Print.Zebra
 
         public override string SendStringToPrinter(string szString)
         {
-            string info = ZplPipeUtils.InterplayToPrinter(DeviceIP, DevicePort, szString.Split('\n'), out string _errorMessage);
+            string info = ZplUtils.InterplayToPrinter(DeviceIP, DevicePort, szString.Split('\n'), out string _errorMessage);
             if (_errorMessage.Length > 0)
             {
                 throw new System.Exception(_errorMessage);

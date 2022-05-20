@@ -491,9 +491,8 @@ namespace WeightCore.Helpers
                 WeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
-                string xmlInput = WeighingFact.SerializeAsXmlWithEmptyNamespaces<WeighingFactDirect>();
-                string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
-
+                string xmlInput = WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
+                string printCmd = Zpl.ZplUtils.XsltTransformation(template.XslContent, xmlInput);
                 // Replace ZPL's pics.
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
@@ -505,7 +504,7 @@ namespace WeightCore.Helpers
                 if (isClearBuffer)
                 {
                     ManagerControl.PrintMain.ClearPrintBuffer();
-                    if (Scale.IsOrder)
+                    if (Scale.IsShipping)
                         ManagerControl.PrintShipping.ClearPrintBuffer();
                 }
                 ManagerControl.PrintMain.SendCmd(printCmd);

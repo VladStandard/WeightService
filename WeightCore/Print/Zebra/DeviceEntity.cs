@@ -35,17 +35,17 @@ namespace WeightCore.Print.Zebra
             if (Requests.Count > 0)
                 Requests = new BlockingCollection<string>();
 
-            Requests.Add(ZplPipeUtils.ZplClearPrintBuffer);
+            Requests.Add(ZplUtils.ZplClearPrintBuffer);
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            Requests.Add(ZplPipeUtils.ZplSetOdometerUserLabel(value));
+            Requests.Add(ZplUtils.ZplSetOdometerUserLabel(value));
         }
 
         public void GetOdometorUserLabel()
         {
-            Requests.Add(ZplPipeUtils.ZplGetOdometerUserLabel());
+            Requests.Add(ZplUtils.ZplGetOdometerUserLabel());
         }
 
         public async void SendAsync(string content)

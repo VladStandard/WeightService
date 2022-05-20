@@ -17,16 +17,16 @@ namespace WeightCoreTests.Zpl
             Assert.DoesNotThrow(() =>
             {
                 // Digits.
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('0'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('1'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('2'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('3'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('4'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('5'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('6'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('7'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('8'));
-                Assert.AreEqual(true, ZplPipeUtils.IsDigit('9'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('0'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('1'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('2'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('3'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('4'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('5'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('6'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('7'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('8'));
+                Assert.AreEqual(true, ZplUtils.IsDigit('9'));
             });
 
             Utils.MethodComplete();
@@ -40,40 +40,40 @@ namespace WeightCoreTests.Zpl
             Assert.DoesNotThrow(() =>
             {
                 // ' ', ',', '.', '-', 
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial(' '));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial(','));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('.'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('-'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial(' '));
+                Assert.AreEqual(true, ZplUtils.IsSpecial(','));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('.'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('-'));
 
                 // '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('~'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('!'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('#'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('$'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('%'));
-                Assert.AreEqual(false, ZplPipeUtils.IsSpecial('^'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('&'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('*'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial(')'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('_'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('+'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('='));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('~'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('!'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('#'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('$'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('%'));
+                Assert.AreEqual(false, ZplUtils.IsSpecial('^'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('&'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('*'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial(')'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('_'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('+'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('='));
 
                 // '"', '№', ';', ':', '?', 
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('"'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('№'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial(';'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial(':'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('?'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('"'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('№'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial(';'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial(':'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('?'));
 
                 // '/', '|', '\\', '{', '}', '<', '>'
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('/'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('|'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('\\'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('{'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('}'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('<'));
-                Assert.AreEqual(true, ZplPipeUtils.IsSpecial('>'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('/'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('|'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('\\'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('{'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('}'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('<'));
+                Assert.AreEqual(true, ZplUtils.IsSpecial('>'));
             });
 
             Utils.MethodComplete();
@@ -87,108 +87,108 @@ namespace WeightCoreTests.Zpl
             Assert.DoesNotThrow(() =>
             {
                 // Digits.
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('0'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('1'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('2'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('3'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('4'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('5'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('6'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('7'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('8'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('9'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('0'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('1'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('2'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('3'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('4'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('5'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('6'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('7'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('8'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('9'));
 
                 // ' ', ',', '.', '-', 
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic(' '));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic(','));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('.'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('-'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic(' '));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic(','));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('.'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('-'));
 
                 // '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('~'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('!'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('#'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('$'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('%'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('^'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('&'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('*'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic(')'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('_'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('+'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('='));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('~'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('!'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('#'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('$'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('%'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('^'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('&'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('*'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic(')'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('_'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('+'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('='));
 
                 // '"', '№', ';', ':', '?', 
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('"'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('№'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic(';'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic(':'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('?'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('"'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('№'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic(';'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic(':'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('?'));
 
                 // '/', '|', '\\', '{', '}'
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('/'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('|'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('\\'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('{'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('}'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('<'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('>'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('/'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('|'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('\\'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('{'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('}'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('<'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('>'));
 
                 // English lower letters.
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('q'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('w'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('e'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('r'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('t'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('y'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('u'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('i'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('o'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('p'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('a'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('s'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('d'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('f'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('g'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('h'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('j'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('k'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('l'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('z'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('x'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('c'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('v'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('b'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('n'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('m'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('q'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('w'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('e'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('r'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('t'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('y'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('u'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('i'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('o'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('p'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('a'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('s'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('d'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('f'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('g'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('h'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('j'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('k'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('l'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('z'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('x'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('c'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('v'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('b'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('n'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('m'));
 
                 // English upper letters.
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('Q'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('W'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('E'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('R'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('T'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('Y'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('U'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('I'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('O'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('P'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('A'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('S'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('D'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('F'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('G'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('H'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('J'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('K'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('L'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('Z'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('X'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('C'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('V'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('B'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('N'));
-                Assert.AreEqual(false, ZplPipeUtils.IsCyrillic('M'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('Q'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('W'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('E'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('R'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('T'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('Y'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('U'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('I'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('O'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('P'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('A'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('S'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('D'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('F'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('G'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('H'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('J'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('K'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('L'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('Z'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('X'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('C'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('V'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('B'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('N'));
+                Assert.AreEqual(false, ZplUtils.IsCyrillic('M'));
             });
 
             Utils.MethodComplete();
@@ -202,74 +202,74 @@ namespace WeightCoreTests.Zpl
             Assert.DoesNotThrow(() =>
             {
                 // Russian lower letters.
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('й'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ц'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('у'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('к'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('е'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('н'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('г'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ш'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('щ'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('з'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('х'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ъ'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ф'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ы'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('в'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('а'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('п'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('р'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('о'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('л'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('д'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ж'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('э'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('я'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ч'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('с'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('м'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('и'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('т'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ь'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('б'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ю'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('ё'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('й'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ц'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('у'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('к'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('е'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('н'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('г'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ш'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('щ'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('з'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('х'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ъ'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ф'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ы'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('в'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('а'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('п'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('р'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('о'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('л'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('д'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ж'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('э'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('я'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ч'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('с'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('м'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('и'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('т'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ь'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('б'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ю'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('ё'));
 
                 // Russian upper letters.
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Й'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ц'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('У'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('К'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Е'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Н'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Г'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ш'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Щ'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('З'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Х'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ъ'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ф'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ы'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('В'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('А'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('П'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Р'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('О'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Л'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Д'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ж'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Э'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Я'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ч'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('С'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('М'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('И'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Т'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ь'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Б'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ю'));
-                Assert.AreEqual(true, ZplPipeUtils.IsCyrillic('Ё'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Й'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ц'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('У'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('К'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Е'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Н'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Г'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ш'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Щ'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('З'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Х'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ъ'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ф'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ы'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('В'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('А'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('П'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Р'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('О'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Л'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Д'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ж'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Э'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Я'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ч'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('С'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('М'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('И'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Т'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ь'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Б'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ю'));
+                Assert.AreEqual(true, ZplUtils.IsCyrillic('Ё'));
             });
 
             Utils.MethodComplete();
@@ -282,7 +282,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(ZplSamples.GetSample1));
+                TestContext.WriteLine(ZplUtils.ToCodePoints(ZplSamples.GetSample1));
             });
 
             Utils.MethodComplete();
@@ -295,7 +295,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(ZplSamples.GetSample2));
+                TestContext.WriteLine(ZplUtils.ToCodePoints(ZplSamples.GetSample2));
             });
 
             Utils.MethodComplete();
@@ -308,7 +308,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(ZplSamples.GetSample3));
+                TestContext.WriteLine(ZplUtils.ToCodePoints(ZplSamples.GetSample3));
             });
 
             Utils.MethodComplete();
@@ -321,7 +321,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                var zpl = ZplPipeUtils.ToCodePoints(ZplSamples.GetSampleFull);
+                var zpl = ZplUtils.ToCodePoints(ZplSamples.GetSampleFull);
                 //zpl = zpl.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
                 //zpl = zpl.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
                 //zpl = zpl.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);

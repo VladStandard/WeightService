@@ -86,7 +86,8 @@ namespace ScalesUI
                 }
                 else
                 {
-                    DataAccess.Log.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description), hostName, nameof(ScalesUI));
+                    DataAccess.Log.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description), 
+                        hostName, nameof(ScalesUI));
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     Application.Run(new MainForm());

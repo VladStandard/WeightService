@@ -18,75 +18,18 @@ namespace DataCore.Sql.TableDirectModels
         public TemplateDirect Template { get; set; } = new TemplateDirect();
         public ScaleEntity Scale { get; set; }
         public string ProductSeries { get; set; } = string.Empty;
-
-        private PluDirect _plu;
-        public PluDirect PLU
-        {
-            get => _plu;
-            set
-            {
-                _plu = value;
-                ExpirationDate = _productDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
-            }
-        }
-        private DateTime _productDate;
-        public DateTime ProductDate
-        {
-            get => _productDate;
-            set
-            {
-                _productDate = value;
-                ExpirationDate = value.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
-            }
-        }
-
-        public DateTime ExpirationDate { get; set; }
-
+        public PluDirect PLU { get; set; }
+        public DateTime ProductDate { get; set; }
         public int KneadingNumber { get; set; } = default;
-
-        private decimal _netWeight = 0;
-        public decimal NetWeight
-        {
-            get => _netWeight;
-            set
-            {
-                _netWeight = value;
-                GrossWeight = _netWeight + _tareWeight;
-            }
-        }
-        public string NetWeightKg
-        {
-            get
-            {
-                string[] chars = $"{_netWeight:00.000}".Replace(',', '.').Split('.');
-                return chars.Length > 0 ? chars[0] : "00";
-            }
-            set => _ = value;
-        }
-        public string NetWeightGr
-        {
-            get
-            {
-                string[] chars = $"{_netWeight:00.000}".Replace(',', '.').Split('.');
-                return chars.Length > 0 ? chars[1] : "000";
-            }
-            set => _ = value;
-        }
-
-        private decimal _tareWeight = 0;
-        public decimal TareWeight
-        {
-            get => _tareWeight;
-            set
-            {
-                _tareWeight = value;
-                GrossWeight = _netWeight + _tareWeight;
-            }
-        }
-        public decimal GrossWeight { get; set; }
+        public decimal NetWeight { get; set; }
+        public decimal TareWeight { get; set; }
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
+        public DateTime ExpirationDate => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
+        public string NetWeightKg => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
+        public string NetWeightGr => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[1];
+        public decimal GrossWeight => NetWeight + TareWeight;
 
         #endregion
 
@@ -99,8 +42,6 @@ namespace DataCore.Sql.TableDirectModels
             ScaleFactor = 1000;
             RegDate = DateTime.Now;
             ProductDate = DateTime.Now.Date;
-
-            _plu = new PluDirect();
             PLU = new PluDirect();
             Template = new TemplateDirect();
             Scale = new();
@@ -113,7 +54,7 @@ namespace DataCore.Sql.TableDirectModels
         {
             ScaleFactor = scaleFactor;
             Scale = scale;
-            PLU = _plu = plu;
+            PLU = plu;
             ProductDate = productDate;
             KneadingNumber = kneadingNumber;
             NetWeight = netWeight;
@@ -198,23 +139,6 @@ namespace DataCore.Sql.TableDirectModels
         //        }
         //        con.Close();
         //    }
-        //}
-
-        //public WeighingFactDirect New(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
-        //    int? scaleFactor, decimal netWeight, decimal tareWeight)
-        //{
-        //    WeighingFactDirect weighingFact = new()
-        //    {
-        //        ScaleId = scale.Id,
-        //        ScaleFactor = scaleFactor,
-        //        Scale = scale,
-        //        PLU = plu,
-        //        ProductDate = productDate,
-        //        KneadingNumber = kneadingNumber,
-        //        NetWeight = netWeight,
-        //        TareWeight = tareWeight
-        //    };
-        //    return weighingFact;
         //}
 
         #endregion

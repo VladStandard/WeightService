@@ -139,7 +139,7 @@ namespace WeightCore.Managers
                             catch (Exception ex)
                             {
                                 GuiUtils.WpfForm.CatchException(null, ex, true, false);
-                                SendCmdToZebra(ZplPipeUtils.ZplHostStatusReturn);
+                                SendCmdToZebra(Zpl.ZplUtils.ZplHostStatusReturn);
                             }
                         }
                         break;

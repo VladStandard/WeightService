@@ -50,30 +50,25 @@ namespace DataCore.Sql.Models
 
         public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
 
-        public virtual string SerializeAsXmlWithEmptyNamespaces<T>() where T : new()
+        public virtual string SerializeAsXml<T>(bool isAddEmptyNamespace) where T : new()
         {
             // Don't use it.
             // XmlSerializer xmlSerializer = new(typeof(T));
             // Use it.
             XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-            XmlSerializerNamespaces emptyNamespaces = new();
-            emptyNamespaces.Add(string.Empty, string.Empty);
+            
             using StringWriter stringWriter = new();
-            using (XmlWriter xw = XmlWriter.Create(stringWriter, GetXmlWriterSettings()))
+            if (isAddEmptyNamespace)
             {
+                XmlSerializerNamespaces emptyNamespaces = new();
+                emptyNamespaces.Add(string.Empty, string.Empty);
+                using XmlWriter xw = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
                 xmlSerializer.Serialize(xw, this, emptyNamespaces);
             }
-            return stringWriter.ToString();
-        }
-
-        public virtual string SerializeAsXml<T>() where T : new()
-        {
-            // Don't use it.
-            // XmlSerializer xmlSerializer = new(typeof(T));
-            // Use it.
-            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-            using StringWriter stringWriter = new();
-            xmlSerializer.Serialize(stringWriter, this);
+            else
+            {
+                xmlSerializer.Serialize(stringWriter, this);
+            }
             return stringWriter.ToString();
         }
 
@@ -137,7 +132,7 @@ namespace DataCore.Sql.Models
             return format switch
             {
                 FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
-                FormatType.Xml => GetResult(format, SerializeAsXml<T>(), statusCode),
+                FormatType.Xml => GetResult(format, SerializeAsXml<T>(false), statusCode),
                 FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
                 FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
                 _ => throw GetArgumentException(nameof(format)),

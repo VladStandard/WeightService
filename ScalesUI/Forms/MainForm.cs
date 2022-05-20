@@ -205,7 +205,9 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                UserSession.DataAccess.Log.LogInformation(LocaleData.Program.IsClosed + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.");
+                UserSession.DataAccess.Log.LogInformation(LocaleData.Program.IsClosed + 
+                    $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 UserSession.StopwatchMain.Stop();
             }
         }
@@ -340,7 +342,8 @@ namespace ScalesUI.Forms
                 if (Quartz == null)
                     return;
                 UserSession.ProductDate = DateTime.Now;
-                UserSession.DataAccess.Log.LogInformation(LocaleCore.Scales.ScheduleForNextDay);
+                UserSession.DataAccess.Log.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
             }
         }
 

@@ -24,7 +24,7 @@ namespace WeightCore.Print.Zebra
             bool noErrors = false;
             bool noWarnings = false;
 
-            if (request == ZplPipeUtils.ZplHostStatusReturn)
+            if (request == ZplUtils.ZplHostStatusReturn)
             {
                 if (msg.Contains("PRINTER STATUS"))
                 {
@@ -42,7 +42,7 @@ namespace WeightCore.Print.Zebra
                 }
             }
 
-            if (request == ZplPipeUtils.ZplGetOdometerUserLabel())
+            if (request == ZplUtils.ZplGetOdometerUserLabel())
             {
                 try
                 {
@@ -54,7 +54,7 @@ namespace WeightCore.Print.Zebra
                 }
             }
 
-            if (request == ZplPipeUtils.ZplPeelerState())
+            if (request == ZplUtils.ZplPeelerState())
             {
 
             }

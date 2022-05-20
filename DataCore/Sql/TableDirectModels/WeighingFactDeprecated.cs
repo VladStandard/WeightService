@@ -1,22 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Reflection;
-//using System.Text;
-//using System.Xml;
-//using System.Xml.Linq;
-//using System.Xml.Serialization;
-//using System.Xml.Xsl;
-
-//namespace DataCore.Sql.TableDirectModels
-//{
-//    /// <summary>
-//    /// WeighingFactEntity.
-//    /// </summary>
-//    [Serializable]
+﻿//    [Serializable]
 //    public class WeighingFactEntity
 //    {
 //        #region Constructor
