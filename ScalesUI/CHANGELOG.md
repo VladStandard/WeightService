@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.715] - 2022-05-24
+## [0.6.720] - 2022-05-24
 ### Fixed
-- 
+- Fixed print label
+- Fixed scales Massa-K
 ### Описание обновления:
 - Исправление ошибки печати
+- Исправление ошибки весов
 
 ## [0.6.710] - 2022-05-23
 ### Changed

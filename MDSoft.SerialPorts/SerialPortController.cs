@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Collections.Generic;
 using System.IO.Ports;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -11,6 +13,16 @@ namespace MDSoft.SerialPorts
 {
     public class SerialPortController
     {
+        public enum EnumUsbAdapterStatus
+        {
+            Default,
+            IsConnectWithMassa,
+            IsNotConnectWithMassa,
+            IsDataExists,
+            IsDataNotExists,
+            IsException,
+        }
+
         #region Public and private fields and properties
 
         public delegate void PortCallback(object sender, SerialPortEventArgs e);
@@ -21,6 +33,8 @@ namespace MDSoft.SerialPorts
         public PortCallback ResponseCallback;
         public PortExceptionCallback ExceptionCallback;
         private readonly object _locker = new();
+        public EnumUsbAdapterStatus AdapterStatus { get; set; } = EnumUsbAdapterStatus.Default;
+        public Exception? CatchException { get; set; } = null;
 
         #endregion
 
@@ -61,6 +75,7 @@ namespace MDSoft.SerialPorts
         public void Open(string portName, string baudRate, string parity, string dataBits, string stopBits, string handshake, int readTimeout, int writeTimeout)
         {
             SerialPortEventArgs args = new();
+            CatchException = null;
             try
             {
                 if (SerialPort.IsOpen)
@@ -68,6 +83,15 @@ namespace MDSoft.SerialPorts
                     Close();
                     return;
                 }
+                List<string> comPorts = SerialPort.GetPortNames().ToList();
+                if (!comPorts.Contains(portName))
+                {
+                    AdapterStatus = EnumUsbAdapterStatus.IsNotConnectWithMassa;
+                    return;
+                }
+                else
+                    AdapterStatus = EnumUsbAdapterStatus.IsConnectWithMassa;
+
                 SerialPort.PortName = portName;
                 SerialPort.BaudRate = Convert.ToInt32(baudRate);
                 SerialPort.DataBits = Convert.ToInt16(dataBits);
@@ -102,8 +126,10 @@ namespace MDSoft.SerialPorts
             }
             catch (Exception ex)
             {
+                AdapterStatus = EnumUsbAdapterStatus.IsException;
+                CatchException = ex;
                 args.SerialPort = new();
-                ExceptionCallback?.Invoke(ex);
+                //ExceptionCallback?.Invoke(ex);
             }
         }
 
@@ -125,6 +151,7 @@ namespace MDSoft.SerialPorts
                     {
                         ReceivedBytes = data
                     };
+                    AdapterStatus = data.All(x => x == 0x00) ? EnumUsbAdapterStatus.IsDataNotExists : EnumUsbAdapterStatus.IsDataExists;
                     ResponseCallback?.Invoke(this, args);
                 }
                 catch (Exception ex)

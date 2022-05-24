@@ -52,8 +52,8 @@ namespace DataCore.Localizations
         public string FieldCurrentTime => Lang == ShareEnums.Lang.English ? "Now" : "Сейчас";
         public string FieldDate => Lang == ShareEnums.Lang.English ? "Date" : "Дата";
         public string FieldKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-        public string FieldProductDate => Lang == ShareEnums.Lang.English ? "Date of production" : "Дата производства";
         public string FieldPalletSize => Lang == ShareEnums.Lang.English ? "Pallet size" : "Размер паллеты";
+        public string FieldProductDate => Lang == ShareEnums.Lang.English ? "Date of production" : "Дата производства";
         public string FieldSscc => Lang == ShareEnums.Lang.English ? "Serialized Shipping Container Code" : "Код транспортной упаковки";
         public string FieldSsccControlNumber => Lang == ShareEnums.Lang.English ? "Control number" : "Контрольное число";
         public string FieldSsccGln => Lang == ShareEnums.Lang.English ? "GLN" : "Код GLN";
@@ -73,6 +73,10 @@ namespace DataCore.Localizations
         public string HostUidNotFound => Lang == ShareEnums.Lang.English ? "Host UID not detected." : "УИД хоста не обнаружен.";
         public string HostUidQuestionWriteToDb => Lang == ShareEnums.Lang.English ? "Write a new UID into the database table?" : "Записать новый УИД в таблицу БД?";
         public string HostUidQuestionWriteToFile => Lang == ShareEnums.Lang.English ? "Write a new UID to the file?" : "Записать новый УИД в файл?";
+        public string IsConnectWithMassa => Lang == ShareEnums.Lang.English ? "The scales are connected." : "Весы подключены.";
+        public string IsNotConnectWithMassa => Lang == ShareEnums.Lang.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
+        public string IsException(string message) => Lang == ShareEnums.Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
+        public string IsDataNotExists => Lang == ShareEnums.Lang.English ? "Check the connection of the scales!" : "Проверьте подключение весов!";
         public string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
         public string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
         public string MassaDevice => Lang == ShareEnums.Lang.English ? "Massa-K" : "Масса-К";

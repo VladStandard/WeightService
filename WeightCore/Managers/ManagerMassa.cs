@@ -29,13 +29,7 @@ namespace WeightCore.Managers
         private MassaExchangeEntity MassaExchange { get; set; }
         public MassaStableEntity MassaStable { get; private set; } = new();
         public MassaStableEntity MassaStableEmpty { get; private set; } = new();
-        /// <summary>
-        /// Вес брутто.
-        /// </summary>
         public decimal WeightGross { get; private set; }
-        /// <summary>
-        /// Вес нетто.
-        /// </summary>
         public decimal WeightNet { get; private set; }
         public int CurrentError { get; private set; }
         public int ScaleFactor { get; set; } = 1_000;
@@ -190,20 +184,32 @@ namespace WeightCore.Managers
 
         private void SetControlsText()
         {
-            string massaDevice = MassaDevice != null
-                ? MassaDevice.IsOpenPort
-                    ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
-                    : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | "
-                : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
-            if (ResponseParseGet == null)
+            
+            switch (MassaDevice.PortController.AdapterStatus)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, massaDevice +
-                    $"{LocaleCore.Scales.Message}: ...");
-            }
-            else
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, massaDevice +
-                    $"{LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
+                case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsNotConnectWithMassa:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.IsNotConnectWithMassa);
+                    break;
+                case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsDataNotExists:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.IsDataNotExists);
+                    break;
+                case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsException:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, 
+                        LocaleCore.Scales.IsException(MassaDevice.PortController.CatchException.Message));
+                    break;
+                case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.Default:
+                case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
+                case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsDataExists:
+                default:
+                    string massaDevice = MassaDevice != null
+                        ? MassaDevice.IsOpenPort
+                            ? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
+                            : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | "
+                        : $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateDisable} | ";
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, ResponseParseGet == null
+                        ? $"{massaDevice} {LocaleCore.Scales.Message}: ..."
+                        : $"{massaDevice} {LocaleCore.Scales.Message}: {ResponseParseGet.Message}");
+                    break;
             }
 
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare,
@@ -221,6 +227,7 @@ namespace WeightCore.Managers
 #else
                 $"{LocaleCore.Scales.WeightingIsCalc}");
 #endif
+
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
                 $"{LocaleCore.Scales.WeightingProcess}: " +
                 (UserSessionHelper.Instance.Plu == null ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
