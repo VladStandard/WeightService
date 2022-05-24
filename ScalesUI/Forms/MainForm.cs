@@ -459,9 +459,9 @@ namespace ScalesUI.Forms
                 $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
                 $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
                 $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
-                $"{LocaleCore.Print.Status}: {wmiPrinter.PrinterStatusDescription}" + Environment.NewLine +
+                $"{LocaleCore.Print.Status}: {WmiHelper.Instance.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
                 $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
-                $"{LocaleCore.Print.State}: {wmiPrinter.StatusDescription}" + Environment.NewLine +
+                $"{LocaleCore.Print.State}: {WmiHelper.Instance.GetStatusDescription(LocaleCore.Lang, wmiPrinter.Status)}" + Environment.NewLine +
                 $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +
                 $"{LocaleCore.Print.Mode}: {printMode}" + Environment.NewLine;
         }
@@ -858,6 +858,9 @@ namespace ScalesUI.Forms
         {
             try
             {
+                UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
+                UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
+
                 if (!UserSession.CheckPluIsEmpty(this))
                     return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this))
@@ -897,10 +900,14 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
+                UserSession.DataAccess.Log.LogError(new Exception($"{LocaleCore.Print.ErrorPlu(UserSession.Plu.PLU, UserSession.Plu.GoodsName)}"), 
+                    UserSessionHelper.Instance.Scale.Host.HostName);
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
+                UserSession.ManagerControl.PrintMain.IsPrintBusy = false;
+                UserSession.ManagerControl.PrintShipping.IsPrintBusy = false;
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel,
                 //_sessionState.PrintBrand, _sessionState.CurrentScale);

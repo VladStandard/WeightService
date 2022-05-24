@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
 [assembly: AssemblyProduct("WeightService")]
-[assembly: AssemblyCopyright("Copyright © 2020  - 2022")]
+[assembly: AssemblyCopyright("Copyright © 2020 - 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,6 +32,6 @@ using System.Runtime.InteropServices;
 // Можно задать все значения или принять номер сборки и номер редакции по умолчанию.
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.6.710.0")]
-[assembly: AssemblyFileVersion("0.6.710.0")]
+[assembly: AssemblyVersion("0.6.715.0")]
+[assembly: AssemblyFileVersion("0.6.715.0")]
 

@@ -323,7 +323,7 @@ namespace WeightCore.Helpers
             if (Order != null && Scale != null && Scale.IsOrder == true)
             {
                 template = Order.Template;
-                Order.FactBoxCount++;
+                Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
             }
             else if (Plu != null && Scale != null && Scale.IsOrder != true)
             {

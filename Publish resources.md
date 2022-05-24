@@ -17,6 +17,9 @@ https://device-control-prod-preview.kolbasa-vs.local/  ## предварител
 https://device-control-dev-preview.kolbasa-vs.local/   ## тестовая среда
 https://device-control-prod-preview.kolbasa-vs.local/  ## рабочая среда
 
+## Hyper-V
+dhvsm01 (10.0.24.248)
+
 ## DeviceControl
   Debug:     
              IIS-DEV (10.0.204.17): https://device-control-dev.kolbasa-vs.local/

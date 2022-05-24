@@ -39,8 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Resources\Templates\Convert XML to TXT simple.xsl = Resources\Templates\Convert XML to TXT simple.xsl
 		Resources\Templates\Data3ProductSeriesEntity.xml = Resources\Templates\Data3ProductSeriesEntity.xml
 		Resources\Templates\styledata.xml = Resources\Templates\styledata.xml
-		Resources\Templates\Template80x100_Summ 300 dpi.xml.json = Resources\Templates\Template80x100_Summ 300 dpi.xml.json
-		Resources\Templates\Template80x100_Summ.xslt = Resources\Templates\Template80x100_Summ.xslt
 		Resources\Templates\Template80x100unit.xml = Resources\Templates\Template80x100unit.xml
 		Resources\Templates\Template80x100unit_CODE128_300dpi.xml = Resources\Templates\Template80x100unit_CODE128_300dpi.xml
 		Resources\Templates\Template80x100unit_CODE128_300dpi.xml.json = Resources\Templates\Template80x100unit_CODE128_300dpi.xml.json
@@ -50,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Resources\Templates\Template80x100weight.xml = Resources\Templates\Template80x100weight.xml
 		Resources\Templates\Template80x100weight_I2OF5_203dpi.xml = Resources\Templates\Template80x100weight_I2OF5_203dpi.xml
 		Resources\Templates\Template80x100weight_I2OF5_300dpi.xml = Resources\Templates\Template80x100weight_I2OF5_300dpi.xml
+		Resources\Templates\Template80x100_Summ 300 dpi.xml.json = Resources\Templates\Template80x100_Summ 300 dpi.xml.json
+		Resources\Templates\Template80x100_Summ.xslt = Resources\Templates\Template80x100_Summ.xslt
 		Resources\Templates\Template90x60unit.xml = Resources\Templates\Template90x60unit.xml
 		Resources\Templates\Template90x60weight.xml = Resources\Templates\Template90x60weight.xml
 		Resources\Templates\Test TEST.sql = Resources\Templates\Test TEST.sql
@@ -154,6 +154,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Publish lifecycle.md = Publish lifecycle.md
 		Publish resources.md = Publish resources.md
 		README.md = README.md
+		TestCases.md = TestCases.md
 		TO_DO_LIST.md = TO_DO_LIST.md
 		TROUBLE_SHOOTING.md = TROUBLE_SHOOTING.md
 	EndProjectSection
@@ -656,7 +657,7 @@ Global
 		{5121B4E0-3103-4872-AB23-0E5909BA356D} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal

@@ -1,8 +1,7 @@
 # Publish lifecycle
 
 
-## Tuesday Release
-
+## Tuesday Release-version
 Switch on `preview` branch
 ```
 cd C:\DevSource\Kolbasa-Git\VS.WeightService\
@@ -10,7 +9,8 @@ git checkout preview
 ```
 Make changes
 ```
-git commit -m "Feature updates"
+git add <files>
+git commit -m "Release feature updates"
 ```
 Switch on `main` branch
 ```
@@ -22,8 +22,24 @@ Publish BlazorDeviceControl prod-release: `https://device-control.kolbasa-vs.loc
 Publish ScalesUI release: `\\palych\Install\VSSoft\Scales-3-Release\`
 
 
-## Friday Previews
+## Friday Preview-version
+Switch on `develop` branch
+```
+cd C:\DevSource\Kolbasa-Git\VS.WeightService\
+git checkout preview
+```
+Make changes
+```
+git add <files>
+git commit -m "Preview feature updates"
+```
+Publish BlazorDeviceControl dev-preview: `https://device-control-dev-preview.kolbasa-vs.local/`
+Publish BlazorDeviceControl prod-preview: `https://device-control-prod-preview.kolbasa-vs.local/`
+Publish ScalesUI test: `\\palych\Install\VSSoft\Scales-1-Test\`
+Publish ScalesUI preview: `\\palych\Install\VSSoft\Scales-2-Preview\`
 
+
+## Other days Develop-version
 Switch on `preview` branch
 ```
 cd C:\DevSource\Kolbasa-Git\VS.WeightService\
@@ -31,9 +47,9 @@ git checkout preview
 ```
 Make changes
 ```
-git commit -m "Feature updates"
+git add <files>
+git commit -m "Develop feature updates"
 ```
 Publish BlazorDeviceControl dev-preview: `https://device-control-dev-preview.kolbasa-vs.local/`
 Publish BlazorDeviceControl prod-preview: `https://device-control-prod-preview.kolbasa-vs.local/`
-Publish ScalesUI test: `\\palych\Install\VSSoft\Scales-1-Test\`
-Publish ScalesUI preview: `\\palych\Install\VSSoft\Scales-2-Preview\`
+Publish ScalesUI develop: `\\palych\Install\VSSoft\Scales-1-Develop\`

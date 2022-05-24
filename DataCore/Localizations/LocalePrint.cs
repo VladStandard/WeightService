@@ -37,6 +37,7 @@ namespace DataCore.Localizations
         public string DeviceShippingCheckStatus => Lang == ShareEnums.Lang.English ? "Check the shipping printer status!" : "Проверьте состояние транспортного принтера!";
         public string DeviceShippingIsUnavailable => Lang == ShareEnums.Lang.English ? "Shipping printer is unavailable!" : "Транспортный принтер не доступен!";
         public string Driver => Lang == ShareEnums.Lang.English ? "Driver" : "Драйвер";
+        public string ErrorPlu(int pluNumber, string goodName) => Lang == ShareEnums.Lang.English ? $"Print error for PLU: {pluNumber} ({goodName})!" : "Ошибка печати для ПЛУ: {pluNumber} ({goodName})";
         public string HttpStatusCode => Lang == ShareEnums.Lang.English ? "Http status code" : "Код состояния Http";
         public string InfoCaption => Lang == ShareEnums.Lang.English ? "Printer info" : "Информация о принтере";
         public string Ip => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";

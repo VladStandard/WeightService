@@ -37,6 +37,7 @@ namespace WeightCore.Managers
         public WmiWin32PrinterEntity TscWmiPrinter => Wmi.GetWin32Printer(TscDriver.Properties.PrintName);
         public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
         public ZebraPrinterStatus ZebraStatus { get; private set; }
+        public bool IsPrintBusy { get; set; }
 
         #endregion
 
@@ -219,7 +220,9 @@ namespace WeightCore.Managers
                     }
                     break;
                 case PrintBrand.TSC:
-                    return TscWmiPrinter.PrinterStatusDescription;
+                    return IsPrintBusy
+                        ? Wmi.GetPrinterStatusDescription(LocaleCore.Lang, Win32PrinterStatusEnum.PendingDeletion)
+                        : Wmi.GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
             }
             return LocaleCore.Print.StatusIsUnavailable;
         }
