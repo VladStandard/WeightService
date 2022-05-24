@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.710] - 2022-05-23
+### Changed
+- WeightCore.Helpers.UserSessionHelper
+### Описание обновления:
+- Универсальный алгоритм загрузки ресурсов шаблонов
+
 ## [0.6.695] - 2022-05-19
 ### Changed
 - Fixed TSC print driver

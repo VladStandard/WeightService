@@ -1,0 +1,3 @@
+- [ZPL to label](http://labelary.com/viewer.html)
+- [Generate Zebra ZPL from Image](http://www.jcgonzalez.com/img-to-zpl-online)
+- [Text to Hex Converter](https://online-toolz.com/tools/text-hex-convertor.php)
