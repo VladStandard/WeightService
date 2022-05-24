@@ -36,7 +36,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Title=@LocaleCore.Table.Scale Type="string" Width="25%" >
+                TItem="LabelQuickEntity" Title=@LocaleCore.Table.Scale Type="string" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.ScaleId}")
@@ -60,8 +60,13 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="PluNumber" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.PluNumber Type="int" Width="6%" />
+                TItem="LabelQuickEntity" Title=@LocaleCore.Table.Template Type="string" Width="16%" TextAlign=TextAlign.Center >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateId}")
+                        Text=@itemCast.TemplateName.ToString() />
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="NetWeight" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.NetWeight Type="decimal" Width="6%" />

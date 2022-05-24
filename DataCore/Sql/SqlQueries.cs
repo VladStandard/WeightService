@@ -343,11 +343,14 @@ SELECT {GetTopRecords(topRecords)}
    ,[WF].[REGNUM]
    ,[WF].[KNEADING]
    ,[L].[ZPL]
+   ,[T].[ID] [TEMPLATE_ID]
+   ,[T].[TITLE] [TEMPLATE]
    --,REPLACE(REPLACE([L].[ZPL], CHAR(13), ''), CHAR(10), '') [ZPL_STR]
 FROM [DB_SCALES].[LABELS] [L]
 LEFT JOIN [DB_SCALES].[WEITHINGFACT] [WF] ON [L].[WEITHINGFACTID] = [WF].[ID]
 LEFT JOIN [DB_SCALES].[SCALES] [S] ON [WF].[SCALEID] = [S].[ID]
 LEFT JOIN [DB_SCALES].[PLU] [PLU] ON [WF].[SCALEID] = [PLU].[SCALEID] AND [WF].[PLUID] = [PLU].[PLU]
+LEFT JOIN [DB_SCALES].[TEMPLATES] [T] ON [PLU].[TEMPLATEID] = [T].[ID]
 ORDER BY [CREATEDATE] DESC
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }

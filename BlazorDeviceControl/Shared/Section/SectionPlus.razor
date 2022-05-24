@@ -28,21 +28,21 @@ else
         <Columns>
             @if (@IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="PluEntity" TextAlign=TextAlign.Center 
+                <RadzenGridColumn TItem="PluEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.Table.Id Type="string" Width="5%" >
+            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.Table.Id Type="string" Width="5%" SortProperty="IdentityId" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" >
+            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" SortProperty="PluNumber" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
@@ -61,8 +61,7 @@ else
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.CheckWeight />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Width="20%"
-                Title=@LocaleCore.Table.GoodsName >
+            <RadzenGridColumn TItem="PluEntity" Width="20%" Title=@LocaleCore.Table.GoodsName SortProperty="GoodsName" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")

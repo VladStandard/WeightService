@@ -164,6 +164,7 @@ namespace DataCore.Localizations
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
                 public static string References => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
                 public static string ReferencesAdditional => Lang == ShareEnums.Lang.English ? "Add. references" : "Доп. справочники";
+                public static string ReferencesDev => Lang == ShareEnums.Lang.English ? "Development" : "Разработка";
                 public static string ReferencesDwh => Lang == ShareEnums.Lang.English ? "DWH References" : "DWH справочники";
                 public static string Resources => Lang == ShareEnums.Lang.English ? "Resources" : "Ресурсы";
                 public static string Scales => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";

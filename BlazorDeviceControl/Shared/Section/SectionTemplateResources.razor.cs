@@ -56,6 +56,8 @@ namespace BlazorDeviceControl.Shared.Section
                             new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
+                    Items?.OrderBy(x => ((TemplateResourceEntity)x).Name);
+                    Items?.OrderBy(x => ((TemplateResourceEntity)x).Type);
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();

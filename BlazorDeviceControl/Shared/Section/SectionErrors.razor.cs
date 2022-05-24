@@ -68,11 +68,11 @@ namespace BlazorDeviceControl.Shared.Section
                                         IdentityId = id,
                                         CreateDt = Convert.ToDateTime(item[1]),
                                         ChangeDt = Convert.ToDateTime(item[2]),
-                                        FilePath = Convert.ToString(item[3]),
+                                        FilePath = item[3] is string file ? file : string.Empty,
                                         LineNumber = Convert.ToInt32(item[4]),
-                                        MemberName = Convert.ToString(item[5]),
-                                        Exception = Convert.ToString(item[6]),
-                                        InnerException = Convert.ToString(item[7]),
+                                        MemberName = item[5] is string member ? member : string.Empty,
+                                        Exception = item[6] is string ex ? ex : string.Empty,
+                                        InnerException = item[7] is string inEx ? inEx: string.Empty,
                                     });
                                 }
                             }

@@ -69,14 +69,15 @@
                         Text=@LocaleData.DeviceControl.Sections.BarCodesShort Path=@LocaleData.DeviceControl.UriRouteSection.BarCodes />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem 
                         Text=@LocaleData.DeviceControl.Sections.BarCodeTypesShort Path=@LocaleData.DeviceControl.UriRouteSection.BarCodeTypes />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem 
-                        Text=@LocaleData.DeviceControl.Sections.TaskModules Path=@LocaleData.DeviceControl.UriRouteSection.TaskModules />
-                    @if (IsDebug)
-                    {
+                </RadzenPanelMenuItem>
+                
+                @if (IsDebug)
+                {
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem Text=@LocaleData.DeviceControl.Sections.ReferencesDev >
                         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem Text="Mud" Path="mud" />
                         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem Text="Radzen" Path="radzen" />
-                    }
-                </RadzenPanelMenuItem>
+                    </RadzenPanelMenuItem>
+                }
             </RadzenPanelMenu>
         }
     </ul>

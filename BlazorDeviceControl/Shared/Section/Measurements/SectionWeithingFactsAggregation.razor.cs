@@ -65,9 +65,9 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                                 {
                                     WeithingDate = Convert.ToDateTime(item[0]),
                                     Count = Convert.ToInt32(item[1]),
-                                    Scale = Convert.ToString(item[2]),
-                                    Host = Convert.ToString(item[3]),
-                                    Printer = Convert.ToString(item[4]),
+                                    Scale = item[2] is string scale ? scale : string.Empty,
+                                    Host = item[3] is string host ? host : string.Empty,
+                                    Printer = item[4] is string printer ? printer : string.Empty,
                                 });
                             }
                         }

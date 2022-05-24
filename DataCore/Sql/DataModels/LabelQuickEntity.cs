@@ -40,6 +40,8 @@ namespace DataCore.Sql.DataModels
             get => DataUtils.GetStringLength(Zpl);
             set => _ = value;
         }
+        public virtual long TemplateId { get; set; }
+        public virtual string TemplateName { get; set; }
 
         #endregion
 
@@ -65,6 +67,8 @@ namespace DataCore.Sql.DataModels
             Kneading = null;
             Label = new byte[0];
             Zpl = string.Empty;
+            TemplateId = 0;
+            TemplateName = string.Empty;
         }
 
         #endregion
@@ -84,7 +88,9 @@ namespace DataCore.Sql.DataModels
             $"{nameof(ProductDate)}: {ProductDate}. " +
             $"{nameof(RegNum)}: {RegNum}. " +
             $"{nameof(Kneading)}: {Kneading}. " +
-            $"{nameof(ZplInfo)}: {ZplInfo}. ";
+            $"{nameof(ZplInfo)}: {ZplInfo}. " + 
+            $"{nameof(TemplateId)}: {TemplateId}. " + 
+            $"{nameof(TemplateName)}: {TemplateName}. ";
 
         public virtual bool Equals(LabelQuickEntity item)
         {
@@ -103,7 +109,9 @@ namespace DataCore.Sql.DataModels
                    Equals(RegNum, item.RegNum) &&
                    Equals(Kneading, item.Kneading) &&
                    Equals(Label, item.Label) &&
-                   Equals(Zpl, item.Zpl);
+                   Equals(Zpl, item.Zpl) &&
+                   Equals(TemplateId, item.TemplateId) &&
+                   Equals(TemplateName, item.TemplateName);
         }
 
         public override bool Equals(object obj)
@@ -138,7 +146,9 @@ namespace DataCore.Sql.DataModels
                    Equals(ProductDate, DateTime.MinValue) &&
                    Equals(RegNum, null) &&
                    Equals(Label, new byte[0]) &&
-                   Equals(Zpl, string.Empty);
+                   Equals(Zpl, string.Empty) &&
+                   Equals(TemplateId, 0) &&
+                   Equals(TemplateName, string.Empty);
         }
 
         public new virtual object Clone()
@@ -156,6 +166,8 @@ namespace DataCore.Sql.DataModels
             item.RegNum = RegNum;
             item.Label = DataUtils.ByteClone(Label);
             item.Zpl = Zpl;
+            item.TemplateId = TemplateId;
+            item.TemplateName = TemplateName;
             item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }

@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.710] - 2022-05-23
+### Fixed
+- Shared.Section.Measurements.SectionLabels
+### Описание обновления:
+- Обновление раздела 'Этикетки'
+- Исправление сортировки полей разделов справочников
+
 ## [0.6.690] - 2022-05-19
 ### Fixed
 - Shared.Section.Measurements.SectionWeithingFacts
