@@ -14,6 +14,7 @@ using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
@@ -21,7 +22,6 @@ using System.Xml.Serialization;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Print;
-using WeightCore.Zpl;
 using static DataCore.ShareEnums;
 
 namespace WeightCore.Helpers
@@ -258,7 +258,7 @@ namespace WeightCore.Helpers
             decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), 
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
                     true, LogType.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible },
                     Scale.Host.HostName, nameof(WeightCore));
@@ -279,7 +279,7 @@ namespace WeightCore.Helpers
             decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
             if (weight > LocaleCore.Scales.MassaThresholdValue)
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight), 
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
                     true, LogType.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible },
                     Scale.Host.HostName, nameof(WeightCore));
@@ -361,24 +361,15 @@ namespace WeightCore.Helpers
                 case PrintBrand.Zebra:
                     break;
                 case PrintBrand.TSC:
-                    TemplateResourceEntity resourceTemp6 = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                    List<TemplateResourceEntity> templateResources = DataAccess.Crud.GetEntities<TemplateResourceEntity>(
                         new FieldListEntity(new Dictionary<string, object> {
-                        { $"{nameof(TemplateResourceEntity.Name)}", "TEMP6.DAT" },
-                        { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
-                    }));
-                    TemplateResourceEntity resourceFish = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                        new FieldListEntity(new Dictionary<string, object> {
-                        { $"{nameof(TemplateResourceEntity.Name)}", "FISH.DAT" },
-                        { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
-                    }));
-                    TemplateResourceEntity resourceEac = DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                        new FieldListEntity(new Dictionary<string, object> {
-                        { $"{nameof(TemplateResourceEntity.Name)}", "EAC.DAT" },
-                        { $"{nameof(TemplateResourceEntity.Type)}", "DAT" },
-                    }));
-                    value = value.Replace("[TEMP6_116x113_090]", resourceTemp6.ImageData.ValueUnicode);
-                    value = value.Replace("[FISH_94x115_000]", resourceFish.ImageData.ValueUnicode);
-                    value = value.Replace("[EAC_107x109_090]", resourceEac.ImageData.ValueUnicode);
+                            { $"{nameof(TemplateResourceEntity.Type)}", "ZPL" },
+                        }),
+                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
+                    foreach (TemplateResourceEntity templateResource in templateResources)
+                    {
+                        value = value.Replace(templateResource.Name, templateResource.ImageData.ValueUnicode);
+                    }
                     break;
                 default:
                     break;
