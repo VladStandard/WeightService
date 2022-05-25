@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using Radzen;
+using System.Collections.Generic;
 
 namespace BlazorDeviceControl.Shared.Component
 {
@@ -19,6 +23,11 @@ namespace BlazorDeviceControl.Shared.Component
         public RadzenPage()
         {
             ListComPorts = GetListComPorts();
+        }
+
+        private void ShowNotification(NotificationMessage message)
+        {
+            NotificationService.Notify(message);
         }
     }
 }
