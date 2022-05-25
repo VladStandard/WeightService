@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HotFix
 ### Описание обновления:
 - WS-T-182. Исправление для ЧудоПечка
+- WS-T-188. Исправление печати картинок из ресурсов
 
 ## [0.6.720] - 2022-05-24
 ### Fixed

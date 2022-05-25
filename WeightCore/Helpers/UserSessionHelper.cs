@@ -368,7 +368,7 @@ namespace WeightCore.Helpers
                         new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
                     foreach (TemplateResourceEntity templateResource in templateResources)
                     {
-                        value = value.Replace(templateResource.Name, templateResource.ImageData.ValueUnicode);
+                        value = value.Replace($"[{templateResource.Name}]", templateResource.ImageData.ValueUnicode);
                     }
                     break;
                 default:
