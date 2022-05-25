@@ -17,9 +17,9 @@ Switch on `main` branch
 git checkout main
 git merge preview
 ```
-Publish BlazorDeviceControl dev-release: `https://device-control-dev.kolbasa-vs.local/`
-Publish BlazorDeviceControl prod-release: `https://device-control.kolbasa-vs.local/`
-Publish ScalesUI release: `\\palych\Install\VSSoft\Scales-3-Release\`
+Publish BlazorDeviceControl dev-release: ```https://device-control-dev.kolbasa-vs.local/```
+Publish BlazorDeviceControl prod-release: ```https://device-control.kolbasa-vs.local/```
+Publish ScalesUI release: ```\\palych\Install\VSSoft\Scales-3-Release\```
 
 
 ## Friday Preview-version
@@ -33,10 +33,10 @@ Make changes
 git add <files>
 git commit -m "Preview feature updates"
 ```
-Publish BlazorDeviceControl dev-preview: `https://device-control-dev-preview.kolbasa-vs.local/`
-Publish BlazorDeviceControl prod-preview: `https://device-control-prod-preview.kolbasa-vs.local/`
-Publish ScalesUI test: `\\palych\Install\VSSoft\Scales-1-Test\`
-Publish ScalesUI preview: `\\palych\Install\VSSoft\Scales-2-Preview\`
+Publish BlazorDeviceControl dev-preview: ```https://device-control-dev-preview.kolbasa-vs.local/```
+Publish BlazorDeviceControl prod-preview: ```https://device-control-prod-preview.kolbasa-vs.local/```
+Publish ScalesUI test: ```\\palych\Install\VSSoft\Scales-1-Test\```
+Publish ScalesUI preview: ```\\palych\Install\VSSoft\Scales-2-Preview\```
 
 
 ## Other days Develop-version
@@ -50,6 +50,6 @@ Make changes
 git add <files>
 git commit -m "Develop feature updates"
 ```
-Publish BlazorDeviceControl dev-preview: `https://device-control-dev-preview.kolbasa-vs.local/`
-Publish BlazorDeviceControl prod-preview: `https://device-control-prod-preview.kolbasa-vs.local/`
-Publish ScalesUI develop: `\\palych\Install\VSSoft\Scales-1-Develop\`
+Publish BlazorDeviceControl dev-preview: ```https://device-control-dev-preview.kolbasa-vs.local/```
+Publish BlazorDeviceControl prod-preview: ```https://device-control-prod-preview.kolbasa-vs.local/```
+Publish ScalesUI develop: ```\\palych\Install\VSSoft\Scales-1-Develop\```

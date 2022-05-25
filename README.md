@@ -4,6 +4,7 @@
 - [LICENSE](LICENSE.md)
 - [Publish lifecycle](Publish%20lifecycle.md)
 - [Publish resources](Publish%20resources.md)
+- [TestCases](TestCases.md)
 
 ## Projects
 - [BlazorDeviceControl CHANGELOG](BlazorDeviceControl/CHANGELOG.md)
