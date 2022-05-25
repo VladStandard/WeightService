@@ -304,11 +304,58 @@ namespace BlazorCore.Models
                 return false;
 
             scale.ChangeDt = DateTime.Now;
+            // Check PrinterMain is null.
             bool success = FieldControl.ProcessChecks(notificationService, scale, LocaleCore.Table.Device);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
+            {
+                if (scale.Host?.IdentityId != 0)
+                {
+                    scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<HostEntity>(scale.Host?.IdentityId);
+                    success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Table.Host);
+                }
+                else
+                    scale.Host = null;
+            }
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Table.Host);
+            {
+                if (scale.PrinterMain?.IdentityId != 0)
+                {
+                    scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<PrinterEntity>(scale.PrinterMain?.IdentityId);
+                    success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
+                }
+                else
+                    scale.PrinterMain = null;
+            }
+            if (success)
+            {
+                if (scale.PrinterShipping?.IdentityId != 0)
+                {
+                    scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<PrinterEntity>(scale.PrinterShipping?.IdentityId);
+                    success = FieldControl.ProcessChecks(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
+                }
+                else
+                    scale.PrinterShipping = null;
+            }
+            if (success)
+            {
+                if (scale.TemplateDefault?.IdentityId != 0)
+                {
+                    scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<TemplateEntity>(scale.TemplateDefault?.IdentityId);
+                    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
+                }
+                else
+                    scale.TemplateDefault = null;
+            }
+            if (success)
+            {
+                if (scale.TemplateSeries?.IdentityId != 0)
+                {
+                    scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<TemplateEntity>(scale.TemplateSeries?.IdentityId);
+                    success = FieldControl.ProcessChecks(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
+                }
+                else
+                    scale.TemplateSeries = null;
+            }
             //if (success)
             //    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocaleCore.Strings.TableItem.TemplateDefault);
             if (success)

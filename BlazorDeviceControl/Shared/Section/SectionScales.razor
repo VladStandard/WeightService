@@ -49,7 +49,7 @@ else
                     @if (itemCast.Host == null)
                     {
                         <RadzenLabel Style="width: 100%; margin-left: 0px; "
-                            Text=@LocaleCore.Table.TableFieldNotFound />
+                            Text=@LocaleCore.Table.FieldNull />
                     }
                     else
                     {
@@ -69,7 +69,7 @@ else
                     @if (itemCast.PrinterMain == null)
                     {
                         <RadzenLabel Style="width: 100%; margin-left: 0px; "
-                            Text=@LocaleCore.Table.TableFieldNotFound />
+                            Text=@LocaleCore.Table.FieldNull />
                     }
                     else
                     {
@@ -85,7 +85,7 @@ else
                     @if (itemCast.PrinterShipping == null)
                     {
                         <RadzenLabel Style="width: 100%; margin-left: 0px; "
-                            Text=@LocaleCore.Table.TableFieldNotFound />
+                            Text=@LocaleCore.Table.FieldNull />
                     }
                     else
                     {
@@ -120,8 +120,17 @@ else
                 Title=@LocaleCore.Table.TemplateDefault 
                 Type="string" Width="16%">
                 <Template Context="itemCast">
-                    <RadzenLabel Text=@(itemCast.TemplateDefault != null ? itemCast.TemplateDefault.Title : "")
-                        Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
+                    @if (itemCast.TemplateDefault == null)
+                    {
+                        <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                            Text=@LocaleCore.Table.FieldNull />
+                    }
+                    else
+                    {
+                        <RadzenLink Style="width: 100%; margin-left: 0px; "
+                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateDefault.IdentityId}")
+                            Text=@itemCast.TemplateDefault.Title />
+                    }
                 </Template>
             </RadzenGridColumn>
         </Columns>

@@ -62,6 +62,7 @@ namespace DataCore.Localizations
         public string FieldIsNotInRange => Lang == ShareEnums.Lang.English ? "Field is not in the range" : "Поле не находится в диапазоне";
         public string FieldLabel => Lang == ShareEnums.Lang.English ? "Label" : "Этикетка";
         public string FieldModified => Lang == ShareEnums.Lang.English ? "Modified" : "Изменено";
+        public string FieldNull => Lang == ShareEnums.Lang.English ? "Null" : "Пусто";
         public string FieldName => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
         public string FieldTitle => Lang == ShareEnums.Lang.English ? "Title" : "Заголовок";
         public string FieldUser => Lang == ShareEnums.Lang.English ? "User" : "Пользователь";
@@ -145,7 +146,6 @@ namespace DataCore.Localizations
         public string TableCreate => Lang == ShareEnums.Lang.English ? "Create record" : "Создать запись";
         public string TableDelete => Lang == ShareEnums.Lang.English ? "Delete record" : "Удалить запись";
         public string TableEdit => Lang == ShareEnums.Lang.English ? "Edit record" : "Редактировать запись";
-        public string TableFieldNotFound => Lang == ShareEnums.Lang.English ? "Not found" : "Не найдено";
         public string TableIncludes => Lang == ShareEnums.Lang.English ? "Included records" : "Вложенные записи";
         public string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
         public string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";

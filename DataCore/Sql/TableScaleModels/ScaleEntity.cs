@@ -50,15 +50,15 @@ namespace DataCore.Sql.TableScaleModels
 
         public ScaleEntity(long id) : base(id)
         {
-            TemplateDefault = new();
-            TemplateSeries = new();
+            TemplateDefault = null;
+            TemplateSeries = null;
             WorkShop = new();
-            PrinterMain = new();
-            PrinterShipping = new();
+            Host = null;
+            PrinterMain = null;
+            PrinterShipping = null;
             IsShipping = false;
             IsKneading = false;
             ShippingLength = 0;
-            Host = new();
             Description = string.Empty;
             IdRRef = Guid.Empty;
             DeviceIp = string.Empty;

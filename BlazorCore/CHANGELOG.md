@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.730] - 2022-05-25
+### Changed
+- WS-T-187. Устройства с пустыми полями
+
 ## [0.6.120] - 2022-02-03
 ### Changed
 - Union with BlazorCore project

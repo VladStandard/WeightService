@@ -15,7 +15,7 @@ namespace DataCore.Sql.TableScaleModels
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-            References(x => x.TemplateDefault).Column("TemplateIdDefault").Not.Nullable();
+            References(x => x.TemplateDefault).Column("TemplateIdDefault").Nullable();
             References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
             References(x => x.WorkShop).Column("WorkShopId").Not.Nullable();
             References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
