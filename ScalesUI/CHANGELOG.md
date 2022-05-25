@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.722] - 2022-05-25
+### Fixed
+- HotFix
+### Описание обновления:
+- WS-T-182. Исправление для ЧудоПечка
+
 ## [0.6.720] - 2022-05-24
 ### Fixed
 - Fixed print label

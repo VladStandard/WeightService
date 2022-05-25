@@ -27,8 +27,24 @@ namespace DataCore.Sql.TableDirectModels
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
         public DateTime ExpirationDate => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
-        public string NetWeightKg => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
-        public string NetWeightGr => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[1];
+        public string NetWeightKg
+        {
+            get
+            {
+                return $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
+            }
+            set { _ = value; }
+        }
+
+        public string NetWeightGr
+        {
+            get
+            {
+                return $"{NetWeight:00.000}".Replace(',', '.').Split('.')[1];
+            }
+            set { _ = value; }
+        }
+
         public decimal GrossWeight => NetWeight + TareWeight;
 
         #endregion
