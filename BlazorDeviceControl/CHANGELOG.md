@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.725] - 2022-05-25
+### Fixed
+- BlazorDeviceControl.Shared.Item.ItemHost
+### Описание обновления:
+- WS-T-184. Исправление сохранения изменений хоста
+
 ## [0.6.710] - 2022-05-23
 ### Fixed
 - Shared.Section.Measurements.SectionLabels

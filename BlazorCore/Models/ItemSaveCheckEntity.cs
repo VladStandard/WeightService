@@ -46,11 +46,11 @@ namespace BlazorCore.Models
             }
         }
 
-        public void BarcodeType(NotificationService? notificationService, BarCodeTypeEntityV2? barcodeType, 
+        public bool BarcodeType(NotificationService? notificationService, BarCodeTypeEntityV2? barcodeType, 
             Guid? uid, DbTableAction tableAction)
         {
             if (barcodeType == null || uid == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocaleCore.Table.BarcodeType);
             if (success)
@@ -70,13 +70,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return true;
         }
 
-        public void Contragent(NotificationService? notificationService, ContragentEntityV2? contragent, 
+        public bool Contragent(NotificationService? notificationService, ContragentEntityV2? contragent, 
             Guid? uid, DbTableAction tableAction)
         {
             if (contragent == null || uid == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, contragent, LocaleCore.Table.Contragent);
             if (success)
@@ -96,12 +97,13 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Host(NotificationService? notificationService, HostEntity? host, long? id, DbTableAction tableAction)
+        public bool Host(NotificationService? notificationService, HostEntity? host, long? id, DbTableAction tableAction)
         {
             if (host == null || id == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, host, LocaleCore.Table.Host);
             if (success)
@@ -121,13 +123,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Nomenclature(NotificationService? notificationService, NomenclatureEntity? nomenclature, 
+        public bool Nomenclature(NotificationService? notificationService, NomenclatureEntity? nomenclature, 
             long? id, DbTableAction tableAction)
         {
             if (nomenclature == null || id == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocaleCore.Table.Nomenclature);
             if (success)
@@ -147,12 +150,13 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Plu(NotificationService? notificationService, PluEntity? plu, long? id, DbTableAction tableAction)
+        public bool Plu(NotificationService? notificationService, PluEntity? plu, long? id, DbTableAction tableAction)
         {
             if (plu == null || id == null)
-                return;
+                return false;
 
             plu.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, plu, LocaleCore.Table.Plu);
@@ -179,13 +183,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Printer(NotificationService? notificationService, PrinterEntity? printer, 
+        public bool Printer(NotificationService? notificationService, PrinterEntity? printer, 
             long? id, DbTableAction tableAction)
         {
             if (printer == null || id == null)
-                return;
+                return false;
 
             printer.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, printer, LocaleCore.Table.Printer);
@@ -208,13 +213,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void PrinterResource(NotificationService? notificationService, PrinterResourceEntity? printerResource, 
+        public bool PrinterResource(NotificationService? notificationService, PrinterResourceEntity? printerResource, 
             long? id, DbTableAction tableAction)
         {
             if (printerResource == null || id == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocaleCore.Table.PrinterResource);
             if (success)
@@ -234,13 +240,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void PrinterType(NotificationService? notificationService, PrinterTypeEntity? printerType, 
+        public bool PrinterType(NotificationService? notificationService, PrinterTypeEntity? printerType, 
             long? id, DbTableAction tableAction)
         {
             if (printerType == null || id == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, printerType, LocaleCore.Table.PrinterType);
             if (success)
@@ -260,13 +267,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void ProductionFacility(NotificationService? notificationService, ProductionFacilityEntity? productionFacility, 
+        public bool ProductionFacility(NotificationService? notificationService, ProductionFacilityEntity? productionFacility, 
             long? id, DbTableAction tableAction)
         {
             if (productionFacility == null || id == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocaleCore.Table.ProductionFacility);
             if (success)
@@ -286,13 +294,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Scale(NotificationService? notificationService, ScaleEntity? scale, 
+        public bool Scale(NotificationService? notificationService, ScaleEntity? scale, 
             long? id, DbTableAction tableAction)
         {
             if (scale == null || id == null)
-                return;
+                return false;
 
             scale.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, scale, LocaleCore.Table.Device);
@@ -323,13 +332,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Task(NotificationService? notificationService, TaskEntity? task, 
+        public bool Task(NotificationService? notificationService, TaskEntity? task, 
             Guid? uid, DbTableAction tableAction)
         {
             if (task == null || uid == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, task, LocaleCore.Table.TaskModule);
             if (success)
@@ -353,13 +363,14 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void TaskType(NotificationService? notificationService, TaskTypeEntity? taskType, 
+        public bool TaskType(NotificationService? notificationService, TaskTypeEntity? taskType, 
             Guid? uid, DbTableAction tableAction)
         {
             if (taskType == null || uid == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, taskType, LocaleCore.Table.TaskModuleType);
             if (success)
@@ -379,12 +390,13 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Template(NotificationService? notificationService, TemplateEntity? template, long? id, DbTableAction? parentTableAction)
+        public bool Template(NotificationService? notificationService, TemplateEntity? template, long? id, DbTableAction? parentTableAction)
         {
             if (template == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, template, LocaleCore.Table.Template);
             if (success)
@@ -404,12 +416,13 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void TemplateResource(NotificationService? notificationService, TemplateResourceEntity? templateResource, long? id, DbTableAction? parentTableAction)
+        public bool TemplateResource(NotificationService? notificationService, TemplateResourceEntity? templateResource, long? id, DbTableAction? parentTableAction)
         {
             if (templateResource == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, templateResource, LocaleCore.Table.TemplateResource);
             if (success)
@@ -429,12 +442,13 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
-        public void Workshop(NotificationService? notificationService, WorkShopEntity? workShop, long? id, DbTableAction tableAction)
+        public bool Workshop(NotificationService? notificationService, WorkShopEntity? workShop, long? id, DbTableAction tableAction)
         {
             if (workShop == null || id == null)
-                return;
+                return false;
 
             bool success = FieldControl.ProcessChecks(notificationService, workShop, LocaleCore.Table.Workshop);
             if (success)
@@ -454,6 +468,7 @@ namespace BlazorCore.Models
                     }
                 }
             }
+            return success;
         }
 
         #endregion

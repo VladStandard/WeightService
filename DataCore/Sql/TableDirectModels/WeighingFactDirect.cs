@@ -29,20 +29,16 @@ namespace DataCore.Sql.TableDirectModels
         public DateTime ExpirationDate => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
         public string NetWeightKg
         {
-            get
-            {
-                return $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
-            }
-            set { _ = value; }
+            get => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
+            // This code need for print labels.
+            set => _ = value;
         }
 
         public string NetWeightGr
         {
-            get
-            {
-                return $"{NetWeight:00.000}".Replace(',', '.').Split('.')[1];
-            }
-            set { _ = value; }
+            get => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[1];
+            // This code need for print labels.
+            set => _ = value;
         }
 
         public decimal GrossWeight => NetWeight + TareWeight;

@@ -13,9 +13,9 @@
     <PackageReference Include="IndexRange" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.43.1" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NHibernate" Version="5.3.11" />
+    <PackageReference Include="NHibernate" Version="5.3.12" />
     <PackageReference Include="Quartz" Version="3.4.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     <PackageReference Include="RestSharp" Version="107.3.0" />

@@ -8,7 +8,6 @@ using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
-using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
@@ -1146,49 +1145,59 @@ namespace BlazorCore.Models
 
         private void ItemScaleSave(ProjectsEnums.TableScale tableScale)
         {
+            bool isSave = false;
             switch (tableScale)
             {
                 case ProjectsEnums.TableScale.BarCodeTypes:
-                    ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                    isSave = ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
-                    ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Nomenclatures:
-                    ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Plus:
-                    ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
-                    ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Printers:
-                    ItemSaveCheck.Printer(NotificationService, (PrinterEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Printer(NotificationService, (PrinterEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
-                    ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
-                    ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Scales:
-                    ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
+                    isSave = ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
-                    ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
+                    isSave = ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                    isSave = ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
-                default:
-                    break;
+            }
+            if (isSave)
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Info,
+                    Summary = LocaleCore.Action.ActionInfo,
+                    Detail = LocaleCore.Action.ActionSaveSuccess,
+                    Duration = AppSettingsHelper.Delay,
+                };
+                NotificationService.Notify(msg);
             }
         }
 

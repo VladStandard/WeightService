@@ -16,8 +16,8 @@
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NHibernate" Version="5.3.11" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="NHibernate" Version="5.3.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />

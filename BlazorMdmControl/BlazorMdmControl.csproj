@@ -19,13 +19,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Errata" Version="0.10.0" />
-    <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.4" />
-    <PackageReference Include="Radzen.Blazor" Version="3.18.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
+    <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
     <PackageReference Include="Radzen.Blazor.GridColumnVisibilityChooser" Version="2.2.0" />
     <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="12.1.1" />
   </ItemGroup>
