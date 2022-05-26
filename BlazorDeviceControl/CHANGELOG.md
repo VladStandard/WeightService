@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.740] - 2022-05-26
+### Описание обновления:
+- WS-T-190. Артефакт подсказки на кнопках
+
 ## [0.6.730] - 2022-05-25
 ### Fixed
 - BlazorDeviceControl.Shared.Item.ItemHost

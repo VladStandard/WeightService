@@ -87,7 +87,6 @@ namespace MdmControlBlazor.Utils
         #endregion
         #region Таблица
         public const string TableTab = @"Переключиться между панелями";
-        public const string TableRead = @"Прочитать данные";
         public const string TableReadCancel = @"Отмена чтения данных";
         public const string TableEdit = @"Редактировать запись";
         public const string TableClear = @"Деактивировать активную запись";
@@ -124,7 +123,6 @@ namespace MdmControlBlazor.Utils
         #endregion
         #region Таблица
         public const string Table = @"Таблица";
-        public const string TableEntityRead = @"Прочитать данные";
         public const string TableEntityClear = @"Деактивировать активную запись";
         public const string TableActions = @"Действия";
         public const string TableActionsIsDeny = @"Действия недоступны";

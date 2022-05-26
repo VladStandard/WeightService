@@ -42,7 +42,7 @@ else
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Type Width="18%" >
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Model Width="18%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.IdentityId}") 

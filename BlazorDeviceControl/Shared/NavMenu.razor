@@ -11,7 +11,6 @@
             Style="margin-left: -10px; margin-top: -7px; align-content: center; width: 82%; font-size: 14px; background-color: transparent; "
             ButtonStyle=@ButtonStyle.Primary
             Click=@(args => SetParameters.InvokeAsync())
-            MouseEnter="@(args => TooltipService?.Open(args, LocaleData.DeviceControl.TableReadData))"
             Text=@LocaleCore.Strings.AppDevicesControlName
         />
     </a>

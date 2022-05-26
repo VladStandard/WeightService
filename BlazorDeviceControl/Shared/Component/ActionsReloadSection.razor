@@ -32,7 +32,8 @@
             class="radzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
             Disabled=@(!AppSettings.DataAccess.IsConnected) 
             Click=@(args => SetParameters.InvokeAsync())
-            MouseEnter="@(args => TooltipService?.Open(args, LocaleData.DeviceControl.TableReadData))"
+            MouseEnter=@(args => TooltipService?.Open(args, LocaleCore.Table.TableRead))
+            MouseLeave=@(args => TooltipService?.Close())
         />
         
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
