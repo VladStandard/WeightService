@@ -348,31 +348,30 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Replace ZPL's pics
+        /// Replace ZPL resource.
         /// </summary>
         /// <param name="value"></param>
-        public void PrintCmdReplacePics(ref string value)
+        public void PrintCmdReplaceZplResources(ref string value)
         {
-            // Подменить картинки ZPL.
-            switch (PrintBrandMain)
+            //switch (PrintBrandMain)
+            //{
+            //    case PrintBrand.Default:
+            //        break;
+            //    case PrintBrand.Zebra:
+            //        break;
+            //    case PrintBrand.TSC:
+            //        break;
+            //    default:
+            //        break;
+            //}
+            List<TemplateResourceEntity> resources = DataAccess.Crud.GetEntities<TemplateResourceEntity>(
+                new FieldListEntity(new Dictionary<string, object> { { $"{nameof(TemplateResourceEntity.Type)}", "ZPL" } }),
+                new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc)).ToList();
+            foreach (TemplateResourceEntity resource in resources)
             {
-                case PrintBrand.Default:
-                    break;
-                case PrintBrand.Zebra:
-                    break;
-                case PrintBrand.TSC:
-                    List<TemplateResourceEntity> templateResources = DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                        new FieldListEntity(new Dictionary<string, object> {
-                            { $"{nameof(TemplateResourceEntity.Type)}", "ZPL" },
-                        }),
-                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
-                    foreach (TemplateResourceEntity templateResource in templateResources)
-                    {
-                        value = value.Replace($"[{templateResource.Name}]", templateResource.ImageData.ValueUnicode);
-                    }
-                    break;
-                default:
-                    break;
+                value = value.Replace($"[{resource.Name}]", resource.ImageData.ValueUnicode);
+                //if (value.Contains($"[{resource.Name}]"))
+                //    value = value.Replace($"[{resource.Name}]", resource.ImageData.ValueUnicode);
             }
         }
 
@@ -485,7 +484,7 @@ namespace WeightCore.Helpers
                 string xmlInput = WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
                 string printCmd = Zpl.ZplUtils.XsltTransformation(template.XslContent, xmlInput);
                 // Replace ZPL's pics.
-                PrintCmdReplacePics(ref printCmd);
+                PrintCmdReplaceZplResources(ref printCmd);
                 // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, WeighingFact.Id);
                 if (ManagerControl == null || ManagerControl.PrintMain == null)

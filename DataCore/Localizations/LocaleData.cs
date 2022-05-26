@@ -192,7 +192,6 @@ namespace DataCore.Localizations
             public static string TableActions => Lang == ShareEnums.Lang.English ? "___" : "Действия";
             public static string TableActionSave => Lang == ShareEnums.Lang.English ? "Save" : "Сохранить";
             public static string TableActionsIsDeny => Lang == ShareEnums.Lang.English ? "___" : "Действия недоступны";
-            public static string TableReadData => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";
             #endregion
         }
 

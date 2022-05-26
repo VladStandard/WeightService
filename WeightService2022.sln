@@ -220,11 +220,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateResources", "TemplateResources", "{5121B4E0-3103-4872-AB23-0E5909BA356D}"
 	ProjectSection(SolutionItems) = preProject
 		Converts.txt = Converts.txt
+		Resources\TemplateResources\EAC_94x115_000.bmp = Resources\TemplateResources\EAC_94x115_000.bmp
 		Resources\TemplateResources\EAC_94x115_000.zpl = Resources\TemplateResources\EAC_94x115_000.zpl
+		Resources\TemplateResources\EAC_94x115_000_V2.zpl = Resources\TemplateResources\EAC_94x115_000_V2.zpl
 		Resources\TemplateResources\FISH_1_94x115_000.zpl = Resources\TemplateResources\FISH_1_94x115_000.zpl
 		Resources\TemplateResources\FISH_2_94x115_000.bmp = Resources\TemplateResources\FISH_2_94x115_000.bmp
 		Resources\TemplateResources\FISH_2_94x115_000.zpl = Resources\TemplateResources\FISH_2_94x115_000.zpl
+		Resources\TemplateResources\FISH_2_94x115_000_V2.zpl = Resources\TemplateResources\FISH_2_94x115_000_V2.zpl
+		Resources\TemplateResources\TEMP_6_94x115_000.PNG = Resources\TemplateResources\TEMP_6_94x115_000.PNG
 		Resources\TemplateResources\TEMP_6_94x115_000.zpl = Resources\TemplateResources\TEMP_6_94x115_000.zpl
+		Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl = Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl
 	EndProjectSection
 EndProject
 Global
@@ -657,7 +662,7 @@ Global
 		{5121B4E0-3103-4872-AB23-0E5909BA356D} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

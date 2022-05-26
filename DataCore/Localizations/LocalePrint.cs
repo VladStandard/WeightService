@@ -43,6 +43,7 @@ namespace DataCore.Localizations
         public string Ip => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";
         public string Mac => Lang == ShareEnums.Lang.English ? "MAC-address" : "MAC-адрес";
         public string Mode => Lang == ShareEnums.Lang.English ? "Mode" : "Режим";
+        public string Model => Lang == ShareEnums.Lang.English ? "Model" : "Модель";
         public string ModeApplicator => Lang == ShareEnums.Lang.English ? "Applicator" : "Аппликатор";
         public string ModeCutter => Lang == ShareEnums.Lang.English ? "Cutter" : "Отрезание";
         public string ModeDelayedCut => Lang == ShareEnums.Lang.English ? "Delayed Cut" : "Отложенный срез";

@@ -26,7 +26,13 @@ namespace DataCore.Sql.TableDirectModels
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
-        public DateTime ExpirationDate => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
+        public DateTime ExpirationDate
+        {
+            get => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
+            // This code need for print labels.
+            set => _ = value;
+        }
+
         public string NetWeightKg
         {
             get => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
