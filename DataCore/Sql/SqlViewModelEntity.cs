@@ -30,7 +30,7 @@ namespace DataCore.Sql
         #region Public and private fields and properties
 
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        private ShareEnums.PublishType _publishType = ShareEnums.PublishType.Default;
+        private ShareEnums.PublishType _publishType = PublishType.Default;
         public ShareEnums.PublishType PublishType
         {
             get => _publishType;
@@ -121,6 +121,16 @@ namespace DataCore.Sql
                 OnPropertyChanged();
             }
         }
+        private int? _scaleNumber;
+        public int? ScaleNumber
+        {
+            get => _scaleNumber;
+            set
+            {
+                _scaleNumber = value;
+                OnPropertyChanged();
+            }
+        }
         private string? _buttonRestoreDeviceCaption;
         public string? ButtonRestoreDeviceCaption
         {
@@ -160,14 +170,25 @@ namespace DataCore.Sql
         {
             SetPublish();
 
+            Setup();
+        }
+
+        public void Setup(string scaleName = "")
+        {
             TaskTypes = new List<TaskTypeDirect>();
             Tasks = new List<TaskDirect>();
 
-            //HostName = Environment.MachineName;
-            HostName = NetUtils.GetLocalHostName(false);
-            HostEntity host = HostsUtils.GetHostEntity(HostName);
-            ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
+            ScaleEntity scale;
+            if (string.IsNullOrEmpty(scaleName))
+            {
+                HostName = NetUtils.GetLocalHostName(false);
+                HostEntity host = HostsUtils.GetHostEntity(HostName);
+                scale = HostsUtils.GetScaleEntity(host.IdentityId);
+            }
+            else
+                scale = HostsUtils.GetScaleEntity(scaleName);
             ScaleNameBackup = ScaleName = scale.Description;
+            ScaleNumber = scale.Number;
 
             List<ScaleEntity> scales = HostsUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
                 new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
@@ -182,22 +203,22 @@ namespace DataCore.Sql
 
         private void SetPublish()
         {
-            PublishType = ShareEnums.PublishType.Default;
+            PublishType = PublishType.Default;
             PublishDescription = "Неизвестный сервер";
             SqlInstance = GetInstance();
             if (SqlInstance.Equals("INS1"))
             {
-                PublishType = ShareEnums.PublishType.Debug;
+                PublishType = PublishType.Debug;
                 PublishDescription = "Тестовый сервер";
             }
             else if (SqlInstance.Equals("SQL2019"))
             {
-                PublishType = ShareEnums.PublishType.Dev;
+                PublishType = PublishType.Dev;
                 PublishDescription = "Сервер разработки";
             }
             else if (SqlInstance.Equals("LUTON"))
             {
-                PublishType = ShareEnums.PublishType.Release;
+                PublishType = PublishType.Release;
                 PublishDescription = "Продуктовый сервер";
             }
         }

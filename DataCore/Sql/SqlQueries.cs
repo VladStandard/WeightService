@@ -387,7 +387,7 @@ select
 	,[s].[ZebraPrinterId]
 	,[s].[UseOrder]
 	,[s].[VerScalesUI]
-	,[s].[DeviceNumber]
+	,[s].[NUMBER]
 	,[s].[TemplateIdDefault]
 	,[s].[TemplateIdSeries]
 	,[s].[ScaleFactor]

@@ -78,7 +78,6 @@ namespace ScalesUI.Forms
             try
             {
                 // Data.
-                UserSession.Scale.VerScalesUi = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
                 UserSession.DataAccess.Crud.UpdateEntity(UserSession.Scale);
                 // Settings.
                 Properties.Settings.Default.Save();

@@ -50,7 +50,7 @@
 //                                            ZebraPort = sh,
 //                                            UseOrder = b,
 //                                            VerScalesUi = s,
-//                                            DeviceNumber = i,
+//                                            Number = i,
 //                                            ScaleFactor = i
 //                                        };
 //                                        _ = item.ToString();

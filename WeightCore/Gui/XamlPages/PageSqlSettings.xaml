@@ -27,12 +27,13 @@
                 BorderBrush="Blue" BorderThickness="1" Margin="2" >
             <Grid >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.75*"></ColumnDefinition>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"></RowDefinition>
                     <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -48,14 +49,20 @@
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                 <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="АРМ" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                <ComboBox Margin="2" Grid.Column="1" Grid.Row="2" 
+                <ComboBox Margin="2" Grid.Column="1" Grid.Row="2" x:Name="cbChangeDevice"
                         SelectedItem="{Binding Path=ScaleName, Mode=TwoWay, IsAsync=True}" 
                         ItemsSource="{Binding Path=Scales, Mode=OneWay, IsAsync=True}" 
-                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        />
                 <Button Margin="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" 
                         Content="{Binding Path=ButtonRestoreDeviceCaption, Mode=OneWay, IsAsync=True}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                         Click="ButtonRestoreDevice_OnClick"/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="4" Content="Номер устройства" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                <Label Margin="2" Grid.Column="1" Grid.Row="4" 
+                        Content="{Binding Path=ScaleNumber, Mode=OneWay, IsAsync=True}" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             </Grid>
         </Border>
 

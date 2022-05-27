@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Models;
-using System;
 using System.Xml.Serialization;
 
 namespace DataCore.Sql.TableScaleModels
@@ -34,8 +33,7 @@ namespace DataCore.Sql.TableScaleModels
         [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
         public virtual bool IsOrder { get; set; }
-        public virtual string VerScalesUi { get; set; }
-        public virtual int? DeviceNumber { get; set; }
+        public virtual int? Number { get; set; }
         public virtual int? ScaleFactor { get; set; }
 
         #endregion
@@ -68,8 +66,7 @@ namespace DataCore.Sql.TableScaleModels
             ZebraIp = string.Empty;
             ZebraPort = default;
             IsOrder = false;
-            VerScalesUi = string.Empty;
-            DeviceNumber = default;
+            Number = default;
             ScaleFactor = default;
         }
 
@@ -97,8 +94,7 @@ namespace DataCore.Sql.TableScaleModels
                    $"{nameof(ZebraIp)}: {ZebraIp}. " +
                    $"{nameof(ZebraPort)}: {ZebraPort}. " +
                    $"{nameof(IsOrder)}: {IsOrder}. " +
-                   $"{nameof(VerScalesUi)}: {VerScalesUi}. " +
-                   $"{nameof(DeviceNumber)}: {DeviceNumber}. " +
+                   $"{nameof(Number)}: {Number}. " +
                    $"{nameof(TemplateDefault)}: {strTemplateDefault}. " +
                    $"{nameof(TemplateSeries)}: {strTemplateSeries}. " +
                    $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
@@ -139,8 +135,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(ZebraIp, item.ZebraIp) &&
                    Equals(ZebraPort, item.ZebraPort) &&
                    Equals(IsOrder, item.IsOrder) &&
-                   Equals(VerScalesUi, item.VerScalesUi) &&
-                   Equals(DeviceNumber, item.DeviceNumber) &&
+                   Equals(Number, item.Number) &&
                    Equals(ScaleFactor, item.ScaleFactor) &&
                    IsShipping.Equals(item.IsShipping) &&
                    IsKneading.Equals(item.IsKneading) &&
@@ -191,9 +186,8 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(ZebraIp, string.Empty) &&
                    Equals(ZebraPort, null) &&
                    Equals(IsOrder, false) &&
-                   Equals(VerScalesUi, string.Empty) &&
 
-                   Equals(DeviceNumber, null) &&
+                   Equals(Number, null) &&
                    Equals(ScaleFactor, null) &&
                    Equals(IsShipping, false) &&
                    Equals(IsKneading, false) &&
@@ -222,8 +216,7 @@ namespace DataCore.Sql.TableScaleModels
             item.ZebraIp = ZebraIp;
             item.ZebraPort = ZebraPort;
             item.IsOrder = IsOrder;
-            item.VerScalesUi = VerScalesUi;
-            item.DeviceNumber = DeviceNumber;
+            item.Number = Number;
             item.ScaleFactor = ScaleFactor;
             item.Setup(((BaseEntity)this).CloneCast());
             return item;

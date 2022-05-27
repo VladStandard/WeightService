@@ -100,6 +100,8 @@ namespace WeightCore.Gui.XamlPages
             }
             // Fill tab.
             //tabTasks.Content = gridTasks;
+
+            //cbChangeDevice.SelectionChanged += ChangeScale_SelectionChanged;
         }
 
         public void ButtonRestoreDevice_OnClick(object sender, RoutedEventArgs e)
@@ -138,6 +140,11 @@ namespace WeightCore.Gui.XamlPages
         {
             Result = DialogResult.Cancel;
             OnClose?.Invoke(sender, e);
+        }
+        
+        private void ChangeScale_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            SqlViewModel.Setup(SqlViewModel.ScaleName);
         }
 
         #endregion

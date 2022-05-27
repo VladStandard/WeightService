@@ -31,8 +31,7 @@ namespace DataCore.Sql.TableScaleModels
             Map(x => x.ZebraIp).CustomSqlType("VARCHAR").Column("ZebraIP").Length(15);
             Map(x => x.ZebraPort).CustomSqlType("SMALLINT").Column("ZebraPort");
             Map(x => x.IsOrder).CustomSqlType("SMALLINT").Column("UseOrder").Default("0").Nullable();
-            Map(x => x.VerScalesUi).CustomSqlType("VARCHAR").Column("VerScalesUI").Length(30);
-            Map(x => x.DeviceNumber).CustomSqlType("INT").Column("DeviceNumber");
+            Map(x => x.Number).CustomSqlType("INT").Column("NUMBER").Nullable();
             Map(x => x.ScaleFactor).CustomSqlType("INT").Column("ScaleFactor").Default("1000");
             Map(x => x.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
             Map(x => x.IsKneading).CustomSqlType("BIT").Column("IS_KNEADING").Not.Nullable().Default("0");
