@@ -24,7 +24,6 @@ namespace DataCore.Sql.TableScaleModels
         public virtual byte ShippingLength { get; set; }
         public virtual HostEntity? Host { get; set; }
         public virtual string Description { get; set; }
-        public virtual Guid IdRRef { get; set; }
         public virtual string DeviceIp { get; set; }
         public virtual short DevicePort { get; set; }
         public virtual string DeviceMac { get; set; }
@@ -60,7 +59,6 @@ namespace DataCore.Sql.TableScaleModels
             IsKneading = false;
             ShippingLength = 0;
             Description = string.Empty;
-            IdRRef = Guid.Empty;
             DeviceIp = string.Empty;
             DevicePort = 0;
             DeviceMac = string.Empty;
@@ -90,7 +88,6 @@ namespace DataCore.Sql.TableScaleModels
             string strHost = Host != null ? Host.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Description)}: {Description}. " +
-                   $"{nameof(IdRRef)}: {IdRRef}. " +
                    $"{nameof(DeviceIp)}: {DeviceIp}. " +
                    $"{nameof(DevicePort)}: {DevicePort}. " +
                    $"{nameof(DeviceMac)}: {DeviceMac}. " +
@@ -133,7 +130,6 @@ namespace DataCore.Sql.TableScaleModels
                 return false;
             return base.Equals(item) &&
                    Equals(Description, item.Description) &&
-                   Equals(IdRRef, item.IdRRef) &&
                    Equals(DeviceIp, item.DeviceIp) &&
                    Equals(DevicePort, item.DevicePort) &&
                    Equals(DeviceMac, item.DeviceMac) &&
@@ -185,7 +181,6 @@ namespace DataCore.Sql.TableScaleModels
                 return false;
             return base.EqualsDefault(IdentityName) &&
                    Equals(Description, string.Empty) &&
-                   Equals(IdRRef, Guid.Empty) &&
                    Equals(DeviceIp, string.Empty) &&
                    Equals(DevicePort, (short)0) &&
                    Equals(DeviceMac, string.Empty) &&
@@ -218,7 +213,6 @@ namespace DataCore.Sql.TableScaleModels
             item.ShippingLength = ShippingLength;
             item.Host = Host?.CloneCast();
             item.Description = Description;
-            item.IdRRef = IdRRef;
             item.DeviceIp = DeviceIp;
             item.DevicePort = DevicePort;
             item.DeviceMac = DeviceMac;

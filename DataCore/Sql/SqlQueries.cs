@@ -375,7 +375,6 @@ select
 	 [s].[Id]
 	,[s].[CreateDate]
 	,[s].[ModifiedDate]
-	,[s].[OrganizationId]
 	,[s].[Description]
 	,[s].[DeviceIP]
 	,[s].[DevicePort]

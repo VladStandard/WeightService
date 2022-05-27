@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.735] - 2022-05-26
+## [0.6.745] - 2022-05-27
 ### Fixed
-- 
+- KneadingForm
 ### Описание обновления:
 - WS-T-168. Шаблон "TSC 80x100 300dpi вес"
+- WS-T-173. Пробросить номер устройства
+- WS-T-200. Горячее исправление ошибки 'АРМ для хоста не найден!'
 
 ## [0.6.730] - 2022-05-25
 ### Fixed

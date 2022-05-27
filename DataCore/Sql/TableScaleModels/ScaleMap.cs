@@ -22,7 +22,6 @@ namespace DataCore.Sql.TableScaleModels
             References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
             References(x => x.Host).Column("HostId").Nullable();
             Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150);
-            Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
             Map(x => x.DeviceIp).CustomSqlType("VARCHAR").Column("DeviceIP").Length(15);
             Map(x => x.DevicePort).CustomSqlType("SMALLINT").Column("DevicePort");
             Map(x => x.DeviceMac).CustomSqlType("VARCHAR").Column("DeviceMAC").Length(35);
