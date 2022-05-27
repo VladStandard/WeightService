@@ -10,6 +10,9 @@ using System.Threading;
 using DataCore.Sql.Controllers;
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.Models;
+using static DataCore.ShareEnums;
+using System.Linq;
 
 namespace DataCore.Sql
 {
@@ -88,6 +91,16 @@ namespace DataCore.Sql
                 OnPropertyChanged();
             }
         }
+        private string? _scaleNameBackup;
+        public string? ScaleNameBackup
+        {
+            get => _scaleNameBackup;
+            private set
+            {
+                _scaleNameBackup = value;
+                OnPropertyChanged();
+            }
+        }
         private string? _scaleName;
         public string? ScaleName
         {
@@ -98,23 +111,43 @@ namespace DataCore.Sql
                 OnPropertyChanged();
             }
         }
-        private string? _buttonsOkCaption;
-        public string? ButtonsOkCaption
+        private List<string>? _scales;
+        public List<string>? Scales
         {
-            get => _buttonsOkCaption;
+            get => _scales;
             set
             {
-                _buttonsOkCaption = value;
+                _scales = value;
                 OnPropertyChanged();
             }
         }
-        private string? _buttonsCancelCaption;
-        public string? ButtonsCancelCaption
+        private string? _buttonRestoreDeviceCaption;
+        public string? ButtonRestoreDeviceCaption
         {
-            get => _buttonsCancelCaption;
+            get => _buttonRestoreDeviceCaption;
             set
             {
-                _buttonsCancelCaption = value;
+                _buttonRestoreDeviceCaption = value;
+                OnPropertyChanged();
+            }
+        }
+        private string? _buttonOkCaption;
+        public string? ButtonOkCaption
+        {
+            get => _buttonOkCaption;
+            set
+            {
+                _buttonOkCaption = value;
+                OnPropertyChanged();
+            }
+        }
+        private string? _buttonCancelCaption;
+        public string? ButtonCancelCaption
+        {
+            get => _buttonCancelCaption;
+            set
+            {
+                _buttonCancelCaption = value;
                 OnPropertyChanged();
             }
         }
@@ -134,10 +167,17 @@ namespace DataCore.Sql
             HostName = NetUtils.GetLocalHostName(false);
             HostEntity host = HostsUtils.GetHostEntity(HostName);
             ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
-            ScaleName = scale.Description;
+            ScaleNameBackup = ScaleName = scale.Description;
 
-            ButtonsOkCaption = LocaleCore.Buttons.Ok;
-            ButtonsCancelCaption = LocaleCore.Buttons.Cancel;
+            List<ScaleEntity> scales = HostsUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
+                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
+            Scales = new();
+            scales.ForEach(scale => Scales.Add(scale.Description));
+
+            ButtonOkCaption = LocaleCore.Buttons.Ok;
+            ButtonCancelCaption = LocaleCore.Buttons.Cancel;
+            ButtonRestoreDeviceCaption = LocaleCore.Scales.RestoreDevice;
         }
 
         private void SetPublish()

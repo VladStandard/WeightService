@@ -333,7 +333,7 @@ namespace WeightCore.Gui
             /// <param name="name"></param>
             /// <param name="column"></param>
             /// <returns></returns>
-            public static Button NewTableLayoutPanelButton(TableLayoutPanel tableLayoutPanel, string name, int column)
+            public static Button NewTableLayoutPanelButton(TableLayoutPanel tableLayoutPanel, string name, int column, int row = -1)
             {
                 Button button = new()
                 {
@@ -349,7 +349,7 @@ namespace WeightCore.Gui
                     TabIndex = 100 + column,
                     Location = new System.Drawing.Point(2, 2),
                 };
-                tableLayoutPanel.Controls.Add(button, column - 1, 0);
+                tableLayoutPanel.Controls.Add(button, column - 1, row >= 0 ? row : 0);
                 return button;
             }
 

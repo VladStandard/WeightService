@@ -138,7 +138,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 4);
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 5);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintMain, 1, 7);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 0, 0);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 2, 0);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 1, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelRight, 3, 3);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -465,18 +465,16 @@
             // 
             this.fieldTitle.AutoSize = true;
             this.fieldTitle.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelMain.SetColumnSpan(this.fieldTitle, 3);
             this.fieldTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldTitle.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldTitle.Location = new System.Drawing.Point(3, 0);
+            this.fieldTitle.ForeColor = System.Drawing.Color.Black;
+            this.fieldTitle.Location = new System.Drawing.Point(261, 0);
             this.fieldTitle.Name = "fieldTitle";
-            this.fieldTitle.Size = new System.Drawing.Size(906, 33);
+            this.fieldTitle.Size = new System.Drawing.Size(648, 33);
             this.fieldTitle.TabIndex = 20;
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldTitle.Visible = false;
-            this.fieldTitle.DoubleClick += new System.EventHandler(this.FieldTitle_DoubleClick);
             // 
             // fieldPlu
             // 

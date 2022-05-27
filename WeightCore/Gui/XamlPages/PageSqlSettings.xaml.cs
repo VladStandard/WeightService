@@ -36,9 +36,9 @@ namespace WeightCore.Gui.XamlPages
             object context = FindResource("SqlViewModel");
             if (context is SqlViewModelEntity sqlViewModel)
             {
-                sqlViewModel = SqlViewModel;
+                SqlViewModel = sqlViewModel;
             }
-            SqlViewModel = UserSession.SqlViewModel;
+            //SqlViewModel = UserSession.SqlViewModel;
         }
 
         #endregion
@@ -56,7 +56,7 @@ namespace WeightCore.Gui.XamlPages
             {
                 System.Windows.Controls.ColumnDefinition column = new()
                 {
-                    Width = new GridLength(1, System.Windows.GridUnitType.Star)
+                    Width = new GridLength(1, GridUnitType.Star)
                 };
                 gridTasks.ColumnDefinitions.Add(column);
             }
@@ -67,7 +67,7 @@ namespace WeightCore.Gui.XamlPages
                 // Row.
                 System.Windows.Controls.RowDefinition rows = new()
                 {
-                    Height = new GridLength(1, System.Windows.GridUnitType.Star)
+                    Height = new GridLength(1, GridUnitType.Star)
                 };
                 gridTasks.RowDefinitions.Add(rows);
                 // Task caption.
@@ -75,7 +75,7 @@ namespace WeightCore.Gui.XamlPages
                 {
                     Content = UserSession.SqlViewModel.Tasks[row].TaskType.Name,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    VerticalAlignment = System.Windows.VerticalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
                 };
                 System.Windows.Controls.Grid.SetColumn(labelTaskCaption, 0);
                 System.Windows.Controls.Grid.SetRow(labelTaskCaption, row);
@@ -86,7 +86,7 @@ namespace WeightCore.Gui.XamlPages
                     Width = 100,
                     Height = 30,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Tag = UserSession.SqlViewModel.Tasks[row]
                 };
                 System.Windows.Controls.ComboBoxItem itemTrue = new() { Content = "True" };
@@ -100,6 +100,13 @@ namespace WeightCore.Gui.XamlPages
             }
             // Fill tab.
             //tabTasks.Content = gridTasks;
+        }
+
+        public void ButtonRestoreDevice_OnClick(object sender, RoutedEventArgs e)
+        {
+            UserSession.Setup(SqlViewModel.ScaleName = SqlViewModel.ScaleNameBackup);
+            Result = DialogResult.OK;
+            OnClose?.Invoke(sender, e);
         }
 
         public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
@@ -121,7 +128,8 @@ namespace WeightCore.Gui.XamlPages
             //        }
             //    }
             //}
-
+            if (!string.Equals(SqlViewModel.ScaleNameBackup, SqlViewModel.ScaleName))
+                UserSession.Setup(SqlViewModel.ScaleName);
             Result = DialogResult.OK;
             OnClose?.Invoke(sender, e);
         }

@@ -99,11 +99,25 @@ namespace WeightCore.Helpers
 
         public UserSessionHelper()
         {
+            Setup();
+        }
+
+        #endregion
+
+        #region Public and private methods
+
+        public void Setup(string scaleName = "", string hostName = "")
+        {
             lock (_locker)
             {
-                HostEntity host = HostsUtils.GetHostEntity(NetUtils.GetLocalHostName(false));
-                Scale = HostsUtils.GetScaleEntity(host.IdentityId);
-
+                if (string.IsNullOrEmpty(hostName))
+                    hostName = NetUtils.GetLocalHostName(false);
+                HostEntity host = HostsUtils.GetHostEntity(hostName);
+                if (string.IsNullOrEmpty(scaleName))
+                    Scale = HostsUtils.GetScaleEntity(host.IdentityId);
+                else
+                    Scale = HostsUtils.GetScaleEntity(scaleName);
+            
                 AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
                 ProductDate = DateTime.Now;
                 // начинается новыя серия, упаковки продукции, новая паллета
@@ -112,10 +126,6 @@ namespace WeightCore.Helpers
                 WeighingSettings = new();
             }
         }
-
-        #endregion
-
-        #region Public and private methods
 
         public void NewPallet()
         {

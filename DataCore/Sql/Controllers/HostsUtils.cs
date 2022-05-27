@@ -58,8 +58,18 @@ namespace DataCore.Sql.Controllers
         {
             ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
                 new FieldListEntity(new Dictionary<string, object?> {
-                    { "Host.IdentityId", hostId },
+                    { $"Host.IdentityId", hostId },
                     { DbField.IsMarked.ToString(), false } }),
+                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
+            return scale;
+        }
+
+        public static ScaleEntity GetScaleEntity(string scaleName)
+        {
+            ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
+                new FieldListEntity(new Dictionary<DbField, object?> {
+                    { DbField.Description, scaleName },
+                    { DbField.IsMarked, false } }),
                 new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
             return scale;
         }

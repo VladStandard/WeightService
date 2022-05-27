@@ -7,6 +7,7 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
+        public bool IsChangeDevice { get; set; }
         public bool IsKneading { get; set; }
         public bool IsMore { get; set; }
         public bool IsNewPallet { get; set; }
@@ -22,6 +23,7 @@ namespace ScalesUI.Forms
 
         public ButtonsSettingsEntity()
         {
+            IsChangeDevice = false;
             IsKneading = false;
             IsMore = false;
             IsNewPallet = false;

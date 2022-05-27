@@ -29,6 +29,7 @@ namespace DataCore.Localizations
         public readonly decimal MassaThresholdValue = 0.010M;
         public string AlreadyRunning => Lang == ShareEnums.Lang.English ? "already running" : "уже запущено";
         public string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
+        public string ButtonChangeDevice => Lang == ShareEnums.Lang.English ? $"Change device" : $"Сменить устройство";
         public string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
         public string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
         public string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";
@@ -74,9 +75,9 @@ namespace DataCore.Localizations
         public string HostUidQuestionWriteToDb => Lang == ShareEnums.Lang.English ? "Write a new UID into the database table?" : "Записать новый УИД в таблицу БД?";
         public string HostUidQuestionWriteToFile => Lang == ShareEnums.Lang.English ? "Write a new UID to the file?" : "Записать новый УИД в файл?";
         public string IsConnectWithMassa => Lang == ShareEnums.Lang.English ? "The scales are connected." : "Весы подключены.";
-        public string IsNotConnectWithMassa => Lang == ShareEnums.Lang.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
-        public string IsException(string message) => Lang == ShareEnums.Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
         public string IsDataNotExists => Lang == ShareEnums.Lang.English ? "Check the connection of the scales!" : "Проверьте подключение весов!";
+        public string IsException(string message) => Lang == ShareEnums.Lang.English ? $"Error! {message}" : $"Ошибка! {message}";
+        public string IsNotConnectWithMassa => Lang == ShareEnums.Lang.English ? "Check the connection of the USB-adapter!" : "Проверьте подключение ЮСБ-адапетра!";
         public string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
         public string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
         public string MassaDevice => Lang == ShareEnums.Lang.English ? "Massa-K" : "Масса-К";
@@ -115,6 +116,7 @@ namespace DataCore.Localizations
         public string RegistrationWarningHostNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' not found!" : $"Хост '{hostName}' не найден!";
         public string RegistrationWarningScaleNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"ARM for host '{hostName}' not found!" : $"АРМ для хоста '{hostName}' не найден!";
         public string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
+        public string RestoreDevice => Lang == ShareEnums.Lang.English ? $"Restore device" : $"Восстановить устроство";
         public string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
         public string ScheduleForNextDay => Lang == ShareEnums.Lang.English ? "Schedule for next day" : "Расписание на следующий день";
         public string ScreenResolution => Lang == ShareEnums.Lang.English ? "Screen resolution" : "Разрешение экрана";

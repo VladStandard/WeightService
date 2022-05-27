@@ -25,56 +25,45 @@
 
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                 BorderBrush="Blue" BorderThickness="1" Margin="2" >
-            <TabControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" >
-                <TabItem Width="100" Height="25" >
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Главная" Foreground="Blue" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.4*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="0" Content="Тип" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="1" Grid.Row="0" 
-                               Content="{Binding Path=PublishType, Mode=OneWay, IsAsync=True}" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="1" Content="Описание" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="1" Grid.Row="1" 
-                               Content="{Binding Path=PublishDescription, Mode=OneWay, IsAsync=True}" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="Хост" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="1" Grid.Row="2" 
-                               Content="{Binding Path=HostName, Mode=OneWay, IsAsync=True}" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="0" Grid.Row="3" Content="АРМ" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                        <Label Margin="2" Grid.Column="1" Grid.Row="3" 
-                               Content="{Binding Path=ScaleName, Mode=OneWay, IsAsync=True}" 
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
-                    </Grid>
-                </TabItem>
-             </TabControl>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Margin="2" Grid.Column="0" Grid.Row="0" Content="Описание" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                <Label Margin="2" Grid.Column="1" Grid.Row="0" 
+                        Content="{Binding Path=PublishDescription, Mode=OneWay, IsAsync=True}" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                <Label Margin="2" Grid.Column="0" Grid.Row="1" Content="Хост" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                <Label Margin="2" Grid.Column="1" Grid.Row="1" 
+                        Content="{Binding Path=HostName, Mode=OneWay, IsAsync=True}" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="АРМ" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                <ComboBox Margin="2" Grid.Column="1" Grid.Row="2" 
+                        SelectedItem="{Binding Path=ScaleName, Mode=TwoWay, IsAsync=True}" 
+                        ItemsSource="{Binding Path=Scales, Mode=OneWay, IsAsync=True}" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Button Margin="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" 
+                        Content="{Binding Path=ButtonRestoreDeviceCaption, Mode=OneWay, IsAsync=True}"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                        Click="ButtonRestoreDevice_OnClick"/>
+            </Grid>
         </Border>
 
         <Button Margin="2" Grid.Column="0" Grid.Row="5" FontSize="16" 
-                Content="{Binding Path=ButtonsOkCaption, Mode=OneWay, IsAsync=True}" 
+                Content="{Binding Path=ButtonOkCaption, Mode=OneWay, IsAsync=True}" 
                 Click="ButtonOk_OnClick"></Button>
         <Button Margin="2" Grid.Column="1" Grid.Row="5" FontSize="16" 
-                Content="{Binding Path=ButtonsCancelCaption, Mode=OneWay, IsAsync=True}" 
+                Content="{Binding Path=ButtonCancelCaption, Mode=OneWay, IsAsync=True}" 
                 Click="ButtonClose_OnClick"></Button>
     </Grid>
 </UserControl>

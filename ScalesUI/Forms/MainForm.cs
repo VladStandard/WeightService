@@ -37,6 +37,7 @@ namespace ScalesUI.Forms
 
         #region Private fields and properties
 
+        private Button ButtonChangeDevice { get; set; }
         private Button ButtonKneading { get; set; }
         private Button ButtonMore { get; set; }
         private Button ButtonNewPallet { get; set; }
@@ -144,7 +145,7 @@ namespace ScalesUI.Forms
                 // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                    ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                    ButtonChangeDevice, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                     ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose, 
                     fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
                 UserSession.ManagerControl.Labels.Open();
@@ -242,6 +243,8 @@ namespace ScalesUI.Forms
             fieldKneading.Font = FontsSettings.FontLabelsBlack;
             labelProductDate.Font = FontsSettings.FontLabelsBlack;
 
+            if (ButtonChangeDevice != null)
+                ButtonChangeDevice.Font = FontsSettings.FontButtons;
             if (ButtonScalesTerminal != null)
                 ButtonScalesTerminal.Font = FontsSettings.FontButtons;
             if (ButtonScalesInit != null)
@@ -264,6 +267,7 @@ namespace ScalesUI.Forms
         {
             ButtonsSettingsEntity buttonsSettings = new()
             {
+                IsChangeDevice = true,
                 IsKneading = false,
                 IsMore = true,
                 IsNewPallet = true,
@@ -275,6 +279,12 @@ namespace ScalesUI.Forms
             };
 
             int column = 0;
+
+            if (buttonsSettings.IsChangeDevice)
+            {
+                ButtonChangeDevice = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonChangeDevice), 2, 0);
+                ButtonChangeDevice.Click += new EventHandler(ActionChangeDevice_Click);
+            }
 
             TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
                 0, tableLayoutPanelMain.RowCount - 1, tableLayoutPanelMain.ColumnCount);
@@ -554,6 +564,7 @@ namespace ScalesUI.Forms
             try
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonChangeDevice, LocaleCore.Scales.ButtonChangeDevice);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -575,7 +586,16 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void FieldTitle_DoubleClick(object sender, EventArgs e)
+        #endregion
+
+        #region Public and private methods - Actions
+
+        private void ActionClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ActionChangeDevice_Click(object sender, EventArgs e)
         {
             try
             {
@@ -595,15 +615,6 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
-        }
-
-        #endregion
-
-        #region Public and private methods - Actions
-
-        private void ActionClose_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void ActionScalesTerminal_Click(object sender, EventArgs e)
