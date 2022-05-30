@@ -64,7 +64,7 @@ namespace ScalesUI
                 }
 
                 // Scale.
-                ScaleEntity scale = HostsUtils.GetScaleEntity(host.IdentityId);
+                ScaleEntity scale = HostsUtils.GetScaleFromHost(host.IdentityId);
                 if (scale.IdentityId == 0)
                 {
                     string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);

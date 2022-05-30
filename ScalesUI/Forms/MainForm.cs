@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
+using DataCore.Sql;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using System;
@@ -37,7 +38,7 @@ namespace ScalesUI.Forms
 
         #region Private fields and properties
 
-        private Button ButtonChangeDevice { get; set; }
+        private Button ButtonScaleChange { get; set; }
         private Button ButtonKneading { get; set; }
         private Button ButtonMore { get; set; }
         private Button ButtonNewPallet { get; set; }
@@ -50,6 +51,7 @@ namespace ScalesUI.Forms
         private readonly object _lockerDays = new();
         private TableLayoutPanel TableLayoutPanelButtons { get; set; }
         private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
+        private bool IsKeyboardMouseEventsSubscribe { get; set; }
 
         #endregion
 
@@ -69,7 +71,6 @@ namespace ScalesUI.Forms
                 UserSession.DataAccess.Log.Setup(UserSession.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
-                KeyboardMouseSubscribe();
                 MainForm_ButtonsCreate();
                 LoadResources();
                 UserSession.NewPallet();
@@ -145,7 +146,7 @@ namespace ScalesUI.Forms
                 // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                    ButtonChangeDevice, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                    ButtonScaleChange, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                     ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose, 
                     fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
                 UserSession.ManagerControl.Labels.Open();
@@ -243,8 +244,8 @@ namespace ScalesUI.Forms
             fieldKneading.Font = FontsSettings.FontLabelsBlack;
             labelProductDate.Font = FontsSettings.FontLabelsBlack;
 
-            if (ButtonChangeDevice != null)
-                ButtonChangeDevice.Font = FontsSettings.FontButtons;
+            if (ButtonScaleChange != null)
+                ButtonScaleChange.Font = FontsSettings.FontButtons;
             if (ButtonScalesTerminal != null)
                 ButtonScalesTerminal.Font = FontsSettings.FontButtons;
             if (ButtonScalesInit != null)
@@ -282,8 +283,8 @@ namespace ScalesUI.Forms
 
             if (buttonsSettings.IsChangeDevice)
             {
-                ButtonChangeDevice = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonChangeDevice), 2, 0);
-                ButtonChangeDevice.Click += new EventHandler(ActionChangeDevice_Click);
+                ButtonScaleChange = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScaleChange), 2, 0);
+                ButtonScaleChange.Click += new EventHandler(ActionScaleChange_Click);
             }
 
             TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -363,16 +364,24 @@ namespace ScalesUI.Forms
 
         private void KeyboardMouseSubscribe()
         {
-            KeyboardMouseEvents = Hook.GlobalEvents();
-            KeyboardMouseEvents.MouseDownExt += MouseDownExt;
-            KeyboardMouseEvents.KeyUp += KeyUpExt;
+            if (!IsKeyboardMouseEventsSubscribe)
+            {
+                KeyboardMouseEvents = Hook.GlobalEvents();
+                KeyboardMouseEvents.MouseDownExt += MouseDownExt;
+                KeyboardMouseEvents.KeyUp += KeyUpExt;
+            }
+            IsKeyboardMouseEventsSubscribe = true;
         }
 
         private void KeyboardMouseUnsuscribe()
         {
-            KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
-            KeyboardMouseEvents.KeyUp += KeyUpExt;
-            KeyboardMouseEvents.Dispose();
+            if (IsKeyboardMouseEventsSubscribe)
+            {
+                KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
+                KeyboardMouseEvents.KeyUp += KeyUpExt;
+                KeyboardMouseEvents.Dispose();
+            }
+            IsKeyboardMouseEventsSubscribe = false;
         }
 
         private void MouseDownExt(object sender, MouseEventExtArgs e)
@@ -564,7 +573,7 @@ namespace ScalesUI.Forms
             try
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonChangeDevice, LocaleCore.Scales.ButtonChangeDevice);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, LocaleCore.Scales.ButtonScaleChange);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -595,15 +604,19 @@ namespace ScalesUI.Forms
             Close();
         }
 
-        private void ActionChangeDevice_Click(object sender, EventArgs e)
+        private void ActionScaleChange_Click(object sender, EventArgs e)
         {
             try
             {
                 UserSession.ManagerControl.Massa.Close();
 
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
-                wpfPageLoader.ShowDialog(this);
+                DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
+                if (dialogResult == DialogResult.OK)
+                {
+                    UserSession.Setup(wpfPageLoader.SqlSettings.SqlViewModel.Scale.IdentityId);
+                }
 
                 UserSession.ManagerControl.Massa.Open();
             }
@@ -790,6 +803,7 @@ namespace ScalesUI.Forms
         {
             try
             {
+                KeyboardMouseUnsuscribe();
                 UserSession.SetCurrentPlu(null);
                 if (UserSession.CheckWeightMassaDeviceExists(this))
                 {
@@ -810,7 +824,7 @@ namespace ScalesUI.Forms
                     UserSession.NewPallet();
                     //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
-                    // сразу перейдем к форме с замесами, размерами паллет и прочее
+                    // форма с замесами, размерами паллет и прочее
                     ActionMore_Click(null, null);
                 }
                 else
@@ -819,6 +833,7 @@ namespace ScalesUI.Forms
                 }
 
                 UserSession.ManagerControl.Massa.Open();
+                KeyboardMouseSubscribe();
             }
             catch (Exception ex)
             {
