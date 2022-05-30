@@ -314,6 +314,13 @@ VALUES(@uid, @name, @mac, @ip, @doc)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 				}
 
+				public static class Plu
+				{
+					public static string GetCount => @"
+SELECT COUNT(*) [COUNT] FROM DB_SCALES.PLU WHERE [SCALEID] = @SCALE_ID
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				}
+
 				public static class Labels
                 {
                     public static string Save => @"
@@ -360,7 +367,7 @@ ORDER BY [CREATEDATE] DESC
                     public static string GetScaleId => @"
 select [ID]
 from [db_scales].[SCALES]
-where [DESCRIPTION] = @scale
+where [DESCRIPTION] = @SCALE_DESCRIPTION
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetScaleDescription => @"

@@ -43,16 +43,16 @@ namespace ScalesUI
             {
                 // Setup.
                 AppVersion.Setup(Assembly.GetExecutingAssembly());
-                FileLogHelper.Instance.FileName = HostsUtils.FilePathLog;
+                FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
                 DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory(), true);
 
                 // Host.
                 string hostName = NetUtils.GetLocalHostName(false);
-                HostEntity host = HostsUtils.GetHostEntity(hostName);
+                HostEntity host = SqlUtils.GetHostEntity(hostName);
                 if (host.IdentityId == 0)
                 {
                     GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
-                    host = HostsUtils.GetHostEntity(hostName);
+                    host = SqlUtils.GetHostEntity(hostName);
                 }
                 if (host.IdentityId == 0)
                 {
@@ -64,7 +64,7 @@ namespace ScalesUI
                 }
 
                 // Scale.
-                ScaleEntity scale = HostsUtils.GetScaleFromHost(host.IdentityId);
+                ScaleEntity scale = SqlUtils.GetScaleFromHost(host.IdentityId);
                 if (scale.IdentityId == 0)
                 {
                     string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);

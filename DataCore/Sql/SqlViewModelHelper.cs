@@ -30,8 +30,8 @@ namespace DataCore.Sql
         #region Public and private fields and properties
 
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        private ShareEnums.PublishType _publishType = PublishType.Default;
-        public ShareEnums.PublishType PublishType
+        private PublishType _publishType = PublishType.Default;
+        public PublishType PublishType
         {
             get => _publishType;
             private set
@@ -162,24 +162,29 @@ namespace DataCore.Sql
 
             _host = new();
             _scale = new();
-            Setup();
+            Setup(0);
         }
 
-        public void Setup(string scaleName = "")
+        public void Setup(long scaleId)
         {
             TaskTypes = new List<TaskTypeDirect>();
             Tasks = new List<TaskDirect>();
 
-            if (string.IsNullOrEmpty(scaleName))
+            if (scaleId <= 0)
             {
-                string hostName = NetUtils.GetLocalHostName(false);
-                Host = HostsUtils.GetHostEntity(hostName);
-                Scale = HostsUtils.GetScaleFromHost(Host.IdentityId);
+                if (string.IsNullOrEmpty(Host.HostName))
+                {
+                    string hostName = NetUtils.GetLocalHostName(false);
+                    Host = SqlUtils.GetHostEntity(hostName);
+                }
+                Scale = SqlUtils.GetScaleFromHost(Host.IdentityId);
             }
             else
-                Scale = HostsUtils.GetScale(scaleName);
+            {
+                Scale = SqlUtils.GetScale(scaleId);
+            }
             
-            List<ScaleEntity> scales = HostsUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
+            List<ScaleEntity> scales = SqlUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
                 new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                 new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
             Scales = new();
@@ -218,16 +223,16 @@ namespace DataCore.Sql
             if (scaleId == null)
                 return;
 
-            TaskTypes = TasksTypeUtils.GetTasksTypes();
+            TaskTypes = SqlUtils.GetTasksTypes();
 
             Tasks = new List<TaskDirect>();
             foreach (TaskTypeDirect taskType in TaskTypes)
             {
-                TaskDirect? task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
+                TaskDirect? task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
                 if (task == null)
                 {
-                    TasksUtils.SaveNullTask(taskType, (long)scaleId, true);
-                    task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
+                    SqlUtils.SaveNullTask(taskType, (long)scaleId, true);
+                    task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
                 }
                 if (task != null)
                     Tasks.Add(task);

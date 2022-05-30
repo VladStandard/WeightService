@@ -6,7 +6,6 @@ using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
-using DataCore.Sql.Controllers;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
@@ -112,11 +111,15 @@ namespace WeightCore.Helpers
             {
                 if (string.IsNullOrEmpty(hostName))
                     hostName = NetUtils.GetLocalHostName(false);
-                HostEntity host = HostsUtils.GetHostEntity(hostName);
+                HostEntity host = SqlUtils.GetHostEntity(hostName);
                 if (scaleId <= 0)
-                    Scale = HostsUtils.GetScaleFromHost(host.IdentityId);
+                {
+                    Scale = SqlUtils.GetScaleFromHost(host.IdentityId);
+                }
                 else
-                    Scale = HostsUtils.GetScale(scaleId);
+                {
+                    Scale = SqlUtils.GetScale(scaleId);
+                }
             
                 AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
                 ProductDate = DateTime.Now;

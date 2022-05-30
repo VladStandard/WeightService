@@ -35,7 +35,7 @@ namespace DataCore.Localizations
         public string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";
         public string ButtonScalesInitShort => $">0<";
         public string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $"Order" : $"Заказ";
-        public string ButtonSelectPlu => Lang == ShareEnums.Lang.English ? $"Select{Environment.NewLine}PLU" : $"Выбрать{Environment.NewLine}ПЛУ";
+        public string ButtonSelectPlu(ushort count) => Lang == ShareEnums.Lang.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
         public string ButtonSetKneading => Lang == ShareEnums.Lang.English ? "More" : "Ещё";
         public string ButtonSettings => Lang == ShareEnums.Lang.English ? "Settings" : "Настройки";
         public string CheckPluWeightCount => Lang == ShareEnums.Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";

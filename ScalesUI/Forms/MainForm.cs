@@ -579,7 +579,8 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu);
+                ushort pluCount = SqlUtils.GetPluCount(UserSession.Scale.IdentityId);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluCount));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
                 SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
@@ -616,6 +617,7 @@ namespace ScalesUI.Forms
                 if (dialogResult == DialogResult.OK)
                 {
                     UserSession.Setup(wpfPageLoader.SqlSettings.SqlViewModel.Scale.IdentityId);
+                    FieldLang_SelectedIndexChanged(sender, e);
                 }
 
                 UserSession.ManagerControl.Massa.Open();

@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableDirectModels;
 using DataCore.Sql;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using DataCore.Sql.Controllers;
 using System.Windows;
+using System;
+using DataCore.Sql.TableScaleModels;
 
 namespace WeightCore.Gui.XamlPages
 {
@@ -49,6 +49,7 @@ namespace WeightCore.Gui.XamlPages
             UserSession.SqlViewModel.SetupTasks(UserSession.Scale.IdentityId);
         }
 
+        [Obsolete(@"Deprecated method")]
         private void CreateGridTasks()
         {
             System.Windows.Controls.Grid gridTasks = new();
@@ -106,13 +107,15 @@ namespace WeightCore.Gui.XamlPages
 
         public void ButtonDefault_OnClick(object sender, RoutedEventArgs e)
         {
-            SqlViewModel.Setup("");
+            ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.Scale.Host.IdentityId);
+            SqlViewModel.Setup(scale.IdentityId);
         }
 
         public void ButtonApply_OnClick(object sender, RoutedEventArgs e)
         {
-            string scaleName = cbChangeDevice.Items[cbChangeDevice.SelectedIndex].ToString();
-            SqlViewModel.Setup(scaleName);
+            string scaleDescription = cbChangeDevice.Items[cbChangeDevice.SelectedIndex].ToString();
+            ScaleEntity scale = SqlUtils.GetScale(scaleDescription);
+            SqlViewModel.Setup(scale.IdentityId);
         }
 
         public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
@@ -127,7 +130,7 @@ namespace WeightCore.Gui.XamlPages
             //            {
             //                if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
             //                {
-            //                    TasksUtils.SaveTask(taskItem, 
+            //                    SqlUtils.SaveTask(taskItem, 
             //                        string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
             //                }
             //            }

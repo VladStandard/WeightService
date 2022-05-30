@@ -174,7 +174,7 @@ namespace WeightCore.Gui
                 WpfPage.ShowDialog();
                 if (resultWpf == DialogResult.Yes)
                 {
-                    doc.Save(DataCore.Sql.Controllers.HostsUtils.FilePathToken);
+                    doc.Save(SqlUtils.FilePathToken);
                 }
                 WpfPage.Close();
                 WpfPage.Dispose();
@@ -189,7 +189,7 @@ namespace WeightCore.Gui
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result == DialogResult.Yes)
                 {
-                    DataCore.Sql.Controllers.HostsUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
+                    SqlUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
                        new SqlParameter[]
                        {
                         new SqlParameter("@uid", System.Data.SqlDbType.UniqueIdentifier) { Value = uid.ToString() },

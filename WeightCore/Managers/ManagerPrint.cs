@@ -13,7 +13,6 @@ using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Print;
 using WeightCore.Print.Tsc;
-using WeightCore.Zpl;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;

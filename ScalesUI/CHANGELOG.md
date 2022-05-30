@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.755] - 2022-05-30
+### Описание обновления:
+- WS-T-202. Изменить поведение перехвата кнопки печати
+- WS-T-203. Смена устройства
+- WS-T-204. Актуализация ПЛУ после смены устройства
+
 ## [0.6.745] - 2022-05-27
 ### Fixed
 - KneadingForm
