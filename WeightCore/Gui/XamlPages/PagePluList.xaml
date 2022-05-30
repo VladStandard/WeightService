@@ -9,7 +9,7 @@
     Loaded="UserControl_Loaded">
     
     <UserControl.Resources>
-        <dal:SqlViewModelEntity x:Key="SqlViewModel" />
+        <dal:SqlViewModelHelper x:Key="SqlViewModel" />
     </UserControl.Resources>
 
     <Grid DataContext="{StaticResource SqlViewModel}" >

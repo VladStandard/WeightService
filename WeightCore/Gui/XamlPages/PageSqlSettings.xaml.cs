@@ -18,7 +18,7 @@ namespace WeightCore.Gui.XamlPages
         #region Private fields and properties
 
         public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
-        public SqlViewModelEntity SqlViewModel { get; set; }
+        public SqlViewModelHelper SqlViewModel { get; set; }
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
         public int PageSize { get; } = 20;
@@ -34,11 +34,10 @@ namespace WeightCore.Gui.XamlPages
             InitializeComponent();
 
             object context = FindResource("SqlViewModel");
-            if (context is SqlViewModelEntity sqlViewModel)
+            if (context is SqlViewModelHelper sqlViewModel)
             {
                 SqlViewModel = sqlViewModel;
             }
-            //SqlViewModel = UserSession.SqlViewModel;
         }
 
         #endregion
@@ -48,9 +47,12 @@ namespace WeightCore.Gui.XamlPages
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             UserSession.SqlViewModel.SetupTasks(UserSession.Scale.IdentityId);
+        }
 
+        private void CreateGridTasks()
+        {
             System.Windows.Controls.Grid gridTasks = new();
-            
+
             // Columns.
             for (int col = 0; col < 2; col++)
             {
@@ -60,7 +62,7 @@ namespace WeightCore.Gui.XamlPages
                 };
                 gridTasks.ColumnDefinitions.Add(column);
             }
-            
+
             // Rows.
             for (int row = 0; row < UserSession.SqlViewModel.Tasks.Count; row++)
             {
@@ -100,15 +102,17 @@ namespace WeightCore.Gui.XamlPages
             }
             // Fill tab.
             //tabTasks.Content = gridTasks;
-
-            //cbChangeDevice.SelectionChanged += ChangeScale_SelectionChanged;
         }
 
-        public void ButtonRestoreDevice_OnClick(object sender, RoutedEventArgs e)
+        public void ButtonDefault_OnClick(object sender, RoutedEventArgs e)
         {
-            UserSession.Setup(SqlViewModel.ScaleName = SqlViewModel.ScaleNameBackup);
-            Result = DialogResult.OK;
-            OnClose?.Invoke(sender, e);
+            SqlViewModel.Setup("");
+        }
+
+        public void ButtonApply_OnClick(object sender, RoutedEventArgs e)
+        {
+            string scaleName = cbChangeDevice.Items[cbChangeDevice.SelectedIndex].ToString();
+            SqlViewModel.Setup(scaleName);
         }
 
         public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
@@ -130,8 +134,8 @@ namespace WeightCore.Gui.XamlPages
             //        }
             //    }
             //}
-            if (!string.Equals(SqlViewModel.ScaleNameBackup, SqlViewModel.ScaleName))
-                UserSession.Setup(SqlViewModel.ScaleName);
+            //if (!string.Equals(SqlViewModel.ScaleNameBackup, SqlViewModel.ScaleName))
+            //    UserSession.Setup(SqlViewModel.ScaleName);
             Result = DialogResult.OK;
             OnClose?.Invoke(sender, e);
         }
@@ -142,11 +146,6 @@ namespace WeightCore.Gui.XamlPages
             OnClose?.Invoke(sender, e);
         }
         
-        private void ChangeScale_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            SqlViewModel.Setup(SqlViewModel.ScaleName);
-        }
-
         #endregion
     }
 }

@@ -3,14 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:dal="clr-namespace:DataCore.Sql;assembly=DataCore"
+    xmlns:sql="clr-namespace:DataCore.Sql;assembly=DataCore"
     mc:Ignorable="d" 
     d:DesignHeight="400" d:DesignWidth="400" 
     FontSize="18"
     Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <dal:SqlViewModelEntity x:Key="SqlViewModel" />
+        <sql:SqlViewModelHelper x:Key="SqlViewModel" />
     </UserControl.Resources>
 
     <Grid DataContext="{DynamicResource SqlViewModel}" >
@@ -45,23 +45,27 @@
                 <Label Margin="2" Grid.Column="0" Grid.Row="1" Content="Хост" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                 <Label Margin="2" Grid.Column="1" Grid.Row="1" 
-                        Content="{Binding Path=HostName, Mode=OneWay, IsAsync=True}" 
+                        Content="{Binding Path=Host.Name, Mode=OneWay, IsAsync=True}" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                 <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="АРМ" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                 <ComboBox Margin="2" Grid.Column="1" Grid.Row="2" x:Name="cbChangeDevice"
-                        SelectedItem="{Binding Path=ScaleName, Mode=TwoWay, IsAsync=True}" 
+                        SelectedItem="{Binding Path=Scale.Description, Mode=TwoWay, IsAsync=True}" 
                         ItemsSource="{Binding Path=Scales, Mode=OneWay, IsAsync=True}" 
-                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
                         />
-                <Button Margin="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" 
-                        Content="{Binding Path=ButtonRestoreDeviceCaption, Mode=OneWay, IsAsync=True}"
+                <Button Margin="2" Grid.Column="0" Grid.Row="3" 
+                        Content="{Binding Path=ButtonDefaultCaption, Mode=OneWay, IsAsync=True}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                        Click="ButtonRestoreDevice_OnClick"/>
+                        Click="ButtonDefault_OnClick"/>
+                <Button Margin="2" Grid.Column="1" Grid.Row="3" 
+                        Content="{Binding Path=ButtonApplyCaption, Mode=OneWay, IsAsync=True}"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                        Click="ButtonApply_OnClick"/>
                 <Label Margin="2" Grid.Column="0" Grid.Row="4" Content="Номер устройства" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
                 <Label Margin="2" Grid.Column="1" Grid.Row="4" 
-                        Content="{Binding Path=ScaleNumber, Mode=OneWay, IsAsync=True}" 
+                        Content="{Binding Path=Scale.Number, Mode=OneWay, IsAsync=True}" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
             </Grid>
         </Border>

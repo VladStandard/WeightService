@@ -40,7 +40,7 @@ namespace WeightCore.Helpers
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public ManagerControllerHelper ManagerControl { get; private set; } = ManagerControllerHelper.Instance;
-        public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
+        public SqlViewModelHelper SqlViewModel { get; set; } = SqlViewModelHelper.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
         //public HostDirect Host { get; private set; }
         public OrderDirect Order { get; set; }
@@ -106,17 +106,17 @@ namespace WeightCore.Helpers
 
         #region Public and private methods
 
-        public void Setup(string scaleName = "", string hostName = "")
+        public void Setup(long scaleId = -1, string hostName = "")
         {
             lock (_locker)
             {
                 if (string.IsNullOrEmpty(hostName))
                     hostName = NetUtils.GetLocalHostName(false);
                 HostEntity host = HostsUtils.GetHostEntity(hostName);
-                if (string.IsNullOrEmpty(scaleName))
-                    Scale = HostsUtils.GetScaleEntity(host.IdentityId);
+                if (scaleId <= 0)
+                    Scale = HostsUtils.GetScaleFromHost(host.IdentityId);
                 else
-                    Scale = HostsUtils.GetScaleEntity(scaleName);
+                    Scale = HostsUtils.GetScale(scaleId);
             
                 AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
                 ProductDate = DateTime.Now;

@@ -54,7 +54,7 @@ namespace DataCore.Sql.Controllers
             return host;
         }
 
-        public static ScaleEntity GetScaleEntity(long hostId)
+        public static ScaleEntity GetScaleFromHost(long hostId)
         {
             ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
                 new FieldListEntity(new Dictionary<string, object?> {
@@ -64,11 +64,21 @@ namespace DataCore.Sql.Controllers
             return scale;
         }
 
-        public static ScaleEntity GetScaleEntity(string scaleName)
+        public static ScaleEntity GetScale(string scaleName)
         {
             ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
                 new FieldListEntity(new Dictionary<DbField, object?> {
                     { DbField.Description, scaleName },
+                    { DbField.IsMarked, false } }),
+                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
+            return scale;
+        }
+
+        public static ScaleEntity GetScale(long scaleId)
+        {
+            ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
+                new FieldListEntity(new Dictionary<DbField, object?> {
+                    { DbField.IdentityId, scaleId },
                     { DbField.IsMarked, false } }),
                 new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
             return scale;

@@ -16,7 +16,7 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        private Button ButtonChangeDevice { get; set; }
+        private Button ButtonScaleChange { get; set; }
         private Button ButtonKneading { get; set; }
         private Button ButtonMore { get; set; }
         private Button ButtonNewPallet { get; set; }
@@ -54,7 +54,7 @@ namespace WeightCore.Managers
 
         public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate, 
             Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
-            Button buttonChangeDevice, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
+            Button buttonScaleChange, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
             Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose,
             Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
         {
@@ -72,7 +72,7 @@ namespace WeightCore.Managers
                         FieldKneading = fieldKneading;
                         FieldResolution = fieldResolution;
                         FieldLang = fieldLang;
-                        ButtonChangeDevice = buttonChangeDevice;
+                        ButtonScaleChange = buttonScaleChange;
                         ButtonKneading = buttonKneading;
                         ButtonMore = buttonMore;
                         ButtonNewPallet = buttonNewPallet;
@@ -238,7 +238,7 @@ namespace WeightCore.Managers
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
             }
 
-            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonChangeDevice, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScaleChange, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonKneading, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonMore, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonNewPallet, true);
@@ -248,7 +248,7 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesInit, true);
             MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesTerminal, true);
             
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonChangeDevice, true);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScaleChange, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonKneading, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonMore, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonNewPallet, true);

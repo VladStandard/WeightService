@@ -16,14 +16,14 @@ using System.Linq;
 
 namespace DataCore.Sql
 {
-    public class SqlViewModelEntity : BaseViewModel
+    public class SqlViewModelHelper : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static SqlViewModelEntity _instance;
+        private static SqlViewModelHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static SqlViewModelEntity Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        public static SqlViewModelHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
@@ -81,33 +81,23 @@ namespace DataCore.Sql
             }
         }
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
-        private string? _hostName;
-        public string? HostName
+        private HostEntity _host;
+        public HostEntity Host
         {
-            get => _hostName;
+            get => _host;
             set
             {
-                _hostName = value;
+                _host = value;
                 OnPropertyChanged();
             }
         }
-        private string? _scaleNameBackup;
-        public string? ScaleNameBackup
+        private ScaleEntity _scale;
+        public ScaleEntity Scale
         {
-            get => _scaleNameBackup;
-            private set
-            {
-                _scaleNameBackup = value;
-                OnPropertyChanged();
-            }
-        }
-        private string? _scaleName;
-        public string? ScaleName
-        {
-            get => _scaleName;
+            get => _scale;
             set
             {
-                _scaleName = value;
+                _scale = value;
                 OnPropertyChanged();
             }
         }
@@ -121,23 +111,23 @@ namespace DataCore.Sql
                 OnPropertyChanged();
             }
         }
-        private int? _scaleNumber;
-        public int? ScaleNumber
+        private string? _buttonDefaultCaption;
+        public string? ButtonDefaultCaption
         {
-            get => _scaleNumber;
+            get => _buttonDefaultCaption;
             set
             {
-                _scaleNumber = value;
+                _buttonDefaultCaption = value;
                 OnPropertyChanged();
             }
         }
-        private string? _buttonRestoreDeviceCaption;
-        public string? ButtonRestoreDeviceCaption
+        private string? _buttonApplyCaption;
+        public string? ButtonApplyCaption
         {
-            get => _buttonRestoreDeviceCaption;
+            get => _buttonApplyCaption;
             set
             {
-                _buttonRestoreDeviceCaption = value;
+                _buttonApplyCaption = value;
                 OnPropertyChanged();
             }
         }
@@ -166,10 +156,12 @@ namespace DataCore.Sql
 
         #region Constructor and destructor
 
-        public SqlViewModelEntity()
+        public SqlViewModelHelper()
         {
             SetPublish();
 
+            _host = new();
+            _scale = new();
             Setup();
         }
 
@@ -178,18 +170,15 @@ namespace DataCore.Sql
             TaskTypes = new List<TaskTypeDirect>();
             Tasks = new List<TaskDirect>();
 
-            ScaleEntity scale;
             if (string.IsNullOrEmpty(scaleName))
             {
-                HostName = NetUtils.GetLocalHostName(false);
-                HostEntity host = HostsUtils.GetHostEntity(HostName);
-                scale = HostsUtils.GetScaleEntity(host.IdentityId);
+                string hostName = NetUtils.GetLocalHostName(false);
+                Host = HostsUtils.GetHostEntity(hostName);
+                Scale = HostsUtils.GetScaleFromHost(Host.IdentityId);
             }
             else
-                scale = HostsUtils.GetScaleEntity(scaleName);
-            ScaleNameBackup = ScaleName = scale.Description;
-            ScaleNumber = scale.Number;
-
+                Scale = HostsUtils.GetScale(scaleName);
+            
             List<ScaleEntity> scales = HostsUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
                 new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                 new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
@@ -198,7 +187,8 @@ namespace DataCore.Sql
 
             ButtonOkCaption = LocaleCore.Buttons.Ok;
             ButtonCancelCaption = LocaleCore.Buttons.Cancel;
-            ButtonRestoreDeviceCaption = LocaleCore.Scales.RestoreDevice;
+            ButtonDefaultCaption = LocaleCore.Scales.Default;
+            ButtonApplyCaption = LocaleCore.Scales.Apply;
         }
 
         private void SetPublish()

@@ -29,7 +29,7 @@ namespace DataCore.Localizations
         public readonly decimal MassaThresholdValue = 0.010M;
         public string AlreadyRunning => Lang == ShareEnums.Lang.English ? "already running" : "уже запущено";
         public string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-        public string ButtonChangeDevice => Lang == ShareEnums.Lang.English ? $"Change device" : $"Сменить устройство";
+        public string ButtonScaleChange => Lang == ShareEnums.Lang.English ? $"Change ARM" : $"Сменить АРМ";
         public string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
         public string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
         public string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";
@@ -47,6 +47,8 @@ namespace DataCore.Localizations
         public string ComPort => Lang == ShareEnums.Lang.English ? "COM-port" : "COM-порт";
         public string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
         public string Crc => "CRC";
+        public string Apply => Lang == ShareEnums.Lang.English ? $"Apply" : $"Применить";
+        public string Default => Lang == ShareEnums.Lang.English ? $"Default" : $"По-умолчанию";
         public string DeviceControlIsPreview => Lang == ShareEnums.Lang.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
         public string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
         public string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? "The database is unavailable!" : "База данных недоступна!";
@@ -116,6 +118,7 @@ namespace DataCore.Localizations
         public string RegistrationWarningHostNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"Host '{hostName}' not found!" : $"Хост '{hostName}' не найден!";
         public string RegistrationWarningScaleNotFound(string hostName) => Lang == ShareEnums.Lang.English ? $"ARM for host '{hostName}' not found!" : $"АРМ для хоста '{hostName}' не найден!";
         public string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
+        public string Restore => Lang == ShareEnums.Lang.English ? $"Restore" : $"Восстановить";
         public string RestoreDevice => Lang == ShareEnums.Lang.English ? $"Restore device" : $"Восстановить устроство";
         public string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
         public string ScheduleForNextDay => Lang == ShareEnums.Lang.English ? "Schedule for next day" : "Расписание на следующий день";
