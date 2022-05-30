@@ -1,6 +1,13 @@
 # Publish lifecycle
 
 
+## Everyday routing
+Tools -> Version changer
+```
+git add .
+git commit -m "Updated version to v0.x.xxx"
+```
+
 ## Tuesday Release-version
 Switch on `preview` branch
 ```
