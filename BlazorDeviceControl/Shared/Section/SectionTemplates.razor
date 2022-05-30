@@ -39,13 +39,17 @@ else
                 TItem="TemplateEntity" Property="CategoryId" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CategoryName Width="15%" />
             <RadzenGridColumn 
-                TItem="TemplateEntity" Title=@LocaleCore.Table.Title Width="85%" SortProperty="Title" >
+                TItem="TemplateEntity" Title=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.IdentityId}")
                         Text=@itemCast.Title />
                 </Template>
             </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="TemplateEntity" Property="ImageData.Info"
+                Title=@LocaleCore.Table.ImageDataInfo 
+                Type="string" Width="25%" />
         </Columns>
     </RadzenGrid>
 
