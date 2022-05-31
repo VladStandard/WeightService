@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>0.6.760.0</Version>
+    <Version>0.6.770.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
