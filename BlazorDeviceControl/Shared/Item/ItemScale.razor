@@ -130,6 +130,11 @@ else
                         Name="fieldDeviceNumber"
                         TValue="byte" @bind-Value=@ItemCast.ShippingLength />
                 </td>
+                <td>@LocaleCore.Table.IsKneading</td>
+                <td>
+                    <RadzenCheckBox Disabled=false 
+                        TValue="bool" @bind-Value=@ItemCast.IsKneading />
+				</td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.DeviceNumber</td>
@@ -141,7 +146,7 @@ else
                         Component="fieldDeviceNumber" Min="0"
                         Text=@LocaleCore.Strings.InputControlMuchZero Popup=true Style="position: absolute;" />
 				</td>
-                <td>@LocaleCore.Table.UseOrder</td>
+                <td>@LocaleCore.Table.IsOrder</td>
                 <td>
                     <RadzenCheckBox Disabled=false 
                         TValue="bool" @bind-Value=@ItemCast.IsOrder />

@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Xml.Linq;
 
 namespace DataCore.Sql.TableDirectModels
@@ -55,7 +54,6 @@ namespace DataCore.Sql.TableDirectModels
             GoodsTareWeight = 0;
             GTIN = string.Empty;
             Id = 0;
-            IsCheckWeight = false;
             ITF14 = string.Empty;
             LowerWeightThreshold = 0;
             NominalWeight = 0;
@@ -65,6 +63,7 @@ namespace DataCore.Sql.TableDirectModels
             Template = new();
             TemplateID = null;
             UpperWeightThreshold = 0;
+            IsCheckWeight = false;
 
             Load();
         }

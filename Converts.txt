@@ -1,4 +1,4 @@
-- [ZPL to label](http://labelary.com/viewer.html)
+- [Image to GF](ZebraDesigner): rotate 90
 - [Image to ZPL](http://www.jcgonzalez.com/img-to-zpl-online)
 - [Text to Hex](https://online-toolz.com/tools/text-hex-convertor.php)
-- [Image to GF](ZebraDesigner): retate 90
+- [ZPL to label](http://labelary.com/viewer.html)

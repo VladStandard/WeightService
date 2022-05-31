@@ -58,7 +58,7 @@ else
             <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CheckWeight >
                 <Template Context="pluEntity">
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.CheckWeight />
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.IsCheckWeight />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%" Title=@LocaleCore.Table.GoodsName SortProperty="GoodsName" >

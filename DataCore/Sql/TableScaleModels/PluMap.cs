@@ -32,7 +32,7 @@ namespace DataCore.Sql.TableScaleModels
             Map(x => x.UpperWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("UpperWeightThreshold").Nullable();
             Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NominalWeight").Nullable();
             Map(x => x.LowerWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("LowerWeightThreshold").Nullable();
-            Map(x => x.CheckWeight).CustomSqlType("BIT").Column("CheckWeight").Not.Nullable().Default("0");
+            Map(x => x.IsCheckWeight).CustomSqlType("BIT").Column("CheckWeight").Not.Nullable().Default("0");
         }
     }
 }

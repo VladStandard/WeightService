@@ -368,7 +368,7 @@ namespace ScalesUI.Forms
             {
                 KeyboardMouseEvents = Hook.GlobalEvents();
                 KeyboardMouseEvents.MouseDownExt += MouseDownExt;
-                KeyboardMouseEvents.KeyUp += KeyUpExt;
+                //KeyboardMouseEvents.KeyUp += KeyUpExt;
             }
             IsKeyboardMouseEventsSubscribe = true;
         }
@@ -378,7 +378,7 @@ namespace ScalesUI.Forms
             if (IsKeyboardMouseEventsSubscribe)
             {
                 KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
-                KeyboardMouseEvents.KeyUp += KeyUpExt;
+                //KeyboardMouseEvents.KeyUp += KeyUpExt;
                 KeyboardMouseEvents.Dispose();
             }
             IsKeyboardMouseEventsSubscribe = false;
@@ -390,14 +390,6 @@ namespace ScalesUI.Forms
                 ActionPrint_Click(sender, e);
         }
 
-        private void KeyUpExt(object sender, KeyEventArgs e)
-        {
-            if ((e.Control && e.KeyCode == Keys.X) || (e.Control && e.KeyCode == Keys.C) || e.KeyCode == Keys.Escape)
-            {
-                Close();
-            }
-        }
-        
         #endregion
 
         #region Public and private methods - Controls
@@ -573,7 +565,8 @@ namespace ScalesUI.Forms
             try
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, LocaleCore.Scales.ButtonScaleChange);
+                int number = (int)UserSession.Scale.Number;
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, LocaleCore.Scales.ButtonScaleChange(number));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -836,6 +829,7 @@ namespace ScalesUI.Forms
 
                 UserSession.ManagerControl.Massa.Open();
                 KeyboardMouseSubscribe();
+                UserSession.ManagerControl.Labels.SetControlsVisible();
             }
             catch (Exception ex)
             {

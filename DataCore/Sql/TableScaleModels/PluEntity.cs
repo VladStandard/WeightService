@@ -35,7 +35,7 @@ namespace DataCore.Sql.TableScaleModels
         public virtual decimal UpperWeightThreshold { get; set; }
         public virtual decimal NominalWeight { get; set; }
         public virtual decimal LowerWeightThreshold { get; set; }
-        public virtual bool CheckWeight { get; set; }
+        public virtual bool IsCheckWeight { get; set; }
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace DataCore.Sql.TableScaleModels
             UpperWeightThreshold = 0;
             NominalWeight = 0;
             LowerWeightThreshold = 0;
-            CheckWeight = false;
+            IsCheckWeight = false;
         }
 
         protected PluEntity(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -253,7 +253,7 @@ namespace DataCore.Sql.TableScaleModels
                    $"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
                    $"{nameof(NominalWeight)}: {NominalWeight}. " +
                    $"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
-                   $"{nameof(CheckWeight)}: {CheckWeight}. ";
+                   $"{nameof(IsCheckWeight)}: {IsCheckWeight}. ";
         }
 
         public virtual bool Equals(PluEntity item)
@@ -281,7 +281,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(UpperWeightThreshold, item.UpperWeightThreshold) &&
                    Equals(NominalWeight, item.NominalWeight) &&
                    Equals(LowerWeightThreshold, item.LowerWeightThreshold) &&
-                   Equals(CheckWeight, item.CheckWeight);
+                   Equals(IsCheckWeight, item.IsCheckWeight);
         }
 
         public override bool Equals(object obj)
@@ -325,7 +325,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(UpperWeightThreshold, (decimal)0) &&
                    Equals(NominalWeight, (decimal)0) &&
                    Equals(LowerWeightThreshold, (decimal)0) &&
-                   Equals(CheckWeight, false);
+                   Equals(IsCheckWeight, false);
         }
 
         public new virtual object Clone()
@@ -348,7 +348,7 @@ namespace DataCore.Sql.TableScaleModels
             item.UpperWeightThreshold = UpperWeightThreshold;
             item.NominalWeight = NominalWeight;
             item.LowerWeightThreshold = LowerWeightThreshold;
-            item.CheckWeight = CheckWeight;
+            item.IsCheckWeight = IsCheckWeight;
             item.Setup(((BaseEntity)this).CloneCast());
             return item;
         }

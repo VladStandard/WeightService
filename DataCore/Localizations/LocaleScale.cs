@@ -29,7 +29,7 @@ namespace DataCore.Localizations
         public readonly decimal MassaThresholdValue = 0.010M;
         public string AlreadyRunning => Lang == ShareEnums.Lang.English ? "already running" : "уже запущено";
         public string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-        public string ButtonScaleChange => Lang == ShareEnums.Lang.English ? $"Change ARM" : $"Сменить АРМ";
+        public string ButtonScaleChange(int number) => Lang == ShareEnums.Lang.English ? $"Change ARM [{number}]" : $"Сменить АРМ [{number}]";
         public string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
         public string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
         public string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";

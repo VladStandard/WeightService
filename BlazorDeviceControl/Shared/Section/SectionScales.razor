@@ -52,7 +52,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ScaleEntity" Title=@LocaleCore.Table.Host Type="string" Width="16%" >
+                TItem="ScaleEntity" Title=@LocaleCore.Table.Host Type="string" Width="13%" >
                 <Template Context="itemCast">
                     @if (itemCast.Host == null)
                     {
@@ -72,7 +72,7 @@ else
                 Title=@LocaleCore.Table.DeviceIp 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Title=@LocaleCore.Print.NameMain Type="string" Width="15%" >
+                TItem="ScaleEntity" Title=@LocaleCore.Print.NameMain Type="string" Width="13%" >
                 <Template Context="itemCast">
                     @if (itemCast.PrinterMain == null)
                     {
@@ -113,6 +113,14 @@ else
                 Type="string" Width="5%">
                 <Template Context="itemCast">
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsShipping />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ScaleEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.IsKneading
+                Type="string" Width="5%">
+                <Template Context="itemCast">
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsKneading />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 

@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Resources\Templates\Configure Printer Connectivity IP.sql = Resources\Templates\Configure Printer Connectivity IP.sql
 		Resources\Templates\Convert XML to TXT simple.xsl = Resources\Templates\Convert XML to TXT simple.xsl
 		Resources\Templates\Data3ProductSeriesEntity.xml = Resources\Templates\Data3ProductSeriesEntity.xml
+		Resources\Templates\Label SCALES-PRN-004.zpl = Resources\Templates\Label SCALES-PRN-004.zpl
+		Resources\Templates\Label SCALES-PRN-005.zpl = Resources\Templates\Label SCALES-PRN-005.zpl
 		Resources\Templates\styledata.xml = Resources\Templates\styledata.xml
 		Resources\Templates\Template80x100unit.xml = Resources\Templates\Template80x100unit.xml
 		Resources\Templates\Template80x100unit_CODE128_300dpi.xml = Resources\Templates\Template80x100unit_CODE128_300dpi.xml
@@ -151,6 +153,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
 		ConnectionString.txt = ConnectionString.txt
+		Converts.txt = Converts.txt
 		LICENSE.md = LICENSE.md
 		Publish lifecycle.md = Publish lifecycle.md
 		Publish resources.md = Publish resources.md
@@ -663,7 +666,7 @@ Global
 		{5121B4E0-3103-4872-AB23-0E5909BA356D} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

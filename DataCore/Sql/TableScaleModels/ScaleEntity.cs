@@ -17,8 +17,6 @@ namespace DataCore.Sql.TableScaleModels
         public virtual TemplateEntity? TemplateSeries { get; set; }
         public virtual WorkShopEntity WorkShop { get; set; }
         public virtual PrinterEntity? PrinterMain { get; set; }
-        public virtual bool IsShipping { get; set; }
-        public virtual bool IsKneading { get; set; }
         public virtual PrinterEntity? PrinterShipping { get; set; }
         public virtual byte ShippingLength { get; set; }
         public virtual HostEntity? Host { get; set; }
@@ -32,9 +30,11 @@ namespace DataCore.Sql.TableScaleModels
         public virtual string ZebraIp { get; set; }
         [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
-        public virtual bool IsOrder { get; set; }
         public virtual int? Number { get; set; }
         public virtual int? ScaleFactor { get; set; }
+        public virtual bool IsShipping { get; set; }
+        public virtual bool IsOrder { get; set; }
+        public virtual bool IsKneading { get; set; }
 
         #endregion
 
@@ -53,8 +53,6 @@ namespace DataCore.Sql.TableScaleModels
             Host = null;
             PrinterMain = null;
             PrinterShipping = null;
-            IsShipping = false;
-            IsKneading = false;
             ShippingLength = 0;
             Description = string.Empty;
             DeviceIp = string.Empty;
@@ -65,9 +63,11 @@ namespace DataCore.Sql.TableScaleModels
             DeviceComPort = string.Empty;
             ZebraIp = string.Empty;
             ZebraPort = default;
-            IsOrder = false;
             Number = default;
             ScaleFactor = default;
+            IsShipping = false;
+            IsOrder = false;
+            IsKneading = false;
         }
 
         #endregion
@@ -137,8 +137,8 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(IsOrder, item.IsOrder) &&
                    Equals(Number, item.Number) &&
                    Equals(ScaleFactor, item.ScaleFactor) &&
-                   IsShipping.Equals(item.IsShipping) &&
-                   IsKneading.Equals(item.IsKneading) &&
+                   Equals(IsShipping, item.IsShipping) &&
+                   Equals(IsKneading, item.IsKneading) &&
                    ShippingLength.Equals(item.ShippingLength);
         }
 
