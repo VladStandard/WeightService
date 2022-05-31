@@ -494,6 +494,7 @@ namespace WeightCore.Helpers
                 WeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
+                string weightNetto = WeighingFact.NetWeightKg;
                 string xmlInput = WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
                 string printCmd = Zpl.ZplUtils.XsltTransformation(template.XslContent, xmlInput);
                 // Replace ZPL's pics.

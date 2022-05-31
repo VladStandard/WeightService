@@ -54,6 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Resources\Templates\Template90x60weight.xml = Resources\Templates\Template90x60weight.xml
 		Resources\Templates\Test TEST.sql = Resources\Templates\Test TEST.sql
 		Resources\Templates\test.sql = Resources\Templates\test.sql
+		Resources\Templates\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC 80x100 300dpi вес.xml = Resources\Templates\TSC 80x100 300dpi вес.xml
 		Resources\Templates\WeighingFactEntityObject1.xml = Resources\Templates\WeighingFactEntityObject1.xml
 		Resources\Templates\Zebra commands.sql = Resources\Templates\Zebra commands.sql
@@ -662,7 +663,7 @@ Global
 		{5121B4E0-3103-4872-AB23-0E5909BA356D} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal
