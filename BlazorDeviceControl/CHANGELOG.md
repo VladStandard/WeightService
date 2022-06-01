@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.780] - 2022-06-01
+### Описание обновления:
+- WS-T-215. Системная таблица версий
+
 ## [0.6.770] - 2022-05-31
 ### Описание обновления:
 - WS-T-212. Раздел 'АРМы'
