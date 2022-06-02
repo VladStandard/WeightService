@@ -152,7 +152,9 @@ namespace WeightCore.Managers
         private void Response(bool isMain, string value)
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
-                $"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | {GetDeviceStatus()} | {value}");
+                $"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | " +
+                $"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.Scale.Counter} | " +
+                $"{GetDeviceStatus()} | {value}");
         }
 
         public string GetDeviceName(bool isMain)

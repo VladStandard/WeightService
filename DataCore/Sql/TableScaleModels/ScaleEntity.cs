@@ -30,7 +30,7 @@ namespace DataCore.Sql.TableScaleModels
         public virtual string ZebraIp { get; set; }
         [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
-        public virtual int? Number { get; set; }
+        public virtual int Number { get; set; }
         public virtual int Counter { get; set; }
         public virtual int? ScaleFactor { get; set; }
         public virtual bool IsShipping { get; set; }

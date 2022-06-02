@@ -79,7 +79,7 @@ namespace DataCore.Localizations
             public static string IdentityError => Lang == ShareEnums.Lang.English ? "User error!" : "Ошибка пользователя";
             public static string Index => Lang == ShareEnums.Lang.English ? "Inside resources" : "Внутренние ресурсы";
             public static string IndexDescription => Lang == ShareEnums.Lang.English ? "The site was created to help you navigate through the company's internal resources" : "Сайт создан для помощи в навигации по внутренним ресурсам компании";
-            public static string InputControlMuchZero = Lang == ShareEnums.Lang.English ? "The value must be greater than 0!" : "Значение должно быть больше 0!";
+            public static string InputControlCheck(int min, int max) => Lang == ShareEnums.Lang.English ? $"The value must be beetwen {min} and {max}!" : $"Значение должно быть между {min} и {max}!";
             public static string IsEnableHe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включен" : "Отключен";
             public static string IsEnableIt(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включено" : "Отключено";
             public static string IsEnableShe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? "Enable" : "Disable" : isTrue ? "Включена" : "Отключена";

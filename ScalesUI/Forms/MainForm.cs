@@ -164,7 +164,8 @@ namespace ScalesUI.Forms
                 // PrintShipping.
                 if (UserSession.Scale.IsShipping)
                 {
-                    UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, fieldPrintShipping, false);
+                    UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, 
+                        fieldPrintShipping, false);
                     UserSession.ManagerControl.PrintShipping.Open(false);
                     UserSession.ManagerControl.PrintShipping.SetOdometorUserLabel(1);
                 }

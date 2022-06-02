@@ -360,6 +360,13 @@ namespace WeightCore.Helpers
             }
 
             WeighingFact = null;
+            SetNewScaleCounter();
+        }
+
+        internal void SetNewScaleCounter()
+        {
+            Scale.Counter++;
+            DataAccess.Crud.UpdateEntity(Scale);
         }
 
         /// <summary>
