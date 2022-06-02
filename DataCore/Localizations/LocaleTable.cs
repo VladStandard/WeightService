@@ -36,7 +36,8 @@ namespace DataCore.Localizations
         public string ConsumerName => Lang == ShareEnums.Lang.English ? "___" : "ConsumerName";
         public string Contragent => Lang == ShareEnums.Lang.English ? "Contragent" : "Контрагент";
         public string ContragentId => Lang == ShareEnums.Lang.English ? "___" : "ID контрагента";
-        public string Count => Lang == ShareEnums.Lang.English ? "___" : "Количество";
+        public string Count => Lang == ShareEnums.Lang.English ? "Count" : "Количество";
+        public string Counter => Lang == ShareEnums.Lang.English ? "Counter" : "Счётчик";
         public string CreateDt => Lang == ShareEnums.Lang.English ? "___" : "Дата создания";
         public string Date => Lang == ShareEnums.Lang.English ? "Date" : "Дата";
         public string DayOfWeek => Lang == ShareEnums.Lang.English ? "___" : "День недели";

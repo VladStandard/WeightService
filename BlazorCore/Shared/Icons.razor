@@ -23,14 +23,14 @@
         <Columns >
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.TableField.MarkedShort Type="bool" Width="50%">
-                <Template Context="icon">
-                    <RadzenIcon Icon=@icon />
+                <Template Context="itemCast">
+                    <RadzenIcon Icon=@itemCast />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.TableField.ChangeDt Type="date" Width="50%">
-                <Template Context="icon">
-                    <RadzenLabel Text=@icon Disabled=false ReadOnly=true />
+                <Template Context="itemCast">
+                    <RadzenLabel Text=@itemCast Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
         </Columns>

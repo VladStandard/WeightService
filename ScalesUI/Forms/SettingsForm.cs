@@ -6,13 +6,11 @@ using DataCore.Localizations;
 using DataCore.Settings;
 using DataCore.Sql.TableDirectModels;
 using System;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Zpl;
-using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
 {

@@ -27,7 +27,7 @@ namespace DataCore.Sql
 
         #endregion
 
-        #region Public and private methods
+        #region Public and private methods - Tasks
 
         public static void SaveNullTask(TaskTypeDirect taskType, long scaleId, bool enabled)
         {
@@ -152,157 +152,6 @@ namespace DataCore.Sql
             return result;
         }
 
-        public static ushort GetPluCount(long scaleId)
-        {
-            ushort result = 0;
-            using (SqlConnection con = SqlConnect.GetConnection())
-            {
-                con.Open();
-                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Plu.GetCount))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@SCALE_ID", scaleId);
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        if (reader.Read())
-                        {
-                            result = SqlConnect.GetValueAsNotNullable<ushort>(reader, "COUNT");
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
-            }
-            return result;
-        }
-
-        public static long GetScaleId(string scaleDescription)
-        {
-            long result = 0;
-            using (SqlConnection con = SqlConnect.GetConnection())
-            {
-                con.Open();
-                StringUtils.SetStringValueTrim(ref scaleDescription, 150);
-                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Scales.GetScaleId))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@SCALE_DESCRIPTION", scaleDescription);
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        if (reader.Read())
-                        {
-                            result = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
-            }
-            return result;
-        }
-
-        public static HostDirect LoadReader(SqlDataReader reader)
-        {
-            HostDirect result = new();
-            if (reader.Read())
-            {
-                result.Id = SqlConnect.GetValueAsNotNullable<int>(reader, "ID");
-                result.Name = SqlConnect.GetValueAsNullable<string>(reader, "NAME");
-                result.HostName = SqlConnect.GetValueAsNullable<string>(reader, "HOSTNAME");
-                result.Ip = SqlConnect.GetValueAsNullable<string>(reader, "IP");
-                result.Mac = SqlConnect.GetValueAsNullable<string>(reader, "MAC");
-                result.IdRRef = SqlConnect.GetValueAsNotNullable<Guid>(reader, "IDRREF");
-                result.IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "MARKED");
-                result.ScaleId = SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID");
-            }
-            return result;
-        }
-
-        public static HostEntity GetHostEntity(string hostName)
-        {
-            HostEntity host = DataAccess.Crud.GetEntity<HostEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> {
-                    { DbField.HostName, hostName },
-                    { DbField.IsMarked, false } }),
-                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
-            return host;
-        }
-
-        public static ScaleEntity GetScaleFromHost(long hostId)
-        {
-            ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
-                new FieldListEntity(new Dictionary<string, object?> {
-                    { $"Host.IdentityId", hostId },
-                    { DbField.IsMarked.ToString(), false } }),
-                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
-            return scale;
-        }
-
-        public static ScaleEntity GetScale(long id)
-        {
-            return DataAccess.Crud.GetEntity<ScaleEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, id }, { DbField.IsMarked, false } }));
-        }
-
-        public static ScaleEntity GetScale(string description)
-        {
-            return DataAccess.Crud.GetEntity<ScaleEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Description, description }, { DbField.IsMarked, false } }));
-        }
-
-        public static HostDirect Load(Guid uid)
-        {
-            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
-                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
-            if (result == null)
-                result = new HostDirect();
-            return result;
-        }
-
-        public static HostDirect Load(string hostName)
-        {
-            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByHostName,
-                new SqlParameter("@HOST_NAME", System.Data.SqlDbType.NVarChar, 255) { Value = hostName }, LoadReader);
-            if (result == null)
-                result = new HostDirect();
-            return result;
-        }
-
-        public static HostDirect GetHostDirect()
-        {
-            if (!File.Exists(FilePathToken))
-            {
-                return new HostDirect();
-            }
-            XDocument doc = XDocument.Load(FilePathToken);
-            Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
-            //string EncryptConnectionString = doc.Root.Elements("EncryptConnectionString").First().Value;
-            //string connectionString = EncryptDecryptUtil.Decrypt(EncryptConnectionString);
-            return Load(idrref);
-        }
-
-        public static HostDirect GetHostDirect(string hostName) => Load(hostName);
-
-        public static bool CheckHostUidInFile()
-        {
-            if (!File.Exists(FilePathToken))
-                return false;
-
-            XDocument doc = XDocument.Load(FilePathToken);
-            Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
-            bool result = default;
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef,
-                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref }, (reader) =>
-                {
-                    result = reader.Read();
-                });
-            return result;
-        }
-
         public static Guid GetTaskTypeUid(string taskTypeName)
         {
             Guid result = Guid.Empty;
@@ -409,6 +258,177 @@ namespace DataCore.Sql
             }
             return result;
         }
+
+        #endregion
+
+        #region Public and private methods - PLUs
+
+        public static ushort GetPluCount(long scaleId)
+        {
+            ushort result = 0;
+            using (SqlConnection con = SqlConnect.GetConnection())
+            {
+                con.Open();
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Plu.GetCount))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@SCALE_ID", scaleId);
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        if (reader.Read())
+                        {
+                            result = SqlConnect.GetValueAsNotNullable<ushort>(reader, "COUNT");
+                        }
+                    }
+                    reader.Close();
+                }
+                con.Close();
+            }
+            return result;
+        }
+
+
+        #endregion
+
+        #region Public and private methods - Scales
+
+        public static long GetScaleId(string scaleDescription)
+        {
+            long result = 0;
+            using (SqlConnection con = SqlConnect.GetConnection())
+            {
+                con.Open();
+                StringUtils.SetStringValueTrim(ref scaleDescription, 150);
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Scales.GetScaleId))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@SCALE_DESCRIPTION", scaleDescription);
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        if (reader.Read())
+                        {
+                            result = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                        }
+                    }
+                    reader.Close();
+                }
+                con.Close();
+            }
+            return result;
+        }
+
+        public static ScaleEntity GetScaleFromHost(long hostId)
+        {
+            ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
+                new FieldListEntity(new Dictionary<string, object?> {
+                    { $"Host.IdentityId", hostId },
+                    { DbField.IsMarked.ToString(), false } }),
+                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
+            return scale;
+        }
+
+        public static ScaleEntity GetScale(long id)
+        {
+            return DataAccess.Crud.GetEntity<ScaleEntity>(
+                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, id }, { DbField.IsMarked, false } }));
+        }
+
+        public static ScaleEntity GetScale(string description)
+        {
+            return DataAccess.Crud.GetEntity<ScaleEntity>(
+                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Description, description }, { DbField.IsMarked, false } }));
+        }
+
+
+        #endregion
+
+        #region Public and private methods - Hosts
+
+        public static HostDirect LoadReader(SqlDataReader reader)
+        {
+            HostDirect result = new();
+            if (reader.Read())
+            {
+                result.Id = SqlConnect.GetValueAsNotNullable<int>(reader, "ID");
+                result.Name = SqlConnect.GetValueAsNullable<string>(reader, "NAME");
+                result.HostName = SqlConnect.GetValueAsNullable<string>(reader, "HOSTNAME");
+                result.Ip = SqlConnect.GetValueAsNullable<string>(reader, "IP");
+                result.Mac = SqlConnect.GetValueAsNullable<string>(reader, "MAC");
+                result.IdRRef = SqlConnect.GetValueAsNotNullable<Guid>(reader, "IDRREF");
+                result.IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "MARKED");
+                result.ScaleId = SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID");
+            }
+            return result;
+        }
+
+        public static HostEntity GetHostEntity(string hostName)
+        {
+            HostEntity host = DataAccess.Crud.GetEntity<HostEntity>(
+                new FieldListEntity(new Dictionary<DbField, object?> {
+                    { DbField.HostName, hostName },
+                    { DbField.IsMarked, false } }),
+                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
+            return host;
+        }
+
+        public static HostDirect Load(Guid uid)
+        {
+            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
+            if (result == null)
+                result = new HostDirect();
+            return result;
+        }
+
+        public static HostDirect Load(string hostName)
+        {
+            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByHostName,
+                new SqlParameter("@HOST_NAME", System.Data.SqlDbType.NVarChar, 255) { Value = hostName }, LoadReader);
+            if (result == null)
+                result = new HostDirect();
+            return result;
+        }
+
+        public static HostDirect GetHostDirect()
+        {
+            if (!File.Exists(FilePathToken))
+            {
+                return new HostDirect();
+            }
+            XDocument doc = XDocument.Load(FilePathToken);
+            Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
+            //string EncryptConnectionString = doc.Root.Elements("EncryptConnectionString").First().Value;
+            //string connectionString = EncryptDecryptUtil.Decrypt(EncryptConnectionString);
+            return Load(idrref);
+        }
+
+        public static HostDirect GetHostDirect(string hostName) => Load(hostName);
+
+        public static bool CheckHostUidInFile()
+        {
+            if (!File.Exists(FilePathToken))
+                return false;
+
+            XDocument doc = XDocument.Load(FilePathToken);
+            Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
+            bool result = default;
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef,
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref }, (reader) =>
+                {
+                    result = reader.Read();
+                });
+            return result;
+        }
+
+        #endregion
+
+        #region Public and private methods - Sscc
+
+
 
         #endregion
     }

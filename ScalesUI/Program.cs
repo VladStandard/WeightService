@@ -6,7 +6,6 @@ using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
-using DataCore.Sql.Controllers;
 using DataCore.Sql.TableScaleModels;
 using ScalesUI.Forms;
 using System;

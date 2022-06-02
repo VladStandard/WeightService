@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels
             Table("[db_scales].[SYSTEM]");
             LazyLoad();
             Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            Map(x => x.ReleaseDt).CustomSqlType("DATETIME").Column("RELEASE_DT").Not.Nullable();
+            Map(x => x.ReleaseDt).CustomSqlType("DATE").Column("RELEASE_DT").Not.Nullable();
             Map(x => x.Version).CustomSqlType("SMALLINT").Column("VERSION").Not.Nullable();
             Map(x => x.Description).CustomSqlType("NVARCHAR").Length(128).Column("DESCRIPTION").Not.Nullable();
         }

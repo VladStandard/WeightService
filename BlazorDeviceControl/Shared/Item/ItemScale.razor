@@ -189,18 +189,25 @@ else
                         Text=@LocaleCore.Table.WorkShopName />
                 </td>
                 <td>
-                    @*<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.WorkShop.IdentityId >
                         @foreach (WorkShopEntity item in WorkShopItems)
                         {
                             <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
                         }
-                    </MudSelect>*@
+                    </MudSelect>
 				</td>
                 <td>@LocaleCore.Table.ScaleFactor</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="int?" @bind-Value=@ItemCast.ScaleFactor />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.Counter</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="int" @bind-Value=@ItemCast.Counter />
 				</td>
             </tr>
         </tbody>

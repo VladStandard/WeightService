@@ -1,0 +1,55 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/section/system"
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
+@using DataCore
+@using DataCore.Sql.DataModels
+@using DataCore.Sql.TableScaleModels
+@using DataCore.Localizations
+@using DataCore.Utils
+@using static DataCore.ShareEnums
+
+@if (!IsLoaded)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadSection ParentRazor=@this 
+        Title=@LocaleCore.Strings.AccessRights SetParameters=@SetParametersAsync />
+
+    <RadzenGrid Style="margin-top: 5px; " 
+        Data=@ItemsCast TItem="SystemEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="SystemEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
+                <Template Context="itemCast">
+                    <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                        Disabled=false ReadOnly=true Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SystemEntity" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Version Type="string" Width="10%" >
+                <Template Context="itemCast">
+                    <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                        Disabled=false ReadOnly=true Text=@itemCast.Version.ToString() />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="SystemEntity" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Description Type="string" Width="70%">
+                <Template Context="itemCast">
+                    <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                        Disabled=false ReadOnly=true Text=@itemCast.Description />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

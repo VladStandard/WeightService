@@ -51,14 +51,14 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="Active" Width="4%" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.Active >
-                <Template Context="pluEntity">
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.Active />
+                <Template Context="itemCast">
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Active />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CheckWeight >
-                <Template Context="pluEntity">
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@pluEntity.IsCheckWeight />
+                <Template Context="itemCast">
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsCheckWeight />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%" Title=@LocaleCore.Table.GoodsName SortProperty="GoodsName" >
@@ -70,16 +70,16 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="15%"
                 Title=@LocaleCore.Table.Template >
-                <Template Context="pluEntity">
-                    <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Template.Title></RadzenLabel>
+                <Template Context="itemCast">
+                    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Template.Title></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="Gtin" Width="11%" TextAlign=TextAlign.Center 
                 Title=@LocaleCore.Table.Gtin />
             <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Width="3%" TextAlign=TextAlign.Center
                 Title="" >
-                <Template Context="pluEntity">
-                    @if (pluEntity.GtinCheck())
+                <Template Context="itemCast">
+                    @if (itemCast.GtinCheck())
                     {
                         <RadzenIcon Icon="" />
                     }
@@ -91,8 +91,8 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="21%"
                 Title=@LocaleCore.Table.NomenclatureName >
-                <Template Context="pluEntity">
-                    <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Nomenclature.Name></RadzenLabel>
+                <Template Context="itemCast">
+                    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Nomenclature.Name></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Width="5%" TextAlign=TextAlign.Center 

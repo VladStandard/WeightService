@@ -269,6 +269,7 @@ namespace DataCore.Sql
             fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
             fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
             fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
+            fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.SystemMap>());
             fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
             fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskMap>());
             fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskTypeMap>());

@@ -356,10 +356,16 @@ namespace BlazorCore.Models
                 else
                     scale.TemplateSeries = null;
             }
-            //if (success)
-            //    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocaleCore.Strings.TableItem.TemplateDefault);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Table.Workshop);
+            {
+                if (scale.WorkShop?.IdentityId != 0)
+                {
+                    scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<WorkShopEntity>(scale.WorkShop?.IdentityId);
+                    success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Table.Template);
+                }
+                else
+                    scale.WorkShop = null;
+            }
             if (success)
             {
                 scale.ChangeDt = DateTime.Now;

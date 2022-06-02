@@ -15,7 +15,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual TemplateEntity? TemplateDefault { get; set; }
         public virtual TemplateEntity? TemplateSeries { get; set; }
-        public virtual WorkShopEntity WorkShop { get; set; }
+        public virtual WorkShopEntity? WorkShop { get; set; }
         public virtual PrinterEntity? PrinterMain { get; set; }
         public virtual PrinterEntity? PrinterShipping { get; set; }
         public virtual byte ShippingLength { get; set; }
@@ -31,6 +31,7 @@ namespace DataCore.Sql.TableScaleModels
         [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
         public virtual int? Number { get; set; }
+        public virtual int Counter { get; set; }
         public virtual int? ScaleFactor { get; set; }
         public virtual bool IsShipping { get; set; }
         public virtual bool IsOrder { get; set; }
@@ -49,7 +50,7 @@ namespace DataCore.Sql.TableScaleModels
         {
             TemplateDefault = null;
             TemplateSeries = null;
-            WorkShop = new();
+            WorkShop = null;
             Host = null;
             PrinterMain = null;
             PrinterShipping = null;
@@ -63,7 +64,8 @@ namespace DataCore.Sql.TableScaleModels
             DeviceComPort = string.Empty;
             ZebraIp = string.Empty;
             ZebraPort = default;
-            Number = default;
+            Number = 0;
+            Counter = 0;
             ScaleFactor = default;
             IsShipping = false;
             IsOrder = false;
@@ -95,6 +97,7 @@ namespace DataCore.Sql.TableScaleModels
                    $"{nameof(ZebraPort)}: {ZebraPort}. " +
                    $"{nameof(IsOrder)}: {IsOrder}. " +
                    $"{nameof(Number)}: {Number}. " +
+                   $"{nameof(Counter)}: {Counter}. " +
                    $"{nameof(TemplateDefault)}: {strTemplateDefault}. " +
                    $"{nameof(TemplateSeries)}: {strTemplateSeries}. " +
                    $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
@@ -136,6 +139,7 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(ZebraPort, item.ZebraPort) &&
                    Equals(IsOrder, item.IsOrder) &&
                    Equals(Number, item.Number) &&
+                   Equals(Counter, item.Counter) &&
                    Equals(ScaleFactor, item.ScaleFactor) &&
                    Equals(IsShipping, item.IsShipping) &&
                    Equals(IsKneading, item.IsKneading) &&
@@ -187,7 +191,8 @@ namespace DataCore.Sql.TableScaleModels
                    Equals(ZebraPort, null) &&
                    Equals(IsOrder, false) &&
 
-                   Equals(Number, null) &&
+                   Equals(Number, 0) &&
+                   Equals(Counter, 0) &&
                    Equals(ScaleFactor, null) &&
                    Equals(IsShipping, false) &&
                    Equals(IsKneading, false) &&
@@ -199,7 +204,7 @@ namespace DataCore.Sql.TableScaleModels
             ScaleEntity item = new();
             item.TemplateDefault = TemplateDefault?.CloneCast();
             item.TemplateSeries = TemplateSeries?.CloneCast();
-            item.WorkShop = WorkShop.CloneCast();
+            item.WorkShop = WorkShop?.CloneCast();
             item.PrinterMain = PrinterMain?.CloneCast();
             item.PrinterShipping = PrinterShipping?.CloneCast();
             item.IsShipping = IsShipping;
@@ -217,6 +222,7 @@ namespace DataCore.Sql.TableScaleModels
             item.ZebraPort = ZebraPort;
             item.IsOrder = IsOrder;
             item.Number = Number;
+            item.Counter = Counter;
             item.ScaleFactor = ScaleFactor;
             item.Setup(((BaseEntity)this).CloneCast());
             return item;

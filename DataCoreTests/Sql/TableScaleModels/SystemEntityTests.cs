@@ -29,32 +29,28 @@ namespace DataCoreTests.Sql.TableScaleModels
         {
             Assert.DoesNotThrow(() =>
             {
-                foreach (bool isShowMarkedItems in TestsEnums.GetBool())
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<SystemEntity>(
+                        null,
+                        new FieldOrderEntity(DbField.ReleaseDt, DbOrderDirection.Asc), 
+                        10)
+                    ?.ToList<BaseEntity>();
+                if (items != null)
                 {
-                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<SystemEntity>(
-                            (isShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
-                            10)
-                        ?.ToList<BaseEntity>();
-                    if (items != null)
+                    List<SystemEntity> itemsCast = items.Select(x => (SystemEntity)x).ToList();
+                    if (itemsCast.Count > 0)
                     {
-                        List<SystemEntity> itemsCast = items.Select(x => (SystemEntity)x).ToList();
-                        if (itemsCast.Count > 0)
+                        foreach (SystemEntity item in itemsCast)
                         {
-                            foreach (SystemEntity item in itemsCast)
+                            SystemEntity itemCopy = item.CloneCast();
+                            Assert.AreEqual(true, item.Equals(itemCopy));
+                            Assert.AreEqual(true, itemCopy.Equals(item));
+                            SystemEntity itemChange = new()
                             {
-                                SystemEntity itemCopy = item.CloneCast();
-                                Assert.AreEqual(true, item.Equals(itemCopy));
-                                Assert.AreEqual(true, itemCopy.Equals(item));
-                                SystemEntity itemChange = new()
-                                {
-                                    IsMarked = true,
-                                };
-                                _ = itemChange.ToString();
-                                Assert.AreNotEqual(true, itemChange.Equals(item));
-                                Assert.AreNotEqual(true, item.Equals(itemChange));
-                            }
+                                IsMarked = true,
+                            };
+                            _ = itemChange.ToString();
+                            Assert.AreNotEqual(true, itemChange.Equals(item));
+                            Assert.AreNotEqual(true, item.Equals(itemChange));
                         }
                     }
                 }

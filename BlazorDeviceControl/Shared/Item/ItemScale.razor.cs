@@ -95,6 +95,8 @@ namespace BlazorDeviceControl.Shared.Item
                         ItemCast.TemplateDefault = new(0) { Title = LocaleCore.Table.FieldNull };
                     if (ItemCast.TemplateSeries == null)
                         ItemCast.TemplateSeries = new(0) { Title = LocaleCore.Table.FieldNull };
+                    if (ItemCast.WorkShop == null)
+                        ItemCast.WorkShop = new(0) { Name = LocaleCore.Table.FieldNull };
 
                     // ComPorts
                     ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
@@ -157,7 +159,8 @@ namespace BlazorDeviceControl.Shared.Item
                         ?.ToList();
                     if (workShopItems is List<WorkShopEntity> workShopItems2)
                     {
-                        WorkShopItems = workShopItems2;
+                        WorkShopItems.Add(new WorkShopEntity(0) { Name = LocaleCore.Table.FieldNull });
+                        WorkShopItems.AddRange(workShopItems2);
                     }
 
                     ButtonSettings = new(false, false, false, false, false, true, true);

@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - WS-T-187. Управление устройствами. Устройства с пустыми полями
 
+## [0.6.730] - 2022-05-25
+### Changed
+- WS-T-187. Управление устройствами. Устройства с пустыми полями
+
 ## [0.6.530] - 2022-04-11
 ### Changed
 - DataCore.Files.JsonSettingsEntity

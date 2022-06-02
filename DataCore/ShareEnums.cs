@@ -125,6 +125,7 @@ namespace DataCore
             Plu,
             PluNumber,
             PrinterId,
+            ReleaseDt,
             Scale,
             Scale_Id,
             ScaleId,
@@ -133,6 +134,7 @@ namespace DataCore
             Type,
             User,
             Value,
+            Version,
             WeithingDate,
         }
 

@@ -17,10 +17,10 @@ namespace DataCore.Sql.TableScaleModels
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
             References(x => x.TemplateDefault).Column("TemplateIdDefault").Nullable();
             References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
-            References(x => x.WorkShop).Column("WorkShopId").Not.Nullable();
             References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
             References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
             References(x => x.Host).Column("HostId").Nullable();
+            References(x => x.WorkShop).Column("WorkShopId").Nullable();
             Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150);
             Map(x => x.DeviceIp).CustomSqlType("VARCHAR").Column("DeviceIP").Length(15);
             Map(x => x.DevicePort).CustomSqlType("SMALLINT").Column("DevicePort");
@@ -32,6 +32,7 @@ namespace DataCore.Sql.TableScaleModels
             Map(x => x.ZebraPort).CustomSqlType("SMALLINT").Column("ZebraPort");
             Map(x => x.IsOrder).CustomSqlType("SMALLINT").Column("UseOrder").Default("0").Nullable();
             Map(x => x.Number).CustomSqlType("INT").Column("NUMBER").Nullable();
+            Map(x => x.Counter).CustomSqlType("INT").Column("COUNTER").Not.Nullable();
             Map(x => x.ScaleFactor).CustomSqlType("INT").Column("ScaleFactor").Default("1000");
             Map(x => x.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
             Map(x => x.ShippingLength).CustomSqlType("INT").Column("SHIPPING_LEN").Not.Nullable().Default("0");

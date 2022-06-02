@@ -78,9 +78,9 @@ namespace DataCore.Localizations
                 public const string Info = "/section/info";
                 public const string Labels = "/section/measurements/labels";
                 public const string Logs = "/section/logs";
-                public const string LogsNones = "/section/logs_nones";
-                public const string LogsInformations = "/section/logs_informations";
                 public const string LogsErrors = "/section/logs_errors";
+                public const string LogsInformations = "/section/logs_informations";
+                public const string LogsNones = "/section/logs_nones";
                 public const string LogsQuestions = "/section/logs_questions";
                 public const string LogsStops = "/section/logs_stops";
                 public const string LogsWarnings = "/section/logs_warnings";
@@ -93,6 +93,7 @@ namespace DataCore.Localizations
                 public const string ProductionFacilities = "/section/productionfacilities";
                 public const string Root = "/";
                 public const string Scales = "/section/scales";
+                public const string System = "/section/system";
                 public const string TaskModules = "/section/taskmodules";
                 public const string TaskTypeModules = "/section/tasktypemodules";
                 public const string TemplateResources = "/section/templateresources";

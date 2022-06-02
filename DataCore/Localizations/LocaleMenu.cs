@@ -37,6 +37,7 @@ namespace DataCore.Localizations
         public string MenuReports => Lang == ShareEnums.Lang.English ? "Reports" : "Журналы";
         public string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";
         public string MenuSystem => Lang == ShareEnums.Lang.English ? "System" : "Система";
+        public string MenuVersionHistory => Lang == ShareEnums.Lang.English ? "Version history" : "История версий";
         public string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
 
         #endregion

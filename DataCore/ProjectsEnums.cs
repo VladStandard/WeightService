@@ -65,6 +65,7 @@ namespace DataCore
             Errors,
             Logs,
             LogTypes,
+            System,
             Tasks,
             TasksTypes,
         }

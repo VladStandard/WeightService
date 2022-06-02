@@ -401,10 +401,10 @@ namespace DataCore.Sql.Controllers
                     {
                         scale.TemplateDefault = scale.TemplateDefault?.IdentityId == null ? null : GetEntity<TemplateEntity>(scale.TemplateDefault.IdentityId);
                         scale.TemplateSeries = scale.TemplateSeries?.IdentityId == null ? null : GetEntity<TemplateEntity>(scale.TemplateSeries.IdentityId);
-                        scale.WorkShop = GetEntity<WorkShopEntity>(scale.WorkShop.IdentityId);
                         scale.PrinterMain = scale.PrinterMain?.IdentityId == null ? null : GetEntity<PrinterEntity>(scale.PrinterMain.IdentityId);
                         scale.PrinterShipping = scale.PrinterShipping?.IdentityId == null ? null : GetEntity<PrinterEntity>(scale.PrinterShipping.IdentityId);
                         scale.Host = scale.Host?.IdentityId == null ? null : GetEntity<HostEntity>(scale.Host.IdentityId);
+                        scale.WorkShop = scale.WorkShop?.IdentityId == null ? null : GetEntity<WorkShopEntity>(scale.WorkShop.IdentityId);
                     }
                     break;
                 case TaskEntity task:

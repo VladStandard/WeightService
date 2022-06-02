@@ -56,8 +56,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Resources\Templates\Template90x60weight.xml = Resources\Templates\Template90x60weight.xml
 		Resources\Templates\Test TEST.sql = Resources\Templates\Test TEST.sql
 		Resources\Templates\test.sql = Resources\Templates\test.sql
-		Resources\Templates\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC 80x100 300dpi вес v2.xml
-		Resources\Templates\TSC 80x100 300dpi вес.xml = Resources\Templates\TSC 80x100 300dpi вес.xml
 		Resources\Templates\WeighingFactEntityObject1.xml = Resources\Templates\WeighingFactEntityObject1.xml
 		Resources\Templates\Zebra commands.sql = Resources\Templates\Zebra commands.sql
 		Resources\Templates\~Template80x100unit.xml = Resources\Templates\~Template80x100unit.xml
@@ -234,6 +232,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateResources", "Templa
 		Resources\TemplateResources\TEMP_6_94x115_000.PNG = Resources\TemplateResources\TEMP_6_94x115_000.PNG
 		Resources\TemplateResources\TEMP_6_94x115_000.zpl = Resources\TemplateResources\TEMP_6_94x115_000.zpl
 		Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl = Resources\TemplateResources\TEMP_6_94x115_000_V2.zpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Templates\TSC\TSC 80x100 300dpi вес.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
+		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
+		Resources\Templates\TSC\TSC 80x100 300dpi шт.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт.xml
 	EndProjectSection
 EndProject
 Global
@@ -664,9 +670,10 @@ Global
 		{56738D2C-7E81-4E61-ADD4-0E1F91E539A9} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{99E4F265-9C8D-44A0-B5F3-F05D9AA54487} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{5121B4E0-3103-4872-AB23-0E5909BA356D} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
+		{5CA80E2F-E045-41F4-9460-CC519B8D7DBF} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal

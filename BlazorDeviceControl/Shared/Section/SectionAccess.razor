@@ -63,8 +63,8 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.AccessLevel Type="string" Width="30%">
-                <Template Context="accessItem">
-                    <RadzenLabel Text=@UserSettings.Identity.GetDescriptionAccessRights(accessItem.Rights) Disabled=false ReadOnly=true />
+                <Template Context="itemCast">
+                    <RadzenLabel Text=@UserSettings.Identity.GetDescriptionAccessRights(itemCast.Rights) Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
         </Columns>

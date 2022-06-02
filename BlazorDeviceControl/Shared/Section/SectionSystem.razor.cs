@@ -15,17 +15,17 @@ using Radzen;
 
 namespace BlazorDeviceControl.Shared.Section
 {
-    public partial class SectionAccess
+    public partial class SectionSystem
     {
         #region Public and private fields and properties
 
-        private List<AccessEntity> ItemsCast => Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList();
+        private List<SystemEntity> ItemsCast => Items == null ? new() : Items.Select(x => (SystemEntity)x).ToList();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionAccess() : base()
+        public SectionSystem() : base()
         {
             //
         }
@@ -37,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Section
         private void Default()
         {
             IsLoaded = false;
-            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.System);
             Items = new();
             ButtonSettings = new();
         }
@@ -51,24 +51,17 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
-                        (IsShowMarkedItems == true) ? null
-                            : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
+                    Items = AppSettings.DataAccess.Crud.GetEntities<SystemEntity>(
+                        null,
+                        new FieldOrderEntity(DbField.Version, DbOrderDirection.Desc), 
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.ToList<BaseEntity>();
-                    ButtonSettings = new(true, false, true, true, true, false, false);
+                    ButtonSettings = new(false, false, false, false, false, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
         
-        public void RowRender(RowRenderEventArgs<AccessEntity> args)
-        {
-            args.Attributes.Add("class", UserSettings.Identity.GetColorAccessRights(args.Data.Rights));
-            //RowCounter += 1;
-        }
-
         #endregion
     }
 }

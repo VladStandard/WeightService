@@ -61,22 +61,22 @@
                                   Type="string" Width="14%" />
                 <RadzenGridColumn TItem="NomenclatureEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
                                   Type="string" Width="14%">
-                    <Template Context="nomenclature">
-                        <RadzenLabel Style="height: 10px; " Text=@nomenclature?.ParentConvert?.Parents?[0] />
+                    <Template Context="itemCast">
+                        <RadzenLabel Style="height: 10px; " Text=@itemCast?.ParentConvert?.Parents?[0] />
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="NomenclatureEntity" Property="Name" Title=@LocalizationStrings.TableFieldName
                                   Type="string" Width="33%" />
                 <RadzenGridColumn TItem="NomenclatureEntity" Property="RelevanceStatus" Title=@LocalizationStrings.TableFieldRelevanceStatus
                                   Type="string" Width="10%">
-                    <Template Context="nomenclature">
-                        <RadzenLabel Style="height: 10px; " Text=@UtilsEnum.GetEnumRelevanceStatusRus(nomenclature?.RelevanceStatus) />
+                    <Template Context="itemCast">
+                        <RadzenLabel Style="height: 10px; " Text=@UtilsEnum.GetEnumRelevanceStatusRus(itemCast?.RelevanceStatus) />
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="NomenclatureEntity" Property="NormalizationStatus" Title=@LocalizationStrings.TableFieldNormalizationStatus
                                   Type="string" Width="15%">
-                    <Template Context="nomenclature">
-                        <RadzenLabel Style="height: 10px; " Text=@UtilsEnum.GetEnumNormalizationStatusRus(nomenclature?.NormalizationStatus) />
+                    <Template Context="itemCast">
+                        <RadzenLabel Style="height: 10px; " Text=@UtilsEnum.GetEnumNormalizationStatusRus(itemCast?.NormalizationStatus) />
                     </Template>
                 </RadzenGridColumn>
             </Columns>

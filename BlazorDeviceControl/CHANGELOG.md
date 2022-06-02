@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.785] - 2022-06-02
+### Changed
+- DataCore.Sql.TableScaleModels.ScaleEntity
+- DataCore.Sql.TableScaleModels.ScaleMap
+
 ## [0.6.780] - 2022-06-01
 ### Описание обновления:
 - WS-T-215. Системная таблица версий

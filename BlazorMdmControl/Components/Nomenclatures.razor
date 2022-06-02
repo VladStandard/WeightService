@@ -60,8 +60,8 @@
                                           Type="string" Width="20%" Sortable="true" />
                         <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
                                           Type="string" Width="30%" Sortable="false">
-                            <Template Context="nomenclature">
-                                <RadzenLabel Style="height: 10px; " Text=@nomenclature?.ParentConvert?.Parents?[0] />
+                            <Template Context="itemCast">
+                                <RadzenLabel Style="height: 10px; " Text=@itemCast?.ParentConvert?.Parents?[0] />
                             </Template>
                         </RadzenGridColumn>
                         <RadzenGridColumn TItem="NomenclatureLightEntity" Property="Name" Title=@LocalizationStrings.TableFieldName
@@ -170,16 +170,16 @@
                                       Type="string" Width="17%" Sortable="true" />
                     <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
                                       Type="string" Width="20%" Sortable="false">
-                        <Template Context="nomenclature">
-                            <RadzenLabel Style="height: 10px; " Text=@nomenclature.ParentConvert?.Parents?[0] />
+                        <Template Context="itemCast">
+                            <RadzenLabel Style="height: 10px; " Text=@itemCast.ParentConvert?.Parents?[0] />
                         </Template>
                     </RadzenGridColumn>
                     <RadzenGridColumn TItem="NomenclatureLightEntity" Property="Name" Title=@LocalizationStrings.TableFieldName
                                       Type="string" Width="42%" Sortable="true" />
                     <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldRelevanceStatus
                                       Type="string" Width="5%" Sortable="false">
-                        <Template Context="nomenclature">
-                            <RadzenCheckBox Value=@UtilsEnum.GetEnumRelevanceStatusBool(nomenclature.RelevanceStatus) TValue="bool?" Disabled=false ReadOnly=true 
+                        <Template Context="itemCast">
+                            <RadzenCheckBox Value=@UtilsEnum.GetEnumRelevanceStatusBool(itemCast.RelevanceStatus) TValue="bool?" Disabled=false ReadOnly=true 
                                             Style="text-align: center;" />
                         </Template>
                     </RadzenGridColumn>
