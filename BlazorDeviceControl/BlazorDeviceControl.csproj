@@ -118,10 +118,10 @@
     <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />
     <Watch Remove="Shared\Section\SectionProductionFacilities.razor" />
     <Watch Remove="Shared\Section\SectionScales.razor" />
-    <Watch Remove="Shared\Section\SectionSystem.razor" />
     <Watch Remove="Shared\Section\SectionTaskModules.razor" />
     <Watch Remove="Shared\Section\SectionTemplateResources.razor" />
     <Watch Remove="Shared\Section\SectionTemplates.razor" />
+    <Watch Remove="Shared\Section\SectionVersions.razor" />
     <Watch Remove="Shared\Section\SectionWorkshops.razor" />
     <Watch Remove="Shared\Section\Measurements\SectionLabels.razor" />
     <Watch Remove="Shared\Section\Measurements\SectionWeithingFacts.razor" />

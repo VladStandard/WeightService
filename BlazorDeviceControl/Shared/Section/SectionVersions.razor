@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/system"
+@page "/section/versions"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
@@ -21,27 +21,27 @@ else
         Title=@LocaleCore.Strings.AccessRights SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px; " 
-        Data=@ItemsCast TItem="SystemEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="VersionEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="SystemEntity" TextAlign=TextAlign.Center
+                TItem="VersionEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Disabled=false ReadOnly=true Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="SystemEntity" TextAlign=TextAlign.Left
+            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Version Type="string" Width="10%" >
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Disabled=false ReadOnly=true Text=@itemCast.Version.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="SystemEntity" TextAlign=TextAlign.Left
+            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Description Type="string" Width="70%">
                 <Template Context="itemCast">
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "

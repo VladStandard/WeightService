@@ -30,6 +30,7 @@ namespace DataCore.Localizations
         public string MenuAccess => Lang == ShareEnums.Lang.English ? "Menu access" : "Доступ к меню";
         public string MenuAccessAllow => Lang == ShareEnums.Lang.English ? "Menu access allowed" : "Доступ к меню разрешён";
         public string MenuAccessDeny => Lang == ShareEnums.Lang.English ? "Menu access denied" : "Доступ к меню запрещён";
+        public string MenuDbVersionHistory => Lang == ShareEnums.Lang.English ? "DB version history" : "История версий БД";
         public string MenuHome => Lang == ShareEnums.Lang.English ? "Home" : "Домой";
         public string MenuInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
         public string MenuMain => Lang == ShareEnums.Lang.English ? "Main" : "Главная";
@@ -37,7 +38,6 @@ namespace DataCore.Localizations
         public string MenuReports => Lang == ShareEnums.Lang.English ? "Reports" : "Журналы";
         public string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";
         public string MenuSystem => Lang == ShareEnums.Lang.English ? "System" : "Система";
-        public string MenuVersionHistory => Lang == ShareEnums.Lang.English ? "Version history" : "История версий";
         public string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
 
         #endregion

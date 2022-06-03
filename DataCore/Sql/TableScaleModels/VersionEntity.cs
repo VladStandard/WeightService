@@ -8,10 +8,10 @@ using System.Runtime.Serialization;
 namespace DataCore.Sql.TableScaleModels
 {
     /// <summary>
-    /// Table "Access".
+    /// Table "Versions".
     /// </summary>
     [Serializable]
-    public class SystemEntity : BaseEntity, ISerializable
+    public class VersionEntity : BaseEntity, ISerializable
     {
         #region Public and private fields and properties
 
@@ -23,19 +23,19 @@ namespace DataCore.Sql.TableScaleModels
 
         #region Constructor and destructor
 
-        public SystemEntity() : this(Guid.Empty)
+        public VersionEntity() : this(Guid.Empty)
         {
             //
         }
 
-        public SystemEntity(Guid uid) : base(uid)
+        public VersionEntity(Guid uid) : base(uid)
         {
             ReleaseDt = DateTime.MinValue;
             Version = 0;
             Description = string.Empty;
         }
 
-        protected SystemEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected VersionEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             ReleaseDt = info.GetDateTime(nameof(ReleaseDt));
             Version = info.GetInt16(nameof(Version));
@@ -52,7 +52,7 @@ namespace DataCore.Sql.TableScaleModels
             $"{nameof(Version)}: {Version}. " +
             $"{nameof(Description)}: {Description}. ";
 
-        public virtual bool Equals(SystemEntity item)
+        public virtual bool Equals(VersionEntity item)
         {
             if (item is null) return false;
             if (ReferenceEquals(this, item)) return true;
@@ -67,7 +67,7 @@ namespace DataCore.Sql.TableScaleModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((SystemEntity)obj);
+            return Equals((VersionEntity)obj);
         }
 
         public override int GetHashCode()
@@ -77,7 +77,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new SystemEntity());
+            return Equals(new VersionEntity());
         }
 
         public new virtual bool EqualsDefault()
@@ -90,7 +90,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public new virtual object Clone()
         {
-            SystemEntity item = new();
+            VersionEntity item = new();
             item.ReleaseDt = ReleaseDt;
             item.Version = Version;
             item.Description = Description;
@@ -98,7 +98,7 @@ namespace DataCore.Sql.TableScaleModels
             return item;
         }
 
-        public new virtual SystemEntity CloneCast() => (SystemEntity)Clone();
+        public new virtual VersionEntity CloneCast() => (VersionEntity)Clone();
 
         public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {

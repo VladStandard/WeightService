@@ -18,7 +18,7 @@ namespace DataCoreTests.Sql.TableScaleModels
         {
             Assert.DoesNotThrow(() =>
             {
-                SystemEntity item = new();
+                VersionEntity item = new();
                 Assert.AreEqual(true, item.EqualsNew());
                 Assert.AreEqual(true, item.EqualsDefault());
             });
@@ -29,22 +29,22 @@ namespace DataCoreTests.Sql.TableScaleModels
         {
             Assert.DoesNotThrow(() =>
             {
-                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<SystemEntity>(
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<VersionEntity>(
                         null,
                         new FieldOrderEntity(DbField.ReleaseDt, DbOrderDirection.Asc), 
                         10)
                     ?.ToList<BaseEntity>();
                 if (items != null)
                 {
-                    List<SystemEntity> itemsCast = items.Select(x => (SystemEntity)x).ToList();
+                    List<VersionEntity> itemsCast = items.Select(x => (VersionEntity)x).ToList();
                     if (itemsCast.Count > 0)
                     {
-                        foreach (SystemEntity item in itemsCast)
+                        foreach (VersionEntity item in itemsCast)
                         {
-                            SystemEntity itemCopy = item.CloneCast();
+                            VersionEntity itemCopy = item.CloneCast();
                             Assert.AreEqual(true, item.Equals(itemCopy));
                             Assert.AreEqual(true, itemCopy.Equals(item));
-                            SystemEntity itemChange = new()
+                            VersionEntity itemChange = new()
                             {
                                 IsMarked = true,
                             };

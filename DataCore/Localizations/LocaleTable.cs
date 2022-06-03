@@ -22,6 +22,7 @@ namespace DataCore.Localizations
 
         public string AccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
         public string Active => Lang == ShareEnums.Lang.English ? "Active" : "Активно";
+        public string ActiveShort => Lang == ShareEnums.Lang.English ? "Act" : "Акт";
         public string App => Lang == ShareEnums.Lang.English ? "Program" : "Программа";
         public string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
         public string BarCodeTypeId => Lang == ShareEnums.Lang.English ? "___" : "ID типа ШК";
@@ -31,6 +32,7 @@ namespace DataCore.Localizations
         public string ChangeDt => Lang == ShareEnums.Lang.English ? "Edit date" : "Дата редактирования";
         public string CheckGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
         public string CheckWeight => Lang == ShareEnums.Lang.English ? "___" : "Весовая продукция";
+        public string CheckWeightShort => Lang == ShareEnums.Lang.English ? "Weight" : "Вес";
         public string Code => Lang == ShareEnums.Lang.English ? "___" : "Код";
         public string Comment => Lang == ShareEnums.Lang.English ? "___" : "Комментарий";
         public string ConsumerName => Lang == ShareEnums.Lang.English ? "___" : "ConsumerName";
@@ -72,11 +74,13 @@ namespace DataCore.Localizations
         public string FullName => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
         public string Gln => "GLN";
         public string GoodsBoxQuantly => Lang == ShareEnums.Lang.English ? "Investments in the box" : "Вложений в короб";
+        public string GoodsBoxQuantlyShort => Lang == ShareEnums.Lang.English ? "Attach" : "Влож";
         public string GoodsBruttoWeight => Lang == ShareEnums.Lang.English ? "Gross weight" : "Вес брутто";
         public string GoodsDescription => Lang == ShareEnums.Lang.English ? "Good description" : "Описание товара";
         public string GoodsFullName => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
         public string GoodsName => Lang == ShareEnums.Lang.English ? "Product" : "Товар";
         public string GoodsTareWeight => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
+        public string GoodsTareWeightShort => Lang == ShareEnums.Lang.English ? "Weight" : "Вес";
         public string GoodsTareWeightDescription => Lang == ShareEnums.Lang.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
         public string Gtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
         public string GuidMercury => Lang == ShareEnums.Lang.English ? "GUID Mercury" : "ГУИД Меркурий";
@@ -118,6 +122,7 @@ namespace DataCore.Localizations
         public string NomenclatureUnitId => Lang == ShareEnums.Lang.English ? "Nomenclature unit ID" : "ID юнита номенклатуры";
         public string NominalWeight => Lang == ShareEnums.Lang.English ? "Nominal box weight" : "Номинальный вес короба";
         public string Number => Lang == ShareEnums.Lang.English ? "Number" : "Номер";
+        public string NumberShort => Lang == ShareEnums.Lang.English ? "#" : "№";
         public string Order => Lang == ShareEnums.Lang.English ? "Order" : "Заказ";
         public string PackQuantly => Lang == ShareEnums.Lang.English ? "Pack quantly" : "Быстрота упаковки";
         public string PackTypeId => Lang == ShareEnums.Lang.English ? "Package type ID" : "ID типа упаковки";
@@ -140,6 +145,7 @@ namespace DataCore.Localizations
         public string ScaleFactor => Lang == ShareEnums.Lang.English ? "Scale factor" : "Коэф. масштабирования";
         public string ScaleId => Lang == ShareEnums.Lang.English ? "Scale ID" : "ID весов";
         public string ShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life (days)" : "Срок годности (суток)";
+        public string ShelfLifeDaysShort => Lang == ShareEnums.Lang.English ? "Life" : "Срок";
         public string Sscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
         public string State => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
         public string Storage => Lang == ShareEnums.Lang.English ? "Storage" : "Склад";

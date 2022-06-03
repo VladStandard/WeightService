@@ -93,11 +93,11 @@ namespace DataCore.Localizations
                 public const string ProductionFacilities = "/section/productionfacilities";
                 public const string Root = "/";
                 public const string Scales = "/section/scales";
-                public const string System = "/section/system";
                 public const string TaskModules = "/section/taskmodules";
                 public const string TaskTypeModules = "/section/tasktypemodules";
                 public const string TemplateResources = "/section/templateresources";
                 public const string Templates = "/section/templates";
+                public const string Versions = "/section/versions";
                 public const string WeithingFacts = "/section/measurements/weithingfacts";
                 public const string WeithingFactsAggregation = "/section/measurements/weithingfacts_aggregation";
                 public const string WorkShops = "/section/workshops";

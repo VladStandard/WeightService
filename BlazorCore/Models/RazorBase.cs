@@ -1059,7 +1059,7 @@ namespace BlazorCore.Models
                             page = LocaleData.DeviceControl.UriRouteSection.Nomenclatures;
                             break;
                         case ProjectsEnums.TableScale.Plus:
-                            page = LocaleData.DeviceControl.UriRouteSection.Plus;
+                            page = LocaleData.DeviceControl.UriRouteSection.Scales;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
                             page = LocaleData.DeviceControl.UriRouteSection.PrinterResources;

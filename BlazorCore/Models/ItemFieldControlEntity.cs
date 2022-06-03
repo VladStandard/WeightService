@@ -214,12 +214,12 @@ namespace BlazorCore.Models
         {
             if (plu.EqualsDefault())
                 result = false;
-            PluEntity[]? pluEntities = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+            PluEntity[]? items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                 new FieldListEntity(new Dictionary<string, object?> {
                     { $"Scale.{DbField.IdentityId}", plu.Scale.IdentityId },
-                    { DbField.Plu.ToString(), plu.PluNumber }
+                    { DbField.PluNumber.ToString(), plu.PluNumber }
                 }), null);
-            if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
+            if (items != null && items.Any() && !items.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
             {
                 detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {plu.PluNumber}" + Environment.NewLine;
                 result = false;

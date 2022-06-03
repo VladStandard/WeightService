@@ -5,11 +5,11 @@ using FluentNHibernate.Mapping;
 
 namespace DataCore.Sql.TableScaleModels
 {
-    public class SystemMap : ClassMap<SystemEntity>
+    public class VersionMap : ClassMap<VersionEntity>
     {
-        public SystemMap()
+        public VersionMap()
         {
-            Table("[db_scales].[SYSTEM]");
+            Table("[db_scales].[VERSIONS]");
             LazyLoad();
             Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.ReleaseDt).CustomSqlType("DATE").Column("RELEASE_DT").Not.Nullable();

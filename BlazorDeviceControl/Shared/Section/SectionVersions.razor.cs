@@ -15,17 +15,17 @@ using Radzen;
 
 namespace BlazorDeviceControl.Shared.Section
 {
-    public partial class SectionSystem
+    public partial class SectionVersions
     {
         #region Public and private fields and properties
 
-        private List<SystemEntity> ItemsCast => Items == null ? new() : Items.Select(x => (SystemEntity)x).ToList();
+        private List<VersionEntity> ItemsCast => Items == null ? new() : Items.Select(x => (VersionEntity)x).ToList();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionSystem() : base()
+        public SectionVersions() : base()
         {
             //
         }
@@ -37,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Section
         private void Default()
         {
             IsLoaded = false;
-            Table = new TableSystemEntity(ProjectsEnums.TableSystem.System);
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Versions);
             Items = new();
             ButtonSettings = new();
         }
@@ -51,7 +51,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.Crud.GetEntities<SystemEntity>(
+                    Items = AppSettings.DataAccess.Crud.GetEntities<VersionEntity>(
                         null,
                         new FieldOrderEntity(DbField.Version, DbOrderDirection.Desc), 
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

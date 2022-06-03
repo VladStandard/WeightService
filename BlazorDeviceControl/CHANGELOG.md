@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.800] - 2022-06-03
+### Описание обновления:
+- WS-T-228. После закрытия ПЛУ возвращаться в раздел АРМ вместо раздела ПЛУ
+
 ## [0.6.790] - 2022-06-02
 ### Changed
 - DataCore.Sql.TableScaleModels.ScaleEntity

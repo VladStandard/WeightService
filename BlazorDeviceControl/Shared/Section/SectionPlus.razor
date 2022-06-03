@@ -35,28 +35,30 @@ else
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.Table.Id Type="string" Width="5%" SortProperty="IdentityId" >
+            @*<RadzenGridColumn TItem="PluEntity" Type="string" Width="5%" SortProperty="IdentityId" 
+                Title=@LocaleCore.Table.Id TextAlign=TextAlign.Center >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.IdentityId.ToString() />
                 </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" SortProperty="PluNumber" >
+            </RadzenGridColumn>*@
+            <RadzenGridColumn TItem="PluEntity" Type="string" Width="5%" SortProperty="PluNumber" 
+                Title=@LocaleCore.Table.NumberShort TextAlign=TextAlign.Center>
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.PluNumber.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Property="Active" Width="4%" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.Active >
+            <RadzenGridColumn TItem="PluEntity" Property="Active" Width="5%" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.ActiveShort >
                 <Template Context="itemCast">
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Active />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CheckWeight >
+            <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="5%" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CheckWeightShort >
                 <Template Context="itemCast">
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsCheckWeight />
                 </Template>
@@ -76,7 +78,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="Gtin" Width="11%" TextAlign=TextAlign.Center 
                 Title=@LocaleCore.Table.Gtin />
-            <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Width="3%" TextAlign=TextAlign.Center
+@*            <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Width="3%" TextAlign=TextAlign.Center
                 Title="" >
                 <Template Context="itemCast">
                     @if (itemCast.GtinCheck())
@@ -88,19 +90,19 @@ else
                         <RadzenIcon Icon="announcement" />
                     }
                 </Template>
-            </RadzenGridColumn>
+            </RadzenGridColumn>*@
             <RadzenGridColumn TItem="PluEntity" Width="21%"
                 Title=@LocaleCore.Table.NomenclatureName >
                 <Template Context="itemCast">
                     <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Nomenclature.Name></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Width="5%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.ShelfLifeDays />
-            <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Width="5%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.GoodsTareWeight />
-            <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Width="5%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.GoodsBoxQuantly />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Width="7%" TextAlign=TextAlign.Center 
+                Title=@LocaleCore.Table.ShelfLifeDaysShort />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Width="7%" TextAlign=TextAlign.Center 
+                Title=@LocaleCore.Table.GoodsTareWeightShort />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Width="7%" TextAlign=TextAlign.Center 
+                Title=@LocaleCore.Table.GoodsBoxQuantlyShort />
         </Columns>
     </RadzenGrid>
 
