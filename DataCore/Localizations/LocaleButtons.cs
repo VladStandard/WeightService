@@ -30,6 +30,7 @@ namespace DataCore.Localizations
         public string Ok => Lang == ShareEnums.Lang.English ? "Ok" : "Ок";
         public string Retry => Lang == ShareEnums.Lang.English ? "Retry" : "Повторить";
         public string Yes => Lang == ShareEnums.Lang.English ? "Yes" : "Да";
+        public string Apply => Lang == ShareEnums.Lang.English ? "Apply" : "Применить";
 
         #endregion
     }

@@ -22,7 +22,7 @@ namespace WeightCore.Gui
         public bool UseOwnerSize { get; set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
         public PageMessageBox PageMessageBoxItem { get; private set; }
-        public PageSqlSettings SqlSettings { get; private set; }
+        public PageScaleChange ScaleChange { get; private set; }
         public ProjectsEnums.Page Page { get; private set; }
 
         #endregion
@@ -104,22 +104,19 @@ namespace WeightCore.Gui
                         PluList = new PagePluList();
                         PluList.InitializeComponent();
                         ElementHost.Child = PluList;
-                        //PluList.Loaded += PluListOnLoaded;
                         PluList.OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.SqlSettings:
-                        SqlSettings = new PageSqlSettings();
-                        SqlSettings.InitializeComponent();
-                        ElementHost.Child = SqlSettings;
-                        //SqlSettings.Loaded += SqlSettingsOnLoaded;
-                        SqlSettings.OnClose += WpfPageLoader_OnClose;
+                        ScaleChange = new PageScaleChange();
+                        ScaleChange.InitializeComponent();
+                        ElementHost.Child = ScaleChange;
+                        ScaleChange.OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.MessageBox:
                         PageMessageBoxItem = new PageMessageBox();
                         PageMessageBoxItem.InitializeComponent();
                         ElementHost.Child = PageMessageBoxItem;
                         PageMessageBoxItem.MessageBox = MessageBox;
-                        //PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
                         PageMessageBoxItem.OnClose += WpfPageLoader_OnClose;
                         break;
                     default:
@@ -152,21 +149,16 @@ namespace WeightCore.Gui
                 {
                     case ProjectsEnums.Page.PluList:
                         if (PluList != null)
-                        {
                             DialogResult = PluList.Result;
-                        }
                         break;
                     case ProjectsEnums.Page.SqlSettings:
-                        if (SqlSettings != null)
-                        {
-                            DialogResult = SqlSettings.Result;
-                        }
+                        if (ScaleChange != null)
+                            DialogResult = ScaleChange.Result;
                         break;
                     case ProjectsEnums.Page.Default:
                     case ProjectsEnums.Page.MessageBox:
                     default:
                         DialogResult = MessageBox.Result;
-                        //DialogResult = DialogResult.Cancel;
                         break;
                 }
             }

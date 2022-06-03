@@ -32,29 +32,15 @@ namespace LabelPrint.Views
 
         #region Public methods
 
-        /// <summary>
-        /// Перед загрузкой страницы.
-        /// </summary>
         public void BeforeLoaded()
         {
-            // Получить программные настройки.
             _settings = WpfUtils.GetSettings(this);
-            if (_settings != null)
-            {
-                // Версия ПО.
-                //LabelVersion.Content = _settings.AppHelp.GetMainFormText(Assembly.GetExecutingAssembly(), true, Assembly.GetExecutingAssembly().GetName().Version, false);
-            }
         }
 
         #endregion
 
         #region Private methods
 
-        /// <summary>
-        /// После загрузки страницы.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // 

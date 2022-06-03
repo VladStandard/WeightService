@@ -47,7 +47,6 @@ namespace DataCore.Localizations
         public string ComPort => Lang == ShareEnums.Lang.English ? "COM-port" : "COM-порт";
         public string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
         public string Crc => "CRC";
-        public string Apply => Lang == ShareEnums.Lang.English ? $"Apply" : $"Применить";
         public string Default => Lang == ShareEnums.Lang.English ? $"Default" : $"По-умолчанию";
         public string DeviceControlIsPreview => Lang == ShareEnums.Lang.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
         public string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";

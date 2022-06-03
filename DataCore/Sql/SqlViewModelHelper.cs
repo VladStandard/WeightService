@@ -1,18 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableDirectModels;
 using DataCore.Localizations;
+using DataCore.Protocols;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableDirectModels;
+using DataCore.Sql.TableScaleModels;
 using MvvmHelpers;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using DataCore.Sql.Controllers;
-using DataCore.Protocols;
-using DataCore.Sql.TableScaleModels;
-using DataCore.Sql.Models;
-using static DataCore.ShareEnums;
 using System.Linq;
+using System.Threading;
+using static DataCore.ShareEnums;
 
 namespace DataCore.Sql
 {
@@ -183,7 +182,7 @@ namespace DataCore.Sql
             {
                 Scale = SqlUtils.GetScale(scaleId);
             }
-            
+
             List<ScaleEntity> scales = SqlUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
                 new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                 new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
@@ -193,7 +192,7 @@ namespace DataCore.Sql
             ButtonOkCaption = LocaleCore.Buttons.Ok;
             ButtonCancelCaption = LocaleCore.Buttons.Cancel;
             ButtonDefaultCaption = LocaleCore.Scales.Default;
-            ButtonApplyCaption = LocaleCore.Scales.Apply;
+            ButtonApplyCaption = LocaleCore.Buttons.Apply;
         }
 
         private void SetPublish()

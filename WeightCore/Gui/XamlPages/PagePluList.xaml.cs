@@ -20,9 +20,6 @@ namespace WeightCore.Gui.XamlPages
         public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
         public SqlViewModelHelper SqlViewModel { get; set; }
         private readonly List<PluDirect> _pluList;
-        public int RowCount { get; } = 5;
-        public int ColumnCount { get; } = 4;
-        public int PageSize { get; } = 20;
         public DialogResult Result { get; private set; }
         public RoutedEventHandler OnClose { get; set; }
 

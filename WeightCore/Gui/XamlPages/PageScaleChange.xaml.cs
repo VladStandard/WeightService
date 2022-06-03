@@ -13,15 +13,12 @@ namespace WeightCore.Gui.XamlPages
     /// <summary>
     /// Interaction logic for PageSqlSettings.xaml
     /// </summary>
-    public partial class PageSqlSettings : System.Windows.Controls.UserControl
+    public partial class PageScaleChange : System.Windows.Controls.UserControl
     {
         #region Private fields and properties
 
         public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
         public SqlViewModelHelper SqlViewModel { get; set; }
-        public int RowCount { get; } = 5;
-        public int ColumnCount { get; } = 4;
-        public int PageSize { get; } = 20;
         public DialogResult Result { get; private set; }
         public RoutedEventHandler OnClose { get; set; }
 
@@ -29,7 +26,7 @@ namespace WeightCore.Gui.XamlPages
 
         #region Constructor and destructor
 
-        public PageSqlSettings()
+        public PageScaleChange()
         {
             InitializeComponent();
 
@@ -113,32 +110,13 @@ namespace WeightCore.Gui.XamlPages
 
         public void ButtonApply_OnClick(object sender, RoutedEventArgs e)
         {
-            string scaleDescription = cbChangeDevice.Items[cbChangeDevice.SelectedIndex].ToString();
+            string scaleDescription = comboBoxChangeDevice.Items[comboBoxChangeDevice.SelectedIndex].ToString();
             ScaleEntity scale = SqlUtils.GetScale(scaleDescription);
             SqlViewModel.Setup(scale.IdentityId);
         }
 
         public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
         {
-            //if (tabTasks.Content is System.Windows.Controls.Grid gridTasks)
-            //{
-            //    foreach (object item in gridTasks.Children)
-            //    {
-            //        if (item is System.Windows.Controls.ComboBox comboBoxTaskEnabled)
-            //        {
-            //            if (comboBoxTaskEnabled.Tag is TaskDirect taskItem)
-            //            {
-            //                if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
-            //                {
-            //                    SqlUtils.SaveTask(taskItem, 
-            //                        string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //if (!string.Equals(SqlViewModel.ScaleNameBackup, SqlViewModel.ScaleName))
-            //    UserSession.Setup(SqlViewModel.ScaleName);
             Result = DialogResult.OK;
             OnClose?.Invoke(sender, e);
         }

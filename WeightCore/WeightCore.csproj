@@ -502,6 +502,10 @@
     <None Include="Zpl templates\Requests.md" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Gui\ResourceDictionarySql.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gui\XamlPages\PagePluList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

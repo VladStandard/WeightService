@@ -36,7 +36,6 @@ namespace LabelPrint.Views
         /// </summary>
         public void BeforeLoaded()
         {
-            // Получить программные настройки.
             _settings = WpfUtils.GetSettings(this);
         }
 

@@ -605,12 +605,12 @@ namespace ScalesUI.Forms
             {
                 UserSession.ManagerControl.Massa.Close();
 
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 600, Height = 300 };
                 DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 if (dialogResult == DialogResult.OK)
                 {
-                    UserSession.Setup(wpfPageLoader.SqlSettings.SqlViewModel.Scale.IdentityId);
+                    UserSession.Setup(wpfPageLoader.ScaleChange.SqlViewModel.Scale.IdentityId);
                     FieldLang_SelectedIndexChanged(sender, e);
                 }
 
