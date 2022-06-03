@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.785] - 2022-06-02
+## [0.6.790] - 2022-06-02
 ### Changed
 - DataCore.Sql.TableScaleModels.ScaleEntity
 - DataCore.Sql.TableScaleModels.ScaleMap
+### Описание обновления:
+- WS-T-220. Добавить поле счётчика в раздел и страницу АРМ
+- WS-T-221. Возможность отвязать АРМ от цеха
+- WS-T-222. Отвязать АРМ от цеха
+- WS-T-224. Расчёт веса тары ПЛУ
 
 ## [0.6.780] - 2022-06-01
 ### Описание обновления:

@@ -143,6 +143,7 @@ namespace DataCore.Localizations
         public string Sscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
         public string State => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
         public string Storage => Lang == ShareEnums.Lang.English ? "Storage" : "Склад";
+        public string TableCalc => Lang == ShareEnums.Lang.English ? "Calc" : "Расчитать";
         public string TableCancel => Lang == ShareEnums.Lang.English ? "Close record" : "Закрыть запись";
         public string TableClear => Lang == ShareEnums.Lang.English ? "Deactivate active record" : "Деактивировать активную запись";
         public string TableCreate => Lang == ShareEnums.Lang.English ? "Create record" : "Создать запись";
@@ -150,6 +151,7 @@ namespace DataCore.Localizations
         public string TableEdit => Lang == ShareEnums.Lang.English ? "Edit record" : "Редактировать запись";
         public string TableIncludes => Lang == ShareEnums.Lang.English ? "Included records" : "Вложенные записи";
         public string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
+        public string TableReadFromDb => Lang == ShareEnums.Lang.English ? "Read from DB" : "Прочитать из БД";
         public string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";
         public string TableReadCancel => Lang == ShareEnums.Lang.English ? "Cancel data reading" : "Отмена чтения данных";
         public string TableSave => Lang == ShareEnums.Lang.English ? "Save record" : "Сохранить запись";

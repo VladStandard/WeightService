@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.790] - 2022-06-02
+### Changed
+- DataCore.Sql.TableScaleModels.ScaleEntity
+
 ## [0.6.730] - 2022-05-25
 ### Changed
 - WS-T-187. Управление устройствами. Устройства с пустыми полями

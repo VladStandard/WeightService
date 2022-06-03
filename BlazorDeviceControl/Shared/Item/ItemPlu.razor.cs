@@ -22,7 +22,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
-        public List<ScaleEntity>? ScaleItems { get; set; } = null;
+        public List<ScaleEntity> ScaleItems { get; set; } = null;
         public List<TemplateEntity>? TemplateItems { get; set; } = null;
         public List<NomenclatureEntity>? NomenclatureItems { get; set; } = null;
         private XmlProductHelper ProductHelper { get; set; } = XmlProductHelper.Instance;
@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemPlu() : base()
         {
-            //
+            ScaleItems = new();
         }
 
         #endregion
@@ -46,7 +46,7 @@ namespace BlazorDeviceControl.Shared.Item
             IsLoaded = false;
             Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
             ItemCast = new();
-            ScaleItems = null;
+            ScaleItems = new();
             TemplateItems = null;
             NomenclatureItems = null;
             ButtonSettings = new();
@@ -74,10 +74,18 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                     }
 
-                    ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
+                    // ScaleItems .
+                    if (ItemCast.Scale == null)
+                        ItemCast.Scale = new(0) { Description = LocaleCore.Table.FieldNull };
+                    List<ScaleEntity>? scaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
                         ?.ToList();
+                    if (scaleItems is List<ScaleEntity> scaleItems2)
+                    {
+                        ScaleItems.Add(new ScaleEntity(0) { Description = LocaleCore.Table.FieldNull });
+                        ScaleItems.AddRange(scaleItems2);
+                    }
                     TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
