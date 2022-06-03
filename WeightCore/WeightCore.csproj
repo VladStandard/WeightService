@@ -447,8 +447,8 @@
     <Compile Include="Gui\XamlPages\PageMessageBox.xaml.cs">
       <DependentUpon>PageMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gui\XamlPages\PageSqlSettings.xaml.cs">
-      <DependentUpon>PageSqlSettings.xaml</DependentUpon>
+    <Compile Include="Gui\XamlPages\PageScaleChange.xaml.cs">
+      <DependentUpon>PageScaleChange.xaml</DependentUpon>
     </Compile>
     <Compile Include="Zpl\ZplConverterHelper.cs" />
     <Compile Include="Zpl\ZplUtils.cs" />
@@ -510,7 +510,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\PageSqlSettings.xaml">
+    <Page Include="Gui\XamlPages\PageScaleChange.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
