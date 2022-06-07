@@ -72,7 +72,7 @@ namespace ScalesUI.Forms
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
                 MainForm_ButtonsCreate();
-                LoadResources();
+                MainForm_LoadResources();
                 UserSession.NewPallet();
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace ScalesUI.Forms
             }).ConfigureAwait(false);
         }
 
-        private void LoadResources()
+        private void MainForm_LoadResources()
         {
             try
             {
