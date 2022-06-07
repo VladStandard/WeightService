@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.6.805] - 2022-06-07
 ### Описание обновления:
 - WS-T-230. Весовые этикетки. Исправить ошибки формы смены АРМ
+- WS-T-233. Автономное тестирование. DataCoreTests.SqlConnectFactoryTests
 
 ## [0.6.800] - 2022-06-03
 ### Описание обновления:

@@ -9,13 +9,21 @@ namespace DataCoreTests
 {
     public static class TestsUtils
     {
-        public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        #region Public and private fields and properties
 
+        public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
 
         static TestsUtils()
         {
             DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
                 NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
         }
+
+        #endregion
     }
 }

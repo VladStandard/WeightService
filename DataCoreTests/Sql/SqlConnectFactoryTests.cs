@@ -1,7 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql;
+using DataCoreTests;
 using NUnit.Framework;
+using System;
 
 namespace DataProjectsCoreTests.DAL
 {
@@ -13,17 +16,20 @@ namespace DataProjectsCoreTests.DAL
         {
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine($"[db_scales].[Scales]");
-                //SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes, null, delegate (SqlDataReader reader)
-                //{
-                //    while (reader.Read())
-                //    {
-                //        TestContext.WriteLine($"NAME: {reader.GetString(1)}");
-                //    }
-                //});
-                Assert.AreEqual(1, 1);
+                TestsUtils.SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Tasks.GetTasks, (reader) =>
+                {
+                    while (reader.Read())
+                    {
+                        TestContext.WriteLine($"TASK_UID: {TestsUtils.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID")}");
+                        TestContext.WriteLine($"SCALE_ID: {TestsUtils.SqlConnect.GetValueAsNotNullable<long>(reader, "SCALE_ID")}");
+                        TestContext.WriteLine($"SCALE: {TestsUtils.SqlConnect.GetValueAsNullable<string>(reader, "SCALE")}");
+                        TestContext.WriteLine($"TASK_TYPE_UID: {TestsUtils.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")}");
+                        TestContext.WriteLine($"TASK: {TestsUtils.SqlConnect.GetValueAsNullable<string>(reader, "TASK")}");
+                        TestContext.WriteLine($"ENABLED: {TestsUtils.SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")}");
+                        TestContext.WriteLine();
+                    }
+                });
             });
-            TestContext.WriteLine();
         }
     }
 }

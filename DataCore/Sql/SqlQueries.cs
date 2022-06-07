@@ -456,7 +456,7 @@ where [types].[NAME] = @task_type
 
                     public static string GetTasks => @"
 select
-		[tasks].[UID] [TASK_UID]
+	 [tasks].[UID] [TASK_UID]
 	,[scales].[ID] [SCALE_ID]
 	,[scales].[DESCRIPTION] [SCALE]
 	,[types].[UID] [TASK_TYPE_UID]
