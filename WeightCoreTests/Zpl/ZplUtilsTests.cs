@@ -7,10 +7,10 @@ using WeightCore.Zpl;
 namespace WeightCoreTests.Zpl
 {
     [TestFixture]
-    internal class ZplPipeUtilsTests
+    internal class ZplUtilsTests
     {
         [Test]
-        public void ZplPipeUtils_IsDigit_True()
+        public void ZplUtils_IsDigit_True()
         {
             Utils.MethodStart();
 
@@ -33,7 +33,7 @@ namespace WeightCoreTests.Zpl
         }
 
         [Test]
-        public void ZplPipeUtils_IsSpecial_True()
+        public void ZplUtils_IsSpecial_True()
         {
             Utils.MethodStart();
 
@@ -80,7 +80,7 @@ namespace WeightCoreTests.Zpl
         }
 
         [Test]
-        public void ZplPipeUtils_IsCyrillic_False()
+        public void ZplUtils_IsCyrillic_False()
         {
             Utils.MethodStart();
 
@@ -195,7 +195,7 @@ namespace WeightCoreTests.Zpl
         }
 
         [Test]
-        public void ZplPipeUtils_IsCyrillic_True()
+        public void ZplUtils_IsCyrillic_True()
         {
             Utils.MethodStart();
 
@@ -276,52 +276,52 @@ namespace WeightCoreTests.Zpl
         }
 
         [Test]
-        public void ZplPipeUtils_ToCodePoints_GetZplSample1()
+        public void ZplUtils_ToCodePoints_GetZplSample1()
         {
             Utils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplUtils.ToCodePoints(ZplSamples.GetSample1));
+                TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample1));
             });
 
             Utils.MethodComplete();
         }
 
         [Test]
-        public void ZplPipeUtils_ToCodePoints_GetZplSample2()
+        public void ZplUtils_ToCodePoints_GetZplSample2()
         {
             Utils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplUtils.ToCodePoints(ZplSamples.GetSample2));
+                TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample2));
             });
 
             Utils.MethodComplete();
         }
 
         [Test]
-        public void ZplPipeUtils_ToCodePoints_GetZplSample3()
+        public void ZplUtils_ToCodePoints_GetZplSample3()
         {
             Utils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplUtils.ToCodePoints(ZplSamples.GetSample3));
+                TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample3));
             });
 
             Utils.MethodComplete();
         }
 
         [Test]
-        public void ZplPipeUtils_ToCodePoints_GetZplSampleFull()
+        public void ZplUtils_ToCodePoints_GetZplSampleFull()
         {
             Utils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
-                var zpl = ZplUtils.ToCodePoints(ZplSamples.GetSampleFull);
+                var zpl = ZplUtils.ConvertStringToHex(ZplSamples.GetSampleFull);
                 //zpl = zpl.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
                 //zpl = zpl.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
                 //zpl = zpl.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);

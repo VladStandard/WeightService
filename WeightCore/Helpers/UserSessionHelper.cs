@@ -370,34 +370,6 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Replace ZPL resource.
-        /// </summary>
-        /// <param name="value"></param>
-        public void PrintCmdReplaceZplResources(ref string value)
-        {
-            //switch (PrintBrandMain)
-            //{
-            //    case PrintBrand.Default:
-            //        break;
-            //    case PrintBrand.Zebra:
-            //        break;
-            //    case PrintBrand.TSC:
-            //        break;
-            //    default:
-            //        break;
-            //}
-            List<TemplateResourceEntity> resources = DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                new FieldListEntity(new Dictionary<string, object> { { $"{nameof(TemplateResourceEntity.Type)}", "ZPL" } }),
-                new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc)).ToList();
-            foreach (TemplateResourceEntity resource in resources)
-            {
-                value = value.Replace($"[{resource.Name}]", resource.ImageData.ValueUnicode);
-                //if (value.Contains($"[{resource.Name}]"))
-                //    value = value.Replace($"[{resource.Name}]", resource.ImageData.ValueUnicode);
-            }
-        }
-
-        /// <summary>
         /// Сохранить ZPL-запрос в таблицу [Labels].
         /// </summary>
         /// <param name="printCmd"></param>
@@ -505,10 +477,12 @@ namespace WeightCore.Helpers
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
                 string weightNetto = WeighingFact.NetWeightKg;
                 string xmlInput = WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
+                // XSLT transform.
+                xmlInput = Zpl.ZplUtils.XmlCompatibleReplace(xmlInput);
                 string printCmd = Zpl.ZplUtils.XsltTransformation(template.XslContent, xmlInput);
-                // Replace ZPL's pics.
-                PrintCmdReplaceZplResources(ref printCmd);
-                // DB save ZPL-query to Labels.
+                // Replace ZPL pics.
+                printCmd = Zpl.ZplUtils.PrintCmdReplaceZplResources(printCmd);
+                // DB save ZPL query to Labels.
                 PrintSaveLabel(printCmd, WeighingFact.Id);
                 if (ManagerControl == null || ManagerControl.PrintMain == null)
                     return;

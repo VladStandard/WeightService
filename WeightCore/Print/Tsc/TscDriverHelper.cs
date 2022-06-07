@@ -310,12 +310,13 @@ namespace WeightCore.Print.Tsc
 
         public void CmdConvertZpl(bool isUsePicReplace)
         {
-            Cmd = ZplUtils.ToCodePoints(TextPrepare);
+            Cmd = ZplUtils.ConvertStringToHex(TextPrepare);
             if (isUsePicReplace)
             {
-                Cmd = Cmd.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
-                Cmd = Cmd.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
-                Cmd = Cmd.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
+                Cmd = ZplUtils.PrintCmdReplaceZplResources(Cmd);
+                //Cmd = Cmd.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
+                //Cmd = Cmd.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
+                //Cmd = Cmd.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
             }
         }
 

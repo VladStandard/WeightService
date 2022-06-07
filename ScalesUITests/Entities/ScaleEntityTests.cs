@@ -65,7 +65,7 @@
 
 //            string xmlInput = weighingFact.SerializeObject();
 //            string zplContent = WeighingFactEntity.GetXSLTTransform(template.XslContent, xmlInput);
-//            zplContent = WeighingFactEntity.ToCodePoints(zplContent);
+//            zplContent = WeighingFactEntity.ConvertStringToHex(zplContent);
 //            _scale.SendToPrinter(zplContent.Split('\n'));
 
 //            Console.WriteLine(WeighingFactEntity.Utf16ToUtf8(zplContent));

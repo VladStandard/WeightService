@@ -343,7 +343,7 @@
 //            return result;
 //        }
 
-//        public string ToCodePoints(string zplInput)
+//        public string ConvertStringToHex(string zplInput)
 //        {
 //            var ret = new StringBuilder();
 //            var unicodeCharacterList = new Dictionary<char, string>();

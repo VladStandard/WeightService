@@ -76,7 +76,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tsc\PrintControlEntityTests.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="Zpl\ZplPipeUtilsTests.cs" />
+    <Compile Include="Zpl\ZplUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk">

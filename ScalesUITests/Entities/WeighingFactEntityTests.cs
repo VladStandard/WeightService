@@ -162,7 +162,7 @@
 //            var xmlInput = _order.SerializeObject();
 //            var template = new TemplateEntity("AFE3172D-894B-11EA-9E4C-4CCC6A93A440");
 //            var zplContent = WeighingFactEntity.GetXSLTTransform(template.XslContent, xmlInput);
-//            zplContent = WeighingFactEntity.ToCodePoints(zplContent);
+//            zplContent = WeighingFactEntity.ConvertStringToHex(zplContent);
 //            Console.WriteLine(WeighingFactEntity.Utf16ToUtf8(zplContent));
 //            Assert.IsNotNull(zplContent);
 //        }

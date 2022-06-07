@@ -1,6 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,6 +16,7 @@ using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
 using WeightCore.Print.Native;
+using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 using TableScaleModels = DataCore.Sql.TableScaleModels;
 
@@ -31,31 +35,35 @@ namespace WeightCore.Zpl
 
         #region pipe's
 
-        public static void XmlCompatibleReplace(ref string xmlInput)
+        public static string XmlCompatibleReplace(string xmlInput)
         {
+            string result = xmlInput;
+            if (string.IsNullOrEmpty(result))
+                return result;
             // TableDirectModels.
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.ProductionFacilityDirect), "ProductionFacilityEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
-            xmlInput = xmlInput.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
+            result = result.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
+            result = result.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
+            result = result.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
+            result = result.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
+            result = result.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
+            result = result.Replace(nameof(TableDirectModels.ProductionFacilityDirect), "ProductionFacilityEntity");
+            result = result.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
+            result = result.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
+            result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
+            result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
+            result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
+            result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
+            result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
             // TableScaleModels.
-            xmlInput = xmlInput.Replace(nameof(TableScaleModels.ScaleEntity), "ScaleEntity");
-            xmlInput = xmlInput.Replace(nameof(TableScaleModels.PrinterEntity), "PrinterEntity");
-            xmlInput = xmlInput.Replace(nameof(TableScaleModels.TemplateEntity), "TemplateEntity");
+            result = result.Replace(nameof(TableScaleModels.PrinterEntity), "PrinterEntity");
+            result = result.Replace(nameof(TableScaleModels.ScaleEntity), "ScaleEntity");
+            result = result.Replace(nameof(TableScaleModels.TemplateEntity), "TemplateEntity");
+            // Result.
+            return result;
         }
 
         public static string XsltTransformation(string xslInput, string xmlInput)
         {
-            XmlCompatibleReplace(ref xmlInput);
             string result;
 
             using (StringReader stringReaderXslt = new(xslInput.Trim()))
@@ -66,50 +74,49 @@ namespace WeightCore.Zpl
                 XslCompiledTransform xslt = new();
                 xslt.Load(xmlReaderXslt);
                 using StringWriter stringWriter = new();
-                // use OutputSettings of xsl, so it can be output as HTML
+                // Use OutputSettings of xsl, so it can be output as HTML.
                 using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
                 xslt.Transform(xmlReaderXml, xmlWriter);
                 result = stringWriter.ToString();
-                result = ToCodePoints(result);
+                result = ConvertStringToHex(result);
             }
             
             return result;
         }
 
-        public static string ZplCmdByIp(string ip, int port, string zplCommand)
-        {
-            StringBuilder result = new();
-            try
-            {
+        //public static string ZplCmdByIp(string ip, int port, string zplCommand)
+        //{
+        //    StringBuilder result = new();
+        //    try
+        //    {
+        //        string zpl = ConvertStringToHex(zplCommand);
+        //        string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out string errorMessage);
+        //        result.AppendLine(info);
+        //        result.AppendLine(errorMessage);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.AppendLine(zplCommand);
+        //        result.AppendLine(ex.Message);
+        //    }
+        //    return result.ToString();
+        //}
 
-                string zpl = ToCodePoints(zplCommand);
-                string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out string errorMessage);
-                result.AppendLine(info);
-                result.AppendLine(errorMessage);
-            }
-            catch (Exception ex)
-            {
-                result.AppendLine(zplCommand);
-                result.AppendLine(ex.Message);
-            }
-            return result.ToString();
-        }
-
-        public static string ZplCmdByRaw(string printerName, string zplCommand)
-        {
-            StringBuilder result = new();
-            try
-            {
-                string zpl = ToCodePoints(zplCommand);
-                RawPrinterHelper.SendStringToPrinter(printerName, zpl);
-            }
-            catch (Exception ex)
-            {
-                result.AppendLine(zplCommand);
-                result.AppendLine(ex.Message);
-            }
-            return result.ToString();
-        }
+        //public static string ZplCmdByRaw(string printerName, string zplCommand)
+        //{
+        //    StringBuilder result = new();
+        //    try
+        //    {
+        //        string zpl = ConvertStringToHex(zplCommand);
+        //        RawPrinterHelper.SendStringToPrinter(printerName, zpl);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.AppendLine(zplCommand);
+        //        result.AppendLine(ex.Message);
+        //    }
+        //    return result.ToString();
+        //}
         
         #endregion
 
@@ -304,7 +311,7 @@ namespace WeightCore.Zpl
             return SpecialCharacters.Contains(value);
         }
 
-        public static string ToCodePoints(string zplInput)
+        public static string ConvertStringToHex(string zplInput)
         {
             StringBuilder result = new();
             Dictionary<char, string> unicodeCharacterList = new();
@@ -379,6 +386,27 @@ namespace WeightCore.Zpl
             return result.ToString();
         }
 
+        /// <summary>
+        /// Replace ZPL resource.
+        /// </summary>
+        /// <param name="value"></param>
+        public static string PrintCmdReplaceZplResources(string value)
+        {
+            string result = value;
+            if (string.IsNullOrEmpty(result))
+                return result;
+            
+            List<TemplateResourceEntity> resources = DataAccessHelper.Instance.Crud.GetEntities<TemplateResourceEntity>(
+                new FieldListEntity(new Dictionary<string, object> { { $"{nameof(TemplateResourceEntity.Type)}", "ZPL" } }),
+                new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc)).ToList();
+            foreach (TemplateResourceEntity resource in resources)
+            {
+                string resourceHex = ConvertStringToHex(resource.ImageData.ValueUnicode);
+                result = result.Replace($"[{resource.Name}]", resourceHex);
+            }
+            return result;
+        }
+        
         #endregion
     }
 }

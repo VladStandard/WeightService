@@ -555,6 +555,18 @@ values(@name)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 
+				public static class Templates
+				{
+					public static string GetTemplateById => @"
+SELECT 
+	[ID]
+   ,[CATEGORYID]
+   ,CONVERT(NVARCHAR(MAX), [IMAGEDATA], 0) [XSLCONTENT]
+FROM [DB_SCALES].[TEMPLATES]
+WHERE [TITLE] = @TITLE
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                }
+
                 public static class WeithingFacts
                 {
                     public static string GetWeithingFacts(int topRecords) => @$"
@@ -628,6 +640,14 @@ EXECUTE [db_scales].[SP_SET_PRODUCT_SERIES_V2] @SCALE_ID, @SSCC OUTPUT, @XML OUT
 
 SELECT [ID], [CREATE_DT], [UUID], [SSCC], [COUNT_UNIT],[TOTAL_NET_WEIGHT], [TOTAL_TARE_WEIGHT], [IS_MARKED]
 FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+                public static string GetTemplatesObjByID => @"
+SELECT
+	[CategoryID]
+   ,[Title]
+   ,[XslContent]
+FROM [db_scales].[GetTemplatesObjByID](@TEMPLATE_ID);
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             }
 

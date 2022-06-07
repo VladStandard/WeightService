@@ -40,13 +40,12 @@ namespace DataCore.Sql.TableDirectModels
 
         public TemplateDirect(long? templateId) : this()
         {
-            TemplateId = templateId;
-            GetTemplateObjFromDb();
+            SqlUtils.GetTemplateFromDb(this, templateId);
         }
 
         public TemplateDirect(string title) : this()
         {
-            GetTemplateObjFromDb(title);
+            SqlUtils.GetTemplateFromDb(this, title);
         }
 
         #endregion
@@ -102,103 +101,7 @@ namespace DataCore.Sql.TableDirectModels
 
         public void Load()
         {
-            GetTemplateObjFromDb();
-        }
-
-        private void GetTemplateObjFromDb()
-        {
-            using SqlConnection con = SqlConnect.GetConnection();
-            con.Open();
-            string query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@TemplateID", TemplateId);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        CategoryId = reader.GetString(0);
-                        Title = reader.GetString(1);
-                        XslContent = reader.GetString(2);
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
-
-            // Ресурсы принадлежат весам и должны загружатся 
-            // оттуда. Из программы управления устройствами 
-            // Тут они не нужны.
-            // потому и закомментировано
-            // 
-            //using (SqlConnection con = SqlConnect.GetConnection())
-            //{
-            //    string query = "SELECT [Name],MAX([ImageData]) [ImageData] FROM [db_scales].[GetTemplateResources] (@TemplateID,@Type) GROUP BY [Name]; ";
-            //    using (var cmd = new SqlCommand(query))
-            //    {
-            //        Logo.Clear();
-            //        cmd.Connection = con;
-            //        cmd.Parameters.AddWithValue("@TemplateID", this.TemplateId);
-            //        cmd.Parameters.AddWithValue("@Type", "GRF");
-            //        con.Open();
-            //        var reader = cmd.ExecuteReader();
-            //        while (reader.Read())
-            //        {
-            //            Logo.Add(reader.GetString(0), reader.GetString(1));
-            //        }
-            //        reader.Close();
-            //    }
-            //}
-
-            //using (SqlConnection con = SqlConnect.GetConnection())
-            //{
-            //    string query = "SELECT [Name], [ImageData] FROM [db_scales].[GetTemplateResources] (@TemplateID,@Type); ";
-            //    using (SqlCommand cmd = new SqlCommand(query))
-            //    {
-            //        Fonts.Clear();
-            //        cmd.Connection = con;
-            //        cmd.Parameters.AddWithValue("@TemplateID", this.TemplateId);
-            //        cmd.Parameters.AddWithValue("@Type", "TTF");
-            //        con.Open();
-            //        var reader = cmd.ExecuteReader();
-            //        while (reader.Read())
-            //        {
-            //            Fonts.Add(reader.GetString(0), reader.GetString(1));
-            //        }
-            //        reader.Close();
-            //    }
-            //}
-        }
-
-        private void GetTemplateObjFromDb(string title)
-        {
-            using SqlConnection con = SqlConnect.GetConnection();
-            con.Open();
-            string query = @"
-select top (1) [Id], [CategoryId], convert(nvarchar(max),[ImageData],0) [XslContent]
-from [db_scales].[Templates]
-where [Title] = @Title
-                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@Title", title);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        TemplateId = reader.GetInt32(0);
-                        CategoryId = reader.GetString(1);
-                        XslContent = reader.GetString(2);
-                        Title = title;
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+            SqlUtils.GetTemplateFromDb(this, TemplateId);
         }
 
         #endregion

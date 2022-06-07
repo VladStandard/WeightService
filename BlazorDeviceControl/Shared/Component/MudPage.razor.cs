@@ -12,8 +12,8 @@ namespace BlazorDeviceControl.Shared.Component
     {
         private string Country { get; set; } = "Hungary";
         private string ComPort { get; set; } = "COM10";
-        List<TypeEntity<string>>? ComPorts { get; set; }
-        private List<string>? ListComPorts { get; set; }
+        List<TypeEntity<string>> ComPorts { get; set; }
+        private List<string> ListComPorts { get; set; }
 
         public MudPage()
         {
