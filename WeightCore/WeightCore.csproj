@@ -457,7 +457,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="CHANGELOG.md" />
-    <None Include="CHANGELOG_ScalesCore.md" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -517,6 +516,10 @@
     <Page Include="Gui\XamlPages\PageScaleChange.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\XamlPages\ShareResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup />

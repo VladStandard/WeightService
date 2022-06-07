@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
@@ -110,46 +109,6 @@ namespace DataCore.Sql
                 OnPropertyChanged();
             }
         }
-        private string? _buttonDefaultCaption;
-        public string? ButtonDefaultCaption
-        {
-            get => _buttonDefaultCaption;
-            set
-            {
-                _buttonDefaultCaption = value;
-                OnPropertyChanged();
-            }
-        }
-        private string? _buttonApplyCaption;
-        public string? ButtonApplyCaption
-        {
-            get => _buttonApplyCaption;
-            set
-            {
-                _buttonApplyCaption = value;
-                OnPropertyChanged();
-            }
-        }
-        private string? _buttonOkCaption;
-        public string? ButtonOkCaption
-        {
-            get => _buttonOkCaption;
-            set
-            {
-                _buttonOkCaption = value;
-                OnPropertyChanged();
-            }
-        }
-        private string? _buttonCancelCaption;
-        public string? ButtonCancelCaption
-        {
-            get => _buttonCancelCaption;
-            set
-            {
-                _buttonCancelCaption = value;
-                OnPropertyChanged();
-            }
-        }
 
         #endregion
 
@@ -188,11 +147,6 @@ namespace DataCore.Sql
                 new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
             Scales = new();
             scales.ForEach(scale => Scales.Add(scale.Description));
-
-            ButtonOkCaption = LocaleCore.Buttons.Ok;
-            ButtonCancelCaption = LocaleCore.Buttons.Cancel;
-            ButtonDefaultCaption = LocaleCore.Scales.Default;
-            ButtonApplyCaption = LocaleCore.Buttons.Apply;
         }
 
         private void SetPublish()

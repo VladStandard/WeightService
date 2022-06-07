@@ -6,13 +6,18 @@
     xmlns:dal="clr-namespace:DataCore.Sql;assembly=DataCore"
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800" 
-    Loaded="UserControl_Loaded">
-    
+    Loaded="UserControl_Loaded"
+    DataContext="{DynamicResource SqlViewModel}" >
+
     <UserControl.Resources>
-        <dal:SqlViewModelHelper x:Key="SqlViewModel" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ShareResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid DataContext="{StaticResource SqlViewModel}" >
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="8*"></ColumnDefinition>

@@ -102,27 +102,19 @@ namespace WeightCore.Gui.XamlPages
             //tabTasks.Content = gridTasks;
         }
 
-        public void ButtonDefault_OnClick(object sender, RoutedEventArgs e)
-        {
-            ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.Scale.Host.IdentityId);
-            SqlViewModel.Setup(scale.IdentityId);
-        }
-
         public void ButtonApply_OnClick(object sender, RoutedEventArgs e)
         {
             string scaleDescription = comboBoxChangeDevice.Items[comboBoxChangeDevice.SelectedIndex].ToString();
             ScaleEntity scale = SqlUtils.GetScale(scaleDescription);
             SqlViewModel.Setup(scale.IdentityId);
-        }
-
-        public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
-        {
             Result = DialogResult.OK;
             OnClose?.Invoke(sender, e);
         }
 
         public void ButtonClose_OnClick(object sender, RoutedEventArgs e)
         {
+            ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.Scale.Host.IdentityId);
+            SqlViewModel.Setup(scale.IdentityId);
             Result = DialogResult.Cancel;
             OnClose?.Invoke(sender, e);
         }

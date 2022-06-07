@@ -5,9 +5,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     mc:Ignorable="d" 
     d:DesignWidth="640" d:DesignHeight="300"
-    Loaded="UserControl_Loaded" FontSize="20">
+    Loaded="UserControl_Loaded" FontSize="20"
+    DataContext="{DynamicResource SqlViewModel}" >
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ShareResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Name="borderMain"
             KeyUp="Button_KeyUp" BorderBrush="Blue" BorderThickness="1" Margin="2" >
     </Border>
+
 </UserControl>

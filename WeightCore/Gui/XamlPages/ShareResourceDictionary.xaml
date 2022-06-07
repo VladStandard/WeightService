@@ -1,0 +1,23 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sql="clr-namespace:DataCore.Sql;assembly=DataCore" 
+    xmlns:locale="clr-namespace:DataCore.Localizations;assembly=DataCore" 
+    >
+    
+    <SolidColorBrush x:Key="brush" Color="Red"/>
+    <sql:SqlViewModelHelper x:Key="SqlViewModel" />
+    <locale:LocaleAction x:Key="LocaleAction" />
+    <locale:LocaleButtons x:Key="LocaleButtons" />
+    <locale:LocaleConvert x:Key="LocaleConvert" />
+    <locale:LocaleDeviceControl x:Key="LocaleDeviceControl" />
+    <locale:LocaleDialog x:Key="LocaleDialog" />
+    <locale:LocaleMemory x:Key="LocaleMemory" />
+    <locale:LocaleMenu x:Key="LocaleMenu" />
+    <locale:LocalePrint x:Key="LocalePrint" />
+    <locale:LocaleScale x:Key="LocaleScale" />
+    <locale:LocaleSettings x:Key="LocaleSettings" />
+    <locale:LocaleSql x:Key="LocaleSql" />
+    <locale:LocaleSystem x:Key="LocaleSystem" />
+    <locale:LocaleTable x:Key="LocaleTable" />
+</ResourceDictionary>
