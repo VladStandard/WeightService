@@ -5,6 +5,7 @@
              xmlns:print="clr-namespace:WeightCore.Print;assembly=WeightCore"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views/MainWindow.xaml">
+    
     <Application.Resources>
         <tsc:TscDriverHelper x:Key="PrintControlEntityViewModel" />
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintLabelSize">

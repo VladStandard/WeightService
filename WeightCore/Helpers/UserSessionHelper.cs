@@ -472,7 +472,7 @@ namespace WeightCore.Helpers
                 WeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();
-                string weightNetto = WeighingFact.NetWeightKg;
+                //string weightNetto = WeighingFact.NetWeightKgPretty2;
                 string xmlInput = WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
                 // XSLT transform.
                 xmlInput = Zpl.ZplUtils.XmlCompatibleReplace(xmlInput);

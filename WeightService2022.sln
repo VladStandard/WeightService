@@ -147,13 +147,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
 		ConnectionString.txt = ConnectionString.txt
-		Converts.txt = Converts.txt
 		LICENSE.md = LICENSE.md
+		Converts.md = Converts.md
 		Publish lifecycle.md = Publish lifecycle.md
 		Publish resources.md = Publish resources.md
 		Publish tests.md = Publish tests.md
 		README.md = README.md
-		TO_DO_LIST.md = TO_DO_LIST.md
 		TROUBLE_SHOOTING.md = TROUBLE_SHOOTING.md
 	EndProjectSection
 EndProject
@@ -217,7 +216,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTerra1000Tests", "Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateResources", "TemplateResources", "{5121B4E0-3103-4872-AB23-0E5909BA356D}"
 	ProjectSection(SolutionItems) = preProject
-		Converts.txt = Converts.txt
 		Resources\TemplateResources\EAC_94x115_000.bmp = Resources\TemplateResources\EAC_94x115_000.bmp
 		Resources\TemplateResources\EAC_94x115_000.zpl = Resources\TemplateResources\EAC_94x115_000.zpl
 		Resources\TemplateResources\EAC_94x115_000_V2.zpl = Resources\TemplateResources\EAC_94x115_000_V2.zpl
@@ -643,7 +641,7 @@ Global
 		{5CA80E2F-E045-41F4-9460-CC519B8D7DBF} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

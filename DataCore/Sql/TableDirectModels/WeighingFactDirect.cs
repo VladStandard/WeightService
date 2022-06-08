@@ -26,27 +26,55 @@ namespace DataCore.Sql.TableDirectModels
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
+        
         public DateTime ExpirationDate
         {
             get => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
             // This code need for print labels.
             set => _ = value;
         }
-
-        public string NetWeightKg
+        public string ProductDatePretty
+        {
+            get => $"{ProductDate:yyMMdd}";
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string LotNumberPretty
+        {
+            get => $"{ProductDate:yyMM}";
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string ProductTimePretty
+        {
+            get => $"{ProductDate:HHmm}";
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string NetWeightKgPretty2
         {
             get => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[0];
             // This code need for print labels.
             set => _ = value;
         }
-
-        public string NetWeightGr
+        public string NetWeightKgPretty3
         {
-            get => $"{NetWeight:00.000}".Replace(',', '.').Split('.')[1];
+            get => $"{NetWeight:000.000}".Replace(',', '.').Split('.')[0];
             // This code need for print labels.
             set => _ = value;
         }
-
+        public string NetWeightGrPretty2
+        {
+            get => $"{NetWeight:#.00}".Replace(',', '.').Split('.')[1];
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string NetWeightGrPretty3
+        {
+            get => $"{NetWeight:#.000}".Replace(',', '.').Split('.')[1];
+            // This code need for print labels.
+            set => _ = value;
+        }
         public decimal GrossWeight => NetWeight + TareWeight;
 
         #endregion
