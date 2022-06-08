@@ -361,6 +361,12 @@
   <ItemGroup>
     <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
+    <Compile Include="Gui\XamlPages\PagePinCode.xaml.cs">
+      <DependentUpon>PagePinCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\XamlPages\PageSqlSettings.xaml.cs">
+      <DependentUpon>PageSqlSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\XamlPages\VisibilitySettingsEntity.cs" />
@@ -393,7 +399,6 @@
     <Compile Include="Helpers\ProcHelper.cs" />
     <Compile Include="Helpers\RegHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
-    <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Helpers\UacHelper.cs" />
     <Compile Include="Helpers\WinInfoHelper.cs" />
     <Compile Include="Helpers\XamlHelper.cs" />
@@ -505,6 +510,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Gui\XamlPages\PagePinCode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Gui\XamlPages\PagePluList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -514,6 +523,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Gui\XamlPages\PageScaleChange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\XamlPages\PageSqlSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

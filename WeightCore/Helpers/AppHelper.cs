@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Localizations;
 using DataCore.Sql;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
@@ -114,7 +115,7 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Форматировання подстрока текущей версии.
+        /// Get version string.
         /// </summary>
         /// <param name="input"></param>
         /// <param name="format"></param>
@@ -132,17 +133,17 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Проверить повторный запуск.
+        /// Checl instance run.
         /// </summary>
         /// <returns></returns>
-        public bool InstanceCheck()
+        public bool CheckInstance()
         {
             InstanceCheckMutex = new Mutex(true, "ScalesUI", out bool result);
             return result;
         }
 
         /// <summary>
-        /// Задать новый размер формы.
+        /// Set new form size.
         /// </summary>
         /// <param name="form"></param>
         /// <param name="startPosition"></param>
@@ -160,39 +161,40 @@ namespace WeightCore.Helpers
             }
             form.StartPosition = startPosition;
         }
+        
 
         /// <summary>
         /// Check SQL-connection.
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public bool SqlConCheck(ShareEnums.Lang language)
-        {
-            if (string.IsNullOrEmpty(SqlHelp.Authentication.Server) || string.IsNullOrEmpty(SqlHelp.Authentication.Database))
-            {
-                Status = language == ShareEnums.Lang.English ? @"Error connecting to SQL-server!" : "Ошибка настроек подключения к SQL-серверу!";
-                return false;
-            }
+        //public bool SqlConCheck(ShareEnums.Lang language)
+        //{
+        //    if (string.IsNullOrEmpty(SqlHelp.Authentication.Server) || string.IsNullOrEmpty(SqlHelp.Authentication.Database))
+        //    {
+        //        Status = LocaleCore.Sql.StatusExceptionConnect();
+        //        return false;
+        //    }
 
-            if (!SqlHelp.Authentication.IntegratedSecurity && (string.IsNullOrEmpty(SqlHelp.Authentication.UserId) ||
-                                                            string.IsNullOrEmpty(SqlHelp.Authentication.Password)))
-            {
-                Status = language == ShareEnums.Lang.English ? @"Error connecting to SQL-server!" : "Ошибка настроек подключения к SQL-серверу!";
-                return false;
-            }
+        //    if (!SqlHelp.Authentication.IntegratedSecurity && 
+        //        (string.IsNullOrEmpty(SqlHelp.Authentication.UserId) || string.IsNullOrEmpty(SqlHelp.Authentication.Password)))
+        //    {
+        //        Status = LocaleCore.Sql.StatusExceptionConnect();
+        //        return false;
+        //    }
 
-            SqlHelp.Open();
-            SqlHelp.OpenConnection(language);
-            if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
-            {
-                Status = language == ShareEnums.Lang.English ? @"Connection to SQL server completed successfully." : "Подключение к SQL-серверу выполнено успешно.";
-                return true;
-            }
-            return false;
-        }
+        //    SqlHelp.Open();
+        //    SqlHelp.OpenConnection();
+        //    if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
+        //    {
+        //        Status = LocaleCore.Sql.StatusConnected;
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         /// <summary>
-        /// Проверить наличие GUID.
+        /// Check guid exists.
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>

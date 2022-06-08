@@ -69,20 +69,20 @@ namespace WeightCoreTests.Models
             SqlTableField<string> field = new("FieldName");
             Assert.AreEqual("FieldName", field.Name);
             Assert.AreEqual(string.Empty, field.Value);
-            Assert.AreEqual(string.Empty, field.Default);
+            Assert.AreEqual(string.Empty, field.DefaultValue);
 
             foreach (string value in EnumValuesUtils.GetString())
             {
                 field = new SqlTableField<string>("FieldName", value);
                 Assert.AreEqual("FieldName", field.Name);
                 Assert.AreEqual(string.Empty, field.Value);
-                Assert.AreEqual(string.Empty, field.Default);
+                Assert.AreEqual(string.Empty, field.DefaultValue);
                 foreach (string defValue in EnumValuesUtils.GetString())
                 {
                     field = new SqlTableField<string>("FieldName", value, defValue);
                     Assert.AreEqual("FieldName", field.Name);
                     Assert.AreEqual(string.Empty, field.Value);
-                    Assert.AreEqual(string.Empty, field.Default);
+                    Assert.AreEqual(string.Empty, field.DefaultValue);
                 }
             }
 

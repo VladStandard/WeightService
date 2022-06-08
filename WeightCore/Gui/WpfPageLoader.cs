@@ -21,8 +21,10 @@ namespace WeightCore.Gui
         private PagePluList PluList { get; set; }
         public bool UseOwnerSize { get; set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
-        public PageMessageBox PageMessageBoxItem { get; private set; }
-        public PageScaleChange ScaleChange { get; private set; }
+        public PageMessageBox PageMessageBox { get; private set; }
+        public PagePinCode PagePinCode { get; set; }
+        public PageScaleChange PageScaleChange { get; private set; }
+        public PageSqlSettings PageSqlSettings { get; set; }
         public ProjectsEnums.Page Page { get; private set; }
 
         #endregion
@@ -106,18 +108,30 @@ namespace WeightCore.Gui
                         ElementHost.Child = PluList;
                         PluList.OnClose += WpfPageLoader_OnClose;
                         break;
-                    case ProjectsEnums.Page.SqlSettings:
-                        ScaleChange = new PageScaleChange();
-                        ScaleChange.InitializeComponent();
-                        ElementHost.Child = ScaleChange;
-                        ScaleChange.OnClose += WpfPageLoader_OnClose;
+                    case ProjectsEnums.Page.ScaleChange:
+                        PageScaleChange = new PageScaleChange();
+                        PageScaleChange.InitializeComponent();
+                        ElementHost.Child = PageScaleChange;
+                        PageScaleChange.OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.MessageBox:
-                        PageMessageBoxItem = new PageMessageBox();
-                        PageMessageBoxItem.InitializeComponent();
-                        ElementHost.Child = PageMessageBoxItem;
-                        PageMessageBoxItem.MessageBox = MessageBox;
-                        PageMessageBoxItem.OnClose += WpfPageLoader_OnClose;
+                        PageMessageBox = new PageMessageBox();
+                        PageMessageBox.InitializeComponent();
+                        ElementHost.Child = PageMessageBox;
+                        PageMessageBox.MessageBox = MessageBox;
+                        PageMessageBox.OnClose += WpfPageLoader_OnClose;
+                        break;
+                    case ProjectsEnums.Page.PinCode:
+                        PagePinCode = new PagePinCode();
+                        PagePinCode.InitializeComponent();
+                        ElementHost.Child = PagePinCode;
+                        PagePinCode.OnClose += WpfPageLoader_OnClose;
+                        break;
+                    case ProjectsEnums.Page.SqlSettings:
+                        PageSqlSettings = new PageSqlSettings();
+                        PageSqlSettings.InitializeComponent();
+                        ElementHost.Child = PageSqlSettings;
+                        PageSqlSettings.OnClose += WpfPageLoader_OnClose;
                         break;
                     default:
                         break;
@@ -151,14 +165,24 @@ namespace WeightCore.Gui
                         if (PluList != null)
                             DialogResult = PluList.Result;
                         break;
+                    case ProjectsEnums.Page.ScaleChange:
+                        if (PageScaleChange != null)
+                            DialogResult = PageScaleChange.Result;
+                        break;
+                    case ProjectsEnums.Page.MessageBox:
+                        if (MessageBox != null)
+                            DialogResult = MessageBox.Result;
+                        break;
+                    case ProjectsEnums.Page.PinCode:
+                        if (PagePinCode != null)
+                            DialogResult = PagePinCode.Result;
+                        break;
                     case ProjectsEnums.Page.SqlSettings:
-                        if (ScaleChange != null)
-                            DialogResult = ScaleChange.Result;
+                        if (PageSqlSettings != null)
+                            DialogResult = PageSqlSettings.Result;
                         break;
                     case ProjectsEnums.Page.Default:
-                    case ProjectsEnums.Page.MessageBox:
                     default:
-                        DialogResult = MessageBox.Result;
                         break;
                 }
             }

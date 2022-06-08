@@ -44,9 +44,11 @@ namespace DataCore
         public enum Page
         {
             Default,
-            PluList,
-            SqlSettings,
             MessageBox,
+            PinCode,
+            PluList,
+            ScaleChange,
+            SqlSettings,
         }
 
         public enum OrderStatus

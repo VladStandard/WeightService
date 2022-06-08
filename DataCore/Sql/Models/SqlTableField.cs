@@ -6,56 +6,68 @@ using System;
 namespace DataCore.Sql.Models
 {
     /// <summary>
-    /// Table field.
+    /// SQL table field.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class SqlTableField<T> where T : IConvertible
     {
-        public SqlTableField(string name, T value, T defValue)
+        #region Public and private fields and properties
+
+        /// <summary>
+        /// Field name.
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
+        /// Field value.
+        /// </summary>
+        public T? Value { get; set; }
+
+        /// <summary>
+        /// Field default value.
+        /// </summary>
+        public T? DefaultValue { get; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        /// <summary>
+        /// Constructor for serialization.
+        /// </summary>
+        public SqlTableField() : this(string.Empty, default, default) { }
+
+        public SqlTableField(string name, T? value, T? defValue)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException(name);
 
             Name = name;
             Value = value;
-            Default = defValue;
+            DefaultValue = defValue;
 
             if (typeof(T) == typeof(string))
             {
                 if (Value == null)
                     Value = (T)Convert.ChangeType(string.Empty, typeof(T));
-                if (Default == null)
-                    Default = (T)Convert.ChangeType(string.Empty, typeof(T));
+                if (DefaultValue == null)
+                    DefaultValue = (T)Convert.ChangeType(string.Empty, typeof(T));
             }
         }
 
-        public SqlTableField(string name, T value) : this(name, value, value) { }
+        public SqlTableField(string name, T? value) : this(name, value, value) { }
 
         public SqlTableField(string name) : this(name, default, default) { }
 
-        /// <summary>
-        /// Конструктор без параметров нужен для сериализации.
-        /// </summary>
-        public SqlTableField() : this(string.Empty, default, default) { }
+        #endregion
 
-        /// <summary>
-        /// Имя поля.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// Значение.
-        /// </summary>
-        public T Value { get; set; }
-
-        /// <summary>
-        /// Значение по-умолчанию.
-        /// </summary>
-        public T Default { get; }
+        #region Public and private methods
 
         public override string ToString()
         {
-            return Value.ToString();
+            return Value is string value ? value : string.Empty;
         }
+
+        #endregion
     }
 }

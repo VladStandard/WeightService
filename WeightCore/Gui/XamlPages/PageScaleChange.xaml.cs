@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql;
-using System.Windows.Forms;
 using WeightCore.Helpers;
 using System.Windows;
 using System;
@@ -19,7 +18,7 @@ namespace WeightCore.Gui.XamlPages
 
         public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
         public SqlViewModelHelper SqlViewModel { get; set; }
-        public DialogResult Result { get; private set; }
+        public System.Windows.Forms.DialogResult Result { get; internal set; }
         public RoutedEventHandler OnClose { get; set; }
 
         #endregion
@@ -74,7 +73,7 @@ namespace WeightCore.Gui.XamlPages
                 System.Windows.Controls.Label labelTaskCaption = new()
                 {
                     Content = UserSession.SqlViewModel.Tasks[row].TaskType.Name,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                 };
                 System.Windows.Controls.Grid.SetColumn(labelTaskCaption, 0);
@@ -85,7 +84,7 @@ namespace WeightCore.Gui.XamlPages
                 {
                     Width = 100,
                     Height = 30,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center,
                     Tag = UserSession.SqlViewModel.Tasks[row]
                 };
@@ -107,7 +106,7 @@ namespace WeightCore.Gui.XamlPages
             string scaleDescription = comboBoxChangeDevice.Items[comboBoxChangeDevice.SelectedIndex].ToString();
             ScaleEntity scale = SqlUtils.GetScale(scaleDescription);
             SqlViewModel.Setup(scale.IdentityId);
-            Result = DialogResult.OK;
+            Result = System.Windows.Forms.DialogResult.OK;
             OnClose?.Invoke(sender, e);
         }
 
@@ -115,7 +114,7 @@ namespace WeightCore.Gui.XamlPages
         {
             ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.Scale.Host.IdentityId);
             SqlViewModel.Setup(scale.IdentityId);
-            Result = DialogResult.Cancel;
+            Result = System.Windows.Forms.DialogResult.Cancel;
             OnClose?.Invoke(sender, e);
         }
         

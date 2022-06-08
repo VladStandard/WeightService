@@ -15,19 +15,19 @@ namespace DataCore.Sql
         /// <summary>
         /// Check field exists.
         /// </summary>
-        /// <param name="dr"></param>
-        /// <param name="field"></param>
+        /// <param name="reader"></param>
+        /// <param name="fieldName"></param>
         /// <returns></returns>
-        public static bool ExistsField(this Microsoft.Data.SqlClient.SqlDataReader dr, string field)
+        public static bool IsFieldExists(this Microsoft.Data.SqlClient.SqlDataReader reader, string fieldName)
         {
-            for (int i = 0; i < dr.FieldCount; i++)
+            for (int i = 0; i < reader.FieldCount; i++)
             {
-                if (dr.GetName(i).Equals(field, StringComparison.InvariantCultureIgnoreCase))
+                if (reader.GetName(i).Equals(fieldName, StringComparison.InvariantCultureIgnoreCase))
                     return true;
             }
             return false;
         }
-
+        
         #endregion
     }
 }

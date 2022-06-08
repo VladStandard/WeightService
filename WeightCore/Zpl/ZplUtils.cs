@@ -15,7 +15,6 @@ using System.Text;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
-using WeightCore.Print.Native;
 using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 using TableScaleModels = DataCore.Sql.TableScaleModels;
@@ -55,9 +54,9 @@ namespace WeightCore.Zpl
             result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
             result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
             // TableScaleModels.
-            result = result.Replace(nameof(TableScaleModels.PrinterEntity), "PrinterEntity");
-            result = result.Replace(nameof(TableScaleModels.ScaleEntity), "ScaleEntity");
-            result = result.Replace(nameof(TableScaleModels.TemplateEntity), "TemplateEntity");
+            result = result.Replace(nameof(PrinterEntity), "PrinterEntity");
+            result = result.Replace(nameof(ScaleEntity), "ScaleEntity");
+            result = result.Replace(nameof(TemplateEntity), "TemplateEntity");
             // Result.
             return result;
         }
