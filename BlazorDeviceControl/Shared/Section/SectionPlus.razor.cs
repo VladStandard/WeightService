@@ -47,47 +47,50 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
+                    long? scaleId = null;
+                    if (ItemFilter is ScaleEntity scale)
+                        scaleId = scale.IdentityId;
+                    if (IsShowMarkedItems)
                     {
-                        long? scaleId = null;
-                        if (ItemFilter is ScaleEntity scale)
-                            scaleId = scale.IdentityId;
-                        if (IsShowMarkedItems)
-                        {
-                            if (scaleId == null)
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                        if (scaleId == null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                                     null,
                                     new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            else
-                            {
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", scaleId } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            }
-                        }
+                                ?.ToList<BaseEntity>();
                         else
                         {
-                            if (scaleId == null)
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>
+                                        { { $"Scale.{DbField.IdentityId}", scaleId } }),
                                     new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            else
-                            {
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> {
-                                        { $"Scale.{DbField.IdentityId}", scaleId }, { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            }
+                                ?.ToList<BaseEntity>();
                         }
                     }
+                    else
+                    {
+                        if (scaleId == null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    new FieldListEntity(
+                                        new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                                ?.ToList<BaseEntity>();
+                        else
+                        {
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>
+                                    {
+                                        { $"Scale.{DbField.IdentityId}", scaleId },
+                                        { DbField.IsMarked.ToString(), false }
+                                    }),
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                                ?.ToList<BaseEntity>();
+                        }
+                    }
+
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
