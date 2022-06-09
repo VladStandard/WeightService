@@ -50,48 +50,50 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
+                    long? printerId = null;
+                    if (ItemFilter is PrinterEntity printer)
+                        printerId = printer.IdentityId;
+                    if (IsShowMarkedItems)
                     {
-                        long? printerId = null;
-                        if (ItemFilter is PrinterEntity printer)
-                            printerId = printer.IdentityId;
-                        if (IsShowMarkedItems)
-                        {
-                            if (printerId == null)
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                        if (printerId == null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     null,
                                     new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            else
-                            {
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
-                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            }
-                        }
+                                ?.ToList<BaseEntity>();
                         else
                         {
-                            if (printerId == null)
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>
+                                        { { $"Printer.{DbField.IdentityId}", printerId } }),
                                     new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            else
-                            {
-                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> {
-                                        { $"Printer.{DbField.IdentityId}", printerId }, { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                    ?.ToList<BaseEntity>();
-                            }
+                                ?.ToList<BaseEntity>();
                         }
-
                     }
+                    else
+                    {
+                        if (printerId == null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    new FieldListEntity(
+                                        new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                                ?.ToList<BaseEntity>();
+                        else
+                        {
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>
+                                    {
+                                        { $"Printer.{DbField.IdentityId}", printerId },
+                                        { DbField.IsMarked.ToString(), false }
+                                    }),
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
+                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                                ?.ToList<BaseEntity>();
+                        }
+                    }
+
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();

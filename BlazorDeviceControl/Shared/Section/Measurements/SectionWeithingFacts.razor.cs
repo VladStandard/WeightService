@@ -50,15 +50,13 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
-                            (IsShowMarkedItems == true) ? null
+                    Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
+                            (IsShowMarkedItems == true)
+                                ? null
                                 : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                             new FieldOrderEntity(DbField.WeithingDate, DbOrderDirection.Desc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
-                    }
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();

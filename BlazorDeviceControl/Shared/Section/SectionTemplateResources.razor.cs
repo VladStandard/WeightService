@@ -50,11 +50,10 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                    Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc),
+                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     Items?.OrderBy(x => ((TemplateResourceEntity)x).Name);
                     Items?.OrderBy(x => ((TemplateResourceEntity)x).Type);

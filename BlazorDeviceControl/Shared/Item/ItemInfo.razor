@@ -1,11 +1,8 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/info"
-@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
-@using DataCore.Utils
 @using static DataCore.Utils.BlazorCoreUtuls
-@using static DataCore.ShareEnums
 
 <ActionsReloadItem ParentRazor=@this 
     Title=@LocaleCore.System.SystemInfo SetParameters=@SetParametersAsync />

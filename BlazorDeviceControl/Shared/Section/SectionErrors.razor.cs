@@ -51,33 +51,31 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                        SqlQueries.DbServiceManaging.Tables.Errors.GetErrors(
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
+                    Items = new List<ErrorEntity>().ToList<BaseEntity>();
+                    foreach (object obj in objects)
                     {
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                            SqlQueries.DbServiceManaging.Tables.Errors.GetErrors(
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
-                        Items = new List<ErrorEntity>().ToList<BaseEntity>();
-                        foreach (object obj in objects)
+                        if (obj is object[] { Length: 8 } item)
                         {
-                            if (obj is object[] { Length: 8 } item)
+                            if (long.TryParse(Convert.ToString(item[0]), out long id))
                             {
-                                if (long.TryParse(Convert.ToString(item[0]), out long id))
+                                Items.Add(new ErrorEntity()
                                 {
-                                    Items.Add(new ErrorEntity()
-                                    {
-                                        IdentityId = id,
-                                        CreateDt = Convert.ToDateTime(item[1]),
-                                        ChangeDt = Convert.ToDateTime(item[2]),
-                                        FilePath = item[3] is string file ? file : string.Empty,
-                                        LineNumber = Convert.ToInt32(item[4]),
-                                        MemberName = item[5] is string member ? member : string.Empty,
-                                        Exception = item[6] is string ex ? ex : string.Empty,
-                                        InnerException = item[7] is string inEx ? inEx: string.Empty,
-                                    });
-                                }
+                                    IdentityId = id,
+                                    CreateDt = Convert.ToDateTime(item[1]),
+                                    ChangeDt = Convert.ToDateTime(item[2]),
+                                    FilePath = item[3] is string file ? file : string.Empty,
+                                    LineNumber = Convert.ToInt32(item[4]),
+                                    MemberName = item[5] is string member ? member : string.Empty,
+                                    Exception = item[6] is string ex ? ex : string.Empty,
+                                    InnerException = item[7] is string inEx ? inEx : string.Empty,
+                                });
                             }
                         }
                     }
+
                     ButtonSettings = new(false, true, true, false, false, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();

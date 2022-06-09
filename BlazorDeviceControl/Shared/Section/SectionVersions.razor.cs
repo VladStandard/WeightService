@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
-using Radzen;
 
 namespace BlazorDeviceControl.Shared.Section
 {

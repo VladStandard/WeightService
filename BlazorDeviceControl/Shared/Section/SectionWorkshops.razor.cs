@@ -50,12 +50,11 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (AppSettings.DataAccess != null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
-                            (IsShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                    Items = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
+                        (IsShowMarkedItems == true) ? null
+                            : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc),
+                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.OrderBy(x => x.ProductionFacility.Name).ToList<BaseEntity>();
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;

@@ -58,23 +58,21 @@ namespace BlazorDeviceControl.Shared.Section
                     if (string.IsNullOrEmpty(TemplateCategory))
                     {
                         TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
-                        if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                (IsShowMarkedItems == true) ? null
-                                    : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                            (IsShowMarkedItems == true) ? null
+                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                            new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
                     else
                     {
-                        if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                (IsShowMarkedItems == true)
-                                    ? new FieldListEntity(new Dictionary<DbField, object?> { { DbField.CategoryId, TemplateCategory } })
-                                    : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false }, { DbField.CategoryId, TemplateCategory } }),
-                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                            (IsShowMarkedItems == true)
+                                ? new FieldListEntity(new Dictionary<DbField, object?> { { DbField.CategoryId, TemplateCategory } })
+                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false }, { DbField.CategoryId, TemplateCategory } }),
+                            new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, true, true, true, true, false, false);
