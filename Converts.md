@@ -6,3 +6,4 @@
 - [Text to Hex](Notepad++ -> Plugins -> Converter -> ASCII -> HEX)
 - [ZPL to virtual label](http://labelary.com/viewer.html)
 - [ZPL to print label](http://ip_address/dir -> Create script)
+- [Online XML tools](https://onlinexmltools.com/prettify-xml)

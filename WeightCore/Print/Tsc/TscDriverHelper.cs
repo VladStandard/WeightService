@@ -12,7 +12,9 @@ namespace WeightCore.Print.Tsc
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618
         private static TscDriverHelper _instance;
+#pragma warning restore CS8618
         public static TscDriverHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
@@ -39,7 +41,7 @@ namespace WeightCore.Print.Tsc
         //        return _ethernet;
         //    }
         //}
-        public TscPrintPropertiesHelper Properties { get; set; } = TscPrintPropertiesHelper.Instance;
+        public TscPrintPropertiesHelper Properties { get; } = TscPrintPropertiesHelper.Instance;
         private string _textPrepare;
         public string TextPrepare
         {

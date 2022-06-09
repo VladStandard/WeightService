@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql;
-using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +15,7 @@ namespace WeightCore.Gui.XamlPages
     {
         #region Public/Private fields and properties
 
-        public SqlViewModelHelper SqlViewModel { get; set; }
+        private SqlViewModelHelper SqlViewModel { get; }
         public RoutedEventHandler OnClose { get; set; }
         public System.Windows.Forms.DialogResult Result { get; internal set; }
 

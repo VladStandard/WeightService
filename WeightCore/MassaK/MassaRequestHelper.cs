@@ -22,8 +22,8 @@ namespace WeightCore.MassaK
 
         #region Public and private fields and properties
 
-        private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
-        private MassaCrcHelper MassaCrc { get; set; } = MassaCrcHelper.Instance;
+        private BytesHelper Bytes { get; } = BytesHelper.Instance;
+        private MassaCrcHelper MassaCrc { get; } = MassaCrcHelper.Instance;
 
         public readonly byte[] Header = { 0xF8, 0x55, 0xCE };
 

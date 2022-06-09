@@ -10,7 +10,7 @@ git commit -m "Updated version to v0.x.xxx"
 ```
 Make changes
 ```
-git tag -a v0.x.xxx -m "WS-T-xxx"
+git tag -a v0.x.xxx <commit_hash>
 ```
 
 ## Tuesday Release-version

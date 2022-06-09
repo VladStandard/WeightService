@@ -22,8 +22,8 @@ namespace ScalesUI
     {
         #region Public and private fields and properties
 
-        private static AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
-        private static DataAccessHelper DataAccess { get; set; } = DataAccessHelper.Instance;
+        private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+        private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
         #endregion
 
@@ -35,8 +35,7 @@ namespace ScalesUI
             MainInside();
         }
 
-        internal static void MainInside(
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private static void MainInside([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -81,7 +80,6 @@ namespace ScalesUI
                     GuiUtils.WpfForm.ShowNewRegistration(message);
                     DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
                     Application.Exit();
-                    return;
                 }
                 else
                 {

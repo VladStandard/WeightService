@@ -34,11 +34,11 @@ namespace WeightCore.Helpers
 
         #region Private helpers
 
-        public AppHelper App { get; private set; } = AppHelper.Instance;
-        private CollectionsHelper Collections { get; set; } = CollectionsHelper.Instance;
-        private ProcHelper Proc { get; set; } = ProcHelper.Instance;
-        private RegHelper Reg { get; set; } = RegHelper.Instance;
-        private WinInfoHelper WinInfo { get; set; } = WinInfoHelper.Instance;
+        public AppHelper App { get; } = AppHelper.Instance;
+        private CollectionsHelper Collections { get; } = CollectionsHelper.Instance;
+        private ProcHelper Proc { get; } = ProcHelper.Instance;
+        private RegHelper Reg { get; } = RegHelper.Instance;
+        private WinInfoHelper WinInfo { get; } = WinInfoHelper.Instance;
 
         #endregion
 
@@ -47,29 +47,29 @@ namespace WeightCore.Helpers
         /// <summary>
         /// Главный каталог
         /// </summary>
-        public string DirMain { get; set; }
+        public string DirMain { get; private set; }
 
         /// <summary>
         /// Каталог документации.
         /// </summary>
-        public string DirDocs { get; set; }
+        public string DirDocs { get; private set; }
 
         /// <summary>
         /// Каталог драйверов.
         /// </summary>
-        public string DirDrivers { get; set; }
+        public string DirDrivers { get; private set; }
 
         /// <summary>
         /// Каталог шрифтов.
         /// </summary>
-        public string DirFonts { get; set; }
+        public string DirFonts { get; private set; }
 
         /// <summary>
         /// Каталог руководств.
         /// </summary>
-        public string DirManuals { get; set; }
+        public string DirManuals { get; private set; }
 
-        public ShareEnums.Lang CurrentLanguage { get; set; } = ShareEnums.Lang.Russian;
+        private ShareEnums.Lang CurrentLanguage { get; }
 
         /// <summary>
         /// Исходный каталог документации.

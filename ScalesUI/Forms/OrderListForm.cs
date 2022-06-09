@@ -16,11 +16,11 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
         private int NumPage { get; set; } = 0;
-        private int Offset { get; set; } = 9;
+        private int Offset { get; } = 9;
         private List<OrderDirect> OrdList { get; set; } = null;
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
+        private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
 

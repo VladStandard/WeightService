@@ -19,8 +19,8 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
+        private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
 

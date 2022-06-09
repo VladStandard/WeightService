@@ -15,10 +15,10 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private DateTime SaveProductDate { get; }
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
         private byte SaveKneading { get; }
         private byte SavePalletSize { get; }
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
+        private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
 

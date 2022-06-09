@@ -13,8 +13,8 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
+        private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
 

@@ -7,13 +7,13 @@ namespace WeightCore.Print.Zebra
 {
     public class DeviceSocketTcp : IDeviceSocket
     {
-        public string DeviceIP { get; private set; }
-        public int DevicePort { get; private set; }
+        private string DeviceIP { get; }
+        private int DevicePort { get; }
 
-        public DeviceSocketTcp(string _DeviceIP, int _DevicePort)
+        public DeviceSocketTcp(string deviceIp, int devicePort)
         {
-            DeviceIP = _DeviceIP;
-            DevicePort = _DevicePort;
+            DeviceIP = deviceIp;
+            DevicePort = devicePort;
         }
 
         public override string SendStringToPrinter(string szString)

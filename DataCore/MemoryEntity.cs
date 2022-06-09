@@ -12,10 +12,10 @@ namespace DataCore
     {
         #region Public and private fields and properties
 
-        public int SleepMiliSeconds { get; private set; }
-        public int WaitCloseMiliSeconds { get; private set; }
-        public MemorySizeEntity MemorySize { get; private set; }
-        public string ExceptionMsg { get; private set; }
+        public int SleepMiliSeconds { get; }
+        public int WaitCloseMiliSeconds { get; }
+        public MemorySizeEntity MemorySize { get; }
+        public string ExceptionMsg { get; }
         public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
         public delegate void DelegateGuiRefresh(bool continueOnCapturedContext);
         public bool IsExecute { get; set; }
@@ -44,7 +44,6 @@ namespace DataCore
 
         #region Public and private methods
 
-        //public async Task OpenAsync(DelegateGuiRefreshAsync callRefreshAsync)
         public async Task OpenAsync()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -67,8 +66,6 @@ namespace DataCore
                     if (MemorySize.VirtualCurrent != null)
                         MemorySize.VirtualCurrent.Bytes = 0;
                 }
-                //callRefreshAsync?.Invoke(false).ConfigureAwait(false);
-                //Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
                 await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             }
         }

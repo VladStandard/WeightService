@@ -5,9 +5,9 @@ namespace WeightCore.Models
 {
     public class XmlTag
     {
-        public string ElementName { get; set; }
-        public string AttributeName { get; set; }
-        public string AttributeValue { get; set; }
+        public string ElementName { get; }
+        public string AttributeName { get; }
+        public string AttributeValue { get; }
 
         public XmlTag(string elementName, string attributeName = null, string attributeValue = null)
         {

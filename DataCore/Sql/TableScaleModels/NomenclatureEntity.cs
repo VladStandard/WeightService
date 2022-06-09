@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Models;
+using DataCore.Utils;
 
 namespace DataCore.Sql.TableScaleModels
 {
@@ -15,6 +16,7 @@ namespace DataCore.Sql.TableScaleModels
         public virtual string Name { get; set; }
         public virtual string Code { get; set; }
         public virtual string SerializedRepresentationObject { get; set; }
+        public virtual string XmlPretty => XmlUtils.GetXmlpretty(SerializedRepresentationObject);
         /// <summary>
         /// Is weighted or pcs.
         /// </summary>

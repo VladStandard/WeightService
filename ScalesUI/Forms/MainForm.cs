@@ -28,11 +28,11 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties - Helpers
 
-        private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private ProcHelper Proc { get; set; } = ProcHelper.Instance;
-        private QuartzHelper Quartz { get; set; } = QuartzHelper.Instance;
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
+        private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
+        private ProcHelper Proc { get; } = ProcHelper.Instance;
+        private QuartzHelper Quartz { get; } = QuartzHelper.Instance;
+        private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace ScalesUI.Forms
         private Button ButtonPrint { get; set; }
         private Button ButtonScalesInit { get; set; }
         private Button ButtonScalesTerminal { get; set; }
-        public FontsSettingsHelper FontsSettings { get; private set; } = FontsSettingsHelper.Instance;
+        private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
         private readonly object _lockerDays = new();
         private TableLayoutPanel TableLayoutPanelButtons { get; set; }
         private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
@@ -68,7 +68,8 @@ namespace ScalesUI.Forms
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
                 UserSession.StopwatchMain.Restart();
-                UserSession.DataAccess.Log.Setup(UserSession.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
+                if (UserSession.Scale.Host != null)
+                    UserSession.DataAccess.Log.Setup(UserSession.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
                 FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
                 TopMost = !Debug.IsDebug;
                 MainForm_ButtonsCreate();
@@ -91,10 +92,8 @@ namespace ScalesUI.Forms
                 try
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                    Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), delegate { ScheduleEveryDays(); },
+                    Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
                         "jobScheduleEveryDays", "triggerScheduleEveryDays", "triggerGroupScheduleEveryDays");
-                    //Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { ScheduleEverySeconds(); },
-                    //    "jobScheduleEverySeconds", "triggerScheduleEverySeconds", "triggerGroupScheduleEverySeconds");
                     LoadManagerControl();
                 }
                 catch (Exception ex)
@@ -105,10 +104,16 @@ namespace ScalesUI.Forms
                 {
                     MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                     SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                    UserSession.DataAccess.Log.Log($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}", 
-                        LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                    UserSession.DataAccess.Log.Log(LocaleData.Program.IsLoaded + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                        LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    if (UserSession.Scale.Host != null)
+                    {
+                        UserSession.DataAccess.Log.Log($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
+                            LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                        UserSession.DataAccess.Log.Log(
+                            LocaleData.Program.IsLoaded +
+                            $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+                            LogType.Information, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    }
+
                     UserSession.StopwatchMain.Stop();
                 }
             }).ConfigureAwait(false);
@@ -158,14 +163,18 @@ namespace ScalesUI.Forms
                     fieldMassaThreshold, fieldMassaGet, fieldMassaPluDescription);
                 UserSession.ManagerControl.Massa.Open();
                 // PrintMain.
-                UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain, fieldPrintMain, true);
+                if (UserSession.Scale.PrinterMain != null)
+                    UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain,
+                        fieldPrintMain, true);
                 UserSession.ManagerControl.PrintMain.Open(true);
                 UserSession.ManagerControl.PrintMain.SetOdometorUserLabel(1);
                 // PrintShipping.
                 if (UserSession.Scale.IsShipping)
                 {
-                    UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping, UserSession.Scale.PrinterShipping, 
-                        fieldPrintShipping, false);
+                    if (UserSession.Scale.PrinterShipping != null)
+                        UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping,
+                            UserSession.Scale.PrinterShipping,
+                            fieldPrintShipping, false);
                     UserSession.ManagerControl.PrintShipping.Open(false);
                     UserSession.ManagerControl.PrintShipping.SetOdometorUserLabel(1);
                 }
@@ -208,9 +217,10 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                UserSession.DataAccess.Log.LogInformation(LocaleData.Program.IsClosed + 
-                    $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                if (UserSession.Scale.Host != null)
+                    UserSession.DataAccess.Log.LogInformation(LocaleData.Program.IsClosed +
+                        $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 UserSession.StopwatchMain.Stop();
             }
         }
@@ -285,7 +295,7 @@ namespace ScalesUI.Forms
             if (buttonsSettings.IsChangeDevice)
             {
                 ButtonScaleChange = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScaleChange), 2, 0);
-                ButtonScaleChange.Click += new EventHandler(ActionScaleChange_Click);
+                ButtonScaleChange.Click += ActionScaleChange_Click;
             }
 
             TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -294,49 +304,49 @@ namespace ScalesUI.Forms
             if (buttonsSettings.IsScalesTerminal)
             {
                 ButtonScalesTerminal = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesTerminal), column++);
-                ButtonScalesTerminal.Click += new EventHandler(ActionScalesTerminal_Click);
+                ButtonScalesTerminal.Click += ActionScalesTerminal_Click;
             }
 
             if (buttonsSettings.IsScalesInit)
             {
                 ButtonScalesInit = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesInit), column++);
-                ButtonScalesInit.Click += new EventHandler(ActionScalesInit_Click);
+                ButtonScalesInit.Click += ActionScalesInit_Click;
             }
 
             if (buttonsSettings.IsOrder)
             {
                 ButtonOrder = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonOrder), column++);
-                ButtonOrder.Click += new EventHandler(ActionOrder_Click);
+                ButtonOrder.Click += ActionOrder_Click;
             }
 
             if (buttonsSettings.IsNewPallet)
             {
                 ButtonNewPallet = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonNewPallet), column++);
-                ButtonNewPallet.Click += new EventHandler(ActionNewPallet_Click);
+                ButtonNewPallet.Click += ActionNewPallet_Click;
             }
 
             if (buttonsSettings.IsKneading)
             {
                 ButtonKneading = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonKneading), column++);
-                ButtonKneading.Click += new EventHandler(ActionKneading_Click);
+                ButtonKneading.Click += ActionKneading_Click;
             }
 
             if (buttonsSettings.IsPlu)
             {
                 ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPlu), column++);
-                ButtonPlu.Click += new EventHandler(ActionPlu_Click);
+                ButtonPlu.Click += ActionPlu_Click;
             }
 
             if (buttonsSettings.IsMore)
             {
                 ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonMore), column++);
-                ButtonMore.Click += new EventHandler(ActionMore_Click);
+                ButtonMore.Click += ActionMore_Click;
             }
 
             if (buttonsSettings.IsPrint)
             {
                 ButtonPrint = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPrint), column++);
-                ButtonPrint.Click += new EventHandler(ActionPrint_Click);
+                ButtonPrint.Click += ActionPrint_Click;
                 ButtonPrint.Focus();
             }
 
@@ -354,8 +364,9 @@ namespace ScalesUI.Forms
                 if (Quartz == null)
                     return;
                 UserSession.ProductDate = DateTime.Now;
-                UserSession.DataAccess.Log.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                if (UserSession.Scale.Host != null)
+                    UserSession.DataAccess.Log.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
             }
         }
 
@@ -630,11 +641,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?", 
-                    true, LogType.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                if (result != DialogResult.Yes)
-                    return;
+                if (UserSession.Scale.Host != null)
+                {
+                    DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?", 
+                        true, LogType.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    if (result != DialogResult.Yes)
+                        return;
+                }
 
                 // Run app.
                 if (File.Exists(LocaleData.Paths.ScalesTerminal))
@@ -666,22 +680,29 @@ namespace ScalesUI.Forms
             {
                 if (!UserSession.IsPluCheckWeight)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true, LogType.Warning, null,
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    if (UserSession.Scale.Host != null)
+                        GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true,
+                            LogType.Warning, null,
+                            UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     return;
                 }
                 if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
                 {
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogType.Warning, null,
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    if (UserSession.Scale.Host != null)
+                        GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true,
+                            LogType.Warning, null,
+                            UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     return;
                 }
 
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                if (result != DialogResult.Yes)
-                    return;
+                if (UserSession.Scale.Host != null)
+                {
+                    DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
+                        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    if (result != DialogResult.Yes)
+                        return;
+                }
 
                 UserSession.ManagerControl.Massa.Close();
 

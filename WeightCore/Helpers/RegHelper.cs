@@ -13,14 +13,16 @@ namespace WeightCore.Helpers
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618
         private static RegHelper _instance;
+#pragma warning restore CS8618
         public static RegHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public and private fields and properties
 
-        public WmiHelper Wmi { get; private set; } = WmiHelper.Instance;
+        public WmiHelper Wmi { get; } = WmiHelper.Instance;
 
         #endregion
 

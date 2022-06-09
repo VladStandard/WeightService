@@ -10,18 +10,20 @@ namespace WeightCore.Managers
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618
         private static ManagerControllerHelper _instance;
+#pragma warning restore CS8618
         public static ManagerControllerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public and private fields and properties
 
-        public ManagerLabels Labels { get; private set; }
-        public ManagerMassa Massa { get; private set; }
-        public ManagerMemory Memory { get; private set; }
-        public ManagerPrint PrintMain { get; private set; }
-        public ManagerPrint PrintShipping { get; private set; }
+        public ManagerLabels Labels { get; }
+        public ManagerMassa Massa { get; }
+        public ManagerMemory Memory { get; }
+        public ManagerPrint PrintMain { get; }
+        public ManagerPrint PrintShipping { get; }
         private readonly object _locker = new();
 
         #endregion

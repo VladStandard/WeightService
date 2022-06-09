@@ -19,7 +19,7 @@ namespace WeightCore.MassaK
 
         #endregion
 
-        public BytesHelper Bytes { get; private set; } = BytesHelper.Instance;
+        private BytesHelper Bytes { get; } = BytesHelper.Instance;
 
         #region Public and private methods
 
@@ -47,7 +47,7 @@ namespace WeightCore.MassaK
             return BitConverter.ToUInt16(crcReverse, 0);
         }
 
-        public byte[] CrcComputeChecksumAsBytes(byte[] data) => BitConverter.GetBytes(CrcComputeChecksumAsUshort(data));
+        private byte[] CrcComputeChecksumAsBytes(byte[] data) => BitConverter.GetBytes(CrcComputeChecksumAsUshort(data));
 
         public byte[] CrcRecalc(byte[] body)
         {

@@ -11,17 +11,17 @@ namespace WeightCore.MassaK
     {
         public MassaCmdType CmdType { get; }
         public byte[] Response { get; }
-        public byte[] Header { get; private set; }
-        public byte[] Len { get; private set; }
-        public ushort LenAsUshort { get; private set; }
+        public byte[] Header { get; }
+        public byte[] Len { get; }
+        public ushort LenAsUshort { get; }
         public byte Command { get; }
-        public byte[] Body { get; private set; }
-        public byte[] Crc { get; private set; }
-        public byte[] CrcCalc { get; private set; }
-        public bool IsValidHeaders { get; private set; }
-        public bool IsValidLength { get; private set; }
-        public bool IsValidCommand { get; private set; }
-        public bool IsValidCrc { get; private set; }
+        public byte[] Body { get; }
+        public byte[] Crc { get; }
+        public byte[] CrcCalc { get; }
+        public bool IsValidHeaders { get; }
+        public bool IsValidLength { get; }
+        public bool IsValidCommand { get; }
+        public bool IsValidCrc { get; }
         public bool IsValidAll => IsValidHeaders && IsValidLength && IsValidCommand && IsValidCrc;
         public byte ErrorCode
         {
@@ -200,10 +200,10 @@ namespace WeightCore.MassaK
             }
         }
 
-        public ResponseMassaEntity Massa { get; set; }
-        public ResponseScaleParEntity ScalePar { get; set; }
-        private MassaCrcHelper MassaCrc { get; set; } = MassaCrcHelper.Instance;
-        private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
+        public ResponseMassaEntity Massa { get; }
+        public ResponseScaleParEntity ScalePar { get; }
+        private MassaCrcHelper MassaCrc { get; } = MassaCrcHelper.Instance;
+        private MassaRequestHelper MassaRequest { get; } = MassaRequestHelper.Instance;
 
         public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
         {

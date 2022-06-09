@@ -8,11 +8,11 @@ namespace WeightCore.Print.Zebra
 {
     public class DeviceSocketRaw : IDeviceSocket
     {
-        private string PrinterName { get; set; }
+        private string PrinterName { get; }
 
-        public DeviceSocketRaw(string _PrinterName)
+        public DeviceSocketRaw(string printerName)
         {
-            PrinterName = _PrinterName;
+            PrinterName = printerName;
         }
 
         public override string SendStringToPrinter(string szString)

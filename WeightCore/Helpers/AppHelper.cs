@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localizations;
 using DataCore.Sql;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
@@ -21,17 +20,18 @@ namespace WeightCore.Helpers
     /// </summary>
     public sealed class AppHelper : BaseViewModel
     {
-        #region Design pattern "Singleton"
+        #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<AppHelper> _instance = new(() => new AppHelper());
-        public static AppHelper Instance => _instance.Value;
-        private AppHelper() { }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static AppHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static AppHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public fields and properties
 
-        public SqlHelper SqlHelp { get; private set; } = SqlHelper.Instance;
+        public SqlHelper SqlHelp { get; } = SqlHelper.Instance;
 
         private string _status;
         public string Status
@@ -44,6 +44,15 @@ namespace WeightCore.Helpers
             }
         }
         public Mutex InstanceCheckMutex { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public AppHelper()
+        {
+            _status = string.Empty;
+        }
 
         #endregion
 

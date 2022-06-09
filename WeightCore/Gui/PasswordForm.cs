@@ -13,8 +13,8 @@ namespace WeightCore.Gui
         #region Private fields and properties
 
         private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
-        private ushort UserCode { get; set; } = 0;
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private ushort UserCode { get; set; }
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
 
         #endregion
 

@@ -19,7 +19,7 @@ namespace DataCore.Sql.TableScaleModels
         public virtual PrinterEntity? PrinterMain { get; set; }
         public virtual PrinterEntity? PrinterShipping { get; set; }
         public virtual byte ShippingLength { get; set; }
-        public virtual HostEntity? Host { get; set; }
+        public virtual HostEntity Host { get; set; }
         public virtual string Description { get; set; }
         public virtual string DeviceIp { get; set; }
         public virtual short DevicePort { get; set; }
@@ -51,7 +51,7 @@ namespace DataCore.Sql.TableScaleModels
             TemplateDefault = null;
             TemplateSeries = null;
             WorkShop = null;
-            Host = null;
+            Host = new();
             PrinterMain = null;
             PrinterShipping = null;
             ShippingLength = 0;
@@ -84,7 +84,7 @@ namespace DataCore.Sql.TableScaleModels
             string strPrinterMain = PrinterMain != null ? PrinterMain.IdentityId.ToString() : "null";
             string strPrinterShipping = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
             string strPrinterVehicle = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
-            string strHost = Host != null ? Host.IdentityId.ToString() : "null";
+            string strHost = Host.IdentityId.ToString();
             return base.ToString() +
                    $"{nameof(Description)}: {Description}. " +
                    $"{nameof(DeviceIp)}: {DeviceIp}. " +
@@ -125,7 +125,7 @@ namespace DataCore.Sql.TableScaleModels
                 return false;
             if (PrinterShipping != null && item.PrinterShipping != null && !PrinterShipping.Equals(item.PrinterShipping))
                 return false;
-            if (Host != null && item.Host != null && !Host.Equals(item.Host))
+            if (!Host.Equals(item.Host))
                 return false;
             return base.Equals(item) &&
                    Equals(Description, item.Description) &&
@@ -176,7 +176,7 @@ namespace DataCore.Sql.TableScaleModels
                 return false;
             if (PrinterShipping != null && !PrinterShipping.EqualsDefault())
                 return false;
-            if (Host != null && !Host.EqualsDefault())
+            if (!Host.EqualsDefault())
                 return false;
             return base.EqualsDefault(IdentityName) &&
                    Equals(Description, string.Empty) &&
@@ -210,7 +210,7 @@ namespace DataCore.Sql.TableScaleModels
             item.IsShipping = IsShipping;
             item.IsKneading = IsKneading;
             item.ShippingLength = ShippingLength;
-            item.Host = Host?.CloneCast();
+            item.Host = Host.CloneCast();
             item.Description = Description;
             item.DeviceIp = DeviceIp;
             item.DevicePort = DevicePort;

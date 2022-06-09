@@ -9,7 +9,7 @@ namespace WeightCore.Print.Zebra
     public class StateEntity
     {
         public string Message { get; private set; }
-        public bool IsAlive { get; set; } = false;
+        public bool IsAlive { get; set; }
         public int OdometerUserLabel { get; private set; }
         public string Peeled { get; private set; }
 
@@ -44,14 +44,7 @@ namespace WeightCore.Print.Zebra
 
             if (request == ZplUtils.ZplGetOdometerUserLabel())
             {
-                try
-                {
-                    OdometerUserLabel = int.Parse(msg);
-                }
-                catch
-                {
-
-                }
+                OdometerUserLabel = int.Parse(msg);
             }
 
             if (request == ZplUtils.ZplPeelerState())

@@ -16,8 +16,8 @@ namespace WeightCore.Gui.XamlPages
     {
         #region Private fields and properties
 
-        public UserSessionHelper UserSession { get; private set; } = UserSessionHelper.Instance;
-        public SqlViewModelHelper SqlViewModel { get; set; }
+        public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+        public SqlViewModelHelper SqlViewModel { get; }
         public System.Windows.Forms.DialogResult Result { get; internal set; }
         public RoutedEventHandler OnClose { get; set; }
 

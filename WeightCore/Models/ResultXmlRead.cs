@@ -24,9 +24,9 @@ namespace WeightCore.Models
             Str = str;
         }
 
-        public bool NoError { get; set; }
-        public Collection<string> Str { get; set; }
-        public string Value { get; set; }
+        public bool NoError { get; }
+        public Collection<string> Str { get; }
+        public string Value { get; }
 
         public override string ToString()
         {

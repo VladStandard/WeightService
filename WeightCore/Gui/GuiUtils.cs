@@ -30,7 +30,7 @@ namespace WeightCore.Gui
         /// </summary>
         public static class WpfForm
         {
-            public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+            public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
             public static WpfPageLoader WpfPage { get; set; }
 
             /// <summary>

@@ -26,25 +26,26 @@ namespace WeightCore.Helpers
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618
         private static UserSessionHelper _instance;
+#pragma warning restore CS8618
         public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public and private fields and properties
 
-        public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public ManagerControllerHelper ManagerControl { get; private set; } = ManagerControllerHelper.Instance;
-        public SqlViewModelHelper SqlViewModel { get; set; } = SqlViewModelHelper.Instance;
+        private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+        public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+        public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
+        public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
-        //public HostDirect Host { get; private set; }
         public OrderDirect Order { get; set; }
         private ScaleEntity _scale;
         public ScaleEntity Scale
         {
             get => _scale;
-            set
+            private set
             {
                 _scale = value;
                 SqlViewModel.SetupTasks(_scale.IdentityId);

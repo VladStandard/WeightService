@@ -32,7 +32,7 @@ namespace WeightCore.Managers
         public PrintBrand PrintBrand { get; private set; }
         public PrinterEntity Printer { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
-        public TscDriverHelper TscDriver { get; private set; } = TscDriverHelper.Instance;
+        public TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
         public WmiWin32PrinterEntity TscWmiPrinter => Wmi.GetWin32Printer(TscDriver.Properties.PrintName);
         public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
         public ZebraPrinterStatus ZebraStatus { get; private set; }

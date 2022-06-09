@@ -17,11 +17,11 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
-        private UserSessionHelper UserSession { get; set; } = UserSessionHelper.Instance;
-        public FontsSettingsHelper FontsSettings { get; private set; } = FontsSettingsHelper.Instance;
+        private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+        public FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
         public int ColumnCount { get; } = 4;
         public int CurrentPage { get; private set; }
         public int PageSize { get; } = 20;

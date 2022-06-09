@@ -12,17 +12,17 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        public ushort WaitClose { get; set; }
-        public ushort WaitException { get; set; }
-        public ushort WaitReopen { get; set; }
-        public ushort WaitRequest { get; set; }
-        public ushort WaitResponse { get; set; }
-        public readonly ushort WaitSleep = 0_050;
-        public readonly ushort WaitLowLimit = 0_050;
-        public readonly ushort WaitHighLimit = 5_000;
-        public Stopwatch StopwatchReopen { get; set; }
-        public Stopwatch StopwatchRequest { get; set; }
-        public Stopwatch StopwatchResponse { get; set; }
+        public ushort WaitClose { get; }
+        public ushort WaitException { get; }
+        public ushort WaitReopen { get; }
+        public ushort WaitRequest { get; }
+        public ushort WaitResponse { get; }
+        public const ushort WaitSleep = 0_050;
+        public const ushort WaitLowLimit = 0_050;
+        public const ushort WaitHighLimit = 5_000;
+        public Stopwatch StopwatchReopen { get; }
+        public Stopwatch StopwatchRequest { get; }
+        public Stopwatch StopwatchResponse { get; }
 
         #endregion
 

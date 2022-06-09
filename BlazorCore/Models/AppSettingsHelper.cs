@@ -24,33 +24,26 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public DataAccessHelper DataAccessHelp { get; private set; } = DataAccessHelper.Instance;
-        public DataSourceDicsEntity DataSourceDics { get; private init; } = new();
+        public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+        public DataAccessHelper DataAccessHelp { get; } = DataAccessHelper.Instance;
+        public DataSourceDicsEntity DataSourceDics { get; } = new();
         public MemoryEntity Memory { get; set; } = new();
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
         public static int Delay => 5_000;
-        public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
-            Memory.MemorySize.PhysicalCurrent != null
+        public string MemoryInfoWithDt => Memory.MemorySize.PhysicalCurrent != null
             ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
             : $"{LocaleCore.Memory.Memory}: - MB";
-        public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
-            Memory.MemorySize.PhysicalCurrent != null
+        public string MemoryInfo => Memory.MemorySize.PhysicalCurrent != null
             ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
             : $"{LocaleCore.Memory.Memory}: - MB";
-        public string MemoryInfoShort => Memory != null && Memory.MemorySize != null &&
-            Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
+        public string MemoryInfoShort => Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
             ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
               $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
             : $"{LocaleCore.Memory.Memory}: - MB";
         public uint MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
             ? 0 : (uint)(Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
-        public string SqlServerDescription => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } }
-            ? DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
-                ? LocaleCore.Strings.ServerRelease : LocaleCore.Strings.ServerDevelop
-            : LocaleCore.Strings.NotLoad;
         public bool IsSqlServerRelease => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&
             DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
         public bool IsSqlServerDebug => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&

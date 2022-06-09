@@ -18,7 +18,7 @@ namespace WeightCore.Managers
         #region Public and private fields and properties - Manager
 
         public ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
-        public DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        public DebugHelper Debug { get; } = DebugHelper.Instance;
         public AsyncLock MutexReopen { get; private set; }
         public AsyncLock MutexRequest { get; private set; }
         public AsyncLock MutexResponse { get; private set; }
@@ -27,9 +27,9 @@ namespace WeightCore.Managers
         public CancellationTokenSource CtsResponse { get; set; }
         public ManagerWaitConfig WaitConfig { get; set; }
         public string ExceptionMsg { get; set; }
-        public Task TaskReopen { get; set; } = null;
-        public Task TaskRequest { get; set; } = null;
-        public Task TaskResponse { get; set; } = null;
+        public Task TaskReopen { get; set; }
+        public Task TaskRequest { get; set; }
+        public Task TaskResponse { get; set; }
         private readonly object _locker = new();
 
         #endregion
@@ -504,7 +504,7 @@ namespace WeightCore.Managers
 
             if (TaskReopen != null)
             {
-                TaskReopen.Wait(WaitConfig.WaitLowLimit);
+                TaskReopen.Wait(ManagerWaitConfig.WaitLowLimit);
                 if (TaskReopen.IsCompleted)
                     TaskReopen.Dispose();
                 TaskReopen = null;
@@ -512,7 +512,7 @@ namespace WeightCore.Managers
 
             if (TaskRequest != null)
             {
-                TaskRequest.Wait(WaitConfig.WaitLowLimit);
+                TaskRequest.Wait(ManagerWaitConfig.WaitLowLimit);
                 if (TaskRequest.IsCompleted)
                     TaskRequest.Dispose();
                 TaskRequest = null;
@@ -520,7 +520,7 @@ namespace WeightCore.Managers
 
             if (TaskResponse != null)
             {
-                TaskResponse.Wait(WaitConfig.WaitLowLimit);
+                TaskResponse.Wait(ManagerWaitConfig.WaitLowLimit);
                 if (TaskResponse.IsCompleted)
                     TaskResponse.Dispose();
                 TaskResponse = null;

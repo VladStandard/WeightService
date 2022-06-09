@@ -48,12 +48,12 @@ namespace BlazorCore.Models
         [Parameter] public string? FilterCaption { get; set; }
         [Parameter] public string? FilterName { get; set; }
         [Parameter] public TableBase Table { get; set; }
-        private ItemSaveCheckEntity ItemSaveCheck { get; set; }
-        public AppSettingsHelper AppSettings { get; private set; }
+        private ItemSaveCheckEntity ItemSaveCheck { get; }
+        public AppSettingsHelper AppSettings { get; }
         public BaseEntity? Item { get; set; }
         public bool IsLoaded { get; set; }
         public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
-        public UserSettingsHelper UserSettings { get; private set; }
+        public UserSettingsHelper UserSettings { get; }
 
         #endregion
 

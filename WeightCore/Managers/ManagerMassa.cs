@@ -27,16 +27,15 @@ namespace WeightCore.Managers
         private readonly object _locker = new();
         //private BlockingCollection<MassaExchangeEntity> Requests { get; set; } = new();
         private MassaExchangeEntity MassaExchange { get; set; }
-        public MassaStableEntity MassaStable { get; private set; } = new();
-        public MassaStableEntity MassaStableEmpty { get; private set; } = new();
+        public MassaStableEntity MassaStable { get; } = new();
+        public MassaStableEntity MassaStableEmpty { get; } = new();
         public decimal WeightGross { get; private set; }
         public decimal WeightNet { get; private set; }
-        public int CurrentError { get; private set; }
         public int ScaleFactor { get; set; } = 1_000;
         public MassaDeviceEntity MassaDevice { get; private set; }
-        public ResponseParseEntity ResponseParseGet { get; private set; } = null;
-        public ResponseParseEntity ResponseParseScalePar { get; private set; } = null;
-        public ResponseParseEntity ResponseParseSet { get; private set; } = null;
+        public ResponseParseEntity ResponseParseGet { get; private set; }
+        public ResponseParseEntity ResponseParseScalePar { get; private set; }
+        public ResponseParseEntity ResponseParseSet { get; private set; }
 
         #endregion
 
@@ -145,8 +144,7 @@ namespace WeightCore.Managers
                     //    }
                     //}
                     //Requests = new BlockingCollection<MassaExchangeEntity>();
-                    if (MassaExchange != null)
-                        SendData(MassaExchange);
+                    SendData(MassaExchange);
                 }
                 else
                 {

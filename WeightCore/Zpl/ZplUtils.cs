@@ -17,7 +17,6 @@ using System.Xml;
 using System.Xml.Xsl;
 using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
-using TableScaleModels = DataCore.Sql.TableScaleModels;
 
 namespace WeightCore.Zpl
 {
@@ -25,10 +24,9 @@ namespace WeightCore.Zpl
     {
         #region Public and private fields and properties
 
-        public static char[] DigitsCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private static readonly char[] DigitsCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
-        public static char[] SpecialCharacters = { ' ', ',', '.', '-', '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
-            '"', '№', ';', ':', '?', '/', '|', '\\', '{', '}', '<', '>' };
+        private static readonly char[] SpecialCharacters = { ' ', ',', '.', '-', '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '"', '№', ';', ':', '?', '/', '|', '\\', '{', '}', '<', '>' };
 
         #endregion
 
@@ -63,23 +61,18 @@ namespace WeightCore.Zpl
 
         public static string XsltTransformation(string xslInput, string xmlInput)
         {
-            string result;
-
-            using (StringReader stringReaderXslt = new(xslInput.Trim()))
-            {
-                using StringReader stringReaderXml = new(xmlInput.Trim());
-                using XmlReader xmlReaderXslt = XmlReader.Create(stringReaderXslt);
-                using XmlReader xmlReaderXml = XmlReader.Create(stringReaderXml);
-                XslCompiledTransform xslt = new();
-                xslt.Load(xmlReaderXslt);
-                using StringWriter stringWriter = new();
-                // Use OutputSettings of xsl, so it can be output as HTML.
-                using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
-                xslt.Transform(xmlReaderXml, xmlWriter);
-                result = stringWriter.ToString();
-                result = ConvertStringToHex(result);
-            }
-            
+            using StringReader stringReaderXslt = new(xslInput.Trim());
+            using StringReader stringReaderXml = new(xmlInput.Trim());
+            using XmlReader xmlReaderXslt = XmlReader.Create(stringReaderXslt);
+            using XmlReader xmlReaderXml = XmlReader.Create(stringReaderXml);
+            XslCompiledTransform xslt = new();
+            xslt.Load(xmlReaderXslt);
+            using StringWriter stringWriter = new();
+            // Use OutputSettings of xsl, so it can be output as HTML.
+            using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
+            xslt.Transform(xmlReaderXml, xmlWriter);
+            string result = stringWriter.ToString();
+            result = ConvertStringToHex(result);
             return result;
         }
 

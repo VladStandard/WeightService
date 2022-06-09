@@ -19,16 +19,16 @@ namespace WeightCore.MassaK
         public bool IsCloseResult { get; set; }
         public bool IsResponseResult { get; set; }
         public bool IsExceptionResult { get; set; }
-        public int ReadTimeout { get; private set; }
-        public int WriteTimeout { get; private set; }
-        public string PortName { get; private set; }
-        public BytesHelper Bytes { get; private set; } = BytesHelper.Instance;
+        public int ReadTimeout { get; }
+        public int WriteTimeout { get; }
+        public string PortName { get; }
+        public BytesHelper Bytes { get; } = BytesHelper.Instance;
         public SerialPortController PortController { get; private set; }
-        public int SendBytesCount { get; private set; } = 0;
-        public int ReceiveBytesCount { get; private set; } = 0;
+        public int SendBytesCount { get; private set; }
+        public int ReceiveBytesCount { get; private set; }
         public delegate void MassaResponseCallback(MassaExchangeEntity massaExchange, byte[] response);
-        private readonly MassaResponseCallback _massaResponseCallback = null;
-        private MassaExchangeEntity _massaExchange = null;
+        private readonly MassaResponseCallback _massaResponseCallback;
+        private MassaExchangeEntity _massaExchange;
         private readonly object _locker = new();
 
         #endregion
