@@ -21,12 +21,12 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
-        public List<ScaleEntity> ScaleItems { get; set; } = null;
-        public List<TemplateEntity>? TemplateItems { get; set; } = null;
-        public List<NomenclatureEntity>? NomenclatureItems { get; set; } = null;
-        private XmlProductHelper ProductHelper { get; set; } = XmlProductHelper.Instance;
-        private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
+        private PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
+        private List<ScaleEntity> ScaleItems { get; set; }
+        private List<TemplateEntity>? TemplateItems { get; set; }
+        private List<NomenclatureEntity>? NomenclatureItems { get; set; }
+        private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
+        private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
 
         #endregion
 
@@ -74,9 +74,9 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                     }
 
-                    // ScaleItems .
-                    if (ItemCast.Scale == null)
-                        ItemCast.Scale = new(0) { Description = LocaleCore.Table.FieldNull };
+                    // ScaleItems.
+                    //if (ItemCast.Scale == null)
+                    //    ItemCast.Scale = new(0) { Description = LocaleCore.Table.FieldNull };
                     List<ScaleEntity>? scaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
@@ -197,8 +197,8 @@ namespace BlazorDeviceControl.Shared.Item
 
         private string GetWeightFormula()
         {
-            if (ItemCast == null)
-                return string.Empty;
+            //if (ItemCast == null)
+            //    return string.Empty;
             XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.SerializedRepresentationObject);
             // Вес тары = вес коробки + (вес пакета * кол. вложений)
             return $"{ItemCast.CalcGoodWeightBox(xmlProduct)} + ({ItemCast.CalcGoodWeightPack(xmlProduct)} * {ItemCast.CalcGoodRateUnit(xmlProduct)})";

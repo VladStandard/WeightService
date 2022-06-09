@@ -2,13 +2,9 @@
 @page "/item/plu"
 @page "/item/plu/{IdentityId:long}"
 @page "/item/plu/{IdentityId:long}/{TableAction}"
-@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Section
-@using DataCore.Sql.TableDirectModels
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
-@using DataCore.Utils
 @using static DataCore.Utils.BlazorCoreUtuls
 @using static DataCore.Localizations.LocaleData.DeviceControl
 
@@ -199,13 +195,13 @@ else
                 </td>
             </tr>
             <tr >
-                <td>@LocaleCore.Table.Xml</td>
+                <td>@LocaleCore.Table.XmlPretty</td>
                 <td colspan=3>
                     <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
                     <RadzenTextArea Style="width: 90%; text-align: left; font-size: 10px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        @bind-value=@ItemCast.Nomenclature.SerializedRepresentationObject Rows=14 />
+                        Value=@ItemCast.Nomenclature.XmlPretty Rows=30 />
                 </td>
             </tr>
             <tr>
@@ -249,14 +245,14 @@ else
                     <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsName))) />
                     <RadzenTextBox Style="width: 75%; margin-right: 1%; " Disabled=false 
-                        TValue="string" @bind-value=@ItemCast.GoodsName />
+                        TValue="string" @bind-Value=@ItemCast.GoodsName />
 				</td>
                 <td>@LocaleCore.Table.GoodsFullName</td>
                 <td>
                     <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsFullName))) />
                     <RadzenTextBox Style="width: 75%; margin-right: 1%; " Disabled=false 
-                        TValue="string" @bind-value=@ItemCast.GoodsFullName />
+                        TValue="string" @bind-Value=@ItemCast.GoodsFullName />
 				</td>
             </tr>
             <tr>
@@ -265,7 +261,7 @@ else
                     <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
                     <RadzenTextArea Style="width: 90%; text-align: left; font-size: 12px; " Disabled=false 
-                        TValue="string" @bind-value=@ItemCast.GoodsDescription Rows=3 />
+                        TValue="string" @bind-Value=@ItemCast.GoodsDescription Rows=3 />
 				</td>
             </tr>
         </tbody>
