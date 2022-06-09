@@ -15,15 +15,15 @@ namespace DataCore.Sql.TableDirectModels
         #region Public and private fields and properties
 
         public long Id { get; set; } = default;
-        public TemplateDirect Template { get; set; } = new TemplateDirect();
-        public ScaleEntity Scale { get; set; }
-        public string ProductSeries { get; set; } = string.Empty;
-        public PluDirect PLU { get; set; }
-        public DateTime ProductDate { get; set; }
-        public int KneadingNumber { get; set; } = default;
-        public decimal NetWeight { get; set; }
-        public decimal TareWeight { get; set; }
-        public int? ScaleFactor { get; set; }
+        public TemplateDirect Template { get; } = new TemplateDirect();
+        public ScaleEntity Scale { get; }
+        public string ProductSeries { get; } = string.Empty;
+        public PluDirect PLU { get; }
+        public DateTime ProductDate { get; }
+        public int KneadingNumber { get; } = default;
+        public decimal NetWeight { get; }
+        public decimal TareWeight { get; }
+        public int? ScaleFactor { get; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
         
@@ -33,9 +33,15 @@ namespace DataCore.Sql.TableDirectModels
             // This code need for print labels.
             set => _ = value;
         }
-        public string ProductDatePretty
+        public string ProductDateBarCode
         {
             get => $"{ProductDate:yyMMdd}";
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string ProductDateRus
+        {
+            get => $"{ProductDate:dd.MM.yyyy}";
             // This code need for print labels.
             set => _ = value;
         }
@@ -45,9 +51,15 @@ namespace DataCore.Sql.TableDirectModels
             // This code need for print labels.
             set => _ = value;
         }
-        public string ProductTimePretty
+        public string ProductTimePrettyBarCode
         {
             get => $"{ProductDate:HHmm}";
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string ProductTimePrettyRus
+        {
+            get => $"{ProductDate:HH:mm}";
             // This code need for print labels.
             set => _ = value;
         }

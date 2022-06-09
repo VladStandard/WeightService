@@ -916,8 +916,6 @@ namespace BlazorCore.Models
                     IdentityId = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
-                default:
-                    break;
             }
         }
 
@@ -1203,8 +1201,6 @@ namespace BlazorCore.Models
                             break;
                         case TableScaleEntity:
                             ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
-                            break;
-                        default:
                             break;
                     }
                     RouteSectionNavigate(false);

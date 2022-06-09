@@ -16,7 +16,7 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
+        private AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 
         #endregion
 
@@ -111,7 +111,7 @@ namespace BlazorCore.Models
             return true;
         }
 
-        public static void Access(ref bool result, ref string detailAddition, AccessEntity access)
+        private static void Access(ref bool result, ref string detailAddition, AccessEntity access)
         {
             if (access.EqualsDefault())
                 result = false;
@@ -127,7 +127,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeEntityV2 barCodeType)
+        private static void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeEntityV2 barCodeType)
         {
             if (barCodeType.EqualsDefault())
                 result = false;
@@ -138,7 +138,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void Contragent(ref bool result, ref string detailAddition, ContragentEntityV2 contragent)
+        private static void Contragent(ref bool result, ref string detailAddition, ContragentEntityV2 contragent)
         {
             if (contragent.EqualsDefault())
                 result = false;
@@ -149,7 +149,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void Host(ref bool result, ref string detailAddition, HostEntity host)
+        private static void Host(ref bool result, ref string detailAddition, HostEntity host)
         {
             if (host.EqualsDefault())
                 result = false;
@@ -170,7 +170,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void Label(ref bool result, ref string detailAddition, LabelEntity label)
+        private static void Label(ref bool result, ref string detailAddition, LabelEntity label)
         {
             if (label.EqualsDefault())
                 result = false;
@@ -181,7 +181,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void Nomenclature(ref bool result, ref string detailAddition, NomenclatureEntity nomenclature)
+        private static void Nomenclature(ref bool result, ref string detailAddition, NomenclatureEntity nomenclature)
         {
             if (nomenclature.EqualsDefault())
                 result = false;
@@ -210,7 +210,7 @@ namespace BlazorCore.Models
                 result = false;
         }
 
-        public void Plu(ref bool result, ref string detailAddition, PluEntity plu)
+        private void Plu(ref bool result, ref string detailAddition, PluEntity plu)
         {
             if (plu.EqualsDefault())
                 result = false;
@@ -238,7 +238,7 @@ namespace BlazorCore.Models
                 result = false;
         }
 
-        public static void PrinterType(ref bool result, ref string detailAddition, PrinterTypeEntity printerType)
+        private static void PrinterType(ref bool result, ref string detailAddition, PrinterTypeEntity printerType)
         {
             if (printerType.EqualsDefault())
                 result = false;
@@ -305,7 +305,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void Template(ref bool result, ref string detailAddition, TemplateEntity template)
+        private static void Template(ref bool result, ref string detailAddition, TemplateEntity template)
         {
             if (template.EqualsDefault())
                 result = false;
@@ -321,7 +321,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public static void WeithingFact(ref bool result, ref string detailAddition, WeithingFactEntity weithingFact)
+        private static void WeithingFact(ref bool result, ref string detailAddition, WeithingFactEntity weithingFact)
         {
             if (weithingFact.EqualsDefault())
                 result = false;

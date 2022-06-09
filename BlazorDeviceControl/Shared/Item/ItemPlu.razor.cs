@@ -21,12 +21,13 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
-        private List<ScaleEntity> ScaleItems { get; set; }
-        private List<TemplateEntity>? TemplateItems { get; set; }
-        private List<NomenclatureEntity>? NomenclatureItems { get; set; }
-        private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
         private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
+        private List<NomenclatureEntity> Nomenclatures { get; set; }
+        private List<NomenclatureEntity>? NomenclatureItems { get; set; }
+        private List<ScaleEntity> ScaleItems { get; set; }
+        private List<TemplateEntity> Templates { get; set; }
+        private PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
+        private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
         #endregion
 
@@ -35,6 +36,9 @@ namespace BlazorDeviceControl.Shared.Item
         public ItemPlu() : base()
         {
             ScaleItems = new();
+            Templates = new();
+            Nomenclatures = new();
+            Default();
         }
 
         #endregion
@@ -46,10 +50,11 @@ namespace BlazorDeviceControl.Shared.Item
             IsLoaded = false;
             Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
             ItemCast = new();
-            ScaleItems = new();
-            TemplateItems = null;
-            NomenclatureItems = null;
             ButtonSettings = new();
+            
+            ScaleItems = new();
+            Templates = new();
+            Nomenclatures = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -74,26 +79,38 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                     }
 
+                    // Templates.
+                    List<TemplateEntity>? templates = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
+                        ?.ToList();
+                    if (templates is { } templates2)
+                    {
+                        Templates.Add(new TemplateEntity(0) { Title = LocaleCore.Table.FieldNull });
+                        Templates.AddRange(templates2);
+                    }
+                    // Nomenclatures.
+                    List<NomenclatureEntity>? nomenclatures = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
+                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                        ?.ToList();
+                    if (nomenclatures is { } nomenclatures2)
+                    {
+                        Nomenclatures.Add(new NomenclatureEntity(0) { Name = LocaleCore.Table.FieldNull });
+                        Nomenclatures.AddRange(nomenclatures2);
+                    }
+
                     // ScaleItems.
-                    //if (ItemCast.Scale == null)
-                    //    ItemCast.Scale = new(0) { Description = LocaleCore.Table.FieldNull };
-                    List<ScaleEntity>? scaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
+                    List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
                         ?.ToList();
-                    if (scaleItems is List<ScaleEntity> scaleItems2)
+                    if (scales is { } scaleItems2)
                     {
                         ScaleItems.Add(new ScaleEntity(0) { Description = LocaleCore.Table.FieldNull });
                         ScaleItems.AddRange(scaleItems2);
                     }
-                    TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
-                        ?.ToList();
-                    NomenclatureItems = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
-                        null,
-                        new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
-                        ?.ToList();
+
                     //// Проверка шаблона.
                     //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                     //{

@@ -13,8 +13,8 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
-        private ItemFieldControlEntity FieldControl { get; set; } = new ItemFieldControlEntity();
+        private AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
+        private ItemFieldControlEntity FieldControl { get; } = new ItemFieldControlEntity();
 
         #endregion
 
@@ -126,11 +126,10 @@ namespace BlazorCore.Models
             return success;
         }
 
-        public bool Nomenclature(NotificationService? notificationService, NomenclatureEntity? nomenclature, 
+        public void Nomenclature(NotificationService? notificationService, NomenclatureEntity? nomenclature,
             long? id, DbTableAction tableAction)
         {
-            if (nomenclature == null || id == null)
-                return false;
+            if (nomenclature == null || id == null) return;
 
             bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocaleCore.Table.Nomenclature);
             if (success)
@@ -143,20 +142,18 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    if (id is long lid)
+                    if (id is { } lid)
                     {
                         nomenclature.IdentityId = lid;
                         AppSettings.DataAccess?.Crud.UpdateEntity(nomenclature);
                     }
                 }
             }
-            return success;
         }
 
-        public bool Plu(NotificationService? notificationService, PluEntity? plu, long? id, DbTableAction tableAction)
+        public void Plu(NotificationService? notificationService, PluEntity? plu, long? id, DbTableAction tableAction)
         {
-            if (plu == null || id == null)
-                return false;
+            if (plu == null || id == null) return;
 
             plu.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, plu, LocaleCore.Table.Plu);
@@ -176,21 +173,19 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    if (id is long lid)
+                    if (id is { } lid)
                     {
                         plu.IdentityId = lid;
                         AppSettings.DataAccess?.Crud.UpdateEntity(plu);
                     }
                 }
             }
-            return success;
         }
 
-        public bool Printer(NotificationService? notificationService, PrinterEntity? printer, 
+        public void Printer(NotificationService? notificationService, PrinterEntity? printer,
             long? id, DbTableAction tableAction)
         {
-            if (printer == null || id == null)
-                return false;
+            if (printer == null || id == null) return;
 
             printer.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, printer, LocaleCore.Table.Printer);
@@ -213,7 +208,6 @@ namespace BlazorCore.Models
                     }
                 }
             }
-            return success;
         }
 
         public bool PrinterResource(NotificationService? notificationService, PrinterResourceEntity? printerResource, 
@@ -297,11 +291,10 @@ namespace BlazorCore.Models
             return success;
         }
 
-        public bool Scale(NotificationService? notificationService, ScaleEntity? scale, 
+        public void Scale(NotificationService? notificationService, ScaleEntity? scale,
             long? id, DbTableAction tableAction)
         {
-            if (scale == null || id == null)
-                return false;
+            if (scale == null || id == null) return;
 
             scale.ChangeDt = DateTime.Now;
             // Check PrinterMain is null.
@@ -385,7 +378,6 @@ namespace BlazorCore.Models
                     }
                 }
             }
-            return success;
         }
 
         public bool Task(NotificationService? notificationService, TaskEntity? task, 

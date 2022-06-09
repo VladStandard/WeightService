@@ -59,14 +59,6 @@ else
                             <MudSelectItem Value=@item.IdentityId >@item.Description</MudSelectItem>
                         }
                     </MudSelect>
-                    <RadzenDropDownDataGrid 
-                        Style="width: 100%; height: 35px;" 
-                        FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                        AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
-                        Data=@ScaleItems PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                        TextProperty="Description" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Scale), args)) 
-                        ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Scale.IdentityId 
-                        />
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
@@ -74,21 +66,13 @@ else
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
-                    @if (TemplateItems == null || AppSettings.DataAccess?.JsonSettingsLocal == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" 
-                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
-                            Data=@TemplateItems PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                            TextProperty="Title" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Template), args)) 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Template.IdentityId
-                            />
-                    }
+                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@ItemCast.Template.IdentityId >
+                        @foreach (TemplateEntity item in Templates)
+                        {
+                            <MudSelectItem Value=@item.IdentityId >@item.Title</MudSelectItem>
+                        }
+                    </MudSelect>
 				</td>
             </tr>
             <tr>
@@ -98,21 +82,13 @@ else
                         Text=@LocaleCore.Table.NomenclatureName />
                 </td>
                 <td>
-                    @if (NomenclatureItems == null || AppSettings.DataAccess?.JsonSettingsLocal == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" 
-                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
-                            Data=@NomenclatureItems PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                            TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Nomenclature), args)) 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Nomenclature.IdentityId
-                            />
-                    }
+                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@ItemCast.Nomenclature.IdentityId >
+                        @foreach (NomenclatureEntity item in Nomenclatures)
+                        {
+                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
 				</td>
                 <td>@LocaleCore.Table.Active</td>
                 <td>

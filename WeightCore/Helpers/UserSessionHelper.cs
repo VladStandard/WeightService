@@ -361,7 +361,7 @@ namespace WeightCore.Helpers
             SetNewScaleCounter();
         }
 
-        internal void SetNewScaleCounter()
+        private void SetNewScaleCounter()
         {
             Scale.Counter++;
             DataAccess.Crud.UpdateEntity(Scale);
@@ -372,7 +372,7 @@ namespace WeightCore.Helpers
         /// </summary>
         /// <param name="printCmd"></param>
         /// <param name="weithingFactId"></param>
-        public void PrintSaveLabel(string printCmd, long weithingFactId)
+        private void PrintSaveLabel(string printCmd, long weithingFactId)
         {
             ZplLabelDirect zplLabel = new()
             {

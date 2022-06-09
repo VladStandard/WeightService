@@ -25,10 +25,10 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
-        public IdentityEntity Identity { get; private set; }
+        public IdentityEntity Identity { get; }
         public HotKeys? HotKeys { get; private set; }
         public HotKeysContext? HotKeysContext { get; set; }
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
         #endregion
 

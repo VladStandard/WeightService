@@ -15,7 +15,7 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
+        public AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 
         #endregion
 
