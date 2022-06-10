@@ -40,7 +40,7 @@ namespace WeightCore.Helpers
         public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
         public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
-        public OrderDirect Order { get; set; }
+        public OrderDirect? Order { get; set; }
         private ScaleEntity _scale;
         public ScaleEntity Scale
         {
@@ -110,14 +110,7 @@ namespace WeightCore.Helpers
                 if (string.IsNullOrEmpty(hostName))
                     hostName = NetUtils.GetLocalHostName(false);
                 HostEntity host = SqlUtils.GetHostEntity(hostName);
-                if (scaleId <= 0)
-                {
-                    Scale = SqlUtils.GetScaleFromHost(host.IdentityId);
-                }
-                else
-                {
-                    Scale = SqlUtils.GetScale(scaleId);
-                }
+                Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.IdentityId) : SqlUtils.GetScale(scaleId);
             
                 AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
                 ProductDate = DateTime.Now;
@@ -339,7 +332,7 @@ namespace WeightCore.Helpers
                 template = Order.Template;
                 Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
             }
-            else if (Plu != null && Scale != null && Scale.IsOrder != true)
+            else if (Scale != null && Scale.IsOrder != true)
             {
                 template = Plu.Template;
             }

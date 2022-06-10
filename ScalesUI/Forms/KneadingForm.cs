@@ -77,7 +77,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldKneading.Text = $"{UserSession.WeighingSettings.Kneading}";
+                fieldKneading.Text = $@"{UserSession.WeighingSettings.Kneading}";
             }
             catch (Exception ex)
             {
@@ -137,16 +137,13 @@ namespace ScalesUI.Forms
 
         private void CheckWeightCount()
         {
-            if (UserSession.Plu == null)
-                return;
-
-            if (UserSession.Plu.IsCheckWeight == true && UserSession.WeighingSettings.LabelsCountMain > 1)
+            if (UserSession.Plu.IsCheckWeight && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
                 //GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
                 //    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 UserSession.WeighingSettings.LabelsCountMain = 1;
             }
-            fieldPalletSize.Text = $"{UserSession.WeighingSettings.LabelsCountMain}";
+            fieldPalletSize.Text = $@"{UserSession.WeighingSettings.LabelsCountMain}";
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)

@@ -406,7 +406,7 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Controls
 
-        public void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+        private void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
         {
             if (comboBox == null || sourceList == null || sourceList.Count == 0 || selectedIndex < 0)
                 return;

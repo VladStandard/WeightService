@@ -18,14 +18,16 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private DebugHelper Debug { get; } = DebugHelper.Instance;
+        private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
+        private short CurrentPage { get; set; }
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
+        private static ushort ColumnCount => 4;
+        private static ushort PageSize => 20;
+        private static ushort RowCount => 5;
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
-        public FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
-        public int ColumnCount { get; } = 4;
-        public int CurrentPage { get; private set; }
-        public int PageSize { get; } = 20;
-        public int RowCount { get; } = 5;
+        private decimal ScaleWeight { get; set; } = 0.19M;
+        private decimal ScaleHeight => 0.085M;
 
         #endregion
 
@@ -47,10 +49,13 @@ namespace ScalesUI.Forms
                 PluList = new PluDirect().GetPluList(UserSession.Scale);
                 OrderList = new PluDirect().GetPluList(UserSession.Scale);
                 PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-                Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
-                GridCustomizatorClass.PageBuilder(PluListGrid, controls);
+                Control[,] controls = CreateControls(pluEntities);
+                GridCustomizatorClass.PageBuilder(tableLayoutPanelPlu, controls);
 
-                labelCurrentPage.Text = $"{LocaleCore.Scales.PluPage} {CurrentPage}";
+                labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {CurrentPage}";
+                buttonClose.Text = LocaleCore.Buttons.Close;
+                buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
+                buttonRightRoll.Text = LocaleCore.Buttons.Next;
                 TopMost = !Debug.IsDebug;
                 Width = Owner.Width;
                 Height = Owner.Height;
@@ -63,19 +68,19 @@ namespace ScalesUI.Forms
             }
         }
 
-        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities, int x, int y)
+        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities)
         {
-            Control[,] controls = new Control[x, y];
+            Control[,] controls = new Control[ColumnCount, RowCount];
             try
             {
-                for (int j = 0, k = 0; j < y; ++j)
+                for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < RowCount; ++rowNumber)
                 {
-                    for (int i = 0; i < x; ++i)
+                    for (ushort columnNumber = 0; columnNumber < ColumnCount; ++columnNumber)
                     {
-                        if (k >= pluEntities.Count) break;
-                        Control control = CreateNewControl(pluEntities[k], CurrentPage, k);
-                        controls[i, j] = control;
-                        k++;
+                        if (buttonNumber >= pluEntities.Count) break;
+                        Control control = NewControl(pluEntities[buttonNumber], (ushort)CurrentPage, buttonNumber);
+                        controls[columnNumber, rowNumber] = control;
+                        buttonNumber++;
                     }
                 }
             }
@@ -86,86 +91,91 @@ namespace ScalesUI.Forms
             return controls;
         }
 
-        private Control CreateNewControl(PluDirect plu, int pageNumber, int i)
+        private Control NewControl(PluDirect plu, ushort pageNumber, ushort buttonNumber)
         {
-            Button button = null;
+            Control buttonPlu = null;
             try
             {
-                int buttonWidth = 150;
-                int buttonHeight = 30;
-
-                button = new()
-                {
-                    //Font = new Font("Arial", 18, FontStyle.Bold),
-                    Font = FontsSettings.FontLabelsBlack,
-                    Text = Environment.NewLine + plu.GoodsName,
-                    Name = "btn_" + i,
-                    Dock = DockStyle.Fill,
-                    Size = new Size(buttonWidth, buttonHeight),
-                    Visible = true,
-                    Parent = PluListGrid,
-                    FlatStyle = FlatStyle.Flat,
-                    Location = new Point(0, 0),
-                    UseVisualStyleBackColor = true,
-                    BackColor = SystemColors.Control,
-                    TabIndex = i + pageNumber * PageSize,
-                };
-                button.Click += ButtonPlu_Click;
-
-                // PLU number label.
-                decimal mashtabW = 0.19M;
-                decimal mashtabH = 0.05M;
-                Label label = new()
-                {
-                    //Font = new Font("Arial", 20, FontStyle.Bold),
-                    Font = FontsSettings.FontLabelsBlack,
-                    Text = plu.PLU.ToString(),
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Parent = button,
-                    Size = new Size((int)(PluListGrid.Height * mashtabW), (int)(PluListGrid.Height * mashtabH)),
-                    Dock = DockStyle.None,
-                    Left = 3,
-                    Top = 3,
-                    BackColor = plu.IsCheckWeight == false
-                        ? Color.FromArgb(255, 255, 92, 92)
-                        : Color.FromArgb(255, 92, 255, 92),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TabIndex = i + pageNumber * PageSize,
-                };
-                label.MouseClick += (sender, args) =>
-                {
-                    ButtonPlu_Click(label, null);
-                };
-
-                // Weight label.
-                mashtabW = 0.11M;
-                Label labelCount = new()
-                {
-                    //Font = new Font("Arial", 20, FontStyle.Bold),
-                    Font = FontsSettings.FontLabelsBlack,
-                    Text = plu.IsCheckWeight == false ? @"шт" : @"вес",
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Parent = button,
-                    Size = new Size((int)(PluListGrid.Height * mashtabW), (int)(PluListGrid.Height * mashtabH)),
-                    Dock = DockStyle.None,
-                    Left = label.Width + 15,
-                    Top = 3,
-                    BackColor = plu.IsCheckWeight == false
-                        ? Color.FromArgb(255, 255, 92, 92)
-                        : Color.FromArgb(255, 92, 255, 92),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TabIndex = i + pageNumber * PageSize,
-                };
-                labelCount.MouseClick += (sender, args) =>
-                {
-                    ButtonPlu_Click(labelCount, null);
-                };
+                buttonPlu = NewControlButton(plu, pageNumber, buttonNumber);
+                Control labelPluNumber = NewControlLabelPluNumber(plu, pageNumber, buttonNumber, buttonPlu);
+                _ = NewControlLabelPluType(plu, pageNumber, buttonNumber, buttonPlu, labelPluNumber);
             }
             catch (Exception ex)
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
+            return buttonPlu;
+        }
+
+        private Control NewControlButton(PluDirect plu, ushort pageNumber, ushort buttonNumber)
+        {
+            const ushort buttonWidth = 150;
+            const ushort buttonHeight = 30;
+            Control button = new Button()
+            {
+                //Font = new Font("Arial", 18, FontStyle.Bold),
+                Font = FontsSettings.FontLabelsBlack,
+                Text = Environment.NewLine + plu.GoodsName,
+                Name = "button" + buttonNumber,
+                Dock = DockStyle.Fill,
+                Size = new Size(buttonWidth, buttonHeight),
+                Visible = true,
+                Parent = tableLayoutPanelPlu,
+                FlatStyle = FlatStyle.Flat,
+                Location = new Point(0, 0),
+                UseVisualStyleBackColor = true,
+                BackColor = SystemColors.Control,
+                TabIndex = buttonNumber + pageNumber * PageSize,
+            };
+            button.Click += ButtonPlu_Click;
             return button;
+        }
+
+        private Control NewControlLabelPluNumber(PluDirect plu, ushort pageNumber, ushort buttonNumber, Control buttonPlu)
+        {
+            Control label = new Label()
+            {
+                //Font = new Font("Arial", 20, FontStyle.Bold),
+                Font = FontsSettings.FontLabelsBlack,
+                Text = plu.PLU.ToString(),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Parent = buttonPlu,
+                Size = new Size((ushort)(tableLayoutPanelPlu.Height * ScaleWeight), (ushort)(tableLayoutPanelPlu.Height * ScaleHeight)),
+                Dock = DockStyle.None,
+                Left = 3,
+                Top = 3,
+                BackColor = plu.IsCheckWeight == false
+                    ? Color.FromArgb(255, 255, 92, 92)
+                    : Color.FromArgb(255, 92, 255, 92),
+                BorderStyle = BorderStyle.FixedSingle,
+                TabIndex = buttonNumber + pageNumber * PageSize,
+            };
+            label.MouseClick += ButtonPlu_Click;
+            return label;
+        }
+
+        private Control NewControlLabelPluType(PluDirect plu, ushort pageNumber, ushort buttonNumber, Control buttonPlu, Control labelPlu)
+        {
+            ScaleWeight = 0.11M;
+            Label labelPluType = new()
+            {
+                //Font = new Font("Arial", 20, FontStyle.Bold),
+                Font = FontsSettings.FontLabelsBlack,
+                Text = plu.IsCheckWeight == false ? @"шт" : @"вес",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Parent = buttonPlu,
+                Size = new Size((ushort)(tableLayoutPanelPlu.Height * ScaleWeight), (ushort)(tableLayoutPanelPlu.Height * ScaleHeight)),
+                Dock = DockStyle.None,
+                Left = labelPlu.Width + 15,
+                Top = 3,
+                BackColor = plu.IsCheckWeight == false
+                    ? Color.FromArgb(255, 255, 92, 92)
+                    : Color.FromArgb(255, 92, 255, 92),
+                BorderStyle = BorderStyle.FixedSingle,
+                TabIndex = buttonNumber + pageNumber * PageSize,
+            };
+            labelPluType.MouseClick += ButtonPlu_Click;
+            return labelPluType;
         }
 
         private void ButtonClose_Click(object sender, EventArgs e)
@@ -186,9 +196,9 @@ namespace ScalesUI.Forms
             try
             {
                 UserSession.Order = null;
-                int tabIndex = 0;
+                ushort tabIndex = 0;
                 if (sender is Control control)
-                    tabIndex = control.TabIndex;
+                    tabIndex = (ushort)control.TabIndex;
                 if (OrderList?.Count >= tabIndex)
                 {
                     UserSession.SetCurrentPlu(OrderList[tabIndex]);
@@ -203,46 +213,58 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonLeftRoll_Click(object sender, EventArgs e)
+        private void ButtonPreviousRoll_Click(object sender, EventArgs e)
         {
             try
             {
-                int saveCurrentPage = CurrentPage;
-                CurrentPage = CurrentPage > 0 ? CurrentPage - 1 : 0;
+                tableLayoutPanelPlu.Visible = false;
+                short saveCurrentPage = CurrentPage;
+                CurrentPage = (short)(CurrentPage > 0 ? CurrentPage - 1 : 0);
+                if (CurrentPage < 0) CurrentPage = 0;
                 if (CurrentPage == saveCurrentPage)
                     return;
 
                 PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-                Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
-                GridCustomizatorClass.PageBuilder(PluListGrid, controls);
+                Control[,] controls = CreateControls(pluEntities);
+                GridCustomizatorClass.PageBuilder(tableLayoutPanelPlu, controls);
 
-                labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
+                labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {CurrentPage}";
             }
             catch (Exception ex)
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
+            }
+            finally
+            {
+                tableLayoutPanelPlu.Visible = true;
             }
         }
 
-        private void ButtonRightRoll_Click(object sender, EventArgs e)
+        private void ButtonNextRoll_Click(object sender, EventArgs e)
         {
             try
             {
-                int saveCurrentPage = CurrentPage;
-                int countPage = PluList.Count / PageSize;
-                CurrentPage = CurrentPage < countPage ? CurrentPage + 1 : countPage;
+                tableLayoutPanelPlu.Visible = false;
+                short saveCurrentPage = CurrentPage;
+                short countPage = (short)(PluList.Count / PageSize);
+                CurrentPage = (short)(CurrentPage < countPage ? CurrentPage + 1 : countPage);
+                if (CurrentPage > countPage) CurrentPage = (short)(countPage - 1);
                 if (CurrentPage == saveCurrentPage)
                     return;
 
                 PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-                Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
-                GridCustomizatorClass.PageBuilder(PluListGrid, controls);
+                Control[,] controls = CreateControls(pluEntities);
+                GridCustomizatorClass.PageBuilder(tableLayoutPanelPlu, controls);
 
-                labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
+                labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {CurrentPage}";
             }
             catch (Exception ex)
             {
                 GuiUtils.WpfForm.CatchException(this, ex);
+            }
+            finally
+            {
+                tableLayoutPanelPlu.Visible = true;
             }
         }
 

@@ -112,13 +112,6 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    if (UserSession.Plu == null)
-                    {
-                        const string message = "Не определен PLU";
-                        const string caption = "Операция недоступна!";
-                        MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
                     zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, UserSession.Plu.Template.Logo);
                     zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, UserSession.Plu.Template.Fonts);
                 }

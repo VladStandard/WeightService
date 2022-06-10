@@ -63,7 +63,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.Order.SetStatus(ProjectsEnums.OrderStatus.Paused);
+                UserSession.Order?.SetStatus(ProjectsEnums.OrderStatus.Paused);
                 UserSession.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
@@ -78,7 +78,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.Order.SetStatus(ProjectsEnums.OrderStatus.Performed);
+                UserSession.Order?.SetStatus(ProjectsEnums.OrderStatus.Performed);
                 UserSession.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
@@ -93,7 +93,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.Order.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+                UserSession.Order?.SetStatus(ProjectsEnums.OrderStatus.InProgress);
                 UserSession.Order = null;
                 DialogResult = DialogResult.OK;
                 Close();

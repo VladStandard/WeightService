@@ -26,11 +26,14 @@ namespace DataCore.Localizations
         public string Apply => Lang == ShareEnums.Lang.English ? "Apply" : "Применить";
         public string Cancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
         public string Clear => Lang == ShareEnums.Lang.English ? "Clear" : "Очистить";
+        public string Close => Lang == ShareEnums.Lang.English ? "Close" : "Закрыть";
         public string Custom => Lang == ShareEnums.Lang.English ? "Custom" : "Кастом";
         public string Enter => Lang == ShareEnums.Lang.English ? "Enter" : "Ввод";
         public string Ignore => Lang == ShareEnums.Lang.English ? "Ignore" : "Игнорировать";
+        public string Next => Lang == ShareEnums.Lang.English ? "Next" : "Следующие";
         public string No => Lang == ShareEnums.Lang.English ? "No" : "Нет";
         public string Ok => Lang == ShareEnums.Lang.English ? "Ok" : "Ок";
+        public string Previous => Lang == ShareEnums.Lang.English ? "Previous" : "Предыдущие";
         public string Retry => Lang == ShareEnums.Lang.English ? "Retry" : "Повторить";
         public string Yes => Lang == ShareEnums.Lang.English ? "Yes" : "Да";
         

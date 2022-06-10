@@ -129,8 +129,11 @@ namespace ScalesUI.Forms
                 btn.Click += delegate
                 {
                     UserSession.Order = OrdList[btn.TabIndex];
-                    UserSession.Order.LoadTemplate();
-                    UserSession.SetCurrentPlu(UserSession.Order.PLU);
+                    if (UserSession.Order != null)
+                    {
+                        UserSession.Order.LoadTemplate();
+                        UserSession.SetCurrentPlu(UserSession.Order.PLU);
+                    }
                     //ws.CurrentPLU.LoadTemplate();
                     //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
                     //_sessionState.WeightReal = 0;

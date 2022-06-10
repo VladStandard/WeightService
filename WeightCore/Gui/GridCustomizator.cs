@@ -9,7 +9,7 @@ namespace WeightCore.Gui
     {
         #region Public and private methods
 
-        public static void GridCustomizator(TableLayoutPanel panel, int columnCount, int rowCount)
+        private static void GridCustomizator(TableLayoutPanel panel, ushort columnCount, ushort rowCount)
         {
             panel.ColumnStyles.Clear();
             panel.RowStyles.Clear();
@@ -19,29 +19,27 @@ namespace WeightCore.Gui
             AddRows(panel, rowCount);
         }
 
-        private static void AddColumns(TableLayoutPanel panel, int columnCount)
+        private static void AddColumns(TableLayoutPanel panel, ushort columnCount)
         {
-            //var width = (float)(100 / columnCount);
-            int width = 100 / columnCount;
-            for (int i = 0; i < columnCount; i++)
+            ushort width = (ushort)(100 / columnCount);
+            for (ushort i = 0; i < columnCount; i++)
             {
                 panel.ColumnCount += 1;
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, width));
             }
         }
 
-        private static void AddRows(TableLayoutPanel panel, int rowCount)
+        private static void AddRows(TableLayoutPanel panel, ushort rowCount)
         {
-            //var height = (float)(100 / rowCount);
-            int height = 100 / rowCount;
-            for (int i = 0; i < rowCount; i++)
+            ushort height = (ushort)(100 / rowCount);
+            for (ushort i = 0; i < rowCount; i++)
             {
                 panel.RowCount += 1;
                 panel.RowStyles.Add(new RowStyle(SizeType.Percent, height));
             }
         }
 
-        public static void DropChildsControl(TableLayoutPanel panel)
+        private static void DropChildsControl(TableLayoutPanel panel)
         {
             panel.Controls.Clear();
         }
@@ -49,14 +47,15 @@ namespace WeightCore.Gui
         public static void PageBuilder(TableLayoutPanel panel, Control[,] controls)
         {
             DropChildsControl(panel);
-            GridCustomizator(panel, controls.GetUpperBound(0) + 1, controls.GetUpperBound(1) + 1);
+            GridCustomizator(panel, (ushort)(controls.GetUpperBound(0) + 1), (ushort)(controls.GetUpperBound(1) + 1));
 
-            for (int x = 0; x <= controls.GetUpperBound(0); x++)
+            for (ushort column = 0; column <= controls.GetUpperBound(0); column++)
             {
-                for (int y = 0; y <= controls.GetUpperBound(1); y++)
+                for (ushort row = 0; row <= controls.GetUpperBound(1); row++)
                 {
-                    if (controls[x, y] != null)
-                        panel.Controls.Add(controls[x, y], x, y);
+                    Control control = controls[column, row];
+                    if (control != null)
+                        panel.Controls.Add(control, column, row);
                 }
             }
         }
