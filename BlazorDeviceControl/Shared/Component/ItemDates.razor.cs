@@ -19,15 +19,6 @@ namespace BlazorDeviceControl.Shared.Component
 
         #endregion
 
-        #region Constructor and destructor
-
-        public ItemDates() : base()
-        {
-            //
-        }
-
-        #endregion
-
         #region Public and private methods
 
         private void Default()

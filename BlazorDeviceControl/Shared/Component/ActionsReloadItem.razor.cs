@@ -15,15 +15,6 @@ namespace BlazorDeviceControl.Shared.Component
 
         #endregion
 
-        #region Constructor and destructor
-
-        public ActionsReloadItem() : base()
-        {
-            //
-        }
-
-        #endregion
-
         #region Public and private methods
 
         public override async Task SetParametersAsync(ParameterView parameters)

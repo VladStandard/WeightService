@@ -4,7 +4,10 @@
 @page "/item/workshop/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
+@using DataCore.Sql.TableScaleModels
+@using Microsoft.AspNetCore.Components
 @using static DataCore.Localizations.LocaleData.DeviceControl
+@using static DataCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
 {
@@ -44,12 +47,6 @@ else
                         Disabled=false ReadOnly=false
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
-                <td>@LocaleCore.Table.IdRRef</td>
-                <td >
-                    <RadzenTextBox Style="width: 100%; text-align: center; " 
-                        Disabled=false ReadOnly=false
-                        TValue="string" @Value=@ItemCast.IdRRef />
-				</td>
             </tr>
             <tr>
                 <td>
@@ -58,22 +55,13 @@ else
                         Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>
                 <td>
-                    @if (ProductionFacilities == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@ProductionFacilities PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name" 
-                            ValueProperty="IdentityId" Value=@ItemCast.ProductionFacility.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ProductionFacility), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocaleCore.Table.Name Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
-                    }
+                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                    @bind-Value=@ItemCast.ProductionFacility.IdentityId >
+                        @foreach (ProductionFacilityEntity item in ProductionFacilities)
+                        {
+                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
                 </td>
             </tr>
         </tbody>
@@ -82,11 +70,3 @@ else
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }
-@*
-        <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                                AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                                Data=@ProductionFacilities PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
-                                TextProperty="Name" Change=@(args => OnItemValueChange("ProductionFacilities")) 
-                                ValueProperty="IdentityId" Value=@WorkshopItem.ProductionFacility?.IdentityId
-                                />
-*@

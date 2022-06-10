@@ -12,22 +12,13 @@ namespace BlazorDeviceControl.Shared.Component
 
         [Parameter] public string Title { get; set; } = string.Empty;
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
-        public string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {(ParentRazor?.Items == null ? 0 : ParentRazor.Items.Count):### ### ###}";
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ActionsReloadBase() : base()
-        {
-            //
-        }
+        protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {(ParentRazor?.Items == null ? 0 : ParentRazor.Items.Count):### ### ###}";
 
         #endregion
 
         #region Public and private methods
 
-        public void Default()
+        protected void Default()
         {
             IsLoaded = false;
             if (ParentRazor != null)

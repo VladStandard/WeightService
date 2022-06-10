@@ -33,18 +33,10 @@ namespace BlazorDeviceControl.Controllers
                 {
                     foreach (IFormFile file in HttpContext.Request.Form.Files)
                     {
-                        // reconstruct the path to ensure everything 
-                        // goes to uploads directory
+                        // reconstruct the path to ensure everything goes to uploads directory
                         string requestedPath = currentDirectory.ToLower()
                             .Replace(_environment.WebRootPath.ToLower(), "");
-                        if (requestedPath.Contains("\\uploads\\"))
-                        {
-                            requestedPath = requestedPath.Replace("\\uploads\\", "");
-                        }
-                        else
-                        {
-                            requestedPath = "";
-                        }
+                        requestedPath = requestedPath.Contains("\\uploads\\") ? requestedPath.Replace("\\uploads\\", "") : "";
                         string path = Path.Combine(_environment.WebRootPath, "uploads", requestedPath, file.FileName);
                         await using FileStream stream = new(path, FileMode.Create);
                         await file.CopyToAsync(stream).ConfigureAwait(true);

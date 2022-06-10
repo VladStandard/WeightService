@@ -3,7 +3,7 @@
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Shared.MainLayout)" >
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" >
                 <NotAuthorized>
                     <h1>Sorry</h1>
                     <p>You're not authorized to reach this page.</p>
@@ -17,7 +17,7 @@
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
         <NotFound>
-            <LayoutView Layout="@typeof(Shared.MainLayout)">
+            <LayoutView Layout="@typeof(MainLayout)">
                 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.PageError</MudElement>
             </LayoutView>
         </NotFound>

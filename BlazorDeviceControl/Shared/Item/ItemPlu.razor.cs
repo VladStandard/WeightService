@@ -35,9 +35,6 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemPlu() : base()
         {
-            ScaleItems = new();
-            Templates = new();
-            Nomenclatures = new();
             Default();
         }
 
@@ -84,10 +81,10 @@ namespace BlazorDeviceControl.Shared.Item
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
                         ?.ToList();
-                    if (templates is { } templates2)
+                    if (templates is not null)
                     {
                         Templates.Add(new TemplateEntity(0) { Title = LocaleCore.Table.FieldNull });
-                        Templates.AddRange(templates2);
+                        Templates.AddRange(templates);
                     }
                     // Nomenclatures.
                     List<NomenclatureEntity>? nomenclatures = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(

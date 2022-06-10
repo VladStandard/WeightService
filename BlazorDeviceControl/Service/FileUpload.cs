@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Service
 {
     public class FileUpload : IFileUpload
     {
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
         private readonly IWebHostEnvironment _environment;
         public FileUpload(IWebHostEnvironment environment)
         {

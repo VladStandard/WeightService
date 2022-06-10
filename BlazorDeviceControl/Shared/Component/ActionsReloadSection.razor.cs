@@ -9,21 +9,6 @@ namespace BlazorDeviceControl.Shared.Component
 {
     public partial class ActionsReloadSection
     {
-        #region Public and private fields and properties
-
-        //
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ActionsReloadSection() : base()
-        {
-            //
-        }
-
-        #endregion
-
         #region Public and private methods
 
         public override async Task SetParametersAsync(ParameterView parameters)

@@ -9,15 +9,6 @@ namespace BlazorDeviceControl.Shared.Component
 {
     public partial class ActionsSave
     {
-        #region Constructor and destructor
-
-        public ActionsSave() : base()
-        {
-            //
-        }
-
-        #endregion
-
         #region Public and private methods
 
         private void Default()

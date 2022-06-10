@@ -18,17 +18,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
-        public List<ProductionFacilityEntity>? ProductionFacilities { get; set; } = null;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ItemWorkshop() : base()
-        {
-            //
-        }
+        private WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
+        private List<ProductionFacilityEntity> ProductionFacilities { get; set; } = null;
 
         #endregion
 
@@ -39,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
             IsLoaded = false;
             Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
             ItemCast = new();
-            ProductionFacilities = null;
+            ProductionFacilities = new();
             ButtonSettings = new();
         }
 
@@ -55,7 +46,16 @@ namespace BlazorDeviceControl.Shared.Item
                         new FieldListEntity(new Dictionary<DbField, object?>{ { DbField.IdentityId, IdentityId } }));
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
-                    ProductionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null)?.ToList();
+                    // ProductionFacilities.
+                    List<ProductionFacilityEntity>? productionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
+                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                        ?.ToList();
+                    if (productionFacilities is not null)
+                    {
+                        ProductionFacilities.AddRange(productionFacilities.Where(x => x.IdentityId > 0).ToList());
+                    }
+
                     ButtonSettings = new(false, false, false, false, false, true, true);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
