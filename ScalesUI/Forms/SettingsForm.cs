@@ -40,7 +40,6 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
 
-                // Определить COM-порт.
                 if (UserSession?.WeighingFact != null)
                     fieldCurrentWeightFact.Text = UserSession.WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
             }

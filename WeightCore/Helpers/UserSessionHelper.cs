@@ -57,7 +57,7 @@ namespace WeightCore.Helpers
         public PrintBrand PrintBrandShipping => Scale?.PrinterShipping != null &&
             Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
         [XmlElement(IsNullable = true)]
-        public WeighingFactDirect WeighingFact { get; private set; }
+        public WeighingFactDirect? WeighingFact { get; private set; }
         public bool IsPluCheckWeight => Plu?.IsCheckWeight == true;
         public WeighingSettingsEntity WeighingSettings { get; set; }
         public Stopwatch StopwatchMain { get; set; }
@@ -313,18 +313,19 @@ namespace WeightCore.Helpers
             bool isCheck = false;
             if (Plu.NominalWeight > 0)
             {
-                if (WeighingFact.NetWeight >= Plu.LowerWeightThreshold && WeighingFact.NetWeight <= Plu.UpperWeightThreshold)
+                if (WeighingFact?.NetWeight >= Plu.LowerWeightThreshold && WeighingFact.NetWeight <= Plu.UpperWeightThreshold)
                     isCheck = true;
             }
             else
                 isCheck = true;
             if (!isCheck)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    WeighingFact.NetWeight, Plu.UpperWeightThreshold, Plu.NominalWeight, Plu.LowerWeightThreshold),
-                    true, LogType.Warning,
-                    new() { ButtonCancelVisibility = Visibility.Visible },
-                    Scale.Host.HostName, nameof(WeightCore));
+                if (WeighingFact != null)
+                    GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
+                        WeighingFact.NetWeight, Plu.UpperWeightThreshold, Plu.NominalWeight, Plu.LowerWeightThreshold),
+                        true, LogType.Warning,
+                        new() { ButtonCancelVisibility = Visibility.Visible },
+                        Scale.Host.HostName, nameof(WeightCore));
                 return false;
             }
             return true;
@@ -470,6 +471,9 @@ namespace WeightCore.Helpers
         {
             try
             {
+                if (WeighingFact == null)
+                    return;
+                
                 WeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();

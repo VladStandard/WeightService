@@ -94,10 +94,10 @@ namespace BlazorDeviceControl.Shared.Item
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
                         ?.ToList();
-                    if (nomenclatures is { } nomenclatures2)
+                    if (nomenclatures is not null)
                     {
                         Nomenclatures.Add(new NomenclatureEntity(0) { Name = LocaleCore.Table.FieldNull });
-                        Nomenclatures.AddRange(nomenclatures2);
+                        Nomenclatures.AddRange(nomenclatures);
                     }
 
                     // ScaleItems.
@@ -105,10 +105,10 @@ namespace BlazorDeviceControl.Shared.Item
                         new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
                         new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
                         ?.ToList();
-                    if (scales is { } scaleItems2)
+                    if (scales is not null)
                     {
                         ScaleItems.Add(new ScaleEntity(0) { Description = LocaleCore.Table.FieldNull });
-                        ScaleItems.AddRange(scaleItems2);
+                        ScaleItems.AddRange(scales);
                     }
 
                     //// Проверка шаблона.

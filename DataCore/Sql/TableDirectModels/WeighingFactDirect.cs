@@ -14,22 +14,22 @@ namespace DataCore.Sql.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public long Id { get; set; } = default;
-        public TemplateDirect Template { get; } = new TemplateDirect();
-        public ScaleEntity Scale { get; }
-        public string ProductSeries { get; } = string.Empty;
-        public PluDirect PLU { get; }
-        public DateTime ProductDate { get; }
-        public int KneadingNumber { get; } = default;
-        public decimal NetWeight { get; }
-        public decimal TareWeight { get; }
-        public int? ScaleFactor { get; }
+        public long Id { get; set; }
+        public TemplateDirect Template { get; set; } = new();
+        public ScaleEntity Scale { get; set; }
+        public string ProductSeries { get; set; } = string.Empty;
+        public PluDirect PLU { get; set; }
+        public DateTime ProductDate { get; set; }
+        public int KneadingNumber { get; set; }
+        public decimal NetWeight { get; set; }
+        public decimal TareWeight { get; set; }
+        public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
         
         public DateTime ExpirationDate
         {
-            get => ProductDate.AddDays(PLU == null || PLU.GoodsShelfLifeDays == null ? 30 : (int)PLU.GoodsShelfLifeDays);
+            get => ProductDate.AddDays(PLU.GoodsShelfLifeDays ?? 30);
             // This code need for print labels.
             set => _ = value;
         }
@@ -132,12 +132,23 @@ namespace DataCore.Sql.TableDirectModels
                 Id = reader.GetInt32(3);
                 XDocument xDoc = XDocument.Parse(reader.GetString(2));
                 SsccDirect sscc = new();
-                sscc.SSCC = xDoc.Root.Element("Item").Attribute("SSCC").Value;
-                sscc.GLN = xDoc.Root.Element("Item").Attribute("GLN").Value;
-                sscc.UnitID = int.Parse(xDoc.Root.Element("Item").Attribute("UnitID").Value);
-                sscc.UnitType = byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
-                sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
-                sscc.Check = int.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
+                XElement? element = xDoc.Root?.Element("Item");
+                if (element != null)
+                {
+                    if (element.Attribute("SSCC") is { } attributeSscc)
+                        sscc.SSCC = attributeSscc.Value;
+                    if (element.Attribute("GLN") is { } attributeGln)
+                        sscc.GLN = attributeGln.Value;
+                    if (element.Attribute("UnitID") is { } attributeUnitId)
+                        sscc.UnitID = int.Parse(attributeUnitId.Value);
+                    if (element.Attribute("UnitType") is { } attributeUnitType)
+                        sscc.UnitType = byte.Parse(attributeUnitType.Value);
+                    if (element.Attribute("SynonymSSCC") is { } attributeSynonymSscc)
+                        sscc.SynonymSSCC = attributeSynonymSscc.Value;
+                    if (element.Attribute("Check") is { } attributeCheck)
+                        sscc.Check = int.Parse(attributeCheck.Value);
+                }
+
                 Sscc = sscc;
             }
         }
@@ -155,49 +166,6 @@ namespace DataCore.Sql.TableDirectModels
             };
             SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFacts.Save, parameters, SaveReader);
         }
-
-        //public void SaveDeprecated()
-        //{
-        //    using (SqlConnection con = SqlConnect.GetConnection())
-        //    {
-        //        con.Open();
-        //        using (SqlCommand cmd = new SqlCommand())
-        //        {
-        //            cmd.Connection = con;
-        //            SqlParameter planIndexParameter = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = DBNull.Value };
-        //            cmd.Parameters.Add(planIndexParameter);
-        //            cmd.Parameters.AddWithValue("@ScaleID", ScaleId);
-        //            cmd.Parameters.AddWithValue("@PLU", PLU.PLU);
-        //            cmd.Parameters.AddWithValue("@NetWeight", (NetWeight));
-        //            cmd.Parameters.AddWithValue("@TareWeight", (TareWeight));
-        //            cmd.Parameters.AddWithValue("@ProductDate", ProductDate);
-        //            cmd.Parameters.AddWithValue("@Kneading", KneadingNumber);
-        //            using (SqlDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                if (reader.HasRows)
-        //                {
-        //                    while (reader.Read())
-        //                    {
-        //                        //string sscc             = reader.GetString(0);
-        //                        RegDate = reader.GetDateTime(1);
-        //                        Id = reader.GetInt32(3);
-        //                        XDocument xDoc = XDocument.Parse(reader.GetString(2));
-        //                        SsccDirect sscc = new SsccDirect();
-        //                        sscc.SSCC = xDoc.Root.Element("Item").Attribute("SSCC").Value;
-        //                        sscc.GLN = xDoc.Root.Element("Item").Attribute("GLN").Value;
-        //                        sscc.UnitID = int.Parse(xDoc.Root.Element("Item").Attribute("UnitID").Value);
-        //                        sscc.UnitType = byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
-        //                        sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
-        //                        sscc.Check = int.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
-        //                        Sscc = sscc;
-        //                    }
-        //                }
-        //                reader.Close();
-        //            }
-        //        }
-        //        con.Close();
-        //    }
-        //}
 
         #endregion
     }
