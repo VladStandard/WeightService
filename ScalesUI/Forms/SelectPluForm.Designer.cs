@@ -40,15 +40,18 @@
             // 
             // tableLayoutPanelPlu
             // 
+            this.tableLayoutPanelPlu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanelPlu.AutoSize = true;
             this.tableLayoutPanelPlu.ColumnCount = 3;
             this.tableLayoutPanelPlu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanelPlu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanelPlu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanelPlu.Controls.Add(this.tableLayoutPanelActions, 0, 2);
-            this.tableLayoutPanelPlu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelPlu.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tableLayoutPanelPlu.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelPlu.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanelPlu.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanelPlu.Name = "tableLayoutPanelPlu";
             this.tableLayoutPanelPlu.RowCount = 3;
             this.tableLayoutPanelPlu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -56,7 +59,7 @@
             this.tableLayoutPanelPlu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanelPlu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelPlu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelPlu.Size = new System.Drawing.Size(876, 609);
+            this.tableLayoutPanelPlu.Size = new System.Drawing.Size(796, 596);
             this.tableLayoutPanelPlu.TabIndex = 3;
             // 
             // tableLayoutPanelActions
@@ -73,13 +76,14 @@
             this.tableLayoutPanelActions.Controls.Add(this.buttonLeftRoll, 0, 0);
             this.tableLayoutPanelActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelActions.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tableLayoutPanelActions.Location = new System.Drawing.Point(3, 409);
+            this.tableLayoutPanelActions.Location = new System.Drawing.Point(2, 398);
+            this.tableLayoutPanelActions.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanelActions.Name = "tableLayoutPanelActions";
             this.tableLayoutPanelActions.RowCount = 1;
             this.tableLayoutPanelActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelActions.Size = new System.Drawing.Size(870, 197);
+            this.tableLayoutPanelActions.Size = new System.Drawing.Size(792, 196);
             this.tableLayoutPanelActions.TabIndex = 5;
             // 
             // buttonClose
@@ -87,10 +91,10 @@
             this.buttonClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonClose.Location = new System.Drawing.Point(653, 2);
+            this.buttonClose.Location = new System.Drawing.Point(596, 2);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(215, 193);
+            this.buttonClose.Size = new System.Drawing.Size(194, 192);
             this.buttonClose.TabIndex = 7;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -101,10 +105,10 @@
             this.buttonRightRoll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonRightRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRightRoll.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonRightRoll.Location = new System.Drawing.Point(219, 2);
+            this.buttonRightRoll.Location = new System.Drawing.Point(200, 2);
             this.buttonRightRoll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRightRoll.Name = "buttonRightRoll";
-            this.buttonRightRoll.Size = new System.Drawing.Size(213, 193);
+            this.buttonRightRoll.Size = new System.Drawing.Size(194, 192);
             this.buttonRightRoll.TabIndex = 6;
             this.buttonRightRoll.Text = ">>";
             this.buttonRightRoll.UseVisualStyleBackColor = true;
@@ -115,11 +119,11 @@
             this.labelCurrentPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelCurrentPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelCurrentPage.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCurrentPage.Location = new System.Drawing.Point(435, 1);
+            this.labelCurrentPage.Location = new System.Drawing.Point(397, 1);
             this.labelCurrentPage.Margin = new System.Windows.Forms.Padding(1);
             this.labelCurrentPage.Name = "labelCurrentPage";
             this.labelCurrentPage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelCurrentPage.Size = new System.Drawing.Size(215, 195);
+            this.labelCurrentPage.Size = new System.Drawing.Size(196, 194);
             this.labelCurrentPage.TabIndex = 5;
             this.labelCurrentPage.Text = "labelCurrentPage";
             this.labelCurrentPage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,7 +136,7 @@
             this.buttonLeftRoll.Location = new System.Drawing.Point(2, 2);
             this.buttonLeftRoll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLeftRoll.Name = "buttonLeftRoll";
-            this.buttonLeftRoll.Size = new System.Drawing.Size(213, 193);
+            this.buttonLeftRoll.Size = new System.Drawing.Size(194, 192);
             this.buttonLeftRoll.TabIndex = 4;
             this.buttonLeftRoll.Text = "<<";
             this.buttonLeftRoll.UseVisualStyleBackColor = true;
@@ -143,7 +147,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(876, 609);
+            this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.tableLayoutPanelPlu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;

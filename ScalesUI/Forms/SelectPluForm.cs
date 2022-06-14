@@ -98,7 +98,8 @@ namespace ScalesUI.Forms
             Label labelPluNumber = NewLabelPluNumber(plu, tabIndex, buttonPlu);
             Label labelPluType = NewLabelPluType(plu, tabIndex, buttonPlu);
             Label labelPluGtin = NewLabelPluGtin(plu, tabIndex, buttonPlu);
-            return new(buttonPlu, labelPluNumber, labelPluType, labelPluGtin);
+            Label labelPluDescription = NewLabelPluDescription(plu, tabIndex, buttonPlu);
+            return new(buttonPlu, labelPluNumber, labelPluType, labelPluGtin, labelPluDescription);
         }
 
         private Button NewButtonPlu(PluDirect plu, int tabIndex)
@@ -110,7 +111,7 @@ namespace ScalesUI.Forms
                 Name = $@"buttonPlu{tabIndex}",
                 Font = FontsSettings.FontLabelsBlack,
                 AutoSize = false,
-                Text = Environment.NewLine + plu.GoodsName,
+                Text = plu.GoodsName,
                 Dock = DockStyle.Fill,
                 Size = new(buttonWidth, buttonHeight),
                 Visible = true,
@@ -130,13 +131,13 @@ namespace ScalesUI.Forms
             Label labelPluNumber = new()
             {
                 Name = $@"labelPluNumber{tabIndex}",
-                Font = FontsSettings.FontLabelsBlack,
+                Font = FontsSettings.FontMinimum,
                 AutoSize = false,
-                Text = $@"{LocaleCore.Table.Number} {plu.PLU}",
+                Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {plu.PLU}" : $@"{plu.PLU}",
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = buttonPlu,
                 Dock = DockStyle.None,
-                BackColor = plu.PLU > 0 ? Color.LightGreen : Color.LightGray,
+                BackColor = Color.Transparent,
                 BorderStyle = BorderStyle.FixedSingle,
                 TabIndex = tabIndex,
             };
@@ -149,13 +150,13 @@ namespace ScalesUI.Forms
             Label labelPluType = new()
             {
                 Name = $@"labelPluType{tabIndex}",
-                Font = FontsSettings.FontLabelsBlack,
+                Font = FontsSettings.FontMinimum,
                 AutoSize = false,
                 Text = plu.IsCheckWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = buttonPlu,
                 Dock = DockStyle.None,
-                BackColor = plu.IsCheckWeight ? Color.LightGreen : Color.LightGray,
+                BackColor = plu.IsCheckWeight ? Color.Transparent : Color.LightGray,
                 BorderStyle = BorderStyle.FixedSingle,
                 TabIndex = tabIndex,
             };
@@ -170,16 +171,39 @@ namespace ScalesUI.Forms
                 Name = $@"labelPluGtin{tabIndex}",
                 Font = FontsSettings.FontMinimum,
                 AutoSize = false,
-                Text = !string.IsNullOrEmpty(plu.GTIN) ? @$"{LocaleCore.Scales.PluGtin} {plu.GTIN}" : LocaleCore.Scales.PluGtinNotSet,
+                Text = Width > 1024 
+                    ? !string.IsNullOrEmpty(plu.GTIN) ? @$"{LocaleCore.Scales.PluGtin} {plu.GTIN}" : LocaleCore.Scales.PluGtinNotSet
+                    : !string.IsNullOrEmpty(plu.GTIN) ? @$"{plu.GTIN}" : LocaleCore.Scales.PluGtinNotSet,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = buttonPlu,
                 Dock = DockStyle.None,
-                BackColor = !string.IsNullOrEmpty(plu.GTIN) ? Color.LightGreen : Color.LightGray,
+                BackColor = !string.IsNullOrEmpty(plu.GTIN) ? Color.Transparent : Color.LightGray,
+                //Visible = string.IsNullOrEmpty(plu.GTIN),
                 BorderStyle = BorderStyle.FixedSingle,
                 TabIndex = tabIndex,
             };
             labelPluGtin.MouseClick += ButtonPlu_Click;
             return labelPluGtin;
+        }
+
+        private Label NewLabelPluDescription(PluDirect plu, int tabIndex, Control buttonPlu)
+        {
+            Label labelPluDescription = new()
+            {
+                Name = $@"labelPluDescription{tabIndex}",
+                Font = FontsSettings.FontMinimum,
+                AutoSize = false,
+                Text = !string.IsNullOrEmpty(plu.GoodsDescription) ? LocaleCore.Scales.PluDescriptionSet : LocaleCore.Scales.PluDescriptionNotSet,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Parent = buttonPlu,
+                Dock = DockStyle.None,
+                BackColor = !string.IsNullOrEmpty(plu.GoodsDescription) ? Color.Transparent : Color.LightGray,
+                Visible = string.IsNullOrEmpty(plu.GoodsDescription),
+                BorderStyle = BorderStyle.FixedSingle,
+                TabIndex = tabIndex,
+            };
+            labelPluDescription.MouseClick += ButtonPlu_Click;
+            return labelPluDescription;
         }
 
         private void ButtonClose_Click(object sender, EventArgs e)
@@ -224,7 +248,6 @@ namespace ScalesUI.Forms
                 tableLayoutPanelPlu.Visible = false;
                 short saveCurrentPage = PageNumber;
                 PageNumber = (short)(PageNumber > 0 ? PageNumber - 1 : 0);
-                if (PageNumber < 0) PageNumber = 0;
                 if (PageNumber == saveCurrentPage)
                     return;
 
@@ -303,7 +326,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ClearChilds(TableLayoutPanel panel)
+        private void ClearPanel(TableLayoutPanel panel)
         {
             foreach (object control in panel.Controls)
             {
@@ -319,7 +342,7 @@ namespace ScalesUI.Forms
         private void Setup(TableLayoutPanel panelPlu, ControlPluEntity[,] controls)
         {
             panelPlu.Visible = false;
-            ClearChilds(panelPlu);
+            ClearPanel(panelPlu);
             SetupPanel(panelPlu, (ushort)(controls.GetUpperBound(0) + 1), (ushort)(controls.GetUpperBound(1) + 1));
 
             for (ushort column = 0; column <= controls.GetUpperBound(0); column++)
