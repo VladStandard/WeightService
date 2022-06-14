@@ -4,12 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
-    <Version>0.6.845.0</Version>
+    <Version>0.6.850.0</Version>
     <UserSecretsId>49c9fcd1-72a7-49db-8a2c-3ef041b6be9e</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>0.6.845.0</AssemblyVersion>
-    <FileVersion>0.6.845.0</FileVersion>
+    <AssemblyVersion>0.6.850.0</AssemblyVersion>
+    <FileVersion>0.6.850.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
