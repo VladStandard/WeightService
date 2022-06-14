@@ -357,6 +357,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gui\ControlPluEntity.cs" />
     <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
     <Compile Include="Gui\XamlPages\PagePinCode.xaml.cs">
@@ -368,7 +369,6 @@
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
     <Compile Include="Gui\XamlPages\VisibilitySettingsEntity.cs" />
-    <Compile Include="Gui\GridCustomizator.cs" />
     <Compile Include="Gui\GuiUtils.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
       <SubType>Form</SubType>

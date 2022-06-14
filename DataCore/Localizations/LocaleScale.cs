@@ -29,9 +29,9 @@ namespace DataCore.Localizations
         public readonly decimal MassaThresholdValue = 0.010M;
         public string AlreadyRunning => Lang == ShareEnums.Lang.English ? "already running" : "уже запущено";
         public string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-        public string ButtonScaleChange(int number) => Lang == ShareEnums.Lang.English ? $"Change ARM [{number}]" : $"Сменить АРМ [{number}]";
         public string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
         public string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
+        public string ButtonScaleChange(int number) => Lang == ShareEnums.Lang.English ? $"Change ARM [{number}]" : $"Сменить АРМ [{number}]";
         public string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";
         public string ButtonScalesInitShort => $">0<";
         public string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $"Order" : $"Заказ";
@@ -100,6 +100,10 @@ namespace DataCore.Localizations
         public string OperationControl => Lang == ShareEnums.Lang.English ? "Control of operations" : "Контроль операций";
         public string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
         public string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
+        public string PluGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
+        public string PluGtinNotSet => Lang == ShareEnums.Lang.English ? "GTIN is not set" : "ГТИН не задан";
+        public string PluIsPiece => Lang == ShareEnums.Lang.English ? "pcs." : "шт";
+        public string PluIsWeight => Lang == ShareEnums.Lang.English ? "weight" : "вес";
         public string PluNotSelect => Lang == ShareEnums.Lang.English ? "PLU is not selected!" : "ПЛУ не выбрана!";
         public string PluNotSelectWeight => Lang == ShareEnums.Lang.English ? "Weight PLU is not selected!" : "Весовая ПЛУ не выбрана!";
         public string PluPage => Lang == ShareEnums.Lang.English ? "Page" : "Страница";
