@@ -2,27 +2,29 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql;
 using DataCore.Localizations;
+using DataCore.Protocols;
+using DataCore.Sql;
+using DataCore.Sql.TableScaleModels;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
-using WeightCore.Gui.XamlPages;
-using System.Runtime.CompilerServices;
-using Microsoft.Data.SqlClient;
-using DataCore.Protocols;
 using System.Xml.Linq;
-using DataCore.Sql.TableScaleModels;
-using static DataCore.ShareEnums;
+using WeightCore.Gui.XamlPages;
 using WeightCore.Helpers;
+using static DataCore.ShareEnums;
 
 namespace WeightCore.Gui
 {
     /// <summary>
     /// GUI utils.
     /// </summary>
+    [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
     public static class GuiUtils
     {
         /// <summary>
@@ -30,8 +32,8 @@ namespace WeightCore.Gui
         /// </summary>
         public static class WpfForm
         {
-            public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-            public static WpfPageLoader WpfPage { get; set; }
+            private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+            public static WpfPageLoader WpfPage { get; private set; }
 
             /// <summary>
             /// Show pin-code form.
@@ -53,10 +55,7 @@ namespace WeightCore.Gui
                 {
                     if (!WpfPage.Visible)
                     {
-                        if (owner != null)
-                            resultWpf = WpfPage.ShowDialog(owner);
-                        else
-                            resultWpf = WpfPage.ShowDialog();
+                        resultWpf = owner != null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
                     }
                     WpfPage.Activate();
                     return true;
@@ -64,7 +63,7 @@ namespace WeightCore.Gui
                 return false;
             }
 
-            public static void CloseIfExistsWpfPage()
+            private static void CloseIfExistsWpfPage()
             {
                 if (WpfPage != null)
                 {
@@ -79,20 +78,17 @@ namespace WeightCore.Gui
             /// <param name="owner"></param>
             /// <param name="caption"></param>
             /// <param name="message"></param>
-            public static DialogResult ShowNew(IWin32Window owner, string caption, string message, VisibilitySettingsEntity visibilitySettings)
+            /// <param name="visibilitySettings"></param>
+            private static DialogResult ShowNew(IWin32Window owner, string caption, string message, VisibilitySettingsEntity visibilitySettings)
             {
                 CloseIfExistsWpfPage();
-                
-                DialogResult resultWpf;
+
                 WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 WpfPage.MessageBox.Caption = caption;
                 WpfPage.MessageBox.Message = message;
                 WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
                 WpfPage.MessageBox.VisibilitySettings.Localization();
-                if (owner != null)
-                    resultWpf = WpfPage.ShowDialog(owner);
-                else
-                    resultWpf = WpfPage.ShowDialog();
+                DialogResult resultWpf = owner != null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
                 WpfPage.Close();
                 WpfPage.Dispose();
                 return resultWpf;
@@ -143,8 +139,7 @@ namespace WeightCore.Gui
             /// <param name="visibility"></param>
             /// <returns></returns>
             public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogType logType,
-                VisibilitySettingsEntity visibility = null,
-                string hostName = "", string appName = "", 
+                VisibilitySettingsEntity visibility = null, string hostName = "", string appName = "",
                 [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             {
                 if (isLog)
@@ -180,11 +175,11 @@ namespace WeightCore.Gui
                 WpfPage.Dispose();
                 return uid;
             }
-            
+
             public static DialogResult ShowNewHostSaveInDb(Guid uid)
             {
                 DialogResult result = ShowNewOperationControl(null,
-                    LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb, 
+                    LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
                     false, LogType.Information,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result == DialogResult.Yes)
@@ -201,7 +196,7 @@ namespace WeightCore.Gui
                 }
                 return result;
             }
-            
+
             public static DialogResult ShowNewHostSaveInDb(string hostName, string ip, string mac)
             {
                 DialogResult result = ShowNewOperationControl(null,
@@ -210,7 +205,8 @@ namespace WeightCore.Gui
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (result == DialogResult.Yes)
                 {
-                    HostEntity host = new() {
+                    HostEntity host = new()
+                    {
                         Name = hostName,
                         HostName = hostName,
                         Ip = ip,
@@ -225,7 +221,7 @@ namespace WeightCore.Gui
                 }
                 return result;
             }
-            
+
             /// <summary>
             /// Show new host not found.
             /// </summary>
@@ -283,7 +279,7 @@ namespace WeightCore.Gui
             /// <param name="lineNumber"></param>
             /// <param name="memberName"></param>
             /// <returns></returns>
-            public static DialogResult CatchException(Exception ex, 
+            public static DialogResult CatchException(Exception ex,
                 [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             {
                 return CatchException(null, ex, true, true, filePath, lineNumber, memberName);
@@ -361,7 +357,7 @@ namespace WeightCore.Gui
             public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel tableLayoutPanel, int column)
             {
                 tableLayoutPanel.ColumnCount = column;
-                float size = (float) 100 / tableLayoutPanel.ColumnCount;
+                float size = (float)100 / tableLayoutPanel.ColumnCount;
                 if (tableLayoutPanel.ColumnStyles.Count > 0)
                     tableLayoutPanel.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, size);
                 if (tableLayoutPanel.ColumnCount > 1)

@@ -3,7 +3,6 @@
 
 using DataCore;
 using DataCore.Localizations;
-using DataCore.Settings;
 using DataCore.Sql.TableDirectModels;
 using System;
 using System.Threading;
@@ -18,7 +17,6 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
         private DebugHelper Debug { get; } = DebugHelper.Instance;
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
@@ -76,8 +74,6 @@ namespace ScalesUI.Forms
             {
                 // Data.
                 UserSession.DataAccess.Crud.UpdateEntity(UserSession.Scale);
-                // Settings.
-                Properties.Settings.Default.Save();
             }
             catch (Exception ex)
             {
@@ -95,25 +91,32 @@ namespace ScalesUI.Forms
             try
             {
                 ZplConverterHelper zp = new();
-                zp.LogoClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
-                zp.FontsClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
-                if (UserSession.Scale.IsOrder == true)
+                if (UserSession.Scale.PrinterMain != null)
                 {
-                    if (UserSession.Order == null)
+                    zp.LogoClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+                    zp.FontsClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+                    if (UserSession.Scale.IsOrder)
                     {
-                        const string message = "Не определен PLU";
-                        const string caption = "Операция недоступна!";
-                        MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                        if (UserSession.Order == null)
+                        {
+                            const string message = "Не определен PLU";
+                            const string caption = "Операция недоступна!";
+                            MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                    zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, UserSession.Order.Template.Logo);
-                    zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, UserSession.Order.Template.Fonts);
-                }
-                else
-                {
-                    zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, UserSession.Plu.Template.Logo);
-                    zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, UserSession.Plu.Template.Fonts);
+                        zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+                            UserSession.Order.Template.Logo);
+                        zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+                            UserSession.Order.Template.Fonts);
+                    }
+                    else
+                    {
+                        zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+                            UserSession.Plu.Template.Logo);
+                        zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+                            UserSession.Plu.Template.Fonts);
+                    }
                 }
             }
             catch (Exception ex)
@@ -189,8 +192,6 @@ namespace ScalesUI.Forms
                         UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplCalibration());
                         break;
                     case WeightCore.Print.PrintBrand.TSC:
-                        break;
-                    default:
                         break;
                 }
             }

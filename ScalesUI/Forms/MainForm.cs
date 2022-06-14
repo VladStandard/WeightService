@@ -536,23 +536,23 @@ namespace ScalesUI.Forms
                 {
                     case "800x600":
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(800, 600);
+                        Size = new(800, 600);
                         break;
                     case "1024x768":
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1024, 768);
+                        Size = new(1024, 768);
                         break;
                     case "1366x768":
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1366, 768);
+                        Size = new(1366, 768);
                         break;
                     case "1600x1024":
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1600, 1024);
+                        Size = new(1600, 1024);
                         break;
                     case "1920x1080":
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1920, 1080);
+                        Size = new(1920, 1080);
                         break;
                     default:
                         WindowState = FormWindowState.Maximized;
@@ -577,7 +577,7 @@ namespace ScalesUI.Forms
             try
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
-                int number = (int)UserSession.Scale.Number;
+                int number = UserSession.Scale.Number;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, LocaleCore.Scales.ButtonScaleChange(number));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
@@ -659,8 +659,8 @@ namespace ScalesUI.Forms
                 else
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
-                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogType.Warning, null,
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogType.Warning, 
+                        null, UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 }
                 UserSession.ManagerControl.Open();
             }

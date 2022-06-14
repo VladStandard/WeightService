@@ -17,9 +17,9 @@ namespace ScalesUI.Forms
         #region Public and private fields and properties
 
         private DebugHelper Debug { get; } = DebugHelper.Instance;
-        private int NumPage { get; set; } = 0;
-        private int Offset { get; } = 9;
-        private List<OrderDirect> OrdList { get; set; } = null;
+        private int NumPage { get; set; }
+        private static int Offset => 9;
+        private List<OrderDirect> OrdList { get; set; }
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
@@ -168,12 +168,12 @@ namespace ScalesUI.Forms
                 int i = 0;
 
                 List<OrderDirect> page = OrdList.GetRange(offset * rowCount,
-                    ((offset * rowCount + rowCount) < OrdList.Count()) ? rowCount : (OrdList.Count() - offset * rowCount));
+                    ((offset * rowCount + rowCount) < OrdList.Count) ? rowCount : (OrdList.Count - offset * rowCount));
 
                 if (!page.Any())
                 {
                     page = OrdList.GetRange(offset * (--rowCount),
-                    ((offset * rowCount + rowCount) < OrdList.Count()) ? rowCount : (OrdList.Count() - offset * rowCount));
+                    ((offset * rowCount + rowCount) < OrdList.Count) ? rowCount : (OrdList.Count - offset * rowCount));
                 }
 
                 foreach (OrderDirect order in page)
@@ -194,8 +194,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (NumPage < (OrdList.Count() / Offset)) NumPage++;
-                else NumPage = OrdList.Count() / Offset;
+                if (NumPage < (OrdList.Count / Offset)) NumPage++;
+                else NumPage = OrdList.Count / Offset;
                 GetPage(tableLayoutPanel1, NumPage, Offset);
             }
             catch (Exception ex)

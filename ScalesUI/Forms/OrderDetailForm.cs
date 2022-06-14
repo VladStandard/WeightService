@@ -35,10 +35,11 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
                 listBox1.Items.Clear();
-                foreach (string prop in UserSession.Order.ToString().Split('\n'))
-                {
-                    listBox1.Items.Add(prop);
-                }
+                if (UserSession.Order != null)
+                    foreach (string prop in UserSession.Order.ToString().Split('\n'))
+                    {
+                        listBox1.Items.Add(prop);
+                    }
             }
             catch (Exception ex)
             {

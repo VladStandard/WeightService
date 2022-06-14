@@ -92,8 +92,8 @@ namespace ScalesUI
             }
             catch (Exception ex)
             {
-                GuiUtils.WpfForm.CatchException(null, ex, false, true, filePath, lineNumber, memberName);
-                throw new Exception(ex.Message);
+                GuiUtils.WpfForm.CatchException(null!, ex, false, true, filePath, lineNumber, memberName);
+                throw new(ex.Message);
             }
         }
 
