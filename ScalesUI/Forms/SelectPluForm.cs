@@ -17,14 +17,14 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
+        private const ushort ColumnCount = 4;
+        private const ushort PageSize = 20;
+        private const ushort RowCount = 5;
         private DebugHelper Debug { get; } = DebugHelper.Instance;
         private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
-        private short PageNumber { get; set; }
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
-        private static ushort ColumnCount => 4;
-        private static ushort PageSize => 20;
-        private static ushort RowCount => 5;
+        private short PageNumber { get; set; }
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
         #endregion
@@ -97,18 +97,18 @@ namespace ScalesUI.Forms
             Button buttonPlu = NewButtonPlu(plu, tabIndex);
             Label labelPluNumber = NewLabelPluNumber(plu, tabIndex, buttonPlu);
             Label labelPluType = NewLabelPluType(plu, tabIndex, buttonPlu);
-            Label labelPluGtin = NewLabelPluGtin(plu, tabIndex, buttonPlu);
+            Label labelPluCode = NewLabelPluCode(plu, tabIndex, buttonPlu);
             Label labelPluDescription = NewLabelPluDescription(plu, tabIndex, buttonPlu);
-            return new(buttonPlu, labelPluNumber, labelPluType, labelPluGtin, labelPluDescription);
+            return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelPluDescription);
         }
 
         private Button NewButtonPlu(PluDirect plu, int tabIndex)
         {
             const ushort buttonWidth = 150;
             const ushort buttonHeight = 30;
-            Button button = new()
+            Button buttonPlu = new()
             {
-                Name = $@"buttonPlu{tabIndex}",
+                Name = $@"{nameof(buttonPlu)}{tabIndex}",
                 Font = FontsSettings.FontLabelsBlack,
                 AutoSize = false,
                 Text = plu.GoodsName,
@@ -122,15 +122,15 @@ namespace ScalesUI.Forms
                 BackColor = SystemColors.Control,
                 TabIndex = tabIndex,
             };
-            button.Click += ButtonPlu_Click;
-            return button;
+            buttonPlu.Click += ButtonPlu_Click;
+            return buttonPlu;
         }
 
         private Label NewLabelPluNumber(PluDirect plu, int tabIndex, Control buttonPlu)
         {
             Label labelPluNumber = new()
             {
-                Name = $@"labelPluNumber{tabIndex}",
+                Name = $@"{nameof(labelPluNumber)}{tabIndex}",
                 Font = FontsSettings.FontMinimum,
                 AutoSize = false,
                 Text = Text = Width > 1024 ? $@"{LocaleCore.Table.Number} {plu.PLU}" : $@"{plu.PLU}",
@@ -149,14 +149,14 @@ namespace ScalesUI.Forms
         {
             Label labelPluType = new()
             {
-                Name = $@"labelPluType{tabIndex}",
+                Name = $@"{nameof(labelPluType)}{tabIndex}",
                 Font = FontsSettings.FontMinimum,
                 AutoSize = false,
                 Text = plu.IsCheckWeight == false ? LocaleCore.Scales.PluIsPiece : LocaleCore.Scales.PluIsWeight,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = buttonPlu,
                 Dock = DockStyle.None,
-                BackColor = plu.IsCheckWeight ? Color.Transparent : Color.LightGray,
+                BackColor = plu.IsCheckWeight ? Color.LightGray : Color.Transparent,
                 BorderStyle = BorderStyle.FixedSingle,
                 TabIndex = tabIndex,
             };
@@ -164,33 +164,32 @@ namespace ScalesUI.Forms
             return labelPluType;
         }
 
-        private Label NewLabelPluGtin(PluDirect plu, int tabIndex, Control buttonPlu)
+        private Label NewLabelPluCode(PluDirect plu, int tabIndex, Control buttonPlu)
         {
-            Label labelPluGtin = new()
+            Label labelPluCode = new()
             {
-                Name = $@"labelPluGtin{tabIndex}",
+                Name = $@"{nameof(labelPluCode)}{tabIndex}",
                 Font = FontsSettings.FontMinimum,
                 AutoSize = false,
                 Text = Width > 1024 
-                    ? !string.IsNullOrEmpty(plu.GTIN) ? @$"{LocaleCore.Scales.PluGtin} {plu.GTIN}" : LocaleCore.Scales.PluGtinNotSet
-                    : !string.IsNullOrEmpty(plu.GTIN) ? @$"{plu.GTIN}" : LocaleCore.Scales.PluGtinNotSet,
+                    ? !string.IsNullOrEmpty(plu.GTIN) ? @$"{LocaleCore.Scales.PluCode} {plu.GTIN}" : LocaleCore.Scales.PluCodeNotSet
+                    : !string.IsNullOrEmpty(plu.GTIN) ? @$"{plu.GTIN}" : LocaleCore.Scales.PluCodeNotSet,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = buttonPlu,
                 Dock = DockStyle.None,
                 BackColor = !string.IsNullOrEmpty(plu.GTIN) ? Color.Transparent : Color.LightGray,
-                //Visible = string.IsNullOrEmpty(plu.GTIN),
                 BorderStyle = BorderStyle.FixedSingle,
                 TabIndex = tabIndex,
             };
-            labelPluGtin.MouseClick += ButtonPlu_Click;
-            return labelPluGtin;
+            labelPluCode.MouseClick += ButtonPlu_Click;
+            return labelPluCode;
         }
 
         private Label NewLabelPluDescription(PluDirect plu, int tabIndex, Control buttonPlu)
         {
             Label labelPluDescription = new()
             {
-                Name = $@"labelPluDescription{tabIndex}",
+                Name = $@"{nameof(labelPluDescription)}{tabIndex}",
                 Font = FontsSettings.FontMinimum,
                 AutoSize = false,
                 Text = !string.IsNullOrEmpty(plu.GoodsDescription) ? LocaleCore.Scales.PluDescriptionSet : LocaleCore.Scales.PluDescriptionNotSet,

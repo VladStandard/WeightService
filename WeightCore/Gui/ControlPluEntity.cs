@@ -12,19 +12,19 @@ namespace WeightCore.Gui
         public Button ButtonPlu { get; }
         private Label LabelPluNumber { get; }
         private Label LabelPluType { get; }
-        private Label LabelPluGtin { get; }
+        private Label LabelPluCode { get; }
         private Label LabelPluDescription { get; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ControlPluEntity(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluGtin, Label labelPluDescription)
+        public ControlPluEntity(Button buttonPlu, Label labelPluNumber, Label labelPluType, Label labelPluCode, Label labelPluDescription)
         {
             ButtonPlu = buttonPlu;
             LabelPluNumber = labelPluNumber;
             LabelPluType = labelPluType;
-            LabelPluGtin = labelPluGtin;
+            LabelPluCode = labelPluCode;
             LabelPluDescription = labelPluDescription;
         }
 
@@ -44,10 +44,10 @@ namespace WeightCore.Gui
             LabelPluType.Left = ButtonPlu.Width / 2 + 2;
             LabelPluType.Top = 2;
             
-            LabelPluGtin.Width = ButtonPlu.Width / 2 - 4;
-            LabelPluGtin.Height = ButtonPlu.Height / 4 - 4;
-            LabelPluGtin.Left = 2;
-            LabelPluGtin.Top = ButtonPlu.Height / 4 * 3 + 2;
+            LabelPluCode.Width = ButtonPlu.Width / 2 - 4;
+            LabelPluCode.Height = ButtonPlu.Height / 4 - 4;
+            LabelPluCode.Left = 2;
+            LabelPluCode.Top = ButtonPlu.Height / 4 * 3 + 2;
 
             LabelPluDescription.Width = ButtonPlu.Width / 2 - 4;
             LabelPluDescription.Height = ButtonPlu.Height / 4 - 4;

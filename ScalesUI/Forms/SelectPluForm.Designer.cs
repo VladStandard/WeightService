@@ -49,7 +49,7 @@
             this.tableLayoutPanelPlu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanelPlu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanelPlu.Controls.Add(this.tableLayoutPanelActions, 0, 2);
-            this.tableLayoutPanelPlu.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tableLayoutPanelPlu.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tableLayoutPanelPlu.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanelPlu.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanelPlu.Name = "tableLayoutPanelPlu";
@@ -75,7 +75,7 @@
             this.tableLayoutPanelActions.Controls.Add(this.labelCurrentPage, 2, 0);
             this.tableLayoutPanelActions.Controls.Add(this.buttonLeftRoll, 0, 0);
             this.tableLayoutPanelActions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelActions.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tableLayoutPanelActions.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tableLayoutPanelActions.Location = new System.Drawing.Point(2, 398);
             this.tableLayoutPanelActions.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanelActions.Name = "tableLayoutPanelActions";
@@ -90,7 +90,7 @@
             // 
             this.buttonClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClose.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonClose.Location = new System.Drawing.Point(596, 2);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
             this.buttonClose.Name = "buttonClose";
@@ -104,7 +104,7 @@
             // 
             this.buttonRightRoll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonRightRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRightRoll.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonRightRoll.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonRightRoll.Location = new System.Drawing.Point(200, 2);
             this.buttonRightRoll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRightRoll.Name = "buttonRightRoll";
@@ -118,7 +118,7 @@
             // 
             this.labelCurrentPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelCurrentPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.labelCurrentPage.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCurrentPage.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelCurrentPage.Location = new System.Drawing.Point(397, 1);
             this.labelCurrentPage.Margin = new System.Windows.Forms.Padding(1);
             this.labelCurrentPage.Name = "labelCurrentPage";
@@ -132,7 +132,7 @@
             // 
             this.buttonLeftRoll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonLeftRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLeftRoll.Font = new System.Drawing.Font("Cascadia Code", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLeftRoll.Font = new System.Drawing.Font("Cascadia Code", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonLeftRoll.Location = new System.Drawing.Point(2, 2);
             this.buttonLeftRoll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLeftRoll.Name = "buttonLeftRoll";
