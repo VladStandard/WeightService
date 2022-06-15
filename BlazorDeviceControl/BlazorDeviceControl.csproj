@@ -59,6 +59,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
     <PackageReference Include="MudBlazor" Version="6.0.9" />
+    <PackageReference Include="NetBarcode" Version="2.0.0-beta.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.12" />
     <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
@@ -74,6 +75,7 @@
     <Watch Remove="Shared\Component\ActionsReloadItem.razor" />
     <Watch Remove="Shared\Component\ActionsReloadSection.razor" />
     <Watch Remove="Shared\Component\MudPage.razor" />
+    <Watch Remove="Shared\Component\NetBarcodePage.razor" />
     <Watch Remove="Shared\Item\ItemAccess.razor" />
     <Watch Remove="Shared\Item\ItemBarCode.razor" />
     <Watch Remove="Shared\Item\ItemBarCodeType.razor" />

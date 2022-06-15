@@ -17,13 +17,8 @@
         @UserSettings.Identity.UserName = null;
     </Authorizing>
     <Authorized>
-        @if (!string.IsNullOrEmpty(context.User.Identity?.Name))
-        {
-            UserSettings.Identity.UserName = context.User.Identity.Name;
-        }
-        else
-        {
-            UserSettings.Identity.UserName = string.Empty;
+        @{
+            UserSettings.Identity.UserName = !string.IsNullOrEmpty(context.User.Identity?.Name) ? context.User.Identity.Name : string.Empty;
         }
     </Authorized>
     <NotAuthorized>

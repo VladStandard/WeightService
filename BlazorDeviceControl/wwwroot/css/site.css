@@ -112,6 +112,16 @@ a, .btn-link {
     border-color: transparent;
 }
 
+.MudSelectFlexible {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+    line-height: 20px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
 .rz-datatable-none > td {
     background-color: transparent;
 }

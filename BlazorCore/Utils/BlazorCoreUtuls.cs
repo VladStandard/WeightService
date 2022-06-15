@@ -39,6 +39,7 @@ namespace DataCore.Utils
             }
 
             public static string MudSelect => "MudSelect";
+            public static string MudSelectFlexible => "MudSelectFlexible";
             public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
             public static string RadzenPanelMenu => "RadzenPanelMenu";
             public static string RadzenPanelMenuItem => "RadzenPanelMenuItem";

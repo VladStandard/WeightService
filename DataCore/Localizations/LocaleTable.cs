@@ -80,10 +80,10 @@ namespace DataCore.Localizations
         public string GoodsDescription => Lang == ShareEnums.Lang.English ? "Good description" : "Описание товара";
         public string GoodsFullName => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
         public string GoodsName => Lang == ShareEnums.Lang.English ? "Product" : "Товар";
-        public string GoodsTareWeight => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
+        public string GoodsTareWeight => Lang == ShareEnums.Lang.English ? "Tare weight, kg" : "Вес тары, кг";
         public string GoodsTareWeightDescription => Lang == ShareEnums.Lang.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
         public string GoodsTareWeightShort => Lang == ShareEnums.Lang.English ? "Weight" : "Вес";
-        public string Gtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
+        public string Gtin => Lang == ShareEnums.Lang.English ? "BC GTIN" : "ШК ГТИН";
         public string GuidMercury => Lang == ShareEnums.Lang.English ? "GUID Mercury" : "ГУИД Меркурий";
         public string Host => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
         public string HttpStatusCode => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
@@ -108,7 +108,7 @@ namespace DataCore.Localizations
         public string Line => Lang == ShareEnums.Lang.English ? "Line" : "Линия";
         public string Link => Lang == ShareEnums.Lang.English ? "Link" : "Ссылка";
         public string LogType => Lang == ShareEnums.Lang.English ? "Log type" : "Тип лога";
-        public string LowerWeightThreshold => Lang == ShareEnums.Lang.English ? "Lower value of the box weight" : "Нижнее значение веса короба";
+        public string LowerWeightThreshold => Lang == ShareEnums.Lang.English ? "Lower value of the box weight, kg" : "Нижнее значение веса короба, кг";
         public string Marked => Lang == ShareEnums.Lang.English ? "In the archive" : "В архиве";
         public string MarkedShort => Lang == ShareEnums.Lang.English ? "x" : "х";
         public string Member => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
@@ -122,7 +122,7 @@ namespace DataCore.Localizations
         public string NomenclatureName => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
         public string NomenclatureType => Lang == ShareEnums.Lang.English ? "Type of nomenclature" : "Тип номенклатуры";
         public string NomenclatureUnitId => Lang == ShareEnums.Lang.English ? "Nomenclature unit ID" : "ID юнита номенклатуры";
-        public string NominalWeight => Lang == ShareEnums.Lang.English ? "Nominal box weight" : "Номинальный вес короба";
+        public string NominalWeight => Lang == ShareEnums.Lang.English ? "Nominal box weight, kg" : "Номинальный вес короба, кг";
         public string Number => Lang == ShareEnums.Lang.English ? "Number" : "Номер";
         public string NumberShort => Lang == ShareEnums.Lang.English ? "#" : "№";
         public string Order => Lang == ShareEnums.Lang.English ? "Order" : "Заказ";
@@ -146,7 +146,7 @@ namespace DataCore.Localizations
         public string Scale => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
         public string ScaleFactor => Lang == ShareEnums.Lang.English ? "Scale factor" : "Коэф. масштабирования";
         public string ScaleId => Lang == ShareEnums.Lang.English ? "Scale ID" : "ID весов";
-        public string ShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life (days)" : "Срок годности (суток)";
+        public string ShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life, days" : "Срок годности, суток";
         public string ShelfLifeDaysShort => Lang == ShareEnums.Lang.English ? "Life" : "Срок";
         public string Sscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
         public string State => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
@@ -161,7 +161,7 @@ namespace DataCore.Localizations
         public string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
         public string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";
         public string TableReadCancel => Lang == ShareEnums.Lang.English ? "Cancel data reading" : "Отмена чтения данных";
-        public string TableReadFromDb => Lang == ShareEnums.Lang.English ? "Read from DB" : "Прочитать из БД";
+        public string TableRereadFromDb => Lang == ShareEnums.Lang.English ? "Reread from the database" : "Перечитать из БД";
         public string TableSave => Lang == ShareEnums.Lang.English ? "Save record" : "Сохранить запись";
         public string TableSelect => Lang == ShareEnums.Lang.English ? "Highlight record" : "Выделить запись";
         public string TableTab => Lang == ShareEnums.Lang.English ? "Switch between panels" : "Переключиться между панелями";
@@ -180,7 +180,7 @@ namespace DataCore.Localizations
         public string Title => Lang == ShareEnums.Lang.English ? "Title" : "Заголовок";
         public string Type => Lang == ShareEnums.Lang.English ? "Type" : "Тип";
         public string Uid => Lang == ShareEnums.Lang.English ? "UID" : "УИД";
-        public string UpperWeightThreshold => Lang == ShareEnums.Lang.English ? "Upper value of the box weight" : "Верхнее значение веса короба";
+        public string UpperWeightThreshold => Lang == ShareEnums.Lang.English ? "Upper value of the box weight, kg" : "Верхнее значение веса короба, кг";
         public string User => Lang == ShareEnums.Lang.English ? "User" : "Пользователь";
         public string Value => Lang == ShareEnums.Lang.English ? "Value" : "Значение";
         public string VatRate => Lang == ShareEnums.Lang.English ? "VAT rate" : "Ставка НДС";
