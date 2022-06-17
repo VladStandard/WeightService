@@ -5,16 +5,17 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
+@using DataCore.Utils
 @using static DataCore.Utils.BlazorCoreUtuls
 @using static DataCore.Localizations.LocaleData.DeviceControl
 
 @if (!IsLoaded)
 {
-    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
+    <ActionsReloadItem ParentRazor=@(this) 
         Title=@LocaleData.DeviceControl.Items.Plu SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -46,8 +47,8 @@ else
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                                Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.IdentityId)
-                                Text=@LocaleCore.Table.Template />
+                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.IdentityId)
+                        Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
@@ -86,8 +87,8 @@ else
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                                Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
-                                Text=@LocaleCore.Table.Scale />
+                        Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
+                        Text=@LocaleCore.Table.Scale />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
@@ -119,11 +120,9 @@ else
 				</td>
                 <td>@LocaleCore.Table.ShelfLifeDays</td>
                 <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsShelfLifeDays))) />
-                    <RadzenNumeric Style="width: 80%; text-align: center; " Disabled=false 
+                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsShelfLifeDays))) />
+                    <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
                         TValue="short" @bind-Value=@ItemCast.GoodsShelfLifeDays />
 				</td>
             </tr>
@@ -140,125 +139,103 @@ else
             <tr>
                 <td>@LocaleCore.Table.GoodsTareWeight</td>
                 <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; height: 25px; " Disabled=false Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableCalc))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.CalcGoodsTareWeight))) />
-                    <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center; " Disabled=false 
+                    <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.GoodsTareWeight />
+                    <RadzenButton Style="width: 10%; " Disabled=false 
+                        Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.CalcGoodsTareWeight))) />
                 </td>
                 <td>@LocaleCore.Table.GoodsBoxQuantly</td>
                 <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; height: 25px; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsBoxQuantly))) />
-                    <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center; " Disabled=false 
+                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsBoxQuantly))) />
+                    <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
                         TValue="int" @bind-Value=@ItemCast.GoodsBoxQuantly />
                 </td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Ean13</td>
                 <td >
-                    <RadzenButton Style="width: 10%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlEan13))) />
-                    <RadzenTextBox Style="width: 75%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Ean13 />
-                    <RadzenLabel Style="width: 5%; margin-right: 1%; text-align: center; " 
+                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlEan13))) />
+                    <RadzenTextBox Style="width: 80%; text-align: center; " Disabled=false 
+                        @bind-Value=@ItemCast.Ean13 />
+                    <RadzenLabel Style="width: 6%; text-align: center; " 
                         Text=@ItemCast.Ean13.Length.ToString() />
                 </td>
                 <td>@LocaleCore.Table.Gtin</td>
                 <td >
-                    <RadzenButton Style="width: 10%; margin-right: 1%; " Disabled=false Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(Barcode.GetGtin))) />
-                    <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGtin))) />
-                    <RadzenTextBox Style="width: 68.5%; margin-right: 1%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Gtin />
-                    <RadzenLabel Style="width: 5%; margin-right: 1%; text-align: center; " 
+                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGtin))) />
+                    <RadzenTextBox Style="width: 70%; text-align: center; " Disabled=false 
+                        @bind-Value=@ItemCast.Gtin />
+                    <RadzenLabel Style="width: 5%; text-align: center; " 
                         Text=@ItemCast.Gtin.Length.ToString() />
+                    <RadzenButton Style="width: 10%; " Disabled=false 
+                        Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
+                        Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtin))) />
                 </td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Itf14</td>
-                <td colspan=3>
-                    <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlItf14))) />
-                    <RadzenTextBox Style="width: 75%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Itf14 />
-                    <RadzenLabel Style="width: 10%; margin-right: 1%; text-align: center; " Text=@ItemCast.Itf14.Length.ToString() />
+                <td >
+                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlItf14))) />
+                    <RadzenTextBox Style="width: 76%; text-align: center; " Disabled=false 
+                        @bind-Value=@ItemCast.Itf14 />
+                    <RadzenLabel Style="width: 10%; text-align: center; " Text=@ItemCast.Itf14.Length.ToString() />
                 </td>
-            </tr>
-            <tr>
-                <td colspan=2>
+                <td >
                     <RadzenButton Style="width: 100%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Text=@LocaleData.DeviceControl.TableActionFill
-                        Click=@(args => OnClickFieldsFill(nameof(LocaleData.DeviceControl.TableActionFill))) />
+                        Text=@TableActionFill
+                        Click=@(_ => OnClickFieldsFill(nameof(TableActionFill))) />
 				</td>
-                <td colspan=2>
+                <td >
                     <RadzenButton Style="width: 100%; " Disabled=false Icon="clear" 
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Text=@LocaleData.DeviceControl.TableActionClear
-                        Click=@(args => OnClickFieldsFill(nameof(LocaleData.DeviceControl.TableActionClear))) />
+                        Text=@TableActionClear
+                        Click=@(_ => OnClickFieldsFill(nameof(TableActionClear))) />
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.Table.Name</td>
-                <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsName))) />
-                    <RadzenTextBox Style="width: 75%; margin-right: 1%; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.GoodsName />
-				</td>
-                <td>@LocaleCore.Table.GoodsFullName</td>
-                <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsFullName))) />
-                    <RadzenTextBox Style="width: 75%; margin-right: 1%; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.GoodsFullName />
+                <td>@LocaleCore.Table.Name
+                    <RadzenButton Style="align-self: end; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsName))) />
+                    </td>
+                <td colspan="3">
+                    <RadzenTextBox Style="width: 100%; " Disabled=false @bind-Value=@ItemCast.GoodsName />
 				</td>
             </tr>
             <tr>
-                <td>@LocaleCore.Table.GoodsDescription</td>
+                <td>@LocaleCore.Table.GoodsFullName
+                    <RadzenButton Style="align-content: end; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsFullName))) />
+                    </td>
+                <td colspan="3">
+                    <RadzenTextBox Style="width: 100%; " Disabled=false @bind-Value=@ItemCast.GoodsFullName />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.GoodsDescription
+                    <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
+                    </td>
                 <td colspan=3>
-                    <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
-                    <RadzenTextArea Style="width: 90%; text-align: left; font-size: 12px; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.GoodsDescription Rows=3 />
+                    <RadzenTextArea Style="width: 100%; font-size: 12px; " Disabled=false @bind-Value=@ItemCast.GoodsDescription Rows=3 />
 				</td>
             </tr>
             <tr >
                 <td>@LocaleCore.Table.XmlPretty</td>
                 <td colspan=3>
-                    <RadzenButton Style="width: 5%; margin-right: 1%; " Disabled=false Icon="autorenew"
-                        MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRereadFromDb))
-                        MouseLeave=@(_ => TooltipService.Close())
-                        Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
-                    <RadzenTextArea Style="width: 90%; text-align: left; font-size: 10px; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true
-                        Value=@ItemCast.Nomenclature.XmlPretty Rows=30 />
+                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                        Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
+                    <RadzenTextArea Style="width: 88%; text-align: left; font-size: 10px; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Rows=30 
+                        Value=@(XmlUtils.GetXmlpretty(ItemCast.Nomenclature.SerializedRepresentationObject)) />
                 </td>
             </tr>
         </tbody>
     </MudSimpleTable>
     
-    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@this />
+    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@(this) />
 }

@@ -2,11 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.DataModels;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -33,26 +32,21 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemPlu() : base()
-        {
-            Default();
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        private void Default()
+        public ItemPlu()
         {
             IsLoaded = false;
             Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
             ItemCast = new();
             ButtonSettings = new();
-            
+
             ScaleItems = new();
             Templates = new();
             Nomenclatures = new();
         }
+
+        #endregion
+
+        #region Public and private methods
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -60,7 +54,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Default();
+                    typeof(ItemPlu).GetConstructor(Type.EmptyTypes)?.Invoke(new object[] { });
                     await GuiRefreshWithWaitAsync();
 
                     switch (TableAction)
@@ -72,39 +66,39 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
+                                new(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
                             break;
                     }
 
                     // Templates.
                     List<TemplateEntity>? templates = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
+                        new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new(DbField.Title, DbOrderDirection.Asc))
                         ?.ToList();
                     if (templates is not null)
                     {
-                        Templates.Add(new TemplateEntity(0) { Title = LocaleCore.Table.FieldNull });
+                        Templates.Add(new(0) { Title = LocaleCore.Table.FieldNull });
                         Templates.AddRange(templates);
                     }
                     // Nomenclatures.
                     List<NomenclatureEntity>? nomenclatures = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                        new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new(DbField.Name, DbOrderDirection.Asc))
                         ?.ToList();
                     if (nomenclatures is not null)
                     {
-                        Nomenclatures.Add(new NomenclatureEntity(0) { Name = LocaleCore.Table.FieldNull });
+                        Nomenclatures.Add(new(0) { Name = LocaleCore.Table.FieldNull });
                         Nomenclatures.AddRange(nomenclatures);
                     }
 
                     // ScaleItems.
                     List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                        new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new(DbField.Description, DbOrderDirection.Asc))
                         ?.ToList();
                     if (scales is not null)
                     {
-                        ScaleItems.Add(new ScaleEntity(0) { Description = LocaleCore.Table.FieldNull });
+                        ScaleItems.Add(new(0) { Description = LocaleCore.Table.FieldNull });
                         ScaleItems.AddRange(scales);
                     }
 
@@ -132,8 +126,6 @@ namespace BlazorDeviceControl.Shared.Item
         private void OnClickFieldsFill(string name,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            if (ItemCast?.Nomenclature == null)
-                return;
             try
             {
                 switch (name)
@@ -211,8 +203,6 @@ namespace BlazorDeviceControl.Shared.Item
 
         private string GetWeightFormula()
         {
-            //if (ItemCast == null)
-            //    return string.Empty;
             XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.SerializedRepresentationObject);
             // Вес тары = вес коробки + (вес пакета * кол. вложений)
             return $"{ItemCast.CalcGoodWeightBox(xmlProduct)} + ({ItemCast.CalcGoodWeightPack(xmlProduct)} * {ItemCast.CalcGoodRateUnit(xmlProduct)})";

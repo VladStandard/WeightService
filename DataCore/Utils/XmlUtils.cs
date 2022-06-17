@@ -13,6 +13,8 @@ namespace DataCore.Utils
         /// <param name="xml"></param>
         public static string GetXmlpretty(string xml)
         {
+            if (string.IsNullOrEmpty(xml))
+                return string.Empty;
             XDocument document = XDocument.Parse(xml);
             return document.ToString();
         }

@@ -16,7 +16,6 @@ namespace DataCore.Sql.TableScaleModels
         public virtual string Name { get; set; }
         public virtual string Code { get; set; }
         public virtual string SerializedRepresentationObject { get; set; }
-        public virtual string XmlPretty => XmlUtils.GetXmlpretty(SerializedRepresentationObject);
         /// <summary>
         /// Is weighted or pcs.
         /// </summary>
