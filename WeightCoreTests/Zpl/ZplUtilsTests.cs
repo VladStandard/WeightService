@@ -282,7 +282,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample1));
+                TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample1));
             });
 
             Utils.MethodComplete();
@@ -295,7 +295,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample2));
+                TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample2));
             });
 
             Utils.MethodComplete();
@@ -308,7 +308,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplUtils.ConvertStringToHex(ZplSamples.GetSample3));
+                TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample3));
             });
 
             Utils.MethodComplete();
@@ -321,7 +321,7 @@ namespace WeightCoreTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                var zpl = ZplUtils.ConvertStringToHex(ZplSamples.GetSampleFull);
+                var zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSampleFull);
                 //zpl = zpl.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
                 //zpl = zpl.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
                 //zpl = zpl.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);

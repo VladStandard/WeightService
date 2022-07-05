@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <PublishUrl>\\palych\Install\VSSoft\Scales-2-Preview\</PublishUrl>
     <Install>true</Install>
@@ -590,6 +591,10 @@
       <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
       <Name>DataCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
+      <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
+      <Name>MDSoft.BarcodePrintUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeightCore\WeightCore.csproj">
       <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
       <Name>WeightCore</Name>
@@ -624,8 +629,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>

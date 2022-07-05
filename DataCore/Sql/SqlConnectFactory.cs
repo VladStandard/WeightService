@@ -24,22 +24,19 @@ namespace DataCore.Sql
         private readonly object _locker = new();
         public delegate void ExecuteReaderCallback(SqlDataReader reader);
         public delegate T? ExecuteReaderCallback<T>(SqlDataReader reader);
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
         #endregion
 
         #region Constructor and destructor
 
-        public SqlConnectFactory()
-        {
-            //
-        }
+        //
 
         #endregion
 
         #region Public and private methods
 
-        protected SqlConnection GetSqlConnection()
+        private SqlConnection GetSqlConnection()
         {
             return new SqlConnection(DataAccess.JsonSettingsLocal.ConnectionString);
         }

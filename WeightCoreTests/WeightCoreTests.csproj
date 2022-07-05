@@ -94,6 +94,10 @@
       <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
       <Name>DataCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
+      <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
+      <Name>MDSoft.BarcodePrintUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MDSoft.SerialPorts\MDSoft.SerialPorts.csproj">
       <Project>{7859DB5A-22A2-44A4-A4E8-4F341C8D3E4E}</Project>
       <Name>MDSoft.SerialPorts</Name>

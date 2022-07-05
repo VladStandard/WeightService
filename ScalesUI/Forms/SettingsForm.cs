@@ -7,6 +7,7 @@ using DataCore.Sql.TableDirectModels;
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using MDSoft.BarcodePrintUtils;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Zpl;
@@ -150,7 +151,6 @@ namespace ScalesUI.Forms
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
-
         private void ButtonGenerateException_Click(object sender, EventArgs e)
         {
             try
@@ -171,7 +171,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplPowerOnReset());
+                UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -186,12 +186,12 @@ namespace ScalesUI.Forms
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
                 switch (UserSession.PrintBrandMain)
                 {
-                    case WeightCore.Print.PrintBrand.Default:
+                    case PrintBrand.Default:
                         break;
-                    case WeightCore.Print.PrintBrand.Zebra:
-                        UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplCalibration());
+                    case PrintBrand.Zebra:
+                        UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplCalibration());
                         break;
-                    case WeightCore.Print.PrintBrand.TSC:
+                    case PrintBrand.TSC:
                         break;
                 }
             }
@@ -205,7 +205,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplPrintConfigurationLabel());
+                UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -250,7 +250,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.ManagerControl.PrintMain.SendCmd(ZplUtils.ZplClearPrintBuffer);
+                UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplClearPrintBuffer);
             }
             catch (Exception ex)
             {

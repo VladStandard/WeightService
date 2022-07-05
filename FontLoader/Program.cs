@@ -4,7 +4,7 @@ using System.IO;
 
 namespace FontLoader
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
@@ -40,7 +40,7 @@ namespace FontLoader
                 byte[] b = File.ReadAllBytes(filePath);
                 //ushort crc = Crc16.ComputeChecksum(b);
                 //string converted = Convert.ToBase64String(b);
-                string converted = StringUtils.ByteArrayToString(b);
+                string converted = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ByteArrayToString(b);
 
                 string ZPLCommand = $"^XA^IDE:{namettf}.TTF^FS^XZ";
                 RawPrinterHelper.SendStringToPrinter(printerName, ZPLCommand);

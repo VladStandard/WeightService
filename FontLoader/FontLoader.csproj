@@ -28,7 +28,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\DataCore\DataCore.csproj">
       <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
       <Name>DataCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
+      <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
+      <Name>MDSoft.BarcodePrintUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

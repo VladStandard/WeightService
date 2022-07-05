@@ -6,7 +6,6 @@ using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
 using DataCore.Sql;
-using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using System;
 using System.Collections.Generic;
@@ -17,9 +16,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using DataCore.Wmi;
+using MDSoft.BarcodePrintUtils.Wmi;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
+using WeightCore.Wmi;
 using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
@@ -482,7 +484,7 @@ namespace ScalesUI.Forms
                 $"{LocaleCore.Print.Port}: {wmiPrinter.PortName}" + Environment.NewLine +
                 $"{LocaleCore.Print.StateCode}: {wmiPrinter.PrinterState}" + Environment.NewLine +
                 $"{LocaleCore.Print.StatusCode}: {wmiPrinter.PrinterStatus}" + Environment.NewLine +
-                $"{LocaleCore.Print.Status}: {WmiHelper.Instance.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
+                $"{LocaleCore.Print.Status}: {managerPrint.GetPrinterStatusDescription(LocaleCore.Lang, wmiPrinter.PrinterStatus)}" + Environment.NewLine +
                 $"{LocaleCore.Print.State} (ENG): {wmiPrinter.Status}" + Environment.NewLine +
                 $"{LocaleCore.Print.State}: {WmiHelper.Instance.GetStatusDescription(LocaleCore.Lang, wmiPrinter.Status)}" + Environment.NewLine +
                 $"{LocaleCore.Print.SensorPeeler}: {peeler}" + Environment.NewLine +

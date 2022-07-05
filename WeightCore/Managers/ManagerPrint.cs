@@ -5,14 +5,16 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels;
-using DataCore.Wmi;
 using System;
+using System.Management;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using DataCore.Wmi;
+using MDSoft.BarcodePrintUtils;
+using MDSoft.BarcodePrintUtils.Tsc;
+using MDSoft.BarcodePrintUtils.Wmi;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WeightCore.Print;
-using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
@@ -33,7 +35,7 @@ namespace WeightCore.Managers
         public PrinterEntity Printer { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
         public TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
-        public WmiWin32PrinterEntity TscWmiPrinter => Wmi.GetWin32Printer(TscDriver.Properties.PrintName);
+        public WmiWin32PrinterEntity TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
         public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
         public ZebraPrinterStatus ZebraStatus { get; private set; }
         public bool IsPrintBusy { get; set; }
@@ -139,7 +141,7 @@ namespace WeightCore.Managers
                             catch (Exception ex)
                             {
                                 GuiUtils.WpfForm.CatchException(null, ex, true, false);
-                                SendCmdToZebra(Zpl.ZplUtils.ZplHostStatusReturn);
+                                SendCmdToZebra(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplHostStatusReturn);
                             }
                         }
                         break;
@@ -222,8 +224,8 @@ namespace WeightCore.Managers
                     break;
                 case PrintBrand.TSC:
                     return IsPrintBusy
-                        ? Wmi.GetPrinterStatusDescription(LocaleCore.Lang, Win32PrinterStatusEnum.PendingDeletion)
-                        : Wmi.GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
+                        ? GetPrinterStatusDescription(LocaleCore.Lang, Win32PrinterStatusEnum.PendingDeletion)
+                        : GetPrinterStatusDescription(LocaleCore.Lang, TscWmiPrinter.PrinterStatus);
             }
             return LocaleCore.Print.StatusIsUnavailable;
         }
@@ -420,6 +422,102 @@ namespace WeightCore.Managers
                 default:
                     break;
             }
+        }
+
+        public WmiWin32PrinterEntity GetWin32Printer(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return new WmiWin32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
+            // PowerShell: gwmi Win32_Printer | select DriverName, PortName, Status, PrinterState, PrinterStatus
+            // PowerShell: gwmi -query "select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name='SCALES-PRN-DEV'"
+            ObjectQuery wql = new($"select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = '{name}'");
+            ManagementObjectSearcher searcher = new(wql);
+            ManagementObjectCollection items = searcher.Get();
+            string driverName = string.Empty;
+            string portName = string.Empty;
+            string status = string.Empty;
+            string printerState = string.Empty;
+            short printerStatus = -1;
+            if (items.Count > 0)
+            {
+                foreach (ManagementObject item in items)
+                {
+                    driverName = Convert.ToString(item["DriverName"]);
+                    portName = Convert.ToString(item["PortName"]);
+                    status = Convert.ToString(item["Status"]);
+                    printerState = Convert.ToString(item["PrinterState"]);
+                    printerStatus = Convert.ToInt16(item["PrinterStatus"]);
+                }
+            }
+            return new WmiWin32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
+        }
+
+        public string GetPrinterStatusDescription(ShareEnums.Lang lang, Win32PrinterStatusEnum printerStatus)
+        {
+            return lang switch
+            {
+                ShareEnums.Lang.Russian => printerStatus switch
+                {
+                    Win32PrinterStatusEnum.Idle => "Бездействие",
+                    Win32PrinterStatusEnum.Paused => "Пауза",
+                    Win32PrinterStatusEnum.Error => "Ошибка",
+                    //Win32PrinterStatusEnum.PendingDeletion => "Ожидание печати", // Ожидание удаления
+                    Win32PrinterStatusEnum.PendingDeletion => LocaleCore.Print.StatusIsReadyToPrint,
+                    Win32PrinterStatusEnum.PaperJam => "Застревание бумаги",
+                    Win32PrinterStatusEnum.PaperOut => "Выдача бумаги",
+                    Win32PrinterStatusEnum.ManualFeed => "Ручная подача",
+                    Win32PrinterStatusEnum.PaperProblem => "Проблема с бумагой",
+                    Win32PrinterStatusEnum.Offline => "Не в сети",
+                    Win32PrinterStatusEnum.IoActive => "Ввод-вывод активен",
+                    Win32PrinterStatusEnum.Busy => "Занято",
+                    Win32PrinterStatusEnum.Printing => "Печать",
+                    Win32PrinterStatusEnum.OutputBinFull => "Выходной лоток полон",
+                    Win32PrinterStatusEnum.NotAvailable => "Недоступно",
+                    Win32PrinterStatusEnum.Waiting => "Ожидание",
+                    Win32PrinterStatusEnum.Processing => "Обработка",
+                    Win32PrinterStatusEnum.Initialization => "Инициализация",
+                    Win32PrinterStatusEnum.WarmingUp => "Прогрев",
+                    Win32PrinterStatusEnum.TonerLow => "Мало тонера",
+                    Win32PrinterStatusEnum.NoToner => "Нет тонера",
+                    Win32PrinterStatusEnum.PagePunt => "Страница беспечатана",
+                    Win32PrinterStatusEnum.UserInterventionRequired => "Требуется вмешательство пользователя",
+                    Win32PrinterStatusEnum.OutOfMemory => "Недостаточно памяти",
+                    Win32PrinterStatusEnum.DoorOpen => "Открыта дверца",
+                    Win32PrinterStatusEnum.ServerUnknown => "Сервер неизвестен",
+                    Win32PrinterStatusEnum.PowerSave => "Энергосбережение",
+                    _ => "Ошибка чтения статуса!",
+                },
+                _ => printerStatus switch
+                {
+                    Win32PrinterStatusEnum.Idle => "Idle",
+                    Win32PrinterStatusEnum.Paused => "Paused",
+                    Win32PrinterStatusEnum.Error => "Error",
+                    Win32PrinterStatusEnum.PendingDeletion => "Waiting for printing", // "Pending deletion"
+                    Win32PrinterStatusEnum.PaperJam => "Paper jam",
+                    Win32PrinterStatusEnum.PaperOut => "Paper out",
+                    Win32PrinterStatusEnum.ManualFeed => "Manual feed",
+                    Win32PrinterStatusEnum.PaperProblem => "Paper problem",
+                    Win32PrinterStatusEnum.Offline => "Offline",
+                    Win32PrinterStatusEnum.IoActive => "Io active",
+                    Win32PrinterStatusEnum.Busy => "Busy",
+                    Win32PrinterStatusEnum.Printing => "Printing",
+                    Win32PrinterStatusEnum.OutputBinFull => "Output bin full",
+                    Win32PrinterStatusEnum.NotAvailable => "Not available",
+                    Win32PrinterStatusEnum.Waiting => "Waiting",
+                    Win32PrinterStatusEnum.Processing => "Processing",
+                    Win32PrinterStatusEnum.Initialization => "Initialization",
+                    Win32PrinterStatusEnum.WarmingUp => "Warming up",
+                    Win32PrinterStatusEnum.TonerLow => "Toner low",
+                    Win32PrinterStatusEnum.NoToner => "No toner",
+                    Win32PrinterStatusEnum.PagePunt => "Page punt",
+                    Win32PrinterStatusEnum.UserInterventionRequired => "User intervention required",
+                    Win32PrinterStatusEnum.OutOfMemory => "Out of memory",
+                    Win32PrinterStatusEnum.DoorOpen => "Door open",
+                    Win32PrinterStatusEnum.ServerUnknown => "Server unknown",
+                    Win32PrinterStatusEnum.PowerSave => "Power save",
+                    _ => "Status reading error!",
+                },
+            };
         }
 
         #endregion

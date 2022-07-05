@@ -15,9 +15,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using MDSoft.BarcodePrintUtils;
 using WeightCore.Gui;
 using WeightCore.Managers;
-using WeightCore.Print;
 using static DataCore.ShareEnums;
 
 namespace WeightCore.Helpers

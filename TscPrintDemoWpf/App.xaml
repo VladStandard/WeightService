@@ -1,0 +1,27 @@
+﻿<Application x:Class="TscPrintDemoWpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:barcodePrintUtils="clr-namespace:MDSoft.BarcodePrintUtils;assembly=MDSoft.BarcodePrintUtils"
+             xmlns:tsc="clr-namespace:MDSoft.BarcodePrintUtils.Tsc;assembly=MDSoft.BarcodePrintUtils"
+             StartupUri="Views/MainWindow.xaml">
+    
+    <Application.Resources>
+        <tsc:TscDriverHelper x:Key="PrintControlEntityViewModel" />
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintLabelSize">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="barcodePrintUtils:PrintLabelSize"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintDpi">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="barcodePrintUtils:PrintDpi"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintChannel">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="barcodePrintUtils:PrintChannel"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Application.Resources>
+</Application>

@@ -2,10 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Wmi;
 using Microsoft.Win32;
 using System;
 using System.Threading;
+using DataCore.Wmi;
+using WeightCore.Wmi;
 
 namespace WeightCore.Helpers
 {

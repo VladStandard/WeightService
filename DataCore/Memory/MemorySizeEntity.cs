@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
-using DataCore.Wmi;
 using System.Diagnostics;
+using DataCore.Wmi;
 
 namespace DataCore.Memory
 {
