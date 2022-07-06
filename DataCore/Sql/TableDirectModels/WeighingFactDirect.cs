@@ -39,6 +39,12 @@ namespace DataCore.Sql.TableDirectModels
             // This code need for print labels.
             set => _ = value;
         }
+        public string ProductTimeBarCode
+        {
+            get => $"{ProductDate:HHmm}";
+            // This code need for print labels.
+            set => _ = value;
+        }
         public string ProductDateRus
         {
             get => $"{ProductDate:dd.MM.yyyy}";

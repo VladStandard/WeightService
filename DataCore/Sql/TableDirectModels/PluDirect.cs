@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.DataModels;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.Data.SqlClient;
@@ -34,6 +35,17 @@ namespace DataCore.Sql.TableDirectModels
         public string GoodsFullName { get; set; } = string.Empty;
         public string GoodsName { get; set; } = string.Empty;
         public string GTIN { get; set; } = string.Empty;
+        public string PrettyGtin14
+        {
+            get
+            {
+                if (GTIN.Length > 12)
+                    return BarcodeHelper.Instance.GetGtin(GTIN[..13]);
+                return string.Empty;
+            }
+            // This code need for print labels.
+            set => _ = value;
+        }
         public string ITF14 { get; set; } = string.Empty;
         public string RRefGoods { get; set; } = string.Empty;
         public ScaleEntity Scale { get; set; }

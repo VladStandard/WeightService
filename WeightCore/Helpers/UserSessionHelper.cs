@@ -344,7 +344,7 @@ namespace WeightCore.Helpers
                 switch (IsPluCheckWeight)
                 {
                     case true:
-                        PrintLabel(template, isClearBuffer);
+                        PrintLabelWeight(template, isClearBuffer);
                         break;
                     default:
                         PrintLabelCount(template, isClearBuffer);
@@ -430,7 +430,7 @@ namespace WeightCore.Helpers
                 if (WeighingSettings.LabelsCountMain > 1)
                     template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
                 // Печать этикетки.
-                PrintLabel(template, isClearBuffer);
+                PrintLabelWeight(template, isClearBuffer);
             }
             // Шаблон без указания кол-ва.
             else
@@ -438,7 +438,7 @@ namespace WeightCore.Helpers
                 for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
                 {
                     // Печать этикетки.
-                    PrintLabel(template, isClearBuffer);
+                    PrintLabelWeight(template, isClearBuffer);
                 }
             }
         }
@@ -461,7 +461,7 @@ namespace WeightCore.Helpers
         /// </summary>
         /// <param name="template"></param>
         /// <param name="isClearBuffer"></param>
-        private void PrintLabel(TemplateDirect template, bool isClearBuffer)
+        private void PrintLabelWeight(TemplateDirect template, bool isClearBuffer)
         {
             try
             {
