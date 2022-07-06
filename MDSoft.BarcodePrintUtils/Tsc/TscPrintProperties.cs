@@ -3,22 +3,14 @@
 
 using System;
 using System.Globalization;
-using System.Threading;
 
 namespace MDSoft.BarcodePrintUtils.Tsc
 {
-    public class TscPrintPropertiesHelper
+    public class TscPrintProperties
     {
-        #region Design pattern "Lazy Singleton"
-
-        private static TscPrintPropertiesHelper _instance;
-        public static TscPrintPropertiesHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        #endregion
-
         #region Public and private fields and properties
 
-        private double WidthDefault => 80.0;
+        private const double WidthDefault = 80.0;
         private double _width;
         public double Width
         {
@@ -29,7 +21,7 @@ namespace MDSoft.BarcodePrintUtils.Tsc
             }
         }
 
-        private double HeightDefault => 100.0;
+        private const double HeightDefault = 100.0;
         private double _height;
         public double Height
         {
@@ -43,155 +35,68 @@ namespace MDSoft.BarcodePrintUtils.Tsc
             }
         }
 
-        private PrintSpeed SpeedDefault => (PrintSpeed)4;
+        private const PrintSpeed SpeedDefault = (PrintSpeed)4;
         private PrintSpeed _speed;
         public PrintSpeed Speed
         {
             get => _speed;
-            set
-            {
-                if (value >= 0 && value <= (PrintSpeed)12)
-                    _speed = value;
-                else
-                    _speed = SpeedDefault;
-            }
+            set => _speed = value is >= 0 and <= (PrintSpeed)12 ? value : SpeedDefault;
         }
 
-        private PrintDensity DensityDefault => (PrintDensity)6;
+        private const PrintDensity DensityDefault = (PrintDensity)6;
         private PrintDensity _density;
         public PrintDensity Density
         {
             get => _density;
-            set
-            {
-                if (value >= 0 && value <= (PrintDensity)15)
-                    _density = value;
-                else
-                    _density = DensityDefault;
-            }
+            set => _density = value is >= 0 and <= (PrintDensity)15 ? value : DensityDefault;
         }
 
-        private PrintSensor SensorDefault => 0;
+        private const PrintSensor SensorDefault = 0;
         private PrintSensor _sensor;
         public PrintSensor Sensor
         {
             get => _sensor;
-            set
-            {
-                if (value >= 0 && value <= (PrintSensor)1)
-                    _sensor = value;
-                else
-                    _sensor = SensorDefault;
-            }
+            set => _sensor = value is >= 0 and <= (PrintSensor)1 ? value : SensorDefault;
         }
 
-        private int VerticalDefault => 0;
+        private const int VerticalDefault = 0;
         private int _vertical;
         public int Vertical
         {
             get => _vertical;
-            set
-            {
-                if (value >= 0 && value <= 1000)
-                    _vertical = value;
-                else
-                    _vertical = VerticalDefault;
-            }
+            set => _vertical = value is >= 0 and <= 1000 ? value : VerticalDefault;
         }
 
-        private int OffsetDefault => 0;
+        private const int OffsetDefault = 0;
         private int _offset;
         public int Offset
         {
             get => _offset;
-            set
-            {
-                if (value >= 0 && value <= 1000)
-                    _offset = value;
-                else
-                    _offset = OffsetDefault;
-            }
+            set => _offset = value is >= 0 and <= 1000 ? value : OffsetDefault;
         }
 
-        private int CutterValueDefault => 0;
+        private const int CutterValueDefault = 0;
         private int _cutterValue;
         public int CutterValue
         {
             get => _cutterValue;
-            set
-            {
-                if (value >= 0 && value <= 1000)
-                    _cutterValue = value;
-                else
-                    _cutterValue = CutterValueDefault;
-            }
+            set => _cutterValue = value is >= 0 and <= 1000 ? value : CutterValueDefault;
         }
 
-        private PrintChannel _channel;
-        public PrintChannel Channel
-        {
-            get => _channel;
-            set
-            {
-                _channel = value;
-            }
-        }
-        
-        private string _printName;
-        public string PrintName
-        {
-            get => _printName;
-            set
-            {
-                _printName = value;
-            }
-        }
-        private string _printIp;
-        public string PrintIp
-        {
-            get => _printIp;
-            set
-            {
-                _printIp = value;
-            }
-        }
-        private int _printPort;
-        public int PrintPort
-        {
-            get => _printPort;
-            set
-            {
-                _printPort = value;
-            }
-        }
-        private PrintLabelSize _size;
-        public PrintLabelSize Size
-        {
-            get => _size;
-            set
-            {
-                _size = value;
-            }
-        }
-        private PrintDpi _dpi;
-        public PrintDpi Dpi
-        {
-            get => _dpi;
-            set
-            {
-                _dpi = value;
-            }
-        }
-        private ushort _feedMm;
-        public ushort FeedMm
-        {
-            get => _feedMm;
-            set
-            {
-                _feedMm = value;
-            }
-        }
-        
+        public PrintChannel Channel { get; set; }
+
+        public string PrintName { get; set; }
+
+        public string PrintIp { get; set; }
+
+        public int PrintPort { get; set; }
+
+        public PrintLabelSize Size { get; set; }
+
+        public PrintLabelDpi Dpi { get; set; }
+
+        public ushort FeedMm { get; set; }
+
         #endregion
 
         #region Public and private methods

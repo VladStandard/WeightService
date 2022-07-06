@@ -59,8 +59,7 @@
     <Compile Include="Tsc\TscSdkNative.cs" />
     <Compile Include="Tsc\TscLibNet64Native.cs" />
     <Compile Include="Tsc\TscLibNet32Native.cs" />
-    <Compile Include="Tsc\TscNativeFactory.cs" />
-    <Compile Include="Tsc\TscPrintPropertiesHelper.cs" />
+    <Compile Include="Tsc\TscPrintProperties.cs" />
     <Compile Include="Wmi\WmiWin32PrinterEntity.cs" />
     <Compile Include="Wmi\WmiWin32PrinterEnums.cs" />
     <Compile Include="Zebra\DeviceEntity.cs" />
@@ -76,6 +75,10 @@
   <ItemGroup>
     <None Include="Tsc\TSC cmd.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Zebra.Printer.SDK">
+      <Version>2.15.2634</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

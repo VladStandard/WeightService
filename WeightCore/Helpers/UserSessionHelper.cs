@@ -327,7 +327,7 @@ namespace WeightCore.Helpers
         public void PrintLabel(bool isClearBuffer)
         {
             TemplateDirect template = null;
-            if (Order != null && Scale != null && Scale.IsOrder == true)
+            if (Order != null && Scale is { IsOrder: true })
             {
                 template = Order.Template;
                 Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;

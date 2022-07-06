@@ -29,6 +29,12 @@
             this.fieldPortPort = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.comboBoxLabelSize = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxLabelDpi = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxLib = new System.Windows.Forms.ComboBox();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,8 +45,8 @@
             this.buttonPrintSendCmd.Location = new System.Drawing.Point(10, 80);
             this.buttonPrintSendCmd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPrintSendCmd.Name = "buttonPrintSendCmd";
-            this.buttonPrintSendCmd.Size = new System.Drawing.Size(470, 30);
-            this.buttonPrintSendCmd.TabIndex = 0;
+            this.buttonPrintSendCmd.Size = new System.Drawing.Size(340, 30);
+            this.buttonPrintSendCmd.TabIndex = 21;
             this.buttonPrintSendCmd.Text = "Send cmd";
             this.buttonPrintSendCmd.UseVisualStyleBackColor = true;
             this.buttonPrintSendCmd.Click += new System.EventHandler(this.ButtonPrintSendCmd_Click);
@@ -52,18 +58,18 @@
             this.fieldPortName.Location = new System.Drawing.Point(125, 14);
             this.fieldPortName.Margin = new System.Windows.Forms.Padding(4);
             this.fieldPortName.Name = "fieldPortName";
-            this.fieldPortName.Size = new System.Drawing.Size(355, 23);
-            this.fieldPortName.TabIndex = 1;
+            this.fieldPortName.Size = new System.Drawing.Size(225, 23);
+            this.fieldPortName.TabIndex = 2;
             this.fieldPortName.Text = "SCALES-PRN-TSC";
             this.fieldPortName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(15, 10);
+            this.label1.Location = new System.Drawing.Point(15, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 30);
-            this.label1.TabIndex = 2;
+            this.label1.Size = new System.Drawing.Size(104, 20);
+            this.label1.TabIndex = 0;
             this.label1.Text = "Printer name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -75,18 +81,18 @@
             this.fieldCmd.Location = new System.Drawing.Point(10, 118);
             this.fieldCmd.Margin = new System.Windows.Forms.Padding(4);
             this.fieldCmd.Name = "fieldCmd";
-            this.fieldCmd.Size = new System.Drawing.Size(765, 509);
-            this.fieldCmd.TabIndex = 4;
+            this.fieldCmd.Size = new System.Drawing.Size(815, 509);
+            this.fieldCmd.TabIndex = 20;
             this.fieldCmd.Text = "";
             // 
             // buttonLibSendCmd
             // 
             this.buttonLibSendCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLibSendCmd.Location = new System.Drawing.Point(495, 80);
+            this.buttonLibSendCmd.Location = new System.Drawing.Point(565, 80);
             this.buttonLibSendCmd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLibSendCmd.Name = "buttonLibSendCmd";
-            this.buttonLibSendCmd.Size = new System.Drawing.Size(280, 30);
-            this.buttonLibSendCmd.TabIndex = 5;
+            this.buttonLibSendCmd.Size = new System.Drawing.Size(260, 30);
+            this.buttonLibSendCmd.TabIndex = 13;
             this.buttonLibSendCmd.Text = "TscPrintControl send cmd";
             this.buttonLibSendCmd.UseVisualStyleBackColor = true;
             this.buttonLibSendCmd.Click += new System.EventHandler(this.ButtonLibSendCmd_Click);
@@ -94,57 +100,57 @@
             // buttonLibInit
             // 
             this.buttonLibInit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLibInit.Location = new System.Drawing.Point(495, 10);
+            this.buttonLibInit.Location = new System.Drawing.Point(565, 10);
             this.buttonLibInit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLibInit.Name = "buttonLibInit";
-            this.buttonLibInit.Size = new System.Drawing.Size(280, 30);
-            this.buttonLibInit.TabIndex = 6;
-            this.buttonLibInit.Text = "TscPrintControl init v1";
+            this.buttonLibInit.Size = new System.Drawing.Size(260, 30);
+            this.buttonLibInit.TabIndex = 11;
+            this.buttonLibInit.Text = "Init by name with size and dpi";
             this.buttonLibInit.UseVisualStyleBackColor = true;
             this.buttonLibInit.Click += new System.EventHandler(this.ButtonLibInit_Click);
             // 
             // buttonLibInitv2
             // 
             this.buttonLibInitv2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLibInitv2.Location = new System.Drawing.Point(495, 45);
+            this.buttonLibInitv2.Location = new System.Drawing.Point(565, 45);
             this.buttonLibInitv2.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLibInitv2.Name = "buttonLibInitv2";
-            this.buttonLibInitv2.Size = new System.Drawing.Size(280, 30);
-            this.buttonLibInitv2.TabIndex = 9;
-            this.buttonLibInitv2.Text = "TscPrintControl init v2";
+            this.buttonLibInitv2.Size = new System.Drawing.Size(260, 30);
+            this.buttonLibInitv2.TabIndex = 12;
+            this.buttonLibInitv2.Text = "Init by eth with size and dpi";
             this.buttonLibInitv2.UseVisualStyleBackColor = true;
             this.buttonLibInitv2.Click += new System.EventHandler(this.ButtonLibInitv2_Click);
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(15, 45);
+            this.label2.Location = new System.Drawing.Point(15, 50);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 30);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Printer IP : port";
+            this.label2.Size = new System.Drawing.Size(104, 20);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "IP : port";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fieldPortIp
             // 
             this.fieldPortIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldPortIp.Location = new System.Drawing.Point(170, 49);
+            this.fieldPortIp.Location = new System.Drawing.Point(125, 49);
             this.fieldPortIp.Margin = new System.Windows.Forms.Padding(4);
             this.fieldPortIp.Name = "fieldPortIp";
-            this.fieldPortIp.Size = new System.Drawing.Size(230, 23);
-            this.fieldPortIp.TabIndex = 7;
-            this.fieldPortIp.Text = "192.168.4.159";
+            this.fieldPortIp.Size = new System.Drawing.Size(160, 23);
+            this.fieldPortIp.TabIndex = 3;
+            this.fieldPortIp.Text = "127.0.0.1";
             this.fieldPortIp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // fieldPortPort
             // 
             this.fieldPortPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldPortPort.Location = new System.Drawing.Point(410, 49);
+            this.fieldPortPort.Location = new System.Drawing.Point(295, 49);
             this.fieldPortPort.Margin = new System.Windows.Forms.Padding(4);
             this.fieldPortPort.Name = "fieldPortPort";
-            this.fieldPortPort.Size = new System.Drawing.Size(70, 23);
-            this.fieldPortPort.TabIndex = 10;
+            this.fieldPortPort.Size = new System.Drawing.Size(55, 23);
+            this.fieldPortPort.TabIndex = 4;
             this.fieldPortPort.Text = "9100";
             this.fieldPortPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -154,7 +160,7 @@
             this.toolStripStatusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 639);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip.Size = new System.Drawing.Size(834, 22);
             this.statusStrip.TabIndex = 11;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -166,11 +172,80 @@
             this.toolStripStatusLabel.Text = "Status";
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // comboBoxLabelSize
+            // 
+            this.comboBoxLabelSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLabelSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLabelSize.FormattingEnabled = true;
+            this.comboBoxLabelSize.Location = new System.Drawing.Point(447, 48);
+            this.comboBoxLabelSize.Name = "comboBoxLabelSize";
+            this.comboBoxLabelSize.Size = new System.Drawing.Size(111, 25);
+            this.comboBoxLabelSize.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Location = new System.Drawing.Point(357, 49);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 20);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Label size";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Location = new System.Drawing.Point(357, 85);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(90, 20);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Label dpi";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBoxLabelDpi
+            // 
+            this.comboBoxLabelDpi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLabelDpi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLabelDpi.FormattingEnabled = true;
+            this.comboBoxLabelDpi.Location = new System.Drawing.Point(447, 84);
+            this.comboBoxLabelDpi.Name = "comboBoxLabelDpi";
+            this.comboBoxLabelDpi.Size = new System.Drawing.Size(111, 25);
+            this.comboBoxLabelDpi.TabIndex = 10;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Location = new System.Drawing.Point(357, 13);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 20);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Library";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBoxLib
+            // 
+            this.comboBoxLib.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLib.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLib.FormattingEnabled = true;
+            this.comboBoxLib.Location = new System.Drawing.Point(447, 12);
+            this.comboBoxLib.Name = "comboBoxLib";
+            this.comboBoxLib.Size = new System.Drawing.Size(111, 25);
+            this.comboBoxLib.TabIndex = 6;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 661);
+            this.ClientSize = new System.Drawing.Size(834, 661);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.comboBoxLib);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.comboBoxLabelDpi);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBoxLabelSize);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.fieldPortPort);
             this.Controls.Add(this.buttonLibInitv2);
@@ -184,9 +259,10 @@
             this.Controls.Add(this.buttonPrintSendCmd);
             this.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(700, 300);
+            this.MinimumSize = new System.Drawing.Size(750, 300);
             this.Name = "FormMain";
-            this.Text = "TSC print example";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Demo TSC print ZPL";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -208,6 +284,12 @@
         private System.Windows.Forms.TextBox fieldPortPort;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ComboBox comboBoxLabelSize;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxLabelDpi;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxLib;
     }
 }
 

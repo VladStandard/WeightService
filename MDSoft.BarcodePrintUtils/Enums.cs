@@ -3,6 +3,13 @@
 
 namespace MDSoft.BarcodePrintUtils
 {
+    public enum PrintTscDll
+    {
+        TscLibNet32,
+        TscLibNet64,
+        TscSdk,
+    }
+
     public enum PrintSpeed
     {
         Zero = 0,
@@ -89,7 +96,7 @@ namespace MDSoft.BarcodePrintUtils
         Size100x110,
     }
 
-    public enum PrintDpi
+    public enum PrintLabelDpi
     {
         Dpi100,
         Dpi200,

@@ -19,67 +19,33 @@ namespace MDSoft.BarcodePrintUtils.Tsc
 
         #region Public and private fields and properties
 
-        //private TSCSDK.driver _driver = null;
-        //public TSCSDK.driver Driver
-        //{
-        //    get
-        //    {
-        //        if (_driver == null)
-        //            _driver = new();
-        //        return _driver;
-        //    }
-        //}
-        //private TSCSDK.ethernet _ethernet = null;
-        //public TSCSDK.ethernet Ethernet
-        //{
-        //    get
-        //    {
-        //        if (_ethernet == null)
-        //            _ethernet = new();
-        //        return _ethernet;
-        //    }
-        //}
-        public TscPrintPropertiesHelper Properties { get; } = TscPrintPropertiesHelper.Instance;
-        private string _textPrepare;
-        public string TextPrepare
-        {
-            get => _textPrepare;
-            set
-            {
-                _textPrepare = value;
-            }
-        }
-        private string _cmd;
-        public string Cmd
-        {
-            get => _cmd;
-            set
-            {
-                _cmd = value;
-            }
-        }
+        public PrintTscDll TscDll { get; set; }
+        public TscPrintProperties Properties { get; } = new();
+        public string TextPrepare { get; set; }
+
+        public string Cmd { get; set; }
 
         #endregion
 
         #region Public and private methods
 
-        public void SetupFirst(PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
+        private void SetupInit(PrintLabelSize size = PrintLabelSize.Size80x100, PrintLabelDpi dpi = PrintLabelDpi.Dpi300)
         {
             Properties.Size = size;
             Properties.Dpi = dpi;
             Properties.Setup(Properties.Size);
         }
 
-        public void Setup(PrintChannel channel, string name, PrintLabelSize size, PrintDpi dpi)
+        public void Setup(PrintChannel channel, string name, PrintLabelSize size, PrintLabelDpi dpi)
         {
-            SetupFirst(size, dpi);
+            SetupInit(size, dpi);
             Properties.Channel = channel;
             Properties.PrintName = name;
         }
 
-        public void Setup(PrintChannel channel, string ip, int port, PrintLabelSize size, PrintDpi dpi)
+        public void Setup(PrintChannel channel, string ip, int port, PrintLabelSize size, PrintLabelDpi dpi)
         {
-            SetupFirst(size, dpi);
+            SetupInit(size, dpi);
             Properties.Channel = channel;
             Properties.PrintIp = ip;
             Properties.PrintPort = port;

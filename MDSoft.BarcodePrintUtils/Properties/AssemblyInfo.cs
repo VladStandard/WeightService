@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MDSoft.BarcodePrintUtils")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Владимирский стандарт")]
+[assembly: AssemblyCompany("Damian Morozov")]
 [assembly: AssemblyProduct("MDSoft.BarcodePrintUtils")]
-[assembly: AssemblyCopyright("Copyright © Владимирский стандарт 2022")]
+[assembly: AssemblyCopyright("Copyright © 2020 - 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

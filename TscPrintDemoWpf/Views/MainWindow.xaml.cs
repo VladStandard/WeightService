@@ -108,18 +108,18 @@ namespace TscPrintDemoWpf.Views
         {
             var value = TscDriver.Properties.Dpi switch
             {
-                PrintDpi.Dpi100 => 4 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi200 => 8 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi300 => 12 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi400 => 16 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi500 => 20 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi600 => 24 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi700 => 28 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi800 => 32 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi900 => 36 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi1000 => 40 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi1100 => 44 * TscDriver.Properties.FeedMm,
-                PrintDpi.Dpi1200 => 48 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi100 => 4 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi200 => 8 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi300 => 12 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi400 => 16 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi500 => 20 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi600 => 24 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi700 => 28 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi800 => 32 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi900 => 36 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi1000 => 40 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi1100 => 44 * TscDriver.Properties.FeedMm,
+                PrintLabelDpi.Dpi1200 => 48 * TscDriver.Properties.FeedMm,
                 _ => throw new ArgumentOutOfRangeException(nameof(TscDriver.Properties.Dpi), TscDriver.Properties.Dpi, null),
             };
             if (value > 0)

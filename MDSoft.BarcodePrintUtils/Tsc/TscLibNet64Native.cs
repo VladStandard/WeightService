@@ -7,6 +7,7 @@ namespace MDSoft.BarcodePrintUtils.Tsc
 {
     public class TscLibNet64Native
     {
+
         [DllImport("tsclibnet_x64.dll", EntryPoint = "about")]
         public static extern int About();
 

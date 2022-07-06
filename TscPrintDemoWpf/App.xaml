@@ -15,7 +15,7 @@
         </ObjectDataProvider>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintDpi">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="barcodePrintUtils:PrintDpi"/>
+                <x:Type TypeName="barcodePrintUtils:PrintLabelDpi"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="enumPrintChannel">

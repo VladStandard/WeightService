@@ -5,14 +5,13 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels;
+using MDSoft.BarcodePrintUtils;
+using MDSoft.BarcodePrintUtils.Tsc;
+using MDSoft.BarcodePrintUtils.Wmi;
 using System;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
-using DataCore.Wmi;
-using MDSoft.BarcodePrintUtils;
-using MDSoft.BarcodePrintUtils.Tsc;
-using MDSoft.BarcodePrintUtils.Wmi;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using Zebra.Sdk.Comm;
@@ -26,7 +25,6 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
         private ZebraPrinter _zebraDriver;
         public Connection ZebraConnection { get; private set; }
         public int LabelsCount { get; set; }
@@ -73,7 +71,7 @@ namespace WeightCore.Managers
                                 break;
                             case PrintBrand.TSC:
                                 //TscDriver.Setup(PrintChannel.Name, printer.Name, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
-                                TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintDpi.Dpi300);
+                                TscDriver.Setup(PrintChannel.Ethernet, printer.Ip, printer.Port, PrintLabelSize.Size80x100, PrintLabelDpi.Dpi300);
                                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                                     $"{(isMain ? LocaleCore.Print.NameMainTsc : LocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
                                 TscDriver.Properties.PrintName = printer.Name;
@@ -291,7 +289,6 @@ namespace WeightCore.Managers
                 ZebraConnection?.Close();
             }
             ZebraConnection = null;
-            Wmi = null;
 
             base.ReleaseManaged();
         }

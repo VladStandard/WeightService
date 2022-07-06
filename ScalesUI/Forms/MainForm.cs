@@ -6,7 +6,9 @@ using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
 using DataCore.Sql;
+using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
+using MDSoft.BarcodePrintUtils.Wmi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,12 +18,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using DataCore.Wmi;
-using MDSoft.BarcodePrintUtils.Wmi;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
-using WeightCore.Wmi;
 using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
@@ -154,7 +153,7 @@ namespace ScalesUI.Forms
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                     labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
                     ButtonScaleChange, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
-                    ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose, 
+                    ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                     fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
                 UserSession.ManagerControl.Labels.Open();
                 // Memory.
@@ -443,8 +442,8 @@ namespace ScalesUI.Forms
 
         private void FieldPrintManager_Click(object sender, EventArgs e)
         {
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) 
-                { Width = 700, Height = 450 };
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
+            { Width = 700, Height = 450 };
             wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
             wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
             wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.ManagerControl.PrintMain, true);
@@ -645,7 +644,7 @@ namespace ScalesUI.Forms
             {
                 if (UserSession.Scale.Host != null)
                 {
-                    DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?", 
+                    DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                         true, LogType.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                         UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     if (result != DialogResult.Yes)
@@ -661,7 +660,7 @@ namespace ScalesUI.Forms
                 else
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
-                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogType.Warning, 
+                        LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogType.Warning,
                         null, UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 }
                 UserSession.ManagerControl.Open();
@@ -946,7 +945,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                UserSession.DataAccess.Log.LogError(new Exception($"{LocaleCore.Print.ErrorPlu(UserSession.Plu.PLU, UserSession.Plu.GoodsName)}"), 
+                UserSession.DataAccess.Log.LogError(new Exception($"{LocaleCore.Print.ErrorPlu(UserSession.Plu.PLU, UserSession.Plu.GoodsName)}"),
                     UserSessionHelper.Instance.Scale.Host.HostName);
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
