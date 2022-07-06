@@ -112,7 +112,7 @@ namespace DataCore.Sql.TableDirectModels
 
         public void LoadTemplate()
         {
-            Template = new TemplateDirect(TemplateID);
+            Template = new(TemplateID);
         }
 
         public void SetStatus(ProjectsEnums.OrderStatus orderStatus)

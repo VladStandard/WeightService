@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Models;
-using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -21,9 +20,9 @@ namespace DataCore.Sql.TableDirectModels
         [XmlIgnore]
         public string CategoryId { get; set; } = string.Empty;
         [XmlIgnore]
-        public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Fonts { get; set; } = new();
         [XmlIgnore]
-        public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Logo { get; set; } = new();
 
         #endregion
 
@@ -34,8 +33,8 @@ namespace DataCore.Sql.TableDirectModels
             CategoryId = string.Empty;
             Title = string.Empty;
             XslContent = string.Empty;
-            Fonts = new Dictionary<string, string>();
-            Logo = new Dictionary<string, string>();
+            Fonts = new();
+            Logo = new();
         }
 
         public TemplateDirect(long? templateId) : this()

@@ -3,6 +3,7 @@
 
 using DataCore.Localizations;
 using DataCore.Sql.TableDirectModels;
+using NHibernate.SqlCommand;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -98,8 +99,9 @@ namespace ScalesUI.Forms
             Label labelPluNumber = NewLabelPluNumber(plu, tabIndex, buttonPlu);
             Label labelPluType = NewLabelPluType(plu, tabIndex, buttonPlu);
             Label labelPluCode = NewLabelPluCode(plu, tabIndex, buttonPlu);
-            Label labelPluDescription = NewLabelPluDescription(plu, tabIndex, buttonPlu);
-            return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelPluDescription);
+            //Label labelPluDescription = NewLabelPluDescription(plu, tabIndex, buttonPlu);
+            Label labelTemplate = NewLabelPluTemplate(plu, tabIndex, buttonPlu);
+            return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate);
         }
 
         private Button NewButtonPlu(PluDirect plu, int tabIndex)
@@ -205,6 +207,27 @@ namespace ScalesUI.Forms
             return labelPluDescription;
         }
 
+        private Label NewLabelPluTemplate(PluDirect plu, int tabIndex, Control buttonPlu)
+        {
+            TemplateDirect template = plu.LoadTemplate();
+            Label labelPluTemplate = new()
+            {
+                Name = $@"{nameof(labelPluTemplate)}{tabIndex}",
+                Font = FontsSettings.FontMinimum,
+                AutoSize = false,
+                Text = !string.IsNullOrEmpty(template.Title) ? LocaleCore.Scales.PluTemplateSet : LocaleCore.Scales.PluTemplateNotSet,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Parent = buttonPlu,
+                Dock = DockStyle.None,
+                BackColor = !string.IsNullOrEmpty(template.Title) ? Color.Transparent : Color.LightGray,
+                Visible = true,
+                BorderStyle = BorderStyle.FixedSingle,
+                TabIndex = tabIndex,
+            };
+            labelPluTemplate.MouseClick += ButtonPlu_Click;
+            return labelPluTemplate;
+        }
+
         private void ButtonClose_Click(object sender, EventArgs e)
         {
             try
@@ -229,7 +252,7 @@ namespace ScalesUI.Forms
                 if (OrderList?.Count >= tabIndex)
                 {
                     UserSession.SetCurrentPlu(OrderList[tabIndex]);
-                    UserSession.Plu.LoadTemplate();
+                    //UserSession.Plu.LoadTemplate();
                     DialogResult = DialogResult.OK;
                 }
                 Close();

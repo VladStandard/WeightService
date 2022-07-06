@@ -17,11 +17,11 @@ namespace DataCore.Sql.TableDirectModels
         public DateTime CreateDate { get; set; }
         public DateTime ChangeDt { get; set; }
         public string RRefID { get; set; } = string.Empty;
-        public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
+        public NomenclatureDirect Nomenclature { get; set; } = new();
         public bool IsMarked { get; set; } = false;
         public decimal PackWeight { get; set; }
         public int PackQuantly { get; set; }
-        public NomenclatureDirect PackType { get; set; } = new NomenclatureDirect();
+        public NomenclatureDirect PackType { get; set; } = new();
 
         #endregion
 
@@ -79,8 +79,8 @@ namespace DataCore.Sql.TableDirectModels
                         IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                         PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight");
                         PackQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "PackQuantly");
-                        PackType = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId"));
-                        Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId"));
+                        PackType = new(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId"));
+                        Nomenclature = new(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId"));
                     }
                 }
                 reader.Close();
@@ -153,8 +153,8 @@ SELECT @ID";
                                 IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
                                 PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight"),
                                 PackQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "PackQuantly"),
-                                PackType = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
+                                PackType = new(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId")),
+                                Nomenclature = new(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                             };
                             result.Add(pFacility);
                         }

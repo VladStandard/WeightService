@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Management;
 using System.Threading;
-using DataCore.Localizations;
 using WeightCore.Wmi;
 
 namespace DataCore.Wmi

@@ -100,11 +100,11 @@ namespace DataCore.Sql.TableDirectModels
             ScaleFactor = 1000;
             RegDate = DateTime.Now;
             ProductDate = DateTime.Now.Date;
-            PLU = new PluDirect();
-            Template = new TemplateDirect();
+            PLU = new();
+            Template = new();
             Scale = new();
             ProductSeries = string.Empty;
-            Sscc = new SsccDirect();
+            Sscc = new();
         }
 
         public WeighingFactDirect(ScaleEntity scale, PluDirect plu, DateTime productDate, int kneadingNumber,
@@ -117,7 +117,7 @@ namespace DataCore.Sql.TableDirectModels
             KneadingNumber = kneadingNumber;
             NetWeight = netWeight;
             TareWeight = tareWeight;
-            Sscc = new SsccDirect();
+            Sscc = new();
         }
 
         #endregion
@@ -156,13 +156,13 @@ namespace DataCore.Sql.TableDirectModels
         public void Save()
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@OrderID", SqlDbType.VarChar, 38) { Value = DBNull.Value },
-                new SqlParameter("@ScaleID", SqlDbType.VarChar, 38) { Value = Scale.IdentityId },
-                new SqlParameter("@PLU", SqlDbType.Int) { Value = PLU.PLU },
-                new SqlParameter("@NetWeight", SqlDbType.Decimal) { Value = NetWeight },
-                new SqlParameter("@TareWeight", SqlDbType.Decimal) { Value = TareWeight },
-                new SqlParameter("@ProductDate", SqlDbType.Date) { Value = ProductDate },
-                new SqlParameter("@Kneading", SqlDbType.Int) { Value = KneadingNumber },
+                new("@OrderID", SqlDbType.VarChar, 38) { Value = DBNull.Value },
+                new("@ScaleID", SqlDbType.VarChar, 38) { Value = Scale.IdentityId },
+                new("@PLU", SqlDbType.Int) { Value = PLU.PLU },
+                new("@NetWeight", SqlDbType.Decimal) { Value = NetWeight },
+                new("@TareWeight", SqlDbType.Decimal) { Value = TareWeight },
+                new("@ProductDate", SqlDbType.Date) { Value = ProductDate },
+                new("@Kneading", SqlDbType.Int) { Value = KneadingNumber },
             };
             SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFacts.Save, parameters, SaveReader);
         }

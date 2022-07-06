@@ -19,8 +19,8 @@ namespace DataCore.Sql
     {
         #region Public and private fields and properties
 
-        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
-        public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
+        public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
+        public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
         public static readonly string FilePathToken = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\scalesui.xml";
         public static readonly string FilePathLog = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\scalesui.log";
 
@@ -435,6 +435,8 @@ namespace DataCore.Sql
 
         public static void GetTemplateFromDb(TemplateDirect templateDirect, long? templateId)
         {
+            if (templateId == null)
+                return;
             SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetTemplatesObjByID,
                 new SqlParameter("@TEMPLATE_ID", System.Data.SqlDbType.Int) { Value = templateId }, (reader) =>
                 {
@@ -454,7 +456,7 @@ namespace DataCore.Sql
 
         public static void GetTemplateFromDb(TemplateDirect templateDirect, string title)
         {
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Templates.GetTemplateById,
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Templates.GetItemByTitle,
                 new SqlParameter("@TITLE", System.Data.SqlDbType.NVarChar, 250) { Value = title }, (reader) =>
                 {
                     if (reader.Read())

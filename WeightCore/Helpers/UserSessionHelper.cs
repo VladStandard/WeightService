@@ -19,6 +19,7 @@ using MDSoft.BarcodePrintUtils;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using static DataCore.ShareEnums;
+using static DataCore.Sql.SqlQueries.DbScales.Tables;
 
 namespace WeightCore.Helpers
 {
@@ -334,7 +335,7 @@ namespace WeightCore.Helpers
             }
             else if (Scale != null && Scale.IsOrder != true)
             {
-                template = Plu.Template;
+                template = Plu.LoadTemplate();
             }
 
             // Template exist.

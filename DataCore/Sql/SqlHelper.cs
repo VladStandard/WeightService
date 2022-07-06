@@ -104,38 +104,37 @@ namespace DataCore.Sql
             if (ProviderFactory == null || string.IsNullOrEmpty(query) || Connection == null || Connection.State != ConnectionState.Open)
                 return result;
 
-            using (DbCommand cmd = ProviderFactory.CreateCommand())
+            using DbCommand cmd = ProviderFactory.CreateCommand();
+            if (cmd != null)
             {
-                if (cmd != null)
+                cmd.CommandText = query;
+                if (parameters?.Count > 0)
+                    SetParameters(cmd, parameters);
+                cmd.Connection = Connection;
+                //cmd.CommandTimeout = 180;
+                if (cmd.Connection.State == ConnectionState.Open)
                 {
-                    cmd.CommandText = query;
-                    if (parameters?.Count > 0)
-                        SetParameters(cmd, parameters);
-                    cmd.Connection = Connection;
-                    //cmd.CommandTimeout = 180;
-                    if (cmd.Connection.State == ConnectionState.Open)
+                    using DbDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        using DbDataReader reader = cmd.ExecuteReader();
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            Collection<object> record = new();
+                            foreach (string field in fieldNames)
                             {
-                                Collection<object> record = new();
-                                foreach (string field in fieldNames)
-                                {
-                                    record.Add(reader.GetFieldValue<object>(reader.GetOrdinal(field)));
-                                }
-                                result.Add(record);
+                                record.Add(reader.GetFieldValue<object>(reader.GetOrdinal(field)));
                             }
+                            result.Add(record);
                         }
-                        reader.Close();
                     }
-                    else
-                    {
-                        Console.WriteLine(@"Connection is not open.");
-                    }
+                    reader.Close();
+                }
+                else
+                {
+                    Console.WriteLine(@"Connection is not open.");
                 }
             }
+
             return result;
         }
 

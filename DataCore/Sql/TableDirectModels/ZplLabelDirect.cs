@@ -31,8 +31,8 @@ namespace DataCore.Sql.TableDirectModels
         public void SaveZpl()
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", SqlDbType.Int) { Value = WeighingFactId },
-                new SqlParameter("@Zpl", SqlDbType.NVarChar) { Value = Zpl },
+                new("@ID", SqlDbType.Int) { Value = WeighingFactId },
+                new("@Zpl", SqlDbType.NVarChar) { Value = Zpl },
             };
             SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.SaveZpl, parameters);
         }

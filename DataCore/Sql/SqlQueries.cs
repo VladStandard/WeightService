@@ -319,6 +319,51 @@ VALUES(@uid, @name, @mac, @ip, @doc)
 					public static string GetCount => @"
 SELECT COUNT(*) [COUNT] FROM DB_SCALES.PLU WHERE [SCALEID] = @SCALE_ID
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+					
+                    public static string GetItem => @"
+select
+	 [Id]
+	,[GoodsName]
+	,[GoodsFullName]
+	,[GoodsDescription]
+	,[TemplateID]
+	,[GTIN]
+	,[EAN13]
+	,[ITF14]
+	,[GoodsShelfLifeDays]
+	,[GoodsTareWeight]
+	,[GoodsBoxQuantly]
+	,[RRefGoods]
+	,[PLU]
+	,[UpperWeightThreshold]
+	,[NominalWeight]			
+	,[LowerWeightThreshold]
+	,[CheckWeight]
+from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+					
+                    public static string GetItems => @"
+select
+     [Id]
+    ,[GoodsName]
+    ,[GoodsFullName]
+    ,[GoodsDescription]
+    ,[TemplateID]
+    ,[GTIN]
+    ,[EAN13]
+    ,[ITF14]
+    ,[GoodsShelfLifeDays]
+    ,[GoodsTareWeight]
+    ,[GoodsBoxQuantly]
+    ,[RRefGoods]
+	,[PLU]
+	,[UpperWeightThreshold]
+	,[NominalWeight]			
+	,[LowerWeightThreshold]
+	,[CheckWeight]
+from [db_scales].[GetPLU] (@ScaleID)
+order by [PLU]
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 				}
 
 				public static class Labels
@@ -557,7 +602,16 @@ values(@name)
 
 				public static class Templates
 				{
-					public static string GetTemplateById => @"
+                    public static string GetItem => @"
+SELECT 
+	 [CATEGORYID]
+	,[TITLE]
+	,CONVERT(NVARCHAR(MAX), [IMAGEDATA], 0) [XSLCONTENT]
+FROM [DB_SCALES].[TEMPLATES]
+WHERE [ID] = @ID
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    
+                    public static string GetItemByTitle => @"
 SELECT 
 	[ID]
    ,[CATEGORYID]

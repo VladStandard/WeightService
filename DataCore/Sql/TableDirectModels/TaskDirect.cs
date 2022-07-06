@@ -31,8 +31,8 @@ namespace DataCore.Sql.TableDirectModels
         public TaskDirect(Guid uid, long scaleId, Guid taskTypeUid, string taskType, bool enabled) : this()
         {
             Uid = uid;
-            Scale = new ScaleEntity(scaleId);
-            TaskType = new TaskTypeDirect(taskTypeUid, taskType);
+            Scale = new(scaleId);
+            TaskType = new(taskTypeUid, taskType);
             Enabled = enabled;
             //TaskTypeUid = GetTaskTypeUid(taskName);
             //ScaleDescription = GetScaleDescription(scaleId);

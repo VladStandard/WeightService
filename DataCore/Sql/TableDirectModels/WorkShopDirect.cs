@@ -15,7 +15,7 @@ namespace DataCore.Sql.TableDirectModels
         public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
 
-        public ProductionFacilityDirect ProductionFacility { get; set; } = new ProductionFacilityDirect();
+        public ProductionFacilityDirect ProductionFacility { get; set; } = new();
         public DateTime CreateDate { get; set; }
         public DateTime ChangeDt { get; set; }
         public string RRefID { get; set; } = string.Empty;
@@ -75,7 +75,7 @@ namespace DataCore.Sql.TableDirectModels
                         RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                     }
                 }
-                ProductionFacility = new ProductionFacilityDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "ProductionFacilityID"));
+                ProductionFacility = new(SqlConnect.GetValueAsNotNullable<int>(reader, "ProductionFacilityID"));
                 reader.Close();
             }
             con.Close();

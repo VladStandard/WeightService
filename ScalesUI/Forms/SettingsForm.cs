@@ -113,10 +113,9 @@ namespace ScalesUI.Forms
                     }
                     else
                     {
-                        zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
-                            UserSession.Plu.Template.Logo);
-                        zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
-                            UserSession.Plu.Template.Fonts);
+                        TemplateDirect template = UserSession.Plu.LoadTemplate();
+                        zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Logo);
+                        zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Fonts);
                     }
                 }
             }

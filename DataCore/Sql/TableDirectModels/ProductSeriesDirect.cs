@@ -63,7 +63,7 @@ namespace DataCore.Sql.TableDirectModels
         {
             if (Scale == null || Scale.IdentityId == default) 
             {
-                throw new Exception("Equipment instance not identified. Set [Scale].");
+                throw new("Equipment instance not identified. Set [Scale].");
             }
 
             SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
@@ -73,7 +73,7 @@ namespace DataCore.Sql.TableDirectModels
                     while (reader.Read())
                     {
                         if (count > 0)
-                            throw new Exception($"{nameof(count)} > 0 ({count})");
+                            throw new($"{nameof(count)} > 0 ({count})");
                         count++;
                         if (reader[0] is long longId)
                             Id = longId;
@@ -81,7 +81,7 @@ namespace DataCore.Sql.TableDirectModels
                             Id = intId;
                         CreateDate = reader.GetDateTime(1);
                         UUID = reader.GetGuid(2);
-                        Sscc = new SsccDirect(reader.GetString(3));
+                        Sscc = new(reader.GetString(3));
                         CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
                         TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
                         TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);

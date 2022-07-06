@@ -104,6 +104,8 @@ namespace DataCore.Localizations
         public string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
         public string PluDescriptionNotSet => Lang == ShareEnums.Lang.English ? "Descr is not set" : "Описание не задано";
         public string PluDescriptionSet => Lang == ShareEnums.Lang.English ? "Descr is not set" : "Описание задано";
+        public string PluTemplateNotSet => Lang == ShareEnums.Lang.English ? "Template is not set" : "Шаблон не задан";
+        public string PluTemplateSet => Lang == ShareEnums.Lang.English ? "Template is not set" : "Шаблон задан";
         public string PluGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
         public string PluGtinNotSet => Lang == ShareEnums.Lang.English ? "GTIN is not set" : "ГТИН не задан";
         public string PluIsPiece => Lang == ShareEnums.Lang.English ? "pcs." : "шт";
