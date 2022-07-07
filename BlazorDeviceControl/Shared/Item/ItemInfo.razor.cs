@@ -28,15 +28,13 @@ namespace BlazorDeviceControl.Shared.Item
         private uint DbMaxSize { get; set; } = 10_240;
         private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
         private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
+        private List<ShareEnums.Lang> Langs = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemInfo() : base()
-        {
-            //
-        }
+        //
 
         #endregion
 
@@ -45,6 +43,9 @@ namespace BlazorDeviceControl.Shared.Item
         private void Default()
         {
             IsLoaded = false;
+            Langs = new();
+            foreach (ShareEnums.Lang lang in Enum.GetValues(typeof(ShareEnums.Lang)))
+                Langs.Add(lang);
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)

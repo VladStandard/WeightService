@@ -209,13 +209,18 @@
             else
             {
                 <td>
-                    <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                        Disabled=false TValue=@ShareEnums.Lang
-                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name" 
-                        ValueProperty="Value" Value=@LocaleCore.Lang
-                        Change=@(args => OnLocalizationValueChange(TemplateLanguages, args)) 
-                    />
+                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@LocaleCore.Lang >
+                        @foreach (ShareEnums.Lang lang in Langs)
+                        {
+                            <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
+                        }
+                    </MudSelect>
+                    @*<RadzenDropDown 
+                        TValue=@ShareEnums.Lang
+                        Data=@TemplateLanguages TextProperty="Name"
+                        ValueProperty="Value" 
+                        Change=@(args => OnLocalizationValueChange(TemplateLanguages, args))/>*@
                 </td>
             }
         </tr>
