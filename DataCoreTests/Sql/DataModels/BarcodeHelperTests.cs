@@ -101,26 +101,26 @@ namespace DataCoreTests.Sql.DataModels
         {
             Assert.DoesNotThrow(() =>
             {
-                Assert.AreEqual("46071002354776", Barcode.GetGtin("4607100235477", EnumGtinVariant.Var1));
-                Assert.AreEqual("46071002358668", Barcode.GetGtin("4607100235866", EnumGtinVariant.Var1));
-                Assert.AreEqual("46071002358668", Barcode.GetGtin("4607100235866", EnumGtinVariant.Var1));
-                Assert.AreEqual("46071002358736", Barcode.GetGtin("4607100235873", EnumGtinVariant.Var1));
-                Assert.AreEqual("46071002358590", Barcode.GetGtin("4607100235859", EnumGtinVariant.Var1));
-                Assert.AreEqual("46071002348690", Barcode.GetGtin("4607100234869", EnumGtinVariant.Var1));
+                Assert.AreEqual("46071002354776", Barcode.GetGtinWithCheckDigit("4607100235477", EnumGtinVariant.Var1));
+                Assert.AreEqual("46071002358668", Barcode.GetGtinWithCheckDigit("4607100235866", EnumGtinVariant.Var1));
+                Assert.AreEqual("46071002358668", Barcode.GetGtinWithCheckDigit("4607100235866", EnumGtinVariant.Var1));
+                Assert.AreEqual("46071002358736", Barcode.GetGtinWithCheckDigit("4607100235873", EnumGtinVariant.Var1));
+                Assert.AreEqual("46071002358590", Barcode.GetGtinWithCheckDigit("4607100235859", EnumGtinVariant.Var1));
+                Assert.AreEqual("46071002348690", Barcode.GetGtinWithCheckDigit("4607100234869", EnumGtinVariant.Var1));
 
-                Assert.AreEqual("46071002354776", Barcode.GetGtin("4607100235477", EnumGtinVariant.Var2));
-                Assert.AreEqual("46071002358668", Barcode.GetGtin("4607100235866", EnumGtinVariant.Var2));
-                Assert.AreEqual("46071002358668", Barcode.GetGtin("4607100235866", EnumGtinVariant.Var2));
-                Assert.AreEqual("46071002358736", Barcode.GetGtin("4607100235873", EnumGtinVariant.Var2));
-                Assert.AreEqual("46071002358590", Barcode.GetGtin("4607100235859", EnumGtinVariant.Var2));
-                Assert.AreEqual("46071002348690", Barcode.GetGtin("4607100234869", EnumGtinVariant.Var2));
+                Assert.AreEqual("46071002354776", Barcode.GetGtinWithCheckDigit("4607100235477", EnumGtinVariant.Var2));
+                Assert.AreEqual("46071002358668", Barcode.GetGtinWithCheckDigit("4607100235866", EnumGtinVariant.Var2));
+                Assert.AreEqual("46071002358668", Barcode.GetGtinWithCheckDigit("4607100235866", EnumGtinVariant.Var2));
+                Assert.AreEqual("46071002358736", Barcode.GetGtinWithCheckDigit("4607100235873", EnumGtinVariant.Var2));
+                Assert.AreEqual("46071002358590", Barcode.GetGtinWithCheckDigit("4607100235859", EnumGtinVariant.Var2));
+                Assert.AreEqual("46071002348690", Barcode.GetGtinWithCheckDigit("4607100234869", EnumGtinVariant.Var2));
 
-                Assert.AreEqual("46071002354776", Barcode.GetGtin("4607100235477"));
-                Assert.AreEqual("46071002358668", Barcode.GetGtin("4607100235866"));
-                Assert.AreEqual("46071002358668", Barcode.GetGtin("4607100235866"));
-                Assert.AreEqual("46071002358736", Barcode.GetGtin("4607100235873"));
-                Assert.AreEqual("46071002358590", Barcode.GetGtin("4607100235859"));
-                Assert.AreEqual("46071002348690", Barcode.GetGtin("4607100234869"));
+                Assert.AreEqual("46071002354776", Barcode.GetGtinWithCheckDigit("4607100235477"));
+                Assert.AreEqual("46071002358668", Barcode.GetGtinWithCheckDigit("4607100235866"));
+                Assert.AreEqual("46071002358668", Barcode.GetGtinWithCheckDigit("4607100235866"));
+                Assert.AreEqual("46071002358736", Barcode.GetGtinWithCheckDigit("4607100235873"));
+                Assert.AreEqual("46071002358590", Barcode.GetGtinWithCheckDigit("4607100235859"));
+                Assert.AreEqual("46071002348690", Barcode.GetGtinWithCheckDigit("4607100234869"));
             });
         }
     }

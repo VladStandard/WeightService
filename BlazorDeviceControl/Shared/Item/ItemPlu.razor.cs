@@ -177,9 +177,9 @@ namespace BlazorDeviceControl.Shared.Item
                     case nameof(ItemCast.XmlGtin):
                         ItemCast.Gtin = ItemCast.XmlGtin;
                         break;
-                    case nameof(Barcode.GetGtin):
+                    case nameof(Barcode.GetGtinWithCheckDigit):
                         if (ItemCast.Gtin.Length > 12)
-                            ItemCast.Gtin = Barcode.GetGtin(ItemCast.Gtin[..13]);
+                            ItemCast.Gtin = Barcode.GetGtinWithCheckDigit(ItemCast.Gtin[..13]);
                         break;
                     case nameof(ItemCast.XmlEan13):
                         ItemCast.Ean13 = ItemCast.XmlEan13;

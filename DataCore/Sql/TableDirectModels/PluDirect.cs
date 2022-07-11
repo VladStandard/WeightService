@@ -39,13 +39,17 @@ namespace DataCore.Sql.TableDirectModels
         {
             get
             {
-                if (GTIN.Length > 12)
-                    return BarcodeHelper.Instance.GetGtin(GTIN[..13]);
-                return string.Empty;
+                return GTIN.Length switch
+                {
+                    13 => BarcodeHelper.Instance.GetGtinWithCheckDigit(GTIN[..13]),
+                    14 => GTIN,
+                    _ => "ERROR"
+                };
             }
             // This code need for print labels.
             set => _ = value;
         }
+
         public string ITF14 { get; set; } = string.Empty;
         public string RRefGoods { get; set; } = string.Empty;
         public ScaleEntity Scale { get; set; }

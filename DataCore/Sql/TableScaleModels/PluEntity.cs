@@ -535,7 +535,7 @@ namespace DataCore.Sql.TableScaleModels
         {
             if (Gtin?.Length > 12)
             {
-                string gtin = Barcode.GetGtin(Gtin[..13]);
+                string gtin = Barcode.GetGtinWithCheckDigit(Gtin[..13]);
                 return Equals(Gtin, gtin);
             }
             return false;

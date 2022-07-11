@@ -84,7 +84,7 @@ namespace DataCore.Sql.DataModels
             return (10 - sum % 10) % 10;
         }
 
-        public string GetGtin(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3)
+        public string GetGtinWithCheckDigit(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3)
         {
             if (string.IsNullOrEmpty(code))
                 return string.Empty;

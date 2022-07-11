@@ -173,7 +173,7 @@ else
                         Text=@ItemCast.Gtin.Length.ToString() />
                     <RadzenButton Style="width: 10%; " Disabled=false 
                         Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
-                        Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtin))) />
+                        Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtinWithCheckDigit))) />
                 </td>
             </tr>
             <tr>
