@@ -94,6 +94,12 @@ namespace DataCore.Sql.TableDirectModels
             set => _ = value;
         }
         public decimal GrossWeight => NetWeight + TareWeight;
+        public string ProductSscc
+        {
+            get => Sscc.SSCC;
+            // This code need for print labels.
+            set => _ = value;
+        }
 
         #endregion
 
@@ -149,8 +155,8 @@ namespace DataCore.Sql.TableDirectModels
                         sscc.UnitID = int.Parse(attributeUnitId.Value);
                     if (element.Attribute("UnitType") is { } attributeUnitType)
                         sscc.UnitType = byte.Parse(attributeUnitType.Value);
-                    if (element.Attribute("SynonymSSCC") is { } attributeSynonymSscc)
-                        sscc.SynonymSSCC = attributeSynonymSscc.Value;
+                    //if (element.Attribute("SynonymSSCC") is { } attributeSynonymSscc)
+                    //    sscc.SynonymSSCC = attributeSynonymSscc.Value;
                     if (element.Attribute("Check") is { } attributeCheck)
                         sscc.Check = int.Parse(attributeCheck.Value);
                 }

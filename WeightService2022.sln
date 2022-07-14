@@ -33,41 +33,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fonts", "Fonts", "{F5635B3B
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Templates\Configure Printer Connectivity DHCP.sql = Resources\Templates\Configure Printer Connectivity DHCP.sql
-		Resources\Templates\Configure Printer Connectivity IP.sql = Resources\Templates\Configure Printer Connectivity IP.sql
-		Resources\Templates\Convert XML to TXT simple.xsl = Resources\Templates\Convert XML to TXT simple.xsl
-		Resources\Templates\Data3ProductSeriesEntity.xml = Resources\Templates\Data3ProductSeriesEntity.xml
-		Resources\Templates\Label SCALES-PRN-004.zpl = Resources\Templates\Label SCALES-PRN-004.zpl
-		Resources\Templates\Label SCALES-PRN-005.zpl = Resources\Templates\Label SCALES-PRN-005.zpl
-		Resources\Templates\styledata.xml = Resources\Templates\styledata.xml
-		Resources\Templates\Template80x100unit.xml = Resources\Templates\Template80x100unit.xml
-		Resources\Templates\Template80x100unit_CODE128_300dpi.xml = Resources\Templates\Template80x100unit_CODE128_300dpi.xml
-		Resources\Templates\Template80x100unit_CODE128_300dpi.xml.json = Resources\Templates\Template80x100unit_CODE128_300dpi.xml.json
-		Resources\Templates\Template80x100unit_I2OF5_203dpi.xml = Resources\Templates\Template80x100unit_I2OF5_203dpi.xml
-		Resources\Templates\Template80x100unit_I2OF5_300dpi.xml = Resources\Templates\Template80x100unit_I2OF5_300dpi.xml
-		Resources\Templates\Template80x100unit_PDF417_300dpi.xml = Resources\Templates\Template80x100unit_PDF417_300dpi.xml
-		Resources\Templates\Template80x100weight.xml = Resources\Templates\Template80x100weight.xml
-		Resources\Templates\Template80x100weight_I2OF5_203dpi.xml = Resources\Templates\Template80x100weight_I2OF5_203dpi.xml
-		Resources\Templates\Template80x100weight_I2OF5_300dpi.xml = Resources\Templates\Template80x100weight_I2OF5_300dpi.xml
-		Resources\Templates\Template80x100_Summ 300 dpi.xml.json = Resources\Templates\Template80x100_Summ 300 dpi.xml.json
-		Resources\Templates\Template80x100_Summ.xslt = Resources\Templates\Template80x100_Summ.xslt
-		Resources\Templates\Template90x60unit.xml = Resources\Templates\Template90x60unit.xml
-		Resources\Templates\Template90x60weight.xml = Resources\Templates\Template90x60weight.xml
-		Resources\Templates\Test TEST.sql = Resources\Templates\Test TEST.sql
-		Resources\Templates\test.sql = Resources\Templates\test.sql
-		Resources\Templates\WeighingFactEntityObject1.xml = Resources\Templates\WeighingFactEntityObject1.xml
-		Resources\Templates\Zebra commands.sql = Resources\Templates\Zebra commands.sql
-		Resources\Templates\~Template80x100unit.xml = Resources\Templates\~Template80x100unit.xml
-		Resources\Templates\~Template90x60unit.xml = Resources\Templates\~Template90x60unit.xml
-		Resources\Templates\Загрузить логотипы из таблицы ресурсов.sql = Resources\Templates\Загрузить логотипы из таблицы ресурсов.sql
-		Resources\Templates\Загрузить шрифты из таблицы ресурсов.sql = Resources\Templates\Загрузить шрифты из таблицы ресурсов.sql
-		Resources\Templates\Калибровать принтер.sql = Resources\Templates\Калибровать принтер.sql
-		Resources\Templates\ТЕСТ Этикетка.sql = Resources\Templates\ТЕСТ Этикетка.sql
-		Resources\Templates\Установить насыщенность печати.sql = Resources\Templates\Установить насыщенность печати.sql
-		Resources\Templates\Установить режим отделителя Print Mode to Peel-off.sql = Resources\Templates\Установить режим отделителя Print Mode to Peel-off.sql
-		Resources\Templates\Этикетки на комплект.sql = Resources\Templates\Этикетки на комплект.sql
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}"
 	ProjectSection(SolutionItems) = preProject
@@ -237,6 +202,41 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TscPrintDemoWpf", "TscPrintDemoWpf\TscPrintDemoWpf.csproj", "{1FA7C648-CEB6-487D-AEE7-67922AF5CA52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDSoft.BarcodePrintUtils", "MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj", "{A713AB22-2C23-48B6-8974-2FD7230012F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old", "Old", "{717736E0-79C1-4E56-AB8D-C075B0A781FC}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Templates\Old\Configure Printer Connectivity DHCP.sql = Resources\Templates\Old\Configure Printer Connectivity DHCP.sql
+		Resources\Templates\Old\Configure Printer Connectivity IP.sql = Resources\Templates\Old\Configure Printer Connectivity IP.sql
+		Resources\Templates\Old\Convert XML to TXT simple.xsl = Resources\Templates\Old\Convert XML to TXT simple.xsl
+		Resources\Templates\Old\Data3ProductSeriesEntity.xml = Resources\Templates\Old\Data3ProductSeriesEntity.xml
+		Resources\Templates\Old\Label SCALES-PRN-004.zpl = Resources\Templates\Old\Label SCALES-PRN-004.zpl
+		Resources\Templates\Old\Label SCALES-PRN-005.zpl = Resources\Templates\Old\Label SCALES-PRN-005.zpl
+		Resources\Templates\Old\styledata.xml = Resources\Templates\Old\styledata.xml
+		Resources\Templates\Old\Template80x100unit.xml = Resources\Templates\Old\Template80x100unit.xml
+		Resources\Templates\Old\Template80x100unit_CODE128_300dpi.xml = Resources\Templates\Old\Template80x100unit_CODE128_300dpi.xml
+		Resources\Templates\Old\Template80x100unit_CODE128_300dpi.xml.json = Resources\Templates\Old\Template80x100unit_CODE128_300dpi.xml.json
+		Resources\Templates\Old\Template80x100unit_I2OF5_203dpi.xml = Resources\Templates\Old\Template80x100unit_I2OF5_203dpi.xml
+		Resources\Templates\Old\Template80x100unit_I2OF5_300dpi.xml = Resources\Templates\Old\Template80x100unit_I2OF5_300dpi.xml
+		Resources\Templates\Old\Template80x100unit_PDF417_300dpi.xml = Resources\Templates\Old\Template80x100unit_PDF417_300dpi.xml
+		Resources\Templates\Old\Template80x100weight.xml = Resources\Templates\Old\Template80x100weight.xml
+		Resources\Templates\Old\Template80x100weight_I2OF5_203dpi.xml = Resources\Templates\Old\Template80x100weight_I2OF5_203dpi.xml
+		Resources\Templates\Old\Template80x100weight_I2OF5_300dpi.xml = Resources\Templates\Old\Template80x100weight_I2OF5_300dpi.xml
+		Resources\Templates\Old\Template80x100_Summ 300 dpi.xml.json = Resources\Templates\Old\Template80x100_Summ 300 dpi.xml.json
+		Resources\Templates\Old\Template80x100_Summ.xslt = Resources\Templates\Old\Template80x100_Summ.xslt
+		Resources\Templates\Old\Template90x60unit.xml = Resources\Templates\Old\Template90x60unit.xml
+		Resources\Templates\Old\Template90x60weight.xml = Resources\Templates\Old\Template90x60weight.xml
+		Resources\Templates\Old\Test TEST.sql = Resources\Templates\Old\Test TEST.sql
+		Resources\Templates\Old\test.sql = Resources\Templates\Old\test.sql
+		Resources\Templates\Old\WeighingFactEntityObject1.xml = Resources\Templates\Old\WeighingFactEntityObject1.xml
+		Resources\Templates\Old\Zebra commands.sql = Resources\Templates\Old\Zebra commands.sql
+		Resources\Templates\Old\Загрузить логотипы из таблицы ресурсов.sql = Resources\Templates\Old\Загрузить логотипы из таблицы ресурсов.sql
+		Resources\Templates\Old\Загрузить шрифты из таблицы ресурсов.sql = Resources\Templates\Old\Загрузить шрифты из таблицы ресурсов.sql
+		Resources\Templates\Old\Калибровать принтер.sql = Resources\Templates\Old\Калибровать принтер.sql
+		Resources\Templates\Old\ТЕСТ Этикетка.sql = Resources\Templates\Old\ТЕСТ Этикетка.sql
+		Resources\Templates\Old\Установить насыщенность печати.sql = Resources\Templates\Old\Установить насыщенность печати.sql
+		Resources\Templates\Old\Установить режим отделителя Print Mode to Peel-off.sql = Resources\Templates\Old\Установить режим отделителя Print Mode to Peel-off.sql
+		Resources\Templates\Old\Этикетки на комплект.sql = Resources\Templates\Old\Этикетки на комплект.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -837,6 +837,7 @@ Global
 		{5973F987-103A-455D-A5E3-C7429906657A} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 		{1FA7C648-CEB6-487D-AEE7-67922AF5CA52} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 		{A713AB22-2C23-48B6-8974-2FD7230012F7} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
+		{717736E0-79C1-4E56-AB8D-C075B0A781FC} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

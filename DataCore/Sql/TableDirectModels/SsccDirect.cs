@@ -11,7 +11,6 @@ namespace DataCore.Sql.TableDirectModels
     {
         #region Public and private fields and properties
 
-
         [XmlElement("SSCC")]
         public string SSCC { get; set; }
 
@@ -25,7 +24,7 @@ namespace DataCore.Sql.TableDirectModels
         public byte UnitType { get; set; }
 
         [XmlElement("SynonymSSCC")]
-        public string SynonymSSCC { get; set; }
+        public string SynonymSSCC => $"({SSCC.Substring(0, 2)}){SSCC.Substring(2, 17)}";
 
         [XmlElement("Check")]
         public int Check { get; set; }
@@ -42,7 +41,6 @@ namespace DataCore.Sql.TableDirectModels
             GLN = sscc.Substring(3, 9);
             UnitID = int.Parse(sscc.Substring(12, 7));
             UnitType = byte.Parse(sscc.Substring(2, 1));
-            SynonymSSCC = $"(00){sscc.Substring(3, 17)}";
             Check = int.Parse(sscc.Substring(19, 1));
         }
 
@@ -50,12 +48,7 @@ namespace DataCore.Sql.TableDirectModels
 
         #region Public and private methods
 
-        public override string ToString()
-        {
-            StringBuilder sb = new();
-            sb.Append($"{SynonymSSCC}");
-            return sb.ToString();
-        }
+        public override string ToString() => $"{SynonymSSCC}";
 
         #endregion
     }
