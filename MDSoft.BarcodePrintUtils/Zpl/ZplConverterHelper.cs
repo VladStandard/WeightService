@@ -385,11 +385,11 @@ namespace WeightCore.Zpl
                 //
                 Image image = Image.FromStream(bmpStream);
                 Bitmap bitmap = new(image);
-                ZplConverterHelper zp = new();
+                ZplConverterHelper zplConverter = new();
                 //String zplCommand = zp.ConvertFromImage(bitmap);
 
                 string nameimage = fnt.Key;
-                string zplCommand = zp.CreateGRF(bitmap, nameimage);
+                string zplCommand = zplConverter.CreateGRF(bitmap, nameimage);
                 SendToPrinter(ZebraIP, ZebraPort, zplCommand.Split('\n'));
             }
         }
