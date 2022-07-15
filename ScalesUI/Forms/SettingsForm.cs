@@ -14,6 +14,9 @@ using WeightCore.Zpl;
 
 namespace ScalesUI.Forms
 {
+    /// <summary>
+    /// Settings form.
+    /// </summary>
     public partial class SettingsForm : Form
     {
         #region Private fields and properties
@@ -21,10 +24,9 @@ namespace ScalesUI.Forms
         private DebugHelper Debug { get; } = DebugHelper.Instance;
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
-        #endregion
-
-        #region Constructor and destructor
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SettingsForm()
         {
             InitializeComponent();
@@ -91,11 +93,11 @@ namespace ScalesUI.Forms
         {
             try
             {
-                ZplConverterHelper zp = new();
+                ZplConverterHelper zplConverter = new();
                 if (UserSession.Scale.PrinterMain != null)
                 {
-                    zp.LogoClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
-                    zp.FontsClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+                    zplConverter.LogoClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+                    zplConverter.FontsClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
                     if (UserSession.Scale.IsOrder)
                     {
                         if (UserSession.Order == null)
@@ -106,16 +108,16 @@ namespace ScalesUI.Forms
                             return;
                         }
 
-                        zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+                        zplConverter.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
                             UserSession.Order.Template.Logo);
-                        zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+                        zplConverter.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
                             UserSession.Order.Template.Fonts);
                     }
                     else
                     {
                         TemplateDirect template = UserSession.Plu.LoadTemplate();
-                        zp.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Logo);
-                        zp.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Fonts);
+                        zplConverter.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Logo);
+                        zplConverter.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Fonts);
                     }
                 }
             }
@@ -129,7 +131,6 @@ namespace ScalesUI.Forms
         {
             try
             {
-                // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
                 wpfPageLoader.MessageBox.Message = LocaleCore.Print.WarningOpenCover;
@@ -139,10 +140,10 @@ namespace ScalesUI.Forms
                 wpfPageLoader.ShowDialog(this);
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
-                if (result == DialogResult.Retry)
+                if (result == DialogResult.Retry && UserSession.Scale.PrinterMain != null)
                 {
-                    ZplConverterHelper zp = new();
-                    zp.Сalibration(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+                    ZplConverterHelper zplConverter = new();
+                    zplConverter.Сalibration(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
                 }
             }
             catch (Exception ex)
@@ -150,6 +151,7 @@ namespace ScalesUI.Forms
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
+
         private void ButtonGenerateException_Click(object sender, EventArgs e)
         {
             try
@@ -161,10 +163,6 @@ namespace ScalesUI.Forms
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
-
-        #endregion
-
-        #region Private methods - Управление принтером
 
         private void ButtonPrint_Click(object sender, EventArgs e)
         {
@@ -212,32 +210,17 @@ namespace ScalesUI.Forms
             }
         }
 
-        #endregion
-
-        #region Private methods - Кнопки по умолчанию
-
         private void ButtonMassaParam_Click(object sender, EventArgs e)
         {
             try
             {
                 fieldCurrentMKProp.Clear();
 
-                if (UserSession.ManagerControl.Massa != null)
-                {
-                    //_taskManager.MassaManager.GetScalePar();
-                    //Thread.Sleep(10);
-                    //Application.DoEvents();
-
-                    if (UserSession.ManagerControl.Massa.ResponseParseGet != null)
-                    {
-                        fieldCurrentMKProp.Text = UserSession.ManagerControl.Massa.ResponseParseGet.Message;
-                    }
-
-                    if (UserSession.ManagerControl.Massa.ResponseParseScalePar != null)
-                    {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{UserSession.ManagerControl.Massa.ResponseParseScalePar.Message}";
-                    }
-                }
+                //_taskManager.MassaManager.GetScalePar();
+                //Thread.Sleep(10);
+                //Application.DoEvents();
+                fieldCurrentMKProp.Text = UserSession.ManagerControl.Massa.ResponseParseGet.Message;
+                fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{UserSession.ManagerControl.Massa.ResponseParseScalePar.Message}";
             }
             catch (Exception ex)
             {
@@ -256,21 +239,6 @@ namespace ScalesUI.Forms
                 GuiUtils.WpfForm.CatchException(this, ex);
             }
         }
-
-        //https://developer.zebra.com/thread/33293
-        //string zplImageData = string.Empty;
-        //byte[] binaryData = System.IO.File.ReadAllBytes(@Server.MapPath("Temp/abcd.png"));
-        //foreach (Byte b in binaryData)
-
-        //        {
-        //            string hexRep = String.Format("{0:X}", b);
-        //            if (hexRep.Length == 1)
-        //                hexRep = "0" + hexRep;
-        //            zplImageData += hexRep;
-        //        }
-
-        //string s = @"^XA^MNY~DYE:COMPOUND.PNG,P,P," + binaryData.Length + ",," + zplImageData + @"^XZ^FO28,260^IME:COMPOUND.PNG^FS^XZ";
-        //RawPrinterHelper.SendStringToPrinter(@"\\info-0004\ZDesigner 105SL 203DPI Zebra", s);
 
         #endregion
     }

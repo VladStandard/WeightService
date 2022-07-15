@@ -58,6 +58,9 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - MainForm
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -411,33 +414,35 @@ namespace ScalesUI.Forms
         {
             if (comboBox == null || sourceList == null || sourceList.Count == 0 || selectedIndex < 0)
                 return;
-
+            
             if (comboBox.InvokeRequired)
             {
                 comboBox.Invoke((Action)delegate
                 {
-                    Work(comboBox, eventHandler, sourceList, selectedIndex);
+                    SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
                 });
             }
             else
+                SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
+
+        }
+        private void SetComboBoxItemsWork(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+        {
+            comboBox.SelectedIndexChanged -= eventHandler;
+
+            int backupIndex = comboBox.SelectedIndex;
+            comboBox.Items.Clear();
+            if (sourceList.Count > 0)
             {
-                Work(comboBox, eventHandler, sourceList, selectedIndex);
+                object[] items = sourceList.ToArray();
+                comboBox.Items.AddRange(items);
             }
+            comboBox.SelectedIndex = selectedIndex <= 0
+                ? backupIndex <= 0 ? 0 : backupIndex
+                : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
 
-            static void Work(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
-            {
-                comboBox.SelectedIndexChanged -= eventHandler;
-
-                int backupIndex = comboBox.SelectedIndex;
-                comboBox.Items.Clear();
-                comboBox.Items.AddRange(sourceList.ToArray());
-                comboBox.SelectedIndex = selectedIndex <= 0
-                    ? backupIndex <= 0 ? 0 : backupIndex
-                    : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
-
-                comboBox.SelectedIndexChanged += eventHandler;
-                eventHandler.Invoke(comboBox, null);
-            }
+            comboBox.SelectedIndexChanged += eventHandler;
+            eventHandler.Invoke(comboBox, null);
         }
 
         private void FieldPrintManager_Click(object sender, EventArgs e)

@@ -3,7 +3,6 @@
 
 using DataCore.Localizations;
 using DataCore.Sql.TableDirectModels;
-using NHibernate.SqlCommand;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,6 +13,9 @@ using WeightCore.Helpers;
 
 namespace ScalesUI.Forms
 {
+    /// <summary>
+    /// Select PLU form.
+    /// </summary>
     public partial class SelectPluForm : Form
     {
         #region Private fields and properties
@@ -25,13 +27,12 @@ namespace ScalesUI.Forms
         private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
         private List<PluDirect> OrderList { get; set; }
         private List<PluDirect> PluList { get; set; }
-        private short PageNumber { get; set; }
+        private int PageNumber { get; set; }
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
-        #endregion
-
-        #region Constructor and destructor
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SelectPluForm()
         {
             InitializeComponent();
@@ -47,19 +48,9 @@ namespace ScalesUI.Forms
             {
                 PluList = new PluDirect().GetPluList(UserSession.Scale);
                 OrderList = new PluDirect().GetPluList(UserSession.Scale);
+                LoadFormControls();
 
-                labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-                buttonClose.Text = LocaleCore.Buttons.Close;
-                buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
-                buttonRightRoll.Text = LocaleCore.Buttons.Next;
-
-                TopMost = !Debug.IsDebug;
-                Width = Owner.Width;
-                Height = Owner.Height;
-                Left = Owner.Left;
-                Top = Owner.Top;
-
-                ControlPluEntity[,] controls = CreateControls(PluList.Skip(PageNumber * PageSize).Take(PageSize).ToArray());
+                ControlPluEntity[,] controls = CreateControls();
                 Setup(tableLayoutPanelPlu, controls);
                 SetupSizes(controls);
             }
@@ -69,8 +60,23 @@ namespace ScalesUI.Forms
             }
         }
 
-        private ControlPluEntity[,] CreateControls(IReadOnlyList<PluDirect> plus)
+        private void LoadFormControls()
         {
+            labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
+            buttonClose.Text = LocaleCore.Buttons.Close;
+            buttonLeftRoll.Text = LocaleCore.Buttons.Previous;
+            buttonRightRoll.Text = LocaleCore.Buttons.Next;
+
+            TopMost = !Debug.IsDebug;
+            Width = Owner.Width;
+            Height = Owner.Height;
+            Left = Owner.Left;
+            Top = Owner.Top;
+        }
+
+        private ControlPluEntity[,] CreateControls()
+        {
+            List<PluDirect> plus = GetCurrentPluList();
             ControlPluEntity[,] controls = new ControlPluEntity[ColumnCount, RowCount];
             try
             {
@@ -92,7 +98,14 @@ namespace ScalesUI.Forms
             return controls;
         }
 
-        private ControlPluEntity NewControlGroup(PluDirect plu, short pageNumber, ushort buttonNumber)
+        private List<PluDirect> GetCurrentPluList()
+        {
+            IEnumerable<PluDirect> plusSkip = PluList.Skip(PageNumber * PageSize);
+            IEnumerable<PluDirect> plusTake = plusSkip.Take(PageSize);
+            return plusTake.ToList();
+        }
+
+        private ControlPluEntity NewControlGroup(PluDirect plu, int pageNumber, ushort buttonNumber)
         {
             int tabIndex = buttonNumber + pageNumber * PageSize;
             Button buttonPlu = NewButtonPlu(plu, tabIndex);
@@ -265,16 +278,15 @@ namespace ScalesUI.Forms
 
         private void ButtonPreviousRoll_Click(object sender, EventArgs e)
         {
+            int saveCurrentPage = PageNumber;
+            PageNumber = PageNumber > 0 ? PageNumber - 1 : 0;
+            if (PageNumber == saveCurrentPage)
+                return;
             try
             {
                 tableLayoutPanelPlu.Visible = false;
-                short saveCurrentPage = PageNumber;
-                PageNumber = (short)(PageNumber > 0 ? PageNumber - 1 : 0);
-                if (PageNumber == saveCurrentPage)
-                    return;
-
                 labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-                ControlPluEntity[,] controls = CreateControls(PluList.Skip(PageNumber * PageSize).Take(PageSize).ToArray());
+                ControlPluEntity[,] controls = CreateControls();
                 Setup(tableLayoutPanelPlu, controls);
                 SetupSizes(controls);
             }
@@ -290,19 +302,19 @@ namespace ScalesUI.Forms
 
         private void ButtonNextRoll_Click(object sender, EventArgs e)
         {
+            int saveCurrentPage = PageNumber;
+            int countPage = PluList.Count / PageSize;
+            PageNumber = PageNumber < countPage ? PageNumber + 1 : countPage;
+            if (PageNumber > countPage)
+                PageNumber = countPage - 1;
+            if (PageNumber == saveCurrentPage)
+                return;
+            
             try
             {
                 tableLayoutPanelPlu.Visible = false;
-                short saveCurrentPage = PageNumber;
-                short countPage = (short)(PluList.Count / PageSize);
-                PageNumber = (short)(PageNumber < countPage ? PageNumber + 1 : countPage);
-                if (PageNumber > countPage) PageNumber = (short)(countPage - 1);
-                if (PageNumber == saveCurrentPage)
-                    return;
-
                 labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-
-                ControlPluEntity[,] controls = CreateControls(PluList.Skip(PageNumber * PageSize).Take(PageSize).ToArray());
+                ControlPluEntity[,] controls = CreateControls();
                 Setup(tableLayoutPanelPlu, controls);
                 SetupSizes(controls);
             }
