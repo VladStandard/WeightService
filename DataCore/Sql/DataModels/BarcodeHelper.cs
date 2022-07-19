@@ -7,14 +7,41 @@ using System.Threading;
 
 namespace DataCore.Sql.DataModels
 {
+    /// <summary>
+    /// GTIN enum.
+    /// </summary>
     public enum EnumGtinVariant
     {
+        /// <summary>
+        /// Variant 1.
+        /// </summary>
         Var1,
+        /// <summary>
+        /// Variant 2.
+        /// </summary>
         Var2,
+        /// <summary>
+        /// Variant 3.
+        /// </summary>
         Var3,
     }
 
-    public class BarcodeHelper
+    /// <summary>
+    /// Barcode interface.
+    /// </summary>
+    public interface IBarcodeHelper
+    {
+        int GetEanCheckDigit(string code);
+        int GetGtinCheckDigitV1(string code);
+        int GetGtinCheckDigitV2(string code);
+        int GetGtinCheckDigitV3(string code);
+        string GetGtinWithCheckDigit(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3);
+    }
+
+    /// <summary>
+    /// Barcode helper.
+    /// </summary>
+    public class BarcodeHelper : IBarcodeHelper
     {
         #region Design pattern "Lazy Singleton"
 

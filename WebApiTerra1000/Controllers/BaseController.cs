@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NHibernate;
-using WebApiTerra1000.Common;
+using WebApiCore.Utils;
 
 namespace WebApiTerra1000.Controllers
 {

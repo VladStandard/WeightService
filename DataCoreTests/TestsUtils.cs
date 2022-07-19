@@ -11,8 +11,8 @@ namespace DataCoreTests
     {
         #region Public and private fields and properties
 
-        public static DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+        public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+        public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 
         #endregion
 

@@ -1,15 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Xml.Linq;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using NHibernate;
-using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using WebApiTerra1000.Utils;
+using WebApiCore.Common;
 
-namespace WebApiTerra1000.Common
+namespace WebApiCore.Utils
 {
     public static class TerraUtils
     {

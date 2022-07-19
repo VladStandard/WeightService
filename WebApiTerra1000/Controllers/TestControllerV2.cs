@@ -12,8 +12,8 @@ using System.Globalization;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using WebApiTerra1000.Common;
-using WebApiTerra1000.Utils;
+using WebApiCore.Common;
+using WebApiCore.Utils;
 using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers

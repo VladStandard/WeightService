@@ -1,30 +1,29 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
 using System.Xml.Serialization;
-using WebApiTerra1000.Utils;
+using DataCore.Sql.Models;
+using WebApiCore.Utils;
 
-namespace WebApiTerra1000.Common
+namespace WebApiCore.Common
 {
-    [XmlRoot(TerraConsts.Simple, Namespace = "", IsNullable = false)]
-    public class SqlSimpleV1Entity : BaseSerializeDeprecatedEntity<SqlSimpleV1Entity>
+    [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
+    public class ServiceReplyEntity : BaseSerializeDeprecatedEntity<ServiceReplyEntity>
     {
         #region Public and private fields and properties
 
-        [XmlAttribute("Description")]
-        public string Description { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
 
         #endregion
 
         #region Constructor and destructor
 
-        public SqlSimpleV1Entity(string description)
+        public ServiceReplyEntity(string message)
         {
-            Description = description;
+            Message = message;
         }
 
-        public SqlSimpleV1Entity()
+        public ServiceReplyEntity()
         {
             //
         }
@@ -35,7 +34,8 @@ namespace WebApiTerra1000.Common
 
         public override string ToString()
         {
-            return @$"{nameof(Description)}: {Description}. ";
+            return
+                @$"{nameof(Message)}: {Message}. ";
         }
 
         #endregion

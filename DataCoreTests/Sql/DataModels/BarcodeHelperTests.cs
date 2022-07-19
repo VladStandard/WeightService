@@ -4,13 +4,14 @@
 using DataCore.Sql.DataModels;
 using NUnit.Framework;
 using System;
+using NSubstitute;
 
 namespace DataCoreTests.Sql.DataModels
 {
     [TestFixture]
     internal class BarcodeHelperTests
     {
-        private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
+        private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
 
         [Test]
         public void BarcodeHelper_GetEanCheckDigit_Throws()
@@ -23,6 +24,18 @@ namespace DataCoreTests.Sql.DataModels
                 Barcode.GetEanCheckDigit("4607100235873");
                 Barcode.GetEanCheckDigit("4607100235859");
                 Barcode.GetEanCheckDigit("4607100234869");
+            });
+        }
+
+        [Test]
+        public void SubstituteBarcode_GetEanCheckDigit_Throws()
+        {
+            IBarcodeHelper barcode = Substitute.For<IBarcodeHelper>();
+            barcode.GetEanCheckDigit("01234546789012").Returns(1);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            {
+                Barcode.GetEanCheckDigit("01234546789012");
             });
         }
 

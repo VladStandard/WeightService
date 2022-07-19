@@ -7,7 +7,7 @@ using NUnit.Framework;
 using RestSharp;
 using System.Net;
 using System.Threading.Tasks;
-using WebApiTerra1000.Common;
+using WebApiCore.Common;
 
 namespace DataProjectsCoreTests.DAL
 {

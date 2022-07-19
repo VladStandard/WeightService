@@ -13,7 +13,7 @@ namespace DataCoreTests.Schedulers
     {
         #region Public and private fields and properties
 
-        private static QuartzHelper Quartz { get; set; } = QuartzHelper.Instance;
+        private static QuartzHelper Quartz { get; } = QuartzHelper.Instance;
 
         #endregion
 

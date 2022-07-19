@@ -10,8 +10,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApiTerra1000.Common;
-using WebApiTerra1000.Utils;
+using WebApiCore.Utils;
 using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers

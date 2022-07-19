@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
+    <ProjectReference Include="..\WebApiCore\WebApiCore.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>

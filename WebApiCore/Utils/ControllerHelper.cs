@@ -1,16 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
 using System.Net;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using WebApiCore.Common;
 using static DataCore.ShareEnums;
 
-namespace WebApiTerra1000.Common
+namespace WebApiCore.Utils
 {
     public class ControllerHelper
     {
