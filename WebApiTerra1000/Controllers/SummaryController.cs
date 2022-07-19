@@ -10,39 +10,39 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using static DataCore.ShareEnums;
 
-namespace WebApiTerra1000.Controllers
+namespace WebApiTerra1000.Controllers;
+
+public class SummaryController : BaseController
 {
-    public class SummaryController : BaseController
+    #region Constructor and destructor
+
+    public SummaryController(ILogger<SummaryController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
     {
-        #region Constructor and destructor
-
-        public SummaryController(ILogger<SummaryController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
-        {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        [AllowAnonymous]
-        [HttpGet()]
-        [Route("api/summary/")]
-        public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
-        {
-            return Controller.RunTask(new Task<ContentResult>(() =>
-            {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
-                    TerraUtils.Sql.GetParameters(startDate, endDate));
-                XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Summary} />", LoadOptions.None);
-                XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-                return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-            }), format);
-        }
-
-        #endregion
+        //
     }
+
+    #endregion
+
+    #region Public and private methods
+
+    [AllowAnonymous]
+    [HttpGet()]
+    [Route("api/summary/")]
+    public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
+    {
+        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        {
+            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
+                TerraUtils.Sql.GetParameters(startDate, endDate));
+            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Summary} />", LoadOptions.None);
+            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+        }), format);
+    }
+
+    #endregion
 }

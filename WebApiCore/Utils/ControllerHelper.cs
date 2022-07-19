@@ -7,53 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiCore.Common;
 using static DataCore.ShareEnums;
 
-namespace WebApiCore.Utils
+namespace WebApiCore.Utils;
+
+public class ControllerHelper
 {
-    public class ControllerHelper
+    #region Design pattern "Lazy Singleton"
+
+    private static ControllerHelper _instance;
+    public static ControllerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+    #endregion
+
+    #region Public and private fields and properties
+
+    //
+
+    #endregion
+
+    #region Constructor and destructor
+
+    public ControllerHelper() { }
+
+    #endregion
+
+    #region Public and private methods
+
+    public ContentResult RunTask(Task<ContentResult> task, FormatType format,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        #region Design pattern "Lazy Singleton"
-
-        private static ControllerHelper _instance;
-        public static ControllerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        #endregion
-
-        #region Public and private fields and properties
-
-        //
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ControllerHelper() { }
-
-        #endregion
-
-        #region Public and private methods
-
-        public ContentResult RunTask(Task<ContentResult> task, FormatType format,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        try
         {
-            try
-            {
-                task?.Start();
-                ContentResult result = task?.GetAwaiter().GetResult();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                filePath = Path.GetFileName(filePath);
-                ServiceExceptionEntity serviceException = new(filePath, lineNumber, memberName, ex);
-                return serviceException.GetResult(format, HttpStatusCode.OK);
-            }
-            finally
-            {
-                GC.Collect();
-            }
+            task?.Start();
+            ContentResult result = task?.GetAwaiter().GetResult();
+            return result;
         }
-        
-        #endregion
-
+        catch (Exception ex)
+        {
+            filePath = Path.GetFileName(filePath);
+            ServiceExceptionEntity serviceException = new(filePath, lineNumber, memberName, ex);
+            return serviceException.GetResult(format, HttpStatusCode.OK);
+        }
+        finally
+        {
+            GC.Collect();
+        }
     }
+    
+    #endregion
+
 }

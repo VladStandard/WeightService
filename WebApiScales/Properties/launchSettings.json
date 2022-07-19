@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "WebApiScalesService": {
+    "WebApiScales": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

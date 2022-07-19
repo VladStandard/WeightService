@@ -5,39 +5,41 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Common
+namespace WebApiCore.Common;
+
+[XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
+public class SqlResponseContragentsEntity : BaseSerializeDeprecatedEntity<SqlResponseContragentsEntity>
 {
-    [XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-    public class SqlResponseContragentsEntity : BaseSerializeDeprecatedEntity<SqlResponseContragentsEntity>
+    #region Public and private fields and properties
+
+    [XmlElement(TerraConsts.Simple)]
+    public SqlSimpleV1Entity Item { get; set; } = new SqlSimpleV1Entity();
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="description"></param>
+    public SqlResponseContragentsEntity(string description)
     {
-        #region Public and private fields and properties
-
-        [XmlElement(TerraConsts.Simple)]
-        public SqlSimpleV1Entity Item { get; set; } = new SqlSimpleV1Entity();
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public SqlResponseContragentsEntity(string description)
-        {
-            Item = new SqlSimpleV1Entity(description);
-        }
-
-        public SqlResponseContragentsEntity()
-        {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public override string ToString()
-        {
-            return @$"{nameof(Item)}: {Item}";
-        }
-
-        #endregion
+        Item = new SqlSimpleV1Entity(description);
     }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public SqlResponseContragentsEntity()
+    {
+        //
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString()
+    {
+        return @$"{nameof(Item)}: {Item}";
+    }
+
+    #endregion
 }

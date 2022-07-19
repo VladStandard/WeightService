@@ -5,51 +5,56 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Common
+namespace WebApiCore.Common;
+
+[XmlRoot(TerraConsts.Exception, Namespace = "", IsNullable = false)]
+public class ServiceExceptionEntity : BaseSerializeDeprecatedEntity<ServiceExceptionEntity>
 {
-    [XmlRoot(TerraConsts.Exception, Namespace = "", IsNullable = false)]
-    public class ServiceExceptionEntity : BaseSerializeDeprecatedEntity<ServiceExceptionEntity>
+    #region Public and private fields and properties
+
+    public string FilePath { get; set; }
+    public int LineNumber { get; set; }
+    public string MemberName { get; set; }
+    public string Exception { get; set; }
+    public string InnerException { get; set; }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
+    /// <param name="ex"></param>
+    public ServiceExceptionEntity(string filePath, int lineNumber, string memberName, Exception ex)
     {
-        #region Public and private fields and properties
-
-        public string FilePath { get; set; }
-        public int LineNumber { get; set; }
-        public string MemberName { get; set; }
-        public string Exception { get; set; }
-        public string InnerException { get; set; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ServiceExceptionEntity(string filePath, int lineNumber, string memberName, Exception ex)
-        {
-            FilePath = filePath;
-            LineNumber = lineNumber;
-            MemberName = memberName;
-            Exception = ex.Message;
-            InnerException = ex.InnerException != null ? ex.InnerException.Message : string.Empty;
-        }
-
-        public ServiceExceptionEntity()
-        {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public override string ToString()
-        {
-            return
-                @$"{nameof(FilePath)}: {FilePath}. " + Environment.NewLine +
-                @$"{nameof(LineNumber)}: {LineNumber}. " + Environment.NewLine +
-                @$"{nameof(MemberName)}: {MemberName}. " + Environment.NewLine +
-                @$"{nameof(Exception)}: {Exception}. " + Environment.NewLine +
-                @$"{nameof(InnerException)}: {InnerException}. ";
-        }
-
-        #endregion
+        FilePath = filePath;
+        LineNumber = lineNumber;
+        MemberName = memberName;
+        Exception = ex.Message;
+        InnerException = ex.InnerException != null ? ex.InnerException.Message : string.Empty;
     }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public ServiceExceptionEntity()
+    {
+        //
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString()
+    {
+        return
+            @$"{nameof(FilePath)}: {FilePath}. " + Environment.NewLine +
+            @$"{nameof(LineNumber)}: {LineNumber}. " + Environment.NewLine +
+            @$"{nameof(MemberName)}: {MemberName}. " + Environment.NewLine +
+            @$"{nameof(Exception)}: {Exception}. " + Environment.NewLine +
+            @$"{nameof(InnerException)}: {InnerException}. ";
+    }
+
+    #endregion
 }
