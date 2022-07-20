@@ -12,7 +12,6 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// WeatherForecast controller.
 /// </summary>
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : BaseController
@@ -34,7 +33,9 @@ public class WeatherForecastController : BaseController
         _logger = logger;
     }
 
+    [AllowAnonymous]
     [HttpGet(Name = "GetWeatherForecast")]
+    [Route("api/v1/WeatherForecast/")]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast

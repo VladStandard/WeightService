@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.905] - 2022-07-19
+## [0.6.905] - 2022-07-20
 ### Описание обновления:
 - WS-T-289. Веб-сервис ШК. Новый проект VS
 - WS-T-290. Веб-сервис ШК. Публикация сервиса dev & dev-preview
