@@ -11,6 +11,7 @@ git commit -m "Updated version to v0.x.xxx"
 Make changes
 ```
 git tag -a v0.x.xxx <commit_hash>
+git push all --tags
 ```
 
 ## Tuesday Release-version
