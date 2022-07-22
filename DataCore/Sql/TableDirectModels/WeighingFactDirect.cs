@@ -10,6 +10,9 @@ using System.Xml.Linq;
 
 namespace DataCore.Sql.TableDirectModels
 {
+    /// <summary>
+    /// Table WeighingFact.
+    /// </summary>
     public class WeighingFactDirect : BaseSerializeEntity
     {
         #region Public and private fields and properties
@@ -41,7 +44,7 @@ namespace DataCore.Sql.TableDirectModels
         }
         public string ProductTimeBarCode
         {
-            get => $"{ProductDate:HHmm}";
+            get => $"{ProductDate:HHmmss}";
             // This code need for print labels.
             set => _ = value;
         }
@@ -78,6 +81,18 @@ namespace DataCore.Sql.TableDirectModels
         public string NetWeightKgPretty3
         {
             get => $"{NetWeight:000.000}".Replace(',', '.').Split('.')[0];
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string NetWeightKgPretty2Dot3Eng
+        {
+            get => $"{NetWeight:00.000}".Replace(',', '.');
+            // This code need for print labels.
+            set => _ = value;
+        }
+        public string NetWeightKgPretty2Dot3Rus
+        {
+            get => $"{NetWeight:00.000}".Replace('.', ',');
             // This code need for print labels.
             set => _ = value;
         }

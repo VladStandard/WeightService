@@ -192,7 +192,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
 	ProjectSection(SolutionItems) = preProject
 		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт.xml
 	EndProjectSection
@@ -242,7 +243,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiCore", "WebApiCore\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiScales", "WebApiScales\WebApiScales.csproj", "{6ED09D5F-667F-4C39-AABD-BA9BE983AB5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{7C3EC862-8F44-4C41-8E15-69FAC73BC794}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{7C3EC862-8F44-4C41-8E15-69FAC73BC794}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -903,7 +904,7 @@ Global
 		{7C3EC862-8F44-4C41-8E15-69FAC73BC794} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

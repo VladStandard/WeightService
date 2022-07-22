@@ -20,42 +20,48 @@ public class BarcodeTopEntity : BaseSerializeDeprecatedEntity<BarcodeTopEntity>
     public string Counter { get; set; } = string.Empty;
     public string Date { get; set; } = string.Empty;
     public string Time { get; set; } = string.Empty;
-    public string Region { get; set; } = string.Empty;
+    public string Plu { get; set; } = string.Empty;
     public string Weight { get; set; } = string.Empty;
     public string Zames { get; set; } = string.Empty;
+    public string Crc { get; set; } = string.Empty;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopEntity(string const1, string armNumber, string counter, string date, string time, string region, string weight, string zames)
+    public BarcodeTopEntity(string const1, string armNumber, string counter, string date, string time, string plu, string weight, 
+        string zames, string crc)
     {
         Const1 = const1;
         ArmNumber = armNumber;
         Counter = counter;
         Date = date;
         Time = time;
-        Region = region;
+        Plu = plu;
         Weight = weight;
         Zames = zames;
+        Crc = crc;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopEntity(string barcode)
+    public BarcodeTopEntity(string barcode, bool useCrc)
     {
-        // 0  -3    -8       -16    -22  -26-28   -33
-        // 298-00011-00000019-220714-1701-33-00400-001
-        if (barcode.Length != 36)
-            return;
-        Const1 = barcode.Substring(0, 3);
-        ArmNumber = barcode.Substring(3, 5);
-        Counter = barcode.Substring(8, 8);
-        Date = barcode.Substring(16, 6);
-        Time = barcode.Substring(22, 4);
-        Region = barcode.Substring(26, 2);
-        Weight = barcode.Substring(28, 5);
-        Zames = barcode.Substring(33, 3);
+        // 0  -3    -8       -16    -22    -28 -31   -36 -39
+        // 298-00428-00000018-220722-164810-106-01475-001-0
+        if ((!useCrc && barcode.Length == 39) || (useCrc && barcode.Length == 40))
+        {
+            Const1 = barcode.Substring(0, 3);
+            ArmNumber = barcode.Substring(3, 5);
+            Counter = barcode.Substring(8, 8);
+            Date = barcode.Substring(16, 6);
+            Time = barcode.Substring(22, 6);
+            Plu = barcode.Substring(28, 3);
+            Weight = barcode.Substring(31, 5);
+            Zames = barcode.Substring(36, 3);
+            if (useCrc)
+                Crc = barcode.Substring(39, 1);
+        }
     }
 
     /// <summary>
@@ -72,15 +78,18 @@ public class BarcodeTopEntity : BaseSerializeDeprecatedEntity<BarcodeTopEntity>
 
     public override string ToString()
     {
-        return 
+        string result = 
             @$"{nameof(Const1)}: {Const1}. " + Environment.NewLine +
             @$"{nameof(ArmNumber)}: {ArmNumber}. " + Environment.NewLine +
             @$"{nameof(Counter)}: {Counter}. " + Environment.NewLine +
             @$"{nameof(Date)}: {Date}. " + Environment.NewLine +
             @$"{nameof(Time)}: {Time}. " + Environment.NewLine +
-            @$"{nameof(Region)}: {Region}. " + Environment.NewLine +
+            @$"{nameof(Plu)}: {Plu}. " + Environment.NewLine +
             @$"{nameof(Weight)}: {Weight}. " + Environment.NewLine +
             @$"{nameof(Zames)}: {Zames}. ";
+        if (!string.IsNullOrEmpty(Crc))
+            result += Environment.NewLine + @$"{nameof(Crc)}: {Crc}. ";
+        return result;
     }
 
     #endregion

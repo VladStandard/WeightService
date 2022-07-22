@@ -36,18 +36,19 @@ public class BarcodeControllerV1 : BaseController
     /// Get top barcode.
     /// </summary>
     /// <param name="barcode"></param>
+    /// <param name="useCrc"></param>
     /// <param name="format"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v1/barcode/top/")]
-    public ContentResult GetBarcodeTop(string barcode, FormatType format = FormatType.Xml)
+    public ContentResult GetBarcodeTop(string barcode, bool useCrc = false, FormatType format = FormatType.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
         {
             //string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV1);
             //return SqlSimpleV1Entity.DeserializeFromXml(response1).GetResult(format, HttpStatusCode.OK);
-            return new BarcodeTopEntity(barcode).GetResult(format, HttpStatusCode.OK);
+            return new BarcodeTopEntity(barcode, useCrc).GetResult(format, HttpStatusCode.OK);
         }), format);
     }
 
