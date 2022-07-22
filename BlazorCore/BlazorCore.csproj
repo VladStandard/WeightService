@@ -3,9 +3,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <FileVersion>0.6.910.0</FileVersion>
-    <AssemblyVersion>0.6.910.0</AssemblyVersion>
+    <FileVersion>0.6.915.0</FileVersion>
+    <AssemblyVersion>0.6.915.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
+    <LangVersion>10.0</LangVersion>
+    <Version>0.6.915.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Component1.razor" />
@@ -51,8 +53,4 @@
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
-    <Version>0.6.910.0</Version>
-  </PropertyGroup>
 </Project>

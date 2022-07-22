@@ -3,12 +3,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64</Platforms>
-  </PropertyGroup>
-  <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
-    <FileVersion>0.6.910.0</FileVersion>
-    <AssemblyVersion>0.6.910.0</AssemblyVersion>
-    <Version>0.6.910.0</Version>
+    <FileVersion>0.6.915.0</FileVersion>
+    <AssemblyVersion>0.6.915.0</AssemblyVersion>
+    <Version>0.6.915.0</Version>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />

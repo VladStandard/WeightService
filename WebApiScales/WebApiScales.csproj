@@ -3,12 +3,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<Company>Владимирский стандарт</Company>
-	<Product>WeightService</Product>
-	<Copyright>Copyright © 2020 - 2022</Copyright>
-	<Authors />
-	<LangVersion>10.0</LangVersion>
-    <Version>0.6.910.0</Version>
+    <Company>Владимирский стандарт</Company>
+    <Product>WeightService</Product>
+    <Copyright>Copyright © 2020 - 2022</Copyright>
+    <Authors />
+    <Version>0.6.915.0</Version>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />

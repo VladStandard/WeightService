@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>0.6.910.0</Version>
+    <Version>0.6.915.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>3563a665-3c2d-469d-ba4c-f85bb5c0c1af</UserSecretsId>
     <StartupObject>MdmControlBlazor.Program</StartupObject>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
+    <LangVersion>10.0</LangVersion>
 	<AssemblyName>BlazorMdmControl</AssemblyName>
     <RootNamespace>BlazorMdmControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<AssemblyVersion>0.6.910.0</AssemblyVersion>
-    <FileVersion>0.6.910.0</FileVersion>
+	<AssemblyVersion>0.6.915.0</AssemblyVersion>
+    <FileVersion>0.6.915.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>
@@ -34,7 +35,4 @@
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
     <ProjectReference Include="..\MdmControlCore\MdmControlCore.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
 </Project>

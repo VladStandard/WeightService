@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.915] - 2022-07-22
+### Описание обновления:
+- NET language version 10.0
+
 ## [0.6.910] - 2022-07-21
 ### Описание обновления:
 - WS-T-296. Управление устройствами. Раздел Этикетки

@@ -3,12 +3,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-	<Company>Владимирский стандарт</Company>
-	<Product>WeightService</Product>
-	<Copyright>Copyright © 2020 - 2022</Copyright>
-	<FileVersion>0.6.910.0</FileVersion>
-    <AssemblyVersion>0.6.910.0</AssemblyVersion>
+    <Company>Владимирский стандарт</Company>
+    <Product>WeightService</Product>
+    <Copyright>Copyright © 2020 - 2022</Copyright>
+    <FileVersion>0.6.915.0</FileVersion>
+    <AssemblyVersion>0.6.915.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
@@ -25,7 +26,6 @@
     <ProjectReference Include="..\WebApiTerra1000\WebApiTerra1000.csproj" />
   </ItemGroup>
 	<PropertyGroup>
-		<LangVersion>9.0</LangVersion>
-		<Version>0.6.910.0</Version>
+		<Version>0.6.915.0</Version>
 	</PropertyGroup>
 </Project>
