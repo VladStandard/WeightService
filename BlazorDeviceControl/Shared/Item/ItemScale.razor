@@ -8,7 +8,7 @@
 @using DataCore.Localizations
 @using DataCore.Models
 @using static DataCore.Localizations.LocaleData.DeviceControl
-@using static DataCore.Utils.BlazorCoreUtuls
+@using static BlazorCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
 {
@@ -135,12 +135,12 @@ else
             <tr>
                 <td>@LocaleCore.Table.DeviceNumber</td>
                 <td>
-                    <RadzenTemplateForm TItem="ScaleEntity" Data=@ItemCast >
-                        <RadzenNumeric Style="width: 100%; text-align: center; display: block; " Disabled=false 
-                            Name="fieldNumber" TValue="int" @bind-Value=@ItemCast.Number />
-                        <RadzenNumericRangeValidator 
-                            Component="fieldNumber" Min=1 Max=99999
-                            Text=@LocaleCore.Strings.InputControlCheck(1, 99999) Popup=true Style="position: absolute;" />
+                    <RadzenTemplateForm TItem="ScaleEntity" Data=@ItemCast>
+                        <RadzenNumeric Style="width: 100%; text-align: center; display: block; " Disabled=false
+                            Name="fieldNumber"
+                            TValue="int" @bind-Value=@ItemCast.Number />
+                        <RadzenNumericRangeValidator Component="fieldNumber" 
+                            Text=@LocaleCore.Strings.InputControlCheck(1, 99999) Popup=true Style="position: absolute; " />
                     </RadzenTemplateForm>
 				</td>
                 <td>@LocaleCore.Table.IsOrder</td>
@@ -207,8 +207,8 @@ else
                         <RadzenNumeric Style="width: 100%; text-align: center; display: block; " Disabled=false 
                             Name="fieldCounter" TValue="int" @bind-Value=@ItemCast.Counter />
                         <RadzenNumericRangeValidator 
-                            Component="fieldCounter" Min=1 Max=99999999
-                            Text=@LocaleCore.Strings.InputControlCheck(1, 99999999) Popup=true Style="position: absolute;" />
+                            Component="fieldCounter" 
+                            Text=@LocaleCore.Strings.InputControlCheck(1, 99999999) Popup=true Style="position: absolute; " />
                     </RadzenTemplateForm>
 				</td>
             </tr>

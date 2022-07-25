@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
 using System;
 using System.Diagnostics;
+using BlazorCore.Models;
 
-namespace DataCore.Utils
+namespace BlazorCore.Utils
 {
     public static class BlazorCoreUtuls
     {
@@ -28,22 +28,41 @@ namespace DataCore.Utils
         {
             public static string Sidebar(AppSettingsHelper appSettings)
             {
-                if (appSettings != null)
-                {
-                    if (appSettings.IsSqlServerRelease)
-                        return "sidebarRelease";
-                    if (appSettings.IsSqlServerDebug)
-                        return "sidebarDebug";
-                }
-                return "sidebarUnknown";
+                if (appSettings.IsSqlServerRelease)
+                    return "SidebarRelease";
+                else if (appSettings.IsSqlServerDebug)
+                    return "SidebarDebug";
+                return "SidebarDefault";
             }
 
             public static string MudSelect => "MudSelect";
             public static string MudSelectFlexible => "MudSelectFlexible";
             public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
-            public static string RadzenPanelMenu => "RadzenPanelMenu";
-            public static string RadzenPanelMenuItem => "RadzenPanelMenuItem";
-            public static string RadzenPanelMenuSubItem => "RadzenPanelMenuSubItem";
+            public static string RadzenPanelMenu(AppSettingsHelper appSettings)
+            {
+                if (appSettings.IsSqlServerRelease)
+                    return "RadzenPanelMenuRelease";
+                else if (appSettings.IsSqlServerDebug)
+                    return "RadzenPanelMenuDebug";
+                return "RadzenPanelMenuDefault";
+            }
+
+            public static string RadzenPanelMenuItem(AppSettingsHelper appSettings)
+            {
+                if (appSettings.IsSqlServerRelease)
+                    return "RadzenPanelMenuItemRelease";
+                else if (appSettings.IsSqlServerDebug)
+                    return "RadzenPanelMenuItemDebug";
+                return "RadzenPanelMenuItemDefault";
+            }
+            public static string RadzenPanelMenuSubItem(AppSettingsHelper appSettings)
+            {
+                if (appSettings.IsSqlServerRelease)
+                    return "RadzenPanelMenuSubItemRelease";
+                else if (appSettings.IsSqlServerDebug)
+                    return "RadzenPanelMenuSubItemDebug";
+                return "RadzenPanelMenuSubItemDefault";
+            }
             public static string RadzenProgressBar => "RadzenProgressBar";
         }
 

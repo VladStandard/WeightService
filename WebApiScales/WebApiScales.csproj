@@ -7,7 +7,7 @@
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
     <Authors />
-    <Version>0.6.920.0</Version>
+    <Version>0.6.921.0</Version>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.12" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />

@@ -7,7 +7,7 @@
 @using DataCore.Sql.TableScaleModels
 @using DataCore.Localizations
 @using static DataCore.Localizations.LocaleData.DeviceControl
-@using static DataCore.Utils.BlazorCoreUtuls
+@using static BlazorCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
 {
@@ -121,17 +121,17 @@ else
                 <td>@LocaleData.DeviceControl.Actions</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
-                        class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                        class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
                         Text=@LocaleCore.Print.ResourcesClear Disabled=@(!AppSettings.DataAccess.IsConnected) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "TTF"))
-                        class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                        class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
                         Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!AppSettings.DataAccess.IsConnected) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "GRF"))
-                        class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                        class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
                         Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!AppSettings.DataAccess.IsConnected) />
 				</td>
             </tr>

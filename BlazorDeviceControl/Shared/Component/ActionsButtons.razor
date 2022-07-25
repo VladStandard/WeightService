@@ -6,36 +6,36 @@
 @using DataCore.Utils
 @using static DataCore.ShareEnums
 
-<MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
+<MudPaper Width="100%" Height="31px" Square=false Color=Color.Transparent >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
         @if (ButtonSettings.IsShowNew && UserSettings.Identity.AccessRightsIsAdmin)
         {
             <RadzenButton Click=@(_ => ActionNewAsync(UserSettings, false, true))
-                class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
+                class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                 Text=@LocaleData.DeviceControl.TableActionNew Disabled=@(!AppSettings.DataAccess.IsConnected) />
         }
         @if (ButtonSettings.IsShowEdit && UserSettings.Identity.AccessRightsIsWrite)
         {
             <RadzenButton Click=@(_ => ActionEditAsync(UserSettings, false, true))
-                class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
+                class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                 Text=@LocaleData.DeviceControl.TableActionEdit Disabled=@(!AppSettings.DataAccess.IsConnected) />
         }
         @if (ButtonSettings.IsShowCopy && UserSettings.Identity.AccessRightsIsAdmin)
         {
             <RadzenButton Click=@(_ => ActionCopyAsync(UserSettings, false, true))
-                class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
+                class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                 Text=@LocaleData.DeviceControl.TableActionCopy Disabled=@(!AppSettings.DataAccess.IsConnected) />
         }
         @if (ButtonSettings.IsShowMark && UserSettings.Identity.AccessRightsIsWrite)
         {
             <RadzenButton Click=@(_ => ActionMarkAsync(UserSettings, false, true))
-                class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
+                class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                 Text=@LocaleData.DeviceControl.TableActionMark Disabled=@(!AppSettings.DataAccess.IsConnected) />
         }
         @if (ButtonSettings.IsShowDelete && UserSettings.Identity.AccessRightsIsWrite)
         {
             <RadzenButton Click=@(_ => ActionDeleteAsync(UserSettings, true))
-                class="radzenButtonLong" ButtonStyle=@ButtonStyle.Primary
+                class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                 Text=@LocaleData.DeviceControl.TableActionDelete Disabled=@(!AppSettings.DataAccess.IsConnected) />
         }
     </div>

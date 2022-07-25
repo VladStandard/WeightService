@@ -8,20 +8,16 @@
     flex: 1;
 }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 1%, #3a0647 10%);
+.SidebarRelease {
+    background-image: linear-gradient(90deg, blue 0%, blue 50%);
     width: 13%;
 }
-.sidebarRelease {
-    background-image: linear-gradient(90deg, blue 0%, blue 10%);
+.SidebarDebug {
+    background-image: linear-gradient(90deg, green 0%, green 50%);
     width: 13%;
 }
-.sidebarDebug {
-    background-image: linear-gradient(90deg, green 0%, green 10%);
-    width: 13%;
-}
-.sidebarUnknown {
-    background-image: linear-gradient(90deg, red 0%, red 10%);
+.SidebarDefault {
+    background-image: linear-gradient(0deg, transparent 0%, transparent 50%);
     width: 13%;
 }
 

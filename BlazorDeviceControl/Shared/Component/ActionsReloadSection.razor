@@ -29,7 +29,7 @@
         />
 
         <RadzenButton 
-            class="radzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
+            class="RadzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
             Disabled=@(!AppSettings.DataAccess.IsConnected) 
             Click=@(args => SetParameters.InvokeAsync())
             MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRead))

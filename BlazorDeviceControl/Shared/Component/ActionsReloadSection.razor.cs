@@ -3,26 +3,24 @@
 
 using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Component
+namespace BlazorDeviceControl.Shared.Component;
+
+public partial class ActionsReloadSection : Shared.Component.ActionsReloadBase
 {
-    public partial class ActionsReloadSection
+    #region Public and private methods
+
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
-        #region Public and private methods
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
-                {
-                    Default();
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
-        }
-
-        #endregion
+        await base.SetParametersAsync(parameters).ConfigureAwait(true);
+        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            new Task(async () =>
+            {
+                Default();
+                IsLoaded = true;
+                await GuiRefreshWithWaitAsync();
+            }), true);
     }
+
+    #endregion
 }

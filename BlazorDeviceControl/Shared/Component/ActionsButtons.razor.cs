@@ -3,31 +3,29 @@
 
 using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Component
+namespace BlazorDeviceControl.Shared.Component;
+
+public partial class ActionsButtons : BlazorCore.Models.RazorBase
 {
-    public partial class ActionsButtons
+    #region Public and private methods
+
+    private void Default()
     {
-        #region Public and private methods
-
-        private void Default()
-        {
-            IsLoaded = false;
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
-                {
-                    Default();
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
-        }
-
-        #endregion
+        IsLoaded = false;
     }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters).ConfigureAwait(true);
+        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            new Task(async () =>
+            {
+                Default();
+                IsLoaded = true;
+                await GuiRefreshWithWaitAsync();
+            }), true);
+    }
+
+    #endregion
 }

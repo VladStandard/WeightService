@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>0.6.920.0</Version>
+    <Version>0.6.921.0</Version>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
@@ -11,7 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Errata" Version="0.10.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />

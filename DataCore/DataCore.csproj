@@ -3,8 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <AssemblyVersion>0.6.920.0</AssemblyVersion>
-    <FileVersion>0.6.920.0</FileVersion>
+    <AssemblyVersion>0.6.921.0</AssemblyVersion>
+    <FileVersion>0.6.921.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
@@ -13,12 +13,12 @@
     <PackageReference Include="IndexRange" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.45.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.12" />
     <PackageReference Include="Quartz" Version="3.4.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-    <PackageReference Include="RestSharp" Version="107.3.0" />
+    <PackageReference Include="RestSharp" Version="108.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
   </ItemGroup>
@@ -39,7 +39,7 @@
     </None>
   </ItemGroup>
   <PropertyGroup>
-    <Version>0.6.920.0</Version>
+    <Version>0.6.921.0</Version>
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

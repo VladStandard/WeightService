@@ -6,7 +6,7 @@
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
 @using DataCore.Utils
-@using static DataCore.Utils.BlazorCoreUtuls
+@using static BlazorCore.Utils.BlazorCoreUtuls
 @using static DataCore.Localizations.LocaleData.DeviceControl
 
 @if (!IsLoaded)
@@ -218,17 +218,22 @@ else
                 <td>@LocaleCore.Table.GoodsDescription
                     <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
-                    </td>
+                </td>
                 <td colspan=3>
-                    <RadzenTextArea Style="width: 100%; font-size: 12px; " Disabled=false @bind-Value=@ItemCast.GoodsDescription Rows=3 />
+                    <RadzenTextArea 
+                        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; " 
+                        Disabled=false @bind-Value=@ItemCast.GoodsDescription Rows=3 />
 				</td>
             </tr>
             <tr >
-                <td>@LocaleCore.Table.XmlPretty</td>
-                <td colspan=3>
-                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew"
+                <td>
+                    @LocaleCore.Table.XmlPretty
+                    <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ItemCast.XmlGoodsDescription))) />
-                    <RadzenTextArea Style="width: 88%; text-align: left; font-size: 10px; background-color: lightgray; " 
+                </td>
+                <td colspan=3>
+                    <RadzenTextArea 
+                        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true Rows=30 
                         Value=@(XmlUtils.GetXmlpretty(ItemCast.Nomenclature.SerializedRepresentationObject)) />
                 </td>
