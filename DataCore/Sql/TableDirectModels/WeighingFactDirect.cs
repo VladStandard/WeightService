@@ -92,7 +92,7 @@ namespace DataCore.Sql.TableDirectModels
         }
         public string NetWeightKgPretty2Dot3Rus
         {
-            get => $"{NetWeight:00.000}".Replace('.', ',');
+            get => $"{NetWeight:#0.000}".Replace('.', ',');
             // This code need for print labels.
             set => _ = value;
         }

@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.915] - 2022-07-22
+## [0.6.920] - 2022-07-25
 ### Описание обновления:
 - NET language version 10.0
 - WS-T-298. Изменения шаблона этикеток "TSC 80x100 300dpi вес"
