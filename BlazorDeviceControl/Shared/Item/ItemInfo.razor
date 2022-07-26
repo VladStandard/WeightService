@@ -4,173 +4,225 @@
 @using DataCore.Localizations
 @using static BlazorCore.Utils.BlazorCoreUtuls
 
-<ActionsReloadItem ParentRazor=@this 
-    Title=@LocaleCore.System.SystemInfo SetParameters=@SetParametersAsync />
-    
+<ActionsReloadItem ParentRazor=@this
+                   Title=@LocaleCore.System.SystemInfo SetParameters=@SetParametersAsync />
+
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <thead>
         <tr>
-            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.SettingName</th>
-            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.SettingValue</th>
+            <th Style="color:blue; font-weight:bold; width: 40%; ">@LocaleCore.Strings.SettingName</th>
+            <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.SettingValue</th>
+            <th Style="color:blue; font-weight:bold; width: 30%; "></th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>
-            @if (string.IsNullOrEmpty(VerApp))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@VerApp</MudElement></td>
-            }
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(VerApp))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@VerApp</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Strings.VerLibBlazorCore</td>
-            @if (string.IsNullOrEmpty(VerLibDataCore))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@VerLibBlazorCore</MudElement></td>
-            }
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(VerLibDataCore))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@VerLibBlazorCore</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Strings.VerLibDataCore</td>
-            @if (string.IsNullOrEmpty(VerLibDataCore))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@VerLibDataCore</MudElement></td>
-            }
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(VerLibDataCore))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@VerLibDataCore</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Strings.HostName</td>
-            @if (string.IsNullOrEmpty(Environment.MachineName))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@Environment.MachineName</MudElement></td>
-            }
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(Environment.MachineName))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@Environment.MachineName</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Sql.SqlServer</td>
-            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal?.Sql.DataSource))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal?.Sql.DataSource</MudElement></td>
-            }
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Sql.SqlDb</td>
-            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal?.Sql.InitialCatalog))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog</MudElement></td>
-            }
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog</MudElement>
+                }
+            </td>
         </tr>
         <tr>
-            @if (AppSettings.DataAccess.JsonSettingsLocal?.Sql.PersistSecurityInfo == true)
-            {
-                <td>@LocaleCore.System.SystemWindowsUser</td>
-            }
-            else
-            {
-                <td>@LocaleCore.Sql.SqlUser</td>
-            }
-            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal?.Sql.UserId))
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId</MudElement></td>
-            }
+            <td>
+                @if (AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo == true)
+                {
+                    @LocaleCore.System.SystemWindowsUser
+                }
+                else
+                {
+                    @LocaleCore.Sql.SqlUser
+                }
+            </td>
+            <td colspan=2>
+                @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId))
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Sql.SqlDbCurSize</td>
-            @if (DbCurSize == 0)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@DbCurSizeAsString</MudElement></td>
-            }
-        </tr>
-        <tr>
-            <td>@LocaleCore.Sql.SqlDbFillSize</td>
-            @if (DbFillSize == 0)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td>
-                    <RadzenProgressBar class=@GetCssName.RadzenProgressBar
-                        Value=@DbFillSize ShowValue="true" 
-                    />
-                </td>
-            }
+            <td colspan=2>
+                @if (DbCurSize == 0)
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@DbCurSizeAsString</MudElement>
+                }
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Memory.Memory</td>
-            @if (AppSettings.Memory == null)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@AppSettings.MemoryInfoShort</MudElement></td>
-            }
+            <td colspan=2>
+                @if (AppSettings.Memory == null)
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <MudElement Class="ma-0">@AppSettings.MemoryInfoShort</MudElement>
+                }
+            </td>
         </tr>
-        <tr>
-            <td>@LocaleCore.Memory.MemoryFillSize</td>
-            @if (AppSettings.Memory == null)
-            {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td>
-                    <RadzenProgressBar class=@GetCssName.RadzenProgressBar
-                        Value=@AppSettings.MemoryFillSize ShowValue="true" 
-                    />
-                </td>
-            }
+        <tr style="height: 200px; ">
+            <td>@LocaleCore.Strings.FillSize</td>
+            <td>
+                @if (DbFillSize == 0)
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    @*<RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@DbFillSize ShowValue="true" />*@
+                    <RadzenRadialGauge Style="width: 250px; height: 250px;">
+                        <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0 Max=@DbMaxSize
+                            TickPosition=@GaugeTickPosition.Inside>
+                            <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true Value=@DbCurSize>
+                                <Template Context="pointer">
+                                    <h4>@pointer.Value<sup>MB</sup></h4>
+                                </Template>
+                            </RadzenRadialGaugeScalePointer>
+                            <RadzenRadialGaugeScaleRange From="0" To="75" Fill="green"/>
+                            <RadzenRadialGaugeScaleRange From="75" To="90" Fill="orange"/>
+                            <RadzenRadialGaugeScaleRange From="90" To="100" Fill="red"/>
+                        </RadzenRadialGaugeScale>
+                    </RadzenRadialGauge>
+                }
+            </td>
+            <td>
+                @if (AppSettings.Memory == null || AppSettings.Memory.MemorySize == null ||
+                AppSettings.Memory.MemorySize.PhysicalTotal == null || AppSettings.Memory.MemorySize.PhysicalCurrent == null)
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    @*<RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@AppSettings.MemoryFillSize ShowValue="true" />*@
+                    <RadzenRadialGauge Style="width: 250px; height: 250px; ">
+                        <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0
+                            Max=@AppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes
+                            TickPosition=@GaugeTickPosition.Inside >
+                            <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true
+                                Value=@AppSettings.Memory.MemorySize.PhysicalCurrent.MegaBytes>
+                                <Template Context="pointer">
+                                    <h4>@pointer.Value<sup>MB</sup></h4>
+                                </Template>
+                            </RadzenRadialGaugeScalePointer>
+                            <RadzenRadialGaugeScaleRange From="0" To="75" Fill="green" />
+                            <RadzenRadialGaugeScaleRange From="75" To="90" Fill="orange" />
+                            <RadzenRadialGaugeScaleRange From="90" To="100" Fill="red" />
+                        </RadzenRadialGaugeScale>
+                    </RadzenRadialGauge>
+                }            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SectionRowsCount</td>
-            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement></td>
+            <td colspan=2>
+                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement>
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.ItemRowsCount</td>
-            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement></td>
+            <td colspan=2>
+                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement>
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SelectTopRowsCount</td>
-            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement></td>
+            <td colspan=2>
+                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement>
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.Version</td>
-            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Version</MudElement></td>
+            <td colspan=2>
+                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Version</MudElement>
+            </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.AllowedHosts</td>
-            <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement></td>
+            <td colspan=2>
+                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement>
+            </td>
         </tr>
     </tbody>
 </MudSimpleTable>
@@ -210,17 +262,17 @@
             {
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@LocaleCore.Lang >
+                           @bind-Value=@LocaleCore.Lang>
                         @foreach (ShareEnums.Lang lang in Langs)
                         {
                             <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
                         }
                     </MudSelect>
-                    @*<RadzenDropDown 
-                        TValue=@ShareEnums.Lang
-                        Data=@TemplateLanguages TextProperty="Name"
-                        ValueProperty="Value" 
-                        Change=@(args => OnLocalizationValueChange(TemplateLanguages, args))/>*@
+                    @*<RadzenDropDown
+                TValue=@ShareEnums.Lang
+                Data=@TemplateLanguages TextProperty="Name"
+                ValueProperty="Value"
+                Change=@(args => OnLocalizationValueChange(TemplateLanguages, args))/>*@
                 </td>
             }
         </tr>

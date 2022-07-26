@@ -112,6 +112,7 @@ namespace DataCore.Localizations
             public static string VerLibBlazorCore => Lang == ShareEnums.Lang.English ? "BlazorCore lib version" : "Версия библиотеки BlazorCore";
             public static string VerLibDataCore => Lang == ShareEnums.Lang.English ? "DataCore lib version" : "Версия библиотеки DataCore";
             public static string VerProgram => Lang == ShareEnums.Lang.English ? "Program version" : "Версия программы";
+            public static string FillSize => Lang == ShareEnums.Lang.English ? "Fill percentage" : "Процент заполнения";
         }
     }
 }
