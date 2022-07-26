@@ -317,7 +317,7 @@ VALUES(@uid, @name, @mac, @ip, @doc)
 				public static class Plu
 				{
 					public static string GetCount => @"
-SELECT COUNT(*) [COUNT] FROM DB_SCALES.PLU WHERE [SCALEID] = @SCALE_ID
+SELECT COUNT(*) [COUNT] FROM DB_SCALES.PLU WHERE [SCALEID] = @SCALE_ID AND [Active] = 1
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 					
                     public static string GetItem => @"
