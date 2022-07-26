@@ -192,8 +192,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E045-41F4-9460-CC519B8D7DBF}"
 	ProjectSection(SolutionItems) = preProject
 		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
-		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт.xml
 	EndProjectSection
@@ -244,6 +244,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiScales", "WebApiScales\WebApiScales.csproj", "{6ED09D5F-667F-4C39-AABD-BA9BE983AB5B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{7C3EC862-8F44-4C41-8E15-69FAC73BC794}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zebra", "Zebra", "{3183F5C1-144A-43CA-86BF-B7B528F6A94F}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Templates\Zebra\PC428.zpl = Resources\Templates\Zebra\PC428.zpl
+		Resources\Templates\Zebra\PC429.zpl = Resources\Templates\Zebra\PC429.zpl
+		Resources\Templates\Zebra\PC430.zpl = Resources\Templates\Zebra\PC430.zpl
+		Resources\Templates\Zebra\SCALES-PRN-428.zpl = Resources\Templates\Zebra\SCALES-PRN-428.zpl
+		Resources\Templates\Zebra\SCALES-PRN-429.zpl = Resources\Templates\Zebra\SCALES-PRN-429.zpl
+		Resources\Templates\Zebra\SCALES-PRN-430.zpl = Resources\Templates\Zebra\SCALES-PRN-430.zpl
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -902,9 +912,10 @@ Global
 		{F61A1A59-3358-40E5-B7DC-E98EF569A92B} = {D80C6DD5-DC97-4ED3-AD04-052B54F6F35F}
 		{6ED09D5F-667F-4C39-AABD-BA9BE983AB5B} = {D80C6DD5-DC97-4ED3-AD04-052B54F6F35F}
 		{7C3EC862-8F44-4C41-8E15-69FAC73BC794} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
+		{3183F5C1-144A-43CA-86BF-B7B528F6A94F} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal
