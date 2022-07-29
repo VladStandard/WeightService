@@ -29,11 +29,19 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Name Width="100%" >
+                TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Address Width="75%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
+                        Text=@itemCast.Address />
                 </Template>
             </RadzenGridColumn>
         </Columns>

@@ -31,8 +31,8 @@
             </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Strings.VerLibBlazorCore</td>
-            <td colspan=2>
+            <td>@LocaleCore.Strings.VerLibBlazorAndDataCore</td>
+            <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
                     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
@@ -42,10 +42,7 @@
                     <MudElement Class="ma-0">@VerLibBlazorCore</MudElement>
                 }
             </td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Strings.VerLibDataCore</td>
-            <td colspan=2>
+            <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
                     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
@@ -83,7 +80,9 @@
             </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Sql.SqlDb</td>
+            <td>
+                @LocaleCore.Sql.SqlDb
+            </td>
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
                 {
@@ -118,8 +117,8 @@
             </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Sql.SqlDbCurSize</td>
-            <td colspan=2>
+            <td>@LocaleCore.Strings.DbAndMemory</td>
+            <td >
                 @if (DbCurSize == 0)
                 {
                     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
@@ -129,10 +128,7 @@
                     <MudElement Class="ma-0">@DbCurSizeAsString</MudElement>
                 }
             </td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Memory.Memory</td>
-            <td colspan=2>
+            <td>
                 @if (AppSettings.Memory == null)
                 {
                     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
@@ -143,8 +139,31 @@
                 }
             </td>
         </tr>
+        <tr>
+            <td>@LocaleCore.Strings.DbAndMemoryProgressBar</td>
+            <td>
+                @if (DbCurSize == 0)
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@DbFillSize ShowValue="true" />
+                }
+            </td>
+            <td>
+                @if (AppSettings.Memory == null)
+                {
+                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                }
+                else
+                {
+                    <RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@AppSettings.MemoryFillSize ShowValue="true" />   
+                }
+            </td>
+        </tr>
         <tr style="height: 200px; ">
-            <td>@LocaleCore.Strings.FillSize</td>
+            <td>@LocaleCore.Strings.DbAndMemoryGauge</td>
             <td>
                 @if (DbFillSize == 0)
                 {
@@ -152,7 +171,6 @@
                 }
                 else
                 {
-                    @*<RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@DbFillSize ShowValue="true" />*@
                     <RadzenRadialGauge Style="width: 250px; height: 250px;">
                         <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0 Max=@DbMaxSize
                             TickPosition=@GaugeTickPosition.Inside>
@@ -176,7 +194,6 @@
                 }
                 else
                 {
-                    @*<RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@AppSettings.MemoryFillSize ShowValue="true" />*@
                     <RadzenRadialGauge Style="width: 250px; height: 250px; ">
                         <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0
                             Max=@AppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes
@@ -195,14 +212,11 @@
                 }            </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Settings.SectionRowsCount</td>
-            <td colspan=2>
+            <td>@LocaleCore.Settings.SectionAndItemRowsCount</td>
+            <td>
                 <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement>
             </td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Settings.ItemRowsCount</td>
-            <td colspan=2>
+            <td>
                 <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement>
             </td>
         </tr>

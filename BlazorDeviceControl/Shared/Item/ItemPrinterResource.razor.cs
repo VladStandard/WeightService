@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemPrinterResource() : base()
+        public ItemPrinterResource()
         {
             //
         }

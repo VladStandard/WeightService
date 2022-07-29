@@ -30,7 +30,7 @@ namespace DataCore.Sql.Controllers
 
         public CrudController()
         {
-            DataConfig = new DataConfigurationEntity();
+            DataConfig = new();
         }
 
         #endregion
@@ -526,7 +526,7 @@ namespace DataCore.Sql.Controllers
             {
                 ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
                 IList<T>? list = criteria?.List<T>();
-                item = list == null ? new T() : list.FirstOrDefault() ?? new T();
+                item = list == null ? new() : list.FirstOrDefault() ?? new T();
             }, filePath, lineNumber, memberName);
             FillReferences(item);
             return item;
@@ -535,15 +535,15 @@ namespace DataCore.Sql.Controllers
         public T GetEntity<T>(long? id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), id } }),
-                new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc));
+                new(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), id } }),
+                new(DbField.IdentityId, DbOrderDirection.Desc));
         }
 
         public T GetEntity<T>(Guid? uid) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityUid.ToString(), uid } }),
-                new FieldOrderEntity(DbField.IdentityUid, DbOrderDirection.Desc));
+                new(new Dictionary<string, object?> { { DbField.IdentityUid.ToString(), uid } }),
+                new(DbField.IdentityUid, DbOrderDirection.Desc));
         }
 
         public T[]? GetEntities<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults = 0,
@@ -647,9 +647,9 @@ namespace DataCore.Sql.Controllers
             switch (item)
             {
                 case ContragentEntityV2 contragent:
-                    throw new Exception($"{nameof(SaveEntity)} for {nameof(ContragentEntityV2)} is deny!");
+                    throw new($"{nameof(SaveEntity)} for {nameof(ContragentEntityV2)} is deny!");
                 case TableScaleModels.NomenclatureEntity nomenclature:
-                    throw new Exception($"{nameof(SaveEntity)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
+                    throw new($"{nameof(SaveEntity)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
                 default:
                     ExecuteTransaction((session) => { session.Save(item); }, filePath, lineNumber, memberName);
                     break;

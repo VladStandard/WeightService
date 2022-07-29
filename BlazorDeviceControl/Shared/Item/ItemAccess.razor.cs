@@ -30,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemAccess() : base()
+        public ItemAccess()
         {
             //
         }

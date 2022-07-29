@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemError() : base()
+        public ItemError()
         {
             //
         }

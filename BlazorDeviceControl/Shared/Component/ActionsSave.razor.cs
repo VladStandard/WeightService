@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component;
 
+/// <summary>
+/// Actions save.
+/// </summary>
 public partial class ActionsSave : BlazorCore.Models.RazorBase
 {
     #region Public and private methods
@@ -23,7 +26,7 @@ public partial class ActionsSave : BlazorCore.Models.RazorBase
             {
                 Default();
                 IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
+                await GuiRefreshWithWaitAsync().ConfigureAwait(true);
             }), true);
     }
 

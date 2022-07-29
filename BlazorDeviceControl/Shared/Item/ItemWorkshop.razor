@@ -42,7 +42,7 @@ else
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Name</td>
-                <td >
+                <td colspan=3>
                     <RadzenTextBox Style="width: 100%; text-align: left;" 
                         Disabled=false ReadOnly=false
                         TValue="string" @bind-Value=@ItemCast.Name />
@@ -54,7 +54,7 @@ else
                         Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.IdentityId)
                         Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>
-                <td>
+                <td colspan=3>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@ItemCast.ProductionFacility.IdentityId >
                         @foreach (ProductionFacilityEntity item in ProductionFacilities)

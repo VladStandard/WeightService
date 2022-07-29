@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item.Measurements
 
         #region Constructor and destructor
 
-        public ItemWf() : base()
+        public ItemWf()
         {
             //
         }

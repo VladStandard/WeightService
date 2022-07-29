@@ -71,6 +71,9 @@ namespace DataCore.Localizations
             public static string DataSizeMBytes => Lang == ShareEnums.Lang.English ? "Mbytes" : "МБайтов";
             public static string DataSizeVolume => Lang == ShareEnums.Lang.English ? "Data volume" : "Объём данных";
             public static string DbInfo => Lang == ShareEnums.Lang.English ? "Information about the DB" : "Информация о БД";
+            public static string DbAndMemory => Lang == ShareEnums.Lang.English ? "DB and memory" : "БД и память";
+            public static string DbAndMemoryProgressBar => Lang == ShareEnums.Lang.English ? "DB and memory (progressbar)" : "БД и память (шкала прогресса)";
+            public static string DbAndMemoryGauge => Lang == ShareEnums.Lang.English ? "DB and memory (gauge)" : "БД и память (измеритель)";
             public static string DebugMode => Lang == ShareEnums.Lang.English ? "Debug mode" : "Режим отладки";
             public static string Doc => Lang == ShareEnums.Lang.English ? "Documentation" : "Документация";
             public static string Feedback => Lang == ShareEnums.Lang.English ? "Feedback" : "Обратная связь";
@@ -111,6 +114,7 @@ namespace DataCore.Localizations
             public static string VerCore => Lang == ShareEnums.Lang.English ? "Core version" : "Версия ядра";
             public static string VerLibBlazorCore => Lang == ShareEnums.Lang.English ? "BlazorCore lib version" : "Версия библиотеки BlazorCore";
             public static string VerLibDataCore => Lang == ShareEnums.Lang.English ? "DataCore lib version" : "Версия библиотеки DataCore";
+            public static string VerLibBlazorAndDataCore => Lang == ShareEnums.Lang.English ? "BlazorCore / DataCore lib versions" : "Версия библиотек BlazorCore / DataCore";
             public static string VerProgram => Lang == ShareEnums.Lang.English ? "Program version" : "Версия программы";
             public static string FillSize => Lang == ShareEnums.Lang.English ? "Fill percentage" : "Процент заполнения";
         }

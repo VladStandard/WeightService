@@ -46,7 +46,7 @@ namespace DataCore.Sql.TableScaleModels
             Ip = string.Empty;
             Port = 0;
             Password = string.Empty;
-            PrinterType = new PrinterTypeEntity();
+            PrinterType = new();
             MacAddress = new();
             PeelOffSet = false;
             DarknessLevel = 0;
@@ -105,7 +105,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new PrinterEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

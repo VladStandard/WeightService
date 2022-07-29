@@ -56,8 +56,8 @@ namespace DataCore.Sql.TableScaleModels
         public PluEntity(long id) : base(id)
         {
             Template = new();
-            Scale = new ScaleEntity();
-            Nomenclature = new NomenclatureEntity();
+            Scale = new();
+            Nomenclature = new();
             GoodsName = string.Empty;
             GoodsFullName = string.Empty;
             GoodsDescription = string.Empty;
@@ -299,7 +299,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new PluEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

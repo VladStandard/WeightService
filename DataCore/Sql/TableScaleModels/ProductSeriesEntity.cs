@@ -27,7 +27,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public ProductSeriesEntity(long id) : base(id)
         {
-            Scale = new ScaleEntity();
+            Scale = new();
             IsClose = false;
             Sscc = string.Empty;
         }
@@ -72,7 +72,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new ProductSeriesEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

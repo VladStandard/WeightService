@@ -18,6 +18,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ScaleEntity ItemCast { get => Item == null ? new() : (ScaleEntity)Item; set => Item = value; }
         public List<PrinterEntity> PrinterItems { get; set; }
+        public List<ProductionFacilityEntity> ProductionFacilityItems { get; set; }
         public List<PrinterEntity> ShippingPrinterItems { get; set; }
         public List<TemplateEntity> TemplatesDefaultItems { get; set; }
         public List<TemplateEntity> TemplatesSeriesItems { get; set; }
@@ -29,11 +30,12 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemScale() : base()
+        public ItemScale()
         {
             PrinterItems = new();
             ComPorts = new();
             HostItems = new();
+            ProductionFacilityItems = new();
             ShippingPrinterItems = new();
             WorkShopItems = new();
             TemplatesDefaultItems = new();
@@ -50,6 +52,7 @@ namespace BlazorDeviceControl.Shared.Item
             Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
             ItemCast = new();
             ComPorts = new();
+            ProductionFacilityItems = new();
             TemplatesDefaultItems = new();
             TemplatesSeriesItems = new();
             WorkShopItems = new();
@@ -148,6 +151,17 @@ namespace BlazorDeviceControl.Shared.Item
                     {
                         TemplatesSeriesItems.Add(new TemplateEntity(0) { Title = LocaleCore.Table.FieldNull });
                         TemplatesSeriesItems.AddRange(templatesSeriesItems2);
+                    }
+                    // ProductionFacilityItems.
+                    List<ProductionFacilityEntity>? productionFacilities =
+                        AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
+                            new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                            null)
+                            ?.ToList();
+                    if (productionFacilities is List<ProductionFacilityEntity> productionFacilities2)
+                    {
+                        ProductionFacilityItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+                        ProductionFacilityItems.AddRange(productionFacilities2);
                     }
                     // WorkShopItems.
                     List<WorkShopEntity>? workShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(

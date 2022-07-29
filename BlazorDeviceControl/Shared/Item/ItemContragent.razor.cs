@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemContragent() : base()
+        public ItemContragent()
         {
             //
         }

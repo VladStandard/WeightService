@@ -20,6 +20,7 @@ namespace DataCore.Localizations
 
         #region Public and private fields and properties
 
+        public string Address => Lang == ShareEnums.Lang.English ? "Address" : "Адрес";
         public string AccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
         public string Active => Lang == ShareEnums.Lang.English ? "Active" : "Активно";
         public string ActiveShort => Lang == ShareEnums.Lang.English ? "Act" : "Акт";

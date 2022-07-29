@@ -59,7 +59,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new PrinterTypeEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

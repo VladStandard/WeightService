@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemTaskModule() : base()
+        public ItemTaskModule()
         {
             //
         }

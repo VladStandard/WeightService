@@ -60,7 +60,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new BarCodeTypeEntityV2());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

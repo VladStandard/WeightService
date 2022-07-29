@@ -28,7 +28,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public WorkShopEntity(long id) : base(id)
         {
-            ProductionFacility = new ProductionFacilityEntity();
+            ProductionFacility = new();
             Name = string.Empty;
             IdRRef = Guid.Empty;
         }
@@ -72,7 +72,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new WorkShopEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

@@ -64,7 +64,7 @@ namespace DataCore.Sql.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new LogTypeEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()

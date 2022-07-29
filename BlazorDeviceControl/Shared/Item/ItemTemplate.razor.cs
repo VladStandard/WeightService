@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemTemplate() : base()
+        public ItemTemplate()
         {
             //
         }

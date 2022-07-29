@@ -5,7 +5,6 @@ using DataCore.Sql.DataModels;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.Data.SqlClient;
-using NHibernate.SqlCommand;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -254,7 +253,7 @@ namespace DataCore.Sql.TableDirectModels
                         };
                         result.Add(plu);
                     }
-                }); 
+                });
             return result;
         }
 

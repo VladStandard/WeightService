@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemPrinterType() : base()
+        public ItemPrinterType()
         {
             //
         }

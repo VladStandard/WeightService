@@ -281,7 +281,7 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    if (id is long lid)
+                    if (id is { } lid)
                     {
                         productionFacility.IdentityId = lid;
                         AppSettings.DataAccess?.Crud.UpdateEntity(productionFacility);

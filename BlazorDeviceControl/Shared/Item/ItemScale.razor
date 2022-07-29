@@ -194,13 +194,28 @@ else
                         }
                     </MudSelect>
 				</td>
+                <td>
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                        Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.WorkShop.ProductionFacility, 
+                            ItemCast.WorkShop.ProductionFacility.IdentityId)
+                        Text=@LocaleCore.Table.ProductionFacilityName />
+                </td>
+                <td>
+                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@ItemCast.WorkShop.ProductionFacility.IdentityId >
+                        @foreach (ProductionFacilityEntity item in ProductionFacilityItems)
+                        {
+                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+				</td>
+            </tr>
+            <tr>
                 <td>@LocaleCore.Table.ScaleFactor</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="int?" @bind-Value=@ItemCast.ScaleFactor />
 				</td>
-            </tr>
-            <tr>
                 <td>@LocaleCore.Table.Counter</td>
                 <td>
                     <RadzenTemplateForm TItem="ScaleEntity" Data=@ItemCast >

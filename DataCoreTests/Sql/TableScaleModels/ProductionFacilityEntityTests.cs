@@ -6,59 +6,71 @@ using DataCore.Sql.TableScaleModels;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute;
 using static DataCore.ShareEnums;
+// ReSharper disable MethodTooLong
+// ReSharper disable CognitiveComplexity
+// ReSharper disable ExcessiveIndentation
 
-namespace DataCoreTests.Sql.TableScaleModels
+namespace DataCoreTests.Sql.TableScaleModels;
+
+[TestFixture]
+internal class ProductionFacilityEntityTests
 {
-    [TestFixture]
-    internal class ProductionFacilityEntityTests
+    [Test]
+    public void Entity_Equals_DoesNotThrow()
     {
-        [Test]
-        public void Entity_Equals_DoesNotThrow()
+        Assert.DoesNotThrow(() =>
         {
-            Assert.DoesNotThrow(() =>
-            {
-                ProductionFacilityEntity item = new();
-                Assert.AreEqual(true, item.EqualsNew());
-                Assert.AreEqual(true, item.EqualsDefault());
-            });
-        }
+            // Arrange.
+            ProductionFacilityEntity item = new();
+            //ProductionFacilityEntity item = Substitute.For<ProductionFacilityEntity>();
+            //item.GetHashCode().Returns(0);
+            // Act.
+            bool success = item.EqualsNew();
+            // Assert.
+            Assert.True(success);
+            // Act.
+            success = item.EqualsDefault();
+            // Assert.
+            Assert.True(success);
+        });
+    }
 
-        [Test]
-        public void Entity_Crud_DoesNotThrow()
+    [Test]
+    public void Entity_Crud_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
         {
-            Assert.DoesNotThrow(() =>
+            foreach (bool isShowMarkedItems in TestsEnums.GetBool())
             {
-                foreach (bool isShowMarkedItems in TestsEnums.GetBool())
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
+                        (isShowMarkedItems == true) ? null
+                            : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
+                        10)
+                    ?.ToList<BaseEntity>();
+                if (items != null)
                 {
-                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-                            (isShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
-                            10)
-                        ?.ToList<BaseEntity>();
-                    if (items != null)
+                    List<ProductionFacilityEntity> itemsCast = items.Select(x => (ProductionFacilityEntity)x).ToList();
+                    if (itemsCast.Count > 0)
                     {
-                        List<ProductionFacilityEntity> itemsCast = items.Select(x => (ProductionFacilityEntity)x).ToList();
-                        if (itemsCast.Count > 0)
+                        foreach (ProductionFacilityEntity item in itemsCast)
                         {
-                            foreach (ProductionFacilityEntity item in itemsCast)
+                            ProductionFacilityEntity itemCopy = item.CloneCast();
+                            Assert.AreEqual(true, item.Equals(itemCopy));
+                            Assert.AreEqual(true, itemCopy.Equals(item));
+                            ProductionFacilityEntity itemChange = new()
                             {
-                                ProductionFacilityEntity itemCopy = item.CloneCast();
-                                Assert.AreEqual(true, item.Equals(itemCopy));
-                                Assert.AreEqual(true, itemCopy.Equals(item));
-                                ProductionFacilityEntity itemChange = new()
-                                {
-                                    IsMarked = true,
-                                };
-                                _ = itemChange.ToString();
-                                Assert.AreNotEqual(true, itemChange.Equals(item));
-                                Assert.AreNotEqual(true, item.Equals(itemChange));
-                            }
+                                IsMarked = true,
+                            };
+                            _ = itemChange.ToString();
+                            Assert.AreNotEqual(true, itemChange.Equals(item));
+                            Assert.AreNotEqual(true, item.Equals(itemChange));
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 }

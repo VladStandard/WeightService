@@ -21,9 +21,10 @@ namespace DataCore.Localizations
         #region Public and private fields and properties
 
         public string AllowedHosts => Lang == ShareEnums.Lang.English ? "Allowed hosts" : "Разрешенные хосты";
-        public string ItemRowsCount => Lang == ShareEnums.Lang.English ? "Records's rows count" : "Количество строк в записи";
         public string SectionRowsCount => Lang == ShareEnums.Lang.English ? "Section's rows count" : "Количество строк в секции";
-        public string SelectTopRowsCount => Lang == ShareEnums.Lang.English ? "Selection's top rows count" : "Подсчет верхних строк селекции";
+        public string ItemRowsCount => Lang == ShareEnums.Lang.English ? "Records's rows count" : "Количество строк в записи";
+        public string SectionAndItemRowsCount => Lang == ShareEnums.Lang.English ? "Section's and record's rows count" : "Количество строк в секции и записи";
+        public string SelectTopRowsCount => Lang == ShareEnums.Lang.English ? "Selection's top rows count" : "Количество строк выборки";
         public string Version => Lang == ShareEnums.Lang.English ? "Version of the json-settings file" : "Версия файла json-настроек";
 
         #endregion

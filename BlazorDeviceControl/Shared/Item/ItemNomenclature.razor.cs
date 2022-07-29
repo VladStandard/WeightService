@@ -21,7 +21,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
-        public ItemNomenclature() : base()
+        public ItemNomenclature()
         {
             //
         }
