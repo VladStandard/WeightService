@@ -32,9 +32,8 @@ namespace DataCoreTests.Sql.TableScaleModels
                 foreach (bool isShowMarkedItems in TestsEnums.GetBool())
                 {
                     List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<WeithingFactEntity>(
-                            (isShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            null, 10)
+                        isShowMarkedItems ? null
+                            : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }), null, 10)
                         ?.ToList<BaseEntity>();
                     if (items != null)
                     {

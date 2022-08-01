@@ -32,10 +32,9 @@ namespace DataCoreTests.Sql.TableScaleModels
                 foreach (bool isShowMarkedItems in TestsEnums.GetBool())
                 {
                     List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ProductSeriesEntity>(
-                            (isShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
-                            10)
+                        (isShowMarkedItems == true) ? null
+                        : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                            new(DbField.User, DbOrderDirection.Asc), 10)
                         ?.ToList<BaseEntity>();
                     if (items != null)
                     {

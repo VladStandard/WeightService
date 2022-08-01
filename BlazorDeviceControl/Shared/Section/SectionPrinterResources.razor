@@ -32,12 +32,17 @@ else
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="IdentityId"
-                Title=@LocaleCore.Table.Id Type="int" Width="10%" />
+            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Id Width="10%">
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.IdentityId}")
+                            Text=@itemCast.IdentityId.ToString() />
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
-                Title=@LocaleCore.Table.Description Type="string" Width="30%" />
+                Title=@LocaleCore.Table.Description Type="string" Width="45%" />
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
-                Title=@LocaleCore.Table.Resource Type="string" Width="30%" />
+                Title=@LocaleCore.Table.Resource Type="string" Width="45%" />
         </Columns>
     </RadzenGrid>
 

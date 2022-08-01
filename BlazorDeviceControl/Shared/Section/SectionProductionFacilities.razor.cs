@@ -11,6 +11,9 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
+/// <summary>
+/// Section ProductionFacilities.
+/// </summary>
 public partial class SectionProductionFacilities
 {
     #region Public and private fields, properties, constructor
@@ -39,11 +42,14 @@ public partial class SectionProductionFacilities
                 await GuiRefreshWithWaitAsync();
 
                 Items = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-                    (IsShowMarkedItems == true) ? null
-                        : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                    new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc),
+                    IsShowMarkedItems ? null
+                        : new FieldListEntity(
+                            new() { new(DbField.IsMarked, DbComparer.Equal, false),
+                            //new(DbField.IdentityId, DbComparer.NotEqual, 0, typeof(long)),
+                        }),
+                    new(DbField.Name, DbOrderDirection.Asc),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
+                    ?.Where(x => x.IdentityId > 0).ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);
                 IsLoaded = true;
                 await GuiRefreshWithWaitAsync();

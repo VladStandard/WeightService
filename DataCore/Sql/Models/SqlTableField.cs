@@ -3,71 +3,86 @@
 
 using System;
 
-namespace DataCore.Sql.Models
+namespace DataCore.Sql.Models;
+
+/// <summary>
+/// SQL table field.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class SqlTableField<T> where T : IConvertible
 {
+    #region Public and private fields, properties, constructor
+
     /// <summary>
-    /// SQL table field.
+    /// Field name.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class SqlTableField<T> where T : IConvertible
+    public string Name { get; }
+
+    /// <summary>
+    /// Field value.
+    /// </summary>
+    public T? Value { get; set; }
+
+    /// <summary>
+    /// Field default value.
+    /// </summary>
+    public T? DefaultValue { get; }
+
+    /// <summary>
+    /// Constructor for serialization.
+    /// </summary>
+    public SqlTableField() : this(string.Empty, default, default) { }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="value"></param>
+    /// <param name="defValue"></param>
+    /// <exception cref="ArgumentException"></exception>
+    public SqlTableField(string name, T? value, T? defValue)
     {
-        #region Public and private fields and properties
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentException(name);
 
-        /// <summary>
-        /// Field name.
-        /// </summary>
-        public string Name { get; }
+        Name = name;
+        Value = value;
+        DefaultValue = defValue;
 
-        /// <summary>
-        /// Field value.
-        /// </summary>
-        public T? Value { get; set; }
-
-        /// <summary>
-        /// Field default value.
-        /// </summary>
-        public T? DefaultValue { get; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        /// <summary>
-        /// Constructor for serialization.
-        /// </summary>
-        public SqlTableField() : this(string.Empty, default, default) { }
-
-        public SqlTableField(string name, T? value, T? defValue)
+        if (typeof(T) == typeof(string))
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException(name);
-
-            Name = name;
-            Value = value;
-            DefaultValue = defValue;
-
-            if (typeof(T) == typeof(string))
-            {
-                if (Value == null)
-                    Value = (T)Convert.ChangeType(string.Empty, typeof(T));
-                if (DefaultValue == null)
-                    DefaultValue = (T)Convert.ChangeType(string.Empty, typeof(T));
-            }
+            if (Value == null)
+                Value = (T)Convert.ChangeType(string.Empty, typeof(T));
+            if (DefaultValue == null)
+                DefaultValue = (T)Convert.ChangeType(string.Empty, typeof(T));
         }
-
-        public SqlTableField(string name, T? value) : this(name, value, value) { }
-
-        public SqlTableField(string name) : this(name, default, default) { }
-
-        #endregion
-
-        #region Public and private methods
-
-        public override string ToString()
-        {
-            return Value is string value ? value : string.Empty;
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="value"></param>
+    public SqlTableField(string name, T? value) : this(name, value, value) { }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="name"></param>
+    public SqlTableField(string name) : this(name, default, default) { }
+
+    #endregion
+
+    #region Public and private methods
+
+    /// <summary>
+    /// To string override.
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        return Value is string value ? value : string.Empty;
+    }
+
+    #endregion
 }

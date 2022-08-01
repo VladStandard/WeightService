@@ -102,12 +102,29 @@ namespace DataCore
             Error,
         }
 
+        /// <summary>
+        /// DB type.
+        /// </summary>
         public enum DbType
         {
             Debug,
             Release,
         }
 
+        /// <summary>
+        /// DB comparer.
+        /// </summary>
+        public enum DbComparer
+        {
+            Equal,
+            NotEqual,
+            More,
+            Less,
+        }
+
+        /// <summary>
+        /// DB field.
+        /// </summary>
         public enum DbField
         {
             CategoryId,

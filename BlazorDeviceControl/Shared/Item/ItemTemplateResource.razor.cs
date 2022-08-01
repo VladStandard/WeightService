@@ -1,21 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Models;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
 using BlazorInputFile;
+using DataCore;
+using DataCore.Localizations;
+using DataCore.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Radzen;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DataCore;
-using DataCore.Models;
-using DataCore.Sql.TableScaleModels;
-using BlazorCore.Models;
-using DataCore.Sql.Models;
 using static DataCore.ShareEnums;
-using DataCore.Localizations;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -60,12 +57,13 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Default();
                     await GuiRefreshWithWaitAsync();
 
                     ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?>{ { DbField.IdentityId, IdentityId } }));
+                        new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
                     ButtonSettings = new(false, false, false, false, false, true, true);

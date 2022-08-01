@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ namespace BlazorCore.Models
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
             ContragentEntityV2[]? items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntityV2>(null,
-                new FieldOrderEntity(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Asc));
+                new(ShareEnums.DbField.CreateDt));
             int i = 0;
             switch (field)
             {
@@ -37,7 +36,7 @@ namespace BlazorCore.Models
                     {
                         foreach (ContragentEntityV2 item in items)
                         {
-                            entitiesDateCreated.Add(new ChartCountEntity(item.CreateDt.Date, 1));
+                            entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
                             i++;
                         }
                     }
@@ -46,7 +45,7 @@ namespace BlazorCore.Models
                     i = 0;
                     foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupCreated)
                     {
-                        result[i] = new ChartCountEntity(item.Key, item.Count());
+                        result[i] = new(item.Key, item.Count());
                         i++;
                     }
                     break;
@@ -56,7 +55,7 @@ namespace BlazorCore.Models
                     {
                         foreach (ContragentEntityV2 item in items)
                         {
-                            entitiesDateModified.Add(new ChartCountEntity(item.ChangeDt.Date, 1));
+                            entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
                             i++;
                         }
                     }
@@ -65,7 +64,7 @@ namespace BlazorCore.Models
                     i = 0;
                     foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupModified)
                     {
-                        result[i] = new ChartCountEntity(item.Key, item.Count());
+                        result[i] = new(item.Key, item.Count());
                         i++;
                     }
                     break;
@@ -77,7 +76,7 @@ namespace BlazorCore.Models
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
             NomenclatureEntity[] items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                new FieldOrderEntity(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Asc));
+                new(ShareEnums.DbField.CreateDt));
             int i = 0;
             switch (field)
             {
@@ -86,7 +85,7 @@ namespace BlazorCore.Models
                     foreach (NomenclatureEntity item in items)
                     {
                         if (item.CreateDt != default)
-                            entitiesDateCreated.Add(new ChartCountEntity(item.CreateDt.Date, 1));
+                            entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
                         i++;
                     }
                     IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(item => item.Date).ToArray();
@@ -94,7 +93,7 @@ namespace BlazorCore.Models
                     i = 0;
                     foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesGroupCreated)
                     {
-                        result[i] = new ChartCountEntity(item.Key, item.Count());
+                        result[i] = new(item.Key, item.Count());
                         i++;
                     }
                     break;
@@ -103,7 +102,7 @@ namespace BlazorCore.Models
                     foreach (NomenclatureEntity item in items)
                     {
                         if (item.ChangeDt != default)
-                            entitiesDateModified.Add(new ChartCountEntity(item.ChangeDt.Date, 1));
+                            entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
                         i++;
                     }
 
@@ -112,7 +111,7 @@ namespace BlazorCore.Models
                     i = 0;
                     foreach (IGrouping<DateTime, ChartCountEntity> item in entitiesModied)
                     {
-                        result[i] = new ChartCountEntity(item.Key, item.Count());
+                        result[i] = new(item.Key, item.Count());
                         i++;
                     }
 

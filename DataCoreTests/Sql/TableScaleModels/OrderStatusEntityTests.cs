@@ -33,8 +33,8 @@ namespace DataCoreTests.Sql.TableScaleModels
                 {
                     List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<OrderStatusEntity>(
                             (isShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
+                                : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                            new(DbField.User, DbOrderDirection.Asc), 
                             10)
                         ?.ToList<BaseEntity>();
                     if (items != null)

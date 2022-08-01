@@ -2,14 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -23,11 +20,6 @@ namespace BlazorDeviceControl.Shared.Section
         #endregion
 
         #region Public and private methods
-
-        public SectionPlus() : base()
-        {
-            //
-        }
 
         private void Default()
         {
@@ -53,17 +45,15 @@ namespace BlazorDeviceControl.Shared.Section
                     if (IsShowMarkedItems)
                     {
                         if (scaleId == null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    null,
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(null,
+                                    new(DbField.GoodsName),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                 ?.ToList<BaseEntity>();
                         else
                         {
                             Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>
-                                        { { $"Scale.{DbField.IdentityId}", scaleId } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
+                                    new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
+                                    new(DbField.GoodsName),
                                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                 ?.ToList<BaseEntity>();
                         }
@@ -72,21 +62,18 @@ namespace BlazorDeviceControl.Shared.Section
                     {
                         if (scaleId == null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(
-                                        new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                                new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                                new(DbField.GoodsName),
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                 ?.ToList<BaseEntity>();
                         else
                         {
                             Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>
-                                    {
-                                        { $"Scale.{DbField.IdentityId}", scaleId },
-                                        { DbField.IsMarked.ToString(), false }
-                                    }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc),
-                                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                                new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, scaleId),
+                                    new(DbField.IsMarked, DbComparer.Equal, false)
+                                }),
+                                new(DbField.GoodsName),
+                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                                 ?.ToList<BaseEntity>();
                         }
                     }
@@ -101,7 +88,7 @@ namespace BlazorDeviceControl.Shared.Section
         {
             if (items != null)
             {
-                Items = new List<BaseEntity>();
+                Items = new();
                 foreach (BaseEntity item in items)
                 {
                     if (item is PluEntity plu && plu.Scale.IdentityId == scaleId)

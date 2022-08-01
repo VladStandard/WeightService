@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using System;
-using System.Collections.Generic;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers
@@ -34,13 +32,12 @@ namespace DataCore.Sql.Controllers
             if (!string.IsNullOrEmpty(appName) && appName is string strName)
             {
                 app = DataAccess.Crud.GetEntity<AppEntity>(
-                    new FieldListEntity(new Dictionary<DbField, object?> {
-                        { DbField.Name, appName },
-                        { DbField.IsMarked, false },
+                    new(new() { new(DbField.Name, DbComparer.Equal, appName),
+                        new(DbField.IsMarked, DbComparer.Equal, false),
                     }));
                 if (app == null || app.EqualsDefault())
                 {
-                    app = new AppEntity()
+                    app = new()
                     {
                         Name = strName,
                         CreateDt = DateTime.Now,
@@ -56,12 +53,11 @@ namespace DataCore.Sql.Controllers
         public AppEntity? GetEntity(string? appName)
         {
             AppEntity? app = null;
-            if (!string.IsNullOrEmpty(appName) && appName is string strName)
+            if (!string.IsNullOrEmpty(appName) && appName is { } strName)
             {
                 app = DataAccess.Crud.GetEntity<AppEntity>(
-                    new FieldListEntity(new Dictionary<DbField, object?> {
-                        { DbField.Name, appName },
-                        { DbField.IsMarked, false },
+                    new(new() { new(DbField.Name, DbComparer.Equal, appName),
+                        new(DbField.IsMarked, DbComparer.Equal, false),
                     }));
             }
             return app;

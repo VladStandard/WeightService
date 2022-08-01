@@ -10,10 +10,6 @@ using MudBlazor.Services;
 using Radzen;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
-AppSettingsHelper appSettings = AppSettingsHelper.Instance;
-//IConfiguration Configuration;
-//IWebHostEnvironment env;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add builder.Services to the container.
 builder.Services.AddRazorPages();
@@ -64,30 +60,6 @@ app.UseAuthorization();
 // Last step.
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapBlazorHub();
-//    endpoints.MapFallbackToPage("/_Host");
-//});
-appSettings.DataAccess.JsonControl.SetupForBlazorApp(app.Environment.ContentRootPath,
+AppSettingsHelper.Instance.DataAccess.JsonControl.SetupForBlazorApp(app.Environment.ContentRootPath,
     NetUtils.GetLocalHostName(false), nameof(BlazorDeviceControl));
 app.Run();
-
-//public class Program
-//{
-//    public static void Main(string[] args)
-//    {
-//        CreateHostBuilder(args).Build().Run();
-//    }
-
-//    private static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
-//        .ConfigureWebHostDefaults(webBuilder =>
-//        {
-//            webBuilder.UseStartup<Startup>();
-//        })
-//        .ConfigureAppConfiguration((config) =>
-//        {
-//            config.SetBasePath(Directory.GetCurrentDirectory());
-//        })
-//        ;
-//}

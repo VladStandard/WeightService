@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils.Tsc;
 using System;
@@ -98,8 +97,8 @@ namespace WeightCore.Zpl
                 return result;
 
             List<TemplateResourceEntity> resources = DataAccessHelper.Instance.Crud.GetEntities<TemplateResourceEntity>(
-                new FieldListEntity(new Dictionary<string, object> { { $"{nameof(TemplateResourceEntity.Type)}", "ZPL" } }),
-                new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc)).ToList();
+                new(new() { new($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL") }),
+                new(DbField.Name, DbOrderDirection.Asc)).ToList();
             foreach (TemplateResourceEntity resource in resources)
             {
                 string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);

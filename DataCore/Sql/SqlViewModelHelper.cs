@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MvvmHelpers;
@@ -143,8 +142,8 @@ namespace DataCore.Sql
             }
 
             List<ScaleEntity> scales = SqlUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc)).ToList();
+                new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                new(DbField.Description)).ToList();
             Scales = new();
             scales.ForEach(scale => Scales.Add(scale.Description));
         }

@@ -2,9 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
@@ -36,7 +34,7 @@ namespace BlazorCore.Models
 
         public UserSettingsHelper()
         {
-            Identity = new IdentityEntity();
+            Identity = new();
             HotKeys = null;
             HotKeysContext = null;
         }
@@ -48,7 +46,7 @@ namespace BlazorCore.Models
         public void SetupAccessRights()
         {
             AccessEntity? access = DataAccess.Crud.GetEntity<AccessEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.User, Identity.UserName } }));
+                new(new() { new(DbField.User, DbComparer.Equal, Identity.UserName) }));
             Identity.SetAccessRights(access.Rights);
             //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(
             //    SqlQueries.DbServiceManaging.Tables.Access.GetAccessRights(Identity.Name),

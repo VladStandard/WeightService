@@ -7,11 +7,7 @@ using DataCore.Models;
 using DataCore.Sql.DataModels;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -66,13 +62,13 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                         default:
                             ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                                new(new Dictionary<DbField, object?> { { DbField.IdentityId, IdentityId } }), null);
+                                new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
                             break;
                     }
 
                     // Templates.
                     List<TemplateEntity>? templates = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.Title, DbOrderDirection.Asc))
                         ?.ToList();
                     if (templates is not null)
@@ -82,7 +78,7 @@ namespace BlazorDeviceControl.Shared.Item
                     }
                     // Nomenclatures.
                     List<NomenclatureEntity>? nomenclatures = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
-                        new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.Name, DbOrderDirection.Asc))
                         ?.ToList();
                     if (nomenclatures is not null)
@@ -93,7 +89,7 @@ namespace BlazorDeviceControl.Shared.Item
 
                     // ScaleItems.
                     List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                        new(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.Description, DbOrderDirection.Asc))
                         ?.ToList();
                     if (scales is not null)

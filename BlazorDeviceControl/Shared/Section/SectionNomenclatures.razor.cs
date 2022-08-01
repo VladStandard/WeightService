@@ -51,7 +51,7 @@ namespace BlazorDeviceControl.Shared.Section
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                        new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc),
+                        new(DbField.Name),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     ButtonSettings = new(true, true, true, true, true, false, false);

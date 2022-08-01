@@ -1,9 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Protocols;
+using DataCore.Sql.TableScaleModels;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -33,16 +32,15 @@ namespace DataCore.Sql.Controllers
         public HostEntity? GetOrCreateNew(string? hostName)
         {
             HostEntity? host = null;
-            if (!string.IsNullOrEmpty(hostName) && hostName is string strName)
+            if (!string.IsNullOrEmpty(hostName) && hostName is { } strName)
             {
                 host = DataAccess.Crud.GetEntity<HostEntity>(
-                    new FieldListEntity(new Dictionary<DbField, object?> {
-                        { DbField.HostName, hostName },
-                        { DbField.IsMarked, false },
+                    new(new() { new(DbField.HostName, DbComparer.Equal, hostName),
+                        new(DbField.IsMarked, DbComparer.Equal, false),
                     }));
                 if (host == null || host.EqualsDefault())
                 {
-                    host = new HostEntity()
+                    host = new()
                     {
                         Name = strName,
                         HostName = strName,
@@ -69,9 +67,8 @@ namespace DataCore.Sql.Controllers
             if (!string.IsNullOrEmpty(hostName) && hostName is string strName)
             {
                 host = DataAccess.Crud.GetEntity<HostEntity>(
-                    new FieldListEntity(new Dictionary<DbField, object?> {
-                        { DbField.HostName, strName },
-                        { DbField.IsMarked, false },
+                    new(new() { new(DbField.HostName, DbComparer.Equal, strName),
+                        new(DbField.IsMarked, DbComparer.Equal, false),
                     }));
                 if (host != null && !host.EqualsDefault())
                 {
@@ -101,7 +98,7 @@ namespace DataCore.Sql.Controllers
                             AccessDt = Convert.ToDateTime(obj[3]),
                             Name = Convert.ToString(obj[4]),
                             Ip = Convert.ToString(obj[5]),
-                            MacAddress = new MacAddressEntity(Convert.ToString(obj[6])),
+                            MacAddress = new(Convert.ToString(obj[6])),
                             IdRRef = Guid.Parse(Convert.ToString(obj[7])),
                             IsMarked = Convert.ToBoolean(obj[8]),
                         };
@@ -132,7 +129,7 @@ namespace DataCore.Sql.Controllers
                             AccessDt = Convert.ToDateTime(obj[3]),
                             Name = Convert.ToString(obj[4]),
                             Ip = Convert.ToString(obj[7]),
-                            MacAddress = new MacAddressEntity(Convert.ToString(obj[8])),
+                            MacAddress = new(Convert.ToString(obj[8])),
                             IdRRef = Guid.Parse(Convert.ToString(obj[9])),
                             IsMarked = Convert.ToBoolean(obj[10]),
                         };

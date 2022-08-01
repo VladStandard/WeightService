@@ -303,7 +303,7 @@ namespace BlazorCore.Models
             {
                 if (scale.Host?.IdentityId != 0)
                 {
-                    scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<HostEntity>(scale.Host?.IdentityId);
+                    scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<HostEntity>(scale.Host?.IdentityId);
                     success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Table.Host);
                 }
                 else
@@ -313,7 +313,7 @@ namespace BlazorCore.Models
             {
                 if (scale.PrinterMain?.IdentityId != 0)
                 {
-                    scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<PrinterEntity>(scale.PrinterMain?.IdentityId);
+                    scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterMain?.IdentityId);
                     success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
                 }
                 else
@@ -323,7 +323,7 @@ namespace BlazorCore.Models
             {
                 if (scale.PrinterShipping?.IdentityId != 0)
                 {
-                    scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<PrinterEntity>(scale.PrinterShipping?.IdentityId);
+                    scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
                     success = FieldControl.ProcessChecks(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
                 }
                 else
@@ -333,7 +333,7 @@ namespace BlazorCore.Models
             {
                 if (scale.TemplateDefault?.IdentityId != 0)
                 {
-                    scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<TemplateEntity>(scale.TemplateDefault?.IdentityId);
+                    scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
                     success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
                 }
                 else
@@ -343,7 +343,7 @@ namespace BlazorCore.Models
             {
                 if (scale.TemplateSeries?.IdentityId != 0)
                 {
-                    scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<TemplateEntity>(scale.TemplateSeries?.IdentityId);
+                    scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
                     success = FieldControl.ProcessChecks(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
                 }
                 else
@@ -353,7 +353,7 @@ namespace BlazorCore.Models
             {
                 if (scale.WorkShop?.IdentityId != 0)
                 {
-                    scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntity<WorkShopEntity>(scale.WorkShop?.IdentityId);
+                    scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<WorkShopEntity>(scale.WorkShop?.IdentityId);
                     success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Table.Template);
                 }
                 else

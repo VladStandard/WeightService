@@ -2,14 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -45,15 +42,15 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async() =>
+                new Task(async () =>
                 {
                     Default();
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
                         (IsShowMarkedItems == true) ? null
-                            : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc),
+                            : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.Description, DbOrderDirection.Asc),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     ButtonSettings = new(true, true, true, true, true, false, false);

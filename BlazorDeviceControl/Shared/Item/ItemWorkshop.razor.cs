@@ -2,14 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -19,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         private WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
-        private List<ProductionFacilityEntity> ProductionFacilities { get; set; } = null;
+        private List<ProductionFacilityEntity> ProductionFacilities { get; set; }
 
         #endregion
 
@@ -38,18 +34,19 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Default();
                     await GuiRefreshWithWaitAsync();
 
                     ItemCast = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?>{ { DbField.IdentityId, IdentityId } }));
+                        new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
                     // ProductionFacilities.
                     List<ProductionFacilityEntity>? productionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.Name, DbOrderDirection.Asc))
                         ?.ToList();
                     if (productionFacilities is not null)
                     {

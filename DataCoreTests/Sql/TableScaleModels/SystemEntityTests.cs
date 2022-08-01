@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Generic;
+using System.Linq;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 using static DataCore.ShareEnums;
 
 namespace DataCoreTests.Sql.TableScaleModels
@@ -29,10 +29,8 @@ namespace DataCoreTests.Sql.TableScaleModels
         {
             Assert.DoesNotThrow(() =>
             {
-                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<VersionEntity>(
-                        null,
-                        new FieldOrderEntity(DbField.ReleaseDt, DbOrderDirection.Asc), 
-                        10)
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<VersionEntity>(null,
+                    new(DbField.ReleaseDt), 10)
                     ?.ToList<BaseEntity>();
                 if (items != null)
                 {

@@ -3,14 +3,11 @@
 
 using BlazorCore.Models;
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -60,8 +57,8 @@ namespace BlazorDeviceControl.Shared.Section
                         TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                         Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                             (IsShowMarkedItems == true) ? null
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                            new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
+                                : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                            new(DbField.CategoryId, DbOrderDirection.Asc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
@@ -69,9 +66,10 @@ namespace BlazorDeviceControl.Shared.Section
                     {
                         Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                             (IsShowMarkedItems == true)
-                                ? new FieldListEntity(new Dictionary<DbField, object?> { { DbField.CategoryId, TemplateCategory } })
-                                : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false }, { DbField.CategoryId, TemplateCategory } }),
-                            new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc),
+                                ? new(new() { new(DbField.CategoryId, DbComparer.Equal, TemplateCategory) })
+                                : new(new() { new(DbField.IsMarked, DbComparer.Equal, false),
+                                    new(DbField.CategoryId, DbComparer.Equal, TemplateCategory) }),
+                            new(DbField.CategoryId, DbOrderDirection.Asc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }

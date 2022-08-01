@@ -6,7 +6,6 @@ using DataCore.Sql.TableScaleModels;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using NSubstitute;
 using static DataCore.ShareEnums;
 // ReSharper disable MethodTooLong
 // ReSharper disable CognitiveComplexity
@@ -46,8 +45,8 @@ internal class ProductionFacilityEntityTests
             {
                 List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
                         (isShowMarkedItems == true) ? null
-                            : new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.User, DbOrderDirection.Asc), 
+                            : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.User, DbOrderDirection.Asc),
                         10)
                     ?.ToList<BaseEntity>();
                 if (items != null)

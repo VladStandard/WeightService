@@ -4,6 +4,8 @@
 @page "/item/printerresource/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
+@using DataCore.Sql.TableScaleModels
+@using static BlazorCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
 {
@@ -45,14 +47,13 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" TValue="int" 
-                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@PrinterItems PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                            TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Printer), args)) 
-                            ValueProperty="IdentityId" Value=@ItemCast.Printer.IdentityId
-                            />
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                           @bind-Value=@ItemCast.Printer.IdentityId>
+                            @foreach (PrinterEntity item in PrinterItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
             </tr>
@@ -70,14 +71,13 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" TValue="int" 
-                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@ResourceItems PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                            TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Resource), args)) 
-                            ValueProperty="Id" Value=@ItemCast.Resource.IdentityId
-                            />
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                           @bind-Value=@ItemCast.Resource.IdentityId>
+                            @foreach (TemplateResourceEntity item in ResourceItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
             </tr>

@@ -4,7 +4,6 @@
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using System;
-using System.Collections.Generic;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.DataModels
@@ -133,7 +132,7 @@ namespace DataCore.Sql.DataModels
             if (dataAccess != null && !string.IsNullOrEmpty(Scale))
             {
                 ScaleEntity scale = dataAccess.Crud.GetEntity<ScaleEntity>(
-                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Description, Scale } }));
+                    new FieldListEntity(new() { new(DbField.Description, DbComparer.Equal, Scale) }));
                 return scale.IdentityId;
             }
             return 0;
@@ -144,7 +143,7 @@ namespace DataCore.Sql.DataModels
             if (dataAccess != null && !string.IsNullOrEmpty(Host))
             {
                 HostEntity host = dataAccess.Crud.GetEntity<HostEntity>(
-                    new FieldListEntity(new Dictionary<DbField, object?> { { DbField.HostName, Host } }));
+                    new FieldListEntity(new() { new(DbField.HostName, DbComparer.Equal, Host) }));
                 return host.IdentityId;
             }
             return 0;

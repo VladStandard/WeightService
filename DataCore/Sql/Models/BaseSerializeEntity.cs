@@ -12,138 +12,133 @@ using System.Xml;
 using System.Xml.Serialization;
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql.Models
+namespace DataCore.Sql.Models;
+
+[Serializable()]
+public class BaseSerializeEntity : ISerializable
 {
-    [Serializable()]
-    public class BaseSerializeEntity : ISerializable
+    #region Public and private fields, properties, constructor
+
+    [XmlIgnore] public virtual SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+    public BaseSerializeEntity()
     {
-        #region Public and private fields and properties
+        //
+    }
 
-        [XmlIgnore] public virtual SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+    protected BaseSerializeEntity(SerializationInfo info, StreamingContext context)
+    {
+        //
+    }
 
-        #endregion
+    #endregion
 
-        #region Constructor and destructor
+    #region Public and private methods
 
-        public BaseSerializeEntity()
+    public virtual XmlWriterSettings GetXmlWriterSettings() => new()
+    {
+        ConformanceLevel = ConformanceLevel.Document,
+        OmitXmlDeclaration = false, // не подавлять xml заголовок
+        Encoding = Encoding.UTF8,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
+        Indent = true,              // добавлять отступы
+        IndentChars = "\t"          // сиволы отступа
+    };
+
+    public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
+
+    public virtual string SerializeAsXml<T>(bool isAddEmptyNamespace) where T : new()
+    {
+        // Don't use it.
+        // XmlSerializer xmlSerializer = new(typeof(T));
+        // Use it.
+        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+        
+        using StringWriter stringWriter = new();
+        if (isAddEmptyNamespace)
         {
-            //
+            XmlSerializerNamespaces emptyNamespaces = new();
+            emptyNamespaces.Add(string.Empty, string.Empty);
+            using XmlWriter xw = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
+            xmlSerializer.Serialize(xw, this, emptyNamespaces);
         }
-
-        protected BaseSerializeEntity(SerializationInfo info, StreamingContext context)
+        else
         {
-            //
+            xmlSerializer.Serialize(stringWriter, this);
         }
+        return stringWriter.ToString();
+    }
 
-        #endregion
+    public virtual T DeserializeFromXml<T>(string xml) where T : new()
+    {
+        // Don't use it.
+        // XmlSerializer xmlSerializer = new(typeof(T));
+        // Use it.
+        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+        return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
+    }
 
-        #region Public and private methods
-
-        public virtual XmlWriterSettings GetXmlWriterSettings() => new()
+    public virtual T DeserializeFromXmlVersion2<T>(string xml) where T : new()
+    {
+        // Don't use it.
+        // XmlSerializer xmlSerializer = new(typeof(T));
+        // Use it.
+        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+        //T result = new();
+        T result;
+        using (TextReader reader = new StringReader(xml))
         {
-            ConformanceLevel = ConformanceLevel.Document,
-            OmitXmlDeclaration = false, // не подавлять xml заголовок
-            Encoding = Encoding.UTF8,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
-            Indent = true,              // добавлять отступы
-            IndentChars = "\t"          // сиволы отступа
-        };
-
-        public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
-
-        public virtual string SerializeAsXml<T>(bool isAddEmptyNamespace) where T : new()
-        {
-            // Don't use it.
-            // XmlSerializer xmlSerializer = new(typeof(T));
-            // Use it.
-            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-            
-            using StringWriter stringWriter = new();
-            if (isAddEmptyNamespace)
-            {
-                XmlSerializerNamespaces emptyNamespaces = new();
-                emptyNamespaces.Add(string.Empty, string.Empty);
-                using XmlWriter xw = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-                xmlSerializer.Serialize(xw, this, emptyNamespaces);
-            }
-            else
-            {
-                xmlSerializer.Serialize(stringWriter, this);
-            }
-            return stringWriter.ToString();
+            result = (T)xmlSerializer.Deserialize(reader);
         }
+        return result;
+    }
 
-        public virtual T DeserializeFromXml<T>(string xml) where T : new()
-        {
-            // Don't use it.
-            // XmlSerializer xmlSerializer = new(typeof(T));
-            // Use it.
-            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-            return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
-        }
-
-        public virtual T DeserializeFromXmlVersion2<T>(string xml) where T : new()
-        {
-            // Don't use it.
-            // XmlSerializer xmlSerializer = new(typeof(T));
-            // Use it.
-            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-            //T result = new();
-            T result;
-            using (TextReader reader = new StringReader(xml))
-            {
-                result = (T)xmlSerializer.Deserialize(reader);
-            }
-            return result;
-        }
-
-        public virtual string SerializeAsHtml() => @$"
+    public virtual string SerializeAsHtml() => @$"
 <html>
-    <body>
-        {this}
-    </body>
+<body>
+    {this}
+</body>
 </html>
-            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-        public virtual string SerializeAsText() => ToString();
+    public virtual string SerializeAsText() => ToString();
 
-        public virtual ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
+    public virtual ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
 
-        public virtual string GetContentType(FormatType format) => format switch
+    public virtual string GetContentType(FormatType format) => format switch
+    {
+        FormatType.Xml => "application/xml",
+        FormatType.Json => "application/json",
+        FormatType.Html => "application/html",
+        FormatType.Text => "application/text",
+        FormatType.Raw => "application/text",
+        _ => throw GetArgumentException(nameof(format)),
+    };
+
+    public virtual ContentResult GetResultInside(FormatType format, object content, HttpStatusCode statusCode) => new()
+    {
+        ContentType = GetContentType(format),
+        StatusCode = (int)statusCode,
+        Content = content is string ? content as string : content?.ToString()
+    };
+
+    public virtual ContentResult GetResult(FormatType format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
+
+    public virtual ContentResult GetResult<T>(FormatType format, HttpStatusCode statusCode) where T : new()
+    {
+        return format switch
         {
-            FormatType.Xml => "application/xml",
-            FormatType.Json => "application/json",
-            FormatType.Html => "application/html",
-            FormatType.Text => "application/text",
-            FormatType.Raw => "application/text",
+            FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
+            FormatType.Xml => GetResult(format, SerializeAsXml<T>(false), statusCode),
+            FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
+            FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
             _ => throw GetArgumentException(nameof(format)),
         };
-
-        public virtual ContentResult GetResultInside(FormatType format, object content, HttpStatusCode statusCode) => new()
-        {
-            ContentType = GetContentType(format),
-            StatusCode = (int)statusCode,
-            Content = content is string ? content as string : content?.ToString()
-        };
-
-        public virtual ContentResult GetResult(FormatType format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
-
-        public virtual ContentResult GetResult<T>(FormatType format, HttpStatusCode statusCode) where T : new()
-        {
-            return format switch
-            {
-                FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
-                FormatType.Xml => GetResult(format, SerializeAsXml<T>(false), statusCode),
-                FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
-                FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
-                _ => throw GetArgumentException(nameof(format)),
-            };
-        }
-
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            //info.AddValue(nameof(SqlConnect), SqlConnect);
-        }
-
-        #endregion
     }
+
+    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        //info.AddValue(nameof(SqlConnect), SqlConnect);
+    }
+
+    #endregion
 }

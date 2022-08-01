@@ -21,7 +21,7 @@ public enum ColumnName
 [Serializable]
 public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [XmlIgnore] public virtual ColumnName IdentityName { get; private set; }
     public virtual Guid IdentityUid { get; set; }
@@ -34,10 +34,6 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         get => IdentityUid.ToString() is string str ? str : Guid.Empty.ToString(); 
         set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
     }
-
-    #endregion
-
-    #region Constructor and destructor
 
     private BaseEntity()
     {

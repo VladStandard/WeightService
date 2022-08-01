@@ -28,21 +28,28 @@ else
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Name Width="20%" >
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Table.Id Width="5%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
-                        Text=@itemCast.Name />
+                                Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
+                                Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Model Width="18%" >
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Name Width="18%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                                Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
+                                Text=@itemCast.Name />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Model Width="17%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.IdentityId}") 
                         Text=@itemCast.PrinterType.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Ip Type="string" Width="15%" >
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Ip Type="string" Width="14%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank" 
                         Path=@itemCast.Link
@@ -57,7 +64,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusException.Message" 
-                Title=@LocaleCore.Table.HttpStatusException Type="string" Width="15%" />
+                Title=@LocaleCore.Table.HttpStatusException Type="string" Width="14%" />
             <RadzenGridColumn TItem="PrinterEntity" Property="Port" 
                 TextAlign=TextAlign.Center Type="string" Width="7%" 
                 Title=@LocaleCore.Print.PortShort />

@@ -2,14 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -19,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<TemplateResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (TemplateResourceEntity)x).ToList();
-        
+
         #endregion
 
         #region Constructor and destructor
@@ -51,8 +48,8 @@ namespace BlazorDeviceControl.Shared.Section
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                        new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IsMarked, false } }),
-                        new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc),
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.Type, DbOrderDirection.Asc),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     Items?.OrderBy(x => ((TemplateResourceEntity)x).Name);

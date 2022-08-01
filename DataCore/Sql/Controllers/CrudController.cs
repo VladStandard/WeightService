@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableDwhModels;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Sql.DataModels;
 using DataCore.Sql.Models;
+using DataCore.Sql.TableDwhModels;
+using DataCore.Sql.TableScaleModels;
 using FluentNHibernate.Conventions;
 using NHibernate;
 using NHibernate.Criterion;
@@ -70,12 +70,39 @@ namespace DataCore.Sql.Controllers
             {
                 criteria.SetMaxResults(maxResults);
             }
-            if (fieldList is { Use: true, Fields: { } })
+            if (fieldList is { IsEnabled: true, Fields: { } })
             {
-                AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
-                criteria.Add(fieldsWhere);
+                //AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
+                //criteria.Add(fieldsWhere);
+                foreach (FieldEntity field in fieldList.Fields)
+                {
+                    AbstractCriterion? criterion = null;
+                    switch (field.Comparer)
+                    {
+                        case DbComparer.Equal:
+                            //if (field.Value is { } valueEqual && field.ValueType is { } typeEqual)
+                            //    criterion = Restrictions.Eq(field.Name, (typeEqual.GetType())valueEqual);
+                            //else
+                            criterion = Restrictions.Eq(field.Name, field.Value);
+                            break;
+                        case DbComparer.NotEqual:
+                            //if (field.Value is { } valueNotEqual && field.ValueType is { } typeNotEqual)
+                            //    criterion = Restrictions.Not(Restrictions.Eq(field.Name, (typeNotEqual)valueNotEqual));
+                            //else
+                            criterion = Restrictions.Not(Restrictions.Eq(field.Name, field.Value));
+                            break;
+                        case DbComparer.More:
+                            break;
+                        case DbComparer.Less:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    if (criterion != null)
+                        criteria.Add(criterion);
+                }
             }
-            if (order != null && order is { Use: true })
+            if (order is { IsEnabled: true })
             {
                 Order fieldOrder = order.Direction == DbOrderDirection.Asc
                     ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
@@ -255,9 +282,9 @@ namespace DataCore.Sql.Controllers
                 case LogEntity log:
                     if (!log.EqualsEmpty())
                     {
-                        log.App = log.App?.IdentityUid == null ? new() : GetEntity<AppEntity>(log.App.IdentityUid);
-                        log.Host = log.Host?.IdentityId == null ? new() : GetEntity<HostEntity>(log.Host.IdentityId);
-                        log.LogType = log.LogType?.IdentityUid == null ? new() : GetEntity<LogTypeEntity>(log.LogType.IdentityUid);
+                        log.App = log.App?.IdentityUid == null ? new() : GetEntityByUid<AppEntity>(log.App.IdentityUid);
+                        log.Host = log.Host?.IdentityId == null ? new() : GetEntityById<HostEntity>(log.Host.IdentityId);
+                        log.LogType = log.LogType?.IdentityUid == null ? new() : GetEntityByUid<LogTypeEntity>(log.LogType.IdentityUid);
                     }
                     break;
                 case LogTypeEntity logType:
@@ -277,7 +304,7 @@ namespace DataCore.Sql.Controllers
                 case DeviceEntity device:
                     if (!device.EqualsEmpty())
                     {
-                        device.Scales = device.Scales?.IdentityId == null ? new() : GetEntity<ScaleEntity>(device.Scales.IdentityId);
+                        device.Scales = device.Scales?.IdentityId == null ? new() : GetEntityById<ScaleEntity>(device.Scales.IdentityId);
                     }
                     break;
             }
@@ -292,9 +319,9 @@ namespace DataCore.Sql.Controllers
                     {
                         if (!barcode.EqualsEmpty())
                         {
-                            barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntity<BarCodeTypeEntityV2>(barcode.BarcodeType.IdentityUid);
-                            barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntity<ContragentEntityV2>(barcode.Contragent.IdentityUid);
-                            barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntity<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
+                            barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeEntityV2>(barcode.BarcodeType.IdentityUid);
+                            barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentEntityV2>(barcode.Contragent.IdentityUid);
+                            barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                         }
                         break;
                     }
@@ -317,7 +344,7 @@ namespace DataCore.Sql.Controllers
                 case LabelEntity label:
                     if (!label.EqualsEmpty())
                     {
-                        label.WeithingFact = GetEntity<WeithingFactEntity>(label.WeithingFact.IdentityId);
+                        label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
                     }
                     break;
                 case TableScaleModels.NomenclatureEntity nomenclature:
@@ -329,12 +356,12 @@ namespace DataCore.Sql.Controllers
                 case OrderEntity order:
                     if (!order.EqualsEmpty())
                     {
-                        order.OrderTypes = GetEntity<OrderTypeEntity>(order.OrderTypes.IdentityId);
-                        order.Scales = GetEntity<ScaleEntity>(order.Scales.IdentityId);
+                        order.OrderTypes = GetEntityById<OrderTypeEntity>(order.OrderTypes.IdentityId);
+                        order.Scales = GetEntityById<ScaleEntity>(order.Scales.IdentityId);
                         //order.Plu = order.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(order.Plu.IdentityId);
                         order.Plu = GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Plu, (int)order.Plu.IdentityId } }));
-                        order.Templates = GetEntity<TemplateEntity>(order.Templates.IdentityId);
+                            new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
+                        order.Templates = GetEntityById<TemplateEntity>(order.Templates.IdentityId);
                     }
                     break;
                 case OrderStatusEntity orderStatus:
@@ -358,22 +385,22 @@ namespace DataCore.Sql.Controllers
                 case PluEntity plu:
                     if (!plu.EqualsEmpty())
                     {
-                        plu.Template = GetEntity<TemplateEntity>(plu.Template.IdentityId);
-                        plu.Scale = GetEntity<ScaleEntity>(plu.Scale.IdentityId);
-                        plu.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+                        plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+                        plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
+                        plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
                     }
                     break;
                 case PrinterEntity printer:
                     if (!printer.EqualsEmpty())
                     {
-                        printer.PrinterType = GetEntity<PrinterTypeEntity>(printer.PrinterType.IdentityId);
+                        printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
                     }
                     break;
                 case PrinterResourceEntity printerResource:
                     if (!printerResource.EqualsEmpty())
                     {
-                        printerResource.Printer = GetEntity<PrinterEntity>(printerResource.Printer.IdentityId);
-                        printerResource.Resource = GetEntity<TemplateResourceEntity>(printerResource.Resource.IdentityId);
+                        printerResource.Printer = GetEntityById<PrinterEntity>(printerResource.Printer.IdentityId);
+                        printerResource.Resource = GetEntityById<TemplateResourceEntity>(printerResource.Resource.IdentityId);
                         if (string.IsNullOrEmpty(printerResource.Resource.Description))
                             printerResource.Resource.Description = printerResource.Resource.Name;
                     }
@@ -393,25 +420,25 @@ namespace DataCore.Sql.Controllers
                 case ProductSeriesEntity product:
                     if (!product.EqualsEmpty())
                     {
-                        product.Scale = GetEntity<ScaleEntity>(product.Scale.IdentityId);
+                        product.Scale = GetEntityById<ScaleEntity>(product.Scale.IdentityId);
                     }
                     break;
                 case ScaleEntity scale:
                     if (!scale.EqualsEmpty())
                     {
-                        scale.TemplateDefault = scale.TemplateDefault?.IdentityId == null ? null : GetEntity<TemplateEntity>(scale.TemplateDefault.IdentityId);
-                        scale.TemplateSeries = scale.TemplateSeries?.IdentityId == null ? null : GetEntity<TemplateEntity>(scale.TemplateSeries.IdentityId);
-                        scale.PrinterMain = scale.PrinterMain?.IdentityId == null ? null : GetEntity<PrinterEntity>(scale.PrinterMain.IdentityId);
-                        scale.PrinterShipping = scale.PrinterShipping?.IdentityId == null ? null : GetEntity<PrinterEntity>(scale.PrinterShipping.IdentityId);
-                        scale.Host = scale.Host?.IdentityId == null ? null : GetEntity<HostEntity>(scale.Host.IdentityId);
-                        scale.WorkShop = scale.WorkShop?.IdentityId == null ? null : GetEntity<WorkShopEntity>(scale.WorkShop.IdentityId);
+                        scale.TemplateDefault = scale.TemplateDefault?.IdentityId == null ? null : GetEntityById<TemplateEntity>(scale.TemplateDefault.IdentityId);
+                        scale.TemplateSeries = scale.TemplateSeries?.IdentityId == null ? null : GetEntityById<TemplateEntity>(scale.TemplateSeries.IdentityId);
+                        scale.PrinterMain = scale.PrinterMain?.IdentityId == null ? null : GetEntityById<PrinterEntity>(scale.PrinterMain.IdentityId);
+                        scale.PrinterShipping = scale.PrinterShipping?.IdentityId == null ? null : GetEntityById<PrinterEntity>(scale.PrinterShipping.IdentityId);
+                        scale.Host = scale.Host?.IdentityId == null ? null : GetEntityById<HostEntity>(scale.Host.IdentityId);
+                        scale.WorkShop = scale.WorkShop?.IdentityId == null ? null : GetEntityById<WorkShopEntity>(scale.WorkShop.IdentityId);
                     }
                     break;
                 case TaskEntity task:
                     if (!task.EqualsEmpty())
                     {
-                        task.TaskType = GetEntity<TaskTypeEntity>(task.TaskType.IdentityUid);
-                        task.Scale = GetEntity<ScaleEntity>(task.Scale.IdentityId);
+                        task.TaskType = GetEntityByUid<TaskTypeEntity>(task.TaskType.IdentityUid);
+                        task.Scale = GetEntityById<ScaleEntity>(task.Scale.IdentityId);
                     }
                     break;
                 case TaskTypeEntity taskType:
@@ -435,20 +462,20 @@ namespace DataCore.Sql.Controllers
                 case WeithingFactEntity weithingFact:
                     if (!weithingFact.EqualsEmpty())
                     {
-                        weithingFact.Scale = GetEntity<ScaleEntity>(weithingFact.Scale.IdentityId);
+                        weithingFact.Scale = GetEntityById<ScaleEntity>(weithingFact.Scale.IdentityId);
                         weithingFact.Plu = GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {
-                                { $"{nameof(weithingFact.Scale)}.{nameof(weithingFact.Scale.IdentityId)}", weithingFact.Scale.IdentityId },
-                                { $"{nameof(PluEntity.PluNumber)}", (int)weithingFact.Plu.IdentityId },
+                            new(new() {
+                                new($"{nameof(weithingFact.Scale)}.{nameof(weithingFact.Scale.IdentityId)}", DbComparer.Equal, weithingFact.Scale.IdentityId),
+                                new ($"{nameof(PluEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
                             }));
-                        weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntity<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
-                        weithingFact.Order = weithingFact.Order?.IdentityId == null ? null : GetEntity<OrderEntity>(weithingFact.Order.IdentityId);
+                        weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
+                        weithingFact.Order = weithingFact.Order?.IdentityId == null ? null : GetEntityById<OrderEntity>(weithingFact.Order.IdentityId);
                     }
                     break;
                 case WorkShopEntity workshop:
                     if (!workshop.EqualsEmpty())
                     {
-                        workshop.ProductionFacility = GetEntity<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
+                        workshop.ProductionFacility = GetEntityById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
                     }
                     break;
             }
@@ -462,13 +489,7 @@ namespace DataCore.Sql.Controllers
                 case BrandEntity brand:
                     if (!brand.EqualsEmpty())
                     {
-                        brand.InformationSystem = brand.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(brand.InformationSystem.IdentityId);
-                    }
-                    break;
-                case InformationSystemEntity informationSystem:
-                    if (!informationSystem.EqualsEmpty())
-                    {
-                        //
+                        brand.InformationSystem = brand.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(brand.InformationSystem.IdentityId);
                     }
                     break;
                 case TableDwhModels.NomenclatureEntity nomenclature:
@@ -484,40 +505,41 @@ namespace DataCore.Sql.Controllers
                         //    nomenclatureEntity.NomenclatureGroup = GetEntity(DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
                         //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
                         //    nomenclatureEntity.NomenclatureType = GetEntity(DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
-                        nomenclature.Status = nomenclature.Status?.IdentityId == null ? new() : GetEntity<StatusEntity>(nomenclature.Status.IdentityId);
+                        nomenclature.Status = nomenclature.Status?.IdentityId == null ? new() : GetEntityById<StatusEntity>(nomenclature.Status.IdentityId);
                     }
                     break;
                 case NomenclatureGroupEntity nomenclatureGroup:
                     if (!nomenclatureGroup.EqualsEmpty())
                     {
-                        nomenclatureGroup.InformationSystem = nomenclatureGroup.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
+                        nomenclatureGroup.InformationSystem = nomenclatureGroup.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
                     }
                     break;
                 case NomenclatureLightEntity nomenclatureLight:
                     if (!nomenclatureLight.EqualsEmpty())
                     {
-                        nomenclatureLight.InformationSystem = nomenclatureLight.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
+                        nomenclatureLight.InformationSystem = nomenclatureLight.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
                     }
-                    break;
-                case NomenclatureParentEntity:
-                    //
                     break;
                 case NomenclatureTypeEntity nomenclatureType:
                     if (!nomenclatureType.EqualsEmpty())
                     {
-                        nomenclatureType.InformationSystem = nomenclatureType.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
-                    }
-                    break;
-                case StatusEntity status:
-                    if (!status.EqualsEmpty())
-                    {
-                        //
+                        nomenclatureType.InformationSystem = nomenclatureType.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
                     }
                     break;
             }
         }
 
-        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order = null,
+        /// <summary>
+        /// Get entity.
+        /// </summary>
+        /// <param name="fieldList"></param>
+        /// <param name="order"></param>
+        /// <param name="filePath"></param>
+        /// <param name="lineNumber"></param>
+        /// <param name="memberName"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetEntity<T>(FieldListEntity? fieldList = null, FieldOrderEntity? order = null,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             where T : BaseEntity, new()
         {
@@ -532,21 +554,33 @@ namespace DataCore.Sql.Controllers
             return item;
         }
 
-        public T GetEntity<T>(long? id) where T : BaseEntity, new()
+        /// <summary>
+        /// Get entity by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetEntityById<T>(long? id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), id } }),
+                new(new() { new(DbField.IdentityId, DbComparer.Equal, id) }),
                 new(DbField.IdentityId, DbOrderDirection.Desc));
         }
 
-        public T GetEntity<T>(Guid? uid) where T : BaseEntity, new()
+        /// <summary>
+        /// Get entity by UID.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetEntityByUid<T>(Guid? uid) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new(new Dictionary<string, object?> { { DbField.IdentityUid.ToString(), uid } }),
+                new(new() { new(DbField.IdentityUid, DbComparer.Equal, uid) }),
                 new(DbField.IdentityUid, DbOrderDirection.Desc));
         }
 
-        public T[]? GetEntities<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults = 0,
+        public T[]? GetEntities<T>(FieldListEntity? fieldList = null, FieldOrderEntity? order = null, int maxResults = 0,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             where T : BaseEntity, new()
         {

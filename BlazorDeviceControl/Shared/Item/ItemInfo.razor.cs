@@ -22,7 +22,7 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
     private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
     private List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
     private List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
-    private uint DbCurSize { get; set; } = 0;
+    private uint DbCurSize { get; set; }
     private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
     private uint DbMaxSize { get; set; } = 10_240;
     private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;

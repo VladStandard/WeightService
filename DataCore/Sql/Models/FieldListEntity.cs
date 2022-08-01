@@ -2,69 +2,75 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
-using static DataCore.ShareEnums;
 
-namespace DataCore.Sql.Models
+namespace DataCore.Sql.Models;
+
+/// <summary>
+/// DB field list entity.
+/// </summary>
+public class FieldListEntity
 {
-    public class FieldListEntity
+    #region Public and private fields, properties, constructor
+
+    /// <summary>
+    /// Enabled.
+    /// </summary>
+    public bool IsEnabled { get; set; }
+    /// <summary>
+    /// Filter fields.
+    /// </summary>
+    public List<FieldEntity> Fields { get; }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="fields"></param>
+    public FieldListEntity(List<FieldEntity> fields)
     {
-        #region Public and private fields and properties
-
-        public bool Use { get; set; }
-        public Dictionary<string, object?> Fields { get; set; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public FieldListEntity(Dictionary<string, object?> fields)
-        {
-            Use = true;
-            Fields = fields;
-        }
-
-        public FieldListEntity(Dictionary<DbField, object?> fields)
-        {
-            Use = true;
-            Fields = GetFields(fields);
-        }
-
-        public FieldListEntity()
-        {
-            Use = false;
-            Fields = new Dictionary<string, object?>();
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public override string ToString()
-        {
-            string? strFields = string.Empty;
-            int i = 0;
-            foreach (KeyValuePair<string, object?> field in Fields)
-            {
-                strFields += $"Field[{i}]: {field.Key} = {field.Value}. ";
-                i++;
-            }
-            strFields = strFields.TrimEnd('\r', ' ', '\n');
-            return $"{nameof(Use)}: {Use}. {strFields}";
-        }
-
-        private Dictionary<string, object?> GetFields(Dictionary<DbField, object?> fields)
-        {
-            Dictionary<string, object?> result = new();
-            if (fields != null && fields.Count > 0)
-            {
-                foreach (KeyValuePair<DbField, object?> field in fields)
-                {
-                    result.Add(field.Key.ToString(), field.Value);
-                }
-            }
-            return result;
-        }
-
-        #endregion
+        IsEnabled = true;
+        Fields = fields;
     }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public FieldListEntity()
+    {
+        IsEnabled = false;
+        Fields = new();
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    /// <summary>
+    /// To string override.
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        string? strFields = string.Empty;
+        int i = 0;
+        foreach (FieldEntity? field in Fields)
+        {
+            strFields += $"Field[{i}]: {field.Name} | {field.Comparer} | {field.Value}. ";
+            i++;
+        }
+        strFields = strFields.TrimEnd('\r', ' ', '\n');
+        return $"{nameof(IsEnabled)}: {IsEnabled}. {strFields}";
+    }
+
+    //private List<FieldEntity> GetFields(List<FieldEntity> fields)
+    //{
+    //    Dictionary<string, object?> result = new();
+    //    if (fields.Count <= 0) return result;
+    //    foreach (KeyValuePair<DbField, object?> field in fields)
+    //    {
+    //        result.Add(field.Key.ToString(), field.Value);
+    //    }
+    //    return result;
+    //}
+
+    #endregion
 }

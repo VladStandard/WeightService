@@ -1,12 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Settings;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using static DataCore.ShareEnums;
@@ -50,7 +48,8 @@ namespace DataCore.Sql.Controllers
         [Obsolete(@"Use LogError")]
         public void Error(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            long idLast = DataAccess.Crud.GetEntity<ErrorEntity>(null, new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId;
+            long idLast = DataAccess.Crud.GetEntity<ErrorEntity>(null,
+                new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId;
             ErrorEntity error = new()
             {
                 IdentityId = idLast + 1,
@@ -112,7 +111,7 @@ namespace DataCore.Sql.Controllers
             byte logNumber = (byte)logType;
             StringUtils.SetStringValueTrim(ref message, 1024);
             LogTypeEntity? logTypeItem = DataAccess.Crud.GetEntity<LogTypeEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Number, logNumber } }));
+                new(new() { new(DbField.Number, DbComparer.Equal, logNumber) }));
 
             HostEntity? host = Host;
             AppEntity? app = App;
@@ -156,7 +155,8 @@ namespace DataCore.Sql.Controllers
         public long? GetHostId(string name)
         {
             StringUtils.SetStringValueTrim(ref name, 150);
-            HostEntity? host = DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Name, name } }));
+            HostEntity? host = DataAccess.Crud.GetEntity<HostEntity>(
+                new(new() { new(DbField.Name, DbComparer.Equal, name) }));
             return host?.IdentityId;
         }
 

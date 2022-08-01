@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using DataCore.Utils;
@@ -48,10 +47,9 @@ namespace DataCore.Sql
         public static HostEntity GetHostEntity(string hostName)
         {
             HostEntity host = DataAccess.Crud.GetEntity<HostEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> {
-                    { DbField.HostName, hostName },
-                    { DbField.IsMarked, false } }),
-                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
+                new(new() { new(DbField.HostName, DbComparer.Equal, hostName),
+                    new(DbField.IsMarked, DbComparer.Equal, false) }),
+                new(DbField.CreateDt, DbOrderDirection.Desc));
             return host;
         }
 
@@ -60,7 +58,7 @@ namespace DataCore.Sql
             HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
                 new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
             if (result == null)
-                result = new HostDirect();
+                result = new();
             return result;
         }
 
@@ -69,7 +67,7 @@ namespace DataCore.Sql
             HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByHostName,
                 new SqlParameter("@HOST_NAME", System.Data.SqlDbType.NVarChar, 255) { Value = hostName }, LoadReader);
             if (result == null)
-                result = new HostDirect();
+                result = new();
             return result;
         }
 
@@ -77,7 +75,7 @@ namespace DataCore.Sql
         {
             if (!File.Exists(FilePathToken))
             {
-                return new HostDirect();
+                return new();
             }
             XDocument doc = XDocument.Load(FilePathToken);
             Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
@@ -169,23 +167,24 @@ namespace DataCore.Sql
         public static ScaleEntity GetScaleFromHost(long hostId)
         {
             ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
-                new FieldListEntity(new Dictionary<string, object?> {
-                    { $"Host.IdentityId", hostId },
-                    { DbField.IsMarked.ToString(), false } }),
-                new FieldOrderEntity(DbField.CreateDt, DbOrderDirection.Desc));
+                new(new() { new($"Host.IdentityId", DbComparer.Equal, hostId),
+                    new(DbField.IsMarked, DbComparer.Equal, false) }),
+                new(DbField.CreateDt, DbOrderDirection.Desc));
             return scale;
         }
 
         public static ScaleEntity GetScale(long id)
         {
             return DataAccess.Crud.GetEntity<ScaleEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.IdentityId, id }, { DbField.IsMarked, false } }));
+                new(new() { new(DbField.IdentityId, DbComparer.Equal, id),
+                    new(DbField.IsMarked, DbComparer.Equal, false) }));
         }
 
         public static ScaleEntity GetScale(string description)
         {
             return DataAccess.Crud.GetEntity<ScaleEntity>(
-                new FieldListEntity(new Dictionary<DbField, object?> { { DbField.Description, description }, { DbField.IsMarked, false } }));
+                new(new() { new(DbField.Description, DbComparer.Equal, description),
+                    new(DbField.IsMarked, DbComparer.Equal, false) }));
         }
 
 
@@ -196,7 +195,7 @@ namespace DataCore.Sql
         //
 
         #endregion
-        
+
         #region Public and private methods - Tasks
 
         public static void SaveNullTask(TaskTypeDirect taskType, long scaleId, bool enabled)
@@ -272,12 +271,12 @@ namespace DataCore.Sql
                     {
                         if (reader.Read())
                         {
-                            result = new TaskDirect
+                            result = new()
                             {
                                 Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
                                 TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
                                 //Scale = ScalesUtils.GetScale(dataAccess, SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                                Scale = DataAccess.Crud.GetEntity<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Scale = DataAccess.Crud.GetEntityById<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
                                 Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
@@ -305,12 +304,12 @@ namespace DataCore.Sql
                     {
                         if (reader.Read())
                         {
-                            result = new TaskDirect
+                            result = new()
                             {
                                 Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
                                 TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
                                 //Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                                Scale = DataAccess.Crud.GetEntity<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Scale = DataAccess.Crud.GetEntityById<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
                                 Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
@@ -418,7 +417,7 @@ namespace DataCore.Sql
                     {
                         while (reader.Read())
                         {
-                            result.Add(new TaskTypeDirect(
+                            result.Add(new(
                                 SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID"), SqlConnect.GetValueAsString(reader, "NAME")));
                         }
                     }
@@ -449,7 +448,7 @@ namespace DataCore.Sql
                     }
                     if (reader.Read())
                     {
-                        throw new Exception("More than one template was processed!");
+                        throw new("More than one template was processed!");
                     }
                 });
         }
@@ -468,7 +467,7 @@ namespace DataCore.Sql
                     }
                     if (reader.Read())
                     {
-                        throw new Exception("More than one template was processed!");
+                        throw new("More than one template was processed!");
                     }
                 });
         }

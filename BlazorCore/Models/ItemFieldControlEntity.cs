@@ -6,7 +6,6 @@ using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using Radzen;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using static DataCore.ShareEnums;
 
@@ -215,9 +214,8 @@ namespace BlazorCore.Models
             if (plu.EqualsDefault())
                 result = false;
             PluEntity[]? items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                new FieldListEntity(new Dictionary<string, object?> {
-                    { $"Scale.{DbField.IdentityId}", plu.Scale.IdentityId },
-                    { DbField.PluNumber.ToString(), plu.PluNumber }
+                new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, plu.Scale.IdentityId),
+                    new(DbField.PluNumber, DbComparer.Equal, plu.PluNumber)
                 }), null);
             if (items != null && items.Any() && !items.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
             {
