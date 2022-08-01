@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Globalization;
 using DataCore;
 using DataCore.Localizations;
 using DataCore.Models;
@@ -59,47 +60,47 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                 BarCodeTypeEntityV2? barcodeType = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(IdentityUid);
                 if (barcodeType != null)
                 {
-                    CreateDt = barcodeType.CreateDt.ToString();
-                    ChangeDt = barcodeType.ChangeDt.ToString();
+                    CreateDt = barcodeType.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = barcodeType.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Contragents:
                 ContragentEntityV2? contragent = AppSettings.DataAccess.Crud.GetEntity<ContragentEntityV2>(IdentityUid);
                 if (contragent != null)
                 {
-                    CreateDt = contragent.CreateDt.ToString();
-                    ChangeDt = contragent.ChangeDt.ToString();
+                    CreateDt = contragent.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = contragent.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Hosts:
                 HostEntity? host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(IdentityId);
                 if (host != null)
                 {
-                    CreateDt = host.CreateDt.ToString();
-                    ChangeDt = host.ChangeDt.ToString();
+                    CreateDt = host.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = host.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Labels:
                 LabelEntity? label = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(IdentityId);
                 if (label != null)
                 {
-                    CreateDt = label.CreateDt.ToString();
+                    CreateDt = label.CreateDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Nomenclatures:
                 NomenclatureEntity? nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(IdentityId);
                 if (nomenclature != null)
                 {
-                    CreateDt = nomenclature.CreateDt.ToString();
-                    ChangeDt = nomenclature.ChangeDt.ToString();
+                    CreateDt = nomenclature.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = nomenclature.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Orders:
                 OrderEntity? order = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(IdentityId);
                 if (order != null)
                 {
-                    CreateDt = order.CreateDt.ToString();
-                    ChangeDt = order.ChangeDt.ToString();
+                    CreateDt = order.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = order.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.OrdersStatuses:
@@ -118,32 +119,32 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                 OrganizationEntity? organization = AppSettings.DataAccess.Crud.GetEntity<OrganizationEntity>(IdentityId);
                 if (organization != null)
                 {
-                    CreateDt = organization.CreateDt.ToString();
-                    ChangeDt = organization.ChangeDt.ToString();
+                    CreateDt = organization.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = organization.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Plus:
                 PluEntity? plu = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(IdentityId);
                 if (plu != null)
                 {
-                    CreateDt = plu.CreateDt.ToString();
-                    ChangeDt = plu.ChangeDt.ToString();
+                    CreateDt = plu.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = plu.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Printers:
                 PrinterEntity? printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(IdentityId);
                 if (printer != null)
                 {
-                    CreateDt = printer.CreateDt.ToString();
-                    ChangeDt = printer.ChangeDt.ToString();
+                    CreateDt = printer.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = printer.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.PrintersResources:
                 PrinterResourceEntity? printerResource = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(IdentityId);
                 if (printerResource != null)
                 {
-                    CreateDt = printerResource.CreateDt.ToString();
-                    ChangeDt = printerResource.ChangeDt.ToString();
+                    CreateDt = printerResource.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = printerResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.PrintersTypes:
@@ -156,55 +157,55 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                 ProductionFacilityEntity? productionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(IdentityId);
                 if (productionFacility != null)
                 {
-                    CreateDt = productionFacility.CreateDt.ToString();
-                    ChangeDt = productionFacility.ChangeDt.ToString();
+                    CreateDt = productionFacility.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = productionFacility.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.ProductSeries:
                 ProductSeriesEntity? productSeries = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(IdentityId);
                 if (productSeries != null)
                 {
-                    CreateDt = productSeries.CreateDt.ToString();
+                    CreateDt = productSeries.CreateDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Scales:
                 ScaleEntity? scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(IdentityId);
                 if (scale != null)
                 {
-                    CreateDt = scale.CreateDt.ToString();
-                    ChangeDt = scale.ChangeDt.ToString();
+                    CreateDt = scale.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = scale.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Templates:
                 TemplateEntity? template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(IdentityId);
                 if (template != null)
                 {
-                    CreateDt = template.CreateDt.ToString();
-                    ChangeDt = template.ChangeDt.ToString();
+                    CreateDt = template.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = template.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.TemplatesResources:
                 TemplateResourceEntity? templateResource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(IdentityId);
                 if (templateResource != null)
                 {
-                    CreateDt = templateResource.CreateDt.ToString();
-                    ChangeDt = templateResource.ChangeDt.ToString();
+                    CreateDt = templateResource.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = templateResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.WeithingFacts:
                 WeithingFactEntity? weithingFact = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(IdentityId);
                 if (weithingFact != null)
                 {
-                    CreateDt = weithingFact.CreateDt.ToString();
-                    ChangeDt = weithingFact.ChangeDt.ToString();
+                    CreateDt = weithingFact.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = weithingFact.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.Workshops:
                 WorkShopEntity? workshop = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(IdentityId);
                 if (workshop != null)
                 {
-                    CreateDt = workshop.CreateDt.ToString();
-                    ChangeDt = workshop.ChangeDt.ToString();
+                    CreateDt = workshop.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = workshop.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableScale.BarCodes:
@@ -222,23 +223,23 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                 AccessEntity? access = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(IdentityId);
                 if (access != null)
                 {
-                    CreateDt = access.CreateDt.ToString();
-                    ChangeDt = access.ChangeDt.ToString();
+                    CreateDt = access.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = access.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableSystem.Errors:
                 ErrorEntity? error = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(IdentityId);
                 if (error != null)
                 {
-                    CreateDt = error.CreateDt.ToString();
-                    ChangeDt = error.ChangeDt.ToString();
+                    CreateDt = error.CreateDt.ToString(CultureInfo.InvariantCulture);
+                    ChangeDt = error.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableSystem.Logs:
                 LogEntity? log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(IdentityUid);
                 if (log != null)
                 {
-                    CreateDt = log.CreateDt.ToString();
+                    CreateDt = log.CreateDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             case ProjectsEnums.TableSystem.LogTypes:

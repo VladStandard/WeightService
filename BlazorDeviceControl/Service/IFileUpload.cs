@@ -3,15 +3,12 @@
 
 using BlazorInputFile;
 using DataCore.Sql.TableScaleModels;
-using System.IO;
-using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Service
+namespace BlazorDeviceControl.Service;
+
+public interface IFileUpload
 {
-    public interface IFileUpload
-    {
-        Task UploadAsync(IFileListEntry file);
-        Task UploadAsync(string name, Stream stream);
-        Task UploadAsync(TemplateResourceEntity? item, Stream stream);
-    }
+    Task UploadAsync(IFileListEntry file);
+    Task UploadAsync(string name, Stream stream);
+    Task UploadAsync(TemplateResourceEntity? item, Stream stream);
 }

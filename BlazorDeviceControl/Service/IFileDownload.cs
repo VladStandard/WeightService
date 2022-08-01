@@ -3,12 +3,10 @@
 
 using BlazorDownloadFile;
 using DataCore.Sql.TableScaleModels;
-using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Service
+namespace BlazorDeviceControl.Service;
+
+public interface IFileDownload
 {
-    public interface IFileDownload
-    {
-        Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceEntity? item);
-    }
+    Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceEntity? item);
 }

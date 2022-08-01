@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ActionsReloadSection : Shared.Component.ActionsReloadBase
+public partial class ActionsReloadSection : ActionsReloadBase
 {
     #region Public and private methods
 

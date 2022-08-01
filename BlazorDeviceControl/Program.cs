@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authentication.Negotiate;
 using MudBlazor.Services;
 using Radzen;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Components.Authorization;
 
 AppSettingsHelper appSettings = AppSettingsHelper.Instance;
 //IConfiguration Configuration;
