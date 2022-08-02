@@ -927,18 +927,28 @@ namespace BlazorCore.Models
                             RouteItemNavigatePrepareTableDwh(item);
                             break;
                     }
-                    if (item.IdentityName == ColumnName.Id)
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityId}/{tableAction}");
-                    else if (item.IdentityName == ColumnName.Uid)
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}/{tableAction}");
+                    switch (AppSettings.DataAccess.Crud.GetColumnIdentity(item))
+                    {
+                        case ColumnName.Id:
+                            NavigationManager?.NavigateTo($"{page}/{item.IdentityId}/{tableAction}");
+                            break;
+                        case ColumnName.Uid:
+                            NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}/{tableAction}");
+                            break;
+                    }
                     break;
                 case DbTableAction.Edit:
                     if (item == null)
                         return;
-                    if (item.IdentityName == ColumnName.Id)
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityId}");
-                    else if (item.IdentityName == ColumnName.Uid)
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}");
+                    switch (AppSettings.DataAccess.Crud.GetColumnIdentity(item))
+                    {
+                        case ColumnName.Id:
+                            NavigationManager?.NavigateTo($"{page}/{item.IdentityId}");
+                            break;
+                        case ColumnName.Uid:
+                            NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}");
+                            break;
+                    }
                     break;
                 case DbTableAction.Default:
                     break;
@@ -959,7 +969,7 @@ namespace BlazorCore.Models
         {
             _ = Task.Run(async () =>
             {
-                if (IdentityUid != null && IdentityUid != Guid.Empty && JsRuntime != null)
+                if (IdentityUid != null && IdentityUid != Guid.Empty)
                     await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityUid}", "_blank").ConfigureAwait(false);
                 else if (IdentityId != null && JsRuntime != null)
                     await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityId}", "_blank").ConfigureAwait(false);
@@ -1092,10 +1102,13 @@ namespace BlazorCore.Models
         {
             if (ParentRazor?.Item != null)
             {
-                if (ParentRazor.Item.IdentityName == ColumnName.Id)
-                    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
-                else if (ParentRazor.Item.IdentityName == ColumnName.Uid)
-                    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
+                switch (AppSettings.DataAccess.Crud.GetColumnIdentity(Item))
+                {
+                    case ColumnName.Id:
+                        return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
+                    case ColumnName.Uid:
+                        return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
+                }
             }
             return string.Empty;
         }

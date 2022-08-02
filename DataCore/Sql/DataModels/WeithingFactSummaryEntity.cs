@@ -73,12 +73,12 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new WeithingFactSummaryEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(WeithingDate, DateTime.MinValue) &&
                    Equals(Count, 0) &&
                    Equals(Scale, string.Empty) &&

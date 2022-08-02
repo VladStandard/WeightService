@@ -139,7 +139,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 5);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintMain, 1, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 2, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 1, 1);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelRight, 3, 3);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
@@ -480,13 +480,12 @@
             // 
             this.fieldPlu.AutoSize = true;
             this.fieldPlu.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelMain.SetColumnSpan(this.fieldPlu, 2);
             this.fieldPlu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPlu.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPlu.ForeColor = System.Drawing.Color.Black;
-            this.fieldPlu.Location = new System.Drawing.Point(8, 33);
+            this.fieldPlu.Location = new System.Drawing.Point(261, 33);
             this.fieldPlu.Name = "fieldPlu";
-            this.fieldPlu.Size = new System.Drawing.Size(901, 60);
+            this.fieldPlu.Size = new System.Drawing.Size(648, 60);
             this.fieldPlu.TabIndex = 14;
             this.fieldPlu.Text = "PLU";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

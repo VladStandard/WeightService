@@ -1,9 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sql="clr-namespace:DataCore.Sql;assembly=DataCore" 
-    xmlns:locale="clr-namespace:DataCore.Localizations;assembly=DataCore" 
-    >
+    xmlns:locale="clr-namespace:DataCore.Localizations;assembly=DataCore"
+    xmlns:sql="clr-namespace:DataCore.Sql;assembly=DataCore">
     
     <SolidColorBrush x:Key="brush" Color="Red"/>
     <sql:SqlViewModelHelper x:Key="SqlViewModel" />

@@ -5,25 +5,20 @@ using DataCore.Sql;
 using DataCore.Protocols;
 using System.IO;
 
-namespace DataCoreTests
+namespace DataCoreTests;
+
+public static class TestsUtils
 {
-    public static class TestsUtils
+    #region Public and private fields, properties, constructor
+
+    public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
+
+    static TestsUtils()
     {
-        #region Public and private fields and properties
-
-        public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-        public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        static TestsUtils()
-        {
-            DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
-                NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
-        }
-
-        #endregion
+        DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
     }
+
+    #endregion
 }

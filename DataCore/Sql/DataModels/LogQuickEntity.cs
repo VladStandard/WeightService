@@ -92,12 +92,12 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new LogQuickEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(Scale, string.Empty) &&
                    Equals(Host, string.Empty) &&
                    Equals(App, string.Empty) &&
@@ -132,7 +132,7 @@ namespace DataCore.Sql.DataModels
             if (dataAccess != null && !string.IsNullOrEmpty(Scale))
             {
                 ScaleEntity scale = dataAccess.Crud.GetEntity<ScaleEntity>(
-                    new FieldListEntity(new() { new(DbField.Description, DbComparer.Equal, Scale) }));
+                    new(new() { new(DbField.Description, DbComparer.Equal, Scale) }));
                 return scale.IdentityId;
             }
             return 0;
@@ -143,7 +143,7 @@ namespace DataCore.Sql.DataModels
             if (dataAccess != null && !string.IsNullOrEmpty(Host))
             {
                 HostEntity host = dataAccess.Crud.GetEntity<HostEntity>(
-                    new FieldListEntity(new() { new(DbField.HostName, DbComparer.Equal, Host) }));
+                    new(new() { new(DbField.HostName, DbComparer.Equal, Host) }));
                 return host.IdentityId;
             }
             return 0;

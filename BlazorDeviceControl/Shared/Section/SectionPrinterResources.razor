@@ -35,14 +35,29 @@ else
             <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Id Width="10%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.IdentityId}")
-                            Text=@itemCast.IdentityId.ToString() />
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.IdentityId}")
+                        Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
-                Title=@LocaleCore.Table.Description Type="string" Width="45%" />
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
-                Title=@LocaleCore.Table.Resource Type="string" Width="45%" />
+            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Description Width="30%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.IdentityId}")
+                        Text=@itemCast.Description />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Printer Width="30%">
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.Printer.IdentityId}")
+                        Text=@itemCast.Printer.Name />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Resource Width="30%">
+                <Template Context="itemCast">
+                    <RadzenLabel Style="width: 100%; margin-left: 0px; " Text=@itemCast.Resource.Name />
+                </Template>
+            </RadzenGridColumn>
         </Columns>
     </RadzenGrid>
 

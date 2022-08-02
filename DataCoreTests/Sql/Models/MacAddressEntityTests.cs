@@ -5,22 +5,21 @@ using DataCore.Sql.Models;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace DataCoreTests.Sql.Models
+namespace DataCoreTests.Sql.Models;
+
+[TestFixture]
+internal class MacAddressEntityTests
 {
-    [TestFixture]
-    internal class MacAddressEntityTests
+    [Test]
+    public void MacEntityTests_Ctor_DoesNotThrow()
     {
-        [Test]
-        public void MacEntityTests_Ctor_DoesNotThrow()
+        Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
         {
-            Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
+            MacAddressEntity mac = new();
+            foreach (string address in TestsEnums.GetString())
             {
-                MacAddressEntity mac = new();
-                foreach (string address in TestsEnums.GetString())
-                {
-                    mac = new(address);
-                }
-            }));
-        }
+                mac = new(address);
+            }
+        }));
     }
 }

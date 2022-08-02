@@ -18,7 +18,7 @@ namespace DataCore.Sql.TableDwhModels
         public virtual string NameFull { get; set; }
         public virtual bool IsService { get; set; }
         public virtual bool IsProduct { get; set; }
-        public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
+        public virtual InformationSystemEntity InformationSystem { get; set; } = new();
         public virtual short? RelevanceStatus { get; set; }
         public virtual short? NormalizationStatus { get; set; }
         public virtual long? MasterId { get; set; }
@@ -99,14 +99,14 @@ namespace DataCore.Sql.TableDwhModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new NomenclatureLightEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(Code, string.Empty) &&
                    Equals(Name, string.Empty) &&
                    Equals(Parents, string.Empty) &&

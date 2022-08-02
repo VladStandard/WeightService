@@ -3,20 +3,26 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "ACCESS".
+/// </summary>
+public class AccessMap : ClassMap<AccessEntity>
 {
-    public class AccessMap : ClassMap<AccessEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public AccessMap()
     {
-        public AccessMap()
-        {
-            Table("[db_scales].[ACCESS]");
-            LazyLoad();
-            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-            Map(x => x.User).CustomSqlType("NVARCHAR").Column("USER").Length(32).Not.Nullable();
-            Map(x => x.Rights).CustomSqlType("TINYINT").Column("RIGHTS").Not.Nullable().Default("0");
-        }
+        Schema("db_scales");
+        Table("ACCESS");
+        LazyLoad();
+        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.User).CustomSqlType("NVARCHAR").Column("USER").Length(32).Not.Nullable();
+        Map(x => x.Rights).CustomSqlType("TINYINT").Column("RIGHTS").Not.Nullable().Default("0");
     }
 }

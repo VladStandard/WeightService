@@ -57,7 +57,7 @@ public class BaseDummyEntity : BaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        return base.EqualsDefault(IdentityName);
+        return base.EqualsDefault();
     }
 
     public new virtual object Clone()

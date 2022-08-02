@@ -3,26 +3,32 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "ZebraPrinter".
+/// </summary>
+public class PrinterMap : ClassMap<PrinterEntity>
 {
-    public class PrinterMap : ClassMap<PrinterEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public PrinterMap()
     {
-        public PrinterMap()
-        {
-            Table("[db_scales].[ZebraPrinter]");
-            LazyLoad();
-            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-            References(x => x.PrinterType).Column("PrinterTypeId").Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
-            Map(x => x.Ip).CustomSqlType("VARCHAR").Length(15).Column("IP").Nullable();
-            Map(x => x.Port).CustomSqlType("SMALLINT").Column("Port").Nullable();
-            Map(x => x.Password).CustomSqlType("VARCHAR").Length(15).Column("Password").Nullable();
-            Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("Mac").Length(20).Nullable();
-            Map(x => x.PeelOffSet).CustomSqlType("BIT").Column("PeelOffSet").Not.Nullable().Default("0");
-            Map(x => x.DarknessLevel).CustomSqlType("SMALLINT").Column("DarknessLevel").Nullable();
-        }
+        Schema("db_scales");
+        Table("ZebraPrinter");
+        LazyLoad();
+        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
+        References(x => x.PrinterType).Column("PrinterTypeId").Not.Nullable();
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
+        Map(x => x.Ip).CustomSqlType("VARCHAR").Length(15).Column("IP").Nullable();
+        Map(x => x.Port).CustomSqlType("SMALLINT").Column("Port").Nullable();
+        Map(x => x.Password).CustomSqlType("VARCHAR").Length(15).Column("Password").Nullable();
+        Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("Mac").Length(20).Nullable();
+        Map(x => x.PeelOffSet).CustomSqlType("BIT").Column("PeelOffSet").Not.Nullable().Default("0");
+        Map(x => x.DarknessLevel).CustomSqlType("SMALLINT").Column("DarknessLevel").Nullable();
     }
 }

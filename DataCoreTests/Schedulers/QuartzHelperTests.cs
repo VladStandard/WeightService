@@ -6,52 +6,51 @@ using NUnit.Framework;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace DataCoreTests.Schedulers
+namespace DataCoreTests.Schedulers;
+
+[TestFixture]
+internal class QuartzHelperTests
 {
-    [TestFixture]
-    internal class QuartzHelperTests
+    #region Public and private fields and properties
+
+    private static QuartzHelper Quartz { get; } = QuartzHelper.Instance;
+
+    #endregion
+
+    internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        #region Public and private fields and properties
-
-        private static QuartzHelper Quartz { get; } = QuartzHelper.Instance;
-
-        #endregion
-
-        internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            TestContext.WriteLine($"{DateTime.Now}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
-        }
-
-        [Test]
-        public void OpenClose_DoesNotThrow()
-        {
-            Assert.DoesNotThrow(() =>
-            {
-                TestContext.WriteLine("Open");
-                Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
-
-                Quartz.Close();
-                TestContext.WriteLine("Close");
-            });
-            TestContext.WriteLine();
-        }
-
-        //[Test]
-        //public void OpenClose_Throw()
-        //{
-        //    TestsUtils.MethodStart();
-
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        TestContext.WriteLine("Open");
-        //        Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
-
-        //        TestContext.WriteLine("Close");
-        //        Quartz.Close();
-        //    });
-        //    TestContext.WriteLine();
-
-        //    TestsUtils.MethodComplete();
-        //}
+        TestContext.WriteLine($"{DateTime.Now}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
     }
+
+    [Test]
+    public void OpenClose_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            TestContext.WriteLine("Open");
+            Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
+
+            Quartz.Close();
+            TestContext.WriteLine("Close");
+        });
+        TestContext.WriteLine();
+    }
+
+    //[Test]
+    //public void OpenClose_Throw()
+    //{
+    //    TestsUtils.MethodStart();
+
+    //    Assert.Throws<ArgumentException>(() =>
+    //    {
+    //        TestContext.WriteLine("Open");
+    //        Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
+
+    //        TestContext.WriteLine("Close");
+    //        Quartz.Close();
+    //    });
+    //    TestContext.WriteLine();
+
+    //    TestsUtils.MethodComplete();
+    //}
 }

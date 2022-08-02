@@ -5,11 +5,18 @@ using FluentNHibernate.Mapping;
 
 namespace DataCore.Sql.TableScaleModels;
 
+/// <summary>
+/// Table map "ProductionFacility".
+/// </summary>
 public class ProductionFacilityMap : ClassMap<ProductionFacilityEntity>
 {
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public ProductionFacilityMap()
     {
-        Table("[db_scales].[ProductionFacility]");
+        Schema("db_scales");
+        Table("ProductionFacility");
         LazyLoad();
         Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();

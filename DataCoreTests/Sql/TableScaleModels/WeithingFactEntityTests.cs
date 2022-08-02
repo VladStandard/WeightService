@@ -8,55 +8,54 @@ using System.Collections.Generic;
 using System.Linq;
 using static DataCore.ShareEnums;
 
-namespace DataCoreTests.Sql.TableScaleModels
-{
-    [TestFixture]
-    internal class WeithingFactEntityTests
-    {
-        [Test]
-        public void Entity_Equals_DoesNotThrow()
-        {
-            Assert.DoesNotThrow(() =>
-            {
-                WeithingFactEntity item = new();
-                Assert.AreEqual(true, item.EqualsNew());
-                Assert.AreEqual(true, item.EqualsDefault());
-            });
-        }
+namespace DataCoreTests.Sql.TableScaleModels;
 
-        [Test]
-        public void Entity_Crud_DoesNotThrow()
+[TestFixture]
+internal class WeithingFactEntityTests
+{
+    [Test]
+    public void Entity_Equals_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
         {
-            Assert.DoesNotThrow(() =>
+            WeithingFactEntity item = new();
+            Assert.AreEqual(true, item.EqualsNew());
+            Assert.AreEqual(true, item.EqualsDefault());
+        });
+    }
+
+    [Test]
+    public void Entity_Crud_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            foreach (bool isShowMarkedItems in TestsEnums.GetBool())
             {
-                foreach (bool isShowMarkedItems in TestsEnums.GetBool())
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<WeithingFactEntity>(
+                    isShowMarkedItems ? null
+                        : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }), null, 10)
+                    ?.ToList<BaseEntity>();
+                if (items != null)
                 {
-                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<WeithingFactEntity>(
-                        isShowMarkedItems ? null
-                            : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }), null, 10)
-                        ?.ToList<BaseEntity>();
-                    if (items != null)
+                    List<WeithingFactEntity> itemsCast = items.Select(x => (WeithingFactEntity)x).ToList();
+                    if (itemsCast.Count > 0)
                     {
-                        List<WeithingFactEntity> itemsCast = items.Select(x => (WeithingFactEntity)x).ToList();
-                        if (itemsCast.Count > 0)
+                        foreach (WeithingFactEntity item in itemsCast)
                         {
-                            foreach (WeithingFactEntity item in itemsCast)
+                            WeithingFactEntity itemCopy = item.CloneCast();
+                            Assert.AreEqual(true, item.Equals(itemCopy));
+                            Assert.AreEqual(true, itemCopy.Equals(item));
+                            WeithingFactEntity itemChange = new()
                             {
-                                WeithingFactEntity itemCopy = item.CloneCast();
-                                Assert.AreEqual(true, item.Equals(itemCopy));
-                                Assert.AreEqual(true, itemCopy.Equals(item));
-                                WeithingFactEntity itemChange = new()
-                                {
-                                    IsMarked = true,
-                                };
-                                _ = itemChange.ToString();
-                                Assert.AreNotEqual(true, itemChange.Equals(item));
-                                Assert.AreNotEqual(true, item.Equals(itemChange));
-                            }
+                                IsMarked = true,
+                            };
+                            _ = itemChange.ToString();
+                            Assert.AreNotEqual(true, itemChange.Equals(item));
+                            Assert.AreNotEqual(true, item.Equals(itemChange));
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 }

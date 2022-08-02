@@ -23,7 +23,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual ColumnName IdentityName { get; private set; }
+    //[XmlIgnore] private virtual ColumnName IdentityName { get; set; }
     public virtual Guid IdentityUid { get; set; }
     public virtual long IdentityId { get; set; }
     public virtual DateTime CreateDt { get; set; }
@@ -37,7 +37,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     private BaseEntity()
     {
-        IdentityName = ColumnName.Default;
+        //IdentityName = ColumnName.Default;
         IdentityId = 0;
         IdentityUid = Guid.Empty;
         CreateDt = DateTime.MinValue;
@@ -47,19 +47,19 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public BaseEntity(long identityId) : this()
     {
-        IdentityName = ColumnName.Id;
+        //IdentityName = ColumnName.Id;
         IdentityId = identityId;
     }
 
     public BaseEntity(Guid identityUid) : this()
     {
-        IdentityName = ColumnName.Uid;
+        //IdentityName = ColumnName.Uid;
         IdentityUid = identityUid;
     }
 
     protected BaseEntity(SerializationInfo info, StreamingContext context)
     {
-        IdentityName = GetColumnName(info.GetString(nameof(IdentityName)));
+        //IdentityName = GetColumnName(info.GetString(nameof(IdentityName)));
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));
@@ -84,45 +84,45 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public override string ToString()
     {
-        string strIdenttity = IdentityName switch
-        {
-            ColumnName.Id => $"{nameof(IdentityId)}: {IdentityId}. ",
-            ColumnName.Uid => $"{nameof(IdentityUid)}: {IdentityUid}. ",
-            _ => $"{IdentityName}. ",
-        };
-        string strCreateDt = CreateDt != null && CreateDt != DateTime.MinValue ?
-            $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
-        string strChangeDt = ChangeDt != null && ChangeDt != DateTime.MinValue ?
-            $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
-        string strIsMarked = IsMarked != false ?
-            $"{nameof(IsMarked)}: {IsMarked}. " : string.Empty;
-        return strIdenttity + strCreateDt + strChangeDt + strIsMarked;
+        //string strIdentity = IdentityName switch
+        //{
+        //    ColumnName.Id => $"{nameof(IdentityId)}: {IdentityId}. ",
+        //    ColumnName.Uid => $"{nameof(IdentityUid)}: {IdentityUid}. ",
+        //    _ => $"{IdentityName}. ",
+        //};
+        //string strCreateDt = CreateDt != null && CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
+        string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
+        //string strChangeDt = ChangeDt != null && ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
+        string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
+        string strIsMarked = IsMarked ? $"{nameof(IsMarked)}: {IsMarked}. " : string.Empty;
+        //return strIdentity + strCreateDt + strChangeDt + strIsMarked;
+        return strCreateDt + strChangeDt + strIsMarked;
     }
 
-    public override int GetHashCode() => IdentityName switch
-    {
-        ColumnName.Id => IdentityId.GetHashCode(),
-        ColumnName.Uid => IdentityUid.GetHashCode(),
-        _ => default,
-    };
+    //public override int GetHashCode() => IdentityName switch
+    //{
+    //    ColumnName.Id => IdentityId.GetHashCode(),
+    //    ColumnName.Uid => IdentityUid.GetHashCode(),
+    //    _ => default,
+    //};
 
-    public virtual bool EqualsEmpty()
-    {
-        bool isIdentityEmpty = IdentityName switch
-        {
-            ColumnName.Id => Equals(IdentityId, 0),
-            ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
-            _ => Equals(IdentityName, ColumnName.Default),
-        };
-        return isIdentityEmpty;
-    }
+    //public virtual bool EqualsEmpty()
+    //{
+    //    bool isIdentityEmpty = IdentityName switch
+    //    {
+    //        ColumnName.Id => Equals(IdentityId, 0),
+    //        ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
+    //        _ => Equals(IdentityName, ColumnName.Default),
+    //    };
+    //    return isIdentityEmpty;
+    //}
 
     public virtual bool Equals(BaseEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
-            IdentityName.Equals(item.IdentityName) &&
+            //IdentityName.Equals(item.IdentityName) &&
             IdentityId.Equals(item.IdentityId) &&
             IdentityUid.Equals(item.IdentityUid) &&
             Equals(CreateDt, item.CreateDt) &&
@@ -132,7 +132,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((BaseEntity)obj);
@@ -144,28 +144,15 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         info.AddValue(nameof(IsMarked), IsMarked);
         info.AddValue(nameof(ChangeDt), ChangeDt);
         info.AddValue(nameof(CreateDt), CreateDt);
-        info.AddValue(nameof(IdentityUid), IdentityUid);
         info.AddValue(nameof(IdentityId), IdentityId);
-        info.AddValue(nameof(IdentityName), IdentityName);
+        info.AddValue(nameof(IdentityUid), IdentityUid);
+        //info.AddValue(nameof(IdentityName), IdentityName);
         info.AddValue(nameof(IdentityUidStr), IdentityUidStr);
     }
 
-    [Obsolete(@"Use EqualsDefault(ColumnName columnName)")]
     public virtual bool EqualsDefault()
     {
         return
-            Equals(IdentityName, ColumnName.Default) &&
-            Equals(IdentityId, (long)0) &&
-            Equals(IdentityUid, Guid.Empty) &&
-            Equals(CreateDt, DateTime.MinValue) &&
-            Equals(ChangeDt, DateTime.MinValue) &&
-            Equals(IsMarked, false);
-    }
-
-    public virtual bool EqualsDefault(ColumnName columnName)
-    {
-        return
-            Equals(IdentityName, columnName) &&
             Equals(IdentityId, (long)0) &&
             Equals(IdentityUid, Guid.Empty) &&
             Equals(CreateDt, DateTime.MinValue) &&
@@ -175,7 +162,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public virtual object Clone() => new BaseEntity()
     {
-        IdentityName = IdentityName,
+        //IdentityName = IdentityName,
         IdentityId = IdentityId,
         IdentityUid = IdentityUid,
         CreateDt = CreateDt,
@@ -187,7 +174,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public virtual void Setup(BaseEntity baseItem)
     {
-        IdentityName = baseItem.IdentityName;
+        //IdentityName = baseItem.IdentityName;
         IdentityId = baseItem.IdentityId;
         IdentityUid = baseItem.IdentityUid;
         CreateDt = baseItem.CreateDt;

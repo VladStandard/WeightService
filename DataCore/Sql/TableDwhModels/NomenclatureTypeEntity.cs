@@ -77,14 +77,14 @@ namespace DataCore.Sql.TableDwhModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new NomenclatureTypeEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(Name, string.Empty) &&
                    Equals(GoodsForSale, false) &&
                    Equals(StatusId, 0) &&

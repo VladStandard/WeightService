@@ -8,56 +8,55 @@ using System.Collections.Generic;
 using System.Linq;
 using static DataCore.ShareEnums;
 
-namespace DataCoreTests.Sql.TableScaleModels
-{
-    [TestFixture]
-    internal class ScaleEntityTests
-    {
-        [Test]
-        public void Entity_Equals_DoesNotThrow()
-        {
-            Assert.DoesNotThrow(() =>
-            {
-                ScaleEntity item = new();
-                Assert.AreEqual(true, item.EqualsNew());
-                Assert.AreEqual(true, item.EqualsDefault());
-            });
-        }
+namespace DataCoreTests.Sql.TableScaleModels;
 
-        [Test]
-        public void Entity_Crud_DoesNotThrow()
+[TestFixture]
+internal class ScaleEntityTests
+{
+    [Test]
+    public void Entity_Equals_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
         {
-            Assert.DoesNotThrow(() =>
+            ScaleEntity item = new();
+            Assert.AreEqual(true, item.EqualsNew());
+            Assert.AreEqual(true, item.EqualsDefault());
+        });
+    }
+
+    [Test]
+    public void Entity_Crud_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            foreach (bool isShowMarkedItems in TestsEnums.GetBool())
             {
-                foreach (bool isShowMarkedItems in TestsEnums.GetBool())
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
+                    (isShowMarkedItems == true) ? null
+                    : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.User, DbOrderDirection.Asc), 10)
+                    ?.ToList<BaseEntity>();
+                if (items != null)
                 {
-                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
-                        (isShowMarkedItems == true) ? null
-                        : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                            new(DbField.User, DbOrderDirection.Asc), 10)
-                        ?.ToList<BaseEntity>();
-                    if (items != null)
+                    List<ScaleEntity> itemsCast = items.Select(x => (ScaleEntity)x).ToList();
+                    if (itemsCast.Count > 0)
                     {
-                        List<ScaleEntity> itemsCast = items.Select(x => (ScaleEntity)x).ToList();
-                        if (itemsCast.Count > 0)
+                        foreach (ScaleEntity item in itemsCast)
                         {
-                            foreach (ScaleEntity item in itemsCast)
+                            ScaleEntity itemCopy = item.CloneCast();
+                            Assert.AreEqual(true, item.Equals(itemCopy));
+                            Assert.AreEqual(true, itemCopy.Equals(item));
+                            ScaleEntity itemChange = new()
                             {
-                                ScaleEntity itemCopy = item.CloneCast();
-                                Assert.AreEqual(true, item.Equals(itemCopy));
-                                Assert.AreEqual(true, itemCopy.Equals(item));
-                                ScaleEntity itemChange = new()
-                                {
-                                    IsMarked = true,
-                                };
-                                _ = itemChange.ToString();
-                                Assert.AreNotEqual(true, itemChange.Equals(item));
-                                Assert.AreNotEqual(true, item.Equals(itemChange));
-                            }
+                                IsMarked = true,
+                            };
+                            _ = itemChange.ToString();
+                            Assert.AreNotEqual(true, itemChange.Equals(item));
+                            Assert.AreNotEqual(true, item.Equals(itemChange));
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 }

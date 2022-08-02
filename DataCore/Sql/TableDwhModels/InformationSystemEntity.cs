@@ -72,12 +72,12 @@ namespace DataCore.Sql.TableDwhModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new InformationSystemEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(Name, string.Empty) &&
                    Equals(ConnectString1, string.Empty) &&
                    Equals(ConnectString2, string.Empty) &&

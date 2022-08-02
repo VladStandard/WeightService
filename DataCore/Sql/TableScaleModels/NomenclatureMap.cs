@@ -3,22 +3,28 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "Nomenclature".
+/// </summary>
+public class NomenclatureMap : ClassMap<NomenclatureEntity>
 {
-    public class NomenclatureMap : ClassMap<NomenclatureEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public NomenclatureMap()
     {
-        public NomenclatureMap()
-        {
-            Table("[db_scales].[Nomenclature]");
-            LazyLoad();
-            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
-            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-            Map(x => x.Code).CustomSqlType("NVARCHAR").Column("Code").Length(30);
-            Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(300);
-            Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
-            Map(x => x.Weighted).CustomSqlType("BIT").Column("Weighted").Not.Nullable().Default("0");
-        }
+        Schema("db_scales");
+        Table("Nomenclature");
+        LazyLoad();
+        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.Code).CustomSqlType("NVARCHAR").Column("Code").Length(30);
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(300);
+        Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
+        Map(x => x.Weighted).CustomSqlType("BIT").Column("Weighted").Not.Nullable().Default("0");
     }
 }

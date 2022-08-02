@@ -161,7 +161,7 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new XmlProductEntity());
+            return Equals(new());
         }
 
         #endregion
@@ -202,7 +202,7 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new ProductUnitEntity());
+            return Equals(new());
         }
     }
 
@@ -229,7 +229,7 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new ProductBarcodeEntity());
+            return Equals(new());
         }
     }
 
@@ -280,7 +280,7 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new ProductBoxEntity());
+            return Equals(new());
         }
     }
 }

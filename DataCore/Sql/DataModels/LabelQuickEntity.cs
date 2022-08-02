@@ -129,12 +129,12 @@ namespace DataCore.Sql.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new LabelQuickEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(ScaleId, 0) &&
                    Equals(ScaleDescription, string.Empty) &&
                    Equals(PluId, 0) &&

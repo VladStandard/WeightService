@@ -3,17 +3,23 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "ZebraPrinterType".
+/// </summary>
+public class PrinterTypeMap : ClassMap<PrinterTypeEntity>
 {
-    public class PrinterTypeMap : ClassMap<PrinterTypeEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public PrinterTypeMap()
     {
-        public PrinterTypeMap()
-        {
-            Table("[db_scales].[ZebraPrinterType]");
-            LazyLoad();
-            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        }
+        Schema("db_scales");
+        Table("ZebraPrinterType");
+        LazyLoad();
+        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }
 }

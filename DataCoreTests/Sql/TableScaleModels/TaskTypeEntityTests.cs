@@ -8,57 +8,56 @@ using System.Collections.Generic;
 using System.Linq;
 using static DataCore.ShareEnums;
 
-namespace DataCoreTests.Sql.TableScaleModels
-{
-    [TestFixture]
-    internal class TaskTypeEntityTests
-    {
-        [Test]
-        public void Entity_Equals_DoesNotThrow()
-        {
-            Assert.DoesNotThrow(() =>
-            {
-                TaskTypeEntity item = new();
-                Assert.AreEqual(true, item.EqualsNew());
-                Assert.AreEqual(true, item.EqualsDefault());
-            });
-        }
+namespace DataCoreTests.Sql.TableScaleModels;
 
-        [Test]
-        public void Entity_Crud_DoesNotThrow()
+[TestFixture]
+internal class TaskTypeEntityTests
+{
+    [Test]
+    public void Entity_Equals_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
         {
-            Assert.DoesNotThrow(() =>
+            TaskTypeEntity item = new();
+            Assert.AreEqual(true, item.EqualsNew());
+            Assert.AreEqual(true, item.EqualsDefault());
+        });
+    }
+
+    [Test]
+    public void Entity_Crud_DoesNotThrow()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            foreach (bool isShowMarkedItems in TestsEnums.GetBool())
             {
-                foreach (bool isShowMarkedItems in TestsEnums.GetBool())
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<TaskTypeEntity>(
+                    (isShowMarkedItems == true) ? null
+                        : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.User, DbOrderDirection.Asc), 
+                        10)
+                    ?.ToList<BaseEntity>();
+                if (items != null)
                 {
-                    List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<TaskTypeEntity>(
-                        (isShowMarkedItems == true) ? null
-                            : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                            new(DbField.User, DbOrderDirection.Asc), 
-                            10)
-                        ?.ToList<BaseEntity>();
-                    if (items != null)
+                    List<TaskTypeEntity> itemsCast = items.Select(x => (TaskTypeEntity)x).ToList();
+                    if (itemsCast.Count > 0)
                     {
-                        List<TaskTypeEntity> itemsCast = items.Select(x => (TaskTypeEntity)x).ToList();
-                        if (itemsCast.Count > 0)
+                        foreach (TaskTypeEntity item in itemsCast)
                         {
-                            foreach (TaskTypeEntity item in itemsCast)
+                            TaskTypeEntity itemCopy = item.CloneCast();
+                            Assert.AreEqual(true, item.Equals(itemCopy));
+                            Assert.AreEqual(true, itemCopy.Equals(item));
+                            TaskTypeEntity itemChange = new()
                             {
-                                TaskTypeEntity itemCopy = item.CloneCast();
-                                Assert.AreEqual(true, item.Equals(itemCopy));
-                                Assert.AreEqual(true, itemCopy.Equals(item));
-                                TaskTypeEntity itemChange = new()
-                                {
-                                    IsMarked = true,
-                                };
-                                _ = itemChange.ToString();
-                                Assert.AreNotEqual(true, itemChange.Equals(item));
-                                Assert.AreNotEqual(true, item.Equals(itemChange));
-                            }
+                                IsMarked = true,
+                            };
+                            _ = itemChange.ToString();
+                            Assert.AreNotEqual(true, itemChange.Equals(item));
+                            Assert.AreNotEqual(true, item.Equals(itemChange));
                         }
                     }
                 }
-            });
-        }
+            }
+        });
     }
 }

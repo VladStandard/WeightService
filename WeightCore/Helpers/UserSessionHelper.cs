@@ -112,8 +112,9 @@ namespace WeightCore.Helpers
                     hostName = NetUtils.GetLocalHostName(false);
                 HostEntity host = SqlUtils.GetHostEntity(hostName);
                 Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.IdentityId) : SqlUtils.GetScale(scaleId);
-            
+
                 AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
+                //AppVersion.AppDescription = $"{AppVersion.AppTitle}. ";
                 ProductDate = DateTime.Now;
                 // начинается новыя серия, упаковки продукции, новая паллета
                 ProductSeries = new(Scale);

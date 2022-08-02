@@ -56,12 +56,12 @@ namespace DataCore.Sql.TableDwhModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new StatusEntity());
+            return Equals(new());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault(IdentityName) &&
+            return base.EqualsDefault() &&
                    Equals(Name, string.Empty);
         }
 

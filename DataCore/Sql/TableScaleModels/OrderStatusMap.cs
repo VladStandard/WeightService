@@ -3,22 +3,28 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "OrderStatus".
+/// </summary>
+public class OrderStatusMap : ClassMap<OrderStatusEntity>
 {
-    public class OrderStatusMap : ClassMap<OrderStatusEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public OrderStatusMap()
     {
-        public OrderStatusMap()
-        {
-            Table("[db_scales].[OrderStatus]");
-            LazyLoad();
-            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-            CompositeId().KeyProperty(x => x.OrderId, "OrderId")
-                .KeyProperty(x => x.CurrentDate, "CurrentDate")
-                .KeyProperty(x => x.IdentityId, "Id");
-            Map(x => x.OrderId).CustomSqlType("INT").Column("OrderId").Not.Nullable();
-            Map(x => x.CurrentDate).CustomSqlType("DATETIME").Column("CurrentDate").Not.Nullable();
-            Map(x => x.CurrentStatus).CustomSqlType("TINYINT").Column("CurrentStatus").Nullable();
-        }
+        Schema("db_scales");
+        Table("OrderStatus");
+        LazyLoad();
+        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        CompositeId().KeyProperty(x => x.OrderId, "OrderId")
+            .KeyProperty(x => x.CurrentDate, "CurrentDate")
+            .KeyProperty(x => x.IdentityId, "Id");
+        Map(x => x.OrderId).CustomSqlType("INT").Column("OrderId").Not.Nullable();
+        Map(x => x.CurrentDate).CustomSqlType("DATETIME").Column("CurrentDate").Not.Nullable();
+        Map(x => x.CurrentStatus).CustomSqlType("TINYINT").Column("CurrentStatus").Nullable();
     }
 }

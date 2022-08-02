@@ -3,19 +3,25 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "TASKS".
+/// </summary>
+public class TaskMap : ClassMap<TaskEntity>
 {
-    public class TaskMap : ClassMap<TaskEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public TaskMap()
     {
-        public TaskMap()
-        {
-            Table("[db_scales].[TASKS]");
-            LazyLoad();
-            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            References(x => x.TaskType).Column("TASK_UID").Not.Nullable();
-            References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
-            Map(x => x.Enabled).CustomSqlType("BIT").Column("ENABLED").Not.Nullable().Default("0");
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        }
+        Schema("db_scales");
+        Table("TASKS");
+        LazyLoad();
+        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        References(x => x.TaskType).Column("TASK_UID").Not.Nullable();
+        References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
+        Map(x => x.Enabled).CustomSqlType("BIT").Column("ENABLED").Not.Nullable().Default("0");
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }
 }

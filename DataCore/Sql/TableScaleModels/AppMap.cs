@@ -3,17 +3,23 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "APPS".
+/// </summary>
+public class AppMap : ClassMap<AppEntity>
 {
-    public class AppMap : ClassMap<AppEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public AppMap()
     {
-        public AppMap()
-        {
-            Table("[db_scales].[APPS]");
-            LazyLoad();
-            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(32).Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        }
+        Schema("db_scales");
+        Table("APPS");
+        LazyLoad();
+        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(32).Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }
 }

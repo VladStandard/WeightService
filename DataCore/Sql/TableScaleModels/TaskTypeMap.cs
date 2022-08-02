@@ -3,17 +3,23 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "TASKS_TYPES".
+/// </summary>
+public class TaskTypeMap : ClassMap<TaskTypeEntity>
 {
-    public class TaskTypeMap : ClassMap<TaskTypeEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public TaskTypeMap()
     {
-        public TaskTypeMap()
-        {
-            Table("[db_scales].[TASKS_TYPES]");
-            LazyLoad();
-            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(32).Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        }
+        Schema("db_scales");
+        Table("TASKS_TYPES");
+        LazyLoad();
+        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(32).Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }
 }

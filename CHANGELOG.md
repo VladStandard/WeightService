@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.940] - 2022-08-02
+### Описание обновления:
+- WS-T-313. Весовые этикетки. Добавить смену площадки
+- WS-T-314. NuGet-package FluentValidation
+- WS-T-315. Автономное тестирование. DataCoreTests
+
 ## [0.6.935] - 2022-08-01
 ### Описание обновления:
 - WS-T-311. Управление устройствами. Скрыть нулевую запись в разделе площадок

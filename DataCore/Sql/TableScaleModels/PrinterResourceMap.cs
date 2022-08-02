@@ -3,21 +3,27 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "ZebraPrinterResourceRef".
+/// </summary>
+public class PrinterResourceMap : ClassMap<PrinterResourceEntity>
 {
-    public class PrinterResourceMap : ClassMap<PrinterResourceEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public PrinterResourceMap()
     {
-        public PrinterResourceMap()
-        {
-            Table("[db_scales].[ZebraPrinterResourceRef]");
-            LazyLoad();
-            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            References(x => x.Printer).Column("PrinterID").Not.Nullable();
-            References(x => x.Resource).Column("ResourceID").Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-            Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150).Nullable();
-        }
+        Schema("db_scales");
+        Table("ZebraPrinterResourceRef");
+        LazyLoad();
+        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        References(x => x.Printer).Column("PrinterID").Not.Nullable();
+        References(x => x.Resource).Column("ResourceID").Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+        Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150).Nullable();
     }
 }

@@ -2,24 +2,23 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Models;
-using System;
 // ReSharper disable MissingXmlDoc
 
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "ProductionFacilities".
+/// Table "ProductionFacility".
 /// </summary>
 public class ProductionFacilityEntity : BaseEntity
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
+    /// <summary>
+    /// Identity name.
+    /// </summary>
+    public static ColumnName IdentityName => ColumnName.Id;
     public virtual string Name { get; set; }
     public virtual string Address { get; set; }
-
-    #endregion
-
-    #region Constructor and destructor
 
     public ProductionFacilityEntity() : this(0)
     {
@@ -67,7 +66,7 @@ public class ProductionFacilityEntity : BaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        return base.EqualsDefault(IdentityName) &&
+        return base.EqualsDefault() &&
                Equals(Name, string.Empty) &&
                Equals(Address, string.Empty);
     }

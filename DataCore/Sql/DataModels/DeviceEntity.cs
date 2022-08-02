@@ -61,7 +61,7 @@ namespace DataCore.Sql.DataModels
         {
             if (Scales != null && !Scales.EqualsDefault())
                 return false;
-            return base.EqualsDefault(IdentityName);
+            return base.EqualsDefault();
         }
 
         public new virtual object Clone()

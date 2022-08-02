@@ -3,21 +3,27 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataCore.Sql.TableScaleModels
+namespace DataCore.Sql.TableScaleModels;
+
+/// <summary>
+/// Table map "ProductSeries".
+/// </summary>
+public class ProductSeriesMap : ClassMap<ProductSeriesEntity>
 {
-    public class ProductSeriesMap : ClassMap<ProductSeriesEntity>
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public ProductSeriesMap()
     {
-        public ProductSeriesMap()
-        {
-            Table("[db_scales].[ProductSeries]");
-            LazyLoad();
-            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            References(x => x.Scale).Column("ScaleID").Not.Nullable();
-            Map(x => x.CreateDt).CustomSqlType("DATETIME(2,7)").Column("CreateDate").Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-            Map(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
-            Map(x => x.IsClose).CustomSqlType("BIT").Column("IsClose").Not.Nullable().Default("0");
-            Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Nullable();
-        }
+        Schema("db_scales");
+        Table("ProductSeries");
+        LazyLoad();
+        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        References(x => x.Scale).Column("ScaleID").Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME(2,7)").Column("CreateDate").Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
+        Map(x => x.IsClose).CustomSqlType("BIT").Column("IsClose").Not.Nullable().Default("0");
+        Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Nullable();
     }
 }

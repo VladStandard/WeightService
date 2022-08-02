@@ -6,6 +6,7 @@ using DataCore.Sql.TableScaleModels;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using NSubstitute;
 using static DataCore.ShareEnums;
 // ReSharper disable MethodTooLong
 // ReSharper disable CognitiveComplexity
@@ -23,7 +24,7 @@ internal class ProductionFacilityEntityTests
         {
             // Arrange.
             ProductionFacilityEntity item = new();
-            //ProductionFacilityEntity item = Substitute.For<ProductionFacilityEntity>();
+            ProductionFacilityEntity item2 = Substitute.For<ProductionFacilityEntity>();
             //item.GetHashCode().Returns(0);
             // Act.
             bool success = item.EqualsNew();

@@ -40,9 +40,10 @@ public partial class MainForm : Form
 
     #endregion
 
-    #region Private fields and properties
+    #region Public and private fields, properties, constructor
 
     private Button ButtonScaleChange { get; set; }
+    private Button ButtonProductionFacilityChange { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
     private Button ButtonNewPallet { get; set; }
@@ -57,10 +58,6 @@ public partial class MainForm : Form
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private bool IsKeyboardMouseEventsSubscribe { get; set; }
 
-    #endregion
-
-    #region Public and private methods - MainForm
-
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -68,6 +65,11 @@ public partial class MainForm : Form
     {
         InitializeComponent();
     }
+
+    #endregion
+
+    #region Public and private methods - MainForm
+
 
     private void MainForm_Load(object sender, EventArgs e)
     {
@@ -158,7 +160,7 @@ public partial class MainForm : Form
             // Labels.
             UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                 labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                ButtonScaleChange, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                ButtonScaleChange, ButtonProductionFacilityChange, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                 ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                 fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
             UserSession.ManagerControl.Labels.Open();
@@ -264,6 +266,8 @@ public partial class MainForm : Form
 
         if (ButtonScaleChange != null)
             ButtonScaleChange.Font = FontsSettings.FontButtons;
+        if (ButtonProductionFacilityChange != null)
+            ButtonProductionFacilityChange.Font = FontsSettings.FontButtons;
         if (ButtonScalesTerminal != null)
             ButtonScalesTerminal.Font = FontsSettings.FontButtons;
         if (ButtonScalesInit != null)
@@ -303,6 +307,8 @@ public partial class MainForm : Form
         {
             ButtonScaleChange = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScaleChange), 2, 0);
             ButtonScaleChange.Click += ActionScaleChange_Click;
+            ButtonProductionFacilityChange = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonProductionFacilityChange), 2, 1);
+            ButtonProductionFacilityChange.Click += ActionScaleChange_Click;
         }
 
         TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -586,8 +592,12 @@ public partial class MainForm : Form
         try
         {
             LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
-            int number = UserSession.Scale.Number;
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, LocaleCore.Scales.ButtonScaleChange(number));
+            string scale = UserSession.Scale.Description;
+            string productionFacility = string.Empty;
+            if (UserSession.Scale.WorkShop?.ProductionFacility != null)
+                productionFacility = UserSession.Scale.WorkShop.ProductionFacility.Name;
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, scale);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonProductionFacilityChange, productionFacility);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);

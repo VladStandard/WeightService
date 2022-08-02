@@ -3,22 +3,21 @@
 
 using NUnit.Framework;
 
-namespace DataCoreTests.Files
+namespace DataCoreTests.Files;
+
+public class JsonSettingsFileEntityTests
 {
-    public class JsonSettingsFileEntityTests
+    #region Public and private methods
+
+    [Test]
+    public void JsonSettings_New_DoesNotThrow()
     {
-        #region Public and private methods
-
-        [Test]
-        public void JsonSettings_New_DoesNotThrow()
+        Assert.DoesNotThrow(() =>
         {
-            Assert.DoesNotThrow(() =>
-            {
-                TestContext.WriteLine($"{nameof(TestsUtils.DataAccess.JsonSettingsLocal)}: {TestsUtils.DataAccess.JsonSettingsLocal}");
-            });
+            TestContext.WriteLine($"{nameof(TestsUtils.DataAccess.JsonSettingsLocal)}: {TestsUtils.DataAccess.JsonSettingsLocal}");
+        });
 
-        }
-
-        #endregion
     }
+
+    #endregion
 }
