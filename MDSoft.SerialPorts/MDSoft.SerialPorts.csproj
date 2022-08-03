@@ -3,9 +3,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64</Platforms>
-    <FileVersion>0.6.940.0</FileVersion>
-    <AssemblyVersion>0.6.940.0</AssemblyVersion>
-    <Version>0.6.940.0</Version>
+    <FileVersion>0.6.945.0</FileVersion>
+    <AssemblyVersion>0.6.945.0</AssemblyVersion>
+    <Version>0.6.945.0</Version>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
