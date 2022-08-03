@@ -10,7 +10,7 @@ namespace DataCore.Schedulers
 {
     public class QuartzJobEverySeconds10Entity : IJob
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public static List<Action> Actions { get; set; } = new List<Action>();
 

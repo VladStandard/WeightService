@@ -8,7 +8,7 @@ namespace DataCore.Models
 {
     public class DisposableBase : IDisposable
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public bool IsOpen { get; private set; }
         private readonly ushort _maxCount = ushort.MaxValue;

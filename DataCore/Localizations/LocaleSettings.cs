@@ -18,7 +18,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string AllowedHosts => Lang == ShareEnums.Lang.English ? "Allowed hosts" : "Разрешенные хосты";
         public string SectionRowsCount => Lang == ShareEnums.Lang.English ? "Section's rows count" : "Количество строк в секции";

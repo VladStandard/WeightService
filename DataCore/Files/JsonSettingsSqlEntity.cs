@@ -9,7 +9,7 @@ namespace DataCore.Files
     [Serializable]
     public class JsonSettingsSqlEntity : ISerializable
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string DataSource { get; set; }
         public string InitialCatalog { get; set; }

@@ -8,7 +8,7 @@ namespace WeightCore.Gui
 {
     public partial class NumberInputForm : Form
     {
-        #region Private fields and properties
+        #region Public and private fields, properties, constructor
 
         private int _InputValueShadow;
         public int InputValue { get; set; }

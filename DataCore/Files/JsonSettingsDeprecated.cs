@@ -11,7 +11,7 @@
 //    /// </summary>
 //    public class JsonSettingsEntity
 //    {
-//        #region Public and private fields and properties
+//        #region Public and private fields, properties, constructor
 
 //        public IConfiguration? Configuration { get; }
 

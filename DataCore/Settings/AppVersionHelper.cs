@@ -20,7 +20,7 @@ namespace DataCore.Settings
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string App { get; private set; }
         public string AppName { get; private set; }

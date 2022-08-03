@@ -10,7 +10,7 @@ namespace DataCore.Sql.DataModels
 {
     public class LogQuickEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual string Scale { get; set; }
         public virtual string Host { get; set; }

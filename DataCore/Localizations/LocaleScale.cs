@@ -20,7 +20,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public List<string> ListLanguages => Lang == ShareEnums.Lang.English ? new List<string> { "Russian", "English" } : new List<string> { "Russian", "English" };
         public List<string> ListResolutions => Lang == ShareEnums.Lang.English ? new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };

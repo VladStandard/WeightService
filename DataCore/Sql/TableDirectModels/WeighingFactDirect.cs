@@ -15,7 +15,7 @@ namespace DataCore.Sql.TableDirectModels
     /// </summary>
     public class WeighingFactDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public long Id { get; set; }
         public TemplateDirect Template { get; set; } = new();

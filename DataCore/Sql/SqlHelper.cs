@@ -26,7 +26,7 @@ namespace DataCore.Sql
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         public DbConnection? Connection { get; set; }

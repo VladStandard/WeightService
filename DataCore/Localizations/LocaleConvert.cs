@@ -18,7 +18,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string BoolToString(bool isFlag) => isFlag ? (Lang == ShareEnums.Lang.English ? "yes" : "да") : (Lang == ShareEnums.Lang.English ? "no" : "нет");
         public string ByteToString(byte isFlag, string yes, string no) => isFlag == 0x01 ? yes : no;

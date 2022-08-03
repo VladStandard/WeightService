@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class TemplateDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string Title { get; set; } = string.Empty;
         public string XslContent { get; set; } = string.Empty;

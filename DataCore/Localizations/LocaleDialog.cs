@@ -18,7 +18,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string DialogButtonCancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
         public string DialogButtonNo => Lang == ShareEnums.Lang.English ? "No" : "Нет";

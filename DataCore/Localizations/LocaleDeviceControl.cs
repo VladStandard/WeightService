@@ -18,7 +18,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string WebAppIsStarted => Lang == ShareEnums.Lang.English ? "Web-app is started" : "Веб-приложение запущено";
 

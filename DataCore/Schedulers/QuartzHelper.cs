@@ -19,7 +19,7 @@ namespace DataCore.Schedulers
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public StdSchedulerFactory? _factory = null;
         public StdSchedulerFactory Factory

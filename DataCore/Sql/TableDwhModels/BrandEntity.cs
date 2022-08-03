@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableDwhModels
 {
     public class BrandEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual string Name { get; set; }
         public virtual string Code { get; set; }

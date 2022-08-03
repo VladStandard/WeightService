@@ -83,14 +83,14 @@ public class PluEntity : BaseEntity, ISerializable
 
     #endregion
 
-    #region Public and private fields and properties - Helpers
+    #region Public and private fields, properties, constructor - Helpers
 
     private XmlProductHelper ProductHelper { get; set; } = XmlProductHelper.Instance;
     private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
 
     #endregion
 
-    #region Public and private fields and properties - XML
+    #region Public and private fields, properties, constructor - XML
 
     public virtual string XmlGoodsName
     {

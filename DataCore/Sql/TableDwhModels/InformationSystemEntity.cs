@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableDwhModels
 {
     public class InformationSystemEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual string Name { get; set; }
         public virtual string ConnectString1 { get; set; }

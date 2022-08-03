@@ -49,7 +49,7 @@
 
 //        #endregion
 
-//        #region Private fields and properties
+//        #region Public and private fields, properties, constructor
 
 //        private readonly object _locker = new object();
 //        private LogHelper _log { get; set; } = LogHelper.Instance;

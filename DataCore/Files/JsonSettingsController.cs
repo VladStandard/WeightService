@@ -13,7 +13,7 @@ namespace DataCore.Files
 {
     public class JsonSettingsController
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public AppVersionHelper AppVersion { get; private set; } = AppVersionHelper.Instance;
         public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;

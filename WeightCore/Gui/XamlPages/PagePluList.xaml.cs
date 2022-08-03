@@ -15,7 +15,7 @@ namespace WeightCore.Gui.XamlPages
     /// </summary>
     public partial class PagePluList : System.Windows.Controls.UserControl
     {
-        #region Private fields and properties
+        #region Public and private fields, properties, constructor
 
         public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
         public SqlViewModelHelper SqlViewModel { get; }

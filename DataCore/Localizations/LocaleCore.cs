@@ -5,7 +5,7 @@ namespace DataCore.Localizations
 {
     public static class LocaleCore
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private static ShareEnums.Lang _lang;
         public static ShareEnums.Lang Lang

@@ -5,7 +5,7 @@ namespace DataCore.Wmi
 {
     public class WmiWin32MemoryEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public ulong FreeVirtual { get; set; }
         public ulong FreePhysical { get; set; }

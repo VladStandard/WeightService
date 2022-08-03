@@ -41,11 +41,17 @@ public class ScaleEntity : BaseEntity
     public virtual bool IsOrder { get; set; }
     public virtual bool IsKneading { get; set; }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public ScaleEntity() : this(0)
     {
         //
     }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public ScaleEntity(long id) : base(id)
     {
         TemplateDefault = null;
@@ -113,7 +119,7 @@ public class ScaleEntity : BaseEntity
 
     public virtual bool Equals(ScaleEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         if (TemplateDefault != null && item.TemplateDefault != null && !TemplateDefault.Equals(item.TemplateDefault))
             return false;

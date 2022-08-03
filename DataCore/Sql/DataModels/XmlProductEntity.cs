@@ -11,7 +11,7 @@ namespace DataCore.Sql.DataModels
     /// </summary>
     public class XmlProductEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string Category { get; set; }
         public string Code { get; set; }

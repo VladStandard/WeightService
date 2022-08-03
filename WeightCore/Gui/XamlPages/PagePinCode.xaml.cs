@@ -6,68 +6,66 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WeightCore.Gui.XamlPages
+namespace WeightCore.Gui.XamlPages;
+
+/// <summary>
+/// Interaction logic for PagePin.xaml
+/// </summary>
+public partial class PagePinCode : UserControl
 {
+    #region Public and private fields, properties, constructor
+
+    private SqlViewModelHelper SqlViewModel { get; }
+    public RoutedEventHandler OnClose { get; set; }
+    public System.Windows.Forms.DialogResult Result { get; }
+
     /// <summary>
-    /// Interaction logic for PagePin.xaml
+    /// Constructor.
     /// </summary>
-    public partial class PagePinCode : UserControl
+    public PagePinCode()
     {
-        #region Private fields and properties
+        InitializeComponent();
 
-        private SqlViewModelHelper SqlViewModel { get; }
-        public RoutedEventHandler OnClose { get; set; }
-        public System.Windows.Forms.DialogResult Result { get; internal set; }
-
-        #endregion
-
-        #region Constructor
-
-        public PagePinCode()
+        object context = FindResource("SqlViewModel");
+        if (context is SqlViewModelHelper sqlViewModel)
         {
-            InitializeComponent();
-
-            object context = FindResource("SqlViewModel");
-            if (context is SqlViewModelHelper sqlViewModel)
-            {
-                SqlViewModel = sqlViewModel;
-            }
+            SqlViewModel = sqlViewModel;
         }
-
-        #endregion
-
-        #region Private methods
-
-        private void PagePin_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            // Очистить.
-            ButtonClear_Click(sender, e);
-        }
-
-        private void ButtonNum_Click(object sender, EventArgs e)
-        {
-            string num = (string)(sender as Button).Content;
-            //_settings.PinCode.Input = int.Parse(_settings.PinCode.Input.ToString() + num);
-        }
-
-        private void ButtonClear_Click(object sender, RoutedEventArgs e)
-        {
-            //_settings.PinCode.Input = 0;
-        }
-
-        private void ButtonEnter_Click(object sender, RoutedEventArgs e)
-        {
-            //if (_settings.PinCode.AccessGranted)
-            //{
-            //    _settings.ActivePage = ProjectsEnums.WpfActivePage.Settings;
-            //}
-            //else
-            //{
-            //    ButtonClear_Click(sender, e);
-            //}
-            OnClose?.Invoke(sender, e);
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Private methods
+
+    private void PagePin_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        // Очистить.
+        ButtonClear_Click(sender, e);
+    }
+
+    private void ButtonNum_Click(object sender, EventArgs e)
+    {
+        string num = (string)(sender as Button).Content;
+        //_settings.PinCode.Input = int.Parse(_settings.PinCode.Input.ToString() + num);
+    }
+
+    private void ButtonClear_Click(object sender, RoutedEventArgs e)
+    {
+        //_settings.PinCode.Input = 0;
+    }
+
+    private void ButtonEnter_Click(object sender, RoutedEventArgs e)
+    {
+        //if (_settings.PinCode.AccessGranted)
+        //{
+        //    _settings.ActivePage = ProjectsEnums.WpfActivePage.Settings;
+        //}
+        //else
+        //{
+        //    ButtonClear_Click(sender, e);
+        //}
+        OnClose?.Invoke(sender, e);
+    }
+
+    #endregion
 }

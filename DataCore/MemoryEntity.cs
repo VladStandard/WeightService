@@ -10,7 +10,7 @@ namespace DataCore
 {
     public class MemoryEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public int SleepMiliSeconds { get; }
         public int WaitCloseMiliSeconds { get; }

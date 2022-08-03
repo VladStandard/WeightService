@@ -13,7 +13,7 @@ namespace DataCore.Sql.Controllers;
 
 public class LogController
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
     public AppEntity? App { get; set; }

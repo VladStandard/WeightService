@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class TaskDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public Guid Uid { get; set; }
         public TaskTypeDirect TaskType { get; set; }

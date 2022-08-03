@@ -19,13 +19,16 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string SqlDb => Lang == ShareEnums.Lang.English ? "SQL-DB" : "SQL-БД";
         public string SqlDbCurSize => Lang == ShareEnums.Lang.English ? "DB size" : "Размер БД";
         public string SqlDbFillSize => Lang == ShareEnums.Lang.English ? "DB fill percentage" : "Процент заполнения БД";
         public string SqlDbMaxSize => Lang == ShareEnums.Lang.English ? "DB size" : "Максимальный размер БД";
         public string SqlServer => Lang == ShareEnums.Lang.English ? "SQL-server" : "SQL-сервер";
+        public string SqlServerDev => Lang == ShareEnums.Lang.English ? "Development server" : "Сервер разработки";
+        public string SqlServerProd => Lang == ShareEnums.Lang.English ? "Product server" : "Продуктовый сервер";
+        public string SqlServerTest => Lang == ShareEnums.Lang.English ? "Test server" : "Тестовый сервер";
         public string SqlUser => Lang == ShareEnums.Lang.English ? "SQL-user" : "SQL-пользователь";
         public string StatusClosed => Lang == ShareEnums.Lang.English ? @"Connecting to SQL server is close." : "Закрыто подключение к SQL-серверу.";
         public string StatusConnected => Lang == ShareEnums.Lang.English ? @"Connecting to SQL server is open." : "Открыто подключение к SQL-серверу.";

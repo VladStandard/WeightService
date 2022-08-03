@@ -8,7 +8,7 @@ namespace DataCore.Schedulers
 {
     public class QuartzTriggerEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public QuartzEnums.Interval Interval { get; set; } = QuartzEnums.Interval.Seconds;
         public int IntervalLength { get; set; } = 0;

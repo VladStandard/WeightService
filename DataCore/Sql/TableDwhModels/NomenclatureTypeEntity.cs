@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableDwhModels
 {
     public class NomenclatureTypeEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual string Name { get; set; }
         public virtual bool GoodsForSale { get; set; }

@@ -18,7 +18,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string JsonSettingsLocalFileException => Lang == ShareEnums.Lang.English ? "Exception in json-settings file!" : "Ошибка файла json-настроек!";
         public string JsonSettingsFileIsEmpty(string file) => Lang == ShareEnums.Lang.English ? $"Json-settings file is empty! {file}" : $"Файл json-настроек пуст! {file}";

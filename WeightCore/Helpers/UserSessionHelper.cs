@@ -8,6 +8,7 @@ using DataCore.Settings;
 using DataCore.Sql;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
+using MDSoft.BarcodePrintUtils;
 using MvvmHelpers;
 using System;
 using System.Diagnostics;
@@ -15,11 +16,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using MDSoft.BarcodePrintUtils;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using static DataCore.ShareEnums;
-using static DataCore.Sql.SqlQueries.DbScales.Tables;
 
 namespace WeightCore.Helpers
 {
@@ -91,20 +90,19 @@ namespace WeightCore.Helpers
         }
         private readonly object _locker = new();
 
-        #endregion
-
-        #region Constructor and destructor
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public UserSessionHelper()
         {
-            Setup();
+            Setup(-1, "", "");
         }
 
         #endregion
 
         #region Public and private methods
 
-        public void Setup(long scaleId = -1, string hostName = "")
+        public void Setup(long scaleId, string areaName, string hostName)
         {
             lock (_locker)
             {
@@ -468,7 +466,7 @@ namespace WeightCore.Helpers
             {
                 if (WeighingFact == null)
                     return;
-                
+
                 WeighingFact.Save();
 
                 //string xmlInput = CurrentWeighingFact.SerializeObject();

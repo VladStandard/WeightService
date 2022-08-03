@@ -18,13 +18,14 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
-        public string Address => Lang == ShareEnums.Lang.English ? "Address" : "Адрес";
         public string AccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
         public string Active => Lang == ShareEnums.Lang.English ? "Active" : "Активно";
         public string ActiveShort => Lang == ShareEnums.Lang.English ? "Act" : "Акт";
+        public string Address => Lang == ShareEnums.Lang.English ? "Address" : "Адрес";
         public string App => Lang == ShareEnums.Lang.English ? "Program" : "Программа";
+        public string Area => Lang == ShareEnums.Lang.English ? "Area" : "Площадка";
         public string Arm => Lang == ShareEnums.Lang.English ? "ARM" : "АРМ";
         public string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
         public string BarCodeTypeId => Lang == ShareEnums.Lang.English ? "Barcode type ID" : "ИД типа ШК";

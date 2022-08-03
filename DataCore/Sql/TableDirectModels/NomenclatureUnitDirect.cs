@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class NomenclatureUnitDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;

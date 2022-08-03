@@ -8,7 +8,7 @@ namespace DataCore.Protocols
 {
     public class ZplExchangeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public byte[] Cmd { get; set; }
         public int Length { get => Cmd.Length; }

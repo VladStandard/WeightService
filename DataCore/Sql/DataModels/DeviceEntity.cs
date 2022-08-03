@@ -8,7 +8,7 @@ namespace DataCore.Sql.DataModels
 {
     public class DeviceEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual ScaleEntity Scales { get; set; }
 

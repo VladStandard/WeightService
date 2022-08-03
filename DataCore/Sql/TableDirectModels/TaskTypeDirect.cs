@@ -5,54 +5,52 @@ using DataCore.Sql.Models;
 using Microsoft.Data.SqlClient;
 using System;
 
-namespace DataCore.Sql.TableDirectModels
+namespace DataCore.Sql.TableDirectModels;
+
+public class TaskTypeDirect : BaseSerializeEntity
 {
-    public class TaskTypeDirect : BaseSerializeEntity
+    #region Public and private fields, properties, constructor
+
+    public Guid Uid { get; set; }
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public TaskTypeDirect()
     {
-        #region Public and private fields and properties
-
-        public Guid Uid { get; set; }
-        public string Name { get; set; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public TaskTypeDirect()
-        {
-            Uid = Guid.Empty;
-            Name = string.Empty;
-        }
-
-        public TaskTypeDirect(Guid uid, string name)
-        {
-            Uid = uid;
-            Name = name;
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public void Save(string name)
-        {
-            using SqlConnection con = SqlConnect.GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.AddTaskType))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.ExecuteNonQuery();
-            }
-            con.Close();
-        }
-
-        public void Save()
-        {
-            Save(Name);
-        }
-
-        #endregion
+        Uid = Guid.Empty;
+        Name = string.Empty;
     }
+
+    public TaskTypeDirect(Guid uid, string name)
+    {
+        Uid = uid;
+        Name = name;
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public void Save(string name)
+    {
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.AddTaskType))
+        {
+            cmd.Connection = con;
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.ExecuteNonQuery();
+        }
+        con.Close();
+    }
+
+    public void Save()
+    {
+        Save(Name);
+    }
+
+    #endregion
 }

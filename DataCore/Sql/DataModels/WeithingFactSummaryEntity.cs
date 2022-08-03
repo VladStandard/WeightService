@@ -8,7 +8,7 @@ namespace DataCore.Sql.DataModels
 {
     public class WeithingFactSummaryEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual DateTime WeithingDate { get; set; }
         public virtual int Count { get; set; }

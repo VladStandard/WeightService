@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class HostDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public long Id { get; set; }
         public long ScaleId { get; set; }

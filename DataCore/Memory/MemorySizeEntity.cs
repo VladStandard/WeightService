@@ -9,7 +9,7 @@ namespace DataCore.Memory
 {
     public class MemorySizeEntity : DisposableBase, IDisposableBase
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public MemorySizeConvertEntity? VirtualCurrent { get; private set; }
         public MemorySizeConvertEntity? PhysicalCurrent { get; private set; }

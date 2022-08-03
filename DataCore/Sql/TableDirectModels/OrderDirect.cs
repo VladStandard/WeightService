@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class OrderDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public DateTime CreateDate { get; set; }
         public DateTime PlanePackingOperationBeginDate { get; set; }

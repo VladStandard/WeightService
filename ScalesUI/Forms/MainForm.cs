@@ -42,8 +42,8 @@ public partial class MainForm : Form
 
     #region Public and private fields, properties, constructor
 
-    private Button ButtonScaleChange { get; set; }
-    private Button ButtonProductionFacilityChange { get; set; }
+    private Button ButtonScale { get; set; }
+    private Button ButtonArea { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
     private Button ButtonNewPallet { get; set; }
@@ -160,7 +160,7 @@ public partial class MainForm : Form
             // Labels.
             UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                 labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                ButtonScaleChange, ButtonProductionFacilityChange, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                ButtonScale, ButtonArea, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                 ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                 fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
             UserSession.ManagerControl.Labels.Open();
@@ -264,10 +264,10 @@ public partial class MainForm : Form
         fieldKneading.Font = FontsSettings.FontLabelsBlack;
         labelProductDate.Font = FontsSettings.FontLabelsBlack;
 
-        if (ButtonScaleChange != null)
-            ButtonScaleChange.Font = FontsSettings.FontButtons;
-        if (ButtonProductionFacilityChange != null)
-            ButtonProductionFacilityChange.Font = FontsSettings.FontButtons;
+        if (ButtonScale != null)
+            ButtonScale.Font = FontsSettings.FontButtons;
+        if (ButtonArea != null)
+            ButtonArea.Font = FontsSettings.FontButtons;
         if (ButtonScalesTerminal != null)
             ButtonScalesTerminal.Font = FontsSettings.FontButtons;
         if (ButtonScalesInit != null)
@@ -305,10 +305,10 @@ public partial class MainForm : Form
 
         if (buttonsSettings.IsChangeDevice)
         {
-            ButtonScaleChange = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScaleChange), 2, 0);
-            ButtonScaleChange.Click += ActionScaleChange_Click;
-            ButtonProductionFacilityChange = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonProductionFacilityChange), 2, 1);
-            ButtonProductionFacilityChange.Click += ActionScaleChange_Click;
+            ButtonScale = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScale), 2, 0);
+            ButtonScale.Click += ActionScaleChange_Click;
+            ButtonArea = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonArea), 2, 1);
+            ButtonArea.Click += ActionScaleChange_Click;
         }
 
         TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -596,8 +596,8 @@ public partial class MainForm : Form
             string productionFacility = string.Empty;
             if (UserSession.Scale.WorkShop?.ProductionFacility != null)
                 productionFacility = UserSession.Scale.WorkShop.ProductionFacility.Name;
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScaleChange, scale);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonProductionFacilityChange, productionFacility);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, scale);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonArea, productionFacility);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -635,12 +635,13 @@ public partial class MainForm : Form
         {
             UserSession.ManagerControl.Massa.Close();
 
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.ScaleChange, false) { Width = 500, Height = 225 };
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.ScaleChange, false) { Width = 600, Height = 225 };
             DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
             {
-                UserSession.Setup(wpfPageLoader.PageScaleChange.SqlViewModel.Scale.IdentityId);
+                UserSession.Setup(wpfPageLoader.PageScaleChange.SqlViewModel.Scale.IdentityId, 
+                    wpfPageLoader.PageScaleChange.SqlViewModel.Area, "");
                 FieldLang_SelectedIndexChanged(sender, e);
             }
 

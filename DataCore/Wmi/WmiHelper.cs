@@ -20,7 +20,7 @@ namespace DataCore.Wmi
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private readonly object _locker = new();
 

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class SsccDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         [XmlElement("SSCC")]
         public string SSCC { get; set; }

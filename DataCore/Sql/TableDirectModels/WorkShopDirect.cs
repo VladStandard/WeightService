@@ -15,7 +15,7 @@
 ///// </summary>
 //public class WorkShopDirect : BaseSerializeEntity
 //{
-//    #region Public and private fields and properties
+//    #region Public and private fields, properties, constructor
 
 //    public long Id { get; set; }
 //    public string Name { get; set; } = string.Empty;

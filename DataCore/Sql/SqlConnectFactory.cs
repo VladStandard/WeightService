@@ -19,7 +19,7 @@ namespace DataCore.Sql
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private readonly object _locker = new();
         public delegate void ExecuteReaderCallback(SqlDataReader reader);
@@ -28,17 +28,11 @@ namespace DataCore.Sql
 
         #endregion
 
-        #region Constructor and destructor
-
-        //
-
-        #endregion
-
         #region Public and private methods
 
         private SqlConnection GetSqlConnection()
         {
-            return new SqlConnection(DataAccess.JsonSettingsLocal.ConnectionString);
+            return new(DataAccess.JsonSettingsLocal.ConnectionString);
         }
 
         public SqlConnection GetConnection()
@@ -47,7 +41,7 @@ namespace DataCore.Sql
             {
                 if (string.IsNullOrEmpty(DataAccess.JsonSettingsLocal.ConnectionString))
                 {
-                    throw new Exception($"Factory not initialized. Call this method with param {nameof(DataAccess.JsonSettingsLocal.ConnectionString)}");
+                    throw new($"Factory not initialized. Call this method with param {nameof(DataAccess.JsonSettingsLocal.ConnectionString)}");
                 }
             }
             return _instance.GetSqlConnection();

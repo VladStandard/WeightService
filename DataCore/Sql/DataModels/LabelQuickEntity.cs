@@ -10,7 +10,7 @@ namespace DataCore.Sql.DataModels
 {
     public class LabelQuickEntity : BaseEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public virtual long ScaleId { get; set; }
         public virtual string ScaleDescription { get; set; }

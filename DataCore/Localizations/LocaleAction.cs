@@ -18,7 +18,7 @@ namespace DataCore.Localizations
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string ActionAccessAllow => Lang == ShareEnums.Lang.English ? "Access to actions allowed" : "Доступ к действиям разрешён";
         public string ActionAccessDeny => Lang == ShareEnums.Lang.English ? "Access to actions denied" : "Доступ к действиям запрещён";

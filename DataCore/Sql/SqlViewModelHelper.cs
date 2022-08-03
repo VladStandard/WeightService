@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MvvmHelpers;
+using NHibernate.Cfg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +26,8 @@ namespace DataCore.Sql
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
-        public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
         private PublishType _publishType = PublishType.Default;
         public PublishType PublishType
         {
@@ -77,12 +78,13 @@ namespace DataCore.Sql
                 OnPropertyChanged();
             }
         }
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        private SqlConnectFactory SqlConnect { get; set; } = SqlConnectFactory.Instance;
         private HostEntity _host;
         public HostEntity Host
         {
             get => _host;
-            set
+            private set
             {
                 _host = value;
                 OnPropertyChanged();
@@ -92,41 +94,85 @@ namespace DataCore.Sql
         public ScaleEntity Scale
         {
             get => _scale;
-            set
+            private set
             {
                 _scale = value;
                 OnPropertyChanged();
             }
         }
-        private List<string>? _scales;
-        public List<string>? Scales
+        private string _area;
+        public string Area
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_area))
+                    return _area;
+                if (Scale.WorkShop != null)
+                    return Scale.WorkShop.ProductionFacility.Name;
+                return _area;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    if (Scale.WorkShop != null)
+                        _area = Scale.WorkShop.ProductionFacility.Name;
+                    return;
+                }
+                _area = value;
+            }
+        }
+        private List<string> _scales;
+        public List<string> Scales
         {
             get => _scales;
-            set
+            private set
             {
                 _scales = value;
                 OnPropertyChanged();
             }
         }
+        private List<string> _areas;
+        public List<string> Areas
+        {
+            get => _areas;
+            private set
+            {
+                _areas = value;
+                OnPropertyChanged();
+            }
+        }
 
-        #endregion
-
-        #region Constructor and destructor
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SqlViewModelHelper()
         {
             SetPublish();
 
             _host = new();
             _scale = new();
-            Setup(0);
+            _scales = new();
+            _area = string.Empty;
+            _areas = new();
+            Setup(-1, "");
         }
 
-        public void Setup(long scaleId)
-        {
-            TaskTypes = new List<TaskTypeDirect>();
-            Tasks = new List<TaskDirect>();
+        #endregion
 
+        #region Public and private methods
+
+        public void Setup(long scaleId, string areaName)
+        {
+            TaskTypes = new();
+            Tasks = new();
+            SetScale(scaleId, areaName);
+            SetScales();
+            SetAreas();
+        }
+
+        private void SetScale(long scaleId, string areaName)
+        {
             if (scaleId <= 0)
             {
                 if (string.IsNullOrEmpty(Host.HostName))
@@ -140,12 +186,37 @@ namespace DataCore.Sql
             {
                 Scale = SqlUtils.GetScale(scaleId);
             }
+            if (!string.IsNullOrEmpty(areaName))
+                Area = areaName;
+        }
 
-            List<ScaleEntity> scales = SqlUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
-                new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                new(DbField.Description)).ToList();
+        private void SetScales()
+        {
             Scales = new();
-            scales.ForEach(scale => Scales.Add(scale.Description));
+            ScaleEntity[]? scales = SqlUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
+                new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                new(DbField.Description));
+            if (scales != null)
+            {
+                List<ScaleEntity> scales2 = scales.ToList();
+                scales2.ForEach(scale => Scales.Add(scale.Description));
+            }
+        }
+
+        private void SetAreas()
+        {
+            Areas = new();
+            ProductionFacilityEntity[]? areas = SqlUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
+                new(new()
+                {
+                    new(DbField.IsMarked, DbComparer.Equal, false)
+                }),
+                new(DbField.Name));
+            if (areas != null)
+            {
+                List<ProductionFacilityEntity> areas2 = areas.Where(x => x.IdentityId > 0).ToList();
+                areas2.ForEach(area => Areas.Add(area.Name));
+            }
         }
 
         private void SetPublish()
@@ -153,20 +224,25 @@ namespace DataCore.Sql
             PublishType = PublishType.Default;
             PublishDescription = "Неизвестный сервер";
             SqlInstance = GetInstance();
-            if (SqlInstance.Equals("INS1"))
+            SetPublishFromInstance();
+        }
+
+        private void SetPublishFromInstance()
+        {
+            switch (SqlInstance)
             {
-                PublishType = PublishType.Debug;
-                PublishDescription = "Тестовый сервер";
-            }
-            else if (SqlInstance.Equals("SQL2019"))
-            {
-                PublishType = PublishType.Dev;
-                PublishDescription = "Сервер разработки";
-            }
-            else if (SqlInstance.Equals("LUTON"))
-            {
-                PublishType = PublishType.Release;
-                PublishDescription = "Продуктовый сервер";
+                case "INS1":
+                    PublishType = PublishType.Debug;
+                    PublishDescription = LocaleCore.Sql.SqlServerTest;
+                    break;
+                case "SQL2019":
+                    PublishType = PublishType.Dev;
+                    PublishDescription = LocaleCore.Sql.SqlServerDev;
+                    break;
+                case "LUTON":
+                    PublishType = PublishType.Release;
+                    PublishDescription = LocaleCore.Sql.SqlServerProd;
+                    break;
             }
         }
 
@@ -177,7 +253,7 @@ namespace DataCore.Sql
 
             TaskTypes = SqlUtils.GetTasksTypes();
 
-            Tasks = new List<TaskDirect>();
+            Tasks = new();
             foreach (TaskTypeDirect taskType in TaskTypes)
             {
                 TaskDirect? task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
@@ -193,12 +269,9 @@ namespace DataCore.Sql
 
         public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
         {
-            if (Tasks == null)
-                return false;
             // Table [TASKS] don't has records.
             if (Tasks.Count == 0)
                 return true;
-
             foreach (TaskDirect task in Tasks)
             {
                 if (string.Equals(task.TaskType.Name, taskType.ToString(), StringComparison.InvariantCultureIgnoreCase))
@@ -208,10 +281,6 @@ namespace DataCore.Sql
             }
             return false;
         }
-
-        #endregion
-
-        #region Public and private methods
 
         private string GetInstance()
         {

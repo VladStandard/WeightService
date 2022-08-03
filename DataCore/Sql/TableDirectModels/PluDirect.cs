@@ -16,7 +16,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class PluDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public bool IsCheckWeight { get; set; }
         public decimal GoodsFixWeight { get; set; }

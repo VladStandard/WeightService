@@ -10,7 +10,7 @@ namespace WeightCore.Gui
 {
     public partial class PasswordForm : Form
     {
-        #region Private fields and properties
+        #region Public and private fields, properties, constructor
 
         private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
         private ushort UserCode { get; set; }

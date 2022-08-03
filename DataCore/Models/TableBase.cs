@@ -5,7 +5,7 @@ namespace DataCore.Models
 {
     public class TableBase
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string Name { get; set; }
 

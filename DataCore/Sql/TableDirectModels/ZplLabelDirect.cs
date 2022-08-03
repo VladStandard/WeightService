@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableDirectModels
 {
     public class ZplLabelDirect : BaseSerializeEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public long WeighingFactId { get; set; }
         public string? Zpl { get; set; }
