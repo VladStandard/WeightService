@@ -91,30 +91,32 @@ public class ScaleEntity : BaseEntity
         string strPrinterShipping = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
         string strPrinterVehicle = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
         string strHost = Host.IdentityId.ToString();
-        return base.ToString() +
-               $"{nameof(Description)}: {Description}. " +
-               $"{nameof(DeviceIp)}: {DeviceIp}. " +
-               $"{nameof(DevicePort)}: {DevicePort}. " +
-               $"{nameof(DeviceMac)}: {DeviceMac}. " +
-               $"{nameof(DeviceSendTimeout)}: {DeviceSendTimeout}. " +
-               $"{nameof(DeviceReceiveTimeout)}: {DeviceReceiveTimeout}. " +
-               $"{nameof(DeviceComPort)}: {DeviceComPort}. " +
-               $"{nameof(ZebraIp)}: {ZebraIp}. " +
-               $"{nameof(ZebraPort)}: {ZebraPort}. " +
-               $"{nameof(IsOrder)}: {IsOrder}. " +
-               $"{nameof(Number)}: {Number}. " +
-               $"{nameof(Counter)}: {Counter}. " +
-               $"{nameof(TemplateDefault)}: {strTemplateDefault}. " +
-               $"{nameof(TemplateSeries)}: {strTemplateSeries}. " +
-               $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
-               $"{nameof(WorkShop)}: {strWorkShop}. " +
-               $"{nameof(PrinterMain)}: {strPrinterMain}. " +
-               $"{nameof(PrinterShipping)}: {strPrinterShipping}. " +
-               $"{nameof(PrinterShipping)}: {strPrinterVehicle}. " +
-               $"{nameof(IsShipping)}: {IsShipping}. " +
-               $"{nameof(IsKneading)}: {IsKneading}. " +
-               $"{nameof(ShippingLength)}: {ShippingLength}. " +
-               $"{nameof(Host)}: {strHost}. ";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+			$"{nameof(Description)}: {Description}. " +
+			$"{nameof(DeviceIp)}: {DeviceIp}. " +
+			$"{nameof(DevicePort)}: {DevicePort}. " +
+			$"{nameof(DeviceMac)}: {DeviceMac}. " +
+			$"{nameof(DeviceSendTimeout)}: {DeviceSendTimeout}. " +
+			$"{nameof(DeviceReceiveTimeout)}: {DeviceReceiveTimeout}. " +
+			$"{nameof(DeviceComPort)}: {DeviceComPort}. " +
+			$"{nameof(ZebraIp)}: {ZebraIp}. " +
+			$"{nameof(ZebraPort)}: {ZebraPort}. " +
+			$"{nameof(IsOrder)}: {IsOrder}. " +
+			$"{nameof(Number)}: {Number}. " +
+			$"{nameof(Counter)}: {Counter}. " +
+			$"{nameof(TemplateDefault)}: {strTemplateDefault}. " +
+			$"{nameof(TemplateSeries)}: {strTemplateSeries}. " +
+			$"{nameof(ScaleFactor)}: {ScaleFactor}. " +
+			$"{nameof(WorkShop)}: {strWorkShop}. " +
+			$"{nameof(PrinterMain)}: {strPrinterMain}. " +
+			$"{nameof(PrinterShipping)}: {strPrinterShipping}. " +
+			$"{nameof(PrinterShipping)}: {strPrinterVehicle}. " +
+			$"{nameof(IsShipping)}: {IsShipping}. " +
+			$"{nameof(IsKneading)}: {IsKneading}. " +
+			$"{nameof(ShippingLength)}: {ShippingLength}. " +
+			$"{nameof(Host)}: {strHost}. ";
     }
 
     public virtual bool Equals(ScaleEntity item)
@@ -160,12 +162,9 @@ public class ScaleEntity : BaseEntity
         return Equals((ScaleEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

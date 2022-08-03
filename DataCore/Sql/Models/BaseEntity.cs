@@ -23,79 +23,63 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    //[XmlIgnore] private virtual ColumnName IdentityName { get; set; }
-    public virtual Guid IdentityUid { get; set; }
-    public virtual long IdentityId { get; set; }
-    public virtual DateTime CreateDt { get; set; }
-    public virtual DateTime ChangeDt { get; set; }
-    public virtual bool IsMarked { get; set; }
-    [XmlIgnore] public virtual string IdentityUidStr
+    public virtual long IdentityId { get; set; } = 0;
+    public virtual Guid IdentityUid { get; set; } = Guid.Empty;
+	public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
+    public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
+	public virtual bool IsMarked { get; set; }
+	[XmlIgnore] public virtual string IdentityUidStr
     {
-        get => IdentityUid.ToString() is string str ? str : Guid.Empty.ToString(); 
+        get => IdentityUid.ToString() is { } str ? str : Guid.Empty.ToString(); 
         set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
     }
 
-    private BaseEntity()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	private BaseEntity()
     {
-        //IdentityName = ColumnName.Default;
-        IdentityId = 0;
-        IdentityUid = Guid.Empty;
-        CreateDt = DateTime.MinValue;
-        ChangeDt = DateTime.MinValue;
-        IsMarked = false;
+        //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public BaseEntity(long identityId) : this()
     {
-        //IdentityName = ColumnName.Id;
         IdentityId = identityId;
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public BaseEntity(Guid identityUid) : this()
     {
-        //IdentityName = ColumnName.Uid;
         IdentityUid = identityUid;
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     protected BaseEntity(SerializationInfo info, StreamingContext context)
     {
-        //IdentityName = GetColumnName(info.GetString(nameof(IdentityName)));
+        IdentityId = info.GetInt64(nameof(IdentityId));
+        IdentityUid = Guid.Parse(info.GetString(nameof(IdentityUid)));
+        IdentityUidStr = info.GetString(nameof(IdentityUidStr));
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));
-        IdentityUid = Guid.Parse(info.GetString(nameof(IdentityUid)));
-        IdentityId = info.GetInt64(nameof(IdentityId));
-        IdentityUidStr = info.GetString(nameof(IdentityUidStr));
     }
 
     #endregion
 
     #region Public and private methods
 
-    private ColumnName GetColumnName(string columnName)
-    {
-        return columnName switch
-        {
-            "Id" => ColumnName.Id,
-            "Uid" => ColumnName.Uid,
-            _ => ColumnName.Default,
-        };
-    }
-
     public override string ToString()
     {
-        //string strIdentity = IdentityName switch
-        //{
-        //    ColumnName.Id => $"{nameof(IdentityId)}: {IdentityId}. ",
-        //    ColumnName.Uid => $"{nameof(IdentityUid)}: {IdentityUid}. ",
-        //    _ => $"{IdentityName}. ",
-        //};
-        //string strCreateDt = CreateDt != null && CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
         string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
-        //string strChangeDt = ChangeDt != null && ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
         string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
         string strIsMarked = IsMarked ? $"{nameof(IsMarked)}: {IsMarked}. " : string.Empty;
-        //return strIdentity + strCreateDt + strChangeDt + strIsMarked;
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
@@ -119,10 +103,8 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public virtual bool Equals(BaseEntity item)
     {
-        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
-            //IdentityName.Equals(item.IdentityName) &&
             IdentityId.Equals(item.IdentityId) &&
             IdentityUid.Equals(item.IdentityUid) &&
             Equals(CreateDt, item.CreateDt) &&
@@ -132,7 +114,6 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public override bool Equals(object obj)
     {
-        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((BaseEntity)obj);
@@ -141,13 +122,12 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(IsMarked), IsMarked);
-        info.AddValue(nameof(ChangeDt), ChangeDt);
-        info.AddValue(nameof(CreateDt), CreateDt);
         info.AddValue(nameof(IdentityId), IdentityId);
         info.AddValue(nameof(IdentityUid), IdentityUid);
-        //info.AddValue(nameof(IdentityName), IdentityName);
         info.AddValue(nameof(IdentityUidStr), IdentityUidStr);
+        info.AddValue(nameof(ChangeDt), ChangeDt);
+        info.AddValue(nameof(CreateDt), CreateDt);
+        info.AddValue(nameof(IsMarked), IsMarked);
     }
 
     public virtual bool EqualsDefault()
@@ -162,7 +142,6 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public virtual object Clone() => new BaseEntity()
     {
-        //IdentityName = IdentityName,
         IdentityId = IdentityId,
         IdentityUid = IdentityUid,
         CreateDt = CreateDt,
@@ -174,7 +153,6 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public virtual void Setup(BaseEntity baseItem)
     {
-        //IdentityName = baseItem.IdentityName;
         IdentityId = baseItem.IdentityId;
         IdentityUid = baseItem.IdentityUid;
         CreateDt = baseItem.CreateDt;

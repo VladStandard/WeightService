@@ -52,15 +52,17 @@ public class LogEntity : BaseEntity
         string strHost = Host != null ? Host.IdentityId.ToString() : "null";
         string strApp = App != null ? App.IdentityUid.ToString() : "null";
         string strLogType = LogType != null ? LogType.IdentityUid.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(Host)}: {strHost}. " +
-               $"{nameof(App)}: {strApp}. " +
-               $"{nameof(LogType)}: {strLogType}. " +
-               $"{nameof(Version)}: {Version}. " +
-               $"{nameof(File)}: {File}. " +
-               $"{nameof(Line)}: {Line}. " +
-               $"{nameof(Member)}: {Member}. " +
-               $"{nameof(Message)}: {Message}. ";
+        return
+			$"{nameof(IdentityUid)}: {IdentityUid}. " + 
+			base.ToString() +
+			$"{nameof(Host)}: {strHost}. " +
+			$"{nameof(App)}: {strApp}. " +
+			$"{nameof(LogType)}: {strLogType}. " +
+			$"{nameof(Version)}: {Version}. " +
+			$"{nameof(File)}: {File}. " +
+			$"{nameof(Line)}: {Line}. " +
+			$"{nameof(Member)}: {Member}. " +
+			$"{nameof(Message)}: {Message}. ";
     }
 
     public virtual bool Equals(LogEntity item)
@@ -89,12 +91,9 @@ public class LogEntity : BaseEntity
         return Equals((LogEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

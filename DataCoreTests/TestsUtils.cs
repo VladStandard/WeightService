@@ -4,6 +4,8 @@
 using DataCore.Sql;
 using DataCore.Protocols;
 using System.IO;
+using FluentValidation.Results;
+using NUnit.Framework;
 
 namespace DataCoreTests;
 
@@ -19,6 +21,15 @@ public static class TestsUtils
         DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
     }
+
+    public static void FailureWriteLine(ValidationResult result)
+    {
+        if (!result.IsValid)
+		    foreach (ValidationFailure? failure in result.Errors)
+		    {
+			    TestContext.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+		    }
+	}
 
     #endregion
 }

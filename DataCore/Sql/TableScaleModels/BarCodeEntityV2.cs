@@ -54,7 +54,9 @@ public class BarCodeEntityV2 : BaseEntity, ISerializable
         string strBarcodeType = BarcodeType != null ? BarcodeType.IdentityUid.ToString() : "null";
         string strContragent = Contragent != null ? Contragent.IdentityUid.ToString() : "null";
         string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
-        return base.ToString() +
+        return
+			$"{nameof(IdentityUid)}: {IdentityUid}. " +
+			base.ToString() +
             $"{nameof(Value)}: {Value}. " +
             $"{nameof(BarcodeType)}: {strBarcodeType}. " +
             $"{nameof(Contragent)}: {strContragent}. " +
@@ -83,12 +85,9 @@ public class BarCodeEntityV2 : BaseEntity, ISerializable
         return Equals((BarCodeEntityV2)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

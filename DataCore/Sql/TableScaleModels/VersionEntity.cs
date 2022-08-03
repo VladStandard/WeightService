@@ -47,7 +47,8 @@ public class VersionEntity : BaseEntity, ISerializable
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
+		base.ToString() +
         $"{nameof(ReleaseDt)}: {ReleaseDt}. " +
         $"{nameof(Version)}: {Version}. " +
         $"{nameof(Description)}: {Description}. ";
@@ -70,12 +71,9 @@ public class VersionEntity : BaseEntity, ISerializable
         return Equals((VersionEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

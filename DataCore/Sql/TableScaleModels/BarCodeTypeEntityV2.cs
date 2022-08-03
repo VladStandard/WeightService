@@ -34,7 +34,8 @@ public class BarCodeTypeEntityV2 : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
+		base.ToString() +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(BarCodeTypeEntityV2 item)
@@ -53,12 +54,9 @@ public class BarCodeTypeEntityV2 : BaseEntity
         return Equals((BarCodeTypeEntityV2)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

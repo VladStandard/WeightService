@@ -38,7 +38,8 @@ public class OrderStatusEntity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(OrderId)}: {OrderId}. " +
         $"{nameof(CurrentDate)}: {CurrentDate}. " +
         $"{nameof(CurrentStatus)}: {CurrentStatus}. ";
@@ -61,12 +62,9 @@ public class OrderStatusEntity : BaseEntity
         return Equals((OrderStatusEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

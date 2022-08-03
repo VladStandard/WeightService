@@ -19,16 +19,16 @@ public class AppEntity : BaseEntity, ISerializable
     /// Identity name.
     /// </summary>
     public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual string Name { get; set; }
+    public virtual string Name { get; set; } = string.Empty;
 
-    public AppEntity() : this(Guid.Empty)
+	public AppEntity() : this(Guid.Empty)
     {
         //
     }
 
     public AppEntity(Guid uid) : base(uid)
     {
-        Name = string.Empty;
+        //
     }
 
     protected AppEntity(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -41,7 +41,8 @@ public class AppEntity : BaseEntity, ISerializable
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
+		base.ToString() +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(AppEntity item)
@@ -60,10 +61,7 @@ public class AppEntity : BaseEntity, ISerializable
         return Equals((AppEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+    public override int GetHashCode() => IdentityUid.GetHashCode();
 
     public virtual bool EqualsNew()
     {

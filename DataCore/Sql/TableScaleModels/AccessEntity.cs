@@ -22,16 +22,16 @@ public class AccessEntity : BaseEntity, ISerializable
     /// <summary>
     /// User name.
     /// </summary>
-    public virtual string User { get; set; }
+    public virtual string User { get; set; } = string.Empty;
     /// <summary>
     /// User rights.
     /// </summary>
-    public virtual byte Rights { get; set; }
+    public virtual byte Rights { get; set; } = 0x00;
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public AccessEntity() : this(Guid.Empty)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public AccessEntity() : this(Guid.Empty)
     {
         //
     }
@@ -42,8 +42,7 @@ public class AccessEntity : BaseEntity, ISerializable
     /// <param name="uid"></param>
     public AccessEntity(Guid uid) : base(uid)
     {
-        User = string.Empty;
-        Rights = 0x00;
+        //
     }
 
     /// <summary>
@@ -51,7 +50,7 @@ public class AccessEntity : BaseEntity, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+    private AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         User = info.GetString(nameof(User));
         Rights = info.GetByte(nameof(Rights));
@@ -66,7 +65,8 @@ public class AccessEntity : BaseEntity, ISerializable
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
+		base.ToString() +
         $"{nameof(User)}: {User}. " +
         $"{nameof(Rights)}: {Rights}. ";
 
@@ -80,7 +80,7 @@ public class AccessEntity : BaseEntity, ISerializable
 
     public virtual bool Equals(AccessEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return base.Equals(item) &&
                Equals(User, item.User) &&
@@ -89,16 +89,13 @@ public class AccessEntity : BaseEntity, ISerializable
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((AccessEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+    public override int GetHashCode() => IdentityUid.GetHashCode();
 
     public virtual bool EqualsNew()
     {

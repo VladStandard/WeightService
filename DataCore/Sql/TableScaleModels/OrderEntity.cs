@@ -57,17 +57,19 @@ public class OrderEntity : BaseEntity
         string strScales = Scales != null ? Scales.IdentityId.ToString() : "null";
         string strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
         string strTemplates = Templates != null ? Templates.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(OrderTypes)}: {strOrderTypes}. " +
-               $"{nameof(ProductDate)}: {ProductDate}. " +
-               $"{nameof(PlaneBoxCount)}: {PlaneBoxCount}. " +
-               $"{nameof(PlanePalletCount)}: {PlanePalletCount}. " +
-               $"{nameof(PlanePackingOperationBeginDate)}: {PlanePackingOperationBeginDate}. " +
-               $"{nameof(PlanePackingOperationEndDate)}: {PlanePackingOperationEndDate}. " +
-               $"{nameof(Scales)}: {strScales}. " +
-               $"{nameof(Plu)}: {strPlu}." +
-               $"{nameof(IdRRef)}: {IdRRef}." +
-               $"{nameof(Templates)}: {strTemplates}.";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+			$"{nameof(OrderTypes)}: {strOrderTypes}. " +
+			$"{nameof(ProductDate)}: {ProductDate}. " +
+			$"{nameof(PlaneBoxCount)}: {PlaneBoxCount}. " +
+			$"{nameof(PlanePalletCount)}: {PlanePalletCount}. " +
+			$"{nameof(PlanePackingOperationBeginDate)}: {PlanePackingOperationBeginDate}. " +
+			$"{nameof(PlanePackingOperationEndDate)}: {PlanePackingOperationEndDate}. " +
+			$"{nameof(Scales)}: {strScales}. " +
+			$"{nameof(Plu)}: {strPlu}." +
+			$"{nameof(IdRRef)}: {IdRRef}." +
+			$"{nameof(Templates)}: {strTemplates}.";
     }
 
     public virtual bool Equals(OrderEntity item)
@@ -99,12 +101,9 @@ public class OrderEntity : BaseEntity
         return Equals((OrderEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

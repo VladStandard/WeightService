@@ -56,10 +56,12 @@ public class LabelEntity : BaseEntity
     public override string ToString()
     {
         string strWeithingFact = WeithingFact != null ? WeithingFact.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(WeithingFact)}: {strWeithingFact}. " +
-               $"{nameof(Label)}: {LabelString}. " +
-               $"{nameof(Zpl)}: {ZplInfo}. ";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+            $"{nameof(WeithingFact)}: {strWeithingFact}. " +
+			$"{nameof(Label)}: {LabelString}. " +
+			$"{nameof(Zpl)}: {ZplInfo}. ";
     }
 
     public virtual bool Equals(LabelEntity item)
@@ -81,12 +83,9 @@ public class LabelEntity : BaseEntity
         return Equals((LabelEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

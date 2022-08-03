@@ -40,10 +40,12 @@ public class WorkShopEntity : BaseEntity
     public override string ToString()
     {
         string strProductionFacility = ProductionFacility != null ? ProductionFacility.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(ProductionFacility)}: {strProductionFacility}. " +
-               $"{nameof(Name)}: {Name}. " +
-               $"{nameof(IdRRef)}: {IdRRef}. ";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+			$"{nameof(ProductionFacility)}: {strProductionFacility}. " +
+			$"{nameof(Name)}: {Name}. " +
+			$"{nameof(IdRRef)}: {IdRRef}. ";
     }
 
     public virtual bool Equals(WorkShopEntity item)
@@ -65,12 +67,9 @@ public class WorkShopEntity : BaseEntity
         return Equals((WorkShopEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

@@ -44,7 +44,8 @@ public class ErrorEntity : BaseEntity
     #region Public and private methods - override
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(FilePath)}: {FilePath}. " +
         $"{nameof(LineNumber)}: {LineNumber}. " +
         $"{nameof(MemberName)}: {MemberName}. " +
@@ -71,12 +72,9 @@ public class ErrorEntity : BaseEntity
         return Equals((ErrorEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

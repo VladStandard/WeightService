@@ -235,25 +235,27 @@ public class PluEntity : BaseEntity, ISerializable
         string strTemplates = Template != null ? Template.IdentityId.ToString() : "null";
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
         string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(Template)}: {strTemplates}. " +
-               $"{nameof(Scale)}: {strScale}. " +
-               $"{nameof(Nomenclature)}: {strNomenclature}. " +
-               $"{nameof(GoodsName)}: {GoodsName}. " +
-               $"{nameof(GoodsFullName)}: {GoodsFullName}. " +
-               $"{nameof(GoodsDescription)}: {GoodsDescription}. " +
-               $"{nameof(Gtin)}: {Gtin}. " +
-               $"{nameof(Ean13)}: {Ean13}. " +
-               $"{nameof(Itf14)}: {Itf14}. " +
-               $"{nameof(GoodsShelfLifeDays)}: {GoodsShelfLifeDays}. " +
-               $"{nameof(GoodsTareWeight)}: {GoodsTareWeight}. " +
-               $"{nameof(GoodsBoxQuantly)}: {GoodsBoxQuantly}. " +
-               $"{nameof(PluNumber)}: {PluNumber}. " +
-               $"{nameof(Active)}: {Active}. " +
-               $"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
-               $"{nameof(NominalWeight)}: {NominalWeight}. " +
-               $"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
-               $"{nameof(IsCheckWeight)}: {IsCheckWeight}. ";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+			$"{nameof(Template)}: {strTemplates}. " +
+			$"{nameof(Scale)}: {strScale}. " +
+			$"{nameof(Nomenclature)}: {strNomenclature}. " +
+			$"{nameof(GoodsName)}: {GoodsName}. " +
+			$"{nameof(GoodsFullName)}: {GoodsFullName}. " +
+			$"{nameof(GoodsDescription)}: {GoodsDescription}. " +
+			$"{nameof(Gtin)}: {Gtin}. " +
+			$"{nameof(Ean13)}: {Ean13}. " +
+			$"{nameof(Itf14)}: {Itf14}. " +
+			$"{nameof(GoodsShelfLifeDays)}: {GoodsShelfLifeDays}. " +
+			$"{nameof(GoodsTareWeight)}: {GoodsTareWeight}. " +
+			$"{nameof(GoodsBoxQuantly)}: {GoodsBoxQuantly}. " +
+			$"{nameof(PluNumber)}: {PluNumber}. " +
+			$"{nameof(Active)}: {Active}. " +
+			$"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
+			$"{nameof(NominalWeight)}: {NominalWeight}. " +
+			$"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
+			$"{nameof(IsCheckWeight)}: {IsCheckWeight}. ";
     }
 
     public virtual bool Equals(PluEntity item)
@@ -292,12 +294,9 @@ public class PluEntity : BaseEntity, ISerializable
         return Equals((PluEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

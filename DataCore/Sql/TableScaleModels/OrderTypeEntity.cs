@@ -33,7 +33,8 @@ public class OrderTypeEntity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(Description)}: {Description}. ";
 
     public virtual bool Equals(OrderTypeEntity item)
@@ -52,12 +53,9 @@ public class OrderTypeEntity : BaseEntity
         return Equals((OrderTypeEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

@@ -36,7 +36,8 @@ public class ProductionFacilityEntity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Address)}: {Address}. ";
 
@@ -57,9 +58,9 @@ public class ProductionFacilityEntity : BaseEntity
         return Equals((ProductionFacilityEntity)obj);
     }
 
-    public override int GetHashCode() => base.GetHashCode();
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

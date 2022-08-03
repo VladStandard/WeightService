@@ -47,7 +47,8 @@ public class TemplateResourceEntity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Description)}: {Description}. " +
         $"{nameof(Type)}: {Type}. " +
@@ -75,12 +76,9 @@ public class TemplateResourceEntity : BaseEntity
         return Equals((TemplateResourceEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

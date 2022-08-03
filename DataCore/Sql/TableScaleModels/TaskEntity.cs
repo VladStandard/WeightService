@@ -41,7 +41,9 @@ public class TaskEntity : BaseEntity
     {
         string strTaskType = TaskType != null ? TaskType.IdentityUid.ToString() : "null";
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
-        return base.ToString() +
+        return
+			$"{nameof(IdentityUid)}: {IdentityUid}. " + 
+			base.ToString() +
             $"{nameof(TaskType)}: {strTaskType}. " +
             $"{nameof(Scale)}: {strScale}. " +
             $"{nameof(Enabled)}: {Enabled}. ";
@@ -67,12 +69,9 @@ public class TaskEntity : BaseEntity
         return Equals((TaskEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

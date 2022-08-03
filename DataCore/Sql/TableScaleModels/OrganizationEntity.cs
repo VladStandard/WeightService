@@ -37,7 +37,8 @@ public class OrganizationEntity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Gln)}: {Gln}. " +
         $"{nameof(SerializedRepresentationObject)}: {SerializedRepresentationObject.Length}. ";
@@ -60,12 +61,9 @@ public class OrganizationEntity : BaseEntity
         return Equals((OrganizationEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

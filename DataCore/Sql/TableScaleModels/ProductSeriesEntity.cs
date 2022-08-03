@@ -39,10 +39,12 @@ public class ProductSeriesEntity : BaseEntity
     public override string ToString()
     {
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(Scale)}: {strScale}. " +
-               $"{nameof(IsClose)}: {IsClose}. " +
-               $"{nameof(Sscc)}: {Sscc}.";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+			$"{nameof(Scale)}: {strScale}. " +
+			$"{nameof(IsClose)}: {IsClose}. " +
+			$"{nameof(Sscc)}: {Sscc}.";
     }
 
     public virtual bool Equals(ProductSeriesEntity item)
@@ -65,12 +67,9 @@ public class ProductSeriesEntity : BaseEntity
         return Equals((ProductSeriesEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

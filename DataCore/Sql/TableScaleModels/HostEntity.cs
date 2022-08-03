@@ -57,13 +57,15 @@ public class HostEntity : BaseEntity
     public override string ToString()
     {
         string strAccessDt = AccessDt != null ? AccessDt.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(AccessDt)}: {strAccessDt}. " +
-               $"{nameof(Name)}: {Name}. " +
-               $"{nameof(HostName)}: {HostName}. " +
-               $"{nameof(Ip)}: {Ip}. " +
-               $"{nameof(MacAddress)}: {MacAddress}. " +
-               $"{nameof(IdRRef)}: {IdRRef}. ";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " +
+			base.ToString() +
+			$"{nameof(AccessDt)}: {strAccessDt}. " +
+			$"{nameof(Name)}: {Name}. " +
+			$"{nameof(HostName)}: {HostName}. " +
+			$"{nameof(Ip)}: {Ip}. " +
+			$"{nameof(MacAddress)}: {MacAddress}. " +
+			$"{nameof(IdRRef)}: {IdRRef}. ";
     }
 
     public virtual bool Equals(HostEntity item)
@@ -88,12 +90,9 @@ public class HostEntity : BaseEntity
         return Equals((HostEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

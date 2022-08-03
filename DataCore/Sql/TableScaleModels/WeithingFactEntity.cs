@@ -59,18 +59,20 @@ public class WeithingFactEntity : BaseEntity
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
         string strSeries = Serie != null ? Serie.IdentityId.ToString() : "null";
         string strOrder = Order != null ? Order.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(Plu)}: {strPlu}. " +
-               $"{nameof(Scale)}: {strScale}. " +
-               $"{nameof(Serie)}: {strSeries}. " +
-               $"{nameof(Order)}: {strOrder}. " +
-               $"{nameof(Sscc)}: {Sscc}. " +
-               $"{nameof(WeithingDate)}: {WeithingDate}. " +
-               $"{nameof(NetWeight)}: {NetWeight}. " +
-               $"{nameof(TareWeight)}: {TareWeight}." +
-               $"{nameof(ProductDate)}: {ProductDate}." +
-               $"{nameof(RegNum)}: {RegNum}." +
-               $"{nameof(Kneading)}: {Kneading}.";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+			$"{nameof(Plu)}: {strPlu}. " +
+			$"{nameof(Scale)}: {strScale}. " +
+			$"{nameof(Serie)}: {strSeries}. " +
+			$"{nameof(Order)}: {strOrder}. " +
+			$"{nameof(Sscc)}: {Sscc}. " +
+			$"{nameof(WeithingDate)}: {WeithingDate}. " +
+			$"{nameof(NetWeight)}: {NetWeight}. " +
+			$"{nameof(TareWeight)}: {TareWeight}." +
+			$"{nameof(ProductDate)}: {ProductDate}." +
+			$"{nameof(RegNum)}: {RegNum}." +
+			$"{nameof(Kneading)}: {Kneading}.";
     }
 
     public virtual bool Equals(WeithingFactEntity item)
@@ -103,12 +105,9 @@ public class WeithingFactEntity : BaseEntity
         return Equals((WeithingFactEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

@@ -33,7 +33,8 @@ public class PrinterTypeEntity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-        base.ToString() +
+	    $"{nameof(IdentityId)}: {IdentityId}. " +
+		base.ToString() +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(PrinterTypeEntity item)
@@ -52,12 +53,9 @@ public class PrinterTypeEntity : BaseEntity
         return Equals((PrinterTypeEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }

@@ -40,10 +40,12 @@ public class PrinterResourceEntity : BaseEntity
     {
         string strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
         string strResource = Resource != null ? Resource.IdentityId.ToString() : "null";
-        return base.ToString() +
-               $"{nameof(Printer)}: {strPrinter}. " +
-               $"{nameof(Resource)}: {strResource}. " +
-               $"{nameof(Description)}: {Description}. ";
+        return
+			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			base.ToString() +
+            $"{nameof(Printer)}: {strPrinter}. " +
+            $"{nameof(Resource)}: {strResource}. " +
+            $"{nameof(Description)}: {Description}. ";
     }
 
     public virtual bool Equals(PrinterResourceEntity item)
@@ -66,12 +68,9 @@ public class PrinterResourceEntity : BaseEntity
         return Equals((PrinterResourceEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+	public override int GetHashCode() => IdentityId.GetHashCode();
 
-    public virtual bool EqualsNew()
+	public virtual bool EqualsNew()
     {
         return Equals(new());
     }
