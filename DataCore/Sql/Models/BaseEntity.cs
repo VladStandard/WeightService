@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Runtime.Serialization;
-using System.Xml.Serialization;
+
 // ReSharper disable MissingXmlDoc
 
 namespace DataCore.Sql.Models;
@@ -21,13 +19,13 @@ public enum ColumnName
 [Serializable]
 public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public virtual long IdentityId { get; set; } = 0;
-    public virtual Guid IdentityUid { get; set; } = Guid.Empty;
-	public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
-    public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
-	public virtual bool IsMarked { get; set; }
+	[XmlElement] public virtual long IdentityId { get; set; } = 0;
+	[XmlElement] public virtual Guid IdentityUid { get; set; } = Guid.Empty;
+	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
+	[XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
+	[XmlElement] public virtual bool IsMarked { get; set; }
 	[XmlIgnore] public virtual string IdentityUidStr
     {
         get => IdentityUid.ToString() is { } str ? str : Guid.Empty.ToString(); 

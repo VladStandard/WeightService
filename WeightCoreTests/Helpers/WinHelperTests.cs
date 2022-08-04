@@ -5,8 +5,8 @@ using DataCore;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
+using DataCore.Wmi;
 using WeightCore.Helpers;
-using WeightCore.Wmi;
 
 namespace WeightCoreTests.Helpers
 {

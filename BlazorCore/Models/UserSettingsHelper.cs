@@ -21,7 +21,7 @@ namespace BlazorCore.Models
 
         #endregion
 
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public IdentityEntity Identity { get; }
         public HotKeys? HotKeys { get; private set; }

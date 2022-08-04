@@ -257,7 +257,7 @@ public static class GuiUtils
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (isLog)
-                DataAccess.Log.LogError(ex, UserSessionHelper.Instance.Scale.Host.HostName, null, filePath, lineNumber, memberName);
+                DataAccess.Log.LogError(ex, UserSessionHelper.Instance.SqlViewModel.Scale.Host.HostName, null, filePath, lineNumber, memberName);
             string message = ex.Message;
             if (ex.InnerException != null)
                 message += ex.InnerException.Message;

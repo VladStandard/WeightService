@@ -2,10 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql;
-using WeightCore.Helpers;
-using System.Windows;
-using System;
 using DataCore.Sql.TableScaleModels;
+using System.Windows;
+using WeightCore.Helpers;
 
 namespace WeightCore.Gui.XamlPages;
 
@@ -32,6 +31,17 @@ public partial class PageScaleChange
         if (context is SqlViewModelHelper sqlViewModel)
         {
             SqlViewModel = sqlViewModel;
+            //sqlViewModel = SqlViewModel = UserSessionHelper.Instance.SqlViewModel;
+            int i = 0;
+            foreach (string area in SqlViewModel.Areas)
+            {
+	            if (Equals(area, SqlViewModel.Area?.Name))
+	            {
+		            comboBoxArea.SelectedIndex = i;
+		            break;
+	            }
+				i++;
+            }
         }
     }
 
@@ -41,10 +51,10 @@ public partial class PageScaleChange
 
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        UserSession.SqlViewModel.SetupTasks(UserSession.Scale.IdentityId);
+        UserSession.SqlViewModel.SetupTasks(UserSession.SqlViewModel.Scale.IdentityId);
     }
 
-    [Obsolete(@"Deprecated method")]
+    //[Obsolete(@"Deprecated method")]
     //private void CreateGridTasks()
     //{
     //    System.Windows.Controls.Grid gridTasks = new();
@@ -106,17 +116,19 @@ public partial class PageScaleChange
         ScaleEntity scale = SqlUtils.GetScale(scaleDescription);
         string areaName = comboBoxArea.Items[comboBoxArea.SelectedIndex].ToString();
         SqlViewModel.Setup(scale.IdentityId, areaName);
-        Result = System.Windows.Forms.DialogResult.OK;
+        UserSessionHelper.Instance.SqlViewModel.Setup(scale.IdentityId, areaName);
+		Result = System.Windows.Forms.DialogResult.OK;
         OnClose.Invoke(sender, e);
     }
 
     private void ButtonClose_OnClick(object sender, RoutedEventArgs e)
     {
-        ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.Scale.Host.IdentityId);
+        ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.SqlViewModel.Scale.Host.IdentityId);
         SqlViewModel.Setup(scale.IdentityId, "");
-        Result = System.Windows.Forms.DialogResult.Cancel;
+        UserSessionHelper.Instance.SqlViewModel.Setup(scale.IdentityId, "");
+		Result = System.Windows.Forms.DialogResult.Cancel;
         OnClose.Invoke(sender, e);
     }
-    
+
     #endregion
 }

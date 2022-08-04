@@ -116,6 +116,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Publish resources.md = Publish resources.md
 		Publish tests.md = Publish tests.md
 		README.md = README.md
+		Tasks.md = Tasks.md
 		TROUBLE_SHOOTING.md = TROUBLE_SHOOTING.md
 	EndProjectSection
 EndProject
@@ -194,6 +195,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E04
 		Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi вес (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт.xml
 	EndProjectSection

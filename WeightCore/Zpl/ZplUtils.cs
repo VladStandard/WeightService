@@ -5,12 +5,12 @@ using DataCore.Sql;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils.Tsc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
+using WeightCore.Helpers;
 using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 
@@ -51,6 +51,8 @@ namespace WeightCore.Zpl
             result = result.Replace(nameof(PrinterEntity), "PrinterEntity");
             result = result.Replace(nameof(ScaleEntity), "ScaleEntity");
             result = result.Replace(nameof(TemplateEntity), "TemplateEntity");
+            // SqlViewModelHelper.
+            result = result.Replace(nameof(SqlViewModelHelper.Instance.Area), "Area");
             // Result.
             return result;
         }
@@ -68,7 +70,6 @@ namespace WeightCore.Zpl
             using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
             xslt.Transform(xmlReaderXml, xmlWriter);
             string result = stringWriter.ToString();
-            result = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(result);
             return result;
         }
 
@@ -90,19 +91,50 @@ namespace WeightCore.Zpl
             return SpecialCharacters.Contains(value);
         }
 
+        /// <summary>
+        /// Replace zpl-resources.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string PrintCmdReplaceZplResources(string value)
         {
             string result = value;
             if (string.IsNullOrEmpty(result))
                 return result;
 
-            List<TemplateResourceEntity> resources = DataAccessHelper.Instance.Crud.GetEntities<TemplateResourceEntity>(
+            TemplateResourceEntity[]? resources = DataAccessHelper.Instance.Crud.GetEntities<TemplateResourceEntity>(
                 new(new() { new($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL") }),
-                new(DbField.Name, DbOrderDirection.Asc)).ToList();
-            foreach (TemplateResourceEntity resource in resources)
+                new(DbField.Name));
+            if (resources != null)
             {
-                string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);
-                result = result.Replace($"[{resource.Name}]", resourceHex);
+                foreach (TemplateResourceEntity resource in resources.ToList())
+                {
+                    string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);
+                    result = result.Replace($"[{resource.Name}]", resourceHex);
+                }
+            }
+
+            //result = PrintCmdReplaceArea(result);
+            return result;
+        }
+
+        /// <summary>
+        /// Replace area-resource.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string PrintCmdReplaceArea(string value)
+        {
+            string result = value;
+            if (string.IsNullOrEmpty(result))
+                return result;
+            if (UserSessionHelper.Instance.SqlViewModel.Area != null)
+            {
+                string area = UserSessionHelper.Instance.SqlViewModel.Area.Name;
+                if (string.IsNullOrEmpty(area))
+                    return result;
+                string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(area);
+                result = result.Replace($"[AREA]", resourceHex);
             }
             return result;
         }
@@ -119,6 +151,29 @@ namespace WeightCore.Zpl
             }
         }
 
+        public static string MergeXml(string xmlParent, string xmlChild)
+        {
+	        string result = string.Empty;
+            bool isInsert = false;
+	        foreach (string lineParent in xmlParent.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+			{
+		        if (isInsert && !string.IsNullOrEmpty(xmlChild))
+		        {
+			        foreach (string lineChild in xmlChild.Split(new [] { Environment.NewLine }, StringSplitOptions.None))
+			        {
+				        if (!lineChild.StartsWith("<?xml "))
+							result += "\t" + lineChild + Environment.NewLine;
+			        }
+			        xmlChild = string.Empty;
+		        }
+                if (lineParent.StartsWith("<") && !lineParent.StartsWith("<?xml "))
+                    isInsert = true;
+				result += lineParent + Environment.NewLine;
+	        }
+			return result;
+        }
+
         #endregion
+
     }
 }

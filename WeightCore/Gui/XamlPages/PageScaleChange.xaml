@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+    <Border Grid.ColumnSpan="2"
             BorderBrush="Blue" BorderThickness="1" Margin="2" >
         <Grid >
             <Grid.ColumnDefinitions>

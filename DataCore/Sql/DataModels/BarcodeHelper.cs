@@ -1,129 +1,124 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Linq;
-using System.Threading;
+namespace DataCore.Sql.DataModels;
 
-namespace DataCore.Sql.DataModels
+/// <summary>
+/// GTIN enum.
+/// </summary>
+public enum EnumGtinVariant
 {
     /// <summary>
-    /// GTIN enum.
+    /// Variant 1.
     /// </summary>
-    public enum EnumGtinVariant
-    {
-        /// <summary>
-        /// Variant 1.
-        /// </summary>
-        Var1,
-        /// <summary>
-        /// Variant 2.
-        /// </summary>
-        Var2,
-        /// <summary>
-        /// Variant 3.
-        /// </summary>
-        Var3,
-    }
-
+    Var1,
     /// <summary>
-    /// Barcode interface.
+    /// Variant 2.
     /// </summary>
-    public interface IBarcodeHelper
-    {
-        int GetEanCheckDigit(string code);
-        int GetGtinCheckDigitV1(string code);
-        int GetGtinCheckDigitV2(string code);
-        int GetGtinCheckDigitV3(string code);
-        string GetGtinWithCheckDigit(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3);
-    }
-
+    Var2,
     /// <summary>
-    /// Barcode helper.
+    /// Variant 3.
     /// </summary>
-    public class BarcodeHelper : IBarcodeHelper
-    {
-        #region Design pattern "Lazy Singleton"
+    Var3,
+}
+
+/// <summary>
+/// Barcode interface.
+/// </summary>
+public interface IBarcodeHelper
+{
+    int GetEanCheckDigit(string code);
+    int GetGtinCheckDigitV1(string code);
+    int GetGtinCheckDigitV2(string code);
+    int GetGtinCheckDigitV3(string code);
+    string GetGtinWithCheckDigit(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3);
+}
+
+/// <summary>
+/// Barcode helper.
+/// </summary>
+public class BarcodeHelper : IBarcodeHelper
+{
+    #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static BarcodeHelper _instance;
+    private static BarcodeHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static BarcodeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static BarcodeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-        #endregion
+    #endregion
 
-        #region Public and private methods
+    #region Public and private methods
 
-        public int GetEanCheckDigit(string code)
+    public int GetEanCheckDigit(string code)
+    {
+        if (code.Length != 12)
+            throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 12 characters!");
+
+        int sum = 0;
+        // Calculate the checksum digit here.
+        for (int i = code.Length; i >= 1; i--)
         {
-            if (code.Length != 12)
-                throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 12 characters!");
-
-            int sum = 0;
-            // Calculate the checksum digit here.
-            for (int i = code.Length; i >= 1; i--)
-            {
-                int digit = Convert.ToInt32(code.Substring(i - 1, 1));
-                // This appears to be backwards but the EAN-13 checksum must be calculated this way to be compatible with UPC-A.
-                if (i % 2 == 0) // odd
-                    sum += digit * 3;
-                else            // even
-                    sum += digit * 1;
-            }
-            return (10 - sum % 10) % 10;
+            int digit = Convert.ToInt32(code.Substring(i - 1, 1));
+            // This appears to be backwards but the EAN-13 checksum must be calculated this way to be compatible with UPC-A.
+            if (i % 2 == 0) // odd
+                sum += digit * 3;
+            else            // even
+                sum += digit * 1;
         }
-
-        public int GetGtinCheckDigitV1(string code)
-        {
-            if (code.Length != 13)
-                throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 13 characters!");
-
-            int sum = 0;
-            for (int i = 0; i < code.Length; i++)
-            {
-                int n = int.Parse(code.Substring(code.Length - 1 - i, 1));
-                sum += i % 2 == 0 ? n * 3 : n;
-            }
-            return sum % 10 == 0 ? 0 : 10 - sum % 10;
-        }
-
-        public int GetGtinCheckDigitV2(string code)
-        {
-            if (code.Length != 13)
-                throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 13 characters!");
-
-            int sum = 0;
-            char[]? list = code.Reverse().ToArray();
-            for (int i = 0; i < list.Length; i++)
-            {
-                int n = (int)char.GetNumericValue(list[i]);
-                sum += i % 2 == 0 ? n * 3 : n;
-            }
-            return sum % 10 == 0 ? 0 : 10 - sum % 10;
-        }
-
-        public int GetGtinCheckDigitV3(string code)
-        {
-            if (code.Length != 13)
-                throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 13 characters!");
-
-            int sum = code.Reverse().Select((c, i) => (int)char.GetNumericValue(c) * (i % 2 == 0 ? 3 : 1)).Sum();
-            return (10 - sum % 10) % 10;
-        }
-
-        public string GetGtinWithCheckDigit(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3)
-        {
-            if (string.IsNullOrEmpty(code))
-                return string.Empty;
-
-            return gtinVariant switch
-            {
-                EnumGtinVariant.Var1 => $"{code}{GetGtinCheckDigitV3(code)}",
-                EnumGtinVariant.Var2 => $"{code}{GetGtinCheckDigitV2(code)}",
-                _ => $"{code}{GetGtinCheckDigitV3(code)}"
-            };
-        }
-
-        #endregion
+        return (10 - sum % 10) % 10;
     }
+
+    public int GetGtinCheckDigitV1(string code)
+    {
+        if (code.Length != 13)
+            throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 13 characters!");
+
+        int sum = 0;
+        for (int i = 0; i < code.Length; i++)
+        {
+            int n = int.Parse(code.Substring(code.Length - 1 - i, 1));
+            sum += i % 2 == 0 ? n * 3 : n;
+        }
+        return sum % 10 == 0 ? 0 : 10 - sum % 10;
+    }
+
+    public int GetGtinCheckDigitV2(string code)
+    {
+        if (code.Length != 13)
+            throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 13 characters!");
+
+        int sum = 0;
+        char[]? list = code.Reverse().ToArray();
+        for (int i = 0; i < list.Length; i++)
+        {
+            int n = (int)char.GetNumericValue(list[i]);
+            sum += i % 2 == 0 ? n * 3 : n;
+        }
+        return sum % 10 == 0 ? 0 : 10 - sum % 10;
+    }
+
+    public int GetGtinCheckDigitV3(string code)
+    {
+        if (code.Length != 13)
+            throw new ArgumentOutOfRangeException(nameof(code), "Value length must be 13 characters!");
+
+        int sum = code.Reverse().Select((c, i) => (int)char.GetNumericValue(c) * (i % 2 == 0 ? 3 : 1)).Sum();
+        return (10 - sum % 10) % 10;
+    }
+
+    public string GetGtinWithCheckDigit(string code, EnumGtinVariant gtinVariant = EnumGtinVariant.Var3)
+    {
+        if (string.IsNullOrEmpty(code))
+            return string.Empty;
+
+        return gtinVariant switch
+        {
+            EnumGtinVariant.Var1 => $"{code}{GetGtinCheckDigitV3(code)}",
+            EnumGtinVariant.Var2 => $"{code}{GetGtinCheckDigitV2(code)}",
+            _ => $"{code}{GetGtinCheckDigitV3(code)}"
+        };
+    }
+
+    #endregion
 }

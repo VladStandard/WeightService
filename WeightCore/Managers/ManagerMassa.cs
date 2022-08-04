@@ -58,11 +58,11 @@ namespace WeightCore.Managers
                 Init(ProjectsEnums.TaskType.MassaManager,
                     () =>
                     {
-                        if (UserSessionHelper.Instance.Scale != null)
+                        if (UserSessionHelper.Instance.SqlViewModel.Scale != null)
                         {
-                            MassaDevice = new(UserSessionHelper.Instance.Scale.DeviceComPort,
-                                UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
-                                UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
+                            MassaDevice = new(UserSessionHelper.Instance.SqlViewModel.Scale.DeviceComPort,
+                                UserSessionHelper.Instance.SqlViewModel.Scale.DeviceReceiveTimeout,
+                                UserSessionHelper.Instance.SqlViewModel.Scale.DeviceSendTimeout, GetData);
                         }
                         LabelWeightNetto = labelWeightNetto;
                         FieldWeightNetto = fieldWeightNetto;

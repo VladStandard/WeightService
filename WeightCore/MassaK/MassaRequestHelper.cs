@@ -45,7 +45,7 @@ namespace WeightCore.MassaK
             if (request.Length < 8)
                 throw new ArgumentException($"Length of {nameof(request)} must be more than 8 digits!");
             if (request[0] != Header[0] || request[1] != Header[1] || request[2] != Header[2])
-                throw new ArgumentException($"{nameof(Header)} must be '{Bytes.GetBytesAsHex(Header, ' ')}'!");
+                throw new ArgumentException($"{nameof(Header)} must be '{Bytes.GetBytesAsHex(Header)}'!");
             byte[] len = new byte[2];
             len[0] = request[3];
             len[1] = request[4];

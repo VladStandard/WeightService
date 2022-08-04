@@ -1,7 +1,5 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using DataCore.Sql.Models;
 // ReSharper disable MissingXmlDoc
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,26 +7,26 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "ProductionFacility".
 /// </summary>
-public class ProductionFacilityEntity : BaseEntity
+[Serializable]
+public class ProductionFacilityEntity : BaseEntity, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Name { get; set; }
-    public virtual string Address { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Name { get; set; } = string.Empty;
+	[XmlElement] public virtual string Address { get; set; } = string.Empty;
 
-    public ProductionFacilityEntity() : this(0)
+	public ProductionFacilityEntity() : this(0)
     {
         //
     }
 
     public ProductionFacilityEntity(long id) : base(id)
     {
-        Name = string.Empty;
-        Address = string.Empty;
+        //
     }
 
     #endregion
@@ -43,7 +41,7 @@ public class ProductionFacilityEntity : BaseEntity
 
     public virtual bool Equals(ProductionFacilityEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return base.Equals(item) &&
                Equals(Name, item.Name) &&
@@ -52,7 +50,7 @@ public class ProductionFacilityEntity : BaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((ProductionFacilityEntity)obj);

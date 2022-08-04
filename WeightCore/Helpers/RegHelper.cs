@@ -6,7 +6,6 @@ using Microsoft.Win32;
 using System;
 using System.Threading;
 using DataCore.Wmi;
-using WeightCore.Wmi;
 
 namespace WeightCore.Helpers
 {

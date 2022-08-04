@@ -35,11 +35,10 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
                 listBox1.Items.Clear();
-                if (UserSession.Order != null)
-                    foreach (string prop in UserSession.Order.ToString().Split('\n'))
-                    {
-                        listBox1.Items.Add(prop);
-                    }
+                foreach (string prop in UserSession.SqlViewModel.Order.ToString().Split('\n'))
+                {
+                    listBox1.Items.Add(prop);
+                }
             }
             catch (Exception ex)
             {
@@ -64,8 +63,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.Order?.SetStatus(ProjectsEnums.OrderStatus.Paused);
-                UserSession.Order = null;
+                UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Paused);
+                UserSession.SqlViewModel.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -79,8 +78,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.Order?.SetStatus(ProjectsEnums.OrderStatus.Performed);
-                UserSession.Order = null;
+                UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Performed);
+                UserSession.SqlViewModel.Order = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -94,8 +93,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                UserSession.Order?.SetStatus(ProjectsEnums.OrderStatus.InProgress);
-                UserSession.Order = null;
+                UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+                UserSession.SqlViewModel.Order = null;
                 DialogResult = DialogResult.OK;
                 Close();
             }

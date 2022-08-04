@@ -4,8 +4,12 @@
 using DataCore.Sql;
 using DataCore.Protocols;
 using System.IO;
+using DataCore.Files;
 using FluentValidation.Results;
 using NUnit.Framework;
+using DataCore.Sql.TableScaleModels;
+using System.Linq;
+using System;
 
 namespace DataCoreTests;
 
@@ -16,13 +20,48 @@ public static class TestsUtils
     public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 
-    static TestsUtils()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	static TestsUtils()
     {
-        DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
-            NetUtils.GetLocalHostName(true), nameof(DataCoreTests));
+	    SetupDebug();
     }
 
-    public static void FailureWriteLine(ValidationResult result)
+	public static void SetupDebug()
+    {
+        DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameDebug);
+        TestContext.WriteLine(DataAccess.JsonSettingsLocal);
+    }
+
+	public static void SetupRelease()
+	{
+		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
+            NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameRelease);
+		TestContext.WriteLine(DataAccess.JsonSettingsLocal);
+	}
+
+	public static void DbTableAction(Action action)
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				if (i == 0)
+					TestsUtils.SetupRelease();
+				else if (i == 1)
+				{
+					TestContext.WriteLine();
+					TestsUtils.SetupDebug();
+				}
+
+				action.Invoke();
+			}
+		});
+	}
+
+	public static void FailureWriteLine(ValidationResult result)
     {
         if (!result.IsValid)
 		    foreach (ValidationFailure? failure in result.Errors)

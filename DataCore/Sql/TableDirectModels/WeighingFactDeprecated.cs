@@ -1,4 +1,4 @@
-﻿//    [Serializable]
+﻿//[Serializable]
 //    public class WeighingFactEntity
 //    {
 //        #region Constructor

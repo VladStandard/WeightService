@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Runtime.Serialization;
 
 namespace DataCore.Files
 {
@@ -20,11 +19,12 @@ namespace DataCore.Files
         [NonSerialized] private string _connectionString;
         public string ConnectionString { get => _connectionString; set => _connectionString = value; }
 
-        #endregion
-
-        #region Constructor and destructor
-
-        public JsonSettingsEntity(JsonSettingsSqlEntity jsonSettingsSql, bool isCheckProperties)
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="jsonSettingsSql"></param>
+		/// <param name="isCheckProperties"></param>
+		public JsonSettingsEntity(JsonSettingsSqlEntity jsonSettingsSql, bool isCheckProperties)
         {
             Sql = jsonSettingsSql;
             SectionRowsCount = 0;
@@ -36,9 +36,17 @@ namespace DataCore.Files
             CheckProperties(isCheckProperties);
         }
 
-        public JsonSettingsEntity() : this(new(), false) { }
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public JsonSettingsEntity() : this(new(), false) { }
 
-        protected JsonSettingsEntity(SerializationInfo info, StreamingContext context)
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="info"></param>
+		/// <param name="context"></param>
+		protected JsonSettingsEntity(SerializationInfo info, StreamingContext context)
         {
             Sql = (JsonSettingsSqlEntity)info.GetValue(nameof(Sql), typeof(JsonSettingsSqlEntity));
             SectionRowsCount = info.GetInt32(nameof(SectionRowsCount));
@@ -55,7 +63,8 @@ namespace DataCore.Files
 
         public override string ToString()
         {
-            return Sql.ToString() +
+            return 
+	            Sql +
                 $"{nameof(SectionRowsCount)}: {SectionRowsCount}. " +
                 $"{nameof(ItemRowsCount)}: {ItemRowsCount}. " +
                 $"{nameof(SelectTopRowsCount)}: {SelectTopRowsCount}. " +
@@ -63,6 +72,12 @@ namespace DataCore.Files
                 $"{nameof(AllowedHosts)}: {AllowedHosts}. ";
         }
 
+        /// <summary>
+        /// Check properties.
+        /// </summary>
+        /// <param name="isGenerateException"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public bool CheckProperties(bool isGenerateException)
         {
             if (string.IsNullOrEmpty(Sql.DataSource))
@@ -113,7 +128,7 @@ namespace DataCore.Files
             info.AddValue(nameof(SelectTopRowsCount), SelectTopRowsCount);
             info.AddValue(nameof(Version), Version);
             info.AddValue(nameof(AllowedHosts), AllowedHosts);
-            //info.AddValue(nameof(ConnectionString), ConnectionString);
+            info.AddValue(nameof(ConnectionString), ConnectionString);
         }
 
         #endregion

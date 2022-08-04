@@ -1,13 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
-using Microsoft.Data.SqlClient;
-using System;
-
 namespace DataCore.Sql.TableDirectModels;
 
-public class TaskTypeDirect : BaseSerializeEntity
+[Serializable]
+public class TaskTypeDirect : BaseSerializeEntity, ISerializable
 {
     #region Public and private fields, properties, constructor
 

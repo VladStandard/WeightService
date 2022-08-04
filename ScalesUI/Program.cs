@@ -42,7 +42,7 @@ internal static class Program
             // Setup.
             AppVersion.Setup(Assembly.GetExecutingAssembly());
             FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
-            DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory(), true);
+            DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
 
             // Host.
             string hostName = NetUtils.GetLocalHostName(false);

@@ -1,15 +1,8 @@
 ﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 //// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-//using System;
-//using System.Drawing;
-//using System.Reflection;
-//using System.Runtime.InteropServices;
-//using System.Windows.Forms;
-//using WeightCore.Helpers;
+//namespace WeightCore.Gui;
 
-//namespace WeightCore.Gui
-//{
 //    public class ServiceMessagesWindow
 //    {
 //        #region Public and private fields and properties
@@ -160,5 +153,3 @@
 
 //        #endregion
 //    }
-
-//}

@@ -1,15 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Reflection;
-//using System.Text;
-//using System.Xml.Serialization;
+//namespace DataCore.Sql.TableDirectModels;
 
-//namespace DataCore.Sql.TableDirectModels
-//{
+//[Serializable]
 //    public enum OrderStatus
 //    {
 //        New         = 0,
@@ -115,4 +109,3 @@
 //                Template = new TemplateEntity(TemplateID);
 //        }
 //    }
-//}

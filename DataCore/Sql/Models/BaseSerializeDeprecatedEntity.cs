@@ -2,18 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Models;
 
-[Serializable()]
+[Serializable]
 public class BaseSerializeDeprecatedEntity<T> where T : new()
 {
     #region Public and private fields, properties, constructor

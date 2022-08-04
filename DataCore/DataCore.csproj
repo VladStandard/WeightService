@@ -26,7 +26,7 @@
   <ItemGroup>
     <None Update="appsettings.Debug.json">
       <DependentUpon>appsettings.json</DependentUpon>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
     <None Update="appsettings.json">
@@ -35,7 +35,7 @@
     </None>
     <None Update="appsettings.Release.json">
       <DependentUpon>appsettings.json</DependentUpon>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>

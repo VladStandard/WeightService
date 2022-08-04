@@ -3,40 +3,48 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorCore.Models
+namespace BlazorCore.Models;
+
+public class ButtonSettingsEntity
 {
-    public class ButtonSettingsEntity
+    #region Public and private fields, properties, constructor
+
+    [Parameter] public bool IsShowCopy { get; set; }
+    [Parameter] public bool IsShowDelete { get; set; }
+    [Parameter] public bool IsShowEdit { get; set; }
+    [Parameter] public bool IsShowMark { get; set; }
+    [Parameter] public bool IsShowNew { get; set; }
+    [Parameter] public bool IsShowSave { get; set; }
+    [Parameter] public bool IsShowCancel { get; set; }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="isShowCopy"></param>
+	/// <param name="isShowDelete"></param>
+	/// <param name="isShowEdit"></param>
+	/// <param name="isShowMark"></param>
+	/// <param name="isShowNew"></param>
+	/// <param name="isShowSave"></param>
+	/// <param name="isShowCancel"></param>
+	public ButtonSettingsEntity(bool isShowCopy, bool isShowDelete, bool isShowEdit, bool isShowMark, bool isShowNew, bool isShowSave, bool isShowCancel)
     {
-        #region Public and private fields and properties
-
-        [Parameter] public bool IsShowCopy { get; set; }
-        [Parameter] public bool IsShowDelete { get; set; }
-        [Parameter] public bool IsShowEdit { get; set; }
-        [Parameter] public bool IsShowMark { get; set; }
-        [Parameter] public bool IsShowNew { get; set; }
-        [Parameter] public bool IsShowSave { get; set; }
-        [Parameter] public bool IsShowCancel { get; set; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ButtonSettingsEntity(bool isShowCopy, bool isShowDelete, bool isShowEdit, bool isShowMark, bool isShowNew, bool isShowSave, bool isShowCancel)
-        {
-            IsShowCopy = isShowCopy;
-            IsShowDelete = isShowDelete;
-            IsShowEdit = isShowEdit;
-            IsShowMark = isShowMark;
-            IsShowNew = isShowNew;
-            IsShowSave = isShowSave;
-            IsShowCancel = isShowCancel;
-        }
-
-        public ButtonSettingsEntity() : this(false, false, false, false, false, false, false)
-        {
-            //
-        }
-
-        #endregion
+        IsShowCopy = isShowCopy;
+        IsShowDelete = isShowDelete;
+        IsShowEdit = isShowEdit;
+        IsShowMark = isShowMark;
+        IsShowNew = isShowNew;
+        IsShowSave = isShowSave;
+        IsShowCancel = isShowCancel;
     }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public ButtonSettingsEntity() : this(false, false, false, false, false, false, false)
+    {
+        //
+    }
+
+    #endregion
 }

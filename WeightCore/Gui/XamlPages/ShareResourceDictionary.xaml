@@ -5,7 +5,7 @@
     xmlns:sql="clr-namespace:DataCore.Sql;assembly=DataCore">
     
     <SolidColorBrush x:Key="brush" Color="Red"/>
-    <sql:SqlViewModelHelper x:Key="SqlViewModel" />
+	<sql:SqlViewModelHelper x:Key="SqlViewModel" />
     <locale:LocaleAction x:Key="LocaleAction" />
     <locale:LocaleButtons x:Key="LocaleButtons" />
     <locale:LocaleConvert x:Key="LocaleConvert" />

@@ -67,7 +67,7 @@ internal class AccessValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
+		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
 			AccessValidator validator = new();

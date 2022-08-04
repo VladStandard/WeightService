@@ -1,18 +1,9 @@
 ﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 //// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-//using DataCore.Sql.Models;
-//using Microsoft.Data.SqlClient;
-//using System;
-//using System.Collections.Generic;
-//// ReSharper disable MemberCanBePrivate.Global
-//// ReSharper disable MissingXmlDoc
-
 //namespace DataCore.Sql.TableDirectModels;
 
-///// <summary>
-///// WorkShop table.
-///// </summary>
+//[Serializable]
 //public class WorkShopDirect : BaseSerializeEntity
 //{
 //    #region Public and private fields, properties, constructor

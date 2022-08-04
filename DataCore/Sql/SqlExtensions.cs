@@ -1,33 +1,30 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
+namespace DataCore.Sql;
 
-namespace DataCore.Sql
+/// <summary>
+/// SQL extensions.
+/// </summary>
+public static class SqlExtensions
 {
-    /// <summary>
-    /// SQL extensions.
-    /// </summary>
-    public static class SqlExtensions
-    {
-        #region Public methods
+    #region Public methods
 
-        /// <summary>
-        /// Check field exists.
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        public static bool IsFieldExists(this Microsoft.Data.SqlClient.SqlDataReader reader, string fieldName)
+    /// <summary>
+    /// Check field exists.
+    /// </summary>
+    /// <param name="reader"></param>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
+    public static bool IsFieldExists(this Microsoft.Data.SqlClient.SqlDataReader reader, string fieldName)
+    {
+        for (int i = 0; i < reader.FieldCount; i++)
         {
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                if (reader.GetName(i).Equals(fieldName, StringComparison.InvariantCultureIgnoreCase))
-                    return true;
-            }
-            return false;
+            if (reader.GetName(i).Equals(fieldName, StringComparison.InvariantCultureIgnoreCase))
+                return true;
         }
-        
-        #endregion
+        return false;
     }
+    
+    #endregion
 }

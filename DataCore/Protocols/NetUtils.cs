@@ -1,11 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleModels;
 using RestSharp;
-using System;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 namespace DataCore.Protocols
@@ -29,7 +25,7 @@ namespace DataCore.Protocols
             }
             catch (Exception ex)
             {
-                throw new Exception($"Exception in {nameof(GetLocalIpAddress)}", ex);
+                throw new($"Exception in {nameof(GetLocalIpAddress)}", ex);
             }
             return string.Empty;
         }
@@ -43,7 +39,7 @@ namespace DataCore.Protocols
             catch (Exception ex)
             {
                 if (isThrow)
-                    throw new Exception($"Exception in {nameof(GetLocalHostName)}", ex);
+                    throw new($"Exception in {nameof(GetLocalHostName)}", ex);
             }
             return string.Empty;
         }
@@ -72,7 +68,7 @@ namespace DataCore.Protocols
             {
                 UseDefaultCredentials = true,
                 ThrowOnAnyError = true,
-                Timeout = timeOut,
+                MaxTimeout = timeOut,
             };
             using RestClient client = new(options);
             RestRequest request = new();

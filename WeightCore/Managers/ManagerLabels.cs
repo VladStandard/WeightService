@@ -138,7 +138,7 @@ namespace WeightCore.Managers
                 $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, 
                 UserSessionHelper.Instance.SqlViewModel.PublishType == ShareEnums.PublishType.Default ? Color.IndianRed : Color.Transparent);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.SSCC}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
         }
 
         private void RequestProductDate()
@@ -146,7 +146,7 @@ namespace WeightCore.Managers
             MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate,
                 $"{LocaleCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate,
-                $"{LocaleCore.Scales.FieldDate}: {UserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
+                $"{LocaleCore.Scales.FieldDate}: {UserSessionHelper.Instance.SqlViewModel.ProductDate:dd.MM.yyyy}");
         }
 
         private void RequestPlu()
@@ -187,7 +187,7 @@ namespace WeightCore.Managers
                 $"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
                 $"{ManagerControllerHelper.Instance.PrintMain.ResponseCount}"
             );
-            if (UserSessionHelper.Instance.Scale.IsShipping)
+            if (UserSessionHelper.Instance.SqlViewModel.Scale.IsShipping)
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager,
                     $"{ManagerControllerHelper.Instance.PrintMain.ReopenCount} | " +
                     $"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
@@ -230,11 +230,11 @@ namespace WeightCore.Managers
         {
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-            if (UserSessionHelper.Instance.Scale.IsShipping && !FieldSscc.Visible)
+            if (UserSessionHelper.Instance.SqlViewModel.Scale.IsShipping && !FieldSscc.Visible)
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
-            if (UserSessionHelper.Instance.Scale?.IsKneading == true)
+            if (UserSessionHelper.Instance.SqlViewModel.Scale.IsKneading)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
@@ -272,7 +272,7 @@ namespace WeightCore.Managers
 
             if (Debug.IsDebug && !FieldPrintMainManager.Visible)
                 MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintMainManager, true);
-            if (UserSessionHelper.Instance.Scale.IsShipping)
+            if (UserSessionHelper.Instance.SqlViewModel.Scale.IsShipping)
                 if (Debug.IsDebug && !FieldPrintShippingManager.Visible)
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintShippingManager, true);
             if (Debug.IsDebug && !FieldMassaManager.Visible)

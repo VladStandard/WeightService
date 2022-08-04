@@ -4,7 +4,6 @@
 using Quartz;
 using Quartz.Impl;
 using System;
-using System.Threading;
 
 namespace DataCore.Schedulers
 {

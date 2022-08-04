@@ -1,12 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Settings;
-using DataCore.Sql.TableScaleModels;
-using DataCore.Utils;
-using System;
-using System.IO;
-using System.Runtime.CompilerServices;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers;
@@ -45,24 +39,24 @@ public class LogController
             App = app;
     }
 
-    [Obsolete(@"Use LogError")]
-    public void Error(Exception ex, string filePath, int lineNumber, string memberName)
-    {
-        long idLast = DataAccess.Crud.GetEntity<ErrorEntity>(null,
-            new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId;
-        ErrorEntity error = new()
-        {
-            IdentityId = idLast + 1,
-            CreateDt = DateTime.Now,
-            ChangeDt = DateTime.Now,
-            FilePath = filePath,
-            LineNumber = lineNumber,
-            MemberName = memberName,
-            Exception = ex.Message,
-            InnerException = ex.InnerException == null ? string.Empty : ex.InnerException.Message,
-        };
-        DataAccess.Crud.ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
-    }
+    //[Obsolete(@"Use LogError")]
+    //public void Error(Exception ex, string filePath, int lineNumber, string memberName)
+    //{
+    //    long idLast = DataAccess.Crud.GetEntity<ErrorEntity>(null,
+    //        new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId;
+    //    ErrorEntity error = new()
+    //    {
+    //        IdentityId = idLast + 1,
+    //        CreateDt = DateTime.Now,
+    //        ChangeDt = DateTime.Now,
+    //        FilePath = filePath,
+    //        LineNumber = lineNumber,
+    //        MemberName = memberName,
+    //        Exception = ex.Message,
+    //        InnerException = ex.InnerException == null ? string.Empty : ex.InnerException.Message,
+    //    };
+    //    DataAccess.Crud.ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
+    //}
 
     public void LogToFile(string localFileLog, string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")

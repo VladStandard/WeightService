@@ -8,7 +8,7 @@
 //{
 //    public partial class Icons
 //    {
-//        #region Public and private fields and properties
+//        #region Public and private fields, properties, constructor
 
 //        [Parameter] public List<string> ListIcons { get; set; }
 

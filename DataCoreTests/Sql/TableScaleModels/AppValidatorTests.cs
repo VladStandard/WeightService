@@ -54,7 +54,7 @@ internal class AppValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
+		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
 			AppValidator validator = new();

@@ -2,19 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Models;
 
-[Serializable()]
+[Serializable]
 public class BaseSerializeEntity : ISerializable
 {
     #region Public and private fields, properties, constructor
@@ -52,21 +45,47 @@ public class BaseSerializeEntity : ISerializable
         // XmlSerializer xmlSerializer = new(typeof(T));
         // Use it.
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-        
+        // The T object must have properties with { get; set; }.
         using StringWriter stringWriter = new();
-        if (isAddEmptyNamespace)
+        switch (isAddEmptyNamespace)
         {
-            XmlSerializerNamespaces emptyNamespaces = new();
-            emptyNamespaces.Add(string.Empty, string.Empty);
-            using XmlWriter xw = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-            xmlSerializer.Serialize(xw, this, emptyNamespaces);
+	        case true:
+	        {
+		        XmlSerializerNamespaces emptyNamespaces = new();
+		        emptyNamespaces.Add(string.Empty, string.Empty);
+		        using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
+		        xmlSerializer.Serialize(xmlWriter, this, emptyNamespaces);
+		        xmlWriter.Flush();
+		        xmlWriter.Close();
+		        break;
+	        }
+	        default:
+		        xmlSerializer.Serialize(stringWriter, this);
+		        break;
         }
-        else
-        {
-            xmlSerializer.Serialize(stringWriter, this);
-        }
-        return stringWriter.ToString();
+		return stringWriter.ToString();
     }
+
+    public virtual string SerializeByMemoryStream<T>() where T : new()
+    {
+		MemoryStream memoryStream = new();
+		IFormatter binaryFormatter = new BinaryFormatter();
+		binaryFormatter.Serialize(memoryStream, this);
+		//string result = memoryStream.ToString();
+		string result;
+		using StreamReader streamReader = new(memoryStream);
+		memoryStream.Position = 0;
+		result = streamReader.ReadToEnd();
+		memoryStream.Close();
+        return result;
+	}
+
+    public virtual T DeserializeFromMemoryStream<T>(MemoryStream memoryStream) where T : new()
+    {
+	    IFormatter formatter = new BinaryFormatter();
+	    memoryStream.Seek(0, SeekOrigin.Begin);
+		return (T)formatter.Deserialize(memoryStream);
+	}
 
     public virtual T DeserializeFromXml<T>(string xml) where T : new()
     {
@@ -84,12 +103,8 @@ public class BaseSerializeEntity : ISerializable
         // Use it.
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
         //T result = new();
-        T result;
-        using (TextReader reader = new StringReader(xml))
-        {
-            result = (T)xmlSerializer.Deserialize(reader);
-        }
-        return result;
+        using TextReader reader = new StringReader(xml);
+        return (T)xmlSerializer.Deserialize(reader);
     }
 
     public virtual string SerializeAsHtml() => @$"

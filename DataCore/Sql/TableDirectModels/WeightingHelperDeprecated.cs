@@ -1,16 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-//using ScalesLib.Sql.Helpers;
-//using System;
-//using Microsoft.Data.SqlClient;
-//using System.Xml.Linq;
+//namespace DataCore.Sql.TableDirectModels;
 
-//namespace DataCore.Sql.TableDirectModels
-//{
-//    /// <summary>
-//    /// Помощник весов.
-//    /// </summary>
+//[Serializable]
 //    public class WeightingHelper
 //    {
 //        /// <summary>
@@ -82,4 +75,3 @@
 //                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 //        }
 //    }
-//}

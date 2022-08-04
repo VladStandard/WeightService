@@ -28,7 +28,7 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            SaveProductDate = UserSession.ProductDate;
+            SaveProductDate = UserSession.SqlViewModel.ProductDate;
             SaveKneading = UserSession.WeighingSettings.Kneading;
             SavePalletSize = UserSession.WeighingSettings.LabelsCountMain;
         }
@@ -65,7 +65,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldProdDate.Text = UserSession.ProductDate.ToString("dd.MM.yyyy");
+                fieldProdDate.Text = UserSession.SqlViewModel.ProductDate.ToString("dd.MM.yyyy");
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace ScalesUI.Forms
             {
                 CheckWeightCount();
                 DialogResult = DialogResult.Cancel;
-                UserSession.ProductDate = SaveProductDate;
+                UserSession.SqlViewModel.ProductDate = SaveProductDate;
                 UserSession.WeighingSettings.Kneading = SaveKneading;
                 UserSession.WeighingSettings.LabelsCountMain = SavePalletSize;
                 Close();
@@ -286,9 +286,9 @@ namespace ScalesUI.Forms
         private void SetGuiConfig()
         {
             // Kneading.
-            labelKneading.Visible = UserSession.Scale.IsKneading;
-            fieldKneading.Visible = UserSession.Scale.IsKneading;
-            buttonKneading.Visible = UserSession.Scale.IsKneading;
+            labelKneading.Visible = UserSession.SqlViewModel.Scale.IsKneading;
+            fieldKneading.Visible = UserSession.SqlViewModel.Scale.IsKneading;
+            buttonKneading.Visible = UserSession.SqlViewModel.Scale.IsKneading;
             // Pallet size.
             labelPalletSize.Visible = !UserSession.Plu.IsCheckWeight;
             fieldPalletSize.Visible = !UserSession.Plu.IsCheckWeight;

@@ -1,45 +1,43 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
-using System.Xml.Serialization;
-
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "Scales".
 /// </summary>
+[Serializable]
 public class ScaleEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual TemplateEntity? TemplateDefault { get; set; }
-    public virtual TemplateEntity? TemplateSeries { get; set; }
-    public virtual WorkShopEntity? WorkShop { get; set; }
-    public virtual PrinterEntity? PrinterMain { get; set; }
-    public virtual PrinterEntity? PrinterShipping { get; set; }
-    public virtual byte ShippingLength { get; set; }
-    public virtual HostEntity Host { get; set; }
-    public virtual string Description { get; set; }
-    public virtual string DeviceIp { get; set; }
-    public virtual short DevicePort { get; set; }
-    public virtual string DeviceMac { get; set; }
-    public virtual short? DeviceSendTimeout { get; set; }
-    public virtual short? DeviceReceiveTimeout { get; set; }
-    public virtual string DeviceComPort { get; set; }
-    public virtual string ZebraIp { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement(IsNullable = true)] public virtual TemplateEntity? TemplateDefault { get; set; }
+	[XmlElement(IsNullable = true)] public virtual TemplateEntity? TemplateSeries { get; set; }
+	[XmlElement(IsNullable = true)] public virtual WorkShopEntity? WorkShop { get; set; }
+	[XmlElement(IsNullable = true)] public virtual PrinterEntity? PrinterMain { get; set; }
+	[XmlElement(IsNullable = true)] public virtual PrinterEntity? PrinterShipping { get; set; }
+	[XmlElement] public virtual byte ShippingLength { get; set; }
+	[XmlElement] public virtual HostEntity Host { get; set; }
+	[XmlElement] public virtual string Description { get; set; }
+	[XmlElement] public virtual string DeviceIp { get; set; }
+	[XmlElement] public virtual short DevicePort { get; set; }
+	[XmlElement] public virtual string DeviceMac { get; set; }
+	[XmlElement(IsNullable = true)] public virtual short? DeviceSendTimeout { get; set; }
+	[XmlElement(IsNullable = true)] public virtual short? DeviceReceiveTimeout { get; set; }
+	[XmlElement] public virtual string DeviceComPort { get; set; }
+	[XmlElement] public virtual string ZebraIp { get; set; }
     [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
-    public virtual short? ZebraPort { get; set; }
-    public virtual int Number { get; set; }
-    public virtual int Counter { get; set; }
-    public virtual int? ScaleFactor { get; set; }
-    public virtual bool IsShipping { get; set; }
-    public virtual bool IsOrder { get; set; }
-    public virtual bool IsKneading { get; set; }
+    [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
+    [XmlElement] public virtual int Number { get; set; }
+    [XmlElement] public virtual int Counter { get; set; }
+    [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
+    [XmlElement] public virtual bool IsShipping { get; set; }
+    [XmlElement] public virtual bool IsOrder { get; set; }
+    [XmlElement] public virtual bool IsKneading { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -76,6 +74,16 @@ public class ScaleEntity : BaseEntity
         IsShipping = false;
         IsOrder = false;
         IsKneading = false;
+    }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public ScaleEntity(SerializationInfo info, StreamingContext context) : this()
+    {
+        //Id = info.GetInt64(nameof(Id));
+        ShippingLength = info.GetByte(nameof(ShippingLength));
+		Description = info.GetString(nameof(Description));
     }
 
     #endregion

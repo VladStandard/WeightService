@@ -153,7 +153,7 @@ namespace WeightCore.Managers
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
                 $"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | " +
-                $"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.Scale.Counter} | " +
+                $"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.SqlViewModel.Scale.Counter} | " +
                 $"{GetDeviceStatus()} | {value}");
         }
 
