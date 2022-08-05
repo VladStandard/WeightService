@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "BARCODE_TYPES_V2".
 /// </summary>
-public class BarCodeTypeEntityV2 : BaseEntity
+public class BarCodeTypeV2Entity : BaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -16,12 +16,12 @@ public class BarCodeTypeEntityV2 : BaseEntity
     public static ColumnName IdentityName => ColumnName.Uid;
     public virtual string Name { get; set; }
 
-    public BarCodeTypeEntityV2() : this(Guid.Empty)
+    public BarCodeTypeV2Entity() : this(Guid.Empty)
     {
         //
     }
 
-    public BarCodeTypeEntityV2(Guid uid) : base(uid)
+    public BarCodeTypeV2Entity(Guid uid) : base(uid)
     {
         Name = string.Empty;
     }
@@ -35,7 +35,7 @@ public class BarCodeTypeEntityV2 : BaseEntity
 		base.ToString() +
         $"{nameof(Name)}: {Name}. ";
 
-    public virtual bool Equals(BarCodeTypeEntityV2 item)
+    public virtual bool Equals(BarCodeTypeV2Entity item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -48,7 +48,7 @@ public class BarCodeTypeEntityV2 : BaseEntity
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((BarCodeTypeEntityV2)obj);
+        return Equals((BarCodeTypeV2Entity)obj);
     }
 
 	public override int GetHashCode() => IdentityUid.GetHashCode();
@@ -66,13 +66,13 @@ public class BarCodeTypeEntityV2 : BaseEntity
 
     public new virtual object Clone()
     {
-        BarCodeTypeEntityV2 item = new();
+        BarCodeTypeV2Entity item = new();
         item.Name = Name;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }
 
-    public new virtual BarCodeTypeEntityV2 CloneCast() => (BarCodeTypeEntityV2)Clone();
+    public new virtual BarCodeTypeV2Entity CloneCast() => (BarCodeTypeV2Entity)Clone();
 
     #endregion
 }

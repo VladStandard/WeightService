@@ -5,14 +5,12 @@ using DataCore.Sql.TableScaleModels;
 using FluentValidation.Results;
 using NSubstitute;
 using NUnit.Framework;
-using System;
 using System.Linq;
-using static DataCore.ShareEnums;
 
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class AccessValidatorTests
+internal class BarCodeV2ValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
@@ -20,22 +18,15 @@ internal class AccessValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AccessEntity item = Substitute.For<AccessEntity>();
-			AccessValidator validator = new();
+			BarCodeV2Entity item = Substitute.For<BarCodeV2Entity>();
+			BarCodeV2Validator validator = new();
 			// Act.
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsFalse(result.IsValid);
 			// Act.
-			item.User = "";
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.User = "Test";
-			item.Rights = (byte)AccessRights.Admin + 1;
+			item.Value = "";
 			result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
@@ -49,18 +40,14 @@ internal class AccessValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AccessEntity item = Substitute.For<AccessEntity>();
-			AccessValidator validator = new();
+			BarCodeV2Entity item = Substitute.For<BarCodeV2Entity>();
+			BarCodeV2Validator validator = new();
 			// Act.
-			item.User = "Test";
-			foreach (AccessRights rights in Enum.GetValues(typeof(AccessRights)))
-			{
-				item.Rights = (byte)rights;
-				ValidationResult result = validator.Validate(item);
-				TestsUtils.FailureWriteLine(result);
-				// Assert.
-				Assert.IsTrue(result.IsValid);
-			}
+			item.Value = "Test";
+			ValidationResult result = validator.Validate(item);
+			TestsUtils.FailureWriteLine(result);
+			// Assert.
+			Assert.IsTrue(result.IsValid);
 		});
 	}
 
@@ -70,8 +57,8 @@ internal class AccessValidatorTests
 		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
-			AccessValidator validator = new();
-			AccessEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>();
+			BarCodeV2Validator validator = new();
+			BarCodeV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeV2Entity>();
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -81,7 +68,7 @@ internal class AccessValidatorTests
 			{
 				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
 				int i = 0;
-				foreach (AccessEntity item in items)
+				foreach (BarCodeV2Entity item in items)
 				{
 					if (i < 10)
 						TestContext.WriteLine(item);

@@ -14,14 +14,14 @@ else
         Title=@LocaleData.DeviceControl.Sections.BarCodeTypes SetParameters=@SetParametersAsync />
     
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="BarCodeEntityV2" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="BarCodeV2Entity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="200px">
         <Columns >
             @if (@IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="BarCodeEntityV2" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="BarCodeV2Entity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
@@ -29,14 +29,14 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="BarCodeEntityV2" TextAlign=TextAlign.Center SortProperty="CreateDt"
+                TItem="BarCodeV2Entity" TextAlign=TextAlign.Center SortProperty="CreateDt"
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="BarCodeEntityV2" TextAlign=TextAlign.Center SortProperty="ChangeDt"
+            <RadzenGridColumn TItem="BarCodeV2Entity" TextAlign=TextAlign.Center SortProperty="ChangeDt"
                     Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
@@ -44,7 +44,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="BarCodeEntityV2" Property="Name" TextAlign=TextAlign.Left
+                TItem="BarCodeV2Entity" Property="Name" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Name
                 Type="string" Width="60%" />
         </Columns>

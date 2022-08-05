@@ -431,14 +431,14 @@ public class RazorBase : LayoutComponentBase
             case ProjectsEnums.TableScale.BarCodeTypes:
                 if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idBarcodeType))
                 {
-                    Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
+                    Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(
                         new(new() { new(DbField.IdentityId, DbComparer.Equal, idBarcodeType) }));
                 }
                 break;
             case ProjectsEnums.TableScale.Contragents:
                 if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idContragent))
                 {
-                    Item = AppSettings.DataAccess.Crud.GetEntity<ContragentEntityV2>(
+                    Item = AppSettings.DataAccess.Crud.GetEntity<ContragentV2Entity>(
                         new(new() { new(DbField.IdentityId, DbComparer.Equal, idContragent) }));
                 }
                 break;
@@ -852,7 +852,7 @@ public class RazorBase : LayoutComponentBase
         switch (ProjectsEnums.GetTableScale(Table.Name))
         {
             case ProjectsEnums.TableScale.BarCodeTypes:
-                IdentityId = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(null,
+                IdentityId = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(null,
                     new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                 break;
             case ProjectsEnums.TableScale.Hosts:
@@ -1142,10 +1142,10 @@ public class RazorBase : LayoutComponentBase
         switch (tableScale)
         {
             case ProjectsEnums.TableScale.BarCodeTypes:
-                ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeV2Entity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.Contragents:
-                ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                ItemSaveCheck.Contragent(NotificationService, (ContragentV2Entity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.Hosts:
                 ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);

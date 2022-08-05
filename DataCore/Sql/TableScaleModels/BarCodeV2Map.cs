@@ -4,22 +4,23 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table map "BARCODE_TYPES_V2".
+/// Table map "BARCODES_V2".
 /// </summary>
-public class BarCodeTypeMapV2 : ClassMap<BarCodeTypeEntityV2>
+public class BarCodeV2Map : ClassMap<BarCodeV2Entity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarCodeTypeMapV2()
+    public BarCodeV2Map()
     {
         Schema("db_scales");
-        Table("BARCODE_TYPES_V2");
+        Table("BARCODES_V2");
         LazyLoad();
         Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("MARKED").Not.Nullable().Default("0");
-        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(100).Not.Nullable();
+        Map(x => x.Value).CustomSqlType("NVARCHAR").Column("VALUE").Length(150).Not.Nullable();
+        References(x => x.BarcodeType).Column("BARCODE_TYPE_UID").Nullable();
     }
 }

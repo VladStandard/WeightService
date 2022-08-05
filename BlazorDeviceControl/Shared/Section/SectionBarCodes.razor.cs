@@ -15,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<BarCodeEntityV2> ItemsCast => Items == null ? new() : Items.Select(x => (BarCodeEntityV2)x).ToList();
+        private List<BarCodeV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (BarCodeV2Entity)x).ToList();
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeEntityV2>(
+                    Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeV2Entity>(
                         (IsShowMarkedItems == true) ? null
                             : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.Value, DbOrderDirection.Asc),

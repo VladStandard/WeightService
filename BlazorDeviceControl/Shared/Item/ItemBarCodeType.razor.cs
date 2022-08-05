@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public BarCodeTypeEntityV2 ItemCast { get => Item == null ? new() : (BarCodeTypeEntityV2)Item; set => Item = value; }
+        public BarCodeTypeV2Entity ItemCast { get => Item == null ? new() : (BarCodeTypeV2Entity)Item; set => Item = value; }
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ItemCast.Name = "NEW BARCODE_TYPE";
                             break;
                         default:
-                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(
                                 new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
                             break;
                     }

@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.955] - 2022-08-05
+### Описание обновления:
+- WS-T-319. Тестирование. Добавить тесты таблиц ACCESS, APPS, BARCODE_TYPES_V2, BARCODES_V2, CONTRAGENTS_V2
+
 ## [0.6.950] - 2022-08-04
 ### Описание обновления:
 - WS-T-313. Весовые этикетки. Добавить смену площадки

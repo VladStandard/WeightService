@@ -308,17 +308,17 @@ public class CrudController
         if (item == null) return;
         switch (item)
         {
-            case BarCodeEntityV2 barcode:
+            case BarCodeV2Entity barcode:
                 {
                     //if (!barcode.EqualsEmpty())
                     {
-                        barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeEntityV2>(barcode.BarcodeType.IdentityUid);
-                        barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentEntityV2>(barcode.Contragent.IdentityUid);
+                        barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeV2Entity>(barcode.BarcodeType.IdentityUid);
+                        barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentV2Entity>(barcode.Contragent.IdentityUid);
                         barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                     }
                     break;
                 }
-            case BarCodeTypeEntityV2 barcodeType:
+            case BarCodeTypeV2Entity barcodeType:
                 {
                     //if (!barcodeType.EqualsEmpty())
                     {
@@ -326,7 +326,7 @@ public class CrudController
                     }
                     break;
                 }
-            case ContragentEntityV2 contragent:
+            case ContragentV2Entity contragent:
                 {
                     //if (!contragent.EqualsEmpty())
                     {
@@ -673,8 +673,8 @@ public class CrudController
     {
         switch (item)
         {
-            case ContragentEntityV2 contragent:
-                throw new($"{nameof(SaveEntity)} for {nameof(ContragentEntityV2)} is deny!");
+            case ContragentV2Entity contragent:
+                throw new($"{nameof(SaveEntity)} for {nameof(ContragentV2Entity)} is deny!");
             case TableScaleModels.NomenclatureEntity nomenclature:
                 throw new($"{nameof(SaveEntity)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
             default:
@@ -729,10 +729,10 @@ public class CrudController
             case LogTypeEntity logType:
                 ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
                 break;
-            case BarCodeTypeEntityV2 barcodeType:
+            case BarCodeTypeV2Entity barcodeType:
                 ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                 break;
-            case ContragentEntityV2 contragent:
+            case ContragentV2Entity contragent:
                 contragent.IsMarked = true;
                 ExecuteTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
                 break;
@@ -868,12 +868,12 @@ public class CrudController
                 return AccessEntity.IdentityName;
             case AppEntity:
                 return AppEntity.IdentityName;
-            case BarCodeTypeEntityV2:
-                return BarCodeTypeEntityV2.IdentityName;
-            case BarCodeEntityV2:
-                return BarCodeEntityV2.IdentityName;
-            case ContragentEntityV2:
-                return ContragentEntityV2.IdentityName;
+            case BarCodeTypeV2Entity:
+                return BarCodeTypeV2Entity.IdentityName;
+            case BarCodeV2Entity:
+                return BarCodeV2Entity.IdentityName;
+            case ContragentV2Entity:
+                return ContragentV2Entity.IdentityName;
             case ErrorEntity:
                 return ErrorEntity.IdentityName;
             case HostEntity:

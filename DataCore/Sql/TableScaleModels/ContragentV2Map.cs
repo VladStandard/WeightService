@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentMapV2 : ClassMap<ContragentEntityV2>
+public class ContragentMapV2 : ClassMap<ContragentV2Entity>
 {
     /// <summary>
     /// Constructor.

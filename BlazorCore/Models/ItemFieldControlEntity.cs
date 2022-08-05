@@ -30,10 +30,10 @@ public class ItemFieldControlEntity
             case AccessEntity access:
                 Access(ref result, ref detailAddition, access);
                 break;
-            case BarCodeTypeEntityV2 barCodeType:
+            case BarCodeTypeV2Entity barCodeType:
                 BarcodeType(ref result, ref detailAddition, barCodeType);
                 break;
-            case ContragentEntityV2 contragent:
+            case ContragentV2Entity contragent:
                 Contragent(ref result, ref detailAddition, contragent);
                 break;
             case HostEntity host:
@@ -126,7 +126,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeEntityV2 barCodeType)
+    private static void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeV2Entity barCodeType)
     {
         if (barCodeType.EqualsDefault())
             result = false;
@@ -137,7 +137,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Contragent(ref bool result, ref string detailAddition, ContragentEntityV2 contragent)
+    private static void Contragent(ref bool result, ref string detailAddition, ContragentV2Entity contragent)
     {
         if (contragent.EqualsDefault())
             result = false;

@@ -11,14 +11,14 @@ using static DataCore.ShareEnums;
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class ContragentEntityV2Tests
+internal class BarCodeTypeV2EntityTests
 {
     [Test]
     public void Entity_Equals_DoesNotThrow()
     {
         Assert.DoesNotThrow(() =>
         {
-            ContragentEntityV2 item = new();
+            BarCodeTypeV2Entity item = new();
             Assert.AreEqual(true, item.EqualsNew());
             Assert.AreEqual(true, item.EqualsDefault());
         });
@@ -31,7 +31,7 @@ internal class ContragentEntityV2Tests
         {
             foreach (bool isShowMarkedItems in TestsEnums.GetBool())
             {
-                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<ContragentEntityV2>(
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeTypeV2Entity>(
                         (isShowMarkedItems == true) ? null
                             : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.User, DbOrderDirection.Asc), 
@@ -39,15 +39,15 @@ internal class ContragentEntityV2Tests
                     ?.ToList<BaseEntity>();
                 if (items != null)
                 {
-                    List<ContragentEntityV2> itemsCast = items.Select(x => (ContragentEntityV2)x).ToList();
+                    List<BarCodeTypeV2Entity> itemsCast = items.Select(x => (BarCodeTypeV2Entity)x).ToList();
                     if (itemsCast.Count > 0)
                     {
-                        foreach (ContragentEntityV2 item in itemsCast)
+                        foreach (BarCodeTypeV2Entity item in itemsCast)
                         {
-                            ContragentEntityV2 itemCopy = item.CloneCast();
+                            BarCodeTypeV2Entity itemCopy = item.CloneCast();
                             Assert.AreEqual(true, item.Equals(itemCopy));
                             Assert.AreEqual(true, itemCopy.Equals(item));
-                            ContragentEntityV2 itemChange = new()
+                            BarCodeTypeV2Entity itemChange = new()
                             {
                                 IsMarked = true,
                             };

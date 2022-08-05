@@ -67,8 +67,12 @@ internal class AppValidatorTests
 			else
 			{
 				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
+				int i = 0;
 				foreach (AppEntity item in items)
 				{
+					if (i < 10)
+						TestContext.WriteLine(item);
+					i++;
 					TestContext.WriteLine(item);
 					ValidationResult result = validator.Validate(item);
 					TestsUtils.FailureWriteLine(result);

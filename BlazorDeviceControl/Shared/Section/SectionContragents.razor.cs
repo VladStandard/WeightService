@@ -15,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<ContragentEntityV2> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentEntityV2)x).ToList();
+        private List<ContragentV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentV2Entity)x).ToList();
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntityV2>(
+                    Items = AppSettings.DataAccess.Crud.GetEntities<ContragentV2Entity>(
                         (IsShowMarkedItems == true) ? null
                             : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.Name, DbOrderDirection.Asc),

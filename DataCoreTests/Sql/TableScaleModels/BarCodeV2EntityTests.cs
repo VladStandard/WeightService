@@ -11,14 +11,14 @@ using static DataCore.ShareEnums;
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class BarCodeEntityV2Tests
+internal class BarCodeV2EntityTests
 {
     [Test]
     public void Entity_Equals_DoesNotThrow()
     {
         Assert.DoesNotThrow(() =>
         {
-            BarCodeEntityV2 item = new();
+            BarCodeV2Entity item = new();
             Assert.AreEqual(true, item.EqualsNew());
             Assert.AreEqual(true, item.EqualsDefault());
         });
@@ -31,7 +31,7 @@ internal class BarCodeEntityV2Tests
         {
             foreach (bool isShowMarkedItems in TestsEnums.GetBool())
             {
-                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeEntityV2>(
+                List<BaseEntity>? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeV2Entity>(
                         (isShowMarkedItems == true) ? null
                             : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.User, DbOrderDirection.Asc), 
@@ -39,15 +39,15 @@ internal class BarCodeEntityV2Tests
                     ?.ToList<BaseEntity>();
                 if (items != null)
                 {
-                    List<BarCodeEntityV2> itemsCast = items.Select(x => (BarCodeEntityV2)x).ToList();
+                    List<BarCodeV2Entity> itemsCast = items.Select(x => (BarCodeV2Entity)x).ToList();
                     if (itemsCast.Count > 0)
                     {
-                        foreach (BarCodeEntityV2 item in itemsCast)
+                        foreach (BarCodeV2Entity item in itemsCast)
                         {
-                            BarCodeEntityV2 itemCopy = item.CloneCast();
+                            BarCodeV2Entity itemCopy = item.CloneCast();
                             Assert.AreEqual(true, item.Equals(itemCopy));
                             Assert.AreEqual(true, itemCopy.Equals(item));
-                            BarCodeEntityV2 itemChange = new()
+                            BarCodeV2Entity itemChange = new()
                             {
                                 IsMarked = true,
                             };

@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public ContragentEntityV2 ItemCast { get => Item == null ? new() : (ContragentEntityV2)Item; set => Item = value; }
+        public ContragentV2Entity ItemCast { get => Item == null ? new() : (ContragentV2Entity)Item; set => Item = value; }
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ItemCast.Name = "NEW CONTRAGENT";
                             break;
                         default:
-                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<ContragentEntityV2>(
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<ContragentV2Entity>(
                                 new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
                             break;
                     }

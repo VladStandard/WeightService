@@ -4,14 +4,14 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "APPS".
+/// Table validation "CONTRAGENTS_V2".
 /// </summary>
-public class AppValidator : AbstractValidator<AppEntity>
+public class ContragentV2Validator : AbstractValidator<ContragentV2Entity>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AppValidator()
+	public ContragentV2Validator()
 	{
 		RuleFor(item => item.Name)
 			.NotEmpty()

@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentEntityV2 : BaseEntity
+public class ContragentV2Entity : BaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -25,12 +25,12 @@ public class ContragentEntityV2 : BaseEntity
     public virtual int DwhId { get; set; }
     public virtual string Xml { get; set; }
 
-    public ContragentEntityV2() : this(Guid.Empty)
+    public ContragentV2Entity() : this(Guid.Empty)
     {
         //
     }
 
-    public ContragentEntityV2(Guid uid) : base(uid)
+    public ContragentV2Entity(Guid uid) : base(uid)
     {
         Name = string.Empty;
         FullName = string.Empty;
@@ -52,7 +52,7 @@ public class ContragentEntityV2 : BaseEntity
         $"{nameof(DwhId)}: {DwhId}. " +
         $"{nameof(Xml)}.Length: {Xml?.Length ?? 0}. ";
 
-    public virtual bool Equals(ContragentEntityV2 item)
+    public virtual bool Equals(ContragentV2Entity item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -69,7 +69,7 @@ public class ContragentEntityV2 : BaseEntity
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((ContragentEntityV2)obj);
+        return Equals((ContragentV2Entity)obj);
     }
 
 	public override int GetHashCode() => IdentityUid.GetHashCode();
@@ -91,7 +91,7 @@ public class ContragentEntityV2 : BaseEntity
 
     public new virtual object Clone()
     {
-        ContragentEntityV2 item = new();
+        ContragentV2Entity item = new();
         item.Name = Name;
         item.FullName = FullName;
         item.IdRRef = IdRRef;
@@ -101,7 +101,7 @@ public class ContragentEntityV2 : BaseEntity
         return item;
     }
 
-    public new virtual ContragentEntityV2 CloneCast() => (ContragentEntityV2)Clone();
+    public new virtual ContragentV2Entity CloneCast() => (ContragentV2Entity)Clone();
 
     #endregion
 }

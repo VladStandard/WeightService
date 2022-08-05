@@ -174,6 +174,5 @@ namespace WeightCore.Zpl
         }
 
         #endregion
-
     }
 }

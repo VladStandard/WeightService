@@ -25,7 +25,7 @@ public class ChartBase
     public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
     {
         ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-        ContragentEntityV2[]? items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntityV2>(null,
+        ContragentV2Entity[]? items = AppSettings.DataAccess.Crud.GetEntities<ContragentV2Entity>(null,
             new(ShareEnums.DbField.CreateDt));
         int i = 0;
         switch (field)
@@ -34,7 +34,7 @@ public class ChartBase
                 List<ChartCountEntity> entitiesDateCreated = new();
                 if (items?.Any() == true)
                 {
-                    foreach (ContragentEntityV2 item in items)
+                    foreach (ContragentV2Entity item in items)
                     {
                         entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
                         i++;
@@ -53,7 +53,7 @@ public class ChartBase
                 List<ChartCountEntity> entitiesDateModified = new();
                 if (items?.Any() == true)
                 {
-                    foreach (ContragentEntityV2 item in items)
+                    foreach (ContragentV2Entity item in items)
                     {
                         entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
                         i++;

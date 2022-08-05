@@ -57,7 +57,7 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
             case ProjectsEnums.TableScale.Default:
                 break;
             case ProjectsEnums.TableScale.BarCodeTypes:
-                BarCodeTypeEntityV2? barcodeType = AppSettings.DataAccess.Crud.GetEntityByUid<BarCodeTypeEntityV2>(IdentityUid);
+                BarCodeTypeV2Entity? barcodeType = AppSettings.DataAccess.Crud.GetEntityByUid<BarCodeTypeV2Entity>(IdentityUid);
                 if (barcodeType != null)
                 {
                     CreateDt = barcodeType.CreateDt.ToString(CultureInfo.InvariantCulture);
@@ -65,7 +65,7 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                 }
                 break;
             case ProjectsEnums.TableScale.Contragents:
-                ContragentEntityV2? contragent = AppSettings.DataAccess.Crud.GetEntityByUid<ContragentEntityV2>(IdentityUid);
+                ContragentV2Entity? contragent = AppSettings.DataAccess.Crud.GetEntityByUid<ContragentV2Entity>(IdentityUid);
                 if (contragent != null)
                 {
                     CreateDt = contragent.CreateDt.ToString(CultureInfo.InvariantCulture);

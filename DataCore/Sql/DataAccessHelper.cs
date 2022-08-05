@@ -249,8 +249,8 @@ public class DataAccessHelper
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeMapV2>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeMapV2>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeV2Map>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMapV2>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
