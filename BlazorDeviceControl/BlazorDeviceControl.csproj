@@ -116,6 +116,7 @@
     <Watch Remove="Shared\Section\SectionLogsInformations.razor" />
     <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
     <Watch Remove="Shared\Section\SectionPlus.razor" />
+    <Watch Remove="Shared\Section\SectionPlusRef.razor" />
     <Watch Remove="Shared\Section\SectionPrinterResources.razor" />
     <Watch Remove="Shared\Section\SectionPrinters.razor" />
     <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />

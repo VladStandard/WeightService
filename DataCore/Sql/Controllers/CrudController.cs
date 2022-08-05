@@ -248,44 +248,21 @@ public class CrudController
         if (item == null) return;
         switch (item)
         {
-            case AccessEntity access:
-                //if (!access.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case AppEntity app:
-                //if (!app.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case ErrorEntity error:
-                //if (!error.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case HostEntity host:
-                //if (!host.EqualsEmpty())
-                {
-                    //
-                }
-                break;
+            //case AccessEntity access:
+            //    break;
+            //case AppEntity app:
+            //    break;
+            //case ErrorEntity error:
+            //    break;
+            //case HostEntity host:
+            //    break;
             case LogEntity log:
-                //if (!log.EqualsEmpty())
-                {
-                    log.App = log.App?.IdentityUid == null ? new() : GetEntityByUid<AppEntity>(log.App.IdentityUid);
-                    log.Host = log.Host?.IdentityId == null ? new() : GetEntityById<HostEntity>(log.Host.IdentityId);
-                    log.LogType = log.LogType?.IdentityUid == null ? new() : GetEntityByUid<LogTypeEntity>(log.LogType.IdentityUid);
-                }
+                log.App = log.App?.IdentityUid == null ? new() : GetEntityByUid<AppEntity>(log.App.IdentityUid);
+                log.Host = log.Host?.IdentityId == null ? new() : GetEntityById<HostEntity>(log.Host.IdentityId);
+                log.LogType = log.LogType?.IdentityUid == null ? new() : GetEntityByUid<LogTypeEntity>(log.LogType.IdentityUid);
                 break;
-            case LogTypeEntity logType:
-                //if (!logType.EqualsEmpty())
-                {
-                    //
-                }
-                break;
+            //case LogTypeEntity logType:
+            //    break;
         }
     }
 
@@ -295,10 +272,7 @@ public class CrudController
         switch (item)
         {
             case DeviceEntity device:
-                //if (!device.EqualsEmpty())
-                {
-                    device.Scales = device.Scales?.IdentityId == null ? new() : GetEntityById<ScaleEntity>(device.Scales.IdentityId);
-                }
+                device.Scales = device.Scales?.IdentityId == null ? new() : GetEntityById<ScaleEntity>(device.Scales.IdentityId);
                 break;
         }
     }
@@ -310,173 +284,97 @@ public class CrudController
         {
             case BarCodeV2Entity barcode:
                 {
-                    //if (!barcode.EqualsEmpty())
-                    {
-                        barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeV2Entity>(barcode.BarcodeType.IdentityUid);
-                        barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentV2Entity>(barcode.Contragent.IdentityUid);
-                        barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
-                    }
+                    barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeV2Entity>(barcode.BarcodeType.IdentityUid);
+                    barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentV2Entity>(barcode.Contragent.IdentityUid);
+                    barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                     break;
                 }
-            case BarCodeTypeV2Entity barcodeType:
-                {
-                    //if (!barcodeType.EqualsEmpty())
-                    {
-                        //
-                    }
-                    break;
-                }
-            case ContragentV2Entity contragent:
-                {
-                    //if (!contragent.EqualsEmpty())
-                    {
-                        //
-                    }
-                    break;
-                }
+            //case BarCodeTypeV2Entity barcodeType:
+            //    {
+            //        break;
+            //    }
+            //case ContragentV2Entity contragent:
+            //    {
+            //        break;
+            //    }
             case LabelEntity label:
-                //if (!label.EqualsEmpty())
-                {
-                    label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
-                }
+                label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
                 break;
-            case TableScaleModels.NomenclatureEntity nomenclature:
-                //if (!nomenclature.EqualsEmpty())
-                {
-                    //
-                }
-                break;
+            //case TableScaleModels.NomenclatureEntity nomenclature:
+            //    break;
             case OrderEntity order:
-                //if (!order.EqualsEmpty())
-                {
-                    order.OrderTypes = GetEntityById<OrderTypeEntity>(order.OrderTypes.IdentityId);
-                    order.Scales = GetEntityById<ScaleEntity>(order.Scales.IdentityId);
-                    //order.Plu = order.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(order.Plu.IdentityId);
-                    order.Plu = GetEntity<PluEntity>(
-                        new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
-                    order.Templates = GetEntityById<TemplateEntity>(order.Templates.IdentityId);
-                }
+                order.OrderTypes = GetEntityById<OrderTypeEntity>(order.OrderTypes.IdentityId);
+                order.Scales = GetEntityById<ScaleEntity>(order.Scales.IdentityId);
+                //order.Plu = order.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(order.Plu.IdentityId);
+                order.Plu = GetEntity<PluEntity>(
+                    new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
+                order.Templates = GetEntityById<TemplateEntity>(order.Templates.IdentityId);
                 break;
-            case OrderStatusEntity orderStatus:
-                //if (!orderStatus.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case OrderTypeEntity orderType:
-                //if (!orderType.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case OrganizationEntity organization:
-                //if (!organization.EqualsEmpty())
-                {
-                    //
-                }
-                break;
+            //case OrderStatusEntity orderStatus:
+            //    break;
+            //case OrderTypeEntity orderType:
+            //    break;
+            //case OrganizationEntity organization:
+            //    break;
             case PluEntity plu:
-                //if (!plu.EqualsEmpty())
-                {
-                    plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
-                    plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
-                    plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
-                }
+                plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+                plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
+                plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+                break;
+            case PluRefV2Entity pluRef:
+	            pluRef.Plu = GetEntityByUid<PluV2Entity>(pluRef.Plu.IdentityUid);
+	            pluRef.Scale = GetEntityById<ScaleEntity>(pluRef.Scale.IdentityId);
                 break;
             case PluV2Entity plu:
-                //if (!plu.EqualsEmpty())
-                {
-                    plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
-                    plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
-                }
+                plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+                plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
                 break;
             case PrinterEntity printer:
-                //if (!printer.EqualsEmpty())
-                {
-                    printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
-                }
+                printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
                 break;
             case PrinterResourceEntity printerResource:
-                //if (!printerResource.EqualsEmpty())
-                {
-                    printerResource.Printer = GetEntityById<PrinterEntity>(printerResource.Printer.IdentityId);
-                    printerResource.Resource = GetEntityById<TemplateResourceEntity>(printerResource.Resource.IdentityId);
-                    if (string.IsNullOrEmpty(printerResource.Resource.Description))
-                        printerResource.Resource.Description = printerResource.Resource.Name;
-                }
+                printerResource.Printer = GetEntityById<PrinterEntity>(printerResource.Printer.IdentityId);
+                printerResource.Resource = GetEntityById<TemplateResourceEntity>(printerResource.Resource.IdentityId);
+                if (string.IsNullOrEmpty(printerResource.Resource.Description))
+                    printerResource.Resource.Description = printerResource.Resource.Name;
                 break;
-            case PrinterTypeEntity printerType:
-                //if (!printerType.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case ProductionFacilityEntity ProductionFacility:
-                //if (!ProductionFacility.EqualsEmpty())
-                {
-                    //
-                }
-                break;
+            //case PrinterTypeEntity printerType:
+            //    break;
+            //case ProductionFacilityEntity ProductionFacility:
+            //    break;
             case ProductSeriesEntity product:
-                //if (!product.EqualsEmpty())
-                {
-                    product.Scale = GetEntityById<ScaleEntity>(product.Scale.IdentityId);
-                }
+                product.Scale = GetEntityById<ScaleEntity>(product.Scale.IdentityId);
                 break;
             case ScaleEntity scale:
-                //if (!scale.EqualsEmpty())
-                {
-                    scale.TemplateDefault = scale.TemplateDefault?.IdentityId == null ? null : GetEntityById<TemplateEntity>(scale.TemplateDefault.IdentityId);
-                    scale.TemplateSeries = scale.TemplateSeries?.IdentityId == null ? null : GetEntityById<TemplateEntity>(scale.TemplateSeries.IdentityId);
-                    scale.PrinterMain = scale.PrinterMain?.IdentityId == null ? null : GetEntityById<PrinterEntity>(scale.PrinterMain.IdentityId);
-                    scale.PrinterShipping = scale.PrinterShipping?.IdentityId == null ? null : GetEntityById<PrinterEntity>(scale.PrinterShipping.IdentityId);
-                    scale.Host = scale.Host?.IdentityId == null ? null : GetEntityById<HostEntity>(scale.Host.IdentityId);
-                    scale.WorkShop = scale.WorkShop?.IdentityId == null ? null : GetEntityById<WorkShopEntity>(scale.WorkShop.IdentityId);
-                }
+                scale.TemplateDefault = scale.TemplateDefault?.IdentityId == null ? null : GetEntityById<TemplateEntity>(scale.TemplateDefault.IdentityId);
+                scale.TemplateSeries = scale.TemplateSeries?.IdentityId == null ? null : GetEntityById<TemplateEntity>(scale.TemplateSeries.IdentityId);
+                scale.PrinterMain = scale.PrinterMain?.IdentityId == null ? null : GetEntityById<PrinterEntity>(scale.PrinterMain.IdentityId);
+                scale.PrinterShipping = scale.PrinterShipping?.IdentityId == null ? null : GetEntityById<PrinterEntity>(scale.PrinterShipping.IdentityId);
+                scale.Host = scale.Host?.IdentityId == null ? null : GetEntityById<HostEntity>(scale.Host.IdentityId);
+                scale.WorkShop = scale.WorkShop?.IdentityId == null ? null : GetEntityById<WorkShopEntity>(scale.WorkShop.IdentityId);
                 break;
             case TaskEntity task:
-                //if (!task.EqualsEmpty())
-                {
-                    task.TaskType = GetEntityByUid<TaskTypeEntity>(task.TaskType.IdentityUid);
-                    task.Scale = GetEntityById<ScaleEntity>(task.Scale.IdentityId);
-                }
+                task.TaskType = GetEntityByUid<TaskTypeEntity>(task.TaskType.IdentityUid);
+                task.Scale = GetEntityById<ScaleEntity>(task.Scale.IdentityId);
                 break;
-            case TaskTypeEntity taskType:
-                //if (!taskType.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case TemplateEntity template:
-                //if (!template.EqualsEmpty())
-                {
-                    //
-                }
-                break;
-            case TemplateResourceEntity templateResource:
-                //if (!templateResource.EqualsEmpty())
-                {
-                    //
-                }
-                break;
+            //case TaskTypeEntity taskType:
+            //    break;
+            //case TemplateEntity template:
+            //    break;
+            //case TemplateResourceEntity templateResource:
+            //    break;
             case WeithingFactEntity weithingFact:
-                //if (!weithingFact.EqualsEmpty())
-                {
-                    weithingFact.Scale = GetEntityById<ScaleEntity>(weithingFact.Scale.IdentityId);
-                    weithingFact.Plu = GetEntity<PluEntity>(
-                        new(new() {
-                            new($"{nameof(weithingFact.Scale)}.{nameof(weithingFact.Scale.IdentityId)}", DbComparer.Equal, weithingFact.Scale.IdentityId),
-                            new ($"{nameof(PluEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
-                        }));
-                    weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
-                    weithingFact.Order = weithingFact.Order?.IdentityId == null ? null : GetEntityById<OrderEntity>(weithingFact.Order.IdentityId);
-                }
+                weithingFact.Scale = GetEntityById<ScaleEntity>(weithingFact.Scale.IdentityId);
+                weithingFact.Plu = GetEntity<PluEntity>(
+                    new(new() {
+                        new($"{nameof(weithingFact.Scale)}.{nameof(weithingFact.Scale.IdentityId)}", DbComparer.Equal, weithingFact.Scale.IdentityId),
+                        new ($"{nameof(PluEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
+                    }));
+                weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
+                weithingFact.Order = weithingFact.Order?.IdentityId == null ? null : GetEntityById<OrderEntity>(weithingFact.Order.IdentityId);
                 break;
             case WorkShopEntity workshop:
-                //if (!workshop.EqualsEmpty())
-                {
-                    workshop.ProductionFacility = GetEntityById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
-                }
+                workshop.ProductionFacility = GetEntityById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
                 break;
         }
     }

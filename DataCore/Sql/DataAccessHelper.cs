@@ -263,6 +263,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluV2Map>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluRefV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
