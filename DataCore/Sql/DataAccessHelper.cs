@@ -125,7 +125,7 @@ public class DataAccessHelper
         {
             if (_crud != null)
                 return _crud;
-            return _crud = new CrudController();
+            return _crud = new();
         }
         set => _crud = value;
     }
@@ -137,7 +137,7 @@ public class DataAccessHelper
         {
             if (_crudApp != null)
                 return _crudApp;
-            return _crudApp = new CrudAppController();
+            return _crudApp = new();
         }
         set => _crudApp = value;
     }
@@ -149,7 +149,7 @@ public class DataAccessHelper
         {
             if (_crudHost != null)
                 return _crudHost;
-            return _crudHost = new CrudHostController();
+            return _crudHost = new();
         }
         set => _crudHost = value;
     }
@@ -161,7 +161,7 @@ public class DataAccessHelper
         {
             if (_jsonControl != null)
                 return _jsonControl;
-            return _jsonControl = new JsonSettingsController();
+            return _jsonControl = new();
         }
         set => _jsonControl = value;
     }
@@ -173,7 +173,7 @@ public class DataAccessHelper
         {
             if (_log != null)
                 return _log;
-            return _log = new LogController();
+            return _log = new();
         }
         set => _log = value;
     }
@@ -262,6 +262,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());

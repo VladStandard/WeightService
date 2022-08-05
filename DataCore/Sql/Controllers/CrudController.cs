@@ -383,6 +383,13 @@ public class CrudController
                     plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
                 }
                 break;
+            case PluV2Entity plu:
+                //if (!plu.EqualsEmpty())
+                {
+                    plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+                    plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+                }
+                break;
             case PrinterEntity printer:
                 //if (!printer.EqualsEmpty())
                 {

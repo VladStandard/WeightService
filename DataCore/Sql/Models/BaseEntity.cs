@@ -81,25 +81,25 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
-    //public override int GetHashCode() => IdentityName switch
-    //{
-    //    ColumnName.Id => IdentityId.GetHashCode(),
-    //    ColumnName.Uid => IdentityUid.GetHashCode(),
-    //    _ => default,
-    //};
+	//public override int GetHashCode() => IdentityName switch
+	//{
+	//    ColumnName.Id => IdentityId.GetHashCode(),
+	//    ColumnName.Uid => IdentityUid.GetHashCode(),
+	//    _ => default,
+	//};
 
-    //public virtual bool EqualsEmpty()
-    //{
-    //    bool isIdentityEmpty = IdentityName switch
-    //    {
-    //        ColumnName.Id => Equals(IdentityId, 0),
-    //        ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
-    //        _ => Equals(IdentityName, ColumnName.Default),
-    //    };
-    //    return isIdentityEmpty;
-    //}
+	//public virtual bool EqualsEmpty()
+	//{
+	//    bool isIdentityEmpty = IdentityName switch
+	//    {
+	//        ColumnName.Id => Equals(IdentityId, 0),
+	//        ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
+	//        _ => Equals(IdentityName, ColumnName.Default),
+	//    };
+	//    return isIdentityEmpty;
+	//}
 
-    public virtual bool Equals(BaseEntity item)
+	public virtual bool Equals(BaseEntity item)
     {
         if (ReferenceEquals(this, item)) return true;
         return
