@@ -3,7 +3,6 @@
 
 using System;
 using DataCore.Sql;
-using NUnit.Framework;
 
 namespace DataCoreTests.Sql;
 

@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Schedulers;
-using NUnit.Framework;
 using System;
 using System.Runtime.CompilerServices;
 
