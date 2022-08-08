@@ -65,7 +65,7 @@ internal class AccessValidatorTests
 		{
 			// Arrange.
 			AccessValidator validator = new();
-			AccessEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>();
+			AccessEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>(null, null, 1_000);
 			// Act.
 			if (items == null || !items.Any())
 			{

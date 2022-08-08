@@ -52,7 +52,7 @@ internal class BarCodeTypeV2ValidatorTests
 		{
 			// Arrange.
 			BarCodeTypeV2Validator validator = new();
-			BarCodeTypeV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeTypeV2Entity>();
+			BarCodeTypeV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeTypeV2Entity>(null, null, 1_000);
 			// Act.
 			if (items == null || !items.Any())
 			{

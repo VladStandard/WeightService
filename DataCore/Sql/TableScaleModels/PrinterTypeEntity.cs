@@ -6,21 +6,28 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "ZebraPrinterType".
 /// </summary>
+[Serializable]
 public class PrinterTypeEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Name { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Name { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PrinterTypeEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PrinterTypeEntity(long id) : base(id)
     {
         Name = string.Empty;
@@ -32,7 +39,7 @@ public class PrinterTypeEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(PrinterTypeEntity item)

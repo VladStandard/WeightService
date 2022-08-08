@@ -9,36 +9,42 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class PluEntity : BaseEntity, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual TemplateEntity Template { get; set; }
-    public virtual ScaleEntity Scale { get; set; }
-    public virtual NomenclatureEntity Nomenclature { get; set; }
-    public virtual string GoodsName { get; set; }
-    public virtual string GoodsFullName { get; set; }
-    public virtual string GoodsDescription { get; set; }
-    public virtual string Gtin { get; set; }
-    public virtual string Ean13 { get; set; }
-    public virtual string Itf14 { get; set; }
-    public virtual short GoodsShelfLifeDays { get; set; }
-    public virtual decimal GoodsTareWeight { get; set; }
-    public virtual int GoodsBoxQuantly { get; set; }
-    public virtual int PluNumber { get; set; }
-    public virtual bool Active { get; set; }
-    public virtual decimal UpperWeightThreshold { get; set; }
-    public virtual decimal NominalWeight { get; set; }
-    public virtual decimal LowerWeightThreshold { get; set; }
-    public virtual bool IsCheckWeight { get; set; }
-    
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual TemplateEntity Template { get; set; }
+	[XmlElement] public virtual ScaleEntity Scale { get; set; }
+	[XmlElement] public virtual NomenclatureEntity Nomenclature { get; set; }
+	[XmlElement] public virtual string GoodsName { get; set; }
+	[XmlElement] public virtual string GoodsFullName { get; set; }
+	[XmlElement] public virtual string GoodsDescription { get; set; }
+	[XmlElement] public virtual string Gtin { get; set; }
+	[XmlElement] public virtual string Ean13 { get; set; }
+	[XmlElement] public virtual string Itf14 { get; set; }
+	[XmlElement] public virtual short GoodsShelfLifeDays { get; set; }
+	[XmlElement] public virtual decimal GoodsTareWeight { get; set; }
+	[XmlElement] public virtual int GoodsBoxQuantly { get; set; }
+	[XmlElement] public virtual int PluNumber { get; set; }
+	[XmlElement] public virtual bool Active { get; set; }
+	[XmlElement] public virtual decimal UpperWeightThreshold { get; set; }
+	[XmlElement] public virtual decimal NominalWeight { get; set; }
+	[XmlElement] public virtual decimal LowerWeightThreshold { get; set; }
+	[XmlElement] public virtual bool IsCheckWeight { get; set; }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PluEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PluEntity(long id) : base(id)
     {
         Template = new();
@@ -61,6 +67,11 @@ public class PluEntity : BaseEntity, ISerializable
         IsCheckWeight = false;
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected PluEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Template = (TemplateEntity)info.GetValue(nameof(Template), typeof(TemplateEntity));
@@ -230,7 +241,7 @@ public class PluEntity : BaseEntity, ISerializable
         string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+            $"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(Template)}: {strTemplates}. " +
 			$"{nameof(Scale)}: {strScale}. " +
 			$"{nameof(Nomenclature)}: {strNomenclature}. " +

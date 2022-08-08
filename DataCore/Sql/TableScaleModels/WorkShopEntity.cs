@@ -6,23 +6,30 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "WorkShop".
 /// </summary>
+[Serializable]
 public class WorkShopEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual ProductionFacilityEntity ProductionFacility { get; set; }
-    public virtual string Name { get; set; }
-    public virtual Guid IdRRef { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual ProductionFacilityEntity ProductionFacility { get; set; }
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual Guid IdRRef { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public WorkShopEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public WorkShopEntity(long id) : base(id)
     {
         ProductionFacility = new();
@@ -39,7 +46,7 @@ public class WorkShopEntity : BaseEntity
         string strProductionFacility = ProductionFacility != null ? ProductionFacility.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(ProductionFacility)}: {strProductionFacility}. " +
 			$"{nameof(Name)}: {Name}. " +
 			$"{nameof(IdRRef)}: {IdRRef}. ";

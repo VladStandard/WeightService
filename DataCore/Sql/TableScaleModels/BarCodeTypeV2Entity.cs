@@ -6,24 +6,32 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "BARCODE_TYPES_V2".
 /// </summary>
+[Serializable]
 public class BarCodeTypeV2Entity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual string Name { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 
+	[XmlElement] public virtual string Name { get; set; } = string.Empty;
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public BarCodeTypeV2Entity() : this(Guid.Empty)
     {
-        //
+        // 
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public BarCodeTypeV2Entity(Guid uid) : base(uid)
     {
-        Name = string.Empty;
+        // 
     }
 
     #endregion
@@ -32,7 +40,7 @@ public class BarCodeTypeV2Entity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(BarCodeTypeV2Entity item)

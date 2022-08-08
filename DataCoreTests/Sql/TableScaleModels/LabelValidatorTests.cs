@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class AppValidatorTests
+internal class LabelValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
@@ -12,19 +14,20 @@ internal class AppValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AppEntity item = Substitute.For<AppEntity>();
-			AppValidator validator = new();
+			LabelEntity item = Substitute.For<LabelEntity>();
+			LabelValidator validator = new();
 			// Act.
+			item.WeithingFact = new(0);
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.Name = "";
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
+			//Assert.IsFalse(result.IsValid);
+			//// Act.
+			//item.WeithingFact = null;
+			//result = validator.Validate(item);
+			//TestsUtils.FailureWriteLine(result);
+			//// Assert.
+			//Assert.IsFalse(result.IsValid);
 		});
 	}
 
@@ -34,10 +37,10 @@ internal class AppValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AppEntity item = Substitute.For<AppEntity>();
-			AppValidator validator = new();
+			LabelEntity item = Substitute.For<LabelEntity>();
+			LabelValidator validator = new();
 			// Act.
-			item.Name = "Test";
+			item.Label = new byte[0x00];
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
@@ -51,8 +54,8 @@ internal class AppValidatorTests
 		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
-			AppValidator validator = new();
-			AppEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<AppEntity>(null, null, 1_000);
+			LabelValidator validator = new();
+			LabelEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<LabelEntity>(null, null, 100);
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -62,12 +65,11 @@ internal class AppValidatorTests
 			{
 				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
 				int i = 0;
-				foreach (AppEntity item in items)
+				foreach (LabelEntity item in items)
 				{
 					if (i < 10)
 						TestContext.WriteLine(item);
 					i++;
-					TestContext.WriteLine(item);
 					ValidationResult result = validator.Validate(item);
 					TestsUtils.FailureWriteLine(result);
 					// Assert.

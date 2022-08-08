@@ -95,8 +95,7 @@ public class CrudHostController
                         Name = Convert.ToString(obj[4]),
                         Ip = Convert.ToString(obj[5]),
                         MacAddress = new(Convert.ToString(obj[6])),
-                        IdRRef = Guid.Parse(Convert.ToString(obj[7])),
-                        IsMarked = Convert.ToBoolean(obj[8]),
+                        IsMarked = Convert.ToBoolean(obj[7]),
                     };
                     if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                         items.Add(host);
@@ -126,8 +125,7 @@ public class CrudHostController
                         Name = Convert.ToString(obj[4]),
                         Ip = Convert.ToString(obj[7]),
                         MacAddress = new(Convert.ToString(obj[8])),
-                        IdRRef = Guid.Parse(Convert.ToString(obj[9])),
-                        IsMarked = Convert.ToBoolean(obj[10]),
+                        IsMarked = Convert.ToBoolean(obj[9]),
                     };
                     if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                         items.Add(host);

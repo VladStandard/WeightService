@@ -35,6 +35,11 @@ public class PluRefV2Entity : BaseEntity, ISerializable
 		//
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected PluRefV2Entity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
 	    Plu = (PluV2Entity)info.GetValue(nameof(Plu), typeof(PluV2Entity));

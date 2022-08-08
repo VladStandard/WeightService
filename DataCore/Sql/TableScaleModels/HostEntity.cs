@@ -6,46 +6,42 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "Hosts".
 /// </summary>
+[Serializable]
 public class HostEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual DateTime AccessDt { get; set; }
-    public virtual string Name { get; set; }
-    public virtual string HostName { get; set; }
-    public virtual string Ip { get; set; }
-    public virtual MacAddressEntity MacAddress { get; set; }
-    public virtual string MacAddressValue
-    {
-        get => MacAddress.Value;
-        set => MacAddress.Value = value;
-    }
-    public virtual Guid IdRRef { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual DateTime AccessDt { get; set; } = DateTime.MinValue;
+	[XmlElement] public virtual string Name { get; set; }= string.Empty;
+	[XmlElement] public virtual string HostName { get; set; }= string.Empty;
+	[XmlElement] public virtual string Ip { get; set; }= string.Empty;
+	[XmlElement] public virtual MacAddressEntity MacAddress { get; set; } = new();
 
-    public virtual string IdRRefAsString
-    {
-        get => IdRRef.ToString();
-        set => IdRRef = Guid.Parse(value);
-    }
+	[XmlElement] public virtual string MacAddressValue
+	{
+		get => MacAddress.Value;
+		set => MacAddress.Value = value;
+	}
 
-    public HostEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public HostEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public HostEntity(long id) : base(id)
-    {
-        AccessDt = DateTime.MinValue;
-        Name = string.Empty;
-        HostName = string.Empty;
-        Ip = string.Empty;
-        MacAddress = new();
-        IdRRef = Guid.Empty;
-    }
+	{
+		//
+	}
 
     #endregion
 
@@ -53,30 +49,23 @@ public class HostEntity : BaseEntity
 
     public override string ToString()
     {
-        string strAccessDt = AccessDt != null ? AccessDt.ToString() : "null";
         return
-			$"{nameof(IdentityId)}: {IdentityId}. " +
-			base.ToString() +
-			$"{nameof(AccessDt)}: {strAccessDt}. " +
-			$"{nameof(Name)}: {Name}. " +
-			$"{nameof(HostName)}: {HostName}. " +
-			$"{nameof(Ip)}: {Ip}. " +
-			$"{nameof(MacAddress)}: {MacAddress}. " +
-			$"{nameof(IdRRef)}: {IdRRef}. ";
+	        $"{nameof(IdentityId)}: {IdentityId}. " +
+	        $"{nameof(IsMarked)}: {IsMarked}. " +
+			$"{nameof(HostName)}: {HostName}. ";
     }
 
     public virtual bool Equals(HostEntity item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        if (MacAddress != null && item.MacAddress != null && !MacAddress.Equals(item.MacAddress))
+        if (!MacAddress.Equals(item.MacAddress))
             return false;
         return base.Equals(item) &&
                Equals(AccessDt, item.AccessDt) &&
                Equals(Name, item.Name) &&
                Equals(HostName, item.HostName) &&
-               Equals(Ip, item.Ip) &&
-               Equals(IdRRef, item.IdRRef);
+               Equals(Ip, item.Ip);
     }
 
     public override bool Equals(object obj)
@@ -96,14 +85,13 @@ public class HostEntity : BaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        if (MacAddress != null && !MacAddress.EqualsDefault())
+        if (!MacAddress.EqualsDefault())
             return false;
         return base.EqualsDefault() &&
                Equals(AccessDt, DateTime.MinValue) &&
                Equals(Name, string.Empty) &&
                Equals(HostName, string.Empty) &&
-               Equals(Ip, string.Empty) &&
-               Equals(IdRRef, Guid.Empty);
+               Equals(Ip, string.Empty);
     }
 
     public new virtual object Clone()
@@ -114,7 +102,6 @@ public class HostEntity : BaseEntity
         item.HostName = HostName;
         item.Ip = Ip;
         item.MacAddress = MacAddress.CloneCast();
-        item.IdRRef = IdRRef;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }

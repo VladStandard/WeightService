@@ -101,7 +101,7 @@ public class ScaleEntity : BaseEntity
         string strHost = Host.IdentityId.ToString();
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(Description)}: {Description}. " +
 			$"{nameof(DeviceIp)}: {DeviceIp}. " +
 			$"{nameof(DevicePort)}: {DevicePort}. " +

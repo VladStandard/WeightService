@@ -16,13 +16,13 @@ public static class TestsUtils
     public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	static TestsUtils()
-    {
-	    SetupDebug();
-    }
+	// /// <summary>
+	// /// Constructor.
+	// /// </summary>
+	// static TestsUtils()
+ //    {
+	//     SetupDebug();
+ //    }
 
 	public static void SetupDebug()
     {

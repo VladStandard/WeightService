@@ -621,9 +621,6 @@ public class CrudController
             case AppEntity app:
                 ExecuteTransaction((session) => { session.SaveOrUpdate(app); }, filePath, lineNumber, memberName);
                 break;
-            case ErrorEntity error:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(error); }, filePath, lineNumber, memberName);
-                break;
             case HostEntity host:
                 host.IsMarked = true;
                 ExecuteTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
@@ -779,8 +776,6 @@ public class CrudController
                 return BarCodeV2Entity.IdentityName;
             case ContragentV2Entity:
                 return ContragentV2Entity.IdentityName;
-            case ErrorEntity:
-                return ErrorEntity.IdentityName;
             case HostEntity:
                 return HostEntity.IdentityName;
             case LabelEntity:

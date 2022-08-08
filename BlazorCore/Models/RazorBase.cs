@@ -413,14 +413,6 @@ public class RazorBase : LayoutComponentBase
                         new(new() { new(DbField.IdentityUid, DbComparer.Equal, uidLog) }));
                 }
                 break;
-            case ProjectsEnums.TableSystem.Errors:
-                break;
-            case ProjectsEnums.TableSystem.LogTypes:
-                break;
-            case ProjectsEnums.TableSystem.Tasks:
-                break;
-            case ProjectsEnums.TableSystem.TasksTypes:
-                break;
         }
     }
 
@@ -751,9 +743,6 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableSystem.Accesses:
                         page = LocaleData.DeviceControl.UriRouteItem.Access;
                         break;
-                    case ProjectsEnums.TableSystem.Errors:
-                        page = LocaleData.DeviceControl.UriRouteItem.Error;
-                        break;
                     case ProjectsEnums.TableSystem.LogTypes:
                         page = LocaleData.DeviceControl.UriRouteItem.LogType;
                         break;
@@ -827,10 +816,6 @@ public class RazorBase : LayoutComponentBase
                 break;
             case ProjectsEnums.TableSystem.Accesses:
                 IdentityUid = Guid.NewGuid();
-                break;
-            case ProjectsEnums.TableSystem.Errors:
-                IdentityId = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(null,
-                    new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                 break;
             case ProjectsEnums.TableSystem.Logs:
                 IdentityUid = Guid.NewGuid();
@@ -1020,9 +1005,6 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableSystem.LogTypes:
                         page = LocaleData.DeviceControl.UriRouteSection.LogTypes;
                         break;
-                    case ProjectsEnums.TableSystem.Errors:
-                        page = LocaleData.DeviceControl.UriRouteSection.Errors;
-                        break;
                     case ProjectsEnums.TableSystem.Tasks:
                         page = LocaleData.DeviceControl.UriRouteSection.TaskModules;
                         break;
@@ -1117,16 +1099,8 @@ public class RazorBase : LayoutComponentBase
     {
         switch (tableSystem)
         {
-            case ProjectsEnums.TableSystem.Default:
-                break;
             case ProjectsEnums.TableSystem.Accesses:
                 ItemSaveCheck.Access(NotificationService, (AccessEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
-                break;
-            case ProjectsEnums.TableSystem.Logs:
-                break;
-            case ProjectsEnums.TableSystem.Errors:
-                break;
-            case ProjectsEnums.TableSystem.LogTypes:
                 break;
             case ProjectsEnums.TableSystem.Tasks:
                 ItemSaveCheck.Task(NotificationService, (TaskEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);

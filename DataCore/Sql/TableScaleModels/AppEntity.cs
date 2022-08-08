@@ -9,24 +9,35 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class AppEntity : BaseEntity, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual string Name { get; set; } = string.Empty;
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	[XmlElement] public virtual string Name { get; set; } = string.Empty;
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
 	public AppEntity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public AppEntity(Guid uid) : base(uid)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected AppEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Name = info.GetString(nameof(Name));
@@ -38,7 +49,7 @@ public class AppEntity : BaseEntity, ISerializable
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(AppEntity item)

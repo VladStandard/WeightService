@@ -52,7 +52,7 @@ internal class ContragentV2ValidatorTests
 		{
 			// Arrange.
 			ContragentV2Validator validator = new();
-			ContragentV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<ContragentV2Entity>();
+			ContragentV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<ContragentV2Entity>(null, null, 1_000);
 			// Act.
 			if (items == null || !items.Any())
 			{

@@ -6,30 +6,33 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "TemplateResources".
 /// </summary>
+[Serializable]
 public class TemplateResourceEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Name { get; set; }
-    public virtual string Description { get; set; }
-    public virtual string Type { get; set; }
-    public virtual ImageDataEntity ImageData { get; set; }
-    public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
-    public virtual Guid IdRRef { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string Description { get; set; }
+	[XmlElement] public virtual string Type { get; set; }
+	[XmlElement] public virtual ImageDataEntity ImageData { get; set; }
+	[XmlElement] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
+	[XmlElement] public virtual Guid IdRRef { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TemplateResourceEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TemplateResourceEntity(long id) : base(id)
     {
         Name = string.Empty;
@@ -45,7 +48,7 @@ public class TemplateResourceEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Description)}: {Description}. " +
         $"{nameof(Type)}: {Type}. " +

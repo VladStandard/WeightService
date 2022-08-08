@@ -6,21 +6,28 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "TASKS_TYPES".
 /// </summary>
+[Serializable]
 public class TaskTypeEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual string Name { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	[XmlElement] public virtual string Name { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TaskTypeEntity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TaskTypeEntity(Guid uid) : base(uid)
     {
         Name = string.Empty;
@@ -32,7 +39,7 @@ public class TaskTypeEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
     public virtual bool Equals(TaskTypeEntity item)

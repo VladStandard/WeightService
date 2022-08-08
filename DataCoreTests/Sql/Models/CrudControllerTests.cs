@@ -9,7 +9,7 @@ internal class CrudControllerTests
     [Test]
     public void GetFreeHosts_Exec_DoesNotThrow()
     {
-        Assert.DoesNotThrow(() =>
+        TestsUtils.DbTableAction(() =>
         {
             foreach (long? id in TestsEnums.GetLongNullable())
             {
@@ -19,19 +19,17 @@ internal class CrudControllerTests
                     List<HostEntity> hosts = TestsUtils.DataAccess.CrudHost.GetFree(id, isMarked);
                     foreach (HostEntity host in hosts)
                     {
-                        TestContext.WriteLine($"{host}");
+                        TestContext.WriteLine(host);
                     }
-                    TestContext.WriteLine();
                 }
             }
         });
-        TestContext.WriteLine();
     }
 
     [Test]
     public void GetBusyHosts_Exec_DoesNotThrow()
     {
-        Assert.DoesNotThrow(() =>
+        TestsUtils.DbTableAction(() =>
         {
             foreach (int? id in TestsEnums.GetIntNullable())
             {
@@ -41,12 +39,10 @@ internal class CrudControllerTests
                     List<HostEntity> hosts = TestsUtils.DataAccess.CrudHost.GetBusy(null, null);
                     foreach (HostEntity host in hosts)
                     {
-                        TestContext.WriteLine($"{host}");
+                        TestContext.WriteLine(host);
                     }
-                    TestContext.WriteLine();
                 }
             }
         });
-        TestContext.WriteLine();
     }
 }

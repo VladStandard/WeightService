@@ -6,23 +6,30 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "TASKS".
 /// </summary>
+[Serializable]
 public class TaskEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual TaskTypeEntity TaskType { get; set; }
-    public virtual ScaleEntity Scale { get; set; }
-    public virtual bool Enabled { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	[XmlElement] public virtual TaskTypeEntity TaskType { get; set; }
+	[XmlElement] public virtual ScaleEntity Scale { get; set; }
+	[XmlElement] public virtual bool Enabled { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TaskEntity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TaskEntity(Guid uid) : base(uid)
     {
         TaskType = new();
@@ -40,7 +47,7 @@ public class TaskEntity : BaseEntity
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityUid)}: {IdentityUid}. " + 
-			base.ToString() +
+            $"{nameof(IsMarked)}: {IsMarked}. " +
             $"{nameof(TaskType)}: {strTaskType}. " +
             $"{nameof(Scale)}: {strScale}. " +
             $"{nameof(Enabled)}: {Enabled}. ";

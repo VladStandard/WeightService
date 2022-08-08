@@ -10,11 +10,10 @@ public class JsonSettingsFileEntityTests
     [Test]
     public void JsonSettings_New_DoesNotThrow()
     {
-        Assert.DoesNotThrow(() =>
+        TestsUtils.DbTableAction(() =>
         {
-            TestContext.WriteLine($"{nameof(TestsUtils.DataAccess.JsonSettingsLocal)}: {TestsUtils.DataAccess.JsonSettingsLocal}");
+            //
         });
-
     }
 
     #endregion

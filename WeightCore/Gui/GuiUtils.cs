@@ -211,7 +211,6 @@ public static class GuiUtils
                     HostName = hostName,
                     Ip = ip,
                     MacAddress = new(mac),
-                    IdRRef = Guid.NewGuid(),
                     CreateDt = DateTime.Now,
                     ChangeDt = DateTime.Now,
                     AccessDt = DateTime.Now,

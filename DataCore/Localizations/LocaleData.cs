@@ -73,7 +73,6 @@ namespace DataCore.Localizations
                 public const string BarCodeTypes = "/section/barcodetypes";
                 public const string Contragents = "/section/contragents";
                 public const string Docs = "/section/docs";
-                public const string Errors = "/section/errors";
                 public const string Hosts = "/section/hosts";
                 public const string Info = "/section/info";
                 public const string Labels = "/section/measurements/labels";

@@ -6,35 +6,42 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "ZebraPrinter".
 /// </summary>
+[Serializable]
 public class PrinterEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Name { get; set; }
-    public virtual string Ip { get; set; }
-    public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
-    public virtual short Port { get; set; }
-    public virtual string Password { get; set; }
-    public virtual PrinterTypeEntity PrinterType { get; set; }
-    public virtual MacAddressEntity MacAddress { get; set; }
-    public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
-    public virtual bool PeelOffSet { get; set; }
-    public virtual short DarknessLevel { get; set; }
-    [XmlIgnore] public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string Ip { get; set; }
+	[XmlElement] public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
+	[XmlElement] public virtual short Port { get; set; }
+	[XmlElement] public virtual string Password { get; set; }
+	[XmlElement] public virtual PrinterTypeEntity PrinterType { get; set; }
+	[XmlElement] public virtual MacAddressEntity MacAddress { get; set; }
+	[XmlElement] public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
+	[XmlElement] public virtual bool PeelOffSet { get; set; }
+	[XmlElement] public virtual short DarknessLevel { get; set; }
+    [XmlIgnore] public virtual HttpStatusCode HttpStatusCode { get; set; }
     [XmlIgnore] public virtual IPStatus PingStatus { get; set; }
     [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
     [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
-    [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == System.Net.HttpStatusCode.OK;
+    [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == HttpStatusCode.OK;
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PrinterEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PrinterEntity(long id) : base(id)
     {
         Name = string.Empty;
@@ -45,7 +52,7 @@ public class PrinterEntity : BaseEntity
         MacAddress = new();
         PeelOffSet = false;
         DarknessLevel = 0;
-        HttpStatusCode = System.Net.HttpStatusCode.BadRequest;
+        HttpStatusCode = HttpStatusCode.BadRequest;
         HttpStatusException = null;
     }
 
@@ -55,7 +62,7 @@ public class PrinterEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Ip)}: {Ip}. " +
         $"{nameof(Port)}: {Port}. " +
@@ -114,7 +121,7 @@ public class PrinterEntity : BaseEntity
                Equals(Password, string.Empty) &&
                Equals(PeelOffSet, false) &&
                Equals(DarknessLevel, (short)0) &&
-               Equals(HttpStatusCode, System.Net.HttpStatusCode.BadRequest) &&
+               Equals(HttpStatusCode, HttpStatusCode.BadRequest) &&
                Equals(HttpStatusException, null);
     }
 

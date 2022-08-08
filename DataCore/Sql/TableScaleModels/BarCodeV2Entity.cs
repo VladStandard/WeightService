@@ -9,30 +9,38 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class BarCodeV2Entity : BaseEntity, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual string Value { get; set; }
-    public virtual BarCodeTypeV2Entity? BarcodeType { get; set; }
-    public virtual ContragentV2Entity? Contragent { get; set; }
-    public virtual NomenclatureEntity? Nomenclature { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	[XmlElement] public virtual string Value { get; set; } = string.Empty;
+    [XmlElement] public virtual BarCodeTypeV2Entity? BarcodeType { get; set; } = new();
+	[XmlElement] public virtual ContragentV2Entity? Contragent { get; set; } = new();
+	[XmlElement] public virtual NomenclatureEntity? Nomenclature { get; set; } = new();
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public BarCodeV2Entity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public BarCodeV2Entity(Guid uid) : base(uid)
     {
-        Value = string.Empty;
-        BarcodeType = new();
-        Contragent = new();
-        Nomenclature = new();
+        //
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected BarCodeV2Entity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Value = info.GetString(nameof(Value));
@@ -52,7 +60,7 @@ public class BarCodeV2Entity : BaseEntity, ISerializable
         string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityUid)}: {IdentityUid}. " +
-			base.ToString() +
+            $"{nameof(IsMarked)}: {IsMarked}. " +
             $"{nameof(Value)}: {Value}. " +
             $"{nameof(BarcodeType)}: {strBarcodeType}. " +
             $"{nameof(Contragent)}: {strContragent}. " +

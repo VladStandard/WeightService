@@ -6,23 +6,30 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "ProductSeries".
 /// </summary>
+[Serializable]
 public class ProductSeriesEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual ScaleEntity Scale { get; set; }
-    public virtual bool IsClose { get; set; }
-    public virtual string Sscc { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual ScaleEntity Scale { get; set; }
+	[XmlElement] public virtual bool IsClose { get; set; }
+	[XmlElement] public virtual string Sscc { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public ProductSeriesEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public ProductSeriesEntity(long id) : base(id)
     {
         Scale = new();
@@ -39,7 +46,7 @@ public class ProductSeriesEntity : BaseEntity
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(Scale)}: {strScale}. " +
 			$"{nameof(IsClose)}: {IsClose}. " +
 			$"{nameof(Sscc)}: {Sscc}.";

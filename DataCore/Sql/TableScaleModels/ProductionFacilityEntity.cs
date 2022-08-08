@@ -19,11 +19,17 @@ public class ProductionFacilityEntity : BaseEntity, ISerializable
 	[XmlElement] public virtual string Name { get; set; } = string.Empty;
 	[XmlElement] public virtual string Address { get; set; } = string.Empty;
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
 	public ProductionFacilityEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public ProductionFacilityEntity(long id) : base(id)
     {
         //
@@ -35,7 +41,7 @@ public class ProductionFacilityEntity : BaseEntity, ISerializable
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Address)}: {Address}. ";
 

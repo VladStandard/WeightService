@@ -227,14 +227,6 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                     ChangeDt = access.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
-            case ProjectsEnums.TableSystem.Errors:
-                ErrorEntity? error = AppSettings.DataAccess.Crud.GetEntityById<ErrorEntity>(IdentityId);
-                if (error != null)
-                {
-                    CreateDt = error.CreateDt.ToString(CultureInfo.InvariantCulture);
-                    ChangeDt = error.ChangeDt.ToString(CultureInfo.InvariantCulture);
-                }
-                break;
             case ProjectsEnums.TableSystem.Logs:
                 LogEntity? log = AppSettings.DataAccess.Crud.GetEntityByUid<LogEntity>(IdentityUid);
                 if (log != null)

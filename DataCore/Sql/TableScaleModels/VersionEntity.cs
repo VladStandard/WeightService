@@ -19,11 +19,17 @@ public class VersionEntity : BaseEntity, ISerializable
     public virtual short Version { get; set; }
     public virtual string Description { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public VersionEntity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public VersionEntity(Guid uid) : base(uid)
     {
         ReleaseDt = DateTime.MinValue;
@@ -31,6 +37,11 @@ public class VersionEntity : BaseEntity, ISerializable
         Description = string.Empty;
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected VersionEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         ReleaseDt = info.GetDateTime(nameof(ReleaseDt));
@@ -44,7 +55,7 @@ public class VersionEntity : BaseEntity, ISerializable
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
-		base.ToString() +
+        $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(ReleaseDt)}: {ReleaseDt}. " +
         $"{nameof(Version)}: {Version}. " +
         $"{nameof(Description)}: {Description}. ";

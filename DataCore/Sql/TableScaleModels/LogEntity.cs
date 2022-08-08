@@ -6,38 +6,38 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "LOGS".
 /// </summary>
+[Serializable]
 public class LogEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual HostEntity? Host { get; set; }
-    public virtual AppEntity? App { get; set; }
-    public virtual LogTypeEntity? LogType { get; set; }
-    public virtual string Version { get; set; }
-    public virtual string File { get; set; }
-    public virtual int Line { get; set; }
-    public virtual string Member { get; set; }
-    public virtual string Message { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	[XmlElement(IsNullable = true)] public virtual HostEntity? Host { get; set; }
+	[XmlElement(IsNullable = true)] public virtual AppEntity? App { get; set; }
+	[XmlElement(IsNullable = true)] public virtual LogTypeEntity? LogType { get; set; }
+	[XmlElement] public virtual string Version { get; set; } = string.Empty;
+	[XmlElement] public virtual string File { get; set; } = string.Empty;
+	[XmlElement] public virtual int Line { get; set; }
+	[XmlElement] public virtual string Member { get; set; } = string.Empty;
+	[XmlElement] public virtual string Message { get; set; } = string.Empty;
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public LogEntity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public LogEntity(Guid uid) : base(uid)
     {
-        Host = null;
-        App = null;
-        LogType = null;
-        Version = string.Empty;
-        File = string.Empty;
-        Line = 0;
-        Member = string.Empty;
-        Message = string.Empty;
+        //
     }
 
     #endregion
@@ -46,12 +46,12 @@ public class LogEntity : BaseEntity
 
     public override string ToString()
     {
-        string strHost = Host != null ? Host.IdentityId.ToString() : "null";
-        string strApp = App != null ? App.IdentityUid.ToString() : "null";
-        string strLogType = LogType != null ? LogType.IdentityUid.ToString() : "null";
+        string strHost = Host != null ? Host.Name.ToString() : "null";
+        string strApp = App != null ? App.Name.ToString() : "null";
+        string strLogType = LogType != null ? LogType.Icon.ToString() : "null";
         return
 			$"{nameof(IdentityUid)}: {IdentityUid}. " + 
-			base.ToString() +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(Host)}: {strHost}. " +
 			$"{nameof(App)}: {strApp}. " +
 			$"{nameof(LogType)}: {strLogType}. " +

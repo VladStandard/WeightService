@@ -52,7 +52,6 @@ namespace BlazorDeviceControl.Shared.Item
                             ItemCast = new();
                             ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
                             ItemCast.IsMarked = false;
-                            ItemCast.IdRRef = System.Guid.Empty;
                             ItemCast.Name = "NEW HOST";
                             ItemCast.Ip = "127.0.0.1";
                             ItemCast.MacAddress.Default();

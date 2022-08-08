@@ -9,23 +9,29 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class TemplateEntity : BaseEntity, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string CategoryId { get; set; }
-    public virtual Guid IdRRef { get; set; }
-    public virtual string Title { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string CategoryId { get; set; }
+	[XmlElement] public virtual Guid IdRRef { get; set; }
+	[XmlElement] public virtual string Title { get; set; }
     [XmlIgnore] public virtual ImageDataEntity ImageData { get; set; }
-    public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
+    [XmlElement] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TemplateEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public TemplateEntity(long id) : base(id)
     {
         CategoryId = string.Empty;
@@ -35,6 +41,11 @@ public class TemplateEntity : BaseEntity, ISerializable
         ImageDataValue = new byte[0];
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected TemplateEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         CategoryId = info.GetString(nameof(CategoryId));
@@ -49,7 +60,7 @@ public class TemplateEntity : BaseEntity, ISerializable
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(CategoryId)}: {CategoryId}. " +
         $"{nameof(IdRRef)}: {IdRRef}. " +
         $"{nameof(Title)}: {Title}. " +

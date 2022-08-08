@@ -64,7 +64,6 @@ namespace DataCore
         {
             Default,
             Accesses,
-            Errors,
             Logs,
             LogTypes,
             Versions,

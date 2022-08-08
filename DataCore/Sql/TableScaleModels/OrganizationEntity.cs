@@ -6,23 +6,30 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "Organization".
 /// </summary>
+[Serializable]
 public class OrganizationEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Name { get; set; }
-    public virtual int Gln { get; set; }
-    public virtual string SerializedRepresentationObject { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual int Gln { get; set; }
+	[XmlElement] public virtual string SerializedRepresentationObject { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrganizationEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrganizationEntity(long id) : base(id)
     {
         Name = string.Empty;
@@ -36,7 +43,7 @@ public class OrganizationEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Gln)}: {Gln}. " +
         $"{nameof(SerializedRepresentationObject)}: {SerializedRepresentationObject.Length}. ";

@@ -24,7 +24,6 @@ public class HostMap : ClassMap<HostEntity>
         Map(x => x.HostName).CustomSqlType("NVARCHAR").Column("HOSTNAME").Length(255).Nullable();
         Map(x => x.Ip).CustomSqlType("VARCHAR").Column("IP").Length(15).Nullable();
         Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("MAC").Length(35).Nullable();
-        Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
     }
 }

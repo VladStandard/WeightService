@@ -49,6 +49,11 @@ public class PluV2Entity : BaseEntity, ISerializable
 		//
     }
 
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
     protected PluV2Entity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
 	    Number = info.GetInt32(nameof(Number));

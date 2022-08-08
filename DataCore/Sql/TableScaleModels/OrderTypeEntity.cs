@@ -6,21 +6,28 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "OrderTypes".
 /// </summary>
+[Serializable]
 public class OrderTypeEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Description { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Description { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrderTypeEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrderTypeEntity(long id) : base(id)
     {
         Description = string.Empty;
@@ -32,7 +39,7 @@ public class OrderTypeEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Description)}: {Description}. ";
 
     public virtual bool Equals(OrderTypeEntity item)

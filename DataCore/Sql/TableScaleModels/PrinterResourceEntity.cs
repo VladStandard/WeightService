@@ -6,23 +6,30 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
+[Serializable]
 public class PrinterResourceEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual PrinterEntity Printer { get; set; }
-    public virtual TemplateResourceEntity Resource { get; set; }
-    public virtual string Description { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual PrinterEntity Printer { get; set; }
+	[XmlElement] public virtual TemplateResourceEntity Resource { get; set; }
+	[XmlElement] public virtual string Description { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PrinterResourceEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public PrinterResourceEntity(long id) : base(id)
     {
         Printer = new();
@@ -40,7 +47,7 @@ public class PrinterResourceEntity : BaseEntity
         string strResource = Resource != null ? Resource.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+            $"{nameof(IsMarked)}: {IsMarked}. " +
             $"{nameof(Printer)}: {strPrinter}. " +
             $"{nameof(Resource)}: {strResource}. " +
             $"{nameof(Description)}: {Description}. ";

@@ -6,30 +6,37 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "Orders".
 /// </summary>
+[Serializable]
 public class OrderEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual OrderTypeEntity OrderTypes { get; set; }
-    public virtual DateTime ProductDate { get; set; }
-    public virtual int? PlaneBoxCount { get; set; }
-    public virtual int? PlanePalletCount { get; set; }
-    public virtual DateTime PlanePackingOperationBeginDate { get; set; }
-    public virtual DateTime PlanePackingOperationEndDate { get; set; }
-    public virtual ScaleEntity Scales { get; set; }
-    public virtual PluEntity Plu { get; set; }
-    public virtual Guid IdRRef { get; set; }
-    public virtual TemplateEntity Templates { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual OrderTypeEntity OrderTypes { get; set; }
+	[XmlElement] public virtual DateTime ProductDate { get; set; }
+	[XmlElement] public virtual int? PlaneBoxCount { get; set; }
+	[XmlElement] public virtual int? PlanePalletCount { get; set; }
+	[XmlElement] public virtual DateTime PlanePackingOperationBeginDate { get; set; }
+	[XmlElement] public virtual DateTime PlanePackingOperationEndDate { get; set; }
+	[XmlElement] public virtual ScaleEntity Scales { get; set; }
+	[XmlElement] public virtual PluEntity Plu { get; set; }
+	[XmlElement] public virtual Guid IdRRef { get; set; }
+	[XmlElement] public virtual TemplateEntity Templates { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrderEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrderEntity(long id) : base(id)
     {
         OrderTypes = new();
@@ -56,7 +63,7 @@ public class OrderEntity : BaseEntity
         string strTemplates = Templates != null ? Templates.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(OrderTypes)}: {strOrderTypes}. " +
 			$"{nameof(ProductDate)}: {ProductDate}. " +
 			$"{nameof(PlaneBoxCount)}: {PlaneBoxCount}. " +

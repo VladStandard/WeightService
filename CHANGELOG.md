@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - WS-T-321. Тесты на модели данных таблиц PLU_V2, PLU_REF_V2
 - WS-T-322. Refactoring DataCoreTests
 - WS-T-323. Управление устройствами. Новый раздел ПЛУ_В2
+- WS-T-324. Тесты на таблицы Hosts, Labels, LOG_TYPES, LOGS
+- WS-T-325. Удалить модель и ссылки на таблицу Errors
 
 ## [0.6.950] - 2022-08-04
 ### Описание обновления:

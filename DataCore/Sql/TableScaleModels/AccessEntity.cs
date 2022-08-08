@@ -9,20 +9,20 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class AccessEntity : BaseEntity, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    /// <summary>
-    /// User name.
-    /// </summary>
-    public virtual string User { get; set; } = string.Empty;
-    /// <summary>
-    /// User rights.
-    /// </summary>
-    public virtual byte Rights { get; set; } = 0x00;
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	/// <summary>
+	/// User name.
+	/// </summary>
+	[XmlElement] public virtual string User { get; set; } = string.Empty;
+	/// <summary>
+	/// User rights.
+	/// </summary>
+	[XmlElement] public virtual byte Rights { get; set; } = 0x00;
 
 	/// <summary>
 	/// Constructor.
@@ -38,15 +38,15 @@ public class AccessEntity : BaseEntity, ISerializable
     /// <param name="uid"></param>
     public AccessEntity(Guid uid) : base(uid)
     {
-        //
+        // 
     }
 
     /// <summary>
-    /// Constructor.
+    /// Constructor for serialization.
     /// </summary>
     /// <param name="info"></param>
-    /// <param name="context"></param>
-    private AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+	/// <param name="context"></param>
+	private AccessEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         User = info.GetString(nameof(User));
         Rights = info.GetByte(nameof(Rights));
@@ -62,7 +62,7 @@ public class AccessEntity : BaseEntity, ISerializable
     /// <returns></returns>
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(User)}: {User}. " +
         $"{nameof(Rights)}: {Rights}. ";
 

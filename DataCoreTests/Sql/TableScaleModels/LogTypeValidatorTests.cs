@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class AppValidatorTests
+internal class LogTypeValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
@@ -12,15 +14,15 @@ internal class AppValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AppEntity item = Substitute.For<AppEntity>();
-			AppValidator validator = new();
+			LogTypeEntity item = Substitute.For<LogTypeEntity>();
+			LogTypeValidator validator = new();
 			// Act.
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsFalse(result.IsValid);
 			// Act.
-			item.Name = "";
+			item.Icon = string.Empty;
 			result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
@@ -34,10 +36,11 @@ internal class AppValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AppEntity item = Substitute.For<AppEntity>();
-			AppValidator validator = new();
+			LogTypeEntity item = Substitute.For<LogTypeEntity>();
+			LogTypeValidator validator = new();
 			// Act.
-			item.Name = "Test";
+			item.Number = 0;
+			item.Icon = "Test";
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
@@ -51,8 +54,8 @@ internal class AppValidatorTests
 		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
-			AppValidator validator = new();
-			AppEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<AppEntity>(null, null, 1_000);
+			LogTypeValidator validator = new();
+			LogTypeEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<LogTypeEntity>(null, null, 100);
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -62,12 +65,11 @@ internal class AppValidatorTests
 			{
 				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
 				int i = 0;
-				foreach (AppEntity item in items)
+				foreach (LogTypeEntity item in items)
 				{
 					if (i < 10)
 						TestContext.WriteLine(item);
 					i++;
-					TestContext.WriteLine(item);
 					ValidationResult result = validator.Validate(item);
 					TestsUtils.FailureWriteLine(result);
 					// Assert.

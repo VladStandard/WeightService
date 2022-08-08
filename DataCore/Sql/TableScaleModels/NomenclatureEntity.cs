@@ -6,27 +6,34 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "Nomenclature".
 /// </summary>
+[Serializable]
 public class NomenclatureEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string Name { get; set; }
-    public virtual string Code { get; set; }
-    public virtual string SerializedRepresentationObject { get; set; }
-    /// <summary>
-    /// Is weighted or pcs.
-    /// </summary>
-    public virtual bool Weighted { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string Code { get; set; }
+	[XmlElement] public virtual string SerializedRepresentationObject { get; set; }
+	/// <summary>
+	/// Is weighted or pcs.
+	/// </summary>
+	[XmlElement] public virtual bool Weighted { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public NomenclatureEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public NomenclatureEntity(long id) : base(id)
     {
         Name = string.Empty;
@@ -41,7 +48,7 @@ public class NomenclatureEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Code)}: {Code}. " +
         $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " +
         $"{nameof(Weighted)}: {Weighted}. ";

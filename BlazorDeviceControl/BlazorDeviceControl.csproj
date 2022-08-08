@@ -82,7 +82,6 @@
     <Watch Remove="Shared\Item\ItemBarCode.razor" />
     <Watch Remove="Shared\Item\ItemBarCodeType.razor" />
     <Watch Remove="Shared\Item\ItemContragent.razor" />
-    <Watch Remove="Shared\Item\ItemError.razor" />
     <Watch Remove="Shared\Item\ItemHost.razor" />
     <Watch Remove="Shared\Item\ItemInfo.razor" />
     <Watch Remove="Shared\Item\ItemLog.razor" />
@@ -108,7 +107,6 @@
     <Watch Remove="Shared\Section\SectionBarCodes.razor" />
     <Watch Remove="Shared\Section\SectionBarCodeTypes.razor" />
     <Watch Remove="Shared\Section\SectionContragents.razor" />
-    <Watch Remove="Shared\Section\SectionErrors.razor" />
     <Watch Remove="Shared\Section\SectionHosts.razor" />
     <Watch Remove="Shared\Section\SectionInfo.razor" />
     <Watch Remove="Shared\Section\SectionLogs.razor" />

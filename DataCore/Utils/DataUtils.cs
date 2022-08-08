@@ -26,7 +26,7 @@ public class DataUtils
         return result;
     }
 
-    public static string GetBytesLength(byte[] bytes)
+    public static string GetBytesLength(byte[]? bytes)
     {
         if (bytes == null)
             return $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}";

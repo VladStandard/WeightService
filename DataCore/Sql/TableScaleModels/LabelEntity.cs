@@ -6,43 +6,48 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "Labels".
 /// </summary>
+[Serializable]
 public class LabelEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual WeithingFactEntity WeithingFact { get; set; }
-    public virtual byte[] Label { get; set; }
-    public virtual string LabelString
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+    [XmlElement] public virtual WeithingFactEntity WeithingFact { get; set; } = new();
+    [XmlElement(IsNullable = true)] public virtual byte[]? Label { get; set; } = Array.Empty<byte>();
+	[XmlElement] public virtual string LabelString
     {
         get => Label == null || Label.Length == 0 ? string.Empty : Encoding.Default.GetString(Label);
         set => Label = Encoding.Default.GetBytes(value);
     }
-    public virtual string LabelInfo
+	[XmlElement] public virtual string LabelInfo
     {
         get => DataUtils.GetBytesLength(Label);
         set => _ = value;
     }
-    public virtual string Zpl { get; set; }
-    public virtual string ZplInfo
+	[XmlElement] public virtual string Zpl { get; set; } = string.Empty;
+	[XmlElement] public virtual string ZplInfo
     {
         get => DataUtils.GetStringLength(Zpl);
         set => _ = value;
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public LabelEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public LabelEntity(long id) : base(id)
     {
-        WeithingFact = new();
-        Label = new byte[0];
-        Zpl = string.Empty;
+        // 
     }
 
     #endregion
@@ -51,12 +56,10 @@ public class LabelEntity : BaseEntity
 
     public override string ToString()
     {
-        string strWeithingFact = WeithingFact != null ? WeithingFact.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
-            $"{nameof(WeithingFact)}: {strWeithingFact}. " +
-			$"{nameof(Label)}: {LabelString}. " +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
+            $"{nameof(WeithingFact)}: {WeithingFact.IdentityId}. " +
 			$"{nameof(Zpl)}: {ZplInfo}. ";
     }
 
@@ -64,7 +67,7 @@ public class LabelEntity : BaseEntity
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        if (WeithingFact != null && item.WeithingFact != null && !WeithingFact.Equals(item.WeithingFact))
+        if (!WeithingFact.Equals(item.WeithingFact))
             return false;
         return base.Equals(item) &&
                DataUtils.ByteEquals(Label, item.Label) &&
@@ -88,7 +91,7 @@ public class LabelEntity : BaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        if (WeithingFact != null && !WeithingFact.EqualsDefault())
+        if (!WeithingFact.EqualsDefault())
             return false;
         return base.EqualsDefault() &&
                DataUtils.ByteEquals(Label, new byte[0]) &&
@@ -99,7 +102,7 @@ public class LabelEntity : BaseEntity
     {
         LabelEntity item = new();
         item.WeithingFact = WeithingFact.CloneCast();
-        item.Label = DataUtils.ByteClone(Label);
+        item.Label = Label == null ? null : DataUtils.ByteClone(Label);
         item.Zpl = Zpl;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;

@@ -6,6 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "CONTRAGENTS_V2".
 /// </summary>
+[Serializable]
 public class ContragentV2Entity : BaseEntity
 {
     #region Public and private fields, properties, constructor
@@ -13,30 +14,32 @@ public class ContragentV2Entity : BaseEntity
     /// <summary>
     /// Identity name.
     /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
-    public virtual string Name { get; set; }
-    public virtual string FullName { get; set; }
-    public virtual Guid IdRRef { get; set; }
+    [XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+    [XmlElement] public virtual string Name { get; set; } = string.Empty;
+    [XmlElement] public virtual string FullName { get; set; } = string.Empty;
+    [XmlElement] public virtual Guid IdRRef { get; set; } = Guid.Empty;
     public virtual string IdRRefAsString
     {
         get => IdRRef.ToString();
         set => IdRRef = Guid.Parse(value);
     }
-    public virtual int DwhId { get; set; }
-    public virtual string Xml { get; set; }
+    [XmlElement] public virtual int DwhId { get; set; }
+    [XmlElement] public virtual string Xml { get; set; } = string.Empty;
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public ContragentV2Entity() : this(Guid.Empty)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public ContragentV2Entity(Guid uid) : base(uid)
     {
-        Name = string.Empty;
-        FullName = string.Empty;
-        IdRRef = Guid.Empty;
-        DwhId = 0;
-        Xml = string.Empty;
+        //
     }
 
     #endregion
@@ -44,13 +47,10 @@ public class ContragentV2Entity : BaseEntity
     #region Public and private methods
 
     public override string ToString() =>
-	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
-		base.ToString() +
+        $"{nameof(IdentityUid)}: {IdentityUid}. " +
+        $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(FullName)}: {FullName}. " +
-        $"{nameof(IdRRef)}: {IdRRef}. " +
-        $"{nameof(DwhId)}: {DwhId}. " +
-        $"{nameof(Xml)}.Length: {Xml?.Length ?? 0}. ";
+        $"{nameof(DwhId)}: {DwhId}. ";
 
     public virtual bool Equals(ContragentV2Entity item)
     {

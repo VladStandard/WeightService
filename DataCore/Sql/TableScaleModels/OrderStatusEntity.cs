@@ -6,23 +6,30 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "OrderStatus".
 /// </summary>
+[Serializable]
 public class OrderStatusEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual string OrderId { get; set; }
-    public virtual DateTime CurrentDate { get; set; }
-    public virtual byte CurrentStatus { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual string OrderId { get; set; }
+	[XmlElement] public virtual DateTime CurrentDate { get; set; }
+	[XmlElement] public virtual byte CurrentStatus { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrderStatusEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public OrderStatusEntity(long id) : base(id)
     {
         OrderId = string.Empty;
@@ -36,7 +43,7 @@ public class OrderStatusEntity : BaseEntity
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
-		base.ToString() +
+	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(OrderId)}: {OrderId}. " +
         $"{nameof(CurrentDate)}: {CurrentDate}. " +
         $"{nameof(CurrentStatus)}: {CurrentStatus}. ";

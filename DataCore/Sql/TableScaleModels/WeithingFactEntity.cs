@@ -6,31 +6,38 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "WeithingFact".
 /// </summary>
+[Serializable]
 public class WeithingFactEntity : BaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Id;
-    public virtual PluEntity Plu { get; set; }
-    public virtual ScaleEntity Scale { get; set; }
-    public virtual ProductSeriesEntity? Serie { get; set; }
-    public virtual OrderEntity? Order { get; set; }
-    public virtual string Sscc { get; set; }
-    public virtual DateTime WeithingDate { get; set; }
-    public virtual decimal NetWeight { get; set; }
-    public virtual decimal TareWeight { get; set; }
-    public virtual DateTime ProductDate { get; set; }
-    public virtual int? RegNum { get; set; }
-    public virtual int? Kneading { get; set; }
+	/// <summary>
+	/// Identity name.
+	/// </summary>
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
+	[XmlElement] public virtual PluEntity Plu { get; set; }
+	[XmlElement] public virtual ScaleEntity Scale { get; set; }
+	[XmlElement] public virtual ProductSeriesEntity? Serie { get; set; }
+	[XmlElement(IsNullable = true)] public virtual OrderEntity? Order { get; set; }
+	[XmlElement] public virtual string Sscc { get; set; }
+	[XmlElement] public virtual DateTime WeithingDate { get; set; }
+	[XmlElement] public virtual decimal NetWeight { get; set; }
+	[XmlElement] public virtual decimal TareWeight { get; set; }
+	[XmlElement] public virtual DateTime ProductDate { get; set; }
+	[XmlElement(IsNullable = true)] public virtual int? RegNum { get; set; }
+	[XmlElement(IsNullable = true)] public virtual int? Kneading { get; set; }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public WeithingFactEntity() : this(0)
     {
         //
     }
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
     public WeithingFactEntity(long id) : base(id)
     {
         Plu = new();
@@ -58,7 +65,7 @@ public class WeithingFactEntity : BaseEntity
         string strOrder = Order != null ? Order.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
-			base.ToString() +
+			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(Plu)}: {strPlu}. " +
 			$"{nameof(Scale)}: {strScale}. " +
 			$"{nameof(Serie)}: {strSeries}. " +

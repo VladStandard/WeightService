@@ -3,17 +3,21 @@
 
 namespace DataCore.Sql.Models;
 
+/// <summary>
+/// MAC address.
+/// </summary>
+[Serializable]
 public class MacAddressEntity
 {
     #region Public and private fields, properties, constructor
 
     private string _value;
-    public string Value
+    [XmlElement] public string Value
     {
         get => _value;
         set
         {
-            if (value == null || string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 _value = string.Empty;
             }
@@ -32,11 +36,11 @@ public class MacAddressEntity
         }
     }
 
-    public string ValuePrettyLookSpace => GetValueAsString(' ');
+    [XmlElement] public string ValuePrettyLookSpace => GetValueAsString(' ');
 
-    public string ValuePrettyLookMinus => GetValueAsString('-');
+    [XmlElement] public string ValuePrettyLookMinus => GetValueAsString('-');
 
-    public string ValuePrettyLookColon => GetValueAsString(':');
+    [XmlElement] public string ValuePrettyLookColon => GetValueAsString(':');
 
     /// <summary>
     /// Constructor.
@@ -46,7 +50,11 @@ public class MacAddressEntity
         _value = string.Empty;
     }
 
-    public MacAddressEntity(string address)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="address"></param>
+	public MacAddressEntity(string address)
     {
         _value = address;
     }
@@ -60,23 +68,18 @@ public class MacAddressEntity
 
     public virtual bool Equals(MacAddressEntity item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return Equals(Value, item.Value);
     }
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((MacAddressEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+    public override int GetHashCode() => Value.GetHashCode();
 
     public bool EqualsNew()
     {
@@ -107,7 +110,7 @@ public class MacAddressEntity
 
     private string GetValueAsString(char ch)
     {
-        if (Value == null || string.IsNullOrEmpty(Value))
+        if (string.IsNullOrEmpty(Value))
             return string.Empty;
         return Value.Length switch
         {
