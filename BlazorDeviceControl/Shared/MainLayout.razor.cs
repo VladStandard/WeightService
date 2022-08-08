@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared
 {
     public partial class MainLayout
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         [Inject] public HotKeys? HotKeysItem { get; private set; }
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }

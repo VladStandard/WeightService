@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
 {
     public partial class SectionWeithingFactsAggregation
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<WeithingFactSummaryEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WeithingFactSummaryEntity)x).ToList();
 

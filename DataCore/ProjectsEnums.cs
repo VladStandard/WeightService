@@ -93,6 +93,7 @@ namespace DataCore
             OrdersTypes,
             Organizations,
             Plus,
+            PluRefs,
             Printers,
             PrintersResources,
             PrintersTypes,

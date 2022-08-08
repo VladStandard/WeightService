@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionAccess
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<AccessEntity> ItemsCast => Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList();
 

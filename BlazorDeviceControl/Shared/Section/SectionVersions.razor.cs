@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionVersions
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<VersionEntity> ItemsCast => Items == null ? new() : Items.Select(x => (VersionEntity)x).ToList();
 

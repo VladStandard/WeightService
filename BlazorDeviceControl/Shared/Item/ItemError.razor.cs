@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemError
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public ErrorEntity ItemCast { get => Item == null ? new() : (ErrorEntity)Item; set => Item = value; }
 

@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public class ActionsReloadBase : BlazorCore.Models.RazorBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }

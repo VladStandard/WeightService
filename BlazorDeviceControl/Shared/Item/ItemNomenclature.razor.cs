@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemNomenclature
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public NomenclatureEntity ItemCast { get => Item == null ? new() : (NomenclatureEntity)Item; set => Item = value; }
 

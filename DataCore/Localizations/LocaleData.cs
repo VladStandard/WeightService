@@ -87,6 +87,7 @@ namespace DataCore.Localizations
                 public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
                 public const string Plus = "/section/plus";
+                public const string PluRefs = "/section/plu_refs";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
                 public const string PrinterTypes = "/section/printertypes";
@@ -160,6 +161,7 @@ namespace DataCore.Localizations
                 public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
                 public static string Organizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
                 public static string Plus => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
+                public static string PluRefs => Lang == ShareEnums.Lang.English ? "PLU v2" : "ПЛУ в2";
                 public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Production facilities" : "Производственные площадки";
                 public static string ProductionFacilitiesShort => Lang == ShareEnums.Lang.English ? "Facilities" : "Площадки";
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";

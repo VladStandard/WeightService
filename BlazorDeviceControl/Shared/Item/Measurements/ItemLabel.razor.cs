@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item.Measurements
 {
     public partial class ItemLabel
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public LabelEntity ItemCast { get => Item == null ? new() : (LabelEntity)Item; set => Item = value; }
 

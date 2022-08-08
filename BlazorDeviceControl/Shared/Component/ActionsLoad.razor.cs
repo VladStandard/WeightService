@@ -9,7 +9,7 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public partial class ActionsLoad : BlazorCore.Models.RazorBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [Parameter] public ShareEnums.ActionLoad DataLoadItem { get; set; }
     [Parameter] public bool IsShowProgress { get; set; }

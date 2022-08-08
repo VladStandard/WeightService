@@ -13,9 +13,9 @@ namespace BlazorDeviceControl.Shared.Section;
 
 public partial class SectionPlusRef
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
-    private List<PluEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluEntity)x).ToList();
+    private List<PluRefV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (PluRefV2Entity)x).ToList();
 
     #endregion
 
@@ -24,7 +24,7 @@ public partial class SectionPlusRef
     private void Default()
     {
         IsLoaded = false;
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.PluRefs);
         IsShowMarkedFilter = true;
         Items = new();
         ButtonSettings = new();
@@ -45,35 +45,35 @@ public partial class SectionPlusRef
                 if (IsShowMarkedItems)
                 {
                     if (scaleId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(null,
-                                new(DbField.GoodsName),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(null,
+							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     else
                     {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
-                                new(DbField.GoodsName),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
+                                new(new() { new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
+								null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
+								IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
                 }
                 else
                 {
                     if (scaleId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                            new(DbField.GoodsName),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
+                    {
+						Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
+                            null,
+							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
+							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+							?.ToList<BaseEntity>();
+                    }
                     else
                     {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                            new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, scaleId),
-                                new(DbField.IsMarked, DbComparer.Equal, false)
-                            }),
-                            new(DbField.GoodsName),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
+                            new(new() { new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId)}),
+							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
+							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
                 }
@@ -91,7 +91,7 @@ public partial class SectionPlusRef
             Items = new();
             foreach (BaseEntity item in items)
             {
-                if (item is PluEntity plu && plu.Scale.IdentityId == scaleId)
+                if (item is PluRefV2Entity plu && plu.Scale.IdentityId == scaleId)
                     Items.Add(item);
             }
         }

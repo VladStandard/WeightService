@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemWorkshop
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
         private List<ProductionFacilityEntity> ProductionFacilities { get; set; }

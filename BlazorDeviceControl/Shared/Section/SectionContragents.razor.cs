@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionContragents
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<ContragentV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentV2Entity)x).ToList();
 

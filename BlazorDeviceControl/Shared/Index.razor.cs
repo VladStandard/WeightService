@@ -7,7 +7,7 @@ namespace BlazorDeviceControl.Shared
 {
     public partial class Index
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {UserSettings.Identity.Id}";
         public string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {UserSettings.Identity.IpAddress}";

@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemPlu
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
         private List<NomenclatureEntity> Nomenclatures { get; set; }

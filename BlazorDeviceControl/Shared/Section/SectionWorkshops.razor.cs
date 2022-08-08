@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionWorkshops
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<WorkShopEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WorkShopEntity)x).ToList();
 

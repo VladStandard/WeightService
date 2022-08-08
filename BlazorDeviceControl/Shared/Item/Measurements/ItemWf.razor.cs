@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item.Measurements
 {
     public partial class ItemWf
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public WeithingFactEntity ItemCast { get => Item == null ? new() : (WeithingFactEntity)Item; set => Item = value; }
 

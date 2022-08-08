@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemBarCodeType
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public BarCodeTypeV2Entity ItemCast { get => Item == null ? new() : (BarCodeTypeV2Entity)Item; set => Item = value; }
 

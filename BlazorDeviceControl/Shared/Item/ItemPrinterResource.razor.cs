@@ -15,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Item;
 /// </summary>
 public partial class ItemPrinterResource
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     /// <summary>
     /// PrinterResource.

@@ -10,7 +10,7 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public partial class NetBarcodePage : BlazorCore.Models.RazorBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     private Barcode Barcode { get; set; }
     private BarcodeType BarcodeType { get; set; }

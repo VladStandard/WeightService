@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionPlus
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<PluEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluEntity)x).ToList();
 

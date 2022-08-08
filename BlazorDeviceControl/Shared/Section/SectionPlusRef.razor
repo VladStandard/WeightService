@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/plu_ref"
+@page "/section/plu_refs"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Sql.TableScaleModels
 @using DataCore.Localizations
@@ -17,86 +17,44 @@ else
         FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PluEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="PluRefV2Entity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             @if (@IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="PluEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="PluRefV2Entity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PluEntity" Type="string" Width="5%" SortProperty="PluNumber" 
-                Title=@LocaleCore.Table.NumberShort TextAlign=TextAlign.Center>
+            <RadzenGridColumn TItem="PluRefV2Entity" Type="string" Width="10%" SortProperty="Plu.Number" 
+                Title=@LocaleCore.Table.NumberShort TextAlign=TextAlign.Center >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
-                        Text=@itemCast.PluNumber.ToString() />
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.Plu.IdentityUid}")
+                        Text=@itemCast.Plu.Number.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Width="5%" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.ActiveShort >
+            <RadzenGridColumn TItem="PluRefV2Entity" Type="string" Width="45%" 
+                Title=@LocaleCore.Table.Plu TextAlign=TextAlign.Center >
                 <Template Context="itemCast">
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Active />
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.Plu.IdentityUid}")
+                        Text=@itemCast.Plu.Name.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Width="5%" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.WeightShort >
+            <RadzenGridColumn TItem="PluRefV2Entity" Width="45%"
+                Title=@LocaleCore.Table.Scale TextAlign=TextAlign.Left >
                 <Template Context="itemCast">
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsCheckWeight />
+	                <RadzenLink Style="width: 100%; margin-left: 0px; " 
+	                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.Scale.IdentityId}")
+	                            Text=@itemCast.Scale.Description />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Width="5%" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.Description >
-                <Template Context="itemCast">
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" Value=@(!string.IsNullOrEmpty(itemCast.GoodsDescription)) />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Width="19%" Title=@LocaleCore.Table.GoodsName SortProperty="GoodsName" >
-                <Template Context="itemCast">
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
-                        Text=@itemCast.GoodsName />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Width="14%"
-                Title=@LocaleCore.Table.Template >
-                <Template Context="itemCast">
-                    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Template.Title></RadzenLabel>
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Property="Gtin" Width="10%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.Gtin />
-@*            <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Width="3%" TextAlign=TextAlign.Center
-                Title="" >
-                <Template Context="itemCast">
-                    @if (itemCast.GtinCheck())
-                    {
-                        <RadzenIcon Icon="" />
-                    }
-                    else
-                    {
-                        <RadzenIcon Icon="announcement" />
-                    }
-                </Template>
-            </RadzenGridColumn>*@
-            <RadzenGridColumn TItem="PluEntity" Width="21%"
-                Title=@LocaleCore.Table.NomenclatureName >
-                <Template Context="itemCast">
-                    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Nomenclature.Name></RadzenLabel>
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Width="7%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.ShelfLifeDaysShort />
-            <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Width="7%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.GoodsTareWeightShort />
-            <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Width="7%" TextAlign=TextAlign.Center 
-                Title=@LocaleCore.Table.GoodsBoxQuantlyShort />
         </Columns>
     </RadzenGrid>
 

@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemLog
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public LogEntity ItemCast { get => Item == null ? new() : (LogEntity)Item; set => Item = value; }
 

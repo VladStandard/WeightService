@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionBarCodeTypes
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<BarCodeTypeV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (BarCodeTypeV2Entity)x).ToList();
 

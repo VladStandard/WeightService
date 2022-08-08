@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemAccess
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public AccessEntity ItemCast { get => Item == null ? new() : (AccessEntity)Item; set => Item = value; }
         public List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }

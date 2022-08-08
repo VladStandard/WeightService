@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public partial class ActionsReloadItem : ActionsReloadBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     //
 

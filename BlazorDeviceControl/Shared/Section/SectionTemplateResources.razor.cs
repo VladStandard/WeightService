@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionTemplateResources
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<TemplateResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (TemplateResourceEntity)x).ToList();
 

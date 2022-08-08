@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemTaskModule
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public TaskEntity ItemCast { get => Item == null ? new() : (TaskEntity)Item; set => Item = value; }
 

@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemTemplateResource
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public TemplateResourceEntity ItemCast { get => Item == null ? new() : (TemplateResourceEntity)Item; set => Item = value; }
         public List<TypeEntity<string>>? ResourceTypes { get; set; }

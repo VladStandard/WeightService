@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionTemplates
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<TypeEntity<string>>? TemplateCategories { get; set; }
         private string? TemplateCategory { get; set; } = string.Empty;

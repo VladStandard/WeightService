@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item;
 /// </summary>
 public partial class ItemScale
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     private ScaleEntity ItemCast { get => Item == null ? new() : (ScaleEntity)Item; set => Item = value; }
     private List<PrinterEntity> PrinterItems { get; set; }

@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public partial class ItemDates : BlazorCore.Models.RazorBase
 {
-    #region Public and private fields and properties
+    #region Public and private fields, properties, constructor
 
     [Parameter] public string CreateDt { get; set; } = string.Empty;
     [Parameter] public string ChangeDt { get; set; } = string.Empty;

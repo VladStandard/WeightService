@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
 {
     public partial class SectionLabels
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<LabelQuickEntity> ItemsCast => Items == null ? new() : Items.Select(x => (LabelQuickEntity)x).ToList();
 

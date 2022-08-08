@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionScales
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<ScaleEntity> ItemsCast => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
 

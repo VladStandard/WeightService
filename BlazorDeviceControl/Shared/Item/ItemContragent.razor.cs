@@ -12,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemContragent
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         public ContragentV2Entity ItemCast { get => Item == null ? new() : (ContragentV2Entity)Item; set => Item = value; }
 

@@ -15,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class SectionPrinterTypes
     {
-        #region Public and private fields and properties
+        #region Public and private fields, properties, constructor
 
         private List<PrinterTypeEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterTypeEntity)x).ToList();
 

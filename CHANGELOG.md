@@ -10,12 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.955] - 2022-08-05
+## [0.6.960] - 2022-08-08
 ### Описание обновления:
 - WS-T-319. Тестирование. Добавить тесты таблиц ACCESS, APPS, BARCODE_TYPES_V2, BARCODES_V2, CONTRAGENTS_V2
 - WS-T-320. Модели данных таблиц PLU_V2, PLU_REF_V2
 - WS-T-321. Тесты на модели данных таблиц PLU_V2, PLU_REF_V2
 - WS-T-322. Refactoring DataCoreTests
+- WS-T-323. Управление устройствами. Новый раздел ПЛУ_В2
 
 ## [0.6.950] - 2022-08-04
 ### Описание обновления:
