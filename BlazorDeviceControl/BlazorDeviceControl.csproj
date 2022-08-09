@@ -74,6 +74,7 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
+    <Watch Remove="Shared\Component\ActionsFilterScale.razor" />
     <Watch Remove="Shared\Component\ActionsReloadItem.razor" />
     <Watch Remove="Shared\Component\ActionsReloadSection.razor" />
     <Watch Remove="Shared\Component\MudPage.razor" />

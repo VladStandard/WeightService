@@ -50,7 +50,7 @@ namespace BlazorDeviceControl.Shared.Section.Measurements
                     Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
                             (IsShowMarkedItems == true)
                                 ? null
-                                : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                                : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                             new(DbField.WeithingDate, DbOrderDirection.Desc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();

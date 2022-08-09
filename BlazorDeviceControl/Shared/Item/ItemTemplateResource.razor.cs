@@ -18,10 +18,10 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemTemplateResource
     {
-        #region Public and private fields, properties, constructor
+		#region Public and private fields, properties, constructor
 
-        public TemplateResourceEntity ItemCast { get => Item == null ? new() : (TemplateResourceEntity)Item; set => Item = value; }
-        public List<TypeEntity<string>>? ResourceTypes { get; set; }
+		private TemplateResourceEntity ItemCast { get => Item == null ? new() : (TemplateResourceEntity)Item; set => Item = value; }
+		private List<TypeEntity<string>>? ResourceTypes { get; set; }
         [Inject] private IFileUpload? FileUpload { get; set; }
         [Inject] private IFileDownload? FileDownload { get; set; }
         [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }

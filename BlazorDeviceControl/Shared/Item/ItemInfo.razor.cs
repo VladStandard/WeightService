@@ -29,28 +29,24 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
     private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
     private List<ShareEnums.Lang> Langs { get; set; } = new();
 
-    #endregion
-
-    #region Public and private methods
-
-    private void Default()
+    public ItemInfo()
     {
-        IsLoaded = false;
         Langs = new();
         foreach (ShareEnums.Lang lang in Enum.GetValues(typeof(ShareEnums.Lang)))
             Langs.Add(lang);
     }
 
+    #endregion
+
+    #region Public and private methods
+
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+	    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	    SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
+		    null, () =>
             {
-                Default();
-                await GuiRefreshWithWaitAsync();
-
-                TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
                 TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
                 object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
                 DbCurSize = 0;
@@ -64,9 +60,7 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
                         }
                     }
                 }
-                IsLoaded = true;
-                await GuiRefreshWithWaitAsync().ConfigureAwait(false);
-            }), true);
+			});
     }
 
     #endregion

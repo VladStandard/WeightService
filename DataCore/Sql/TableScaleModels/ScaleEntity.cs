@@ -21,7 +21,7 @@ public class ScaleEntity : BaseEntity
 	[XmlElement(IsNullable = true)] public virtual PrinterEntity? PrinterMain { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterEntity? PrinterShipping { get; set; }
 	[XmlElement] public virtual byte ShippingLength { get; set; }
-	[XmlElement] public virtual HostEntity Host { get; set; }
+	[XmlElement(IsNullable = true)] public virtual HostEntity? Host { get; set; }
 	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string DeviceIp { get; set; }
 	[XmlElement] public virtual short DevicePort { get; set; }
@@ -55,7 +55,7 @@ public class ScaleEntity : BaseEntity
         TemplateDefault = null;
         TemplateSeries = null;
         WorkShop = null;
-        Host = new();
+        Host = null;
         PrinterMain = null;
         PrinterShipping = null;
         ShippingLength = 0;
@@ -98,7 +98,7 @@ public class ScaleEntity : BaseEntity
         string strPrinterMain = PrinterMain != null ? PrinterMain.IdentityId.ToString() : "null";
         string strPrinterShipping = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
         string strPrinterVehicle = PrinterShipping != null ? PrinterShipping.IdentityId.ToString() : "null";
-        string strHost = Host.IdentityId.ToString();
+		string strHost = Host != null ? Host.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
 			$"{nameof(IsMarked)}: {IsMarked}. " +
@@ -140,9 +140,9 @@ public class ScaleEntity : BaseEntity
         if (PrinterMain != null && item.PrinterMain != null && !PrinterMain.Equals(item.PrinterMain))
             return false;
         if (PrinterShipping != null && item.PrinterShipping != null && !PrinterShipping.Equals(item.PrinterShipping))
-            return false;
-        if (!Host.Equals(item.Host))
-            return false;
+	        return false;
+		if (Host != null && item.Host != null && !Host.Equals(item.Host))
+			return false;
         return base.Equals(item) &&
                Equals(Description, item.Description) &&
                Equals(DeviceIp, item.DeviceIp) &&
@@ -188,9 +188,9 @@ public class ScaleEntity : BaseEntity
         if (PrinterMain != null && !PrinterMain.EqualsDefault())
             return false;
         if (PrinterShipping != null && !PrinterShipping.EqualsDefault())
-            return false;
-        if (!Host.EqualsDefault())
-            return false;
+	        return false;
+		if (Host != null && !Host.EqualsDefault())
+			return false;
         return base.EqualsDefault() &&
                Equals(Description, string.Empty) &&
                Equals(DeviceIp, string.Empty) &&
@@ -223,7 +223,7 @@ public class ScaleEntity : BaseEntity
         item.IsShipping = IsShipping;
         item.IsKneading = IsKneading;
         item.ShippingLength = ShippingLength;
-        item.Host = Host.CloneCast();
+        item.Host = Host?.CloneCast();
         item.Description = Description;
         item.DeviceIp = DeviceIp;
         item.DevicePort = DevicePort;

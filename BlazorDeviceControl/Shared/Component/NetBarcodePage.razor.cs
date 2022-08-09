@@ -58,10 +58,11 @@ public partial class NetBarcodePage : BlazorCore.Models.RazorBase
     {
         await base.SetParametersAsync(parameters).ConfigureAwait(true);
         RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+            new Task(() =>
             {
+                IsLoaded = false;
                 IsLoaded = true;
-                await GuiRefreshWithWaitAsync().ConfigureAwait(false);
+                GuiRefreshWithWaitAsync().ConfigureAwait(true);
             }), true);
     }
 

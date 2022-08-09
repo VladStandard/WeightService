@@ -2,9 +2,13 @@
 @page "/component/actions_reload_section"
 @using DataCore
 @using DataCore.Localizations
+@using DataCore.Sql.TableScaleModels
 @using DataCore.Utils
+@using Microsoft.AspNetCore.Components
 @using static DataCore.ProjectsEnums
 @using static DataCore.ShareEnums
+@using BlazorCore.Utils
+@using DataCore.Sql.Models
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (!string.IsNullOrEmpty(Title))
@@ -37,15 +41,5 @@
         />
         
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
-        
-        @if (IsShowAdditionalFilter)
-        {
-            <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@FilterCaption />
-            <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                Data=@ItemsFilter PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name" 
-                ValueProperty="Value" Value=@ItemFilter 
-                Change=@(args => OnItemValueChange(ItemFilter, FilterName, args)) />
-        }
     }
 </MudElement>

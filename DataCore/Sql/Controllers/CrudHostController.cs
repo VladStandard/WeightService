@@ -28,7 +28,7 @@ public class CrudHostController
     public HostEntity? GetOrCreateNew(string? hostName)
     {
         HostEntity? host = null;
-        if (!string.IsNullOrEmpty(hostName) && hostName is { } strName)
+        if (!string.IsNullOrEmpty(hostName) && hostName is { })
         {
             host = DataAccess.Crud.GetEntity<HostEntity>(
                 new(new() { new(DbField.HostName, DbComparer.Equal, hostName),
@@ -38,8 +38,8 @@ public class CrudHostController
             {
                 host = new()
                 {
-                    Name = strName,
-                    HostName = strName,
+                    Name = hostName,
+                    HostName = hostName,
                     CreateDt = DateTime.Now,
                     ChangeDt = DateTime.Now,
                     IsMarked = false,

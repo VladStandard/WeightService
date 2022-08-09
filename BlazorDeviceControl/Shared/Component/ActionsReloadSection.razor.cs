@@ -12,14 +12,12 @@ public partial class ActionsReloadSection : ActionsReloadBase
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+	    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	    SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
+		    null, () =>
             {
-                Default();
-                IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
-            }), true);
+				//
+            });
     }
 
     #endregion

@@ -49,7 +49,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                     Items = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
                         (IsShowMarkedItems == true) ? null
-                            : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                            : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.Name, DbOrderDirection.Asc),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.OrderBy(x => x.ProductionFacility.Name).ToList<BaseEntity>();

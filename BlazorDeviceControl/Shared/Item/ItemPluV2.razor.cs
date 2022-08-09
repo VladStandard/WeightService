@@ -12,29 +12,27 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class ItemPlu
+    public partial class ItemPluV2
     {
         #region Public and private fields, properties, constructor
 
         private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
         private List<NomenclatureEntity> Nomenclatures { get; set; }
-        private List<ScaleEntity> ScaleItems { get; set; }
         private List<TemplateEntity> Templates { get; set; }
-        private PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
+        private PluV2Entity ItemCast { get => Item == null ? new() : (PluV2Entity)Item; set => Item = value; }
         private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemPlu()
+        public ItemPluV2()
         {
             IsLoaded = false;
-            Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusV2);
             ItemCast = new();
             ButtonSettings = new();
 
-            ScaleItems = new();
             Templates = new();
             Nomenclatures = new();
         }
@@ -49,7 +47,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    typeof(ItemPlu).GetConstructor(Type.EmptyTypes)?.Invoke(new object[] { });
+                    typeof(ItemPluV2).GetConstructor(Type.EmptyTypes)?.Invoke(new object[] { });
                     await GuiRefreshWithWaitAsync();
 
                     switch (TableAction)
@@ -60,8 +58,8 @@ namespace BlazorDeviceControl.Shared.Item
                             ItemCast.IsMarked = false;
                             break;
                         default:
-                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                                new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluV2Entity>(
+                                new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
                             break;
                     }
 
@@ -86,17 +84,6 @@ namespace BlazorDeviceControl.Shared.Item
                         Nomenclatures.AddRange(nomenclatures);
                     }
 
-                    // ScaleItems.
-                    List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.Description, DbOrderDirection.Asc))
-                        ?.ToList();
-                    if (scales is not null)
-                    {
-                        ScaleItems.Add(new(0) { Description = LocaleCore.Table.FieldNull });
-                        ScaleItems.AddRange(scales);
-                    }
-
                     //// Проверка шаблона.
                     //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                     //{
@@ -105,7 +92,7 @@ namespace BlazorDeviceControl.Shared.Item
                     //// Номер PLU.
                     //if (PluItem.Plu == 0)
                     //{
-                    //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
+                    //    PluV2Entity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
                     //        new FieldListEntity(new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.IdentityId } }),
                     //        new FieldOrderEntity { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
                     //    if (pluEntity != null && !pluEntity.EqualsDefault())
@@ -127,47 +114,47 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     case nameof(LocaleData.DeviceControl.TableActionClear):
                         ItemCast.Nomenclature = new();
-                        ItemCast.GoodsName = string.Empty;
-                        ItemCast.GoodsFullName = string.Empty;
-                        ItemCast.GoodsDescription = string.Empty;
-                        ItemCast.GoodsShelfLifeDays = 0;
+                        ItemCast.Name = string.Empty;
+                        ItemCast.FullName = string.Empty;
+                        ItemCast.Description = string.Empty;
+                        ItemCast.ShelfLifeDays = 0;
                         ItemCast.Gtin = string.Empty;
                         ItemCast.Ean13 = string.Empty;
                         ItemCast.Itf14 = string.Empty;
-                        ItemCast.GoodsBoxQuantly = 0;
-                        ItemCast.GoodsTareWeight = 0;
+                        ItemCast.BoxQuantly = 0;
+                        ItemCast.TareWeight = 0;
                         break;
                     case nameof(LocaleData.DeviceControl.TableActionFill):
-                        if (string.IsNullOrEmpty(ItemCast.GoodsName))
-                            ItemCast.GoodsName = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.GoodsName);
-                        if (string.IsNullOrEmpty(ItemCast.GoodsFullName))
-                            ItemCast.GoodsFullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.GoodsFullName);
-                        if (string.IsNullOrEmpty(ItemCast.GoodsDescription))
-                            ItemCast.GoodsDescription = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.GoodsDescription);
-                        if (ItemCast.GoodsShelfLifeDays == 0)
-                            ItemCast.GoodsShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.GoodsShelfLifeDays);
+                        if (string.IsNullOrEmpty(ItemCast.Name))
+                            ItemCast.Name = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.Name);
+                        if (string.IsNullOrEmpty(ItemCast.FullName))
+                            ItemCast.FullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.FullName);
+                        if (string.IsNullOrEmpty(ItemCast.Description))
+                            ItemCast.Description = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.Description);
+                        if (ItemCast.ShelfLifeDays == 0)
+                            ItemCast.ShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.ShelfLifeDays);
                         if (string.IsNullOrEmpty(ItemCast.Gtin))
                             ItemCast.Gtin = ProductHelper.GetXmlGtin(ItemCast.Nomenclature, ItemCast.Gtin);
                         if (string.IsNullOrEmpty(ItemCast.Ean13))
                             ItemCast.Ean13 = ProductHelper.GetXmlEan13(ItemCast.Nomenclature, ItemCast.Ean13);
                         if (string.IsNullOrEmpty(ItemCast.Itf14))
                             ItemCast.Itf14 = ProductHelper.GetXmlItf14(ItemCast.Nomenclature, ItemCast.Itf14);
-                        if (ItemCast.GoodsBoxQuantly == 0)
-                            ItemCast.GoodsBoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.GoodsBoxQuantly);
-                        if (ItemCast.GoodsTareWeight == 0)
-                            ItemCast.GoodsTareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
+                        if (ItemCast.BoxQuantly == 0)
+                            ItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.BoxQuantly);
+                        if (ItemCast.TareWeight == 0)
+                            ItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
                         break;
                     case nameof(ProductHelper.GetXmlName):
-                        ItemCast.GoodsName = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.GoodsName);
+                        ItemCast.Name = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.Name);
                         break;
                     case nameof(ProductHelper.GetXmlFullName):
-                        ItemCast.GoodsFullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.GoodsFullName);
+                        ItemCast.FullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.FullName);
 						break;
                     case nameof(ProductHelper.GetXmlDescription):
-                        ItemCast.GoodsDescription = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.GoodsDescription);
+                        ItemCast.Description = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.Description);
                         break;
                     case nameof(ProductHelper.GetXmlShelfLifeDays):
-                        ItemCast.GoodsShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.GoodsShelfLifeDays);
+                        ItemCast.ShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.ShelfLifeDays);
                         break;
                     case nameof(ProductHelper.GetXmlGtin):
                         ItemCast.Gtin = ProductHelper.GetXmlGtin(ItemCast.Nomenclature, ItemCast.Gtin);
@@ -183,10 +170,10 @@ namespace BlazorDeviceControl.Shared.Item
                         ItemCast.Itf14 = ProductHelper.GetXmlItf14(ItemCast.Nomenclature, ItemCast.Itf14);
                         break;
                     case nameof(ProductHelper.GetXmlBoxQuantly):
-                        ItemCast.GoodsBoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.GoodsBoxQuantly);
+                        ItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.BoxQuantly);
                         break;
                     case nameof(ProductHelper.CalcGoodsTareWeight):
-                        ItemCast.GoodsTareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
+                        ItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
                         break;
                 }
             }

@@ -54,7 +54,7 @@ public class CrudController
         return result;
     }
 
-    private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults)
+    private ICriteria GetCriteria<T>(ISession session, FilterListEntity? filterList, FieldOrderEntity? order, int maxResults)
         where T : BaseEntity, new()
     {
         Type type = typeof(T);
@@ -63,23 +63,23 @@ public class CrudController
         {
             criteria.SetMaxResults(maxResults);
         }
-        if (fieldList is { IsEnabled: true, Fields: { } })
+        if (filterList is { IsEnabled: true, Fields: { } })
         {
-            //AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
+            //AbstractCriterion fieldsWhere = Restrictions.AllEq(filterList.Fields);
             //criteria.Add(fieldsWhere);
-            foreach (FieldEntity field in fieldList.Fields)
+            foreach (FieldEntity field in filterList.Fields)
             {
                 AbstractCriterion? criterion = null;
                 switch (field.Comparer)
                 {
                     case DbComparer.Equal:
-                        //if (field.Value is { } valueEqual && field.ValueType is { } typeEqual)
+                        //if (field.Value is { } && field.ValueType is { })
                         //    criterion = Restrictions.Eq(field.Name, (typeEqual.GetType())valueEqual);
                         //else
                         criterion = Restrictions.Eq(field.Name, field.Value);
                         break;
                     case DbComparer.NotEqual:
-                        //if (field.Value is { } valueNotEqual && field.ValueType is { } typeNotEqual)
+                        //if (field.Value is { } && field.ValueType is { })
                         //    criterion = Restrictions.Not(Restrictions.Eq(field.Name, (typeNotEqual)valueNotEqual));
                         //else
                         criterion = Restrictions.Not(Restrictions.Eq(field.Name, field.Value));
@@ -181,13 +181,13 @@ public class CrudController
         return session.CreateSQLQuery(query);
     }
 
-    public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults,
+    public T[]? GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
         string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
         T[]? result = new T[0];
         ExecuteTransaction((session) =>
         {
-            result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
+            result = GetCriteria<T>(session, filterList, order, maxResults).List<T>().ToArray();
         }, filePath, lineNumber, memberName);
         return result;
     }
@@ -289,19 +289,9 @@ public class CrudController
                     barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                     break;
                 }
-            //case BarCodeTypeV2Entity barcodeType:
-            //    {
-            //        break;
-            //    }
-            //case ContragentV2Entity contragent:
-            //    {
-            //        break;
-            //    }
             case LabelEntity label:
                 label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
                 break;
-            //case TableScaleModels.NomenclatureEntity nomenclature:
-            //    break;
             case OrderEntity order:
                 order.OrderTypes = GetEntityById<OrderTypeEntity>(order.OrderTypes.IdentityId);
                 order.Scales = GetEntityById<ScaleEntity>(order.Scales.IdentityId);
@@ -310,12 +300,6 @@ public class CrudController
                     new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
                 order.Templates = GetEntityById<TemplateEntity>(order.Templates.IdentityId);
                 break;
-            //case OrderStatusEntity orderStatus:
-            //    break;
-            //case OrderTypeEntity orderType:
-            //    break;
-            //case OrganizationEntity organization:
-            //    break;
             case PluEntity plu:
                 plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
                 plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
@@ -338,10 +322,6 @@ public class CrudController
                 if (string.IsNullOrEmpty(printerResource.Resource.Description))
                     printerResource.Resource.Description = printerResource.Resource.Name;
                 break;
-            //case PrinterTypeEntity printerType:
-            //    break;
-            //case ProductionFacilityEntity ProductionFacility:
-            //    break;
             case ProductSeriesEntity product:
                 product.Scale = GetEntityById<ScaleEntity>(product.Scale.IdentityId);
                 break;
@@ -357,12 +337,6 @@ public class CrudController
                 task.TaskType = GetEntityByUid<TaskTypeEntity>(task.TaskType.IdentityUid);
                 task.Scale = GetEntityById<ScaleEntity>(task.Scale.IdentityId);
                 break;
-            //case TaskTypeEntity taskType:
-            //    break;
-            //case TemplateEntity template:
-            //    break;
-            //case TemplateResourceEntity templateResource:
-            //    break;
             case WeithingFactEntity weithingFact:
                 weithingFact.Scale = GetEntityById<ScaleEntity>(weithingFact.Scale.IdentityId);
                 weithingFact.Plu = GetEntity<PluEntity>(
@@ -430,21 +404,21 @@ public class CrudController
     /// <summary>
     /// Get entity.
     /// </summary>
-    /// <param name="fieldList"></param>
+    /// <param name="filterList"></param>
     /// <param name="order"></param>
     /// <param name="filePath"></param>
     /// <param name="lineNumber"></param>
     /// <param name="memberName"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T GetEntity<T>(FieldListEntity? fieldList = null, FieldOrderEntity? order = null,
+    public T GetEntity<T>(FilterListEntity? filterList = null, FieldOrderEntity? order = null,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
         T? item = new();
         ExecuteTransaction((session) =>
         {
-            ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
+            ICriteria criteria = GetCriteria<T>(session, filterList, order, 1);
             IList<T>? list = criteria?.List<T>();
             item = list == null ? new() : list.FirstOrDefault() ?? new T();
         }, filePath, lineNumber, memberName);
@@ -478,11 +452,11 @@ public class CrudController
             new(DbField.IdentityUid, DbOrderDirection.Desc));
     }
 
-    public T[]? GetEntities<T>(FieldListEntity? fieldList = null, FieldOrderEntity? order = null, int maxResults = 0,
+    public T[]? GetEntities<T>(FilterListEntity? filterList = null, FieldOrderEntity? order = null, int maxResults = 0,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        T[]? items = GetEntitiesWithoutReferences<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
+        T[]? items = GetEntitiesWithoutReferences<T>(filterList, order, maxResults, filePath, lineNumber, memberName);
         if (items != null)
         {
             foreach (T? item in items)
@@ -738,23 +712,23 @@ public class CrudController
         return ExistsEntityInside(item, filePath, lineNumber, memberName);
     }
 
-    public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity? order,
+    public bool ExistsEntityInside<T>(FilterListEntity filterList, FieldOrderEntity? order,
         string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
         bool result = false;
         ExecuteTransaction((session) =>
         {
-            result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
+            result = GetCriteria<T>(session, filterList, order, 1).List<T>().Count > 0;
         }, filePath, lineNumber, memberName);
         return result;
     }
 
-    public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity? order,
+    public bool ExistsEntity<T>(FilterListEntity filterList, FieldOrderEntity? order,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
-        return ExistsEntityInside<T>(fieldList, order, filePath, lineNumber, memberName);
+        //return DataAccess.ExistsEntity<T>(filterList, order, filePath, lineNumber, memberName);
+        return ExistsEntityInside<T>(filterList, order, filePath, lineNumber, memberName);
     }
 
     /// <summary>

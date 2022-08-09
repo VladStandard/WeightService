@@ -10,56 +10,45 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class ItemNomenclature
-    {
-        #region Public and private fields, properties, constructor
+	public partial class ItemNomenclature
+	{
+		#region Public and private fields, properties, constructor
 
-        public NomenclatureEntity ItemCast { get => Item == null ? new() : (NomenclatureEntity)Item; set => Item = value; }
+		private NomenclatureEntity ItemCast { get => Item == null ? new() : (NomenclatureEntity)Item; set => Item = value; }
 
-        #endregion
+		#endregion
 
-        public ItemNomenclature()
-        {
-            //
-        }
+		public ItemNomenclature()
+		{
+			Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+			ItemCast = new();
+			ButtonSettings = new();
+		}
 
-        #region Public and private methods
+		#region Public and private methods
 
-        private void Default()
-        {
-            IsLoaded = false;
-            Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-            ItemCast = new();
-            ButtonSettings = new();
-        }
+		public override async Task SetParametersAsync(ParameterView parameters)
+		{
+			await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+			SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
+				null, () =>
+				{
+					switch (TableAction)
+					{
+						case DbTableAction.New:
+							ItemCast = new();
+							ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+							ItemCast.Name = "NEW NOMENCLATURE";
+							break;
+						default:
+							ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+								new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+							break;
+					}
+					ButtonSettings = new(false, false, false, false, false, true, true);
+				});
+		}
 
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
-                {
-                    Default();
-                    await GuiRefreshWithWaitAsync();
-
-                    switch (TableAction)
-                    {
-                        case DbTableAction.New:
-                            ItemCast = new();
-                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                            ItemCast.Name = "NEW NOMENCLATURE";
-                            break;
-                        default:
-                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                                new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
-                            break;
-                    }
-                    ButtonSettings = new(false, false, false, false, false, true, true);
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -4,9 +4,9 @@
 namespace DataCore.Sql.Models;
 
 /// <summary>
-/// DB field list entity.
+/// DB filter list entity.
 /// </summary>
-public class FieldListEntity
+public class FilterListEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -23,7 +23,7 @@ public class FieldListEntity
     /// Constructor.
     /// </summary>
     /// <param name="fields"></param>
-    public FieldListEntity(List<FieldEntity> fields)
+    public FilterListEntity(List<FieldEntity> fields)
     {
         IsEnabled = true;
         Fields = fields;
@@ -32,7 +32,7 @@ public class FieldListEntity
     /// <summary>
     /// Constructor.
     /// </summary>
-    public FieldListEntity()
+    public FilterListEntity()
     {
         IsEnabled = false;
         Fields = new();

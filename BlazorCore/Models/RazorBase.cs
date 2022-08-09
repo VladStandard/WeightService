@@ -49,41 +49,36 @@ public class RazorBase : LayoutComponentBase
     [Parameter] public string? FilterName { get; set; }
     [Parameter] public TableBase Table { get; set; }
     private ItemSaveCheckEntity ItemSaveCheck { get; }
-    public AppSettingsHelper AppSettings { get; }
+    protected AppSettingsHelper AppSettings { get; }
     public BaseEntity? Item { get; set; }
     public bool IsLoaded { get; set; }
-    public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
-    public UserSettingsHelper UserSettings { get; }
+    protected object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
+    protected UserSettingsHelper UserSettings { get; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public RazorBase()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public RazorBase()
     {
         ButtonSettings = new();
-        FilterCaption = string.Empty;
+		FilterCaption = string.Empty;
         FilterName = string.Empty;
-        IsMarked = false;
-        IsShowAdditionalFilter = false;
-        IsShowItemsCount = false;
-        IsShowMarkedFilter = false;
-        IsShowMarkedItems = false;
         IsSelectTopRows = true;
-        Item = null;
-        ItemFilter = null;
-        Items = null;
-        ItemsFilter = null;
-        ParentRazor = null;
-        Table = new(string.Empty);
+		if (ParentRazor != null)
+		{
+			ItemFilter = ParentRazor.ItemFilter;
+			ItemsFilter = ParentRazor.ItemsFilter;
+			IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
+			IsShowItemsCount = ParentRazor.IsShowItemsCount;
+			IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
+			IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
+			IsSelectTopRows = ParentRazor.IsSelectTopRows;
+		}
+		Table = new(string.Empty);
         TableAction = DbTableAction.Default;
-        IdentityId = null;
-        IdentityUid = null;
-
         AppSettings = AppSettingsHelper.Instance;
         ItemSaveCheck = new();
         UserSettings = UserSettingsHelper.Instance;
-        IsLoaded = false;
     }
 
     #endregion
@@ -168,7 +163,7 @@ public class RazorBase : LayoutComponentBase
     public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
     {
         RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+            new Task(() =>
             {
                 switch (item)
                 {
@@ -194,7 +189,7 @@ public class RazorBase : LayoutComponentBase
                         OnItemValueChangeWorkShop(filterName, value, workShop);
                         break;
                 }
-                await GuiRefreshWithWaitAsync();
+                GuiRefreshWithWaitAsync().ConfigureAwait(true);
             }), true);
     }
 
@@ -258,38 +253,38 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-    private void OnItemValueChangeScale(string? filterName, object? value, ScaleEntity scale)
+	private void OnItemValueChangeScale(string? filterName, object? value, ScaleEntity scale)
     {
-        if (filterName == nameof(scale.IdentityId) && value is long id)
+        if (filterName == nameof(BaseEntity.IdentityId) && value is long id)
         {
             scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, id) }));
         }
-        if (filterName == nameof(scale.DeviceComPort) && value is string deviceComPort)
+        if (filterName == nameof(ScaleEntity.DeviceComPort) && value is string deviceComPort)
         {
             scale.DeviceComPort = deviceComPort;
         }
-        if (filterName == nameof(scale.Host) && value is long hostId)
+        if (filterName == nameof(ScaleEntity.Host) && value is long hostId)
         {
             scale.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, hostId) }));
         }
-        if (filterName == nameof(scale.TemplateDefault) && value is long templateDefaultId)
+        if (filterName == nameof(ScaleEntity.TemplateDefault) && value is long templateDefaultId)
         {
             scale.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, templateDefaultId) }));
         }
-        if (filterName == nameof(scale.TemplateSeries) && value is long TemplateSeriesId)
+        if (filterName == nameof(ScaleEntity.TemplateSeries) && value is long templateSeriesId)
         {
             scale.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                new(new() { new(DbField.IdentityId, DbComparer.Equal, TemplateSeriesId) }));
+                new(new() { new(DbField.IdentityId, DbComparer.Equal, templateSeriesId) }));
         }
-        if (filterName == nameof(scale.PrinterMain) && value is long printerId)
+        if (filterName == nameof(ScaleEntity.PrinterMain) && value is long printerId)
         {
             scale.PrinterMain = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, printerId) }));
         }
-        if (filterName == nameof(scale.WorkShop) && value is long workShopId)
+        if (filterName == nameof(ScaleEntity.WorkShop) && value is long workShopId)
         {
             scale.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, workShopId) }));
@@ -365,12 +360,11 @@ public class RazorBase : LayoutComponentBase
             IdentityId = ParentRazor.IdentityId;
         if (IdentityUid == null && ParentRazor?.IdentityUid != null)
             IdentityUid = ParentRazor.IdentityUid;
-        if (Table == null || string.IsNullOrEmpty(Table.Name))
+        if (string.IsNullOrEmpty(Table.Name))
         {
             if (ParentRazor != null)
             {
-                if (ParentRazor.Table != null)
-                    Table = ParentRazor.Table;
+                Table = ParentRazor.Table;
             }
         }
         if (TableAction == DbTableAction.Default && ParentRazor != null)
@@ -393,7 +387,23 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-    private void SetParametersForTableSystem(ParameterView parameters, ProjectsEnums.TableSystem table)
+    protected void SetParametersAsyncWithAction(ParameterView parameters, Action actionSetParametersAsync, Action? actionStart, Action? actionEnd)
+    {
+	    actionSetParametersAsync.Invoke();
+		RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+		    new Task(() =>
+		    {
+			    IsLoaded = false;
+				actionStart?.Invoke();
+			    GuiRefreshWithWaitAsync().ConfigureAwait(true);
+
+			    actionEnd?.Invoke();
+				IsLoaded = true;
+			    GuiRefreshWithWaitAsync().ConfigureAwait(true);
+		    }), true);
+	}
+
+	private void SetParametersForTableSystem(ParameterView parameters, ProjectsEnums.TableSystem table)
     {
         switch (table)
         {

@@ -12,9 +12,9 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemBarCodeType
     {
-        #region Public and private fields, properties, constructor
+		#region Public and private fields, properties, constructor
 
-        public BarCodeTypeV2Entity ItemCast { get => Item == null ? new() : (BarCodeTypeV2Entity)Item; set => Item = value; }
+		private BarCodeTypeV2Entity ItemCast { get => Item == null ? new() : (BarCodeTypeV2Entity)Item; set => Item = value; }
 
         #endregion
 
@@ -22,31 +22,22 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemBarCodeType()
         {
-            //
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         #endregion
 
         #region Public and private methods
 
-        private void Default()
-        {
-            IsLoaded = false;
-            Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
-            ItemCast = new();
-            ButtonSettings = new();
-        }
-
         public override async Task SetParametersAsync(ParameterView parameters)
         {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
+	        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	        SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
+		        null, () =>
                 {
-                    Default();
-                    await GuiRefreshWithWaitAsync();
-
-                    switch (TableAction)
+					switch (TableAction)
                     {
                         case DbTableAction.New:
                             ItemCast = new();
@@ -60,9 +51,7 @@ namespace BlazorDeviceControl.Shared.Item
                             break;
                     }
                     ButtonSettings = new(false, false, false, false, false, true, true);
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
+				});
         }
 
         #endregion

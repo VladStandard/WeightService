@@ -28,7 +28,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 	[XmlElement] public virtual bool IsMarked { get; set; }
 	[XmlIgnore] public virtual string IdentityUidStr
     {
-        get => IdentityUid.ToString() is { } str ? str : Guid.Empty.ToString(); 
+        get => IdentityUid.ToString(); 
         set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
     }
 

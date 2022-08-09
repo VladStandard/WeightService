@@ -16,85 +16,72 @@ public partial class SectionPlusRef
     #region Public and private fields, properties, constructor
 
     private List<PluRefV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (PluRefV2Entity)x).ToList();
+    private ScaleEntity ItemFilterCast
+	{
+	    get => ItemFilter == null ? new() : (ScaleEntity)ItemFilter;
+	    set => ItemFilter = value;
+    }
+
+	public SectionPlusRef()
+	{
+	    IsLoaded = false;
+	    Table = new TableScaleEntity(ProjectsEnums.TableScale.PluRefs);
+	    IsShowMarkedItems = true;
+	    IsShowMarkedFilter = true;
+	    IsShowAdditionalFilter = true;
+		Items = new();
+	    ButtonSettings = new();
+	}
 
     #endregion
 
     #region Public and private methods
 
-    private void Default()
-    {
-        IsLoaded = false;
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PluRefs);
-        IsShowMarkedFilter = true;
-        Items = new();
-        ButtonSettings = new();
-    }
-
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         await base.SetParametersAsync(parameters).ConfigureAwait(true);
         RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+            new Task(() =>
             {
-                Default();
-                await GuiRefreshWithWaitAsync();
+	            IsLoaded = false;
+				GuiRefreshWithWaitAsync().ConfigureAwait(true);
 
-                long? scaleId = null;
-                if (ItemFilter is ScaleEntity scale)
-                    scaleId = scale.IdentityId;
+                long scaleId = ItemFilterCast.IdentityId != 0 ? ItemFilterCast.IdentityId : 0;
                 if (IsShowMarkedItems)
                 {
-                    if (scaleId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(null,
-							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    else
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
-                                new(new() { new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
-								null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
-								IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    }
+                    Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
+	                    scaleId == 0
+		                    ? null
+							: new(new()
+		                    {
+			                    new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId),
+		                    }),
+	                    null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
+						IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        ?.ToList<BaseEntity>();
                 }
                 else
                 {
-                    if (scaleId == null)
-                    {
-						Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
-                            null,
-							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
-							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-							?.ToList<BaseEntity>();
-                    }
-                    else
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
-                            new(new() { new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId)}),
-							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
-							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    }
+					Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
+						scaleId == 0 
+							? new(new()
+							{
+								new(DbField.IsMarked, DbComparer.Equal, false)
+							})
+							: new(new()
+							{
+								new(DbField.IsMarked, DbComparer.Equal, false),
+								new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId),
+							}),
+						null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
+						IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+						?.ToList<BaseEntity>();
                 }
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
                 IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
-            }), true);
-    }
-
-    private void SetFilterItems(List<BaseEntity>? items, long? scaleId)
-    {
-        if (items != null)
-        {
-            Items = new();
-            foreach (BaseEntity item in items)
-            {
-                if (item is PluRefV2Entity plu && plu.Scale.IdentityId == scaleId)
-                    Items.Add(item);
-            }
-        }
+				GuiRefreshWithWaitAsync().ConfigureAwait(true);
+			}), true);
     }
 
     #endregion

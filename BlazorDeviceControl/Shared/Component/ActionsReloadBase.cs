@@ -18,18 +18,7 @@ public class ActionsReloadBase : BlazorCore.Models.RazorBase
 
     #region Public and private methods
 
-    protected void Default()
-    {
-        IsLoaded = false;
-        if (ParentRazor != null)
-        {
-            IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
-            IsShowItemsCount = ParentRazor.IsShowItemsCount;
-            IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
-            IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
-            IsSelectTopRows = ParentRazor.IsSelectTopRows;
-        }
-    }
+    //
 
     #endregion
 }

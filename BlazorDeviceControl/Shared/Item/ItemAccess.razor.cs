@@ -14,9 +14,10 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields, properties, constructor
 
-        public AccessEntity ItemCast { get => Item == null ? new() : (AccessEntity)Item; set => Item = value; }
-        public List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }
-        public AccessRights Rights
+        private AccessEntity ItemCast { get => Item == null ? new() : (AccessEntity)Item; set => Item = value; }
+        private List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }
+
+        private AccessRights Rights
         {
             get => ItemCast == null ? AccessRights.None : (AccessRights)ItemCast.Rights;
             set { if (ItemCast != null) ItemCast.Rights = (byte)value; }
@@ -28,32 +29,23 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemAccess()
         {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        private void Default()
-        {
-            IsLoaded = false;
             Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
             ItemCast = new();
             TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
             ButtonSettings = new();
         }
 
+        #endregion
+
+        #region Public and private methods
+
         public override async Task SetParametersAsync(ParameterView parameters)
         {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
+	        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	        SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
+		        null, () =>
                 {
-                    Default();
-                    await GuiRefreshWithWaitAsync();
-
-                    switch (TableAction)
+					switch (TableAction)
                     {
                         case DbTableAction.New:
                             ItemCast = new();
@@ -68,9 +60,7 @@ namespace BlazorDeviceControl.Shared.Item
                     }
                     TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
                     ButtonSettings = new(false, false, false, false, false, true, true);
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
+				});
         }
 
         #endregion

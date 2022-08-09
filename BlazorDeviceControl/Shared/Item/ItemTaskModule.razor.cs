@@ -13,9 +13,9 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemTaskModule
     {
-        #region Public and private fields, properties, constructor
+		#region Public and private fields, properties, constructor
 
-        public TaskEntity ItemCast { get => Item == null ? new() : (TaskEntity)Item; set => Item = value; }
+		private TaskEntity ItemCast { get => Item == null ? new() : (TaskEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace BlazorDeviceControl.Shared.Item
                     await GuiRefreshWithWaitAsync();
 
                     ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                        new FieldListEntity(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
+                        new FilterListEntity(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
                     if (IdentityId != null && TableAction == DbTableAction.New)
                         ItemCast.IdentityId = (long)IdentityId;
                     ButtonSettings = new(false, false, false, false, false, true, true);

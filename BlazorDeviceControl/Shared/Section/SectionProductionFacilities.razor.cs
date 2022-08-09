@@ -43,7 +43,7 @@ public partial class SectionProductionFacilities
 
                 Items = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
                     IsShowMarkedItems ? null
-                        : new FieldListEntity(
+                        : new FilterListEntity(
                             new() { new(DbField.IsMarked, DbComparer.Equal, false),
                             //new(DbField.IdentityId, DbComparer.NotEqual, 0, typeof(long)),
                         }),

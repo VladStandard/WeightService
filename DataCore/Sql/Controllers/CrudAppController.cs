@@ -51,7 +51,7 @@ public class CrudAppController
     public AppEntity? GetEntity(string? appName)
     {
         AppEntity? app = null;
-        if (!string.IsNullOrEmpty(appName) && appName is { } strName)
+        if (!string.IsNullOrEmpty(appName) && appName is { })
         {
             app = DataAccess.Crud.GetEntity<AppEntity>(
                 new(new() { new(DbField.Name, DbComparer.Equal, appName),

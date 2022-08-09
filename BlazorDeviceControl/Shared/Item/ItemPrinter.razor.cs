@@ -12,10 +12,10 @@ namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ItemPrinter
     {
-        #region Public and private fields, properties, constructor
+		#region Public and private fields, properties, constructor
 
-        public PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
-        public List<PrinterTypeEntity>? PrinterTypes { get; set; }
+		private PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
+		private List<PrinterTypeEntity>? PrinterTypes { get; set; }
 
         #endregion
 

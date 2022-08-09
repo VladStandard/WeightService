@@ -28,6 +28,7 @@ public partial class ItemScale
     private List<WorkShopEntity> WorkShopItems { get; set; }
     private List<TypeEntity<string>> ComPorts { get; set; }
     private List<HostEntity> HostItems { get; set; }
+    [Parameter] public bool IsPluV2 { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -84,7 +85,7 @@ public partial class ItemScale
                 await GuiRefreshWithWaitAsync();
 
                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                    new FieldListEntity(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                    new FilterListEntity(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
                 if (IdentityId != null && TableAction == DbTableAction.New)
                     ItemCast.IdentityId = (long)IdentityId;
                 if (ItemCast.Host == null)
@@ -105,75 +106,64 @@ public partial class ItemScale
                 // ScaleFactor
                 ItemCast.ScaleFactor ??= 1000;
                 // HostItems.
-                List<HostEntity>? hostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
+                HostEntity[]? hostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
                     new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name, DbOrderDirection.Asc))
-                    ?.ToList();
-                if (hostItems is { } hostItems2)
+                    new(DbField.Name));
+                if (hostItems is { })
                 {
                     HostItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    HostItems.AddRange(hostItems2);
+                    HostItems.AddRange(hostItems);
                 }
                 // PrinterItems.
-                List<PrinterEntity>? printerItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    null)
-                    ?.ToList();
-                if (printerItems is IEnumerable<PrinterEntity> printerItems2)
+                PrinterEntity[]? printerItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+                if (printerItems is { })
                 {
                     PrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    PrinterItems.AddRange(printerItems2);
+                    PrinterItems.AddRange(printerItems);
                 }
                 // ShippingPrinterItems.
-                List<PrinterEntity>? shippingPrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    null)
-                    ?.ToList();
-                if (shippingPrinterItems is { } shippingPrinterItems2)
+                PrinterEntity[]? shippingPrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+                if (shippingPrinterItems is { })
                 {
                     ShippingPrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    ShippingPrinterItems.AddRange(shippingPrinterItems2);
+                    ShippingPrinterItems.AddRange(shippingPrinterItems);
                 }
                 // TemplatesDefaultItems.
-                List<TemplateEntity>? templatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                TemplateEntity[]? templatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                     new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Title, DbOrderDirection.Asc))
-                    ?.ToList();
-                if (templatesDefaultItems is { } templatesDefaultItems2)
+                    new(DbField.Title));
+                if (templatesDefaultItems is { })
                 {
                     TemplatesDefaultItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
-                    TemplatesDefaultItems.AddRange(templatesDefaultItems2);
+                    TemplatesDefaultItems.AddRange(templatesDefaultItems);
                 }
                 // TemplatesSeriesItems.
-                List<TemplateEntity>? templatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                TemplateEntity[]? templatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                     new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Title, DbOrderDirection.Asc))
-                    ?.ToList();
-                if (templatesSeriesItems is { } templatesSeriesItems2)
+                    new(DbField.Title));
+                if (templatesSeriesItems is { })
                 {
                     TemplatesSeriesItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
-                    TemplatesSeriesItems.AddRange(templatesSeriesItems2);
+                    TemplatesSeriesItems.AddRange(templatesSeriesItems);
                 }
                 // ProductionFacilityItems.
-                List<ProductionFacilityEntity>? productionFacilities =
+                ProductionFacilityEntity[]? productionFacilities =
                     AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        null)
-                        ?.Where(x => x.IdentityId > 0).ToList();
-                if (productionFacilities is { } productionFacilities2)
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+                if (productionFacilities is { })
                 {
                     ProductionFacilityItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    ProductionFacilityItems.AddRange(productionFacilities2);
+                    ProductionFacilityItems.AddRange(productionFacilities.Where(x => x.IdentityId > 0));
                 }
                 // WorkShopItems.
-                List<WorkShopEntity>? workShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    null)
-                    ?.ToList();
-                if (workShopItems is { } workShopItems2)
+                WorkShopEntity[]? workShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
+                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+                if (workShopItems is { })
                 {
                     WorkShopItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    WorkShopItems.AddRange(workShopItems2);
+                    WorkShopItems.AddRange(workShopItems);
                 }
 
                 ButtonSettings = new(false, false, false, false, false, true, true);

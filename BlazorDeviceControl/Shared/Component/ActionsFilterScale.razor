@@ -1,0 +1,43 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/component/actions_filter_scale"
+@using Microsoft.AspNetCore.Components
+@using static DataCore.ShareEnums
+@using BlazorCore.Utils
+@using DataCore.Localizations
+@using DataCore.Sql.Models
+@using DataCore.Sql.TableScaleModels
+
+<MudElement HtmlTag="h3" Class="ma-0">
+	<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=false FixedHeader=false>
+		@if (ParentRazor == null)
+		{
+			<ActionsLoad ParentRazor=@this DataLoadItem=ActionLoad.Loading IsShowProgress=true/>
+		}
+		else
+		{
+			<thead>
+			<tr>
+				<th Style="color: blue; font-weight: bold; width: 50%;"></th>
+				<th Style="color: blue; font-weight: bold; width: 50%;"></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>
+					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; text-align: center; " 
+					             Text=@LocaleCore.Table.Scale/>
+				</td>
+				<td>
+					<MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				        @bind-Value=@ItemFilterCast >
+						@foreach (ScaleEntity item in ItemsCast)
+						{
+							<MudSelectItem Value=@item>@item.Description</MudSelectItem>
+						}
+					</MudSelect>
+				</td>
+			</tr>
+			</tbody>
+		}
+	</MudSimpleTable>
+</MudElement>

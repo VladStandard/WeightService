@@ -230,8 +230,15 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <SectionPlus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
-    
-    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    @if (IsPluV2)
+    {
+		<SectionPlus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+    }
+    else
+    {
+	    <SectionPlus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+    }
+
+	<ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }

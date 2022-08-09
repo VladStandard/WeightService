@@ -57,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Section
                         TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                         Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                             (IsShowMarkedItems == true) ? null
-                                : new FieldListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                                : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                             new(DbField.CategoryId, DbOrderDirection.Asc),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
