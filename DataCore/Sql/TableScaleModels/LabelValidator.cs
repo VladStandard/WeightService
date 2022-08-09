@@ -6,14 +6,14 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LabelValidator : AbstractValidator<LabelEntity>
+public class LabelValidator : AbstractValidator<BaseEntity>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public LabelValidator()
 	{
-		RuleFor(item => item.WeithingFact)
+		RuleFor(item => ((LabelEntity)item).WeithingFact)
 			.NotEmpty()
 			.NotNull();
 	}

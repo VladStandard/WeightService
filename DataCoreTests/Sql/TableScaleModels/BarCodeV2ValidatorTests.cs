@@ -48,32 +48,6 @@ internal class BarCodeV2ValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTableAction(() =>
-		{
-			// Arrange.
-			BarCodeV2Validator validator = new();
-			BarCodeV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<BarCodeV2Entity>(null, null, 1_000);
-			// Act.
-			if (items == null || !items.Any())
-			{
-				TestContext.WriteLine($"{nameof(items)} is null or empty!");
-			}
-			else
-			{
-				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
-				int i = 0;
-				foreach (BarCodeV2Entity item in items)
-				{
-					if (i < 10)
-						TestContext.WriteLine(item);
-					i++;
-					TestContext.WriteLine(item);
-					ValidationResult result = validator.Validate(item);
-					TestsUtils.FailureWriteLine(result);
-					// Assert.
-					Assert.IsTrue(result.IsValid);
-				}
-			}
-		});
+		TestsUtils.DbTable_UniversalValidate_IsTrue<BarCodeV2Entity>(0);
 	}
 }

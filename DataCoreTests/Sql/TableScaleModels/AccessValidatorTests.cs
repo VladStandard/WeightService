@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using FluentValidation;
 using System;
 
 namespace DataCoreTests.Sql.TableScaleModels;
@@ -61,32 +62,6 @@ internal class AccessValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTableAction(() =>
-		{
-			// Arrange.
-			AccessValidator validator = new();
-			AccessEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<AccessEntity>(null, null, 1_000);
-			// Act.
-			if (items == null || !items.Any())
-			{
-				TestContext.WriteLine($"{nameof(items)} is null or empty!");
-			}
-			else
-			{
-				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
-				int i = 0;
-				foreach (AccessEntity item in items)
-				{
-					if (i < 10)
-						TestContext.WriteLine(item);
-					i++;
-					TestContext.WriteLine(item);
-					ValidationResult result = validator.Validate(item);
-					TestsUtils.FailureWriteLine(result);
-					// Assert.
-					Assert.IsTrue(result.IsValid);
-				}
-			}
-		});
+		TestsUtils.DbTable_UniversalValidate_IsTrue<AccessEntity>(0);
 	}
 }

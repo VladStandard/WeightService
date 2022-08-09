@@ -325,10 +325,10 @@ public class CrudController
 	            pluRef.Plu = GetEntityByUid<PluV2Entity>(pluRef.Plu.IdentityUid);
 	            pluRef.Scale = GetEntityById<ScaleEntity>(pluRef.Scale.IdentityId);
                 break;
-            case PluV2Entity plu:
-                plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
-                plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
-                break;
+            case PluV2Entity pluV2:
+	            pluV2.Template = GetEntityById<TemplateEntity>(pluV2.Template.IdentityId);
+	            pluV2.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(pluV2.Nomenclature.IdentityId);
+	            break;
             case PrinterEntity printer:
                 printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
                 break;

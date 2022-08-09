@@ -55,31 +55,6 @@ internal class LogValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTableAction(() =>
-		{
-			// Arrange.
-			LogValidator validator = new();
-			LogEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<LogEntity>(null, null, 100);
-			// Act.
-			if (items == null || !items.Any())
-			{
-				TestContext.WriteLine($"{nameof(items)} is null or empty!");
-			}
-			else
-			{
-				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
-				int i = 0;
-				foreach (LogEntity item in items)
-				{
-					if (i < 10)
-						TestContext.WriteLine(item);
-					i++;
-					ValidationResult result = validator.Validate(item);
-					TestsUtils.FailureWriteLine(result);
-					// Assert.
-					Assert.IsTrue(result.IsValid);
-				}
-			}
-		});
+		TestsUtils.DbTable_UniversalValidate_IsTrue<LogEntity>(1000);
 	}
 }

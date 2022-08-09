@@ -48,31 +48,6 @@ internal class ContragentV2ValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTableAction(() =>
-		{
-			// Arrange.
-			ContragentV2Validator validator = new();
-			ContragentV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<ContragentV2Entity>(null, null, 1_000);
-			// Act.
-			if (items == null || !items.Any())
-			{
-				TestContext.WriteLine($"{nameof(items)} is null or empty!");
-			}
-			else
-			{
-				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
-				int i = 0;
-				foreach (ContragentV2Entity item in items)
-				{
-					if (i < 10)
-						TestContext.WriteLine(item);
-					i++;
-					ValidationResult result = validator.Validate(item);
-					TestsUtils.FailureWriteLine(result);
-					// Assert.
-					Assert.IsTrue(result.IsValid);
-				}
-			}
-		});
+		TestsUtils.DbTable_UniversalValidate_IsTrue<ContragentV2Entity>(100);
 	}
 }
