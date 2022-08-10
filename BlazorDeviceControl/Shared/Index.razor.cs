@@ -3,31 +3,15 @@
 
 using DataCore.Localizations;
 
-namespace BlazorDeviceControl.Shared
+namespace BlazorDeviceControl.Shared;
+
+public partial class Index
 {
-    public partial class Index
-    {
-        #region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-        public string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {UserSettings.Identity.Id}";
-        public string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {UserSettings.Identity.IpAddress}";
-        public string UserDescription => $"{LocaleCore.Strings.AuthorizingUserName}: {UserSettings.Identity.UserName}";
+    private string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {UserSettings.Identity.Id}";
+    private string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {UserSettings.Identity.IpAddress}";
+    private string UserDescription => $"{LocaleCore.Strings.AuthorizingUserName}: {UserSettings.Identity.UserName}";
 
-        #endregion
-
-        #region Constructor and destructor
-
-        public Index() : base()
-        {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        //
-
-        #endregion
-    }
+    #endregion
 }

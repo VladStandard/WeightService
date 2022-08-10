@@ -2,21 +2,18 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models;
@@ -48,36 +45,19 @@ public class RazorBase : LayoutComponentBase
     [Parameter] public string? FilterCaption { get; set; }
     [Parameter] public string? FilterName { get; set; }
     [Parameter] public TableBase Table { get; set; }
-    private ItemSaveCheckEntity ItemSaveCheck { get; }
+    private ItemSaveCheckEntity ItemSaveCheck { get; set; }
     protected AppSettingsHelper AppSettings { get; }
     public BaseEntity? Item { get; set; }
     public bool IsLoaded { get; set; }
     protected object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
     protected UserSettingsHelper UserSettings { get; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public RazorBase()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public RazorBase()
     {
-        ButtonSettings = new();
-		FilterCaption = string.Empty;
-        FilterName = string.Empty;
-        IsSelectTopRows = true;
-		if (ParentRazor != null)
-		{
-			ItemFilter = ParentRazor.ItemFilter;
-			ItemsFilter = ParentRazor.ItemsFilter;
-			IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
-			IsShowItemsCount = ParentRazor.IsShowItemsCount;
-			IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
-			IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
-			IsSelectTopRows = ParentRazor.IsSelectTopRows;
-		}
-		Table = new(string.Empty);
-        TableAction = DbTableAction.Default;
         AppSettings = AppSettingsHelper.Instance;
-        ItemSaveCheck = new();
         UserSettings = UserSettingsHelper.Instance;
     }
 
@@ -85,10 +65,47 @@ public class RazorBase : LayoutComponentBase
 
     #region Public and private methods
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ButtonSettings = new();
+        FilterCaption = string.Empty;
+        FilterName = string.Empty;
+        IsSelectTopRows = true;
+        Table = new(string.Empty);
+        TableAction = DbTableAction.Default;
+        ItemSaveCheck = new();
+        if (ParentRazor != null)
+        {
+            ItemFilter = ParentRazor.ItemFilter;
+            ItemsFilter = ParentRazor.ItemsFilter;
+            IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
+            IsShowItemsCount = ParentRazor.IsShowItemsCount;
+            IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
+            IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
+            IsSelectTopRows = ParentRazor.IsSelectTopRows;
+
+            if (IdentityId == null && ParentRazor.IdentityId != null)
+                IdentityId = ParentRazor.IdentityId;
+            if (IdentityUid == null && ParentRazor.IdentityUid != null)
+                IdentityUid = ParentRazor.IdentityUid;
+            if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
+            {
+                Table = ParentRazor.Table;
+            }
+            if (TableAction == DbTableAction.Default)
+            {
+                if (ParentRazor.TableAction != DbTableAction.Default)
+                    TableAction = ParentRazor.TableAction;
+            }
+        }
+    }
+
     public void OnChangeCheckBox(object value, string name)
     {
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnChangeCheckBox)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnChangeCheckBox)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 switch (name)
                 {
@@ -101,14 +118,15 @@ public class RazorBase : LayoutComponentBase
                             IsShowMarkedItems = isShowTOp100;
                         break;
                 }
-                await GuiRefreshWithWaitAsync();
-            }), true);
+				//InvokeAsync(StateHasChanged);
+				StateHasChanged();
+			});
     }
 
     public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
     {
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 if (value is Lang lang)
                 {
@@ -116,14 +134,16 @@ public class RazorBase : LayoutComponentBase
                     LocaleData.Lang = lang;
                 }
                 templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-                await GuiRefreshWithWaitAsync();
-            }), true);
+				//InvokeAsync(StateHasChanged);
+				StateHasChanged();
+
+            });
     }
 
     public void OnJsonValueChange(JsonSettingsEntity? jsonSettings, string? filterName, object? value)
     {
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 switch (filterName)
                 {
@@ -156,14 +176,16 @@ public class RazorBase : LayoutComponentBase
                             AppSettings.DataAccess.JsonSettingsLocal.Sql.Password = password;
                         break;
                 }
-                await GuiRefreshWithWaitAsync();
-            }), true);
+				//InvokeAsync(StateHasChanged);
+				StateHasChanged();
+
+            });
     }
 
     public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
     {
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(() =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 switch (item)
                 {
@@ -189,8 +211,10 @@ public class RazorBase : LayoutComponentBase
                         OnItemValueChangeWorkShop(filterName, value, workShop);
                         break;
                 }
-                GuiRefreshWithWaitAsync().ConfigureAwait(true);
-            }), true);
+				//InvokeAsync(StateHasChanged);
+				StateHasChanged();
+
+            });
     }
 
     private static void OnItemValueChangeAccess(string? filterName, object? value, AccessEntity access)
@@ -253,7 +277,7 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-	private void OnItemValueChangeScale(string? filterName, object? value, ScaleEntity scale)
+    private void OnItemValueChangeScale(string? filterName, object? value, ScaleEntity scale)
     {
         if (filterName == nameof(BaseEntity.IdentityId) && value is long id)
         {
@@ -311,12 +335,12 @@ public class RazorBase : LayoutComponentBase
     public async Task ItemSelectAsync(BaseEntity item)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ItemSelectAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(() =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ItemSelectAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 ItemSelect(item);
                 //await GuiRefreshWithWaitAsync();
-            }), true);
+            });
     }
 
     public void ItemSelect(BaseEntity item)
@@ -329,81 +353,87 @@ public class RazorBase : LayoutComponentBase
             IdentityUid = item.IdentityUid;
     }
 
-    public async Task GuiRefreshAsync(bool continueOnCapturedContext)
+    //public async Task GuiRefreshAsync(bool continueOnCapturedContext)
+    //{
+    //    await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
+    //    //await Task.Delay(TimeSpan.FromMilliseconds(1000)).ConfigureAwait(true);
+    //}
+
+    //public async Task GuiRefreshWithWaitAsync(bool continueOnCapturedContext = true, int millisecondsTimeout = 1000)
+    //{
+    //    await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
+    //    await Task.Delay(TimeSpan.FromMilliseconds(millisecondsTimeout)).ConfigureAwait(continueOnCapturedContext);
+    //}
+
+    //public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
+    //{
+    //    await RunTasksAsync(LocaleCore.Table.TableRead, "", LocaleCore.Dialog.DialogResultFail, "",
+    //        new() { task }, continueOnCapturedContext).ConfigureAwait(false);
+    //}
+
+    //public override Task SetParametersAsync(ParameterView parameters)
+    //{
+    //    //int code = parameters.GetHashCode();
+    //    //if (code == 0)
+    //    //    return Task.CompletedTask;
+    //    //parameters.SetParameterProperties(this);
+    //    //Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+
+    //    //AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
+    //    //AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
+
+    //    //if (IdentityId == null && ParentRazor?.IdentityId != null)
+    //    //    IdentityId = ParentRazor.IdentityId;
+    //    //if (IdentityUid == null && ParentRazor?.IdentityUid != null)
+    //    //    IdentityUid = ParentRazor.IdentityUid;
+    //    //if (string.IsNullOrEmpty(Table.Name))
+    //    //{
+    //    //    if (ParentRazor != null)
+    //    //    {
+    //    //        Table = ParentRazor.Table;
+    //    //    }
+    //    //}
+    //    //if (TableAction == DbTableAction.Default && ParentRazor != null)
+    //    //{
+    //    //    if (ParentRazor.TableAction != DbTableAction.Default)
+    //    //        TableAction = ParentRazor.TableAction;
+    //    //}
+    //    //switch (Table)
+    //    //{
+    //    //    case TableSystemEntity:
+    //    //        SetParametersForTableSystem(parameters, ProjectsEnums.GetTableSystem(Table.Name));
+    //    //        break;
+    //    //    case TableScaleEntity:
+    //    //        SetParametersForTableScale(parameters, ProjectsEnums.GetTableScale(Table.Name));
+    //    //        break;
+    //    //        //case TableDwhEntity:
+    //    //        //    SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
+    //    //        //    break;
+    //    //}
+
+    //    return base.SetParametersAsync(ParameterView.Empty);
+    //}
+
+    protected void SetParametersWithAction(List<Action> actions)
     {
-        await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
-        await Task.Delay(TimeSpan.FromMilliseconds(1000)).ConfigureAwait(true);
+	    List<Action> actionsInjected = new();
+	    actionsInjected.Add(() =>
+	    {
+		    IsLoaded = false;
+		    ButtonSettings = new();
+		});
+	    actionsInjected.AddRange(actions);
+	    actionsInjected.Add(() =>
+	    {
+		    IsLoaded = true;
+			//InvokeAsync(StateHasChanged);
+			StateHasChanged();
+	    });
+		RunActions($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersWithAction)}", "", 
+			LocaleCore.Dialog.DialogResultFail, "", actionsInjected);
     }
 
-    public async Task GuiRefreshWithWaitAsync(bool continueOnCapturedContext = true, int millisecondsTimeout = 1000)
-    {
-        await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
-        await Task.Delay(TimeSpan.FromMilliseconds(millisecondsTimeout)).ConfigureAwait(continueOnCapturedContext);
-    }
-
-    public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
-    {
-        await RunTasksAsync(LocaleCore.Table.TableRead, "", LocaleCore.Dialog.DialogResultFail, "",
-            new() { task }, continueOnCapturedContext).ConfigureAwait(false);
-    }
-
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        if (parameters.Equals(new ParameterView()))
-            return;
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-        AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
-        AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
-
-        if (IdentityId == null && ParentRazor?.IdentityId != null)
-            IdentityId = ParentRazor.IdentityId;
-        if (IdentityUid == null && ParentRazor?.IdentityUid != null)
-            IdentityUid = ParentRazor.IdentityUid;
-        if (string.IsNullOrEmpty(Table.Name))
-        {
-            if (ParentRazor != null)
-            {
-                Table = ParentRazor.Table;
-            }
-        }
-        if (TableAction == DbTableAction.Default && ParentRazor != null)
-        {
-            if (ParentRazor.TableAction != DbTableAction.Default)
-                TableAction = ParentRazor.TableAction;
-        }
-
-        switch (Table)
-        {
-            case TableSystemEntity:
-                SetParametersForTableSystem(parameters, ProjectsEnums.GetTableSystem(Table.Name));
-                break;
-            case TableScaleEntity:
-                SetParametersForTableScale(parameters, ProjectsEnums.GetTableScale(Table.Name));
-                break;
-                //case TableDwhEntity:
-                //    SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
-                //    break;
-        }
-    }
-
-    protected void SetParametersAsyncWithAction(ParameterView parameters, Action actionSetParametersAsync, Action? actionStart, Action? actionEnd)
-    {
-	    actionSetParametersAsync.Invoke();
-		RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-		    new Task(() =>
-		    {
-			    IsLoaded = false;
-				actionStart?.Invoke();
-			    GuiRefreshWithWaitAsync().ConfigureAwait(true);
-
-			    actionEnd?.Invoke();
-				IsLoaded = true;
-			    GuiRefreshWithWaitAsync().ConfigureAwait(true);
-		    }), true);
-	}
-
-	private void SetParametersForTableSystem(ParameterView parameters, ProjectsEnums.TableSystem table)
+    private void SetParametersForTableSystem(ParameterView parameters, ProjectsEnums.TableSystem table)
     {
         switch (table)
         {
@@ -615,21 +645,34 @@ public class RazorBase : LayoutComponentBase
         //    Width = null,
     };
 
-    public async Task RunTasksAsync(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-        bool continueOnCapturedContext,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+    //public async Task RunTasksAsync(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
+    //    bool continueOnCapturedContext,
+    //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    //{
+    //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        RunTasks(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext, filePath, lineNumber, memberName);
-    }
+    //    RunActions(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext, filePath, lineNumber, memberName);
+    //}
 
-    public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks, bool continueOnCapturedContext,
+    //public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks, bool continueOnCapturedContext,
+    //       [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    //   {
+    //       try
+    //       {
+    //           RunTasksCore(title, detailSuccess, detailCancel, tasks, continueOnCapturedContext);
+    //       }
+    //       catch (Exception ex)
+    //       {
+    //           RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
+    //       }
+    //   }
+
+    public void RunActions(string title, string detailSuccess, string detailFail, string detailCancel, List<Action> actions,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
-            RunTasksCore(title, detailSuccess, detailCancel, tasks, continueOnCapturedContext);
+            RunActionsCore(title, detailSuccess, detailCancel, actions);
         }
         catch (Exception ex)
         {
@@ -637,31 +680,53 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-    public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, Task task, bool continueOnCapturedContext,
+    //public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, Task task, bool continueOnCapturedContext,
+    //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    //{
+    //    RunTasks(title, detailSuccess, detailFail, detailCancel, new List<Task> { task }, continueOnCapturedContext, filePath, lineNumber, memberName);
+    //}
+
+    public void RunActions(string title, string detailSuccess, string detailFail, string detailCancel, Action action, 
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        RunTasks(title, detailSuccess, detailFail, detailCancel, new List<Task> { task }, continueOnCapturedContext, filePath, lineNumber, memberName);
+        RunActions(title, detailSuccess, detailFail, detailCancel, new List<Action> { action }, filePath, lineNumber, memberName);
     }
 
     private void RunTasksCore(string title, string detailSuccess, string detailCancel, List<Task> tasks, bool continueOnCapturedContext)
     {
-        if (tasks != null)
+        if (tasks.Count > 0)
         {
             foreach (Task task in tasks)
             {
-                if (task != null)
-                {
-                    task.Start();
-                    task.ConfigureAwait(continueOnCapturedContext);
-                }
+                task.ConfigureAwait(continueOnCapturedContext);
+                task.Start();
             }
         }
         if (!string.IsNullOrEmpty(detailSuccess))
-            NotificationService?.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsHelper.Delay);
+            NotificationService.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsHelper.Delay);
         else
         {
             if (!string.IsNullOrEmpty(detailCancel))
-                NotificationService?.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsHelper.Delay);
+                NotificationService.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsHelper.Delay);
+        }
+    }
+
+    private void RunActionsCore(string title, string detailSuccess, string detailCancel, List<Action> actions)
+    {
+        if (actions.Count > 0)
+        {
+            foreach (Action action in actions)
+            {
+                //InvokeAsync(action);
+                action.Invoke();
+            }
+        }
+        if (!string.IsNullOrEmpty(detailSuccess))
+            NotificationService.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsHelper.Delay);
+        else
+        {
+            if (!string.IsNullOrEmpty(detailCancel))
+                NotificationService.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsHelper.Delay);
         }
     }
 
@@ -674,36 +739,54 @@ public class RazorBase : LayoutComponentBase
         if (!string.IsNullOrEmpty(detailFail))
         {
             if (!string.IsNullOrEmpty(msg))
-                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsHelper.Delay);
+                NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsHelper.Delay);
             else
-                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsHelper.Delay);
+                NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsHelper.Delay);
         }
         else
         {
             if (!string.IsNullOrEmpty(msg))
-                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
+                NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
         }
         // SQL log.
         AppSettings.DataAccess.Log.LogError(ex, NetUtils.GetLocalHostName(false), nameof(BlazorCore), filePath, lineNumber, memberName);
     }
 
-    public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
-        string questionAdd, Task task, bool continueOnCapturedContext,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    //public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
+    //    string questionAdd, Task task, bool continueOnCapturedContext,
+    //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    //{
+    //    try
+    //    {
+    //        string question = string.IsNullOrEmpty(questionAdd)
+    //            ? LocaleCore.Dialog.DialogQuestion
+    //            : questionAdd;
+    //        Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+    //        bool? result = dialog.Result;
+    //        if (result == true)
+    //        {
+    //            RunTasks(title, detailSuccess, detailFail, detailCancel, task, continueOnCapturedContext);
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
+    //    }
+    //}
+
+    public void RunActionsWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, string questionAdd, 
+	    Action action, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
             string question = string.IsNullOrEmpty(questionAdd)
                 ? LocaleCore.Dialog.DialogQuestion
                 : questionAdd;
-            if (DialogService != null)
+            Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+            bool? result = dialog.Result;
+            if (result == true)
             {
-                Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
-                bool? result = dialog.Result;
-                if (result == true)
-                {
-                    RunTasks(title, detailSuccess, detailFail, detailCancel, task, continueOnCapturedContext);
-                }
+                RunActions(title, detailSuccess, detailFail, detailCancel, action);
             }
         }
         catch (Exception ex)
@@ -1079,15 +1162,15 @@ public class RazorBase : LayoutComponentBase
         return page;
     }
 
-    public async Task ItemCancelAsync(bool continueOnCapturedContext)
+    public async Task ItemCancelAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunTasks(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess,
+        RunActions(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel,
-            new Task(() =>
+            () =>
             {
                 RouteSectionNavigate(false);
-            }), continueOnCapturedContext);
+            });
     }
 
     private string GetQuestionAdd()
@@ -1167,12 +1250,12 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-    public async Task ItemSaveAsync(bool continueOnCapturedContext)
+    public async Task ItemSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunTasksWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
+        RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
-            new(async () =>
+            () =>
             {
                 switch (Table)
                 {
@@ -1184,8 +1267,8 @@ public class RazorBase : LayoutComponentBase
                         break;
                 }
                 RouteSectionNavigate(false);
-                await GuiRefreshWithWaitAsync();
-            }), continueOnCapturedContext);
+                InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task ActionNewAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1196,18 +1279,17 @@ public class RazorBase : LayoutComponentBase
             return;
         BaseEntity? item = isParentRazor ? ParentRazor?.Item : Item;
 
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionNewAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionNewAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 throw new NotImplementedException("Fix here!");
                 // Uncomment here.
                 //item = new();
                 //IdentityId = null;
                 //IdentityUid = null;
                 //RouteItemNavigate(isNewWindow, item, DbTableAction.New);
-                //await GuiRefreshWithWaitAsync();
-            }), true);
+                //InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task ActionCopyAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1220,12 +1302,12 @@ public class RazorBase : LayoutComponentBase
 
         if (item == null)
             return;
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionCopyAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionCopyAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 RouteItemNavigate(isNewWindow, item, DbTableAction.Copy);
-                await GuiRefreshWithWaitAsync();
-            }), true);
+                InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task ActionEditAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1238,12 +1320,12 @@ public class RazorBase : LayoutComponentBase
 
         if (item == null)
             return;
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionEditAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionEditAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 RouteItemNavigate(isNewWindow, item, DbTableAction.Edit);
-                await GuiRefreshWithWaitAsync();
-            }), true);
+                InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task ActionSaveAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1256,11 +1338,11 @@ public class RazorBase : LayoutComponentBase
 
         if (item == null)
             return;
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionSaveAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionSaveAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
-                await GuiRefreshWithWaitAsync();
-            }), true);
+                InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task ActionMarkAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1273,12 +1355,12 @@ public class RazorBase : LayoutComponentBase
 
         if (item == null)
             return;
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(ActionMarkAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionMarkAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+            () =>
             {
                 AppSettings.DataAccess.Crud.MarkedEntity(item);
-                await GuiRefreshWithWaitAsync();
-            }), true);
+                InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isParentRazor)
@@ -1291,13 +1373,13 @@ public class RazorBase : LayoutComponentBase
 
         if (item == null)
             return;
-        RunTasksWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogResultSuccess,
+        RunActionsWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
-            new(async () =>
+            () =>
             {
                 AppSettings.DataAccess.Crud.DeleteEntity(item);
-                await GuiRefreshWithWaitAsync();
-            }), true);
+                InvokeAsync(StateHasChanged);
+            });
     }
 
     public async Task PrinterResourcesClear(UserSettingsHelper userSettings, PrinterEntity printer)
@@ -1307,9 +1389,9 @@ public class RazorBase : LayoutComponentBase
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
 
-        RunTasksWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Dialog.DialogResultSuccess,
+        RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
-            new(async () =>
+            () =>
             {
                 List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
                     null, new(DbField.Description, DbOrderDirection.Asc))
@@ -1329,8 +1411,7 @@ public class RazorBase : LayoutComponentBase
                         }
                     }
                 }
-                await GuiRefreshWithWaitAsync();
-            }), true);
+            });
     }
 
     public async Task PrinterResourcesLoad(UserSettingsHelper userSettings, PrinterEntity printer, string fileType)
@@ -1340,16 +1421,16 @@ public class RazorBase : LayoutComponentBase
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
 
-        RunTasksWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Dialog.DialogResultSuccess,
+        RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
-            new(async () =>
+            () =>
             {
                 List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
                     null, new(DbField.Description, DbOrderDirection.Asc))
                     ?.ToList();
-                if (items is List<TemplateResourceEntity> templates)
+                if (items is { })
                 {
-                    foreach (TemplateResourceEntity? resource in templates)
+                    foreach (TemplateResourceEntity? resource in items)
                     {
                         if (resource.Name.Contains(fileType))
                         {
@@ -1362,8 +1443,7 @@ public class RazorBase : LayoutComponentBase
                         }
                     }
                 }
-                await GuiRefreshWithWaitAsync();
-            }), true);
+            });
     }
 
     #endregion

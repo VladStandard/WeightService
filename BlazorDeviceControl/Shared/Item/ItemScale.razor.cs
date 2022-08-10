@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
@@ -43,15 +43,7 @@ public partial class ItemScale
         WorkShopItems = new();
         TemplatesDefaultItems = new();
         TemplatesSeriesItems = new();
-    }
 
-    #endregion
-
-    #region Public and private methods
-
-    private void Default()
-    {
-        IsLoaded = false;
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
         ItemCast = new();
         ComPorts = new();
@@ -62,8 +54,11 @@ public partial class ItemScale
         PrinterItems = new();
         ShippingPrinterItems = new();
         HostItems = new();
-        ButtonSettings = new();
     }
+
+    #endregion
+
+    #region Public and private methods
 
     private static List<string> GetListComPorts()
     {
@@ -75,102 +70,105 @@ public partial class ItemScale
         return result;
     }
 
-    public override async Task SetParametersAsync(ParameterView parameters)
+    protected override void OnParametersSet()
     {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
-            {
-                Default();
-                await GuiRefreshWithWaitAsync();
+	    base.OnParametersSet();
+	    SetParametersWithAction(new()
+	    {
+		    () =>
+		    {
+			    ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+				    new FilterListEntity(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+			    if (IdentityId != null && TableAction == DbTableAction.New)
+				    ItemCast.IdentityId = (long)IdentityId;
+			    if (ItemCast.Host == null)
+				    ItemCast.Host = new(0) { Name = LocaleCore.Table.FieldNull };
+			    if (ItemCast.PrinterMain == null)
+				    ItemCast.PrinterMain = new(0) { Name = LocaleCore.Table.FieldNull };
+			    if (ItemCast.PrinterShipping == null)
+				    ItemCast.PrinterShipping = new(0) { Name = LocaleCore.Table.FieldNull };
+			    if (ItemCast.TemplateDefault == null)
+				    ItemCast.TemplateDefault = new(0) { Title = LocaleCore.Table.FieldNull };
+			    if (ItemCast.TemplateSeries == null)
+				    ItemCast.TemplateSeries = new(0) { Title = LocaleCore.Table.FieldNull };
+			    if (ItemCast.WorkShop == null)
+				    ItemCast.WorkShop = new(0) { Name = LocaleCore.Table.FieldNull };
 
-                ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                    new FilterListEntity(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
-                if (IdentityId != null && TableAction == DbTableAction.New)
-                    ItemCast.IdentityId = (long)IdentityId;
-                if (ItemCast.Host == null)
-                    ItemCast.Host = new(0) { Name = LocaleCore.Table.FieldNull };
-                if (ItemCast.PrinterMain == null)
-                    ItemCast.PrinterMain = new(0) { Name = LocaleCore.Table.FieldNull };
-                if (ItemCast.PrinterShipping == null)
-                    ItemCast.PrinterShipping = new(0) { Name = LocaleCore.Table.FieldNull };
-                if (ItemCast.TemplateDefault == null)
-                    ItemCast.TemplateDefault = new(0) { Title = LocaleCore.Table.FieldNull };
-                if (ItemCast.TemplateSeries == null)
-                    ItemCast.TemplateSeries = new(0) { Title = LocaleCore.Table.FieldNull };
-                if (ItemCast.WorkShop == null)
-                    ItemCast.WorkShop = new(0) { Name = LocaleCore.Table.FieldNull };
+			    // ComPorts
+			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
+			    // ScaleFactor
+			    ItemCast.ScaleFactor ??= 1000;
+			    // HostItems.
+			    HostEntity[]? hostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
+				    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+				    new(DbField.Name));
+			    if (hostItems is { })
+			    {
+				    HostItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+				    HostItems.AddRange(hostItems);
+			    }
 
-                // ComPorts
-                ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
-                // ScaleFactor
-                ItemCast.ScaleFactor ??= 1000;
-                // HostItems.
-                HostEntity[]? hostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name));
-                if (hostItems is { })
-                {
-                    HostItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    HostItems.AddRange(hostItems);
-                }
-                // PrinterItems.
-                PrinterEntity[]? printerItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
-                if (printerItems is { })
-                {
-                    PrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    PrinterItems.AddRange(printerItems);
-                }
-                // ShippingPrinterItems.
-                PrinterEntity[]? shippingPrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
-                if (shippingPrinterItems is { })
-                {
-                    ShippingPrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    ShippingPrinterItems.AddRange(shippingPrinterItems);
-                }
-                // TemplatesDefaultItems.
-                TemplateEntity[]? templatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Title));
-                if (templatesDefaultItems is { })
-                {
-                    TemplatesDefaultItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
-                    TemplatesDefaultItems.AddRange(templatesDefaultItems);
-                }
-                // TemplatesSeriesItems.
-                TemplateEntity[]? templatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Title));
-                if (templatesSeriesItems is { })
-                {
-                    TemplatesSeriesItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
-                    TemplatesSeriesItems.AddRange(templatesSeriesItems);
-                }
-                // ProductionFacilityItems.
-                ProductionFacilityEntity[]? productionFacilities =
-                    AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
-                if (productionFacilities is { })
-                {
-                    ProductionFacilityItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    ProductionFacilityItems.AddRange(productionFacilities.Where(x => x.IdentityId > 0));
-                }
-                // WorkShopItems.
-                WorkShopEntity[]? workShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
-                if (workShopItems is { })
-                {
-                    WorkShopItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-                    WorkShopItems.AddRange(workShopItems);
-                }
+			    // PrinterItems.
+			    PrinterEntity[]? printerItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+				    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+			    if (printerItems is { })
+			    {
+				    PrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+				    PrinterItems.AddRange(printerItems);
+			    }
 
-                ButtonSettings = new(false, false, false, false, false, true, true);
-                IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
-            }), true);
-    }
+			    // ShippingPrinterItems.
+			    PrinterEntity[]? shippingPrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+				    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+			    if (shippingPrinterItems is { })
+			    {
+				    ShippingPrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+				    ShippingPrinterItems.AddRange(shippingPrinterItems);
+			    }
+
+			    // TemplatesDefaultItems.
+			    TemplateEntity[]? templatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+				    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+				    new(DbField.Title));
+			    if (templatesDefaultItems is { })
+			    {
+				    TemplatesDefaultItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+				    TemplatesDefaultItems.AddRange(templatesDefaultItems);
+			    }
+
+			    // TemplatesSeriesItems.
+			    TemplateEntity[]? templatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+				    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+				    new(DbField.Title));
+			    if (templatesSeriesItems is { })
+			    {
+				    TemplatesSeriesItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+				    TemplatesSeriesItems.AddRange(templatesSeriesItems);
+			    }
+
+			    // ProductionFacilityItems.
+			    ProductionFacilityEntity[]? productionFacilities =
+				    AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
+					    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+			    if (productionFacilities is { })
+			    {
+				    ProductionFacilityItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+				    ProductionFacilityItems.AddRange(productionFacilities.Where(x => x.IdentityId > 0));
+			    }
+
+			    // WorkShopItems.
+			    WorkShopEntity[]? workShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
+				    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+			    if (workShopItems is { })
+			    {
+				    WorkShopItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+				    WorkShopItems.AddRange(workShopItems);
+			    }
+
+			    ButtonSettings = new(false, false, false, false, false, true, true);
+		    }
+	    });
+	}
 
     #endregion
 }

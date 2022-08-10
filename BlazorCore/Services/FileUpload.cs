@@ -1,20 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorInputFile;
-using DataCore.Sql;
-using DataCore.Sql.TableScaleModels;
-using DataCore.Utils;
-
-namespace BlazorDeviceControl.Service;
+namespace BlazorCore.Services;
 
 public class FileUpload : IFileUpload
 {
     private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    private readonly IWebHostEnvironment _environment;
-    public FileUpload(IWebHostEnvironment environment)
+    //private readonly IWebHostEnvironment _environment;
+    private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment;
+    //public FileUpload(IWebHostEnvironment environment)
+    public FileUpload(Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
     {
-        _environment = environment;
+		_environment = environment;
     }
 
     public async Task UploadAsync(IFileListEntry fileEntry)
@@ -31,7 +28,6 @@ public class FileUpload : IFileUpload
     public async Task UploadAsync(string name, Stream stream)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
         string path = Path.Combine(_environment.ContentRootPath, "Upload", name);
         MemoryStream ms = new();
         await stream.CopyToAsync(ms);

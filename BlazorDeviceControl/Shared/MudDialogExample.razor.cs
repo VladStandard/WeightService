@@ -4,13 +4,12 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace BlazorDeviceControl.Shared
-{
-    public partial class MudDialogExample
-    {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+namespace BlazorDeviceControl.Shared;
 
-        void Submit() => MudDialog.Close(DialogResult.Ok(true));
-        void Cancel() => MudDialog.Cancel();
-    }
+public partial class MudDialogExample
+{
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
 }

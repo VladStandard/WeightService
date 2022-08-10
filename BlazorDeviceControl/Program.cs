@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Models;
-using BlazorDeviceControl.Service;
+using BlazorCore.Services;
 using BlazorDownloadFile;
 using DataCore.Protocols;
 using Microsoft.AspNetCore.Authentication.Negotiate;

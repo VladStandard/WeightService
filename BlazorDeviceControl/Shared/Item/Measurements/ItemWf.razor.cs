@@ -2,56 +2,54 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Item.Measurements
+namespace BlazorDeviceControl.Shared.Item.Measurements;
+
+public partial class ItemWf
 {
-    public partial class ItemWf
+    #region Public and private fields, properties, constructor
+
+    private WeithingFactEntity ItemCast { get => Item == null ? new() : (WeithingFactEntity)Item; set => Item = value; }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public ItemWf()
     {
-		#region Public and private fields, properties, constructor
-
-		private WeithingFactEntity ItemCast { get => Item == null ? new() : (WeithingFactEntity)Item; set => Item = value; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public ItemWf()
-        {
-	        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
-	        ItemCast = new();
-	        ButtonSettings = new();
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-	        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-	        SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
-		        null, () =>
-                {
-					switch (TableAction)
-                    {
-                        case DbTableAction.New:
-                            ItemCast = new();
-                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                            break;
-                        default:
-                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(
-                                new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
-                            break;
-                    }
-                    ButtonSettings = new(false, false, false, false, false, false, true);
-				});
-        }
-
-        #endregion
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+        ItemCast = new();
     }
+
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+            () =>
+            {
+                switch (TableAction)
+                {
+                    case DbTableAction.New:
+                        ItemCast = new();
+                        ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                        break;
+                    default:
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(
+                            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                        break;
+                }
+                ButtonSettings = new(false, false, false, false, false, false, true);
+            }
+		});
+	}
+
+    #endregion
 }

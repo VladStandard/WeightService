@@ -2,64 +2,48 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using DataCore.Localizations;
-using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Section;
+
+public partial class SectionNomenclatures
 {
-    public partial class SectionNomenclatures
+    #region Public and private fields, properties, constructor
+
+    private List<NomenclatureEntity> ItemsCast => Items == null ? new() : Items.Select(x => (NomenclatureEntity)x).ToList();
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public SectionNomenclatures()
     {
-        #region Public and private fields, properties, constructor
-
-        private List<NomenclatureEntity> ItemsCast => Items == null ? new() : Items.Select(x => (NomenclatureEntity)x).ToList();
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public SectionNomenclatures() : base()
-        {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        private void Default()
-        {
-            IsLoaded = false;
-            Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-            Items = new();
-            ButtonSettings = new();
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
-                {
-                    Default();
-                    await GuiRefreshWithWaitAsync();
-
-                    Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                        new(DbField.Name),
-                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                        ?.ToList<BaseEntity>();
-                    ButtonSettings = new(true, true, true, true, true, false, false);
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
-        }
-
-        #endregion
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+        Items = new();
     }
+
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+            () =>
+            {
+                Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
+                    new(DbField.Name),
+                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                    ?.ToList<BaseEntity>();
+                ButtonSettings = new(true, true, true, true, true, false, false);
+            }
+		});
+	}
+
+    #endregion
 }

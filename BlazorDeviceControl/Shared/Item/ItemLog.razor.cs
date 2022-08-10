@@ -5,53 +5,52 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
-using System;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Item
+namespace BlazorDeviceControl.Shared.Item;
+
+public partial class ItemLog
 {
-	public partial class ItemLog
+	#region Public and private fields, properties, constructor
+
+	private LogEntity ItemCast { get => Item == null ? new() : (LogEntity)Item; set => Item = value; }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public ItemLog()
 	{
-		#region Public and private fields, properties, constructor
-
-		private LogEntity ItemCast { get => Item == null ? new() : (LogEntity)Item; set => Item = value; }
-
-		#endregion
-
-		#region Constructor and destructor
-
-		public ItemLog()
-		{
-			Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-			ItemCast = new();
-			ButtonSettings = new();
-		}
-
-		#endregion
-
-		#region Public and private methods
-
-		public override async Task SetParametersAsync(ParameterView parameters)
-		{
-			await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-			SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
-				null, () =>
-				{
-					switch (TableAction)
-					{
-						case DbTableAction.New:
-							ItemCast = new();
-							ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-							break;
-						default:
-							ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
-								new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
-							break;
-					}
-					ButtonSettings = new(false, false, false, false, false, false, true);
-				});
-		}
-
-		#endregion
+		Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+		ItemCast = new();
 	}
+
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+			() =>
+			{
+				switch (TableAction)
+				{
+					case DbTableAction.New:
+						ItemCast = new();
+						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						break;
+					default:
+						ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
+							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
+						break;
+				}
+
+				ButtonSettings = new(false, false, false, false, false, false, true);
+			}
+		});
+	}
+
+	#endregion
 }

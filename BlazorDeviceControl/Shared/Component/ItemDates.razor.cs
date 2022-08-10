@@ -1,49 +1,45 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Globalization;
 using DataCore;
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
+using System.Globalization;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ItemDates : BlazorCore.Models.RazorBase
+public partial class ItemDates
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public string CreateDt { get; set; } = string.Empty;
-    [Parameter] public string ChangeDt { get; set; } = string.Empty;
+    private string CreateDt { get; set; } = string.Empty;
+    private string ChangeDt { get; set; } = string.Empty;
 
-    public ItemDates()
-    {
-        switch (Table)
-        {
-            case TableSystemEntity:
-                SetDtFromTableSystem();
-                break;
-            case TableScaleEntity:
-                SetDtFromTableScale();
-                break;
-            //case TableDwhEntity:
-            //    SetDtFromTableDwh();
-            //    break;
-        }
-    }
     #endregion
 
     #region Public and private methods
 
-    public override async Task SetParametersAsync(ParameterView parameters)
+    protected override void OnParametersSet()
     {
-	    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-	    SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
-		    null, () =>
+        base.OnParametersSet();
+
+        SetParametersWithAction(new()
+        {
+            () =>
             {
-                //
-			});
+	            Console.WriteLine(Table);
+                // Name: Accesses.
+                switch (Table)
+                {
+                    case TableSystemEntity:
+                        SetDtFromTableSystem();
+                        break;
+                    case TableScaleEntity:
+                        SetDtFromTableScale();
+                        break;
+                }
+            }
+        });
     }
 
     private void SetDtFromTableScale()
@@ -172,40 +168,8 @@ public partial class ItemDates : BlazorCore.Models.RazorBase
                 LogEntity log = AppSettings.DataAccess.Crud.GetEntityByUid<LogEntity>(IdentityUid);
                 CreateDt = log.CreateDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            //case ProjectsEnums.TableSystem.LogTypes:
-            //    LogTypeEntity logType = AppSettings.DataAccess.Crud.GetEntityById<LogTypeEntity>(IdentityId);
-            //    break;
-            //case ProjectsEnums.TableSystem.Tasks:
-            //    TaskEntity task = AppSettings.DataAccess.Crud.GetEntityById<TaskEntity>(IdentityId);
-            //    break;
-            //case ProjectsEnums.TableSystem.TasksTypes:
-            //    TaskTypeEntity taskType = AppSettings.DataAccess.Crud.GetEntityById<TaskTypeEntity>(IdentityId);
-            //    break;
         }
     }
-
-    //private void SetDtFromTableDwh()
-    //{
-    //    switch (ProjectsEnums.GetTableDwh(Table.Name))
-    //    {
-    //        case ProjectsEnums.TableDwh.InformationSystem:
-    //            DataCore.Sql.TableDwhModels.InformationSystemEntity informationSystem =
-    //                AppSettings.DataAccess.Crud.GetEntityById<DataCore.Sql.TableDwhModels.InformationSystemEntity>(IdentityId);
-    //            break;
-    //        case ProjectsEnums.TableDwh.Nomenclature:
-    //            DataCore.Sql.TableDwhModels.NomenclatureEntity nomenclature =
-    //                AppSettings.DataAccess.Crud.GetEntityById<DataCore.Sql.TableDwhModels.NomenclatureEntity>(IdentityId);
-    //            break;
-    //        case ProjectsEnums.TableDwh.NomenclatureMaster:
-    //            DataCore.Sql.TableDwhModels.NomenclatureEntity nomenclatureMaster =
-    //                AppSettings.DataAccess.Crud.GetEntityById<DataCore.Sql.TableDwhModels.NomenclatureEntity>(IdentityId);
-    //            break;
-    //        case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
-    //            DataCore.Sql.TableDwhModels.NomenclatureEntity nomenclatureNonNormilize =
-    //                AppSettings.DataAccess.Crud.GetEntityById<DataCore.Sql.TableDwhModels.NomenclatureEntity>(IdentityId);
-    //            break;
-    //    }
-    //}
 
     #endregion
 }

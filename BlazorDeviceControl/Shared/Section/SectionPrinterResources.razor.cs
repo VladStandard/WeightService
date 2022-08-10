@@ -2,97 +2,80 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Section;
+
+public partial class SectionPrinterResources
 {
-    public partial class SectionPrinterResources
+    #region Public and private fields, properties, constructor
+
+    private List<PrinterResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterResourceEntity)x).ToList();
+
+    public SectionPrinterResources()
     {
-        #region Public and private fields, properties, constructor
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+        Items = new();
+    }
 
-        private List<PrinterResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterResourceEntity)x).ToList();
+	#endregion
 
-        #endregion
+	#region Public and private methods
 
-        #region Constructor and destructor
-
-        public SectionPrinterResources() : base()
-        {
-            //
-        }
-
-        #endregion
-
-        #region Public and private methods
-
-        private void Default()
-        {
-            IsLoaded = false;
-            Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-            Items = new();
-            ButtonSettings = new();
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-                new Task(async () =>
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+            () =>
+            {
+                long? printerId = null;
+                if (ItemFilter is PrinterEntity printer)
+                    printerId = printer.IdentityId;
+                if (IsShowMarkedItems)
                 {
-                    Default();
-                    await GuiRefreshWithWaitAsync();
-
-                    long? printerId = null;
-                    if (ItemFilter is PrinterEntity printer)
-                        printerId = printer.IdentityId;
-                    if (IsShowMarkedItems)
-                    {
-                        if (printerId == null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                null,
-                                new(DbField.Description, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                        else
-                        {
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                new(new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId) }),
-                                new(DbField.Description, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                ?.ToList<BaseEntity>();
-                        }
-                    }
+                    if (printerId == null)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                            null,
+                            new(DbField.Description, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                        ?.ToList<BaseEntity>();
                     else
                     {
-                        if (printerId == null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                                new(DbField.Description, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                ?.ToList<BaseEntity>();
-                        else
-                        {
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(new(
-                                    new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId),
-                                    new(DbField.IsMarked, DbComparer.Equal, false)
-                                }),
-                                new(DbField.Description, DbOrderDirection.Asc),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                                ?.ToList<BaseEntity>();
-                        }
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                            new(new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId) }),
+                            new(DbField.Description, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                            ?.ToList<BaseEntity>();
                     }
+                }
+                else
+                {
+                    if (printerId == null)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                            new(DbField.Description, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                            ?.ToList<BaseEntity>();
+                    else
+                    {
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(new(
+                                new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId),
+                                new(DbField.IsMarked, DbComparer.Equal, false)
+                            }),
+                            new(DbField.Description, DbOrderDirection.Asc),
+                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                            ?.ToList<BaseEntity>();
+                    }
+                }
+                ButtonSettings = new(true, true, true, true, true, false, false);
+            }
+		});
+	}
 
-                    ButtonSettings = new(true, true, true, true, true, false, false);
-                    IsLoaded = true;
-                    await GuiRefreshWithWaitAsync();
-                }), true);
-        }
-
-        #endregion
-    }
+    #endregion
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ActionsFilterScale : BlazorCore.Models.RazorBase
+public partial class ActionsFilterScale
 {
 	#region Public and private fields, properties, constructor
 
@@ -32,11 +32,12 @@ public partial class ActionsFilterScale : BlazorCore.Models.RazorBase
 
 	#region Public and private methods
 
-	public override async Task SetParametersAsync(ParameterView parameters)
+	protected override void OnParametersSet()
 	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-		SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
-			null, () =>
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+			() =>
 			{
 				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
 					new(new() { new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) }),
@@ -49,7 +50,8 @@ public partial class ActionsFilterScale : BlazorCore.Models.RazorBase
 					if (ItemFilter == null)
 						ItemFilterCast = ItemsCast.First();
 				}
-			});
+			}
+		});
 	}
 
 	#endregion

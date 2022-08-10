@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localizations;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -30,39 +29,27 @@ public partial class NavMenu
         CollapseNavMenu = !CollapseNavMenu;
     }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public NavMenu() : base()
+    public NavMenu()
     {
-        //
-    }
-
-    #endregion
-
-    #region Public and private methods
-
-    private void Default()
-    {
-        IsLoaded = false;
         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
         Items = new();
-        ButtonSettings = new();
     }
 
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
-            {
-                Default();
-                IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
-            }), true);
+	#endregion
 
-    }
+	#region Public and private methods
+
+	//protected override void OnParametersSet()
+	//{
+	//	base.OnParametersSet();
+ //       SetParametersWithAction(new()
+ //       {
+ //           () =>
+ //           {
+	//			//
+	//		}
+ //       });
+ //   }
 
     #endregion
 }

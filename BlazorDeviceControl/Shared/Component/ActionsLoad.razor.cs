@@ -2,31 +2,32 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ActionsLoad : BlazorCore.Models.RazorBase
+public partial class ActionsLoad
 {
     #region Public and private fields, properties, constructor
 
     [Parameter] public ShareEnums.ActionLoad DataLoadItem { get; set; }
     [Parameter] public bool IsShowProgress { get; set; }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-	    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-	    SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
-		    null, () =>
-            {
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+			() =>
+			{
 				//
-            });
-    }
+			}
+		});
+	}
 
-    #endregion
+	#endregion
 }

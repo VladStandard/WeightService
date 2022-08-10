@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Components;
@@ -30,51 +29,46 @@ public partial class ItemPrinterResource
     /// </summary>
     private List<TemplateResourceEntity>? ResourceItems { get; set; }
 
-    #endregion
-
-    #region Public and private methods
-
-    private void Default()
+    public ItemPrinterResource()
     {
-        IsLoaded = false;
         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
         ItemCast = new();
         PrinterItems = null;
         ResourceItems = null;
-        ButtonSettings = new();
     }
 
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
-            {
-                Default();
-                await GuiRefreshWithWaitAsync();
+	#endregion
 
-                switch (TableAction)
-                {
-                    case DbTableAction.New:
-                        ItemCast = new();
-                        ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                        ItemCast.Description = "NEW RESOURCE";
-                        break;
-                    default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
-                            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
-                        break;
-                }
+	#region Public and private methods
 
-                PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name))?.ToList();
-                ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>()?.ToList();
-                ButtonSettings = new(false, false, false, false, false, true, true);
-                IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
-            }), true);
-    }
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+			() =>
+			{
+				switch (TableAction)
+				{
+					case DbTableAction.New:
+						ItemCast = new();
+						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.Description = "NEW RESOURCE";
+						break;
+					default:
+						ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
+							new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+						break;
+				}
+
+				PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+					new(DbField.Name))?.ToList();
+				ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>()?.ToList();
+				ButtonSettings = new(false, false, false, false, false, true, true);
+			}
+		});
+	}
 
     #endregion
 }

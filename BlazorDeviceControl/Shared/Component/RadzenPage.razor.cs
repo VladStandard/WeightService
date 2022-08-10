@@ -7,7 +7,32 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public partial class RadzenPage
 {
+    #region Public and private fields, properties, constructor
+
     private IEnumerable<string>? ListComPorts { get; set; }
+
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		ListComPorts = GetListComPorts();
+	}
+    
+	protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        SetParametersWithAction(new()
+        {
+            () =>
+            {
+				//
+			}
+        });
+    }
 
     private List<string> GetListComPorts()
     {
@@ -19,13 +44,10 @@ public partial class RadzenPage
         return result;
     }
 
-    public RadzenPage()
-    {
-        ListComPorts = GetListComPorts();
-    }
-
     private void ShowNotification(NotificationMessage message)
     {
         NotificationService.Notify(message);
     }
+
+    #endregion
 }

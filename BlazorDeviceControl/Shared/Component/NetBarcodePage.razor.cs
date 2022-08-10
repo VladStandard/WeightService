@@ -1,14 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Localizations;
-using Microsoft.AspNetCore.Components;
 using NetBarcode;
 using System.Drawing.Imaging;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class NetBarcodePage : BlazorCore.Models.RazorBase
+public partial class NetBarcodePage
 {
     #region Public and private fields, properties, constructor
 
@@ -21,52 +19,50 @@ public partial class NetBarcodePage : BlazorCore.Models.RazorBase
     private string BarcodeImage { get; set; }
     private Exception? Exception { get; set; }
 
-    #endregion
+#endregion
 
-    #region Constructor and destructor
+    #region Public and private methods
 
-    public NetBarcodePage()
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Barcode = new();
         BarcodeTypes = new();
         foreach (BarcodeType value in Enum.GetValues(typeof(BarcodeType)))
-            BarcodeTypes.Add(value);
+	        BarcodeTypes.Add(value);
         BarcodeType = BarcodeType.Code128;
         ImageFormats = new()
         {
-            ImageFormat.Bmp,
-            ImageFormat.Emf,
-            ImageFormat.Exif,
-            ImageFormat.Gif,
-            ImageFormat.Icon,
-            ImageFormat.Jpeg,
-            ImageFormat.MemoryBmp,
-            ImageFormat.Png,
-            ImageFormat.Tiff,
-            ImageFormat.Wmf
+	        ImageFormat.Bmp,
+	        ImageFormat.Emf,
+	        ImageFormat.Exif,
+	        ImageFormat.Gif,
+	        ImageFormat.Icon,
+	        ImageFormat.Jpeg,
+	        ImageFormat.MemoryBmp,
+	        ImageFormat.Png,
+	        ImageFormat.Tiff,
+	        ImageFormat.Wmf
         };
         ImageFormat = ImageFormat.Jpeg;
         BarcodeValue = string.Empty;
         BarcodeImage = string.Empty;
-    }
+	}
 
-    #endregion
+    protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+			() =>
+			{
+				//
+			}
+		});
+	}
 
-    #region Public and private methods
-
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(() =>
-            {
-                IsLoaded = false;
-                IsLoaded = true;
-                GuiRefreshWithWaitAsync().ConfigureAwait(true);
-            }), true);
-    }
-
-    private void RedrawImage()
+	private void RedrawImage()
     {
         try
         {

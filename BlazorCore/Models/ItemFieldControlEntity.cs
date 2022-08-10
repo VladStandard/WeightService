@@ -3,9 +3,7 @@
 
 using DataCore.Localizations;
 using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using Radzen;
-using System;
 using System.Linq;
 using static DataCore.ShareEnums;
 

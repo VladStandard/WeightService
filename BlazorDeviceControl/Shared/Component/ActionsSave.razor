@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/component/actionssave"
+@page "/component/action_ssave"
 @using BlazorCore
 @using DataCore
 @using DataCore.Localizations
@@ -16,7 +16,7 @@
         {
             @if (ButtonSettings.IsShowSave)
             {
-                <RadzenButton Click=@(args => ItemSaveAsync(true)) 
+                <RadzenButton Click=@(args => ItemSaveAsync()) 
                     class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Primary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                     Text=@LocaleData.DeviceControl.TableActionSave 
@@ -24,7 +24,7 @@
             }
             @if (ButtonSettings.IsShowCancel)
             {
-                <RadzenButton Click=@(args => ItemCancelAsync(true))
+                <RadzenButton Click=@(args => ItemCancelAsync())
                     class="RadzenButtonLong" ButtonStyle=@ButtonStyle.Secondary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                     Text=@LocaleData.DeviceControl.TableActionCancel 

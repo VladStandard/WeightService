@@ -9,11 +9,10 @@ using DataCore.Models;
 using DataCore.Sql;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
-using Radzen.Blazor;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemInfo : BlazorCore.Models.RazorBase
+public partial class ItemInfo
 {
     #region Public and private fields, properties, constructor
 
@@ -36,32 +35,35 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
             Langs.Add(lang);
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-	    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-	    SetParametersAsyncWithAction(parameters, () => base.SetParametersAsync(parameters).ConfigureAwait(true),
-		    null, () =>
-            {
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+			() =>
+			{
 				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-                TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
-                object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
-                DbCurSize = 0;
-                foreach (object obj in objects)
-                {
-                    if (obj is object[] { Length: 5 } item)
-                    {
-                        if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
-                        {
-                            DbCurSize += dbSizeMb;
-                        }
-                    }
-                }
-			});
-    }
+				TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
+				object[] objects =
+					AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+				DbCurSize = 0;
+				foreach (object obj in objects)
+				{
+					if (obj is object[] { Length: 5 } item)
+					{
+						if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
+						{
+							DbCurSize += dbSizeMb;
+						}
+					}
+				}
+			}
+		});
+	}
 
     #endregion
 }

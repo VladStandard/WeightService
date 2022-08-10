@@ -2,10 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using DataCore.Localizations;
-using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
@@ -20,27 +19,23 @@ public partial class SectionProductionFacilities
 
     private List<ProductionFacilityEntity> ItemsCast => Items == null ? new() : Items.Select(x => (ProductionFacilityEntity)x).ToList();
 
-    #endregion
-
-    #region Public and private methods
-
-    private void Default()
+    public SectionProductionFacilities()
     {
-        IsLoaded = false;
         Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
         Items = new();
-        ButtonSettings = new();
     }
 
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        await base.SetParametersAsync(parameters).ConfigureAwait(true);
-        RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            new Task(async () =>
-            {
-                Default();
-                await GuiRefreshWithWaitAsync();
+	#endregion
 
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		SetParametersWithAction(new()
+		{
+            () =>
+            {
                 Items = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
                     IsShowMarkedItems ? null
                         : new FilterListEntity(
@@ -51,10 +46,9 @@ public partial class SectionProductionFacilities
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.Where(x => x.IdentityId > 0).ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);
-                IsLoaded = true;
-                await GuiRefreshWithWaitAsync();
-            }), true);
-    }
+            }
+		});
+	}
 
     #endregion
 }
