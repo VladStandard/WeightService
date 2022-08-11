@@ -16,23 +16,22 @@ public partial class SectionLabels
 
     private List<LabelQuickEntity> ItemsCast => Items == null ? new() : Items.Select(x => (LabelQuickEntity)x).ToList();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SectionLabels()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
         Items = new();
     }
 
-	#endregion
-
-	#region Public and private methods
-
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+		RunActions(new()
 		{
             () =>
             {

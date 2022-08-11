@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component;
 
@@ -35,7 +34,7 @@ public partial class ActionsFilterScale
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+		RunActions(new()
 		{
 			() =>
 			{

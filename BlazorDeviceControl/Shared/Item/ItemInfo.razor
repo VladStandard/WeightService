@@ -4,7 +4,7 @@
 @using DataCore.Localizations
 @using static BlazorCore.Utils.BlazorCoreUtuls
 
-<ActionsReloadItem ParentRazor=@this
+<ActionsReloadItem ParentRazor=@(this)
                    Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>

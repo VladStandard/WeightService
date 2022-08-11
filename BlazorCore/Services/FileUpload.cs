@@ -7,9 +7,9 @@ public class FileUpload : IFileUpload
 {
     private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     //private readonly IWebHostEnvironment _environment;
-    private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment;
+    private readonly IHostingEnvironment _environment;
     //public FileUpload(IWebHostEnvironment environment)
-    public FileUpload(Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
+    public FileUpload(IHostingEnvironment environment)
     {
 		_environment = environment;
     }

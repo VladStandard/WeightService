@@ -7,11 +7,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
+    <ActionsReloadItem ParentRazor=@(this) 
         Title=@LocaleData.DeviceControl.Items.Label />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -114,6 +114,6 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@this />
+    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@(this) />
 }

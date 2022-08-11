@@ -21,13 +21,7 @@ public class ActionsReloadBase : BlazorCore.Models.RazorBase
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
-			() =>
-			{
-				//
-			}
-		});
+		RunActions(new());
 	}
 
 	#endregion

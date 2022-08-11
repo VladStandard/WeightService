@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
@@ -15,23 +14,23 @@ public partial class ItemLog
 
 	private LogEntity ItemCast { get => Item == null ? new() : (LogEntity)Item; set => Item = value; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public ItemLog()
-	{
-		Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-		ItemCast = new();
-	}
-
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+		ItemCast = new();
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -39,7 +38,7 @@ public partial class ItemLog
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						break;
 					default:
 						ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(

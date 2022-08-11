@@ -28,21 +28,15 @@ public partial class MudPage
         ListComPorts = SerialPortsUtils.GetListComPorts(Lang.Russian);
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
-			() =>
-			{
-				//
-			}
-		});
-	}
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        RunActions(new());
+    }
 
-	#endregion
+    #endregion
 }

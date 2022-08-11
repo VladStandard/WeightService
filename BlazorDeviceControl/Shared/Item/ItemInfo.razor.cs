@@ -8,41 +8,43 @@ using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql;
 using DataCore.Utils;
-using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Item;
 
 public partial class ItemInfo
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private string VerApp => AssemblyUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
-    private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
-    private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
-    private List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
-    private List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
-    private uint DbCurSize { get; set; }
-    private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
-    private uint DbMaxSize { get; set; } = 10_240;
-    private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
-    private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
-    private List<ShareEnums.Lang> Langs { get; set; } = new();
-
-    public ItemInfo()
-    {
-        Langs = new();
-        foreach (ShareEnums.Lang lang in Enum.GetValues(typeof(ShareEnums.Lang)))
-            Langs.Add(lang);
-    }
+	private string VerApp => AssemblyUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
+	private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
+	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
+	private List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
+	private List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
+	private uint DbCurSize { get; set; }
+	private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
+	private uint DbMaxSize { get; set; } = 10_240;
+	private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
+	private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
+	private List<ShareEnums.Lang> Langs { get; set; } = new();
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Langs = new();
+		foreach (ShareEnums.Lang lang in Enum.GetValues(typeof(ShareEnums.Lang)))
+			Langs.Add(lang);
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -65,5 +67,5 @@ public partial class ItemInfo
 		});
 	}
 
-    #endregion
+	#endregion
 }

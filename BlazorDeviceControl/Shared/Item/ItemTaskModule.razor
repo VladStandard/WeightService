@@ -8,13 +8,13 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
+    <ActionsReloadItem ParentRazor=@(this) 
         Title=@LocaleData.DeviceControl.Items.TaskModule />
 
     <SectionTaskModules Uid=@ItemCast?.IdentityUid />
-    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
 }

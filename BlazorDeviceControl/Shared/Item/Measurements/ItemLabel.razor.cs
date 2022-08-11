@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item.Measurements;
@@ -15,28 +14,31 @@ public partial class ItemLabel
 
     private LabelEntity ItemCast { get => Item == null ? new() : (LabelEntity)Item; set => Item = value; }
 
-    public ItemLabel()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
         ItemCast = new();
-    }
+	}
 
-	#endregion
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
+        RunActions(new()
+        {
             () =>
             {
                 switch (TableAction)
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                        ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
                         break;
                     default:
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
@@ -45,8 +47,8 @@ public partial class ItemLabel
                 }
                 ButtonSettings = new(false, false, false, false, false, false, true);
             }
-		});
-	}
+        });
+    }
 
     #endregion
 }

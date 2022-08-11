@@ -5,34 +5,33 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
 public partial class ItemTaskModule
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private TaskEntity ItemCast { get => Item == null ? new() : (TaskEntity)Item; set => Item = value; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ItemTaskModule()
-    {
-        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-        ItemCast = new();
-    }
+	private TaskEntity ItemCast { get => Item == null ? new() : (TaskEntity)Item; set => Item = value; }
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+		ItemCast = new();
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -45,5 +44,5 @@ public partial class ItemTaskModule
 		});
 	}
 
-    #endregion
+	#endregion
 }

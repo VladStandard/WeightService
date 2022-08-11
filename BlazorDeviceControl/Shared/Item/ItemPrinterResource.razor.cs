@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
@@ -14,37 +13,40 @@ namespace BlazorDeviceControl.Shared.Item;
 /// </summary>
 public partial class ItemPrinterResource
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// PrinterResource.
-    /// </summary>
-    private PrinterResourceEntity ItemCast { get => Item == null ? new() : (PrinterResourceEntity)Item; set => Item = value; }
-    /// <summary>
-    /// Printers.
-    /// </summary>
-    private List<PrinterEntity>? PrinterItems { get; set; }
-    /// <summary>
-    /// Printer's resources.
-    /// </summary>
-    private List<TemplateResourceEntity>? ResourceItems { get; set; }
-
-    public ItemPrinterResource()
-    {
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-        ItemCast = new();
-        PrinterItems = null;
-        ResourceItems = null;
-    }
+	/// <summary>
+	/// PrinterResource.
+	/// </summary>
+	private PrinterResourceEntity ItemCast { get => Item == null ? new() : (PrinterResourceEntity)Item; set => Item = value; }
+	/// <summary>
+	/// Printers.
+	/// </summary>
+	private List<PrinterEntity>? PrinterItems { get; set; }
+	/// <summary>
+	/// Printer's resources.
+	/// </summary>
+	private List<TemplateResourceEntity>? ResourceItems { get; set; }
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+		ItemCast = new();
+		PrinterItems = null;
+		ResourceItems = null;
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -52,7 +54,7 @@ public partial class ItemPrinterResource
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						ItemCast.Description = "NEW RESOURCE";
 						break;
 					default:
@@ -70,5 +72,5 @@ public partial class ItemPrinterResource
 		});
 	}
 
-    #endregion
+	#endregion
 }

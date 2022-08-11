@@ -41,7 +41,7 @@ public partial class MainLayout
     {
         base.OnParametersSet();
 
-        SetParametersWithAction(new()
+        RunActions(new()
         {
             () => UserSettings.SetupAccessRights(),
             () =>

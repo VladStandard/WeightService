@@ -6,7 +6,6 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
@@ -19,26 +18,25 @@ public partial class SectionTemplates
     private string? TemplateCategory { get; set; } = string.Empty;
     private List<TemplateEntity> ItemsCast => Items == null ? new() : Items.Select(x => (TemplateEntity)x).ToList();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SectionTemplates()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
         TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
         TemplateCategory = null;
         Items = new();
-    }
+	}
 
-	#endregion
-
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        RunActions(new()
+        {
             () =>
             {
                 if (string.IsNullOrEmpty(TemplateCategory))
@@ -64,8 +62,8 @@ public partial class SectionTemplates
                 }
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
-		});
-	}
+        });
+    }
 
     #endregion
 }

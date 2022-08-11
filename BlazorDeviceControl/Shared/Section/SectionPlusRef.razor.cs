@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
@@ -21,8 +20,14 @@ public partial class SectionPlusRef
 		set => ItemFilter = value;
 	}
 
-	public SectionPlusRef()
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnInitialized()
 	{
+		base.OnInitialized();
+
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.PluRefs);
 		IsShowMarkedItems = true;
 		IsShowMarkedFilter = true;
@@ -30,14 +35,10 @@ public partial class SectionPlusRef
 		Items = new();
 	}
 
-	#endregion
-
-	#region Public and private methods
-
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+		RunActions(new()
 		{
 			() =>
 			{

@@ -4,34 +4,33 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
 public partial class ItemHost
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private HostEntity ItemCast { get => Item == null ? new() : (HostEntity)Item; set => Item = value; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ItemHost()
-    {
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
-        ItemCast = new();
-    }
+	private HostEntity ItemCast { get => Item == null ? new() : (HostEntity)Item; set => Item = value; }
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+		ItemCast = new();
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -39,7 +38,7 @@ public partial class ItemHost
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW HOST";
 						ItemCast.Ip = "127.0.0.1";
@@ -56,5 +55,5 @@ public partial class ItemHost
 		});
 	}
 
-    #endregion
+	#endregion
 }

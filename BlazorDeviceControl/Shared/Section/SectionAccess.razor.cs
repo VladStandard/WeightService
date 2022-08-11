@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using Radzen;
 using static DataCore.ShareEnums;
 
@@ -17,36 +16,35 @@ public partial class SectionAccess
 
     private List<AccessEntity> ItemsCast => Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SectionAccess()
-    {
-        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-        Items = new();
-    }
-
     #endregion
 
     #region Public and private methods
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+        Items = new();
+    }
+
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        SetParametersWithAction(new()
+        RunActions(new()
         {
-	        () =>
-	        {
-		        Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
-				        (IsShowMarkedItems == true) ? null
-					        : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-				        new(DbField.User, DbOrderDirection.Asc),
-				        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-			        ?.ToList<BaseEntity>();
-		        ButtonSettings = new(true, false, true, true, true, false, false);
-	        }
+            () =>
+            {
+                Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
+                        (IsShowMarkedItems == true) ? null
+                            : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.User, DbOrderDirection.Asc),
+                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                    ?.ToList<BaseEntity>();
+                ButtonSettings = new(true, false, true, true, true, false, false);
+            }
         });
-	}
+    }
 
     public void RowRender(RowRenderEventArgs<AccessEntity> args)
     {

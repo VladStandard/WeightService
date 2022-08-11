@@ -4,7 +4,6 @@
 using DataCore.Localizations;
 using DataCore.Sql.Models;
 using Radzen;
-using System.Linq;
 using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models;

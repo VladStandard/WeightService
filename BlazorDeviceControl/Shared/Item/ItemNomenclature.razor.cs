@@ -4,7 +4,6 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
@@ -17,18 +16,21 @@ public partial class ItemNomenclature
 
 	#endregion
 
-	public ItemNomenclature()
+	#region Public and private methods
+
+	protected override void OnInitialized()
 	{
+		base.OnInitialized();
+
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
 		ItemCast = new();
 	}
 
-	#region Public and private methods
-
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -36,7 +38,7 @@ public partial class ItemNomenclature
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						ItemCast.Name = "NEW NOMENCLATURE";
 						break;
 					default:

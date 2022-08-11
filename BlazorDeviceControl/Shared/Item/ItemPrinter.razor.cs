@@ -4,36 +4,35 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
 public partial class ItemPrinter
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
-    private List<PrinterTypeEntity>? PrinterTypes { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ItemPrinter()
-    {
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-        ItemCast = new();
-        PrinterTypes = null;
-    }
+	private PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
+	private List<PrinterTypeEntity>? PrinterTypes { get; set; }
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+		ItemCast = new();
+		PrinterTypes = null;
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -41,7 +40,7 @@ public partial class ItemPrinter
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW PRINTER";
 						break;
@@ -66,5 +65,5 @@ public partial class ItemPrinter
 		});
 	}
 
-    #endregion
+	#endregion
 }

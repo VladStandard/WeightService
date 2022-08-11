@@ -8,10 +8,10 @@ namespace BlazorDeviceControl.Shared.Component;
 
 public partial class ActionsLoad
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    [Parameter] public ShareEnums.ActionLoad DataLoadItem { get; set; }
-    [Parameter] public bool IsShowProgress { get; set; }
+	[Parameter] public ShareEnums.ActionLoad DataLoadItem { get; set; }
+	[Parameter] public bool IsShowProgress { get; set; }
 
 	#endregion
 
@@ -20,7 +20,7 @@ public partial class ActionsLoad
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+		RunActions(new()
 		{
 			() =>
 			{

@@ -6,7 +6,6 @@ using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.DataModels;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using System.Runtime.CompilerServices;
 using static DataCore.ShareEnums;
 
@@ -23,79 +22,78 @@ public partial class ItemPlu
     private PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ItemPlu()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
-        IsLoaded = false;
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
         ItemCast = new();
         ScaleItems = new();
         Templates = new();
         Nomenclatures = new();
-    }
+	}
 
-	#endregion
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
+        RunActions(new()
+        {
             () =>
             {
                 typeof(ItemPlu).GetConstructor(Type.EmptyTypes)?.Invoke(new object[] { });
             },
             () =>
             {
-	            switch (TableAction)
-	            {
-		            case DbTableAction.New:
-			            ItemCast = new();
-			            ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
-			            ItemCast.IsMarked = false;
-			            break;
-		            default:
-			            ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-				            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
-			            break;
-	            }
+                switch (TableAction)
+                {
+                    case DbTableAction.New:
+                        ItemCast = new();
+                        ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+                        ItemCast.IsMarked = false;
+                        break;
+                    default:
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
+                            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                        break;
+                }
 
 	            // Templates.
 	            List<TemplateEntity>? templates = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-			            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-			            new(DbField.Title, DbOrderDirection.Asc))
-		            ?.ToList();
-	            if (templates is not null)
-	            {
-		            Templates.Add(new(0) { Title = LocaleCore.Table.FieldNull });
-		            Templates.AddRange(templates);
-	            }
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.Title, DbOrderDirection.Asc))
+                    ?.ToList();
+                if (templates is not null)
+                {
+                    Templates.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+                    Templates.AddRange(templates);
+                }
 
 	            // Nomenclatures.
 	            List<NomenclatureEntity>? nomenclatures = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
-			            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-			            new(DbField.Name, DbOrderDirection.Asc))
-		            ?.ToList();
-	            if (nomenclatures is not null)
-	            {
-		            Nomenclatures.Add(new(0) { Name = LocaleCore.Table.FieldNull });
-		            Nomenclatures.AddRange(nomenclatures);
-	            }
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.Name, DbOrderDirection.Asc))
+                    ?.ToList();
+                if (nomenclatures is not null)
+                {
+                    Nomenclatures.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+                    Nomenclatures.AddRange(nomenclatures);
+                }
 
 	            // ScaleItems.
 	            List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-			            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-			            new(DbField.Description, DbOrderDirection.Asc))
-		            ?.ToList();
-	            if (scales is not null)
-	            {
-		            ScaleItems.Add(new(0) { Description = LocaleCore.Table.FieldNull });
-		            ScaleItems.AddRange(scales);
-	            }
+                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.Description, DbOrderDirection.Asc))
+                    ?.ToList();
+                if (scales is not null)
+                {
+                    ScaleItems.Add(new(0) { Description = LocaleCore.Table.FieldNull });
+                    ScaleItems.AddRange(scales);
+                }
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
@@ -114,8 +112,8 @@ public partial class ItemPlu
 	            //    }
 	            ButtonSettings = new(false, false, false, false, false, true, true);
             }
-		});
-	}
+        });
+    }
 
     private void OnClickFieldsFill(string name,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -197,7 +195,7 @@ public partial class ItemPlu
 
     private string GetWeightFormula()
     {
-        XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.SerializedRepresentationObject);
+        XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.Xml);
         // Вес тары = вес коробки + (вес пакета * кол. вложений)
         return $"{ProductHelper.CalcGoodWeightBox(ItemCast.Nomenclature, xmlProduct)} + " +
                $"({ProductHelper.CalcGoodWeightPack(ItemCast.Nomenclature, xmlProduct)} * {ProductHelper.CalcGoodRateUnit(ItemCast.Nomenclature, xmlProduct)})";

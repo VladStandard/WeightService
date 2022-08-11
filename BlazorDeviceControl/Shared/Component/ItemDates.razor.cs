@@ -15,20 +15,26 @@ public partial class ItemDates
     private string CreateDt { get; set; } = string.Empty;
     private string ChangeDt { get; set; } = string.Empty;
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
+
+	protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        CreateDt = string.Empty;
+        ChangeDt = string.Empty;
+    }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        SetParametersWithAction(new()
+        RunActions(new()
         {
             () =>
             {
-	            Console.WriteLine(Table);
-                // Name: Accesses.
                 switch (Table)
                 {
                     case TableSystemEntity:
@@ -77,12 +83,6 @@ public partial class ItemDates
                 CreateDt = order.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = order.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            //case ProjectsEnums.TableScale.OrdersStatuses:
-            //    OrderStatusEntity orderStatus = AppSettings.DataAccess.Crud.GetEntityById<OrderStatusEntity>(IdentityId);
-            //    break;
-            //case ProjectsEnums.TableScale.OrdersTypes:
-            //    OrderTypeEntity orderType = AppSettings.DataAccess.Crud.GetEntityById<OrderTypeEntity>(IdentityId);
-            //    break;
             case ProjectsEnums.TableScale.Organizations:
                 OrganizationEntity organization = AppSettings.DataAccess.Crud.GetEntityById<OrganizationEntity>(IdentityId);
                 CreateDt = organization.CreateDt.ToString(CultureInfo.InvariantCulture);
@@ -113,9 +113,6 @@ public partial class ItemDates
                 CreateDt = printerResource.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = printerResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            //case ProjectsEnums.TableScale.PrintersTypes:
-            //    PrinterTypeEntity printerType = AppSettings.DataAccess.Crud.GetEntityById<PrinterTypeEntity>(IdentityId);
-            //    break;
             case ProjectsEnums.TableScale.ProductionFacilities:
                 ProductionFacilityEntity productionFacility = AppSettings.DataAccess.Crud.GetEntityById<ProductionFacilityEntity>(IdentityId);
                 CreateDt = productionFacility.CreateDt.ToString(CultureInfo.InvariantCulture);
@@ -157,10 +154,8 @@ public partial class ItemDates
     {
         switch (ProjectsEnums.GetTableSystem(Table.Name))
         {
-            case ProjectsEnums.TableSystem.Default:
-                break;
             case ProjectsEnums.TableSystem.Accesses:
-                AccessEntity access = AppSettings.DataAccess.Crud.GetEntityById<AccessEntity>(IdentityId);
+                AccessEntity access = AppSettings.DataAccess.Crud.GetEntityByUid<AccessEntity>(IdentityUid);
                 CreateDt = access.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = access.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;

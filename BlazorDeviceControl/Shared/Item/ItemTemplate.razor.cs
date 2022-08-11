@@ -5,36 +5,35 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
 public partial class ItemTemplate
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private TemplateEntity ItemCast { get => Item == null ? new() : (TemplateEntity)Item; set => Item = value; }
-    private List<TypeEntity<string>>? TemplateCategories { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ItemTemplate()
-    {
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-        TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
-        ItemCast = new();
-    }
+	private TemplateEntity ItemCast { get => Item == null ? new() : (TemplateEntity)Item; set => Item = value; }
+	private List<TypeEntity<string>>? TemplateCategories { get; set; }
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+		TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+		ItemCast = new();
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -42,10 +41,10 @@ public partial class ItemTemplate
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						ItemCast.IsMarked = false;
 						ItemCast.Title = "NEW TEMPLATE";
-						ItemCast.IdRRef = System.Guid.Empty;
+						ItemCast.IdRRef = Guid.Empty;
 						ItemCast.CategoryId = "300 dpi";
 						ItemCast.ImageData.SetTemplateValue();
 						break;
@@ -60,5 +59,5 @@ public partial class ItemTemplate
 		});
 	}
 
-    #endregion
+	#endregion
 }

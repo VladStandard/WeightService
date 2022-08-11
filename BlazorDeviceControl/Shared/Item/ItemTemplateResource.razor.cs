@@ -31,35 +31,35 @@ public partial class ItemTemplateResource
     private int ProgressValue { get; set; } = default;
     public IFileListEntry? File { get; private set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ItemTemplateResource()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
         ResourceTypes = new() { new("TTF", "TTF"), new("GRF", "GRF") };
         ItemCast = new();
-    }
-
-	#endregion
-
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
-			() =>
-			{
-				ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-					new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
-				if (IdentityId != null && TableAction == DbTableAction.New)
-					ItemCast.IdentityId = (long)IdentityId;
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
-		});
 	}
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        RunActions(new()
+        {
+            () =>
+            {
+                ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                    new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                if (IdentityId != null && TableAction == DbTableAction.New)
+                    ItemCast.IdentityId = (long)IdentityId;
+                ButtonSettings = new(false, false, false, false, false, true, true);
+            }
+        });
+    }
 
     private void OnError(UploadErrorEventArgs args, string name)
     {

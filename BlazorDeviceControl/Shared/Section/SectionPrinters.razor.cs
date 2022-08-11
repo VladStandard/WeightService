@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
@@ -16,24 +15,23 @@ public partial class SectionPrinters
 
     private List<PrinterEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterEntity)x).ToList();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SectionPrinters()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
         Items = new();
     }
 
-	#endregion
-
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        RunActions(new()
+        {
             () =>
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
@@ -47,8 +45,8 @@ public partial class SectionPrinters
                 //    //await item.SetHttpStatusAsync().ConfigureAwait(true);
                 //}
             }
-		});
-	}
+        });
+    }
 
     #endregion
 }

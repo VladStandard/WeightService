@@ -10,13 +10,7 @@ public partial class ActionsReloadSection : ActionsReloadBase
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
-			() =>
-			{
-				//
-			}
-		});
+		RunActions(new());
 	}
 
 	#endregion

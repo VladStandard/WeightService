@@ -16,23 +16,22 @@ public partial class SectionWeithingFacts
 
     private List<WeithingFactEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WeithingFactEntity)x).ToList();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SectionWeithingFacts()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
         Items = new();
     }
 
-	#endregion
-
-	#region Public and private methods
-
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+		RunActions(new()
 		{
             () =>
             {

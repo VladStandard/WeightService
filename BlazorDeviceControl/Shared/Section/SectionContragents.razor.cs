@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
@@ -16,24 +15,23 @@ public partial class SectionContragents
 
     private List<ContragentV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentV2Entity)x).ToList();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SectionContragents()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Contragents);
         Items = new();
-    }
+	}
 
-	#endregion
-
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        RunActions(new()
+        {
             () =>
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<ContragentV2Entity>(
@@ -44,8 +42,8 @@ public partial class SectionContragents
                     ?.ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
-		});
-	}
+        });
+    }
 
     #endregion
 }

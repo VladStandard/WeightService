@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Models;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
@@ -16,22 +15,24 @@ public partial class SectionPlus
 
     private List<PluEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluEntity)x).ToList();
 
-    public SectionPlus()
+    #endregion
+
+    #region Public and private methods
+
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
         IsShowMarkedFilter = true;
         Items = new();
-    }
+	}
 
-	#endregion
-
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		SetParametersWithAction(new()
-		{
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        RunActions(new()
+        {
             () =>
             {
                 long? scaleId = null;
@@ -74,8 +75,8 @@ public partial class SectionPlus
                 }
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
-		});
-	}
+        });
+    }
 
     private void SetFilterItems(List<BaseEntity>? items, long? scaleId)
     {

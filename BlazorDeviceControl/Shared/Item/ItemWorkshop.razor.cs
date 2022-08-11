@@ -4,33 +4,35 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.AspNetCore.Components;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
 public partial class ItemWorkshop
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
-    private List<ProductionFacilityEntity> ProductionFacilities { get; set; }
-
-    public ItemWorkshop()
-    {
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-        ItemCast = new();
-        ProductionFacilities = new();
-    }
+	private WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
+	private List<ProductionFacilityEntity> ProductionFacilities { get; set; }
 
 	#endregion
 
 	#region Public and private methods
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+		ItemCast = new();
+		ProductionFacilities = new();
+	}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		SetParametersWithAction(new()
+
+		RunActions(new()
 		{
 			() =>
 			{
@@ -54,5 +56,5 @@ public partial class ItemWorkshop
 		});
 	}
 
-    #endregion
+	#endregion
 }
