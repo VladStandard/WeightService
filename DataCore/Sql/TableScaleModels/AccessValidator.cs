@@ -15,6 +15,18 @@ public class AccessValidator : AbstractValidator<BaseEntity>
     /// </summary>
     public AccessValidator()
     {
+	    RuleFor(item => ((AccessEntity)item).CreateDt)
+		    .NotEmpty()
+		    .NotNull()
+		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
+	    RuleFor(item => ((AccessEntity)item).ChangeDt)
+		    .NotEmpty()
+		    .NotNull()
+		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
+	    RuleFor(item => ((AccessEntity)item).IdentityUid)
+		    .NotEmpty()
+		    .NotNull()
+		    .NotEqual(Guid.Empty);
         RuleFor(item => ((AccessEntity)item).User)
 	        .NotEmpty()
 	        .NotNull();

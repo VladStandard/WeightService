@@ -108,6 +108,10 @@ public static class TestsUtils
 	    {
 		    return new LogValidator();
 	    }
+	    else if (typeof(TEntity) == typeof(NomenclatureEntity))
+	    {
+		    return new NomenclatureValidator();
+	    }
 		throw new NotImplementedException();
     }
 

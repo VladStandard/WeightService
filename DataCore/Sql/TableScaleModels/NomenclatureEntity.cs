@@ -15,9 +15,9 @@ public class NomenclatureEntity : BaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual string Name { get; set; }
-	[XmlElement] public virtual string Code { get; set; }
-	[XmlElement] public virtual string SerializedRepresentationObject { get; set; }
+	[XmlElement] public virtual string Name { get; set; } = string.Empty;
+	[XmlElement] public virtual string Code { get; set; } = string.Empty;
+	[XmlElement(IsNullable = true)] public virtual string? Xml { get; set; } = string.Empty;
 	/// <summary>
 	/// Is weighted or pcs.
 	/// </summary>
@@ -36,10 +36,7 @@ public class NomenclatureEntity : BaseEntity
 	/// </summary>
     public NomenclatureEntity(long id) : base(id)
     {
-        Name = string.Empty;
-        Code = string.Empty;
-        SerializedRepresentationObject = string.Empty;
-        Weighted = false;
+		//
     }
 
     #endregion
@@ -50,7 +47,7 @@ public class NomenclatureEntity : BaseEntity
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Code)}: {Code}. " +
-        $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " +
+        $"{nameof(Xml)}.Length: {Xml?.Length ?? 0}. " +
         $"{nameof(Weighted)}: {Weighted}. ";
 
     public virtual bool Equals(NomenclatureEntity item)
@@ -60,7 +57,7 @@ public class NomenclatureEntity : BaseEntity
         return base.Equals(item) &&
                Equals(Code, item.Code) &&
                Equals(Name, item.Name) &&
-               Equals(SerializedRepresentationObject, item.SerializedRepresentationObject) &&
+               Equals(Xml, item.Xml) &&
                Equals(Weighted, item.Weighted);
     }
 
@@ -84,7 +81,7 @@ public class NomenclatureEntity : BaseEntity
         return base.EqualsDefault() &&
                Equals(Code, string.Empty) &&
                Equals(Name, string.Empty) &&
-               Equals(SerializedRepresentationObject, string.Empty) &&
+               Equals(Xml, string.Empty) &&
                Equals(Weighted, false);
     }
 
@@ -93,7 +90,7 @@ public class NomenclatureEntity : BaseEntity
         NomenclatureEntity item = new();
         item.Code = Code;
         item.Name = Name;
-        item.SerializedRepresentationObject = SerializedRepresentationObject;
+        item.Xml = Xml;
         item.Weighted = Weighted;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;

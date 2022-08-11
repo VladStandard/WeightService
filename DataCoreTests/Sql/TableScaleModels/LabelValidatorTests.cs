@@ -40,6 +40,9 @@ internal class LabelValidatorTests
 			LabelEntity item = Substitute.For<LabelEntity>();
 			LabelValidator validator = new();
 			// Act.
+			item.CreateDt = DateTime.Now;
+			item.ChangeDt = DateTime.Now;
+			item.IdentityId = -1;
 			item.Label = new byte[0x00];
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);

@@ -43,6 +43,9 @@ internal class HostValidatorTests
 			HostEntity item = Substitute.For<HostEntity>();
 			HostValidator validator = new();
 			// Act.
+			item.CreateDt = DateTime.Now;
+			item.ChangeDt = DateTime.Now;
+			item.IdentityId = -1;
 			item.Name = "Test";
 			item.Ip  = "127.0.0.1";
 			item.MacAddressValue = "001122334455";

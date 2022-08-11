@@ -39,6 +39,9 @@ internal class LogTypeValidatorTests
 			LogTypeEntity item = Substitute.For<LogTypeEntity>();
 			LogTypeValidator validator = new();
 			// Act.
+			item.CreateDt = DateTime.Now;
+			item.ChangeDt = DateTime.Now;
+			item.IdentityUid = Guid.NewGuid();
 			item.Number = 0;
 			item.Icon = "Test";
 			ValidationResult result = validator.Validate(item);

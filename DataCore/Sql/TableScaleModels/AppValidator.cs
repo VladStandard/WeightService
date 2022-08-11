@@ -13,6 +13,10 @@ public class AppValidator : AbstractValidator<BaseEntity>
 	/// </summary>
 	public AppValidator()
 	{
+		RuleFor(item => ((AppEntity)item).IdentityUid)
+			.NotEmpty()
+			.NotNull()
+			.NotEqual(Guid.Empty);
 		RuleFor(item => ((AppEntity)item).Name)
 			.NotEmpty()
 			.NotNull();

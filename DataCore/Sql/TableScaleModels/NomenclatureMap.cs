@@ -22,7 +22,7 @@ public class NomenclatureMap : ClassMap<NomenclatureEntity>
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.Code).CustomSqlType("NVARCHAR").Column("Code").Length(30);
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(300);
-        Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
+        Map(x => x.Xml).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
         Map(x => x.Weighted).CustomSqlType("BIT").Column("Weighted").Not.Nullable().Default("0");
     }
 }

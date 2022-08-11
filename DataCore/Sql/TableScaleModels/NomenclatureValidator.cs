@@ -6,26 +6,28 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LabelValidator : AbstractValidator<BaseEntity>
+public class NomenclatureValidator : AbstractValidator<BaseEntity>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LabelValidator()
+	public NomenclatureValidator()
 	{
-		RuleFor(item => ((LabelEntity)item).CreateDt)
+		RuleFor(item => ((NomenclatureEntity)item).CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		//RuleFor(item => ((LabelEntity)item).ChangeDt)
-		//	.NotEmpty()
-		//	.NotNull()
-		//	.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((LabelEntity)item).IdentityId)
+		RuleFor(item => ((NomenclatureEntity)item).ChangeDt)
+			.NotEmpty()
+			.NotNull()
+			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
+		RuleFor(item => ((NomenclatureEntity)item).IdentityId)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => ((LabelEntity)item).WeithingFact)
+		RuleFor(item => ((NomenclatureEntity)item).Name)
+			.NotNull();
+		RuleFor(item => ((NomenclatureEntity)item).Xml)
 			.NotEmpty()
 			.NotNull();
 	}
