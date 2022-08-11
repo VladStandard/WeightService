@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "APPS".
 /// </summary>
 [Serializable]
-public class AppEntity : BaseEntity, ISerializable
+public class AppEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,23 +15,25 @@ public class AppEntity : BaseEntity, ISerializable
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-	[XmlElement] public virtual string Name { get; set; } = string.Empty;
+	[XmlElement] public virtual string Name { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AppEntity() : this(Guid.Empty)
-    {
-        //
-    }
+	public AppEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public AppEntity(Guid uid) : base(uid)
-    {
-        //
-    }
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public AppEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -43,11 +45,17 @@ public class AppEntity : BaseEntity, ISerializable
         Name = info.GetString(nameof(Name));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString() =>
+	public new virtual void Init()
+	{
+		base.Init();
+		Name = string.Empty;
+	}
+
+	public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";

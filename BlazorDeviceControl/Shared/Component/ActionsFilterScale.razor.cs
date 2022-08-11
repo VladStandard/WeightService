@@ -34,6 +34,7 @@ public partial class ActionsFilterScale
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
+
 		RunActions(new()
 		{
 			() =>
@@ -44,7 +45,7 @@ public partial class ActionsFilterScale
 				if (itemsFilter is { })
 				{
 					ItemsFilter = new();
-					ItemsFilter.Add(new ScaleEntity(0) { Description = LocaleCore.Table.FieldNull });
+					ItemsFilter.Add(new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull });
 					ItemsFilter.AddRange(itemsFilter.ToList<BaseEntity>());
 					if (ItemFilter == null)
 						ItemFilterCast = ItemsCast.First();

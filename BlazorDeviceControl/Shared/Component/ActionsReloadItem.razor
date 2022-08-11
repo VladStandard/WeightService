@@ -20,16 +20,14 @@
     {
         <RadzenButton 
             class="RadzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
-            Disabled=@(!AppSettings.DataAccess.IsConnected) 
-            Click=@(args => SetParameters.InvokeAsync())
+                  Disabled=@(!AppSettings.DataAccess.IsConnected) Click=@(_ => ParentRazor.OnChange())
             MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRead))
             MouseLeave=@(_ => TooltipService.Close())
         />
-    }
-
-    @if (ParentRazor?.Item != null)
-    {
-        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
-            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
+	    @if (ParentRazor.Item != null)
+	    {
+	        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
+	            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
+	    }
     }
 </MudElement>

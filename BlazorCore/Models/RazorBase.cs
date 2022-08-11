@@ -27,7 +27,7 @@ public class RazorBase : LayoutComponentBase
     [Inject] public NotificationService NotificationService { get; set; }
     [Inject] public TooltipService TooltipService { get; set; }
     [Parameter] public BaseEntity? ItemFilter { get; set; }
-    [Parameter] public bool IsMarked { get; set; }
+    public event Action? Change;
     [Parameter] public bool IsShowAdditionalFilter { get; set; }
     [Parameter] public bool IsShowItemsCount { get; set; }
     [Parameter] public bool IsShowMarkedFilter { get; set; }
@@ -36,7 +36,7 @@ public class RazorBase : LayoutComponentBase
     [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
     [Parameter] public DbTableAction TableAction { get; set; }
     [Parameter] public Guid? IdentityUid { get; set; }
-    [Parameter] public string IdentityUidStr { get => (IdentityUid?.ToString() is string str) ? str : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+    [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
     [Parameter] public List<BaseEntity>? Items { get; set; }
     [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
     [Parameter] public long? IdentityId { get; set; }
@@ -68,6 +68,7 @@ public class RazorBase : LayoutComponentBase
     {
         base.OnInitialized();
 
+        Change += OnParametersSet;
         ButtonSettings = new();
         FilterCaption = string.Empty;
         FilterName = string.Empty;
@@ -117,9 +118,8 @@ public class RazorBase : LayoutComponentBase
                             IsShowMarkedItems = isShowTOp100;
                         break;
                 }
-				//InvokeAsync(StateHasChanged);
-				StateHasChanged();
-			});
+                StateHasChanged();
+            });
     }
 
     public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
@@ -133,9 +133,7 @@ public class RazorBase : LayoutComponentBase
                     LocaleData.Lang = lang;
                 }
                 templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-				//InvokeAsync(StateHasChanged);
-				StateHasChanged();
-
+                StateHasChanged();
             });
     }
 
@@ -175,9 +173,7 @@ public class RazorBase : LayoutComponentBase
                             AppSettings.DataAccess.JsonSettingsLocal.Sql.Password = password;
                         break;
                 }
-				//InvokeAsync(StateHasChanged);
-				StateHasChanged();
-
+                StateHasChanged();
             });
     }
 
@@ -210,9 +206,7 @@ public class RazorBase : LayoutComponentBase
                         OnItemValueChangeWorkShop(filterName, value, workShop);
                         break;
                 }
-				//InvokeAsync(StateHasChanged);
-				StateHasChanged();
-
+                StateHasChanged();
             });
     }
 
@@ -352,18 +346,6 @@ public class RazorBase : LayoutComponentBase
             IdentityUid = item.IdentityUid;
     }
 
-    //public async Task GuiRefreshAsync(bool continueOnCapturedContext)
-    //{
-    //    await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
-    //    //await Task.Delay(TimeSpan.FromMilliseconds(1000)).ConfigureAwait(true);
-    //}
-
-    //public async Task GuiRefreshWithWaitAsync(bool continueOnCapturedContext = true, int millisecondsTimeout = 1000)
-    //{
-    //    await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
-    //    await Task.Delay(TimeSpan.FromMilliseconds(millisecondsTimeout)).ConfigureAwait(continueOnCapturedContext);
-    //}
-
     //public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
     //{
     //    await RunTasksAsync(LocaleCore.Table.TableRead, "", LocaleCore.Dialog.DialogResultFail, "",
@@ -409,21 +391,20 @@ public class RazorBase : LayoutComponentBase
 
     protected void RunActions(List<Action> actions)
     {
-	    List<Action> actionsInjected = new();
-	    actionsInjected.Add(() =>
-	    {
-		    IsLoaded = false;
-		    ButtonSettings = new();
-		});
-	    actionsInjected.AddRange(actions);
-	    actionsInjected.Add(() =>
-	    {
-		    IsLoaded = true;
-			//InvokeAsync(StateHasChanged);
-			StateHasChanged();
-	    });
-		RunActions($"{LocaleCore.Action.ActionMethod} {nameof(RunActions)}", "", 
-			LocaleCore.Dialog.DialogResultFail, "", actionsInjected);
+        List<Action> actionsInjected = new();
+        actionsInjected.Add(() =>
+        {
+            IsLoaded = false;
+            ButtonSettings = new();
+        });
+        actionsInjected.AddRange(actions);
+        actionsInjected.Add(() =>
+        {
+            IsLoaded = true;
+            StateHasChanged();
+        });
+        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(RunActions)}", "",
+            LocaleCore.Dialog.DialogResultFail, "", actionsInjected);
     }
 
     //private void SetParametersForTableScale(ParameterView parameters, ProjectsEnums.TableScale table)
@@ -639,7 +620,7 @@ public class RazorBase : LayoutComponentBase
     //    RunTasks(title, detailSuccess, detailFail, detailCancel, new List<Task> { task }, continueOnCapturedContext, filePath, lineNumber, memberName);
     //}
 
-    public void RunActions(string title, string detailSuccess, string detailFail, string detailCancel, Action action, 
+    public void RunActions(string title, string detailSuccess, string detailFail, string detailCancel, Action action,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         RunActions(title, detailSuccess, detailFail, detailCancel, (List<Action>)new() { action }, filePath, lineNumber, memberName);
@@ -727,8 +708,8 @@ public class RazorBase : LayoutComponentBase
     //    }
     //}
 
-    public void RunActionsWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, string questionAdd, 
-	    Action action, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    public void RunActionsWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, string questionAdd,
+        Action action, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -753,6 +734,11 @@ public class RazorBase : LayoutComponentBase
 
     public static string GetPath(string uriItemRoute, BaseEntity? item, Guid? uid) =>
         item == null || uid == null ? string.Empty : $"{uriItemRoute}/{uid}";
+
+    public void OnChange()
+    {
+        Change?.Invoke();
+    }
 
     #endregion
 
@@ -1241,7 +1227,6 @@ public class RazorBase : LayoutComponentBase
                 //IdentityId = null;
                 //IdentityUid = null;
                 //RouteItemNavigate(isNewWindow, item, DbTableAction.New);
-                //InvokeAsync(StateHasChanged);
             });
     }
 

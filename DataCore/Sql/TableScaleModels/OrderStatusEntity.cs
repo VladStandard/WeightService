@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "OrderStatus".
 /// </summary>
 [Serializable]
-public class OrderStatusEntity : BaseEntity
+public class OrderStatusEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,22 +22,30 @@ public class OrderStatusEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderStatusEntity() : this(0)
-    {
-        //
-    }
+    public OrderStatusEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderStatusEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public OrderStatusEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
+		Init();
+	}
+
+    #endregion
+
+    public new virtual void Init()
+    {
+	    base.Init();
         OrderId = string.Empty;
         CurrentDate = DateTime.MinValue;
         CurrentStatus = 0x00;
     }
-
-    #endregion
 
     #region Public and private methods
 

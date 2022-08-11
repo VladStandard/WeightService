@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "WeithingFact".
 /// </summary>
 [Serializable]
-public class WeithingFactEntity : BaseEntity
+public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -30,16 +30,23 @@ public class WeithingFactEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public WeithingFactEntity() : this(0)
-    {
-        //
-    }
+    public WeithingFactEntity() : base(0, false)
+	{
+		Init();
+	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-    public WeithingFactEntity(long id) : base(id)
+    public WeithingFactEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
+
+    #endregion
+
+    #region Public and private methods
+
+    public new virtual void Init()
     {
+		base.Init();
         Plu = new();
         Scale = new();
         Serie = null;
@@ -52,10 +59,6 @@ public class WeithingFactEntity : BaseEntity
         RegNum = null;
         Kneading = null;
     }
-
-    #endregion
-
-    #region Public and private methods
 
     public override string ToString()
     {

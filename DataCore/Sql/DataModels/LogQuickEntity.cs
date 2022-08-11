@@ -5,7 +5,8 @@ using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.DataModels;
 
-public class LogQuickEntity : BaseEntity
+[Serializable]
+public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -19,17 +20,31 @@ public class LogQuickEntity : BaseEntity
     public virtual string Icon { get; set; }
     public virtual string Message { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public LogQuickEntity() : this(Guid.Empty)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public LogQuickEntity() : base(Guid.Empty, false)
     {
-        //
+	    Init();
     }
 
-    public LogQuickEntity(Guid uid) : base(uid)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public LogQuickEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
+	    Init();
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
         Scale = string.Empty;
         Host = string.Empty;
         App = string.Empty;
@@ -40,10 +55,6 @@ public class LogQuickEntity : BaseEntity
         Icon = string.Empty;
         Message = string.Empty;
     }
-
-    #endregion
-
-    #region Public and private methods
 
     public override string ToString() =>
         base.ToString() +

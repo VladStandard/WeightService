@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-public class PrinterResourceEntity : BaseEntity
+public class PrinterResourceEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,26 +22,34 @@ public class PrinterResourceEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PrinterResourceEntity() : this(0)
-    {
-        //
-    }
+    public PrinterResourceEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PrinterResourceEntity(long id) : base(id)
-    {
-        Printer = new();
-        Resource = new();
-        Description = string.Empty;
-    }
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public PrinterResourceEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString()
+	public new virtual void Init()
+	{
+		base.Init();
+		Printer = new();
+		Resource = new();
+		Description = string.Empty;
+	}
+
+	public override string ToString()
     {
         string strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
         string strResource = Resource != null ? Resource.IdentityId.ToString() : "null";

@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class NomenclatureTypeEntity : BaseEntity
+[Serializable]
+public class NomenclatureTypeEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -13,25 +14,35 @@ public class NomenclatureTypeEntity : BaseEntity
     public virtual InformationSystemEntity InformationSystem { get; set; }
     public virtual byte[] CodeInIs { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public NomenclatureTypeEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public NomenclatureTypeEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public NomenclatureTypeEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public NomenclatureTypeEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
+	    Init();
+    }
+
+    #endregion
+
+    public new virtual void Init()
+    {
+	    base.Init();
         Name = string.Empty;
         GoodsForSale = false;
         StatusId = 0;
         InformationSystem = new();
         CodeInIs = new byte[0];
     }
-
-    #endregion
 
     #region Public and private methods
 

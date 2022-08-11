@@ -63,17 +63,17 @@ public partial class ItemScale
 				if (IdentityId != null && TableAction == DbTableAction.New)
 					ItemCast.IdentityId = (long)IdentityId;
 				if (ItemCast.Host == null)
-					ItemCast.Host = new(0) { Name = LocaleCore.Table.FieldNull };
+					ItemCast.Host = new(0, false) { Name = LocaleCore.Table.FieldNull };
 				if (ItemCast.PrinterMain == null)
-					ItemCast.PrinterMain = new(0) { Name = LocaleCore.Table.FieldNull };
+					ItemCast.PrinterMain = new(0, false) { Name = LocaleCore.Table.FieldNull };
 				if (ItemCast.PrinterShipping == null)
-					ItemCast.PrinterShipping = new(0) { Name = LocaleCore.Table.FieldNull };
+					ItemCast.PrinterShipping = new(0, false) { Name = LocaleCore.Table.FieldNull };
 				if (ItemCast.TemplateDefault == null)
-					ItemCast.TemplateDefault = new(0) { Title = LocaleCore.Table.FieldNull };
+					ItemCast.TemplateDefault = new(0, false) { Title = LocaleCore.Table.FieldNull };
 				if (ItemCast.TemplateSeries == null)
-					ItemCast.TemplateSeries = new(0) { Title = LocaleCore.Table.FieldNull };
+					ItemCast.TemplateSeries = new(0, false) { Title = LocaleCore.Table.FieldNull };
 				if (ItemCast.WorkShop == null)
-					ItemCast.WorkShop = new(0) { Name = LocaleCore.Table.FieldNull };
+					ItemCast.WorkShop = new(0, false) { Name = LocaleCore.Table.FieldNull };
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
@@ -85,7 +85,7 @@ public partial class ItemScale
 					new(DbField.Name));
 				if (hostItems is { })
 				{
-					HostItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+					HostItems.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
 					HostItems.AddRange(hostItems);
 				}
 
@@ -94,7 +94,7 @@ public partial class ItemScale
 					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
 				if (printerItems is { })
 				{
-					PrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+					PrinterItems.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
 					PrinterItems.AddRange(printerItems);
 				}
 
@@ -103,7 +103,7 @@ public partial class ItemScale
 					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
 				if (shippingPrinterItems is { })
 				{
-					ShippingPrinterItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+					ShippingPrinterItems.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
 					ShippingPrinterItems.AddRange(shippingPrinterItems);
 				}
 
@@ -113,7 +113,7 @@ public partial class ItemScale
 					new(DbField.Title));
 				if (templatesDefaultItems is { })
 				{
-					TemplatesDefaultItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+					TemplatesDefaultItems.Add(new(0, false) { Title = LocaleCore.Table.FieldNull });
 					TemplatesDefaultItems.AddRange(templatesDefaultItems);
 				}
 
@@ -123,7 +123,7 @@ public partial class ItemScale
 					new(DbField.Title));
 				if (templatesSeriesItems is { })
 				{
-					TemplatesSeriesItems.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+					TemplatesSeriesItems.Add(new(0, false) { Title = LocaleCore.Table.FieldNull });
 					TemplatesSeriesItems.AddRange(templatesSeriesItems);
 				}
 
@@ -133,7 +133,7 @@ public partial class ItemScale
 						new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
 				if (productionFacilities is { })
 				{
-					ProductionFacilityItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+					ProductionFacilityItems.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
 					ProductionFacilityItems.AddRange(productionFacilities.Where(x => x.IdentityId > 0));
 				}
 
@@ -142,7 +142,7 @@ public partial class ItemScale
 					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
 				if (workShopItems is { })
 				{
-					WorkShopItems.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+					WorkShopItems.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
 					WorkShopItems.AddRange(workShopItems);
 				}
 

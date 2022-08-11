@@ -3,12 +3,17 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
+[Serializable]
 public class NomenclatureParentEntity
 {
     // {"parents":["Колбасные изделия","Колбаса п/к","яВот такая с беконом п.к. 450 г"]}
     public string[] Parents { get; set; }
 
-    public NomenclatureParentEntity(string[] parents)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="parents"></param>
+	public NomenclatureParentEntity(string[] parents)
     {
         Parents = parents;
         //Parents = new string[0];

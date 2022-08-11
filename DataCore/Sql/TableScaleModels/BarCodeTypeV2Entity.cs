@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "BARCODE_TYPES_V2".
 /// </summary>
 [Serializable]
-public class BarCodeTypeV2Entity : BaseEntity
+public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -16,27 +16,35 @@ public class BarCodeTypeV2Entity : BaseEntity
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 
-	[XmlElement] public virtual string Name { get; set; } = string.Empty;
+	[XmlElement] public virtual string Name { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeTypeV2Entity() : this(Guid.Empty)
-    {
-        // 
-    }
+    public BarCodeTypeV2Entity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeTypeV2Entity(Guid uid) : base(uid)
-    {
-        // 
-    }
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public BarCodeTypeV2Entity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	{
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        Name = string.Empty;
+	}
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +

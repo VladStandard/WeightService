@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "BARCODES_V2".
 /// </summary>
 [Serializable]
-public class BarCodeV2Entity : BaseEntity, ISerializable
+public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,26 +15,28 @@ public class BarCodeV2Entity : BaseEntity, ISerializable
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-	[XmlElement] public virtual string Value { get; set; } = string.Empty;
-    [XmlElement] public virtual BarCodeTypeV2Entity? BarcodeType { get; set; } = new();
-	[XmlElement] public virtual ContragentV2Entity? Contragent { get; set; } = new();
-	[XmlElement] public virtual NomenclatureEntity? Nomenclature { get; set; } = new();
+	[XmlElement] public virtual string Value { get; set; }
+    [XmlElement] public virtual BarCodeTypeV2Entity? BarcodeType { get; set; }
+	[XmlElement] public virtual ContragentV2Entity? Contragent { get; set; }
+	[XmlElement] public virtual NomenclatureEntity? Nomenclature { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeV2Entity() : this(Guid.Empty)
-    {
-        //
-    }
+    public BarCodeV2Entity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeV2Entity(Guid uid) : base(uid)
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public BarCodeV2Entity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        //
-    }
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -52,6 +54,15 @@ public class BarCodeV2Entity : BaseEntity, ISerializable
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+		Value = string.Empty;
+		BarcodeType = new();
+		Contragent = new();
+		Nomenclature = new();
+	}
 
     public override string ToString()
     {

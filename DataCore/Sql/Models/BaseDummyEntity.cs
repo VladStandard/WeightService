@@ -3,40 +3,60 @@
 
 namespace DataCore.Sql.Models;
 
-/// <summary>
-/// Table "Access".
-/// </summary>
-public class BaseDummyEntity : BaseEntity
+public class BaseDummyEntity : BaseEntity, ISerializable, IBaseEntity
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public BaseDummyEntity() : this(Guid.Empty)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public BaseDummyEntity() : base(Guid.Empty, false)
     {
-        //
+	    Init();
     }
 
-    public BaseDummyEntity(Guid uid) : base(uid)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public BaseDummyEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        //
-    }
+		Init();
+	}
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public BaseDummyEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+    {
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() =>
-        base.ToString();
+    public new virtual void Init()
+    {
+	    base.Init();
+        //
+    }
+
+    public override string ToString() => base.ToString();
 
     public virtual bool Equals(BaseDummyEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return base.Equals(item);
     }
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((BaseDummyEntity)obj);
@@ -49,7 +69,7 @@ public class BaseDummyEntity : BaseEntity
 
     public virtual bool EqualsNew()
     {
-        return Equals(new AccessEntity());
+        return Equals(new());
     }
 
     public new virtual bool EqualsDefault()

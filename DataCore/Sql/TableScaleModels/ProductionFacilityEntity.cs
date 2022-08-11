@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ProductionFacility".
 /// </summary>
 [Serializable]
-public class ProductionFacilityEntity : BaseEntity, ISerializable
+public class ProductionFacilityEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -16,30 +16,39 @@ public class ProductionFacilityEntity : BaseEntity, ISerializable
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual string Name { get; set; } = string.Empty;
-	[XmlElement] public virtual string Address { get; set; } = string.Empty;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string Address { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductionFacilityEntity() : this(0)
-    {
-        //
-    }
+	public ProductionFacilityEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ProductionFacilityEntity(long id) : base(id)
-    {
-        //
-    }
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public ProductionFacilityEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString() =>
+    public new virtual void Init()
+    {
+	    base.Init();
+		Name = string.Empty;
+		Address = string.Empty;
+	}
+
+	public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +

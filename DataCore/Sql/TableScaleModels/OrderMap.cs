@@ -29,6 +29,6 @@ public class OrderMap : ClassMap<OrderEntity>
         References(x => x.Scales).Column("ScaleId");
         References(x => x.Plu).Column("PLU");
         Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
-        References(x => x.Templates).Column("TemplateId");
+        References(x => x.Template).Column("TemplateId");
     }
 }

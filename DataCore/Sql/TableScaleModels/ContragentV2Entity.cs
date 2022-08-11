@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "CONTRAGENTS_V2".
 /// </summary>
 [Serializable]
-public class ContragentV2Entity : BaseEntity
+public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -15,36 +15,48 @@ public class ContragentV2Entity : BaseEntity
     /// Identity name.
     /// </summary>
     [XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-    [XmlElement] public virtual string Name { get; set; } = string.Empty;
-    [XmlElement] public virtual string FullName { get; set; } = string.Empty;
-    [XmlElement] public virtual Guid IdRRef { get; set; } = Guid.Empty;
+    [XmlElement] public virtual string Name { get; set; }
+    [XmlElement] public virtual string FullName { get; set; }
+    [XmlElement] public virtual Guid IdRRef { get; set; }
     public virtual string IdRRefAsString
     {
         get => IdRRef.ToString();
         set => IdRRef = Guid.Parse(value);
     }
     [XmlElement] public virtual int DwhId { get; set; }
-    [XmlElement] public virtual string Xml { get; set; } = string.Empty;
+    [XmlElement] public virtual string Xml { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ContragentV2Entity() : this(Guid.Empty)
-    {
-        //
-    }
+    public ContragentV2Entity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ContragentV2Entity(Guid uid) : base(uid)
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public ContragentV2Entity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        //
-    }
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        Name = string.Empty;
+		FullName = string.Empty;
+		IdRRef = Guid.Empty;
+		DwhId = 0;
+		Xml = string.Empty;
+	}
 
     public override string ToString() =>
         $"{nameof(IdentityUid)}: {IdentityUid}. " +

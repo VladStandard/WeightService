@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Hosts".
 /// </summary>
 [Serializable]
-public class HostEntity : BaseEntity
+public class HostEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,11 +15,11 @@ public class HostEntity : BaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual DateTime AccessDt { get; set; } = DateTime.MinValue;
-	[XmlElement] public virtual string Name { get; set; }= string.Empty;
-	[XmlElement] public virtual string HostName { get; set; }= string.Empty;
-	[XmlElement] public virtual string Ip { get; set; }= string.Empty;
-	[XmlElement] public virtual MacAddressEntity MacAddress { get; set; } = new();
+	[XmlElement] public virtual DateTime AccessDt { get; set; }
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string HostName { get; set; }
+	[XmlElement] public virtual string Ip { get; set; }
+	[XmlElement] public virtual MacAddressEntity MacAddress { get; set; }
 
 	[XmlElement] public virtual string MacAddressValue
 	{
@@ -30,22 +30,34 @@ public class HostEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public HostEntity() : this(0)
-    {
-        //
-    }
+	public HostEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public HostEntity(long id) : base(id)
-	{
-		//
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public HostEntity(long identityId, bool isSetupDates) : base(0, isSetupDates)
+    {
+		Init();
 	}
 
     #endregion
 
-    #region Public and private methods - override
+    #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+		AccessDt = DateTime.MinValue;
+        Name = string.Empty;
+        HostName = string.Empty;
+        Ip = string.Empty;
+		MacAddress = new();
+	}
 
     public override string ToString()
     {

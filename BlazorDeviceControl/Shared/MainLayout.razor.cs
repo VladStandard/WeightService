@@ -13,7 +13,6 @@ public partial class MainLayout
     #region Public and private fields, properties, constructor
 
     [Inject] public HotKeys? HotKeysItem { get; private set; }
-    [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
 
     #endregion
 
@@ -47,11 +46,9 @@ public partial class MainLayout
             () =>
             {
 	            AppSettings.SetupMemory();
-	            //await AppSettings.Memory.OpenAsync(GuiRefreshAsync).ConfigureAwait(false);
 	            AppSettings.Memory.OpenAsync().ConfigureAwait(false);
             }
 		});
-
         //// Don't change it, because GuiRefreshAsync can get exception!
         //RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
         //    new Task(async () =>

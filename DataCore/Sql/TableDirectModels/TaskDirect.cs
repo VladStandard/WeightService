@@ -28,7 +28,7 @@ public class TaskDirect : BaseSerializeEntity, ISerializable
     public TaskDirect(Guid uid, long scaleId, Guid taskTypeUid, string taskType, bool enabled) : this()
     {
         Uid = uid;
-        Scale = new(scaleId);
+        Scale = new(scaleId, false);
         TaskType = new(taskTypeUid, taskType);
         Enabled = enabled;
         //TaskTypeUid = GetTaskTypeUid(taskName);

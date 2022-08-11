@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class InformationSystemEntity : BaseEntity
+[Serializable]
+public class InformationSystemEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -13,27 +14,37 @@ public class InformationSystemEntity : BaseEntity
     public virtual string ConnectString3 { get; set; }
     public virtual int StatusId { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public InformationSystemEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public InformationSystemEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public InformationSystemEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public InformationSystemEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
+	    Init();
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
         Name = string.Empty;
         ConnectString1 = string.Empty;
         ConnectString2 = string.Empty;
         ConnectString3 = string.Empty;
         StatusId = 0;
     }
-
-    #endregion
-
-    #region Public and private methods
 
     public override string ToString() =>
         base.ToString() +

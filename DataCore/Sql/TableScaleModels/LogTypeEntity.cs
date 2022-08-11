@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "LOG_TYPES".
 /// </summary>
 [Serializable]
-public class LogTypeEntity : BaseEntity
+public class LogTypeEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,28 +15,37 @@ public class LogTypeEntity : BaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-	[XmlElement] public virtual byte Number { get; set; } = 0x00;
-	[XmlElement] public virtual string Icon { get; set; } = string.Empty;
+	[XmlElement] public virtual byte Number { get; set; }
+	[XmlElement] public virtual string Icon { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogTypeEntity() : this(Guid.Empty)
-    {
-        //
-    }
+    public LogTypeEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogTypeEntity(Guid uid) : base(uid)
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public LogTypeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        //
-    }
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        Number = 0x00;
+        Icon = string.Empty;
+    }
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +

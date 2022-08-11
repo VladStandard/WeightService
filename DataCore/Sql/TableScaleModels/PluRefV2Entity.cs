@@ -2,13 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using static DataCore.Sql.SqlQueries.DbScales.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "PLU_REF_V2".
 /// </summary>
 [Serializable]
-public class PluRefV2Entity : BaseEntity, ISerializable
+public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -16,24 +18,26 @@ public class PluRefV2Entity : BaseEntity, ISerializable
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-    [XmlElement] public virtual PluV2Entity Plu { get; set; } = new();
-    [XmlElement] public virtual ScaleEntity Scale { get; set; } = new();
+    [XmlElement] public virtual PluV2Entity Plu { get; set; }
+    [XmlElement] public virtual ScaleEntity Scale { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluRefV2Entity() : this(0)
-    {
-        //
-    }
+	public PluRefV2Entity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PluRefV2Entity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public PluRefV2Entity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-		//
-    }
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -49,6 +53,13 @@ public class PluRefV2Entity : BaseEntity, ISerializable
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        Plu = new();
+        Scale = new();
+	}
 
     public override string ToString()
     {

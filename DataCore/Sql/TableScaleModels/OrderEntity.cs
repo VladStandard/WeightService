@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Orders".
 /// </summary>
 [Serializable]
-public class OrderEntity : BaseEntity
+public class OrderEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -24,21 +24,31 @@ public class OrderEntity : BaseEntity
 	[XmlElement] public virtual ScaleEntity Scales { get; set; }
 	[XmlElement] public virtual PluEntity Plu { get; set; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
-	[XmlElement] public virtual TemplateEntity Templates { get; set; }
+	[XmlElement] public virtual TemplateEntity Template { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderEntity() : this(0)
-    {
-        //
-    }
+    public OrderEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public OrderEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
+
+    #endregion
+
+    public new virtual void Init()
     {
+	    base.Init();
         OrderTypes = new();
         ProductDate = DateTime.MinValue;
         PlaneBoxCount = default;
@@ -48,10 +58,8 @@ public class OrderEntity : BaseEntity
         Scales = new();
         Plu = new();
         IdRRef = Guid.Empty;
-        Templates = new();
+        Template = new();
     }
-
-    #endregion
 
     #region Public and private methods
 
@@ -60,7 +68,7 @@ public class OrderEntity : BaseEntity
         string strOrderTypes = OrderTypes != null ? OrderTypes.IdentityId.ToString() : "null";
         string strScales = Scales != null ? Scales.IdentityId.ToString() : "null";
         string strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
-        string strTemplates = Templates != null ? Templates.IdentityId.ToString() : "null";
+        string strTemplates = Template != null ? Template.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
 			$"{nameof(IsMarked)}: {IsMarked}. " +
@@ -73,7 +81,7 @@ public class OrderEntity : BaseEntity
 			$"{nameof(Scales)}: {strScales}. " +
 			$"{nameof(Plu)}: {strPlu}." +
 			$"{nameof(IdRRef)}: {IdRRef}." +
-			$"{nameof(Templates)}: {strTemplates}.";
+			$"{nameof(Template)}: {strTemplates}.";
     }
 
     public virtual bool Equals(OrderEntity item)
@@ -86,7 +94,7 @@ public class OrderEntity : BaseEntity
             return false;
         if (Plu != null && item.Plu != null && !Plu.Equals(item.Plu))
             return false;
-        if (Templates != null && item.Templates != null && !Templates.Equals(item.Templates))
+        if (Template != null && item.Template != null && !Template.Equals(item.Template))
             return false;
         return base.Equals(item) &&
                Equals(ProductDate, item.ProductDate) &&
@@ -120,7 +128,7 @@ public class OrderEntity : BaseEntity
             return false;
         if (Scales != null && !Scales.EqualsDefault())
             return false;
-        if (Templates != null && !Templates.EqualsDefault())
+        if (Template != null && !Template.EqualsDefault())
             return false;
         return base.EqualsDefault() &&
                Equals(ProductDate, DateTime.MinValue) &&
@@ -143,7 +151,7 @@ public class OrderEntity : BaseEntity
         item.Scales = Scales.CloneCast();
         item.Plu = Plu.CloneCast();
         item.IdRRef = IdRRef;
-        item.Templates = Templates.CloneCast();
+        item.Template = Template.CloneCast();
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }

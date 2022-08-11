@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Labels".
 /// </summary>
 [Serializable]
-public class LabelEntity : BaseEntity
+public class LabelEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,8 +15,8 @@ public class LabelEntity : BaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-    [XmlElement] public virtual WeithingFactEntity WeithingFact { get; set; } = new();
-    [XmlElement(IsNullable = true)] public virtual byte[]? Label { get; set; } = Array.Empty<byte>();
+    [XmlElement] public virtual WeithingFactEntity WeithingFact { get; set; }
+    [XmlElement(IsNullable = true)] public virtual byte[]? Label { get; set; }
 	[XmlElement] public virtual string LabelString
     {
         get => Label == null || Label.Length == 0 ? string.Empty : Encoding.Default.GetString(Label);
@@ -27,7 +27,7 @@ public class LabelEntity : BaseEntity
         get => DataUtils.GetBytesLength(Label);
         set => _ = value;
     }
-	[XmlElement] public virtual string Zpl { get; set; } = string.Empty;
+	[XmlElement] public virtual string Zpl { get; set; }
 	[XmlElement] public virtual string ZplInfo
     {
         get => DataUtils.GetStringLength(Zpl);
@@ -37,22 +37,32 @@ public class LabelEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LabelEntity() : this(0)
-    {
-        //
-    }
+    public LabelEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LabelEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public LabelEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-        // 
-    }
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+		WeithingFact = new();
+		Label = Array.Empty<byte>();
+		Zpl = string.Empty;
+	}
 
     public override string ToString()
     {

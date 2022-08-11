@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.DataModels;
 
-public class LabelQuickEntity : BaseEntity
+[Serializable]
+public class LabelQuickEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -38,17 +39,31 @@ public class LabelQuickEntity : BaseEntity
     public virtual long TemplateId { get; set; }
     public virtual string TemplateName { get; set; }
 
-    #endregion
+	#endregion
 
-    #region Constructor and destructor
+	#region Constructor and destructor
 
-    public LabelQuickEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public LabelQuickEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public LabelQuickEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public LabelQuickEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
+	    Init();
+    }
+
+    public new virtual void Init()
+    {
+	    base.Init();
         ScaleId = 0;
         ScaleDescription = string.Empty;
         PluId = 0;

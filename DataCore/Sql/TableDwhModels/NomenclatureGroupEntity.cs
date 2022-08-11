@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class NomenclatureGroupEntity : BaseEntity
+[Serializable]
+public class NomenclatureGroupEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -12,26 +13,36 @@ public class NomenclatureGroupEntity : BaseEntity
     public virtual InformationSystemEntity InformationSystem { get; set; }
     public virtual byte[] CodeInIs { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public NomenclatureGroupEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public NomenclatureGroupEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public NomenclatureGroupEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public NomenclatureGroupEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-        Name = string.Empty;
-        StatusId = 0;
-        InformationSystem = new();
-        CodeInIs = new byte[0];
+	    Init();
     }
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        Name = string.Empty;
+        StatusId = 0;
+        InformationSystem = new();
+        CodeInIs = new byte[0];
+    }
 
     public override string ToString()
     {

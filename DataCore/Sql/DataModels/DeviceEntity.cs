@@ -3,22 +3,32 @@
 
 namespace DataCore.Sql.DataModels;
 
-public class DeviceEntity : BaseEntity
+[Serializable]
+public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
     public virtual ScaleEntity Scales { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public DeviceEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public DeviceEntity() : base(0, false)
     {
-        //
-    }
+		Init();
+	}
 
-    public DeviceEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public DeviceEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
+
+    public void Init()
     {
         Scales = new();
     }

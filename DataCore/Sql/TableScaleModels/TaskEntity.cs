@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TASKS".
 /// </summary>
 [Serializable]
-public class TaskEntity : BaseEntity
+public class TaskEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,24 +22,32 @@ public class TaskEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskEntity() : this(Guid.Empty)
-    {
-        //
-    }
+    public TaskEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskEntity(Guid uid) : base(uid)
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public TaskEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        TaskType = new();
-        Scale = new();
-        Enabled = false;
+	    Init();
     }
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+		base.Init();
+        TaskType = new();
+        Scale = new();
+        Enabled = false;
+    }
 
     public override string ToString()
     {

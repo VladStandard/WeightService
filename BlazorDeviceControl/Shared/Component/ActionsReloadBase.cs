@@ -11,18 +11,7 @@ public class ActionsReloadBase : BlazorCore.Models.RazorBase
     #region Public and private fields, properties, constructor
 
     [Parameter] public string Title { get; set; } = string.Empty;
-    [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
-    protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {(ParentRazor?.Items == null ? 0 : ParentRazor.Items.Count):### ### ###}";
-
-	#endregion
-
-	#region Public and private methods
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		RunActions(new());
-	}
+    protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {ParentRazor?.Items?.Count ?? 0:### ### ###}";
 
 	#endregion
 }

@@ -3,27 +3,36 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class StatusEntity : BaseEntity
+[Serializable]
+public class StatusEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
     public virtual string Name { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public StatusEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public StatusEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public StatusEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public StatusEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
+	    Init();
+    }
+
+    #endregion
+
+    public new virtual void Init()
+    {
+	    base.Init();
         Name = string.Empty;
     }
-
-    #endregion
 
     #region Public and private methods
 

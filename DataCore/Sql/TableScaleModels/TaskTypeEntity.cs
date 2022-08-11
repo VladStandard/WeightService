@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TASKS_TYPES".
 /// </summary>
 [Serializable]
-public class TaskTypeEntity : BaseEntity
+public class TaskTypeEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -20,20 +20,23 @@ public class TaskTypeEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskTypeEntity() : this(Guid.Empty)
-    {
-        //
-    }
+    public TaskTypeEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-    public TaskTypeEntity(Guid uid) : base(uid)
-    {
-        Name = string.Empty;
-    }
+    public TaskTypeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	{
+		Init();
+	}
 
     #endregion
+
+    public new virtual void Init()
+    {
+		base.Init();
+        Name = string.Empty;
+    }
 
     #region Public and private methods
 

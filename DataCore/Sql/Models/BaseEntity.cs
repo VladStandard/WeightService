@@ -21,10 +21,10 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual long IdentityId { get; set; } = 0;
-	[XmlElement] public virtual Guid IdentityUid { get; set; } = Guid.Empty;
-	[XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
-	[XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
+	[XmlElement] public virtual long IdentityId { get; set; }
+	[XmlElement] public virtual Guid IdentityUid { get; set; }
+	[XmlElement] public virtual DateTime CreateDt { get; set; }
+	[XmlElement] public virtual DateTime ChangeDt { get; set; }
 	[XmlElement] public virtual bool IsMarked { get; set; }
 	[XmlIgnore] public virtual string IdentityUidStr
     {
@@ -36,14 +36,28 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 	/// Constructor.
 	/// </summary>
 	private BaseEntity()
-    {
-        //
+	{
+		Init();
     }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BaseEntity(long identityId) : this()
+	/// <param name="isSetupDates"></param>
+	private BaseEntity(bool isSetupDates) : this()
+	{
+		if (isSetupDates)
+	    {
+		    ChangeDt = CreateDt = DateTime.Now;
+	    }
+    }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public BaseEntity(long identityId, bool isSetupDates) : this(isSetupDates)
     {
         IdentityId = identityId;
     }
@@ -51,7 +65,9 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BaseEntity(Guid identityUid) : this()
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public BaseEntity(Guid identityUid, bool isSetupDates) : this(isSetupDates)
     {
         IdentityUid = identityUid;
     }
@@ -69,9 +85,17 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         IsMarked = info.GetBoolean(nameof(IsMarked));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
+
+	protected virtual void Init()
+	{
+	    IdentityId = 0;
+	    IdentityUid = Guid.Empty;
+        ChangeDt = CreateDt = DateTime.MinValue;
+        IsMarked = false;
+    }
 
     public override string ToString()
     {

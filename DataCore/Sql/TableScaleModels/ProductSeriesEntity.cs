@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ProductSeries".
 /// </summary>
 [Serializable]
-public class ProductSeriesEntity : BaseEntity
+public class ProductSeriesEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,24 +22,32 @@ public class ProductSeriesEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ProductSeriesEntity() : this(0)
+    public ProductSeriesEntity() : base(0, false)
     {
-        //
-    }
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ProductSeriesEntity(long id) : base(id)
-    {
-        Scale = new();
-        IsClose = false;
-        Sscc = string.Empty;
-    }
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public ProductSeriesEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+        base.Init();
+        Scale = new();
+        IsClose = false;
+        Sscc = string.Empty;
+    }
 
     public override string ToString()
     {

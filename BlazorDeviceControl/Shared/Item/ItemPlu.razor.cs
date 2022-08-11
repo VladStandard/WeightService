@@ -69,7 +69,7 @@ public partial class ItemPlu
                     ?.ToList();
                 if (templates is not null)
                 {
-                    Templates.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+                    Templates.Add(new(0, false) { Title = LocaleCore.Table.FieldNull });
                     Templates.AddRange(templates);
                 }
 
@@ -80,7 +80,7 @@ public partial class ItemPlu
                     ?.ToList();
                 if (nomenclatures is not null)
                 {
-                    Nomenclatures.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+                    Nomenclatures.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
                     Nomenclatures.AddRange(nomenclatures);
                 }
 
@@ -91,7 +91,7 @@ public partial class ItemPlu
                     ?.ToList();
                 if (scales is not null)
                 {
-                    ScaleItems.Add(new(0) { Description = LocaleCore.Table.FieldNull });
+                    ScaleItems.Add(new(0, false) { Description = LocaleCore.Table.FieldNull });
                     ScaleItems.AddRange(scales);
                 }
 

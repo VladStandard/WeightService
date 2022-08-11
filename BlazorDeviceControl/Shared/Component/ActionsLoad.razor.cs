@@ -20,13 +20,8 @@ public partial class ActionsLoad
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		RunActions(new()
-		{
-			() =>
-			{
-				//
-			}
-		});
+
+		RunActions(new());
 	}
 
 	#endregion

@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "LOGS".
 /// </summary>
 [Serializable]
-public class LogEntity : BaseEntity
+public class LogEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -18,31 +18,46 @@ public class LogEntity : BaseEntity
 	[XmlElement(IsNullable = true)] public virtual HostEntity? Host { get; set; }
 	[XmlElement(IsNullable = true)] public virtual AppEntity? App { get; set; }
 	[XmlElement(IsNullable = true)] public virtual LogTypeEntity? LogType { get; set; }
-	[XmlElement] public virtual string Version { get; set; } = string.Empty;
-	[XmlElement] public virtual string File { get; set; } = string.Empty;
+	[XmlElement] public virtual string Version { get; set; }
+	[XmlElement] public virtual string File { get; set; }
 	[XmlElement] public virtual int Line { get; set; }
-	[XmlElement] public virtual string Member { get; set; } = string.Empty;
-	[XmlElement] public virtual string Message { get; set; } = string.Empty;
+	[XmlElement] public virtual string Member { get; set; }
+	[XmlElement] public virtual string Message { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogEntity() : this(Guid.Empty)
-    {
-        //
-    }
+    public LogEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogEntity(Guid uid) : base(uid)
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public LogEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        //
-    }
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        Host = null;
+        App = null;
+        LogType = null;
+		Version = string.Empty;
+		File = string.Empty;
+		Line = 0;
+		Member = string.Empty;
+		Message = string.Empty;
+	}
 
     public override string ToString()
     {

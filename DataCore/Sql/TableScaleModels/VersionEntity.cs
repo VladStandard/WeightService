@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "VERSIONS".
 /// </summary>
 [Serializable]
-public class VersionEntity : BaseEntity, ISerializable
+public class VersionEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -22,20 +22,20 @@ public class VersionEntity : BaseEntity, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public VersionEntity() : this(Guid.Empty)
-    {
-        //
-    }
+    public VersionEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public VersionEntity(Guid uid) : base(uid)
-    {
-        ReleaseDt = DateTime.MinValue;
-        Version = 0;
-        Description = string.Empty;
-    }
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public VersionEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -49,9 +49,17 @@ public class VersionEntity : BaseEntity, ISerializable
         Description = info.GetString(nameof(Description));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
+
+	public new virtual void Init()
+	{
+		base.Init();
+		ReleaseDt = DateTime.MinValue;
+		Version = 0;
+		Description = string.Empty;
+	}
 
     public override string ToString() =>
 	    $"{nameof(IdentityUid)}: {IdentityUid}. " +

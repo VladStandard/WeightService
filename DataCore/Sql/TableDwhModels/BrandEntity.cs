@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class BrandEntity : BaseEntity
+[Serializable]
+public class BrandEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -13,25 +14,35 @@ public class BrandEntity : BaseEntity
     public virtual InformationSystemEntity InformationSystem { get; set; }
     public virtual byte[] CodeInIs { get; set; }
 
-    #endregion
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public BrandEntity() : base(0, false)
+	{
+		Init();
+	}
 
-    #region Constructor and destructor
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public BrandEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
-    public BrandEntity() : this(0)
-    {
-        //
-    }
+	#endregion
 
-    public BrandEntity(long id) : base(id)
-    {
+	public new virtual void Init()
+	{
+	    base.Init();
         Name = string.Empty;
         Code = string.Empty;
         StatusId = 0;
         InformationSystem = new();
         CodeInIs = new byte[0];
     }
-
-    #endregion
 
     #region Public and private methods
 

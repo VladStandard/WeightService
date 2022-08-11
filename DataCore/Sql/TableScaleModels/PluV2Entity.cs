@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLU_V2".
 /// </summary>
 [Serializable]
-public class PluV2Entity : BaseEntity, ISerializable
+public class PluV2Entity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -17,37 +17,39 @@ public class PluV2Entity : BaseEntity, ISerializable
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
     [XmlElement] public virtual int Number { get; set; }
-    [XmlElement] public virtual string Name { get; set; } = string.Empty;
-	[XmlElement] public virtual string FullName { get; set; } = string.Empty;
-	[XmlElement] public virtual string Description { get; set; } = string.Empty;
+    [XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string FullName { get; set; }
+	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual short ShelfLifeDays { get; set; }
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
-    [XmlElement] public virtual string Gtin { get; set; } = string.Empty;
-    [XmlElement] public virtual string Ean13 { get; set; } = string.Empty;
-    [XmlElement] public virtual string Itf14 { get; set; } = string.Empty;
+    [XmlElement] public virtual string Gtin { get; set; }
+    [XmlElement] public virtual string Ean13 { get; set; }
+    [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual decimal UpperThreshold { get; set; }
     [XmlElement] public virtual decimal NominalWeight { get; set; }
     [XmlElement] public virtual decimal LowerThreshold { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
-    [XmlElement] public virtual TemplateEntity Template { get; set; } = new();
-    [XmlElement] public virtual NomenclatureEntity Nomenclature { get; set; } = new();
+    [XmlElement] public virtual TemplateEntity Template { get; set; }
+    [XmlElement] public virtual NomenclatureEntity Nomenclature { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluV2Entity() : this(0)
-    {
-        //
-    }
+	public PluV2Entity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PluV2Entity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public PluV2Entity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-		//
-    }
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -77,6 +79,27 @@ public class PluV2Entity : BaseEntity, ISerializable
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+	    Number = 0;
+        Name = string.Empty;
+		FullName = string.Empty;
+		Description = string.Empty;
+		ShelfLifeDays = 0;
+		TareWeight = 0;
+		BoxQuantly = 0;
+		Gtin = string.Empty;
+		Ean13 = string.Empty;
+		Itf14 = string.Empty;
+		UpperThreshold = 0;
+		NominalWeight = 0;
+		LowerThreshold = 0;
+		IsCheckWeight = false;
+		Template = new();
+		Nomenclature = new();
+	}
 
     public override string ToString()
     {

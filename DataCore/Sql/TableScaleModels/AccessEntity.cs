@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ACCESS".
 /// </summary>
 [Serializable]
-public class AccessEntity : BaseEntity, ISerializable
+public class AccessEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -18,28 +18,29 @@ public class AccessEntity : BaseEntity, ISerializable
 	/// <summary>
 	/// User name.
 	/// </summary>
-	[XmlElement] public virtual string User { get; set; } = string.Empty;
+	[XmlElement] public virtual string User { get; set; }
 	/// <summary>
 	/// User rights.
 	/// </summary>
-	[XmlElement] public virtual byte Rights { get; set; } = 0x00;
+	[XmlElement] public virtual byte Rights { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AccessEntity() : this(Guid.Empty)
-    {
-        //
-    }
+	public AccessEntity() : base(Guid.Empty, false)
+	{
+		Init();
+	}
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="uid"></param>
-    public AccessEntity(Guid uid) : base(uid)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityUid"></param>
+	/// <param name="isSetupDates"></param>
+	public AccessEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
-        // 
-    }
+		Init();
+	}
 
     /// <summary>
     /// Constructor for serialization.
@@ -55,6 +56,13 @@ public class AccessEntity : BaseEntity, ISerializable
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+        User = string.Empty;
+		Rights = 0x00;
+	}
 
     /// <summary>
     /// To string.

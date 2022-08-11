@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Scales".
 /// </summary>
 [Serializable]
-public class ScaleEntity : BaseEntity
+public class ScaleEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -42,39 +42,20 @@ public class ScaleEntity : BaseEntity
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleEntity() : this(0)
+    public ScaleEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ScaleEntity(long id) : base(id)
-    {
-        TemplateDefault = null;
-        TemplateSeries = null;
-        WorkShop = null;
-        Host = null;
-        PrinterMain = null;
-        PrinterShipping = null;
-        ShippingLength = 0;
-        Description = string.Empty;
-        DeviceIp = string.Empty;
-        DevicePort = 0;
-        DeviceMac = string.Empty;
-        DeviceSendTimeout = default;
-        DeviceReceiveTimeout = default;
-        DeviceComPort = string.Empty;
-        ZebraIp = string.Empty;
-        ZebraPort = default;
-        Number = 0;
-        Counter = 0;
-        ScaleFactor = default;
-        IsShipping = false;
-        IsOrder = false;
-        IsKneading = false;
-    }
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public ScaleEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
     /// <summary>
     /// Constructor.
@@ -86,9 +67,36 @@ public class ScaleEntity : BaseEntity
 		Description = info.GetString(nameof(Description));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods - override
+	#region Public and private methods - override
+
+	public new virtual void Init()
+	{
+		base.Init();
+		TemplateDefault = null;
+		TemplateSeries = null;
+		WorkShop = null;
+		Host = null;
+		PrinterMain = null;
+		PrinterShipping = null;
+		ShippingLength = 0;
+		Description = string.Empty;
+		DeviceIp = string.Empty;
+		DevicePort = 0;
+		DeviceMac = string.Empty;
+		DeviceSendTimeout = default;
+		DeviceReceiveTimeout = default;
+		DeviceComPort = string.Empty;
+		ZebraIp = string.Empty;
+		ZebraPort = default;
+		Number = 0;
+		Counter = 0;
+		ScaleFactor = default;
+		IsShipping = false;
+		IsOrder = false;
+		IsKneading = false;
+	}
 
     public override string ToString()
     {

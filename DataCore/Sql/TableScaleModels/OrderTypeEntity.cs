@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "OrderTypes".
 /// </summary>
 [Serializable]
-public class OrderTypeEntity : BaseEntity
+public class OrderTypeEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -20,22 +20,30 @@ public class OrderTypeEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderTypeEntity() : this(0)
-    {
-        //
-    }
+    public OrderTypeEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderTypeEntity(long id) : base(id)
-    {
-        Description = string.Empty;
-    }
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public OrderTypeEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+        base.Init();
+        Description = string.Empty;
+	}
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +

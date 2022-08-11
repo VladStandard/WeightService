@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.DataModels;
 
-public class WeithingFactSummaryEntity : BaseEntity
+[Serializable]
+public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -13,27 +14,32 @@ public class WeithingFactSummaryEntity : BaseEntity
     public virtual string Host { get; set; }
     public virtual string Printer { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public WeithingFactSummaryEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public WeithingFactSummaryEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public WeithingFactSummaryEntity(long id) : base(id)
+	public WeithingFactSummaryEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
+	    Init();
+    }
+
+    #endregion
+
+    #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
         WeithingDate = DateTime.MinValue;
         Count = 0;
         Scale = string.Empty;
         Host = string.Empty;
         Printer = string.Empty;
     }
-
-    #endregion
-
-    #region Public and private methods
 
     public override string ToString() =>
         base.ToString() +

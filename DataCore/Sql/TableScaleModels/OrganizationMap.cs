@@ -22,6 +22,6 @@ public class OrganizationMap : ClassMap<OrganizationEntity>
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("CategoryID").Length(150).Not.Nullable();
         Map(x => x.Gln).CustomSqlType("INT").Column("GLN").Not.Nullable();
-        Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
+        Map(x => x.Xml).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
     }
 }

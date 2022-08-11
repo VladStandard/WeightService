@@ -41,10 +41,10 @@ public partial class ItemPluV2
 
         RunActions(new()
         {
-            () =>
-            {
-                typeof(ItemPluV2).GetConstructor(Type.EmptyTypes)?.Invoke(new object[] { });
-            },
+            //() =>
+            //{
+            //    typeof(ItemPluV2).GetConstructor(Type.EmptyTypes)?.Invoke(new object[] { });
+            //},
             () =>
             {
                 switch (TableAction)
@@ -67,7 +67,7 @@ public partial class ItemPluV2
                     ?.ToList();
                 if (templates is not null)
                 {
-                    Templates.Add(new(0) { Title = LocaleCore.Table.FieldNull });
+                    Templates.Add(new(0, false) { Title = LocaleCore.Table.FieldNull });
                     Templates.AddRange(templates);
                 }
 
@@ -78,7 +78,7 @@ public partial class ItemPluV2
                     ?.ToList();
                 if (nomenclatures is not null)
                 {
-                    Nomenclatures.Add(new(0) { Name = LocaleCore.Table.FieldNull });
+                    Nomenclatures.Add(new(0, false) { Name = LocaleCore.Table.FieldNull });
                     Nomenclatures.AddRange(nomenclatures);
                 }
 

@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLU".
 /// </summary>
 [Serializable]
-public class PluEntity : BaseEntity, ISerializable
+public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -37,35 +37,20 @@ public class PluEntity : BaseEntity, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PluEntity() : this(0)
-    {
-        //
-    }
+    public PluEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PluEntity(long id) : base(id)
-    {
-        Template = new();
-        Scale = new();
-        Nomenclature = new();
-        GoodsName = string.Empty;
-        GoodsFullName = string.Empty;
-        GoodsDescription = string.Empty;
-        Gtin = string.Empty;
-        Ean13 = string.Empty;
-        Itf14 = string.Empty;
-        GoodsShelfLifeDays = 0;
-        GoodsTareWeight = 0;
-        GoodsBoxQuantly = 0;
-        PluNumber = 0;
-        Active = false;
-        UpperWeightThreshold = 0;
-        NominalWeight = 0;
-        LowerWeightThreshold = 0;
-        IsCheckWeight = false;
-    }
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public PluEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -85,11 +70,34 @@ public class PluEntity : BaseEntity, ISerializable
         Itf14 = info.GetString(nameof(Itf14));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString()
+	public new virtual void Init()
+	{
+		base.Init();
+		Template = new();
+		Scale = new();
+		Nomenclature = new();
+		GoodsName = string.Empty;
+		GoodsFullName = string.Empty;
+		GoodsDescription = string.Empty;
+		Gtin = string.Empty;
+		Ean13 = string.Empty;
+		Itf14 = string.Empty;
+		GoodsShelfLifeDays = 0;
+		GoodsTareWeight = 0;
+		GoodsBoxQuantly = 0;
+		PluNumber = 0;
+		Active = false;
+		UpperWeightThreshold = 0;
+		NominalWeight = 0;
+		LowerWeightThreshold = 0;
+		IsCheckWeight = false;
+	}
+
+	public override string ToString()
     {
         string strTemplates = Template != null ? Template.IdentityId.ToString() : "null";
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";

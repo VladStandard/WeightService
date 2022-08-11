@@ -10,13 +10,7 @@ public partial class ActionsButtons
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
-		RunActions(new()
-		{
-			() =>
-			{
-				//
-			}
-		});
+		RunActions(new());
 	}
 
 	#endregion

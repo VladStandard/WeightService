@@ -35,6 +35,7 @@ public partial class MudPage
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new());
     }
 

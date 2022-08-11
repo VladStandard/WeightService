@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Organization".
 /// </summary>
 [Serializable]
-public class OrganizationEntity : BaseEntity
+public class OrganizationEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -17,36 +17,44 @@ public class OrganizationEntity : BaseEntity
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual int Gln { get; set; }
-	[XmlElement] public virtual string SerializedRepresentationObject { get; set; }
+	[XmlElement] public virtual string Xml { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrganizationEntity() : this(0)
-    {
-        //
-    }
+	public OrganizationEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrganizationEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public OrganizationEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-        Name = string.Empty;
-        Gln = default;
-        SerializedRepresentationObject = string.Empty;
-    }
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+	    base.Init();
+		Name = string.Empty;
+		Gln = 0;
+		Xml = string.Empty;
+	}
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Gln)}: {Gln}. " +
-        $"{nameof(SerializedRepresentationObject)}: {SerializedRepresentationObject.Length}. ";
+        $"{nameof(Xml)}: {Xml.Length}. ";
 
     public virtual bool Equals(OrganizationEntity item)
     {
@@ -55,7 +63,7 @@ public class OrganizationEntity : BaseEntity
         return base.Equals(item) &&
                Equals(Name, item.Name) &&
                Equals(Gln, item.Gln) &&
-               Equals(SerializedRepresentationObject, item.SerializedRepresentationObject);
+               Equals(Xml, item.Xml);
     }
 
     public override bool Equals(object obj)
@@ -78,7 +86,7 @@ public class OrganizationEntity : BaseEntity
         return base.EqualsDefault() &&
                Equals(Name, string.Empty) &&
                Equals(Gln, 0) &&
-               Equals(SerializedRepresentationObject, string.Empty);
+               Equals(Xml, string.Empty);
     }
 
     public new virtual object Clone()
@@ -86,7 +94,7 @@ public class OrganizationEntity : BaseEntity
         OrganizationEntity item = new();
         item.Name = Name;
         item.Gln = Gln;
-        item.SerializedRepresentationObject = SerializedRepresentationObject;
+        item.Xml = Xml;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }

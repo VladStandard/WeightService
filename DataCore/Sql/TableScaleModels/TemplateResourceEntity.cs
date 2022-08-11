@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TemplateResources".
 /// </summary>
 [Serializable]
-public class TemplateResourceEntity : BaseEntity
+public class TemplateResourceEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -25,26 +25,34 @@ public class TemplateResourceEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TemplateResourceEntity() : this(0)
-    {
-        //
-    }
+    public TemplateResourceEntity() : this(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TemplateResourceEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public TemplateResourceEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-        Name = string.Empty;
-        Description = string.Empty;
-        Type = string.Empty;
-        ImageData = new();
-        IdRRef = Guid.Empty;
+	    Init();
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
+
+	public new virtual void Init()
+	{
+		base.Init();
+		Name = string.Empty;
+		Description = string.Empty;
+		Type = string.Empty;
+		ImageData = new();
+		IdRRef = Guid.Empty;
+	}
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +

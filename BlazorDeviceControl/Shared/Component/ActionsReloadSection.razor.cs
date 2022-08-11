@@ -7,11 +7,12 @@ public partial class ActionsReloadSection : ActionsReloadBase
 {
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-		RunActions(new());
-	}
+	//protected override void OnParametersSet()
+	//{
+	//	base.OnParametersSet();
+
+	//	RunActions(new());
+	//}
 
 	#endregion
 }

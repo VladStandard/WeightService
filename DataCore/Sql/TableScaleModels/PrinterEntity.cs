@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-public class PrinterEntity : BaseEntity
+public class PrinterEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -34,16 +34,26 @@ public class PrinterEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PrinterEntity() : this(0)
+    public PrinterEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PrinterEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public PrinterEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
+
+    #endregion
+
+    public new virtual void Init()
     {
+	    base.Init();
         Name = string.Empty;
         Ip = string.Empty;
         Port = 0;
@@ -55,8 +65,6 @@ public class PrinterEntity : BaseEntity
         HttpStatusCode = HttpStatusCode.BadRequest;
         HttpStatusException = null;
     }
-
-    #endregion
 
     #region Public and private methods
 

@@ -1,12 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using FluentNHibernate.Utils;
+
 namespace DataCore.Sql.DataModels;
 
 /// <summary>
 /// XML-класс продукта.
 /// </summary>
-public class XmlProductEntity
+[Serializable]
+public class XmlProductEntity : IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -48,27 +51,32 @@ public class XmlProductEntity
 
     public XmlProductEntity()
     {
-        Category = string.Empty;
-        Code = string.Empty;
-        Description = string.Empty;
-        Comment = string.Empty;
-        Sku = string.Empty;
-        DescriptionOptional = string.Empty;
-        GuidMercury = Guid.Empty;
-        Temperature = string.Empty;
-        ProductShelfLife = string.Empty;
-        Brand = string.Empty;
-        Units = new();
-        Barcodes = new();
-        Boxes = new();
-        Packs = new();
-        NameFull = string.Empty;
-        AdditionalDescriptionOfNomenclature = string.Empty;
+	    Init();
     }
 
     #endregion
 
     #region Public and private methods
+
+    public void Init()
+    {
+	    Category = string.Empty;
+	    Code = string.Empty;
+	    Description = string.Empty;
+	    Comment = string.Empty;
+	    Sku = string.Empty;
+	    DescriptionOptional = string.Empty;
+	    GuidMercury = Guid.Empty;
+	    Temperature = string.Empty;
+	    ProductShelfLife = string.Empty;
+	    Brand = string.Empty;
+	    Units = new();
+	    Barcodes = new();
+	    Boxes = new();
+	    Packs = new();
+	    NameFull = string.Empty;
+	    AdditionalDescriptionOfNomenclature = string.Empty;
+	}
 
     public override string ToString()
     {

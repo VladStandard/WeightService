@@ -53,6 +53,7 @@ public partial class NetBarcodePage
     protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
+
 		RunActions(new());
 	}
 

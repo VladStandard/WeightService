@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "WorkShop".
 /// </summary>
 [Serializable]
-public class WorkShopEntity : BaseEntity
+public class WorkShopEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,26 +22,34 @@ public class WorkShopEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public WorkShopEntity() : this(0)
-    {
-        //
-    }
+    public WorkShopEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public WorkShopEntity(long id) : base(id)
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public WorkShopEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-        ProductionFacility = new();
-        Name = string.Empty;
-        IdRRef = Guid.Empty;
+	    Init();
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString()
+    public new virtual void Init()
+    {
+		base.Init();
+	    ProductionFacility = new();
+	    Name = string.Empty;
+	    IdRRef = Guid.Empty;
+    }
+
+	public override string ToString()
     {
         string strProductionFacility = ProductionFacility != null ? ProductionFacility.IdentityId.ToString() : "null";
         return

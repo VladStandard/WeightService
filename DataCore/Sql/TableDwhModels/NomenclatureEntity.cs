@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class NomenclatureEntity : BaseEntity
+[Serializable]
+public class NomenclatureEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -43,57 +44,67 @@ public class NomenclatureEntity : BaseEntity
     public virtual short? NormalizationStatus { get; set; }
     public virtual int? MasterId { get; set; }
 
-    #endregion
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public NomenclatureEntity() : base(0, false)
+	{
+		Init();
+	}
 
-    #region Constructor and destructor
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public NomenclatureEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
-    public NomenclatureEntity() : this(0)
-    {
-        //
-    }
+	#endregion
 
-    public NomenclatureEntity(long id) : base(id)
-    {
-        Code = string.Empty;
-        Name = string.Empty;
-        Parents = string.Empty;
-        Article = string.Empty;
-        Weighted = false;
-        GuidMercury = string.Empty;
-        KeepTrackOfCharacteristics = false;
-        NameFull = string.Empty;
-        Comment = string.Empty;
-        IsService = false;
-        IsProduct = false;
-        AdditionalDescriptionOfNomenclature = string.Empty;
-        NomenclatureGroupCostBytes = new byte[0];
-        NomenclatureGroupCost = new();
-        NomenclatureGroupBytes = new byte[0];
-        NomenclatureGroup = new();
-        ArticleCost = new byte[0];
-        BrandBytes = new byte[0];
-        Brand = new();
-        NomenclatureTypeBytes = new byte[0];
-        NomenclatureType = new();
-        VatRate = string.Empty;
-        Unit = string.Empty;
-        Weight = 0;
-        BoxTypeId = new byte[0];
-        BoxTypeName = string.Empty;
-        PackTypeId = new byte[0];
-        PackTypeName = string.Empty;
-        SerializedRepresentationObject = string.Empty;
-        Status = new();
-        InformationSystem = new();
-        CodeInIs = new byte[0];
-        RelevanceStatus = null;
-        NormalizationStatus = null;
-        MasterId = null;
-    }
+	#region Public and private methods
 
-    #endregion
-
-    #region Public and private methods
+	public new virtual void Init()
+	{
+		base.Init();
+		Code = string.Empty;
+		Name = string.Empty;
+		Parents = string.Empty;
+		Article = string.Empty;
+		Weighted = false;
+		GuidMercury = string.Empty;
+		KeepTrackOfCharacteristics = false;
+		NameFull = string.Empty;
+		Comment = string.Empty;
+		IsService = false;
+		IsProduct = false;
+		AdditionalDescriptionOfNomenclature = string.Empty;
+		NomenclatureGroupCostBytes = new byte[0];
+		NomenclatureGroupCost = new();
+		NomenclatureGroupBytes = new byte[0];
+		NomenclatureGroup = new();
+		ArticleCost = new byte[0];
+		BrandBytes = new byte[0];
+		Brand = new();
+		NomenclatureTypeBytes = new byte[0];
+		NomenclatureType = new();
+		VatRate = string.Empty;
+		Unit = string.Empty;
+		Weight = 0;
+		BoxTypeId = new byte[0];
+		BoxTypeName = string.Empty;
+		PackTypeId = new byte[0];
+		PackTypeName = string.Empty;
+		SerializedRepresentationObject = string.Empty;
+		Status = new();
+		InformationSystem = new();
+		CodeInIs = new byte[0];
+		RelevanceStatus = null;
+		NormalizationStatus = null;
+		MasterId = null;
+	}
 
     public override string ToString()
     {

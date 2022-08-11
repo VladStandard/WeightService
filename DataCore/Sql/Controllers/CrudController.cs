@@ -298,7 +298,7 @@ public class CrudController
                 //order.Plu = order.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(order.Plu.IdentityId);
                 order.Plu = GetEntity<PluEntity>(
                     new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
-                order.Templates = GetEntityById<TemplateEntity>(order.Templates.IdentityId);
+                order.Template = GetEntityById<TemplateEntity>(order.Template.IdentityId);
                 break;
             case PluEntity plu:
                 plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);

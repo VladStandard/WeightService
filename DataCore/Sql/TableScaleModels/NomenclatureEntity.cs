@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Nomenclature".
 /// </summary>
 [Serializable]
-public class NomenclatureEntity : BaseEntity
+public class NomenclatureEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,9 +15,9 @@ public class NomenclatureEntity : BaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual string Name { get; set; } = string.Empty;
-	[XmlElement] public virtual string Code { get; set; } = string.Empty;
-	[XmlElement(IsNullable = true)] public virtual string? Xml { get; set; } = string.Empty;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string Code { get; set; }
+	[XmlElement(IsNullable = true)] public virtual string? Xml { get; set; }
 	/// <summary>
 	/// Is weighted or pcs.
 	/// </summary>
@@ -26,22 +26,31 @@ public class NomenclatureEntity : BaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public NomenclatureEntity() : this(0)
-    {
-        //
-    }
+    public NomenclatureEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public NomenclatureEntity(long id) : base(id)
+	/// <param name="isSetupDates"></param>
+	public NomenclatureEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
-		//
-    }
+		Init();
+	}
 
     #endregion
 
     #region Public and private methods
+
+    public new virtual void Init()
+    {
+        base.Init();
+        Name = string.Empty;
+		Code = string.Empty;
+		Xml = string.Empty;
+	}
 
     public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +

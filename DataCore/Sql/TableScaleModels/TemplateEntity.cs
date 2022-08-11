@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Templates".
 /// </summary>
 [Serializable]
-public class TemplateEntity : BaseEntity, ISerializable
+public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -24,24 +24,22 @@ public class TemplateEntity : BaseEntity, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TemplateEntity() : this(0)
-    {
-        //
-    }
+    public TemplateEntity() : base(0, false)
+	{
+		Init();
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TemplateEntity(long id) : base(id)
-    {
-        CategoryId = string.Empty;
-        IdRRef = Guid.Empty;
-        Title = string.Empty;
-        ImageData = new();
-        ImageDataValue = new byte[0];
-    }
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public TemplateEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	{
+		Init();
+	}
 
-	/// <summary>
+/// <summary>
 	/// Constructor for serialization.
 	/// </summary>
 	/// <param name="info"></param>
@@ -54,11 +52,21 @@ public class TemplateEntity : BaseEntity, ISerializable
         ImageData = (ImageDataEntity)info.GetValue(nameof(ImageData), typeof(ImageDataEntity));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString() =>
+	public new virtual void Init()
+	{
+		base.Init();
+		CategoryId = string.Empty;
+		IdRRef = Guid.Empty;
+		Title = string.Empty;
+		ImageData = new();
+		ImageDataValue = new byte[0];
+	}
+
+	public override string ToString() =>
 	    $"{nameof(IdentityId)}: {IdentityId}. " +
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(CategoryId)}: {CategoryId}. " +

@@ -3,7 +3,8 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class NomenclatureLightEntity : BaseEntity
+[Serializable]
+public class NomenclatureLightEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -20,32 +21,42 @@ public class NomenclatureLightEntity : BaseEntity
     public virtual short? NormalizationStatus { get; set; }
     public virtual long? MasterId { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public NomenclatureLightEntity() : this(0)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public NomenclatureLightEntity() : base(0, false)
     {
-        //
+	    Init();
     }
 
-    public NomenclatureLightEntity(long id) : base(id)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityId"></param>
+	/// <param name="isSetupDates"></param>
+	public NomenclatureLightEntity(long identityId, bool isSetupDates) : base(identityId, false)
     {
-        Code = string.Empty;
-        Name = string.Empty;
-        Parents = string.Empty;
-        NameFull = string.Empty;
-        IsService = false;
-        IsProduct = false;
-        InformationSystem = new();
-        RelevanceStatus = null;
-        NormalizationStatus = null;
-        MasterId = null;
+	    Init();
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
+
+	public new virtual void Init()
+	{
+		base.Init();
+		Code = string.Empty;
+		Name = string.Empty;
+		Parents = string.Empty;
+		NameFull = string.Empty;
+		IsService = false;
+		IsProduct = false;
+		InformationSystem = new();
+		RelevanceStatus = null;
+		NormalizationStatus = null;
+		MasterId = null;
+	}
 
     public override string ToString()
     {

@@ -27,6 +27,7 @@ public partial class RadzenPage
 	protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new());
     }
 
