@@ -22,21 +22,21 @@ else
             <RadzenGridColumn 
                 TItem="VersionEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Disabled=false ReadOnly=true Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Version Type="string" Width="10%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Disabled=false ReadOnly=true Text=@itemCast.Version.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Description Type="string" Width="70%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Disabled=false ReadOnly=true Text=@itemCast.Description />
                 </Template>

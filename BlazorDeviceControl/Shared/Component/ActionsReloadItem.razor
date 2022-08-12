@@ -6,7 +6,7 @@
 @using static DataCore.ProjectsEnums
 @using static DataCore.ShareEnums
 
-<MudElement HtmlTag="h3" Class="ma-0">
+<MudPaper Width="100%" Height="32px;" Style="margin-bottom: 30px;" Square=false >
     @if (!string.IsNullOrEmpty(Title))
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 18px; " Text=@Title />
@@ -14,20 +14,17 @@
     
     @if (ParentRazor == null)
     {
-        <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+        <ActionsLoad ParentRazor=@this DataLoadItem=ActionLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <RadzenButton 
-            class="RadzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
-                  Disabled=@(!AppSettings.DataAccess.IsConnected) Click=@(_ => ParentRazor.OnChange())
-            MouseEnter=@(args => TooltipService.Open(args, LocaleCore.Table.TableRead))
-            MouseLeave=@(_ => TooltipService.Close())
-        />
+        <RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
+            Style="margin-top: 0px; margin-left: 1%; margin-right: 1%; width: 60px; height: 26px; "
+	        Disabled=@(!AppSettings.DataAccess.IsConnected) Click=@(_ => ParentRazor.OnChange()) />
 	    @if (ParentRazor.Item != null)
 	    {
 	        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
 	            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
 	    }
     }
-</MudElement>
+</MudPaper>

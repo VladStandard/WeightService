@@ -35,6 +35,8 @@ namespace BlazorCore.Utils
             }
 
             public static string MudSelect => "MudSelect";
+            public static string RadzenButtonLong => "RadzenButtonLong";
+            public static string MudSelectEdge => "MudSelectEdge";
             public static string MudSelectFlexible => "MudSelectFlexible";
             public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
             public static string RadzenPanelMenu(AppSettingsHelper appSettings)

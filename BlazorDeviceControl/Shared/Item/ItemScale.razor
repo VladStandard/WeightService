@@ -12,11 +12,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) 
+    <ActionsReloadItem ParentRazor=@this 
         Title=@LocaleData.DeviceControl.Items.Scale />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -64,15 +64,18 @@ else
                         Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.IdentityId)
                         Text=@LocaleCore.Table.Host />
                 </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.Host.IdentityId >
-                        @foreach (HostEntity item in HostItems)
-                        {
-                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
-                        }
-                    </MudSelect>
-				</td>
+	            <td>
+                    @if (ItemCast.Host != null)
+                    {
+			            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+	                        @bind-Value=@ItemCast.Host.IdentityId>
+				            @foreach (HostEntity item in HostItems)
+				            {
+					            <MudSelectItem Value=@item.IdentityId>@item.Name</MudSelectItem>
+				            }
+			            </MudSelect>
+                    }
+	            </td>
                 <td>@LocaleCore.Table.DeviceReceiveTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" 
@@ -85,15 +88,18 @@ else
                         Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterMain, ItemCast.PrinterMain?.IdentityId)
                         Text=@LocaleCore.Print.NameMain />
                 </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.PrinterMain.IdentityId >
-                        @foreach (PrinterEntity item in PrinterItems)
-                        {
-                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
-                        }
-                    </MudSelect>
-				</td>
+	            <td>
+                    @if (ItemCast.PrinterMain != null)
+                    {
+			            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+	                        @bind-Value=@ItemCast.PrinterMain.IdentityId>
+				            @foreach (PrinterEntity item in PrinterItems)
+				            {
+					            <MudSelectItem Value=@item.IdentityId>@item.Name</MudSelectItem>
+				            }
+			            </MudSelect>
+                    }
+	            </td>
                 <td>@LocaleCore.Table.DeviceSendTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
@@ -106,15 +112,18 @@ else
                         Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.IdentityId)
                         Text=@LocaleCore.Print.NameShipping />
                 </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.PrinterShipping.IdentityId >
-                        @foreach (PrinterEntity item in ShippingPrinterItems)
-                        {
-                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
-                        }
-                    </MudSelect>
-				</td>
+	            <td>
+                    @if (ItemCast.PrinterShipping != null)
+                    {
+			            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+	                        @bind-Value=@ItemCast.PrinterShipping.IdentityId>
+				            @foreach (PrinterEntity item in ShippingPrinterItems)
+				            {
+					            <MudSelectItem Value=@item.IdentityId>@item.Name</MudSelectItem>
+				            }
+			            </MudSelect>
+                    }
+	            </td>
                 <td>@LocaleCore.Table.IsShipping</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsShipping />
@@ -155,29 +164,35 @@ else
                         Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.IdentityId)
                         Text=@LocaleCore.Table.TemplateDefault />
                 </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.TemplateDefault.IdentityId >
-                        @foreach (TemplateEntity item in TemplatesDefaultItems)
-                        {
-                            <MudSelectItem Value=@item.IdentityId >@item.Title</MudSelectItem>
-                        }
-                    </MudSelect>
-				</td>
+	            <td>
+                    @if (ItemCast.TemplateDefault != null)
+                    {
+			            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+	                        @bind-Value=@ItemCast.TemplateDefault.IdentityId>
+				            @foreach (TemplateEntity item in TemplatesDefaultItems)
+				            {
+					            <MudSelectItem Value=@item.IdentityId>@item.Title</MudSelectItem>
+				            }
+			            </MudSelect>
+                    }
+	            </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.IdentityId)
                         Text=@LocaleCore.Table.TemplateSeries />
                 </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.TemplateSeries.IdentityId >
-                        @foreach (TemplateEntity item in TemplatesSeriesItems)
-                        {
-                            <MudSelectItem Value=@item.IdentityId >@item.Title</MudSelectItem>
-                        }
-                    </MudSelect>
-				</td>
+	            <td>
+                    @if (ItemCast.TemplateSeries != null)
+                    {
+			            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+	                        @bind-Value=@ItemCast.TemplateSeries.IdentityId>
+				            @foreach (TemplateEntity item in TemplatesSeriesItems)
+				            {
+					            <MudSelectItem Value=@item.IdentityId>@item.Title</MudSelectItem>
+				            }
+			            </MudSelect>
+                    }
+	            </td>
             </tr>
             <tr>
                 <td>
@@ -232,13 +247,13 @@ else
     
     @if (IsPluV2)
     {
-		<SectionPlus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+		<SectionPlusRef Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
     }
     else
     {
 	    <SectionPlus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
     }
 
-	<ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@(this) />
+	<ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
 }

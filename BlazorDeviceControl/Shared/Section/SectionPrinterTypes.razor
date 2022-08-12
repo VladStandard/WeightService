@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
-        Title=@LocaleCore.Print.Types />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterTypeEntity" @bind-Value=@ItemObject
@@ -21,7 +20,7 @@ else
         <Columns>
             <RadzenGridColumn TItem="PrinterTypeEntity" Title=@LocaleCore.Print.Name 
                 Type="string" Width="100%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />

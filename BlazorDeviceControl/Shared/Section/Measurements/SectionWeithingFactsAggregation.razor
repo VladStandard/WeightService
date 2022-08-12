@@ -22,7 +22,7 @@ else
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="15%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
                 </Template>
@@ -30,7 +30,7 @@ else
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="15%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
                 </Template>

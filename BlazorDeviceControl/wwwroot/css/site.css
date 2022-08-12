@@ -36,7 +36,7 @@ a, .btn-link {
     margin-right: 1%;
     min-width: 80px;
     width: 15%;
-    height: 25px;
+    height: 26px;
     font-size: 14px;
 }
 
@@ -46,7 +46,7 @@ a, .btn-link {
     margin-right: 1%;
     min-width: 80px;
     width: 5%;
-    height: 25px;
+    height: 26px;
     font-size: 14px;
 }
 
@@ -147,14 +147,26 @@ a, .btn-link {
 }
 
 .MudSelect {
-    margin-top: 0%;
-    margin-bottom: 0%;
-    margin-left: 0%;
-    margin-right: 0%;
-    width: 100%;
-    line-height: 20px;
-    background-color: transparent;
-    border-color: transparent;
+	margin-top: 0%;
+	margin-bottom: 0%;
+	margin-left: 0%;
+	margin-right: 0%;
+	width: 100%;
+	line-height: 20px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.MudSelectEdge {
+	margin-top: -6px;
+	margin-bottom: 0%;
+	margin-left: 0%;
+	margin-right: 0%;
+	width: 90%;
+	height: 50px;
+	background-color: transparent;
+	border-color: transparent;
+	font-size: 20px;
 }
 
 .MudSelectFlexible {

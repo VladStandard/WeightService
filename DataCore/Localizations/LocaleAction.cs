@@ -25,8 +25,8 @@ namespace DataCore.Localizations
         public string ActionInfo => Lang == ShareEnums.Lang.English ? "Information" : "Информация";
         public string ActionSaveSuccess => Lang == ShareEnums.Lang.English ? "Saving was successful" : "Сохранение выполнено успешно";
         public string ActionDataControlField => Lang == ShareEnums.Lang.English ? "Need to fill in the field" : "Необходимо заполнить поле";
-        public string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? "Show marked" : "Отображать архивные записи";
-        public string ActionIsSelectTopRowsCount(int count) => Lang == ShareEnums.Lang.English ? $"Show top {count} records" : $"Отображать первые {count} записей";
+        public string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? "Archive records" : "Архивные записи";
+        public string ActionIsSelectTopRowsCount(int count) => Lang == ShareEnums.Lang.English ? $"First {count} records" : $"Первые {count} записей";
         public string ActionMethod => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
 
         #endregion

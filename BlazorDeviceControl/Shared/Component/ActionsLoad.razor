@@ -4,12 +4,10 @@
 @using DataCore.Localizations
 @using DataCore.Utils
 
-<MudPaper Width="100%" Height="30px" Square=false Color="Color.Transparent" >
+<MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent>
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
         @switch (DataLoadItem)
         {
-            case ShareEnums.ActionLoad.None:
-                break;
             case ShareEnums.ActionLoad.Loading:
                 <RadzenLabel 
                     Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "

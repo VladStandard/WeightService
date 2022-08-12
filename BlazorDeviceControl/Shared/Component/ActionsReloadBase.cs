@@ -3,6 +3,7 @@
 
 using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
+using static DataCore.ProjectsEnums;
 
 namespace BlazorDeviceControl.Shared.Component;
 
@@ -10,8 +11,15 @@ public class ActionsReloadBase : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Title { get; set; }
+	[Parameter] public TableScale FilterTable { get; set; }
     protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {ParentRazor?.Items?.Count ?? 0:### ### ###}";
 
-	#endregion
+    #endregion
+
+    #region Public and private methods
+
+    //
+
+    #endregion
 }

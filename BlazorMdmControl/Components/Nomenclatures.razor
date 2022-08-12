@@ -16,23 +16,17 @@
                               Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                               Icon="refresh"
                               ButtonStyle="ButtonStyle.Light"
-                              Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                              MouseEnter="@(args => BlazorSettings.ShowTooltipMasterGet(args))" 
-                              MouseLeave=@(args => TooltipService?.Close()) />
+                              Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
                 <RadzenButton Click=@(_ => ActionEditAsync(ShareEnums.TableDwh.NomenclatureMaster, ItemMaster, true))
                               Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                               Icon="edit"
                               ButtonStyle="ButtonStyle.Light"
-                              Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                              MouseEnter="@(args => BlazorSettings.ShowTooltipMasterEdit(args))" 
-                              MouseLeave=@(args => TooltipService?.Close()) />
+                              Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
                 <RadzenButton Click=@(_ => ClearEntityAsync(ShareEnums.TableDwh.NomenclatureMaster))
                               Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                               Icon="clear"
                               ButtonStyle="ButtonStyle.Light"
-                              Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                              MouseEnter=@(args => BlazorSettings.ShowTooltipMasterClear(args))
-                              MouseLeave=@(args => TooltipService?.Close())/>
+                              Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
                 <br />
             </div>
             <div class="row col-sm-3 col-md-3 col-lg-3" style="margin-top: -5px; margin-left: 5px; margin-right: 0px; margin-bottom: 0px; ">
@@ -75,24 +69,17 @@
                           Style="margin-top: 30px; margin-bottom: 0px; width: 35px; height: 35px; text-align: center;"
                           Icon="add"
                           ButtonStyle="ButtonStyle.Primary"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter=@(args => BlazorSettings.ShowTooltipMasterCreate(args))
-                          MouseLeave=@(args => TooltipService?.Close()) >
-            </RadzenButton>
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@MasterRecordIncludeAsync
                           Style="margin-top: 5px; margin-bottom: 0px; width: 35px; height: 35px; text-align: center;"
                           Icon="arrow_circle_up"
                           ButtonStyle="ButtonStyle.Primary"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipMasterInclude(args))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@MasterRecordDeleteAsync
                           Style="margin-top: 5px; margin-bottom: 0px; width: 35px; height: 35px; text-align: center;"
                           Icon="delete"
                           ButtonStyle="ButtonStyle.Primary"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipMasterDelete(args))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <br />
         </div>
     </div>
@@ -105,43 +92,32 @@
                           Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                           Icon="refresh"
                           ButtonStyle="ButtonStyle.Light"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipNonNormalizeGet(args))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => ActionEditAsync(ShareEnums.TableDwh.NomenclatureNonNormalize, ItemNonNormilize, true))
                           Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                           Icon="edit"
                           ButtonStyle="ButtonStyle.Light"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipNonNormalizeEdit(args))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => ClearEntityAsync(ShareEnums.TableDwh.NomenclatureNonNormalize))
                           Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                           Icon="clear"
                           ButtonStyle="ButtonStyle.Light"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipNonNormalizeClear(args))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => OnChangeIsProduct())
                           Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                           Icon="check_circle"
                           ButtonStyle="ButtonStyle.Light"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipNonNormalizeSetIsProduct(args, UseIsProductNonNormilize))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => SetEntityRelevanceAsync(ShareEnums.TableDwh.NomenclatureNonNormalize, 1))
                           Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                           Icon="add"
                           ButtonStyle="ButtonStyle.Light"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipNonNormalizeSetRelevanceTrue(args))" 
-                          MouseLeave=@(args => TooltipService?.Close()) />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => SetEntityRelevanceAsync(ShareEnums.TableDwh.NomenclatureNonNormalize, 2))
                           Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                           Icon="remove"
                           ButtonStyle="ButtonStyle.Light"
-                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
-                          MouseEnter="@(args => BlazorSettings.ShowTooltipNonNormalizeSetRelevanceFalse(args))" />
+                          Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <br />
         </div>
         <div class="row col-sm-3 col-md-3 col-lg-3" style="margin-top: -5px; margin-left: 5px; margin-right: 0px; margin-bottom: 0px; ">

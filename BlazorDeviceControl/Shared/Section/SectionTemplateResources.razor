@@ -23,7 +23,7 @@ else
             {
                 <RadzenGridColumn TItem="TemplateResourceEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast">
+                    <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>

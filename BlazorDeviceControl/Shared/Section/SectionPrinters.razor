@@ -23,34 +23,34 @@ else
             {
                 <RadzenGridColumn TItem="PrinterEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast">
+                    <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Table.Id Width="5%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                                 Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
                                 Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Name Width="18%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                                 Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
                                 Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Model Width="17%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.IdentityId}") 
                         Text=@itemCast.PrinterType.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Ip Type="string" Width="14%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank" 
                         Path=@itemCast.Link
                         Text=@itemCast.Ip />
@@ -58,7 +58,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusCode" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenIcon 
                         Icon=@(itemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
                 </Template>

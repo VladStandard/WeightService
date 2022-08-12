@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
-        Title=@LocaleData.DeviceControl.Items.ProductionFacility />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Items.ProductionFacility />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ProductionFacilityEntity" @bind-Value=@ItemObject
@@ -23,20 +22,20 @@ else
             {
                 <RadzenGridColumn TItem="ProductionFacilityEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast">
+                    <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Id Width="5%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                             Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                             Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Name Width="20%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />
@@ -44,7 +43,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Address Width="75%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                         Text=@itemCast.Address />

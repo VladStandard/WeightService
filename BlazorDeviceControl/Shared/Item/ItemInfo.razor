@@ -4,16 +4,16 @@
 @using DataCore.Localizations
 @using static BlazorCore.Utils.BlazorCoreUtuls
 
-<ActionsReloadItem ParentRazor=@(this)
+<ActionsReloadItem ParentRazor=@this
                    Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <thead>
         <tr>
-            <th Style="color:blue; font-weight:bold; width: 40%; ">@LocaleCore.Strings.SettingName</th>
-            <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.SettingValue</th>
-            <th Style="color:blue; font-weight:bold; width: 30%; "></th>
+            <th style="color:blue; font-weight: bold; width: 40%; ">@LocaleCore.Strings.SettingName</th>
+            <th style="color:blue; font-weight: bold; width: 30%; ">@LocaleCore.Strings.SettingValue</th>
+            <th style="color:blue; font-weight: bold; width: 30%; "></th>
         </tr>
     </thead>
     <tbody>

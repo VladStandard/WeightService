@@ -92,7 +92,7 @@ namespace DataCore.Localizations
             public static string ItemAccessDeny => Lang == ShareEnums.Lang.English ? "Item access denied" : "Доступ к элементу запрещён";
             public static string ItemAccessNone => Lang == ShareEnums.Lang.English ? "No access to the item" : "Доступ к разделу не предусмотрен";
             public static string ItemLog => Lang == ShareEnums.Lang.English ? "Log" : "Лог";
-            public static string ItemsCount => Lang == ShareEnums.Lang.English ? "Count of records" : "Количество записей";
+            public static string ItemsCount => Lang == ShareEnums.Lang.English ? "Records" : "Записей";
             public static string Language => Lang == ShareEnums.Lang.English ? "Language" : "Язык";
             public static string LanguageDetect => Lang == ShareEnums.Lang.English ? "English" : "Русский";
             public static string MethodError => Lang == ShareEnums.Lang.English ? "Method error" : "Ошибка метода";

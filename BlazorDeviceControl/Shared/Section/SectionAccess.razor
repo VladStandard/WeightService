@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
-        Title=@LocaleCore.Strings.AccessRights />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.Strings.AccessRights />
 
     <RadzenGrid Style="margin-top: 5px; " 
         Data=@ItemsCast TItem="AccessEntity" @bind-Value=@ItemObject
@@ -24,7 +23,7 @@ else
             {
                 <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast">
+                    <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
@@ -32,7 +31,7 @@ else
             <RadzenGridColumn 
                 TItem="AccessEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Access}/{itemCast.IdentityUid}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
@@ -40,7 +39,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
                     Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Access}/{itemCast.IdentityUid}")
                         Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
@@ -48,7 +47,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.User Type="string" Width="30%" >
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Access}/{itemCast.IdentityUid}")
                         Text=@itemCast.User />
@@ -56,7 +55,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.AccessLevel Type="string" Width="30%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Text=@UserSettings.Identity.GetDescriptionAccessRights(itemCast.Rights) Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>

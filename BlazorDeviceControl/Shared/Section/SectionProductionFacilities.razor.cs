@@ -38,12 +38,8 @@ public partial class SectionProductionFacilities
             () =>
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-                    IsShowMarkedItems ? null
-                        : new FilterListEntity(
-                            new() { new(DbField.IsMarked, DbComparer.Equal, false),
-                            //new(DbField.IdentityId, DbComparer.NotEqual, 0, typeof(long)),
-                        }),
-                    new(DbField.Name, DbOrderDirection.Asc),
+                    IsShowMarkedItems ? null : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false)}),
+                    new(DbField.Name),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.Where(x => x.IdentityId > 0).ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);

@@ -38,6 +38,7 @@ public partial class SectionPlusRef
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
+
 		RunActions(new()
 		{
 			() =>
@@ -46,13 +47,8 @@ public partial class SectionPlusRef
 				if (IsShowMarkedItems)
 				{
 					Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
-							scaleId == 0
-								? null
-								: new(new()
-								{
-									new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal,
-										scaleId),
-								}),
+							scaleId == 0 ? null : new(new()
+								{ new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
 							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
 							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
 						?.ToList<BaseEntity>();
@@ -60,16 +56,11 @@ public partial class SectionPlusRef
 				else
 				{
 					Items = AppSettings.DataAccess.Crud.GetEntities<PluRefV2Entity>(
-							scaleId == 0
-								? new(new()
-								{
-									new(DbField.IsMarked, DbComparer.Equal, false)
-								})
-								: new(new()
+							scaleId == 0 ? new(new() { new(DbField.IsMarked, DbComparer.Equal, false) })
+								: new(new() 
 								{
 									new(DbField.IsMarked, DbComparer.Equal, false),
-									new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal,
-										scaleId),
+									new($"{nameof(PluRefV2Entity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId),
 								}),
 							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
 							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

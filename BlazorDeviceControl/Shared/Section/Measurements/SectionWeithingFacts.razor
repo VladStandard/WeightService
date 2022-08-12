@@ -25,7 +25,7 @@ else
             {
                 <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast">
+                    <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
@@ -33,7 +33,7 @@ else
             <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="17.5%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@GetPath(UriRouteItem.WeithingFact, itemCast, itemCast.IdentityId)
                         Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd HH:mm:ss") />
@@ -42,7 +42,7 @@ else
             <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="12.5%">
-                <Template Context="itemCast">
+                <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
                 </Template>

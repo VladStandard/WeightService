@@ -59,6 +59,8 @@ namespace DataCore.Localizations
                 public const string PrinterType = "/item/printertype";
                 public const string ProductionFacility = "/item/productionfacility";
                 public const string Scale = "/item/scale";
+                public const string ScaleV1 = "/item/scale_v1";
+                public const string ScaleV2 = "/item/scale_v2";
                 public const string TaskModule = "/item/taskmodule";
                 public const string TaskTypeModule = "/item/tasktypemodule";
                 public const string Template = "/item/template";
@@ -95,6 +97,8 @@ namespace DataCore.Localizations
                 public const string ProductionFacilities = "/section/productionfacilities";
                 public const string Root = "/";
                 public const string Scales = "/section/scales";
+				public const string ScalesV1 = "/section/scales_v1";
+				public const string ScalesV2 = "/section/scales_v2";
                 public const string TaskModules = "/section/taskmodules";
                 public const string TaskTypeModules = "/section/tasktypemodules";
                 public const string TemplateResources = "/section/templateresources";
@@ -143,6 +147,7 @@ namespace DataCore.Localizations
             {
                 public static string AutomatedWorkplace => Lang == ShareEnums.Lang.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
                 public static string AutomatedWorkplaceShort => Lang == ShareEnums.Lang.English ? "AWs" : "АРМы";
+                public static string AutomatedWorkplaceV2Short => Lang == ShareEnums.Lang.English ? "AWs v2" : "АРМы в2";
                 public static string BarCodes => Lang == ShareEnums.Lang.English ? "Barcodes" : "Штрихкоды";
                 public static string BarCodesShort => Lang == ShareEnums.Lang.English ? "BC" : "ШК";
                 public static string BarCodeTypes => Lang == ShareEnums.Lang.English ? "Barcodes types" : "Типы штрихкодов";

@@ -94,6 +94,8 @@
     <Watch Remove="Shared\Item\ItemPrinterType.razor" />
     <Watch Remove="Shared\Item\ItemProductionFacility.razor" />
     <Watch Remove="Shared\Item\ItemScale.razor" />
+    <Watch Remove="Shared\Item\ItemScaleV1.razor" />
+    <Watch Remove="Shared\Item\ItemScaleV2.razor" />
     <Watch Remove="Shared\Item\ItemTaskModule.razor" />
     <Watch Remove="Shared\Item\ItemTemplate.razor" />
     <Watch Remove="Shared\Item\ItemTemplateResource.razor" />
@@ -122,6 +124,8 @@
     <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />
     <Watch Remove="Shared\Section\SectionProductionFacilities.razor" />
     <Watch Remove="Shared\Section\SectionScales.razor" />
+    <Watch Remove="Shared\Section\SectionScalesV1.razor" />
+    <Watch Remove="Shared\Section\SectionScalesV2.razor" />
     <Watch Remove="Shared\Section\SectionTemplateResources.razor" />
     <Watch Remove="Shared\Section\SectionTemplates.razor" />
     <Watch Remove="Shared\Section\SectionVersions.razor" />

@@ -11,11 +11,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) 
+    <ActionsReloadItem ParentRazor=@this 
         Title=@LocaleData.DeviceControl.Items.PluV2 />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -34,7 +34,7 @@ else
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true Value=@ItemCast.IdentityUid.ToString() />
 				</td>
-                <td>@LocaleCore.Table.Active</td>
+                <td>@LocaleCore.Table.Deactive</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
@@ -70,7 +70,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.IdentityId)
-                        Text=@LocaleCore.Table.NomenclatureName />
+                        Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
@@ -223,6 +223,6 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@(this) />
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
 }

@@ -16,13 +16,17 @@ public partial class ActionsFilterScale
 
 	private ScaleEntity ItemFilterCast
 	{
-		get => ItemFilter == null ? new() : (ScaleEntity)ItemFilter;
+		get
+		{
+			if (ParentRazor?.ParentRazor != null)
+				return ParentRazor.ParentRazor.ItemFilter == null ? new() : (ScaleEntity)ParentRazor.ParentRazor.ItemFilter;
+			return new();
+		}
 		set
 		{
-			ItemFilter = value;
-			if (ParentRazor != null)
+			if (ParentRazor?.ParentRazor != null)
 			{
-				ParentRazor.ItemFilter = ItemFilter;
+				ParentRazor.ParentRazor.ItemFilter = value;
 			}
 		}
 	}
@@ -47,7 +51,7 @@ public partial class ActionsFilterScale
 					ItemsFilter = new();
 					ItemsFilter.Add(new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull });
 					ItemsFilter.AddRange(itemsFilter.ToList<BaseEntity>());
-					if (ItemFilter == null)
+					if (ParentRazor?.ItemFilter == null)
 						ItemFilterCast = ItemsCast.First();
 				}
 			}

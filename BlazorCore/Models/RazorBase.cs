@@ -397,7 +397,7 @@ public class RazorBase : LayoutComponentBase
         actionsInjected.Add(() =>
         {
             IsLoaded = false;
-            ButtonSettings = new();
+            //ButtonSettings = new();
         });
         actionsInjected.AddRange(actions);
         actionsInjected.Add(() =>
