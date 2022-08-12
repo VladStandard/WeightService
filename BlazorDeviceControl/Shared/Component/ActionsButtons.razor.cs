@@ -7,9 +7,15 @@ public partial class ActionsButtons
 {
 	#region Public and private methods
 
+	//protected override void OnInitialized()
+	//{
+	//	base.OnInitialized();
+	//}
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
+
 		RunActions(new());
 	}
 

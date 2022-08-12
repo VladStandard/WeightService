@@ -12,8 +12,8 @@ public partial class ItemDates
 {
     #region Public and private fields, properties, constructor
 
-    private string CreateDt { get; set; } = string.Empty;
-    private string ChangeDt { get; set; } = string.Empty;
+    private string CreateDt { get; set; }
+    private string ChangeDt { get; set; }
 
 	#endregion
 

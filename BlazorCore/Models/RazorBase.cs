@@ -86,7 +86,7 @@ public class RazorBase : LayoutComponentBase
             IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
             IsSelectTopRows = ParentRazor.IsSelectTopRows;
 
-            if (IdentityId == null && ParentRazor.IdentityId != null)
+			if (IdentityId == null && ParentRazor.IdentityId != null)
                 IdentityId = ParentRazor.IdentityId;
             if (IdentityUid == null && ParentRazor.IdentityUid != null)
                 IdentityUid = ParentRazor.IdentityUid;
@@ -99,8 +99,10 @@ public class RazorBase : LayoutComponentBase
                 if (ParentRazor.TableAction != DbTableAction.Default)
                     TableAction = ParentRazor.TableAction;
             }
+            
+            ButtonSettings = ParentRazor.ButtonSettings;
         }
-    }
+	}
 
     public void OnChangeCheckBox(object value, string name)
     {
