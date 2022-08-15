@@ -104,6 +104,14 @@ public static class TestsUtils
 	    {
 		    return new NomenclatureValidator();
 	    }
+	    else if (typeof(TEntity) == typeof(OrderEntity))
+	    {
+		    return new OrderValidator();
+	    }
+	    else if (typeof(TEntity) == typeof(OrderWeighingEntity))
+	    {
+		    return new OrderWeighingValidator();
+	    }
 		throw new NotImplementedException();
     }
 

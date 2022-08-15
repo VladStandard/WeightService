@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "Orders".
+/// Table "ORDERS".
 /// </summary>
 [Serializable]
 public class OrderEntity : BaseEntity, ISerializable, IBaseEntity
@@ -14,17 +14,13 @@ public class OrderEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Identity name.
 	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual OrderTypeEntity OrderTypes { get; set; }
-	[XmlElement] public virtual DateTime ProductDate { get; set; }
-	[XmlElement] public virtual int? PlaneBoxCount { get; set; }
-	[XmlElement] public virtual int? PlanePalletCount { get; set; }
-	[XmlElement] public virtual DateTime PlanePackingOperationBeginDate { get; set; }
-	[XmlElement] public virtual DateTime PlanePackingOperationEndDate { get; set; }
-	[XmlElement] public virtual ScaleEntity Scales { get; set; }
-	[XmlElement] public virtual PluEntity Plu { get; set; }
-	[XmlElement] public virtual Guid IdRRef { get; set; }
-	[XmlElement] public virtual TemplateEntity Template { get; set; }
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+	[XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual DateTime BeginDt { get; set; }
+	[XmlElement] public virtual DateTime EndDt { get; set; }
+	[XmlElement] public virtual DateTime ProdDt { get; set; }
+	[XmlElement] public virtual int BoxCount { get; set; }
+	[XmlElement] public virtual int PalletCount { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -37,9 +33,9 @@ public class OrderEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	/// <param name="identityId"></param>
+	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public OrderEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public OrderEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -49,71 +45,51 @@ public class OrderEntity : BaseEntity, ISerializable, IBaseEntity
     public new virtual void Init()
     {
 	    base.Init();
-        OrderTypes = new();
-        ProductDate = DateTime.MinValue;
-        PlaneBoxCount = default;
-        PlanePalletCount = default;
-        PlanePackingOperationBeginDate = DateTime.MinValue;
-        PlanePackingOperationEndDate = DateTime.MinValue;
-        Scales = new();
-        Plu = new();
-        IdRRef = Guid.Empty;
-        Template = new();
+	    Name = string.Empty;
+        BeginDt = DateTime.MinValue;
+        ProdDt = DateTime.MinValue;
+        EndDt = DateTime.MinValue;
+        BoxCount = default;
+        PalletCount = default;
     }
 
     #region Public and private methods
 
     public override string ToString()
     {
-        string strOrderTypes = OrderTypes != null ? OrderTypes.IdentityId.ToString() : "null";
-        string strScales = Scales != null ? Scales.IdentityId.ToString() : "null";
-        string strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
-        string strTemplates = Template != null ? Template.IdentityId.ToString() : "null";
         return
-			$"{nameof(IdentityId)}: {IdentityId}. " + 
+			$"{nameof(IdentityUid)}: {IdentityUid}. " + 
 			$"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(OrderTypes)}: {strOrderTypes}. " +
-			$"{nameof(ProductDate)}: {ProductDate}. " +
-			$"{nameof(PlaneBoxCount)}: {PlaneBoxCount}. " +
-			$"{nameof(PlanePalletCount)}: {PlanePalletCount}. " +
-			$"{nameof(PlanePackingOperationBeginDate)}: {PlanePackingOperationBeginDate}. " +
-			$"{nameof(PlanePackingOperationEndDate)}: {PlanePackingOperationEndDate}. " +
-			$"{nameof(Scales)}: {strScales}. " +
-			$"{nameof(Plu)}: {strPlu}." +
-			$"{nameof(IdRRef)}: {IdRRef}." +
-			$"{nameof(Template)}: {strTemplates}.";
+			$"{nameof(Name)}: {Name}. " + 
+			$"{nameof(BeginDt)}: {BeginDt}. " +
+			$"{nameof(EndDt)}: {EndDt}. " + 
+			$"{nameof(ProdDt)}: {ProdDt}. " +
+			$"{nameof(BoxCount)}: {BoxCount}. " +
+			$"{nameof(PalletCount)}: {PalletCount}. ";
     }
 
     public virtual bool Equals(OrderEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        if (OrderTypes != null && item.OrderTypes != null && !OrderTypes.Equals(item.OrderTypes))
-            return false;
-        if (Scales != null && item.Scales != null && !Scales.Equals(item.Scales))
-            return false;
-        if (Plu != null && item.Plu != null && !Plu.Equals(item.Plu))
-            return false;
-        if (Template != null && item.Template != null && !Template.Equals(item.Template))
-            return false;
         return base.Equals(item) &&
-               Equals(ProductDate, item.ProductDate) &&
-               Equals(PlaneBoxCount, item.PlaneBoxCount) &&
-               Equals(PlanePalletCount, item.PlanePalletCount) &&
-               Equals(PlanePackingOperationBeginDate, item.PlanePackingOperationBeginDate) &&
-               Equals(PlanePackingOperationEndDate, item.PlanePackingOperationEndDate) &&
-               Equals(IdRRef, item.IdRRef);
+               Equals(Name, item.Name) &&
+               Equals(BeginDt, item.BeginDt) &&
+               Equals(EndDt, item.EndDt) && 
+               Equals(ProdDt, item.ProdDt) &&
+               Equals(BoxCount, item.BoxCount) &&
+               Equals(PalletCount, item.PalletCount);
     }
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((OrderEntity)obj);
     }
 
-	public override int GetHashCode() => IdentityId.GetHashCode();
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {
@@ -122,36 +98,24 @@ public class OrderEntity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        if (OrderTypes != null && !OrderTypes.EqualsDefault())
-            return false;
-        if (Plu != null && !Plu.EqualsDefault())
-            return false;
-        if (Scales != null && !Scales.EqualsDefault())
-            return false;
-        if (Template != null && !Template.EqualsDefault())
-            return false;
         return base.EqualsDefault() &&
-               Equals(ProductDate, DateTime.MinValue) &&
-               Equals(PlaneBoxCount, null) &&
-               Equals(PlanePalletCount, null) &&
-               Equals(PlanePackingOperationBeginDate, DateTime.MinValue) &&
-               Equals(PlanePackingOperationEndDate, DateTime.MinValue) &&
-               Equals(IdRRef, Guid.Empty);
+               Equals(Name, string.Empty) &&
+               Equals(BeginDt, DateTime.MinValue) &&
+               Equals(EndDt, DateTime.MinValue) &&
+               Equals(ProdDt, DateTime.MinValue) &&
+               Equals(BoxCount, 0) &&
+               Equals(PalletCount, 0);
     }
 
     public new virtual object Clone()
     {
         OrderEntity item = new();
-        item.OrderTypes = OrderTypes.CloneCast();
-        item.ProductDate = ProductDate;
-        item.PlaneBoxCount = PlaneBoxCount;
-        item.PlanePalletCount = PlanePalletCount;
-        item.PlanePackingOperationBeginDate = PlanePackingOperationBeginDate;
-        item.PlanePackingOperationEndDate = PlanePackingOperationEndDate;
-        item.Scales = Scales.CloneCast();
-        item.Plu = Plu.CloneCast();
-        item.IdRRef = IdRRef;
-        item.Template = Template.CloneCast();
+        item.Name = Name;
+        item.BeginDt = BeginDt;
+        item.EndDt = EndDt;
+        item.ProdDt = ProdDt;
+        item.BoxCount = BoxCount;
+        item.PalletCount = PalletCount;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }

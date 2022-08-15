@@ -6,17 +6,29 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLU_V2".
 /// </summary>
-public class PluRefV2Validator : AbstractValidator<PluRefV2Entity>
+public class PluRefV2Validator : AbstractValidator<BaseEntity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluRefV2Validator()
     {
-		RuleFor(item => item.Plu)
+	    RuleFor(item => item.CreateDt)
+		    .NotEmpty()
+		    .NotNull()
+		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
+	    RuleFor(item => item.ChangeDt)
+		    .NotEmpty()
+		    .NotNull()
+		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
+	    RuleFor(item => item.IdentityUid)
+		    .NotEmpty()
+		    .NotNull()
+		    .NotEqual(Guid.Empty);
+		RuleFor(item => ((PluRefV2Entity)item).Plu)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => item.Scale)
+		RuleFor(item => ((PluRefV2Entity)item).Scale)
 			.NotEmpty()
 			.NotNull();
 	}

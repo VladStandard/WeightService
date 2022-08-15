@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Globalization;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table map "Orders".
+/// Table map "ORDERS".
 /// </summary>
 public class OrderMap : ClassMap<OrderEntity>
 {
@@ -14,21 +16,17 @@ public class OrderMap : ClassMap<OrderEntity>
     public OrderMap()
     {
         Schema("db_scales");
-        Table("Orders");
+        Table("ORDERS");
         LazyLoad();
-        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-        References(x => x.OrderTypes).Column("OrderType");
-        Map(x => x.ProductDate).CustomSqlType("DATETIME").Column("ProductDate").Nullable();
-        Map(x => x.PlaneBoxCount).CustomSqlType("INT").Column("PlaneBoxCount").Nullable();
-        Map(x => x.PlanePalletCount).CustomSqlType("INT").Column("PlanePalletCount").Nullable();
-        Map(x => x.PlanePackingOperationBeginDate).CustomSqlType("DATETIME").Column("PlanePackingOperationBeginDate").Nullable();
-        Map(x => x.PlanePackingOperationEndDate).CustomSqlType("DATETIME").Column("PlanePackingOperationEndDate").Nullable();
-        References(x => x.Scales).Column("ScaleId");
-        References(x => x.Plu).Column("PLU");
-        Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
-        References(x => x.Template).Column("TemplateId");
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Length(256).Column("NAME").Not.Nullable().Default("");
+        Map(x => x.BeginDt).CustomSqlType("DATETIME").Column("BEGIN_DT").Not.Nullable().Default(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        Map(x => x.EndDt).CustomSqlType("DATETIME").Column("END_DT").Not.Nullable().Default(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        Map(x => x.ProdDt).CustomSqlType("DATETIME").Column("PROD_DT").Not.Nullable().Default(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        Map(x => x.BoxCount).CustomSqlType("INT").Column("BOX_COUNT").Not.Nullable().Default("1");
+        Map(x => x.PalletCount).CustomSqlType("INT").Column("PALLET_COUNT").Not.Nullable().Default("1");
     }
 }

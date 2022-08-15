@@ -18,6 +18,8 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+
+    [XmlElement] public virtual bool IsActive { get; set; }
     [XmlElement] public virtual PluV2Entity Plu { get; set; }
     [XmlElement] public virtual ScaleEntity Scale { get; set; }
 
@@ -57,7 +59,8 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
     public new virtual void Init()
     {
 	    base.Init();
-        Plu = new();
+	    IsActive = false;
+	    Plu = new();
         Scale = new();
 	}
 
@@ -66,6 +69,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 	    return
 		    $"{nameof(IdentityUid)}: {IdentityUid}. " +
 		    $"{nameof(IsMarked)}: {IsMarked}. " +
+		    $"{nameof(IsActive)}: {IsActive}. " +
 		    $"{nameof(Plu)}: {Plu.Name}. " +
 		    $"{nameof(Scale)}: {Scale.Description}. ";
     }
@@ -80,6 +84,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
             return false;
         return 
 	        base.Equals(item) &&
+			Equals(IsActive, item.IsActive) &&
 			Equals(Plu, item.Plu) &&
 			Equals(Scale, item.Scale);
     }
@@ -112,6 +117,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
     public new virtual object Clone()
     {
         PluRefV2Entity item = new();
+        item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Scale = Scale.CloneCast();
         item.Setup(((BaseEntity)this).CloneCast());
@@ -123,6 +129,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(IsActive), IsActive);
         info.AddValue(nameof(Plu), Plu);
         info.AddValue(nameof(Scale), Scale);
     }

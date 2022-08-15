@@ -3,6 +3,7 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Sql.TableScaleModels
 @using DataCore.Localizations
+@using System.Globalization
 
 @if (!IsLoaded)
 {
@@ -76,7 +77,7 @@ else
 		    </RadzenGridColumn>
 	        <RadzenGridColumn TItem="PluRefV2Entity" Width="7%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.GoodsTareWeightShort >
 		        <Template Context="itemCast" >
-					<RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.TareWeight.ToString() />
+					<RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.TareWeight.ToString(CultureInfo.InvariantCulture) />
 		        </Template>
 	        </RadzenGridColumn>
 			<RadzenGridColumn TItem="PluRefV2Entity" Width="7%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.GoodsBoxQuantlyShort >

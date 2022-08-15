@@ -18,7 +18,6 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual PluEntity Plu { get; set; }
 	[XmlElement] public virtual ScaleEntity Scale { get; set; }
 	[XmlElement] public virtual ProductSeriesEntity? Serie { get; set; }
-	[XmlElement(IsNullable = true)] public virtual OrderEntity? Order { get; set; }
 	[XmlElement] public virtual string Sscc { get; set; }
 	[XmlElement] public virtual DateTime WeithingDate { get; set; }
 	[XmlElement] public virtual decimal NetWeight { get; set; }
@@ -26,6 +25,7 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual DateTime ProductDate { get; set; }
 	[XmlElement(IsNullable = true)] public virtual int? RegNum { get; set; }
 	[XmlElement(IsNullable = true)] public virtual int? Kneading { get; set; }
+	[XmlElement(IsNullable = true)] public virtual OrderEntity? Order { get; set; }
 
 	/// <summary>
 	/// Constructor.

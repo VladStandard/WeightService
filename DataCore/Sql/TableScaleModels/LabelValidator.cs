@@ -13,7 +13,7 @@ public class LabelValidator : AbstractValidator<BaseEntity>
 	/// </summary>
 	public LabelValidator()
 	{
-		RuleFor(item => ((LabelEntity)item).CreateDt)
+		RuleFor(item => item.CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
@@ -21,7 +21,7 @@ public class LabelValidator : AbstractValidator<BaseEntity>
 		//	.NotEmpty()
 		//	.NotNull()
 		//	.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((LabelEntity)item).IdentityId)
+		RuleFor(item => item.IdentityId)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);

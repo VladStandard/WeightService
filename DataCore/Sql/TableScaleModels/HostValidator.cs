@@ -13,15 +13,15 @@ public class HostValidator : AbstractValidator<BaseEntity>
 	/// </summary>
 	public HostValidator()
 	{
-		RuleFor(item => ((HostEntity)item).CreateDt)
+		RuleFor(item => item.CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((HostEntity)item).ChangeDt)
+		RuleFor(item => item.ChangeDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((HostEntity)item).IdentityId)
+		RuleFor(item => item.IdentityId)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);

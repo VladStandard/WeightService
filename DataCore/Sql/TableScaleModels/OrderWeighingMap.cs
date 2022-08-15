@@ -4,24 +4,23 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table map "PLU_REF_V2".
+/// Table map "ORDERS_WEIGHINGS".
 /// </summary>
-public class PluRefV2Map : ClassMap<PluRefV2Entity>
+public class OrderWeighingMap : ClassMap<OrderWeighingEntity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluRefV2Map()
+    public OrderWeighingMap()
     {
         Schema("db_scales");
-        Table("PLU_REF_V2");
+        Table("ORDERS");
         LazyLoad();
         Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(x => x.IsActive).CustomSqlType("BIT").Column("IS_ACTIVE").Not.Nullable().Default("0");
-        References(x => x.Plu).Column("PLU_V2_UID").Not.Nullable();
-        References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
+        References(x => x.Order).Column("ORDER_UID").Not.Nullable();
+        References(x => x.Fact).Column("FACT_ID").Not.Nullable();
     }
 }

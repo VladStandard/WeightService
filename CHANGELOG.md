@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.980] - 2022-08-15
+### Описание обновления:
+- WS-T-332. Обновление модели данных заказов ORDERS
+- WS-T-333. Обновление модели данных PLU_REF_V2
+- WS-T-334. Обновление модели данных взвешиваний WeithingFact
+- WS-T-335. Обновление модели данных взвешиваний по заказам ORDERS_WEIGHINGS
+
 ## [0.6.975] - 2022-08-12
 ### Описание обновления:
 - WS-T-319. Тестирование. Добавить тесты таблиц ACCESS, APPS, BARCODE_TYPES_V2, BARCODES_V2, CONTRAGENTS_V2

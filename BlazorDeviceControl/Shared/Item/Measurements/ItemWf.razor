@@ -4,6 +4,7 @@
 @page "/item/measurements/wf/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
+@using System.Globalization
 
 @if (!IsLoaded)
 {
@@ -39,13 +40,13 @@ else
                 <td>@LocaleCore.Table.WeithingDate</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Value=@ItemCast.WeithingDate.ToString() 
+                        Value=@ItemCast.WeithingDate.ToString(CultureInfo.InvariantCulture) 
                         Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
                 <td>@LocaleCore.Table.ProductDate</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Value=@ItemCast.ProductDate.ToString() 
+                        Value=@ItemCast.ProductDate.ToString(CultureInfo.InvariantCulture) 
                         Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
             </tr>
@@ -91,12 +92,12 @@ else
                 <td>@LocaleCore.Table.NetWeight</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.NetWeight.ToString() />
+                        Disabled=false ReadOnly=true Value=@ItemCast.NetWeight.ToString(CultureInfo.InvariantCulture) />
 				</td>
                 <td>@LocaleCore.Table.TareWeight</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.TareWeight.ToString() />
+                        Disabled=false ReadOnly=true Value=@ItemCast.TareWeight.ToString(CultureInfo.InvariantCulture) />
 				</td>
             </tr>
             <tr>

@@ -258,7 +258,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluV2Map>());

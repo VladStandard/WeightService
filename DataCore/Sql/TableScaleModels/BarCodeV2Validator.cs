@@ -13,15 +13,15 @@ public class BarCodeV2Validator : AbstractValidator<BaseEntity>
 	/// </summary>
 	public BarCodeV2Validator()
 	{
-		RuleFor(item => ((BarCodeV2Entity)item).CreateDt)
+		RuleFor(item => item.CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((BarCodeV2Entity)item).ChangeDt)
+		RuleFor(item => item.ChangeDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((BarCodeV2Entity)item).IdentityUid)
+		RuleFor(item => item.IdentityUid)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(Guid.Empty);

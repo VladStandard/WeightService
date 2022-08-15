@@ -15,15 +15,15 @@ public class AccessValidator : AbstractValidator<BaseEntity>
     /// </summary>
     public AccessValidator()
     {
-	    RuleFor(item => ((AccessEntity)item).CreateDt)
+	    RuleFor(item => item.CreateDt)
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-	    RuleFor(item => ((AccessEntity)item).ChangeDt)
+	    RuleFor(item => item.ChangeDt)
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-	    RuleFor(item => ((AccessEntity)item).IdentityUid)
+	    RuleFor(item => item.IdentityUid)
 		    .NotEmpty()
 		    .NotNull()
 		    .NotEqual(Guid.Empty);

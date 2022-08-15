@@ -24,7 +24,7 @@ public class ItemSaveCheckEntity
         if (access == null || uid == null)
             return;
 
-        bool success = FieldControl.ProcessChecks(notificationService, access, LocaleCore.Strings.AccessRights);
+        bool success = FieldControl.ValidateEntity(notificationService, access, LocaleCore.Strings.AccessRights);
         if (success)
         {
             access.ChangeDt = DateTime.Now;
@@ -50,7 +50,7 @@ public class ItemSaveCheckEntity
         if (barcodeType == null || uid == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocaleCore.Table.BarcodeType);
+        bool success = FieldControl.ValidateEntity(notificationService, barcodeType, LocaleCore.Table.BarcodeType);
         if (success)
         {
             barcodeType.ChangeDt = DateTime.Now;
@@ -77,7 +77,7 @@ public class ItemSaveCheckEntity
         if (contragent == null || uid == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, contragent, LocaleCore.Table.Contragent);
+        bool success = FieldControl.ValidateEntity(notificationService, contragent, LocaleCore.Table.Contragent);
         if (success)
         {
             contragent.ChangeDt = DateTime.Now;
@@ -103,7 +103,7 @@ public class ItemSaveCheckEntity
         if (host == null || id == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, host, LocaleCore.Table.Host);
+        bool success = FieldControl.ValidateEntity(notificationService, host, LocaleCore.Table.Host);
         if (success)
         {
             host.ChangeDt = DateTime.Now;
@@ -129,7 +129,7 @@ public class ItemSaveCheckEntity
     {
         if (nomenclature == null || id == null) return;
 
-        bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocaleCore.Table.Nomenclature);
+        bool success = FieldControl.ValidateEntity(notificationService, nomenclature, LocaleCore.Table.Nomenclature);
         if (success)
         {
             nomenclature.ChangeDt = DateTime.Now;
@@ -154,13 +154,13 @@ public class ItemSaveCheckEntity
         if (plu == null || id == null) return;
 
         plu.ChangeDt = DateTime.Now;
-        bool success = FieldControl.ProcessChecks(notificationService, plu, LocaleCore.Table.Plu);
+        bool success = FieldControl.ValidateEntity(notificationService, plu, LocaleCore.Table.Plu);
         if (success)
-            success = FieldControl.ProcessChecks(notificationService, plu.Scale, LocaleCore.Table.Device);
+            success = FieldControl.ValidateEntity(notificationService, plu.Scale, LocaleCore.Table.Device);
         if (success)
-            success = FieldControl.ProcessChecks(notificationService, plu.Template, LocaleCore.Table.LabelTemplate);
+            success = FieldControl.ValidateEntity(notificationService, plu.Template, LocaleCore.Table.LabelTemplate);
         if (success)
-            success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, LocaleCore.Table.Product);
+            success = FieldControl.ValidateEntity(notificationService, plu.Nomenclature, LocaleCore.Table.Product);
         if (success)
         {
             plu.ChangeDt = DateTime.Now;
@@ -186,9 +186,9 @@ public class ItemSaveCheckEntity
         if (printer == null || id == null) return;
 
         printer.ChangeDt = DateTime.Now;
-        bool success = FieldControl.ProcessChecks(notificationService, printer, LocaleCore.Table.Printer);
+        bool success = FieldControl.ValidateEntity(notificationService, printer, LocaleCore.Table.Printer);
         if (success)
-            success = FieldControl.ProcessChecks(notificationService, printer.PrinterType, LocaleCore.Table.PrinterType);
+            success = FieldControl.ValidateEntity(notificationService, printer.PrinterType, LocaleCore.Table.PrinterType);
         if (success)
         {
             printer.ChangeDt = DateTime.Now;
@@ -214,7 +214,7 @@ public class ItemSaveCheckEntity
         if (printerResource == null || id == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocaleCore.Table.PrinterResource);
+        bool success = FieldControl.ValidateEntity(notificationService, printerResource, LocaleCore.Table.PrinterResource);
         if (success)
         {
             printerResource.ChangeDt = DateTime.Now;
@@ -241,7 +241,7 @@ public class ItemSaveCheckEntity
         if (printerType == null || id == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, printerType, LocaleCore.Table.PrinterType);
+        bool success = FieldControl.ValidateEntity(notificationService, printerType, LocaleCore.Table.PrinterType);
         if (success)
         {
             printerType.ChangeDt = DateTime.Now;
@@ -268,7 +268,7 @@ public class ItemSaveCheckEntity
         if (productionFacility == null || id == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocaleCore.Table.ProductionFacility);
+        bool success = FieldControl.ValidateEntity(notificationService, productionFacility, LocaleCore.Table.ProductionFacility);
         if (success)
         {
             productionFacility.ChangeDt = DateTime.Now;
@@ -296,13 +296,13 @@ public class ItemSaveCheckEntity
 
         scale.ChangeDt = DateTime.Now;
         // Check PrinterMain is null.
-        bool success = FieldControl.ProcessChecks(notificationService, scale, LocaleCore.Table.Device);
+        bool success = FieldControl.ValidateEntity(notificationService, scale, LocaleCore.Table.Device);
         if (success)
         {
             if (scale.Host.IdentityId != 0)
             {
                 scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<HostEntity>(scale.Host?.IdentityId);
-                success = FieldControl.ProcessChecks(notificationService, scale.Host, LocaleCore.Table.Host);
+                success = FieldControl.ValidateEntity(notificationService, scale.Host, LocaleCore.Table.Host);
             }
             else
                 scale.Host = new();
@@ -312,7 +312,7 @@ public class ItemSaveCheckEntity
             if (scale.PrinterMain?.IdentityId != 0)
             {
                 scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterMain?.IdentityId);
-                success = FieldControl.ProcessChecks(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
+                success = FieldControl.ValidateEntity(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
             }
             else
                 scale.PrinterMain = null;
@@ -322,7 +322,7 @@ public class ItemSaveCheckEntity
             if (scale.PrinterShipping?.IdentityId != 0)
             {
                 scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
-                success = FieldControl.ProcessChecks(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
+                success = FieldControl.ValidateEntity(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
             }
             else
                 scale.PrinterShipping = null;
@@ -332,7 +332,7 @@ public class ItemSaveCheckEntity
             if (scale.TemplateDefault?.IdentityId != 0)
             {
                 scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
-                success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
+                success = FieldControl.ValidateEntity(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
             }
             else
                 scale.TemplateDefault = null;
@@ -342,7 +342,7 @@ public class ItemSaveCheckEntity
             if (scale.TemplateSeries?.IdentityId != 0)
             {
                 scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
-                success = FieldControl.ProcessChecks(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
+                success = FieldControl.ValidateEntity(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
             }
             else
                 scale.TemplateSeries = null;
@@ -352,7 +352,7 @@ public class ItemSaveCheckEntity
             if (scale.WorkShop?.IdentityId != 0)
             {
                 scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<WorkShopEntity>(scale.WorkShop?.IdentityId);
-                success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocaleCore.Table.Template);
+                success = FieldControl.ValidateEntity(notificationService, scale.WorkShop, LocaleCore.Table.Template);
             }
             else
                 scale.WorkShop = null;
@@ -384,11 +384,11 @@ public class ItemSaveCheckEntity
         if (task == null || uid == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, task, LocaleCore.Table.TaskModule);
+        bool success = FieldControl.ValidateEntity(notificationService, task, LocaleCore.Table.TaskModule);
         if (success)
-            success = FieldControl.ProcessChecks(notificationService, task.TaskType, LocaleCore.Table.TaskType);
+            success = FieldControl.ValidateEntity(notificationService, task.TaskType, LocaleCore.Table.TaskType);
         if (success)
-            success = FieldControl.ProcessChecks(notificationService, task.Scale, LocaleCore.Table.Device);
+            success = FieldControl.ValidateEntity(notificationService, task.Scale, LocaleCore.Table.Device);
         if (success)
         {
             task.ChangeDt = DateTime.Now;
@@ -415,7 +415,7 @@ public class ItemSaveCheckEntity
         if (taskType == null || uid == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, taskType, LocaleCore.Table.TaskModuleType);
+        bool success = FieldControl.ValidateEntity(notificationService, taskType, LocaleCore.Table.TaskModuleType);
         if (success)
         {
             taskType.ChangeDt = DateTime.Now;
@@ -441,7 +441,7 @@ public class ItemSaveCheckEntity
         if (template == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, template, LocaleCore.Table.Template);
+        bool success = FieldControl.ValidateEntity(notificationService, template, LocaleCore.Table.Template);
         if (success)
         {
             template.ChangeDt = DateTime.Now;
@@ -467,7 +467,7 @@ public class ItemSaveCheckEntity
         if (templateResource == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, templateResource, LocaleCore.Table.TemplateResource);
+        bool success = FieldControl.ValidateEntity(notificationService, templateResource, LocaleCore.Table.TemplateResource);
         if (success)
         {
             templateResource.ChangeDt = DateTime.Now;
@@ -493,7 +493,7 @@ public class ItemSaveCheckEntity
         if (workShop == null || id == null)
             return false;
 
-        bool success = FieldControl.ProcessChecks(notificationService, workShop, LocaleCore.Table.Workshop);
+        bool success = FieldControl.ValidateEntity(notificationService, workShop, LocaleCore.Table.Workshop);
         if (success)
         {
             workShop.ChangeDt = DateTime.Now;

@@ -13,15 +13,15 @@ public class ContragentV2Validator : AbstractValidator<BaseEntity>
 	/// </summary>
 	public ContragentV2Validator()
 	{
-		RuleFor(item => ((ContragentV2Entity)item).CreateDt)
+		RuleFor(item => item.CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((ContragentV2Entity)item).ChangeDt)
+		RuleFor(item => item.ChangeDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((ContragentV2Entity)item).IdentityUid)
+		RuleFor(item => item.IdentityUid)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(Guid.Empty);

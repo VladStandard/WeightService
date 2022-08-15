@@ -13,7 +13,7 @@ public class LogTypeValidator : AbstractValidator<BaseEntity>
 	/// </summary>
 	public LogTypeValidator()
 	{
-		RuleFor(item => ((LogTypeEntity)item).IdentityUid)
+		RuleFor(item => item.IdentityUid)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(Guid.Empty);

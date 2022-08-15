@@ -292,14 +292,11 @@ public class CrudController
             case LabelEntity label:
                 label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
                 break;
-            case OrderEntity order:
-                order.OrderTypes = GetEntityById<OrderTypeEntity>(order.OrderTypes.IdentityId);
-                order.Scales = GetEntityById<ScaleEntity>(order.Scales.IdentityId);
-                //order.Plu = order.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(order.Plu.IdentityId);
-                order.Plu = GetEntity<PluEntity>(
-                    new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
-                order.Template = GetEntityById<TemplateEntity>(order.Template.IdentityId);
-                break;
+            //case OrderEntity order:
+            //    order.Scale = GetEntityById<ScaleEntity>(order.Scale.IdentityId);
+            //    order.Plu = GetEntity<PluEntity>(
+            //        new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
+            //    break;
             case PluEntity plu:
                 plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
                 plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
@@ -345,7 +342,7 @@ public class CrudController
                         new ($"{nameof(PluEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
                     }));
                 weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
-                weithingFact.Order = weithingFact.Order?.IdentityId == null ? null : GetEntityById<OrderEntity>(weithingFact.Order.IdentityId);
+                weithingFact.Order = weithingFact.Order?.IdentityUid == null ? null : GetEntityByUid<OrderEntity>(weithingFact.Order.IdentityUid);
                 break;
             case WorkShopEntity workshop:
                 workshop.ProductionFacility = GetEntityById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
@@ -618,12 +615,6 @@ public class CrudController
             case OrderEntity order:
                 ExecuteTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
                 break;
-            case OrderStatusEntity orderStatus:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(orderStatus); }, filePath, lineNumber, memberName);
-                break;
-            case OrderTypeEntity orderType:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(orderType); }, filePath, lineNumber, memberName);
-                break;
             case PluEntity plu:
                 plu.IsMarked = true;
                 ExecuteTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
@@ -762,12 +753,14 @@ public class CrudController
                 return TableScaleModels.NomenclatureEntity.IdentityName;
             case OrderEntity:
                 return OrderEntity.IdentityName;
-            case OrderStatusEntity:
-                return OrderStatusEntity.IdentityName;
             case OrganizationEntity:
                 return OrganizationEntity.IdentityName;
             case PluEntity:
                 return PluEntity.IdentityName;
+            case PluV2Entity:
+                return PluV2Entity.IdentityName;
+            case PluRefV2Entity:
+                return PluRefV2Entity.IdentityName;
             case ProductionFacilityEntity:
                 return ProductionFacilityEntity.IdentityName;
             case ProductSeriesEntity:

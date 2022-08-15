@@ -3,6 +3,7 @@
 
 using DataCore.Localizations;
 using DataCore.Sql.Models;
+using FluentValidation.Results;
 using Radzen;
 using static DataCore.ShareEnums;
 
@@ -18,77 +19,71 @@ public class ItemFieldControlEntity
 
     #region Public and private methods
 
-    public bool ProcessChecks(NotificationService? notificationService, BaseEntity? item, string field)
+    public bool ValidateEntity(NotificationService? notificationService, BaseEntity? item, string field)
     {
         bool result = item != null;
         string detailAddition = Environment.NewLine;
         switch (item)
         {
             case AccessEntity access:
-                Access(ref result, ref detailAddition, access);
+                ValidateAccess(ref result, ref detailAddition, access);
                 break;
             case BarCodeTypeV2Entity barCodeType:
-                BarcodeType(ref result, ref detailAddition, barCodeType);
+                ValidateBarcodeType(ref result, ref detailAddition, barCodeType);
                 break;
             case ContragentV2Entity contragent:
-                Contragent(ref result, ref detailAddition, contragent);
+                ValidateContragent(ref result, ref detailAddition, contragent);
                 break;
             case HostEntity host:
-                Host(ref result, ref detailAddition, host);
+                ValidateHost(ref result, ref detailAddition, host);
                 break;
             case LabelEntity label:
-                Label(ref result, ref detailAddition, label);
+                ValidateLabel(ref result, ref detailAddition, label);
                 break;
             case NomenclatureEntity nomenclature:
-                Nomenclature(ref result, ref detailAddition, nomenclature);
+                ValidateNomenclature(ref result, ref detailAddition, nomenclature);
                 break;
             case OrderEntity order:
-                Order(ref result, ref detailAddition, order);
-                break;
-            case OrderStatusEntity orderStatus:
-                OrderStatus(ref result, ref detailAddition, orderStatus);
-                break;
-            case OrderTypeEntity orderType:
-                OrderType(ref result, ref detailAddition, orderType);
+	            result = ValidateOrder(order);
                 break;
             case PluEntity plu:
-                Plu(ref result, ref detailAddition, plu);
+                ValidatePlu(ref result, ref detailAddition, plu);
                 break;
             case PrinterEntity printer:
-                Printer(ref result, ref detailAddition, printer);
+                ValidatePrinter(ref result, ref detailAddition, printer);
                 break;
             case PrinterResourceEntity printerResource:
-                PrinterResource(ref result, ref detailAddition, printerResource);
+                ValidatePrinterResource(ref result, ref detailAddition, printerResource);
                 break;
             case PrinterTypeEntity printerType:
-                PrinterType(ref result, ref detailAddition, printerType);
+                ValidatePrinterType(ref result, ref detailAddition, printerType);
                 break;
             case ProductionFacilityEntity productionFacility:
-                ProductionFacility(ref result, ref detailAddition, productionFacility);
+                ValidateProductionFacility(ref result, ref detailAddition, productionFacility);
                 break;
             case ProductSeriesEntity productSeries:
-                ProductSeries(ref result, ref detailAddition, productSeries);
+                ValidateProductSeries(ref result, ref detailAddition, productSeries);
                 break;
             case ScaleEntity scale:
-                Scale(ref result, ref detailAddition, scale);
+                ValidateScale(ref result, ref detailAddition, scale);
                 break;
             case TaskEntity task:
-                Task(ref result, ref detailAddition, task);
+                ValidateTask(ref result, ref detailAddition, task);
                 break;
             case TaskTypeEntity taskType:
-                TaskType(ref result, ref detailAddition, taskType);
+                ValidateTaskType(ref result, ref detailAddition, taskType);
                 break;
             case TemplateResourceEntity templateResource:
-                TemplateResource(ref result, ref detailAddition, templateResource);
+                ValidateTemplateResource(ref result, ref detailAddition, templateResource);
                 break;
             case TemplateEntity template:
-                Template(ref result, ref detailAddition, template);
+                ValidateTemplate(ref result, ref detailAddition, template);
                 break;
             case WeithingFactEntity weithingFact:
-                WeithingFact(ref result, ref detailAddition, weithingFact);
+                ValidateWeithingFact(ref result, ref detailAddition, weithingFact);
                 break;
             case WorkShopEntity workshop:
-                Workshop(ref result, ref detailAddition, workshop);
+                ValidateWorkshop(ref result, ref detailAddition, workshop);
                 break;
         }
         if (!result)
@@ -107,7 +102,7 @@ public class ItemFieldControlEntity
         return true;
     }
 
-    private static void Access(ref bool result, ref string detailAddition, AccessEntity access)
+    private static void ValidateAccess(ref bool result, ref string detailAddition, AccessEntity access)
     {
         if (access.EqualsDefault())
             result = false;
@@ -123,7 +118,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void BarcodeType(ref bool result, ref string detailAddition, BarCodeTypeV2Entity barCodeType)
+    private static void ValidateBarcodeType(ref bool result, ref string detailAddition, BarCodeTypeV2Entity barCodeType)
     {
         if (barCodeType.EqualsDefault())
             result = false;
@@ -134,7 +129,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Contragent(ref bool result, ref string detailAddition, ContragentV2Entity contragent)
+    private static void ValidateContragent(ref bool result, ref string detailAddition, ContragentV2Entity contragent)
     {
         if (contragent.EqualsDefault())
             result = false;
@@ -145,7 +140,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Host(ref bool result, ref string detailAddition, HostEntity host)
+    private static void ValidateHost(ref bool result, ref string detailAddition, HostEntity host)
     {
         if (host.EqualsDefault())
             result = false;
@@ -166,7 +161,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Label(ref bool result, ref string detailAddition, LabelEntity label)
+    private static void ValidateLabel(ref bool result, ref string detailAddition, LabelEntity label)
     {
         if (label.EqualsDefault())
             result = false;
@@ -177,7 +172,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Nomenclature(ref bool result, ref string detailAddition, NomenclatureEntity nomenclature)
+    private static void ValidateNomenclature(ref bool result, ref string detailAddition, NomenclatureEntity nomenclature)
     {
         if (nomenclature.EqualsDefault())
             result = false;
@@ -188,32 +183,21 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Order(ref bool result, ref string detailAddition, OrderEntity order)
+    private static bool ValidateOrder(OrderEntity order)
     {
-        if (order.EqualsDefault())
-            result = false;
+	    OrderValidator validator = new();
+	    ValidationResult validationResult = validator.Validate(order);
+		return validationResult.IsValid;
     }
 
-    private static void OrderStatus(ref bool result, ref string detailAddition, OrderStatusEntity orderStatus)
-    {
-        if (orderStatus.EqualsDefault())
-            result = false;
-    }
-
-    private static void OrderType(ref bool result, ref string detailAddition, OrderTypeEntity orderType)
-    {
-        if (orderType.EqualsDefault())
-            result = false;
-    }
-
-    private void Plu(ref bool result, ref string detailAddition, PluEntity plu)
+    private void ValidatePlu(ref bool result, ref string detailAddition, PluEntity plu)
     {
         if (plu.EqualsDefault())
             result = false;
         PluEntity[]? items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
             new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, plu.Scale.IdentityId),
                 new(DbField.PluNumber, DbComparer.Equal, plu.PluNumber)
-            }), null);
+            }));
         if (items != null && items.Any() && !items.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
         {
             detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {plu.PluNumber}" + Environment.NewLine;
@@ -221,19 +205,19 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Printer(ref bool result, ref string detailAddition, PrinterEntity printer)
+    private static void ValidatePrinter(ref bool result, ref string detailAddition, PrinterEntity printer)
     {
         if (printer.EqualsDefault())
             result = false;
     }
 
-    private static void PrinterResource(ref bool result, ref string detailAddition, PrinterResourceEntity printerResource)
+    private static void ValidatePrinterResource(ref bool result, ref string detailAddition, PrinterResourceEntity printerResource)
     {
         if (printerResource.EqualsDefault())
             result = false;
     }
 
-    private static void PrinterType(ref bool result, ref string detailAddition, PrinterTypeEntity printerType)
+    private static void ValidatePrinterType(ref bool result, ref string detailAddition, PrinterTypeEntity printerType)
     {
         if (printerType.EqualsDefault())
             result = false;
@@ -244,7 +228,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void ProductionFacility(ref bool result, ref string detailAddition, ProductionFacilityEntity productionFacility)
+    private static void ValidateProductionFacility(ref bool result, ref string detailAddition, ProductionFacilityEntity productionFacility)
     {
         if (productionFacility.EqualsDefault())
             result = false;
@@ -255,13 +239,13 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void ProductSeries(ref bool result, ref string detailAddition, ProductSeriesEntity productSeries)
+    private static void ValidateProductSeries(ref bool result, ref string detailAddition, ProductSeriesEntity productSeries)
     {
         if (productSeries.EqualsDefault())
             result = false;
     }
 
-    private static void Scale(ref bool result, ref string detailAddition, ScaleEntity scale)
+    private static void ValidateScale(ref bool result, ref string detailAddition, ScaleEntity scale)
     {
         if (scale.EqualsDefault())
             result = false;
@@ -272,13 +256,13 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Task(ref bool result, ref string detailAddition, TaskEntity task)
+    private static void ValidateTask(ref bool result, ref string detailAddition, TaskEntity task)
     {
         if (task.EqualsDefault())
             result = false;
     }
 
-    private static void TaskType(ref bool result, ref string detailAddition, TaskTypeEntity taskType)
+    private static void ValidateTaskType(ref bool result, ref string detailAddition, TaskTypeEntity taskType)
     {
         if (taskType.EqualsDefault())
             result = false;
@@ -289,7 +273,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void TemplateResource(ref bool result, ref string detailAddition, TemplateResourceEntity templateResource)
+    private static void ValidateTemplateResource(ref bool result, ref string detailAddition, TemplateResourceEntity templateResource)
     {
         if (templateResource.EqualsDefault())
             result = false;
@@ -300,7 +284,7 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void Template(ref bool result, ref string detailAddition, TemplateEntity template)
+    private static void ValidateTemplate(ref bool result, ref string detailAddition, TemplateEntity template)
     {
         if (template.EqualsDefault())
             result = false;
@@ -316,13 +300,13 @@ public class ItemFieldControlEntity
         }
     }
 
-    private static void WeithingFact(ref bool result, ref string detailAddition, WeithingFactEntity weithingFact)
+    private static void ValidateWeithingFact(ref bool result, ref string detailAddition, WeithingFactEntity weithingFact)
     {
         if (weithingFact.EqualsDefault())
             result = false;
     }
 
-    private static void Workshop(ref bool result, ref string detailAddition, WorkShopEntity workshop)
+    private static void ValidateWorkshop(ref bool result, ref string detailAddition, WorkShopEntity workshop)
     {
         if (workshop.EqualsDefault())
             result = false;
