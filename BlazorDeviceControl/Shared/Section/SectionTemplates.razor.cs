@@ -43,7 +43,7 @@ public partial class SectionTemplates
                 {
                     TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                     Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        (IsShowMarkedItems == true) ? null
+                        IsShowMarkedItems ? null
                             : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.CategoryId, DbOrderDirection.Asc),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
@@ -52,7 +52,7 @@ public partial class SectionTemplates
                 else
                 {
                     Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        (IsShowMarkedItems == true)
+                        IsShowMarkedItems
                             ? new(new() { new(DbField.CategoryId, DbComparer.Equal, TemplateCategory) })
                             : new(new() { new(DbField.IsMarked, DbComparer.Equal, false),
                                 new(DbField.CategoryId, DbComparer.Equal, TemplateCategory) }),

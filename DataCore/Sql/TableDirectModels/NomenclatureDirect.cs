@@ -146,42 +146,40 @@ SELECT @ID as ID";
     public List<NomenclatureDirect> GetList()
     {
         List<NomenclatureDirect> result = new();
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        string query = "SELECT * FROM [db_scales].[GetNomenclature] (default);";
+        using (SqlCommand cmd = new(query))
         {
-            con.Open();
-            string query = "SELECT * FROM [db_scales].[GetNomenclature] (default);";
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        NomenclatureDirect nomenclature = new()
-                        {
-                            Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
-                            Name = SqlConnect.GetValueAsString(reader, "Name"),
-                            CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                            ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
-                            RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
-                            Code = SqlConnect.GetValueAsString(reader, "Code"),
-                            IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
-                            NameFull = SqlConnect.GetValueAsString(reader, "NameFull"),
-                            Description = SqlConnect.GetValueAsString(reader, "Description"),
-                            Comment = SqlConnect.GetValueAsString(reader, "Comment"),
-                            Brand = SqlConnect.GetValueAsString(reader, "Brand"),
-                            GUID_Mercury = SqlConnect.GetValueAsString(reader, "GUID_Mercury"),
-                            NomenclatureType = SqlConnect.GetValueAsString(reader, "NomenclatureType"),
-                            VATRate = SqlConnect.GetValueAsString(reader, "VATRate")
-                        };
-                        result.Add(nomenclature);
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        while (reader.Read())
+		        {
+			        NomenclatureDirect nomenclature = new()
+			        {
+				        Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+				        Name = SqlConnect.GetValueAsString(reader, "Name"),
+				        CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+				        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
+				        RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
+				        Code = SqlConnect.GetValueAsString(reader, "Code"),
+				        IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
+				        NameFull = SqlConnect.GetValueAsString(reader, "NameFull"),
+				        Description = SqlConnect.GetValueAsString(reader, "Description"),
+				        Comment = SqlConnect.GetValueAsString(reader, "Comment"),
+				        Brand = SqlConnect.GetValueAsString(reader, "Brand"),
+				        GUID_Mercury = SqlConnect.GetValueAsString(reader, "GUID_Mercury"),
+				        NomenclatureType = SqlConnect.GetValueAsString(reader, "NomenclatureType"),
+				        VATRate = SqlConnect.GetValueAsString(reader, "VATRate")
+			        };
+			        result.Add(nomenclature);
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 

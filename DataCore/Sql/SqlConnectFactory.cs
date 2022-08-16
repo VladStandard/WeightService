@@ -83,20 +83,18 @@ public class SqlConnectFactory
     {
         using SqlConnection con = GetConnection();
         con.Open();
-        using (SqlCommand cmd = new(query))
+        using SqlCommand cmd = new(query);
+        cmd.Connection = con;
+        cmd.Parameters.Clear();
+        if (parameters?.Length > 0)
+	        cmd.Parameters.AddRange(parameters);
+        //cmd.CommandType = CommandType.TableDirect;
+        using SqlDataReader reader = cmd.ExecuteReader();
+        if (reader.HasRows)
         {
-            cmd.Connection = con;
-            cmd.Parameters.Clear();
-            if (parameters?.Length > 0)
-                cmd.Parameters.AddRange(parameters);
-            //cmd.CommandType = CommandType.TableDirect;
-            using SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-            {
-                callback?.Invoke(reader);
-            }
-            reader.Close();
+	        callback?.Invoke(reader);
         }
+        reader.Close();
         con.Close();
     }
 

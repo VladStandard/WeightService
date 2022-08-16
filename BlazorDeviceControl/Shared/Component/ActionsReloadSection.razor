@@ -50,23 +50,26 @@
 					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 14px; " Text=@ItemsCountResult />
 				}
 			</td>
-			<td>
-				@switch (FilterTable)
-				{
-					case TableScale.Scales:
-						<RadzenLabel Style="margin-top: 1px; font-size: 14px; text-align: center; height: 100%; "
-						             Text=@LocaleCore.Table.Scale/>
-						break;
-				}
-			</td>
-			<td>
-				@switch (FilterTable)
-				{
-					case TableScale.Scales:
-						<ActionsFilterScale ParentRazor=@this />
-						break;
-				}
-			</td>
+			@if (IsShowAdditionalFilter)
+			{
+				<td>
+					@switch (FilterTable)
+					{
+						case TableScale.Scales:
+							<RadzenLabel Style="margin-top: 1px; font-size: 14px; text-align: center; height: 100%; "
+							             Text=@LocaleCore.Table.Scale/>
+							break;
+					}
+				</td>
+				<td>
+					@switch (FilterTable)
+					{
+						case TableScale.Scales:
+							<ActionsFilterScale ParentRazor=@this />
+							break;
+					}
+				</td>
+			}
 		</tr>
 		</tbody>
     </MudSimpleTable>

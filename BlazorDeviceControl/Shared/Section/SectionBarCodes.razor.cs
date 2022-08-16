@@ -35,7 +35,7 @@ public partial class SectionBarCodes
 			() =>
 			{
 				Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeV2Entity>(
-						(IsShowMarkedItems == true)
+						IsShowMarkedItems
 							? null
 							: new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
 						new(DbField.Value, DbOrderDirection.Asc),

@@ -655,7 +655,7 @@ DECLARE @SSCC varchar(50);
 DECLARE @WeithingDate datetime;
 DECLARE @xmldata xml;
 DECLARE @ID int;
-EXECUTE [db_scales].[SetWeithingFact] @OrderID,@ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@Kneading,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT,@ID OUTPUT;
+EXECUTE [db_scales].[SetWeithingFact] @ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@Kneading,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT,@ID OUTPUT;
 SELECT  @SSCC, @WeithingDate, convert(varchar(max), @xmldata) xmldata, @ID;
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 	        }

@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Shared.Item;
 /// <summary>
 /// Scale item page.
 /// </summary>
-public partial class ItemScaleV1
+public partial class ItemScaleObsolete
 {
 	//
 }

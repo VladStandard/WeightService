@@ -52,21 +52,21 @@ namespace DataCore.Localizations
                 public const string LogType = "/item/logtype";
                 public const string Nomenclature = "/item/nomenclature";
                 public const string Plu = "/item/plu";
-				public const string PluV2 = "/item/plu_v2";
                 public const string PluRef = "/item/plu_ref";
                 public const string Printer = "/item/printer";
                 public const string PrinterResource = "/item/printerresource";
                 public const string PrinterType = "/item/printertype";
                 public const string ProductionFacility = "/item/productionfacility";
                 public const string Scale = "/item/scale";
-                public const string ScaleV1 = "/item/scale_v1";
-                public const string ScaleV2 = "/item/scale_v2";
+                public const string ScaleNew = "/item/scale_new";
+                public const string ScaleObsolete = "/item/scale_obsolete";
                 public const string TaskModule = "/item/taskmodule";
                 public const string TaskTypeModule = "/item/tasktypemodule";
                 public const string Template = "/item/template";
                 public const string TemplateResource = "/item/templateresource";
                 public const string WeithingFact = "/item/measurements/wf";
                 public const string WorkShop = "/item/workshop";
+				public const string PluV2 = "/item/plu_v2";
             }
             #endregion
             #region URI route section
@@ -89,16 +89,14 @@ namespace DataCore.Localizations
                 public const string LogsWarnings = "/section/logs_warnings";
                 public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
-                public const string Plus = "/section/plus";
-                public const string PluRefs = "/section/plu_refs";
+                public const string PlusNew = "/section/plus_new";
+                public const string PlusObsolete = "/section/plus_obsolete";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
                 public const string PrinterTypes = "/section/printertypes";
                 public const string ProductionFacilities = "/section/productionfacilities";
                 public const string Root = "/";
                 public const string Scales = "/section/scales";
-				public const string ScalesV1 = "/section/scales_v1";
-				public const string ScalesV2 = "/section/scales_v2";
                 public const string TaskModules = "/section/taskmodules";
                 public const string TaskTypeModules = "/section/tasktypemodules";
                 public const string TemplateResources = "/section/templateresources";
@@ -107,6 +105,8 @@ namespace DataCore.Localizations
                 public const string WeithingFacts = "/section/measurements/weithingfacts";
                 public const string WeithingFactsAggregation = "/section/measurements/weithingfacts_aggregation";
                 public const string WorkShops = "/section/workshops";
+				public const string ScalesNew = "/section/scales_new";
+				public const string ScalesObsolete = "/section/scales_obsolete";
             }
             #endregion
             public static class Items
@@ -147,7 +147,6 @@ namespace DataCore.Localizations
             {
                 public static string AutomatedWorkplace => Lang == ShareEnums.Lang.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
                 public static string AutomatedWorkplaceShort => Lang == ShareEnums.Lang.English ? "AWs" : "АРМы";
-                public static string AutomatedWorkplaceV2Short => Lang == ShareEnums.Lang.English ? "AWs v2" : "АРМы в2";
                 public static string BarCodes => Lang == ShareEnums.Lang.English ? "Barcodes" : "Штрихкоды";
                 public static string BarCodesShort => Lang == ShareEnums.Lang.English ? "BC" : "ШК";
                 public static string BarCodeTypes => Lang == ShareEnums.Lang.English ? "Barcodes types" : "Типы штрихкодов";
@@ -167,13 +166,13 @@ namespace DataCore.Localizations
                 public static string OrderStatuses => Lang == ShareEnums.Lang.English ? "Order statuses" : "Статусы заказов";
                 public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
                 public static string Organizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
-                public static string Plus => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-                public static string PluRefs => Lang == ShareEnums.Lang.English ? "PLU v2" : "ПЛУ в2";
+                public static string Plus => Lang == ShareEnums.Lang.English ? "PLUs" : "ПЛУ";
                 public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Production facilities" : "Производственные площадки";
                 public static string ProductionFacilitiesShort => Lang == ShareEnums.Lang.English ? "Facilities" : "Площадки";
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
                 public static string References => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
                 public static string ReferencesAdditional => Lang == ShareEnums.Lang.English ? "Add. references" : "Доп. справочники";
+                public static string Obsoletes => Lang == ShareEnums.Lang.English ? "Obsoletes" : "Устаревшие";
                 public static string ReferencesDev => Lang == ShareEnums.Lang.English ? "Development" : "Разработка";
                 public static string ReferencesDwh => Lang == ShareEnums.Lang.English ? "DWH References" : "DWH справочники";
                 public static string Resources => Lang == ShareEnums.Lang.English ? "Resources" : "Ресурсы";

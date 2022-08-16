@@ -35,7 +35,7 @@ public partial class SectionBarCodeTypes
             () =>
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeTypeV2Entity>(
-                    (IsShowMarkedItems == true) ? null
+                    IsShowMarkedItems ? null
                         : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                     new(DbField.Name, DbOrderDirection.Asc),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

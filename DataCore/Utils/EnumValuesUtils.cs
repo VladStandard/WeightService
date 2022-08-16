@@ -14,7 +14,7 @@ public static class EnumValuesUtils
     /// <returns></returns>
     public static List<bool> GetBool()
     {
-        return new List<bool>() { false, true };
+        return new() { false, true };
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public static class EnumValuesUtils
     /// <returns></returns>
     public static List<string?> GetString()
     {
-        return new List<string?>() { null, "", string.Empty };
+        return new() { null, "", string.Empty };
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public static class EnumValuesUtils
     /// <returns></returns>
     public static List<ushort> GetUshort()
     {
-        return new List<ushort>() { ushort.MinValue, 1, ushort.MaxValue / 2, ushort.MaxValue };
+        return new() { ushort.MinValue, 1, ushort.MaxValue / 2, ushort.MaxValue };
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public static class EnumValuesUtils
     /// <returns></returns>
     public static List<short> GetShort()
     {
-        return new List<short>() { short.MinValue, 1, short.MaxValue / 2, short.MaxValue };
+        return new() { short.MinValue, 1, short.MaxValue / 2, short.MaxValue };
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public static class EnumValuesUtils
     /// <returns></returns>
     public static List<uint> GetUint()
     {
-        return new List<uint>() { uint.MinValue, 1, uint.MaxValue / 2, uint.MaxValue };
+        return new() { uint.MinValue, 1, uint.MaxValue / 2, uint.MaxValue };
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public static class EnumValuesUtils
     /// <returns></returns>
     public static List<int> GetInt()
     {
-        return new List<int>() { int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
+        return new() { int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
     }
 
     /// <summary>

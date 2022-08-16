@@ -23,7 +23,7 @@ public static class EnumUtils
     // https://stackoverflow.com/questions/79126/create-generic-method-constraining-t-to-an-enum
     public static Dictionary<int, string> EnumNamedValues<T>() where T : Enum
     {
-        Dictionary<int, string>? result = new Dictionary<int, string>();
+        Dictionary<int, string>? result = new();
         Array? values = Enum.GetValues(typeof(T));
 
         foreach (int item in values)
@@ -90,11 +90,11 @@ public static class EnumUtils
 
     public static IEnumerable<TypeEntity<short>> GetEnumRelevenaceStatusesRus()
     {
-        List<TypeEntity<short>>? result = new List<TypeEntity<short>>
+        List<TypeEntity<short>>? result = new()
         {
-            new TypeEntity<short>("Неизвестно", 0),
-            new TypeEntity<short>("Актуально", 1),
-            new TypeEntity<short>("Неактуально", 2),
+            new("Неизвестно", 0),
+            new("Актуально", 1),
+            new("Неактуально", 2),
         };
         return result;
     }
@@ -106,12 +106,12 @@ public static class EnumUtils
 
     public static IEnumerable<TypeEntity<short>> GetEnumNormilizationStatusesRus()
     {
-        List<TypeEntity<short>>? result = new List<TypeEntity<short>>
+        List<TypeEntity<short>>? result = new()
         {
-            new TypeEntity<short>("Ненормализована", 0),
-            new TypeEntity<short>("Нормализована полностью", 1),
-            new TypeEntity<short>("Нормализована частично", 2),
-            new TypeEntity<short>("Не подлежит нормализации", 3),
+            new("Ненормализована", 0),
+            new("Нормализована полностью", 1),
+            new("Нормализована частично", 2),
+            new("Не подлежит нормализации", 3),
         };
         return result;
     }

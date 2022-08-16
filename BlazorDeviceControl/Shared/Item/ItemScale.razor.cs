@@ -28,7 +28,7 @@ public partial class ItemScale
 	private List<WorkShopEntity> WorkShopItems { get; set; }
 	private List<TypeEntity<string>> ComPorts { get; set; }
 	private List<HostEntity> HostItems { get; set; }
-	[Parameter] public bool IsPluV2 { get; set; }
+	[Parameter] public bool IsPluNew { get; set; }
 
 	#endregion
 

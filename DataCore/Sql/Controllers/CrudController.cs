@@ -292,11 +292,10 @@ public class CrudController
             case LabelEntity label:
                 label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
                 break;
-            //case OrderEntity order:
-            //    order.Scale = GetEntityById<ScaleEntity>(order.Scale.IdentityId);
-            //    order.Plu = GetEntity<PluEntity>(
-            //        new(new() { new(DbField.Plu, DbComparer.Equal, (int)order.Plu.IdentityId) }));
-            //    break;
+            case OrderWeighingEntity orderWeighing:
+	            orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
+	            orderWeighing.Fact = GetEntityById<WeithingFactEntity>(orderWeighing.Fact.IdentityId);
+                break;
             case PluEntity plu:
                 plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
                 plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
@@ -342,7 +341,6 @@ public class CrudController
                         new ($"{nameof(PluEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
                     }));
                 weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
-                weithingFact.Order = weithingFact.Order?.IdentityUid == null ? null : GetEntityByUid<OrderEntity>(weithingFact.Order.IdentityUid);
                 break;
             case WorkShopEntity workshop:
                 workshop.ProductionFacility = GetEntityById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);

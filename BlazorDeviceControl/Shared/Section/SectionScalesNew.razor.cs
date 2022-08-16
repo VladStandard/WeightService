@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionScalesV2
+public partial class SectionScalesNew
 {
 	//
 }

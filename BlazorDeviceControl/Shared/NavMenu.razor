@@ -25,9 +25,7 @@
             <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
                 <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.Scales>
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.AutomatedWorkplaceShort Path=@LocaleData.DeviceControl.UriRouteSection.ScalesV1 />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.AutomatedWorkplaceV2Short Path=@LocaleData.DeviceControl.UriRouteSection.ScalesV2 />
+                        Text=@LocaleData.DeviceControl.Sections.AutomatedWorkplaceShort Path=@LocaleData.DeviceControl.UriRouteSection.ScalesNew />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleData.DeviceControl.Sections.ProductionFacilitiesShort Path=@LocaleData.DeviceControl.UriRouteSection.ProductionFacilities />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
@@ -60,9 +58,7 @@
                 
                 <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.ReferencesAdditional >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Plus Path=@LocaleData.DeviceControl.UriRouteSection.Plus />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.PluRefs Path=@LocaleData.DeviceControl.UriRouteSection.PluRefs />
+                        Text=@LocaleData.DeviceControl.Sections.Plus Path=@LocaleData.DeviceControl.UriRouteSection.PlusNew />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleData.DeviceControl.Sections.Templates Path=@LocaleData.DeviceControl.UriRouteSection.Templates />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
@@ -71,6 +67,13 @@
                         Text=@LocaleData.DeviceControl.Sections.BarCodesShort Path=@LocaleData.DeviceControl.UriRouteSection.BarCodes />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleData.DeviceControl.Sections.BarCodeTypesShort Path=@LocaleData.DeviceControl.UriRouteSection.BarCodeTypes />
+                </RadzenPanelMenuItem>
+                
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.Obsoletes >
+	                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
+	                                     Text=@LocaleData.DeviceControl.Sections.AutomatedWorkplaceShort Path=@LocaleData.DeviceControl.UriRouteSection.ScalesObsolete />
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
+                        Text=@LocaleData.DeviceControl.Sections.Plus Path=@LocaleData.DeviceControl.UriRouteSection.PlusObsolete />
                 </RadzenPanelMenuItem>
                 
                 @if (IsDebug)

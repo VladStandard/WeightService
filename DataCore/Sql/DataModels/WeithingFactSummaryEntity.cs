@@ -69,10 +69,7 @@ public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
         return Equals((WeithingFactSummaryEntity)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
     public virtual bool EqualsNew()
     {

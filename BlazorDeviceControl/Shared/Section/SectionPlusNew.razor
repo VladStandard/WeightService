@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/plu_refs"
+@page "/section/plus_new"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Sql.TableScaleModels
 @using DataCore.Localizations
@@ -12,8 +12,7 @@
 else
 {
 	<ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.Plus 
-		IsShowMarkedItems=@IsShowMarkedItems IsShowAdditionalFilter=@IsShowAdditionalFilter
-		ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter FilterTable=@ProjectsEnums.TableScale.Scales
+	    FilterTable=@ProjectsEnums.TableScale.Scales
 		FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
 
     <RadzenGrid 
@@ -50,7 +49,7 @@ else
 						Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluV2}/{itemCast.Plu.IdentityUid}") />
 		        </Template>
 	        </RadzenGridColumn>
-	        @if (IsShowAdditionalFilter)
+	        @*@if (IsShowAdditionalFilter)
 	        {
 				<RadzenGridColumn TItem="PluRefV2Entity" Width="10%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Scale>
 	                <Template Context="itemCast" >
@@ -58,7 +57,7 @@ else
 							Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.Scale.IdentityId}") />
 	                </Template>
 	            </RadzenGridColumn>
-	        }
+	        }*@
 			<RadzenGridColumn TItem="PluRefV2Entity" Width="14%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Template>
 		        <Template Context="itemCast" >
 			        <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.Template.Title></RadzenLabel>

@@ -22,7 +22,7 @@ else
                 TItem="NomenclatureEntity" Property="IdentityId" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.Id 
                 Type="int" Width="10%" />
-            <RadzenGridColumn 
+            @*<RadzenGridColumn 
                 TItem="NomenclatureEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
@@ -39,6 +39,13 @@ else
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
                         TValue="string" Value=@itemCast.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
+            </RadzenGridColumn>*@
+            <RadzenGridColumn TItem="NomenclatureEntity" Title=@LocaleCore.Table.Name Width="45%" >
+	            <Template Context="itemCast" >
+		            <RadzenLink Style="width: 100%; margin-left: 0px; "
+		                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+		                        Text=@itemCast.Name />
+	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="NomenclatureEntity" Property="Code" 
@@ -49,14 +56,6 @@ else
                 Title=@LocaleCore.Table.Weighted >
                 <Template Context="itemCast" >
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="NomenclatureEntity" Title=@LocaleCore.Table.Name Width="45%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
-                        Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
         </Columns>

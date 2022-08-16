@@ -1,22 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-//namespace DataCore.Sql.TableDirectModels;
-
-//[Serializable]
-//    public class WeightingHelper
-//    {
-//        /// <summary>
-//        /// Помощник SQL.
-//        /// </summary>
-//        private SqlHelper _sql { get; set; } = SqlHelper.Instance;
-
-//        /// <summary>
-//        /// Выполнить ХП SetWeithingFact.
-//        /// Редактировал: 2020-06-23 Морозов Дамиан.
-//        /// </summary>
-//        /// <param name="weighingFact"></param>
-//        public void SaveWeighingFact(WeighingFactEntity weighingFact)
+﻿//        public void SaveWeighingFact(WeighingFactEntity weighingFact)
 //        {
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
 //            {
@@ -58,20 +40,3 @@
 //                }
 //            }
 //        }
-
-//        /// <summary>
-//        /// SQL-запрос.
-//        /// Редактировал: 2020-06-23 Морозов Дамиан.
-//        /// </summary>
-//        /// <returns></returns>
-//        public string SaveWeighingFactGetQuery()
-//        {
-//            return @"
-//DECLARE @SSCC varchar(50)
-//DECLARE @WeithingDate datetime
-//DECLARE @xmldata xml;
-//EXECUTE [db_scales].[SetWeithingFact] @OrderID,@ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT
-//SELECT @SSCC [SSCC], @WEITHINGDATE [WEITHINGDATE], CONVERT(VARCHAR(MAX), @XMLDATA) [XMLDATA]
-//                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-//        }
-//    }

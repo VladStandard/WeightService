@@ -25,7 +25,6 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual DateTime ProductDate { get; set; }
 	[XmlElement(IsNullable = true)] public virtual int? RegNum { get; set; }
 	[XmlElement(IsNullable = true)] public virtual int? Kneading { get; set; }
-	[XmlElement(IsNullable = true)] public virtual OrderEntity? Order { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -50,7 +49,6 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
         Plu = new();
         Scale = new();
         Serie = null;
-        Order = null;
         Sscc = string.Empty;
         WeithingDate = DateTime.MinValue;
         NetWeight = 0;
@@ -65,14 +63,12 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
         string strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
         string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
         string strSeries = Serie != null ? Serie.IdentityId.ToString() : "null";
-        string strOrder = Order != null ? Order.IdentityId.ToString() : "null";
         return
 			$"{nameof(IdentityId)}: {IdentityId}. " + 
 			$"{nameof(IsMarked)}: {IsMarked}. " +
 			$"{nameof(Plu)}: {strPlu}. " +
 			$"{nameof(Scale)}: {strScale}. " +
 			$"{nameof(Serie)}: {strSeries}. " +
-			$"{nameof(Order)}: {strOrder}. " +
 			$"{nameof(Sscc)}: {Sscc}. " +
 			$"{nameof(WeithingDate)}: {WeithingDate}. " +
 			$"{nameof(NetWeight)}: {NetWeight}. " +
@@ -86,13 +82,11 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        if (Plu != null && item.Plu != null && !Plu.Equals(item.Plu))
+        if (!Plu.Equals(item.Plu))
             return false;
-        if (Scale != null && item.Scale != null && !Scale.Equals(item.Scale))
+        if (!Scale.Equals(item.Scale))
             return false;
         if (Serie != null && item.Serie != null && !Serie.Equals(item.Serie))
-            return false;
-        if (Order != null && item.Order != null && !Order.Equals(item.Order))
             return false;
         return base.Equals(item) &&
                Equals(Sscc, item.Sscc) &&
@@ -121,13 +115,11 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        if (Plu != null && !Plu.EqualsDefault())
+        if (!Plu.EqualsDefault())
             return false;
-        if (Scale != null && !Scale.EqualsDefault())
+        if (!Scale.EqualsDefault())
             return false;
         if (Serie != null && !Serie.EqualsDefault())
-            return false;
-        if (Order != null && !Order.EqualsDefault())
             return false;
         return base.EqualsDefault() &&
                Equals(Sscc, string.Empty) &&
@@ -145,7 +137,6 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
         item.Plu = Plu.CloneCast();
         item.Scale = Scale.CloneCast();
         item.Serie = Serie?.CloneCast();
-        item.Order = Order?.CloneCast();
         item.Sscc = Sscc;
         item.WeithingDate = WeithingDate;
         item.NetWeight = NetWeight;

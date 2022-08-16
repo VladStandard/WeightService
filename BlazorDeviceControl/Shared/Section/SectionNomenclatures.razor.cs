@@ -34,7 +34,8 @@ public partial class SectionNomenclatures
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
+                Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
+		            IsShowMarkedItems ? null : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                     new(DbField.Name),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.ToList<BaseEntity>();

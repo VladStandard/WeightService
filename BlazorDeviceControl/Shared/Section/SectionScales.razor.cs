@@ -14,7 +14,7 @@ public partial class SectionScales
 {
 	#region Public and private fields, properties, constructor
 
-	[Parameter] public bool IsPluV2 { get; set; }
+	[Parameter] public bool IsPluNew { get; set; }
 	private List<ScaleEntity> ItemsCast => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
 
     #endregion
@@ -37,7 +37,7 @@ public partial class SectionScales
             () =>
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                    (IsShowMarkedItems == true) ? null
+                    IsShowMarkedItems ? null
                         : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                     new(DbField.Description, DbOrderDirection.Asc),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

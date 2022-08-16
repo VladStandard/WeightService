@@ -6,7 +6,6 @@ using DataCore.Models;
 using DataCore.Sql;
 using DataCore.Sql.DataModels;
 using DataCore.Sql.Models;
-using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Section.Measurements;
 

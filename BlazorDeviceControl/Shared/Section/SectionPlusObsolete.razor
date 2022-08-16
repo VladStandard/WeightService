@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/plus"
+@page "/section/plus_obsolete"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
@@ -15,7 +15,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.Plus 
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.Plus
         IsShowMarkedItems=@IsShowMarkedItems IsShowAdditionalFilter=@IsShowAdditionalFilter 
         ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
         FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />

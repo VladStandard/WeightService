@@ -36,7 +36,7 @@ public partial class SectionAccess
             () =>
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
-                        (IsShowMarkedItems == true) ? null
+                        IsShowMarkedItems ? null
                             : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.User, DbOrderDirection.Asc),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

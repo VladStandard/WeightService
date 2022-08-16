@@ -87,8 +87,8 @@
     <Watch Remove="Shared\Item\ItemInfo.razor" />
     <Watch Remove="Shared\Item\ItemLog.razor" />
     <Watch Remove="Shared\Item\ItemNomenclature.razor" />
-    <Watch Remove="Shared\Item\ItemPlu.razor" />
-    <Watch Remove="Shared\Item\ItemPluV2.razor" />
+    <Watch Remove="Shared\Item\ItemPluNew.razor" />
+    <Watch Remove="Shared\Item\ItemPluObsolete.razor" />
     <Watch Remove="Shared\Item\ItemPrinter.razor" />
     <Watch Remove="Shared\Item\ItemPrinterResource.razor" />
     <Watch Remove="Shared\Item\ItemPrinterType.razor" />

@@ -255,6 +255,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zebra", "Zebra", "{3183F5C1
 		Resources\Templates\Zebra\SCALES-PRN-428.zpl = Resources\Templates\Zebra\SCALES-PRN-428.zpl
 		Resources\Templates\Zebra\SCALES-PRN-429.zpl = Resources\Templates\Zebra\SCALES-PRN-429.zpl
 		Resources\Templates\Zebra\SCALES-PRN-430.zpl = Resources\Templates\Zebra\SCALES-PRN-430.zpl
+		Resources\Templates\Zebra\ЧудоПечка 30x50 вес АРМ.zpl = Resources\Templates\Zebra\ЧудоПечка 30x50 вес АРМ.zpl
+		Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ.zpl = Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ.zpl
 	EndProjectSection
 EndProject
 Global
@@ -917,7 +919,7 @@ Global
 		{3183F5C1-144A-43CA-86BF-B7B528F6A94F} = {F93145FD-2BD5-44AE-8FB5-4597B5AD1D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

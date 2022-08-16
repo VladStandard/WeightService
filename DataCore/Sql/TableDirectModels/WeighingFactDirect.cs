@@ -78,9 +78,21 @@ public class WeighingFactDirect : BaseSerializeEntity, ISerializable
         // This code need for print labels.
         set => _ = value;
     }
+	[XmlElement] public string NetWeightKgPretty1Dot3Eng
+    {
+        get => $"{NetWeight:0.000}".Replace(',', '.');
+        // This code need for print labels.
+        set => _ = value;
+    }
 	[XmlElement] public string NetWeightKgPretty2Dot3Eng
     {
-        get => $"{NetWeight:00.000}".Replace(',', '.');
+        get => $"{NetWeight:#0.000}".Replace(',', '.');
+        // This code need for print labels.
+        set => _ = value;
+    }
+	[XmlElement] public string NetWeightKgPretty1Dot3Rus
+    {
+        get => $"{NetWeight:0.000}".Replace('.', ',');
         // This code need for print labels.
         set => _ = value;
     }
@@ -203,8 +215,7 @@ public class WeighingFactDirect : BaseSerializeEntity, ISerializable
 
     public void Save()
     {
-        SqlParameter[] parameters = new SqlParameter[] {
-            new("@OrderID", SqlDbType.VarChar, 38) { Value = DBNull.Value },
+        SqlParameter[] parameters = {
             new("@ScaleID", SqlDbType.VarChar, 38) { Value = Scale.IdentityId },
             new("@PLU", SqlDbType.Int) { Value = PLU.PLU },
             new("@NetWeight", SqlDbType.Decimal) { Value = NetWeight },

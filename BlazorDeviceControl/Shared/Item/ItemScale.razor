@@ -245,13 +245,13 @@ else
         </tbody>
     </MudSimpleTable>
     
-    @if (IsPluV2)
+    @if (IsPluNew)
     {
-		<SectionPlusRef Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+		<SectionPlusNew ItemFilter=@ItemCast IsShowAdditionalFilter=false />
     }
     else
     {
-	    <SectionPlus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+	    <SectionPlusObsolete ItemFilter=@ItemCast IsShowAdditionalFilter=false />
     }
 
 	<ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
