@@ -15,7 +15,7 @@
     <NuGetPackageImportStamp></NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>10.0</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-1-Develop\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -32,7 +32,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.6.985.0</ApplicationVersion>
+    <ApplicationVersion>0.6.990.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

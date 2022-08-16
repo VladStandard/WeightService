@@ -6,8 +6,8 @@
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
-    <FileVersion>0.6.985.0</FileVersion>
-    <AssemblyVersion>0.6.985.0</AssemblyVersion>
+    <FileVersion>0.6.990.0</FileVersion>
+    <AssemblyVersion>0.6.990.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
@@ -26,6 +26,6 @@
     <ProjectReference Include="..\WebApiTerra1000\WebApiTerra1000.csproj" />
   </ItemGroup>
 	<PropertyGroup>
-		<Version>0.6.985.0</Version>
+		<Version>0.6.990.0</Version>
 	</PropertyGroup>
 </Project>
