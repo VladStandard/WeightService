@@ -1,10 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable VirtualMemberCallInConstructor
 
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "PLU".
+/// Table "PLU_V2".
 /// </summary>
 [Serializable]
 public class PluEntity : BaseEntity, ISerializable, IBaseEntity
@@ -14,30 +15,28 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Identity name.
 	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual TemplateEntity Template { get; set; }
-	[XmlElement] public virtual ScaleEntity Scale { get; set; }
-	[XmlElement] public virtual NomenclatureEntity Nomenclature { get; set; }
-	[XmlElement] public virtual string GoodsName { get; set; }
-	[XmlElement] public virtual string GoodsFullName { get; set; }
-	[XmlElement] public virtual string GoodsDescription { get; set; }
-	[XmlElement] public virtual string Gtin { get; set; }
-	[XmlElement] public virtual string Ean13 { get; set; }
-	[XmlElement] public virtual string Itf14 { get; set; }
-	[XmlElement] public virtual short GoodsShelfLifeDays { get; set; }
-	[XmlElement] public virtual decimal GoodsTareWeight { get; set; }
-	[XmlElement] public virtual int GoodsBoxQuantly { get; set; }
-	[XmlElement] public virtual int PluNumber { get; set; }
-	[XmlElement] public virtual bool Active { get; set; }
-	[XmlElement] public virtual decimal UpperWeightThreshold { get; set; }
-	[XmlElement] public virtual decimal NominalWeight { get; set; }
-	[XmlElement] public virtual decimal LowerWeightThreshold { get; set; }
-	[XmlElement] public virtual bool IsCheckWeight { get; set; }
+	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
+    [XmlElement] public virtual int Number { get; set; }
+    [XmlElement] public virtual string Name { get; set; }
+	[XmlElement] public virtual string FullName { get; set; }
+	[XmlElement] public virtual string Description { get; set; }
+	[XmlElement] public virtual short ShelfLifeDays { get; set; }
+    [XmlElement] public virtual decimal TareWeight { get; set; }
+    [XmlElement] public virtual int BoxQuantly { get; set; }
+    [XmlElement] public virtual string Gtin { get; set; }
+    [XmlElement] public virtual string Ean13 { get; set; }
+    [XmlElement] public virtual string Itf14 { get; set; }
+    [XmlElement] public virtual decimal UpperThreshold { get; set; }
+    [XmlElement] public virtual decimal NominalWeight { get; set; }
+    [XmlElement] public virtual decimal LowerThreshold { get; set; }
+    [XmlElement] public virtual bool IsCheckWeight { get; set; }
+    [XmlElement] public virtual TemplateEntity Template { get; set; }
+    [XmlElement] public virtual NomenclatureEntity Nomenclature { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PluEntity() : base(0, false)
+	public PluEntity() : base(0, false)
 	{
 		Init();
 	}
@@ -48,7 +47,7 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
 	public PluEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
-	{
+    {
 		Init();
 	}
 
@@ -59,109 +58,93 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <param name="context"></param>
     protected PluEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Template = (TemplateEntity)info.GetValue(nameof(Template), typeof(TemplateEntity));
-        Scale = (ScaleEntity)info.GetValue(nameof(Scale), typeof(ScaleEntity));
-        Nomenclature = (NomenclatureEntity)info.GetValue(nameof(Nomenclature), typeof(NomenclatureEntity));
-        GoodsName = info.GetString(nameof(GoodsName));
-        GoodsFullName = info.GetString(nameof(GoodsFullName));
-        GoodsDescription = info.GetString(nameof(GoodsDescription));
-        Gtin = info.GetString(nameof(Gtin));
-        Ean13 = info.GetString(nameof(Ean13));
-        Itf14 = info.GetString(nameof(Itf14));
+	    Number = info.GetInt32(nameof(Number));
+	    Name = info.GetString(nameof(Name));
+	    FullName = info.GetString(nameof(FullName));
+	    Description = info.GetString(nameof(Description));
+	    ShelfLifeDays = info.GetInt16(nameof(ShelfLifeDays));
+	    TareWeight = info.GetDecimal(nameof(TareWeight));
+	    BoxQuantly = info.GetInt32(nameof(BoxQuantly));
+	    Gtin = info.GetString(nameof(Gtin));
+	    Ean13 = info.GetString(nameof(Ean13));
+	    Itf14 = info.GetString(nameof(Itf14));
+	    UpperThreshold = info.GetDecimal(nameof(UpperThreshold));
+	    NominalWeight = info.GetDecimal(nameof(NominalWeight));
+	    LowerThreshold = info.GetDecimal(nameof(LowerThreshold));
+	    IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
+	    Template = (TemplateEntity)info.GetValue(nameof(Template), typeof(TemplateEntity));
+	    Nomenclature = (NomenclatureEntity)info.GetValue(nameof(Template), typeof(NomenclatureEntity));
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	public new virtual void Init()
-	{
-		base.Init();
-		Template = new();
-		Scale = new();
-		Nomenclature = new();
-		GoodsName = string.Empty;
-		GoodsFullName = string.Empty;
-		GoodsDescription = string.Empty;
+    public new virtual void Init()
+    {
+	    base.Init();
+	    Number = 0;
+        Name = string.Empty;
+		FullName = string.Empty;
+		Description = string.Empty;
+		ShelfLifeDays = 0;
+		TareWeight = 0;
+		BoxQuantly = 0;
 		Gtin = string.Empty;
 		Ean13 = string.Empty;
 		Itf14 = string.Empty;
-		GoodsShelfLifeDays = 0;
-		GoodsTareWeight = 0;
-		GoodsBoxQuantly = 0;
-		PluNumber = 0;
-		Active = false;
-		UpperWeightThreshold = 0;
+		UpperThreshold = 0;
 		NominalWeight = 0;
-		LowerWeightThreshold = 0;
+		LowerThreshold = 0;
 		IsCheckWeight = false;
+		Template = new();
+		Nomenclature = new();
 	}
 
-	public override string ToString()
+    public override string ToString()
     {
-        string strTemplates = Template != null ? Template.IdentityId.ToString() : "null";
-        string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
-        string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
-        return
-			$"{nameof(IdentityId)}: {IdentityId}. " + 
-            $"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Template)}: {strTemplates}. " +
-			$"{nameof(Scale)}: {strScale}. " +
-			$"{nameof(Nomenclature)}: {strNomenclature}. " +
-			$"{nameof(GoodsName)}: {GoodsName}. " +
-			$"{nameof(GoodsFullName)}: {GoodsFullName}. " +
-			$"{nameof(GoodsDescription)}: {GoodsDescription}. " +
-			$"{nameof(Gtin)}: {Gtin}. " +
-			$"{nameof(Ean13)}: {Ean13}. " +
-			$"{nameof(Itf14)}: {Itf14}. " +
-			$"{nameof(GoodsShelfLifeDays)}: {GoodsShelfLifeDays}. " +
-			$"{nameof(GoodsTareWeight)}: {GoodsTareWeight}. " +
-			$"{nameof(GoodsBoxQuantly)}: {GoodsBoxQuantly}. " +
-			$"{nameof(PluNumber)}: {PluNumber}. " +
-			$"{nameof(Active)}: {Active}. " +
-			$"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
-			$"{nameof(NominalWeight)}: {NominalWeight}. " +
-			$"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
-			$"{nameof(IsCheckWeight)}: {IsCheckWeight}. ";
+	    return
+		    $"{nameof(IdentityUid)}: {IdentityUid}. " +
+		    $"{nameof(IsMarked)}: {IsMarked}. " +
+		    $"{nameof(Number)}: {Number}. " +
+		    $"{nameof(Name)}: {Name}. ";
     }
 
     public virtual bool Equals(PluEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        if (Template != null && item.Template != null && !Template.Equals(item.Template))
+        if (!Template.Equals(item.Template))
             return false;
-        if (Scale != null && item.Scale != null && !Scale.Equals(item.Scale))
+        if (!Nomenclature.Equals(item.Nomenclature))
             return false;
-        if (Nomenclature != null && item.Nomenclature != null && !Nomenclature.Equals(item.Nomenclature))
-            return false;
-        return base.Equals(item) &&
-               Equals(GoodsName, item.GoodsName) &&
-               Equals(GoodsFullName, item.GoodsFullName) &&
-               Equals(GoodsDescription, item.GoodsDescription) &&
-               Equals(Gtin, item.Gtin) &&
-               Equals(Ean13, item.Ean13) &&
-               Equals(Itf14, item.Itf14) &&
-               Equals(GoodsShelfLifeDays, item.GoodsShelfLifeDays) &&
-               Equals(GoodsTareWeight, item.GoodsTareWeight) &&
-               Equals(GoodsBoxQuantly, item.GoodsBoxQuantly) &&
-               Equals(PluNumber, item.PluNumber) &&
-               Equals(Active, item.Active) &&
-               Equals(UpperWeightThreshold, item.UpperWeightThreshold) &&
-               Equals(NominalWeight, item.NominalWeight) &&
-               Equals(LowerWeightThreshold, item.LowerWeightThreshold) &&
-               Equals(IsCheckWeight, item.IsCheckWeight);
+        return 
+	        base.Equals(item) &&
+			Equals(Number, item.Number) &&
+			Equals(Name, item.Name) &&
+			Equals(FullName, item.FullName) &&
+			Equals(Description, item.Description) &&
+			Equals(ShelfLifeDays, item.ShelfLifeDays) &&
+			Equals(TareWeight, item.TareWeight) &&
+			Equals(BoxQuantly, item.BoxQuantly) &&
+			Equals(Gtin, item.Gtin) &&
+			Equals(Ean13, item.Ean13) &&
+			Equals(Itf14, item.Itf14) &&
+			Equals(UpperThreshold, item.UpperThreshold) &&
+			Equals(NominalWeight, item.NominalWeight) &&
+			Equals(LowerThreshold, item.LowerThreshold) &&
+			Equals(IsCheckWeight, item.IsCheckWeight);
     }
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((PluEntity)obj);
     }
 
-	public override int GetHashCode() => IdentityId.GetHashCode();
+	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {
@@ -170,51 +153,47 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual bool EqualsDefault()
     {
-        if (Template != null && !Template.EqualsDefault())
+        if (!Template.EqualsDefault())
             return false;
-        if (Scale != null && !Scale.EqualsDefault())
+        if (!Nomenclature.EqualsDefault())
             return false;
-        if (Nomenclature != null && !Nomenclature.EqualsDefault())
-            return false;
-        return base.EqualsDefault() &&
-               Equals(GoodsName, string.Empty) &&
-               Equals(GoodsFullName, string.Empty) &&
-               Equals(GoodsDescription, string.Empty) &&
-               Equals(Gtin, string.Empty) &&
-               Equals(Ean13, string.Empty) &&
-               Equals(Itf14, string.Empty) &&
-               Equals(GoodsShelfLifeDays, (short)0) &&
-               Equals(GoodsTareWeight, (decimal)0) &&
-               Equals(GoodsBoxQuantly, 0) &&
-               Equals(PluNumber, 0) &&
-               Equals(Active, false) &&
-               Equals(UpperWeightThreshold, (decimal)0) &&
-               Equals(NominalWeight, (decimal)0) &&
-               Equals(LowerWeightThreshold, (decimal)0) &&
-               Equals(IsCheckWeight, false);
+        return 
+			base.EqualsDefault() &&
+			Equals(Number, default(int)) &&
+			Equals(Name, string.Empty) &&
+			Equals(FullName, string.Empty) &&
+			Equals(Description, string.Empty) &&
+			Equals(ShelfLifeDays, default(short)) &&
+			Equals(TareWeight, default(decimal)) &&
+			Equals(BoxQuantly, default(int)) &&
+			Equals(Gtin, string.Empty) &&
+			Equals(Ean13, string.Empty) &&
+			Equals(Itf14, string.Empty) &&
+			Equals(UpperThreshold, default(decimal)) &&
+			Equals(NominalWeight, default(decimal)) &&
+			Equals(LowerThreshold, default(decimal)) &&
+			Equals(IsCheckWeight, false);
     }
 
     public new virtual object Clone()
     {
         PluEntity item = new();
-        item.Template = Template.CloneCast();
-        item.Scale = Scale.CloneCast();
-        item.Nomenclature = Nomenclature.CloneCast();
-        item.GoodsName = GoodsName;
-        item.GoodsFullName = GoodsFullName;
-        item.GoodsDescription = GoodsDescription;
+        item.Number = Number;
+        item.Name = Name;
+        item.FullName = FullName;
+        item.Description = Description;
+        item.ShelfLifeDays = ShelfLifeDays;
+        item.TareWeight = TareWeight;
+        item.BoxQuantly = BoxQuantly;
         item.Gtin = Gtin;
         item.Ean13 = Ean13;
         item.Itf14 = Itf14;
-        item.GoodsShelfLifeDays = GoodsShelfLifeDays;
-        item.GoodsTareWeight = GoodsTareWeight;
-        item.GoodsBoxQuantly = GoodsBoxQuantly;
-        item.PluNumber = PluNumber;
-        item.Active = Active;
-        item.UpperWeightThreshold = UpperWeightThreshold;
+        item.UpperThreshold = UpperThreshold;
         item.NominalWeight = NominalWeight;
-        item.LowerWeightThreshold = LowerWeightThreshold;
+        item.LowerThreshold = LowerThreshold;
         item.IsCheckWeight = IsCheckWeight;
+        item.Template = Template.CloneCast();
+        item.Nomenclature = Nomenclature.CloneCast();
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }
@@ -224,15 +203,22 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Template), Template);
-        info.AddValue(nameof(Scale), Scale);
-        info.AddValue(nameof(Nomenclature), Nomenclature);
-        info.AddValue(nameof(GoodsName), GoodsName);
-        info.AddValue(nameof(GoodsFullName), GoodsFullName);
-        info.AddValue(nameof(GoodsDescription), GoodsDescription);
+        info.AddValue(nameof(Number), Number);
+        info.AddValue(nameof(Name), Name);
+        info.AddValue(nameof(FullName), FullName);
+        info.AddValue(nameof(Description), Description);
+        info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
+        info.AddValue(nameof(TareWeight), TareWeight);
+        info.AddValue(nameof(BoxQuantly), BoxQuantly);
         info.AddValue(nameof(Gtin), Gtin);
         info.AddValue(nameof(Ean13), Ean13);
         info.AddValue(nameof(Itf14), Itf14);
+        info.AddValue(nameof(UpperThreshold), UpperThreshold);
+        info.AddValue(nameof(NominalWeight), NominalWeight);
+        info.AddValue(nameof(LowerThreshold), LowerThreshold);
+        info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
+		info.AddValue(nameof(Template), Template);
+        info.AddValue(nameof(Nomenclature), Nomenclature);
     }
     
     #endregion

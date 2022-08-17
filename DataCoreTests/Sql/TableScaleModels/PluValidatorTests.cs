@@ -1,12 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class PluRefV2ValidatorTests
+internal class PluValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
@@ -14,19 +12,19 @@ internal class PluRefV2ValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			PluRefV2Entity item = Substitute.For<PluRefV2Entity>();
-			PluRefV2Validator validator = new();
+			PluEntity item = Substitute.For<PluEntity>();
+			PluValidator validator = new();
 			// Act.
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
-			//Assert.IsFalse(result.IsValid);
+			Assert.IsFalse(result.IsValid);
 			// Act.
-			//item.Plu = null;
+			item.Name = "";
 			result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
-			//Assert.IsFalse(result.IsValid);
+			Assert.IsFalse(result.IsValid);
 		});
 	}
 
@@ -36,14 +34,16 @@ internal class PluRefV2ValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			PluRefV2Entity item = Substitute.For<PluRefV2Entity>();
-			PluRefV2Validator validator = new();
+			PluEntity item = Substitute.For<PluEntity>();
+			PluValidator validator = new();
 			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IsMarked = false;
-			item.IsActive = true;
-			item.IdentityUid = Guid.NewGuid();
+			item.Number = 100;
+			item.Name = "Test";
+			item.FullName = "Test";
+			item.Description = "Test";
+			item.Gtin = "Test";
+			item.Ean13 = "Test";
+			item.Itf14 = "Test";
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
@@ -57,8 +57,8 @@ internal class PluRefV2ValidatorTests
 		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
-			PluRefV2Validator validator = new();
-			PluRefV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<PluRefV2Entity>();
+			PluValidator validator = new();
+			PluEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<PluEntity>();
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -68,7 +68,7 @@ internal class PluRefV2ValidatorTests
 			{
 				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
 				int i = 0;
-				foreach (PluRefV2Entity item in items)
+				foreach (PluEntity item in items)
 				{
 					if (i < 10)
 						TestContext.WriteLine(item);

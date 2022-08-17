@@ -153,8 +153,9 @@ public class JsonSettingsController
 		            DataAccess.JsonSettingsRemote.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
 		            break;
             }
+		    DataAccess.InitSessionFactory(isRemote);
         }
-        return jsonObject != null;
+		return jsonObject != null;
     }
 
     private void CheckUpdates(string localDir)

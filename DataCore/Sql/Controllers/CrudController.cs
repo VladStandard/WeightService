@@ -296,16 +296,16 @@ public class CrudController
 	            orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
 	            orderWeighing.Fact = GetEntityById<WeithingFactEntity>(orderWeighing.Fact.IdentityId);
                 break;
-            case PluEntity plu:
+            case PluObsoleteEntity plu:
                 plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
                 plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
                 plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
                 break;
-            case PluRefV2Entity pluRef:
-	            pluRef.Plu = GetEntityByUid<PluV2Entity>(pluRef.Plu.IdentityUid);
+            case PluScaleEntity pluRef:
+	            pluRef.Plu = GetEntityByUid<PluEntity>(pluRef.Plu.IdentityUid);
 	            pluRef.Scale = GetEntityById<ScaleEntity>(pluRef.Scale.IdentityId);
                 break;
-            case PluV2Entity pluV2:
+            case PluEntity pluV2:
 	            pluV2.Template = GetEntityById<TemplateEntity>(pluV2.Template.IdentityId);
 	            pluV2.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(pluV2.Nomenclature.IdentityId);
 	            break;
@@ -335,10 +335,10 @@ public class CrudController
                 break;
             case WeithingFactEntity weithingFact:
                 weithingFact.Scale = GetEntityById<ScaleEntity>(weithingFact.Scale.IdentityId);
-                weithingFact.Plu = GetEntity<PluEntity>(
+                weithingFact.Plu = GetEntity<PluObsoleteEntity>(
                     new(new() {
                         new($"{nameof(weithingFact.Scale)}.{nameof(weithingFact.Scale.IdentityId)}", DbComparer.Equal, weithingFact.Scale.IdentityId),
-                        new ($"{nameof(PluEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
+                        new ($"{nameof(PluObsoleteEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
                     }));
                 weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
                 break;
@@ -613,7 +613,7 @@ public class CrudController
             case OrderEntity order:
                 ExecuteTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
                 break;
-            case PluEntity plu:
+            case PluObsoleteEntity plu:
                 plu.IsMarked = true;
                 ExecuteTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
                 break;
@@ -753,12 +753,12 @@ public class CrudController
                 return OrderEntity.IdentityName;
             case OrganizationEntity:
                 return OrganizationEntity.IdentityName;
+            case PluObsoleteEntity:
+                return PluObsoleteEntity.IdentityName;
             case PluEntity:
                 return PluEntity.IdentityName;
-            case PluV2Entity:
-                return PluV2Entity.IdentityName;
-            case PluRefV2Entity:
-                return PluRefV2Entity.IdentityName;
+            case PluScaleEntity:
+                return PluScaleEntity.IdentityName;
             case ProductionFacilityEntity:
                 return ProductionFacilityEntity.IdentityName;
             case ProductSeriesEntity:

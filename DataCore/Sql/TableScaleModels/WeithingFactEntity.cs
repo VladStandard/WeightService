@@ -15,7 +15,7 @@ public class WeithingFactEntity : BaseEntity, ISerializable, IBaseEntity
 	/// Identity name.
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
-	[XmlElement] public virtual PluEntity Plu { get; set; }
+	[XmlElement] public virtual PluObsoleteEntity Plu { get; set; }
 	[XmlElement] public virtual ScaleEntity Scale { get; set; }
 	[XmlElement] public virtual ProductSeriesEntity? Serie { get; set; }
 	[XmlElement] public virtual string Sscc { get; set; }

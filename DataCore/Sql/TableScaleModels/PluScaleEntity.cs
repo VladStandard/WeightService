@@ -7,10 +7,10 @@ using static DataCore.Sql.SqlQueries.DbScales.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "PLU_REF_V2".
+/// Table "PLUS_SCALES".
 /// </summary>
 [Serializable]
-public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
+public class PluScaleEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -20,13 +20,13 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 
     [XmlElement] public virtual bool IsActive { get; set; }
-    [XmlElement] public virtual PluV2Entity Plu { get; set; }
+    [XmlElement] public virtual PluEntity Plu { get; set; }
     [XmlElement] public virtual ScaleEntity Scale { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluRefV2Entity() : base(0, false)
+	public PluScaleEntity() : base(0, false)
 	{
 		Init();
 	}
@@ -36,7 +36,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public PluRefV2Entity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public PluScaleEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
 		Init();
 	}
@@ -46,9 +46,9 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-    protected PluRefV2Entity(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluScaleEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-	    Plu = (PluV2Entity)info.GetValue(nameof(Plu), typeof(PluV2Entity));
+	    Plu = (PluEntity)info.GetValue(nameof(Plu), typeof(PluEntity));
 	    Scale = (ScaleEntity)info.GetValue(nameof(Scale), typeof(ScaleEntity));
     }
 
@@ -74,7 +74,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 		    $"{nameof(Scale)}: {Scale.Description}. ";
     }
 
-    public virtual bool Equals(PluRefV2Entity item)
+    public virtual bool Equals(PluScaleEntity item)
     {
         //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -94,7 +94,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
         //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PluRefV2Entity)obj);
+        return Equals((PluScaleEntity)obj);
     }
 
 	public override int GetHashCode() => IdentityUid.GetHashCode();
@@ -116,7 +116,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        PluRefV2Entity item = new();
+        PluScaleEntity item = new();
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Scale = Scale.CloneCast();
@@ -124,7 +124,7 @@ public class PluRefV2Entity : BaseEntity, ISerializable, IBaseEntity
         return item;
     }
 
-    public new virtual PluRefV2Entity CloneCast() => (PluRefV2Entity)Clone();
+    public new virtual PluScaleEntity CloneCast() => (PluScaleEntity)Clone();
 
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {

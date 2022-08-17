@@ -51,8 +51,7 @@ namespace DataCore.Localizations
                 public const string Log = "/item/log";
                 public const string LogType = "/item/logtype";
                 public const string Nomenclature = "/item/nomenclature";
-                public const string Plu = "/item/plu";
-                public const string PluRef = "/item/plu_ref";
+                public const string PluObsolete = "/item/plu_obsolete";
                 public const string Printer = "/item/printer";
                 public const string PrinterResource = "/item/printerresource";
                 public const string PrinterType = "/item/printertype";
@@ -66,7 +65,7 @@ namespace DataCore.Localizations
                 public const string TemplateResource = "/item/templateresource";
                 public const string WeithingFact = "/item/measurements/wf";
                 public const string WorkShop = "/item/workshop";
-				public const string PluV2 = "/item/plu_v2";
+				public const string PluNew = "/item/plu_new";
             }
             #endregion
             #region URI route section

@@ -4,14 +4,14 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "PLU_V2".
+/// Table validation "PLUS".
 /// </summary>
-public class PluV2Validator : AbstractValidator<PluV2Entity>
+public class PluValidator : AbstractValidator<PluEntity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluV2Validator()
+    public PluValidator()
     {
 	    RuleFor(item => item.Number)
 		    .NotEmpty()

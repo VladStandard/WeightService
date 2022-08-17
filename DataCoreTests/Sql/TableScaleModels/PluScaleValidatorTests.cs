@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class PluV2ValidatorTests
+internal class PluScaleValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
@@ -12,19 +14,19 @@ internal class PluV2ValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			PluV2Entity item = Substitute.For<PluV2Entity>();
-			PluV2Validator validator = new();
+			PluScaleEntity item = Substitute.For<PluScaleEntity>();
+			PluScaleValidator validator = new();
 			// Act.
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
-			Assert.IsFalse(result.IsValid);
+			//Assert.IsFalse(result.IsValid);
 			// Act.
-			item.Name = "";
+			//item.Plu = null;
 			result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
-			Assert.IsFalse(result.IsValid);
+			//Assert.IsFalse(result.IsValid);
 		});
 	}
 
@@ -34,16 +36,14 @@ internal class PluV2ValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			PluV2Entity item = Substitute.For<PluV2Entity>();
-			PluV2Validator validator = new();
+			PluScaleEntity item = Substitute.For<PluScaleEntity>();
+			PluScaleValidator validator = new();
 			// Act.
-			item.Number = 100;
-			item.Name = "Test";
-			item.FullName = "Test";
-			item.Description = "Test";
-			item.Gtin = "Test";
-			item.Ean13 = "Test";
-			item.Itf14 = "Test";
+			item.CreateDt = DateTime.Now;
+			item.ChangeDt = DateTime.Now;
+			item.IsMarked = false;
+			item.IsActive = true;
+			item.IdentityUid = Guid.NewGuid();
 			ValidationResult result = validator.Validate(item);
 			TestsUtils.FailureWriteLine(result);
 			// Assert.
@@ -57,8 +57,8 @@ internal class PluV2ValidatorTests
 		TestsUtils.DbTableAction(() =>
 		{
 			// Arrange.
-			PluV2Validator validator = new();
-			PluV2Entity[]? items = TestsUtils.DataAccess.Crud.GetEntities<PluV2Entity>();
+			PluScaleValidator validator = new();
+			PluScaleEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<PluScaleEntity>();
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -68,7 +68,7 @@ internal class PluV2ValidatorTests
 			{
 				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
 				int i = 0;
-				foreach (PluV2Entity item in items)
+				foreach (PluScaleEntity item in items)
 				{
 					if (i < 10)
 						TestContext.WriteLine(item);

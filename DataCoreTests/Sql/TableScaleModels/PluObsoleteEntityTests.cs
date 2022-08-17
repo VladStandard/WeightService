@@ -4,14 +4,14 @@
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class PluEntityTests
+internal class PluObsoleteEntityTests
 {
     [Test]
     public void Entity_Equals_DoesNotThrow()
     {
         Assert.DoesNotThrow(() =>
         {
-            PluEntity item = new();
+            PluObsoleteEntity item = new();
             Assert.AreEqual(true, item.EqualsNew());
             Assert.AreEqual(true, item.EqualsDefault());
         });

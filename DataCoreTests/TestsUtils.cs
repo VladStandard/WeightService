@@ -23,32 +23,28 @@ public static class TestsUtils
     {
         DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameDebug);
-        TestContext.WriteLine(DataAccess.JsonSettingsLocal);
-    }
+        TestContext.WriteLine($"{nameof(DataAccess.JsonSettingsIsRemote)}: {DataAccess.JsonSettingsIsRemote}");
+        TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
+	}
 
 	public static void SetupRelease()
 	{
 		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
             NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameRelease);
-		TestContext.WriteLine(DataAccess.JsonSettingsLocal);
+		TestContext.WriteLine($"{nameof(DataAccess.JsonSettingsIsRemote)}: {DataAccess.JsonSettingsIsRemote}");
+		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
 	}
 
 	public static void DbTableAction(Action action)
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			for (int i = 0; i < 2; i++)
-			{
-				if (i == 0)
-					SetupRelease();
-				else if (i == 1)
-				{
-					TestContext.WriteLine();
-					SetupDebug();
-				}
+			SetupRelease();
+			action.Invoke();
+			TestContext.WriteLine();
 
-				action.Invoke();
-			}
+			SetupDebug();
+			action.Invoke();
 		});
 	}
 

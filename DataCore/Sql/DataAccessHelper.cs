@@ -22,6 +22,7 @@ public class DataAccessHelper
     #region Public and private fields, properties, constructor
 
     private readonly object _locker = new();
+    public bool JsonSettingsIsRemote { get; private set; }
 
     private JsonSettingsEntity? _jsonSettingsLocal;
     public JsonSettingsEntity JsonSettingsLocal
@@ -81,7 +82,7 @@ public class DataAccessHelper
             if (_fluentConfiguration != null)
                 return _fluentConfiguration;
             _fluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
-            AddConfigurationMappings(_fluentConfiguration, JsonSettingsLocal);
+            AddConfigurationMappings(_fluentConfiguration, JsonSettingsIsRemote ? JsonSettingsRemote : JsonSettingsLocal);
             //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
             //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
             _fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
@@ -89,7 +90,7 @@ public class DataAccessHelper
         }
     }
 
-    private NHibernate.ISessionFactory? _sessionFactory = null;
+    private NHibernate.ISessionFactory? _sessionFactory;
     public NHibernate.ISessionFactory SessionFactory
     {
         get
@@ -104,18 +105,28 @@ public class DataAccessHelper
         }
     }
 
-    public NHibernate.ISession? OpenSession() => SessionFactory.OpenSession();
-
-    public bool CloseSessionFactory()
+    public void InitSessionFactory(bool isRemote)
     {
-        using NHibernate.ISessionFactory? session = SessionFactory;
-        if (session != null)
+	    JsonSettingsIsRemote = isRemote;
+	    lock (_locker)
         {
-            session.Close();
-            session.Dispose();
-            return true;
-        }
-        return false;
+            _fluentConfiguration = null;
+            _sqlConfiguration = null;
+            _sessionFactory = null;
+		}
+        _ = SessionFactory;
+        _ = SqlConfiguration;
+        _ = FluentConfiguration;
+
+    }
+
+    public NHibernate.ISession OpenSession() => SessionFactory.OpenSession();
+
+    public void CloseSessionFactory()
+    {
+        using NHibernate.ISessionFactory session = SessionFactory;
+        session.Close();
+        session.Dispose();
     }
 
     private CrudController? _crud;
@@ -182,21 +193,17 @@ public class DataAccessHelper
     {
         get
         {
-            NHibernate.ISession? session = OpenSession();
-            if (session != null)
+            NHibernate.ISession session = OpenSession();
+            try
             {
-                try
-                {
-                    return session.IsConnected;
-                }
-                finally
-                {
-                    session.Disconnect();
-                    session.Close();
-                    session.Dispose();
-                }
+                return session.IsConnected;
             }
-            return false;
+            finally
+            {
+                session.Disconnect();
+                session.Close();
+                session.Dispose();
+            }
         }
     }
 
@@ -224,12 +231,19 @@ public class DataAccessHelper
     //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
     private string GetConnectionString() =>
-        $"Data Source={JsonSettingsLocal.Sql.DataSource}; " +
-        $"Initial Catalog={JsonSettingsLocal.Sql.InitialCatalog}; " +
-        $"Persist Security Info={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
-        $"Integrated Security={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
-        (JsonSettingsLocal.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsLocal.Sql.UserId}; Password={JsonSettingsLocal.Sql.Password}; ") +
-        $"TrustServerCertificate={JsonSettingsLocal.Sql.TrustServerCertificate}; ";
+        JsonSettingsIsRemote
+		? $"Data Source={JsonSettingsRemote.Sql.DataSource}; " +
+		  $"Initial Catalog={JsonSettingsRemote.Sql.InitialCatalog}; " +
+		  $"Persist Security Info={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
+		  $"Integrated Security={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
+		  (JsonSettingsRemote.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsRemote.Sql.UserId}; Password={JsonSettingsRemote.Sql.Password}; ") +
+		  $"TrustServerCertificate={JsonSettingsRemote.Sql.TrustServerCertificate}; "
+		: $"Data Source={JsonSettingsLocal.Sql.DataSource}; " +
+		  $"Initial Catalog={JsonSettingsLocal.Sql.InitialCatalog}; " +
+		  $"Persist Security Info={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
+          $"Integrated Security={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
+          (JsonSettingsLocal.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsLocal.Sql.UserId}; Password={JsonSettingsLocal.Sql.Password}; ") +
+          $"TrustServerCertificate={JsonSettingsLocal.Sql.TrustServerCertificate}; ";
 
     private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsEntity jsonSettings)
     {
@@ -260,9 +274,9 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluObsoleteMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluV2Map>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluRefV2Map>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
