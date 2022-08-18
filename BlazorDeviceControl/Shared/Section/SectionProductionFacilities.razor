@@ -18,7 +18,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
-            @if (@IsShowMarkedItems)
+            @if (IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="ProductionFacilityEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
@@ -29,14 +29,14 @@ else
             }
             <RadzenGridColumn TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Id Width="5%">
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                             Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                             Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Name Width="20%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />
                 </Template>
@@ -44,7 +44,7 @@ else
             <RadzenGridColumn 
                 TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Address Width="75%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
                         Text=@itemCast.Address />
                 </Template>

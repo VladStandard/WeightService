@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemProductionFacility
+public partial class ItemProductionFacility : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
