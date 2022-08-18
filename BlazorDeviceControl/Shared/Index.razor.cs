@@ -5,7 +5,7 @@ using DataCore.Localizations;
 
 namespace BlazorDeviceControl.Shared;
 
-public partial class Index
+public partial class Index : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 

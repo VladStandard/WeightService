@@ -21,7 +21,7 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="BarCodeV2Entity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
-                    Title=@LocaleCore.Table.MarkedShort Type="bool" Width="3.5%">
+                    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
