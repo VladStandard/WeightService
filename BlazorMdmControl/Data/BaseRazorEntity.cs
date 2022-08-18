@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
-using Toolbelt.Blazor.HotKeys;
 
 namespace MdmControlBlazor.Data
 {
@@ -14,7 +13,6 @@ namespace MdmControlBlazor.Data
         //[Inject] public BlazorSettingsEntity BlazorSettings { get; set; }
         [Inject] public Data.JsonAppSettingsEntity JsonAppSettings { get; set; }
         [Inject] public DialogService Dialog { get; set; }
-        [Inject] public HotKeys HotKeys { get; set; }
         [Inject] public IJSRuntime JsRuntime { get; set; }
         [Inject] public NavigationManager Navigation { get; set; }
         [Inject] public NotificationService Notification { get; set; }
@@ -26,17 +24,15 @@ namespace MdmControlBlazor.Data
 
         [Parameter] public int FontSizeHeader { get; set; }
         [Parameter] public int FontSize { get; set; }
-        [Parameter] public HotKeysContext HotKeysItem { get; set; }
-
+        
         #endregion
 
         #region IDisposable
 
         public void Dispose()
         {
-            Dialog?.Dispose();
-            Tooltip?.Dispose();
-            HotKeysItem?.Dispose();
+            Dialog.Dispose();
+            Tooltip.Dispose();
         }
 
         #endregion

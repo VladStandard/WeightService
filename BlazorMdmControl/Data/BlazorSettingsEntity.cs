@@ -419,18 +419,6 @@
 //            }
 //        }
 
-//        public async Task HotKeysMenuRoot()
-//        {
-//            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-//            Navigation.NavigateTo($"{LocalizationStrings.UriRouteRoot}");
-//        }
-
-//        public async Task HotKeysMenuNomenclatures()
-//        {
-//            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-//            Navigation.NavigateTo($"{LocalizationStrings.UriRouteNomenclatures}");
-//        }
-
 //        #endregion
 
 //        #region Public and private methods - Memory manager

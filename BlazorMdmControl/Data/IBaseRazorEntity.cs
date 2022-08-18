@@ -5,7 +5,6 @@ using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
-using Toolbelt.Blazor.HotKeys;
 
 namespace MdmControlBlazor.Data
 {
@@ -13,9 +12,7 @@ namespace MdmControlBlazor.Data
     {
         #region Public and private fields and properties - Inject
 
-        //[Inject] BlazorSettingsEntity BlazorSettings { get; set; }
         [Inject] DialogService Dialog { get; set; }
-        [Inject] HotKeys HotKeys { get; set; }
         [Inject] JsonAppSettingsEntity JsonAppSettings { get; set; }
         [Inject] IJSRuntime JsRuntime { get; set; }
         [Inject] NavigationManager Navigation { get; set; }
@@ -28,7 +25,6 @@ namespace MdmControlBlazor.Data
 
         [Parameter] int FontSizeHeader { get; set; }
         [Parameter] int FontSize { get; set; }
-        [Parameter] HotKeysContext HotKeysItem { get; set; }
 
         #endregion
     }

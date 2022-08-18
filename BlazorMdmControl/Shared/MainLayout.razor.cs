@@ -7,7 +7,6 @@
 //using MdmControlBlazor.Utils;
 //using Microsoft.AspNetCore.Components.Authorization;
 //using Radzen;
-//using Toolbelt.Blazor.HotKeys;
 
 //namespace MdmControlBlazor.Shared
 //{
@@ -39,9 +38,6 @@
 
 //            try
 //            {
-//                HotKeysItem = HotKeys.CreateContext()
-//                    .Add(ModKeys.Alt, Keys.Num1, BlazorSettings.HotKeysMenuRoot, "Menu root")
-//                    .Add(ModKeys.Alt, Keys.Num2, BlazorSettings.HotKeysMenuNomenclatures, "Menu nomenclatures");
 //                BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
 
 //                Task task = new Task(delegate { BlazorSettings.MemoryOpen(GuiRefreshAsync); });

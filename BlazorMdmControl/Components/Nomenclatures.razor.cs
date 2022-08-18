@@ -9,7 +9,6 @@
 //using MdmControlBlazor.Utils;
 //using Microsoft.AspNetCore.Components;
 //using Radzen;
-//using Toolbelt.Blazor.HotKeys;
 
 //namespace MdmControlBlazor.Components
 //{
@@ -47,22 +46,6 @@
 
 //        #endregion
 
-//        #region Public and private methods - Hotkeys
-
-//        private async Task HotKeysTabAsync()
-//        {
-//            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-//        }
-
-//        private async Task HotKeysRAsync()
-//        {
-//            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-//            await GetDataAsync(ShareEnums.TableDwh.NomenclatureMaster).ConfigureAwait(false);
-//            await GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(false);
-//        }
-
-//        #endregion
-
 //        #region Public and private methods
 
 //        private async Task GuiRefreshAsync()
@@ -74,14 +57,6 @@
 //        {
 //            await base.OnInitializedAsync().ConfigureAwait(true);
 
-//            HotKeysItem = HotKeys.CreateContext()
-//                .Add(ModKeys.None, Keys.Tab, HotKeysTabAsync, LocalizationStrings.TableTab)
-//                .Add(ModKeys.None, Keys.F5, MasterRecordCreateAsync, LocalizationStrings.TableMasterCreate)
-//                .Add(ModKeys.None, Keys.F6, MasterRecordIncludeAsync, LocalizationStrings.TableMasterInclude)
-//                .Add(ModKeys.None, Keys.F8, MasterRecordDeleteAsync, LocalizationStrings.TableMasterDelete)
-//                .Add(ModKeys.None, Keys.Enter, ActionMasterEditAsync, LocalizationStrings.TableMasterEdit)
-//                .Add(ModKeys.Ctrl, Keys.R, HotKeysRAsync, LocalizationStrings.TableRead)
-//            ;
 //            BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
 //        }
 

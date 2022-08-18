@@ -20,21 +20,6 @@
 //SQL-DB: {JsonAppSettings.Db}
 //{SqlUserEng}
 
-//Hotkeys for any page:
-//- Alt + 1   -- Main
-//- Alt + 2   -- Nomenclature
-//- Ctrl + R  -- Refresh data
-//Hotkeys for nomenclatures page:
-//- F5        -- Create master record
-//- F6        -- Include nonnormilize record into master
-//- F8        -- Delete master record
-//- Enter     -- Edit master record
-//Hotkeys for nomenclature page:
-//- Ctrl + S  -- Save item
-//- Backspace -- Close item
-//";
-//        }
-
 //        public string GetDocRus()
 //        {
 //            return LocalizationStrings.HomeText + Environment.NewLine + $@"

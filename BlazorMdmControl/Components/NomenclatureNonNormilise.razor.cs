@@ -6,7 +6,6 @@
 //using System.Threading.Tasks;
 //using MdmControlBlazor.Utils;
 //using Microsoft.AspNetCore.Components;
-//using Toolbelt.Blazor.HotKeys;
 
 //namespace MdmControlBlazor.Components
 //{
@@ -16,15 +15,6 @@
 
 //        [Parameter]
 //        public int? ItemId { get; set; }
-
-//        #endregion
-
-//        #region Public and private methods - Hotkeys
-
-//        private async Task HotKeysTabAsync()
-//        {
-//            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-//        }
 
 //        #endregion
 
@@ -39,7 +29,6 @@
 //        {
 //            await base.OnInitializedAsync().ConfigureAwait(true);
 
-//            HotKeysItem = HotKeys.CreateContext().Add(ModKeys.None, Keys.Tab, HotKeysTabAsync, LocalizationStrings.TableTab);
 //            BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
 //        }
 

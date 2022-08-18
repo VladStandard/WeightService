@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Radzen;
-using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace MdmControlBlazor
 {
@@ -37,8 +36,6 @@ namespace MdmControlBlazor
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
-            // HotKeys.
-            services.AddHotKeys();
             // Authentication.
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
             // Windows authentication may not be applied with Kestrel without this line

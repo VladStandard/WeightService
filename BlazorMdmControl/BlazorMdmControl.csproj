@@ -28,7 +28,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.7" />
     <PackageReference Include="Radzen.Blazor" Version="3.19.10" />
     <PackageReference Include="Radzen.Blazor.GridColumnVisibilityChooser" Version="2.2.0" />
-    <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="12.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
