@@ -14,14 +14,14 @@
         }
         else
         {
-            @if (!string.IsNullOrEmpty(@CreateDt))
+            @if (!string.IsNullOrEmpty(CreateDt))
             {
 		        <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 14px; "
 	                Text=@LocaleCore.Table.CreateDt />
 		        <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 14px; "
 		                     Text=@CreateDt />
             }
-            @if (!string.IsNullOrEmpty(@ChangeDt))
+            @if (!string.IsNullOrEmpty(ChangeDt))
             {
 		        <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 14px; "
 	                Text=@LocaleCore.Table.ChangeDt />

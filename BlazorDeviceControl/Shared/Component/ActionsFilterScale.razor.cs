@@ -8,7 +8,7 @@ using DataCore.Sql.TableScaleModels;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ActionsFilterScale
+public partial class ActionsFilterScale : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -46,10 +46,9 @@ public partial class ActionsFilterScale
 				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
 					new(new() { new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) }),
 					new(ShareEnums.DbField.Description));
-				if (itemsFilter is { })
+				if (itemsFilter is not null)
 				{
-					ItemsFilter = new();
-					ItemsFilter.Add(new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull });
+					ItemsFilter = new() { new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull } };
 					ItemsFilter.AddRange(itemsFilter.ToList<BaseEntity>());
 					if (ParentRazor?.ItemFilter == null)
 						ItemFilterCast = ItemsCast.First();

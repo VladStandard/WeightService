@@ -8,12 +8,12 @@ using System.Globalization;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ItemDates
+public partial class ItemDates : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
     private string CreateDt { get; set; }
-    private string ChangeDt { get; set; }
+	private string ChangeDt { get; set; }
 
 	#endregion
 
@@ -52,8 +52,6 @@ public partial class ItemDates
     {
         switch (ProjectsEnums.GetTableScale(Table.Name))
         {
-            case ProjectsEnums.TableScale.Default:
-                break;
             case ProjectsEnums.TableScale.BarCodeTypes:
                 BarCodeTypeV2Entity barcodeType = AppSettings.DataAccess.Crud.GetEntityByUid<BarCodeTypeV2Entity>(IdentityUid);
                 CreateDt = barcodeType.CreateDt.ToString(CultureInfo.InvariantCulture);
@@ -88,20 +86,20 @@ public partial class ItemDates
                 CreateDt = organization.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = organization.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
+            case ProjectsEnums.TableScale.PlusObsolete:
+                PluObsoleteEntity pluObsolete = AppSettings.DataAccess.Crud.GetEntityById<PluObsoleteEntity>(IdentityId);
+                CreateDt = pluObsolete.CreateDt.ToString(CultureInfo.InvariantCulture);
+                ChangeDt = pluObsolete.ChangeDt.ToString(CultureInfo.InvariantCulture);
+                break;
             case ProjectsEnums.TableScale.Plus:
-                PluEntity plu = AppSettings.DataAccess.Crud.GetEntityById<PluEntity>(IdentityId);
+                PluEntity plu = AppSettings.DataAccess.Crud.GetEntityByUid<PluEntity>(IdentityUid);
                 CreateDt = plu.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = plu.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case ProjectsEnums.TableScale.PlusV2:
-                PluV2Entity pluV2 = AppSettings.DataAccess.Crud.GetEntityById<PluV2Entity>(IdentityId);
-                CreateDt = pluV2.CreateDt.ToString(CultureInfo.InvariantCulture);
-                ChangeDt = pluV2.ChangeDt.ToString(CultureInfo.InvariantCulture);
-                break;
-            case ProjectsEnums.TableScale.PluRefs:
-                PluRefV2Entity pluRefV2 = AppSettings.DataAccess.Crud.GetEntityById<PluRefV2Entity>(IdentityId);
-                CreateDt = pluRefV2.CreateDt.ToString(CultureInfo.InvariantCulture);
-                ChangeDt = pluRefV2.ChangeDt.ToString(CultureInfo.InvariantCulture);
+            case ProjectsEnums.TableScale.PlusScales:
+                PluScaleEntity pluScale = AppSettings.DataAccess.Crud.GetEntityByUid<PluScaleEntity>(IdentityUid);
+                CreateDt = pluScale.CreateDt.ToString(CultureInfo.InvariantCulture);
+                ChangeDt = pluScale.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Printers:
                 PrinterEntity printer = AppSettings.DataAccess.Crud.GetEntityById<PrinterEntity>(IdentityId);

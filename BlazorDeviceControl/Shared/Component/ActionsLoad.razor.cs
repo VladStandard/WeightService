@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ActionsLoad
+public partial class ActionsLoad : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -17,12 +17,7 @@ public partial class ActionsLoad
 
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-
-		RunActions(new());
-	}
+	//
 
 	#endregion
 }

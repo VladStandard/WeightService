@@ -6,20 +6,20 @@ using System.Drawing.Imaging;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class NetBarcodePage
+public partial class NetBarcodePage : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
     private Barcode Barcode { get; set; }
     private BarcodeType BarcodeType { get; set; }
+    private Exception? Exception { get; set; }
     private ImageFormat ImageFormat { get; set; }
     private List<BarcodeType> BarcodeTypes { get; set; }
     private List<ImageFormat> ImageFormats { get; set; }
-    private string BarcodeValue { get; set; }
     private string BarcodeImage { get; set; }
-    private Exception? Exception { get; set; }
+    private string BarcodeValue { get; set; }
 
-#endregion
+	#endregion
 
     #region Public and private methods
 
@@ -48,13 +48,6 @@ public partial class NetBarcodePage
         ImageFormat = ImageFormat.Jpeg;
         BarcodeValue = string.Empty;
         BarcodeImage = string.Empty;
-	}
-
-    protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-
-		RunActions(new());
 	}
 
 	private void RedrawImage()

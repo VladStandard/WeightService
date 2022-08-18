@@ -17,7 +17,7 @@
         {
             @if (ButtonSettings.IsShowSave)
             {
-                <RadzenButton Click=@(args => ItemSaveAsync()) 
+                <RadzenButton Click=@(_ => ItemSaveAsync()) 
                     class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 14px; "
                     Text=@LocaleData.DeviceControl.TableActionSave 
@@ -25,7 +25,7 @@
             }
             @if (ButtonSettings.IsShowCancel)
             {
-                <RadzenButton Click=@(args => ItemCancelAsync())
+                <RadzenButton Click=@(_ => ItemCancelAsync())
                     class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Secondary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 14px; "
                     Text=@LocaleData.DeviceControl.TableActionCancel 

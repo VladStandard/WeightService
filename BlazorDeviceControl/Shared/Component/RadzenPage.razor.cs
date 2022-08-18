@@ -7,7 +7,7 @@ using Radzen;
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class RadzenPage
+public partial class RadzenPage : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -24,13 +24,6 @@ public partial class RadzenPage
 		ListComPorts = SerialPortsUtils.GetListComPorts(LocaleCore.Lang);
 	}
     
-	protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        RunActions(new());
-    }
-
     private void ShowNotification(NotificationMessage message)
     {
         NotificationService.Notify(message);

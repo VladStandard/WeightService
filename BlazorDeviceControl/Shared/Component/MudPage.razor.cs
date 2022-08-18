@@ -10,14 +10,14 @@ namespace BlazorDeviceControl.Shared.Component;
 /// <summary>
 /// MUD Blazor page.
 /// </summary>
-public partial class MudPage
+public partial class MudPage : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
     private string Country { get; set; } = "Hungary";
     private string ComPort { get; set; } = "COM10";
-    List<TypeEntity<string>> ComPorts { get; set; }
-    private List<string> ListComPorts { get; set; }
+    List<TypeEntity<string>> ComPorts { get; }
+    private List<string> ListComPorts { get; }
 
     /// <summary>
     /// Constructor.
@@ -32,12 +32,7 @@ public partial class MudPage
 
     #region Public and private methods
 
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        RunActions(new());
-    }
+    //
 
     #endregion
 }

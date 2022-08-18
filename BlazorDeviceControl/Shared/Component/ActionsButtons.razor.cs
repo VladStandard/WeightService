@@ -3,21 +3,11 @@
 
 namespace BlazorDeviceControl.Shared.Component;
 
-public partial class ActionsButtons
+public partial class ActionsButtons : BlazorCore.Models.RazorBase
 {
 	#region Public and private methods
 
-	//protected override void OnInitialized()
-	//{
-	//	base.OnInitialized();
-	//}
-
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-
-		RunActions(new());
-	}
+	//
 
 	#endregion
 }

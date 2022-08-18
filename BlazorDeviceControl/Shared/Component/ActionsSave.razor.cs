@@ -6,16 +6,11 @@ namespace BlazorDeviceControl.Shared.Component;
 /// <summary>
 /// Actions save.
 /// </summary>
-public partial class ActionsSave
+public partial class ActionsSave : BlazorCore.Models.RazorBase
 {
 	#region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-
-		RunActions(new());
-	}
+	//
 
 	#endregion
 }
