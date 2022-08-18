@@ -7,13 +7,13 @@ using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Section;
+namespace BlazorDeviceControl.Shared.Section.Measurements;
 
-public partial class SectionHosts : BlazorCore.Models.RazorBase
+public partial class SectionWf : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<HostEntity> ItemsCast => Items == null ? new() : Items.Select(x => (HostEntity)x).ToList();
+    private List<WeithingFactEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WeithingFactEntity)x).ToList();
 
     #endregion
 
@@ -23,9 +23,9 @@ public partial class SectionHosts : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
         Items = new();
-	}
+    }
 
     protected override void OnParametersSet()
     {
@@ -34,11 +34,11 @@ public partial class SectionHosts : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
-                    IsShowMarkedItems ? null
-                        : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
+                Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
+                        IsShowMarkedItems ? null
+                            : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
+                        new(DbField.WeithingDate, DbOrderDirection.Desc),
+                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

@@ -1,0 +1,47 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/section/measurements/wf_aggr"
+@using BlazorDeviceControl.Shared.Component
+@using DataCore.Sql.DataModels
+@using DataCore.Localizations
+@using DataCore.Utils
+
+@if (!IsLoaded)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.WeithingFactsAggregation />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="WeithingFactSummaryEntity" @bind-Value=@ItemObject
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.WeithingDate
+                Type="date" Width="15%">
+                <Template Context="itemCast" >
+                    <RadzenLabel Style="width: 100%; margin-left: 0; "
+                        Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.DayOfWeek
+                Type="string" Width="15%">
+                <Template Context="itemCast" >
+                    <RadzenLabel Style="width: 100%; margin-left: 0; "
+                        Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign=TextAlign.Center
+                                Title=@LocaleCore.Table.Count
+                                Type="int" Width="15%" />
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign=TextAlign.Left
+                                Title=@LocaleCore.Table.Scale
+                                Type="string" Width="55%" />
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this />
+}

@@ -9,7 +9,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionBarCodes
+public partial class SectionBarCodes : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -38,7 +38,7 @@ public partial class SectionBarCodes
 						IsShowMarkedItems
 							? null
 							: new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-						new(DbField.Value, DbOrderDirection.Asc),
+						new(DbField.Value),
 						IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
 					?.ToList<BaseEntity>();
 				ButtonSettings = new(true, true, true, true, true, false, false);

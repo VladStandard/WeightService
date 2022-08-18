@@ -10,7 +10,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionAccess
+public partial class SectionAccess : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -38,7 +38,7 @@ public partial class SectionAccess
                 Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
                         IsShowMarkedItems ? null
                             : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.User, DbOrderDirection.Asc),
+                        new(DbField.User),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.ToList<BaseEntity>();
                 ButtonSettings = new(true, false, true, true, true, false, false);

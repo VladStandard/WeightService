@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemAccess
+public partial class ItemAccess : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -17,8 +17,8 @@ public partial class ItemAccess
 
 	private AccessRights Rights
 	{
-		get => ItemCast == null ? AccessRights.None : (AccessRights)ItemCast.Rights;
-		set { if (ItemCast != null) ItemCast.Rights = (byte)value; }
+		get => (AccessRights)ItemCast.Rights;
+		set => ItemCast.Rights = (byte)value;
 	}
 
 	#endregion

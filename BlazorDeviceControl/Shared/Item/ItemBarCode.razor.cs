@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemBarCode
+public partial class ItemBarCode : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 

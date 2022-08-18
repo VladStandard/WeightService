@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
-        Title=@LocaleCore.System.SystemLogs />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.System.SystemLogs />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="LabelQuickEntity" @bind-Value=@ItemObject
@@ -23,7 +22,7 @@ else
                 TItem="LabelQuickEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
@@ -31,7 +30,7 @@ else
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Title=@LocaleCore.Table.Scale Type="string" Width="18%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.ScaleId}")
                         Text=@itemCast.ScaleDescription />
                 </Template>
@@ -39,23 +38,23 @@ else
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" TextAlign=TextAlign.Center >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.PluId}")
+                    <RadzenLink Style="width: 100%; margin-left: 0; " 
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
                         Text=@itemCast.PluNumber.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Title=@LocaleCore.Table.Plu Type="string" Width="27%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.PluId}")
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
                         Text=@itemCast.PluGoodName />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Title=@LocaleCore.Table.Template Type="string" Width="16%" TextAlign=TextAlign.Center >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                    <RadzenLink Style="width: 100%; margin-left: 0; " 
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateId}")
                         Text=@itemCast.TemplateName.ToString() />
                 </Template>

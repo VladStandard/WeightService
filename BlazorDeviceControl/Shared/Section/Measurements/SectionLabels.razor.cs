@@ -9,7 +9,7 @@ using DataCore.Sql.Models;
 
 namespace BlazorDeviceControl.Shared.Section.Measurements;
 
-public partial class SectionLabels
+public partial class SectionLabels : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 

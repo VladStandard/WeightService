@@ -11,7 +11,7 @@ using DataCore.Utils;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemInfo
+public partial class ItemInfo : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
