@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.6.995.0</Version>
+    <Version>0.7.1.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -13,8 +13,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.6.995.0</FileVersion>
-    <AssemblyVersion>0.6.995.0</AssemblyVersion>
+	<FileVersion>0.7.1.0</FileVersion>
+    <AssemblyVersion>0.7.1.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
     <LangVersion>10.0</LangVersion>
@@ -87,8 +87,8 @@
     <Watch Remove="Shared\Item\ItemInfo.razor" />
     <Watch Remove="Shared\Item\ItemLog.razor" />
     <Watch Remove="Shared\Item\ItemNomenclature.razor" />
-    <Watch Remove="Shared\Item\ItemPluNew.razor" />
     <Watch Remove="Shared\Item\ItemPluObsolete.razor" />
+    <Watch Remove="Shared\Item\ItemPluScale.razor" />
     <Watch Remove="Shared\Item\ItemPrinter.razor" />
     <Watch Remove="Shared\Item\ItemPrinterResource.razor" />
     <Watch Remove="Shared\Item\ItemPrinterType.razor" />
@@ -117,8 +117,8 @@
     <Watch Remove="Shared\Section\SectionLogsErrors.razor" />
     <Watch Remove="Shared\Section\SectionLogsInformations.razor" />
     <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
-    <Watch Remove="Shared\Section\SectionPlusNew.razor" />
     <Watch Remove="Shared\Section\SectionPlusObsolete.razor" />
+    <Watch Remove="Shared\Section\SectionPlusScales.razor" />
     <Watch Remove="Shared\Section\SectionPrinterResources.razor" />
     <Watch Remove="Shared\Section\SectionPrinters.razor" />
     <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />
