@@ -12,7 +12,6 @@ global using System.IO;
 global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
-//global using System.Web.Mvc;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;

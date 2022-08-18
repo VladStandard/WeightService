@@ -9,6 +9,6 @@
 <component type="typeof(App)" render-mode="ServerPrerendered" />
 
 @{
-    UserSettingsHelper.Instance.Identity.IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+    UserSettingsHelper.Instance.Identity.IpAddress = HttpContext.Connection.RemoteIpAddress == null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
     UserSettingsHelper.Instance.Identity.Id = HttpContext.Connection.Id;
 }

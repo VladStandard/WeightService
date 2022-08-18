@@ -4,21 +4,8 @@ https://stackoverflow.com/questions/66866648/blazor-pass-a-function-that-takes-p
 ItemMenu.razor
 <button @onclick="() => OnClickFunction.InvokeAsync(foo)">foo</button>
     <button @onclick="() => OnClickFunction.InvokeAsync(ping)">ping</button>
-    
     @code {
         [Parameter] public EventCallback<string> OnClickFunction { get; set; }
-    
         const string foo = "bar";
         const string ping = "pong";
     }
-
-Index.razor
-@page "/"
-<h1>This is my index page!</h1>
-<ItemMenu OnClick="ShowName" /> @*Error: No overload for 'ShowName' matches delegate 'Action'*@
-@code {
-    public void ShowName(string myName)
-    {
-        Console.WriteLine(myName);
-    }
-}
