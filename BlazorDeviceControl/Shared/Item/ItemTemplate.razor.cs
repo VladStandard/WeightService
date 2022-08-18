@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
@@ -9,7 +8,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemTemplate
+public partial class ItemTemplate : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -25,7 +24,7 @@ public partial class ItemTemplate
 		base.OnInitialized();
 
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-		TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+		TemplateCategories = BlazorCore.Models.DataSourceDicsEntity.GetTemplateCategories();
 		ItemCast = new();
 	}
 

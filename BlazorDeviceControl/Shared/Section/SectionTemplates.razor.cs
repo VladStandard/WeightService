@@ -10,7 +10,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionTemplates
+public partial class SectionTemplates : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -45,7 +45,7 @@ public partial class SectionTemplates
                     Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                         IsShowMarkedItems ? null
                             : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.CategoryId, DbOrderDirection.Asc),
+                        new(DbField.CategoryId),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                 }
@@ -56,7 +56,7 @@ public partial class SectionTemplates
                             ? new(new() { new(DbField.CategoryId, DbComparer.Equal, TemplateCategory) })
                             : new(new() { new(DbField.IsMarked, DbComparer.Equal, false),
                                 new(DbField.CategoryId, DbComparer.Equal, TemplateCategory) }),
-                        new(DbField.CategoryId, DbOrderDirection.Asc),
+                        new(DbField.CategoryId),
                         IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                 }

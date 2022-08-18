@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
-        Title=@LocaleData.DeviceControl.Sections.WorkShops />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.WorkShops />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="WorkShopEntity" @bind-Value=@ItemObject
@@ -19,7 +18,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
-            @if (@IsShowMarkedItems)
+            @if (IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="WorkShopEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
@@ -31,7 +30,7 @@ else
             <RadzenGridColumn 
                 TItem="WorkShopEntity" Title=@LocaleCore.Table.WorkShopName Width="50%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.WorkShop}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />
                 </Template>
@@ -39,7 +38,7 @@ else
             <RadzenGridColumn 
                 TItem="WorkShopEntity" Title=@LocaleCore.Table.ProductionFacilityName Width="50%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.ProductionFacility.IdentityId}")
                         Text=@itemCast.ProductionFacility.Name />
                 </Template>

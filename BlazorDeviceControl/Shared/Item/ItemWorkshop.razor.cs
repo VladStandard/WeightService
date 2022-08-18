@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemWorkshop
+public partial class ItemWorkshop : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -44,7 +44,7 @@ public partial class ItemWorkshop
 				List<ProductionFacilityEntity>? productionFacilities = AppSettings.DataAccess.Crud
 					.GetEntities<ProductionFacilityEntity>(
 						new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-						new(DbField.Name, DbOrderDirection.Asc))
+						new(DbField.Name))
 					?.ToList();
 				if (productionFacilities is not null)
 				{

@@ -9,7 +9,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionWorkshops
+public partial class SectionWorkshops : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -37,7 +37,7 @@ public partial class SectionWorkshops
                 Items = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
                     IsShowMarkedItems ? null
                         : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name, DbOrderDirection.Asc),
+                    new(DbField.Name),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.OrderBy(x => x.ProductionFacility.Name).ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);

@@ -15,8 +15,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
-        Title=@LocaleData.DeviceControl.Items.Workshop />
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.Workshop />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -50,7 +49,7 @@ else
             </tr>
             <tr>
                 <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                    <RadzenLink Style="width: 100%; margin-left: 0; " 
                         Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.IdentityId)
                         Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>

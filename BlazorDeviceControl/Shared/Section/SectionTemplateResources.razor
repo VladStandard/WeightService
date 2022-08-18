@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
-        Title=@LocaleData.DeviceControl.Sections.TemplateResources />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.TemplateResources />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TemplateResourceEntity" @bind-Value=@ItemObject
@@ -19,7 +18,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns >
-            @if (@IsShowMarkedItems)
+            @if (IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="TemplateResourceEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
@@ -35,7 +34,7 @@ else
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.TemplateResource}/{itemCast.IdentityId}")
                         Text=@itemCast.Name />
                 </Template>

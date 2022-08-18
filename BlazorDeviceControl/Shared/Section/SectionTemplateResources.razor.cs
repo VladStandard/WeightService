@@ -9,7 +9,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionTemplateResources
+public partial class SectionTemplateResources : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -36,7 +36,7 @@ public partial class SectionTemplateResources
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
                     new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Type, DbOrderDirection.Asc),
+                    new(DbField.Type),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.ToList<BaseEntity>();
                 Items?.OrderBy(x => ((TemplateResourceEntity)x).Name);

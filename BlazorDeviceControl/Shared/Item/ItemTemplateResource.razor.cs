@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
 using BlazorCore.Services;
 using BlazorDownloadFile;
 using BlazorInputFile;
@@ -16,12 +15,11 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemTemplateResource
+public partial class ItemTemplateResource : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
     private TemplateResourceEntity ItemCast { get => Item == null ? new() : (TemplateResourceEntity)Item; set => Item = value; }
-    private List<TypeEntity<string>>? ResourceTypes { get; set; }
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
@@ -40,7 +38,6 @@ public partial class ItemTemplateResource
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-        ResourceTypes = new() { new("TTF", "TTF"), new("GRF", "GRF") };
         ItemCast = new();
 	}
 
@@ -68,9 +65,9 @@ public partial class ItemTemplateResource
             Severity = NotificationSeverity.Error,
             Summary = $"{LocaleCore.Strings.MethodError} [{name}]!",
             Detail = args.Message,
-            Duration = AppSettingsHelper.Delay
+            Duration = BlazorCore.Models.AppSettingsHelper.Delay
         };
-        NotificationService?.Notify(msg);
+        NotificationService.Notify(msg);
     }
 
     private async Task OnFileUpload(InputFileChangeEventArgs e)
