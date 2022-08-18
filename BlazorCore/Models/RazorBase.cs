@@ -37,27 +37,26 @@ public class RazorBase : LayoutComponentBase
     [Parameter] public DbTableAction TableAction { get; set; }
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+    [Parameter] public long? IdentityId { get; set; }
     [Parameter] public List<BaseEntity>? Items { get; set; }
     [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
-    [Parameter] public long? IdentityId { get; set; }
     [Parameter] public RazorBase? ParentRazor { get; set; }
     [Parameter] public string? FilterCaption { get; set; }
     [Parameter] public string? FilterName { get; set; }
     [Parameter] public TableBase Table { get; set; }
     private ItemSaveCheckEntity ItemSaveCheck { get; set; }
-    protected AppSettingsHelper AppSettings { get; }
-    public BaseEntity? Item { get; set; }
-    public bool IsLoaded { get; set; }
+    protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
+	public BaseEntity? Item { get; set; }
+    protected bool IsLoaded { get; private set; }
     protected object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
-    protected UserSettingsHelper UserSettings { get; }
+    protected UserSettingsHelper UserSettings { get; } = UserSettingsHelper.Instance;
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public RazorBase()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public RazorBase()
     {
-        AppSettings = AppSettingsHelper.Instance;
-        UserSettings = UserSettingsHelper.Instance;
+        //
     }
 
     #endregion
@@ -94,11 +93,8 @@ public class RazorBase : LayoutComponentBase
             {
                 Table = ParentRazor.Table;
             }
-            if (TableAction == DbTableAction.Default)
-            {
-                if (ParentRazor.TableAction != DbTableAction.Default)
-                    TableAction = ParentRazor.TableAction;
-            }
+            if (ParentRazor.TableAction != DbTableAction.Default)
+                TableAction = ParentRazor.TableAction;
             
             ButtonSettings = ParentRazor.ButtonSettings;
         }
@@ -124,61 +120,6 @@ public class RazorBase : LayoutComponentBase
             });
     }
 
-    public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
-    {
-        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            () =>
-            {
-                if (value is Lang lang)
-                {
-                    LocaleCore.Lang = lang;
-                    LocaleData.Lang = lang;
-                }
-                templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-                StateHasChanged();
-            });
-    }
-
-    public void OnJsonValueChange(JsonSettingsEntity? jsonSettings, string? filterName, object? value)
-    {
-        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
-            () =>
-            {
-                switch (filterName)
-                {
-                    case nameof(jsonSettings.ItemRowsCount):
-                        if (value is int itemRowCount)
-                            AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount = itemRowCount;
-                        break;
-                    case nameof(jsonSettings.SectionRowsCount):
-                        if (value is int sectionRowCount)
-                            AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount = sectionRowCount;
-                        break;
-                    case nameof(jsonSettings.Sql.DataSource):
-                        if (value is string server)
-                            AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource = server;
-                        break;
-                    case nameof(jsonSettings.Sql.InitialCatalog):
-                        if (value is string db)
-                            AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog = db;
-                        break;
-                    case nameof(jsonSettings.Sql.PersistSecurityInfo):
-                        if (value is bool trusted)
-                            AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo = trusted;
-                        break;
-                    case nameof(jsonSettings.Sql.UserId):
-                        if (value is string username)
-                            AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId = username;
-                        break;
-                    case nameof(jsonSettings.Sql.Password):
-                        if (value is string password)
-                            AppSettings.DataAccess.JsonSettingsLocal.Sql.Password = password;
-                        break;
-                }
-                StateHasChanged();
-            });
-    }
-
     public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
     {
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(OnItemValueChange)}", "", LocaleCore.Dialog.DialogResultFail, "",
@@ -195,7 +136,7 @@ public class RazorBase : LayoutComponentBase
                     case PrinterResourceEntity printerResource:
                         OnItemValueChangePrinterResource(filterName, value, printerResource);
                         break;
-                    case PluEntity plu:
+                    case PluObsoleteEntity plu:
                         OnItemValueChangePlu(filterName, value, plu);
                         break;
                     case ScaleEntity scale:
@@ -253,7 +194,7 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-    private void OnItemValueChangePlu(string? filterName, object? value, PluEntity plu)
+    private void OnItemValueChangePlu(string? filterName, object? value, PluObsoleteEntity plu)
     {
         if (filterName == nameof(plu.Nomenclature) && value is long nomenclatureId)
         {
@@ -560,12 +501,6 @@ public class RazorBase : LayoutComponentBase
     //    }
     //}
 
-    public async Task HotKeysMenuRoot()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        NavigationManager?.NavigateTo(LocaleData.DeviceControl.UriRouteSection.Root);
-    }
-
     public static ConfirmOptions GetConfirmOptions() => new()
     {
         OkButtonText = LocaleCore.Dialog.DialogButtonYes,
@@ -806,8 +741,14 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableScale.Nomenclatures:
                         page = LocaleData.DeviceControl.UriRouteItem.Nomenclature;
                         break;
+                    case ProjectsEnums.TableScale.PlusObsolete:
+                        page = LocaleData.DeviceControl.UriRouteItem.PluObsolete;
+                        break;
                     case ProjectsEnums.TableScale.Plus:
                         page = LocaleData.DeviceControl.UriRouteItem.Plu;
+                        break;
+                    case ProjectsEnums.TableScale.PlusScales:
+                        page = LocaleData.DeviceControl.UriRouteItem.PluScale;
                         break;
                     case ProjectsEnums.TableScale.PrintersResources:
                         page = LocaleData.DeviceControl.UriRouteItem.PrinterResource;
@@ -846,8 +787,6 @@ public class RazorBase : LayoutComponentBase
     {
         switch (ProjectsEnums.GetTableSystem(Table.Name))
         {
-            case ProjectsEnums.TableSystem.Default:
-                break;
             case ProjectsEnums.TableSystem.Accesses:
                 IdentityUid = Guid.NewGuid();
                 break;
@@ -878,9 +817,15 @@ public class RazorBase : LayoutComponentBase
                 IdentityId = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null,
                     new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                 break;
-            case ProjectsEnums.TableScale.Plus:
-                IdentityId = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(null,
+            case ProjectsEnums.TableScale.PlusObsolete:
+                IdentityId = AppSettings.DataAccess.Crud.GetEntity<PluObsoleteEntity>(null,
                     new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
+                break;
+            case ProjectsEnums.TableScale.Plus:
+                IdentityUid = Guid.NewGuid();
+                break;
+            case ProjectsEnums.TableScale.PlusScales:
+	            IdentityUid = Guid.NewGuid();
                 break;
             case ProjectsEnums.TableScale.Printers:
                 IdentityId = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null,
@@ -1065,8 +1010,14 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableScale.Nomenclatures:
                         page = LocaleData.DeviceControl.UriRouteSection.Nomenclatures;
                         break;
+                    case ProjectsEnums.TableScale.PlusObsolete:
+                        page = LocaleData.DeviceControl.UriRouteSection.PlusObsolete;
+                        break;
                     case ProjectsEnums.TableScale.Plus:
-                        page = LocaleData.DeviceControl.UriRouteSection.Scales;
+                        page = LocaleData.DeviceControl.UriRouteSection.Plus;
+                        break;
+                    case ProjectsEnums.TableScale.PlusScales:
+                        page = LocaleData.DeviceControl.UriRouteSection.PlusScales;
                         break;
                     case ProjectsEnums.TableScale.PrintersResources:
                         page = LocaleData.DeviceControl.UriRouteSection.PrinterResources;
@@ -1161,8 +1112,14 @@ public class RazorBase : LayoutComponentBase
             case ProjectsEnums.TableScale.Nomenclatures:
                 ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                 break;
+            case ProjectsEnums.TableScale.PlusObsolete:
+                ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                break;
             case ProjectsEnums.TableScale.Plus:
-                ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                break;
+            case ProjectsEnums.TableScale.PlusScales:
+                ItemSaveCheck.PluScale(NotificationService, (PluScaleEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.PrintersResources:
                 ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);

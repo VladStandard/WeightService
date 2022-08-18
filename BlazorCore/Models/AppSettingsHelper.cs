@@ -22,9 +22,8 @@ public class AppSettingsHelper : LayoutComponentBase
     #region Public and private fields, properties, constructor
 
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public DataAccessHelper DataAccessHelp { get; } = DataAccessHelper.Instance;
     public DataSourceDicsEntity DataSourceDics { get; } = new();
-    public MemoryEntity Memory { get; set; } = new();
+    public MemoryEntity Memory { get; private set; } = new();
     public int FontSizeHeader { get; set; }
     public int FontSize { get; set; }
     public static int Delay => 5_000;
@@ -48,23 +47,11 @@ public class AppSettingsHelper : LayoutComponentBase
 
     #endregion
 
-    #region Constructor and destructor
-
-    public AppSettingsHelper()
-    {
-        //
-    }
-
-    #endregion
-
     #region Public and private methods
 
     public void SetupMemory()
     {
-        if (Memory != null)
-        {
-            Memory.Close();
-        }
+        Memory.Close();
         Memory = new(1_000, 5_000);
         //Memory.OpenAsync(callRefreshAsync);
         Memory.MemorySize.Open();

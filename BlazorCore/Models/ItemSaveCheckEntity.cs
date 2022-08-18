@@ -18,7 +18,7 @@ public class ItemSaveCheckEntity
 
     #region Public and private methods
 
-    public void Access(NotificationService? notificationService, AccessEntity? access, 
+    public void Access(NotificationService notificationService, AccessEntity? access, 
         Guid? uid, DbTableAction tableAction)
     {
         if (access == null || uid == null)
@@ -31,20 +31,20 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 access.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(access);
+                AppSettings.DataAccess.Crud.SaveEntity(access);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     access.IdentityUid = guid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(access);
+                    AppSettings.DataAccess.Crud.UpdateEntity(access);
                 }
             }
         }
     }
 
-    public bool BarcodeType(NotificationService? notificationService, BarCodeTypeV2Entity? barcodeType, 
+    public bool BarcodeType(NotificationService notificationService, BarCodeTypeV2Entity? barcodeType, 
         Guid? uid, DbTableAction tableAction)
     {
         if (barcodeType == null || uid == null)
@@ -57,21 +57,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 barcodeType.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(barcodeType);
+                AppSettings.DataAccess.Crud.SaveEntity(barcodeType);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     barcodeType.IdentityUid = guid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(barcodeType);
+                    AppSettings.DataAccess.Crud.UpdateEntity(barcodeType);
                 }
             }
         }
         return true;
     }
 
-    public bool Contragent(NotificationService? notificationService, ContragentV2Entity? contragent, 
+    public bool Contragent(NotificationService notificationService, ContragentV2Entity? contragent, 
         Guid? uid, DbTableAction tableAction)
     {
         if (contragent == null || uid == null)
@@ -84,21 +84,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 contragent.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(contragent);
+                AppSettings.DataAccess.Crud.SaveEntity(contragent);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     contragent.IdentityUid = guid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(contragent);
+                    AppSettings.DataAccess.Crud.UpdateEntity(contragent);
                 }
             }
         }
         return success;
     }
 
-    public bool Host(NotificationService? notificationService, HostEntity? host, long? id, DbTableAction tableAction)
+    public bool Host(NotificationService notificationService, HostEntity? host, long? id, DbTableAction tableAction)
     {
         if (host == null || id == null)
             return false;
@@ -110,21 +110,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 host.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(host);
+                AppSettings.DataAccess.Crud.SaveEntity(host);
             }
             else
             {
                 if (id is { } lid)
                 {
                     host.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(host);
+                    AppSettings.DataAccess.Crud.UpdateEntity(host);
                 }
             }
         }
         return success;
     }
 
-    public void Nomenclature(NotificationService? notificationService, NomenclatureEntity? nomenclature,
+    public void Nomenclature(NotificationService notificationService, NomenclatureEntity? nomenclature,
         long? id, DbTableAction tableAction)
     {
         if (nomenclature == null || id == null) return;
@@ -136,51 +136,109 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 nomenclature.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(nomenclature);
+                AppSettings.DataAccess.Crud.SaveEntity(nomenclature);
             }
             else
             {
                 if (id is { } lid)
                 {
                     nomenclature.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(nomenclature);
+                    AppSettings.DataAccess.Crud.UpdateEntity(nomenclature);
                 }
             }
         }
     }
 
-    public void Plu(NotificationService? notificationService, PluEntity? plu, long? id, DbTableAction tableAction)
+    public void PluObsolete(NotificationService notificationService, PluObsoleteEntity? pluObsolete, long? id, DbTableAction tableAction)
     {
-        if (plu == null || id == null) return;
+        if (pluObsolete == null || id == null) return;
 
-        plu.ChangeDt = DateTime.Now;
-        bool success = FieldControl.ValidateEntity(notificationService, plu, LocaleCore.Table.Plu);
+        pluObsolete.ChangeDt = DateTime.Now;
+        bool success = FieldControl.ValidateEntity(notificationService, pluObsolete, LocaleCore.Table.Plu);
         if (success)
-            success = FieldControl.ValidateEntity(notificationService, plu.Scale, LocaleCore.Table.Device);
+            success = FieldControl.ValidateEntity(notificationService, pluObsolete.Scale, LocaleCore.Table.Device);
         if (success)
-            success = FieldControl.ValidateEntity(notificationService, plu.Template, LocaleCore.Table.LabelTemplate);
+            success = FieldControl.ValidateEntity(notificationService, pluObsolete.Template, LocaleCore.Table.LabelTemplate);
         if (success)
-            success = FieldControl.ValidateEntity(notificationService, plu.Nomenclature, LocaleCore.Table.Product);
+            success = FieldControl.ValidateEntity(notificationService, pluObsolete.Nomenclature, LocaleCore.Table.Product);
         if (success)
         {
-            plu.ChangeDt = DateTime.Now;
+            pluObsolete.ChangeDt = DateTime.Now;
             if (tableAction == DbTableAction.New)
             {
-                plu.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(plu);
+                pluObsolete.CreateDt = DateTime.Now;
+                AppSettings.DataAccess.Crud.SaveEntity(pluObsolete);
             }
             else
             {
                 if (id is { } lid)
                 {
-                    plu.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(plu);
+                    pluObsolete.IdentityId = lid;
+                    AppSettings.DataAccess.Crud.UpdateEntity(pluObsolete);
                 }
             }
         }
     }
 
-    public void Printer(NotificationService? notificationService, PrinterEntity? printer,
+    public void Plu(NotificationService notificationService, PluEntity? plu, Guid? uid, DbTableAction tableAction)
+    {
+	    if (plu == null || uid == null) return;
+
+	    plu.ChangeDt = DateTime.Now;
+	    bool success = FieldControl.ValidateEntity(notificationService, plu, LocaleCore.Table.Plu);
+	    if (success)
+		    success = FieldControl.ValidateEntity(notificationService, plu.Template, LocaleCore.Table.LabelTemplate);
+	    if (success)
+		    success = FieldControl.ValidateEntity(notificationService, plu.Nomenclature, LocaleCore.Table.Product);
+	    if (success)
+	    {
+		    plu.ChangeDt = DateTime.Now;
+		    if (tableAction == DbTableAction.New)
+		    {
+			    plu.CreateDt = DateTime.Now;
+			    AppSettings.DataAccess.Crud.SaveEntity(plu);
+		    }
+		    else
+		    {
+			    if (uid is { } guid)
+			    {
+				    plu.IdentityUid = guid;
+				    AppSettings.DataAccess.Crud.UpdateEntity(plu);
+			    }
+		    }
+	    }
+    }
+
+    public void PluScale(NotificationService notificationService, PluScaleEntity? pluScale, Guid? uid, DbTableAction tableAction)
+    {
+	    if (pluScale == null || uid == null) return;
+
+	    pluScale.ChangeDt = DateTime.Now;
+	    bool success = FieldControl.ValidateEntity(notificationService, pluScale, LocaleCore.Table.PluScale);
+	    if (success)
+		    success = FieldControl.ValidateEntity(notificationService, pluScale.Plu, LocaleCore.Table.Plu);
+	    if (success)
+		    success = FieldControl.ValidateEntity(notificationService, pluScale.Scale, LocaleCore.Table.Scale);
+	    if (success)
+	    {
+		    pluScale.ChangeDt = DateTime.Now;
+		    if (tableAction == DbTableAction.New)
+		    {
+			    pluScale.CreateDt = DateTime.Now;
+			    AppSettings.DataAccess.Crud.SaveEntity(pluScale);
+		    }
+		    else
+		    {
+			    if (uid is { } guid)
+			    {
+				    pluScale.IdentityUid = guid;
+				    AppSettings.DataAccess.Crud.UpdateEntity(pluScale);
+			    }
+		    }
+	    }
+    }
+
+    public void Printer(NotificationService notificationService, PrinterEntity? printer,
         long? id, DbTableAction tableAction)
     {
         if (printer == null || id == null) return;
@@ -195,20 +253,20 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 printer.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(printer);
+                AppSettings.DataAccess.Crud.SaveEntity(printer);
             }
             else
             {
                 if (id is { } lid)
                 {
                     printer.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(printer);
+                    AppSettings.DataAccess.Crud.UpdateEntity(printer);
                 }
             }
         }
     }
 
-    public bool PrinterResource(NotificationService? notificationService, PrinterResourceEntity? printerResource, 
+    public bool PrinterResource(NotificationService notificationService, PrinterResourceEntity? printerResource, 
         long? id, DbTableAction tableAction)
     {
         if (printerResource == null || id == null)
@@ -221,21 +279,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 printerResource.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(printerResource);
+                AppSettings.DataAccess.Crud.SaveEntity(printerResource);
             }
             else
             {
                 if (id is { } lid)
                 {
                     printerResource.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(printerResource);
+                    AppSettings.DataAccess.Crud.UpdateEntity(printerResource);
                 }
             }
         }
         return success;
     }
 
-    public bool PrinterType(NotificationService? notificationService, PrinterTypeEntity? printerType, 
+    public bool PrinterType(NotificationService notificationService, PrinterTypeEntity? printerType, 
         long? id, DbTableAction tableAction)
     {
         if (printerType == null || id == null)
@@ -248,21 +306,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 printerType.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(printerType);
+                AppSettings.DataAccess.Crud.SaveEntity(printerType);
             }
             else
             {
                 if (id is { } lid)
                 {
                     printerType.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(printerType);
+                    AppSettings.DataAccess.Crud.UpdateEntity(printerType);
                 }
             }
         }
         return success;
     }
 
-    public bool ProductionFacility(NotificationService? notificationService, ProductionFacilityEntity? productionFacility, 
+    public bool ProductionFacility(NotificationService notificationService, ProductionFacilityEntity? productionFacility, 
         long? id, DbTableAction tableAction)
     {
         if (productionFacility == null || id == null)
@@ -275,21 +333,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 productionFacility.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(productionFacility);
+                AppSettings.DataAccess.Crud.SaveEntity(productionFacility);
             }
             else
             {
                 if (id is { } lid)
                 {
                     productionFacility.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(productionFacility);
+                    AppSettings.DataAccess.Crud.UpdateEntity(productionFacility);
                 }
             }
         }
         return success;
     }
 
-    public void Scale(NotificationService? notificationService, ScaleEntity? scale,
+    public void Scale(NotificationService notificationService, ScaleEntity? scale,
         long? id, DbTableAction tableAction)
     {
         if (scale == null || id == null) return;
@@ -365,20 +423,20 @@ public class ItemSaveCheckEntity
                 scale.CreateDt = DateTime.Now;
                 if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
                     scale.TemplateSeries = null;
-                AppSettings.DataAccess?.Crud.SaveEntity(scale);
+                AppSettings.DataAccess.Crud.SaveEntity(scale);
             }
             else
             {
                 if (id is { } lid)
                 {
                     scale.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(scale);
+                    AppSettings.DataAccess.Crud.UpdateEntity(scale);
                 }
             }
         }
     }
 
-    public bool Task(NotificationService? notificationService, TaskEntity? task, 
+    public bool Task(NotificationService notificationService, TaskEntity? task, 
         Guid? uid, DbTableAction tableAction)
     {
         if (task == null || uid == null)
@@ -395,21 +453,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 task.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(task);
+                AppSettings.DataAccess.Crud.SaveEntity(task);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     task.IdentityUid = guid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(task);
+                    AppSettings.DataAccess.Crud.UpdateEntity(task);
                 }
             }
         }
         return success;
     }
 
-    public bool TaskType(NotificationService? notificationService, TaskTypeEntity? taskType, 
+    public bool TaskType(NotificationService notificationService, TaskTypeEntity? taskType, 
         Guid? uid, DbTableAction tableAction)
     {
         if (taskType == null || uid == null)
@@ -422,21 +480,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 taskType.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(taskType);
+                AppSettings.DataAccess.Crud.SaveEntity(taskType);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     taskType.IdentityUid = guid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(taskType);
+                    AppSettings.DataAccess.Crud.UpdateEntity(taskType);
                 }
             }
         }
         return success;
     }
 
-    public bool Template(NotificationService? notificationService, TemplateEntity? template, long? id, DbTableAction? parentTableAction)
+    public bool Template(NotificationService notificationService, TemplateEntity? template, long? id, DbTableAction? parentTableAction)
     {
         if (template == null)
             return false;
@@ -448,21 +506,21 @@ public class ItemSaveCheckEntity
             if (parentTableAction == DbTableAction.New)
             {
                 template.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(template);
+                AppSettings.DataAccess.Crud.SaveEntity(template);
             }
             else
             {
                 if (id is { } lid)
                 {
                     template.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(template);
+                    AppSettings.DataAccess.Crud.UpdateEntity(template);
                 }
             }
         }
         return success;
     }
 
-    public bool TemplateResource(NotificationService? notificationService, TemplateResourceEntity? templateResource, long? id, DbTableAction? parentTableAction)
+    public bool TemplateResource(NotificationService notificationService, TemplateResourceEntity? templateResource, long? id, DbTableAction? parentTableAction)
     {
         if (templateResource == null)
             return false;
@@ -474,21 +532,21 @@ public class ItemSaveCheckEntity
             if (parentTableAction == DbTableAction.New)
             {
                 templateResource.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(templateResource);
+                AppSettings.DataAccess.Crud.SaveEntity(templateResource);
             }
             else
             {
                 if (id is { } lid)
                 {
                     templateResource.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(templateResource);
+                    AppSettings.DataAccess.Crud.UpdateEntity(templateResource);
                 }
             }
         }
         return success;
     }
 
-    public bool Workshop(NotificationService? notificationService, WorkShopEntity? workShop, long? id, DbTableAction tableAction)
+    public bool Workshop(NotificationService notificationService, WorkShopEntity? workShop, long? id, DbTableAction tableAction)
     {
         if (workShop == null || id == null)
             return false;
@@ -500,14 +558,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 workShop.CreateDt = DateTime.Now;
-                AppSettings.DataAccess?.Crud.SaveEntity(workShop);
+                AppSettings.DataAccess.Crud.SaveEntity(workShop);
             }
             else
             {
                 if (id is { } lid)
                 {
                     workShop.IdentityId = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(workShop);
+                    AppSettings.DataAccess.Crud.UpdateEntity(workShop);
                 }
             }
         }

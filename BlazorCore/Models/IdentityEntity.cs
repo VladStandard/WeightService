@@ -15,9 +15,9 @@ public class IdentityEntity
     public bool AccessRightsIsRead => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Read;
     public bool AccessRightsIsWrite => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Write;
     public ShareEnums.AccessRights AccessRights { get; private set; }
-    public string? Id { get; set; }
-    public string? IpAddress { get; set; }
-    public string? UserName { get; set; }
+    public string Id { get; set; }
+    public string IpAddress { get; set; }
+    public string UserName { get; set; }
 
     #endregion
 
@@ -41,7 +41,7 @@ public class IdentityEntity
     {
         return
             $"{nameof(UserName)}: {UserName}. " + Environment.NewLine +
-            AccessRights == null ? $"{nameof(AccessRights)}: null. " : $"{nameof(AccessRights)}: {AccessRights}. ";
+            $"{nameof(AccessRights)}: {AccessRights}. ";
     }
 
     private void SetAccessRights(ShareEnums.AccessRights accessRights) => AccessRights = accessRights;
