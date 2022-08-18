@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item.Measurements;
 
-public partial class ItemWf
+public partial class ItemWf : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 

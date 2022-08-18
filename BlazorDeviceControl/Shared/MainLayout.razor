@@ -35,7 +35,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
                 @if (UserSettings.Identity.AccessRightsIsRead)
                 {
-                    <RadzenMenu Style="margin-left: -20px; margin-top: 0px; align-content: center; background-color: transparent; " >
+                    <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; " >
                         <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuSystem >
                             <RadzenMenuItem Icon="home" Style="background-color: transparent; "
                                 Text=@LocaleCore.Menu.MenuMain Path=@LocaleData.DeviceControl.UriRouteSection.Root />
@@ -43,7 +43,7 @@
                                 Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleData.DeviceControl.UriRouteSection.Root />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                 Text=@AppSettings.MemoryInfo Path=@LocaleData.DeviceControl.UriRouteSection.Root 
-                                Click=@MemoryClearAsync />
+                                Click=@MemoryClear />
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
                                 Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights(ShareEnums.AccessRights.None)}]") 
                                 Path=@LocaleData.DeviceControl.UriRouteSection.Access

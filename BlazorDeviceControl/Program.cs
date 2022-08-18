@@ -8,14 +8,12 @@ using DataCore.Protocols;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using MudBlazor.Services;
 using Radzen;
-using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add builder.Services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 // Inject.
-builder.Services.AddHotKeys();
 //builder.Services.AddSingleton<JsonSettingsBase>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();

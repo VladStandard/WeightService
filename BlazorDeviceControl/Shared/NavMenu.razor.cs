@@ -6,7 +6,7 @@ using DataCore.Models;
 
 namespace BlazorDeviceControl.Shared;
 
-public partial class NavMenu
+public partial class NavMenu : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 

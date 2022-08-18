@@ -3,16 +3,14 @@
 
 using DataCore;
 using DataCore.Models;
-using Microsoft.AspNetCore.Components;
-using Toolbelt.Blazor.HotKeys;
 
 namespace BlazorDeviceControl.Shared;
 
-public partial class MainLayout
+public partial class MainLayout : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    [Inject] public HotKeys? HotKeysItem { get; private set; }
+    //
 
     #endregion
 
@@ -24,15 +22,10 @@ public partial class MainLayout
 
         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
         Items = new();
-        UserSettings.SetupHotKeys(HotKeysItem);
-        if (UserSettings.HotKeys != null)
-            UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
-                .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
     }
 
-    private static async void MemoryClearAsync(Radzen.MenuItemEventArgs args)
+    private void MemoryClear()
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         GC.Collect();
     }
 
@@ -45,10 +38,10 @@ public partial class MainLayout
             () => UserSettings.SetupAccessRights(),
             () =>
             {
-	            AppSettings.SetupMemory();
-	            AppSettings.Memory.OpenAsync().ConfigureAwait(false);
+                AppSettings.SetupMemory();
+                AppSettings.Memory.OpenAsync().ConfigureAwait(false);
             }
-		});
+        });
         //// Don't change it, because GuiRefreshAsync can get exception!
         //RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
         //    new Task(async () =>

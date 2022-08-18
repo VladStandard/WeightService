@@ -13,8 +13,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
-        Title=@LocaleData.DeviceControl.Items.Label />
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.Label />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -32,7 +31,7 @@ else
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true Value=@ItemCast.IdentityId.ToString() />
 				</td>
-                <td>@LocaleCore.Table.Marked</td>
+                <td>@LocaleCore.Table.IsMarked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
@@ -47,7 +46,7 @@ else
                 <td>@LocaleCore.Table.Plu</td>
                 <td>
                     <RadzenLink Style="width: 100%; text-align: center; " 
-                        Path=@GetPath(UriRouteItem.Plu, ItemCast.WeithingFact.Plu, ItemCast.WeithingFact.Plu.IdentityId)
+                        Path=@GetPath(UriRouteItem.PluObsolete, ItemCast.WeithingFact.Plu, ItemCast.WeithingFact.Plu.IdentityId)
                         Text=@ItemCast.WeithingFact.Plu.GoodsName />
 				</td>
             </tr>
