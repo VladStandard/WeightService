@@ -5,7 +5,7 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "PLU_V2".
+/// Table "PLUS".
 /// </summary>
 [Serializable]
 public class PluEntity : BaseEntity, ISerializable, IBaseEntity

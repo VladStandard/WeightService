@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table map "PLU_V2".
+/// Table map "PLUS".
 /// </summary>
 public class PluMap : ClassMap<PluEntity>
 {

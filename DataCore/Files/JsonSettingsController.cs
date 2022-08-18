@@ -153,7 +153,7 @@ public class JsonSettingsController
 		            DataAccess.JsonSettingsRemote.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
 		            break;
             }
-		    DataAccess.InitSessionFactory(isRemote);
+		    DataAccess.InitSessionFactoryWithJson(isRemote);
         }
 		return jsonObject != null;
     }

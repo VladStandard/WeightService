@@ -105,19 +105,24 @@ public class DataAccessHelper
         }
     }
 
-    public void InitSessionFactory(bool isRemote)
+    public void InitSessionFactory()
     {
-	    JsonSettingsIsRemote = isRemote;
 	    lock (_locker)
         {
             _fluentConfiguration = null;
             _sqlConfiguration = null;
             _sessionFactory = null;
+            _crud = null;
 		}
+    }
+
+    public void InitSessionFactoryWithJson(bool isRemote)
+    {
+	    JsonSettingsIsRemote = isRemote;
+	    InitSessionFactory();
         _ = SessionFactory;
         _ = SqlConfiguration;
         _ = FluentConfiguration;
-
     }
 
     public NHibernate.ISession OpenSession() => SessionFactory.OpenSession();
@@ -213,8 +218,7 @@ public class DataAccessHelper
 
     public DataAccessHelper()
     {
-        _fluentConfiguration = null;
-        _crud = null;
+	    InitSessionFactory();
     }
 
     #endregion

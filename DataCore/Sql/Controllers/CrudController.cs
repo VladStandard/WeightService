@@ -296,19 +296,19 @@ public class CrudController
 	            orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
 	            orderWeighing.Fact = GetEntityById<WeithingFactEntity>(orderWeighing.Fact.IdentityId);
                 break;
-            case PluObsoleteEntity plu:
-                plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
-                plu.Scale = GetEntityById<ScaleEntity>(plu.Scale.IdentityId);
-                plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+            case PluObsoleteEntity pluObsolete:
+                pluObsolete.Template = GetEntityById<TemplateEntity>(pluObsolete.Template.IdentityId);
+                pluObsolete.Scale = GetEntityById<ScaleEntity>(pluObsolete.Scale.IdentityId);
+                pluObsolete.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(pluObsolete.Nomenclature.IdentityId);
                 break;
-            case PluScaleEntity pluRef:
-	            pluRef.Plu = GetEntityByUid<PluEntity>(pluRef.Plu.IdentityUid);
-	            pluRef.Scale = GetEntityById<ScaleEntity>(pluRef.Scale.IdentityId);
-                break;
-            case PluEntity pluV2:
-	            pluV2.Template = GetEntityById<TemplateEntity>(pluV2.Template.IdentityId);
-	            pluV2.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(pluV2.Nomenclature.IdentityId);
+            case PluEntity plu:
+	            plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+	            plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
 	            break;
+            case PluScaleEntity pluScale:
+	            pluScale.Plu = GetEntityByUid<PluEntity>(pluScale.Plu.IdentityUid);
+	            pluScale.Scale = GetEntityById<ScaleEntity>(pluScale.Scale.IdentityId);
+                break;
             case PrinterEntity printer:
                 printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
                 break;

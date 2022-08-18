@@ -52,6 +52,8 @@ namespace DataCore.Localizations
                 public const string LogType = "/item/logtype";
                 public const string Nomenclature = "/item/nomenclature";
                 public const string PluObsolete = "/item/plu_obsolete";
+                public const string Plu = "/item/plu";
+                public const string PluScale = "/item/plu_scale";
                 public const string Printer = "/item/printer";
                 public const string PrinterResource = "/item/printerresource";
                 public const string PrinterType = "/item/printertype";
@@ -65,7 +67,6 @@ namespace DataCore.Localizations
                 public const string TemplateResource = "/item/templateresource";
                 public const string WeithingFact = "/item/measurements/wf";
                 public const string WorkShop = "/item/workshop";
-				public const string PluNew = "/item/plu_new";
             }
             #endregion
             #region URI route section
@@ -88,8 +89,9 @@ namespace DataCore.Localizations
                 public const string LogsWarnings = "/section/logs_warnings";
                 public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
-                public const string PlusNew = "/section/plus_new";
+                public const string Plus = "/section/plus";
                 public const string PlusObsolete = "/section/plus_obsolete";
+                public const string PlusScales = "/section/plus_scales";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
                 public const string PrinterTypes = "/section/printertypes";
@@ -101,8 +103,8 @@ namespace DataCore.Localizations
                 public const string TemplateResources = "/section/templateresources";
                 public const string Templates = "/section/templates";
                 public const string Versions = "/section/versions";
-                public const string WeithingFacts = "/section/measurements/weithingfacts";
-                public const string WeithingFactsAggregation = "/section/measurements/weithingfacts_aggregation";
+                public const string WeithingFacts = "/section/measurements/wf";
+                public const string WeithingFactsAggregation = "/section/measurements/wf_aggr";
                 public const string WorkShops = "/section/workshops";
 				public const string ScalesNew = "/section/scales_new";
 				public const string ScalesObsolete = "/section/scales_obsolete";
@@ -128,7 +130,7 @@ namespace DataCore.Localizations
                 public static string OrderType => Lang == ShareEnums.Lang.English ? "Order type" : "Типы заказа";
                 public static string Organization => Lang == ShareEnums.Lang.English ? "Organization" : "Организация";
                 public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-                public static string PluV2 => Lang == ShareEnums.Lang.English ? "PLU v2" : "ПЛУ в2";
+                public static string PluScale => Lang == ShareEnums.Lang.English ? "Device PLU" : "ПЛУ устройства";
                 public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Производственные площадки";
                 public static string ProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серия продукта";
@@ -166,6 +168,7 @@ namespace DataCore.Localizations
                 public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
                 public static string Organizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
                 public static string Plus => Lang == ShareEnums.Lang.English ? "PLUs" : "ПЛУ";
+                public static string PlusScales => Lang == ShareEnums.Lang.English ? "Devices PLUs" : "ПЛУ устройств";
                 public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Production facilities" : "Производственные площадки";
                 public static string ProductionFacilitiesShort => Lang == ShareEnums.Lang.English ? "Facilities" : "Площадки";
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
@@ -371,8 +374,14 @@ namespace DataCore.Localizations
                         case ProjectsEnums.TableScale.Orders:
                             result = DeviceControl.Items.Order;
                             break;
+                        case ProjectsEnums.TableScale.PlusObsolete:
+                            result = DeviceControl.Items.Plu;
+                            break;
                         case ProjectsEnums.TableScale.Plus:
                             result = DeviceControl.Items.Plu;
+                            break;
+                        case ProjectsEnums.TableScale.PlusScales:
+                            result = DeviceControl.Items.PluScale;
                             break;
                         case ProjectsEnums.TableScale.Printers:
                             result = Print.Name;
@@ -476,8 +485,14 @@ namespace DataCore.Localizations
                         case ProjectsEnums.TableScale.Orders:
                             result = DeviceControl.Sections.Orders;
                             break;
+                        case ProjectsEnums.TableScale.PlusObsolete:
+                            result = DeviceControl.Sections.Plus;
+                            break;
                         case ProjectsEnums.TableScale.Plus:
                             result = DeviceControl.Sections.Plus;
+                            break;
+                        case ProjectsEnums.TableScale.PlusScales:
+                            result = DeviceControl.Sections.PlusScales;
                             break;
                         case ProjectsEnums.TableScale.Printers:
                             result = Print.Name;
