@@ -13,8 +13,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
-        Title=@LocaleCore.Print.Resource />
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleCore.Print.Resource />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -41,7 +40,7 @@ else
             <tr>
                 <td>@LocaleCore.Print.Name</td>
                 <td>
-                    @if (PrinterItems == null)
+                    @if (Printers == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
@@ -49,7 +48,7 @@ else
                     {
                         <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                            @bind-Value=@ItemCast.Printer.IdentityId>
-                            @foreach (PrinterEntity item in PrinterItems)
+                            @foreach (PrinterEntity item in Printers)
                             {
                                 <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
                             }
@@ -65,7 +64,7 @@ else
 				</td>
                 <td>@LocaleCore.Table.Resource</td>
                 <td>
-                    @if (ResourceItems == null)
+                    @if (Resources == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
@@ -73,7 +72,7 @@ else
                     {
                         <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                            @bind-Value=@ItemCast.Resource.IdentityId>
-                            @foreach (TemplateResourceEntity item in ResourceItems)
+                            @foreach (TemplateResourceEntity item in Resources)
                             {
                                 <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
                             }

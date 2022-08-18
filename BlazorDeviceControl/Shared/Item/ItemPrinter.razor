@@ -15,8 +15,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@this 
-        Title=@LocaleCore.Print.Name />
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleCore.Print.Name />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -54,7 +53,7 @@ else
             </tr>
             <tr>
                 <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank"
+                    <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank"
                         Path=@ItemCast.Link 
                         Text=@LocaleCore.Print.ControlPanel />
                 </td>
@@ -63,7 +62,7 @@ else
                         TValue="string" @bind-Value=@ItemCast.Ip />
                 </td>
                 <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.IdentityId)
                         Text=@LocaleCore.Print.Type />
                 </td>

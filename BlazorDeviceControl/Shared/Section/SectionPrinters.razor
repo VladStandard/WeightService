@@ -19,7 +19,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
         <Columns>
-            @if (@IsShowMarkedItems)
+            @if (IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="PrinterEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
@@ -30,28 +30,28 @@ else
             }
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Table.Id Width="5%">
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                                 Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
                                 Text=@itemCast.IdentityId.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Name Width="18%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                                 Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
                                 Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Model Width="17%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.IdentityId}") 
                         Text=@itemCast.PrinterType.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Ip Type="string" Width="14%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank" 
+                    <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank" 
                         Path=@itemCast.Link
                         Text=@itemCast.Ip />
                 </Template>

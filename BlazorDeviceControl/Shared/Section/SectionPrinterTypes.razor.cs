@@ -8,7 +8,7 @@ using DataCore.Sql.TableScaleModels;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionPrinterTypes
+public partial class SectionPrinterTypes : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 

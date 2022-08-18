@@ -9,7 +9,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionPrinterResources
+public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -42,14 +42,14 @@ public partial class SectionPrinterResources
                     if (printerId == null)
                         Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                             null,
-                            new(DbField.Description, DbOrderDirection.Asc),
+                            new(DbField.Description),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                         ?.ToList<BaseEntity>();
                     else
                     {
                         Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                             new(new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId) }),
-                            new(DbField.Description, DbOrderDirection.Asc),
+                            new(DbField.Description),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }
@@ -59,7 +59,7 @@ public partial class SectionPrinterResources
                     if (printerId == null)
                         Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                             new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                            new(DbField.Description, DbOrderDirection.Asc),
+                            new(DbField.Description),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     else
@@ -68,7 +68,7 @@ public partial class SectionPrinterResources
                                 new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId),
                                 new(DbField.IsMarked, DbComparer.Equal, false)
                             }),
-                            new(DbField.Description, DbOrderDirection.Asc),
+                            new(DbField.Description),
                             IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                             ?.ToList<BaseEntity>();
                     }

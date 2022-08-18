@@ -8,12 +8,12 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
 
-public partial class ItemPrinter
+public partial class ItemPrinter : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
 	private PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
-	private List<PrinterTypeEntity>? PrinterTypes { get; set; }
+	private List<PrinterTypeEntity> PrinterTypes { get; set; }
 
 	#endregion
 
@@ -25,7 +25,7 @@ public partial class ItemPrinter
 
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
 		ItemCast = new();
-		PrinterTypes = null;
+		PrinterTypes = new();
 	}
 
 	protected override void OnParametersSet()
@@ -50,7 +50,13 @@ public partial class ItemPrinter
 						break;
 				}
 
-				PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)?.ToList();
+				List<PrinterTypeEntity>? printerTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>()?.ToList();
+				if (printerTypes is not null)
+				{
+					PrinterTypes = new();
+					PrinterTypes.AddRange(printerTypes);
+				}
+
 				if (IdentityId != null && TableAction == DbTableAction.New)
 				{
 					ItemCast.IdentityId = (long)IdentityId;

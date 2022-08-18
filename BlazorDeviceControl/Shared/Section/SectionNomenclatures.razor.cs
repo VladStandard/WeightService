@@ -9,7 +9,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionNomenclatures
+public partial class SectionNomenclatures : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 

@@ -9,7 +9,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section;
 
-public partial class SectionPrinters
+public partial class SectionPrinters : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -36,7 +36,7 @@ public partial class SectionPrinters
             {
                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
                     new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name, DbOrderDirection.Asc),
+                    new(DbField.Name),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
                     ?.ToList<BaseEntity>();
                 ButtonSettings = new(true, true, true, true, true, false, false);

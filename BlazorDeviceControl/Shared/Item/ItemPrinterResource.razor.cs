@@ -4,6 +4,7 @@
 using DataCore;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
+using System.Data;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item;
@@ -11,7 +12,7 @@ namespace BlazorDeviceControl.Shared.Item;
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public partial class ItemPrinterResource
+public partial class ItemPrinterResource : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,11 +23,11 @@ public partial class ItemPrinterResource
 	/// <summary>
 	/// Printers.
 	/// </summary>
-	private List<PrinterEntity>? PrinterItems { get; set; }
+	private List<PrinterEntity> Printers { get; set; }
 	/// <summary>
 	/// Printer's resources.
 	/// </summary>
-	private List<TemplateResourceEntity>? ResourceItems { get; set; }
+	private List<TemplateResourceEntity> Resources { get; set; }
 
 	#endregion
 
@@ -38,8 +39,8 @@ public partial class ItemPrinterResource
 
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
 		ItemCast = new();
-		PrinterItems = null;
-		ResourceItems = null;
+		Printers = new();
+		Resources = new();
 	}
 
 	protected override void OnParametersSet()
@@ -63,10 +64,22 @@ public partial class ItemPrinterResource
 						break;
 				}
 
-				PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+				List<PrinterEntity>? printers = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
 					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
 					new(DbField.Name))?.ToList();
-				ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>()?.ToList();
+				if (printers is not null)
+				{
+					Printers = new();
+					Printers.AddRange(printers);
+				}
+				
+				List<TemplateResourceEntity>? resources = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>()?.ToList();
+				if (resources is not null)
+				{
+					Resources = new();
+					Resources.AddRange(resources);
+				}
+				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
 		});

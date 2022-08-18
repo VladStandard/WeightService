@@ -26,7 +26,7 @@ else
                 TItem="NomenclatureEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
                         TValue="string" Value=@itemCast.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
@@ -35,14 +35,14 @@ else
                 TItem="NomenclatureEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.ChangeDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
                         TValue="string" Value=@itemCast.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>*@
             <RadzenGridColumn TItem="NomenclatureEntity" Title=@LocaleCore.Table.Name Width="45%" >
 	            <Template Context="itemCast" >
-		            <RadzenLink Style="width: 100%; margin-left: 0px; "
+		            <RadzenLink Style="width: 100%; margin-left: 0; "
 		                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
 		                        Text=@itemCast.Name />
 	            </Template>
