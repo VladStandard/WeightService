@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.7.005] - 2022-08-18
+## [0.7.010] - 2022-08-19
 ### Описание обновления:
 - WS-T-332. Обновление модели данных заказов ORDERS
 - WS-T-333. Обновление модели данных PLU_REF_V2
