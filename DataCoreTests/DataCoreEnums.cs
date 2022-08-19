@@ -8,7 +8,7 @@ namespace DataCoreTests;
 /// <summary>
 /// Enumeration of values.
 /// </summary>
-public static class TestsEnums
+public static class DataCoreEnums
 {
     /// <summary>
     /// List of bool values.

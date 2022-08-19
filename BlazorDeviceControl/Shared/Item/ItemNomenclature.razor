@@ -2,8 +2,13 @@
 @page "/item/nomenclature"
 @page "/item/nomenclature/{IdentityId:long}"
 @page "/item/nomenclature/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Shared.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Shared.Components.ItemDates
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 @if (!IsLoaded)
 {
@@ -15,14 +20,7 @@ else
         Title=@LocaleData.DeviceControl.Items.Nomenclature />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
-            </tr>
-        </thead>
+        <MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
             <tr>
                 <td>@LocaleCore.Table.Id</td>
@@ -57,7 +55,7 @@ else
             <tr >
                 <td>@LocaleCore.Table.Xml</td>
                 <td colspan=3>
-                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; " Disabled=false ReadOnly=false 
+                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 20px; " Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@ItemCast.Xml Rows=20 />
 				</td>
             </tr>
@@ -81,8 +79,8 @@ else
         <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsEntity" @bind-Value=@ItemObject
                     RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
-                    AllowSorting=true ColumnWidth="200px">
+                    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
+                    AllowSorting=true >
             <Columns>
                 <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="IdentityId" Title=@LocaleCore.TableField.Id
                                     Type="int" Width="10%" />
@@ -118,8 +116,8 @@ else
         <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesEntity" @bind-Value=@ItemObject
                     RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
-                    AllowSorting=true ColumnWidth="200px">
+                    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
+                    AllowSorting=true >
             <Columns>
                 <RadzenGridColumn TItem="BarCodesEntity" Property="IdentityId" Title=@LocaleCore.TableField.Id
                                     Type="int" Width="10%" />

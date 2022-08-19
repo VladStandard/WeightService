@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/component/actions_filter_scale"
+@page "/components/actions_filter_scale"
 @using BlazorCore.Utils
 @using DataCore.Localizations
 @using DataCore.Sql.Models
@@ -14,7 +14,8 @@
 else
 {
 	<MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-		Style="margin-top: -3px; margin-left: 10px; margin-right: 10px; margin-bottom: 2px; font-size: 12px;"
+		Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px;
+		       font-size: 10px; background-color: transparent; border-color: transparent;"
 	    @bind-Value=@ItemFilterCast>
 		@foreach (ScaleEntity item in ItemsCast)
 		{

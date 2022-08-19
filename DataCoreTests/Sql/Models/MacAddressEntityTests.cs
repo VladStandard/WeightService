@@ -14,7 +14,7 @@ internal class MacAddressEntityTests
         Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
         {
             MacAddressEntity mac = new();
-            foreach (string address in TestsEnums.GetString())
+            foreach (string address in DataCoreEnums.GetString())
             {
                 mac = new(address);
             }

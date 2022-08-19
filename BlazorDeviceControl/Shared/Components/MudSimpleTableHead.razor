@@ -1,0 +1,52 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/components/mudsimpletable_head"
+@using BlazorCore
+@using BlazorCore.Utils
+@using DataCore
+@using DataCore.Localizations
+@using DataCore.Utils
+@using static DataCore.ShareEnums
+
+@if (TheadStyle != null)
+{
+	<thead>
+		<tr>
+			@if (TheadStyle.ColumnsWidths.Count > 0)
+			{
+				<th style="color: @TheadStyle.Color; text-align: @TheadStyle.TextAlign; font-weight: @TheadStyle.FontWeight; width: @TheadStyle.ColumnsWidths[0]%;">
+					@if (TheadStyle.ColumnsTitles.Count > 0)
+					{
+						<RadzenLabel Text=@TheadStyle.ColumnsTitles[0]/>
+					}
+				</th>
+			}
+			@if (TheadStyle.ColumnsWidths.Count > 1)
+			{
+				<th style="color: @TheadStyle.Color; text-align: @TheadStyle.TextAlign; font-weight: @TheadStyle.FontWeight; width: @TheadStyle.ColumnsWidths[1]%;">
+					@if (TheadStyle.ColumnsTitles.Count > 1)
+					{
+						<RadzenLabel Text=@TheadStyle.ColumnsTitles[1] />
+					}
+				</th>
+			}
+			@if (TheadStyle.ColumnsWidths.Count > 2)
+			{
+				<th style="color: @TheadStyle.Color; text-align: @TheadStyle.TextAlign; font-weight: @TheadStyle.FontWeight; width: @TheadStyle.ColumnsWidths[2]%;">
+					@if (TheadStyle.ColumnsTitles.Count > 2)
+					{
+						<RadzenLabel Text=@TheadStyle.ColumnsTitles[2] />
+					}
+				</th>
+			}
+			@if (TheadStyle.ColumnsWidths.Count > 3)
+			{
+				<th style="color: @TheadStyle.Color; text-align: @TheadStyle.TextAlign; font-weight: @TheadStyle.FontWeight; width: @TheadStyle.ColumnsWidths[3]%;">
+					@if (TheadStyle.ColumnsTitles.Count > 3)
+					{
+						<RadzenLabel Text=@TheadStyle.ColumnsTitles[3] />
+					}
+				</th>
+			}
+		</tr>
+	</thead>
+}

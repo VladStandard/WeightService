@@ -10,7 +10,7 @@ public class JsonSettingsFileEntityTests
     [Test]
     public void JsonSettings_New_DoesNotThrow()
     {
-        TestsUtils.DbTableAction(() =>
+        DataCoreUtils.AssertAction(() =>
         {
             //
         });

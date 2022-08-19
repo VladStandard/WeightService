@@ -5,7 +5,7 @@ using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
 using static DataCore.ProjectsEnums;
 
-namespace BlazorDeviceControl.Shared.Component;
+namespace BlazorDeviceControl.Shared.Components;
 
 public class ActionsReloadBase : BlazorCore.Models.RazorBase
 {

@@ -11,27 +11,19 @@ internal class HostValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			HostEntity item = Substitute.For<HostEntity>();
-			HostValidator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.Name = "";
-			item.Ip  = "";
-			item.MacAddressValue = "";
-			item.HostName = "";
-			item.AccessDt = DateTime.Now;
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		HostEntity item = Substitute.For<HostEntity>();
+		// Act.
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
+		// Act.
+		item.Name = "";
+		item.Ip = "";
+		item.MacAddressValue = "";
+		item.HostName = "";
+		item.AccessDt = DateTime.Now;
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -52,7 +44,7 @@ internal class HostValidatorTests
 			item.HostName = "Test";
 			item.AccessDt = DateTime.Now;
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -61,6 +53,6 @@ internal class HostValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTable_UniversalValidate_IsTrue<HostEntity>(0);
+		DataCoreUtils.AssertSqlDataValidate<HostEntity>(0);
 	}
 }

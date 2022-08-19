@@ -2,11 +2,16 @@
 @page "/item/plu_scale"
 @page "/item/plu_scale/{IdentityUidStr}"
 @page "/item/plu_scale/{IdentityUidStr}/{TableAction}"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using static DataCore.Localizations.LocaleData.DeviceControl
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Shared.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Shared.Components.ItemDates
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 @if (!IsLoaded)
 {
@@ -16,70 +21,66 @@ else
 {
     <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.PluScale />
 	
-	<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@LocaleCore.Table.Uid</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        ReadOnly=true Value=@ItemCast.IdentityUid.ToString() />
-				</td>
-                <td>@LocaleCore.Table.IsMarked</td>
-                <td>
-                    <RadzenCheckBox TValue="bool" @bind-Value=@ItemCast.IsMarked />
-                </td>
-            </tr>
-            <tr>
-	            <td>@LocaleCore.Table.IsActive</td>
-	            <td>
-		            <RadzenCheckBox TValue="bool" @bind-Value=@ItemCast.IsActive />
-	            </td>
-            </tr>
-            <tr>
-	            <td>
-		            <RadzenLink Style="width: 100%; margin-left: 0; " 
-		                        Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
-		                        Text=@LocaleCore.Table.Scale />
-	            </td>
-	            <td>
-		            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense ReadOnly=true
-                        @bind-Value=@ItemCast.Scale.IdentityId >
-			            @foreach (ScaleEntity item in Scales)
-			            {
-				            <MudSelectItem Value=@item.IdentityId >@item.Description</MudSelectItem>
-			            }
-		            </MudSelect>
-	            </td>
-	            <td>
-		            <RadzenLink Style="width: 100%; margin-left: 0; " 
-		                        Path=@GetPath(UriRouteItem.Plu, ItemCast.Plu, ItemCast.Plu.IdentityUid)
-		                        Text=@LocaleCore.Table.Plu />
-	            </td>
-	            <td>
-		            <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense 
-		                ReadOnly=true Disabled=true
-                        @bind-Value=@ItemCast.Plu.IdentityUid >
-			            @foreach (PluEntity item in Plus)
-			            {
-				            <MudSelectItem Value=@item.IdentityUid >@item.Name</MudSelectItem>
-			            }
-		            </MudSelect>
-	            </td>
-            </tr>
-        </tbody>
-    </MudSimpleTable>
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 15, 35, 15, 35 }) />
+		<tbody>
+		<tr>
+			<td>@LocaleCore.Table.Uid</td>
+			<td>
+				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+				               ReadOnly=true Value=@ItemCast.IdentityUid.ToString()/>
+			</td>
+			<td>@LocaleCore.Table.IsMarked</td>
+			<td>
+				<RadzenCheckBox TValue="bool" @bind-Value=@ItemCast.IsMarked/>
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.IsActive</td>
+			<td>
+				<RadzenCheckBox TValue="bool" @bind-Value=@ItemCast.IsActive/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<RadzenLink Style="width: 100%; margin-left: 0;"
+				            Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
+				            Text=@LocaleCore.Table.Scale/>
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+					ReadOnly=true Disabled=true
+				    @bind-Value=@ItemCast.Scale>
+					@foreach (ScaleEntity item in Scales)
+					{
+						<MudSelectItem Value=@item>@item.Description</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+			<td>
+				<RadzenLink Style="width: 100%; margin-left: 0;"
+				            Path=@GetPath(UriRouteItem.Plu, ItemCast.Plu, ItemCast.Plu.IdentityUid)
+				            Text=@LocaleCore.Table.Plu/>
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+					ReadOnly=true Disabled=true
+					@bind-Value=@ItemCast.Plu>
+					@foreach (PluEntity item in Plus)
+					{
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+		</tr>
+		</tbody>
+	</MudSimpleTable>
 	
 	<ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
 	
 	<ItemDates ParentRazor=@this />
 }
 
-<ItemPlu ParentRazor=@this />
+<br style="margin-bottom: 5px; " />
+
+<ItemPlu ParentRazor=@this IdentityUid=@ItemCast.Plu.IdentityUid />

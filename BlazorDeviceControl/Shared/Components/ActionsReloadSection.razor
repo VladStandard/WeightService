@@ -1,5 +1,5 @@
-﻿@inherits Shared.Component.ActionsReloadBase
-@page "/component/actions_reload_section"
+﻿@inherits ActionsReloadBase
+@page "/components/actions_reload_section"
 @using DataCore
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
@@ -21,33 +21,30 @@
 		</thead>
 		<tbody>
 		<tr>
-			<td>
-				@if (!string.IsNullOrEmpty(Title))
-				{
-					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 18px; " Text=@Title />
-				}
+			<td colspan=@(IsShowAdditionalFilter ? 1 : 3) >
 				@if (ParentRazor == null)
 				{
 					<ActionsLoad ParentRazor=@this DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 				}
 				else
 				{
+					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@Title />
 					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsSelectTopRows
 					                Change=@(args => OnChangeCheckBox(args, nameof(IsSelectTopRows)))
 					                Style="margin-top: -3px; margin-left: 20px; " />
-					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 14px; " 
+					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
 					             Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
 
 					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
 					                Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
 					                Style="margin-top: -3px; margin-left: 20px; " />
-					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 14px; " Text=@LocaleCore.Action.ActionIsShowMarked />
+					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
 
 					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 					              Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
 					              Disabled=@(!AppSettings.DataAccess.IsConnected) Click=@(_ => ParentRazor.OnChange()) />
 	        
-					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 14px; " Text=@ItemsCountResult />
+					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
 				}
 			</td>
 			@if (IsShowAdditionalFilter)
@@ -56,7 +53,7 @@
 					@switch (FilterTable)
 					{
 						case TableScale.Scales:
-							<RadzenLabel Style="margin-top: 1px; font-size: 14px; text-align: center; height: 100%; "
+							<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; "
 							             Text=@LocaleCore.Table.Scale/>
 							break;
 					}

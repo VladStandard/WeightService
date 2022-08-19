@@ -15,3 +15,4 @@ global using System.Threading.Tasks;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
+global using Radzen.Blazor;

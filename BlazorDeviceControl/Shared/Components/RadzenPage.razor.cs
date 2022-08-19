@@ -5,7 +5,7 @@ using DataCore.Localizations;
 using DataCore.Protocols;
 using Radzen;
 
-namespace BlazorDeviceControl.Shared.Component;
+namespace BlazorDeviceControl.Shared.Components;
 
 public partial class RadzenPage : BlazorCore.Models.RazorBase
 {

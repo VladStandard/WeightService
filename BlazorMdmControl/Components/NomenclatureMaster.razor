@@ -44,7 +44,7 @@
                     Data=@IncludeEntities TItem="NomenclatureEntity" @bind-Value=@ItemObject
                     RowDoubleClick=@(args => RowDoubleClickAsync(args, false))
                     AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@BlazorSettings.GridPageSize AllowSorting="true" ColumnWidth="50px"
+                    AllowPaging=true PageSize=@BlazorSettings.GridPageSize AllowSorting="true" 
                     AllowColumnResize="true" SelectionMode="DataGridSelectionMode.Single"
                     @bind-Value=@ObjectIncludeEntity>
             <Columns>

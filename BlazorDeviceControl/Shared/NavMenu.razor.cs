@@ -37,17 +37,7 @@ public partial class NavMenu : BlazorCore.Models.RazorBase
 
     #region Public and private methods
 
-    //protected override void OnParametersSet()
-    //{
-    //	base.OnParametersSet();
-    //       SetParametersWithAction(new()
-    //       {
-    //           () =>
-    //           {
-    //			//
-    //		}
-    //       });
-    //   }
+    //
 
     #endregion
 }

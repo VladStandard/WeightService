@@ -11,23 +11,12 @@ internal class PluScaleValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			PluScaleEntity item = Substitute.For<PluScaleEntity>();
-			PluScaleValidator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			//Assert.IsFalse(result.IsValid);
-			// Act.
-			//item.Plu = null;
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			//Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		PluScaleEntity item = Substitute.For<PluScaleEntity>();
+		// Act.
+		//item.Plu = null;
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -45,7 +34,7 @@ internal class PluScaleValidatorTests
 			item.IsActive = true;
 			item.IdentityUid = Guid.NewGuid();
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -54,11 +43,11 @@ internal class PluScaleValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTableAction(() =>
+		DataCoreUtils.AssertAction(() =>
 		{
 			// Arrange.
 			PluScaleValidator validator = new();
-			PluScaleEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<PluScaleEntity>();
+			PluScaleEntity[]? items = DataCoreUtils.DataAccess.Crud.GetEntities<PluScaleEntity>();
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -74,7 +63,7 @@ internal class PluScaleValidatorTests
 						TestContext.WriteLine(item);
 					i++;
 					ValidationResult result = validator.Validate(item);
-					TestsUtils.FailureWriteLine(result);
+					DataCoreUtils.FailureWriteLine(result);
 					// Assert.
 					Assert.IsTrue(result.IsValid);
 				}

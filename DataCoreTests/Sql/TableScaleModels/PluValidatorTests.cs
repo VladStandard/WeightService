@@ -9,23 +9,15 @@ internal class PluValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			PluEntity item = Substitute.For<PluEntity>();
-			PluValidator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.Name = "";
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		PluEntity item = Substitute.For<PluEntity>();
+		// Act.
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
+		// Act.
+		item.Name = "";
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -45,7 +37,7 @@ internal class PluValidatorTests
 			item.Ean13 = "Test";
 			item.Itf14 = "Test";
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -54,11 +46,11 @@ internal class PluValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTableAction(() =>
+		DataCoreUtils.AssertAction(() =>
 		{
 			// Arrange.
 			PluValidator validator = new();
-			PluEntity[]? items = TestsUtils.DataAccess.Crud.GetEntities<PluEntity>();
+			PluEntity[]? items = DataCoreUtils.DataAccess.Crud.GetEntities<PluEntity>();
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -74,7 +66,7 @@ internal class PluValidatorTests
 						TestContext.WriteLine(item);
 					i++;
 					ValidationResult result = validator.Validate(item);
-					TestsUtils.FailureWriteLine(result);
+					DataCoreUtils.FailureWriteLine(result);
 					// Assert.
 					Assert.IsTrue(result.IsValid);
 				}

@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using FluentNHibernate.Data;
-using FluentValidation;
 using System;
 
 namespace DataCoreTests.Sql.TableScaleModels;
@@ -13,23 +11,15 @@ internal class NomenclatureValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			NomenclatureEntity item = Substitute.For<NomenclatureEntity>();
-			NomenclatureValidator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.Name = string.Empty;
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		NomenclatureEntity item = Substitute.For<NomenclatureEntity>();
+		// Act.
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
+		// Act.
+		item.Name = string.Empty;
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -50,7 +40,7 @@ internal class NomenclatureValidatorTests
 			item.Xml = "<Product Category=\"Сосиски\" > </Product>";
 			item.Weighted = false;
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -59,6 +49,6 @@ internal class NomenclatureValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTable_UniversalValidate_IsTrue<NomenclatureEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<NomenclatureEntity>(1000);
 	}
 }

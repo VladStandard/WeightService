@@ -31,7 +31,7 @@ public partial class ItemPlu : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusScales);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
         ItemCast = new();
         Templates = new();
         Nomenclatures = new();
@@ -55,6 +55,7 @@ public partial class ItemPlu : BlazorCore.Models.RazorBase
                         ItemCast.IsMarked = false;
                         break;
                     default:
+	                    //Guid uid = ItemFilter.IdentityUid;
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
                             new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
                         break;

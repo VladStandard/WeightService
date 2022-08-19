@@ -5,7 +5,7 @@ using DataCore.Models;
 using DataCore.Protocols;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Component;
+namespace BlazorDeviceControl.Shared.Components;
 
 /// <summary>
 /// MUD Blazor page.

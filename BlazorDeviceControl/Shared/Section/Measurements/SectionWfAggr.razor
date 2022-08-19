@@ -1,9 +1,11 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/section/measurements/wf_aggr"
-@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Components
 @using DataCore.Sql.DataModels
 @using DataCore.Localizations
 @using DataCore.Utils
+@using ActionsLoad = BlazorDeviceControl.Shared.Components.ActionsLoad
+@using ActionsReloadSection = BlazorDeviceControl.Shared.Components.ActionsReloadSection
 
 @if (!IsLoaded)
 {
@@ -16,7 +18,7 @@ else
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="WeithingFactSummaryEntity" @bind-Value=@ItemObject
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true ColumnWidth="100px">
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate

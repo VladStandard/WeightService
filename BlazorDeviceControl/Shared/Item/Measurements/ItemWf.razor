@@ -2,9 +2,14 @@
 @page "/item/measurements/wf"
 @page "/item/measurements/wf/{IdentityId:long}"
 @page "/item/measurements/wf/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using System.Globalization
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Shared.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Shared.Components.ItemDates
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 @if (!IsLoaded)
 {
@@ -14,114 +19,107 @@ else
 {
     <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.Label />
 
-    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocaleCore.Strings.RecordValue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@LocaleCore.Table.Id</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.IdentityId.ToString() />
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 20, 30, 20, 30 }) />
+		<tbody>
+			<tr>
+				<td>@LocaleCore.Table.Id</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.IdentityId.ToString()/>
 				</td>
-                <td>@LocaleCore.Table.IsMarked</td>
-                <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.WeithingDate</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Value=@ItemCast.WeithingDate.ToString(CultureInfo.InvariantCulture) 
-                        Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				<td>@LocaleCore.Table.IsMarked</td>
+				<td>
+					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked/>
 				</td>
-                <td>@LocaleCore.Table.ProductDate</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Value=@ItemCast.ProductDate.ToString(CultureInfo.InvariantCulture) 
-                        Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.WeithingDate</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Value=@ItemCast.WeithingDate.ToString(CultureInfo.InvariantCulture)
+					               Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Scale</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true 
-                        @bind-Value=@ItemCast.Scale.Description />
+				<td>@LocaleCore.Table.ProductDate</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Value=@ItemCast.ProductDate.ToString(CultureInfo.InvariantCulture)
+					               Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-                <td>@LocaleCore.Table.Host</td>
-	            <td>
-                    @if (ItemCast.Scale.Host == null)
-                    {
-	                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-                           Disabled=false ReadOnly=true
-                           Value=@("") />
-                    }
-                    else
-                    {
-	                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-                           Disabled=false ReadOnly=true
-                           @bind-Value=@(ItemCast.Scale.Host.HostName) />
-                    }
-	            </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Plu</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.Plu.IdentityId.ToString() />
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.Scale</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true
+					               @bind-Value=@ItemCast.Scale.Description/>
 				</td>
-                <td>@LocaleCore.Table.PluNumber</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.Plu.PluNumber.ToString() />
+				<td>@LocaleCore.Table.Host</td>
+				<td>
+					@if (ItemCast.Scale.Host == null)
+					{
+						<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+						               Disabled=false ReadOnly=true
+						               Value=@("")/>
+					}
+					else
+					{
+						<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+						               Disabled=false ReadOnly=true
+						               @bind-Value=@(ItemCast.Scale.Host.HostName)/>
+					}
 				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Nomenclature</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true @bind-Value=@ItemCast.Plu.Nomenclature.Name />
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.Plu</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.Plu.IdentityId.ToString()/>
 				</td>
-                <td>@LocaleCore.Table.GoodsName</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true @bind-Value=@ItemCast.Plu.GoodsName />
+				<td>@LocaleCore.Table.PluNumber</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.Plu.PluNumber.ToString()/>
 				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.NetWeight</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.NetWeight.ToString(CultureInfo.InvariantCulture) />
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.Nomenclature</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true @bind-Value=@ItemCast.Plu.Nomenclature.Name/>
 				</td>
-                <td>@LocaleCore.Table.TareWeight</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.TareWeight.ToString(CultureInfo.InvariantCulture) />
+				<td>@LocaleCore.Table.GoodsName</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true @bind-Value=@ItemCast.Plu.GoodsName/>
 				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.RegNum</td>
-                <td >
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.RegNum.ToString() />
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.NetWeight</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.NetWeight.ToString(CultureInfo.InvariantCulture)/>
 				</td>
-                <td>@LocaleCore.Table.IsKneading</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Value=@ItemCast.Kneading.ToString() />
-                </td>
-            </tr>
-        </tbody>
-    </MudSimpleTable>
+				<td>@LocaleCore.Table.TareWeight</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.TareWeight.ToString(CultureInfo.InvariantCulture)/>
+				</td>
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.RegNum</td>
+				<td >
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.RegNum.ToString()/>
+				</td>
+				<td>@LocaleCore.Table.IsKneading</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
+					               Disabled=false ReadOnly=true Value=@ItemCast.Kneading.ToString()/>
+				</td>
+			</tr>
+		</tbody>
+	</MudSimpleTable>
     
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />

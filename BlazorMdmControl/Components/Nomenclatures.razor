@@ -46,7 +46,7 @@
                             Data=@ItemsMaster TItem="NomenclatureLightEntity" @bind-Value=@ItemObject
                             RowDoubleClick=@(args => RowDoubleClickAsync(ShareEnums.TableDwh.NomenclatureMaster, args, true))
                             AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                            AllowPaging="true" PageSize=@BlazorSettings.GridPageSize AllowSorting="true" ColumnWidth="50px"
+                            AllowPaging=true PageSize=@BlazorSettings.GridPageSize AllowSorting="true" 
                             AllowColumnResize="true" SelectionMode="DataGridSelectionMode.Single"
                             @bind-Value=@ObjectMaster>
                     <Columns>
@@ -136,7 +136,7 @@
             <RadzenGrid Style="font-size: 10px; margin-top: 25px; margin-left: 0px; margin-right: -115px; margin-bottom: 0px; position: absolute; "
                         Data=@ItemsNonNormilize TItem="NomenclatureLightEntity" @bind-Value=@ItemObject
                         AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-                        AllowPaging="true" PageSize=@BlazorSettings.GridPageSize AllowSorting="true" ColumnWidth="50px"
+                        AllowPaging=true PageSize=@BlazorSettings.GridPageSize AllowSorting="true" 
                         AllowColumnResize="true" SelectionMode="DataGridSelectionMode.Single"
                         @bind-Value=@ObjectNonNormilize>
                 <Columns>

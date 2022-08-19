@@ -14,16 +14,16 @@ internal class SqlConnectFactoryTests
     {
         Assert.DoesNotThrow(() =>
         {
-            TestsUtils.SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Tasks.GetTasks, (reader) =>
+            DataCoreUtils.SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Tasks.GetTasks, (reader) =>
             {
                 while (reader.Read())
                 {
-                    TestContext.WriteLine($"TASK_UID: {TestsUtils.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID")}");
-                    TestContext.WriteLine($"SCALE_ID: {TestsUtils.SqlConnect.GetValueAsNotNullable<long>(reader, "SCALE_ID")}");
-                    TestContext.WriteLine($"SCALE: {TestsUtils.SqlConnect.GetValueAsNullable<string>(reader, "SCALE")}");
-                    TestContext.WriteLine($"TASK_TYPE_UID: {TestsUtils.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")}");
-                    TestContext.WriteLine($"TASK: {TestsUtils.SqlConnect.GetValueAsNullable<string>(reader, "TASK")}");
-                    TestContext.WriteLine($"ENABLED: {TestsUtils.SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")}");
+                    TestContext.WriteLine($"TASK_UID: {DataCoreUtils.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID")}");
+                    TestContext.WriteLine($"SCALE_ID: {DataCoreUtils.SqlConnect.GetValueAsNotNullable<long>(reader, "SCALE_ID")}");
+                    TestContext.WriteLine($"SCALE: {DataCoreUtils.SqlConnect.GetValueAsNullable<string>(reader, "SCALE")}");
+                    TestContext.WriteLine($"TASK_TYPE_UID: {DataCoreUtils.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")}");
+                    TestContext.WriteLine($"TASK: {DataCoreUtils.SqlConnect.GetValueAsNullable<string>(reader, "TASK")}");
+                    TestContext.WriteLine($"ENABLED: {DataCoreUtils.SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")}");
                     TestContext.WriteLine();
                 }
             });

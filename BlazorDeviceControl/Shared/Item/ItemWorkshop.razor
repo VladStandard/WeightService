@@ -2,12 +2,17 @@
 @page "/item/workshop"
 @page "/item/workshop/{IdentityId:long}"
 @page "/item/workshop/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
 @using Microsoft.AspNetCore.Components
 @using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Shared.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Shared.Components.ItemDates
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 @if (!IsLoaded)
 {
@@ -18,14 +23,7 @@ else
     <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.Workshop />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocaleCore.Strings.RecordValue</th>
-            </tr>
-        </thead>
+	    <MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 25, 25, 25, 25 }) />
         <tbody>
             <tr>
                 <td>@LocaleCore.Table.Id</td>
@@ -55,10 +53,10 @@ else
                 </td>
                 <td colspan=3>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@ItemCast.ProductionFacility.IdentityId >
+						@bind-Value=@ItemCast.ProductionFacility>
                         @foreach (ProductionFacilityEntity item in ProductionFacilities)
                         {
-                            <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

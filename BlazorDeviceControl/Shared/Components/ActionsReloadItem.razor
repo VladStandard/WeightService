@@ -1,5 +1,5 @@
-﻿@inherits Shared.Component.ActionsReloadBase
-@page "/component/actions_reload_item"
+﻿@inherits ActionsReloadBase
+@page "/components/actions_reload_item"
 @using DataCore
 @using DataCore.Localizations
 @using DataCore.Utils
@@ -9,7 +9,7 @@
 <MudPaper Width="100%" Height="32px;" Style="margin-bottom: 10px;" Square=false >
     @if (!string.IsNullOrEmpty(Title))
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 18px; " Text=@Title />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@Title />
     }
     
     @if (ParentRazor == null)
@@ -23,7 +23,7 @@
 	        Disabled=@(!AppSettings.DataAccess.IsConnected) Click=@(_ => ParentRazor.OnChange()) />
 	    @if (ParentRazor.Item != null)
 	    {
-	        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
+	        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Disabled=false ReadOnly=true 
 	            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
 	    }
     }

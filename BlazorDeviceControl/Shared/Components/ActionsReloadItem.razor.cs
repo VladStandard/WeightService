@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace BlazorDeviceControl.Shared.Component;
+namespace BlazorDeviceControl.Shared.Components;
 
-public partial class ActionsReloadSection : ActionsReloadBase
+public partial class ActionsReloadItem : ActionsReloadBase
 {
 	#region Public and private methods
 

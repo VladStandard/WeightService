@@ -2,10 +2,15 @@
 @page "/item/printerresource"
 @page "/item/printerresource/{IdentityId:long}"
 @page "/item/printerresource/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using DataCore.Sql.TableScaleModels
 @using static BlazorCore.Utils.BlazorCoreUtuls
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Shared.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Shared.Components.ItemDates
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 @if (!IsLoaded)
 {
@@ -15,73 +20,66 @@ else
 {
     <ActionsReloadItem ParentRazor=@this Title=@LocaleCore.Print.Resource />
 
-    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.RecordValue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@LocaleCore.Table.Id</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.IdentityId />
-				</td>
-                <td>@LocaleCore.Table.IsMarked</td>
-                <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Print.Name</td>
-                <td>
-                    @if (Printers == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                           @bind-Value=@ItemCast.Printer.IdentityId>
-                            @foreach (PrinterEntity item in Printers)
-                            {
-                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
-                            }
-                        </MudSelect>
-                    }
-				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Description</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Description />
-				</td>
-                <td>@LocaleCore.Table.Resource</td>
-                <td>
-                    @if (Resources == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                           @bind-Value=@ItemCast.Resource.IdentityId>
-                            @foreach (TemplateResourceEntity item in Resources)
-                            {
-                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
-                            }
-                        </MudSelect>
-                    }
-				</td>
-            </tr>
-        </tbody>
-    </MudSimpleTable>
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 15, 35, 15, 35 }) />
+		<tbody>
+		<tr>
+			<td>@LocaleCore.Table.Id</td>
+			<td>
+				<RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray;"
+				               Disabled=false ReadOnly=true
+				               TValue="long" @bind-Value=@ItemCast.IdentityId/>
+			</td>
+			<td>@LocaleCore.Table.IsMarked</td>
+			<td>
+				<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked/>
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Print.Name</td>
+			<td>
+				@if (Printers == null)
+				{
+					<ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true/>
+				}
+				else
+				{
+					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                           @bind-Value=@ItemCast.Printer>
+						@foreach (PrinterEntity item in Printers)
+						{
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+						}
+					</MudSelect>
+				}
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Description</td>
+			<td>
+				<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
+				               TValue="string" @bind-Value=@ItemCast.Description/>
+			</td>
+			<td>@LocaleCore.Table.Resource</td>
+			<td>
+				@if (Resources == null)
+				{
+					<ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true/>
+				}
+				else
+				{
+					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@ItemCast.Resource>
+						@foreach (TemplateResourceEntity item in Resources)
+						{
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+						}
+					</MudSelect>
+				}
+			</td>
+		</tr>
+		</tbody>
+	</MudSimpleTable>
     
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />

@@ -11,23 +11,15 @@ internal class OrderValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			OrderEntity item = Substitute.For<OrderEntity>();
-			OrderValidator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.Name = string.Empty;
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		OrderEntity item = Substitute.For<OrderEntity>();
+		// Act.
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
+		// Act.
+		item.Name = string.Empty;
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -47,7 +39,7 @@ internal class OrderValidatorTests
 			item.BoxCount = 1;
 			item.PalletCount = 1;
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -56,6 +48,6 @@ internal class OrderValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTable_UniversalValidate_IsTrue<OrderEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<OrderEntity>(1000);
 	}
 }

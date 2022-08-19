@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
@@ -46,15 +45,15 @@ public class RazorBase : LayoutComponentBase
     [Parameter] public TableBase Table { get; set; }
     private ItemSaveCheckEntity ItemSaveCheck { get; set; }
     protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
-	public BaseEntity? Item { get; set; }
+    public BaseEntity? Item { get; set; }
     protected bool IsLoaded { get; private set; }
     protected object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
     protected UserSettingsHelper UserSettings { get; } = UserSettingsHelper.Instance;
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public RazorBase()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public RazorBase()
     {
         //
     }
@@ -77,15 +76,17 @@ public class RazorBase : LayoutComponentBase
         ItemSaveCheck = new();
         if (ParentRazor != null)
         {
-            ItemFilter = ParentRazor.ItemFilter;
-            ItemsFilter = ParentRazor.ItemsFilter;
+            if (ParentRazor.ItemFilter != null)
+				ItemFilter = ParentRazor.ItemFilter;
+            if (ParentRazor.ItemsFilter != null)
+				ItemsFilter = ParentRazor.ItemsFilter;
             IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
             IsShowItemsCount = ParentRazor.IsShowItemsCount;
             IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
             IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
             IsSelectTopRows = ParentRazor.IsSelectTopRows;
 
-			if (IdentityId == null && ParentRazor.IdentityId != null)
+            if (IdentityId == null && ParentRazor.IdentityId != null)
                 IdentityId = ParentRazor.IdentityId;
             if (IdentityUid == null && ParentRazor.IdentityUid != null)
                 IdentityUid = ParentRazor.IdentityUid;
@@ -95,10 +96,10 @@ public class RazorBase : LayoutComponentBase
             }
             if (ParentRazor.TableAction != DbTableAction.Default)
                 TableAction = ParentRazor.TableAction;
-            
+
             ButtonSettings = ParentRazor.ButtonSettings;
         }
-	}
+    }
 
     public void OnChangeCheckBox(object value, string name)
     {
@@ -825,7 +826,7 @@ public class RazorBase : LayoutComponentBase
                 IdentityUid = Guid.NewGuid();
                 break;
             case ProjectsEnums.TableScale.PlusScales:
-	            IdentityUid = Guid.NewGuid();
+                IdentityUid = Guid.NewGuid();
                 break;
             case ProjectsEnums.TableScale.Printers:
                 IdentityId = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null,

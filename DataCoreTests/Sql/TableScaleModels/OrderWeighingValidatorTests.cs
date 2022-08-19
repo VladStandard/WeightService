@@ -11,22 +11,11 @@ internal class OrderWeighingValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			OrderWeighingEntity item = Substitute.For<OrderWeighingEntity>();
-			OrderWeighingValidator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		OrderWeighingEntity item = Substitute.For<OrderWeighingEntity>();
+		// Act.
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -52,7 +41,7 @@ internal class OrderWeighingValidatorTests
 			item.IdentityUid = Guid.NewGuid();
 			item.Order = order;
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -61,6 +50,6 @@ internal class OrderWeighingValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTable_UniversalValidate_IsTrue<OrderWeighingEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<OrderWeighingEntity>(1000);
 	}
 }

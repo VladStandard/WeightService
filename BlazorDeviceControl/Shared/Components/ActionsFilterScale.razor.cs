@@ -6,7 +6,7 @@ using DataCore.Localizations;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 
-namespace BlazorDeviceControl.Shared.Component;
+namespace BlazorDeviceControl.Shared.Components;
 
 public partial class ActionsFilterScale : BlazorCore.Models.RazorBase
 {

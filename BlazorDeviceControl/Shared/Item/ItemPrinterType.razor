@@ -2,8 +2,13 @@
 @page "/item/printertype"
 @page "/item/printertype/{IdentityId:long}"
 @page "/item/printertype/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Shared.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Shared.Components.ItemDates
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 @if (!IsLoaded)
 {
@@ -13,37 +18,30 @@ else
 {
     <ActionsReloadItem ParentRazor=@this Title=@LocaleCore.Print.Type />
 
-    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocaleCore.Strings.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocaleCore.Strings.RecordValue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@LocaleCore.Table.Id</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.IdentityId />
-				</td>
-                <td>@LocaleCore.Table.IsMarked</td>
-                <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Name</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Name />
-				</td>
-            </tr>
-        </tbody>
-    </MudSimpleTable>
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 15, 35, 15, 35 }) />
+		<tbody>
+		<tr>
+			<td>@LocaleCore.Table.Id</td>
+			<td>
+				<RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray;"
+				               Disabled=false ReadOnly=true
+				               TValue="long" @bind-Value=@ItemCast.IdentityId/>
+			</td>
+			<td>@LocaleCore.Table.IsMarked</td>
+			<td>
+				<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked/>
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Name</td>
+			<td>
+				<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
+				               TValue="string" @bind-Value=@ItemCast.Name/>
+			</td>
+		</tr>
+		</tbody>
+	</MudSimpleTable>
     
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />

@@ -4,7 +4,7 @@
 @using MdmControlBlazor.Utils
 @inherits MdmControlBlazor.Data.BaseRazorEntity
 
-<RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
+<RadzenCard Style="margin-bottom: 0; font-size: 11px; ">
     <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
         @switch (Table)
         {
@@ -21,10 +21,10 @@
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 20px;">
     <RadzenButton Click=@(args => SaveAsync(args))
                   Text=@LocalizationStrings.TableActionSave
-                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
+                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 11px;" />
     <RadzenButton ButtonStyle="ButtonStyle.Secondary"
                   Click=@CancelAsync
                   Text=@LocalizationStrings.TableActionCancel
-                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
+                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 11px;" />
 </div>
 *@

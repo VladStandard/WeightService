@@ -11,24 +11,12 @@ internal class LabelValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			LabelEntity item = Substitute.For<LabelEntity>();
-			LabelValidator validator = new();
-			// Act.
-			item.WeithingFact = new(0, false);
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			//Assert.IsFalse(result.IsValid);
-			//// Act.
-			//item.WeithingFact = null;
-			//result = validator.Validate(item);
-			//TestsUtils.FailureWriteLine(result);
-			//// Assert.
-			//Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		LabelEntity item = Substitute.For<LabelEntity>();
+		// Act.
+		item.WeithingFact = new(0, false);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -45,7 +33,7 @@ internal class LabelValidatorTests
 			item.IdentityId = -1;
 			item.Label = new byte[0x00];
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -54,6 +42,6 @@ internal class LabelValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTable_UniversalValidate_IsTrue<LabelEntity>(100);
+		DataCoreUtils.AssertSqlDataValidate<LabelEntity>(100);
 	}
 }

@@ -11,23 +11,15 @@ internal class ContragentV2ValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			ContragentV2Entity item = Substitute.For<ContragentV2Entity>();
-			ContragentV2Validator validator = new();
-			// Act.
-			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-			// Act.
-			item.Name = "";
-			result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsFalse(result.IsValid);
-		});
+		// Arrange.
+		ContragentV2Entity item = Substitute.For<ContragentV2Entity>();
+		// Act.
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
+		// Act.
+		item.Name = "";
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -44,7 +36,7 @@ internal class ContragentV2ValidatorTests
 			item.IdentityUid = Guid.NewGuid();
 			item.Name = "Test";
 			ValidationResult result = validator.Validate(item);
-			TestsUtils.FailureWriteLine(result);
+			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
@@ -53,6 +45,6 @@ internal class ContragentV2ValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		TestsUtils.DbTable_UniversalValidate_IsTrue<ContragentV2Entity>(100);
+		DataCoreUtils.AssertSqlDataValidate<ContragentV2Entity>(100);
 	}
 }

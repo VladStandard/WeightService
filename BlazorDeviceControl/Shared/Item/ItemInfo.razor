@@ -1,20 +1,17 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/info"
-@using BlazorDeviceControl.Shared.Component
 @using DataCore.Localizations
 @using static BlazorCore.Utils.BlazorCoreUtuls
+@using BlazorCore.Shared
+@using BlazorDeviceControl.Shared.Components
+@using ActionsReloadItem = BlazorDeviceControl.Shared.Components.ActionsReloadItem
+@using MudSimpleTableHead = BlazorDeviceControl.Shared.Components.MudSimpleTableHead
 
 <ActionsReloadItem ParentRazor=@this Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <thead>
-        <tr>
-            <th style="color:blue; font-weight: bold; width: 40%; ">@LocaleCore.Strings.SettingName</th>
-            <th style="color:blue; font-weight: bold; width: 30%; ">@LocaleCore.Strings.SettingValue</th>
-            <th style="color:blue; font-weight: bold; width: 30%; "></th>
-        </tr>
-    </thead>
+	<MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyleInfo() />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>
@@ -243,12 +240,7 @@
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.UserSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <thead>
-        <tr>
-            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.SettingName</th>
-            <th Style="color:blue; font-weight:bold;">@LocaleCore.Strings.SettingValue</th>
-        </tr>
-    </thead>
+	<MudSimpleTableHead ParentRazor=@this TheadStyle=@ComponentsUtils.GetTheadStyle(new() { 25, 25 }) />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.AuthorizingUserName</td>
@@ -275,7 +267,7 @@
             {
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                           @bind-Value=@LocaleCore.Lang>
+						@bind-Value=@LocaleCore.Lang>
                         @foreach (ShareEnums.Lang lang in Langs)
                         {
                             <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>

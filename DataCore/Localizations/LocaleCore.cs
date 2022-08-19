@@ -98,8 +98,8 @@ namespace DataCore.Localizations
             public static string MethodError => Lang == ShareEnums.Lang.English ? "Method error" : "Ошибка метода";
             public static string NotLoad => Lang == ShareEnums.Lang.English ? "Not load!" : "Не загружено";
             public static string PageError => Lang == ShareEnums.Lang.English ? "Sorry, there's nothing at this address." : "Извините, по этому адресу ничего нет.";
-            public static string RecordName => Lang == ShareEnums.Lang.English ? "Setting name" : "Название записи";
-            public static string RecordValue => Lang == ShareEnums.Lang.English ? "Setting value" : "Значение записи";
+            public static string SettingName => Lang == ShareEnums.Lang.English ? "Setting" : "Настройка";
+            public static string SettingValue => Lang == ShareEnums.Lang.English ? "Value" : "Значение";
             public static string SectionAccess => Lang == ShareEnums.Lang.English ? "Access" : "Доступ";
             public static string SectionAccessAllow => Lang == ShareEnums.Lang.English ? "Section access allowed" : "Доступ к разделу разрешён";
             public static string SectionAccessDeny => Lang == ShareEnums.Lang.English ? "Section access denied" : "Доступ к разделу запрещён";
@@ -107,8 +107,6 @@ namespace DataCore.Localizations
             public static string SectionLog => Lang == ShareEnums.Lang.English ? "Log" : "Лог";
             public static string ServerDevelop => Lang == ShareEnums.Lang.English ? "Debug server" : "Сервер разработки";
             public static string ServerRelease => Lang == ShareEnums.Lang.English ? "Debug release" : "Промышленный сервер";
-            public static string SettingName => Lang == ShareEnums.Lang.English ? "Setting name" : "Название настройки";
-            public static string SettingValue => Lang == ShareEnums.Lang.English ? "Setting value" : "Значение настройки";
             public static string UserSettings => Lang == ShareEnums.Lang.English ? "User settings" : "Пользовательские настройки";
             public static string VerApp => Lang == ShareEnums.Lang.English ? "Application version" : "Версия приложения";
             public static string VerCore => Lang == ShareEnums.Lang.English ? "Core version" : "Версия ядра";
