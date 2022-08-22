@@ -85,11 +85,12 @@ public class RazorBase : LayoutComponentBase
             IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
             IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
             IsSelectTopRows = ParentRazor.IsSelectTopRows;
-
             if (IdentityId == null && ParentRazor.IdentityId != null)
                 IdentityId = ParentRazor.IdentityId;
             if (IdentityUid == null && ParentRazor.IdentityUid != null)
                 IdentityUid = ParentRazor.IdentityUid;
+            if (ParentRazor.Item != null)
+	            Item = ParentRazor.Item;
             if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
             {
                 Table = ParentRazor.Table;

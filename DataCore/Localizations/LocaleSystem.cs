@@ -31,7 +31,7 @@ namespace DataCore.Localizations
         public string SystemErrors => Lang == ShareEnums.Lang.English ? "Errors" : "Ошибки";
         public string SystemInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
         public string SystemLogin => Lang == ShareEnums.Lang.English ? "Log in" : "Вход";
-        public string SystemLogs => Lang == ShareEnums.Lang.English ? "Logs" : "журналы";
+        public string SystemLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Журналы";
         public string SystemLogsAll => Lang == ShareEnums.Lang.English ? "Alls" : "Все";
         public string SystemLogsNones => Lang == ShareEnums.Lang.English ? "Nones" : "Без типа";
         public string SystemLogsInformations => Lang == ShareEnums.Lang.English ? "Informations" : "Инфо";

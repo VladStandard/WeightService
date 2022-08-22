@@ -1,0 +1,46 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/access"
+@page "/item/access/{IdentityUidStr}"
+@page "/item/access/{IdentityUidStr}/{TableAction}"
+@using BlazorDeviceControl.Razors.Components
+@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
+@using BlazorCore.Razors
+
+@if (!IsLoaded)
+{
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleCore.Strings.AccessRights />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+	    <ItemTableHead ParentRazor=@this TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <tbody>
+			<ItemTableBody ParentRazor=@this TableStyle=@ComponentsUtils.GetTableBodyStyle(ColumnName.Uid, true) />
+            <tr>
+                <td>@LocaleCore.Table.User</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@ItemCast.User />
+				</td>
+                <td>@LocaleCore.Strings.AccessRights</td>
+                <td>
+                    <RadzenDropDown Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+                        Disabled=false TValue=@ShareEnums.AccessRights
+                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                        Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
+                        TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 
+                        ValueProperty="Value" Value=@Rights 
+                    />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

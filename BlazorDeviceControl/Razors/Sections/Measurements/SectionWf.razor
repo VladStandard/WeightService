@@ -1,0 +1,70 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/section/measurements/wf"
+@using static DataCore.Localizations.LocaleData.DeviceControl
+@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
+@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
+@using BlazorDeviceControl.Razors.Components
+
+@if (!IsLoaded)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.WeithingFacts />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="WeithingFactEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns>
+            @if (IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast" >
+                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
+                    </Template>
+                </RadzenGridColumn>
+            }
+            <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.WeithingDate
+                Type="date" Width="17.5%">
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@GetPath(UriRouteItem.WeithingFact, itemCast, itemCast.IdentityId)
+                        Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd HH:mm:ss") />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="WeithingFactEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.DayOfWeek
+                Type="string" Width="12.5%">
+                <Template Context="itemCast" >
+                    <RadzenLabel Style="width: 100%; margin-left: 0; "
+                        Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="WeithingFactEntity" Property="Scale.Description" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Scale
+                Type="string" Width="20.0%" />
+            <RadzenGridColumn TItem="WeithingFactEntity" Property="Scale.Host.HostName" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Host
+                Type="string" Width="20.0%" />
+            <RadzenGridColumn TItem="WeithingFactEntity" Property="Plu.GoodsName" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.GoodsName
+                Type="string" Width="33.0%" />
+            <RadzenGridColumn TItem="WeithingFactEntity" Property="TareWeight" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.TareWeight
+                Type="decimal" Width="13.0%" />
+            <RadzenGridColumn TItem="WeithingFactEntity" Property="NetWeight" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.NetWeight
+                Type="decimal" Width="13.0%" />
+            <RadzenGridColumn TItem="WeithingFactEntity" Property="RegNum" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.RegNum
+                Type="int" Width="16.0%" />
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this />
+}

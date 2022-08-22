@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.730] - 2022-05-25
 ### Fixed
-- BlazorDeviceControl.Shared.Item.ItemHost
+- Item.ItemHost
 ### Описание обновления:
 - WS-T-184. Исправление сохранения изменений хоста
 - WS-T-185. Обновление NuGet пакетов
@@ -52,14 +52,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.710] - 2022-05-23
 ### Fixed
-- Shared.Section.Measurements.SectionLabels
+- Section.Measurements.SectionLabels
 ### Описание обновления:
 - Обновление раздела 'Этикетки'
 - Исправление сортировки полей разделов справочников
 
 ## [0.6.690] - 2022-05-19
 ### Fixed
-- Shared.Section.Measurements.SectionWeithingFacts
+- Section.Measurements.SectionWeithingFacts
 ### Описание обновления:
 - Обновление раздела и страница 'Взвешивания'
 - Обновление раздела и страница 'Этикетки'
@@ -67,15 +67,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.640] - 2022-05-17
 ### Fixed
-- Shared.SectionPLus
+- SectionPLus
 ### Описание обновления:
 - Обновлён раздел ПЛУ
 
 ## [0.6.610] - 2022-05-12
 ### Fixed
-- Shared.SectionAccess
-- Shared.SectionLabels
-- Shared.SectionWeithingFactsAggregation
+- SectionAccess
+- SectionLabels
+- SectionWeithingFactsAggregation
 ### Описание обновления:
 - Обновлён раздел агр. взвешивания
 - Обновлён раздел доступа пользователей
@@ -83,22 +83,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.605] - 2022-05-11
 ### Fixed
-- Shared.ItemLogs
-- Shared.SectionLogs
+- ItemLogs
+- SectionLogs
 ### Описание обновления:
 - Обновлены раздел и страница логов
 - Обновлены раздел и страница хостов
 
 ## [0.6.580] - 2022-05-05
 ### Fixed
-- Shared.Index
+- Index
 ### Описание обновления:
 - Главная страница: добавлена информация о системе пользователя
 
 ## [0.6.550] - 2022-04-27
 ### Fixed
 - DataCore.Files.JsonSettingsEntity
-- Shared.Section.Logs
+- Section.Logs
 ### Описание обновления:
 - Настройки приложения: параметр "Отображать первые х строк"
 - Добавлен раздел: "Логи без типа"
@@ -112,7 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.520] - 2022-04-21
 ### Fixed
-- Shared.Section.SectionScales
+- Section.SectionScales
 ### Описание обновления:
 - Раздел "АРМы": добавлено поле "Транспортные этикетки"
 - Раздел "АРМы": добавлено поле "Транспортный принтер"
@@ -122,31 +122,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.470] - 2022-04-13
 ### Fixed
-- Shared.Item.Measurements.SectionLabels
-- Shared.Item.Measurements.SectionWeithingFacts
-- Shared.Item.Measurements.SectionWeithingFactsAggregation
-- Shared.Section.Measurements.SectionLabels
-- Shared.Section.Measurements.SectionWeithingFacts
-- Shared.Section.Measurements.SectionWeithingFactsAggregation
+- Item.Measurements.SectionLabels
+- Item.Measurements.SectionWeithingFacts
+- Item.Measurements.SectionWeithingFactsAggregation
+- Section.Measurements.SectionLabels
+- Section.Measurements.SectionWeithingFacts
+- Section.Measurements.SectionWeithingFactsAggregation
 ### Описание обновления:
 - Раздел и страница "Взвешивания"
 
 ## [0.6.450] - 2022-04-13
 ### Fixed
-- Shared.Component.ActionsReloadBase
-- Shared.Component.ActionsReloadItem
-- Shared.Component.ActionsReloadSection
+- ActionsReloadBase
+- ActionsReloadItem
+- ActionsReloadSection
 ### Описание обновления:
 - Добавлена новая функция разделов: отображать первые 100 записей (включена по-умолчанию)
 
 ## [0.6.440] - 2022-04-12
 ### Fixed
-- Shared.ItemPrinter
-- Shared.ItemPrinterResource
-- Shared.ItemPrinterType
-- Shared.SectionPrinterResources
-- Shared.SectionPrinters
-- Shared.SectionPrinterTypes
+- ItemPrinter
+- ItemPrinterResource
+- ItemPrinterType
+- SectionPrinterResources
+- SectionPrinters
+- SectionPrinterTypes
 ### Описание обновления:
 - Раздел и страница "АРМы"
 - Раздел и страница "Принтеры"
@@ -155,16 +155,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.420] - 2022-04-07
 ### Fixed
-- Shared.MainLayout
-- Shared.NavMenu
+- MainLayout
+- NavMenu
 ### Описание обновления:
 - Новое меню слева
 
 ## [0.6.410] - 2022-04-06
 ### Fixed
 - Item PLU page
-- Shared.MainLayout
-- Shared.NavMenu
+- MainLayout
+- NavMenu
 ### Описание обновления:
 - Страница "ПЛУ": расположение полей
 - Выравнивание элементов на галвной странице
@@ -200,37 +200,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.330] - 2022-03-24
 ### Changed
-- Shared.Index
-- Shared.MainLayout
+- Index
+- MainLayout
 
 ## [0.6.320] - 2022-03-22
 ### Changed
-- Shared.Section.Access
-- Shared.Section.Barcodes
-- Shared.Section.BarcodeTypes
-- Shared.Section.Contragents
-- Shared.Item.Access
-- Shared.Item.Barcodes
-- Shared.Item.BarcodeTypes
-- Shared.Item.Contragents
+- Section.Access
+- Section.Barcodes
+- Section.BarcodeTypes
+- Section.Contragents
+- Item.Access
+- Item.Barcodes
+- Item.BarcodeTypes
+- Item.Contragents
 
 ## [0.6.220] - 2022-02-22
 ### Changed
-- Shared.Section.Nomenclatures
-- Shared.Section.Plus
-- Shared.Item.Nomenclature
-- Shared.Item.Plu
+- Section.Nomenclatures
+- Section.Plus
+- Item.Nomenclature
+- Item.Plu
 
 ## [0.6.210] - 2022-02-21
 ### Changed
-- Shared.Section: _locker object
-- Shared.Item: _locker object
+- Section: _locker object
+- Item: _locker object
 
 ## [0.6.200] - 2022-02-18
 ### Changed
-- Shared.Item.Printer
-- Shared.Item.Scale
-- Shared.Section.Info
+- Item.Printer
+- Item.Scale
+- Section.Info
 
 ## [0.6.110] - 2022-02-02
 ### Changed
@@ -269,18 +269,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.470] - 2021-09-01
 ### Changed
-- Shared.Section.Printers
+- Section.Printers
 
 ## [0.5.440] - 2021-08-23
 ### Changed
 - BlazorCore.Utils.LocalizationStrings
-- Shared.Item.Scale
-- Shared.Sys.Info
-- Shared.Sys.Logs
-- Shared.Section.Scales
+- Item.Scale
+- Sys.Info
+- Sys.Logs
+- Section.Scales
 ### Added
-- Shared.Item.EntityActions
-- Shared.Section.ActionsButtons
+- Item.EntityActions
+- Section.ActionsButtons
 
 ## [0.5.380] - 2021-08-13
 ### Changed

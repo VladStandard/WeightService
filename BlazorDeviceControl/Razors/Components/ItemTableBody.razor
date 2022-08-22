@@ -1,0 +1,52 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/component/item_table_body"
+
+@if (TableStyle != null)
+{
+	<tr>
+		<td>
+			@switch (TableStyle.IdentityName)
+			{
+				case ColumnName.Id:
+					@LocaleCore.Table.Id;
+					break;
+				case ColumnName.Uid:
+					@LocaleCore.Table.Uid;
+					break;
+			}
+		</td>
+		<td>
+			@if (Item != null)
+			{
+				@switch (TableStyle.IdentityName)
+				{
+					case ColumnName.Id:
+						<RadzenTextBox 
+							Style="width: 100%; text-align: center; background-color: lightgray;"
+							ReadOnly=true Value=@Item.IdentityId.ToString() />
+						break;
+					case ColumnName.Uid:
+						<RadzenTextBox 
+							Style="width: 100%; text-align: center; background-color: lightgray;"
+						    ReadOnly=true Value=@Item.IdentityUid.ToString() />
+						break;
+				}
+			}
+		</td>
+		<td>
+			@if (TableStyle.IsShowMarked)
+			{
+				@LocaleCore.Table.IsMarked
+			}
+		</td>
+		<td>
+			@if (TableStyle.IsShowMarked)
+			{
+				@if (Item != null)
+				{
+					<RadzenCheckBox TValue="bool" @bind-Value=@Item.IsMarked />
+				}
+			}
+		</td>
+	</tr>
+}

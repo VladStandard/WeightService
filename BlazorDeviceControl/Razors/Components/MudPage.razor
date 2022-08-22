@@ -1,0 +1,30 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/mud"
+
+<PageTitle>Mud</PageTitle>
+
+<h1>Countries</h1>
+<MudSelect @bind-Value=@Country Label="Countries" Variant=@Variant.Outlined >
+    <MudSelectItem Value=@("Austria") />
+    <MudSelectItem Value=@("Hungary") />
+    <MudSelectItem Value=@("Sweden") />
+</MudSelect>
+<br />
+
+<h1>COM ports from strings</h1>
+<MudSelect @bind-Value=@ComPort Variant=@Variant.Filled >
+    @foreach (string item in ListComPorts)
+    {
+        <MudSelectItem Value=@item ></MudSelectItem>
+    }
+</MudSelect>
+<br />
+
+<h1>COM ports from type</h1>
+<MudSelect @bind-Value=@ComPort Variant=@Variant.Text >
+    @foreach (TypeEntity<string> item in ComPorts)
+    {
+        <MudSelectItem Value=@item.Value >@item.Name</MudSelectItem>
+    }
+</MudSelect>
+<br />

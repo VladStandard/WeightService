@@ -1,0 +1,47 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/section/versions"
+@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
+@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
+@using BlazorDeviceControl.Razors.Components
+
+@if (!IsLoaded)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.Strings.AccessRights />
+
+    <RadzenGrid Style="margin-top: 5px; " 
+        Data=@ItemsCast TItem="VersionEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns >
+            <RadzenGridColumn 
+                TItem="VersionEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
+                <Template Context="itemCast" >
+                    <RadzenLabel Style="width: 100%; margin-left: 0; "
+                        Disabled=false ReadOnly=true Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Version Type="string" Width="10%" >
+                <Template Context="itemCast" >
+                    <RadzenLabel Style="width: 100%; margin-left: 0; "
+                        Disabled=false ReadOnly=true Text=@itemCast.Version.ToString() />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Description Type="string" Width="70%">
+                <Template Context="itemCast" >
+                    <RadzenLabel Style="width: 100%; margin-left: 0; "
+                        Disabled=false ReadOnly=true Text=@itemCast.Description />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this />
+}

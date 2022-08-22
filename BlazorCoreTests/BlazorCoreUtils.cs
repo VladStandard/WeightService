@@ -15,9 +15,13 @@ public static class BlazorCoreUtils
 	private static IValidator<TEntity> GetStyleValidator<TEntity>() 
 		where TEntity : IBaseStyleModel, new()
 	{
-		if (typeof(TEntity) == typeof(TheadStyleModel))
+		if (typeof(TEntity) == typeof(TableHeadStyleModel))
 		{
-			return new TheadStyleValidator();
+			return new TableHeadStyleValidator();
+		}
+		else if (typeof(TEntity) == typeof(TableBodyStyleModel))
+		{
+			return new TableBodyStyleValidator();
 		}
 		throw new NotImplementedException();
 	}

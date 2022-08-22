@@ -1,0 +1,78 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/section/printers"
+@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
+@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
+@using BlazorDeviceControl.Razors.Components
+
+@if (!IsLoaded)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadSection ParentRazor=@this 
+        Title=@LocaleCore.Print.Names />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="PrinterEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns>
+            @if (IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="PrinterEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast" >
+                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
+                    </Template>
+                </RadzenGridColumn>
+            }
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Table.Id Width="5%">
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                                Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
+                                Text=@itemCast.IdentityId.ToString() />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Name Width="18%" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                                Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
+                                Text=@itemCast.Name />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Model Width="17%" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.IdentityId}") 
+                        Text=@itemCast.PrinterType.Name />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocaleCore.Print.Ip Type="string" Width="14%" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank" 
+                        Path=@itemCast.Link
+                        Text=@itemCast.Ip />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusCode" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
+                <Template Context="itemCast" >
+                    <RadzenIcon 
+                        Icon=@(itemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusException.Message" 
+                Title=@LocaleCore.Table.HttpStatusException Type="string" Width="14%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="Port" 
+                TextAlign=TextAlign.Center Type="string" Width="7%" 
+                Title=@LocaleCore.Print.PortShort />
+            <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" 
+                TextAlign=TextAlign.Center Type="string" Width="14%" 
+                Title=@LocaleCore.Print.Mac />
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this />
+}

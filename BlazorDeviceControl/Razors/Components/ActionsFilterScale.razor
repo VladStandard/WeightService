@@ -1,0 +1,19 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/component/actions_filter_scale"
+
+@if (ParentRazor == null)
+{
+	<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true/>
+}
+else
+{
+	<MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+		Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px;
+		       font-size: 10px; background-color: transparent; border-color: transparent;"
+	    @bind-Value=@ItemFilterCast>
+		@foreach (ScaleEntity item in ItemsCast)
+		{
+			<MudSelectItem Value=@item>@item.Description</MudSelectItem>
+		}
+	</MudSelect>
+}

@@ -1,0 +1,44 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/productionfacility"
+@page "/item/productionfacility/{IdentityId:long}"
+@page "/item/productionfacility/{IdentityId:long}/{TableAction}"
+@using BlazorDeviceControl.Razors.Components
+@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
+@using BlazorCore.Razors
+
+@if (!IsLoaded)
+{
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.ProductionFacility />
+
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<ItemTableHead ParentRazor=@this TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+		<tbody>
+			<ItemTableBody ParentRazor=@this TableStyle=@ComponentsUtils.GetTableBodyStyle(ColumnName.Id, true) />
+			<tr>
+				<td>@LocaleCore.Table.Name</td>
+				<td colspan=3>
+					<RadzenTextBox Style="width: 100%; text-align: left;"
+					               Disabled=false ReadOnly=false
+					               TValue="string" @bind-Value=@ItemCast.Name/>
+				</td>
+			</tr>
+			<tr>
+				<td >@LocaleCore.Table.Address</td>
+				<td colspan=3>
+					<RadzenTextArea Style="width: 100%; text-align: left;"
+					                Disabled=false ReadOnly=false Rows=3
+					                TValue="string" @bind-Value=@ItemCast.Address/>
+				</td>
+			</tr>
+		</tbody>
+	</MudSimpleTable>
+
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

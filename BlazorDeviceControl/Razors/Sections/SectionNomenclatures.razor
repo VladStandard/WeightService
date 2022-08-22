@@ -1,0 +1,65 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/section/nomenclatures"
+@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
+@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
+@using BlazorDeviceControl.Razors.Components
+
+@if (!IsLoaded)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.Nomenclatures />
+
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@ItemsCast TItem="NomenclatureEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns >
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" Property="IdentityId" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.Id 
+                Type="int" Width="10%" />
+            @*<RadzenGridColumn 
+                TItem="NomenclatureEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+                        TValue="string" Value=@itemCast.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.ChangeDt Type="date" Width="15%" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+                        TValue="string" Value=@itemCast.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>*@
+            <RadzenGridColumn TItem="NomenclatureEntity" Title=@LocaleCore.Table.Name Width="45%" >
+	            <Template Context="itemCast" >
+		            <RadzenLink Style="width: 100%; margin-left: 0; "
+		                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+		                        Text=@itemCast.Name />
+	            </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" Property="Code" 
+                Title=@LocaleCore.Table.Code
+                Type="string" Width="10%" />
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" TextAlign=TextAlign.Center Width="5%" 
+                Title=@LocaleCore.Table.Weighted >
+                <Template Context="itemCast" >
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this />
+}

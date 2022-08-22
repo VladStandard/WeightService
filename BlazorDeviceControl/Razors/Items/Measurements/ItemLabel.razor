@@ -1,0 +1,102 @@
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/measurements/label"
+@page "/item/measurements/label/{IdentityId:long}"
+@page "/item/measurements/label/{IdentityId:long}/{TableAction}"
+@using static DataCore.Localizations.LocaleData.DeviceControl
+@using BlazorDeviceControl.Razors.Components
+@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
+@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
+@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
+@using BlazorCore.Razors
+
+@if (!IsLoaded)
+{
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReloadItem ParentRazor=@this Title=@LocaleData.DeviceControl.Items.Label />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <ItemTableHead ParentRazor=@this TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <tbody>
+			<ItemTableBody ParentRazor=@this TableStyle=@ComponentsUtils.GetTableBodyStyle(ColumnName.Id, true) />
+            <tr>
+                <td>@LocaleCore.Table.Scale</td>
+                <td>
+                    <RadzenLink Style="width: 100%; text-align: center; " 
+                        Path=@GetPath(UriRouteItem.Scale, ItemCast.WeithingFact.Scale, ItemCast.WeithingFact.Scale.IdentityId)
+                        Text=@ItemCast.WeithingFact.Scale.Description />
+				</td>
+                <td>@LocaleCore.Table.Plu</td>
+                <td>
+                    <RadzenLink Style="width: 100%; text-align: center; " 
+                        Path=@GetPath(UriRouteItem.PluObsolete, ItemCast.WeithingFact.Plu, ItemCast.WeithingFact.Plu.IdentityId)
+                        Text=@ItemCast.WeithingFact.Plu.GoodsName />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.WeithingDate</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Value=@ItemCast.WeithingFact.WeithingDate.ToString(CultureInfo.InvariantCulture) 
+                        Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+                <td>@LocaleCore.Table.ProductDate</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Value=@ItemCast.WeithingFact.ProductDate.ToString(CultureInfo.InvariantCulture) 
+                        Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.NetWeight</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.WeithingFact.NetWeight.ToString(CultureInfo.InvariantCulture) />
+				</td>
+                <td>@LocaleCore.Table.TareWeight</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.WeithingFact.TareWeight.ToString(CultureInfo.InvariantCulture) />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.RegNum</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.WeithingFact.RegNum.ToString() />
+				</td>
+                <td>@LocaleCore.Table.IsKneading</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true Value=@ItemCast.WeithingFact.Kneading.ToString() />
+                </td>
+            </tr>
+            <tr >
+                <td>@LocaleCore.Table.Template</td>
+                <td>
+                    <RadzenLink Style="width: 100%; text-align: center; " 
+                        Path=@GetPath(UriRouteItem.Template, ItemCast.WeithingFact.Plu.Template, ItemCast.WeithingFact.Plu.Template.IdentityId)
+                        Text=@ItemCast.WeithingFact.Plu.Template.Title />
+                </td>
+                <td>@LocaleCore.Table.Link</td>
+                <td>
+                    <RadzenLink Style="width: 100%; text-align: center; " 
+                        Path=@LinkLabelary
+                        Text=@LocaleCore.Table.TemplateLabelary />
+                </td>
+            </tr>
+            <tr >
+                <td>@LocaleCore.Table.Zpl</td>
+                <td colspan=3>
+                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true @bind-Value=@ItemCast.Zpl Rows=22 />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}
