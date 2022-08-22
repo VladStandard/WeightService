@@ -76,7 +76,7 @@ public partial class ItemPluScale : BlazorCore.Models.RazorBase
 	            // Scales.
 	            List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
                     new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name))
+                    new(DbField.Description))
                     ?.ToList();
                 if (scales is not null)
                 {

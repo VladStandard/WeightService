@@ -10,7 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.Strings.AccessRights />
+    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.Strings.VersionsDb IsShowMarkedFilter=false />
 
     <RadzenGrid Style="margin-top: 5px; " 
         Data=@ItemsCast TItem="VersionEntity" @bind-Value=@ItemObject
@@ -18,26 +18,19 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            <RadzenGridColumn 
-                TItem="VersionEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
+	        <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Center Title=@LocaleCore.Table.Version Width="10%" >
+		        <Template Context="itemCast" >
+			        <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Version.ToString() />
+		        </Template>
+	        </RadzenGridColumn>
+            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Center Title=@LocaleCore.Table.CreateDt Width="15%">
                 <Template Context="itemCast" >
-                    <RadzenLabel Style="width: 100%; margin-left: 0; "
-                        Disabled=false ReadOnly=true Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
+	                <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Version Type="string" Width="10%" >
+            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Description Width="75%">
                 <Template Context="itemCast" >
-                    <RadzenLabel Style="width: 100%; margin-left: 0; "
-                        Disabled=false ReadOnly=true Text=@itemCast.Version.ToString() />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="VersionEntity" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Description Type="string" Width="70%">
-                <Template Context="itemCast" >
-                    <RadzenLabel Style="width: 100%; margin-left: 0; "
-                        Disabled=false ReadOnly=true Text=@itemCast.Description />
+	                <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Description />
                 </Template>
             </RadzenGridColumn>
         </Columns>

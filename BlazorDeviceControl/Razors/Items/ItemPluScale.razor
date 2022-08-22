@@ -31,31 +31,29 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
-					            Text=@LocaleCore.Table.Scale/>
+					    Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
+					    Text=@LocaleCore.Table.Scale/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						ReadOnly=true Disabled=true
-					    @bind-Value=@ItemCast.Scale>
+					    ReadOnly=true Disabled=true @bind-Value=@ItemCast.Scale >
 						@foreach (ScaleEntity item in Scales)
 						{
-							<MudSelectItem Value=@item>@item.Description</MudSelectItem>
+							<MudSelectItem T=@ScaleEntity Value=@item>@item.Description</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Plu, ItemCast.Plu, ItemCast.Plu.IdentityUid)
-					            Text=@LocaleCore.Table.Plu/>
+					    Path=@GetPath(UriRouteItem.Plu, ItemCast.Plu, ItemCast.Plu.IdentityUid)
+					    Text=@LocaleCore.Table.Plu />
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						ReadOnly=true Disabled=true
-						@bind-Value=@ItemCast.Plu>
+						ReadOnly=true Disabled=true @bind-Value=@ItemCast.Plu >
 						@foreach (PluEntity item in Plus)
 						{
-							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@PluEntity Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>

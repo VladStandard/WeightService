@@ -4,12 +4,10 @@
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">
-        <RadzenButton 
-            Style="margin-left: -10px; margin-top: -7px; align-content: center; width: 82%; font-size: 12px; background-color: transparent; "
-            ButtonStyle=@ButtonStyle.Primary Text=@LocaleCore.Strings.AppDevicesControlName
+        <RadzenLabel 
+            Style="margin-top: -7px; text-align: center; width: 100%; font-size: 12px; background-color: transparent; "
+            Text=@LocaleCore.Strings.AppDevicesControlName
         />
-        @*Click=@(_ => OnChange())*@
-        @*Click=@(_ => StateHasChanged())*@
     </a>
     <button class="navbar-toggler" @onclick=@ToggleNavMenu>
         <span class="navbar-toggler-icon"></span>

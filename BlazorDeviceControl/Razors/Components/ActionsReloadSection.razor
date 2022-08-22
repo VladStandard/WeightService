@@ -21,21 +21,24 @@
 				else
 				{
 					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@Title />
-					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsSelectTopRows
-					                Change=@(args => OnChangeCheckBox(args, nameof(IsSelectTopRows)))
-					                Style="margin-top: -3px; margin-left: 20px; " />
-					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
-					             Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
-
-					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
-					                Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
-					                Style="margin-top: -3px; margin-left: 20px; " />
-					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
-
+					@if (IsShowAdditionalFilter)
+					{
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsSelectTopRows
+						                Change=@(args => OnChangeCheckBox(args, nameof(IsSelectTopRows)))
+						                Style="margin-top: -3px; margin-left: 20px; " />
+						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
+						             Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
+					}
+					@if (IsShowMarkedFilter)
+					{
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
+						                Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
+						                Style="margin-top: -3px; margin-left: 20px; " />
+						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
+					}
 					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 					              Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
 					              Disabled=@(!AppSettings.DataAccess.IsConnected) Click=@(_ => ParentRazor.OnChange()) />
-	        
 					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
 				}
 			</td>

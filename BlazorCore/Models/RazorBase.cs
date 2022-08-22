@@ -896,10 +896,10 @@ public class RazorBase : LayoutComponentBase
                 switch (AppSettings.DataAccess.Crud.GetColumnIdentity(item))
                 {
                     case ColumnName.Id:
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityId}/{tableAction}");
+                        NavigationManager.NavigateTo($"{page}/{item.IdentityId}/{tableAction}");
                         break;
                     case ColumnName.Uid:
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}/{tableAction}");
+                        NavigationManager.NavigateTo($"{page}/{item.IdentityUid}/{tableAction}");
                         break;
                 }
                 break;
@@ -909,10 +909,10 @@ public class RazorBase : LayoutComponentBase
                 switch (AppSettings.DataAccess.Crud.GetColumnIdentity(item))
                 {
                     case ColumnName.Id:
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityId}");
+                        NavigationManager.NavigateTo($"{page}/{item.IdentityId}");
                         break;
                     case ColumnName.Uid:
-                        NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}");
+                        NavigationManager.NavigateTo($"{page}/{item.IdentityUid}");
                         break;
                 }
                 break;
@@ -944,10 +944,10 @@ public class RazorBase : LayoutComponentBase
 
     public void RouteSectionNavigateToRoot()
     {
-        NavigationManager?.NavigateTo(LocaleData.DeviceControl.UriRouteSection.Root);
+        NavigationManager.NavigateTo(LocaleData.DeviceControl.UriRouteSection.Root);
     }
 
-    public void RouteSectionNavigate(bool isNewWindow)
+    private void RouteSectionNavigate(bool isNewWindow)
     {
         string page = RouteSectionNavigatePage();
         if (string.IsNullOrEmpty(page))
@@ -955,14 +955,13 @@ public class RazorBase : LayoutComponentBase
 
         if (!isNewWindow)
         {
-            NavigationManager?.NavigateTo(page);
+            NavigationManager.NavigateTo(page);
         }
         else
         {
             _ = Task.Run(async () =>
             {
-                if (JsRuntime != null)
-                    await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+	            await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
             }).ConfigureAwait(true);
         }
     }
@@ -1019,7 +1018,10 @@ public class RazorBase : LayoutComponentBase
                         page = LocaleData.DeviceControl.UriRouteSection.Plus;
                         break;
                     case ProjectsEnums.TableScale.PlusScales:
-                        page = LocaleData.DeviceControl.UriRouteSection.PlusScales;
+                        if (Item is PluScaleEntity pluScale)
+							page = LocaleData.DeviceControl.UriRouteItem.ScaleNew + $"/{pluScale.Scale.IdentityId}";
+                        else
+	                        page = LocaleData.DeviceControl.UriRouteSection.ScalesNew;
                         break;
                     case ProjectsEnums.TableScale.PrintersResources:
                         page = LocaleData.DeviceControl.UriRouteSection.PrinterResources;
