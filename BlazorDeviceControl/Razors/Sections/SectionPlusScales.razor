@@ -16,7 +16,8 @@ else
 
     <RadzenGrid 
         Data=@ItemsCast TItem="PluScaleEntity" @bind-Value=@ItemObject
-        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
+		RowClick=@(args => ActionPluScalePlusClickAsync(UserSettings, args, ItemsCast))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns>
@@ -55,26 +56,11 @@ else
 				    <RadzenLink Text=@itemCast.Plu.Name Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluScale}/{itemCast.IdentityUid}")/>
 			    </Template>
 		    </RadzenGridColumn>
-		    @*@if (IsShowAdditionalFilter)
-	        {
-				<RadzenGridColumn TItem="PluRefV2Entity" Width="10%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Scale>
-	                <Template Context="itemCast" >
-		                <RadzenLink Text=@itemCast.Scale.Description 
-							Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.Scale.IdentityId}") />
-	                </Template>
-	            </RadzenGridColumn>
-	        }*@
 		    <RadzenGridColumn TItem="PluScaleEntity" Width="14%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Template>
 			    <Template Context="itemCast">
 				    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.Template.Title></RadzenLabel>
 			    </Template>
 		    </RadzenGridColumn>
-		    @*			<RadzenGridColumn TItem="PluRefV2Entity" Width="21%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Nomenclature >
-		        <Template Context="itemCast" >
-			        <RadzenLink Style="width: 100%; " Text=@itemCast.Plu.Nomenclature.Name
-			            Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.Plu.Nomenclature.IdentityId}") />
-		        </Template>
-	        </RadzenGridColumn>*@
 		    <RadzenGridColumn TItem="PluScaleEntity" Width="7%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.ShelfLifeDaysShort>
 			    <Template Context="itemCast">
 				    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.ShelfLifeDays.ToString()/>
@@ -94,4 +80,8 @@ else
     </RadzenGrid>
 
     <ActionsButtons ParentRazor=@this />
+	
+	<br style="margin-bottom: 10px; "/>
+
+	<ActionsSave ParentRazor=@this />
 }

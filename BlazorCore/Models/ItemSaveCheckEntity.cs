@@ -1,7 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Generic;
 using DataCore.Localizations;
+using DataCore.Sql.Models;
 using Radzen;
 using static DataCore.ShareEnums;
 
@@ -347,93 +349,92 @@ public class ItemSaveCheckEntity
         return success;
     }
 
-    public void Scale(NotificationService notificationService, ScaleEntity? scale,
-        long? id, DbTableAction tableAction)
+    public void Scale(NotificationService notificationService, BaseEntity? item, DbTableAction tableAction)
     {
-        if (scale == null || id == null) return;
-
-        scale.ChangeDt = DateTime.Now;
-        // Check PrinterMain is null.
-        bool success = FieldControl.ValidateEntity(notificationService, scale, LocaleCore.Table.Device);
-        if (success)
-        {
-            if (scale.Host.IdentityId != 0)
-            {
-                scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<HostEntity>(scale.Host?.IdentityId);
-                success = FieldControl.ValidateEntity(notificationService, scale.Host, LocaleCore.Table.Host);
-            }
-            else
-                scale.Host = new();
-        }
-        if (success)
-        {
-            if (scale.PrinterMain?.IdentityId != 0)
-            {
-                scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterMain?.IdentityId);
-                success = FieldControl.ValidateEntity(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
-            }
-            else
-                scale.PrinterMain = null;
-        }
-        if (success)
-        {
-            if (scale.PrinterShipping?.IdentityId != 0)
-            {
-                scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
-                success = FieldControl.ValidateEntity(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
-            }
-            else
-                scale.PrinterShipping = null;
-        }
-        if (success)
-        {
-            if (scale.TemplateDefault?.IdentityId != 0)
-            {
-                scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
-                success = FieldControl.ValidateEntity(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
-            }
-            else
-                scale.TemplateDefault = null;
-        }
-        if (success)
-        {
-            if (scale.TemplateSeries?.IdentityId != 0)
-            {
-                scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
-                success = FieldControl.ValidateEntity(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
-            }
-            else
-                scale.TemplateSeries = null;
-        }
-        if (success)
-        {
-            if (scale.WorkShop?.IdentityId != 0)
-            {
-                scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<WorkShopEntity>(scale.WorkShop?.IdentityId);
-                success = FieldControl.ValidateEntity(notificationService, scale.WorkShop, LocaleCore.Table.Template);
-            }
-            else
-                scale.WorkShop = null;
-        }
-        if (success)
-        {
-            scale.ChangeDt = DateTime.Now;
-            if (tableAction == DbTableAction.New)
-            {
-                scale.CreateDt = DateTime.Now;
-                if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
-                    scale.TemplateSeries = null;
-                AppSettings.DataAccess.Crud.SaveEntity(scale);
-            }
-            else
-            {
-                if (id is { } lid)
-                {
-                    scale.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(scale);
-                }
-            }
-        }
+	    if (item is ScaleEntity scale)
+	    {
+		    scale.ChangeDt = DateTime.Now;
+	        // Check PrinterMain is null.
+	        bool success = FieldControl.ValidateEntity(notificationService, scale, LocaleCore.Table.Device);
+	        if (success)
+	        {
+	            if (scale.Host?.IdentityId != 0)
+	            {
+	                scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<HostEntity>(scale.Host?.IdentityId);
+	                success = FieldControl.ValidateEntity(notificationService, scale.Host, LocaleCore.Table.Host);
+	            }
+	            else
+	                scale.Host = new();
+	        }
+	        if (success)
+	        {
+	            if (scale.PrinterMain?.IdentityId != 0)
+	            {
+	                scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterMain?.IdentityId);
+	                success = FieldControl.ValidateEntity(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
+	            }
+	            else
+	                scale.PrinterMain = null;
+	        }
+	        if (success)
+	        {
+	            if (scale.PrinterShipping?.IdentityId != 0)
+	            {
+	                scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
+	                success = FieldControl.ValidateEntity(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
+	            }
+	            else
+	                scale.PrinterShipping = null;
+	        }
+	        if (success)
+	        {
+	            if (scale.TemplateDefault?.IdentityId != 0)
+	            {
+	                scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
+	                success = FieldControl.ValidateEntity(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
+	            }
+	            else
+	                scale.TemplateDefault = null;
+	        }
+	        if (success)
+	        {
+	            if (scale.TemplateSeries?.IdentityId != 0)
+	            {
+	                scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
+	                success = FieldControl.ValidateEntity(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
+	            }
+	            else
+	                scale.TemplateSeries = null;
+	        }
+	        if (success)
+	        {
+	            if (scale.WorkShop?.IdentityId != 0)
+	            {
+	                scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<WorkShopEntity>(scale.WorkShop?.IdentityId);
+	                success = FieldControl.ValidateEntity(notificationService, scale.WorkShop, LocaleCore.Table.Template);
+	            }
+	            else
+	                scale.WorkShop = null;
+	        }
+	        if (success)
+	        {
+		        scale.ChangeDt = DateTime.Now;
+		        switch (tableAction)
+		        {
+			        case DbTableAction.New:
+			        {
+				        scale.CreateDt = DateTime.Now;
+				        if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
+					        scale.TemplateSeries = null;
+				        AppSettings.DataAccess.Crud.SaveEntity(scale);
+				        break;
+			        }
+			        case DbTableAction.Save:
+				        AppSettings.DataAccess.Crud.UpdateEntity(scale);
+				        break;
+		        }
+	        }
+	    }
     }
 
     public bool Task(NotificationService notificationService, TaskEntity? task, 

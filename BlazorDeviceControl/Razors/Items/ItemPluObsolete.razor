@@ -38,7 +38,7 @@ else
                         @bind-Value=@ItemCast.Template>
                         @foreach (TemplateEntity item in Templates)
                         {
-                            <MudSelectItem Value=@item>@item.Title</MudSelectItem>
+                            <MudSelectItem T=@TemplateEntity Value=@item>@item.Title</MudSelectItem>
                         }
                     </MudSelect>
                 </td>
@@ -64,7 +64,7 @@ else
                         @bind-Value=@ItemCast.Nomenclature>
                         @foreach (NomenclatureEntity item in Nomenclatures)
                         {
-                            <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@NomenclatureEntity Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
 				</td>
@@ -78,7 +78,7 @@ else
                         @bind-Value=@ItemCast.Scale>
                         @foreach (ScaleEntity item in Scales)
                         {
-	                        <MudSelectItem Value=@item>@item.Description</MudSelectItem>
+	                        <MudSelectItem T=@ScaleEntity Value=@item>@item.Description</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

@@ -5,9 +5,9 @@
 
 <h1>Countries</h1>
 <MudSelect @bind-Value=@Country Label="Countries" Variant=@Variant.Outlined >
-    <MudSelectItem Value=@("Austria") />
-    <MudSelectItem Value=@("Hungary") />
-    <MudSelectItem Value=@("Sweden") />
+    <MudSelectItem T=@string Value=@("Austria") />
+    <MudSelectItem T=@string Value =@("Hungary") />
+    <MudSelectItem T=@string Value =@("Sweden") />
 </MudSelect>
 <br />
 
@@ -15,7 +15,7 @@
 <MudSelect @bind-Value=@ComPort Variant=@Variant.Filled >
     @foreach (string item in ListComPorts)
     {
-        <MudSelectItem Value=@item ></MudSelectItem>
+        <MudSelectItem T=@string Value =@item></MudSelectItem>
     }
 </MudSelect>
 <br />
@@ -24,7 +24,7 @@
 <MudSelect @bind-Value=@ComPort Variant=@Variant.Text >
     @foreach (TypeEntity<string> item in ComPorts)
     {
-        <MudSelectItem Value=@item.Value >@item.Name</MudSelectItem>
+        <MudSelectItem T=@string Value =@item.Value>@item.Name</MudSelectItem>
     }
 </MudSelect>
 <br />

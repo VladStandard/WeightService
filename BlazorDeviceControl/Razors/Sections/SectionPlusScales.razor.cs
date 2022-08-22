@@ -7,7 +7,11 @@ public partial class SectionPlusScales : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PluScaleEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluScaleEntity)x).ToList();
+	[Parameter] public List<PluScaleEntity> ItemsCast
+	{
+		get => Items == null ? new() : Items.Select(x => (PluScaleEntity)x).ToList();
+		set => Items = value.Cast<BaseEntity>().ToList();
+	}
 	private ScaleEntity ItemFilterCast
 	{
 		get => ItemFilter == null ? new() : (ScaleEntity)ItemFilter;
@@ -49,7 +53,7 @@ public partial class SectionPlusScales : BlazorCore.Models.RazorBase
 				{
 					Items = AppSettings.DataAccess.Crud.GetEntities<PluScaleEntity>(
 							scaleId == 0 ? new(new() { new(DbField.IsMarked, DbComparer.Equal, false) })
-								: new(new() 
+								: new(new()
 								{
 									new(DbField.IsMarked, DbComparer.Equal, false),
 									new($"{nameof(PluScaleEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId),
@@ -58,7 +62,7 @@ public partial class SectionPlusScales : BlazorCore.Models.RazorBase
 							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
 						?.ToList<BaseEntity>();
 				}
-				ButtonSettings = new(true, true, true, true, true, false, false);
+				ButtonSettings = new(true, true, true, true, true, true, false);
 			}
 		});
 	}

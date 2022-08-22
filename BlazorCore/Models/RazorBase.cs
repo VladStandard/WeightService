@@ -1036,7 +1036,11 @@ public class RazorBase : LayoutComponentBase
                         page = LocaleData.DeviceControl.UriRouteSection.ProductionFacilities;
                         break;
                     case ProjectsEnums.TableScale.Scales:
-                        page = LocaleData.DeviceControl.UriRouteSection.Scales;
+						//page = LocaleData.DeviceControl.UriRouteSection.Scales;
+						if (Item is ScaleEntity scale)
+							page = LocaleData.DeviceControl.UriRouteItem.ScaleNew + $"/{scale.IdentityId}";
+						else
+							page = LocaleData.DeviceControl.UriRouteSection.ScalesNew;
                         break;
                     case ProjectsEnums.TableScale.TemplatesResources:
                         page = LocaleData.DeviceControl.UriRouteSection.TemplateResources;
@@ -1123,7 +1127,19 @@ public class RazorBase : LayoutComponentBase
                 ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.PlusScales:
-                ItemSaveCheck.PluScale(NotificationService, (PluScaleEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+	   //         if (ParentRazor?.Items != null)
+	   //         {
+		  //          if (items is not null)
+		  //          {
+			 //           List<PluScaleEntity> pluScales = items.Cast<PluScaleEntity>().ToList();
+			 //           foreach (PluScaleEntity pluScale in pluScales)
+			 //           {
+				//            AppSettings.DataAccess.Crud.SaveEntity(pluScale);
+			 //           }
+		  //          }
+				//}
+
+				ItemSaveCheck.PluScale(NotificationService, (PluScaleEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.PrintersResources:
                 ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
@@ -1138,7 +1154,7 @@ public class RazorBase : LayoutComponentBase
                 ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.Scales:
-                ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
+                ItemSaveCheck.Scale(NotificationService, Item, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.Templates:
                 ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
@@ -1155,7 +1171,8 @@ public class RazorBase : LayoutComponentBase
     public async Task ItemSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
+
+		RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
             () =>
             {
@@ -1227,6 +1244,22 @@ public class RazorBase : LayoutComponentBase
                 RouteItemNavigate(isNewWindow, item, DbTableAction.Edit);
                 InvokeAsync(StateHasChanged);
             });
+    }
+
+    public async Task ActionPluScalePlusClickAsync(UserSettingsHelper userSettings, PluScaleEntity pluScale, List<PluScaleEntity> pluScales)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        if (!userSettings.Identity.AccessRightsIsWrite)
+            return;
+
+        //foreach (PluScaleEntity item in pluScales)
+        //{
+        // if (item.IdentityUid.Equals(pluScale.IdentityUid))
+        // {
+        //  item.IsActive = pluScale.IsActive;
+        // }
+        //}
     }
 
     public async Task ActionSaveAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)

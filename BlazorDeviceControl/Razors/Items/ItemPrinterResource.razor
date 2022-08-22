@@ -28,7 +28,7 @@ else
                         @bind-Value=@ItemCast.Printer>
 						@foreach (PrinterEntity item in Printers)
 						{
-							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@PrinterEntity Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -45,7 +45,7 @@ else
                         @bind-Value=@ItemCast.Resource>
 						@foreach (TemplateResourceEntity item in Resources)
 						{
-							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@TemplateResourceEntity Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>

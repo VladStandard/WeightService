@@ -41,7 +41,7 @@ else
 						@bind-Value=@ItemCast.ProductionFacility>
                         @foreach (ProductionFacilityEntity item in ProductionFacilities)
                         {
-                            <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@ProductionFacilityEntity Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

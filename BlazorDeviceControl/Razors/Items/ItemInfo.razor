@@ -268,7 +268,7 @@
 						@bind-Value=@LocaleCore.Lang>
                         @foreach (ShareEnums.Lang lang in Langs)
                         {
-                            <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
+                            <MudSelectItem T=@ShareEnums.Lang Value=@lang>@lang.ToString()</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

@@ -55,7 +55,7 @@ else
                         @bind-Value=@ItemCast.PrinterType>
                         @foreach (PrinterTypeEntity item in PrinterTypes)
                         {
-                            <MudSelectItem Value=@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@PrinterTypeEntity Value =@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
                 </td>
