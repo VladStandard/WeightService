@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.7.15.0</Version>
+    <Version>0.7.20.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -13,8 +13,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.7.15.0</FileVersion>
-    <AssemblyVersion>0.7.15.0</AssemblyVersion>
+	<FileVersion>0.7.20.0</FileVersion>
+    <AssemblyVersion>0.7.20.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
     <LangVersion>10.0</LangVersion>
@@ -74,59 +74,65 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
-    <Watch Remove="Shared\Components\ActionsFilterScale.razor" />
-    <Watch Remove="Shared\Components\ActionsReloadItem.razor" />
-    <Watch Remove="Shared\Components\ActionsReloadSection.razor" />
-    <Watch Remove="Shared\Components\MudPage.razor" />
-    <Watch Remove="Shared\Components\MudSimpleTableHead.razor" />
-    <Watch Remove="Shared\Components\NetBarcodePage.razor" />
-    <Watch Remove="Shared\Item\ItemAccess.razor" />
-    <Watch Remove="Shared\Item\ItemBarCode.razor" />
-    <Watch Remove="Shared\Item\ItemBarCodeType.razor" />
-    <Watch Remove="Shared\Item\ItemContragent.razor" />
-    <Watch Remove="Shared\Item\ItemHost.razor" />
-    <Watch Remove="Shared\Item\ItemInfo.razor" />
-    <Watch Remove="Shared\Item\ItemLog.razor" />
-    <Watch Remove="Shared\Item\ItemNomenclature.razor" />
-    <Watch Remove="Shared\Item\ItemPluScale.razor" />
-    <Watch Remove="Shared\Item\ItemPrinter.razor" />
-    <Watch Remove="Shared\Item\ItemPrinterResource.razor" />
-    <Watch Remove="Shared\Item\ItemPrinterType.razor" />
-    <Watch Remove="Shared\Item\ItemProductionFacility.razor" />
-    <Watch Remove="Shared\Item\ItemTemplate.razor" />
-    <Watch Remove="Shared\Item\ItemTemplateResource.razor" />
-    <Watch Remove="Shared\Item\ItemWorkshop.razor" />
-    <Watch Remove="Shared\Item\Measurements\ItemWf.razor" />
-    <Watch Remove="Shared\Item\RadzenPage.razor" />
-    <Watch Remove="Shared\Item\Measurements\ItemLabel.razor" />
-    <Watch Remove="Shared\Section\Logs\SectionLogsNones.razor" />
-    <Watch Remove="Shared\Section\Logs\SectionLogsQuestions.razor" />
-    <Watch Remove="Shared\Section\Logs\SectionLogsStops.razor" />
-    <Watch Remove="Shared\Section\Logs\SectionLogsWarnings.razor" />
-    <Watch Remove="Shared\Section\SectionAccess.razor" />
-    <Watch Remove="Shared\Section\SectionBarCodes.razor" />
-    <Watch Remove="Shared\Section\SectionBarCodeTypes.razor" />
-    <Watch Remove="Shared\Section\SectionContragents.razor" />
-    <Watch Remove="Shared\Section\SectionHosts.razor" />
-    <Watch Remove="Shared\Section\SectionInfo.razor" />
-    <Watch Remove="Shared\Section\SectionLogs.razor" />
-    <Watch Remove="Shared\Section\SectionLogsErrors.razor" />
-    <Watch Remove="Shared\Section\SectionLogsInformations.razor" />
-    <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
-    <Watch Remove="Shared\Section\SectionPlusScales.razor" />
-    <Watch Remove="Shared\Section\SectionPrinterResources.razor" />
-    <Watch Remove="Shared\Section\SectionPrinters.razor" />
-    <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />
-    <Watch Remove="Shared\Section\SectionProductionFacilities.razor" />
-    <Watch Remove="Shared\Section\SectionTemplateResources.razor" />
-    <Watch Remove="Shared\Section\SectionTemplates.razor" />
-    <Watch Remove="Shared\Section\SectionVersions.razor" />
-    <Watch Remove="Shared\Section\SectionWorkshops.razor" />
-    <Watch Remove="Shared\Section\Measurements\SectionLabels.razor" />
+    <Watch Remove="Razors\Components\ActionsFilterScale.razor" />
+    <Watch Remove="Razors\Components\ActionsReloadItem.razor" />
+    <Watch Remove="Razors\Components\ActionsReloadSection.razor" />
+    <Watch Remove="Razors\Components\ItemTableBody.razor" />
+    <Watch Remove="Razors\Components\ItemTableHead.razor" />
+    <Watch Remove="Razors\Components\MudPage.razor" />
+    <Watch Remove="Razors\Components\NetBarcodePage.razor" />
+    <Watch Remove="Razors\Items\ItemAccess.razor" />
+    <Watch Remove="Razors\Items\ItemBarCode.razor" />
+    <Watch Remove="Razors\Items\ItemBarCodeType.razor" />
+    <Watch Remove="Razors\Items\ItemContragent.razor" />
+    <Watch Remove="Razors\Items\ItemHost.razor" />
+    <Watch Remove="Razors\Items\ItemInfo.razor" />
+    <Watch Remove="Razors\Items\ItemLog.razor" />
+    <Watch Remove="Razors\Items\ItemNomenclature.razor" />
+    <Watch Remove="Razors\Items\ItemPluScale.razor" />
+    <Watch Remove="Razors\Items\ItemPrinter.razor" />
+    <Watch Remove="Razors\Items\ItemPrinterResource.razor" />
+    <Watch Remove="Razors\Items\ItemPrinterType.razor" />
+    <Watch Remove="Razors\Items\ItemProductionFacility.razor" />
+    <Watch Remove="Razors\Items\ItemTemplate.razor" />
+    <Watch Remove="Razors\Items\ItemTemplateResource.razor" />
+    <Watch Remove="Razors\Items\ItemWorkshop.razor" />
+    <Watch Remove="Razors\Items\Measurements\ItemWf.razor" />
+    <Watch Remove="Razors\Items\RadzenPage.razor" />
+    <Watch Remove="Razors\Items\Measurements\ItemLabel.razor" />
+    <Watch Remove="Razors\Sections\Logs\SectionLogsNones.razor" />
+    <Watch Remove="Razors\Sections\Logs\SectionLogsQuestions.razor" />
+    <Watch Remove="Razors\Sections\Logs\SectionLogsStops.razor" />
+    <Watch Remove="Razors\Sections\Logs\SectionLogsWarnings.razor" />
+    <Watch Remove="Razors\Sections\SectionAccess.razor" />
+    <Watch Remove="Razors\Sections\SectionBarCodes.razor" />
+    <Watch Remove="Razors\Sections\SectionBarCodeTypes.razor" />
+    <Watch Remove="Razors\Sections\SectionContragents.razor" />
+    <Watch Remove="Razors\Sections\SectionHosts.razor" />
+    <Watch Remove="Razors\Sections\SectionInfo.razor" />
+    <Watch Remove="Razors\Sections\SectionLogs.razor" />
+    <Watch Remove="Razors\Sections\SectionLogsErrors.razor" />
+    <Watch Remove="Razors\Sections\SectionLogsInformations.razor" />
+    <Watch Remove="Razors\Sections\SectionNomenclatures.razor" />
+    <Watch Remove="Razors\Sections\SectionPlusScales.razor" />
+    <Watch Remove="Razors\Sections\SectionPrinterResources.razor" />
+    <Watch Remove="Razors\Sections\SectionPrinters.razor" />
+    <Watch Remove="Razors\Sections\SectionPrinterTypes.razor" />
+    <Watch Remove="Razors\Sections\SectionProductionFacilities.razor" />
+    <Watch Remove="Razors\Sections\SectionTemplateResources.razor" />
+    <Watch Remove="Razors\Sections\SectionTemplates.razor" />
+    <Watch Remove="Razors\Sections\SectionVersions.razor" />
+    <Watch Remove="Razors\Sections\SectionWorkshops.razor" />
+    <Watch Remove="Razors\Sections\Measurements\SectionLabels.razor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Razors\Components\ItemTableBody.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
   </ItemGroup>
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

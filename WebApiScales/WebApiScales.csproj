@@ -7,7 +7,7 @@
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
     <Authors />
-    <Version>0.7.15.0</Version>
+    <Version>0.7.20.0</Version>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
