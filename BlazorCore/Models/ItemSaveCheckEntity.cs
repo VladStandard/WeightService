@@ -211,9 +211,9 @@ public class ItemSaveCheckEntity
 	    }
     }
 
-    public void PluScale(NotificationService notificationService, PluScaleEntity? pluScale, Guid? uid, DbTableAction tableAction)
+    public void PluScale(NotificationService notificationService, PluScaleEntity? pluScale, DbTableAction tableAction)
     {
-	    if (pluScale == null || uid == null) return;
+	    if (pluScale == null) return;
 
 	    pluScale.ChangeDt = DateTime.Now;
 	    bool success = FieldControl.ValidateEntity(notificationService, pluScale, LocaleCore.Table.PluScale);
@@ -231,11 +231,7 @@ public class ItemSaveCheckEntity
 		    }
 		    else
 		    {
-			    if (uid is { } guid)
-			    {
-				    pluScale.IdentityUid = guid;
-				    AppSettings.DataAccess.Crud.UpdateEntity(pluScale);
-			    }
+				AppSettings.DataAccess.Crud.UpdateEntity(pluScale);
 		    }
 	    }
     }

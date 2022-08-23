@@ -69,7 +69,7 @@ public partial class NetBarcodePage : RazorBase
         }
         finally
         {
-            StateHasChanged();
+            InvokeAsync(StateHasChanged);
         }
     }
 

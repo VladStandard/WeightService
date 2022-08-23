@@ -1,4 +1,4 @@
-# Publish lifecycle
+# Publish life cycle
 
 
 ## Everyday routing

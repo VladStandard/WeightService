@@ -118,8 +118,9 @@ public class RazorBase : LayoutComponentBase
                             IsShowMarkedItems = isShowTOp100;
                         break;
                 }
-                StateHasChanged();
-            });
+			});
+        
+        ParentRazor?.OnChange();
     }
 
     public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
@@ -151,9 +152,10 @@ public class RazorBase : LayoutComponentBase
                         OnItemValueChangeWorkShop(filterName, value, workShop);
                         break;
                 }
-                StateHasChanged();
-            });
-    }
+			});
+        
+        ParentRazor?.OnChange();
+	}
 
     private static void OnItemValueChangeAccess(string? filterName, object? value, AccessEntity access)
     {
@@ -346,8 +348,8 @@ public class RazorBase : LayoutComponentBase
         actionsInjected.Add(() =>
         {
             IsLoaded = true;
-            StateHasChanged();
-        });
+            InvokeAsync(StateHasChanged);
+		});
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(RunActions)}", "",
             LocaleCore.Dialog.DialogResultFail, "", actionsInjected);
     }
@@ -1019,9 +1021,9 @@ public class RazorBase : LayoutComponentBase
                         break;
                     case ProjectsEnums.TableScale.PlusScales:
                         if (Item is PluScaleEntity pluScale)
-							page = LocaleData.DeviceControl.UriRouteItem.ScaleNew + $"/{pluScale.Scale.IdentityId}";
+							page = LocaleData.DeviceControl.UriRouteItem.Scale + $"/{pluScale.Scale.IdentityId}";
                         else
-	                        page = LocaleData.DeviceControl.UriRouteSection.ScalesNew;
+	                        page = LocaleData.DeviceControl.UriRouteSection.Scales;
                         break;
                     case ProjectsEnums.TableScale.PrintersResources:
                         page = LocaleData.DeviceControl.UriRouteSection.PrinterResources;
@@ -1036,11 +1038,10 @@ public class RazorBase : LayoutComponentBase
                         page = LocaleData.DeviceControl.UriRouteSection.ProductionFacilities;
                         break;
                     case ProjectsEnums.TableScale.Scales:
-						//page = LocaleData.DeviceControl.UriRouteSection.Scales;
 						if (Item is ScaleEntity scale)
-							page = LocaleData.DeviceControl.UriRouteItem.ScaleNew + $"/{scale.IdentityId}";
+							page = LocaleData.DeviceControl.UriRouteItem.Scale + $"/{scale.IdentityId}";
 						else
-							page = LocaleData.DeviceControl.UriRouteSection.ScalesNew;
+							page = LocaleData.DeviceControl.UriRouteSection.Scales;
                         break;
                     case ProjectsEnums.TableScale.TemplatesResources:
                         page = LocaleData.DeviceControl.UriRouteSection.TemplateResources;
@@ -1127,19 +1128,18 @@ public class RazorBase : LayoutComponentBase
                 ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.PlusScales:
-	   //         if (ParentRazor?.Items != null)
-	   //         {
-		  //          if (items is not null)
-		  //          {
-			 //           List<PluScaleEntity> pluScales = items.Cast<PluScaleEntity>().ToList();
-			 //           foreach (PluScaleEntity pluScale in pluScales)
-			 //           {
-				//            AppSettings.DataAccess.Crud.SaveEntity(pluScale);
-			 //           }
-		  //          }
-				//}
-
-				ItemSaveCheck.PluScale(NotificationService, (PluScaleEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                if (ParentRazor?.Items != null)
+                {
+                    List<PluScaleEntity> pluScales = ParentRazor.Items.Cast<PluScaleEntity>().ToList();
+                    foreach (PluScaleEntity pluScale in pluScales)
+                    {
+                        ItemSaveCheck.PluScale(NotificationService, pluScale, DbTableAction.Save);
+					}
+                }
+	            else if (ParentRazor?.Item != null)
+	            {
+					ItemSaveCheck.PluScale(NotificationService, (PluScaleEntity?)ParentRazor?.Item, DbTableAction.Save);
+	            }
                 break;
             case ProjectsEnums.TableScale.PrintersResources:
                 ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
@@ -1186,8 +1186,9 @@ public class RazorBase : LayoutComponentBase
                         break;
                 }
                 RouteSectionNavigate(false);
-                InvokeAsync(StateHasChanged);
             });
+		
+		ParentRazor?.OnChange();
     }
 
     public async Task ActionNewAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1224,8 +1225,9 @@ public class RazorBase : LayoutComponentBase
             () =>
             {
                 RouteItemNavigate(isNewWindow, item, DbTableAction.Copy);
-                InvokeAsync(StateHasChanged);
             });
+        
+        ParentRazor?.OnChange();
     }
 
     public async Task ActionEditAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
@@ -1289,12 +1291,14 @@ public class RazorBase : LayoutComponentBase
 
         if (item == null)
             return;
-        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionMarkAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+        RunActionsWithQeustion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogResultSuccess,
+	        LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
             () =>
             {
                 AppSettings.DataAccess.Crud.MarkedEntity(item);
-                InvokeAsync(StateHasChanged);
             });
+		
+        ParentRazor?.OnChange();
     }
 
     public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isParentRazor)
@@ -1312,8 +1316,9 @@ public class RazorBase : LayoutComponentBase
             () =>
             {
                 AppSettings.DataAccess.Crud.DeleteEntity(item);
-                InvokeAsync(StateHasChanged);
             });
+
+        ParentRazor?.OnChange();
     }
 
     public async Task PrinterResourcesClear(UserSettingsHelper userSettings, PrinterEntity printer)

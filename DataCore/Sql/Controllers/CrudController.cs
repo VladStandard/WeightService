@@ -613,9 +613,17 @@ public class CrudController
             case OrderEntity order:
                 ExecuteTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
                 break;
-            case PluObsoleteEntity plu:
+            case PluEntity plu:
                 plu.IsMarked = true;
                 ExecuteTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
+                break;
+            case PluObsoleteEntity pluObsolete:
+                pluObsolete.IsMarked = true;
+                ExecuteTransaction((session) => { session.SaveOrUpdate(pluObsolete); }, filePath, lineNumber, memberName);
+                break;
+            case PluScaleEntity pluScale:
+	            pluScale.IsMarked = true;
+                ExecuteTransaction((session) => { session.SaveOrUpdate(pluScale); }, filePath, lineNumber, memberName);
                 break;
             case ProductionFacilityEntity productionFacility:
                 productionFacility.IsMarked = true;

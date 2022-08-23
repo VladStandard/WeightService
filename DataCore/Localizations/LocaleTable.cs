@@ -164,6 +164,7 @@ namespace DataCore.Localizations
         public string TableRead => Lang == ShareEnums.Lang.English ? "Read data" : "Прочитать данные";
         public string TableReadCancel => Lang == ShareEnums.Lang.English ? "Cancel data reading" : "Отмена чтения данных";
         public string TableRereadFromDb => Lang == ShareEnums.Lang.English ? "Reread from the database" : "Перечитать из БД";
+        public string TableMark => Lang == ShareEnums.Lang.English ? "Save record" : "Пометить запись на удаление";
         public string TableSave => Lang == ShareEnums.Lang.English ? "Save record" : "Сохранить запись";
         public string TableSelect => Lang == ShareEnums.Lang.English ? "Highlight record" : "Выделить запись";
         public string TableTab => Lang == ShareEnums.Lang.English ? "Switch between panels" : "Переключиться между панелями";

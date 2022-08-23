@@ -59,7 +59,6 @@ namespace DataCore.Localizations
                 public const string PrinterType = "/item/printertype";
                 public const string ProductionFacility = "/item/productionfacility";
                 public const string Scale = "/item/scale";
-                public const string ScaleNew = "/item/scale_new";
                 public const string ScaleObsolete = "/item/scale_obsolete";
                 public const string TaskModule = "/item/taskmodule";
                 public const string TaskTypeModule = "/item/tasktypemodule";
@@ -106,7 +105,6 @@ namespace DataCore.Localizations
                 public const string WeithingFacts = "/section/measurements/wf";
                 public const string WeithingFactsAggregation = "/section/measurements/wf_aggr";
                 public const string WorkShops = "/section/workshops";
-				public const string ScalesNew = "/section/scales_new";
 				public const string ScalesObsolete = "/section/scales_obsolete";
             }
             #endregion
@@ -154,6 +152,8 @@ namespace DataCore.Localizations
                 public static string BarCodeTypesShort => Lang == ShareEnums.Lang.English ? "BC types" : "Типы ШК";
                 public static string Contragents => Lang == ShareEnums.Lang.English ? "Counterparties" : "Контрагенты";
                 public static string Devices => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";
+                public static string Dwh => Lang == ShareEnums.Lang.English ? "DWH" : "МДМ";
+                public static string DwhReferences => Lang == ShareEnums.Lang.English ? "DWH References" : "DWH справочники";
                 public static string Fonts => Lang == ShareEnums.Lang.English ? "Fonts" : "Шрифты";
                 public static string Hosts => Lang == ShareEnums.Lang.English ? "Hosts" : "Хосты";
                 public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
@@ -163,6 +163,7 @@ namespace DataCore.Localizations
                 public static string Modules => Lang == ShareEnums.Lang.English ? "Modules" : "Модули";
                 public static string Nomenclatures => Lang == ShareEnums.Lang.English ? "Nomenclatures" : "Номенклатура";
                 public static string NomenclatureUnits => Lang == ShareEnums.Lang.English ? "Packages" : "Упаковки";
+                public static string Obsoletes => Lang == ShareEnums.Lang.English ? "Obsoletes" : "Устаревшие";
                 public static string Orders => Lang == ShareEnums.Lang.English ? "Orders" : "Заказы";
                 public static string OrderStatuses => Lang == ShareEnums.Lang.English ? "Order statuses" : "Статусы заказов";
                 public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
@@ -174,9 +175,7 @@ namespace DataCore.Localizations
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
                 public static string References => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
                 public static string ReferencesAdditional => Lang == ShareEnums.Lang.English ? "Add. references" : "Доп. справочники";
-                public static string Obsoletes => Lang == ShareEnums.Lang.English ? "Obsoletes" : "Устаревшие";
                 public static string ReferencesDev => Lang == ShareEnums.Lang.English ? "Development" : "Разработка";
-                public static string ReferencesDwh => Lang == ShareEnums.Lang.English ? "DWH References" : "DWH справочники";
                 public static string Resources => Lang == ShareEnums.Lang.English ? "Resources" : "Ресурсы";
                 public static string Scales => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";
                 public static string TaskModules => Lang == ShareEnums.Lang.English ? "Task Modules" : "Модули задач";

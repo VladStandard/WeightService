@@ -58,22 +58,22 @@ public partial class ItemTemplateResource : BlazorCore.Models.RazorBase
         NotificationService.Notify(msg);
     }
 
-    private async Task OnFileUpload(InputFileChangeEventArgs e)
+    private void OnFileUpload(InputFileChangeEventArgs e)
     {
         foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
         {
             if (FileUpload != null)
-                await FileUpload.UploadAsync(ItemCast, file.OpenReadStream(10_000_000));
+                FileUpload.UploadAsync(ItemCast, file.OpenReadStream(10_000_000));
         }
-        await InvokeAsync(StateHasChanged);
+        InvokeAsync(StateHasChanged);
     }
 
-    private async Task OnFileDownload()
+    private void OnFileDownload()
     {
         if (FileDownload != null)
-            await FileDownload.DownloadAsync(DownloadFileService, ItemCast);
+            FileDownload.DownloadAsync(DownloadFileService, ItemCast);
 
-        await InvokeAsync(StateHasChanged);
+        InvokeAsync(StateHasChanged);
     }
 
     #endregion
