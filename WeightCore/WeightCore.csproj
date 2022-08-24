@@ -431,9 +431,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Gui\XamlPages\MessageBoxEntity.cs" />
-    <Compile Include="Gui\XamlPages\PagePluList.xaml.cs">
-      <DependentUpon>PagePluList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Gui\XamlPages\PageMessageBox.xaml.cs">
       <DependentUpon>PageMessageBox.xaml</DependentUpon>
     </Compile>
@@ -493,10 +490,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gui\XamlPages\PagePinCode.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Gui\XamlPages\PagePluList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
