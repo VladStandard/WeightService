@@ -11,13 +11,8 @@ internal class LogTypeValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		LogTypeEntity item = Substitute.For<LogTypeEntity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Icon = string.Empty;
+		// Arrange & Act.
+		LogTypeEntity item = DataCoreUtils.CreateNewSubstitute<LogTypeEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -25,27 +20,15 @@ internal class LogTypeValidatorTests
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			LogTypeEntity item = Substitute.For<LogTypeEntity>();
-			LogTypeValidator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IdentityUid = Guid.NewGuid();
-			item.Number = 0;
-			item.Icon = "Test";
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsTrue(result.IsValid);
-		});
+		// Arrange & Act.
+		LogTypeEntity item = DataCoreUtils.CreateNewSubstitute<LogTypeEntity>(true);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<LogTypeEntity>(0);
+		DataCoreUtils.AssertSqlDataValidate<LogTypeEntity>();
 	}
 }

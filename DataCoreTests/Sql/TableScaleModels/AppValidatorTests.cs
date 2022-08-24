@@ -11,13 +11,8 @@ internal class AppValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		AppEntity item = Substitute.For<AppEntity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Name = "";
+		// Arrange & Act.
+		AppEntity item = DataCoreUtils.CreateNewSubstitute<AppEntity>(true);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -28,13 +23,9 @@ internal class AppValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
-			AppEntity item = Substitute.For<AppEntity>();
 			AppValidator validator = new();
 			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IdentityUid = Guid.NewGuid();
-			item.Name = "Test";
+			AppEntity item = DataCoreUtils.CreateNewSubstitute<AppEntity>(false);
 			ValidationResult result = validator.Validate(item);
 			DataCoreUtils.FailureWriteLine(result);
 			// Assert.
@@ -45,6 +36,6 @@ internal class AppValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<AppEntity>(0);
+		DataCoreUtils.AssertSqlDataValidate<AppEntity>();
 	}
 }

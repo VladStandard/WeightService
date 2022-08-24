@@ -7,7 +7,8 @@ public class NomenclatureMap : ClassMap<NomenclatureEntity>
 {
     public NomenclatureMap()
     {
-        Table("[DW].[DimNomenclatures]");
+        Schema("DW");
+        Table("DimNomenclatures");
         LazyLoad();
         Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
@@ -38,11 +39,11 @@ public class NomenclatureMap : ClassMap<NomenclatureEntity>
         Map(x => x.PackTypeId).CustomSqlType("BINARY").Length(16).Column("packTypeID").Nullable();
         Map(x => x.PackTypeName).CustomSqlType("NVARCHAR").Length(200).Column("packTypeName").Nullable();
         Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
-        References(x => x.Status).Column("StatusID").Not.Nullable();
-        References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
         Map(x => x.CodeInIs).CustomSqlType("VARBINARY").Length(16).Column("CodeInIS").Not.Nullable();
         Map(x => x.RelevanceStatus).CustomSqlType("TINYINT").Column("RelevanceStatus").Nullable();
         Map(x => x.NormalizationStatus).CustomSqlType("TINYINT").Column("NormalizationStatus").Nullable();
         Map(x => x.MasterId).CustomSqlType("INT").Column("MasterId").Nullable();
+        References(x => x.Status).Column("StatusID").Not.Nullable();
+        References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
     }
 }

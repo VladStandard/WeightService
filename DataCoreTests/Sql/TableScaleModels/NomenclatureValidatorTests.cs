@@ -11,13 +11,8 @@ internal class NomenclatureValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		NomenclatureEntity item = Substitute.For<NomenclatureEntity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Name = string.Empty;
+		// Arrange & Act.
+		NomenclatureEntity item = DataCoreUtils.CreateNewSubstitute<NomenclatureEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -25,25 +20,10 @@ internal class NomenclatureValidatorTests
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			NomenclatureEntity item = Substitute.For<NomenclatureEntity>();
-			NomenclatureValidator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IsMarked = false;
-			item.IdentityId = -1;
-			item.Name = "0.1.2";
-			item.Code = "ЦБД00012345";
-			item.Xml = "<Product Category=\"Сосиски\" > </Product>";
-			item.Weighted = false;
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsTrue(result.IsValid);
-		});
+		// Arrange & Act.
+		NomenclatureEntity item = DataCoreUtils.CreateNewSubstitute<NomenclatureEntity>(true);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, true);
 	}
 
 	[Test]

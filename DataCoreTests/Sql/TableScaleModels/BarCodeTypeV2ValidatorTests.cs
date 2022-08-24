@@ -11,13 +11,8 @@ internal class BarCodeTypeV2ValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		BarCodeTypeV2Entity item = Substitute.For<BarCodeTypeV2Entity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Name = "";
+		// Arrange & Act.
+		BarCodeTypeV2Entity item = DataCoreUtils.CreateNewSubstitute<BarCodeTypeV2Entity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -27,24 +22,16 @@ internal class BarCodeTypeV2ValidatorTests
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			// Arrange.
-			BarCodeTypeV2Entity item = Substitute.For<BarCodeTypeV2Entity>();
-			BarCodeTypeV2Validator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IdentityUid = Guid.NewGuid();
-			item.Name = "Test";
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
+			// Arrange & Act.
+			BarCodeTypeV2Entity item = DataCoreUtils.CreateNewSubstitute<BarCodeTypeV2Entity>(true);
 			// Assert.
-			Assert.IsTrue(result.IsValid);
+			DataCoreUtils.AssertSqlValidate(item, true);
 		});
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<BarCodeTypeV2Entity>(0);
+		DataCoreUtils.AssertSqlDataValidate<BarCodeTypeV2Entity>();
 	}
 }

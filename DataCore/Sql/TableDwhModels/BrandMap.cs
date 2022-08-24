@@ -7,7 +7,8 @@ public class BrandMap : ClassMap<BrandEntity>
 {
     public BrandMap()
     {
-        Table("[DW].[DimBrands]");
+	    Schema("DW");
+        Table("DimBrands");
         LazyLoad();
         Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
@@ -15,7 +16,7 @@ public class BrandMap : ClassMap<BrandEntity>
         Map(x => x.Code).CustomSqlType("NVARCHAR").Length(15).Column("Code").Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();
         Map(x => x.StatusId).CustomSqlType("INT").Column("StatusID").Not.Nullable();
-        References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
         Map(x => x.CodeInIs).CustomSqlType("VARBINARY").Length(16).Column("CodeInIS").Not.Nullable();
+        References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
     }
 }

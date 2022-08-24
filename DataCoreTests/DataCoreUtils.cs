@@ -59,75 +59,82 @@ public static class DataCoreUtils
 			}
 	}
 
-	private static IValidator<TEntity> GetSqlValidator<TEntity>()
-		where TEntity : BaseEntity, new()
+	private static IValidator<T> GetSqlValidator<T>() where T : BaseEntity, new()
 	{
-		if (typeof(TEntity) == typeof(AccessEntity))
+		if (typeof(T) == typeof(AccessEntity))
 		{
 			return new AccessValidator();
 		}
-		else if (typeof(TEntity) == typeof(AppEntity))
+		else if (typeof(T) == typeof(AppEntity))
 		{
 			return new AppValidator();
 		}
-		else if (typeof(TEntity) == typeof(BarCodeTypeV2Entity))
+		else if (typeof(T) == typeof(BarCodeTypeV2Entity))
 		{
 			return new BarCodeTypeV2Validator();
 		}
-		else if (typeof(TEntity) == typeof(BarCodeV2Entity))
+		else if (typeof(T) == typeof(BarCodeV2Entity))
 		{
 			return new BarCodeV2Validator();
 		}
-		else if (typeof(TEntity) == typeof(ContragentV2Entity))
+		else if (typeof(T) == typeof(ContragentV2Entity))
 		{
 			return new ContragentV2Validator();
 		}
-		else if (typeof(TEntity) == typeof(HostEntity))
+		else if (typeof(T) == typeof(HostEntity))
 		{
 			return new HostValidator();
 		}
-		else if (typeof(TEntity) == typeof(LabelEntity))
+		else if (typeof(T) == typeof(LabelEntity))
 		{
 			return new LabelValidator();
 		}
-		else if (typeof(TEntity) == typeof(LogTypeEntity))
+		else if (typeof(T) == typeof(LogTypeEntity))
 		{
 			return new LogTypeValidator();
 		}
-		else if (typeof(TEntity) == typeof(LogEntity))
+		else if (typeof(T) == typeof(LogEntity))
 		{
 			return new LogValidator();
 		}
-		else if (typeof(TEntity) == typeof(NomenclatureEntity))
+		else if (typeof(T) == typeof(NomenclatureEntity))
 		{
 			return new NomenclatureValidator();
 		}
-		else if (typeof(TEntity) == typeof(OrderEntity))
+		else if (typeof(T) == typeof(OrderEntity))
 		{
 			return new OrderValidator();
 		}
-		else if (typeof(TEntity) == typeof(OrderWeighingEntity))
+		else if (typeof(T) == typeof(OrderWeighingEntity))
 		{
 			return new OrderWeighingValidator();
 		}
-		else if (typeof(TEntity) == typeof(PluScaleEntity))
-		{
-			return new PluScaleValidator();
-		}
-		else if (typeof(TEntity) == typeof(PluEntity))
+		else if (typeof(T) == typeof(PluEntity))
 		{
 			return new PluValidator();
 		}
+		else if (typeof(T) == typeof(PluScaleEntity))
+		{
+			return new PluScaleValidator();
+		}
+		else if (typeof(T) == typeof(PluWeighingEntity))
+		{
+			return new PluWeighingValidator();
+		}
+		//else if (typeof(T) == typeof(PluObsoleteEntity))
+		//{
+		//	return new PluObsoleteValidator();
+		//}
 		throw new NotImplementedException();
 	}
 
-	public static void AssertSqlDataValidate<TEntity>(int maxResults) where TEntity : BaseEntity, new()
+	public static void AssertSqlDataValidate<T>(int maxResults = 0) where T : BaseEntity, new()
 	{
 		AssertAction(() =>
 		{
 			// Arrange.
-			IValidator<TEntity> validator = GetSqlValidator<TEntity>();
-			TEntity[]? items = DataAccess.Crud.GetEntities<TEntity>(null, null, maxResults);
+			IValidator<T> validator = GetSqlValidator<T>();
+			T[]? items = DataAccess.Crud.GetEntities<T>(null, null, maxResults);
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -135,9 +142,9 @@ public static class DataCoreUtils
 			}
 			else
 			{
-				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Count()}");
+				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Length}");
 				int i = 0;
-				foreach (TEntity item in items)
+				foreach (T item in items)
 				{
 					if (i < 10)
 						TestContext.WriteLine(item);
@@ -151,17 +158,15 @@ public static class DataCoreUtils
 		});
 	}
 
-	public static void AssertSqlValidate<TEntity>(TEntity item, bool assertResult)
-		where TEntity : BaseEntity, new()
+	public static void AssertSqlValidate<T>(T item, bool assertResult) where T : BaseEntity, new()
 	{
 		// Arrange.
-		IValidator<TEntity> validator = GetSqlValidator<TEntity>();
+		IValidator<T> validator = GetSqlValidator<T>();
 		// Act & Assert.
 		DataCoreUtils.AssertValidate(item, validator, assertResult);
 	}
 
-	public static void AssertValidate<TEntity>(TEntity item, IValidator<TEntity> validator, bool assertResult)
-		where TEntity : new()
+	public static void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : BaseEntity, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
@@ -179,6 +184,133 @@ public static class DataCoreUtils
 					break;
 			}
 		});
+	}
+
+	public static T CreateNewSubstitute<T>(bool isNotDefault) where T : BaseEntity, new()
+	{
+		T item = Substitute.For<T>();
+		if (!isNotDefault)
+		{
+			return item;
+		}
+
+		item.IdentityUid = Guid.NewGuid();
+		item.IdentityId = -1;
+		item.CreateDt = DateTime.Now;
+		item.ChangeDt = DateTime.Now;
+		item.IsMarked = false;
+
+		switch (item)
+		{
+			case AccessEntity access:
+				{
+					access.User = "Test";
+					break;
+				}
+			case AppEntity app:
+				{
+					app.Name = "Test";
+					break;
+				}
+			case BarCodeTypeV2Entity barCodeTypeV2:
+				{
+					barCodeTypeV2.Name = "Test";
+					break;
+				}
+			case BarCodeV2Entity barCodeV2:
+				{
+					barCodeV2.Value = "Test";
+					break;
+				}
+			case ContragentV2Entity contragentV2:
+				{
+					contragentV2.Name = "Test";
+					break;
+				}
+			case HostEntity host:
+				{
+					host.Name = "Test";
+					host.Ip = "127.0.0.1";
+					host.MacAddressValue = "001122334455";
+					host.HostName = "Test";
+					host.AccessDt = DateTime.Now;
+					break;
+				}
+			case LabelEntity label:
+				{
+					label.Label = Array.Empty<byte>();
+					break;
+				}
+			case LogTypeEntity logType:
+				{
+					logType.Icon = "Test";
+					break;
+				}
+			case NomenclatureEntity nomenclature:
+				{
+					nomenclature.Name = "0.1.2";
+					nomenclature.Code = "ЦБД00012345";
+					nomenclature.Xml = "<Product Category=\"Сосиски\" > </Product>";
+					nomenclature.Weighted = false;
+					break;
+				}
+			case OrderEntity order:
+				{
+					order.Name = "Test";
+					order.BoxCount = 1;
+					order.PalletCount = 1;
+					break;
+				}
+			case OrderWeighingEntity orderWeighing:
+				{
+					orderWeighing.Order = CreateNewSubstitute<OrderEntity>(isNotDefault);
+					orderWeighing.Fact = CreateNewSubstitute<WeithingFactEntity>(isNotDefault);
+					break;
+				}
+			case PluEntity plu:
+				{
+					plu.Name = "Test";
+					plu.Number = 100;
+					plu.FullName = "Test";
+					plu.Description = "Test";
+					plu.Gtin = "Test";
+					plu.Ean13 = "Test";
+					plu.Itf14 = "Test";
+					break;
+				}
+			case PluLabelEntity pluLabel:
+				{
+					pluLabel.Zpl = "Test";
+					pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
+					break;
+				}
+			case PluScaleEntity pluScale:
+				{
+					pluScale.IsActive = true;
+					break;
+				}
+			case PluWeighingEntity pluWeighing:
+				{
+					pluWeighing.Sscc = "Test";
+					pluWeighing.NettoWeight = (decimal)1.1;
+					pluWeighing.TareWeight = (decimal)0.25;
+					pluWeighing.ProdDt = DateTime.Now;
+					pluWeighing.RegNum = 1;
+					pluWeighing.PluScale = CreateNewSubstitute<PluScaleEntity>(isNotDefault);
+					pluWeighing.Series = CreateNewSubstitute<ProductSeriesEntity>(isNotDefault);
+					break;
+				}
+			case WeithingFactEntity weithingFact:
+				{
+					weithingFact.Sscc = "Test";
+					weithingFact.NetWeight = (decimal)1.1;
+					weithingFact.TareWeight = (decimal)0.25;
+					weithingFact.ProductDate = DateTime.Now;
+					weithingFact.RegNum = 1;
+					break;
+				}
+		}
+		return item;
 	}
 
 	#endregion

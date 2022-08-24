@@ -8,25 +8,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public class AccessValidator : AbstractValidator<BaseEntity>
+public class AccessValidator : BaseUidValidator
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public AccessValidator()
     {
-	    RuleFor(item => item.CreateDt)
-		    .NotEmpty()
-		    .NotNull()
-		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-	    RuleFor(item => item.ChangeDt)
-		    .NotEmpty()
-		    .NotNull()
-		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-	    RuleFor(item => item.IdentityUid)
-		    .NotEmpty()
-		    .NotNull()
-		    .NotEqual(Guid.Empty);
         RuleFor(item => ((AccessEntity)item).User)
 	        .NotEmpty()
 	        .NotNull();

@@ -32,7 +32,7 @@ public class CrudController
 
     public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        T[]? result = new T[0];
+        T[]? result = Array.Empty<T>();
         ExecuteTransaction((session) =>
         {
             if (DataConfig != null)
@@ -184,7 +184,7 @@ public class CrudController
     public T[]? GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
         string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        T[]? result = new T[0];
+        T[]? result = Array.Empty<T>();
         ExecuteTransaction((session) =>
         {
             result = GetCriteria<T>(session, filterList, order, maxResults).List<T>().ToArray();
@@ -296,18 +296,25 @@ public class CrudController
 	            orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
 	            orderWeighing.Fact = GetEntityById<WeithingFactEntity>(orderWeighing.Fact.IdentityId);
                 break;
+            case PluEntity plu:
+	            plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+	            plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+	            break;
+            case PluLabelEntity pluLabel:
+	            pluLabel.PluWeighing = GetEntityByUid<PluWeighingEntity>(pluLabel.PluWeighing.IdentityUid);
+	            break;
             case PluObsoleteEntity pluObsolete:
                 pluObsolete.Template = GetEntityById<TemplateEntity>(pluObsolete.Template.IdentityId);
                 pluObsolete.Scale = GetEntityById<ScaleEntity>(pluObsolete.Scale.IdentityId);
                 pluObsolete.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(pluObsolete.Nomenclature.IdentityId);
                 break;
-            case PluEntity plu:
-	            plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
-	            plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
-	            break;
             case PluScaleEntity pluScale:
 	            pluScale.Plu = GetEntityByUid<PluEntity>(pluScale.Plu.IdentityUid);
 	            pluScale.Scale = GetEntityById<ScaleEntity>(pluScale.Scale.IdentityId);
+                break;
+            case PluWeighingEntity pluWeighing:
+	            pluWeighing.PluScale = GetEntityByUid<PluScaleEntity>(pluWeighing.PluScale.IdentityUid);
+	            pluWeighing.Series = GetEntityById<ProductSeriesEntity>(pluWeighing.Series.IdentityId);
                 break;
             case PrinterEntity printer:
                 printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
@@ -470,7 +477,7 @@ public class CrudController
 
     public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        T[]? result = new T[0];
+        T[] result = Array.Empty<T>();
         ExecuteTransaction((session) =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query);
@@ -496,7 +503,7 @@ public class CrudController
     public object[] GetEntitiesNativeObject(string query,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        object[]? result = new object[0];
+        object[] result = Array.Empty<object>();
         ExecuteTransaction((session) =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query);

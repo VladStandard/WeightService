@@ -6,13 +6,13 @@ using System;
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class PluScaleValidatorTests
+internal class PluWeighingValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluScaleEntity item = DataCoreUtils.CreateNewSubstitute<PluScaleEntity>(false);
+		PluWeighingEntity item = DataCoreUtils.CreateNewSubstitute<PluWeighingEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class PluScaleValidatorTests
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluScaleEntity item = DataCoreUtils.CreateNewSubstitute<PluScaleEntity>(true);
+		PluWeighingEntity item = DataCoreUtils.CreateNewSubstitute<PluWeighingEntity>(true);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class PluScaleValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<PluScaleEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<PluWeighingEntity>(1000);
 	}
 }

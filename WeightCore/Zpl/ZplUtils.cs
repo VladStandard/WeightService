@@ -44,9 +44,11 @@ namespace WeightCore.Zpl
             result = result.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
             result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
             //result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
-            result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
+            //result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
+            result = result.Replace(nameof(PluWeighingEntity), "WeighingFactEntity");
             //result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
-            result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
+            //result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
+            result = result.Replace(nameof(PluLabelEntity), "ZplLabelEntity");
             // TableScaleModels.
             result = result.Replace(nameof(PrinterEntity), "PrinterEntity");
             result = result.Replace(nameof(ScaleEntity), "ScaleEntity");

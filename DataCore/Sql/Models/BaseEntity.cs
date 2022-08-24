@@ -35,7 +35,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	private BaseEntity()
+	public BaseEntity()
 	{
 		Init();
     }
@@ -44,7 +44,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 	/// Constructor.
 	/// </summary>
 	/// <param name="isSetupDates"></param>
-	private BaseEntity(bool isSetupDates) : this()
+	public BaseEntity(bool isSetupDates) : this()
 	{
 		if (isSetupDates)
 	    {

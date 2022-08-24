@@ -6,25 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ORDERS_WEIGHINGS".
 /// </summary>
-public class OrderWeighingValidator : AbstractValidator<BaseEntity>
+public class OrderWeighingValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public OrderWeighingValidator()
 	{
-		RuleFor(item => item.CreateDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.ChangeDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.IdentityUid)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(Guid.Empty);
 		RuleFor(item => ((OrderWeighingEntity)item).Order)
 			.NotEmpty()
 			.NotNull()

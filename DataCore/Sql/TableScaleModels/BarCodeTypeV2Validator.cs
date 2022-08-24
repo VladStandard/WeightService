@@ -6,25 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "BARCODE_TYPES_V2".
 /// </summary>
-public class BarCodeTypeV2Validator : AbstractValidator<BaseEntity>
+public class BarCodeTypeV2Validator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public BarCodeTypeV2Validator()
 	{
-		RuleFor(item => item.CreateDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.ChangeDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.IdentityUid)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(Guid.Empty);
 		RuleFor(item => ((BarCodeTypeV2Entity)item).Name)
 			.NotEmpty()
 			.NotNull();

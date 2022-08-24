@@ -12,18 +12,8 @@ internal class AccessValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		AccessEntity item = Substitute.For<AccessEntity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.User = "";
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.User = "Test";
-		item.Rights = (byte)AccessRights.Admin + 1;
+		// Arrange & Act.
+		AccessEntity item = DataCoreUtils.CreateNewSubstitute<AccessEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -32,12 +22,8 @@ internal class AccessValidatorTests
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange.
-		AccessEntity item = Substitute.For<AccessEntity>();
+		AccessEntity item = DataCoreUtils.CreateNewSubstitute<AccessEntity>(false);
 		// Act.
-		item.CreateDt = DateTime.Now;
-		item.ChangeDt = DateTime.Now;
-		item.IdentityUid = Guid.NewGuid();
-		item.User = "Test";
 		foreach (AccessRights rights in Enum.GetValues(typeof(AccessRights)))
 		{
 			item.Rights = (byte)rights;
@@ -49,6 +35,6 @@ internal class AccessValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<AccessEntity>(0);
+		DataCoreUtils.AssertSqlDataValidate<AccessEntity>();
 	}
 }

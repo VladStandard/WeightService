@@ -7,7 +7,8 @@ public class NomenclatureLightMap : ClassMap<NomenclatureLightEntity>
 {
     public NomenclatureLightMap()
     {
-        Table("[DW].[DimNomenclatures]");
+        Schema("DW");
+        Table("DimNomenclatures");
         LazyLoad();
         Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
@@ -19,9 +20,9 @@ public class NomenclatureLightMap : ClassMap<NomenclatureLightEntity>
         Map(x => x.NameFull).CustomSqlType("NVARCHAR").Length(512).Column("NameFull").Nullable();
         Map(x => x.IsService).CustomSqlType("BIT").Column("IsService").Not.Nullable().Default("0");
         Map(x => x.IsProduct).CustomSqlType("BIT").Column("IsProduct").Not.Nullable().Default("0");
-        References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
         Map(x => x.RelevanceStatus).CustomSqlType("TINYINT").Column("RelevanceStatus").Nullable();
         Map(x => x.NormalizationStatus).CustomSqlType("TINYINT").Column("NormalizationStatus").Nullable();
         Map(x => x.MasterId).CustomSqlType("INT").Column("MasterId").Nullable();
+        References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
     }
 }

@@ -4,19 +4,19 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "PLUS_SCALES".
+/// Table validation "PLUS_LABELS".
 /// </summary>
-public class PluScaleValidator : BaseUidValidator
+public class PluLabelValidator : BaseUidValidator
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluScaleValidator()
+    public PluLabelValidator()
     {
-		RuleFor(item => ((PluScaleEntity)item).Plu)
+		RuleFor(item => ((PluLabelEntity)item).Zpl)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluScaleEntity)item).Scale)
+		RuleFor(item => ((PluLabelEntity)item).PluWeighing)
 			.NotEmpty()
 			.NotNull();
 	}

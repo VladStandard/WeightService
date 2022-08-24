@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LogValidator : AbstractValidator<BaseEntity>
+public class LogValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.

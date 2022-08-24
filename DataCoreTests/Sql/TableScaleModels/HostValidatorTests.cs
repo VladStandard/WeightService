@@ -11,17 +11,8 @@ internal class HostValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		HostEntity item = Substitute.For<HostEntity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Name = "";
-		item.Ip = "";
-		item.MacAddressValue = "";
-		item.HostName = "";
-		item.AccessDt = DateTime.Now;
+		// Arrange & Act.
+		HostEntity item = DataCoreUtils.CreateNewSubstitute<HostEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -29,30 +20,15 @@ internal class HostValidatorTests
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			HostEntity item = Substitute.For<HostEntity>();
-			HostValidator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IdentityId = -1;
-			item.Name = "Test";
-			item.Ip  = "127.0.0.1";
-			item.MacAddressValue = "001122334455";
-			item.HostName = "Test";
-			item.AccessDt = DateTime.Now;
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsTrue(result.IsValid);
-		});
+		// Arrange & Act.
+		HostEntity item = DataCoreUtils.CreateNewSubstitute<HostEntity>(true);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<HostEntity>(0);
+		DataCoreUtils.AssertSqlDataValidate<HostEntity>();
 	}
 }

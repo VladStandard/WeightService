@@ -11,10 +11,8 @@ internal class LabelValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		LabelEntity item = Substitute.For<LabelEntity>();
-		// Act.
-		item.WeithingFact = new(0, false);
+		// Arrange & Act.
+		LabelEntity item = DataCoreUtils.CreateNewSubstitute<LabelEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -22,21 +20,10 @@ internal class LabelValidatorTests
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			LabelEntity item = Substitute.For<LabelEntity>();
-			LabelValidator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IdentityId = -1;
-			item.Label = new byte[0x00];
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsTrue(result.IsValid);
-		});
+		// Arrange & Act.
+		LabelEntity item = DataCoreUtils.CreateNewSubstitute<LabelEntity>(true);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, true);
 	}
 
 	[Test]

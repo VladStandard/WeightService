@@ -6,17 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LogTypeValidator : AbstractValidator<BaseEntity>
+public class LogTypeValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public LogTypeValidator()
 	{
-		RuleFor(item => item.IdentityUid)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(Guid.Empty);
 		RuleFor(item => ((LogTypeEntity)item).Number)
 			.NotNull()
 			.GreaterThanOrEqualTo((byte)ShareEnums.LogType.None)

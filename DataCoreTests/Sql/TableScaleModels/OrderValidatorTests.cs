@@ -11,13 +11,8 @@ internal class OrderValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		OrderEntity item = Substitute.For<OrderEntity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Name = string.Empty;
+		// Arrange & Act.
+		OrderEntity item = DataCoreUtils.CreateNewSubstitute<OrderEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -25,24 +20,10 @@ internal class OrderValidatorTests
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange.
-			OrderEntity item = Substitute.For<OrderEntity>();
-			OrderValidator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IsMarked = false;
-			item.IdentityUid = Guid.NewGuid();
-			item.Name = "Test";
-			item.BoxCount = 1;
-			item.PalletCount = 1;
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
-			// Assert.
-			Assert.IsTrue(result.IsValid);
-		});
+		// Arrange & Act.
+		OrderEntity item = DataCoreUtils.CreateNewSubstitute<OrderEntity>(true);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, true);
 	}
 
 	[Test]

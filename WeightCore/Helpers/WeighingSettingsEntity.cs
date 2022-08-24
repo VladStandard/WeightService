@@ -11,8 +11,8 @@ public class WeighingSettingsEntity
 
     private byte KneadingMinValue => 1;
     private byte KneadingMaxValue => 140;
-    private byte _kneading;
-    public byte Kneading
+    private short _kneading;
+    public short Kneading
     {
         get => _kneading;
         set

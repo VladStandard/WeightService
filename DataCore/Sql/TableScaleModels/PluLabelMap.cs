@@ -4,22 +4,23 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table map "TASKS".
+/// Table map "PLUS_LABELS".
 /// </summary>
-public class TaskMap : ClassMap<TaskEntity>
+public class PluLabelMap : ClassMap<PluLabelEntity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TaskMap()
+    public PluLabelMap()
     {
         Schema("db_scales");
-        Table("TASKS");
+        Table("PLUS_LABELS");
         LazyLoad();
         Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.Enabled).CustomSqlType("BIT").Column("ENABLED").Not.Nullable().Default("0");
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.TaskType).Column("TASK_UID").Not.Nullable();
-        References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
+        Map(x => x.Zpl).CustomSqlType("NVARCHAR").Column("ZPL").Not.Nullable().Default("");
+        References(x => x.PluWeighing).Column("PLU_WEIGHING_UID").Nullable();
     }
 }

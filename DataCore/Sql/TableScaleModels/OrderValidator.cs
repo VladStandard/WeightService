@@ -6,25 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class OrderValidator : AbstractValidator<BaseEntity>
+public class OrderValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public OrderValidator()
 	{
-		RuleFor(item => item.CreateDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.ChangeDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.IdentityUid)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(Guid.Empty);
 		RuleFor(item => ((OrderEntity)item).Name)
 			.NotEmpty()
 			.NotNull()

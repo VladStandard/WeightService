@@ -6,17 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "APPS".
 /// </summary>
-public class AppValidator : AbstractValidator<BaseEntity>
+public class AppValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public AppValidator()
 	{
-		RuleFor(item => item.IdentityUid)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(Guid.Empty);
 		RuleFor(item => ((AppEntity)item).Name)
 			.NotEmpty()
 			.NotNull();

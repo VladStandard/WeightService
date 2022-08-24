@@ -11,13 +11,13 @@ public class ImageDataEntity : ICloneable
 
     public virtual string ValueAscii
     {
-        get => Value == null || Value.Length == 0 ? string.Empty : Encoding.Default.GetString(Value);
+        get => Value.Length == 0 ? string.Empty : Encoding.Default.GetString(Value);
         set => Value = Encoding.Default.GetBytes(value);
     }
 
     public virtual string ValueUnicode
     {
-        get => Value == null || Value.Length == 0 ? string.Empty : Encoding.Unicode.GetString(Value);
+        get => Value.Length == 0 ? string.Empty : Encoding.Unicode.GetString(Value);
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
@@ -30,10 +30,7 @@ public class ImageDataEntity : ICloneable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ImageDataEntity()
-    {
-        Value = new byte[0];
-    }
+    public ImageDataEntity() => Value = Array.Empty<byte>();
 
     #endregion
 
@@ -44,14 +41,14 @@ public class ImageDataEntity : ICloneable
 
     public virtual bool Equals(ImageDataEntity item)
     {
-        if (item is null) return false;
+        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return DataUtils.ByteEquals(Value, item.Value);
     }
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
+        //if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((ImageDataEntity)obj);

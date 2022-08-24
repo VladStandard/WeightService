@@ -24,7 +24,7 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
-    [XmlElement] public string PrettyGtin14
+    [XmlElement] public virtual string PrettyGtin14
     {
 	    get
 	    {
@@ -50,7 +50,7 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluEntity() : base(0, false)
+	public PluEntity() : base(Guid.Empty, false)
 	{
 		Init();
 	}
@@ -58,10 +58,10 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	/// <param name="identityId"></param>
+	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public PluEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
-    {
+	public PluEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	{
 		Init();
 	}
 

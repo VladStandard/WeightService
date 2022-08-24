@@ -18,9 +18,9 @@ public class LabelMap : ClassMap<LabelEntity>
         LazyLoad();
         Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        References(x => x.WeithingFact).Column("WeithingFactId").Not.Nullable();
         Map(x => x.Label).CustomSqlType("VARBINARY(MAX)").Column("Label").Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.Zpl).CustomSqlType("NVARCHAR(MAX)").Column("ZPL").Nullable();
+        References(x => x.WeithingFact).Column("WeithingFactId").Not.Nullable();
     }
 }

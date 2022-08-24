@@ -46,7 +46,7 @@ public class UserSessionHelper : BaseViewModel
         SqlViewModel.Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
     public PrintBrand PrintBrandShipping => SqlViewModel.Scale.PrinterShipping != null &&
         SqlViewModel.Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-    [XmlElement(IsNullable = true)] public WeighingFactDirect? WeighingFact { get; private set; }
+    [XmlElement(IsNullable = true)] public PluWeighingEntity? PluWeighing { get; private set; }
     public WeighingSettingsEntity WeighingSettings { get; private set; } = new();
     public Stopwatch StopwatchMain { get; set; } = new();
     public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
@@ -284,16 +284,16 @@ public class UserSessionHelper : BaseViewModel
         bool isCheck = false;
         if (PluScale?.Plu.NominalWeight > 0)
         {
-            if (WeighingFact?.NetWeight >= PluScale.Plu.LowerThreshold && WeighingFact?.NetWeight <= PluScale.Plu.UpperThreshold)
+            if (PluWeighing?.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing?.NettoWeight <= PluScale.Plu.UpperThreshold)
                 isCheck = true;
         }
         else
             isCheck = true;
         if (!isCheck)
         {
-            if (WeighingFact != null)
+            if (PluWeighing != null)
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    WeighingFact.NetWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold, 
+                    PluWeighing.NettoWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold, 
                     PluScale == null ? 0 : PluScale.Plu.NominalWeight, 
                     PluScale == null ? 0 : PluScale.Plu.LowerThreshold),
                     true, LogType.Warning,
@@ -334,7 +334,7 @@ public class UserSessionHelper : BaseViewModel
                     break;
             }
         }
-        WeighingFact = null;
+        PluWeighing = null;
         SetNewScaleCounter();
     }
 
@@ -344,19 +344,19 @@ public class UserSessionHelper : BaseViewModel
         DataAccess.Crud.UpdateEntity(SqlViewModel.Scale);
     }
 
-    /// <summary>
-    /// Сохранить ZPL-запрос в таблицу [Labels].
-    /// </summary>
-    /// <param name="printCmd"></param>
-    /// <param name="weithingFactId"></param>
-    private void PrintSaveLabel(string printCmd, long weithingFactId)
+	/// <summary>
+	/// Save item.
+	/// </summary>
+	/// <param name="printCmd"></param>
+	/// <param name="pluWeighing"></param>
+	private void PrintSaveLabel(string printCmd, PluWeighingEntity pluWeighing)
     {
-        ZplLabelDirect zplLabel = new()
+        PluLabelEntity pluLabel = new()
         {
-            WeighingFactId = weithingFactId,
+			PluWeighing = pluWeighing,
             Zpl = printCmd,
         };
-        zplLabel.SaveZpl();
+        DataAccess.Crud.SaveEntity(pluLabel);
     }
 
     /// <summary>
@@ -364,18 +364,18 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(TemplateDirect template, bool isClearBuffer)
+    private void PrintLabelCount(TemplateEntity template, bool isClearBuffer)
     {
         //// Указан номинальный вес.
         //bool isCheck = false;
         //if (CurrentPlu.NominalWeight > 0)
         //{
         //    if (Manager?.Massa != null)
-        //        CurrentWeighingFact.NetWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+        //        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
         //    else
-        //        CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
-        //    if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
-        //        CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
+        //        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsTareWeight;
+        //    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
+        //        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
         //    {
         //        isCheck = true;
         //    }
@@ -389,7 +389,7 @@ public class UserSessionHelper : BaseViewModel
         //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
         //    wpfPageLoader.MessageBox.Message =
         //        LocaleCore.Scales.WeightingControl + Environment.NewLine +
-        //        $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
+        //        $"Вес нетто: {CurrentWeighingFact.NettoWeight} кг" + Environment.NewLine +
         //        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
         //        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
         //        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
@@ -407,11 +407,12 @@ public class UserSessionHelper : BaseViewModel
         //}
 
         // Шаблон с указанием кол-ва и не весовой продукт.
-        if (template.XslContent.Contains("^PQ1") && !IsPluCheckWeight)
+        if (template.ImageData.ValueUnicode.Contains("^PQ1") && !IsPluCheckWeight)
         {
             // Изменить кол-во этикеток.
             if (WeighingSettings.LabelsCountMain > 1)
-                template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
+                template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
+	                "^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
             // Печать этикетки.
             PrintLabelCore(template, isClearBuffer);
         }
@@ -431,12 +432,17 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     public void SetWeighingFact()
     {
-        if (IsPluCheckWeight)
-            WeighingFact = new(SqlViewModel.Scale, PluScale, SqlViewModel.ProductDate, WeighingSettings.Kneading,
-                PluScale.Scale.ScaleFactor, ManagerControl.Massa.WeightNet - PluScale.GoodsTareWeight, PluScale.GoodsTareWeight);
-        else
-            WeighingFact = new(SqlViewModel.Scale, PluScale, SqlViewModel.ProductDate, WeighingSettings.Kneading,
-                PluScale.Scale.ScaleFactor, PluScale.NominalWeight, PluScale.GoodsTareWeight);
+	    if (PluScale == null)
+		    return;
+	    
+	    PluWeighing = new();
+		PluWeighing.PluScale = PluScale;
+        PluWeighing.PluScale.Scale = SqlViewModel.Scale;
+        PluWeighing.PluScale.Scale.ScaleFactor = PluScale.Scale.ScaleFactor;
+		PluWeighing.ProdDt = SqlViewModel.ProductDate;
+	    PluWeighing.Kneading = WeighingSettings.Kneading;
+	    PluWeighing.NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight;
+	    PluWeighing.TareWeight = PluScale.Plu.TareWeight;
     }
 
     /// <summary>
@@ -448,24 +454,24 @@ public class UserSessionHelper : BaseViewModel
     {
         try
         {
-            if (WeighingFact == null)
+            if (PluWeighing == null)
                 return;
 
-            WeighingFact.Save();
-
-            string xmlWeighingFact = WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
+            DataAccess.Crud.SaveEntity(PluWeighing);
+            
+            string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingEntity>(true);
             string xmlArea = string.Empty;
             if (SqlViewModel.Area != null)
 	            xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityEntity>(true);
             xmlWeighingFact = Zpl.ZplUtils.XmlCompatibleReplace(xmlWeighingFact);
 			string xml = Zpl.ZplUtils.MergeXml(xmlWeighingFact, xmlArea);
 			// XSLT transform.
-            string printCmd = Zpl.ZplUtils.XsltTransformation(template.XslContent, xml);
+            string printCmd = Zpl.ZplUtils.XsltTransformation(template.ImageData.ValueUnicode, xml);
             printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
             // Replace ZPL resources.
 			printCmd = Zpl.ZplUtils.PrintCmdReplaceZplResources(printCmd);
             // DB save ZPL query to Labels.
-            PrintSaveLabel(printCmd, WeighingFact.Id);
+            PrintSaveLabel(printCmd, PluWeighing);
             //if (ManagerControl == null || ManagerControl.PrintMain == null)
             //    return;
 

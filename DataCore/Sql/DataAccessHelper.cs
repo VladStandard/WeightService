@@ -267,8 +267,8 @@ public class DataAccessHelper
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeV2Map>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMapV2>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
@@ -278,20 +278,22 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluObsoleteMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluObsoleteMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WeithingFactMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
     }

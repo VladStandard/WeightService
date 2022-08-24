@@ -4,27 +4,15 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "Hosts".
+/// Table validation "LABELS".
 /// </summary>
-public class LabelValidator : AbstractValidator<BaseEntity>
+public class LabelValidator : BaseIdValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public LabelValidator()
 	{
-		RuleFor(item => item.CreateDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		//RuleFor(item => ((LabelEntity)item).ChangeDt)
-		//	.NotEmpty()
-		//	.NotNull()
-		//	.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.IdentityId)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(0);
 		RuleFor(item => ((LabelEntity)item).WeithingFact)
 			.NotEmpty()
 			.NotNull();

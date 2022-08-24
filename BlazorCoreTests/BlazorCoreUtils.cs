@@ -12,8 +12,7 @@ public static class BlazorCoreUtils
 {
 	#region Public and private methods
 
-	private static IValidator<TEntity> GetStyleValidator<TEntity>() 
-		where TEntity : IBaseStyleModel, new()
+	private static IValidator<TEntity> GetStyleValidator<TEntity>() where TEntity : IBaseStyleModel, new()
 	{
 		if (typeof(TEntity) == typeof(TableHeadStyleModel))
 		{
@@ -26,13 +25,12 @@ public static class BlazorCoreUtils
 		throw new NotImplementedException();
 	}
 
-	public static void AssertStyleValidate<TEntity>(TEntity item, bool assertResult) 
-		where TEntity : IBaseStyleModel, new()
+	public static void AssertStyleValidate<TEntity>(TEntity item, bool assertResult) where TEntity : IBaseStyleModel, new()
 	{
 		// Arrange.
 		IValidator<TEntity> validator = GetStyleValidator<TEntity>();
 		// Act & Assert.
-		DataCoreUtils.AssertValidate(item, validator, assertResult);
+		DataCoreUtils.AssertValidate<TEntity>(item, validator, assertResult);
 	}
 
 	#endregion

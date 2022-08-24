@@ -20,12 +20,6 @@ public class ScaleMap : ClassMap<ScaleEntity>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-        References(x => x.TemplateDefault).Column("TemplateIdDefault").Nullable();
-        References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
-        References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
-        References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
-        References(x => x.Host).Column("HostId").Nullable();
-        References(x => x.WorkShop).Column("WorkShopId").Nullable();
         Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150);
         Map(x => x.DeviceIp).CustomSqlType("VARCHAR").Column("DeviceIP").Length(15);
         Map(x => x.DevicePort).CustomSqlType("SMALLINT").Column("DevicePort");
@@ -42,5 +36,11 @@ public class ScaleMap : ClassMap<ScaleEntity>
         Map(x => x.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
         Map(x => x.ShippingLength).CustomSqlType("INT").Column("SHIPPING_LEN").Not.Nullable().Default("0");
         Map(x => x.IsKneading).CustomSqlType("BIT").Column("IS_KNEADING").Not.Nullable().Default("0");
+        References(x => x.TemplateDefault).Column("TemplateIdDefault").Nullable();
+        References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
+        References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
+        References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
+        References(x => x.Host).Column("HostId").Nullable();
+        References(x => x.WorkShop).Column("WorkShopId").Nullable();
     }
 }

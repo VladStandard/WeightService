@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS".
 /// </summary>
-public class PluValidator : AbstractValidator<BaseEntity>
+public class PluValidator : BaseUidValidator
 {
     /// <summary>
     /// Constructor.

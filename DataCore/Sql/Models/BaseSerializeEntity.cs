@@ -155,7 +155,7 @@ public class BaseSerializeEntity : ISerializable
         //info.AddValue(nameof(SqlConnect), SqlConnect);
     }
 
-	public T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
+	public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
 	{
 		Type type = typeof(T);
 		T result = (T)Activator.CreateInstance(type);
@@ -166,7 +166,7 @@ public class BaseSerializeEntity : ISerializable
 		return result;
 	}
 
-    public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : new()
+    public virtual IDictionary<string, object> ObjectToDictionary<T>(T item) where T : new()
     {
 	    IDictionary<string, object> result = new Dictionary<string, object>();
         if (item is null)
@@ -182,7 +182,7 @@ public class BaseSerializeEntity : ISerializable
 	    return result;
     }
 
-    public XDocument GetBtXmlNamedSubString<T>(T item, XName name, object value) where T : new()
+    public virtual XDocument GetBtXmlNamedSubString<T>(T item, XName name, object value) where T : new()
     {
 	    IDictionary<string, object> dict = ObjectToDictionary(item);
 	    XDocument result = new(

@@ -11,13 +11,8 @@ internal class ContragentV2ValidatorTests
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
-		// Arrange.
-		ContragentV2Entity item = Substitute.For<ContragentV2Entity>();
-		// Act.
-		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
-		// Act.
-		item.Name = "";
+		// Arrange & Act.
+		ContragentV2Entity item = DataCoreUtils.CreateNewSubstitute<ContragentV2Entity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -27,18 +22,10 @@ internal class ContragentV2ValidatorTests
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			// Arrange.
-			ContragentV2Entity item = Substitute.For<ContragentV2Entity>();
-			ContragentV2Validator validator = new();
-			// Act.
-			item.CreateDt = DateTime.Now;
-			item.ChangeDt = DateTime.Now;
-			item.IdentityUid = Guid.NewGuid();
-			item.Name = "Test";
-			ValidationResult result = validator.Validate(item);
-			DataCoreUtils.FailureWriteLine(result);
+			// Arrange & Act.
+			ContragentV2Entity item = DataCoreUtils.CreateNewSubstitute<ContragentV2Entity>(true);
 			// Assert.
-			Assert.IsTrue(result.IsValid);
+			DataCoreUtils.AssertSqlValidate(item, true);
 		});
 	}
 

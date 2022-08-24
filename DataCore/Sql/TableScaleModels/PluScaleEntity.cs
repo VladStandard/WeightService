@@ -26,7 +26,7 @@ public class PluScaleEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluScaleEntity() : base(0, false)
+	public PluScaleEntity() : base(Guid.Empty, false)
 	{
 		Init();
 	}
@@ -34,10 +34,10 @@ public class PluScaleEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	/// <param name="identityId"></param>
+	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public PluScaleEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
-    {
+	public PluScaleEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	{
 		Init();
 	}
 

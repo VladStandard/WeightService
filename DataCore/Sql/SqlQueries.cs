@@ -6,36 +6,38 @@ namespace DataCore.Sql;
 public static class SqlQueries
 {
 	public static string GetTopRecords(int topRecords) =>
-	    topRecords == 0 ? string.Empty : $"TOP {topRecords}";
+		topRecords == 0 ? string.Empty : $"TOP {topRecords}";
 
 	public static string GetWhereIsMarked(bool isShowMarkedItems, string alias) =>
-	    isShowMarkedItems ? string.Empty : $"WHERE {alias}.[IS_MARKED] = 0";
+		isShowMarkedItems ? string.Empty : $"WHERE {alias}.[IS_MARKED] = 0";
 
-	public static string GetWhereIsMarkedAndNumber(bool isShowMarkedItems, string aliasLog, string aliasLogType, Guid logTypeUid)
+	public static string GetWhereIsMarkedAndNumber(bool isShowMarkedItems, string aliasLog, string aliasLogType,
+		Guid logTypeUid)
 	{
-	    if (isShowMarkedItems)
-	    {
-	        if (logTypeUid != Guid.Empty)
-	            return $"WHERE {aliasLogType}.[UID] = '{logTypeUid}'";
-	    }
-	    else
-	    {
-	        if (logTypeUid != Guid.Empty)
-	            return $"WHERE {aliasLog}.[IS_MARKED] = 0 AND {aliasLogType}.[UID] = '{logTypeUid}'";
-	        return $"WHERE {aliasLog}.[IS_MARKED] = 0";
-	    }
-	    return string.Empty;
+		if (isShowMarkedItems)
+		{
+			if (logTypeUid != Guid.Empty)
+				return $"WHERE {aliasLogType}.[UID] = '{logTypeUid}'";
+		}
+		else
+		{
+			if (logTypeUid != Guid.Empty)
+				return $"WHERE {aliasLog}.[IS_MARKED] = 0 AND {aliasLogType}.[UID] = '{logTypeUid}'";
+			return $"WHERE {aliasLog}.[IS_MARKED] = 0";
+		}
+
+		return string.Empty;
 	}
 
 	public static class DbSystem
 	{
-	    public static class Properties
-	    {
-	        public static string GetInstance => @"
+		public static class Properties
+		{
+			public static string GetInstance => @"
 SELECT SERVERPROPERTY('INSTANCENAME') [INSTANCENAME]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	        public static string GetDbSpace => @"
+			public static string GetDbSpace => @"
 SELECT
 	[NAME] [DB_NAME]
 	,[SIZE] [DB_SIZE]
@@ -44,16 +46,16 @@ SELECT
 	,[MAX_SIZE] * 8 / 1024 [MAX_SIZE_MB]
 FROM [SYS].[DATABASE_FILES]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	    }
+		}
 	}
 
 	public static class DbServiceManaging
 	{
-	    public static class Tables
-	    {
-	        public static class Access
-	        {
-	            public static string GetAccessRightsAll => @"
+		public static class Tables
+		{
+			public static class Access
+			{
+				public static string GetAccessRightsAll => @"
 -- Table Access
 SELECT
 	[UID]
@@ -66,7 +68,7 @@ FROM [DB_SCALES].[ACCESS]
 ORDER BY [USER] ASC
 	".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetAccessRights(string userName) => @$"
+				public static string GetAccessRights(string userName) => @$"
 -- Table Access
 SELECT
 	[UID]
@@ -78,11 +80,11 @@ SELECT
 FROM [DB_SCALES].[ACCESS]
 WHERE [USER] = N'{userName}'
 	".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class Apps
-	        {
-	            public static string AddApp => @"
+			public static class Apps
+			{
+				public static string AddApp => @"
 if not exists (select 1 from [db_scales].[APPS] where [NAME] = @app) begin
 	insert into [db_scales].[APPS]([NAME]) values(@app)
 end
@@ -90,11 +92,11 @@ select [UID]
 from [db_scales].[APPS]
 where [NAME] = @app
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class Errors
-	        {
-	            public static string GetErrors(int topRecords) => $@"
+			public static class Errors
+			{
+				public static string GetErrors(int topRecords) => $@"
 SELECT {GetTopRecords(topRecords)}
 	[Id]
 	,[CreatedDate]
@@ -107,22 +109,22 @@ SELECT {GetTopRecords(topRecords)}
 FROM [db_scales].[Errors]
 ORDER BY [CreatedDate] DESC
 	".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class Logs
-	        {
-	            public static string AddLog => @"
+			public static class Logs
+			{
+				public static string AddLog => @"
 declare @log_type_uid uniqueidentifier = (select [UID] from [db_scales].[LOG_TYPES] where [NUMBER] = @logNumber)
 insert into [db_scales].[LOGS]([HOST_ID],[APP_UID],[VERSION],[FILE],[LINE],[MEMBER],[LOG_TYPE_UID],[MESSAGE]) 
 values (@hostId,@appUid,@version,@file,@line,@member,@log_type_uid,@message)
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string AddLogType => @"
+				public static string AddLogType => @"
 insert into [db_scales].[LOG_TYPES]([NUMBER],[ICON]) 
 values (@number,@icon)
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetLogTypes => @"
+				public static string GetLogTypes => @"
 -- Table LOG_TYPES
 select 
 	[UID]
@@ -132,7 +134,7 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
+				public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
 -- Table LOGS diagram summary
 select {GetTopRecords(topRecords)}
 	[l].[UID]
@@ -155,17 +157,17 @@ left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
 {GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
 order by [l].[CREATE_DT] desc
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
-	    }
+			}
+		}
 	}
 
 	public static class DbScales
 	{
-	    public static class Tables
-	    {
-	        public static class Contragents
-	        {
-	            public static string GetAllItems => @"
+		public static class Tables
+		{
+			public static class Contragents
+			{
+				public static string GetAllItems => @"
 SELECT
 	[UID]
 	,[DWH_ID]
@@ -178,7 +180,8 @@ SELECT
 	,[XML]
 FROM [DB_SCALES].[CONTRAGENTS_V2]
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	            public static string GetItemByUid => @"
+
+				public static string GetItemByUid => @"
 SELECT
 	[UID]
 	,[DWH_ID]
@@ -192,28 +195,29 @@ SELECT
 FROM [DB_SCALES].[CONTRAGENTS_V2]
 WHERE [UID] = @UID
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class BarCodeTypes
-	        {
-	            public static string GetAllItems => @"
+			public static class BarCodeTypes
+			{
+				public static string GetAllItems => @"
 SELECT
 	[ID]
 	,[NAME]
 FROM [DB_SCALES].[BarCodeTypes]
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	            public static string GetItemById => @"
+
+				public static string GetItemById => @"
 SELECT
 	[ID]
 	,[NAME]
 FROM [DB_SCALES].[BarCodeTypes]
 WHERE [Id] = @ID
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class Hosts
-	        {
-	            public static string GetBusyHosts => @"
+			public static class Hosts
+			{
+				public static string GetBusyHosts => @"
 ------------------------------------------------------------------------------------------------------------------------
 -- Table Select Hosts Get Busy
 ------------------------------------------------------------------------------------------------------------------------
@@ -237,7 +241,7 @@ ORDER BY [H].[Name]
 ------------------------------------------------------------------------------------------------------------------------
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetFreeHosts => @"
+				public static string GetFreeHosts => @"
 ------------------------------------------------------------------------------------------------------------------------
 -- Table Select Hosts Get Free
 ------------------------------------------------------------------------------------------------------------------------
@@ -258,19 +262,19 @@ ORDER BY [H].[NAME]
 ------------------------------------------------------------------------------------------------------------------------
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetHostId => @"
+				public static string GetHostId => @"
 SELECT [ID]
 FROM [DB_SCALES].[HOSTS] 
 where [Name] = @host and [IdRRef] = @idrref
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetHostIdByIdRRef => @"
+				public static string GetHostIdByIdRRef => @"
 SELECT [ID]
 FROM [DB_SCALES].[HOSTS] 
 where [IdRRef] = @idrref
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetHostByUid => @"
+				public static string GetHostByUid => @"
 select
 	[H].[ID]
 	,[H].[NAME]
@@ -287,7 +291,7 @@ left join [db_scales].[SCALES] [SCALES] on [H].[ID] = [SCALES].[HOSTID]
 where [H].[MARKED] = 0 and [H].[IDRREF] = @idrref
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetHostByHostName => @"
+				public static string GetHostByHostName => @"
 SELECT
 	[H].[ID]
 	,[H].[NAME]
@@ -315,8 +319,8 @@ VALUES(@uid, @name, @mac, @ip, @doc)
 				public static string GetCount => @"
 SELECT COUNT(*) [COUNT] FROM DB_SCALES.PLU WHERE [SCALEID] = @SCALE_ID AND [Active] = 1
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-				
-	            public static string GetItem => @"
+
+				public static string GetItem => @"
 select
 	[Id]
 	,[GoodsName]
@@ -337,8 +341,8 @@ select
 	,[CheckWeight]
 from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-				
-	            public static string GetItems => @"
+
+				public static string GetItems => @"
 select
 	 [Id]
 	,[GoodsName]
@@ -363,18 +367,18 @@ order by [PLU]
 			}
 
 			public static class Labels
-	        {
-	            public static string Save => @"
-INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])
-VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL))
-					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+			{
+//	            public static string Save => @"
+//INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])
+//VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL))
+//					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string SaveZpl => @"
-INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
-VALUES (@ID, @ZPL)
-					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+//	            public static string SaveZpl => @"
+//INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
+//VALUES (@ID, @ZPL)
+//					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetLabels(int topRecords) => @$"
+				public static string GetLabels(int topRecords) => @$"
 -- Table Select Labels
 SELECT {GetTopRecords(topRecords)}
 	[L].[ID]
@@ -401,11 +405,11 @@ LEFT JOIN [DB_SCALES].[PLU] [PLU] ON [WF].[SCALEID] = [PLU].[SCALEID] AND [WF].[
 LEFT JOIN [DB_SCALES].[TEMPLATES] [T] ON [PLU].[TEMPLATEID] = [T].[ID]
 ORDER BY [CREATEDATE] DESC
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class ProductionFacility
-	        {
-	            public static string GetItems => @"
+			public static class ProductionFacility
+			{
+				public static string GetItems => @"
 SELECT 
 	 [Id]
 	,[Marked]
@@ -416,24 +420,24 @@ FROM [db_scales].[ProductionFacility]
 ORDER BY [Name];
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	        }
+			}
 
-	        public static class Scales
-	        {
-	            public static string GetScaleId => @"
+			public static class Scales
+			{
+				public static string GetScaleId => @"
 select [ID]
 from [db_scales].[SCALES]
 where [DESCRIPTION] = @SCALE_DESCRIPTION
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetScaleDescription => @"
+				public static string GetScaleDescription => @"
 SELECT
 	[DESCRIPTION]
 FROM [db_scales].[Scales]
 WHERE [id] = @scale_id
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetScaleById => @"
+				public static string GetScaleById => @"
 select
 	[s].[Id]
 	,[s].[CreateDate]
@@ -462,7 +466,7 @@ left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [s].[LOG_TYPE_UID]
 where [Id] = @id
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string UpdateScale => @"
+				public static string UpdateScale => @"
 EXECUTE [db_scales].[UpdateScale]
 @ID,
 @Description,
@@ -477,7 +481,7 @@ EXECUTE [db_scales].[UpdateScale]
 @ScaleFactor;
 		".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string UpdateScaleDirect => @"
+				public static string UpdateScaleDirect => @"
 UPDATE [db_scales].[SCALES]
 	SET [Description] = @Description
 	--,[DeviceIP] = @IP
@@ -493,24 +497,24 @@ UPDATE [db_scales].[SCALES]
 WHERE [Id] = @ID
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string QueryFindGuid => @"
+				public static string QueryFindGuid => @"
 IF EXISTS (SELECT 1 FROM [DB_SCALES].[SCALES] WHERE [DB_SCALES].[SCALES].[1CRREFID] = @GUID)
 	SELECT 'TRUE' [RESULT]
 ELSE
 	SELECT 'FALSE' [RESULT]
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class Tasks
-	        {
-	            public static string GetTaskUid => @"
+			public static class Tasks
+			{
+				public static string GetTaskUid => @"
 select [tasks].[UID]
 from [db_scales].[TASKS] [tasks]
 left join [db_scales].[TASKS_TYPES] [types] on [types].[UID] = [tasks].[TASK_UID]
 where [types].[NAME] = @task_type
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetTasks => @"
+				public static string GetTasks => @"
 select
 	[tasks].[UID] [TASK_UID]
 	,[scales].[ID] [SCALE_ID]
@@ -524,7 +528,7 @@ left join [db_scales].[SCALES] [scales] on [scales].[ID] = [tasks].[SCALE_ID]
 order by [SCALE], [TASK]
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetTaskByTypeAndScale => @"
+				public static string GetTaskByTypeAndScale => @"
 select
 	[tasks].[UID] [TASK_UID]
 	,[scales].[ID] [SCALE_ID]
@@ -539,7 +543,7 @@ where [types].[UID] = @task_type_uid and [scales].[Id] = @scale_id
 order by [SCALE], [TASK]
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetTaskByUid => @"
+				public static string GetTaskByUid => @"
 select
 	[tasks].[UID] [TASK_UID]
 	,[scales].[ID] [SCALE_ID]
@@ -554,7 +558,7 @@ where [tasks].[UID] = @task_uid
 order by [SCALE], [TASK]
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string InsertOrUpdateTask => @"
+				public static string InsertOrUpdateTask => @"
 if exists(select 1 from [db_scales].[TASKS] where [UID] = @uid) begin
 update [db_scales].[TASKS] set [ENABLED] = @enabled where [UID] = @uid
 end else begin
@@ -563,25 +567,25 @@ values(@task_type_uid,@scale_id,@enabled)
 end
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string InsertTask => @"
+				public static string InsertTask => @"
 insert into [db_scales].[TASKS]([TASK_UID],[SCALE_ID],[ENABLED])
 values(@task_type_uid,@scale_id,@enabled)
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string UpdateTask => @"
+				public static string UpdateTask => @"
 update [db_scales].[TASKS] set [ENABLED] = @enabled where [UID] = @uid
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class TaskTypes
-	        {
-	            public static string GetTaskTypeUid => @"
+			public static class TaskTypes
+			{
+				public static string GetTaskTypeUid => @"
 SELECT [UID]
 FROM [DB_SCALES].[TASKS_TYPES] 
 WHERE [NAME] = @task_type
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetTasksTypes => @"
+				public static string GetTasksTypes => @"
 SELECT
 	[UID]
 	,[NAME]
@@ -589,7 +593,7 @@ FROM [DB_SCALES].[TASKS_TYPES]
 ORDER BY [NAME]
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetTasksTypesByName => @"
+				public static string GetTasksTypesByName => @"
 SELECT
 	[UID]
 	,[NAME]
@@ -597,7 +601,7 @@ FROM [DB_SCALES].[TASKS_TYPES]
 WHERE [NAME] = @task_name
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string GetTasksTypesByUid => @"
+				public static string GetTasksTypesByUid => @"
 select
 	[UID]
 	,[NAME]
@@ -605,15 +609,15 @@ from [db_scales].[TASKS_TYPES]
 where [UID] = @task_uid
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string AddTaskType => @"
+				public static string AddTaskType => @"
 insert into [db_scales].[TASKS_TYPES]([NAME])
 values(@name)
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
 			public static class Templates
 			{
-	            public static string GetItem => @"
+				public static string GetItem => @"
 SELECT 
 	[CATEGORYID]
 	,[TITLE]
@@ -621,8 +625,8 @@ SELECT
 FROM [DB_SCALES].[TEMPLATES]
 WHERE [ID] = @ID
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	            
-	            public static string GetItemByTitle => @"
+
+				public static string GetItemByTitle => @"
 SELECT 
 	[ID]
 	,[CATEGORYID]
@@ -630,11 +634,11 @@ SELECT
 FROM [DB_SCALES].[TEMPLATES]
 WHERE [TITLE] = @TITLE
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class WeithingFacts
-	        {
-	            public static string GetWeithingFacts(int topRecords) => @$"
+			public static class WeithingFacts
+			{
+				public static string GetWeithingFacts(int topRecords) => @$"
 -- Table WeithingFact diagram summary
 SELECT {GetTopRecords(topRecords)}
 	cast([wf].[WeithingDate] as date) [WeithingDate]
@@ -650,7 +654,7 @@ group by cast([WeithingDate] as date), [s].[Description], [h].[Name], [p].[Name]
 order by [WeithingDate] desc
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	            public static string Save => @"
+				public static string Save => @"
 DECLARE @SSCC varchar(50);
 DECLARE @WeithingDate datetime;
 DECLARE @xmldata xml;
@@ -658,11 +662,11 @@ DECLARE @ID int;
 EXECUTE [db_scales].[SetWeithingFact] @ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@Kneading,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT,@ID OUTPUT;
 SELECT  @SSCC, @WeithingDate, convert(varchar(max), @xmldata) xmldata, @ID;
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
+			}
 
-	        public static class ZebraPrinter
-	        {
-	            public static string GetAllItems => @"
+			public static class ZebraPrinter
+			{
+				public static string GetAllItems => @"
 SELECT [ZP].[Id]
 	,[ZP].[Name]
 	,[ZP].[IP]
@@ -678,16 +682,17 @@ SELECT [ZP].[Id]
 FROM [db_scales].[ZebraPrinter] [ZP]
 ORDER BY [ZP].[Name]
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	            public static string GetItemByUid => @"
+
+				public static string GetItemByUid => @"
 
 			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        }
-	    }
+			}
+		}
 
-	    public static class Functions
-	    {
-	        [Obsolete(@"Use GetCurrentProductSeriesV2")]
-	        public static string GetCurrentProductSeries => @"
+		public static class Functions
+		{
+			[Obsolete(@"Use GetCurrentProductSeriesV2")]
+			public static string GetCurrentProductSeries => @"
 DECLARE @SSCC VARCHAR(50)
 DECLARE @WeithingDate DATETIME
 DECLARE @XML XML
@@ -696,7 +701,7 @@ SELECT [Id], [CreateDate], [UUID], [SSCC], [CountUnit], [TotalNetWeight], [Total
 FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	        public static string GetCurrentProductSeriesV2 => @"
+			public static string GetCurrentProductSeriesV2 => @"
 DECLARE @SSCC VARCHAR(50)
 DECLARE @WeithingDate DATETIME
 DECLARE @XML XML
@@ -707,13 +712,14 @@ SELECT [ID], [CREATE_DT], [UUID], [SSCC], [COUNT_UNIT],[TOTAL_NET_WEIGHT], [TOTA
 FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-	    public static class StoredProcedures
-	    {
-	        public static string GetBarCode => @"
+			public static class StoredProcedures
+			{
+				public static string GetBarCode => @"
 SELECT * FROM
 [db_scales].[GetBarCode] (@BarCodeTypeId,@NomenclatureId,@NomenclatureUnitId,@ContragentId)
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	        public static string SetBarCode => @"
+
+				public static string SetBarCode => @"
 DECLARE @ID int
 EXECUTE [db_scales].[SetBarCode]
 @BarCodeTypeId
@@ -725,6 +731,7 @@ EXECUTE [db_scales].[SetBarCode]
 ,@ID OUTPUT
 SELECT @ID as ID
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	    }
+			}
+		}
 	}
 }

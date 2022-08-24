@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class NomenclatureValidator : AbstractValidator<BaseEntity>
+public class NomenclatureValidator : BaseIdValidator
 {
 	/// <summary>
 	/// Constructor.
@@ -21,10 +21,6 @@ public class NomenclatureValidator : AbstractValidator<BaseEntity>
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((NomenclatureEntity)item).IdentityId)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(0);
 		RuleFor(item => ((NomenclatureEntity)item).Name)
 			.NotNull();
 		RuleFor(item => ((NomenclatureEntity)item).Xml)

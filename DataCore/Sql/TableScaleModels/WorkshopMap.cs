@@ -21,7 +21,7 @@ public class WorkshopMap : ClassMap<WorkShopEntity>
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Not.Nullable().Length(150);
-        References(x => x.ProductionFacility).Column("ProductionFacilityID").Not.Nullable();
         Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
+        References(x => x.ProductionFacility).Column("ProductionFacilityID").Not.Nullable();
     }
 }

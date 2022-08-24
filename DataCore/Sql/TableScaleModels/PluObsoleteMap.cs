@@ -20,9 +20,6 @@ public class PluObsoleteMap : ClassMap<PluObsoleteEntity>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-        References(x => x.Template).Column("TemplateID").Nullable();
-        References(x => x.Scale).Column("ScaleId").Not.Nullable();
-        References(x => x.Nomenclature).Column("NomenclatureId").Not.Nullable();
         Map(x => x.GoodsName).CustomSqlType("NVARCHAR").Column("GoodsName").Length(150).Nullable();
         Map(x => x.GoodsFullName).CustomSqlType("NVARCHAR(MAX)").Column("GoodsFullName").Nullable();
         Map(x => x.GoodsDescription).CustomSqlType("NVARCHAR(MAX)").Column("GoodsDescription").Nullable();
@@ -38,5 +35,8 @@ public class PluObsoleteMap : ClassMap<PluObsoleteEntity>
         Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NominalWeight").Nullable();
         Map(x => x.LowerWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("LowerWeightThreshold").Nullable();
         Map(x => x.IsCheckWeight).CustomSqlType("BIT").Column("CheckWeight").Not.Nullable().Default("0");
+        References(x => x.Template).Column("TemplateID").Nullable();
+        References(x => x.Scale).Column("ScaleId").Not.Nullable();
+        References(x => x.Nomenclature).Column("NomenclatureId").Not.Nullable();
     }
 }
