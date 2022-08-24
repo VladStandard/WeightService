@@ -38,7 +38,8 @@ public class UserSessionHelper : BaseViewModel
 
     private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
+    public DebugHelper Debug { get; } = DebugHelper.Instance;
+	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
     public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
     public ProductSeriesDirect ProductSeries { get; private set; } = new();
     public PrintBrand PrintBrandMain => SqlViewModel.Scale.PrinterMain != null &&
@@ -48,16 +49,15 @@ public class UserSessionHelper : BaseViewModel
     [XmlElement(IsNullable = true)] public WeighingFactDirect? WeighingFact { get; private set; }
     public WeighingSettingsEntity WeighingSettings { get; private set; } = new();
     public Stopwatch StopwatchMain { get; set; } = new();
-    public bool IsPluCheckWeight => Plu is { IsCheckWeight: true };
+    public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
 
-    private PluDirect? _plu;
-    [XmlElement]
-    public PluDirect? Plu
+    private PluScaleEntity? _pluScale;
+    [XmlElement] public PluScaleEntity? PluScale
     {
-        get => _plu;
+        get => _pluScale;
         private set
         {
-            _plu = value;
+            _pluScale = value;
             ManagerControl.PrintMain.LabelsCount = 1;
             ManagerControl.PrintShipping.LabelsCount = 1;
         }
@@ -125,12 +125,12 @@ public class UserSessionHelper : BaseViewModel
         }
     }
 
-    public void SetCurrentPlu(PluDirect plu)
+    public void SetCurrentPlu(PluScaleEntity pluScale)
     {
-        if ((Plu = plu) != null)
+        if ((PluScale = pluScale) != null)
         {
-            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(Plu.Id, Plu.PLU, Plu.GoodsName)}", 
-                SqlViewModel.Scale.Host.HostName);
+            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.IdentityId, PluScale.Plu.Number, PluScale.Plu.Name)}", 
+                SqlViewModel.Scale.Host?.HostName);
         }
     }
 
@@ -141,7 +141,7 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckPluIsEmpty(IWin32Window owner)
     {
-        if (Plu == null)
+        if (PluScale == null)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
                 true, LogType.Warning,
@@ -177,7 +177,7 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckWeightMassaIsStable(IWin32Window owner)
     {
-        if (Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
+        if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
                 true, LogType.Warning,
@@ -239,13 +239,13 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!IsPluCheckWeight)
             return true;
-        decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
+        decimal weight = ManagerControl.Massa.WeightNet - (PluScale == null ? 0 : PluScale.Plu.TareWeight);
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
                 true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
         }
         return true;
@@ -260,13 +260,13 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!IsPluCheckWeight)
             return true;
-        decimal weight = ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight;
+        decimal weight = ManagerControl.Massa.WeightNet - (PluScale == null ? 0 : PluScale.Plu.TareWeight);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
                 true, LogType.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return result == DialogResult.Cancel;
         }
         return true;
@@ -282,21 +282,23 @@ public class UserSessionHelper : BaseViewModel
         if (!IsPluCheckWeight)
             return true;
         bool isCheck = false;
-        if (Plu.NominalWeight > 0)
+        if (PluScale?.Plu.NominalWeight > 0)
         {
-            if (WeighingFact.NetWeight >= Plu.LowerWeightThreshold && WeighingFact.NetWeight <= Plu.UpperWeightThreshold)
+            if (WeighingFact?.NetWeight >= PluScale.Plu.LowerThreshold && WeighingFact?.NetWeight <= PluScale.Plu.UpperThreshold)
                 isCheck = true;
         }
         else
             isCheck = true;
         if (!isCheck)
         {
-            if (!WeighingFact.IsDefault())
+            if (WeighingFact != null)
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    WeighingFact.NetWeight, Plu.UpperWeightThreshold, Plu.NominalWeight, Plu.LowerWeightThreshold),
+                    WeighingFact.NetWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold, 
+                    PluScale == null ? 0 : PluScale.Plu.NominalWeight, 
+                    PluScale == null ? 0 : PluScale.Plu.LowerThreshold),
                     true, LogType.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible },
-                    SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                    SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
         }
         return true;
@@ -304,19 +306,23 @@ public class UserSessionHelper : BaseViewModel
 
     public void PrintLabel(bool isClearBuffer)
     {
-        TemplateDirect? template = null;
+        TemplateEntity? template = null;
         if (SqlViewModel.Scale is { IsOrder: true })
         {
-            template = SqlViewModel.Order.Template;
-            SqlViewModel.Order.FactBoxCount = SqlViewModel.Order.FactBoxCount >= 100 ? 1 : SqlViewModel.Order.FactBoxCount + 1;
+	        throw new Exception("Order under construct!");
+            //template = SqlViewModel.Order.Template;
+            //SqlViewModel.Order.FactBoxCount = SqlViewModel.Order.FactBoxCount >= 100 ? 1 : SqlViewModel.Order.FactBoxCount + 1;
         }
         else if (SqlViewModel.Scale.IsOrder != true)
         {
-            template = Plu?.LoadTemplate();
+            //template = PluScale?.LoadTemplate();
+            if (PluScale != null)
+				template = DataAccess.Crud.GetEntity<TemplateEntity>(
+					new(new() { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId) }));
         }
 
-        // Template exist.
-        if (template != null)
+		// Template exist.
+		if (template != null)
         {
             switch (IsPluCheckWeight)
             {
@@ -357,6 +363,7 @@ public class UserSessionHelper : BaseViewModel
     /// Count label printing.
     /// </summary>
     /// <param name="template"></param>
+    /// <param name="isClearBuffer"></param>
     private void PrintLabelCount(TemplateDirect template, bool isClearBuffer)
     {
         //// Указан номинальный вес.
@@ -425,11 +432,11 @@ public class UserSessionHelper : BaseViewModel
     public void SetWeighingFact()
     {
         if (IsPluCheckWeight)
-            WeighingFact = new(SqlViewModel.Scale, Plu, SqlViewModel.ProductDate, WeighingSettings.Kneading,
-                Plu.Scale.ScaleFactor, ManagerControl.Massa.WeightNet - Plu.GoodsTareWeight, Plu.GoodsTareWeight);
+            WeighingFact = new(SqlViewModel.Scale, PluScale, SqlViewModel.ProductDate, WeighingSettings.Kneading,
+                PluScale.Scale.ScaleFactor, ManagerControl.Massa.WeightNet - PluScale.GoodsTareWeight, PluScale.GoodsTareWeight);
         else
-            WeighingFact = new(SqlViewModel.Scale, Plu, SqlViewModel.ProductDate, WeighingSettings.Kneading,
-                Plu.Scale.ScaleFactor, Plu.NominalWeight, Plu.GoodsTareWeight);
+            WeighingFact = new(SqlViewModel.Scale, PluScale, SqlViewModel.ProductDate, WeighingSettings.Kneading,
+                PluScale.Scale.ScaleFactor, PluScale.NominalWeight, PluScale.GoodsTareWeight);
     }
 
     /// <summary>
@@ -437,7 +444,7 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(TemplateDirect template, bool isClearBuffer)
+    private void PrintLabelCore(TemplateEntity template, bool isClearBuffer)
     {
         try
         {

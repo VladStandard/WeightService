@@ -21,7 +21,7 @@ public class PluScaleMap : ClassMap<PluScaleEntity>
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.IsActive).CustomSqlType("BIT").Column("IS_ACTIVE").Not.Nullable().Default("0");
-        References(x => x.Plu).Column("PLUS_UID").Not.Nullable();
+        References(x => x.Plu).Column("PLU_UID").Not.Nullable();
         References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
     }
 }

@@ -39,6 +39,7 @@ namespace WeightCore.Managers
         private Label FieldPrintMainManager { get; set; }
         private Label FieldPrintShippingManager { get; set; }
         private Label FieldMassaManager { get; set; }
+        private DebugHelper Debug { get; } = DebugHelper.Instance;
 
         #endregion
 
@@ -151,24 +152,23 @@ namespace WeightCore.Managers
 
         private void RequestPlu()
         {
-            if (UserSessionHelper.Instance.Plu == null)
+            if (UserSessionHelper.Instance.PluScale == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
             }
             else
             {
-                if (UserSessionHelper.Instance.Plu.IsCheckWeight == true)
+                if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu,
                         $"{LocaleCore.Scales.PluWeight}: " +
-                        $"{UserSessionHelper.Instance.Plu.PLU} | {UserSessionHelper.Instance.Plu.GoodsName}");
+                        $"{UserSessionHelper.Instance.PluScale.Plu.Number} | {UserSessionHelper.Instance.PluScale.Plu.Name}");
                 }
                 else
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu,
                         $"{LocaleCore.Scales.PluCount}: " +
-                        $"{UserSessionHelper.Instance.Plu.PLU} | {UserSessionHelper.Instance.Plu.GoodsName}");
-
+                        $"{UserSessionHelper.Instance.PluScale.Plu.Number} | {UserSessionHelper.Instance.PluScale.Plu.Name}");
                 }
             }
         }

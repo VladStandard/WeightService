@@ -16,7 +16,7 @@ public partial class WpfPageLoader : Form
 {
     #region Public and private fields and properties
 
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
+    public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
     private ElementHost ElementHost { get; set; }
     private PagePluList PluList { get; set; }
     private bool UseOwnerSize { get; }
@@ -69,7 +69,7 @@ public partial class WpfPageLoader : Form
         try
         {
             // Own GUI.
-            TopMost = !Debug.IsDebug;
+            TopMost = !UserSession.Debug.IsDebug;
 
             if (Owner != null)
             {

@@ -24,7 +24,21 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
-    [XmlElement] public virtual string Ean13 { get; set; }
+    [XmlElement] public string PrettyGtin14
+    {
+	    get
+	    {
+		    return Gtin.Length switch
+		    {
+			    13 => BarcodeHelper.Instance.GetGtinWithCheckDigit(Gtin[..13]),
+			    14 => Gtin,
+			    _ => "ERROR"
+		    };
+	    }
+	    // This code need for print labels.
+	    set => _ = value;
+    }
+	[XmlElement] public virtual string Ean13 { get; set; }
     [XmlElement] public virtual string Itf14 { get; set; }
     [XmlElement] public virtual decimal UpperThreshold { get; set; }
     [XmlElement] public virtual decimal NominalWeight { get; set; }

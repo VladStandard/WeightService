@@ -18,7 +18,8 @@ namespace WeightCore.Managers
 
         private Label FieldMemory { get; set; }
         private Label FieldTasks { get; set; }
-        public MemorySizeEntity MemorySize { get; private set; }
+        private MemorySizeEntity MemorySize { get; set; }
+        public DebugHelper Debug { get; } = DebugHelper.Instance;
 
         #endregion
 

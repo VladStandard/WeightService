@@ -8,7 +8,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Gui;
-using WeightCore.Helpers;
 using static DataCore.Models.IDisposableBase;
 
 namespace WeightCore.Managers
@@ -17,19 +16,18 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties - Manager
 
-        public ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
-        public DebugHelper Debug { get; } = DebugHelper.Instance;
-        public AsyncLock MutexReopen { get; private set; }
-        public AsyncLock MutexRequest { get; private set; }
-        public AsyncLock MutexResponse { get; private set; }
-        public CancellationTokenSource CtsReopen { get; set; }
-        public CancellationTokenSource CtsRequest { get; set; }
-        public CancellationTokenSource CtsResponse { get; set; }
-        public ManagerWaitConfig WaitConfig { get; set; }
-        public string ExceptionMsg { get; set; }
-        public Task TaskReopen { get; set; }
-        public Task TaskRequest { get; set; }
-        public Task TaskResponse { get; set; }
+        private ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
+        private AsyncLock MutexReopen { get; set; }
+        private AsyncLock MutexRequest { get; set; }
+        private AsyncLock MutexResponse { get; set; }
+        private CancellationTokenSource CtsReopen { get; set; }
+        private CancellationTokenSource CtsRequest { get; set; }
+        private CancellationTokenSource CtsResponse { get; set; }
+        private ManagerWaitConfig WaitConfig { get; set; }
+        private string ExceptionMsg { get; set; }
+        private Task TaskReopen { get; set; }
+        private Task TaskRequest { get; set; }
+        private Task TaskResponse { get; set; }
         private readonly object _locker = new();
 
         #endregion
@@ -446,7 +444,7 @@ namespace WeightCore.Managers
                         {
                             WaitConfig.WaitSync(WaitConfig.StopwatchResponse, WaitConfig.WaitResponse);
 
-                            if (CtsResponse ==null || CtsResponse.IsCancellationRequested)
+                            if (CtsResponse == null || CtsResponse.IsCancellationRequested)
                                 continue;
                             // It's safe to await while the lock is held
                             if (callback != null)

@@ -340,7 +340,7 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
 				
 	            public static string GetItems => @"
 select
-	[Id]
+	 [Id]
 	,[GoodsName]
 	,[GoodsFullName]
 	,[GoodsDescription]
@@ -706,15 +706,6 @@ EXECUTE [db_scales].[SP_SET_PRODUCT_SERIES_V2] @SCALE_ID, @SSCC OUTPUT, @XML OUT
 SELECT [ID], [CREATE_DT], [UUID], [SSCC], [COUNT_UNIT],[TOTAL_NET_WEIGHT], [TOTAL_TARE_WEIGHT], [IS_MARKED]
 FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-
-	        public static string GetTemplatesObjByID => @"
-SELECT
-	[CategoryID]
-	,[Title]
-	,[XslContent]
-FROM [db_scales].[GetTemplatesObjByID](@TEMPLATE_ID);
-					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-	    }
 
 	    public static class StoredProcedures
 	    {

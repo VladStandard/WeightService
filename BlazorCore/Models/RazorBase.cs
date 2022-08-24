@@ -139,8 +139,8 @@ public class RazorBase : LayoutComponentBase
                     case PrinterResourceEntity printerResource:
                         OnItemValueChangePrinterResource(filterName, value, printerResource);
                         break;
-                    case PluObsoleteEntity plu:
-                        OnItemValueChangePlu(filterName, value, plu);
+                    case PluObsoleteEntity pluObsolete:
+                        OnItemValueChangePlu(filterName, value, pluObsolete);
                         break;
                     case ScaleEntity scale:
                         OnItemValueChangeScale(filterName, value, scale);
@@ -198,21 +198,21 @@ public class RazorBase : LayoutComponentBase
         }
     }
 
-    private void OnItemValueChangePlu(string? filterName, object? value, PluObsoleteEntity plu)
+    private void OnItemValueChangePlu(string? filterName, object? value, PluObsoleteEntity pluObsolete)
     {
-        if (filterName == nameof(plu.Nomenclature) && value is long nomenclatureId)
+        if (filterName == nameof(pluObsolete.Nomenclature) && value is long nomenclatureId)
         {
-            plu.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+            pluObsolete.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, nomenclatureId) }));
         }
-        if (filterName == nameof(plu.Scale) && value is long scaleId)
+        if (filterName == nameof(pluObsolete.Scale) && value is long scaleId)
         {
-            plu.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+            pluObsolete.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, scaleId) }));
         }
-        if (filterName == nameof(plu.Template) && value is long templateId)
+        if (filterName == nameof(pluObsolete.Template) && value is long templateId)
         {
-            plu.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+            pluObsolete.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
                 new(new() { new(DbField.IdentityId, DbComparer.Equal, templateId) }));
         }
     }

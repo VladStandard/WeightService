@@ -745,53 +745,54 @@ public partial class MainForm : Form
 
     private void ActionOrder_Click(object sender, EventArgs e)
     {
-        try
-        {
-            UserSession.ManagerControl.Massa.Close();
+	    throw new("Order is under construct!");
+	    //try
+	    //{
+	    //    UserSession.ManagerControl.Massa.Close();
 
-            if (UserSession.SqlViewModel.Order == null)
-            {
-                using OrderListForm settingsForm = new();
-                settingsForm.ShowDialog(this);
-                settingsForm.Close();
-                settingsForm.Dispose();
-            }
-            else
-            {
-                using OrderDetailForm settingsForm = new();
-                DialogResult result = settingsForm.ShowDialog(this);
-                settingsForm.Close();
-                settingsForm.Dispose();
-                if (result == DialogResult.Retry)
-                {
-                    UserSession.SqlViewModel.Order = null;
-                }
-                if (result == DialogResult.OK)
-                {
-                    //ws.Kneading = (int)settingsForm.currentKneading;
-                }
-                if (result == DialogResult.Cancel)
-                {
-                    //ws.Kneading = (int)settingsForm.currentKneading;
-                }
-            }
-            //if (UserSession.SqlViewModel.Order != null)
-            //{
-            //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.SqlViewModel.Order.PlaneBoxCount);
-            //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
-            //    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.SqlViewModel.Order.FactBoxCount);
-            //}
+	    //    if (UserSession.SqlViewModel.Order == null)
+	    //    {
+	    //        using OrderListForm settingsForm = new();
+	    //        settingsForm.ShowDialog(this);
+	    //        settingsForm.Close();
+	    //        settingsForm.Dispose();
+	    //    }
+	    //    else
+	    //    {
+	    //        using OrderDetailForm settingsForm = new();
+	    //        DialogResult result = settingsForm.ShowDialog(this);
+	    //        settingsForm.Close();
+	    //        settingsForm.Dispose();
+	    //        if (result == DialogResult.Retry)
+	    //        {
+	    //            UserSession.SqlViewModel.Order = null;
+	    //        }
+	    //        if (result == DialogResult.OK)
+	    //        {
+	    //            //ws.Kneading = (int)settingsForm.currentKneading;
+	    //        }
+	    //        if (result == DialogResult.Cancel)
+	    //        {
+	    //            //ws.Kneading = (int)settingsForm.currentKneading;
+	    //        }
+	    //    }
+	    //    //if (UserSession.SqlViewModel.Order != null)
+	    //    //{
+	    //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.SqlViewModel.Order.PlaneBoxCount);
+	    //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
+	    //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.SqlViewModel.Order.FactBoxCount);
+	    //    //}
 
-            UserSession.ManagerControl.Massa.Open();
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(this, ex);
-        }
-        finally
-        {
-            MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        }
+	    //    UserSession.ManagerControl.Massa.Open();
+	    //}
+	    //catch (Exception ex)
+	    //{
+	    //    GuiUtils.WpfForm.CatchException(this, ex);
+	    //}
+	    //finally
+	    //{
+	    //    MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+	    //}
     }
 
     private void ActionNewPallet_Click(object sender, EventArgs e)
@@ -882,7 +883,7 @@ public partial class MainForm : Form
     {
         try
         {
-            if (UserSession.Plu == null)
+            if (UserSession.PluScale == null)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true, LogType.Warning, null,
                     UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
@@ -949,7 +950,8 @@ public partial class MainForm : Form
                 DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
                     true, LogType.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                    UserSession.SqlViewModel.Scale.Host == null ? string.Empty : UserSession.SqlViewModel.Scale.Host.HostName, 
+                    nameof(WeightCore));
                 if (dialogResult != DialogResult.Yes)
                     return;
             }
@@ -959,8 +961,10 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            UserSession.DataAccess.Log.LogError(new Exception($"{LocaleCore.Print.ErrorPlu(UserSession.Plu.PLU, UserSession.Plu.GoodsName)}"),
-                UserSessionHelper.Instance.SqlViewModel.Scale.Host.HostName);
+            if (UserSession.PluScale != null && UserSession.SqlViewModel.Scale.Host != null)
+				UserSession.DataAccess.Log.LogError(new Exception(
+		            $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
+					UserSession.SqlViewModel.Scale.Host.HostName);
             GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally

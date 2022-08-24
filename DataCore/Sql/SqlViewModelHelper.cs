@@ -141,17 +141,17 @@ public class SqlViewModelHelper : BaseViewModel
     }
     public readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+31);
     public readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
-    private OrderDirect _order { get; set; }
-    public OrderDirect Order
-    {
-        get => _order;
-        set
-        {
-	        _order = value;
-	        OnPropertyChanged();
-        }
-    }
-    private DateTime _productDate;
+	//private OrderEntity? _order;
+	//public OrderEntity? Order
+	//{
+	//    get => _order;
+	//    set
+	//    {
+	//     _order = value;
+	//     OnPropertyChanged();
+	//    }
+	//}
+	private DateTime _productDate;
     public DateTime ProductDate
     {
         get => _productDate;
@@ -174,7 +174,7 @@ public class SqlViewModelHelper : BaseViewModel
         _scales = new();
         _area = null;
         _areas = new();
-        _order = new();
+        //_order = new();
 		Setup(-1, "");
     }
 

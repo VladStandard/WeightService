@@ -155,5 +155,47 @@ public class BaseSerializeEntity : ISerializable
         //info.AddValue(nameof(SqlConnect), SqlConnect);
     }
 
-    #endregion
+	public T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
+	{
+		Type type = typeof(T);
+		T result = (T)Activator.CreateInstance(type);
+		foreach (KeyValuePair<string, object> item in dict)
+		{
+			type.GetProperty(item.Key)?.SetValue(result, item.Value, null);
+		}
+		return result;
+	}
+
+    public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : new()
+    {
+	    IDictionary<string, object> result = new Dictionary<string, object>();
+        if (item is null)
+            return result;
+	    Type myObjectType = item.GetType();
+	    object[] indexer = Array.Empty<object>();
+	    PropertyInfo[] properties = myObjectType.GetProperties();
+	    foreach (PropertyInfo info in properties)
+	    {
+		    object value = info.GetValue(item, indexer);
+		    result.Add(info.Name, value);
+	    }
+	    return result;
+    }
+
+    public XDocument GetBtXmlNamedSubString<T>(T item, XName name, object value) where T : new()
+    {
+	    IDictionary<string, object> dict = ObjectToDictionary(item);
+	    XDocument result = new(
+		    new XElement("XMLScript", new XAttribute("Version", "2.0"),
+			    new XElement("Command",
+				    new XElement("Print",
+					    new XElement("Format", new XAttribute(name, value)),
+					    dict.Select(x => new XElement("NameSubString",
+						    new XAttribute("Key", x.Key),
+						    new XElement("Value", x.Value)))
+				    ))));
+	    return result;
+    }
+
+	#endregion
 }

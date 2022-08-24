@@ -36,14 +36,14 @@ namespace WeightCore.Zpl
             // TableDirectModels.
             result = result.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
             result = result.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
-            result = result.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
-            result = result.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
+            //result = result.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
+            //result = result.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
             result = result.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
             //result = result.Replace(nameof(TableDirectModels.ProductionFacilityDirect), "ProductionFacilityEntity");
             result = result.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
             result = result.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
             result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
-            result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
+            //result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
             result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
             //result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
             result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");

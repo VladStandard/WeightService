@@ -12,7 +12,7 @@ public class WeighingFactDirect : BaseSerializeEntity, ISerializable
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public long Id { get; set; }
-	[XmlElement] public TemplateDirect Template { get; set; } = new();
+	[XmlElement] public TemplateEntity Template { get; set; } = new();
 	[XmlElement] public ScaleEntity Scale { get; set; }
 	[XmlElement] public string ProductSeries { get; set; } = string.Empty;
 	[XmlElement] public PluDirect PLU { get; set; } = new();
@@ -148,7 +148,7 @@ public class WeighingFactDirect : BaseSerializeEntity, ISerializable
 	/// <param name="scaleFactor"></param>
 	/// <param name="netWeight"></param>
 	/// <param name="tareWeight"></param>
-	public WeighingFactDirect(ScaleEntity scale, PluDirect plu, DateTime productDate, int kneadingNumber,
+	public WeighingFactDirect(ScaleEntity scale, PluEntity plu, DateTime productDate, int kneadingNumber,
         int? scaleFactor, decimal netWeight, decimal tareWeight)
     {
         ScaleFactor = scaleFactor;
@@ -167,7 +167,7 @@ public class WeighingFactDirect : BaseSerializeEntity, ISerializable
 	public WeighingFactDirect(SerializationInfo info, StreamingContext context)
 	{
 		Id = info.GetInt64(nameof(Id));
-		Template = (TemplateDirect)info.GetValue(nameof(Template), typeof(TemplateDirect));
+		Template = (TemplateEntity)info.GetValue(nameof(Template), typeof(TemplateEntity));
 		//Scale = (ScaleEntity)info.GetValue(nameof(Scale), typeof(ScaleEntity));
 		//ProductSeries = info.GetString(nameof(ProductSeries));
 		//PLU = (PluDirect)info.GetValue(nameof(PLU), typeof(PluDirect));
@@ -224,15 +224,6 @@ public class WeighingFactDirect : BaseSerializeEntity, ISerializable
             new("@Kneading", SqlDbType.Int) { Value = KneadingNumber },
         };
         SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFacts.Save, parameters, SaveReader);
-    }
-
-    public bool IsDefault()
-    {
-        if (Id != default)
-	        return false;
-        if (!Template.IsDefault())
-	        return false;
-		return true;
     }
 
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)

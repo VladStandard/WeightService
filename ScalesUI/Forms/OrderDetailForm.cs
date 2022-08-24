@@ -13,8 +13,7 @@ public partial class OrderDetailForm : Form
 {
     #region Public and private fields and properties
 
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
-    private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
+    //private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
     #endregion
 
@@ -31,77 +30,77 @@ public partial class OrderDetailForm : Form
 
     private void OrderDetailForm_Load(object sender, EventArgs e)
     {
-        try
-        {
-            TopMost = !Debug.IsDebug;
-            listBox1.Items.Clear();
-            foreach (string prop in UserSession.SqlViewModel.Order.ToString().Split('\n'))
-            {
-                listBox1.Items.Add(prop);
-            }
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(this, ex);
-        }
+        //try
+        //{
+        //    TopMost = !UserSession.Debug.IsDebug;
+        //    listBox1.Items.Clear();
+        //    foreach (string prop in UserSession.SqlViewModel.Order.ToString().Split('\n'))
+        //    {
+        //        listBox1.Items.Add(prop);
+        //    }
+        //}
+        //catch (Exception ex)
+        //{
+        //    GuiUtils.WpfForm.CatchException(this, ex);
+        //}
     }
 
     private void BtnCancel_Click(object sender, EventArgs e)
     {
-        try
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(this, ex);
-        }
+        //try
+        //{
+        //    DialogResult = DialogResult.Cancel;
+        //    Close();
+        //}
+        //catch (Exception ex)
+        //{
+        //    GuiUtils.WpfForm.CatchException(this, ex);
+        //}
     }
 
     private void BtnOrderReset_Click(object sender, EventArgs e)
     {
-        try
-        {
-            UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Paused);
-            UserSession.SqlViewModel.Order = null;
-            DialogResult = DialogResult.Retry;
-            Close();
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(this, ex);
-        }
+        //try
+        //{
+        //    UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Paused);
+        //    UserSession.SqlViewModel.Order = null;
+        //    DialogResult = DialogResult.Retry;
+        //    Close();
+        //}
+        //catch (Exception ex)
+        //{
+        //    GuiUtils.WpfForm.CatchException(this, ex);
+        //}
     }
 
     private void BtnOrderComplitrd_Click(object sender, EventArgs e)
     {
-        try
-        {
-            UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Performed);
-            UserSession.SqlViewModel.Order = null;
-            DialogResult = DialogResult.Retry;
-            Close();
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(this, ex);
-        }
+        //try
+        //{
+        //    UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Performed);
+        //    UserSession.SqlViewModel.Order = null;
+        //    DialogResult = DialogResult.Retry;
+        //    Close();
+        //}
+        //catch (Exception ex)
+        //{
+        //    GuiUtils.WpfForm.CatchException(this, ex);
+        //}
     }
 
     private void BtnOk_Click(object sender, EventArgs e)
     {
-        try
-        {
-            UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.InProgress);
-            UserSession.SqlViewModel.Order = null;
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(this, ex);
-        }
+        //try
+        //{
+        //    UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+        //    UserSession.SqlViewModel.Order = null;
+        //    DialogResult = DialogResult.OK;
+        //    Close();
+        //}
+        //catch (Exception ex)
+        //{
+        //    GuiUtils.WpfForm.CatchException(this, ex);
+        //}
     }
 
     #endregion

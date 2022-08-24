@@ -137,7 +137,7 @@ namespace ScalesUI.Forms
 
         private void CheckWeightCount()
         {
-            if (UserSession.Plu.IsCheckWeight && UserSession.WeighingSettings.LabelsCountMain > 1)
+            if (UserSession.PluScale.IsCheckWeight && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
                 //GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
                 //    UserSession.Scale.Host.HostName, nameof(ScalesUI));
@@ -290,15 +290,15 @@ namespace ScalesUI.Forms
             fieldKneading.Visible = UserSession.SqlViewModel.Scale.IsKneading;
             buttonKneading.Visible = UserSession.SqlViewModel.Scale.IsKneading;
             // Pallet size.
-            labelPalletSize.Visible = !UserSession.Plu.IsCheckWeight;
-            fieldPalletSize.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonPalletSizePrev.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonPalletSizeNext.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonPalletSize10.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonSet1.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonSet40.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonSet60.Visible = !UserSession.Plu.IsCheckWeight;
-            buttonSet120.Visible = !UserSession.Plu.IsCheckWeight;
+            labelPalletSize.Visible = !UserSession.PluScale.IsCheckWeight;
+            fieldPalletSize.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonPalletSizePrev.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonPalletSizeNext.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonPalletSize10.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonSet1.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonSet40.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonSet60.Visible = !UserSession.PluScale.IsCheckWeight;
+            buttonSet120.Visible = !UserSession.PluScale.IsCheckWeight;
         }
 
         private void SetGuiLocalize()

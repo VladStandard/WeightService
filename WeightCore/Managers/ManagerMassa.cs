@@ -111,21 +111,21 @@ namespace WeightCore.Managers
 
         private void Reopen()
         {
-            if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
+            if (UserSessionHelper.Instance.PluScale?.IsCheckWeight == true)
                 MassaDevice?.Open();
-            if (UserSessionHelper.Instance.Plu == null)
+            if (UserSessionHelper.Instance.PluScale == null)
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: {LocaleCore.Scales.StateDisable}");
             else
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: " +
-                    $"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.Plu.LowerWeightThreshold:0.000} {LocaleCore.Scales.UnitKg} | " +
-                    $"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.Plu.NominalWeight:0.000} {LocaleCore.Scales.UnitKg} | " +
-                    $"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.Plu.UpperWeightThreshold:0.000} {LocaleCore.Scales.UnitKg}");
+                    $"{LocaleCore.Scales.FieldThresholdLower}: {UserSessionHelper.Instance.PluScale.LowerWeightThreshold:0.000} {LocaleCore.Scales.UnitKg} | " +
+                    $"{LocaleCore.Scales.FieldThresholdNominal}: {UserSessionHelper.Instance.PluScale.NominalWeight:0.000} {LocaleCore.Scales.UnitKg} | " +
+                    $"{LocaleCore.Scales.FieldThresholdUpper}: {UserSessionHelper.Instance.PluScale.UpperWeightThreshold:0.000} {LocaleCore.Scales.UnitKg}");
             SetControlsVisible(true, true);
         }
 
         private void Request()
         {
-            if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
+            if (UserSessionHelper.Instance.PluScale?.IsCheckWeight == true)
             {
                 if (MassaDevice?.IsOpenPort == true)
                     GetMassa();
@@ -155,14 +155,14 @@ namespace WeightCore.Managers
 
         private void Response()
         {
-            if (UserSessionHelper.Instance.Plu?.IsCheckWeight == true)
+            if (UserSessionHelper.Instance.PluScale?.IsCheckWeight == true)
             {
                 SetControlsText();
                 SetControlsVisible(false, true);
             }
             else
             {
-                if (UserSessionHelper.Instance.Plu == null)
+                if (UserSessionHelper.Instance.PluScale == null)
                     SetControlsTextDefault();
                 SetControlsVisible(false, false);
             }
@@ -211,11 +211,11 @@ namespace WeightCore.Managers
             }
 
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare,
-                UserSessionHelper.Instance.Plu != null
-                ? $"{UserSessionHelper.Instance.Plu.GoodsTareWeight:0.000} {LocaleCore.Scales.UnitKg}"
+                UserSessionHelper.Instance.PluScale != null
+                ? $"{UserSessionHelper.Instance.PluScale.GoodsTareWeight:0.000} {LocaleCore.Scales.UnitKg}"
                 : $"0,000 {LocaleCore.Scales.UnitKg}");
 
-            decimal weight = UserSessionHelper.Instance.Plu == null ? 0 : WeightNet - UserSessionHelper.Instance.Plu.GoodsTareWeight;
+            decimal weight = UserSessionHelper.Instance.PluScale == null ? 0 : WeightNet - UserSessionHelper.Instance.PluScale.GoodsTareWeight;
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, MassaStable.IsStable
                 ? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
                 :
@@ -228,7 +228,7 @@ namespace WeightCore.Managers
 
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
                 $"{LocaleCore.Scales.WeightingProcess}: " +
-                (UserSessionHelper.Instance.Plu == null ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
+                (UserSessionHelper.Instance.PluScale == null ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
                 $"{LocaleCore.Scales.UnitKg} | {LocaleCore.Scales.RequestParameters}" +
                 (ResponseParseScalePar == null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
         }
@@ -248,7 +248,7 @@ namespace WeightCore.Managers
             }
             else
             {
-                if (UserSessionHelper.Instance.Plu == null)
+                if (UserSessionHelper.Instance.PluScale == null)
                 {
                     if (FieldMassaThreshold.Visible != isVisible)
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaThreshold, isVisible);

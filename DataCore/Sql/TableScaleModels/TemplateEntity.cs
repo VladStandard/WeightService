@@ -24,7 +24,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TemplateEntity() : base(0, false)
+	public TemplateEntity() : base(0, false)
 	{
 		Init();
 	}
@@ -50,7 +50,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
         IdRRef = Guid.Parse(info.GetString(nameof(IdRRef)));
         Title = info.GetString(nameof(Title));
         ImageData = (ImageDataEntity)info.GetValue(nameof(ImageData), typeof(ImageDataEntity));
-    }
+	}
 
 	#endregion
 
@@ -63,7 +63,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
 		IdRRef = Guid.Empty;
 		Title = string.Empty;
 		ImageData = new();
-		ImageDataValue = new byte[0];
+		ImageDataValue = Array.Empty<byte>();
 	}
 
 	public override string ToString() =>
@@ -130,7 +130,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
         info.AddValue(nameof(IdRRef), IdRRef);
         info.AddValue(nameof(Title), Title);
         info.AddValue(nameof(ImageData), ImageData);
-    }
+	}
 
     #endregion
 }

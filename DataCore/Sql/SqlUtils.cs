@@ -421,48 +421,4 @@ public static class SqlUtils
     }
 
     #endregion
-
-    #region Public and private methods - Templates
-
-    public static void GetTemplateFromDb(TemplateDirect templateDirect, long? templateId)
-    {
-        if (templateId == null)
-            return;
-        SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetTemplatesObjByID,
-            new SqlParameter("@TEMPLATE_ID", System.Data.SqlDbType.Int) { Value = templateId }, (reader) =>
-            {
-                if (reader.Read())
-                {
-                    templateDirect.CategoryId = SqlConnect.GetValueAsString(reader, "CategoryID");
-                    templateDirect.Title = SqlConnect.GetValueAsString(reader, "Title");
-                    templateDirect.XslContent = SqlConnect.GetValueAsString(reader, "XslContent");
-                    templateDirect.TemplateId = templateId;
-                }
-                if (reader.Read())
-                {
-                    throw new("More than one template was processed!");
-                }
-            });
-    }
-
-    public static void GetTemplateFromDb(TemplateDirect templateDirect, string title)
-    {
-        SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Templates.GetItemByTitle,
-            new SqlParameter("@TITLE", System.Data.SqlDbType.NVarChar, 250) { Value = title }, (reader) =>
-            {
-                if (reader.Read())
-                {
-                    templateDirect.TemplateId = SqlConnect.GetValueAsNullable<long?>(reader, "ID");
-                    templateDirect.CategoryId = SqlConnect.GetValueAsString(reader, "CATEGORYID");
-                    templateDirect.XslContent = SqlConnect.GetValueAsString(reader, "XslContent");
-                    templateDirect.Title = title;
-                }
-                if (reader.Read())
-                {
-                    throw new("More than one template was processed!");
-                }
-            });
-    }
-
-    #endregion
 }

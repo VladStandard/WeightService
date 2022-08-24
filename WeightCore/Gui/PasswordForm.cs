@@ -14,7 +14,7 @@ public partial class PasswordForm : Form
 
     private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
     private ushort UserCode { get; set; }
-    private DebugHelper Debug { get; } = DebugHelper.Instance;
+    public UserSessionHelper UserSession { get; } = UserSessionHelper .Instance;
 
     #endregion
 
@@ -23,7 +23,7 @@ public partial class PasswordForm : Form
     public PasswordForm()
     {
         InitializeComponent();
-        TopMost = !Debug.IsDebug;
+        TopMost = !UserSession.Debug.IsDebug;
     }
 
     #endregion

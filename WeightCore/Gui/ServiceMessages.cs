@@ -7,7 +7,6 @@
 //    {
 //        #region Public and private fields and properties
 
-//        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
 //        private Font Font { get; set; } = new("Microsoft Sans Serif", 8.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
 //        private Size ButtonSize { get; set; } = new(100, 23);
 
