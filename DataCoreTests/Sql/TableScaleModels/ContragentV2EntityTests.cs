@@ -11,7 +11,7 @@ internal class ContragentV2EntityTests
     {
         Assert.DoesNotThrow(() =>
         {
-            ContragentV2Entity item = new();
+            ContragentEntity item = new();
             Assert.AreEqual(true, item.EqualsNew());
             Assert.AreEqual(true, item.EqualsDefault());
         });

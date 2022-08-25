@@ -3,7 +3,9 @@
 
 using DataCore.Localizations;
 using DataCore.Sql.Models;
+using FluentValidation;
 using FluentValidation.Results;
+using NHibernate.Impl;
 using Radzen;
 using static DataCore.ShareEnums;
 
@@ -26,68 +28,74 @@ public class ItemFieldControlEntity
         switch (item)
         {
             case AccessEntity access:
-	            result = ValidateAccess(ref detailAddition, access);
-                break;
-            case BarCodeTypeV2Entity barCodeType:
-	            result = ValidateBarcodeType(ref detailAddition, barCodeType);
-                break;
-            case ContragentV2Entity contragent:
-	            result = ValidateContragent(ref detailAddition, contragent);
-                break;
+                result = SqlBaseUtils.IsValidation(access, ref detailAddition);
+				break;
+            case BarCodeTypeEntity barCodeType:
+                result = SqlBaseUtils.IsValidation(barCodeType, ref detailAddition);
+				break;
+            case ContragentEntity contragent:
+                result = SqlBaseUtils.IsValidation(contragent, ref detailAddition);
+				break;
             case HostEntity host:
-	            result = ValidateHost(ref detailAddition, host);
-                break;
-            case LabelEntity label:
-	            result = ValidateLabel(ref detailAddition, label);
-                break;
+                result = SqlBaseUtils.IsValidation(host, ref detailAddition);
+				break;
             case NomenclatureEntity nomenclature:
-	            result = ValidateNomenclature(ref detailAddition, nomenclature);
-                break;
+                result = SqlBaseUtils.IsValidation(nomenclature, ref detailAddition);
+				break;
             case OrderEntity order:
-	            result = ValidateOrder(order);
+                result = SqlBaseUtils.IsValidation(order, ref detailAddition);
+				break;
+            case OrderWeighingEntity orderWeighing:
+                result = SqlBaseUtils.IsValidation(orderWeighing, ref detailAddition);
+				break;
+            case PluEntity plu:
+                result = SqlBaseUtils.IsValidation(plu, ref detailAddition);
+                break;
+            case PluLabelEntity pluLabel:
+                result = SqlBaseUtils.IsValidation(pluLabel, ref detailAddition);
                 break;
             case PluObsoleteEntity pluObsolete:
-                result = ValidatePluObsolete(ref detailAddition, pluObsolete);
+                result = SqlBaseUtils.IsValidation(pluObsolete, ref detailAddition);
                 break;
             case PluScaleEntity pluScale:
-	            result = ValidatePluScale(ref detailAddition, pluScale);
+                result = SqlBaseUtils.IsValidation(pluScale, ref detailAddition);
+                break;
+            case PluWeighingEntity pluWeighing:
+                result = SqlBaseUtils.IsValidation(pluWeighing, ref detailAddition);
                 break;
             case PrinterEntity printer:
-                result = ValidatePrinter(ref detailAddition, printer);
+                result = SqlBaseUtils.IsValidation(printer, ref detailAddition);
                 break;
             case PrinterResourceEntity printerResource:
-	            result = ValidatePrinterResource(ref detailAddition, printerResource);
+	            result = SqlBaseUtils.IsValidation(printerResource, ref detailAddition);
                 break;
             case PrinterTypeEntity printerType:
-	            result = ValidatePrinterType(ref detailAddition, printerType);
+                result = SqlBaseUtils.IsValidation(printerType, ref detailAddition);
                 break;
             case ProductionFacilityEntity productionFacility:
-	            result = ValidateProductionFacility(ref detailAddition, productionFacility);
-                break;
+                result = SqlBaseUtils.IsValidation(productionFacility, ref detailAddition);
+				break;
             case ProductSeriesEntity productSeries:
-	            result = ValidateProductSeries(ref detailAddition, productSeries);
-                break;
+                result = SqlBaseUtils.IsValidation(productSeries, ref detailAddition);
+				break;
             case ScaleEntity scale:
-	            result = ValidateScale(ref detailAddition, scale);
-                break;
+                result = SqlBaseUtils.IsValidation(scale, ref detailAddition);
+				break;
             case TaskEntity task:
-	            result = ValidateTask(ref detailAddition, task);
-                break;
+                result = SqlBaseUtils.IsValidation(task, ref detailAddition);
+				break;
             case TaskTypeEntity taskType:
-	            result = ValidateTaskType(ref detailAddition, taskType);
-                break;
+                result = SqlBaseUtils.IsValidation(taskType, ref detailAddition);
+				break;
             case TemplateResourceEntity templateResource:
-	            result = ValidateTemplateResource(ref detailAddition, templateResource);
-                break;
+                result = SqlBaseUtils.IsValidation(templateResource, ref detailAddition);
+				break;
             case TemplateEntity template:
-	            result = ValidateTemplate(ref detailAddition, template);
-                break;
-            case WeithingFactEntity weithingFact:
-	            result = ValidateWeithingFact(ref detailAddition, weithingFact);
-                break;
+                result = SqlBaseUtils.IsValidation(template, ref detailAddition);
+				break;
             case WorkShopEntity workshop:
-	            result = ValidateWorkshop(ref detailAddition, workshop);
-                break;
+                result = SqlBaseUtils.IsValidation(workshop, ref detailAddition);
+				break;
         }
         if (!result)
         {
@@ -104,265 +112,6 @@ public class ItemFieldControlEntity
         }
         return true;
     }
-
-    private static bool ValidateAccess(ref string detailAddition, AccessEntity access)
-    {
-        if (access.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(access.User))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldUser}" + Environment.NewLine;
-            return false;
-        }
-        if (access.Rights > 3)
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsNotInRange}: {LocaleCore.Strings.AccessRights}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-    }
-
-    private static bool ValidateBarcodeType(ref string detailAddition, BarCodeTypeV2Entity barCodeType)
-    {
-        if (barCodeType.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(barCodeType.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true; 
-    }
-
-    private static bool ValidateContragent(ref string detailAddition, ContragentV2Entity contragent)
-    {
-        if (contragent.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(contragent.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateHost(ref string detailAddition, HostEntity host)
-    {
-        if (host.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(host.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        //if (Equals(host.IdRRef, Guid.Empty))
-        //{
-        //    detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldIdRRef}" + Environment.NewLine;
-        //    return false;
-        //}
-        if (string.IsNullOrEmpty(host.Ip))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldIpAddress}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateLabel(ref string detailAddition, LabelEntity label)
-    {
-        if (label.EqualsDefault())
-            return false;
-        if (label.Label?.Length == 0)
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldLabel}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateNomenclature(ref string detailAddition, NomenclatureEntity nomenclature)
-    {
-        if (nomenclature.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(nomenclature.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateOrder(OrderEntity order)
-    {
-	    OrderValidator validator = new();
-	    ValidationResult validationResult = validator.Validate(order);
-		return validationResult.IsValid;
-    }
-
-    private bool ValidatePluObsolete(ref string detailAddition, PluObsoleteEntity pluObsolete)
-    {
-	    //PluObsoleteValidator validator = new();
-	    //ValidationResult validationResult = validator.Validate(pluObsolete);
-	    //if (!validationResult.IsValid)
-		   // return;
-	    if (pluObsolete.EqualsDefault())
-            return false;
-        PluObsoleteEntity[]? items = AppSettings.DataAccess.Crud.GetEntities<PluObsoleteEntity>(
-            new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, pluObsolete.Scale.IdentityId),
-                new(DbField.PluNumber, DbComparer.Equal, pluObsolete.PluNumber)
-            }));
-        if (items != null && items.Any() && !items.Where(x => x.IdentityId.Equals(pluObsolete.IdentityId)).Select(x => x).Any())
-        {
-            detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {pluObsolete.PluNumber}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-    }
-
-    private bool ValidatePluScale(ref string detailAddition, PluScaleEntity pluScale)
-    {
-	  //  PlusScaleValidator validator = new();
-	  //  ValidationResult validationResult = validator.Validate(pluScale);
-	  //  if (!validationResult.IsValid)
-			//return false;
-        
-	    if (pluScale.EqualsDefault())
-            return false;
-        PluScaleEntity[]? items = AppSettings.DataAccess.Crud.GetEntities<PluScaleEntity>(
-            new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, pluScale.Scale.IdentityId),
-                new(DbField.Number, DbComparer.Equal, pluScale.Plu.Number)
-            }));
-        if (items != null && items.Any() && !items.Where(x => x.IdentityId.Equals(pluScale.IdentityId)).Select(x => x).Any())
-        {
-            detailAddition += $"{LocaleCore.Table.TablePluHavingPlu}: {pluScale.Plu.Number}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-    }
-
-    private static bool ValidatePrinter(ref string detailAddition, PrinterEntity printer)
-    {
-        if (printer.EqualsDefault())
-            return false;
-        return true;
-    }
-
-    private static bool ValidatePrinterResource(ref string detailAddition, PrinterResourceEntity printerResource)
-    {
-        if (printerResource.EqualsDefault())
-            return false;
-        return true;
-	}
-
-    private static bool ValidatePrinterType(ref string detailAddition, PrinterTypeEntity printerType)
-    {
-        if (printerType.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(printerType.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateProductionFacility(ref string detailAddition, ProductionFacilityEntity productionFacility)
-    {
-        if (productionFacility.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(productionFacility.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateProductSeries(ref string detailAddition, ProductSeriesEntity productSeries)
-    {
-        if (productSeries.EqualsDefault())
-            return false;
-        return true;
-	}
-
-    private static bool ValidateScale(ref string detailAddition, ScaleEntity scale)
-    {
-        if (scale.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(scale.Description))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldDescription}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateTask(ref string detailAddition, TaskEntity task)
-    {
-        if (task.EqualsDefault())
-            return false;
-        return true;
-	}
-
-    private static bool ValidateTaskType(ref string detailAddition, TaskTypeEntity taskType)
-    {
-        if (taskType.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(taskType.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateTemplateResource(ref string detailAddition, TemplateResourceEntity templateResource)
-    {
-        if (templateResource.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(templateResource.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateTemplate(ref string detailAddition, TemplateEntity template)
-    {
-        if (template.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(template.Title))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldTitle}" + Environment.NewLine;
-            return false;
-        }
-        if (string.IsNullOrEmpty(template.CategoryId))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldCategory}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
-
-    private static bool ValidateWeithingFact(ref string detailAddition, WeithingFactEntity weithingFact)
-    {
-        if (weithingFact.EqualsDefault())
-            return false;
-        return true;
-	}
-
-    private static bool ValidateWorkshop(ref string detailAddition, WorkShopEntity workshop)
-    {
-        if (workshop.EqualsDefault())
-            return false;
-        if (string.IsNullOrEmpty(workshop.Name))
-        {
-            detailAddition += $"{LocaleCore.Table.FieldIsEmpty}: {LocaleCore.Table.FieldName}" + Environment.NewLine;
-            return false;
-        }
-        return true;
-	}
 
     #endregion
 }

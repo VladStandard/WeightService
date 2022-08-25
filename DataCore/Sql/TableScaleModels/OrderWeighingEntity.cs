@@ -16,7 +16,7 @@ public class OrderWeighingEntity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual OrderEntity Order { get; set; }
-	[XmlElement] public virtual WeithingFactEntity Fact { get; set; }
+	[XmlElement] public virtual PluWeighingEntity PluWeighing { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -42,7 +42,7 @@ public class OrderWeighingEntity : BaseEntity, ISerializable, IBaseEntity
     {
 	    base.Init();
 	    Order = new();
-	    Fact = new();
+	    PluWeighing = new();
     }
 
     #region Public and private methods
@@ -52,8 +52,8 @@ public class OrderWeighingEntity : BaseEntity, ISerializable, IBaseEntity
         return
 			$"{nameof(IdentityUid)}: {IdentityUid}. " + 
 			$"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Order)}: {Order.IdentityUid}. " + 
-			$"{nameof(Fact)}: {Fact.IdentityId}. ";
+			$"{nameof(Order)}: {Order}. " + 
+			$"{nameof(PluWeighing)}: {PluWeighing}. ";
     }
 
     public virtual bool Equals(OrderWeighingEntity item)
@@ -61,7 +61,7 @@ public class OrderWeighingEntity : BaseEntity, ISerializable, IBaseEntity
 		//if (item is null) return false;
 		if (!Order.Equals(item.Order))
 			return false;
-		if (!Fact.Equals(item.Fact))
+		if (!PluWeighing.Equals(item.PluWeighing))
 			return false;
         if (ReferenceEquals(this, item)) return true;
         return base.Equals(item);
@@ -86,7 +86,7 @@ public class OrderWeighingEntity : BaseEntity, ISerializable, IBaseEntity
     {
 		if (!Order.EqualsDefault())
 			return false;
-		if (!Fact.EqualsDefault())
+		if (!PluWeighing.EqualsDefault())
 			return false;
         return base.EqualsDefault();
     }
@@ -95,7 +95,7 @@ public class OrderWeighingEntity : BaseEntity, ISerializable, IBaseEntity
     {
         OrderWeighingEntity item = new();
         item.Order = Order.CloneCast();
-        item.Fact = Fact.CloneCast();
+        item.PluWeighing = PluWeighing.CloneCast();
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }

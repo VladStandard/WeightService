@@ -5,55 +5,40 @@ using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers;
 
-public class CrudAppController
+public static class CrudControllerAppExtension
 {
-    #region Public and private fields, properties, constructor
-
-    public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-
-    #endregion
-
-    #region Constructor and destructor
-
-    public CrudAppController()
-    {
-        //
-    }
-
-    #endregion
-
     #region Public and private methods
 
-    public AppEntity? GetOrCreateNew(string? appName)
+    public static AppEntity? GetOrCreateNewApp(this CrudController crud, string? appName)
     {
         AppEntity? app = null;
-        if (!string.IsNullOrEmpty(appName) && appName is string strName)
+        if (!string.IsNullOrEmpty(appName) && appName is { })
         {
-            app = DataAccess.Crud.GetEntity<AppEntity>(
+            app = crud.GetEntity<AppEntity>(
                 new(new() { new(DbField.Name, DbComparer.Equal, appName),
                     new(DbField.IsMarked, DbComparer.Equal, false),
                 }));
-            if (app == null || app.EqualsDefault())
+            if (app.EqualsDefault())
             {
                 app = new()
                 {
-                    Name = strName,
+                    Name = appName,
                     CreateDt = DateTime.Now,
                     ChangeDt = DateTime.Now,
                     IsMarked = false,
                 };
-                DataAccess.Crud.SaveEntity(app);
+                crud.SaveEntity(app);
             }
         }
         return app;
     }
 
-    public AppEntity? GetEntity(string? appName)
+    public static AppEntity? GetApp(this CrudController crud, string? appName)
     {
         AppEntity? app = null;
         if (!string.IsNullOrEmpty(appName) && appName is { })
         {
-            app = DataAccess.Crud.GetEntity<AppEntity>(
+            app = crud.GetEntity<AppEntity>(
                 new(new() { new(DbField.Name, DbComparer.Equal, appName),
                     new(DbField.IsMarked, DbComparer.Equal, false),
                 }));

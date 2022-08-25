@@ -12,25 +12,24 @@ public static class BlazorCoreUtils
 {
 	#region Public and private methods
 
-	private static IValidator<TEntity> GetStyleValidator<TEntity>() where TEntity : IBaseStyleModel, new()
+	private static IValidator<T> GetStyleValidator<T>(T item) where T : IBaseStyleModel, new()
 	{
-		if (typeof(TEntity) == typeof(TableHeadStyleModel))
+		switch (item)
 		{
-			return new TableHeadStyleValidator();
-		}
-		else if (typeof(TEntity) == typeof(TableBodyStyleModel))
-		{
-			return new TableBodyStyleValidator();
+			case TableHeadStyleModel:
+				return new TableHeadStyleValidator();
+			case TableBodyStyleModel:
+				return new TableBodyStyleValidator();
 		}
 		throw new NotImplementedException();
 	}
 
-	public static void AssertStyleValidate<TEntity>(TEntity item, bool assertResult) where TEntity : IBaseStyleModel, new()
+	public static void AssertStyleValidate<T>(T item, bool assertResult) where T : IBaseStyleModel, new()
 	{
 		// Arrange.
-		IValidator<TEntity> validator = GetStyleValidator<TEntity>();
+		IValidator<T> validator = GetStyleValidator<T>(item);
 		// Act & Assert.
-		DataCoreUtils.AssertValidate<TEntity>(item, validator, assertResult);
+		DataCoreUtils.AssertValidate<T>(item, validator, assertResult);
 	}
 
 	#endregion

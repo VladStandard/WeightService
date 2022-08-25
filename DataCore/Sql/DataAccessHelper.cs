@@ -146,30 +146,6 @@ public class DataAccessHelper
         set => _crud = value;
     }
 
-    private CrudAppController? _crudApp;
-    public CrudAppController CrudApp
-    {
-        get
-        {
-            if (_crudApp != null)
-                return _crudApp;
-            return _crudApp = new();
-        }
-        set => _crudApp = value;
-    }
-
-    private CrudHostController? _crudHost;
-    public CrudHostController CrudHost
-    {
-        get
-        {
-            if (_crudHost != null)
-                return _crudHost;
-            return _crudHost = new();
-        }
-        set => _crudHost = value;
-    }
-
     private JsonSettingsController? _jsonControl;
     public JsonSettingsController JsonControl
     {
@@ -267,11 +243,10 @@ public class DataAccessHelper
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeV2Map>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeV2Map>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMapV2>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
@@ -294,7 +269,6 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.VersionMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WeithingFactMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
     }
 

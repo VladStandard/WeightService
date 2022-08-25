@@ -15,12 +15,11 @@ internal class CrudControllerTests
             {
                 foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
                 {
-                    TestContext.WriteLine($"{nameof(id)}: {id}. {nameof(isMarked)}: {isMarked}");
-                    List<HostEntity> hosts = DataCoreUtils.DataAccess.CrudHost.GetFree(id, isMarked);
-                    foreach (HostEntity host in hosts)
-                    {
-                        TestContext.WriteLine(host);
-                    }
+                    //List<HostEntity> hosts = DataCoreUtils.DataAccess.Crud.GetHostsFree(id, isMarked);
+                    //foreach (HostEntity host in hosts)
+                    //{
+                    //    TestContext.WriteLine(host);
+                    //}
                 }
             }
         });
@@ -35,12 +34,11 @@ internal class CrudControllerTests
             {
                 foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
                 {
-                    TestContext.WriteLine($"{nameof(id)}: {id}. {nameof(isMarked)}: {isMarked}");
-                    List<HostEntity> hosts = DataCoreUtils.DataAccess.CrudHost.GetBusy(null, null);
-                    foreach (HostEntity host in hosts)
-                    {
-                        TestContext.WriteLine(host);
-                    }
+                    //List<HostEntity> hosts = DataCoreUtils.DataAccess.Crud.GetHostsBusy(null, null);
+                    //foreach (HostEntity host in hosts)
+                    //{
+                    //    TestContext.WriteLine(host);
+                    //}
                 }
             }
         });

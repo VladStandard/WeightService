@@ -7,6 +7,8 @@ using DataCore.Sql;
 using FluentValidation;
 using System;
 using System.IO;
+using DataCore.Localizations;
+using static DataCore.Sql.SqlQueries.DbScales.Tables;
 
 namespace DataCoreTests;
 
@@ -52,80 +54,41 @@ public static class DataCoreUtils
 
 	public static void FailureWriteLine(ValidationResult result)
 	{
-		if (!result.IsValid)
-			foreach (ValidationFailure? failure in result.Errors)
+		switch (result.IsValid)
+		{
+			case false:
 			{
-				TestContext.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+				foreach (ValidationFailure failure in result.Errors)
+				{
+					TestContext.WriteLine($"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}");
+				}
+				break;
 			}
+		}
 	}
 
-	private static IValidator<T> GetSqlValidator<T>() where T : BaseEntity, new()
+	private static IValidator<T> GetSqlValidator<T>(T item) where T : BaseEntity, new()
 	{
-		if (typeof(T) == typeof(AccessEntity))
+		return item switch
 		{
-			return new AccessValidator();
-		}
-		else if (typeof(T) == typeof(AppEntity))
-		{
-			return new AppValidator();
-		}
-		else if (typeof(T) == typeof(BarCodeTypeV2Entity))
-		{
-			return new BarCodeTypeV2Validator();
-		}
-		else if (typeof(T) == typeof(BarCodeV2Entity))
-		{
-			return new BarCodeV2Validator();
-		}
-		else if (typeof(T) == typeof(ContragentV2Entity))
-		{
-			return new ContragentV2Validator();
-		}
-		else if (typeof(T) == typeof(HostEntity))
-		{
-			return new HostValidator();
-		}
-		else if (typeof(T) == typeof(LabelEntity))
-		{
-			return new LabelValidator();
-		}
-		else if (typeof(T) == typeof(LogTypeEntity))
-		{
-			return new LogTypeValidator();
-		}
-		else if (typeof(T) == typeof(LogEntity))
-		{
-			return new LogValidator();
-		}
-		else if (typeof(T) == typeof(NomenclatureEntity))
-		{
-			return new NomenclatureValidator();
-		}
-		else if (typeof(T) == typeof(OrderEntity))
-		{
-			return new OrderValidator();
-		}
-		else if (typeof(T) == typeof(OrderWeighingEntity))
-		{
-			return new OrderWeighingValidator();
-		}
-		else if (typeof(T) == typeof(PluEntity))
-		{
-			return new PluValidator();
-		}
-		else if (typeof(T) == typeof(PluScaleEntity))
-		{
-			return new PluScaleValidator();
-		}
-		else if (typeof(T) == typeof(PluWeighingEntity))
-		{
-			return new PluWeighingValidator();
-		}
-		//else if (typeof(T) == typeof(PluObsoleteEntity))
-		//{
-		//	return new PluObsoleteValidator();
-		//}
-		throw new NotImplementedException();
+			AccessEntity => new AccessValidator(),
+			AppEntity => new AppValidator(),
+			BarCodeEntity => new BarCodeValidator(),
+			BarCodeTypeEntity => new BarCodeTypeValidator(),
+			ContragentEntity => new ContragentValidator(),
+			HostEntity => new HostValidator(),
+			LogEntity => new LogValidator(),
+			LogTypeEntity => new LogTypeValidator(),
+			NomenclatureEntity => new NomenclatureValidator(),
+			OrderEntity => new OrderValidator(),
+			OrderWeighingEntity => new OrderWeighingValidator(),
+			PluEntity => new PluValidator(),
+			PluLabelEntity => new PluLabelValidator(),
+			PluScaleEntity => new PluScaleValidator(),
+			PluWeighingEntity => new PluWeighingValidator(),
+			TemplateEntity => new TemplateValidator(),
+			_ => throw new NotImplementedException()
+		};
 	}
 
 	public static void AssertSqlDataValidate<T>(int maxResults = 0) where T : BaseEntity, new()
@@ -133,7 +96,7 @@ public static class DataCoreUtils
 		AssertAction(() =>
 		{
 			// Arrange.
-			IValidator<T> validator = GetSqlValidator<T>();
+			IValidator<T> validator = GetSqlValidator<T>(Substitute.For<T>());
 			T[]? items = DataAccess.Crud.GetEntities<T>(null, null, maxResults);
 			// Act.
 			if (items == null || !items.Any())
@@ -161,12 +124,12 @@ public static class DataCoreUtils
 	public static void AssertSqlValidate<T>(T item, bool assertResult) where T : BaseEntity, new()
 	{
 		// Arrange.
-		IValidator<T> validator = GetSqlValidator<T>();
+		IValidator<T> validator = GetSqlValidator<T>(item);
 		// Act & Assert.
 		DataCoreUtils.AssertValidate(item, validator, assertResult);
 	}
 
-	public static void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : BaseEntity, new()
+	public static void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
@@ -212,17 +175,17 @@ public static class DataCoreUtils
 					app.Name = "Test";
 					break;
 				}
-			case BarCodeTypeV2Entity barCodeTypeV2:
+			case BarCodeTypeEntity barCodeTypeV2:
 				{
 					barCodeTypeV2.Name = "Test";
 					break;
 				}
-			case BarCodeV2Entity barCodeV2:
+			case BarCodeEntity barCodeV2:
 				{
 					barCodeV2.Value = "Test";
 					break;
 				}
-			case ContragentV2Entity contragentV2:
+			case ContragentEntity contragentV2:
 				{
 					contragentV2.Name = "Test";
 					break;
@@ -234,11 +197,6 @@ public static class DataCoreUtils
 					host.MacAddressValue = "001122334455";
 					host.HostName = "Test";
 					host.AccessDt = DateTime.Now;
-					break;
-				}
-			case LabelEntity label:
-				{
-					label.Label = Array.Empty<byte>();
 					break;
 				}
 			case LogTypeEntity logType:
@@ -264,7 +222,7 @@ public static class DataCoreUtils
 			case OrderWeighingEntity orderWeighing:
 				{
 					orderWeighing.Order = CreateNewSubstitute<OrderEntity>(isNotDefault);
-					orderWeighing.Fact = CreateNewSubstitute<WeithingFactEntity>(isNotDefault);
+					orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
 					break;
 				}
 			case PluEntity plu:
@@ -298,15 +256,6 @@ public static class DataCoreUtils
 					pluWeighing.RegNum = 1;
 					pluWeighing.PluScale = CreateNewSubstitute<PluScaleEntity>(isNotDefault);
 					pluWeighing.Series = CreateNewSubstitute<ProductSeriesEntity>(isNotDefault);
-					break;
-				}
-			case WeithingFactEntity weithingFact:
-				{
-					weithingFact.Sscc = "Test";
-					weithingFact.NetWeight = (decimal)1.1;
-					weithingFact.TareWeight = (decimal)0.25;
-					weithingFact.ProductDate = DateTime.Now;
-					weithingFact.RegNum = 1;
 					break;
 				}
 		}

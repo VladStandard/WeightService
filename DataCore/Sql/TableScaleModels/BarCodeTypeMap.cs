@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "BARCODE_TYPES_V2".
 /// </summary>
-public class BarCodeTypeV2Map : ClassMap<BarCodeTypeV2Entity>
+public class BarCodeTypeMap : ClassMap<BarCodeTypeEntity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarCodeTypeV2Map()
+    public BarCodeTypeMap()
     {
         Schema("db_scales");
         Table("BARCODE_TYPES_V2");

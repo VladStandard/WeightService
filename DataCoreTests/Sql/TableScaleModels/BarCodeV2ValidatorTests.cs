@@ -12,7 +12,7 @@ internal class BarCodeV2ValidatorTests
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		BarCodeV2Entity item = DataCoreUtils.CreateNewSubstitute<BarCodeV2Entity>(false);
+		BarCodeEntity item = DataCoreUtils.CreateNewSubstitute<BarCodeEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -23,7 +23,7 @@ internal class BarCodeV2ValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange & Act.
-			BarCodeV2Entity item = DataCoreUtils.CreateNewSubstitute<BarCodeV2Entity>(true);
+			BarCodeEntity item = DataCoreUtils.CreateNewSubstitute<BarCodeEntity>(true);
 			// Assert.
 			DataCoreUtils.AssertSqlValidate(item, true);
 		});
@@ -32,6 +32,6 @@ internal class BarCodeV2ValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<BarCodeV2Entity>();
+		DataCoreUtils.AssertSqlDataValidate<BarCodeEntity>();
 	}
 }

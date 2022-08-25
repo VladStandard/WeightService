@@ -13,14 +13,14 @@ else
     <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.Contragents />
     
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="ContragentV2Entity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="ContragentEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
             @if (IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="ContragentV2Entity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="ContragentEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
@@ -28,7 +28,7 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="ContragentV2Entity" TextAlign=TextAlign.Center
+                TItem="ContragentEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
@@ -36,7 +36,7 @@ else
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="ContragentV2Entity" TextAlign=TextAlign.Center
+            <RadzenGridColumn TItem="ContragentEntity" TextAlign=TextAlign.Center
                     Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
@@ -45,7 +45,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ContragentV2Entity" Title=@LocaleCore.Table.Name Width="25%" >
+                TItem="ContragentEntity" Title=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleData.DeviceControl.UriRouteItem.Contragent}/{itemCast.IdentityUid}")
@@ -53,7 +53,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ContragentV2Entity" Property="FullName" TextAlign=TextAlign.Left
+                TItem="ContragentEntity" Property="FullName" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.Name
                 Type="string" Width="35%" />
         </Columns>

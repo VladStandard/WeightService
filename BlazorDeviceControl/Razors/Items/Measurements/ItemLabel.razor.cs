@@ -17,7 +17,7 @@ public partial class ItemLabel : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusLabels);
         ItemCast = new();
 	}
 

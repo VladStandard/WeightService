@@ -22,7 +22,7 @@ internal class AccessValidatorTests
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange.
-		AccessEntity item = DataCoreUtils.CreateNewSubstitute<AccessEntity>(false);
+		AccessEntity item = DataCoreUtils.CreateNewSubstitute<AccessEntity>(true);
 		// Act.
 		foreach (AccessRights rights in Enum.GetValues(typeof(AccessRights)))
 		{

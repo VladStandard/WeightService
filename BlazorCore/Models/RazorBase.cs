@@ -338,12 +338,14 @@ public class RazorBase : LayoutComponentBase
 
     protected void RunActions(List<Action> actions)
     {
-        List<Action> actionsInjected = new();
-        actionsInjected.Add(() =>
+        List<Action> actionsInjected = new()
         {
-            IsLoaded = false;
-            //ButtonSettings = new();
-        });
+	        () =>
+	        {
+		        IsLoaded = false;
+		        //ButtonSettings = new();
+	        }
+        };
         actionsInjected.AddRange(actions);
         actionsInjected.Add(() =>
         {
@@ -354,158 +356,134 @@ public class RazorBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, "", actionsInjected);
     }
 
-    //private void SetParametersForTableScale(ParameterView parameters, ProjectsEnums.TableScale table)
-    //{
-    //    switch (table)
-    //    {
-    //        case ProjectsEnums.TableScale.BarCodeTypes:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idBarcodeType))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idBarcodeType) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Contragents:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idContragent))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<ContragentV2Entity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idContragent) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Hosts:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idHost))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idHost) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Labels:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idLabel))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idLabel) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Nomenclatures:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idNomenclature))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idNomenclature) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Orders:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrder))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idOrder) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.OrdersStatuses:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrderStatus))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idOrderStatus) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.OrdersTypes:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrderType))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idOrderType) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Organizations:
-    //            break;
-    //        case ProjectsEnums.TableScale.Plus:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPlu))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPlu) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Printers:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinter))
-    //            {
-    //                Item = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPrinter) }));
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.PrintersResources:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinterResource))
-    //            {
-    //                PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPrinterResource) }));
-    //                Item = printerResourceEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.PrintersTypes:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinterType))
-    //            {
-    //                PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPrinterType) }));
-    //                Item = printerTypeEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.ProductSeries:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idProductSeries))
-    //            {
-    //                ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idProductSeries) }));
-    //                Item = productSeriesEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.ProductionFacilities:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idProductionFacility))
-    //            {
-    //                ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idProductionFacility) }));
-    //                Item = productionFacilityEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Scales:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idScale))
-    //            {
-    //                ScaleEntity scaleEntity = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idScale) }));
-    //                Item = scaleEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.TemplatesResources:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idTemplateResource))
-    //            {
-    //                TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idTemplateResource) }));
-    //                Item = templateResourceEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Templates:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idTemplate))
-    //            {
-    //                TemplateEntity templateEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idTemplate) }));
-    //                Item = templateEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.WeithingFacts:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idWeithingFact))
-    //            {
-    //                WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idWeithingFact) }));
-    //                Item = weithingFactEntity;
-    //            }
-    //            break;
-    //        case ProjectsEnums.TableScale.Workshops:
-    //            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idWorkshop))
-    //            {
-    //                WorkShopEntity workshopEntity = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
-    //                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idWorkshop) }));
-    //                Item = workshopEntity;
-    //            }
-    //            break;
-    //    }
-    //}
+	//private void SetParametersForTableScale(ParameterView parameters, ProjectsEnums.TableScale table)
+	//{
+	//    switch (table)
+	//    {
+	//        case ProjectsEnums.TableScale.BarCodeTypes:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idBarcodeType))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idBarcodeType) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Contragents:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idContragent))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<ContragentV2Entity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idContragent) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Hosts:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idHost))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idHost) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Labels:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idLabel))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idLabel) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Nomenclatures:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idNomenclature))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idNomenclature) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Orders:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrder))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idOrder) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Plus:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPlu))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPlu) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Printers:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinter))
+	//            {
+	//                Item = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPrinter) }));
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.PrintersResources:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinterResource))
+	//            {
+	//                PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPrinterResource) }));
+	//                Item = printerResourceEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.PrintersTypes:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinterType))
+	//            {
+	//                PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idPrinterType) }));
+	//                Item = printerTypeEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.ProductSeries:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idProductSeries))
+	//            {
+	//                ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idProductSeries) }));
+	//                Item = productSeriesEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.ProductionFacilities:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idProductionFacility))
+	//            {
+	//                ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idProductionFacility) }));
+	//                Item = productionFacilityEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Scales:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idScale))
+	//            {
+	//                ScaleEntity scaleEntity = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idScale) }));
+	//                Item = scaleEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.TemplatesResources:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idTemplateResource))
+	//            {
+	//                TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idTemplateResource) }));
+	//                Item = templateResourceEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Templates:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idTemplate))
+	//            {
+	//                TemplateEntity templateEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idTemplate) }));
+	//                Item = templateEntity;
+	//            }
+	//            break;
+	//        case ProjectsEnums.TableScale.Workshops:
+	//            if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idWorkshop))
+	//            {
+	//                WorkShopEntity workshopEntity = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
+	//                    new(new() { new(DbField.IdentityId, DbComparer.Equal, idWorkshop) }));
+	//                Item = workshopEntity;
+	//            }
+	//            break;
+	//    }
+	//}
 
-    public static ConfirmOptions GetConfirmOptions() => new()
+	public static ConfirmOptions GetConfirmOptions() => new()
     {
         OkButtonText = LocaleCore.Dialog.DialogButtonYes,
         CancelButtonText = LocaleCore.Dialog.DialogButtonCancel
@@ -739,7 +717,7 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableScale.Hosts:
                         page = LocaleData.DeviceControl.UriRouteItem.Host;
                         break;
-                    case ProjectsEnums.TableScale.Labels:
+                    case ProjectsEnums.TableScale.PlusLabels:
                         page = LocaleData.DeviceControl.UriRouteItem.Label;
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
@@ -775,8 +753,8 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableScale.Templates:
                         page = LocaleData.DeviceControl.UriRouteItem.Template;
                         break;
-                    case ProjectsEnums.TableScale.WeithingFacts:
-                        page = LocaleData.DeviceControl.UriRouteItem.WeithingFact;
+                    case ProjectsEnums.TableScale.PlusWeighings:
+                        page = LocaleData.DeviceControl.UriRouteItem.PluWeighing;
                         break;
                     case ProjectsEnums.TableScale.Workshops:
                         page = LocaleData.DeviceControl.UriRouteItem.WorkShop;
@@ -814,7 +792,7 @@ public class RazorBase : LayoutComponentBase
         switch (ProjectsEnums.GetTableScale(Table.Name))
         {
             case ProjectsEnums.TableScale.BarCodeTypes:
-                IdentityId = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(null,
+                IdentityId = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntity>(null,
                     new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                 break;
             case ProjectsEnums.TableScale.Hosts:
@@ -1007,7 +985,7 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableScale.Hosts:
                         page = LocaleData.DeviceControl.UriRouteSection.Hosts;
                         break;
-                    case ProjectsEnums.TableScale.Labels:
+                    case ProjectsEnums.TableScale.PlusLabels:
                         page = LocaleData.DeviceControl.UriRouteSection.Labels;
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
@@ -1049,8 +1027,8 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableScale.Templates:
                         page = LocaleData.DeviceControl.UriRouteSection.Templates;
                         break;
-                    case ProjectsEnums.TableScale.WeithingFacts:
-                        page = LocaleData.DeviceControl.UriRouteSection.WeithingFacts;
+                    case ProjectsEnums.TableScale.PlusWeighings:
+                        page = LocaleData.DeviceControl.UriRouteSection.PlusWeighings;
                         break;
                     case ProjectsEnums.TableScale.Workshops:
                         page = LocaleData.DeviceControl.UriRouteSection.WorkShops;
@@ -1110,10 +1088,10 @@ public class RazorBase : LayoutComponentBase
         switch (tableScale)
         {
             case ProjectsEnums.TableScale.BarCodeTypes:
-                ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeV2Entity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.Contragents:
-                ItemSaveCheck.Contragent(NotificationService, (ContragentV2Entity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
+                ItemSaveCheck.Contragent(NotificationService, (ContragentEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.Hosts:
                 ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
@@ -1248,7 +1226,7 @@ public class RazorBase : LayoutComponentBase
             });
     }
 
-    public async Task ActionPluScalePlusClickAsync(UserSettingsHelper userSettings, PluScaleEntity pluScale, List<PluScaleEntity> pluScales)
+    protected async Task ActionPluScalePlusClickAsync(UserSettingsHelper userSettings, PluScaleEntity pluScale, List<PluScaleEntity> pluScales)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1281,7 +1259,7 @@ public class RazorBase : LayoutComponentBase
             });
     }
 
-    public async Task ActionMarkAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+    protected async Task ActionMarkAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1301,7 +1279,7 @@ public class RazorBase : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isParentRazor)
+    protected async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1321,7 +1299,7 @@ public class RazorBase : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public async Task PrinterResourcesClear(UserSettingsHelper userSettings, PrinterEntity printer)
+    protected async Task PrinterResourcesClear(UserSettingsHelper userSettings, PrinterEntity printer)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1353,7 +1331,7 @@ public class RazorBase : LayoutComponentBase
             });
     }
 
-    public async Task PrinterResourcesLoad(UserSettingsHelper userSettings, PrinterEntity printer, string fileType)
+    protected async Task PrinterResourcesLoad(UserSettingsHelper userSettings, PrinterEntity printer, string fileType)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 

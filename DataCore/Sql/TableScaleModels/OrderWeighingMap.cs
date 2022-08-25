@@ -14,13 +14,13 @@ public class OrderWeighingMap : ClassMap<OrderWeighingEntity>
     public OrderWeighingMap()
     {
         Schema("db_scales");
-        Table("ORDERS");
+        Table("ORDERS_WEIGHINGS");
         LazyLoad();
         Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         References(x => x.Order).Column("ORDER_UID").Not.Nullable();
-        References(x => x.Fact).Column("FACT_ID").Not.Nullable();
+        References(x => x.PluWeighing).Column("PLU_WEIGHING_UID").Not.Nullable();
     }
 }

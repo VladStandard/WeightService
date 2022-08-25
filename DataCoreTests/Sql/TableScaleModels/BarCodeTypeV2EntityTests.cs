@@ -11,7 +11,7 @@ internal class BarCodeTypeV2EntityTests
     {
         Assert.DoesNotThrow(() =>
         {
-            BarCodeTypeV2Entity item = new();
+            BarCodeTypeEntity item = new();
             Assert.AreEqual(true, item.EqualsNew());
             Assert.AreEqual(true, item.EqualsDefault());
         });

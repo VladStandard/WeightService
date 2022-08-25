@@ -7,7 +7,7 @@ public partial class SectionContragents : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<ContragentV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentV2Entity)x).ToList();
+    private List<ContragentEntity> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentEntity)x).ToList();
 
     #endregion
 
@@ -28,7 +28,7 @@ public partial class SectionContragents : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<ContragentV2Entity>(
+                Items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntity>(
                     IsShowMarkedItems ? null : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                     new(DbField.Name),
                     IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)

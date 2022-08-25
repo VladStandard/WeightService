@@ -12,7 +12,7 @@ internal class AppValidatorTests
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		AppEntity item = DataCoreUtils.CreateNewSubstitute<AppEntity>(true);
+		AppEntity item = DataCoreUtils.CreateNewSubstitute<AppEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -25,7 +25,7 @@ internal class AppValidatorTests
 			// Arrange.
 			AppValidator validator = new();
 			// Act.
-			AppEntity item = DataCoreUtils.CreateNewSubstitute<AppEntity>(false);
+			AppEntity item = DataCoreUtils.CreateNewSubstitute<AppEntity>(true);
 			ValidationResult result = validator.Validate(item);
 			DataCoreUtils.FailureWriteLine(result);
 			// Assert.

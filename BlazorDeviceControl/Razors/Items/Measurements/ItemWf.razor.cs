@@ -7,7 +7,7 @@ public partial class ItemWf : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private WeithingFactEntity ItemCast { get => Item == null ? new() : (WeithingFactEntity)Item; set => Item = value; }
+    private PluWeighingEntity ItemCast { get => Item == null ? new() : (PluWeighingEntity)Item; set => Item = value; }
 
     #endregion
 
@@ -17,7 +17,7 @@ public partial class ItemWf : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
         ItemCast = new();
 	}
 
@@ -36,7 +36,7 @@ public partial class ItemWf : BlazorCore.Models.RazorBase
                         ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluWeighingEntity>(
                             new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
                         break;
                 }

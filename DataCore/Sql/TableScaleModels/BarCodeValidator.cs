@@ -4,20 +4,16 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "ORDERS_WEIGHINGS".
+/// Table validation "BARCODES_V2".
 /// </summary>
-public class OrderWeighingValidator : BaseUidValidator
+public class BarCodeValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrderWeighingValidator()
+	public BarCodeValidator()
 	{
-		RuleFor(item => ((OrderWeighingEntity)item).Order)
-			.NotEmpty()
-			.NotNull()
-			.SetValidator(new OrderValidator());
-		RuleFor(item => ((OrderWeighingEntity)item).PluWeighing)
+		RuleFor(item => ((BarCodeEntity)item).Value)
 			.NotEmpty()
 			.NotNull();
 	}

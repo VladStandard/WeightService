@@ -4,20 +4,16 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "ORDERS_WEIGHINGS".
+/// Table validation "___".
 /// </summary>
-public class OrderWeighingValidator : BaseUidValidator
+public class TemplateValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrderWeighingValidator()
+	public TemplateValidator()
 	{
-		RuleFor(item => ((OrderWeighingEntity)item).Order)
-			.NotEmpty()
-			.NotNull()
-			.SetValidator(new OrderValidator());
-		RuleFor(item => ((OrderWeighingEntity)item).PluWeighing)
+		RuleFor(item => ((TemplateEntity)item).Title)
 			.NotEmpty()
 			.NotNull();
 	}

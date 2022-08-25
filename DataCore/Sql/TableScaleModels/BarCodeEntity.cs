@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "BARCODES_V2".
 /// </summary>
 [Serializable]
-public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
+public class BarCodeEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -16,14 +16,14 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual string Value { get; set; }
-    [XmlElement] public virtual BarCodeTypeV2Entity? BarcodeType { get; set; }
-	[XmlElement] public virtual ContragentV2Entity? Contragent { get; set; }
+    [XmlElement] public virtual BarCodeTypeEntity? BarcodeType { get; set; }
+	[XmlElement] public virtual ContragentEntity? Contragent { get; set; }
 	[XmlElement] public virtual NomenclatureEntity? Nomenclature { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeV2Entity() : base(Guid.Empty, false)
+    public BarCodeEntity() : base(Guid.Empty, false)
 	{
 		Init();
 	}
@@ -33,7 +33,7 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public BarCodeV2Entity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public BarCodeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -43,11 +43,11 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-    protected BarCodeV2Entity(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected BarCodeEntity(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Value = info.GetString(nameof(Value));
-        BarcodeType = (BarCodeTypeV2Entity)info.GetValue(nameof(BarcodeType), typeof(BarCodeTypeV2Entity));
-        Contragent = (ContragentV2Entity)info.GetValue(nameof(Contragent), typeof(ContragentV2Entity));
+        BarcodeType = (BarCodeTypeEntity)info.GetValue(nameof(BarcodeType), typeof(BarCodeTypeEntity));
+        Contragent = (ContragentEntity)info.GetValue(nameof(Contragent), typeof(ContragentEntity));
         Nomenclature = (NomenclatureEntity)info.GetValue(nameof(Nomenclature), typeof(NomenclatureEntity));
     }
 
@@ -78,7 +78,7 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
             $"{nameof(Nomenclature)}: {strNomenclature}. ";
     }
 
-    public virtual bool Equals(BarCodeV2Entity item)
+    public virtual bool Equals(BarCodeEntity item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -97,7 +97,7 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((BarCodeV2Entity)obj);
+        return Equals((BarCodeEntity)obj);
     }
 
 	public override int GetHashCode() => IdentityUid.GetHashCode();
@@ -121,7 +121,7 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        BarCodeV2Entity item = new();
+        BarCodeEntity item = new();
         item.Value = Value;
         item.BarcodeType = BarcodeType?.CloneCast();
         item.Contragent = Contragent?.CloneCast();
@@ -130,7 +130,7 @@ public class BarCodeV2Entity : BaseEntity, ISerializable, IBaseEntity
         return item;
     }
 
-    public new virtual BarCodeV2Entity CloneCast() => (BarCodeV2Entity)Clone();
+    public new virtual BarCodeEntity CloneCast() => (BarCodeEntity)Clone();
 
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {

@@ -7,7 +7,7 @@ public partial class SectionWf : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<WeithingFactEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WeithingFactEntity)x).ToList();
+    private List<PluWeighingEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluWeighingEntity)x).ToList();
 
     #endregion
 
@@ -17,7 +17,7 @@ public partial class SectionWf : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
         Items = new();
     }
 
@@ -28,7 +28,7 @@ public partial class SectionWf : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
+                Items = AppSettings.DataAccess.Crud.GetEntities<PluWeighingEntity>(
                         IsShowMarkedItems ? null
                             : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
                         new(DbField.WeithingDate, DbOrderDirection.Desc),

@@ -6,35 +6,20 @@ using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers;
 
-public class CrudHostController
+public static class CrudControllerHostExtension
 {
-    #region Public and private fields, properties, constructor
-
-    public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-
-    #endregion
-
-    #region Constructor and destructor
-
-    public CrudHostController()
-    {
-        //
-    }
-
-    #endregion
-
     #region Public and private methods
 
-    public HostEntity? GetOrCreateNew(string? hostName)
+    public static HostEntity? GetOrCreateNewHost(this CrudController crud, string? hostName)
     {
         HostEntity? host = null;
         if (!string.IsNullOrEmpty(hostName) && hostName is { })
         {
-            host = DataAccess.Crud.GetEntity<HostEntity>(
+            host = crud.GetEntity<HostEntity>(
                 new(new() { new(DbField.HostName, DbComparer.Equal, hostName),
                     new(DbField.IsMarked, DbComparer.Equal, false),
                 }));
-            if (host == null || host.EqualsDefault())
+            if (host.EqualsDefault())
             {
                 host = new()
                 {
@@ -46,40 +31,40 @@ public class CrudHostController
                     Ip = NetUtils.GetLocalIpAddress(),
                     AccessDt = DateTime.Now,
                 };
-                DataAccess.Crud.SaveEntity(host);
+                crud.SaveEntity(host);
             }
             else
             {
                 host.AccessDt = DateTime.Now;
-                DataAccess.Crud.UpdateEntity(host);
+                crud.UpdateEntity(host);
             }
         }
         return host;
     }
 
-    public HostEntity? GetEntity(string? hostName)
+    public static HostEntity? GetHost(this CrudController crud, string? hostName)
     {
         HostEntity? host = null;
-        if (!string.IsNullOrEmpty(hostName) && hostName is string strName)
+        if (!string.IsNullOrEmpty(hostName) && hostName is { })
         {
-            host = DataAccess.Crud.GetEntity<HostEntity>(
-                new(new() { new(DbField.HostName, DbComparer.Equal, strName),
+            host = crud.GetEntity<HostEntity>(
+                new(new() { new(DbField.HostName, DbComparer.Equal, hostName),
                     new(DbField.IsMarked, DbComparer.Equal, false),
                 }));
-            if (host != null && !host.EqualsDefault())
+            if (!host.EqualsDefault())
             {
                 host.AccessDt = DateTime.Now;
-                DataAccess.Crud.UpdateEntity(host);
+                crud.UpdateEntity(host);
             }
         }
         return host;
     }
 
-    public List<HostEntity> GetFree(long? id, bool? isMarked,
+    public static List<HostEntity> GetHostsFree(this CrudController crud, long? id, bool? isMarked,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
-        List<HostEntity>? items = new();
+        object[] entities = crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
+        List<HostEntity> items = new();
         foreach (object? item in entities)
         {
             if (item is object[] { Length: 10 } obj)
@@ -105,11 +90,11 @@ public class CrudHostController
         return items;
     }
 
-    public List<HostEntity> GetBusy(long? id, bool? isMarked,
+    public static List<HostEntity> GetHostsBusy(this CrudController crud, long? id, bool? isMarked,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
-        List<HostEntity>? items = new();
+        object[] entities = crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
+        List<HostEntity> items = new();
         foreach (object? item in entities)
         {
             if (item is object[] { Length: 12 } obj)

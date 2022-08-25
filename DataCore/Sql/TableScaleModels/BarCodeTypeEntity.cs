@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "BARCODE_TYPES_V2".
 /// </summary>
 [Serializable]
-public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
+public class BarCodeTypeEntity : BaseEntity, ISerializable, IBaseEntity
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,7 +21,7 @@ public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeTypeV2Entity() : base(Guid.Empty, false)
+    public BarCodeTypeEntity() : base(Guid.Empty, false)
 	{
 		Init();
 	}
@@ -31,7 +31,7 @@ public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public BarCodeTypeV2Entity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public BarCodeTypeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -51,7 +51,7 @@ public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
-    public virtual bool Equals(BarCodeTypeV2Entity item)
+    public virtual bool Equals(BarCodeTypeEntity item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -64,7 +64,7 @@ public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((BarCodeTypeV2Entity)obj);
+        return Equals((BarCodeTypeEntity)obj);
     }
 
 	public override int GetHashCode() => IdentityUid.GetHashCode();
@@ -82,13 +82,13 @@ public class BarCodeTypeV2Entity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        BarCodeTypeV2Entity item = new();
+        BarCodeTypeEntity item = new();
         item.Name = Name;
         item.Setup(((BaseEntity)this).CloneCast());
         return item;
     }
 
-    public new virtual BarCodeTypeV2Entity CloneCast() => (BarCodeTypeV2Entity)Clone();
+    public new virtual BarCodeTypeEntity CloneCast() => (BarCodeTypeEntity)Clone();
 
     #endregion
 }

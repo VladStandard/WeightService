@@ -7,7 +7,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "CONTRAGENTS_V2".
 /// </summary>
 [Serializable]
-public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
+public class ContragentEntity : BaseEntity, ISerializable, IBaseEntity
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ContragentV2Entity() : base(Guid.Empty, false)
+    public ContragentEntity() : base(Guid.Empty, false)
 	{
 		Init();
 	}
@@ -39,7 +39,7 @@ public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public ContragentV2Entity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public ContragentEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -64,7 +64,7 @@ public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(DwhId)}: {DwhId}. ";
 
-    public virtual bool Equals(ContragentV2Entity item)
+    public virtual bool Equals(ContragentEntity item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -81,7 +81,7 @@ public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((ContragentV2Entity)obj);
+        return Equals((ContragentEntity)obj);
     }
 
 	public override int GetHashCode() => IdentityUid.GetHashCode();
@@ -103,7 +103,7 @@ public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        ContragentV2Entity item = new();
+        ContragentEntity item = new();
         item.Name = Name;
         item.FullName = FullName;
         item.IdRRef = IdRRef;
@@ -113,7 +113,7 @@ public class ContragentV2Entity : BaseEntity, ISerializable, IBaseEntity
         return item;
     }
 
-    public new virtual ContragentV2Entity CloneCast() => (ContragentV2Entity)Clone();
+    public new virtual ContragentEntity CloneCast() => (ContragentEntity)Clone();
 
     #endregion
 }

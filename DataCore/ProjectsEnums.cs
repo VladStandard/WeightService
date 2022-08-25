@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-
 namespace DataCore
 {
     public class ProjectsEnums
@@ -46,7 +44,6 @@ namespace DataCore
             Default,
             MessageBox,
             PinCode,
-            PluList,
             ScaleChange,
             SqlSettings,
         }
@@ -85,15 +82,15 @@ namespace DataCore
             BarCodeTypes,
             Contragents,
             Hosts,
-            Labels,
             Nomenclatures,
             Orders,
-            OrdersStatuses,
-            OrdersTypes,
+            OrdersWeighings,
             Organizations,
+            Plus,
+            PlusLabels,
             PlusObsolete,
-			Plus,
             PlusScales,
+            PlusWeighings,
             Printers,
             PrintersResources,
             PrintersTypes,
@@ -102,7 +99,6 @@ namespace DataCore
             Scales,
             Templates,
             TemplatesResources,
-            WeithingFacts,
             Workshops,
         }
 

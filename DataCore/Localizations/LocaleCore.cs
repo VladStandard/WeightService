@@ -12,21 +12,22 @@ namespace DataCore.Localizations
         {
             get => _lang;
             set => Action.Lang = Buttons.Lang = Convert.Lang = DeviceControl.Lang = Dialog.Lang = Memory.Lang = Menu.Lang = Print.Lang = 
-                Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = _lang = value;
+                Scales.Lang = Settings.Lang = Sql.Lang = System.Lang = Table.Lang = Validator.Lang = _lang = value;
         }
-        public static LocaleAction Action { get; private set; } = LocaleAction.Instance;
-        public static LocaleButtons Buttons { get; private set; } = LocaleButtons.Instance;
-        public static LocaleConvert Convert { get; private set; } = LocaleConvert.Instance;
-        public static LocaleDeviceControl DeviceControl { get; private set; } = LocaleDeviceControl.Instance;
-        public static LocaleDialog Dialog { get; private set; } = LocaleDialog.Instance;
-        public static LocaleMemory Memory { get; private set; } = LocaleMemory.Instance;
-        public static LocaleMenu Menu { get; private set; } = LocaleMenu.Instance;
-        public static LocalePrint Print { get; private set; } = LocalePrint.Instance;
-        public static LocaleScale Scales { get; private set; } = LocaleScale.Instance;
-        public static LocaleSettings Settings { get; private set; } = LocaleSettings.Instance;
-        public static LocaleSql Sql { get; private set; } = LocaleSql.Instance;
-        public static LocaleSystem System { get; private set; } = LocaleSystem.Instance;
-        public static LocaleTable Table { get; private set; } = LocaleTable.Instance;
+        public static LocaleAction Action { get; } = LocaleAction.Instance;
+        public static LocaleButtons Buttons { get; } = LocaleButtons.Instance;
+        public static LocaleConvert Convert { get; } = LocaleConvert.Instance;
+        public static LocaleDeviceControl DeviceControl { get; } = LocaleDeviceControl.Instance;
+        public static LocaleDialog Dialog { get; } = LocaleDialog.Instance;
+        public static LocaleMemory Memory { get; } = LocaleMemory.Instance;
+        public static LocaleMenu Menu { get; } = LocaleMenu.Instance;
+        public static LocalePrint Print { get; } = LocalePrint.Instance;
+        public static LocaleScale Scales { get; } = LocaleScale.Instance;
+        public static LocaleSettings Settings { get; } = LocaleSettings.Instance;
+        public static LocaleSql Sql { get; } = LocaleSql.Instance;
+        public static LocaleSystem System { get; } = LocaleSystem.Instance;
+        public static LocaleTable Table { get; } = LocaleTable.Instance;
+        public static LocaleValidator Validator { get; } = LocaleValidator.Instance;
 
         #endregion
 

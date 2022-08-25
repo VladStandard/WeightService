@@ -12,7 +12,7 @@ internal class ContragentV2ValidatorTests
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		ContragentV2Entity item = DataCoreUtils.CreateNewSubstitute<ContragentV2Entity>(false);
+		ContragentEntity item = DataCoreUtils.CreateNewSubstitute<ContragentEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -23,7 +23,7 @@ internal class ContragentV2ValidatorTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange & Act.
-			ContragentV2Entity item = DataCoreUtils.CreateNewSubstitute<ContragentV2Entity>(true);
+			ContragentEntity item = DataCoreUtils.CreateNewSubstitute<ContragentEntity>(true);
 			// Assert.
 			DataCoreUtils.AssertSqlValidate(item, true);
 		});
@@ -32,6 +32,6 @@ internal class ContragentV2ValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<ContragentV2Entity>(100);
+		DataCoreUtils.AssertSqlDataValidate<ContragentEntity>(100);
 	}
 }

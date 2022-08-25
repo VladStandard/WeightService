@@ -17,7 +17,7 @@ public partial class SectionWfAggr : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
         
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
         Items = new();
 	}
 

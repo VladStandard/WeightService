@@ -29,34 +29,15 @@ public class LogController
 
     public void Setup(string? hostName, string? appName)
     {
-        HostEntity? host = DataAccess.CrudHost.GetEntity(hostName);
+        HostEntity? host = DataAccess.Crud.GetHost(hostName);
 
         if (host != null && !host.EqualsDefault())
             Host = host;
 
-        AppEntity? app = DataAccess.CrudApp.GetOrCreateNew(appName);
+        AppEntity? app = DataAccess.Crud.GetOrCreateNewApp(appName);
         if (app != null && !app.EqualsDefault())
             App = app;
     }
-
-    //[Obsolete(@"Use LogError")]
-    //public void Error(Exception ex, string filePath, int lineNumber, string memberName)
-    //{
-    //    long idLast = DataAccess.Crud.GetEntity<ErrorEntity>(null,
-    //        new(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId;
-    //    ErrorEntity error = new()
-    //    {
-    //        IdentityId = idLast + 1,
-    //        CreateDt = DateTime.Now,
-    //        ChangeDt = DateTime.Now,
-    //        FilePath = filePath,
-    //        LineNumber = lineNumber,
-    //        MemberName = memberName,
-    //        Exception = ex.Message,
-    //        InnerException = ex.InnerException == null ? string.Empty : ex.InnerException.Message,
-    //    };
-    //    DataAccess.Crud.ExecuteTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
-    //}
 
     public void LogToFile(string localFileLog, string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -72,9 +53,8 @@ public class LogController
     public void LogError(Exception ex, string? hostName = null, string? appName = null,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        if (ex != null)
-            Log(ex.Message, LogType.Error, hostName, appName, filePath, lineNumber, memberName);
-        if (ex?.InnerException != null)
+        Log(ex.Message, LogType.Error, hostName, appName, filePath, lineNumber, memberName);
+        if (ex.InnerException != null)
             Log(ex.InnerException.Message, LogType.Error, hostName, appName, filePath, lineNumber, memberName);
     }
 
@@ -111,9 +91,9 @@ public class LogController
         AppEntity? app = App;
 
         if (!string.IsNullOrEmpty(hostName))
-            host = DataAccess.CrudHost.GetEntity(hostName);
+            host = DataAccess.Crud.GetHost(hostName);
         if (!string.IsNullOrEmpty(appName))
-            app = DataAccess.CrudApp.GetOrCreateNew(appName);
+            app = DataAccess.Crud.GetOrCreateNewApp(appName);
 
         LogEntity log = new()
         {

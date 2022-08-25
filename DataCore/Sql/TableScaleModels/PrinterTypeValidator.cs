@@ -4,16 +4,16 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "BARCODES_V2".
+/// Table validation "___".
 /// </summary>
-public class BarCodeV2Validator : BaseUidValidator
+public class PrinterTypeValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public BarCodeV2Validator()
+	public PrinterTypeValidator()
 	{
-		RuleFor(item => ((BarCodeV2Entity)item).Value)
+		RuleFor(item => ((PrinterTypeEntity)item).Name)
 			.NotEmpty()
 			.NotNull();
 	}

@@ -4,16 +4,16 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "CONTRAGENTS_V2".
+/// Table validation "BARCODE_TYPES_V2".
 /// </summary>
-public class ContragentV2Validator : BaseUidValidator
+public class BarCodeTypeValidator : BaseUidValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ContragentV2Validator()
+	public BarCodeTypeValidator()
 	{
-		RuleFor(item => ((ContragentV2Entity)item).Name)
+		RuleFor(item => ((BarCodeTypeEntity)item).Name)
 			.NotEmpty()
 			.NotNull();
 	}

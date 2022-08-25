@@ -18,7 +18,6 @@ public partial class WpfPageLoader : Form
 
     public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
     private ElementHost ElementHost { get; set; }
-    private PagePluList PluList { get; set; }
     private bool UseOwnerSize { get; }
     public MessageBoxEntity MessageBox { get; } = new();
     private PageMessageBox PageMessageBox { get; set; }
@@ -102,12 +101,6 @@ public partial class WpfPageLoader : Form
             }
             switch (Page)
             {
-                case ProjectsEnums.Page.PluList:
-                    PluList = new();
-                    PluList.InitializeComponent();
-                    ElementHost.Child = PluList;
-                    PluList.OnClose += WpfPageLoader_OnClose;
-                    break;
                 case ProjectsEnums.Page.ScaleChange:
                     PageScaleChange = new();
                     PageScaleChange.InitializeComponent();
@@ -161,27 +154,18 @@ public partial class WpfPageLoader : Form
         {
             switch (Page)
             {
-                case ProjectsEnums.Page.PluList:
-                    if (PluList != null)
-                        DialogResult = PluList.Result;
-                    break;
                 case ProjectsEnums.Page.ScaleChange:
-                    if (PageScaleChange != null)
-                        DialogResult = PageScaleChange.Result;
+                    DialogResult = PageScaleChange.Result;
                     break;
                 case ProjectsEnums.Page.MessageBox:
-                    if (MessageBox != null)
-                        DialogResult = MessageBox.Result;
+                    DialogResult = MessageBox.Result;
                     break;
                 case ProjectsEnums.Page.PinCode:
-                    if (PagePinCode != null)
-                        DialogResult = PagePinCode.Result;
+                    DialogResult = PagePinCode.Result;
                     break;
                 case ProjectsEnums.Page.SqlSettings:
-                    if (PageSqlSettings != null)
-                        DialogResult = PageSqlSettings.Result;
+                    DialogResult = PageSqlSettings.Result;
                     break;
-                case ProjectsEnums.Page.Default:
                 default:
                     break;
             }

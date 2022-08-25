@@ -7,7 +7,7 @@ public partial class ItemBarCodeType : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private BarCodeTypeV2Entity ItemCast { get => Item == null ? new() : (BarCodeTypeV2Entity)Item; set => Item = value; }
+	private BarCodeTypeEntity ItemCast { get => Item == null ? new() : (BarCodeTypeEntity)Item; set => Item = value; }
 
 	#endregion
 
@@ -38,7 +38,7 @@ public partial class ItemBarCodeType : BlazorCore.Models.RazorBase
 						ItemCast.Name = "NEW BARCODE_TYPE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeV2Entity>(
+						ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntity>(
 							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
 						break;
 				}

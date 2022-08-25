@@ -7,7 +7,7 @@ public partial class ItemContragent : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ContragentV2Entity ItemCast { get => Item == null ? new() : (ContragentV2Entity)Item; set => Item = value; }
+	private ContragentEntity ItemCast { get => Item == null ? new() : (ContragentEntity)Item; set => Item = value; }
 
 	#endregion
 
@@ -38,7 +38,7 @@ public partial class ItemContragent : BlazorCore.Models.RazorBase
 						ItemCast.Name = "NEW CONTRAGENT";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<ContragentV2Entity>(
+						ItemCast = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(
 							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
 						break;
 				}

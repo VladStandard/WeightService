@@ -9,8 +9,7 @@ namespace DataCore.Localizations
 {
     public static class LocaleData
     {
-        private static ShareEnums.Lang _lang;
-        public static ShareEnums.Lang Lang { get => _lang; set => _lang = value; }
+	    public static ShareEnums.Lang Lang { get; set; }
 
         static LocaleData()
         {
@@ -51,9 +50,10 @@ namespace DataCore.Localizations
                 public const string Log = "/item/log";
                 public const string LogType = "/item/logtype";
                 public const string Nomenclature = "/item/nomenclature";
-                public const string PluObsolete = "/item/plu_obsolete";
                 public const string Plu = "/item/plu";
+                public const string PluObsolete = "/item/plu_obsolete";
                 public const string PluScale = "/item/plu_scale";
+                public const string PluWeighing = "/item/measurements/wf";
                 public const string Printer = "/item/printer";
                 public const string PrinterResource = "/item/printerresource";
                 public const string PrinterType = "/item/printertype";
@@ -64,7 +64,6 @@ namespace DataCore.Localizations
                 public const string TaskTypeModule = "/item/tasktypemodule";
                 public const string Template = "/item/template";
                 public const string TemplateResource = "/item/templateresource";
-                public const string WeithingFact = "/item/measurements/wf";
                 public const string WorkShop = "/item/workshop";
             }
             #endregion
@@ -91,6 +90,8 @@ namespace DataCore.Localizations
                 public const string Plus = "/section/plus";
                 public const string PlusObsolete = "/section/plus_obsolete";
                 public const string PlusScales = "/section/plus_scales";
+                public const string PlusWeighings = "/section/measurements/wf";
+                public const string PlusWeighingsAggregation = "/section/measurements/wf_aggr";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
                 public const string PrinterTypes = "/section/printertypes";
@@ -102,8 +103,6 @@ namespace DataCore.Localizations
                 public const string TemplateResources = "/section/templateresources";
                 public const string Templates = "/section/templates";
                 public const string Versions = "/section/versions";
-                public const string WeithingFacts = "/section/measurements/wf";
-                public const string WeithingFactsAggregation = "/section/measurements/wf_aggr";
                 public const string WorkShops = "/section/workshops";
 				public const string ScalesObsolete = "/section/scales_obsolete";
             }
@@ -124,6 +123,7 @@ namespace DataCore.Localizations
                 public static string Nomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
                 public static string NomenclatureUnit => Lang == ShareEnums.Lang.English ? "Package" : "Упаковка";
                 public static string Order => Lang == ShareEnums.Lang.English ? "Order" : "Заказ";
+                public static string OrderWeighing => Lang == ShareEnums.Lang.English ? "Order weighing" : "Взвешивание заказа";
                 public static string OrderStatus => Lang == ShareEnums.Lang.English ? "Order status" : "Статус заказа";
                 public static string OrderType => Lang == ShareEnums.Lang.English ? "Order type" : "Типы заказа";
                 public static string Organization => Lang == ShareEnums.Lang.English ? "Organization" : "Организация";
@@ -165,6 +165,7 @@ namespace DataCore.Localizations
                 public static string NomenclatureUnits => Lang == ShareEnums.Lang.English ? "Packages" : "Упаковки";
                 public static string Obsoletes => Lang == ShareEnums.Lang.English ? "Obsoletes" : "Устаревшие";
                 public static string Orders => Lang == ShareEnums.Lang.English ? "Orders" : "Заказы";
+                public static string OrdersWeighings => Lang == ShareEnums.Lang.English ? "Orders weighings" : "Взвешивание заказов";
                 public static string OrderStatuses => Lang == ShareEnums.Lang.English ? "Order statuses" : "Статусы заказов";
                 public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
                 public static string Organizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
@@ -182,7 +183,7 @@ namespace DataCore.Localizations
                 public static string Tasks => Lang == ShareEnums.Lang.English ? "Tasks" : "Задачи";
                 public static string TemplateResources => Lang == ShareEnums.Lang.English ? "Template resources" : "Ресурсы шаблонов";
                 public static string Templates => Lang == ShareEnums.Lang.English ? "Templates" : "Шаблоны";
-                public static string WeithingFacts => Lang == ShareEnums.Lang.English ? "Weithing facts" : "Взвешивания";
+                public static string PlusWeighings => Lang == ShareEnums.Lang.English ? "Plus weighings" : "Взвешивания ПЛУ";
                 public static string WeithingFactsAggregation => Lang == ShareEnums.Lang.English ? "Aggregation weithings" : "Взвешивания";
                 public static string WeithingFactsAggregationShort => Lang == ShareEnums.Lang.English ? "Aggr. weithings" : "Агр. взвешивания";
                 public static string WorkShops => Lang == ShareEnums.Lang.English ? "Workshops" : "Цеха";
@@ -358,20 +359,17 @@ namespace DataCore.Localizations
                         case ProjectsEnums.TableScale.Hosts:
                             result = DeviceControl.Items.Host;
                             break;
-                        case ProjectsEnums.TableScale.Labels:
+                        case ProjectsEnums.TableScale.PlusLabels:
                             result = DeviceControl.Items.Label;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
                             result = DeviceControl.Items.Nomenclature;
                             break;
-                        case ProjectsEnums.TableScale.OrdersStatuses:
-                            result = DeviceControl.Items.OrderStatus;
-                            break;
-                        case ProjectsEnums.TableScale.OrdersTypes:
-                            result = DeviceControl.Items.OrderType;
-                            break;
                         case ProjectsEnums.TableScale.Orders:
                             result = DeviceControl.Items.Order;
+                            break;
+                        case ProjectsEnums.TableScale.OrdersWeighings:
+                            result = DeviceControl.Items.OrderWeighing;
                             break;
                         case ProjectsEnums.TableScale.PlusObsolete:
                             result = DeviceControl.Items.Plu;
@@ -406,7 +404,7 @@ namespace DataCore.Localizations
                         case ProjectsEnums.TableScale.Templates:
                             result = DeviceControl.Items.Template;
                             break;
-                        case ProjectsEnums.TableScale.WeithingFacts:
+                        case ProjectsEnums.TableScale.PlusWeighings:
                             result = DeviceControl.Items.WeithingFact;
                             break;
                         case ProjectsEnums.TableScale.Workshops:
@@ -469,20 +467,17 @@ namespace DataCore.Localizations
                         case ProjectsEnums.TableScale.Hosts:
                             result = DeviceControl.Sections.Hosts;
                             break;
-                        case ProjectsEnums.TableScale.Labels:
+                        case ProjectsEnums.TableScale.PlusLabels:
                             result = DeviceControl.Sections.Labels;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
                             result = DeviceControl.Sections.Nomenclatures;
                             break;
-                        case ProjectsEnums.TableScale.OrdersStatuses:
-                            result = DeviceControl.Sections.OrderStatuses;
-                            break;
-                        case ProjectsEnums.TableScale.OrdersTypes:
-                            result = DeviceControl.Sections.OrderTypes;
-                            break;
                         case ProjectsEnums.TableScale.Orders:
                             result = DeviceControl.Sections.Orders;
+                            break;
+                        case ProjectsEnums.TableScale.OrdersWeighings:
+                            result = DeviceControl.Sections.OrdersWeighings;
                             break;
                         case ProjectsEnums.TableScale.PlusObsolete:
                             result = DeviceControl.Sections.Plus;
@@ -517,8 +512,8 @@ namespace DataCore.Localizations
                         case ProjectsEnums.TableScale.Templates:
                             result = DeviceControl.Sections.Templates;
                             break;
-                        case ProjectsEnums.TableScale.WeithingFacts:
-                            result = DeviceControl.Sections.WeithingFacts;
+                        case ProjectsEnums.TableScale.PlusWeighings:
+                            result = DeviceControl.Sections.PlusWeighings;
                             break;
                         case ProjectsEnums.TableScale.Workshops:
                             result = DeviceControl.Sections.WorkShops;

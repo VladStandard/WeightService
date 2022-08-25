@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableDwhModels;
+using DataCore.Sql.TableScaleModels;
 using FluentNHibernate.Conventions;
 using NHibernate;
 using NHibernate.Criterion;
@@ -13,9 +14,10 @@ public class CrudController
 {
     #region Public and private fields, properties, constructor
 
-    public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-    public DataConfigurationEntity DataConfig { get; private set; }
-    public delegate void ExecCallback(ISession session);
+    private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    private DataConfigurationEntity DataConfig { get; }
+
+    private delegate void ExecCallback(ISession session);
 
     #endregion
 
@@ -65,28 +67,16 @@ public class CrudController
         }
         if (filterList is { IsEnabled: true, Fields: { } })
         {
-            //AbstractCriterion fieldsWhere = Restrictions.AllEq(filterList.Fields);
-            //criteria.Add(fieldsWhere);
             foreach (FieldEntity field in filterList.Fields)
             {
-                AbstractCriterion? criterion = null;
+                AbstractCriterion? criterion;
                 switch (field.Comparer)
                 {
                     case DbComparer.Equal:
-                        //if (field.Value is { } && field.ValueType is { })
-                        //    criterion = Restrictions.Eq(field.Name, (typeEqual.GetType())valueEqual);
-                        //else
                         criterion = Restrictions.Eq(field.Name, field.Value);
                         break;
                     case DbComparer.NotEqual:
-                        //if (field.Value is { } && field.ValueType is { })
-                        //    criterion = Restrictions.Not(Restrictions.Eq(field.Name, (typeNotEqual)valueNotEqual));
-                        //else
                         criterion = Restrictions.Not(Restrictions.Eq(field.Name, field.Value));
-                        break;
-                    case DbComparer.More:
-                        break;
-                    case DbComparer.Less:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -104,8 +94,7 @@ public class CrudController
         return criteria;
     }
 
-    public void ExecuteTransaction(ExecCallback callback,
-        string filePath, int lineNumber, string memberName, bool isException = false)
+    private void ExecuteTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName, bool isException = false)
     {
         using ISession? session = DataAccess.SessionFactory.OpenSession();
         Exception? exception = null;
@@ -138,41 +127,6 @@ public class CrudController
         }
     }
 
-    //public string GetSqlStringFieldsSelect(string[] fieldsSelect)
-    //{
-    //    var result = string.Empty;
-    //    foreach (var field in fieldsSelect)
-    //    {
-    //        result += $"[{field}], ";
-    //    }
-    //    return result[0..^2];
-    //}
-
-    //public string GetSqlStringValuesParams(object[] valuesParams)
-    //{
-    //    var result = string.Empty;
-    //    foreach (var value in valuesParams)
-    //    {
-    //        result += value switch
-    //        {
-    //            int _ or decimal _ => $"{value}, ",
-    //            _ => $"'{value}', ",
-    //        };
-    //    }
-    //    return result[0..^2];
-    //}
-
-    //public ISQLQuery GetSqlQuery<T>(ISession session, string from, string[] fieldsSelect, object[] valuesParams)
-    //{
-    //    if (string.IsNullOrEmpty(from) || fieldsSelect == null || fieldsSelect.Length == 0 ||
-    //        valuesParams == null || valuesParams.Length == 0)
-    //        return null;
-
-    //    var sqlQuery = $"select {GetSqlStringFieldsSelect(fieldsSelect)} from {from} ({GetSqlStringValuesParams(valuesParams)})";
-    //    var result = session.CreateSQLQuery(sqlQuery).AddEntity(typeof(T));
-    //    return result;
-    //}
-
     public ISQLQuery? GetSqlQuery(ISession session, string query)
     {
         if (string.IsNullOrEmpty(query))
@@ -181,10 +135,10 @@ public class CrudController
         return session.CreateSQLQuery(query);
     }
 
-    public T[]? GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
+    private T[] GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
         string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        T[]? result = Array.Empty<T>();
+        T[] result = Array.Empty<T>();
         ExecuteTransaction((session) =>
         {
             result = GetCriteria<T>(session, filterList, order, maxResults).List<T>().ToArray();
@@ -235,7 +189,7 @@ public class CrudController
 
     #region Public and private methods
 
-    public void FillReferences<T>(T? item) where T : BaseEntity, new()
+    private void FillReferences<T>(T? item) where T : BaseEntity, new()
     {
         FillReferencesSystem(item);
         FillReferencesDatas(item);
@@ -248,21 +202,11 @@ public class CrudController
         if (item == null) return;
         switch (item)
         {
-            //case AccessEntity access:
-            //    break;
-            //case AppEntity app:
-            //    break;
-            //case ErrorEntity error:
-            //    break;
-            //case HostEntity host:
-            //    break;
             case LogEntity log:
                 log.App = log.App?.IdentityUid == null ? new() : GetEntityByUid<AppEntity>(log.App.IdentityUid);
                 log.Host = log.Host?.IdentityId == null ? new() : GetEntityById<HostEntity>(log.Host.IdentityId);
                 log.LogType = log.LogType?.IdentityUid == null ? new() : GetEntityByUid<LogTypeEntity>(log.LogType.IdentityUid);
                 break;
-            //case LogTypeEntity logType:
-            //    break;
         }
     }
 
@@ -282,26 +226,21 @@ public class CrudController
         if (item == null) return;
         switch (item)
         {
-            case BarCodeV2Entity barcode:
-                {
-                    barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeV2Entity>(barcode.BarcodeType.IdentityUid);
-                    barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentV2Entity>(barcode.Contragent.IdentityUid);
-                    barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
-                    break;
-                }
-            case LabelEntity label:
-                label.WeithingFact = GetEntityById<WeithingFactEntity>(label.WeithingFact.IdentityId);
+            case BarCodeEntity barcode:
+                barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? null : GetEntityByUid<BarCodeTypeEntity>(barcode.BarcodeType.IdentityUid);
+                barcode.Contragent = barcode.Contragent?.IdentityUid == null ? null : GetEntityByUid<ContragentEntity>(barcode.Contragent.IdentityUid);
+                barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                 break;
             case OrderWeighingEntity orderWeighing:
 	            orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
-	            orderWeighing.Fact = GetEntityById<WeithingFactEntity>(orderWeighing.Fact.IdentityId);
+	            orderWeighing.PluWeighing = GetEntityByUid<PluWeighingEntity>(orderWeighing.PluWeighing.IdentityUid);
                 break;
             case PluEntity plu:
 	            plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
 	            plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
 	            break;
             case PluLabelEntity pluLabel:
-	            pluLabel.PluWeighing = GetEntityByUid<PluWeighingEntity>(pluLabel.PluWeighing.IdentityUid);
+                pluLabel.PluWeighing = pluLabel.PluWeighing == null ? null : GetEntityByUid<PluWeighingEntity>(pluLabel.PluWeighing.IdentityUid);
 	            break;
             case PluObsoleteEntity pluObsolete:
                 pluObsolete.Template = GetEntityById<TemplateEntity>(pluObsolete.Template.IdentityId);
@@ -339,15 +278,6 @@ public class CrudController
             case TaskEntity task:
                 task.TaskType = GetEntityByUid<TaskTypeEntity>(task.TaskType.IdentityUid);
                 task.Scale = GetEntityById<ScaleEntity>(task.Scale.IdentityId);
-                break;
-            case WeithingFactEntity weithingFact:
-                weithingFact.Scale = GetEntityById<ScaleEntity>(weithingFact.Scale.IdentityId);
-                weithingFact.Plu = GetEntity<PluObsoleteEntity>(
-                    new(new() {
-                        new($"{nameof(weithingFact.Scale)}.{nameof(weithingFact.Scale.IdentityId)}", DbComparer.Equal, weithingFact.Scale.IdentityId),
-                        new ($"{nameof(PluObsoleteEntity.PluNumber)}", DbComparer.Equal, (int)weithingFact.Plu.IdentityId),
-                    }));
-                weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? null : GetEntityById<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
                 break;
             case WorkShopEntity workshop:
                 workshop.ProductionFacility = GetEntityById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
@@ -552,10 +482,13 @@ public class CrudController
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        switch (item)
+	    if (item == null)
+		    return;
+        
+	    switch (item)
         {
-            case ContragentV2Entity contragent:
-                throw new($"{nameof(SaveEntity)} for {nameof(ContragentV2Entity)} is deny!");
+            case ContragentEntity contragent:
+                throw new($"{nameof(SaveEntity)} for {nameof(ContragentEntity)} is deny!");
             case TableScaleModels.NomenclatureEntity nomenclature:
                 throw new($"{nameof(SaveEntity)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
             default:
@@ -568,8 +501,9 @@ public class CrudController
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        //if (item == null || item.EqualsEmpty()) return;
-        if (item == null) return;
+        if (item == null)
+	        return;
+        
         item.ChangeDt = DateTime.Now;
         ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
     }
@@ -587,119 +521,19 @@ public class CrudController
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity
     {
-        //if (item == null || item.EqualsEmpty()) return;
-        if (item == null) return;
-        switch (item)
-        {
-            case AccessEntity access:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(access); }, filePath, lineNumber, memberName);
-                break;
-            case AppEntity app:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(app); }, filePath, lineNumber, memberName);
-                break;
-            case HostEntity host:
-                host.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
-                break;
-            case LogEntity log:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(log); }, filePath, lineNumber, memberName);
-                break;
-            case LogTypeEntity logType:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
-                break;
-            case BarCodeTypeV2Entity barcodeType:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
-                break;
-            case ContragentV2Entity contragent:
-                contragent.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
-                break;
-            case LabelEntity label:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(label); }, filePath, lineNumber, memberName);
-                break;
-            case OrderEntity order:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
-                break;
-            case PluEntity plu:
-                plu.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
-                break;
-            case PluObsoleteEntity pluObsolete:
-                pluObsolete.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(pluObsolete); }, filePath, lineNumber, memberName);
-                break;
-            case PluScaleEntity pluScale:
-	            pluScale.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(pluScale); }, filePath, lineNumber, memberName);
-                break;
-            case ProductionFacilityEntity productionFacility:
-                productionFacility.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(productionFacility); }, filePath, lineNumber, memberName);
-                break;
-            case ProductSeriesEntity productSeries:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(productSeries); }, filePath, lineNumber, memberName);
-                break;
-            case ScaleEntity scale:
-                scale.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
-                break;
-            case TemplateResourceEntity templateResource:
-                templateResource.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(templateResource); }, filePath, lineNumber, memberName);
-                break;
-            case TemplateEntity template:
-                template.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(template); }, filePath, lineNumber, memberName);
-                break;
-            case WeithingFactEntity weithingFact:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(weithingFact); }, filePath, lineNumber, memberName);
-                break;
-            case WorkShopEntity workshop:
-                workshop.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(workshop); }, filePath, lineNumber, memberName);
-                break;
-            case PrinterEntity printer:
-                printer.IsMarked = true;
-                ExecuteTransaction((session) => { session.SaveOrUpdate(printer); }, filePath, lineNumber, memberName);
-                break;
-            case PrinterResourceEntity printerResource:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(printerResource); }, filePath, lineNumber, memberName);
-                break;
-            case PrinterTypeEntity printerType:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(printerType); }, filePath, lineNumber, memberName);
-                break;
-            case BrandEntity brand:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(brand); }, filePath, lineNumber, memberName);
-                break;
-            case InformationSystemEntity informationSystem:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(informationSystem); }, filePath, lineNumber, memberName);
-                break;
-            case TableDwhModels.NomenclatureEntity nomenclature:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclature); }, filePath, lineNumber, memberName);
-                break;
-            case NomenclatureGroupEntity nomenclatureGroup:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclatureGroup); }, filePath, lineNumber, memberName);
-                break;
-            case NomenclatureLightEntity nomenclatureLight:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclatureLight); }, filePath, lineNumber, memberName);
-                break;
-            case NomenclatureTypeEntity nomenclatureType:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(nomenclatureType); }, filePath, lineNumber, memberName);
-                break;
-            case StatusEntity status:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(status); }, filePath, lineNumber, memberName);
-                break;
-            default:
-                ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
-                break;
-        }
+        if (item == null)
+	        return;
+
+        item.IsMarked = true;
+        ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
     }
 
-    public bool ExistsEntityInside<T>(T? item, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+    private bool ExistsEntityInside<T>(T? item, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        //if (item == null || item.EqualsEmpty()) return false;
-        if (item == null) return false;
         bool result = false;
+        if (item == null)
+	        return result;
+        
         ExecuteTransaction((session) =>
         {
             result = session.Query<T>().Any(x => x.IsAny(item));
@@ -711,12 +545,13 @@ public class CrudController
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        //if (item == null || item.EqualsEmpty()) return false;
-        if (item == null) return false;
+        if (item == null)
+	        return false;
+
         return ExistsEntityInside(item, filePath, lineNumber, memberName);
     }
 
-    public bool ExistsEntityInside<T>(FilterListEntity filterList, FieldOrderEntity? order,
+    private bool ExistsEntityInside<T>(FilterListEntity filterList, FieldOrderEntity? order,
         string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
         bool result = false;
@@ -731,7 +566,6 @@ public class CrudController
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        //return DataAccess.ExistsEntity<T>(filterList, order, filePath, lineNumber, memberName);
         return ExistsEntityInside<T>(filterList, order, filePath, lineNumber, memberName);
     }
 
@@ -748,16 +582,14 @@ public class CrudController
                 return AccessEntity.IdentityName;
             case AppEntity:
                 return AppEntity.IdentityName;
-            case BarCodeTypeV2Entity:
-                return BarCodeTypeV2Entity.IdentityName;
-            case BarCodeV2Entity:
-                return BarCodeV2Entity.IdentityName;
-            case ContragentV2Entity:
-                return ContragentV2Entity.IdentityName;
+            case BarCodeTypeEntity:
+                return BarCodeTypeEntity.IdentityName;
+            case BarCodeEntity:
+                return BarCodeEntity.IdentityName;
+            case ContragentEntity:
+                return ContragentEntity.IdentityName;
             case HostEntity:
                 return HostEntity.IdentityName;
-            case LabelEntity:
-                return LabelEntity.IdentityName;
             case LogTypeEntity:
                 return LogTypeEntity.IdentityName;
             case LogEntity:
@@ -766,14 +598,20 @@ public class CrudController
                 return TableScaleModels.NomenclatureEntity.IdentityName;
             case OrderEntity:
                 return OrderEntity.IdentityName;
+            case OrderWeighingEntity:
+                return OrderWeighingEntity.IdentityName;
             case OrganizationEntity:
                 return OrganizationEntity.IdentityName;
-            case PluObsoleteEntity:
-                return PluObsoleteEntity.IdentityName;
             case PluEntity:
                 return PluEntity.IdentityName;
+            case PluLabelEntity:
+                return PluLabelEntity.IdentityName;
+            case PluObsoleteEntity:
+                return PluObsoleteEntity.IdentityName;
             case PluScaleEntity:
                 return PluScaleEntity.IdentityName;
+            case PluWeighingEntity:
+                return PluWeighingEntity.IdentityName;
             case ProductionFacilityEntity:
                 return ProductionFacilityEntity.IdentityName;
             case ProductSeriesEntity:
@@ -790,8 +628,6 @@ public class CrudController
                 return TemplateEntity.IdentityName;
             case VersionEntity:
                 return VersionEntity.IdentityName;
-            case WeithingFactEntity:
-                return WeithingFactEntity.IdentityName;
             case WorkShopEntity:
                 return WorkShopEntity.IdentityName;
             case PrinterEntity:

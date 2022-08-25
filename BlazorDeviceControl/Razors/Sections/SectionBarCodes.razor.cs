@@ -7,7 +7,7 @@ public partial class SectionBarCodes : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<BarCodeV2Entity> ItemsCast => Items == null ? new() : Items.Select(x => (BarCodeV2Entity)x).ToList();
+	private List<BarCodeEntity> ItemsCast => Items == null ? new() : Items.Select(x => (BarCodeEntity)x).ToList();
 
 	#endregion
 
@@ -28,7 +28,7 @@ public partial class SectionBarCodes : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeV2Entity>(
+				Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeEntity>(
 						IsShowMarkedItems
 							? null
 							: new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),

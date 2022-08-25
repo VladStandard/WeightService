@@ -46,7 +46,7 @@ public class ItemSaveCheckEntity
         }
     }
 
-    public bool BarcodeType(NotificationService notificationService, BarCodeTypeV2Entity? barcodeType, 
+    public bool BarcodeType(NotificationService notificationService, BarCodeTypeEntity? barcodeType, 
         Guid? uid, DbTableAction tableAction)
     {
         if (barcodeType == null || uid == null)
@@ -73,7 +73,7 @@ public class ItemSaveCheckEntity
         return true;
     }
 
-    public bool Contragent(NotificationService notificationService, ContragentV2Entity? contragent, 
+    public bool Contragent(NotificationService notificationService, ContragentEntity? contragent, 
         Guid? uid, DbTableAction tableAction)
     {
         if (contragent == null || uid == null)
