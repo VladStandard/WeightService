@@ -134,20 +134,6 @@ public class CrudController
         return session.CreateSQLQuery(query);
     }
 
-    private T[]? GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
-        string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
-    {
-        T[]? result = null;
-        ExecuteTransaction((session) =>
-        {
-	        ICriteria criteria = GetCriteria<T>(session, filterList, order, maxResults);
-			IList<T>? list = criteria.List<T>();
-            if (list is not null && list.Count > 0)
-				result = list.ToArray();
-        }, filePath, lineNumber, memberName);
-        return result;
-    }
-
     //public T[] GetEntitiesNative<T>(string[] fieldsSelect, string from, object[] valuesParams,
     //    string filePath, int lineNumber, string memberName) where T : class
     //{
@@ -295,7 +281,7 @@ public class CrudController
             case BrandEntity brand:
                 //if (!brand.EqualsEmpty())
                 {
-                    brand.InformationSystem = brand.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(brand.InformationSystem.IdentityId);
+                    brand.InformationSystem = brand.InformationSystem.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(brand.InformationSystem.IdentityId);
                 }
                 break;
             case TableDwhModels.NomenclatureEntity nomenclature:
@@ -303,7 +289,7 @@ public class CrudController
                 {
                     //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
                     //    nomenclatureEntity.Brand = GetEntity(DbField.CodeInIs, nomenclatureEntity.BrandBytes);
-                    //if (nomenclatureEntity.InformationSystem?.IdentityId != null)
+                    //if (nomenclatureEntity.InformationSystem.IdentityId != null)
                     //    nomenclatureEntity.InformationSystem = GetEntity(nomenclatureEntity.InformationSystem.Id);
                     //if (nomenclatureEntity.NomenclatureGroupCostBytes != null && nomenclatureEntity.NomenclatureGroupCostBytes.Length > 0)
                     //    nomenclatureEntity.NomenclatureGroupCost = GetEntity(DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
@@ -317,44 +303,51 @@ public class CrudController
             case NomenclatureGroupEntity nomenclatureGroup:
                 //if (!nomenclatureGroup.EqualsEmpty())
                 {
-                    nomenclatureGroup.InformationSystem = nomenclatureGroup.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
+                    nomenclatureGroup.InformationSystem = nomenclatureGroup.InformationSystem.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
                 }
                 break;
             case NomenclatureLightEntity nomenclatureLight:
                 //if (!nomenclatureLight.EqualsEmpty())
                 {
-                    nomenclatureLight.InformationSystem = nomenclatureLight.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
+                    nomenclatureLight.InformationSystem = nomenclatureLight.InformationSystem.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
                 }
                 break;
             case NomenclatureTypeEntity nomenclatureType:
                 //if (!nomenclatureType.EqualsEmpty())
                 {
-                    nomenclatureType.InformationSystem = nomenclatureType.InformationSystem?.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
+                    nomenclatureType.InformationSystem = nomenclatureType.InformationSystem.IdentityId == null ? new() : GetEntityById<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
                 }
                 break;
         }
     }
 
+    public T? GetEntity<T>(FieldEntity filter, FieldOrderEntity? order = null,
+	    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
+	    [CallerMemberName] string memberName = "")
+	    where T : BaseEntity, new() =>
+	    GetEntity<T>(new FilterListEntity(new() { filter }), order, filePath, lineNumber, memberName);
+
     /// <summary>
-    /// Get entity.
-    /// </summary>
-    /// <param name="filterList"></param>
-    /// <param name="order"></param>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public T GetEntity<T>(FilterListEntity? filterList = null, FieldOrderEntity? order = null,
+	/// Get entity.
+	/// </summary>
+	/// <param name="filterList"></param>
+	/// <param name="order"></param>
+	/// <param name="filePath"></param>
+	/// <param name="lineNumber"></param>
+	/// <param name="memberName"></param>
+	/// <typeparam name="T"></typeparam>
+	/// <returns></returns>
+	public T? GetEntity<T>(FilterListEntity? filterList = null, FieldOrderEntity? order = null,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        T? item = new();
+        T? item = null;
         ExecuteTransaction((session) =>
         {
             ICriteria criteria = GetCriteria<T>(session, filterList, order, 1);
-            IList<T>? list = criteria?.List<T>();
-            item = list == null ? new() : list.FirstOrDefault() ?? new T();
+            IList<T>? list = criteria.List<T>();
+            if (list is not null && list.Count > 0)
+				item = list.FirstOrDefault();
         }, filePath, lineNumber, memberName);
         FillReferences(item);
         return item;
@@ -366,12 +359,10 @@ public class CrudController
     /// <param name="id"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T GetEntityById<T>(long? id) where T : BaseEntity, new()
-    {
-        return GetEntity<T>(
-            new(new() { new(DbField.IdentityId, DbComparer.Equal, id) }),
-            new(DbField.IdentityId, DbOrderDirection.Desc));
-    }
+    public T? GetEntityById<T>(long? id) where T : BaseEntity, new() =>
+	    GetEntity<T>(
+		    new(new() { new(DbField.IdentityId, DbComparer.Equal, id) }),
+		    new(DbField.IdentityId, DbOrderDirection.Desc));
 
     /// <summary>
     /// Get entity by UID.
@@ -379,26 +370,34 @@ public class CrudController
     /// <param name="uid"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T GetEntityByUid<T>(Guid? uid) where T : BaseEntity, new()
-    {
-        return GetEntity<T>(
-            new(new() { new(DbField.IdentityUid, DbComparer.Equal, uid) }),
-            new(DbField.IdentityUid, DbOrderDirection.Desc));
-    }
+    public T? GetEntityByUid<T>(Guid? uid) where T : BaseEntity, new() =>
+	    GetEntity<T>(
+		    new(new() { new(DbField.IdentityUid, DbComparer.Equal, uid) }),
+		    new(DbField.IdentityUid, DbOrderDirection.Desc));
 
     public T[]? GetEntities<T>(FilterListEntity? filterList = null, FieldOrderEntity? order = null, int maxResults = 0,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-        T[]? items = GetEntitiesWithoutReferences<T>(filterList, order, maxResults, filePath, lineNumber, memberName);
-        if (items != null)
+        T[]? items = null;
+        
+        ExecuteTransaction((session) =>
+        {
+	        ICriteria criteria = GetCriteria<T>(session, filterList, order, maxResults);
+	        IList<T>? list = criteria.List<T>();
+	        if (list is not null && list.Count > 0)
+		        items = list.ToArray();
+        }, filePath, lineNumber, memberName);
+
+		if (items != null)
         {
             foreach (T? item in items)
             {
                 FillReferences(item);
             }
         }
-        return items;
+        
+		return items;
     }
 
     //public T[] GetEntitiesNative(string[] fieldsSelect, string from, object[] valuesParams,

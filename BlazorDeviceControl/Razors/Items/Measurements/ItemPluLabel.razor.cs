@@ -3,11 +3,11 @@
 
 namespace BlazorDeviceControl.Razors.Items.Measurements;
 
-public partial class ItemLabel : BlazorCore.Models.RazorBase
+public partial class ItemPluLabel : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private LabelEntity ItemCast { get => Item == null ? new() : (LabelEntity)Item; set => Item = value; }
+    private PluLabelEntity ItemCast { get => Item == null ? new() : (PluLabelEntity)Item; set => Item = value; }
 
     #endregion
 
@@ -36,8 +36,8 @@ public partial class ItemLabel : BlazorCore.Models.RazorBase
                         ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
-                            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+	                    ItemCast = AppSettings.DataAccess.Crud.GetEntityNotNull<PluLabelEntity>(
+							new FieldEntity(DbField.IdentityId, DbComparer.Equal, IdentityId));
                         break;
                 }
                 ButtonSettings = new(false, false, false, false, false, false, true);

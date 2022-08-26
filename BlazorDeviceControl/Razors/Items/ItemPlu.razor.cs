@@ -87,15 +87,10 @@ public partial class ItemPlu : BlazorCore.Models.RazorBase
                 }
 
 	            // Plus.
-	            List<PluEntity>? plus = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name))
-                    ?.ToList();
-                if (plus is not null)
-                {
-	                Plus = new() { new(0, false) { Description = LocaleCore.Table.FieldNull } };
-	                Plus.AddRange(plus);
-                }
+	            List<PluEntity> plus = AppSettings.DataAccess.Crud.GetEntitiesNotNull<PluEntity>(false,
+                    false, new (DbField.Name));
+                Plus = new() { new(Guid.Empty, false) { Description = LocaleCore.Table.FieldNull } };
+                Plus.AddRange(plus);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)

@@ -28,21 +28,21 @@ else
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PluWeighingEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.ProductDate
+            @*<RadzenGridColumn TItem="PluWeighingEntity" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="17.5%">
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetPath(UriRouteItem.PluWeighing, itemCast, itemCast.IdentityId)
-                        Text=@itemCast.ProductDt.ToString("yyyy-MM-dd HH:mm:ss") />
-                </Template>
+	            <Template Context="itemCast">
+		            <RadzenLink Style="width: 100%; margin-left: 0;"
+		                Path=@GetPath(UriRouteItem.PluWeighing, itemCast, itemCast.IdentityId)
+		                Text=@itemCast.ProductDt.ToString("yyyy-MM-dd HH:mm:ss")/>
+	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluWeighingEntity" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="12.5%">
                 <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0; "
-                        Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
+                        Text=@EnumUtils.GetDayOfWeekRu(itemCast.ProductDt.DayOfWeek) />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluWeighingEntity" Property="Scale.Description" TextAlign=TextAlign.Left
@@ -62,7 +62,7 @@ else
                 Type="decimal" Width="13.0%" />
             <RadzenGridColumn TItem="PluWeighingEntity" Property="RegNum" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.RegNum
-                Type="int" Width="16.0%" />
+                Type="int" Width="16.0%" />*@
         </Columns>
     </RadzenGrid>
 

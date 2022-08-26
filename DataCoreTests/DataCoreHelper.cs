@@ -151,7 +151,7 @@ public class DataCoreHelper
 			{
 				// Arrange.
 				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
-				List<BaseEntity> items = DataAccess.Crud.GetList<T>(isShowMarkedItems, true, null);
+				List<T> items = DataAccess.Crud.GetEntitiesNotNull<T>(isShowMarkedItems, true, null);
 				// Act.
 				if (!items.Any())
 				{

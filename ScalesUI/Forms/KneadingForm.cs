@@ -16,7 +16,7 @@ namespace ScalesUI.Forms
 
         private DateTime SaveProductDate { get; }
         private DebugHelper Debug { get; } = DebugHelper.Instance;
-        private byte SaveKneading { get; }
+        private short SaveKneading { get; }
         private byte SavePalletSize { get; }
         private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 

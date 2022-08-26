@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Measurements;
 
-public partial class SectionWf : BlazorCore.Models.RazorBase
+public partial class SectionPluWeighings : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -28,8 +28,10 @@ public partial class SectionWf : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				Items = AppSettings.DataAccess.Crud.GetList<PluWeighingEntity>(IsShowMarkedItems, IsSelectTopRows,
-					new() { Name = DbField.ProductDt, Direction = DbOrderDirection.Desc });
+				Items = AppSettings.DataAccess.Crud.GetEntitiesNotNull<PluWeighingEntity>(
+					IsShowMarkedItems, IsSelectTopRows, null)
+					//new() { Name = DbField.ProductDt, Direction = DbOrderDirection.Desc })
+					.ToList<BaseEntity>();
 				ButtonSettings = new(true, true, true, true, true, false, false);
 			}
 		});

@@ -157,7 +157,24 @@ public static class CrudControllerExtension
 		return items;
 	}
 
-	public static List<BaseEntity> GetList<T>(this CrudController crud, bool isShowMarkedItems, bool isSelectTopRows, FieldOrderEntity? order = null, 
+	public static T GetEntityNotNull<T>(this CrudController crud, FieldEntity filter, FieldOrderEntity? order = null, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+		where T : BaseEntity, new()
+	{
+		return GetEntityNotNull<T>(crud, new FilterListEntity(new() { filter }), order, filePath, lineNumber, memberName);
+	}
+
+	public static T GetEntityNotNull<T>(this CrudController crud, FilterListEntity? filterList, FieldOrderEntity? order = null, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+		where T : BaseEntity, new()
+	{
+		T? item = crud.GetEntity<T>(filterList, order, filePath, lineNumber, memberName);
+		if (item is { })
+			return item;
+		return new();
+	}
+
+	public static List<T> GetEntitiesNotNull<T>(this CrudController crud, bool isShowMarkedItems, bool isSelectTopRows, FieldOrderEntity? order = null, 
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 		where T : BaseEntity, new()
 	{
@@ -165,8 +182,8 @@ public static class CrudControllerExtension
 			: new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
 			order, isSelectTopRows ? crud.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0,
 			filePath, lineNumber, memberName);
-		if (items is { })
-			return items.ToList<BaseEntity>();
+		if (items is not null && items.Length > 0)
+			return items.ToList();
 		return new();
 	}
 

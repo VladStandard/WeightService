@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Threading;
+using DataCore.Sql.Models;
 using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models;
@@ -37,9 +38,10 @@ public class UserSettingsHelper
 
     public void SetupAccessRights()
     {
-        AccessEntity access = DataAccess.Crud.GetEntity<AccessEntity>(
-            new(new() { new(DbField.User, DbComparer.Equal, Identity.UserName) }));
-        Identity.SetAccessRights(access.Rights);
+        AccessEntity? access = DataAccess.Crud.GetEntity<AccessEntity>(
+            new FieldEntity(DbField.User, DbComparer.Equal, Identity.UserName));
+        if (access != null)
+			Identity.SetAccessRights(access.Rights);
         //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(
         //    SqlQueries.DbServiceManaging.Tables.Access.GetAccessRights(Identity.Name),
         //    filePath, lineNumber, memberName);
