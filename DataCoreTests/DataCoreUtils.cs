@@ -2,13 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Files;
+using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql;
 using FluentValidation;
 using System;
 using System.IO;
-using DataCore.Localizations;
-using static DataCore.Sql.SqlQueries.DbScales.Tables;
 
 namespace DataCoreTests;
 
@@ -16,7 +15,7 @@ public static class DataCoreUtils
 {
 	#region Public and private fields, properties, constructor
 
-	public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 
 	#endregion
@@ -57,13 +56,13 @@ public static class DataCoreUtils
 		switch (result.IsValid)
 		{
 			case false:
-			{
-				foreach (ValidationFailure failure in result.Errors)
 				{
-					TestContext.WriteLine($"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}");
+					foreach (ValidationFailure failure in result.Errors)
+					{
+						TestContext.WriteLine($"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}");
+					}
+					break;
 				}
-				break;
-			}
 		}
 	}
 
@@ -86,7 +85,17 @@ public static class DataCoreUtils
 			PluLabelEntity => new PluLabelValidator(),
 			PluScaleEntity => new PluScaleValidator(),
 			PluWeighingEntity => new PluWeighingValidator(),
+			PrinterEntity => new PrinterValidator(),
+			PrinterResourceEntity => new PrinterResourceValidator(),
+			PrinterTypeEntity => new PrinterTypeValidator(),
+			ProductionFacilityEntity => new ProductionFacilityValidator(),
+			ScaleEntity => new ScaleValidator(),
+			VersionEntity => new VersionValidator(),
+			TaskEntity => new TaskValidator(),
+			TaskTypeEntity => new TaskTypeValidator(),
 			TemplateEntity => new TemplateValidator(),
+			TemplateResourceEntity => new TemplateResourceValidator(),
+			WorkShopEntity => new WorkShopValidator(),
 			_ => throw new NotImplementedException()
 		};
 	}
@@ -166,98 +175,115 @@ public static class DataCoreUtils
 		switch (item)
 		{
 			case AccessEntity access:
-				{
-					access.User = "Test";
-					break;
-				}
+				access.User = "Test";
+				break;
 			case AppEntity app:
-				{
-					app.Name = "Test";
-					break;
-				}
+				app.Name = "Test";
+				break;
 			case BarCodeTypeEntity barCodeTypeV2:
-				{
-					barCodeTypeV2.Name = "Test";
-					break;
-				}
+				barCodeTypeV2.Name = "Test";
+				break;
 			case BarCodeEntity barCodeV2:
-				{
-					barCodeV2.Value = "Test";
-					break;
-				}
+				barCodeV2.Value = "Test";
+				break;
 			case ContragentEntity contragentV2:
-				{
-					contragentV2.Name = "Test";
-					break;
-				}
+				contragentV2.Name = "Test";
+				break;
 			case HostEntity host:
-				{
-					host.Name = "Test";
-					host.Ip = "127.0.0.1";
-					host.MacAddressValue = "001122334455";
-					host.HostName = "Test";
-					host.AccessDt = DateTime.Now;
-					break;
-				}
+				host.Name = "Test";
+				host.Ip = "127.0.0.1";
+				host.MacAddressValue = "001122334455";
+				host.HostName = "Test";
+				host.AccessDt = DateTime.Now;
+				break;
+			case LogEntity log:
+				log.Version = "0.1.2";
+				log.File = "Test.cs";
+				log.Line = 1;
+				log.Member = "Test";
+				log.LogType = CreateNewSubstitute<LogTypeEntity>(isNotDefault);
+				log.Message = "Test";
+				break;
 			case LogTypeEntity logType:
-				{
-					logType.Icon = "Test";
-					break;
-				}
+				logType.Icon = "Test";
+				break;
 			case NomenclatureEntity nomenclature:
-				{
-					nomenclature.Name = "0.1.2";
-					nomenclature.Code = "ЦБД00012345";
-					nomenclature.Xml = "<Product Category=\"Сосиски\" > </Product>";
-					nomenclature.Weighted = false;
-					break;
-				}
+				nomenclature.Name = "0.1.2";
+				nomenclature.Code = "ЦБД00012345";
+				nomenclature.Xml = "<Product Category=\"Сосиски\" > </Product>";
+				nomenclature.Weighted = false;
+				break;
 			case OrderEntity order:
-				{
-					order.Name = "Test";
-					order.BoxCount = 1;
-					order.PalletCount = 1;
-					break;
-				}
+				order.Name = "Test";
+				order.BoxCount = 1;
+				order.PalletCount = 1;
+				break;
 			case OrderWeighingEntity orderWeighing:
-				{
-					orderWeighing.Order = CreateNewSubstitute<OrderEntity>(isNotDefault);
-					orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
-					break;
-				}
+				orderWeighing.Order = CreateNewSubstitute<OrderEntity>(isNotDefault);
+				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
+				break;
 			case PluEntity plu:
-				{
-					plu.Name = "Test";
-					plu.Number = 100;
-					plu.FullName = "Test";
-					plu.Description = "Test";
-					plu.Gtin = "Test";
-					plu.Ean13 = "Test";
-					plu.Itf14 = "Test";
-					break;
-				}
+				plu.Name = "Test";
+				plu.Number = 100;
+				plu.FullName = "Test";
+				plu.Description = "Test";
+				plu.Gtin = "Test";
+				plu.Ean13 = "Test";
+				plu.Itf14 = "Test";
+				break;
 			case PluLabelEntity pluLabel:
-				{
-					pluLabel.Zpl = "Test";
-					pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
-					break;
-				}
+				pluLabel.Zpl = "Test";
+				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
+				break;
 			case PluScaleEntity pluScale:
-				{
-					pluScale.IsActive = true;
-					break;
-				}
+				pluScale.IsActive = true;
+				break;
 			case PluWeighingEntity pluWeighing:
-				{
-					pluWeighing.Sscc = "Test";
-					pluWeighing.NettoWeight = (decimal)1.1;
-					pluWeighing.TareWeight = (decimal)0.25;
-					pluWeighing.ProdDt = DateTime.Now;
-					pluWeighing.RegNum = 1;
-					pluWeighing.PluScale = CreateNewSubstitute<PluScaleEntity>(isNotDefault);
-					pluWeighing.Series = CreateNewSubstitute<ProductSeriesEntity>(isNotDefault);
-					break;
-				}
+				pluWeighing.Sscc = "Test";
+				pluWeighing.NettoWeight = (decimal)1.1;
+				pluWeighing.TareWeight = (decimal)0.25;
+				pluWeighing.ProdDt = DateTime.Now;
+				pluWeighing.RegNum = 1;
+				pluWeighing.Kneading = 1;
+				pluWeighing.PluScale = CreateNewSubstitute<PluScaleEntity>(isNotDefault);
+				pluWeighing.Series = CreateNewSubstitute<ProductSeriesEntity>(isNotDefault);
+				break;
+			case PrinterEntity printer:
+				printer.DarknessLevel = 1;
+				break;
+			case PrinterResourceEntity printerResource:
+				printerResource.Description = "Test";
+				break;
+			case PrinterTypeEntity printerType:
+				printerType.Name = "Test";
+				break;
+			case ProductionFacilityEntity productionFacility:
+				productionFacility.Name = "Test";
+				break;
+			case ScaleEntity scale:
+				scale.Description = "Test";
+				break;
+			case VersionEntity version:
+				version.Version = 1;
+				version.Description = "Test";
+				break;
+			case TaskEntity task:
+				task.TaskType = CreateNewSubstitute<TaskTypeEntity>(isNotDefault);
+				task.Scale = CreateNewSubstitute<ScaleEntity>(isNotDefault);
+				break;
+			case TaskTypeEntity taskType:
+				taskType.Name = "Test";
+				break;
+			case TemplateEntity template:
+				template.Title = "Test";
+				break;
+			case TemplateResourceEntity templateResource:
+				templateResource.Name = "Test";
+				templateResource.Description = "Test";
+				break;
+			case WorkShopEntity workShop:
+				workShop.Name = "Test";
+				break;
 		}
 		return item;
 	}

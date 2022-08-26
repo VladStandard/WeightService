@@ -29,6 +29,6 @@ internal class PluScaleValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<PluScaleEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<PluScaleEntity>(1_000);
 	}
 }

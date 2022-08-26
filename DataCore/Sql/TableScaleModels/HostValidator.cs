@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class HostValidator : BaseIdValidator
+public class HostValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public HostValidator()
+	public HostValidator() : base(ColumnName.Id)
 	{
 		RuleFor(item => ((HostEntity)item).AccessDt)
 			.NotEmpty()

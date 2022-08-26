@@ -8,17 +8,17 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_WEIGHINGS".
 /// </summary>
-public class PluWeighingValidator : BaseUidValidator
+public class PluWeighingValidator : BaseValidator
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingValidator()
-    {
+    public PluWeighingValidator() : base(ColumnName.Uid)
+	{
 	    RuleFor(item => ((PluWeighingEntity)item).Kneading)
 		    .NotEmpty()
 		    .NotNull()
-		    .NotEqual(default(short));
+		    .GreaterThan(default(short));
 		RuleFor(item => ((PluWeighingEntity)item).PluScale)
 			.NotEmpty()
 			.NotNull();

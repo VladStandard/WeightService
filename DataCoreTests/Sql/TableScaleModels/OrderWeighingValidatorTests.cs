@@ -27,6 +27,6 @@ internal class OrderWeighingValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<OrderWeighingEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<OrderWeighingEntity>(1_000);
 	}
 }

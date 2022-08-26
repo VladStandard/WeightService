@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LogValidator : BaseUidValidator
+public class LogValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogValidator()
+	public LogValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((LogEntity)item).Version)
 			.NotNull();

@@ -8,12 +8,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public class AccessValidator : BaseUidValidator
+public class AccessValidator : BaseValidator
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessValidator()
+    public AccessValidator() : base(ColumnName.Uid)
     {
         RuleFor(item => ((AccessEntity)item).User)
 	        .NotEmpty()

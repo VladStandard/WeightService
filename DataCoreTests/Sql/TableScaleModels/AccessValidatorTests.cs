@@ -35,6 +35,6 @@ internal class AccessValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<AccessEntity>();
+		DataCoreUtils.AssertSqlDataValidate<AccessEntity>(1_000);
 	}
 }

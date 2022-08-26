@@ -27,6 +27,6 @@ internal class PluValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<PluEntity>();
+		DataCoreUtils.AssertSqlDataValidate<PluEntity>(1_000);
 	}
 }

@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class ProductionFacilityValidator : BaseUidValidator
+public class ProductionFacilityValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductionFacilityValidator()
+	public ProductionFacilityValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((ProductionFacilityEntity)item).Name)
 			.NotEmpty()

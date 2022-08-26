@@ -6,12 +6,12 @@
 ///// <summary>
 ///// Table validation "LABELS".
 ///// </summary>
-//public class LabelValidator : BaseIdValidator
+//public class LabelValidator : BaseValidator
 //{
 //	/// <summary>
 //	/// Constructor.
 //	/// </summary>
-//	public LabelValidator()
+//	public LabelValidator() : base(ColumnName.Uid)
 //	{
 //		RuleFor(item => ((LabelEntity)item).WeithingFact)
 //			.NotEmpty()

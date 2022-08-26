@@ -6,13 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_SCALES".
 /// </summary>
-public class PluScaleValidator : BaseUidValidator
+public class PluScaleValidator : BaseValidator
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluScaleValidator()
-    {
+    public PluScaleValidator() : base(ColumnName.Uid)
+	{
 		RuleFor(item => ((PluScaleEntity)item).Plu)
 			.NotEmpty()
 			.NotNull();

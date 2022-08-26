@@ -36,6 +36,6 @@ internal class AppValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<AppEntity>();
+		DataCoreUtils.AssertSqlDataValidate<AppEntity>(1_000);
 	}
 }

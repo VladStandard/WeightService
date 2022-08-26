@@ -4,7 +4,7 @@
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class SystemEntityTests
+internal class VersionEntityTests
 {
     [Test]
     public void Entity_Equals_DoesNotThrow()

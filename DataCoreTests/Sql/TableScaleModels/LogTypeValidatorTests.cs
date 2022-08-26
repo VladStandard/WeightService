@@ -29,6 +29,6 @@ internal class LogTypeValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<LogTypeEntity>();
+		DataCoreUtils.AssertSqlDataValidate<LogTypeEntity>(1_000);
 	}
 }

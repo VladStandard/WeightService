@@ -29,6 +29,6 @@ internal class PluLabelValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<PluLabelEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<PluLabelEntity>(1_000);
 	}
 }

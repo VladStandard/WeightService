@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class NomenclatureValidator : BaseIdValidator
+public class NomenclatureValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public NomenclatureValidator()
+	public NomenclatureValidator() : base(ColumnName.Id)
 	{
 		RuleFor(item => ((NomenclatureEntity)item).CreateDt)
 			.NotEmpty()

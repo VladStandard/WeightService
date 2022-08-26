@@ -6,13 +6,13 @@ using System;
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class ContragentV2ValidatorTests
+internal class ProductionFacilityValidatorTests
 {
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		ContragentEntity item = DataCoreUtils.CreateNewSubstitute<ContragentEntity>(false);
+		ProductionFacilityEntity item = DataCoreUtils.CreateNewSubstitute<ProductionFacilityEntity>(false);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class ContragentV2ValidatorTests
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		ContragentEntity item = DataCoreUtils.CreateNewSubstitute<ContragentEntity>(true);
+		ProductionFacilityEntity item = DataCoreUtils.CreateNewSubstitute<ProductionFacilityEntity>(true);
 		// Assert.
 		DataCoreUtils.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class ContragentV2ValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<ContragentEntity>(1_000);
+		DataCoreUtils.AssertSqlDataValidate<ProductionFacilityEntity>(1_000);
 	}
 }

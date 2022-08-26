@@ -29,6 +29,6 @@ internal class OrderValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<OrderEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<OrderEntity>(1_000);
 	}
 }

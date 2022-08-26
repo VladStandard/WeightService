@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class PrinterValidator : BaseUidValidator
+public class PrinterValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PrinterValidator()
+	public PrinterValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((PrinterEntity)item).DarknessLevel)
 			.NotEmpty()

@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class OrderValidator : BaseUidValidator
+public class OrderValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrderValidator()
+	public OrderValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((OrderEntity)item).Name)
 			.NotEmpty()

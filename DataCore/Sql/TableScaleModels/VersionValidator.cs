@@ -6,14 +6,18 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class VersionValidator : BaseUidValidator
+public class VersionValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public VersionValidator()
+	public VersionValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((VersionEntity)item).Version)
+			.NotEmpty()
+			.NotNull()
+			.GreaterThan(default(short));
+		RuleFor(item => ((VersionEntity)item).Description)
 			.NotEmpty()
 			.NotNull();
 	}

@@ -29,6 +29,6 @@ internal class NomenclatureValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<NomenclatureEntity>(1000);
+		DataCoreUtils.AssertSqlDataValidate<NomenclatureEntity>(1_000);
 	}
 }

@@ -6,14 +6,17 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class ScaleValidator : BaseValidator
+public class TaskValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ScaleValidator() : base(ColumnName.Uid)
+	public TaskValidator() : base(ColumnName.Uid)
 	{
-		RuleFor(item => ((ScaleEntity)item).Description)
+		RuleFor(item => ((TaskEntity)item).TaskType)
+			.NotEmpty()
+			.NotNull();
+		RuleFor(item => ((TaskEntity)item).Scale)
 			.NotEmpty()
 			.NotNull();
 	}

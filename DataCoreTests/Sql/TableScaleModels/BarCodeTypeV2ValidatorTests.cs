@@ -20,18 +20,15 @@ internal class BarCodeTypeV2ValidatorTests
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
-		{
-			// Arrange & Act.
-			BarCodeTypeEntity item = DataCoreUtils.CreateNewSubstitute<BarCodeTypeEntity>(true);
-			// Assert.
-			DataCoreUtils.AssertSqlValidate(item, true);
-		});
+		// Arrange & Act.
+		BarCodeTypeEntity item = DataCoreUtils.CreateNewSubstitute<BarCodeTypeEntity>(true);
+		// Assert.
+		DataCoreUtils.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<BarCodeTypeEntity>();
+		DataCoreUtils.AssertSqlDataValidate<BarCodeTypeEntity>(1_000);
 	}
 }

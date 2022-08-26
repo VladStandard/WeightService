@@ -29,6 +29,6 @@ internal class HostValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<HostEntity>();
+		DataCoreUtils.AssertSqlDataValidate<HostEntity>(1_000);
 	}
 }

@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class WorkShopValidator : BaseUidValidator
+public class WorkShopValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WorkShopValidator()
+	public WorkShopValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((WorkShopEntity)item).Name)
 			.NotEmpty()

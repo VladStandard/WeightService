@@ -6,13 +6,13 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_LABELS".
 /// </summary>
-public class PluLabelValidator : BaseUidValidator
+public class PluLabelValidator : BaseValidator
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelValidator()
-    {
+    public PluLabelValidator() : base(ColumnName.Uid)
+	{
 		RuleFor(item => ((PluLabelEntity)item).Zpl)
 			.NotEmpty()
 			.NotNull();

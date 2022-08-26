@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentValidator : BaseUidValidator
+public class ContragentValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ContragentValidator()
+	public ContragentValidator() : base(ColumnName.Uid)
 	{
 		RuleFor(item => ((ContragentEntity)item).Name)
 			.NotEmpty()

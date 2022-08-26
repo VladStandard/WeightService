@@ -11,7 +11,7 @@ public class BaseValidator : AbstractValidator<BaseEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected BaseValidator()
+    protected BaseValidator(ColumnName columnName)
     {
 	    RuleFor(item => item.CreateDt)
 		    .NotEmpty()
@@ -21,5 +21,22 @@ public class BaseValidator : AbstractValidator<BaseEntity>
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-	}
+	    switch (columnName)
+	    {
+		    case ColumnName.Id:
+			    RuleFor(item => item.IdentityId)
+				    .NotEmpty()
+				    .NotNull()
+				    .NotEqual(0);
+			    break;
+		    case ColumnName.Uid:
+				RuleFor(item => item.IdentityUid)
+					.NotEmpty()
+					.NotNull()
+					.NotEqual(Guid.Empty);
+				break;
+		    default:
+			    throw new ArgumentOutOfRangeException(nameof(columnName), columnName, null);
+	    }
+    }
 }
