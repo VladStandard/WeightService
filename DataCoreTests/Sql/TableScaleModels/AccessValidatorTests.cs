@@ -2,39 +2,40 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
 internal class AccessValidatorTests
 {
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		AccessEntity item = DataCoreUtils.CreateNewSubstitute<AccessEntity>(false);
+		AccessEntity item = DataCore.CreateNewSubstitute<AccessEntity>(false);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange.
-		AccessEntity item = DataCoreUtils.CreateNewSubstitute<AccessEntity>(true);
+		AccessEntity item = DataCore.CreateNewSubstitute<AccessEntity>(true);
 		// Act.
 		foreach (AccessRights rights in Enum.GetValues(typeof(AccessRights)))
 		{
 			item.Rights = (byte)rights;
 			// Assert.
-			DataCoreUtils.AssertSqlValidate(item, true);
+			DataCore.AssertSqlValidate(item, true);
 		}
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<AccessEntity>(1_000);
+		DataCore.AssertSqlDataValidate<AccessEntity>(1_000);
 	}
 }

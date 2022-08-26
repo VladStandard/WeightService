@@ -11,10 +11,18 @@ public class PrinterResourceValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PrinterResourceValidator() : base(ColumnName.Id)
+	public PrinterResourceValidator() : base(ColumnName.Id, false, false)
 	{
 		RuleFor(item => ((PrinterResourceEntity)item).Description)
 			.NotEmpty()
 			.NotNull();
+		RuleFor(item => ((PrinterResourceEntity)item).Printer)
+			.NotEmpty()
+			.NotNull()
+			.SetValidator(new PrinterValidator());
+		RuleFor(item => ((PrinterResourceEntity)item).Resource)
+			.NotEmpty()
+			.NotNull()
+			.SetValidator(new TemplateResourceValidator());
 	}
 }

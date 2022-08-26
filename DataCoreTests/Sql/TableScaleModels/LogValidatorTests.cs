@@ -6,27 +6,29 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class LogValidatorTests
 {
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		LogEntity item = DataCoreUtils.CreateNewSubstitute<LogEntity>(false);
+		LogEntity item = DataCore.CreateNewSubstitute<LogEntity>(false);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		LogEntity item = DataCoreUtils.CreateNewSubstitute<LogEntity>(true);
+		LogEntity item = DataCore.CreateNewSubstitute<LogEntity>(true);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<LogEntity>(1_000);
+		DataCore.AssertSqlDataValidate<LogEntity>(1_000);
 	}
 }

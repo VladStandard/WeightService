@@ -269,7 +269,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.VersionMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkShopMap>());
     }
 
     private void AddConfigurationMappingsForDwh(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)

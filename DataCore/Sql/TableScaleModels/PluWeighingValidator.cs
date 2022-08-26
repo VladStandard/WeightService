@@ -21,10 +21,12 @@ public class PluWeighingValidator : BaseValidator
 		    .GreaterThan(default(short));
 		RuleFor(item => ((PluWeighingEntity)item).PluScale)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new PluScaleValidator());
 		RuleFor(item => ((PluWeighingEntity)item).Series)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new ProductSeriesValidator());
 		RuleFor(item => ((PluWeighingEntity)item).Sscc)
 			.NotEmpty()
 			.NotNull();
@@ -36,7 +38,7 @@ public class PluWeighingValidator : BaseValidator
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => ((PluWeighingEntity)item).ProdDt)
+		RuleFor(item => ((PluWeighingEntity)item).ProductDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));

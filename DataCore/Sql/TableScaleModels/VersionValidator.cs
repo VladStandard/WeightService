@@ -11,8 +11,12 @@ public class VersionValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public VersionValidator() : base(ColumnName.Uid)
+	public VersionValidator() : base(ColumnName.Uid, false, false)
 	{
+		RuleFor(item => ((VersionEntity)item).ReleaseDt)
+			.NotEmpty()
+			.NotNull()
+			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
 		RuleFor(item => ((VersionEntity)item).Version)
 			.NotEmpty()
 			.NotNull()

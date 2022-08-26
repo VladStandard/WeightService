@@ -23,7 +23,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
     [XmlElement] public virtual string Sscc { get; set; }
     [XmlElement] public virtual decimal NettoWeight { get; set; }
     [XmlElement] public virtual decimal TareWeight { get; set; }
-    [XmlElement] public virtual DateTime ProdDt { get; set; }
+    [XmlElement] public virtual DateTime ProductDt { get; set; }
     [XmlElement] public virtual int RegNum { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
 		Sscc = info.GetString(nameof(Sscc));
         NettoWeight = info.GetDecimal(nameof(NettoWeight));
         TareWeight = info.GetDecimal(nameof(TareWeight));
-        ProdDt = info.GetDateTime(nameof(ProdDt));
+        ProductDt = info.GetDateTime(nameof(ProductDt));
         RegNum = info.GetInt32(nameof(RegNum));
     }
 
@@ -74,7 +74,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
         Sscc = string.Empty;
         NettoWeight = 0;
         TareWeight = 0;
-        ProdDt = DateTime.MinValue;
+        ProductDt = DateTime.MinValue;
         RegNum = 0;
     }
 
@@ -101,7 +101,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
             Equals(Sscc, item.Sscc) &&
             Equals(NettoWeight, item.NettoWeight) &&
             Equals(TareWeight, item.TareWeight) &&
-            Equals(ProdDt, item.ProdDt) &&
+            Equals(ProductDt, item.ProductDt) &&
             Equals(RegNum, item.RegNum);
     }
 
@@ -132,7 +132,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
             Equals(Sscc, string.Empty) &&
             Equals(NettoWeight, default(decimal)) &&
             Equals(TareWeight, default(decimal)) &&
-            Equals(ProdDt, DateTime.MinValue) &&
+            Equals(ProductDt, DateTime.MinValue) &&
             Equals(RegNum, default(int));
     }
 
@@ -144,7 +144,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
         item.Sscc = Sscc;
         item.NettoWeight = NettoWeight;
         item.TareWeight = TareWeight;
-        item.ProdDt = ProdDt;
+        item.ProductDt = ProductDt;
         item.RegNum = RegNum;
 		item.Setup(((BaseEntity)this).CloneCast());
         return item;
@@ -160,7 +160,7 @@ public class PluWeighingEntity : BaseEntity, ISerializable, IBaseEntity
         info.AddValue(nameof(Sscc), Sscc);
         info.AddValue(nameof(NettoWeight), NettoWeight);
         info.AddValue(nameof(TareWeight), TareWeight);
-        info.AddValue(nameof(ProdDt), ProdDt);
+        info.AddValue(nameof(ProductDt), ProductDt);
         info.AddValue(nameof(RegNum), RegNum);
     }
 

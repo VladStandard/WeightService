@@ -4,7 +4,7 @@
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class VersionValidatorTests
+internal class OrganizationValidatorTests
 {
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
@@ -12,7 +12,7 @@ internal class VersionValidatorTests
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		VersionEntity item = DataCore.CreateNewSubstitute<VersionEntity>(false);
+		OrganizationEntity item = DataCore.CreateNewSubstitute<OrganizationEntity>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class VersionValidatorTests
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		VersionEntity item = DataCore.CreateNewSubstitute<VersionEntity>(true);
+		OrganizationEntity item = DataCore.CreateNewSubstitute<OrganizationEntity>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class VersionValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<VersionEntity>(1_000);
+		DataCore.AssertSqlDataValidate<OrganizationEntity>(1_000);
 	}
 }

@@ -11,7 +11,7 @@ public class PrinterTypeValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PrinterTypeValidator() : base(ColumnName.Uid)
+	public PrinterTypeValidator() : base(ColumnName.Id, false, false)
 	{
 		RuleFor(item => ((PrinterTypeEntity)item).Name)
 			.NotEmpty()

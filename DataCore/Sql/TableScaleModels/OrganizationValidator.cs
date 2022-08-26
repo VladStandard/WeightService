@@ -4,19 +4,22 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "___".
+/// Table validation "Organization".
 /// </summary>
-public class TemplateResourceValidator : BaseValidator
+public class OrganizationValidator : BaseValidator
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TemplateResourceValidator() : base(ColumnName.Id)
+	public OrganizationValidator() : base(ColumnName.Id)
 	{
-		RuleFor(item => ((TemplateResourceEntity)item).Name)
+		RuleFor(item => ((OrganizationEntity)item).Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((TemplateResourceEntity)item).Description)
+		RuleFor(item => ((OrganizationEntity)item).Gln)
+			.NotEmpty()
+			.NotNull();
+		RuleFor(item => ((OrganizationEntity)item).Xml)
 			.NotEmpty()
 			.NotNull();
 	}

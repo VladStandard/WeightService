@@ -6,7 +6,6 @@ using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils;
@@ -39,7 +38,7 @@ public class UserSessionHelper : BaseViewModel
     private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     public DebugHelper Debug { get; } = DebugHelper.Instance;
-	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
+    public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
     public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
     public ProductSeriesDirect ProductSeries { get; private set; } = new();
     public PrintBrand PrintBrandMain => SqlViewModel.Scale.PrinterMain != null &&
@@ -52,7 +51,8 @@ public class UserSessionHelper : BaseViewModel
     public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
 
     private PluScaleEntity? _pluScale;
-    [XmlElement] public PluScaleEntity? PluScale
+    [XmlElement]
+    public PluScaleEntity? PluScale
     {
         get => _pluScale;
         private set
@@ -86,8 +86,8 @@ public class UserSessionHelper : BaseViewModel
             SqlViewModel.Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.IdentityId) : SqlUtils.GetScale(scaleId);
 
             AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {SqlViewModel.Scale.Description}.";
-			//AppVersion.AppDescription = $"{AppVersion.AppTitle}. ";
-			SqlViewModel.ProductDate = DateTime.Now;
+            //AppVersion.AppDescription = $"{AppVersion.AppTitle}. ";
+            SqlViewModel.ProductDate = DateTime.Now;
             // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new(SqlViewModel.Scale);
             //ProductSeries.Load();
@@ -108,20 +108,20 @@ public class UserSessionHelper : BaseViewModel
     {
         switch (direction)
         {
-	        case ProjectsEnums.Direction.Left:
-	        {
-		        SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(-1);
-		        if (SqlViewModel.ProductDate < SqlViewModel.ProductDateMinValue)
-			        SqlViewModel.ProductDate = SqlViewModel.ProductDateMinValue;
-		        break;
-	        }
-	        case ProjectsEnums.Direction.Right:
-	        {
-		        SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(1);
-		        if (SqlViewModel.ProductDate > SqlViewModel.ProductDateMaxValue)
-			        SqlViewModel.ProductDate = SqlViewModel.ProductDateMaxValue;
-		        break;
-	        }
+            case ProjectsEnums.Direction.Left:
+                {
+                    SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(-1);
+                    if (SqlViewModel.ProductDate < SqlViewModel.ProductDateMinValue)
+                        SqlViewModel.ProductDate = SqlViewModel.ProductDateMinValue;
+                    break;
+                }
+            case ProjectsEnums.Direction.Right:
+                {
+                    SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(1);
+                    if (SqlViewModel.ProductDate > SqlViewModel.ProductDateMaxValue)
+                        SqlViewModel.ProductDate = SqlViewModel.ProductDateMaxValue;
+                    break;
+                }
         }
     }
 
@@ -129,7 +129,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if ((PluScale = pluScale) != null)
         {
-            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.IdentityId, PluScale.Plu.Number, PluScale.Plu.Name)}", 
+            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.IdentityId, PluScale.Plu.Number, PluScale.Plu.Name)}",
                 SqlViewModel.Scale.Host?.HostName);
         }
     }
@@ -293,8 +293,8 @@ public class UserSessionHelper : BaseViewModel
         {
             if (PluWeighing != null)
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    PluWeighing.NettoWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold, 
-                    PluScale == null ? 0 : PluScale.Plu.NominalWeight, 
+                    PluWeighing.NettoWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold,
+                    PluScale == null ? 0 : PluScale.Plu.NominalWeight,
                     PluScale == null ? 0 : PluScale.Plu.LowerThreshold),
                     true, LogType.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible },
@@ -309,7 +309,7 @@ public class UserSessionHelper : BaseViewModel
         TemplateEntity? template = null;
         if (SqlViewModel.Scale is { IsOrder: true })
         {
-	        throw new Exception("Order under construct!");
+            throw new Exception("Order under construct!");
             //template = SqlViewModel.Order.Template;
             //SqlViewModel.Order.FactBoxCount = SqlViewModel.Order.FactBoxCount >= 100 ? 1 : SqlViewModel.Order.FactBoxCount + 1;
         }
@@ -317,12 +317,12 @@ public class UserSessionHelper : BaseViewModel
         {
             //template = PluScale?.LoadTemplate();
             if (PluScale != null)
-				template = DataAccess.Crud.GetEntity<TemplateEntity>(
-					new(new() { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId) }));
+                template = DataAccess.Crud.GetEntity<TemplateEntity>(
+                    new(new() { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId) }));
         }
 
-		// Template exist.
-		if (template != null)
+        // Template exist.
+        if (template != null)
         {
             switch (IsPluCheckWeight)
             {
@@ -344,16 +344,16 @@ public class UserSessionHelper : BaseViewModel
         DataAccess.Crud.UpdateEntity(SqlViewModel.Scale);
     }
 
-	/// <summary>
-	/// Save item.
-	/// </summary>
-	/// <param name="printCmd"></param>
-	/// <param name="pluWeighing"></param>
-	private void PrintSaveLabel(string printCmd, PluWeighingEntity pluWeighing)
+    /// <summary>
+    /// Save item.
+    /// </summary>
+    /// <param name="printCmd"></param>
+    /// <param name="pluWeighing"></param>
+    private void PrintSaveLabel(string printCmd, PluWeighingEntity pluWeighing)
     {
         PluLabelEntity pluLabel = new()
         {
-			PluWeighing = pluWeighing,
+            PluWeighing = pluWeighing,
             Zpl = printCmd,
         };
         DataAccess.Crud.SaveEntity(pluLabel);
@@ -412,7 +412,7 @@ public class UserSessionHelper : BaseViewModel
             // Изменить кол-во этикеток.
             if (WeighingSettings.LabelsCountMain > 1)
                 template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
-	                "^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
+                    "^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
             // Печать этикетки.
             PrintLabelCore(template, isClearBuffer);
         }
@@ -432,17 +432,17 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     public void SetWeighingFact()
     {
-	    if (PluScale == null)
-		    return;
-	    
-	    PluWeighing = new();
-		PluWeighing.PluScale = PluScale;
+        if (PluScale == null)
+            return;
+
+        PluWeighing = new();
+        PluWeighing.PluScale = PluScale;
         PluWeighing.PluScale.Scale = SqlViewModel.Scale;
         PluWeighing.PluScale.Scale.ScaleFactor = PluScale.Scale.ScaleFactor;
-		PluWeighing.ProdDt = SqlViewModel.ProductDate;
-	    PluWeighing.Kneading = WeighingSettings.Kneading;
-	    PluWeighing.NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight;
-	    PluWeighing.TareWeight = PluScale.Plu.TareWeight;
+        PluWeighing.ProductDt = SqlViewModel.ProductDate;
+        PluWeighing.Kneading = WeighingSettings.Kneading;
+        PluWeighing.NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight;
+        PluWeighing.TareWeight = PluScale.Plu.TareWeight;
     }
 
     /// <summary>
@@ -458,18 +458,18 @@ public class UserSessionHelper : BaseViewModel
                 return;
 
             DataAccess.Crud.SaveEntity(PluWeighing);
-            
+
             string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingEntity>(true);
             string xmlArea = string.Empty;
             if (SqlViewModel.Area != null)
-	            xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityEntity>(true);
+                xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityEntity>(true);
             xmlWeighingFact = Zpl.ZplUtils.XmlCompatibleReplace(xmlWeighingFact);
-			string xml = Zpl.ZplUtils.MergeXml(xmlWeighingFact, xmlArea);
-			// XSLT transform.
+            string xml = Zpl.ZplUtils.MergeXml(xmlWeighingFact, xmlArea);
+            // XSLT transform.
             string printCmd = Zpl.ZplUtils.XsltTransformation(template.ImageData.ValueUnicode, xml);
             printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
             // Replace ZPL resources.
-			printCmd = Zpl.ZplUtils.PrintCmdReplaceZplResources(printCmd);
+            printCmd = Zpl.ZplUtils.PrintCmdReplaceZplResources(printCmd);
             // DB save ZPL query to Labels.
             PrintSaveLabel(printCmd, PluWeighing);
             //if (ManagerControl == null || ManagerControl.PrintMain == null)

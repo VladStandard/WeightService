@@ -29,12 +29,12 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn TItem="PluWeighingEntity" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.WeithingDate
+                Title=@LocaleCore.Table.ProductDate
                 Type="date" Width="17.5%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@GetPath(UriRouteItem.PluWeighing, itemCast, itemCast.IdentityId)
-                        Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd HH:mm:ss") />
+                        Text=@itemCast.ProductDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluWeighingEntity" TextAlign=TextAlign.Center

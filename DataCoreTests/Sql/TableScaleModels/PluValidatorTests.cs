@@ -6,27 +6,29 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class PluValidatorTests
 {
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluEntity item = DataCoreUtils.CreateNewSubstitute<PluEntity>(false);
+		PluEntity item = DataCore.CreateNewSubstitute<PluEntity>(false);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluEntity item = DataCoreUtils.CreateNewSubstitute<PluEntity>(true);
+		PluEntity item = DataCore.CreateNewSubstitute<PluEntity>(true);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<PluEntity>(1_000);
+		DataCore.AssertSqlDataValidate<PluEntity>(1_000);
 	}
 }

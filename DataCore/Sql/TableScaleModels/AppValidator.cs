@@ -11,7 +11,7 @@ public class AppValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AppValidator() : base(ColumnName.Uid)
+	public AppValidator() : base(ColumnName.Uid, false, false)
 	{
 		RuleFor(item => ((AppEntity)item).Name)
 			.NotEmpty()

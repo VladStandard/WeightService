@@ -6,27 +6,29 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class OrderWeighingValidatorTests
 {
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		OrderWeighingEntity item = DataCoreUtils.CreateNewSubstitute<OrderWeighingEntity>(false);
+		OrderWeighingEntity item = DataCore.CreateNewSubstitute<OrderWeighingEntity>(false);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		OrderWeighingEntity item = DataCoreUtils.CreateNewSubstitute<OrderWeighingEntity>(true);
+		OrderWeighingEntity item = DataCore.CreateNewSubstitute<OrderWeighingEntity>(true);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<OrderWeighingEntity>(1_000);
+		DataCore.AssertSqlDataValidate<OrderWeighingEntity>(1_000);
 	}
 }

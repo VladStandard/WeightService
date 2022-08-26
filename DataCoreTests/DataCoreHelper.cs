@@ -8,21 +8,31 @@ using DataCore.Sql;
 using FluentValidation;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace DataCoreTests;
 
-public static class DataCoreUtils
+public class DataCoreHelper
 {
+	#region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+	private static DataCoreHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+	public static DataCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+	#endregion
+
 	#region Public and private fields, properties, constructor
 
-	private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-	public static SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
+	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	public SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 
 	#endregion
 
 	#region Public and private methods
 
-	private static void SetupDebug()
+	private void SetupDebug()
 	{
 		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameDebug);
@@ -30,7 +40,7 @@ public static class DataCoreUtils
 		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
 	}
 
-	private static void SetupRelease()
+	private void SetupRelease()
 	{
 		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameRelease);
@@ -38,7 +48,7 @@ public static class DataCoreUtils
 		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
 	}
 
-	public static void AssertAction(Action action)
+	public void AssertAction(Action action)
 	{
 		Assert.DoesNotThrow(() =>
 		{
@@ -51,7 +61,7 @@ public static class DataCoreUtils
 		});
 	}
 
-	public static void FailureWriteLine(ValidationResult result)
+	public void FailureWriteLine(ValidationResult result)
 	{
 		switch (result.IsValid)
 		{
@@ -66,7 +76,7 @@ public static class DataCoreUtils
 		}
 	}
 
-	private static IValidator<T> GetSqlValidator<T>(T item) where T : BaseEntity, new()
+	private IValidator<T> GetSqlValidator<T>(T item) where T : BaseEntity, new()
 	{
 		return item switch
 		{
@@ -81,14 +91,17 @@ public static class DataCoreUtils
 			NomenclatureEntity => new NomenclatureValidator(),
 			OrderEntity => new OrderValidator(),
 			OrderWeighingEntity => new OrderWeighingValidator(),
+			OrganizationEntity => new OrganizationValidator(),
 			PluEntity => new PluValidator(),
 			PluLabelEntity => new PluLabelValidator(),
+			PluObsoleteEntity => new PluObsoleteValidator(),
 			PluScaleEntity => new PluScaleValidator(),
 			PluWeighingEntity => new PluWeighingValidator(),
 			PrinterEntity => new PrinterValidator(),
 			PrinterResourceEntity => new PrinterResourceValidator(),
 			PrinterTypeEntity => new PrinterTypeValidator(),
 			ProductionFacilityEntity => new ProductionFacilityValidator(),
+			ProductSeriesEntity => new ProductSeriesValidator(),
 			ScaleEntity => new ScaleValidator(),
 			VersionEntity => new VersionValidator(),
 			TaskEntity => new TaskValidator(),
@@ -100,12 +113,12 @@ public static class DataCoreUtils
 		};
 	}
 
-	public static void AssertSqlDataValidate<T>(int maxResults = 0) where T : BaseEntity, new()
+	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : BaseEntity, new()
 	{
 		AssertAction(() =>
 		{
 			// Arrange.
-			IValidator<T> validator = GetSqlValidator<T>(Substitute.For<T>());
+			IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
 			T[]? items = DataAccess.Crud.GetEntities<T>(null, null, maxResults);
 			// Act.
 			if (items == null || !items.Any())
@@ -114,7 +127,7 @@ public static class DataCoreUtils
 			}
 			else
 			{
-				TestContext.WriteLine($"Found {nameof(items)}.Count: {items.Length}");
+				TestContext.WriteLine($"Found {items.Length} items. Print top 10.");
 				int i = 0;
 				foreach (T item in items)
 				{
@@ -130,15 +143,49 @@ public static class DataCoreUtils
 		});
 	}
 
-	public static void AssertSqlValidate<T>(T item, bool assertResult) where T : BaseEntity, new()
+	public void AssertSqlExtensionValidate<T>() where T : BaseEntity, new()
 	{
-		// Arrange.
-		IValidator<T> validator = GetSqlValidator<T>(item);
-		// Act & Assert.
-		DataCoreUtils.AssertValidate(item, validator, assertResult);
+		AssertAction(() =>
+		{
+			foreach (bool isShowMarkedItems in DataCoreEnums.GetBool())
+			{
+				// Arrange.
+				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
+				List<BaseEntity> items = DataAccess.Crud.GetList<T>(isShowMarkedItems, true, null);
+				// Act.
+				if (!items.Any())
+				{
+					TestContext.WriteLine($"{nameof(items)} is null or empty!");
+				}
+				else
+				{
+					TestContext.WriteLine($"Found {items.Count} items. Print top 10.");
+					List<T> itemsCast = items.Cast<T>().ToList();
+					int i = 0;
+					foreach (T item in itemsCast)
+					{
+						if (i < 10)
+							TestContext.WriteLine(item);
+						i++;
+						ValidationResult result = validator.Validate(item);
+						FailureWriteLine(result);
+						// Assert.
+						Assert.IsTrue(result.IsValid);
+					}
+				}
+			}
+		});
 	}
 
-	public static void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : BaseEntity, new()
+	{
+		// Arrange.
+		IValidator<T> validator = GetSqlValidator(item);
+		// Act & Assert.
+		AssertValidate(item, validator, assertResult);
+	}
+
+	private void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
@@ -158,7 +205,7 @@ public static class DataCoreUtils
 		});
 	}
 
-	public static T CreateNewSubstitute<T>(bool isNotDefault) where T : BaseEntity, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : BaseEntity, new()
 	{
 		T item = Substitute.For<T>();
 		if (!isNotDefault)
@@ -222,6 +269,11 @@ public static class DataCoreUtils
 				orderWeighing.Order = CreateNewSubstitute<OrderEntity>(isNotDefault);
 				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
 				break;
+			case OrganizationEntity organization:
+				organization.Name = "Test";
+				organization.Gln = 1;
+				organization.Xml = "Test";
+				break;
 			case PluEntity plu:
 				plu.Name = "Test";
 				plu.Number = 100;
@@ -242,7 +294,7 @@ public static class DataCoreUtils
 				pluWeighing.Sscc = "Test";
 				pluWeighing.NettoWeight = (decimal)1.1;
 				pluWeighing.TareWeight = (decimal)0.25;
-				pluWeighing.ProdDt = DateTime.Now;
+				pluWeighing.ProductDt = DateTime.Now;
 				pluWeighing.RegNum = 1;
 				pluWeighing.Kneading = 1;
 				pluWeighing.PluScale = CreateNewSubstitute<PluScaleEntity>(isNotDefault);
@@ -259,6 +311,11 @@ public static class DataCoreUtils
 				break;
 			case ProductionFacilityEntity productionFacility:
 				productionFacility.Name = "Test";
+				break;
+			case ProductSeriesEntity productSeries:
+				productSeries.Sscc = "Test";
+				productSeries.IsClose = false;
+				productSeries.Scale = CreateNewSubstitute<ScaleEntity>(isNotDefault);
 				break;
 			case ScaleEntity scale:
 				scale.Description = "Test";

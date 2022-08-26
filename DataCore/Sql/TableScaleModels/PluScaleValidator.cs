@@ -15,9 +15,11 @@ public class PluScaleValidator : BaseValidator
 	{
 		RuleFor(item => ((PluScaleEntity)item).Plu)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new PluValidator());
 		RuleFor(item => ((PluScaleEntity)item).Scale)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new ScaleValidator());
 	}
 }

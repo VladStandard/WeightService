@@ -1,34 +1,34 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
 internal class HostValidatorTests
 {
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+
 	[Test]
 	public void Entity_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		HostEntity item = DataCoreUtils.CreateNewSubstitute<HostEntity>(false);
+		HostEntity item = DataCore.CreateNewSubstitute<HostEntity>(false);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Entity_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		HostEntity item = DataCoreUtils.CreateNewSubstitute<HostEntity>(true);
+		HostEntity item = DataCore.CreateNewSubstitute<HostEntity>(true);
 		// Assert.
-		DataCoreUtils.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCoreUtils.AssertSqlDataValidate<HostEntity>(1_000);
+		DataCore.AssertSqlDataValidate<HostEntity>(1_000);
 	}
 }

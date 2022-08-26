@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "WorkShop".
 /// </summary>
-public class WorkshopMap : ClassMap<WorkShopEntity>
+public class WorkShopMap : ClassMap<WorkShopEntity>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WorkshopMap()
+    public WorkShopMap()
     {
         Schema("db_scales");
         Table("WorkShop");

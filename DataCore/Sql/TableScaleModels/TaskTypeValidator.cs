@@ -11,7 +11,7 @@ public class TaskTypeValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TaskTypeValidator() : base(ColumnName.Uid)
+	public TaskTypeValidator() : base(ColumnName.Uid, false, false)
 	{
 		RuleFor(item => ((TaskTypeEntity)item).Name)
 			.NotEmpty()

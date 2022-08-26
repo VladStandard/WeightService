@@ -4,6 +4,7 @@
 
 global using System.Collections.Generic;
 global using System.Linq;
+global using DataCore.Sql.Controllers;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.TableScaleModels;
 global using FluentValidation.Results;

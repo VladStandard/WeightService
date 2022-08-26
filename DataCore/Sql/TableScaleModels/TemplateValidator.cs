@@ -11,7 +11,7 @@ public class TemplateValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TemplateValidator() : base(ColumnName.Uid)
+	public TemplateValidator() : base(ColumnName.Id)
 	{
 		RuleFor(item => ((TemplateEntity)item).Title)
 			.NotEmpty()

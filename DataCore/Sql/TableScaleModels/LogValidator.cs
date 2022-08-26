@@ -11,7 +11,7 @@ public class LogValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogValidator() : base(ColumnName.Uid)
+	public LogValidator() : base(ColumnName.Uid, true, false)
 	{
 		RuleFor(item => ((LogEntity)item).Version)
 			.NotNull();

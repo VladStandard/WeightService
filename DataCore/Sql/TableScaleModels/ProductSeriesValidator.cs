@@ -11,10 +11,14 @@ public class ProductSeriesValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductSeriesValidator() : base(ColumnName.Uid)
+	public ProductSeriesValidator() : base(ColumnName.Uid, true, false)
 	{
 		RuleFor(item => ((ProductSeriesEntity)item).Sscc)
 			.NotEmpty()
 			.NotNull();
+		RuleFor(item => ((ProductSeriesEntity)item).Scale)
+			.NotEmpty()
+			.NotNull()
+			.SetValidator(new ScaleValidator());
 	}
 }

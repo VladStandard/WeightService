@@ -70,9 +70,11 @@ public class PluValidator : BaseValidator
 			.NotNull();
 		RuleFor(item => ((PluEntity)item).Template)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new TemplateValidator());
 		RuleFor(item => ((PluEntity)item).Nomenclature)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new NomenclatureValidator());
 	}
 }

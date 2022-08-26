@@ -11,7 +11,7 @@ public class LogTypeValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogTypeValidator() : base(ColumnName.Uid)
+	public LogTypeValidator() : base(ColumnName.Uid, false, false)
 	{
 		RuleFor(item => ((LogTypeEntity)item).Number)
 			.NotNull()

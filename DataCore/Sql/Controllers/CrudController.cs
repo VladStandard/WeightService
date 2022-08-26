@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableDwhModels;
-using DataCore.Sql.TableScaleModels;
 using FluentNHibernate.Conventions;
 using NHibernate;
 using NHibernate.Criterion;
@@ -14,7 +13,7 @@ public class CrudController
 {
     #region Public and private fields, properties, constructor
 
-    private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     private DataConfigurationEntity DataConfig { get; }
 
     private delegate void ExecCallback(ISession session);
@@ -32,9 +31,9 @@ public class CrudController
 
     #region Public and private methods
 
-    public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+    public T[]? GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        T[]? result = Array.Empty<T>();
+        T[]? result = null;
         ExecuteTransaction((session) =>
         {
             if (DataConfig != null)
@@ -135,13 +134,16 @@ public class CrudController
         return session.CreateSQLQuery(query);
     }
 
-    private T[] GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
+    private T[]? GetEntitiesWithoutReferences<T>(FilterListEntity? filterList, FieldOrderEntity? order, int maxResults,
         string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
     {
-        T[] result = Array.Empty<T>();
+        T[]? result = null;
         ExecuteTransaction((session) =>
         {
-            result = GetCriteria<T>(session, filterList, order, maxResults).List<T>().ToArray();
+	        ICriteria criteria = GetCriteria<T>(session, filterList, order, maxResults);
+			IList<T>? list = criteria.List<T>();
+            if (list is not null && list.Count > 0)
+				result = list.ToArray();
         }, filePath, lineNumber, memberName);
         return result;
     }
@@ -216,7 +218,7 @@ public class CrudController
         switch (item)
         {
             case DeviceEntity device:
-                device.Scales = device.Scales?.IdentityId == null ? new() : GetEntityById<ScaleEntity>(device.Scales.IdentityId);
+                device.Scales = device.Scales.IdentityId == null ? new() : GetEntityById<ScaleEntity>(device.Scales.IdentityId);
                 break;
         }
     }
@@ -232,28 +234,28 @@ public class CrudController
                 barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? null : GetEntityById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                 break;
             case OrderWeighingEntity orderWeighing:
-	            orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
-	            orderWeighing.PluWeighing = GetEntityByUid<PluWeighingEntity>(orderWeighing.PluWeighing.IdentityUid);
+                orderWeighing.Order = GetEntityByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
+                orderWeighing.PluWeighing = GetEntityByUid<PluWeighingEntity>(orderWeighing.PluWeighing.IdentityUid);
                 break;
             case PluEntity plu:
-	            plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
-	            plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
-	            break;
+                plu.Template = GetEntityById<TemplateEntity>(plu.Template.IdentityId);
+                plu.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+                break;
             case PluLabelEntity pluLabel:
                 pluLabel.PluWeighing = pluLabel.PluWeighing == null ? null : GetEntityByUid<PluWeighingEntity>(pluLabel.PluWeighing.IdentityUid);
-	            break;
+                break;
             case PluObsoleteEntity pluObsolete:
                 pluObsolete.Template = GetEntityById<TemplateEntity>(pluObsolete.Template.IdentityId);
                 pluObsolete.Scale = GetEntityById<ScaleEntity>(pluObsolete.Scale.IdentityId);
                 pluObsolete.Nomenclature = GetEntityById<TableScaleModels.NomenclatureEntity>(pluObsolete.Nomenclature.IdentityId);
                 break;
             case PluScaleEntity pluScale:
-	            pluScale.Plu = GetEntityByUid<PluEntity>(pluScale.Plu.IdentityUid);
-	            pluScale.Scale = GetEntityById<ScaleEntity>(pluScale.Scale.IdentityId);
+                pluScale.Plu = GetEntityByUid<PluEntity>(pluScale.Plu.IdentityUid);
+                pluScale.Scale = GetEntityById<ScaleEntity>(pluScale.Scale.IdentityId);
                 break;
             case PluWeighingEntity pluWeighing:
-	            pluWeighing.PluScale = GetEntityByUid<PluScaleEntity>(pluWeighing.PluScale.IdentityUid);
-	            pluWeighing.Series = GetEntityById<ProductSeriesEntity>(pluWeighing.Series.IdentityId);
+                pluWeighing.PluScale = GetEntityByUid<PluScaleEntity>(pluWeighing.PluScale.IdentityUid);
+                pluWeighing.Series = GetEntityById<ProductSeriesEntity>(pluWeighing.Series.IdentityId);
                 break;
             case PrinterEntity printer:
                 printer.PrinterType = GetEntityById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
@@ -482,10 +484,10 @@ public class CrudController
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         where T : BaseEntity, new()
     {
-	    if (item == null)
-		    return;
-        
-	    switch (item)
+        if (item == null)
+            return;
+
+        switch (item)
         {
             case ContragentEntity contragent:
                 throw new($"{nameof(SaveEntity)} for {nameof(ContragentEntity)} is deny!");
@@ -502,8 +504,8 @@ public class CrudController
         where T : BaseEntity, new()
     {
         if (item == null)
-	        return;
-        
+            return;
+
         item.ChangeDt = DateTime.Now;
         ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
     }
@@ -522,7 +524,7 @@ public class CrudController
         where T : BaseEntity
     {
         if (item == null)
-	        return;
+            return;
 
         item.IsMarked = true;
         ExecuteTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
@@ -532,8 +534,8 @@ public class CrudController
     {
         bool result = false;
         if (item == null)
-	        return result;
-        
+            return result;
+
         ExecuteTransaction((session) =>
         {
             result = session.Query<T>().Any(x => x.IsAny(item));
@@ -546,7 +548,7 @@ public class CrudController
         where T : BaseEntity, new()
     {
         if (item == null)
-	        return false;
+            return false;
 
         return ExistsEntityInside(item, filePath, lineNumber, memberName);
     }
@@ -576,70 +578,41 @@ public class CrudController
     /// <returns></returns>
     public ColumnName GetColumnIdentity(BaseEntity? item)
     {
-        switch (item)
-        {
-            case AccessEntity:
-                return AccessEntity.IdentityName;
-            case AppEntity:
-                return AppEntity.IdentityName;
-            case BarCodeTypeEntity:
-                return BarCodeTypeEntity.IdentityName;
-            case BarCodeEntity:
-                return BarCodeEntity.IdentityName;
-            case ContragentEntity:
-                return ContragentEntity.IdentityName;
-            case HostEntity:
-                return HostEntity.IdentityName;
-            case LogTypeEntity:
-                return LogTypeEntity.IdentityName;
-            case LogEntity:
-                return LogEntity.IdentityName;
-            case TableScaleModels.NomenclatureEntity:
-                return TableScaleModels.NomenclatureEntity.IdentityName;
-            case OrderEntity:
-                return OrderEntity.IdentityName;
-            case OrderWeighingEntity:
-                return OrderWeighingEntity.IdentityName;
-            case OrganizationEntity:
-                return OrganizationEntity.IdentityName;
-            case PluEntity:
-                return PluEntity.IdentityName;
-            case PluLabelEntity:
-                return PluLabelEntity.IdentityName;
-            case PluObsoleteEntity:
-                return PluObsoleteEntity.IdentityName;
-            case PluScaleEntity:
-                return PluScaleEntity.IdentityName;
-            case PluWeighingEntity:
-                return PluWeighingEntity.IdentityName;
-            case ProductionFacilityEntity:
-                return ProductionFacilityEntity.IdentityName;
-            case ProductSeriesEntity:
-                return ProductSeriesEntity.IdentityName;
-            case ScaleEntity:
-                return ScaleEntity.IdentityName;
-            case TaskEntity:
-                return TaskEntity.IdentityName;
-            case TaskTypeEntity:
-                return TaskTypeEntity.IdentityName;
-            case TemplateResourceEntity:
-                return TemplateResourceEntity.IdentityName;
-            case TemplateEntity:
-                return TemplateEntity.IdentityName;
-            case VersionEntity:
-                return VersionEntity.IdentityName;
-            case WorkShopEntity:
-                return WorkShopEntity.IdentityName;
-            case PrinterEntity:
-                return PrinterEntity.IdentityName;
-            case PrinterResourceEntity:
-                return PrinterResourceEntity.IdentityName;
-            case PrinterTypeEntity:
-                return PrinterTypeEntity.IdentityName;
-        }
-        return ColumnName.Default;
+	    return item switch
+	    {
+		    AccessEntity => AccessEntity.IdentityName,
+		    AppEntity => AppEntity.IdentityName,
+		    BarCodeTypeEntity => BarCodeTypeEntity.IdentityName,
+		    BarCodeEntity => BarCodeEntity.IdentityName,
+		    ContragentEntity => ContragentEntity.IdentityName,
+		    HostEntity => HostEntity.IdentityName,
+		    LogTypeEntity => LogTypeEntity.IdentityName,
+		    LogEntity => LogEntity.IdentityName,
+		    TableScaleModels.NomenclatureEntity => TableScaleModels.NomenclatureEntity.IdentityName,
+		    OrderEntity => OrderEntity.IdentityName,
+		    OrderWeighingEntity => OrderWeighingEntity.IdentityName,
+		    OrganizationEntity => OrganizationEntity.IdentityName,
+		    PluEntity => PluEntity.IdentityName,
+		    PluLabelEntity => PluLabelEntity.IdentityName,
+		    PluObsoleteEntity => PluObsoleteEntity.IdentityName,
+		    PluScaleEntity => PluScaleEntity.IdentityName,
+		    PluWeighingEntity => PluWeighingEntity.IdentityName,
+		    ProductionFacilityEntity => ProductionFacilityEntity.IdentityName,
+		    ProductSeriesEntity => ProductSeriesEntity.IdentityName,
+		    ScaleEntity => ScaleEntity.IdentityName,
+		    TaskEntity => TaskEntity.IdentityName,
+		    TaskTypeEntity => TaskTypeEntity.IdentityName,
+		    TemplateResourceEntity => TemplateResourceEntity.IdentityName,
+		    TemplateEntity => TemplateEntity.IdentityName,
+		    VersionEntity => VersionEntity.IdentityName,
+		    WorkShopEntity => WorkShopEntity.IdentityName,
+		    PrinterEntity => PrinterEntity.IdentityName,
+		    PrinterResourceEntity => PrinterResourceEntity.IdentityName,
+		    PrinterTypeEntity => PrinterTypeEntity.IdentityName,
+		    _ => ColumnName.Default
+	    };
     }
-    
+
     #endregion
 
 }

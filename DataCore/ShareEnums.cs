@@ -145,6 +145,7 @@ public class ShareEnums
         Plu,
         PluNumber,
         PrinterId,
+		ProductDt,
         ReleaseDt,
         Scale,
         Scale_Id,

@@ -11,11 +11,14 @@ public class PrinterValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PrinterValidator() : base(ColumnName.Uid)
+	public PrinterValidator() : base(ColumnName.Id)
 	{
 		RuleFor(item => ((PrinterEntity)item).DarknessLevel)
+			.NotNull()
+			.GreaterThanOrEqualTo((short)0);
+		RuleFor(item => ((PrinterEntity)item).PrinterType)
 			.NotEmpty()
 			.NotNull()
-			.NotEqual(default(short));
+			.SetValidator(new PrinterTypeValidator());
 	}
 }

@@ -19,6 +19,7 @@ public class OrderWeighingValidator : BaseValidator
 			.SetValidator(new OrderValidator());
 		RuleFor(item => ((OrderWeighingEntity)item).PluWeighing)
 			.NotEmpty()
-			.NotNull();
+			.NotNull()
+			.SetValidator(new PluWeighingValidator());
 	}
 }

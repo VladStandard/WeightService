@@ -11,10 +11,14 @@ public class WorkShopValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WorkShopValidator() : base(ColumnName.Uid)
+	public WorkShopValidator() : base(ColumnName.Id)
 	{
 		RuleFor(item => ((WorkShopEntity)item).Name)
 			.NotEmpty()
 			.NotNull();
+		RuleFor(item => ((WorkShopEntity)item).ProductionFacility)
+			.NotEmpty()
+			.NotNull()
+			.SetValidator(new ProductionFacilityValidator());
 	}
 }

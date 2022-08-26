@@ -11,9 +11,12 @@ public class ProductionFacilityValidator : BaseValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductionFacilityValidator() : base(ColumnName.Uid)
+	public ProductionFacilityValidator() : base(ColumnName.Id, false, false)
 	{
 		RuleFor(item => ((ProductionFacilityEntity)item).Name)
+			.NotEmpty()
+			.NotNull();
+		RuleFor(item => ((ProductionFacilityEntity)item).Address)
 			.NotEmpty()
 			.NotNull();
 	}

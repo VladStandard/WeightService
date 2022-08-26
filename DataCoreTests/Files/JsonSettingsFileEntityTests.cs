@@ -5,16 +5,14 @@ namespace DataCoreTests.Files;
 
 public class JsonSettingsFileEntityTests
 {
-    #region Public and private methods
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
-    [Test]
+	[Test]
     public void JsonSettings_New_DoesNotThrow()
     {
-        DataCoreUtils.AssertAction(() =>
+        DataCore.AssertAction(() =>
         {
             //
         });
     }
-
-    #endregion
 }
