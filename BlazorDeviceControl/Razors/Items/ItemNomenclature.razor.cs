@@ -37,8 +37,7 @@ public partial class ItemNomenclature : BlazorCore.Models.RazorBase
 						ItemCast.Name = "NEW NOMENCLATURE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-							new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<NomenclatureEntity>(IdentityId);
 						break;
 				}
 

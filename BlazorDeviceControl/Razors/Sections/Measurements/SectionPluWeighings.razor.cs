@@ -1,13 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
+
 namespace BlazorDeviceControl.Razors.Sections.Measurements;
 
 public partial class SectionPluWeighings : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PluWeighingEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluWeighingEntity)x).ToList();
+	private List<PluWeighingEntity> ItemsCast
+	{
+		get => Items == null ? new() : Items.Select(x => (PluWeighingEntity)x).ToList();
+		set => Items = !value.Any() ? null : new(value);
+	}
 
 	#endregion
 
@@ -18,7 +24,7 @@ public partial class SectionPluWeighings : BlazorCore.Models.RazorBase
 		base.OnInitialized();
 
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
-		Items = new();
+		ItemsCast = new();
 	}
 
 	protected override void OnParametersSet()
@@ -28,10 +34,8 @@ public partial class SectionPluWeighings : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				Items = AppSettings.DataAccess.Crud.GetEntitiesNotNull<PluWeighingEntity>(
-					IsShowMarkedItems, IsSelectTopRows, null)
-					//new() { Name = DbField.ProductDt, Direction = DbOrderDirection.Desc })
-					.ToList<BaseEntity>();
+				ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PluWeighingEntity>(IsShowMarked, IsShowOnlyTop);
+
 				ButtonSettings = new(true, true, true, true, true, false, false);
 			}
 		});

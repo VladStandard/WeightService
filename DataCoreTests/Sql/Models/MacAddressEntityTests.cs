@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Threading.Tasks;
+using DataCore.Sql.Fields;
 
 namespace DataCoreTests.Sql.Models;
 
@@ -16,7 +17,7 @@ internal class MacAddressEntityTests
 	        foreach (string? address in DataCoreEnums.GetString())
 	        {
                 if (address is not null)
-					_ = new MacAddressEntity(address);
+					_ = new FieldMacAddressModel(address);
 	        }
         }));
     }

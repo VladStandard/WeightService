@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class TaskDirect : BaseSerializeEntity, ISerializable
+public class TaskDirect : SerializeModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 

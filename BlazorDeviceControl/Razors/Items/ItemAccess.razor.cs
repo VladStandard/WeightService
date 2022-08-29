@@ -46,12 +46,12 @@ public partial class ItemAccess : BlazorCore.Models.RazorBase
 						ItemCast.User = "NEW USER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
-							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<AccessEntity>(IdentityUid);
 						break;
 				}
 
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
+
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
 		});

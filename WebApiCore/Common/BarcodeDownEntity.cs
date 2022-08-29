@@ -11,7 +11,7 @@ namespace WebApiCore.Common;
 /// Barcode down entity.
 /// </summary>
 [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class BarcodeDownEntity : BaseSerializeDeprecatedEntity<BarcodeDownEntity>
+public class BarcodeDownEntity : SerializeDeprecatedModel<BarcodeDownEntity>
 {
     #region Public and private fields and properties
 

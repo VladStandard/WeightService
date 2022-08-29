@@ -76,7 +76,7 @@ public class SqlConnectFactory
 
     public void ExecuteReader(string query, SqlParameter parameter, ExecuteReaderCallback callback)
     {
-        ExecuteReader(query, new SqlParameter[] { parameter }, callback);
+        ExecuteReader(query, new[] { parameter }, callback);
     }
 
     public void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderCallback callback)
@@ -100,7 +100,7 @@ public class SqlConnectFactory
 
     public T? ExecuteReader<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback)
     {
-        return ExecuteReader(query, new SqlParameter[] { parameter }, callback);
+        return ExecuteReader(query, new[] { parameter }, callback);
     }
 
     public T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback)
@@ -127,12 +127,12 @@ public class SqlConnectFactory
         return result;
     }
 
-    public T ExecuteReaderForEntity<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) where T : new()
+    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) where T : new()
     {
-        return ExecuteReaderForEntity(query, new SqlParameter[] { parameter }, callback);
+        return ExecuteReaderForItem(query, new[] { parameter }, callback);
     }
 
-    public T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback) where T : new()
+    public T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback) where T : new()
     {
         lock (_locker)
         {
@@ -160,7 +160,7 @@ public class SqlConnectFactory
 
     public void ExecuteNonQuery(string query, SqlParameter parameter)
     {
-        ExecuteNonQuery(query, new SqlParameter[] { parameter });
+        ExecuteNonQuery(query, new[] { parameter });
     }
 
     public int ExecuteNonQuery(string query, SqlParameter[] parameters)

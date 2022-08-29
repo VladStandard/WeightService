@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class PrinterDirect : BaseSerializeEntity, ISerializable
+public class PrinterDirect : SerializeModel, ISerializable
 {
     #region Design pattern "Lazy Singleton"
 

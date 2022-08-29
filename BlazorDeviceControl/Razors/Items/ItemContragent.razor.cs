@@ -38,8 +38,7 @@ public partial class ItemContragent : BlazorCore.Models.RazorBase
 						ItemCast.Name = "NEW CONTRAGENT";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(
-							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<ContragentEntity>(IdentityUid);
 						break;
 				}
 

@@ -36,10 +36,10 @@ public partial class ItemWf : BlazorCore.Models.RazorBase
                         ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluWeighingEntity>(
-                            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                        ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluWeighingEntity>(IdentityId);
                         break;
                 }
+
                 ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });

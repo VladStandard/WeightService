@@ -38,8 +38,7 @@ public partial class ItemBarCodeType : BlazorCore.Models.RazorBase
 						ItemCast.Name = "NEW BARCODE_TYPE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntity>(
-							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<BarCodeTypeEntity>(IdentityUid);
 						break;
 				}
 

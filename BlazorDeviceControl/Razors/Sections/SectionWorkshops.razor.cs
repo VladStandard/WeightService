@@ -7,7 +7,11 @@ public partial class SectionWorkshops : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<WorkShopEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WorkShopEntity)x).ToList();
+    private List<WorkShopEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (WorkShopEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -19,7 +23,7 @@ public partial class SectionWorkshops : BlazorCore.Models.RazorBase
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
         Items = new();
-	}
+    }
 
     protected override void OnParametersSet()
     {
@@ -28,12 +32,9 @@ public partial class SectionWorkshops : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
-                    IsShowMarkedItems ? null
-                        : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.OrderBy(x => x.ProductionFacility.Name).ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<WorkShopEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
+                ItemsCast = ItemsCast.OrderBy(x => x.ProductionFacility.Name).ToList();
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class SsccDirect : BaseSerializeEntity, ISerializable
+public class SsccDirect : SerializeModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 

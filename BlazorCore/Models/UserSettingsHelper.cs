@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Threading;
+using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
 using static DataCore.ShareEnums;
 
@@ -38,8 +39,7 @@ public class UserSettingsHelper
 
     public void SetupAccessRights()
     {
-        AccessEntity? access = DataAccess.Crud.GetEntity<AccessEntity>(
-            new FieldEntity(DbField.User, DbComparer.Equal, Identity.UserName));
+        AccessEntity? access = DataAccess.Crud.GetItem<AccessEntity>(new FieldFilterModel(DbField.User, DbComparer.Equal, Identity.UserName));
         if (access != null)
 			Identity.SetAccessRights(access.Rights);
         //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(

@@ -37,10 +37,10 @@ public partial class ItemTemplateResource : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                    new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateResourceEntity>(IdentityId);
                 if (IdentityId != null && TableAction == DbTableAction.New)
                     ItemCast.IdentityId = (long)IdentityId;
+
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });

@@ -3,6 +3,7 @@
 
 using DataCore;
 using DataCore.Localizations;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels;
 using System;
 using System.Collections.Generic;
@@ -46,13 +47,12 @@ public partial class SelectPluForm : Form
 	{
 		try
 		{
-			List<PluScaleEntity> pluScales = UserSession.DataAccess.Crud.GetEntities<PluScaleEntity>(
-					new(new()
-					{
+			List<PluScaleEntity> pluScales = UserSession.DataAccess.Crud.GetItems<PluScaleEntity>(
+					new List<FieldFilterModel> {
 						new($"{nameof(PluScaleEntity.Scale)}.{ShareEnums.DbField.IdentityId}",
 							ShareEnums.DbComparer.Equal, UserSession.SqlViewModel.Scale.IdentityId),
 						new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false),
-					}),
+					},
 					new(ShareEnums.DbField.Name))
 				?.ToList();
 			if (pluScales is not null)
@@ -234,8 +234,7 @@ public partial class SelectPluForm : Form
 
 	private Label NewLabelPluTemplate(PluScaleEntity pluScale, int tabIndex, Control buttonPlu)
 	{
-		TemplateEntity template = UserSession.DataAccess.Crud.GetEntity<TemplateEntity>(
-			new(new() { new(ShareEnums.DbField.IdentityId, ShareEnums.DbComparer.Equal, pluScale.Plu.Template.IdentityId) }));
+		TemplateEntity template = UserSession.DataAccess.Crud.GetItemByIdNotNull<TemplateEntity>(pluScale.Plu.Template.IdentityId);
 		Label labelPluTemplate = new()
 		{
 			Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

@@ -3,6 +3,7 @@
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 @using BlazorDeviceControl.Razors.Components
+@using DataCore.Sql.QueriesModels
 
 @if (!IsLoaded)
 {
@@ -13,11 +14,11 @@ else
     <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.WeithingFactsAggregation />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="WeithingFactSummaryEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="WeithingFactSummaryModel" @bind-Value=@ItemObject
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
+            <RadzenGridColumn TItem="WeithingFactSummaryModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="15%">
                 <Template Context="itemCast" >
@@ -25,7 +26,7 @@ else
                         Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
+            <RadzenGridColumn TItem="WeithingFactSummaryModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="15%">
                 <Template Context="itemCast" >
@@ -33,10 +34,10 @@ else
                         Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign=TextAlign.Center
+            <RadzenGridColumn TItem="WeithingFactSummaryModel" Property="Count" TextAlign=TextAlign.Center
                                 Title=@LocaleCore.Table.Count
                                 Type="int" Width="15%" />
-            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign=TextAlign.Left
+            <RadzenGridColumn TItem="WeithingFactSummaryModel" Property="Scale" TextAlign=TextAlign.Left
                                 Title=@LocaleCore.Table.Scale
                                 Type="string" Width="55%" />
         </Columns>

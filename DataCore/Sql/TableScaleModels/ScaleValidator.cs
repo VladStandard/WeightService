@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
 using FluentValidation.Results;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -8,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class ScaleValidator : BaseValidator
+public class ScaleValidator : TableValidator
 {
 	/// <summary>
 	/// Constructor.
@@ -20,7 +21,7 @@ public class ScaleValidator : BaseValidator
 			.NotNull();
 	}
 
-	protected override bool PreValidate(ValidationContext<BaseEntity> context, ValidationResult result)
+	protected override bool PreValidate(ValidationContext<TableModel> context, ValidationResult result)
 	{
 		if (context.InstanceToValidate is ScaleEntity scale)
 		{

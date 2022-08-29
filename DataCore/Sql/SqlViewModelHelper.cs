@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
 using static DataCore.ShareEnums;
 
@@ -198,7 +199,7 @@ public class SqlViewModelHelper : BaseViewModel
             if (string.IsNullOrEmpty(Host.HostName))
             {
                 string hostName = NetUtils.GetLocalHostName(false);
-                Host = SqlUtils.GetHostEntity(hostName);
+                Host = SqlUtils.GetHost(hostName);
             }
             Scale = SqlUtils.GetScaleFromHost(Host.IdentityId);
         }
@@ -213,21 +214,16 @@ public class SqlViewModelHelper : BaseViewModel
     private void SetScales()
     {
         Scales = new();
-        ScaleEntity[]? scales = SqlUtils.DataAccess.Crud.GetEntities<ScaleEntity>(
-            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-            new(DbField.Description));
+        ScaleEntity[]? scales = SqlUtils.DataAccess.Crud.GetItems<ScaleEntity>(
+            new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) }, new(DbField.Description));
         scales?.ToList().ForEach(scale => Scales.Add(scale.Description));
     }
 
     private void SetAreas()
     {
         Areas = new();
-        ProductionFacilityEntity[]? areas = SqlUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-            new(new()
-            {
-                new(DbField.IsMarked, DbComparer.Equal, false)
-            }),
-            new(DbField.Name));
+        ProductionFacilityEntity[]? areas = SqlUtils.DataAccess.Crud.GetItems<ProductionFacilityEntity>(new List<FieldFilterModel> {
+            new(DbField.IsMarked, DbComparer.Equal, false) }, new(DbField.Name));
         areas?.Where(x => x.IdentityId > 0).ToList().ForEach(area => Areas.Add(area.Name));
     }
 

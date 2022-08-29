@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 /// <summary>
@@ -45,8 +47,7 @@ public partial class ItemScaleCore : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-					new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ScaleEntity>(IdentityId);
 				if (IdentityId != null && TableAction == DbTableAction.New)
 					ItemCast.IdentityId = (long)IdentityId;
 				ItemCast.Host ??= new(0, false) { Name = LocaleCore.Table.FieldNull };
@@ -61,52 +62,40 @@ public partial class ItemScaleCore : BlazorCore.Models.RazorBase
 			    // ScaleFactor
 			    ItemCast.ScaleFactor ??= 1000;
 			    // HostItems.
-			    HostEntity[]? hostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
-					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-					new(DbField.Name));
+				Hosts = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
+			    HostEntity[]? hostItems = AppSettings.DataAccess.Crud.GetItems<HostEntity>(
+					new FieldFilterModel(DbField.IsMarked, false), new(DbField.Name));
 				if (hostItems is not null)
-				{
-					Hosts = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
 					Hosts.AddRange(hostItems);
-				}
 
 			    // PrinterItems.
-			    PrinterEntity[]? printerItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+				Printers = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
+			    PrinterEntity[]? printerItems = AppSettings.DataAccess.Crud.GetItems<PrinterEntity>(
+					new FieldFilterModel(DbField.IsMarked, false));
 				if (printerItems is not null)
-				{
-					Printers = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
 					Printers.AddRange(printerItems);
-				}
 
 			    // Templates.
-			    TemplateEntity[]? templatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-					new(DbField.Title));
+				Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
+			    TemplateEntity[]? templatesSeriesItems = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(
+					new FieldFilterModel(DbField.IsMarked, false), new(DbField.Title));
 				if (templatesSeriesItems is not null)
-				{
-					Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
 					Templates.AddRange(templatesSeriesItems);
-				}
 
 			    // ProductionFacilities.
+				ProductionFacilities = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
 			    ProductionFacilityEntity[]? productionFacilities =
-					AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
-						new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
-				if (productionFacilities is { })
-				{
-					ProductionFacilities = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
+					AppSettings.DataAccess.Crud.GetItems<ProductionFacilityEntity>(
+						new FieldFilterModel(DbField.IsMarked, false));
+				if (productionFacilities is not null)
 					ProductionFacilities.AddRange(productionFacilities.Where(x => x.IdentityId > 0));
-				}
 
 			    // WorkShopItems.
-			    WorkShopEntity[]? workShopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
-					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }));
+				WorkShops = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
+			    WorkShopEntity[]? workShopItems = AppSettings.DataAccess.Crud.GetItems<WorkShopEntity>(
+					new FieldFilterModel(DbField.IsMarked, false));
 				if (workShopItems is not null)
-				{
-					WorkShops = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
 					WorkShops.AddRange(workShopItems);
-				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

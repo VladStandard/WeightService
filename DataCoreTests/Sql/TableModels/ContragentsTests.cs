@@ -76,7 +76,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "ContragentsEntity test";
-//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.Crud.GetEntity<ContragentEntityV2>(new FieldListEntity(
+//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<ContragentEntityV2>(new FieldListEntity(
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;

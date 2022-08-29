@@ -4,7 +4,7 @@
 //namespace DataCore.Sql.DataModels;
 
 //[Serializable]
-//public class LabelQuickEntity : BaseEntity, ISerializable, IBaseEntity
+//public class LabelQuickModel : BaseEntity, ISerializable, IBaseEntity
 //{
 //    #region Public and private fields, properties, constructor
 
@@ -46,7 +46,7 @@
 //	/// <summary>
 //	/// Constructor.
 //	/// </summary>
-//	public LabelQuickEntity() : base(0, false)
+//	public LabelQuickModel() : base(0, false)
 //    {
 //	    Init();
 //    }
@@ -56,7 +56,7 @@
 //	/// </summary>
 //	/// <param name="identityId"></param>
 //	/// <param name="isSetupDates"></param>
-//	public LabelQuickEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+//	public LabelQuickModel(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
 //    {
 //	    Init();
 //    }
@@ -102,7 +102,7 @@
 //        $"{nameof(TemplateId)}: {TemplateId}. " + 
 //        $"{nameof(TemplateName)}: {TemplateName}. ";
 
-//    public virtual bool Equals(LabelQuickEntity item)
+//    public virtual bool Equals(LabelQuickModel item)
 //    {
 //        if (item is null) return false;
 //        if (ReferenceEquals(this, item)) return true;
@@ -126,10 +126,10 @@
 
 //    public override bool Equals(object obj)
 //    {
-//        if (obj is null) return false;
-//        if (ReferenceEquals(this, obj)) return true;
+//if (ReferenceEquals(null, obj)) return false;
+//if (ReferenceEquals(this, obj)) return true;
 //        if (obj.GetType() != GetType()) return false;
-//        return Equals((LabelQuickEntity)obj);
+//        return Equals((LabelQuickModel)obj);
 //    }
 
 //    public override int GetHashCode()
@@ -163,7 +163,7 @@
 
 //    public new virtual object Clone()
 //    {
-//        LabelQuickEntity item = new();
+//        LabelQuickModel item = new();
 //        item.ScaleId = ScaleId;
 //        item.ScaleDescription = ScaleDescription;
 //        item.PluId = PluId;
@@ -182,7 +182,7 @@
 //        return item;
 //    }
 
-//    public new virtual LabelQuickEntity CloneCast() => (LabelQuickEntity)Clone();
+//    public new virtual LabelQuickModel CloneCast() => (LabelQuickModel)Clone();
 
 //    #endregion
 //}

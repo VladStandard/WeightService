@@ -6,11 +6,13 @@ using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils;
 using MvvmHelpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -51,8 +53,7 @@ public class UserSessionHelper : BaseViewModel
     public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
 
     private PluScaleEntity? _pluScale;
-    [XmlElement]
-    public PluScaleEntity? PluScale
+    [XmlElement] public PluScaleEntity? PluScale
     {
         get => _pluScale;
         private set
@@ -82,7 +83,7 @@ public class UserSessionHelper : BaseViewModel
         {
             if (string.IsNullOrEmpty(hostName))
                 hostName = NetUtils.GetLocalHostName(false);
-            HostEntity host = SqlUtils.GetHostEntity(hostName);
+            HostEntity host = SqlUtils.GetHost(hostName);
             SqlViewModel.Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.IdentityId) : SqlUtils.GetScale(scaleId);
 
             AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {SqlViewModel.Scale.Description}.";
@@ -317,8 +318,8 @@ public class UserSessionHelper : BaseViewModel
         {
             //template = PluScale?.LoadTemplate();
             if (PluScale != null)
-                template = DataAccess.Crud.GetEntity<TemplateEntity>(
-                    new(new() { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId) }));
+                template = DataAccess.Crud.GetItem<TemplateEntity>(new List<FieldFilterModel> {
+	                new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId)});
         }
 
         // Template exist.
@@ -341,7 +342,7 @@ public class UserSessionHelper : BaseViewModel
     private void SetNewScaleCounter()
     {
         SqlViewModel.Scale.Counter++;
-        DataAccess.Crud.UpdateEntity(SqlViewModel.Scale);
+        DataAccess.Crud.Update(SqlViewModel.Scale);
     }
 
     /// <summary>
@@ -356,7 +357,7 @@ public class UserSessionHelper : BaseViewModel
             PluWeighing = pluWeighing,
             Zpl = printCmd,
         };
-        DataAccess.Crud.SaveEntity(pluLabel);
+        DataAccess.Crud.Save(pluLabel);
     }
 
     /// <summary>
@@ -457,7 +458,7 @@ public class UserSessionHelper : BaseViewModel
             if (PluWeighing == null)
                 return;
 
-            DataAccess.Crud.SaveEntity(PluWeighing);
+            DataAccess.Crud.Save(PluWeighing);
 
             string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingEntity>(true);
             string xmlArea = string.Empty;

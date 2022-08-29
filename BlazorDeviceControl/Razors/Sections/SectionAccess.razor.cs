@@ -7,7 +7,20 @@ public partial class SectionAccess : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<AccessEntity> ItemsCast => Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList();
+    private List<AccessEntity> ItemsCast
+    {
+        get { return Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList(); }
+        set
+        {
+            if (!value.Any())
+                Items = null;
+            else
+            {
+                Items = new();
+                Items.AddRange(value);
+            }
+        }
+    }
 
     #endregion
 
@@ -18,7 +31,7 @@ public partial class SectionAccess : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-        Items = new();
+        ItemsCast = new();
     }
 
     protected override void OnParametersSet()
@@ -28,12 +41,9 @@ public partial class SectionAccess : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
-                        IsShowMarkedItems ? null
-                            : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.User),
-                        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<AccessEntity>(
+                    IsShowMarked, IsShowOnlyTop, new(DbField.User));
+
                 ButtonSettings = new(true, false, true, true, true, false, false);
             }
         });

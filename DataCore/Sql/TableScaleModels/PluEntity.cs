@@ -2,13 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using DataCore.Sql.QueriesModels;
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-public class PluEntity : BaseEntity, ISerializable, IBaseEntity
+public class PluEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -152,9 +155,9 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        //if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((PluEntity)obj);
     }
 
@@ -208,7 +211,7 @@ public class PluEntity : BaseEntity, ISerializable, IBaseEntity
         item.IsCheckWeight = IsCheckWeight;
         item.Template = Template.CloneCast();
         item.Nomenclature = Nomenclature.CloneCast();
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

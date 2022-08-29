@@ -1,13 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "Hosts".
 /// </summary>
 [Serializable]
-public class HostEntity : BaseEntity, ISerializable, IBaseEntity
+public class HostEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -19,7 +22,7 @@ public class HostEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string HostName { get; set; }
 	[XmlElement] public virtual string Ip { get; set; }
-	[XmlElement] public virtual MacAddressEntity MacAddress { get; set; }
+	[XmlElement] public virtual FieldMacAddressModel MacAddress { get; set; }
 
 	[XmlElement] public virtual string MacAddressValue
 	{
@@ -82,9 +85,9 @@ public class HostEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((HostEntity)obj);
     }
 
@@ -114,7 +117,7 @@ public class HostEntity : BaseEntity, ISerializable, IBaseEntity
         item.HostName = HostName;
         item.Ip = Ip;
         item.MacAddress = MacAddress.CloneCast();
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

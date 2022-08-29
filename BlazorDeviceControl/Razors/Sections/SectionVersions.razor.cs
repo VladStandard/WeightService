@@ -7,7 +7,11 @@ public partial class SectionVersions : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<VersionEntity> ItemsCast => Items == null ? new() : Items.Select(x => (VersionEntity)x).ToList();
+    private List<VersionEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (VersionEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,8 +22,8 @@ public partial class SectionVersions : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Versions);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -28,11 +32,8 @@ public partial class SectionVersions : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<VersionEntity>(
-                    null,
-                    new FieldOrderEntity(DbField.Version, DbOrderDirection.Desc),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                ?.ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<VersionEntity>(IsShowMarked, IsShowOnlyTop, new (DbField.Version, DbOrderDirection.Desc));
+
                 ButtonSettings = new(false, false, false, false, false, false, false);
             }
         });

@@ -64,7 +64,7 @@ namespace WeightCoreTests.Models
                                     {
                                         foreach (string server in EnumValuesUtils.GetString())
                                         {
-                                            Assert.DoesNotThrow(() => { SqlAuthentication sqlAu = new(server, database, 
+                                            Assert.DoesNotThrow(() => { SqlAuthenticationModel sqlAu = new(server, database, 
                                                 persistSecurityInfo, integratedSecurity, userId, password, encrypt, port); });
                                             TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");
                                         }
@@ -87,10 +87,10 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            SqlAuthentication sqlAu = new();
+            SqlAuthenticationModel sqlAu = new();
             Assert.IsFalse(sqlAu.Exists());
 
-            sqlAu = new SqlAuthentication();
+            sqlAu = new SqlAuthenticationModel();
             Assert.IsTrue(sqlAu.Exists());
 
             TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {stopwatch.Elapsed}");

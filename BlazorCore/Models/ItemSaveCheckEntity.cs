@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using DataCore.Localizations;
-using DataCore.Sql.Models;
+using DataCore.Sql.Tables;
 using Radzen;
 using static DataCore.ShareEnums;
 
@@ -33,14 +33,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 access.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(access);
+                AppSettings.DataAccess.Crud.Save(access);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     access.IdentityUid = guid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(access);
+                    AppSettings.DataAccess.Crud.Update(access);
                 }
             }
         }
@@ -59,14 +59,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 barcodeType.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(barcodeType);
+                AppSettings.DataAccess.Crud.Save(barcodeType);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     barcodeType.IdentityUid = guid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(barcodeType);
+                    AppSettings.DataAccess.Crud.Update(barcodeType);
                 }
             }
         }
@@ -86,14 +86,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 contragent.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(contragent);
+                AppSettings.DataAccess.Crud.Save(contragent);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     contragent.IdentityUid = guid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(contragent);
+                    AppSettings.DataAccess.Crud.Update(contragent);
                 }
             }
         }
@@ -112,14 +112,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 host.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(host);
+                AppSettings.DataAccess.Crud.Save(host);
             }
             else
             {
                 if (id is { } lid)
                 {
                     host.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(host);
+                    AppSettings.DataAccess.Crud.Update(host);
                 }
             }
         }
@@ -138,14 +138,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 nomenclature.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(nomenclature);
+                AppSettings.DataAccess.Crud.Save(nomenclature);
             }
             else
             {
                 if (id is { } lid)
                 {
                     nomenclature.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(nomenclature);
+                    AppSettings.DataAccess.Crud.Update(nomenclature);
                 }
             }
         }
@@ -169,14 +169,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 pluObsolete.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(pluObsolete);
+                AppSettings.DataAccess.Crud.Save(pluObsolete);
             }
             else
             {
                 if (id is { } lid)
                 {
                     pluObsolete.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(pluObsolete);
+                    AppSettings.DataAccess.Crud.Update(pluObsolete);
                 }
             }
         }
@@ -198,14 +198,14 @@ public class ItemSaveCheckEntity
 		    if (tableAction == DbTableAction.New)
 		    {
 			    plu.CreateDt = DateTime.Now;
-			    AppSettings.DataAccess.Crud.SaveEntity(plu);
+			    AppSettings.DataAccess.Crud.Save(plu);
 		    }
 		    else
 		    {
 			    if (uid is { } guid)
 			    {
 				    plu.IdentityUid = guid;
-				    AppSettings.DataAccess.Crud.UpdateEntity(plu);
+				    AppSettings.DataAccess.Crud.Update(plu);
 			    }
 		    }
 	    }
@@ -227,11 +227,11 @@ public class ItemSaveCheckEntity
 		    if (tableAction == DbTableAction.New)
 		    {
 			    pluScale.CreateDt = DateTime.Now;
-			    AppSettings.DataAccess.Crud.SaveEntity(pluScale);
+			    AppSettings.DataAccess.Crud.Save(pluScale);
 		    }
 		    else
 		    {
-				AppSettings.DataAccess.Crud.UpdateEntity(pluScale);
+				AppSettings.DataAccess.Crud.Update(pluScale);
 		    }
 	    }
     }
@@ -251,14 +251,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 printer.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(printer);
+                AppSettings.DataAccess.Crud.Save(printer);
             }
             else
             {
                 if (id is { } lid)
                 {
                     printer.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(printer);
+                    AppSettings.DataAccess.Crud.Update(printer);
                 }
             }
         }
@@ -277,14 +277,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 printerResource.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(printerResource);
+                AppSettings.DataAccess.Crud.Save(printerResource);
             }
             else
             {
                 if (id is { } lid)
                 {
                     printerResource.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(printerResource);
+                    AppSettings.DataAccess.Crud.Update(printerResource);
                 }
             }
         }
@@ -304,14 +304,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 printerType.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(printerType);
+                AppSettings.DataAccess.Crud.Save(printerType);
             }
             else
             {
                 if (id is { } lid)
                 {
                     printerType.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(printerType);
+                    AppSettings.DataAccess.Crud.Update(printerType);
                 }
             }
         }
@@ -331,21 +331,21 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 productionFacility.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(productionFacility);
+                AppSettings.DataAccess.Crud.Save(productionFacility);
             }
             else
             {
                 if (id is { } lid)
                 {
                     productionFacility.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(productionFacility);
+                    AppSettings.DataAccess.Crud.Update(productionFacility);
                 }
             }
         }
         return success;
     }
 
-    public void Scale(NotificationService notificationService, BaseEntity? item, DbTableAction tableAction)
+    public void Scale(NotificationService notificationService, TableModel? item, DbTableAction tableAction)
     {
 	    if (item is ScaleEntity scale)
 	    {
@@ -356,7 +356,7 @@ public class ItemSaveCheckEntity
 	        {
 	            if (scale.Host?.IdentityId != 0)
 	            {
-	                scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<HostEntity>(scale.Host?.IdentityId);
+	                scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<HostEntity>(scale.Host?.IdentityId);
 	                success = FieldControl.ValidateEntity(notificationService, scale.Host, LocaleCore.Table.Host);
 	            }
 	            else
@@ -366,7 +366,7 @@ public class ItemSaveCheckEntity
 	        {
 	            if (scale.PrinterMain?.IdentityId != 0)
 	            {
-	                scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterMain?.IdentityId);
+	                scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<PrinterEntity>(scale.PrinterMain?.IdentityId);
 	                success = FieldControl.ValidateEntity(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
 	            }
 	            else
@@ -376,7 +376,7 @@ public class ItemSaveCheckEntity
 	        {
 	            if (scale.PrinterShipping?.IdentityId != 0)
 	            {
-	                scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
+	                scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
 	                success = FieldControl.ValidateEntity(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
 	            }
 	            else
@@ -386,7 +386,7 @@ public class ItemSaveCheckEntity
 	        {
 	            if (scale.TemplateDefault?.IdentityId != 0)
 	            {
-	                scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
+	                scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
 	                success = FieldControl.ValidateEntity(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
 	            }
 	            else
@@ -396,7 +396,7 @@ public class ItemSaveCheckEntity
 	        {
 	            if (scale.TemplateSeries?.IdentityId != 0)
 	            {
-	                scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
+	                scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
 	                success = FieldControl.ValidateEntity(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
 	            }
 	            else
@@ -406,7 +406,7 @@ public class ItemSaveCheckEntity
 	        {
 	            if (scale.WorkShop?.IdentityId != 0)
 	            {
-	                scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetEntityById<WorkShopEntity>(scale.WorkShop?.IdentityId);
+	                scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<WorkShopEntity>(scale.WorkShop?.IdentityId);
 	                success = FieldControl.ValidateEntity(notificationService, scale.WorkShop, LocaleCore.Table.Template);
 	            }
 	            else
@@ -422,11 +422,11 @@ public class ItemSaveCheckEntity
 				        scale.CreateDt = DateTime.Now;
 				        if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
 					        scale.TemplateSeries = null;
-				        AppSettings.DataAccess.Crud.SaveEntity(scale);
+				        AppSettings.DataAccess.Crud.Save(scale);
 				        break;
 			        }
 			        case DbTableAction.Save:
-				        AppSettings.DataAccess.Crud.UpdateEntity(scale);
+				        AppSettings.DataAccess.Crud.Update(scale);
 				        break;
 		        }
 	        }
@@ -450,14 +450,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 task.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(task);
+                AppSettings.DataAccess.Crud.Save(task);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     task.IdentityUid = guid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(task);
+                    AppSettings.DataAccess.Crud.Update(task);
                 }
             }
         }
@@ -477,14 +477,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 taskType.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(taskType);
+                AppSettings.DataAccess.Crud.Save(taskType);
             }
             else
             {
                 if (uid is { } guid)
                 {
                     taskType.IdentityUid = guid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(taskType);
+                    AppSettings.DataAccess.Crud.Update(taskType);
                 }
             }
         }
@@ -503,14 +503,14 @@ public class ItemSaveCheckEntity
             if (parentTableAction == DbTableAction.New)
             {
                 template.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(template);
+                AppSettings.DataAccess.Crud.Save(template);
             }
             else
             {
                 if (id is { } lid)
                 {
                     template.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(template);
+                    AppSettings.DataAccess.Crud.Update(template);
                 }
             }
         }
@@ -529,14 +529,14 @@ public class ItemSaveCheckEntity
             if (parentTableAction == DbTableAction.New)
             {
                 templateResource.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(templateResource);
+                AppSettings.DataAccess.Crud.Save(templateResource);
             }
             else
             {
                 if (id is { } lid)
                 {
                     templateResource.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(templateResource);
+                    AppSettings.DataAccess.Crud.Update(templateResource);
                 }
             }
         }
@@ -555,14 +555,14 @@ public class ItemSaveCheckEntity
             if (tableAction == DbTableAction.New)
             {
                 workShop.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(workShop);
+                AppSettings.DataAccess.Crud.Save(workShop);
             }
             else
             {
                 if (id is { } lid)
                 {
                     workShop.IdentityId = lid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(workShop);
+                    AppSettings.DataAccess.Crud.Update(workShop);
                 }
             }
         }

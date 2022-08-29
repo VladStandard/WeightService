@@ -1,13 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "Templates".
 /// </summary>
 [Serializable]
-public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
+public class TemplateEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -18,7 +21,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual string CategoryId { get; set; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 	[XmlElement] public virtual string Title { get; set; }
-    [XmlIgnore] public virtual ImageDataEntity ImageData { get; set; }
+    [XmlIgnore] public virtual FieldBinaryModel ImageData { get; set; }
     [XmlElement] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 
 	/// <summary>
@@ -49,7 +52,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
         CategoryId = info.GetString(nameof(CategoryId));
         IdRRef = Guid.Parse(info.GetString(nameof(IdRRef)));
         Title = info.GetString(nameof(Title));
-        ImageData = (ImageDataEntity)info.GetValue(nameof(ImageData), typeof(ImageDataEntity));
+        ImageData = (FieldBinaryModel)info.GetValue(nameof(ImageData), typeof(FieldBinaryModel));
 	}
 
 	#endregion
@@ -88,9 +91,9 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((TemplateEntity)obj);
     }
 
@@ -117,7 +120,7 @@ public class TemplateEntity : BaseEntity, ISerializable, IBaseEntity
         item.IdRRef = IdRRef;
         item.Title = Title;
         item.ImageData = ImageData.CloneCast();
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

@@ -8,18 +8,18 @@ using static DataCore.ShareEnums;
 namespace DataCore.Sql.Models;
 
 [Serializable]
-public class BaseSerializeEntity : ISerializable
+public class SerializeModel : ISerializable
 {
     #region Public and private fields, properties, constructor
 
     [XmlIgnore] public virtual SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
-    public BaseSerializeEntity()
+    public SerializeModel()
     {
         //
     }
 
-    protected BaseSerializeEntity(SerializationInfo info, StreamingContext context)
+    protected SerializeModel(SerializationInfo info, StreamingContext context)
     {
         //
     }

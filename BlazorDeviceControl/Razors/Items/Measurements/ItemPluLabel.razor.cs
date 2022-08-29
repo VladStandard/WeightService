@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+
 namespace BlazorDeviceControl.Razors.Items.Measurements;
 
 public partial class ItemPluLabel : BlazorCore.Models.RazorBase
@@ -36,10 +38,10 @@ public partial class ItemPluLabel : BlazorCore.Models.RazorBase
                         ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
                         break;
                     default:
-	                    ItemCast = AppSettings.DataAccess.Crud.GetEntityNotNull<PluLabelEntity>(
-							new FieldEntity(DbField.IdentityId, DbComparer.Equal, IdentityId));
+	                    ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluLabelEntity>(IdentityId);
                         break;
                 }
+
                 ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });

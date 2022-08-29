@@ -1,15 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using FluentNHibernate.Utils;
+using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.DataModels;
+namespace DataCore.Sql.QueriesModels;
 
 /// <summary>
 /// XML-класс продукта.
 /// </summary>
 [Serializable]
-public class XmlProductEntity : IBaseEntity
+public class XmlProductModel : ITableModel
 {
     #region Public and private fields, properties, constructor
 
@@ -49,7 +49,7 @@ public class XmlProductEntity : IBaseEntity
 
     #region Constructor and destructor
 
-    public XmlProductEntity()
+    public XmlProductModel()
     {
 	    Init();
     }
@@ -135,7 +135,7 @@ public class XmlProductEntity : IBaseEntity
             $"{nameof(Packs)}: {strPacks}";
     }
 
-    public virtual bool Equals(XmlProductEntity item)
+    public virtual bool Equals(XmlProductModel item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;

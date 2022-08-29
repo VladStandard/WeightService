@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class ProductSeriesDirect : BaseSerializeEntity, ISerializable
+public class ProductSeriesDirect : SerializeModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 

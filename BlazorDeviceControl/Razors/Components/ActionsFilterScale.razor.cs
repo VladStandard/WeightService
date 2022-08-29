@@ -1,13 +1,20 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace BlazorDeviceControl.Razors.Components;
 
 public partial class ActionsFilterScale : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<ScaleEntity> ItemsCast => ItemsFilter == null ? new() : ItemsFilter.Select(x => (ScaleEntity)x).ToList();
+	private List<ScaleEntity> ItemsCast
+	{
+		get => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
+		set => Items = !value.Any() ? null : new(value);
+	}
 
 	private ScaleEntity ItemFilterCast
 	{
@@ -38,13 +45,12 @@ public partial class ActionsFilterScale : RazorBase
 		{
 			() =>
 			{
-				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-					new(DbField.Description));
+				ItemsFilter = new() { new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull } };
+				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(
+					new FieldFilterModel(DbField.IsMarked, false), new(DbField.Description));
 				if (itemsFilter is not null)
 				{
-					ItemsFilter = new() { new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull } };
-					ItemsFilter.AddRange(itemsFilter.ToList<BaseEntity>());
+					ItemsFilter.AddRange(itemsFilter.ToList<TableModel>());
 					if (ParentRazor?.ItemFilter == null)
 						ItemFilterCast = ItemsCast.First();
 				}

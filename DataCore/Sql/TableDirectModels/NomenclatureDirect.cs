@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class NomenclatureDirect : BaseSerializeEntity, ISerializable
+public class NomenclatureDirect : SerializeModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -47,7 +47,9 @@ public class NomenclatureDirect : BaseSerializeEntity, ISerializable
 
     public override bool Equals(object obj)
     {
-        if (obj is not NomenclatureDirect item)
+	    if (ReferenceEquals(null, obj)) return false;
+	    if (ReferenceEquals(this, obj)) return true;
+		if (obj is not NomenclatureDirect item)
         {
             return false;
         }

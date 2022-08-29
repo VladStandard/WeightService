@@ -56,7 +56,7 @@
 
 //            Assert.DoesNotThrow(() =>
 //                {
-//                    int id = DataAccessUtilsTests.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null,
+//                    int id = DataAccessUtilsTests.DataAccess.Crud.GetItem<TemplateResourceEntity>(null,
 //                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Id, Direction = ShareEnums.DbOrderDirection.Desc }).Id;
 //                    TemplateResourceEntity item = new()
 //                    {

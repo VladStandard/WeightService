@@ -1,13 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "TemplateResources".
 /// </summary>
 [Serializable]
-public class TemplateResourceEntity : BaseEntity, ISerializable, IBaseEntity
+public class TemplateResourceEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -18,7 +21,7 @@ public class TemplateResourceEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string Type { get; set; }
-	[XmlElement] public virtual ImageDataEntity ImageData { get; set; }
+	[XmlElement] public virtual FieldBinaryModel ImageData { get; set; }
 	[XmlElement] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 
@@ -78,9 +81,9 @@ public class TemplateResourceEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((TemplateResourceEntity)obj);
     }
 
@@ -109,7 +112,7 @@ public class TemplateResourceEntity : BaseEntity, ISerializable, IBaseEntity
         item.Type = Type;
         item.IdRRef = IdRRef;
         item.ImageData = ImageData.CloneCast();
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

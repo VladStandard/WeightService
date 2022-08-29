@@ -5,6 +5,7 @@ using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql;
+using DataCore.Sql.Tables;
 using FluentValidation;
 using System;
 using System.IO;
@@ -76,7 +77,7 @@ public class DataCoreHelper
 		}
 	}
 
-	private IValidator<T> GetSqlValidator<T>(T item) where T : BaseEntity, new()
+	private IValidator<T> GetSqlValidator<T>(T item) where T : TableModel, new()
 	{
 		return item switch
 		{
@@ -113,13 +114,13 @@ public class DataCoreHelper
 		};
 	}
 
-	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : BaseEntity, new()
+	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : TableModel, new()
 	{
 		AssertAction(() =>
 		{
 			// Arrange.
 			IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
-			T[]? items = DataAccess.Crud.GetEntities<T>(null, null, maxResults);
+			T[]? items = DataAccess.Crud.GetItems<T>(null, maxResults);
 			// Act.
 			if (items == null || !items.Any())
 			{
@@ -143,15 +144,15 @@ public class DataCoreHelper
 		});
 	}
 
-	public void AssertSqlExtensionValidate<T>() where T : BaseEntity, new()
+	public void AssertSqlExtensionValidate<T>() where T : TableModel, new()
 	{
 		AssertAction(() =>
 		{
-			foreach (bool isShowMarkedItems in DataCoreEnums.GetBool())
+			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
 				// Arrange.
 				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
-				List<T> items = DataAccess.Crud.GetEntitiesNotNull<T>(isShowMarkedItems, true, null);
+				List<T> items = DataAccess.Crud.GetItemsListNotNull<T>(isShowMarked, true, null);
 				// Act.
 				if (!items.Any())
 				{
@@ -177,7 +178,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : BaseEntity, new()
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableModel, new()
 	{
 		// Arrange.
 		IValidator<T> validator = GetSqlValidator(item);
@@ -205,7 +206,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : BaseEntity, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableModel, new()
 	{
 		T item = Substitute.For<T>();
 		if (!isNotDefault)

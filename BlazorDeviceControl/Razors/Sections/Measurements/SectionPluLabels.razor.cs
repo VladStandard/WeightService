@@ -1,14 +1,20 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.QueriesModels;
+using DataCore.Sql.Tables;
+
 namespace BlazorDeviceControl.Razors.Sections.Measurements;
 
 public partial class SectionPluLabels : BlazorCore.Models.RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	//private List<LabelQuickEntity> ItemsCast => Items == null ? new() : Items.Select(x => (LabelQuickEntity)x).ToList();
-	private List<PluLabelEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluLabelEntity)x).ToList();
+	private List<PluLabelEntity> ItemsCast
+	{
+		get => Items == null ? new() : Items.Select(x => (PluLabelEntity)x).ToList();
+		set => Items = !value.Any() ? null : new(value);
+	}
 
 	#endregion
 
@@ -19,7 +25,7 @@ public partial class SectionPluLabels : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusLabels);
-        Items = new();
+        ItemsCast = new();
     }
 
 	protected override void OnParametersSet()
@@ -32,14 +38,14 @@ public partial class SectionPluLabels : BlazorCore.Models.RazorBase
                 //object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
                 //    SqlQueries.DbScales.Tables.Labels.GetLabels(
                 //        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
-                //Items = new List<LabelQuickEntity>().ToList<BaseEntity>();
+                //Items = new List<LabelQuickModel>().ToList<BaseEntity>();
                 //foreach (object obj in objects)
                 //{
                 //    if (obj is object[] { Length: 16 } item)
                 //    {
                 //        if (long.TryParse(Convert.ToString(item[0]), out long id))
                 //        {
-                //            Items.Add(new LabelQuickEntity()
+                //            Items.Add(new LabelQuickModel()
                 //            {
                 //                IdentityId = id, // item[1]
                 //                CreateDt = Convert.ToDateTime(item[1]),
@@ -61,7 +67,8 @@ public partial class SectionPluLabels : BlazorCore.Models.RazorBase
                 //        }
                 //    }
                 //}
-                Items = AppSettings.DataAccess.Crud.GetEntitiesNotNull<PluLabelEntity>(IsShowMarkedItems, IsSelectTopRows).ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PluLabelEntity>(IsShowMarked, IsShowOnlyTop);
+
 				ButtonSettings = new(true, true, true, false, false, false, false);
             }
 		});

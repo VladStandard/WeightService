@@ -1,13 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "VERSIONS".
 /// </summary>
 [Serializable]
-public class VersionEntity : BaseEntity, ISerializable, IBaseEntity
+public class VersionEntity : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
@@ -80,9 +82,9 @@ public class VersionEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((VersionEntity)obj);
     }
 
@@ -107,7 +109,7 @@ public class VersionEntity : BaseEntity, ISerializable, IBaseEntity
         item.ReleaseDt = ReleaseDt;
         item.Version = Version;
         item.Description = Description;
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

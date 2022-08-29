@@ -41,7 +41,7 @@ public class DeliveryPlaceController : BaseController
                 TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.DeliveryPlaces} />", LoadOptions.None);
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
 

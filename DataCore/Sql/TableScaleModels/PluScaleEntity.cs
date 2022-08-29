@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using DataCore.Sql.Tables;
 using static DataCore.Sql.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -10,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS_SCALES".
 /// </summary>
 [Serializable]
-public class PluScaleEntity : BaseEntity, ISerializable, IBaseEntity
+public class PluScaleEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -91,9 +92,9 @@ public class PluScaleEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        //if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((PluScaleEntity)obj);
     }
 
@@ -120,7 +121,7 @@ public class PluScaleEntity : BaseEntity, ISerializable, IBaseEntity
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Scale = Scale.CloneCast();
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

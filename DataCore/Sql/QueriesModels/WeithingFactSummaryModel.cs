@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.DataModels;
+using DataCore.Sql.Tables;
+
+namespace DataCore.Sql.QueriesModels;
 
 [Serializable]
-public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
+public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
@@ -17,12 +19,12 @@ public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WeithingFactSummaryEntity() : base(0, false)
+	public WeithingFactSummaryModel() : base(0, false)
     {
 	    Init();
     }
 
-	public WeithingFactSummaryEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public WeithingFactSummaryModel(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
     {
 	    Init();
     }
@@ -49,7 +51,7 @@ public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
         $"{nameof(Host)}: {Host}. " +
         $"{nameof(Printer)}: {Printer}. ";
 
-    public virtual bool Equals(WeithingFactSummaryEntity item)
+    public virtual bool Equals(WeithingFactSummaryModel item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -63,10 +65,10 @@ public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((WeithingFactSummaryEntity)obj);
+	    if (ReferenceEquals(null, obj)) return false;
+	    if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
+        return Equals((WeithingFactSummaryModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -88,17 +90,17 @@ public class WeithingFactSummaryEntity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        WeithingFactSummaryEntity item = new();
+        WeithingFactSummaryModel item = new();
         item.WeithingDate = WeithingDate;
         item.Count = Count;
         item.Scale = Scale;
         item.Host = Host;
         item.Printer = Printer;
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 
-    public new virtual WeithingFactSummaryEntity CloneCast() => (WeithingFactSummaryEntity)Clone();
+    public new virtual WeithingFactSummaryModel CloneCast() => (WeithingFactSummaryModel)Clone();
 
     #endregion
 }

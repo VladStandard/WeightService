@@ -23,16 +23,16 @@
 					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@Title />
 					@if (IsShowAdditionalFilter)
 					{
-						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsSelectTopRows
-						                Change=@(args => OnChangeCheckBox(args, nameof(IsSelectTopRows)))
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowOnlyTop
+						                Change=@(args => OnChangeCheckBox(args, nameof(IsShowOnlyTop)))
 						                Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
 						             Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
 					}
 					@if (IsShowMarkedFilter)
 					{
-						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
-						                Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarked
+						                Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarked)))
 						                Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
 					}

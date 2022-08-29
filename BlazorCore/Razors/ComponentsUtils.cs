@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using BlazorCore.Models.CssStyles;
 using DataCore.Localizations;
-using DataCore.Sql.Models;
+using DataCore.Sql.Tables;
 
 namespace BlazorCore.Razors;
 

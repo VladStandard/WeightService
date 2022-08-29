@@ -46,11 +46,11 @@ internal static class Program
 
             // Host.
             string hostName = NetUtils.GetLocalHostName(false);
-            HostEntity host = SqlUtils.GetHostEntity(hostName);
+            HostEntity host = SqlUtils.GetHost(hostName);
             if (host.IdentityId == 0)
             {
                 GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
-                host = SqlUtils.GetHostEntity(hostName);
+                host = SqlUtils.GetHost(hostName);
             }
             if (host.IdentityId == 0)
             {

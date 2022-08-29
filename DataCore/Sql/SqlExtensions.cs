@@ -16,7 +16,7 @@ public static class SqlExtensions
     /// <param name="reader"></param>
     /// <param name="fieldName"></param>
     /// <returns></returns>
-    public static bool IsFieldExists(this Microsoft.Data.SqlClient.SqlDataReader reader, string fieldName)
+    public static bool IsFieldExists(this SqlDataReader reader, string fieldName)
     {
         for (int i = 0; i < reader.FieldCount; i++)
         {

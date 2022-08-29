@@ -7,7 +7,11 @@ public partial class SectionPrinters : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterEntity)x).ToList();
+    private List<PrinterEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (PrinterEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,7 +22,7 @@ public partial class SectionPrinters : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-        Items = new();
+        ItemsCast = new();
     }
 
     protected override void OnParametersSet()
@@ -28,16 +32,9 @@ public partial class SectionPrinters : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PrinterEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
-                //foreach (PrinterEntity item in ItemsCast)
-                //{
-                //    //await item.SetHttpStatusAsync().ConfigureAwait(true);
-                //}
             }
         });
     }

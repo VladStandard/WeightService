@@ -75,7 +75,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "NomenclatureEntity test";
-//                NomenclatureEntity entityExists = DataAccessUtilsTests.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(
+//                NomenclatureEntity entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<NomenclatureEntity>(new FieldListEntity(
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -8,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public class AccessValidator : BaseValidator
+public class AccessValidator : TableValidator
 {
     /// <summary>
     /// Constructor.

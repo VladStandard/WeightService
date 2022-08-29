@@ -43,7 +43,7 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
 				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
 				TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
 				object[] objects =
-					AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+					AppSettings.DataAccess.Crud.GetItemsNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
 				DbCurSize = 0;
 				foreach (object obj in objects)
 				{

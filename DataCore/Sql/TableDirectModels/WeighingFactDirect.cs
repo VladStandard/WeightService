@@ -195,17 +195,17 @@
 //            XElement? element = xDoc.Root?.Element("Item");
 //            if (element != null)
 //            {
-//                if (element.Attribute("SSCC") is { } attributeSscc)
+//                if (element.Attribute("SSCC") is not null attributeSscc)
 //                    sscc.Sscc = attributeSscc.Value;
-//                if (element.Attribute("GLN") is { } attributeGln)
+//                if (element.Attribute("GLN") is not null attributeGln)
 //                    sscc.Gln = attributeGln.Value;
-//                if (element.Attribute("UnitID") is { } attributeUnitId)
+//                if (element.Attribute("UnitID") is not null attributeUnitId)
 //                    sscc.UnitId = int.Parse(attributeUnitId.Value);
-//                if (element.Attribute("UnitType") is { } attributeUnitType)
+//                if (element.Attribute("UnitType") is not null attributeUnitType)
 //                    sscc.UnitType = byte.Parse(attributeUnitType.Value);
-//                //if (element.Attribute("SynonymSSCC") is { } attributeSynonymSscc)
+//                //if (element.Attribute("SynonymSSCC") is not null attributeSynonymSscc)
 //                //    sscc.SynonymSSCC = attributeSynonymSscc.Value;
-//                if (element.Attribute("Check") is { } attributeCheck)
+//                if (element.Attribute("Check") is not null attributeCheck)
 //                    sscc.Check = int.Parse(attributeCheck.Value);
 //            }
 
@@ -242,6 +242,6 @@
 //	    info.AddValue(nameof(RegDate), RegDate);
 //	    info.AddValue(nameof(Sscc), Sscc);
 //	}
-    
+
 //    #endregion
 //}

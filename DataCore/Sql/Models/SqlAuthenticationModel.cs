@@ -6,14 +6,14 @@ namespace DataCore.Sql.Models;
 /// <summary>
 /// SQL-авторизация.
 /// </summary>
-public class SqlAuthentication
+public class SqlAuthenticationModel
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlAuthentication()
+    public SqlAuthenticationModel()
     {
         Server = string.Empty;
         Database = string.Empty;
@@ -36,7 +36,7 @@ public class SqlAuthentication
     /// <param name="password"></param>
     /// <param name="encrypt"></param>
     /// <param name="port"></param>
-    public SqlAuthentication(string server, string database, bool persistSecurityInfo, bool integratedSecurity,
+    public SqlAuthenticationModel(string server, string database, bool persistSecurityInfo, bool integratedSecurity,
         string userId, string password, bool encrypt, ushort port)
     {
         Server = server;

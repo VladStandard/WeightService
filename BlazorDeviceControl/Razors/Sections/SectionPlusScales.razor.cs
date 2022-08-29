@@ -1,6 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionPlusScales : BlazorCore.Models.RazorBase
@@ -10,7 +13,7 @@ public partial class SectionPlusScales : BlazorCore.Models.RazorBase
 	[Parameter] public List<PluScaleEntity> ItemsCast
 	{
 		get => Items == null ? new() : Items.Select(x => (PluScaleEntity)x).ToList();
-		set => Items = value.Cast<BaseEntity>().ToList();
+		set => Items = value.Cast<TableModel>().ToList();
 	}
 	private ScaleEntity ItemFilterCast
 	{
@@ -39,29 +42,14 @@ public partial class SectionPlusScales : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				long scaleId = ItemFilterCast.IdentityId != 0 ? ItemFilterCast.IdentityId : 0;
-				if (IsShowMarkedItems)
-				{
-					Items = AppSettings.DataAccess.Crud.GetEntities<PluScaleEntity>(
-							scaleId == 0 ? null : new(new()
-								{ new($"{nameof(PluScaleEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
-							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
-							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-						?.ToList<BaseEntity>();
-				}
-				else
-				{
-					Items = AppSettings.DataAccess.Crud.GetEntities<PluScaleEntity>(
-							scaleId == 0 ? new(new() { new(DbField.IsMarked, DbComparer.Equal, false) })
-								: new(new()
-								{
-									new(DbField.IsMarked, DbComparer.Equal, false),
-									new($"{nameof(PluScaleEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId),
-								}),
-							null, //new($"{nameof(PluRefV2Entity.Plu)}.{DbField.IdentityId}"),
-							IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-						?.ToList<BaseEntity>();
-				}
+				long? scaleId = null;
+				if (ItemFilter is ScaleEntity scale)
+					scaleId = scale.IdentityId;
+				List<FieldFilterModel> filters = IsShowMarkedFilter ? new() : new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) };
+				if (scaleId is not null)
+					filters.Add(new($"{nameof(PluScaleEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId));
+				ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PluScaleEntity>(IsShowOnlyTop, filters, new(DbField.GoodsName));
+
 				ButtonSettings = new(true, true, true, true, true, true, false);
 			}
 		});

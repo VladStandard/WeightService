@@ -1,13 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-public class PrinterEntity : BaseEntity, ISerializable, IBaseEntity
+public class PrinterEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,7 +24,7 @@ public class PrinterEntity : BaseEntity, ISerializable, IBaseEntity
 	[XmlElement] public virtual short Port { get; set; }
 	[XmlElement] public virtual string Password { get; set; }
 	[XmlElement] public virtual PrinterTypeEntity PrinterType { get; set; }
-	[XmlElement] public virtual MacAddressEntity MacAddress { get; set; }
+	[XmlElement] public virtual FieldMacAddressModel MacAddress { get; set; }
 	[XmlElement] public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
 	[XmlElement] public virtual bool PeelOffSet { get; set; }
 	[XmlElement] public virtual short DarknessLevel { get; set; }
@@ -103,9 +106,9 @@ public class PrinterEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
         return Equals((PrinterEntity)obj);
     }
 
@@ -146,7 +149,7 @@ public class PrinterEntity : BaseEntity, ISerializable, IBaseEntity
         item.DarknessLevel = DarknessLevel;
         item.HttpStatusCode = HttpStatusCode;
         item.HttpStatusException = HttpStatusException;
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 

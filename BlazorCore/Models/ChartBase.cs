@@ -4,6 +4,7 @@
 using DataCore;
 using System.Collections.Generic;
 using System.Globalization;
+using DataCore.Sql.Fields;
 
 namespace BlazorCore.Models;
 
@@ -22,16 +23,15 @@ public class ChartBase
     public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
     {
         ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-        ContragentEntity[]? items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntity>(null,
-            new(ShareEnums.DbField.CreateDt));
+        ContragentEntity[]? contragents = AppSettings.DataAccess.Crud.GetItems<ContragentEntity>(new FieldOrderModel(ShareEnums.DbField.CreateDt));
         int i = 0;
         switch (field)
         {
             case ShareEnums.DbField.CreateDt:
                 List<ChartCountEntity> entitiesDateCreated = new();
-                if (items?.Any() == true)
+                if (contragents?.Any() == true)
                 {
-                    foreach (ContragentEntity item in items)
+                    foreach (ContragentEntity item in contragents)
                     {
                         entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
                         i++;
@@ -48,9 +48,9 @@ public class ChartBase
                 break;
             case ShareEnums.DbField.ChangeDt:
                 List<ChartCountEntity> entitiesDateModified = new();
-                if (items?.Any() == true)
+                if (contragents?.Any() == true)
                 {
-                    foreach (ContragentEntity item in items)
+                    foreach (ContragentEntity item in contragents)
                     {
                         entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
                         i++;
@@ -72,18 +72,20 @@ public class ChartBase
     public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
     {
         ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-        NomenclatureEntity[] items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-            new(ShareEnums.DbField.CreateDt));
+        NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(new FieldOrderModel(ShareEnums.DbField.CreateDt));
         int i = 0;
         switch (field)
         {
             case ShareEnums.DbField.CreateDt:
                 List<ChartCountEntity> entitiesDateCreated = new();
-                foreach (NomenclatureEntity item in items)
+                if (nomenclatures?.Any() == true)
                 {
-                    if (item.CreateDt != default)
-                        entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
-                    i++;
+                    foreach (NomenclatureEntity item in nomenclatures)
+                    {
+                        if (item.CreateDt != default)
+                            entitiesDateCreated.Add(new(item.CreateDt.Date, 1));
+                        i++;
+                    }
                 }
                 IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(item => item.Date).ToArray();
                 result = new ChartCountEntity[entitiesGroupCreated.Length];
@@ -96,7 +98,7 @@ public class ChartBase
                 break;
             case ShareEnums.DbField.ChangeDt:
                 List<ChartCountEntity> entitiesDateModified = new();
-                foreach (NomenclatureEntity item in items)
+                foreach (NomenclatureEntity item in nomenclatures)
                 {
                     if (item.ChangeDt != default)
                         entitiesDateModified.Add(new(item.ChangeDt.Date, 1));

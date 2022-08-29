@@ -7,7 +7,11 @@ public partial class SectionBarCodeTypes : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<BarCodeTypeEntity> ItemsCast => Items == null ? new() : Items.Select(x => (BarCodeTypeEntity)x).ToList();
+    private List<BarCodeTypeEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (BarCodeTypeEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,8 +22,8 @@ public partial class SectionBarCodeTypes : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -28,12 +32,8 @@ public partial class SectionBarCodeTypes : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeTypeEntity>(
-                    IsShowMarkedItems ? null
-                        : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<BarCodeTypeEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

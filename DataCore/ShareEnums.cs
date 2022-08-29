@@ -130,6 +130,7 @@ public class ShareEnums
     /// </summary>
     public enum DbField
     {
+        Default,
         CategoryId,
         ChangeDt,
         CodeInIs,

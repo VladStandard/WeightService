@@ -7,7 +7,7 @@ using static DataCore.ShareEnums;
 namespace DataCore.Sql.Models;
 
 [Serializable]
-public class BaseSerializeDeprecatedEntity<T> where T : new()
+public class SerializeDeprecatedModel<T> where T : new()
 {
     #region Public and private fields, properties, constructor
 

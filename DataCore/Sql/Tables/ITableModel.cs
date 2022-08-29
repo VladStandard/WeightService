@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.Models;
+namespace DataCore.Sql.Tables;
 
-public interface IBaseEntity
+public interface ITableModel
 {
-	void Init();
+    void Init();
 }

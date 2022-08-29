@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class HostDirect : BaseSerializeEntity, ISerializable
+public class HostDirect : SerializeModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 

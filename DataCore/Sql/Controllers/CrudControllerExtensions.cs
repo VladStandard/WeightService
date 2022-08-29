@@ -1,0 +1,154 @@
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataCore.Protocols;
+using DataCore.Sql.Fields;
+using static DataCore.ShareEnums;
+
+namespace DataCore.Sql.Controllers;
+
+public static class CrudControllerExtensions
+{
+	#region Public and private methods
+
+	public static AppEntity? GetOrCreateNewApp(this CrudController crud, string? appName)
+	{
+		AppEntity? app = null;
+		if (!string.IsNullOrEmpty(appName) && appName is not null)
+		{
+			app = crud.GetItem<AppEntity>(new List<FieldFilterModel> { 
+				new(DbField.Name, DbComparer.Equal, appName), new(DbField.IsMarked, DbComparer.Equal, false) });
+			if (app is null || app.EqualsDefault())
+			{
+				app = new()
+				{
+					Name = appName,
+					CreateDt = DateTime.Now,
+					ChangeDt = DateTime.Now,
+					IsMarked = false,
+				};
+				crud.Save(app);
+			}
+		}
+		return app;
+	}
+
+	public static AppEntity? GetApp(this CrudController crud, string? appName)
+	{
+		AppEntity? app = null;
+		if (!string.IsNullOrEmpty(appName) && appName is not null)
+		{
+			app = crud.GetItem<AppEntity>(new List<FieldFilterModel> {
+				new(DbField.Name, DbComparer.Equal, appName), new(DbField.IsMarked, DbComparer.Equal, false) });
+		}
+		return app;
+	}
+
+	public static HostEntity? GetOrCreateNewHost(this CrudController crud, string? hostName)
+	{
+		HostEntity? host = null;
+		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
+		{
+			host = crud.GetItem<HostEntity>(new List<FieldFilterModel> {
+				new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) });
+			if (host is null || host.EqualsDefault())
+			{
+				host = new()
+				{
+					Name = hostName,
+					HostName = hostName,
+					CreateDt = DateTime.Now,
+					ChangeDt = DateTime.Now,
+					IsMarked = false,
+					Ip = NetUtils.GetLocalIpAddress(),
+					AccessDt = DateTime.Now,
+				};
+				crud.Save(host);
+			}
+			else
+			{
+				host.AccessDt = DateTime.Now;
+				crud.Update(host);
+			}
+		}
+		return host;
+	}
+
+	public static HostEntity? GetHost(this CrudController crud, string? hostName)
+	{
+		HostEntity? host = null;
+		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
+		{
+			host = crud.GetItem<HostEntity>(new List<FieldFilterModel> { 
+				new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) });
+			if (host is not null && !host.EqualsDefault())
+			{
+				host.AccessDt = DateTime.Now;
+				crud.Update(host);
+			}
+		}
+		return host;
+	}
+
+	public static List<HostEntity> GetHostsFree(this CrudController crud, long? id, bool? isMarked,
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	{
+		object[] entities = crud.GetItemsNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
+		List<HostEntity> items = new();
+		foreach (object? item in entities)
+		{
+			if (item is object[] { Length: 10 } obj)
+			{
+				if (long.TryParse(Convert.ToString(obj[0]), out long idOut))
+				{
+					HostEntity host = new()
+					{
+						IdentityId = idOut,
+						CreateDt = Convert.ToDateTime(obj[1]),
+						ChangeDt = Convert.ToDateTime(obj[2]),
+						AccessDt = Convert.ToDateTime(obj[3]),
+						Name = Convert.ToString(obj[4]),
+						Ip = Convert.ToString(obj[5]),
+						MacAddress = new(Convert.ToString(obj[6])),
+						IsMarked = Convert.ToBoolean(obj[7]),
+					};
+					if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
+						items.Add(host);
+				}
+			}
+		}
+		return items;
+	}
+
+	public static List<HostEntity> GetHostsBusy(this CrudController crud, long? id, bool? isMarked,
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	{
+		object[] entities = crud.GetItemsNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
+		List<HostEntity> items = new();
+		foreach (object? item in entities)
+		{
+			if (item is object[] { Length: 12 } obj)
+			{
+				if (long.TryParse(Convert.ToString(obj[0]), out long idOut))
+				{
+					HostEntity host = new()
+					{
+						IdentityId = idOut,
+						CreateDt = Convert.ToDateTime(obj[1]),
+						ChangeDt = Convert.ToDateTime(obj[2]),
+						AccessDt = Convert.ToDateTime(obj[3]),
+						Name = Convert.ToString(obj[4]),
+						Ip = Convert.ToString(obj[7]),
+						MacAddress = new(Convert.ToString(obj[8])),
+						IsMarked = Convert.ToBoolean(obj[9]),
+					};
+					if ((id == null || Equals(host.IdentityId, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
+						items.Add(host);
+				}
+			}
+		}
+		return items;
+	}
+
+	#endregion
+}

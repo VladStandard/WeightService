@@ -29,10 +29,10 @@ public partial class ItemProductionFacility : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-					new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ProductionFacilityEntity>(IdentityId);
 				if (IdentityId != null && TableAction == DbTableAction.New)
 					ItemCast.IdentityId = (long)IdentityId;
+				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
 		});

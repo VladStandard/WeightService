@@ -21,7 +21,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns>
-		    @if (IsShowMarkedItems)
+		    @if (IsShowMarked)
 		    {
 				<RadzenGridColumn TItem="PluScaleEntity" Width="3.5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.IsMarkedShort>
 				    <Template Context="itemCast" >

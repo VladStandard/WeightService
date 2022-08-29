@@ -7,7 +7,11 @@ public partial class SectionContragents : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<ContragentEntity> ItemsCast => Items == null ? new() : Items.Select(x => (ContragentEntity)x).ToList();
+    private List<ContragentEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (ContragentEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,8 +22,8 @@ public partial class SectionContragents : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Contragents);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -28,11 +32,8 @@ public partial class SectionContragents : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntity>(
-                    IsShowMarkedItems ? null : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Name),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<ContragentEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

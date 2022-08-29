@@ -1,6 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.QueriesModels;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemPluObsolete : BlazorCore.Models.RazorBase
@@ -27,7 +30,7 @@ public partial class ItemPluObsolete : BlazorCore.Models.RazorBase
         Scales = new();
         Templates = new();
         Nomenclatures = new();
-	}
+    }
 
     protected override void OnParametersSet()
     {
@@ -45,43 +48,30 @@ public partial class ItemPluObsolete : BlazorCore.Models.RazorBase
                         ItemCast.IsMarked = false;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluObsoleteEntity>(
-                            new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+                        ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluObsoleteEntity>(IdentityId);
                         break;
                 }
 
 	            // Templates.
-	            List<TemplateEntity>? templates = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.Title))
-                    ?.ToList();
+                Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
+	            TemplateEntity[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(
+                    new FieldFilterModel(DbField.IsMarked, false), new(DbField.Title));
                 if (templates is not null)
-                {
-	                Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
-	                Templates.AddRange(templates);
-                }
+                    Templates.AddRange(templates);
 
 	            // Nomenclatures.
-	            List<NomenclatureEntity>? nomenclatures = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
-                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.Name))
-                    ?.ToList();
+                Nomenclatures = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
+	            NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(
+                    new FieldFilterModel(DbField.IsMarked, false), new(DbField.Name));
                 if (nomenclatures is not null)
-                {
-	                Nomenclatures = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-	                Nomenclatures.AddRange(nomenclatures);
-                }
+                    Nomenclatures.AddRange(nomenclatures);
 
 	            // ScaleItems.
-	            List<ScaleEntity>? scales = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                        new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                        new(DbField.Description))
-                    ?.ToList();
+                Scales = new() { new(0, false) { Description = LocaleCore.Table.FieldNull } };
+	            ScaleEntity[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(
+                    new FieldFilterModel(DbField.IsMarked, false), new(DbField.Description));
                 if (scales is not null)
-                {
-	                Scales = new() { new(0, false) { Description = LocaleCore.Table.FieldNull } };
-	                Scales.AddRange(scales);
-                }
+                    Scales.AddRange(scales);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
@@ -91,13 +81,14 @@ public partial class ItemPluObsolete : BlazorCore.Models.RazorBase
 	            //// Номер PLU.
 	            //if (PluItem.Plu == 0)
 	            //{
-	            //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
+	            //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetItem(
 	            //        new FieldListEntity(new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.IdentityId } }),
 	            //        new FieldOrderEntity { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
 	            //    if (pluEntity != null && !pluEntity.EqualsDefault())
 	            //    {
 	            //        PluItem.Plu = pluEntity.Plu + 1;
 	            //    }
+
 	            ButtonSettings = new(false, false, false, false, false, true, true);
             }
         });
@@ -183,7 +174,7 @@ public partial class ItemPluObsolete : BlazorCore.Models.RazorBase
 
     private string GetWeightFormula()
     {
-        XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.Xml);
+        XmlProductModel xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.Xml);
         // Вес тары = вес коробки + (вес пакета * кол. вложений)
         return $"{ProductHelper.CalcGoodWeightBox(ItemCast.Nomenclature, xmlProduct)} + " +
                $"({ProductHelper.CalcGoodWeightPack(ItemCast.Nomenclature, xmlProduct)} * {ProductHelper.CalcGoodRateUnit(ItemCast.Nomenclature, xmlProduct)})";

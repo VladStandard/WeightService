@@ -1,25 +1,32 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
+
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionPlusObsolete : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PluObsoleteEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluObsoleteEntity)x).ToList();
+    private List<PluObsoleteEntity> ItemsCast
+    {
+	    get => Items == null ? new() : Items.Select(x => (PluObsoleteEntity)x).ToList();
+	    set => Items = !value.Any() ? null : new(value);
+    }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    protected override void OnInitialized()
+	protected override void OnInitialized()
     {
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusObsolete);
         IsShowMarkedFilter = true;
-        Items = new();
+        ItemsCast = new();
 	}
 
     protected override void OnParametersSet()
@@ -32,52 +39,22 @@ public partial class SectionPlusObsolete : BlazorCore.Models.RazorBase
                 long? scaleId = null;
                 if (ItemFilter is ScaleEntity scale)
                     scaleId = scale.IdentityId;
-                if (IsShowMarkedItems)
-                {
-                    if (scaleId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluObsoleteEntity>(null,
-                                new(DbField.GoodsName),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    else
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluObsoleteEntity>(
-                                new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, scaleId) }),
-                                new(DbField.GoodsName),
-                                IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    }
-                }
-                else
-                {
-                    if (scaleId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluObsoleteEntity>(
-                            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                            new(DbField.GoodsName),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    else
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluObsoleteEntity>(
-                            new(new() { new($"Scale.{DbField.IdentityId}", DbComparer.Equal, scaleId),
-                                new(DbField.IsMarked, DbComparer.Equal, false)
-                            }),
-                            new(DbField.GoodsName),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    }
-                }
+                List<FieldFilterModel> filters = IsShowMarkedFilter ? new() : new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) };
+                if (scaleId is not null)
+	                filters.Add(new($"{nameof(PluObsoleteEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId));
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PluObsoleteEntity>(IsShowOnlyTop, filters, new(DbField.GoodsName));
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }
 
-    private void SetFilterItems(List<BaseEntity>? items, long? scaleId)
+    private void SetFilterItems(List<TableModel>? items, long? scaleId)
     {
         if (items != null)
         {
             Items = new();
-            foreach (BaseEntity item in items)
+            foreach (TableModel item in items)
             {
                 if (item is PluObsoleteEntity plu && plu.Scale.IdentityId == scaleId)
                     Items.Add(item);

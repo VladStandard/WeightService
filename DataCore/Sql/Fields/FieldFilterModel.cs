@@ -3,12 +3,12 @@
 
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql.Models;
+namespace DataCore.Sql.Fields;
 
 /// <summary>
-/// DB field entity.
+/// DB table field comparing model.
 /// </summary>
-public class FieldEntity
+public class FieldFilterModel
 {
     #region Public and private fields, properties, constructor
 
@@ -31,10 +31,22 @@ public class FieldEntity
     /// <param name="field"></param>
     /// <param name="comparer"></param>
     /// <param name="value"></param>
-    public FieldEntity(DbField field, DbComparer comparer, object? value)
+    public FieldFilterModel(DbField field, DbComparer comparer, object? value)
     {
         Name = field.ToString();
         Comparer = comparer;
+        Value = value;
+    }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="field"></param>
+    /// <param name="value"></param>
+    public FieldFilterModel(DbField field, object? value)
+    {
+        Name = field.ToString();
+        Comparer = DbComparer.Equal;
         Value = value;
     }
 
@@ -45,7 +57,7 @@ public class FieldEntity
     /// <param name="comparer"></param>
     /// <param name="value"></param>
     /// <param name="valueType"></param>
-    public FieldEntity(string name, DbComparer comparer, object? value, Type? valueType = null)
+    public FieldFilterModel(string name, DbComparer comparer, object? value, Type? valueType = null)
     {
         Name = name;
         Comparer = comparer;
@@ -61,14 +73,14 @@ public class FieldEntity
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public virtual bool Equals(FieldEntity item)
+    public virtual bool Equals(FieldFilterModel item)
     {
-        //if (item is null) return false;
-        if (Value == null && item.Value != null) return false;
+		if (Value == null && item.Value != null) return false;
         if (Value != null && item.Value == null) return false;
         if (ReferenceEquals(this, item)) return true;
-        return Name.Equals(item.Name) &&
-            object.Equals(Value, item.Value);
+        return
+	        Equals(Name, item.Name) &&
+            Equals(Value, item.Value);
     }
 
     /// <summary>
@@ -78,17 +90,17 @@ public class FieldEntity
     /// <returns></returns>
     public override bool Equals(object obj)
     {
-        //if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((FieldEntity)obj);
+	    if (ReferenceEquals(null, obj)) return false;
+	    if (ReferenceEquals(this, obj)) return true;
+	    if (obj.GetType() != GetType()) return false;
+        return Equals((FieldFilterModel)obj);
     }
 
     /// <summary>
     /// Get hash code.
     /// </summary>
     /// <returns></returns>
-    public override int GetHashCode() => Name.GetHashCode();
+    public override int GetHashCode() => (Name, Comparer, Value).GetHashCode();
 
     /// <summary>
     /// To string override.

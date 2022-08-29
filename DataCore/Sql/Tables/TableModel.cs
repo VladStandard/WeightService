@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-
 // ReSharper disable MissingXmlDoc
 
-namespace DataCore.Sql.Models;
+namespace DataCore.Sql.Tables;
 
 /// <summary>
 /// Enum column name.
@@ -16,66 +14,70 @@ public enum ColumnName
     Uid,
 }
 
+/// <summary>
+/// DB table model.
+/// </summary>
 [Serializable]
-public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
+public class TableModel : SerializeModel, ICloneable, ISerializable
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual long IdentityId { get; set; }
-	[XmlElement] public virtual Guid IdentityUid { get; set; }
-	[XmlElement] public virtual DateTime CreateDt { get; set; }
-	[XmlElement] public virtual DateTime ChangeDt { get; set; }
-	[XmlElement] public virtual bool IsMarked { get; set; }
-	[XmlIgnore] public virtual string IdentityUidStr
+    [XmlElement] public virtual long IdentityId { get; set; }
+    [XmlElement] public virtual Guid IdentityUid { get; set; }
+    [XmlElement] public virtual DateTime CreateDt { get; set; }
+    [XmlElement] public virtual DateTime ChangeDt { get; set; }
+    [XmlElement] public virtual bool IsMarked { get; set; }
+    [XmlIgnore]
+    public virtual string IdentityUidStr
     {
-        get => IdentityUid.ToString(); 
+        get => IdentityUid.ToString();
         set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public BaseEntity()
-	{
-		Init();
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public TableModel()
+    {
+        Init();
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="isSetupDates"></param>
-	public BaseEntity(bool isSetupDates) : this()
-	{
-		if (isSetupDates)
-	    {
-		    ChangeDt = CreateDt = DateTime.Now;
-	    }
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="isSetupDates"></param>
+    public TableModel(bool isSetupDates) : this()
+    {
+        if (isSetupDates)
+        {
+            ChangeDt = CreateDt = DateTime.Now;
+        }
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="identityId"></param>
-	/// <param name="isSetupDates"></param>
-	public BaseEntity(long identityId, bool isSetupDates) : this(isSetupDates)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="identityId"></param>
+    /// <param name="isSetupDates"></param>
+    public TableModel(long identityId, bool isSetupDates) : this(isSetupDates)
     {
         IdentityId = identityId;
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="identityUid"></param>
-	/// <param name="isSetupDates"></param>
-	public BaseEntity(Guid identityUid, bool isSetupDates) : this(isSetupDates)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="identityUid"></param>
+    /// <param name="isSetupDates"></param>
+    public TableModel(Guid identityUid, bool isSetupDates) : this(isSetupDates)
     {
         IdentityUid = identityUid;
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-    protected BaseEntity(SerializationInfo info, StreamingContext context)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    protected TableModel(SerializationInfo info, StreamingContext context)
     {
         IdentityId = info.GetInt64(nameof(IdentityId));
         IdentityUid = Guid.Parse(info.GetString(nameof(IdentityUid)));
@@ -85,14 +87,14 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         IsMarked = info.GetBoolean(nameof(IsMarked));
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected virtual void Init()
-	{
-	    IdentityId = 0;
-	    IdentityUid = Guid.Empty;
+    protected virtual void Init()
+    {
+        IdentityId = 0;
+        IdentityUid = Guid.Empty;
         ChangeDt = CreateDt = DateTime.MinValue;
         IsMarked = false;
     }
@@ -105,25 +107,25 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
-	//public override int GetHashCode() => IdentityName switch
-	//{
-	//    ColumnName.Id => IdentityId.GetHashCode(),
-	//    ColumnName.Uid => IdentityUid.GetHashCode(),
-	//    _ => default,
-	//};
+    //public override int GetHashCode() => IdentityName switch
+    //{
+    //    ColumnName.Id => IdentityId.GetHashCode(),
+    //    ColumnName.Uid => IdentityUid.GetHashCode(),
+    //    _ => default,
+    //};
 
-	//public virtual bool EqualsEmpty()
-	//{
-	//    bool isIdentityEmpty = IdentityName switch
-	//    {
-	//        ColumnName.Id => Equals(IdentityId, 0),
-	//        ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
-	//        _ => Equals(IdentityName, ColumnName.Default),
-	//    };
-	//    return isIdentityEmpty;
-	//}
+    //public virtual bool EqualsEmpty()
+    //{
+    //    bool isIdentityEmpty = IdentityName switch
+    //    {
+    //        ColumnName.Id => Equals(IdentityId, 0),
+    //        ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
+    //        _ => Equals(IdentityName, ColumnName.Default),
+    //    };
+    //    return isIdentityEmpty;
+    //}
 
-	public virtual bool Equals(BaseEntity item)
+    public virtual bool Equals(TableModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         return
@@ -136,9 +138,10 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
 
     public override bool Equals(object obj)
     {
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((BaseEntity)obj);
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
+        return Equals((TableModel)obj);
     }
 
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -162,7 +165,7 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
             Equals(IsMarked, false);
     }
 
-    public virtual object Clone() => new BaseEntity()
+    public virtual object Clone() => new TableModel()
     {
         IdentityId = IdentityId,
         IdentityUid = IdentityUid,
@@ -171,9 +174,9 @@ public class BaseEntity : BaseSerializeEntity, ICloneable, ISerializable
         IsMarked = IsMarked,
     };
 
-    public virtual BaseEntity CloneCast() => (BaseEntity)Clone();
+    public virtual TableModel CloneCast() => (TableModel)Clone();
 
-    public virtual void Setup(BaseEntity baseItem)
+    public virtual void Setup(TableModel baseItem)
     {
         IdentityId = baseItem.IdentityId;
         IdentityUid = baseItem.IdentityUid;

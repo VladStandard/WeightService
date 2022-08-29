@@ -1,12 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+using DataCore.Sql.Tables;
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql.DataModels;
+namespace DataCore.Sql.QueriesModels;
 
 [Serializable]
-public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
+public class LogQuickModel : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
@@ -23,7 +25,7 @@ public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogQuickEntity() : base(Guid.Empty, false)
+	public LogQuickModel() : base(Guid.Empty, false)
     {
 	    Init();
     }
@@ -33,7 +35,7 @@ public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public LogQuickEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public LogQuickModel(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
     {
 	    Init();
     }
@@ -68,7 +70,7 @@ public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
         $"{nameof(Icon)}: {Icon}. " +
         $"{nameof(Message)}: {Message}. ";
 
-    public virtual bool Equals(LogQuickEntity item)
+    public virtual bool Equals(LogQuickModel item)
     {
         if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -87,10 +89,10 @@ public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((LogQuickEntity)obj);
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
+        return Equals((LogQuickModel)obj);
     }
 
     public override int GetHashCode()
@@ -119,7 +121,7 @@ public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        LogQuickEntity item = new();
+        LogQuickModel item = new();
         item.Scale = Scale;
         item.Host = Host;
         item.App = App;
@@ -129,32 +131,36 @@ public class LogQuickEntity : BaseEntity, ISerializable, IBaseEntity
         item.Member = Member;
         item.Icon = Icon;
         item.Message = Message;
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 
-    public new virtual LogQuickEntity CloneCast() => (LogQuickEntity)Clone();
+    public new virtual LogQuickModel CloneCast() => (LogQuickModel)Clone();
 
     public virtual long GetScaleIdentityId(DataAccessHelper dataAccess)
     {
-        if (dataAccess != null && !string.IsNullOrEmpty(Scale))
-        {
-            ScaleEntity scale = dataAccess.Crud.GetEntity<ScaleEntity>(
-                new(new() { new(DbField.Description, DbComparer.Equal, Scale) }));
-            return scale.IdentityId;
-        }
-        return 0;
+	    switch (string.IsNullOrEmpty(Scale))
+	    {
+		    case false:
+			    ScaleEntity? scale = dataAccess.Crud.GetItem<ScaleEntity>(new FieldFilterModel(DbField.Description, DbComparer.Equal, Scale));
+			    if (scale is not null)
+				    return scale.IdentityId;
+			    break;
+	    }
+	    return 0;
     }
 
     public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
     {
-        if (dataAccess != null && !string.IsNullOrEmpty(Host))
-        {
-            HostEntity host = dataAccess.Crud.GetEntity<HostEntity>(
-                new(new() { new(DbField.HostName, DbComparer.Equal, Host) }));
-            return host.IdentityId;
-        }
-        return 0;
+	    switch (string.IsNullOrEmpty(Host))
+	    {
+		    case false:
+			    HostEntity? host = dataAccess.Crud.GetItem<HostEntity>(new FieldFilterModel(DbField.HostName, DbComparer.Equal, Host));
+                if (host is not null)
+					return host.IdentityId;
+                break;
+	    }
+		return 0;
     }
 
     #endregion

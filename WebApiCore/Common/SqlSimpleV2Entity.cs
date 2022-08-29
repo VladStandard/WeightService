@@ -8,7 +8,7 @@ using WebApiCore.Utils;
 namespace WebApiCore.Common;
 
 [XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlSimpleV2Entity : BaseSerializeDeprecatedEntity<SqlSimpleV2Entity>
+public class SqlSimpleV2Entity : SerializeDeprecatedModel<SqlSimpleV2Entity>
 {
     #region Public and private fields and properties
 

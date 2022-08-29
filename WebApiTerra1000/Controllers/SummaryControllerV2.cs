@@ -53,7 +53,7 @@ public class SummaryControllerV2 : BaseController
                 TerraUtils.Sql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
 

@@ -36,8 +36,7 @@ public partial class ItemLog : BlazorCore.Models.RazorBase
 						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
-							new(new() { new(DbField.IdentityUid, DbComparer.Equal, IdentityUid) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<LogEntity>(IdentityUid);
 						break;
 				}
 

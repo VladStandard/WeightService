@@ -18,7 +18,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            @if (IsShowMarkedItems)
+            @if (IsShowMarked)
             {
                 <RadzenGridColumn TItem="BarCodeTypeEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">

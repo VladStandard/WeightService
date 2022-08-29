@@ -1,18 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.Models;
+namespace DataCore.Sql.Fields;
 
 /// <summary>
 /// MAC address.
 /// </summary>
 [Serializable]
-public class MacAddressEntity
+public class FieldMacAddressModel
 {
     #region Public and private fields, properties, constructor
 
     private string _value;
-    [XmlElement] public string Value
+    [XmlElement]
+    public string Value
     {
         get => _value;
         set
@@ -45,16 +46,16 @@ public class MacAddressEntity
     /// <summary>
     /// Constructor.
     /// </summary>
-    public MacAddressEntity()
+    public FieldMacAddressModel()
     {
         _value = string.Empty;
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="address"></param>
-	public MacAddressEntity(string address)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="address"></param>
+    public FieldMacAddressModel(string address)
     {
         _value = address;
     }
@@ -66,7 +67,7 @@ public class MacAddressEntity
     public override string ToString() =>
         $"{nameof(Value)}: {ValuePrettyLookMinus}. ";
 
-    public virtual bool Equals(MacAddressEntity item)
+    public virtual bool Equals(FieldMacAddressModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         return Equals(Value, item.Value);
@@ -74,16 +75,17 @@ public class MacAddressEntity
 
     public override bool Equals(object obj)
     {
-        if (ReferenceEquals(this, obj)) return true;
+	    if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((MacAddressEntity)obj);
+        return Equals((FieldMacAddressModel)obj);
     }
 
     public override int GetHashCode() => Value.GetHashCode();
 
     public bool EqualsNew()
     {
-        return Equals(new MacAddressEntity());
+        return Equals(new FieldMacAddressModel());
     }
 
     public bool EqualsDefault()
@@ -93,7 +95,7 @@ public class MacAddressEntity
 
     public object Clone()
     {
-        MacAddressEntity item = new()
+        FieldMacAddressModel item = new()
         {
             Value = Value,
         };
@@ -101,7 +103,7 @@ public class MacAddressEntity
         return item;
     }
 
-    public MacAddressEntity CloneCast() => (MacAddressEntity)Clone();
+    public FieldMacAddressModel CloneCast() => (FieldMacAddressModel)Clone();
 
     public void Default()
     {

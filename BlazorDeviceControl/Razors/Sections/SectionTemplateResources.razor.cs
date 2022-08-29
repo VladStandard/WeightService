@@ -7,7 +7,11 @@ public partial class SectionTemplateResources : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<TemplateResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (TemplateResourceEntity)x).ToList();
+    private List<TemplateResourceEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (TemplateResourceEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,8 +22,8 @@ public partial class SectionTemplateResources : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -28,13 +32,10 @@ public partial class SectionTemplateResources : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                    new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Type),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
-                Items?.OrderBy(x => ((TemplateResourceEntity)x).Name);
-                Items?.OrderBy(x => ((TemplateResourceEntity)x).Type);
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<TemplateResourceEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Type));
+                ItemsCast = ItemsCast.OrderBy(x => x.Name).ToList();
+                ItemsCast = ItemsCast.OrderBy(x => x.Type).ToList();
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

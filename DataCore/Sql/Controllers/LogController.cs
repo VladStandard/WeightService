@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers;
@@ -10,18 +11,9 @@ public class LogController
     #region Public and private fields, properties, constructor
 
     private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
-    public AppEntity? App { get; set; }
-    public DataAccessHelper DataAccess { get; private set; } = DataAccessHelper.Instance;
-    public HostEntity? Host { get; set; }
-
-    #endregion
-
-    #region Constructor and destructor
-
-    public LogController()
-    {
-        //
-    }
+    private AppEntity? App { get; set; }
+    private DataAccessHelper DataAccess { get; set; } = DataAccessHelper.Instance;
+    private HostEntity? Host { get; set; }
 
     #endregion
 
@@ -42,8 +34,7 @@ public class LogController
     public void LogToFile(string localFileLog, string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
-        StreamWriter streamWriter;
-        streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
+	    StreamWriter streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
         streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
         streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(message)}: {message}");
         streamWriter.Close();
@@ -84,8 +75,8 @@ public class LogController
         StringUtils.SetStringValueTrim(ref memberName, 32);
         byte logNumber = (byte)logType;
         StringUtils.SetStringValueTrim(ref message, 1024);
-        LogTypeEntity? logTypeItem = DataAccess.Crud.GetEntity<LogTypeEntity>(
-            new(new() { new(DbField.Number, DbComparer.Equal, logNumber) }));
+        LogTypeEntity? logTypeItem = DataAccess.Crud.GetItem<LogTypeEntity>(
+            new FieldFilterModel(DbField.Number, DbComparer.Equal, logNumber));
 
         HostEntity? host = Host;
         AppEntity? app = App;
@@ -109,7 +100,7 @@ public class LogController
             Member = memberName,
             Message = message,
         };
-        DataAccess.Crud.SaveEntity(log);
+        DataAccess.Crud.Save(log);
     }
 
     public void LogQuestion(string message, string filePath, string memberName, int lineNumber,
@@ -122,15 +113,14 @@ public class LogController
     {
         StringUtils.SetStringValueTrim(ref name, 32);
         AppEntity app = new() { Name = name };
-        DataAccess.Crud.SaveEntity(app);
+        DataAccess.Crud.Save(app);
         return app.IdentityUid;
     }
 
     public long? GetHostId(string name)
     {
         StringUtils.SetStringValueTrim(ref name, 150);
-        HostEntity? host = DataAccess.Crud.GetEntity<HostEntity>(
-            new(new() { new(DbField.Name, DbComparer.Equal, name) }));
+        HostEntity? host = DataAccess.Crud.GetItem<HostEntity>(new FieldFilterModel(DbField.Name, DbComparer.Equal, name));
         return host?.IdentityId;
     }
 

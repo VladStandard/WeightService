@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
+using DataCore.Sql.Fields;
 using WeightCore.Helpers;
 using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
@@ -104,8 +105,8 @@ namespace WeightCore.Zpl
             if (string.IsNullOrEmpty(result))
                 return result;
 
-            TemplateResourceEntity[]? resources = DataAccessHelper.Instance.Crud.GetEntities<TemplateResourceEntity>(
-                new(new() { new($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL") }),
+            TemplateResourceEntity[]? resources = DataAccessHelper.Instance.Crud.GetItems<TemplateResourceEntity>(
+                new FieldFilterModel($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL"),
                 new(DbField.Name));
             if (resources != null)
             {

@@ -7,7 +7,11 @@ public partial class SectionPrinterTypes : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterTypeEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterTypeEntity)x).ToList();
+    private List<PrinterTypeEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (PrinterTypeEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,8 +22,8 @@ public partial class SectionPrinterTypes : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -28,9 +32,8 @@ public partial class SectionPrinterTypes : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null,
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.OrderBy(x => x.Name).ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PrinterTypeEntity>(IsShowOnlyTop, IsShowOnlyTop);
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

@@ -74,7 +74,7 @@ public class ShipmentControllerV2 : BaseController
                 }
             }
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
 
@@ -125,7 +125,7 @@ public class ShipmentControllerV2 : BaseController
                 }
             }
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
         }), format);
     }
 

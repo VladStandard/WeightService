@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.DataModels;
+using DataCore.Sql.Tables;
+
+namespace DataCore.Sql.QueriesModels;
 
 [Serializable]
-public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
+public class DeviceModel : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
@@ -13,7 +15,7 @@ public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public DeviceEntity() : base(0, false)
+	public DeviceModel() : base(0, false)
     {
 		Init();
 	}
@@ -23,7 +25,7 @@ public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public DeviceEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public DeviceModel(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -47,7 +49,9 @@ public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
 
     public override bool Equals(object obj)
     {
-        if (obj is DeviceEntity item)
+	    if (ReferenceEquals(null, obj)) return false;
+	    if (ReferenceEquals(this, obj)) return true;
+		if (obj is DeviceModel item)
         {
             return
                Scales == null && item.Scales == null || Scales != null && Scales.Equals(item.Scales);
@@ -61,7 +65,7 @@ public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
 
     public virtual bool EqualsNew()
     {
-        return Equals(new DeviceEntity());
+        return Equals(new DeviceModel());
     }
 
     public new virtual bool EqualsDefault()
@@ -73,15 +77,15 @@ public class DeviceEntity : BaseEntity, ISerializable, IBaseEntity
 
     public new virtual object Clone()
     {
-        DeviceEntity item = new()
+        DeviceModel item = new()
         {
             Scales = Scales.CloneCast(),
         };
-        item.Setup(((BaseEntity)this).CloneCast());
+        item.Setup(((TableModel)this).CloneCast());
         return item;
     }
 
-    public new virtual DeviceEntity CloneCast() => (DeviceEntity)Clone();
+    public new virtual DeviceModel CloneCast() => (DeviceModel)Clone();
 
     #endregion
 }

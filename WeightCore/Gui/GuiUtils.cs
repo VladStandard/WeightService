@@ -216,7 +216,7 @@ public static class GuiUtils
                     AccessDt = DateTime.Now,
                     IsMarked = false,
                 };
-                DataAccess.Crud.SaveEntity(host);
+                DataAccess.Crud.Save(host);
             }
             return result;
         }

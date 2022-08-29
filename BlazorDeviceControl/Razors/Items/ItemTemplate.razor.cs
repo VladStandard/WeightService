@@ -43,8 +43,7 @@ public partial class ItemTemplate : BlazorCore.Models.RazorBase
 						ItemCast.ImageData.SetTemplateValue();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-							new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateEntity>(IdentityId);
 						break;
 				}
 

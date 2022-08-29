@@ -2,12 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
-using DataCore.Sql.Models;
-using FluentValidation;
-using FluentValidation.Results;
-using NHibernate.Impl;
+using DataCore.Sql.Tables;
 using Radzen;
-using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models;
 
@@ -21,81 +17,81 @@ public class ItemFieldControlEntity
 
     #region Public and private methods
 
-    public bool ValidateEntity(NotificationService notificationService, BaseEntity? item, string field)
+    public bool ValidateEntity(NotificationService notificationService, TableModel? item, string field)
     {
         bool result = item != null;
         string detailAddition = Environment.NewLine;
         switch (item)
         {
             case AccessEntity access:
-                result = SqlBaseUtils.IsValidation(access, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(access, ref detailAddition);
+                break;
             case BarCodeTypeEntity barCodeType:
-                result = SqlBaseUtils.IsValidation(barCodeType, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(barCodeType, ref detailAddition);
+                break;
             case ContragentEntity contragent:
-                result = SqlBaseUtils.IsValidation(contragent, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(contragent, ref detailAddition);
+                break;
             case HostEntity host:
-                result = SqlBaseUtils.IsValidation(host, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(host, ref detailAddition);
+                break;
             case NomenclatureEntity nomenclature:
-                result = SqlBaseUtils.IsValidation(nomenclature, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(nomenclature, ref detailAddition);
+                break;
             case OrderEntity order:
-                result = SqlBaseUtils.IsValidation(order, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(order, ref detailAddition);
+                break;
             case OrderWeighingEntity orderWeighing:
-                result = SqlBaseUtils.IsValidation(orderWeighing, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(orderWeighing, ref detailAddition);
+                break;
             case PluEntity plu:
-                result = SqlBaseUtils.IsValidation(plu, ref detailAddition);
+                result = SqlUtils.IsValidation(plu, ref detailAddition);
                 break;
             case PluLabelEntity pluLabel:
-                result = SqlBaseUtils.IsValidation(pluLabel, ref detailAddition);
+                result = SqlUtils.IsValidation(pluLabel, ref detailAddition);
                 break;
             case PluObsoleteEntity pluObsolete:
-                result = SqlBaseUtils.IsValidation(pluObsolete, ref detailAddition);
+                result = SqlUtils.IsValidation(pluObsolete, ref detailAddition);
                 break;
             case PluScaleEntity pluScale:
-                result = SqlBaseUtils.IsValidation(pluScale, ref detailAddition);
+                result = SqlUtils.IsValidation(pluScale, ref detailAddition);
                 break;
             case PluWeighingEntity pluWeighing:
-                result = SqlBaseUtils.IsValidation(pluWeighing, ref detailAddition);
+                result = SqlUtils.IsValidation(pluWeighing, ref detailAddition);
                 break;
             case PrinterEntity printer:
-                result = SqlBaseUtils.IsValidation(printer, ref detailAddition);
+                result = SqlUtils.IsValidation(printer, ref detailAddition);
                 break;
             case PrinterResourceEntity printerResource:
-	            result = SqlBaseUtils.IsValidation(printerResource, ref detailAddition);
+                result = SqlUtils.IsValidation(printerResource, ref detailAddition);
                 break;
             case PrinterTypeEntity printerType:
-                result = SqlBaseUtils.IsValidation(printerType, ref detailAddition);
+                result = SqlUtils.IsValidation(printerType, ref detailAddition);
                 break;
             case ProductionFacilityEntity productionFacility:
-                result = SqlBaseUtils.IsValidation(productionFacility, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(productionFacility, ref detailAddition);
+                break;
             case ProductSeriesEntity productSeries:
-                result = SqlBaseUtils.IsValidation(productSeries, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(productSeries, ref detailAddition);
+                break;
             case ScaleEntity scale:
-                result = SqlBaseUtils.IsValidation(scale, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(scale, ref detailAddition);
+                break;
             case TaskEntity task:
-                result = SqlBaseUtils.IsValidation(task, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(task, ref detailAddition);
+                break;
             case TaskTypeEntity taskType:
-                result = SqlBaseUtils.IsValidation(taskType, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(taskType, ref detailAddition);
+                break;
             case TemplateResourceEntity templateResource:
-                result = SqlBaseUtils.IsValidation(templateResource, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(templateResource, ref detailAddition);
+                break;
             case TemplateEntity template:
-                result = SqlBaseUtils.IsValidation(template, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(template, ref detailAddition);
+                break;
             case WorkShopEntity workshop:
-                result = SqlBaseUtils.IsValidation(workshop, ref detailAddition);
-				break;
+                result = SqlUtils.IsValidation(workshop, ref detailAddition);
+                break;
         }
         if (!result)
         {

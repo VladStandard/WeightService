@@ -56,7 +56,7 @@
 //                IdRRef = Guid.Empty
 //            };
 //            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
-//            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
+//            return DataAccessUtilsTests.DataAccess.Crud.GetItem<ProductionFacilityEntity>(
 //                new FieldListEntity(new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }

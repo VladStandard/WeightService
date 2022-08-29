@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.Models;
+namespace DataCore.Sql.Fields;
 
-public class ImageDataEntity : ICloneable
+public class FieldBinaryModel : ICloneable
 {
     #region Public and private fields, properties, constructor
 
@@ -30,7 +30,7 @@ public class ImageDataEntity : ICloneable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ImageDataEntity() => Value = Array.Empty<byte>();
+    public FieldBinaryModel() => Value = Array.Empty<byte>();
 
     #endregion
 
@@ -39,7 +39,7 @@ public class ImageDataEntity : ICloneable
     public override string ToString() =>
         $"{nameof(Info)}: {Info}. ";
 
-    public virtual bool Equals(ImageDataEntity item)
+    public virtual bool Equals(FieldBinaryModel item)
     {
         //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
@@ -48,10 +48,10 @@ public class ImageDataEntity : ICloneable
 
     public override bool Equals(object obj)
     {
-        //if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((ImageDataEntity)obj);
+        return Equals((FieldBinaryModel)obj);
     }
 
     public override int GetHashCode()
@@ -61,7 +61,7 @@ public class ImageDataEntity : ICloneable
 
     public virtual bool EqualsNew()
     {
-        return Equals(new ImageDataEntity());
+        return Equals(new FieldBinaryModel());
     }
 
     public virtual bool EqualsDefault()
@@ -124,14 +124,14 @@ public class ImageDataEntity : ICloneable
 
     public object Clone()
     {
-        ImageDataEntity item = new()
+        FieldBinaryModel item = new()
         {
             Value = DataUtils.ByteClone(Value),
         };
         return item;
     }
 
-    public ImageDataEntity CloneCast() => (ImageDataEntity)Clone();
+    public FieldBinaryModel CloneCast() => (FieldBinaryModel)Clone();
 
     #endregion
 }

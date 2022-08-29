@@ -5,10 +5,14 @@ namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionScalesCore : BlazorCore.Models.RazorBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[Parameter] public bool IsPluNew { get; set; }
-	private List<ScaleEntity> ItemsCast => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
+    [Parameter] public bool IsPluNew { get; set; }
+    private List<ScaleEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -19,8 +23,8 @@ public partial class SectionScalesCore : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -29,12 +33,8 @@ public partial class SectionScalesCore : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                    IsShowMarkedItems ? null
-                        : new FilterListEntity(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                    new(DbField.Description),
-                    IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                    ?.ToList<BaseEntity>();
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<ScaleEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Description));
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

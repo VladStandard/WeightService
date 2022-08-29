@@ -1,13 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterResourceEntity)x).ToList();
+    private List<PrinterResourceEntity> ItemsCast
+    {
+        get => Items == null ? new() : Items.Select(x => (PrinterResourceEntity)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 
     #endregion
 
@@ -18,8 +24,8 @@ public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-        Items = new();
-	}
+        ItemsCast = new();
+    }
 
     protected override void OnParametersSet()
     {
@@ -31,42 +37,11 @@ public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
                 long? printerId = null;
                 if (ItemFilter is PrinterEntity printer)
                     printerId = printer.IdentityId;
-                if (IsShowMarkedItems)
-                {
-                    if (printerId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                            null,
-                            new(DbField.Description),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                        ?.ToList<BaseEntity>();
-                    else
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                            new(new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId) }),
-                            new(DbField.Description),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    }
-                }
-                else
-                {
-                    if (printerId == null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                            new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-                            new(DbField.Description),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    else
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(new(
-                                new() { new($"Printer.{DbField.IdentityId}", DbComparer.Equal, printerId),
-                                new(DbField.IsMarked, DbComparer.Equal, false)
-                            }),
-                            new(DbField.Description),
-                            IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0)
-                            ?.ToList<BaseEntity>();
-                    }
-                }
+                List<FieldFilterModel> filters = IsShowMarkedFilter ? new() : new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) };
+                if (printerId is not null)
+                    filters.Add(new($"{nameof(PrinterResourceEntity.Printer)}.{DbField.IdentityId}", DbComparer.Equal, printerId));
+                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PrinterResourceEntity>(IsShowOnlyTop, filters, new(DbField.Description));
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

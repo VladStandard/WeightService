@@ -8,7 +8,7 @@ using WebApiCore.Utils;
 namespace WebApiCore.Common;
 
 [XmlRoot(TerraConsts.Exception, Namespace = "", IsNullable = false)]
-public class ServiceExceptionEntity : BaseSerializeDeprecatedEntity<ServiceExceptionEntity>
+public class ServiceExceptionEntity : SerializeDeprecatedModel<ServiceExceptionEntity>
 {
     #region Public and private fields and properties
 

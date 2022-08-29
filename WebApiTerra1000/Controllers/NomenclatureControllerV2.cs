@@ -56,7 +56,7 @@ public class NomenclatureControllerV2 : BaseController
                 code != null ? TerraUtils.Sql.GetParametersV2(code) : TerraUtils.Sql.GetParametersV2(id));
             XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
 
@@ -117,7 +117,7 @@ public class NomenclatureControllerV2 : BaseController
             string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
 
@@ -136,7 +136,7 @@ public class NomenclatureControllerV2 : BaseController
             string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
             XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
-            return BaseSerializeDeprecatedEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
 

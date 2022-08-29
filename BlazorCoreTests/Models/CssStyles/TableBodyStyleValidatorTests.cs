@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using BlazorCore.Models.CssStyles;
-using DataCore.Sql.Models;
+using DataCore.Sql.Tables;
 using NSubstitute;
 using NUnit.Framework;
 

@@ -1,7 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
+using DataCore.Sql.Tables;
+using FluentValidation.Results;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql;
@@ -15,11 +18,358 @@ public static class SqlUtils
     public static readonly string FilePathToken = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\scalesui.xml";
     public static readonly string FilePathLog = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\scalesui.log";
 
-    #endregion
+	#endregion
 
-    #region Public and private methods - Hosts
+	#region Public and private methods
 
-    public static HostDirect LoadReader(SqlDataReader reader)
+	private static void FailureLog(ValidationResult result, ref string detailAddition)
+	{
+		switch (result.IsValid)
+		{
+			case false:
+				{
+					foreach (ValidationFailure failure in result.Errors)
+					{
+						detailAddition += $"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}";
+					}
+					break;
+				}
+		}
+	}
+
+	public static bool IsValidation(TableModel item, ref string detailAddition)
+	{
+		ValidationResult validationResult;
+		switch (item)
+		{
+			case AccessEntity access:
+				validationResult = new AccessValidator().Validate(access);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (access.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case BarCodeTypeEntity barCodeType:
+				validationResult = new BarCodeTypeValidator().Validate(barCodeType);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (barCodeType.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case BarCodeEntity barCode:
+				validationResult = new BarCodeValidator().Validate(barCode);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (barCode.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case ContragentEntity contragent:
+				validationResult = new ContragentValidator().Validate(contragent);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (contragent.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case HostEntity host:
+				validationResult = new HostValidator().Validate(host);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (host.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case LogEntity log:
+				validationResult = new LogValidator().Validate(log);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (log.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case LogTypeEntity logType:
+				validationResult = new LogTypeValidator().Validate(logType);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (logType.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case NomenclatureEntity nomenclature:
+				validationResult = new NomenclatureValidator().Validate(nomenclature);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (nomenclature.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case OrderEntity order:
+				validationResult = new OrderValidator().Validate(order);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (order.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case OrderWeighingEntity orderWeighing:
+				validationResult = new OrderWeighingValidator().Validate(orderWeighing);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (orderWeighing.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PluEntity plu:
+				validationResult = new PluValidator().Validate(plu);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (plu.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PluLabelEntity pluLabel:
+				validationResult = new PluLabelValidator().Validate(pluLabel);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (pluLabel.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PluObsoleteEntity pluObsolete:
+				if (pluObsolete.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PluScaleEntity pluScale:
+				validationResult = new PluScaleValidator().Validate(pluScale);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (pluScale.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PluWeighingEntity pluWeighing:
+				validationResult = new PluWeighingValidator().Validate(pluWeighing);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (pluWeighing.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PrinterEntity printer:
+				validationResult = new PrinterValidator().Validate(printer);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (printer.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PrinterResourceEntity printerResource:
+				validationResult = new PrinterValidator().Validate(printerResource);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (printerResource.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case PrinterTypeEntity printerType:
+				validationResult = new PrinterTypeValidator().Validate(printerType);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (printerType.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case ProductionFacilityEntity productionFacility:
+				validationResult = new ProductionFacilityValidator().Validate(productionFacility);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (productionFacility.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case ProductSeriesEntity productSeries:
+				validationResult = new ProductSeriesValidator().Validate(productSeries);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (productSeries.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case ScaleEntity scale:
+				validationResult = new ScaleValidator().Validate(scale);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (scale.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case TemplateEntity template:
+				validationResult = new TemplateValidator().Validate(template);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (template.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case TemplateResourceEntity templateResource:
+				validationResult = new TemplateResourceValidator().Validate(templateResource);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (templateResource.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case VersionEntity version:
+				validationResult = new VersionValidator().Validate(version);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (version.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+			case WorkShopEntity workShop:
+				validationResult = new WorkShopValidator().Validate(workShop);
+				if (!validationResult.IsValid)
+				{
+					FailureLog(validationResult, ref detailAddition);
+					return false;
+				}
+				if (workShop.EqualsDefault())
+				{
+					detailAddition += $"{LocaleCore.Validator.EqualsDefault}";
+					return false;
+				}
+				break;
+		}
+		return true;
+	}
+
+	#endregion
+
+	#region Public and private methods - Hosts
+
+	public static HostDirect LoadReader(SqlDataReader reader)
     {
         HostDirect result = new();
         if (reader.Read())
@@ -36,32 +386,18 @@ public static class SqlUtils
         return result;
     }
 
-    public static HostEntity GetHostEntity(string hostName)
-    {
-        HostEntity host = DataAccess.Crud.GetEntity<HostEntity>(
-            new(new() { new(DbField.HostName, DbComparer.Equal, hostName),
-                new(DbField.IsMarked, DbComparer.Equal, false) }),
-            new(DbField.CreateDt, DbOrderDirection.Desc));
-        return host;
-    }
+    public static HostEntity? GetHost(string hostName) =>
+	    DataAccess.Crud.GetItem<HostEntity>(new List<FieldFilterModel> {
+			    new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
+		    new(DbField.CreateDt, DbOrderDirection.Desc));
 
-    public static HostDirect Load(Guid uid)
-    {
-        HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
-            new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
-        if (result == null)
-            result = new();
-        return result;
-    }
+    public static HostDirect Load(Guid uid) =>
+	    SqlConnect.ExecuteReaderForItem(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
+		    new SqlParameter("@idrref", SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
 
-    public static HostDirect Load(string hostName)
-    {
-        HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByHostName,
-            new SqlParameter("@HOST_NAME", System.Data.SqlDbType.NVarChar, 255) { Value = hostName }, LoadReader);
-        if (result == null)
-            result = new();
-        return result;
-    }
+    public static HostDirect Load(string hostName) =>
+	    SqlConnect.ExecuteReaderForItem(SqlQueries.DbScales.Tables.Hosts.GetHostByHostName,
+		    new SqlParameter("@HOST_NAME", SqlDbType.NVarChar, 255) { Value = hostName }, LoadReader);
 
     public static HostDirect GetHostDirect()
     {
@@ -87,7 +423,7 @@ public static class SqlUtils
         Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
         bool result = default;
         SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef,
-            new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref }, (reader) =>
+            new SqlParameter("@idrref", SqlDbType.UniqueIdentifier) { Value = idrref }, (reader) =>
             {
                 result = reader.Read();
             });
@@ -101,26 +437,24 @@ public static class SqlUtils
     public static ushort GetPluCount(long scaleId)
     {
         ushort result = 0;
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Plu.GetCount))
         {
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Plu.GetCount))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@SCALE_ID", scaleId);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result = SqlConnect.GetValueAsNotNullable<ushort>(reader, "COUNT");
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@SCALE_ID", scaleId);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result = SqlConnect.GetValueAsNotNullable<ushort>(reader, "COUNT");
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
@@ -132,59 +466,44 @@ public static class SqlUtils
     public static long GetScaleId(string scaleDescription)
     {
         long result = 0;
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        StringUtils.SetStringValueTrim(ref scaleDescription, 150);
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Scales.GetScaleId))
         {
-            con.Open();
-            StringUtils.SetStringValueTrim(ref scaleDescription, 150);
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Scales.GetScaleId))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@SCALE_DESCRIPTION", scaleDescription);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@SCALE_DESCRIPTION", scaleDescription);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
-    public static ScaleEntity GetScaleFromHost(long hostId)
-    {
-        ScaleEntity scale = DataAccess.Crud.GetEntity<ScaleEntity>(
-            new(new() { new($"Host.IdentityId", DbComparer.Equal, hostId),
-                new(DbField.IsMarked, DbComparer.Equal, false) }),
+    public static ScaleEntity? GetScaleFromHost(long hostId) => 
+	    DataAccess.Crud.GetItem<ScaleEntity>(new List<FieldFilterModel> { 
+			new($"Host.IdentityId", DbComparer.Equal, hostId), new(DbField.IsMarked, DbComparer.Equal, false) },
             new(DbField.CreateDt, DbOrderDirection.Desc));
-        return scale;
-    }
 
-    public static ScaleEntity GetScale(long id)
-    {
-        return DataAccess.Crud.GetEntity<ScaleEntity>(
-            new(new() { new(DbField.IdentityId, DbComparer.Equal, id),
-                new(DbField.IsMarked, DbComparer.Equal, false) }));
-    }
+    public static ScaleEntity? GetScale(long id) =>
+	    DataAccess.Crud.GetItem<ScaleEntity>(new List<FieldFilterModel> {
+		    new(DbField.IdentityId, DbComparer.Equal, id), new(DbField.IsMarked, DbComparer.Equal, false) });
 
-    public static ScaleEntity GetScale(string description)
-    {
-        return DataAccess.Crud.GetEntity<ScaleEntity>(
-            new(new() { new(DbField.Description, DbComparer.Equal, description),
-                new(DbField.IsMarked, DbComparer.Equal, false) }));
-    }
+    public static ScaleEntity? GetScale(string description) => 
+        DataAccess.Crud.GetItem<ScaleEntity>(new List<FieldFilterModel> {
+	        new(DbField.Description, DbComparer.Equal, description), new(DbField.IsMarked, DbComparer.Equal, false) });
 
-    public static ProductionFacilityEntity GetArea(string name)
-    {
-	    return DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-		    new(new() { new(DbField.Name, DbComparer.Equal, name),
-			    new(DbField.IsMarked, DbComparer.Equal, false) }));
-    }
+    public static ProductionFacilityEntity? GetArea(string name) =>
+	    DataAccess.Crud.GetItem<ProductionFacilityEntity>(new List<FieldFilterModel> { 
+		    new(DbField.Name, DbComparer.Equal, name), new(DbField.IsMarked, DbComparer.Equal, false) });
 
 	#endregion
 
@@ -222,201 +541,187 @@ public static class SqlUtils
     public static Guid GetTaskUid(string taskName)
     {
         Guid result = Guid.Empty;
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        StringUtils.SetStringValueTrim(ref taskName, 32);
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskUid))
         {
-            con.Open();
-            StringUtils.SetStringValueTrim(ref taskName, 32);
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskUid))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_type", taskName);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@task_type", taskName);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
     public static TaskDirect? GetTask(Guid taskTypeUid, long scaleId)
     {
         TaskDirect? result = null;
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByTypeAndScale))
         {
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByTypeAndScale))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_type_uid", taskTypeUid);
-                cmd.Parameters.AddWithValue("@scale_id", scaleId);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result = new()
-                        {
-                            Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
-                            TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
-                            //Scale = ScalesUtils.GetScale(dataAccess, SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                            Scale = DataAccess.Crud.GetEntityById<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                            Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
-                        };
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@task_type_uid", taskTypeUid);
+	        cmd.Parameters.AddWithValue("@scale_id", scaleId);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result = new()
+			        {
+				        Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
+				        TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
+				        //Scale = ScalesUtils.GetScale(dataAccess, SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+				        Scale = DataAccess.Crud.GetItemById<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+				        Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
+			        };
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
     public static TaskDirect? GetTask(Guid taskUid)
     {
         TaskDirect? result = null;
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByUid))
         {
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByUid))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_uid", taskUid);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result = new()
-                        {
-                            Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
-                            TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
-                            //Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                            Scale = DataAccess.Crud.GetEntityById<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                            Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
-                        };
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@task_uid", taskUid);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result = new()
+			        {
+				        Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
+				        TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
+				        //Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+				        Scale = DataAccess.Crud.GetItemById<ScaleEntity>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+				        Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
+			        };
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
     public static Guid GetTaskTypeUid(string taskTypeName)
     {
         Guid result = Guid.Empty;
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        StringUtils.SetStringValueTrim(ref taskTypeName, 32);
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTaskTypeUid))
         {
-            con.Open();
-            StringUtils.SetStringValueTrim(ref taskTypeName, 32);
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTaskTypeUid))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_type", taskTypeName);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@task_type", taskTypeName);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
     public static TaskTypeDirect GetTaskType(string name)
     {
         TaskTypeDirect result = new();
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByName))
         {
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByName))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_name", name);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result.Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
-                        result.Name = SqlConnect.GetValueAsString(reader, "NAME");
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@task_name", name);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result.Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
+			        result.Name = SqlConnect.GetValueAsString(reader, "NAME");
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
     public static TaskTypeDirect GetTaskType(Guid uid)
     {
         TaskTypeDirect result = new();
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByUid))
         {
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByUid))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_uid", uid);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    if (reader.Read())
-                    {
-                        result.Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
-                        result.Name = SqlConnect.GetValueAsString(reader, "NAME");
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        cmd.Parameters.AddWithValue("@task_uid", uid);
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        if (reader.Read())
+		        {
+			        result.Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
+			        result.Name = SqlConnect.GetValueAsString(reader, "NAME");
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 
     public static List<TaskTypeDirect> GetTasksTypes()
     {
         List<TaskTypeDirect> result = new();
-        using (SqlConnection con = SqlConnect.GetConnection())
+        using SqlConnection con = SqlConnect.GetConnection();
+        con.Open();
+        using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes))
         {
-            con.Open();
-            using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        result.Add(new(
-                            SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID"), SqlConnect.GetValueAsString(reader, "NAME")));
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+	        cmd.Connection = con;
+	        cmd.Parameters.Clear();
+	        using SqlDataReader reader = cmd.ExecuteReader();
+	        if (reader.HasRows)
+	        {
+		        while (reader.Read())
+		        {
+			        result.Add(new(
+				        SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID"), SqlConnect.GetValueAsString(reader, "NAME")));
+		        }
+	        }
+	        reader.Close();
         }
+        con.Close();
         return result;
     }
 

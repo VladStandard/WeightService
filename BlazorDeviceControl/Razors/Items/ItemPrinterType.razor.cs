@@ -38,8 +38,7 @@ public partial class ItemPrinterType : BlazorCore.Models.RazorBase
 						ItemCast.Name = "NEW PRINTER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-							new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterTypeEntity>(IdentityId);
 						break;
 				}
 

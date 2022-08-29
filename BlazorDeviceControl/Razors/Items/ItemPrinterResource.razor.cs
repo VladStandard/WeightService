@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Fields;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 /// <summary>
@@ -53,26 +55,20 @@ public partial class ItemPrinterResource : BlazorCore.Models.RazorBase
 						ItemCast.Description = "NEW RESOURCE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
-							new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterResourceEntity>(IdentityId);
 						break;
 				}
 
-				List<PrinterEntity>? printers = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-					new(new() { new(DbField.IsMarked, DbComparer.Equal, false) }),
-					new(DbField.Name))?.ToList();
+				PrinterEntity[]? printers = AppSettings.DataAccess.Crud.GetItems<PrinterEntity>(
+					new FieldFilterModel(DbField.IsMarked, false), new(DbField.Name));
+				Printers = new();
 				if (printers is not null)
-				{
-					Printers = new();
 					Printers.AddRange(printers);
-				}
-				
-				List<TemplateResourceEntity>? resources = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>()?.ToList();
+
+				TemplateResourceEntity[]? resources = AppSettings.DataAccess.Crud.GetItems<TemplateResourceEntity>(null, 0);
+				Resources = new();
 				if (resources is not null)
-				{
-					Resources = new();
 					Resources.AddRange(resources);
-				}
 				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

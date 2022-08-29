@@ -48,7 +48,7 @@
 //            //};
 //            //// Не сохранять.
 //            //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(item);
-//            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(
+//            return DataAccessUtilsTests.DataAccess.Crud.GetItem<BarcodeTypeEntityV2>(
 //                new FieldListEntity(new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }

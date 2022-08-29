@@ -40,8 +40,7 @@ public partial class ItemHost : BlazorCore.Models.RazorBase
 						ItemCast.MacAddress.Default();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-							new(new() { new(DbField.IdentityId, DbComparer.Equal, IdentityId) }));
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<HostEntity>(IdentityId);
 						break;
 				}
 
