@@ -15,11 +15,6 @@ public class PluScaleEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-
     [XmlElement] public virtual bool IsActive { get; set; }
     [XmlElement] public virtual PluEntity Plu { get; set; }
     [XmlElement] public virtual ScaleEntity Scale { get; set; }
@@ -27,7 +22,7 @@ public class PluScaleEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluScaleEntity() : base(Guid.Empty, false)
+	public PluScaleEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -37,7 +32,7 @@ public class PluScaleEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public PluScaleEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public PluScaleEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -97,8 +92,6 @@ public class PluScaleEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((PluScaleEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

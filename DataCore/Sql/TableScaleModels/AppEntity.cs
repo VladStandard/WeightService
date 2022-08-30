@@ -13,16 +13,12 @@ public class AppEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual string Name { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AppEntity() : base(Guid.Empty, false)
+	public AppEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -32,7 +28,7 @@ public class AppEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public AppEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public AppEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -77,8 +73,6 @@ public class AppEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((AppEntity)obj);
     }
-
-    public override int GetHashCode() => IdentityUid.GetHashCode();
 
     public virtual bool EqualsNew()
     {

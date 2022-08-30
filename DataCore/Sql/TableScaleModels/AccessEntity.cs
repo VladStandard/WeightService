@@ -14,10 +14,6 @@ public class AccessEntity : TableModel, ISerializable, ITableModel
 	#region Public and private fields, properties, constructor
 
 	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-	/// <summary>
 	/// User name.
 	/// </summary>
 	[XmlElement] public virtual string User { get; set; }
@@ -29,7 +25,7 @@ public class AccessEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AccessEntity() : base(Guid.Empty, false)
+	public AccessEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -39,7 +35,7 @@ public class AccessEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public AccessEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public AccessEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -62,7 +58,7 @@ public class AccessEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-        User = string.Empty;
+	    User = string.Empty;
 		Rights = 0x00;
 	}
 
@@ -100,8 +96,6 @@ public class AccessEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((AccessEntity)obj);
     }
-
-    public override int GetHashCode() => IdentityUid.GetHashCode();
 
     public virtual bool EqualsNew()
     {

@@ -53,7 +53,7 @@ public partial class CrudController
 		return new();
 	}
 
-	public object[] GetItemsNativeAsObjects(string query)
+	public object[] GetObjects(string query)
 	{
 		object[] result = Array.Empty<object>();
 		ExecuteTransaction((session) =>

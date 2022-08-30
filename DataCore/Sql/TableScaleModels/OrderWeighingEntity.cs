@@ -13,17 +13,13 @@ public class OrderWeighingEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual OrderEntity Order { get; set; }
 	[XmlElement] public virtual PluWeighingEntity PluWeighing { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderWeighingEntity() : base(0, false)
+    public OrderWeighingEntity() : base(ColumnName.Uid, 0, false)
 	{
 		Init();
 	}
@@ -33,7 +29,7 @@ public class OrderWeighingEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public OrderWeighingEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public OrderWeighingEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -43,7 +39,7 @@ public class OrderWeighingEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-	    Order = new();
+		Order = new();
 	    PluWeighing = new();
     }
 
@@ -76,8 +72,6 @@ public class OrderWeighingEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((OrderWeighingEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

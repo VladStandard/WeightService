@@ -36,7 +36,7 @@ public partial class SectionProductionFacilities : BlazorCore.Models.RazorBase
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.Crud.GetListProductionFacilities(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListProductionFacilities(IsShowMarked, IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

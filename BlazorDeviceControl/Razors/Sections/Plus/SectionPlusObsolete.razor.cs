@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
-
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPlusObsolete : BlazorCore.Models.RazorBase

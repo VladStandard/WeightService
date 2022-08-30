@@ -11,10 +11,6 @@
 //{
 //	#region Public and private fields, properties, constructor
 
-//	/// <summary>
-//	/// Identity name.
-//	/// </summary>
-//	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 //	[XmlElement] public virtual PluObsoleteEntity Plu { get; set; }
 //	[XmlElement] public virtual ScaleEntity Scale { get; set; }
 //	[XmlElement] public virtual ProductSeriesEntity? Serie { get; set; }
@@ -105,8 +101,6 @@
 //        if (obj.GetType() != GetType()) return false;
 //        return Equals((WeithingFactEntity)obj);
 //    }
-
-//	public override int GetHashCode() => IdentityId.GetHashCode();
 
 //	public virtual bool EqualsNew()
 //    {

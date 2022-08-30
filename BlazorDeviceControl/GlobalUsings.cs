@@ -1,7 +1,5 @@
 // Global using directives
-
 global using BlazorCore.Models;
-global using BlazorCore.Models.CssStyles;
 global using BlazorCore.Services;
 global using BlazorCore.Utils;
 global using BlazorDownloadFile;
@@ -20,4 +18,5 @@ global using Microsoft.AspNetCore.Components.Forms;
 global using Radzen;
 global using System.Globalization;
 global using System.Runtime.CompilerServices;
+global using DataCore.Sql.Tables;
 global using static DataCore.ShareEnums;

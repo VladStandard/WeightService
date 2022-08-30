@@ -33,7 +33,7 @@ public partial class SectionVersions : BlazorCore.Models.RazorBase
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.Crud.GetListVersions(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListVersions();
 
                 ButtonSettings = new(false, false, false, false, false, false, false);
             }

@@ -24,7 +24,7 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogQuickModel() : base(Guid.Empty, false)
+	public LogQuickModel() : base(ColumnName.Uid, Guid.Empty, false)
     {
 	    Init();
     }
@@ -34,7 +34,7 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public LogQuickModel(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public LogQuickModel(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 	    Init();
     }

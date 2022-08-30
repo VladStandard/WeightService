@@ -13,10 +13,6 @@ public class PluObsoleteEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual TemplateEntity Template { get; set; }
 	[XmlElement] public virtual ScaleEntity Scale { get; set; }
 	[XmlElement] public virtual NomenclatureEntity Nomenclature { get; set; }
@@ -39,7 +35,7 @@ public class PluObsoleteEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PluObsoleteEntity() : base(0, false)
+    public PluObsoleteEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -49,7 +45,7 @@ public class PluObsoleteEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public PluObsoleteEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public PluObsoleteEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -162,8 +158,6 @@ public class PluObsoleteEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((PluObsoleteEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

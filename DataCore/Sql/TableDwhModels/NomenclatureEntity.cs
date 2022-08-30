@@ -49,7 +49,7 @@ public class NomenclatureEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public NomenclatureEntity() : base(0, false)
+	public NomenclatureEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -59,7 +59,7 @@ public class NomenclatureEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public NomenclatureEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public NomenclatureEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}

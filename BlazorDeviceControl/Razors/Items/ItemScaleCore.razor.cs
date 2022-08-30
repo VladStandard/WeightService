@@ -59,40 +59,11 @@ public partial class ItemScaleCore : RazorBase
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
 			    // ScaleFactor
 			    ItemCast.ScaleFactor ??= 1000;
-			    // HostItems.
-				Hosts = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-				HostEntity[]? hostItems = AppSettings.DataAccess.Crud.GetItems<HostEntity>(sqlCrudConfig);
-				if (hostItems is not null)
-					Hosts.AddRange(hostItems);
-
-			    // PrinterItems.
-				Printers = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-				sqlCrudConfig = SqlUtils.GetCrudConfigIsMarked();
-				PrinterEntity[]? printerItems = AppSettings.DataAccess.Crud.GetItems<PrinterEntity>(sqlCrudConfig);
-				if (printerItems is not null)
-					Printers.AddRange(printerItems);
-
-			    // Templates.
-				Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
-				sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Title), 0, false, false);
-				TemplateEntity[]? templatesSeriesItems = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(sqlCrudConfig);
-				if (templatesSeriesItems is not null)
-					Templates.AddRange(templatesSeriesItems);
-
-			    // ProductionFacilities.
-				ProductionFacilities = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-				sqlCrudConfig = SqlUtils.GetCrudConfigIsMarked();
-				ProductionFacilityEntity[]? productionFacilities = AppSettings.DataAccess.Crud.GetItems<ProductionFacilityEntity>(sqlCrudConfig);
-				if (productionFacilities is not null)
-					ProductionFacilities.AddRange(productionFacilities.Where(x => x.IdentityId > 0));
-
-			    // WorkShopItems.
-				WorkShops = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-				sqlCrudConfig = SqlUtils.GetCrudConfigIsMarked();
-				WorkShopEntity[]? workShopItems = AppSettings.DataAccess.Crud.GetItems<WorkShopEntity>(sqlCrudConfig);
-				if (workShopItems is not null)
-					WorkShops.AddRange(workShopItems);
+			    Hosts = AppSettings.DataAccess.Crud.GetListHosts(false, false, true);
+			    Printers = AppSettings.DataAccess.Crud.GetListPrinters(false, false, true);
+			    Templates = AppSettings.DataAccess.Crud.GetListTemplates(false, false, true);
+			    ProductionFacilities = AppSettings.DataAccess.Crud.GetListProductionFacilities(false, false, true);
+			    WorkShops = AppSettings.DataAccess.Crud.GetListWorkShops(false, false, true);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

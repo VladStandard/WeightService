@@ -14,17 +14,13 @@ public class ProductionFacilityEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Address { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductionFacilityEntity() : base(0, false)
+	public ProductionFacilityEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -34,7 +30,7 @@ public class ProductionFacilityEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public ProductionFacilityEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public ProductionFacilityEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -72,8 +68,6 @@ public class ProductionFacilityEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((ProductionFacilityEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

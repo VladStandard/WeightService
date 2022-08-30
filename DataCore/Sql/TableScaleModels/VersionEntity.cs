@@ -13,10 +13,6 @@ public class VersionEntity : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    public static ColumnName IdentityName => ColumnName.Uid;
     public virtual DateTime ReleaseDt { get; set; }
     public virtual short Version { get; set; }
     public virtual string Description { get; set; }
@@ -24,7 +20,7 @@ public class VersionEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public VersionEntity() : base(Guid.Empty, false)
+    public VersionEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -34,7 +30,7 @@ public class VersionEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public VersionEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public VersionEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -87,8 +83,6 @@ public class VersionEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((VersionEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

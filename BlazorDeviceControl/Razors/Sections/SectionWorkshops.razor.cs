@@ -33,7 +33,7 @@ public partial class SectionWorkshops : BlazorCore.Models.RazorBase
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.Crud.GetListWorkShops(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListWorkShops(IsShowMarked, IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

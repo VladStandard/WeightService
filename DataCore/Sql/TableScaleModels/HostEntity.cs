@@ -13,10 +13,6 @@ public class HostEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual DateTime AccessDt { get; set; }
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string HostName { get; set; }
@@ -32,7 +28,7 @@ public class HostEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public HostEntity() : base(0, false)
+	public HostEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -42,7 +38,7 @@ public class HostEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public HostEntity(long identityId, bool isSetupDates) : base(0, isSetupDates)
+	public HostEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, 0, isSetupDates)
     {
 		Init();
 	}
@@ -89,8 +85,6 @@ public class HostEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((HostEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

@@ -34,12 +34,7 @@ public partial class ItemWorkshop : RazorBase
 				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<WorkShopEntity>(IdentityId);
 				if (IdentityId != null && TableAction == DbTableAction.New)
 					ItemCast.IdentityId = (long)IdentityId;
-				
-				// ProductionFacilities.
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-				ProductionFacilityEntity[]? productionFacilities = AppSettings.DataAccess.Crud.GetItems<ProductionFacilityEntity>(sqlCrudConfig);
-				if (productionFacilities is not null)
-					ProductionFacilities.AddRange(productionFacilities.Where(x => x.IdentityId > 0).ToList());
+				ProductionFacilities = AppSettings.DataAccess.Crud.GetListProductionFacilities(false, false, false);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

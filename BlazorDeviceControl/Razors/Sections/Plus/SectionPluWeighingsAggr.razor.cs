@@ -35,26 +35,27 @@ public partial class SectionPluWeighingsAggr : BlazorCore.Models.RazorBase
 		{
             () =>
             {
-                object[] objects = AppSettings.DataAccess.Crud.GetItemsNativeAsObjects(
+                object[] objects = AppSettings.DataAccess.Crud.GetObjects(
                     SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
                         IsShowOnlyTop ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
-                ItemsCast = new();
+                List<WeithingFactSummaryModel> items = new();
                 foreach (object obj in objects)
                 {
                     if (obj is object[] { Length: 5 } item)
                     {
-                        ItemsCast.Add(new()
+                        items.Add(new()
                         {
                             WeithingDate = Convert.ToDateTime(item[0]),
                             Count = Convert.ToInt32(item[1]),
-                            Scale = item[2] is string scale ? scale : string.Empty,
-                            Host = item[3] is string host ? host : string.Empty,
-                            Printer = item[4] is string printer ? printer : string.Empty,
+                            Scale = item[2] as string ?? string.Empty,
+                            Host = item[3] as string ?? string.Empty,
+                            Printer = item[4] as string ?? string.Empty,
                         });
                     }
                 }
+                ItemsCast = items;
 
-                ButtonSettings = new(true, true, true, true, true, false, false);
+				ButtonSettings = new(true, true, true, true, true, false, false);
             }
 		});
 	}

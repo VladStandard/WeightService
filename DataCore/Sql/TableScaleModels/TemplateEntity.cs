@@ -13,10 +13,6 @@ public class TemplateEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual string CategoryId { get; set; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 	[XmlElement] public virtual string Title { get; set; }
@@ -26,7 +22,7 @@ public class TemplateEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TemplateEntity() : base(0, false)
+	public TemplateEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -36,7 +32,7 @@ public class TemplateEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public TemplateEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public TemplateEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -95,8 +91,6 @@ public class TemplateEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((TemplateEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

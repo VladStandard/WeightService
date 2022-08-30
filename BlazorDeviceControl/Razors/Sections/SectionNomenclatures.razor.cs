@@ -33,7 +33,7 @@ public partial class SectionNomenclatures : BlazorCore.Models.RazorBase
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.Crud.GetListNomenclatures(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListNomenclatures(IsShowMarked, IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

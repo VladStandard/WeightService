@@ -19,12 +19,12 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WeithingFactSummaryModel() : base(0, false)
+	public WeithingFactSummaryModel() : base(ColumnName.Id, 0, false)
     {
 	    Init();
     }
 
-	public WeithingFactSummaryModel(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public WeithingFactSummaryModel(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 	    Init();
     }

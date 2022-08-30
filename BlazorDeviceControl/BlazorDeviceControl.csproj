@@ -99,8 +99,8 @@
     <Watch Remove="Razors\Items\ItemTemplate.razor" />
     <Watch Remove="Razors\Items\ItemTemplateResource.razor" />
     <Watch Remove="Razors\Items\ItemWorkshop.razor" />
-    <Watch Remove="Razors\Items\Measurements\ItemPluLabel.razor" />
-    <Watch Remove="Razors\Items\Measurements\ItemWf.razor" />
+    <Watch Remove="Razors\Items\Plu\ItemPluLabel.razor" />
+    <Watch Remove="Razors\Items\Plu\ItemPluWeighing.razor" />
     <Watch Remove="Razors\Items\RadzenPage.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsNones.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsQuestions.razor" />

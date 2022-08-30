@@ -13,10 +13,6 @@ public class ProductSeriesEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual ScaleEntity Scale { get; set; }
 	[XmlElement] public virtual bool IsClose { get; set; }
 	[XmlElement] public virtual string Sscc { get; set; }
@@ -24,7 +20,7 @@ public class ProductSeriesEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ProductSeriesEntity() : base(0, false)
+    public ProductSeriesEntity() : base(ColumnName.Id, 0, false)
     {
 		Init();
 	}
@@ -34,7 +30,7 @@ public class ProductSeriesEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public ProductSeriesEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public ProductSeriesEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -81,8 +77,6 @@ public class ProductSeriesEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((ProductSeriesEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

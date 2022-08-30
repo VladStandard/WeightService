@@ -5,5 +5,6 @@ namespace DataCore.Sql.Tables;
 
 public interface ITableModel
 {
-    void Init();
+	//ColumnName IdentityName { get; set; }
+	void Init();
 }

@@ -13,10 +13,6 @@ public class PrinterResourceEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual PrinterEntity Printer { get; set; }
 	[XmlElement] public virtual TemplateResourceEntity Resource { get; set; }
 	[XmlElement] public virtual string Description { get; set; }
@@ -24,7 +20,7 @@ public class PrinterResourceEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public PrinterResourceEntity() : base(0, false)
+    public PrinterResourceEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -34,7 +30,7 @@ public class PrinterResourceEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public PrinterResourceEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public PrinterResourceEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -82,8 +78,6 @@ public class PrinterResourceEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((PrinterResourceEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

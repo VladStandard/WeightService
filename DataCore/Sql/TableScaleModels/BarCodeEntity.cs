@@ -13,10 +13,6 @@ public class BarCodeEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual string Value { get; set; }
     [XmlElement] public virtual BarCodeTypeEntity? BarcodeType { get; set; }
 	[XmlElement] public virtual ContragentEntity? Contragent { get; set; }
@@ -25,7 +21,7 @@ public class BarCodeEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeEntity() : base(Guid.Empty, false)
+    public BarCodeEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -35,7 +31,7 @@ public class BarCodeEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public BarCodeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public BarCodeEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -60,7 +56,7 @@ public class BarCodeEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-		Value = string.Empty;
+	    Value = string.Empty;
 		BarcodeType = new();
 		Contragent = new();
 		Nomenclature = new();
@@ -101,8 +97,6 @@ public class BarCodeEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((BarCodeEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

@@ -48,8 +48,8 @@ public class RazorBase : LayoutComponentBase
     private ItemSaveCheckEntity ItemSaveCheck { get; set; }
     protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
     public TableModel? Item { get; set; }
+    protected object? ItemObject { get => Item; set => Item = (TableModel?)value; }
     protected bool IsLoaded { get; private set; }
-    protected object? ItemObject { get => Item ?? null; set => Item = (TableModel?)value; }
     protected UserSettingsHelper UserSettings { get; } = UserSettingsHelper.Instance;
 
     /// <summary>
@@ -651,14 +651,14 @@ public class RazorBase : LayoutComponentBase
 
     #region Public and private methods - Actions
 
-    public void RouteItemNavigate(bool isNewWindow, TableModel? item, DbTableAction tableAction)
-    {
+    private void RouteItemNavigate<T>(bool isNewWindow, T? item, DbTableAction tableAction) where T : TableModel, new()
+	{
         string page = RouteItemNavigatePage();
         if (string.IsNullOrEmpty(page))
             return;
 
         if (!isNewWindow)
-            RouteItemNavigateForItem(item, page, tableAction);
+            RouteItemNavigateCore(item, page, tableAction);
         else
             RouteItemNavigateUsingJsRuntime(page);
     }
@@ -753,7 +753,7 @@ public class RazorBase : LayoutComponentBase
         return page;
     }
 
-    private void RouteItemNavigateForItem(TableModel? item, string page, DbTableAction tableAction)
+    private void RouteItemNavigateCore<T>(T? item, string page, DbTableAction tableAction) where T : TableModel
     {
         switch (tableAction)
         {
@@ -1041,8 +1041,7 @@ public class RazorBase : LayoutComponentBase
 
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
-        TableModel? item = isParentRazor ? ParentRazor?.Item : Item;
-
+        
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionNewAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
             () =>
             {
@@ -1061,14 +1060,11 @@ public class RazorBase : LayoutComponentBase
 
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
-        TableModel? item = isParentRazor ? ParentRazor?.Item : Item;
-
-        if (item == null)
-            return;
+        
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionCopyAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
             () =>
             {
-                RouteItemNavigate(isNewWindow, item, DbTableAction.Copy);
+                RouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, DbTableAction.Copy);
             });
 
         ParentRazor?.OnChange();
@@ -1080,14 +1076,11 @@ public class RazorBase : LayoutComponentBase
 
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
-        TableModel? item = isParentRazor ? ParentRazor?.Item : Item;
-
-        if (item == null)
-            return;
+        
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionEditAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
             () =>
             {
-                RouteItemNavigate(isNewWindow, item, DbTableAction.Edit);
+                RouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, DbTableAction.Edit);
                 InvokeAsync(StateHasChanged);
             });
     }
@@ -1114,14 +1107,12 @@ public class RazorBase : LayoutComponentBase
 
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
-        TableModel? item = isParentRazor ? ParentRazor?.Item : Item;
 
-        if (item == null)
-            return;
-        RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionSaveAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
+		RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionSaveAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
             () =>
             {
-                InvokeAsync(StateHasChanged);
+	            //AppSettings.DataAccess.Crud.Save(isParentRazor ? ParentRazor?.Item : Item);
+				InvokeAsync(StateHasChanged);
             });
     }
 
@@ -1131,15 +1122,12 @@ public class RazorBase : LayoutComponentBase
 
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
-        TableModel? item = isParentRazor ? ParentRazor?.Item : Item;
-
-        if (item == null)
-            return;
+        
         RunActionsWithQeustion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
             () =>
             {
-                AppSettings.DataAccess.Crud.Mark(item);
+                AppSettings.DataAccess.Crud.Mark(isParentRazor ? ParentRazor?.Item : Item);
             });
 
         ParentRazor?.OnChange();
@@ -1151,15 +1139,12 @@ public class RazorBase : LayoutComponentBase
 
         if (!userSettings.Identity.AccessRightsIsWrite)
             return;
-        TableModel? item = isParentRazor ? ParentRazor?.Item : Item;
-
-        if (item == null)
-            return;
+        
         RunActionsWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
             () =>
             {
-                AppSettings.DataAccess.Crud.Delete(item);
+                AppSettings.DataAccess.Crud.Delete(isParentRazor ? ParentRazor?.Item : Item);
             });
 
         ParentRazor?.OnChange();

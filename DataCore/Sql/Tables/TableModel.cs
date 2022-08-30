@@ -20,35 +20,38 @@ public enum ColumnName
 [Serializable]
 public class TableModel : SerializeModel, ICloneable, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual long IdentityId { get; set; }
+	[XmlElement] public virtual ColumnName IdentityName { get; }
+	[XmlElement] public virtual long IdentityId { get; set; }
     [XmlElement] public virtual Guid IdentityUid { get; set; }
     [XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }
-    [XmlIgnore]
-    public virtual string IdentityUidStr
+    [XmlIgnore] public virtual string IdentityUidStr => IdentityUid.ToString();
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public TableModel() : this(ColumnName.Default) { }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public TableModel(ColumnName identityName)
     {
-        get => IdentityUid.ToString();
-        set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
+        IdentityName = identityName;
+		Init();
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableModel()
-    {
-        Init();
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    /// <param name="identityName"></param>
     /// <param name="isSetupDates"></param>
-    public TableModel(bool isSetupDates) : this()
+    public TableModel(ColumnName identityName, bool isSetupDates) : this(identityName)
     {
-        if (isSetupDates)
+	    if (isSetupDates)
         {
             ChangeDt = CreateDt = DateTime.Now;
         }
@@ -57,21 +60,23 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
+    /// <param name="identityName"></param>
     /// <param name="identityId"></param>
     /// <param name="isSetupDates"></param>
-    public TableModel(long identityId, bool isSetupDates) : this(isSetupDates)
+    public TableModel(ColumnName identityName, long identityId, bool isSetupDates) : this(identityName, isSetupDates)
     {
-        IdentityId = identityId;
+		IdentityId = identityId;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
+    /// <param name="identityName"></param>
     /// <param name="identityUid"></param>
     /// <param name="isSetupDates"></param>
-    public TableModel(Guid identityUid, bool isSetupDates) : this(isSetupDates)
+    public TableModel(ColumnName identityName, Guid identityUid, bool isSetupDates) : this(identityName, isSetupDates)
     {
-        IdentityUid = identityUid;
+	    IdentityUid = identityUid;
     }
 
     /// <summary>
@@ -79,9 +84,9 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     /// </summary>
     protected TableModel(SerializationInfo info, StreamingContext context)
     {
+		IdentityName = (ColumnName)info.GetValue(nameof(IdentityName), typeof(ColumnName));
         IdentityId = info.GetInt64(nameof(IdentityId));
         IdentityUid = Guid.Parse(info.GetString(nameof(IdentityUid)));
-        IdentityUidStr = info.GetString(nameof(IdentityUidStr));
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));
@@ -93,7 +98,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
 
     protected virtual void Init()
     {
-        IdentityId = 0;
+	    IdentityId = 0;
         IdentityUid = Guid.Empty;
         ChangeDt = CreateDt = DateTime.MinValue;
         IsMarked = false;
@@ -107,28 +112,18 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
-    //public override int GetHashCode() => IdentityName switch
-    //{
-    //    ColumnName.Id => IdentityId.GetHashCode(),
-    //    ColumnName.Uid => IdentityUid.GetHashCode(),
-    //    _ => default,
-    //};
-
-    //public virtual bool EqualsEmpty()
-    //{
-    //    bool isIdentityEmpty = IdentityName switch
-    //    {
-    //        ColumnName.Id => Equals(IdentityId, 0),
-    //        ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
-    //        _ => Equals(IdentityName, ColumnName.Default),
-    //    };
-    //    return isIdentityEmpty;
-    //}
+    public override int GetHashCode() => IdentityName switch
+    {
+        ColumnName.Id => IdentityId.GetHashCode(),
+        ColumnName.Uid => IdentityUid.GetHashCode(),
+        _ => default,
+    };
 
     public virtual bool Equals(TableModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         return
+            Equals(IdentityName, item.IdentityName) &&
             IdentityId.Equals(item.IdentityId) &&
             IdentityUid.Equals(item.IdentityUid) &&
             Equals(CreateDt, item.CreateDt) &&
@@ -147,9 +142,9 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(IdentityName), IdentityName);
         info.AddValue(nameof(IdentityId), IdentityId);
         info.AddValue(nameof(IdentityUid), IdentityUid);
-        info.AddValue(nameof(IdentityUidStr), IdentityUidStr);
         info.AddValue(nameof(ChangeDt), ChangeDt);
         info.AddValue(nameof(CreateDt), CreateDt);
         info.AddValue(nameof(IsMarked), IsMarked);
@@ -158,6 +153,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     public virtual bool EqualsDefault()
     {
         return
+            Equals(IdentityName, ColumnName.Default) &&
             Equals(IdentityId, (long)0) &&
             Equals(IdentityUid, Guid.Empty) &&
             Equals(CreateDt, DateTime.MinValue) &&
@@ -165,7 +161,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
             Equals(IsMarked, false);
     }
 
-    public virtual object Clone() => new TableModel()
+    public virtual object Clone() => new TableModel(IdentityName)
     {
         IdentityId = IdentityId,
         IdentityUid = IdentityUid,

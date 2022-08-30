@@ -26,7 +26,7 @@ public class NomenclatureLightEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public NomenclatureLightEntity() : base(0, false)
+	public NomenclatureLightEntity() : base(ColumnName.Id, 0, false)
     {
 	    Init();
     }
@@ -36,7 +36,7 @@ public class NomenclatureLightEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public NomenclatureLightEntity(long identityId, bool isSetupDates) : base(identityId, false)
+	public NomenclatureLightEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, false)
     {
 	    Init();
     }

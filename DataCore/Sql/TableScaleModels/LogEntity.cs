@@ -13,10 +13,6 @@ public class LogEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement(IsNullable = true)] public virtual HostEntity? Host { get; set; }
 	[XmlElement(IsNullable = true)] public virtual AppEntity? App { get; set; }
 	[XmlElement(IsNullable = true)] public virtual LogTypeEntity? LogType { get; set; }
@@ -29,7 +25,7 @@ public class LogEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogEntity() : base(Guid.Empty, false)
+    public LogEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -39,7 +35,7 @@ public class LogEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public LogEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public LogEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -51,7 +47,7 @@ public class LogEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-        Host = null;
+		Host = null;
         App = null;
         LogType = null;
 		Version = string.Empty;
@@ -104,8 +100,6 @@ public class LogEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((LogEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

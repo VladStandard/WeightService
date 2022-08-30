@@ -34,7 +34,7 @@ public partial class SectionScalesCore : BlazorCore.Models.RazorBase
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.Crud.GetListScales(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListScales(IsShowMarked, IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

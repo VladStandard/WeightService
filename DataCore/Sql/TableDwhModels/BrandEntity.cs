@@ -19,7 +19,7 @@ public class BrandEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public BrandEntity() : base(0, false)
+	public BrandEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -29,7 +29,7 @@ public class BrandEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public BrandEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public BrandEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}

@@ -13,10 +13,6 @@ public class OrganizationEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual int Gln { get; set; }
 	[XmlElement] public virtual string Xml { get; set; }
@@ -24,7 +20,7 @@ public class OrganizationEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrganizationEntity() : base(0, false)
+	public OrganizationEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -34,7 +30,7 @@ public class OrganizationEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public OrganizationEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public OrganizationEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 		Init();
 	}
@@ -46,7 +42,7 @@ public class OrganizationEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-		Name = string.Empty;
+	    Name = string.Empty;
 		Gln = 0;
 		Xml = string.Empty;
 	}
@@ -75,8 +71,6 @@ public class OrganizationEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((OrganizationEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

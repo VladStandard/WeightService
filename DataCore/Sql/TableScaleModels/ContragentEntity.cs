@@ -13,10 +13,6 @@ public class ContragentEntity : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    [XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
     [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual string FullName { get; set; }
     [XmlElement] public virtual Guid IdRRef { get; set; }
@@ -31,7 +27,7 @@ public class ContragentEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ContragentEntity() : base(Guid.Empty, false)
+    public ContragentEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -41,7 +37,7 @@ public class ContragentEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public ContragentEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public ContragentEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -53,7 +49,7 @@ public class ContragentEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-        Name = string.Empty;
+	    Name = string.Empty;
 		FullName = string.Empty;
 		IdRRef = Guid.Empty;
 		DwhId = 0;
@@ -85,8 +81,6 @@ public class ContragentEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((ContragentEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

@@ -196,9 +196,9 @@ public partial class CrudController
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public ColumnName GetColumnIdentity(TableModel? item)
+    public ColumnName GetColumnIdentity<T>(T? item) where T : TableModel
     {
-        return item switch
+		return item switch
         {
             AccessEntity => AccessEntity.IdentityName,
             AppEntity => AppEntity.IdentityName,

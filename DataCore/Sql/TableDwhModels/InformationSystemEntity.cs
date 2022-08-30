@@ -19,7 +19,7 @@ public class InformationSystemEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public InformationSystemEntity() : base(0, false)
+	public InformationSystemEntity() : base(ColumnName.Id, 0, false)
     {
 	    Init();
     }
@@ -29,7 +29,7 @@ public class InformationSystemEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public InformationSystemEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public InformationSystemEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 	    Init();
     }

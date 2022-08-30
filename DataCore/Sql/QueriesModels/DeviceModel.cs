@@ -15,7 +15,7 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public DeviceModel() : base(0, false)
+	public DeviceModel() : base(ColumnName.Id, 0, false)
     {
 		Init();
 	}
@@ -25,7 +25,7 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public DeviceModel(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public DeviceModel(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}

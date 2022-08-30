@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
-
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPlus : BlazorCore.Models.RazorBase
@@ -36,7 +34,7 @@ public partial class SectionPlus : BlazorCore.Models.RazorBase
 		{
 			() =>
 			{
-				ItemsCast = AppSettings.DataAccess.Crud.GetListPlus(IsShowMarked, IsShowOnlyTop);
+				ItemsCast = AppSettings.DataAccess.Crud.GetListPlus(IsShowMarked, IsShowOnlyTop, false);
 
 				ButtonSettings = new(false, false, true, true, false, false, false);
 			}

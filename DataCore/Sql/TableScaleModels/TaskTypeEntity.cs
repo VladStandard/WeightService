@@ -13,21 +13,17 @@ public class TaskTypeEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual string Name { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskTypeEntity() : base(Guid.Empty, false)
+    public TaskTypeEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
 
-    public TaskTypeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+    public TaskTypeEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -62,8 +58,6 @@ public class TaskTypeEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((TaskTypeEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

@@ -11,10 +11,6 @@
 //{
 //	#region Public and private fields, properties, constructor
 
-//	/// <summary>
-//	/// Identity name.
-//	/// </summary>
-//	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 //    [XmlElement] public virtual WeithingFactEntity WeithingFact { get; set; }
 //    [XmlElement(IsNullable = true)] public virtual byte[]? Label { get; set; }
 //	[XmlElement] public virtual string LabelString

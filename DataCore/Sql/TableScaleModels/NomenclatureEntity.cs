@@ -13,10 +13,6 @@ public class NomenclatureEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Code { get; set; }
 	[XmlElement(IsNullable = true)] public virtual string? Xml { get; set; }
@@ -28,7 +24,7 @@ public class NomenclatureEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public NomenclatureEntity() : base(0, false)
+    public NomenclatureEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -37,7 +33,7 @@ public class NomenclatureEntity : TableModel, ISerializable, ITableModel
 	/// Constructor.
 	/// </summary>
 	/// <param name="isSetupDates"></param>
-	public NomenclatureEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public NomenclatureEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 		Init();
 	}
@@ -79,8 +75,6 @@ public class NomenclatureEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((NomenclatureEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

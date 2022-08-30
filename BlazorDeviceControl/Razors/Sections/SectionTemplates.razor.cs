@@ -33,7 +33,7 @@ public partial class SectionTemplates : BlazorCore.Models.RazorBase
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetListTemplates(IsShowMarked, IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.Crud.GetListTemplates(IsShowMarked, IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

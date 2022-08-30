@@ -44,9 +44,7 @@ public partial class ItemPrinter : RazorBase
 						break;
 				}
 
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, false, false);
-				PrinterTypes = AppSettings.DataAccess.Crud.GetList<PrinterTypeEntity>(sqlCrudConfig);
-
+				PrinterTypes = AppSettings.DataAccess.Crud.GetListPrinterTypes(false, false);
 				if (IdentityId != null && TableAction == DbTableAction.New)
 				{
 					ItemCast.IdentityId = (long)IdentityId;
@@ -56,7 +54,6 @@ public partial class ItemPrinter : RazorBase
 				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
-				//await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
 			}
 		});
 	}

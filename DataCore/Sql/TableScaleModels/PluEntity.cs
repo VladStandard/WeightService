@@ -15,10 +15,6 @@ public class PluEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
     [XmlElement] public virtual int Number { get; set; }
     [XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string FullName { get; set; }
@@ -53,7 +49,7 @@ public class PluEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluEntity() : base(Guid.Empty, false)
+	public PluEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -63,7 +59,7 @@ public class PluEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public PluEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public PluEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -160,8 +156,6 @@ public class PluEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((PluEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

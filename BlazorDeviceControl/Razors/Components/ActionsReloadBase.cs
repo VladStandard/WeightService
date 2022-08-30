@@ -9,7 +9,7 @@ public class ActionsReloadBase : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public string Title { get; set; }
+    [Parameter] public string Title { get; set; } = string.Empty;
 	[Parameter] public TableScale FilterTable { get; set; }
     protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {ParentRazor?.Items?.Count ?? 0:### ### ###}";
 

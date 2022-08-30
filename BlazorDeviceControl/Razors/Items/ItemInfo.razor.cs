@@ -43,7 +43,7 @@ public partial class ItemInfo : RazorBase
 				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
 				TemplateIsDebug = AppSettings.DataSourceDics.GetTemplateIsDebug();
 				object[] objects =
-					AppSettings.DataAccess.Crud.GetItemsNativeAsObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
+					AppSettings.DataAccess.Crud.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
 				DbCurSize = 0;
 				foreach (object obj in objects)
 				{

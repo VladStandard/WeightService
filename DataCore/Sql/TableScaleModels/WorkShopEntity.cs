@@ -13,10 +13,6 @@ public class WorkShopEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual ProductionFacilityEntity ProductionFacility { get; set; }
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
@@ -24,7 +20,7 @@ public class WorkShopEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public WorkShopEntity() : base(0, false)
+    public WorkShopEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -34,7 +30,7 @@ public class WorkShopEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public WorkShopEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public WorkShopEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 	    Init();
     }
@@ -80,8 +76,6 @@ public class WorkShopEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((WorkShopEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

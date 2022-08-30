@@ -56,17 +56,8 @@ public partial class ItemPrinterResource : RazorBase
 						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterResourceEntity>(IdentityId);
 						break;
 				}
-
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-				PrinterEntity[]? printers = AppSettings.DataAccess.Crud.GetItems<PrinterEntity>(sqlCrudConfig);
-				Printers = new();
-				if (printers is not null)
-					Printers.AddRange(printers);
-
-				TemplateResourceEntity[]? resources = AppSettings.DataAccess.Crud.GetItems<TemplateResourceEntity>(new());
-				Resources = new();
-				if (resources is not null)
-					Resources.AddRange(resources);
+				Printers = AppSettings.DataAccess.Crud.GetListPrinters(false, false, false);
+				Resources = AppSettings.DataAccess.Crud.GetListTemplateResources(false, false);
 				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

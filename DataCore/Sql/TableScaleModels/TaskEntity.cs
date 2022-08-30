@@ -13,10 +13,6 @@ public class TaskEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual TaskTypeEntity TaskType { get; set; }
 	[XmlElement] public virtual ScaleEntity Scale { get; set; }
 	[XmlElement] public virtual bool Enabled { get; set; }
@@ -24,7 +20,7 @@ public class TaskEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskEntity() : base(Guid.Empty, false)
+    public TaskEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -34,7 +30,7 @@ public class TaskEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public TaskEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public TaskEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 	    Init();
     }
@@ -82,8 +78,6 @@ public class TaskEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((TaskEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

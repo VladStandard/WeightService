@@ -14,11 +14,6 @@ public class PluWeighingEntity : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    [XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-
     [XmlElement] public virtual PluScaleEntity PluScale { get; set; }
     [XmlElement] public virtual ProductSeriesEntity Series { get; set; }
     [XmlElement] public virtual short Kneading { get; set; }
@@ -31,7 +26,7 @@ public class PluWeighingEntity : TableModel, ISerializable, ITableModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingEntity() : base(Guid.Empty, false)
+    public PluWeighingEntity() : base(ColumnName.Uid, Guid.Empty, false)
     {
         Init();
     }
@@ -41,7 +36,7 @@ public class PluWeighingEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public PluWeighingEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public PluWeighingEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
         Init();
     }
@@ -114,8 +109,6 @@ public class PluWeighingEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((PluWeighingEntity)obj);
     }
-
-    public override int GetHashCode() => IdentityUid.GetHashCode();
 
     public virtual bool EqualsNew()
     {

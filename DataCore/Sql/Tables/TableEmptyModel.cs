@@ -13,7 +13,7 @@ public class TableEmptyModel : TableModel, ISerializable, ITableModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableEmptyModel() : base(Guid.Empty, false)
+    public TableEmptyModel() : base(ColumnName.Uid, Guid.Empty, false)
     {
         Init();
     }
@@ -23,7 +23,7 @@ public class TableEmptyModel : TableModel, ISerializable, ITableModel
     /// </summary>
     /// <param name="identityUid"></param>
     /// <param name="isSetupDates"></param>
-    public TableEmptyModel(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+    public TableEmptyModel(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
         Init();
     }
@@ -33,7 +33,7 @@ public class TableEmptyModel : TableModel, ISerializable, ITableModel
     /// </summary>
     /// <param name="identityId"></param>
     /// <param name="isSetupDates"></param>
-    public TableEmptyModel(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+    public TableEmptyModel(long identityId, bool isSetupDates) : base(ColumnName.Uid, identityId, isSetupDates)
     {
         Init();
     }

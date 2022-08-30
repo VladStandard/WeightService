@@ -13,10 +13,6 @@ public class OrderEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual DateTime BeginDt { get; set; }
 	[XmlElement] public virtual DateTime EndDt { get; set; }
@@ -27,7 +23,7 @@ public class OrderEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderEntity() : base(0, false)
+    public OrderEntity() : base(ColumnName.Uid, 0, false)
 	{
 		Init();
 	}
@@ -37,7 +33,7 @@ public class OrderEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public OrderEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public OrderEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -90,8 +86,6 @@ public class OrderEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((OrderEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

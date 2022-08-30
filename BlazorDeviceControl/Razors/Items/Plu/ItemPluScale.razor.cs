@@ -3,7 +3,7 @@
 
 using DataCore.Sql.QueriesModels;
 
-namespace BlazorDeviceControl.Razors.Items;
+namespace BlazorDeviceControl.Razors.Items.Plu;
 
 public partial class ItemPluScale : RazorBase
 {
@@ -51,34 +51,10 @@ public partial class ItemPluScale : RazorBase
                         ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluScaleEntity>(IdentityUid);
                         break;
                 }
-
-	            // Templates.
-	            Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Title), 0, false, false);
-				TemplateEntity[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(sqlCrudConfig);
-                if (templates is not null)
-                    Templates.AddRange(templates);
-
-	            // Nomenclatures.
-	            Nomenclatures = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-				NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(sqlCrudConfig);
-                if (nomenclatures is not null)
-                    Nomenclatures.AddRange(nomenclatures);
-
-	            // Scales.
-	            Scales = new() { new(0, false) { Description = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
-				ScaleEntity[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
-                if (scales is not null)
-                    Scales.AddRange(scales);
-
-	            // Plus.
-	            Plus = new() { new(Guid.Empty, false) { Description = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-				PluEntity[]? plus = AppSettings.DataAccess.Crud.GetItems<PluEntity>(sqlCrudConfig);
-                if (plus is not null)
-                    Plus.AddRange(plus);
+	            Templates = AppSettings.DataAccess.Crud.GetListTemplates(false, false, true);
+	            Nomenclatures = AppSettings.DataAccess.Crud.GetListNomenclatures(false, false, true);
+	            Scales = AppSettings.DataAccess.Crud.GetListScales(false, false, true);
+                Plus = AppSettings.DataAccess.Crud.GetListPlus(false, false, true);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)

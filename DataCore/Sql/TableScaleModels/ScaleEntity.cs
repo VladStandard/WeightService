@@ -13,10 +13,6 @@ public class ScaleEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement(IsNullable = true)] public virtual TemplateEntity? TemplateDefault { get; set; }
 	[XmlElement(IsNullable = true)] public virtual TemplateEntity? TemplateSeries { get; set; }
 	[XmlElement(IsNullable = true)] public virtual WorkShopEntity? WorkShop { get; set; }
@@ -44,7 +40,7 @@ public class ScaleEntity : TableModel, ISerializable, ITableModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ScaleEntity() : base(0, false)
+    public ScaleEntity() : base(ColumnName.Id, 0, false)
     {
 	    Init();
     }
@@ -54,7 +50,7 @@ public class ScaleEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public ScaleEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public ScaleEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
 	{
 		Init();
 	}
@@ -179,8 +175,6 @@ public class ScaleEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((ScaleEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

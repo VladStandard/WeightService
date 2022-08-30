@@ -13,17 +13,12 @@ public class BarCodeTypeEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-
 	[XmlElement] public virtual string Name { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeTypeEntity() : base(Guid.Empty, false)
+    public BarCodeTypeEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -33,7 +28,7 @@ public class BarCodeTypeEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public BarCodeTypeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public BarCodeTypeEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
 		Init();
 	}
@@ -45,7 +40,7 @@ public class BarCodeTypeEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-        Name = string.Empty;
+	    Name = string.Empty;
 	}
 
     public override string ToString() =>
@@ -68,8 +63,6 @@ public class BarCodeTypeEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((BarCodeTypeEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

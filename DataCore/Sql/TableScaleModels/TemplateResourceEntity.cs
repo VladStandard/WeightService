@@ -13,10 +13,6 @@ public class TemplateResourceEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Id;
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string Type { get; set; }
@@ -27,7 +23,7 @@ public class TemplateResourceEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TemplateResourceEntity() : this(0, false)
+    public TemplateResourceEntity() : base(ColumnName.Id, 0, false)
 	{
 		Init();
 	}
@@ -37,7 +33,7 @@ public class TemplateResourceEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public TemplateResourceEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public TemplateResourceEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 	    Init();
     }
@@ -85,8 +81,6 @@ public class TemplateResourceEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((TemplateResourceEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityId.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

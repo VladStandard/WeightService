@@ -13,17 +13,13 @@ public class LogTypeEntity : TableModel, ISerializable, ITableModel
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// Identity name.
-	/// </summary>
-	[XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
 	[XmlElement] public virtual byte Number { get; set; }
 	[XmlElement] public virtual string Icon { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogTypeEntity() : base(Guid.Empty, false)
+    public LogTypeEntity() : base(ColumnName.Uid, Guid.Empty, false)
 	{
 		Init();
 	}
@@ -33,7 +29,7 @@ public class LogTypeEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityUid"></param>
 	/// <param name="isSetupDates"></param>
-	public LogTypeEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+	public LogTypeEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
     {
 		Init();
 	}
@@ -45,7 +41,7 @@ public class LogTypeEntity : TableModel, ISerializable, ITableModel
     public new virtual void Init()
     {
 	    base.Init();
-        Number = 0x00;
+	    Number = 0x00;
         Icon = string.Empty;
     }
 
@@ -71,8 +67,6 @@ public class LogTypeEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((LogTypeEntity)obj);
     }
-
-	public override int GetHashCode() => IdentityUid.GetHashCode();
 
 	public virtual bool EqualsNew()
     {

@@ -18,7 +18,7 @@ public class NomenclatureGroupEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public NomenclatureGroupEntity() : base(0, false)
+	public NomenclatureGroupEntity() : base(ColumnName.Id, 0, false)
     {
 	    Init();
     }
@@ -28,7 +28,7 @@ public class NomenclatureGroupEntity : TableModel, ISerializable, ITableModel
 	/// </summary>
 	/// <param name="identityId"></param>
 	/// <param name="isSetupDates"></param>
-	public NomenclatureGroupEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public NomenclatureGroupEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 	    Init();
     }

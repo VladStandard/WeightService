@@ -14,18 +14,13 @@ public class PluLabelEntity : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Identity name.
-    /// </summary>
-    [XmlElement] public static ColumnName IdentityName => ColumnName.Uid;
-
     [XmlElement] public virtual PluWeighingEntity? PluWeighing { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelEntity() : base(Guid.Empty, false)
+    public PluLabelEntity() : base(ColumnName.Uid, Guid.Empty, false)
     {
         Init();
     }
@@ -35,7 +30,7 @@ public class PluLabelEntity : TableModel, ISerializable, ITableModel
     /// </summary>
     /// <param name="identityUid"></param>
     /// <param name="isSetupDates"></param>
-    public PluLabelEntity(Guid identityUid, bool isSetupDates) : base(identityUid, isSetupDates)
+    public PluLabelEntity(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
 	{
         Init();
     }
@@ -89,8 +84,6 @@ public class PluLabelEntity : TableModel, ISerializable, ITableModel
 		if (obj.GetType() != GetType()) return false;
         return Equals((PluLabelEntity)obj);
     }
-
-    public override int GetHashCode() => IdentityUid.GetHashCode();
 
     public virtual bool EqualsNew()
     {

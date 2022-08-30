@@ -3,7 +3,6 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
 namespace BlazorDeviceControl.Pages;
 
@@ -11,19 +10,21 @@ namespace BlazorDeviceControl.Pages;
 [IgnoreAntiforgeryToken]
 public class ErrorModel : PageModel
 {
+    #region Public and private fields, properties, constructor
+
     public string RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
     private readonly ILogger<ErrorModel> _logger;
-
     public ErrorModel(ILogger<ErrorModel> logger)
     {
+        RequestId = string.Empty;
         _logger = logger;
     }
 
-    public void OnGet()
-    {
-        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-    }
+
+    #endregion
+
+    //public void OnGet()
+    //{
+    //    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+    //}
 }
