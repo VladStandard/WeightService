@@ -31,12 +31,12 @@ public partial class SectionProductionFacilities : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<ProductionFacilityEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
-                ItemsCast = ItemsCast.Where(x => x.IdentityId > 0).ToList();
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListProductionFacilities(IsShowMarked, IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

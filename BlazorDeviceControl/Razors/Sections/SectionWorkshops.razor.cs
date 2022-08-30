@@ -28,12 +28,12 @@ public partial class SectionWorkshops : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<WorkShopEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
-                ItemsCast = ItemsCast.OrderBy(x => x.ProductionFacility.Name).ToList();
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListWorkShops(IsShowMarked, IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

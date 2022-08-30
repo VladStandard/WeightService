@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
 using DataCore.Sql.Tables;
 using static DataCore.ShareEnums;
 
@@ -142,7 +141,9 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 	    switch (string.IsNullOrEmpty(Scale))
 	    {
 		    case false:
-			    ScaleEntity? scale = dataAccess.Crud.GetItem<ScaleEntity>(new FieldFilterModel(DbField.Description, DbComparer.Equal, Scale));
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+					new() { new(DbField.Description, DbComparer.Equal, Scale) }, null, 0, false, false);
+				ScaleEntity? scale = dataAccess.Crud.GetItem<ScaleEntity>(sqlCrudConfig);
 			    if (scale is not null)
 				    return scale.IdentityId;
 			    break;
@@ -155,7 +156,9 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 	    switch (string.IsNullOrEmpty(Host))
 	    {
 		    case false:
-			    HostEntity? host = dataAccess.Crud.GetItem<HostEntity>(new FieldFilterModel(DbField.HostName, DbComparer.Equal, Host));
+			    SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+				    new() { new(DbField.HostName, DbComparer.Equal, Host) }, null, 0, false, false);
+			    HostEntity? host = dataAccess.Crud.GetItem<HostEntity>(sqlCrudConfig);
                 if (host is not null)
 					return host.IdentityId;
                 break;

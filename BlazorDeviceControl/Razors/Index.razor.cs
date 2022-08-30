@@ -12,10 +12,4 @@ public partial class Index : BlazorCore.Models.RazorBase
     private string UserDescription => $"{LocaleCore.Strings.AuthorizingUserName}: {UserSettings.Identity.UserName}";
 
     #endregion
-
-    #region Public and private methods
-
-    //
-
-    #endregion
 }

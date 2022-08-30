@@ -7,6 +7,7 @@ using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql;
 using DataCore.Sql.Fields;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils;
@@ -318,8 +319,11 @@ public class UserSessionHelper : BaseViewModel
         {
             //template = PluScale?.LoadTemplate();
             if (PluScale != null)
-                template = DataAccess.Crud.GetItem<TemplateEntity>(new List<FieldFilterModel> {
-	                new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId)});
+            {
+	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
+		            { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId) }, null, 0, false,false);
+                template = DataAccess.Crud.GetItem<TemplateEntity>(sqlCrudConfig);
+            }
         }
 
         // Template exist.

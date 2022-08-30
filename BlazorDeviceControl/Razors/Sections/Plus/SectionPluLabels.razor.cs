@@ -1,10 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.QueriesModels;
-using DataCore.Sql.Tables;
-
-namespace BlazorDeviceControl.Razors.Sections.Measurements;
+namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPluLabels : BlazorCore.Models.RazorBase
 {
@@ -31,6 +28,7 @@ public partial class SectionPluLabels : BlazorCore.Models.RazorBase
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
+
 		RunActions(new()
 		{
             () =>
@@ -67,7 +65,8 @@ public partial class SectionPluLabels : BlazorCore.Models.RazorBase
                 //        }
                 //    }
                 //}
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PluLabelEntity>(IsShowMarked, IsShowOnlyTop);
+                
+                ItemsCast = AppSettings.DataAccess.Crud.GetListPluLabels(IsShowMarked, IsShowOnlyTop);
 
 				ButtonSettings = new(true, true, true, false, false, false, false);
             }

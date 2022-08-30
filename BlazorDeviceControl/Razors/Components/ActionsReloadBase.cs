@@ -14,10 +14,4 @@ public class ActionsReloadBase : RazorBase
     protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {ParentRazor?.Items?.Count ?? 0:### ### ###}";
 
     #endregion
-
-    #region Public and private methods
-
-    //
-
-    #endregion
 }

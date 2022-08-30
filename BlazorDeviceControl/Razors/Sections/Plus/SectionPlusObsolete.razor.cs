@@ -1,10 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
 using DataCore.Sql.Tables;
 
-namespace BlazorDeviceControl.Razors.Sections;
+namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPlusObsolete : BlazorCore.Models.RazorBase
 {
@@ -32,19 +31,14 @@ public partial class SectionPlusObsolete : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                long? scaleId = null;
-                if (ItemFilter is ScaleEntity scale)
-                    scaleId = scale.IdentityId;
-                List<FieldFilterModel> filters = IsShowMarkedFilter ? new() : new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) };
-                if (scaleId is not null)
-	                filters.Add(new($"{nameof(PluObsoleteEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId));
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PluObsoleteEntity>(IsShowOnlyTop, filters, new(DbField.GoodsName));
+				ItemsCast = AppSettings.DataAccess.Crud.GetListPluObsoletes(IsShowMarked, IsShowOnlyTop, ItemFilter);
 
-                ButtonSettings = new(true, true, true, true, true, false, false);
+				ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

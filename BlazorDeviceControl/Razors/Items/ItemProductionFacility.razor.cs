@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemProductionFacility : BlazorCore.Models.RazorBase
+public partial class ItemProductionFacility : RazorBase
 {
 	#region Public and private fields, properties, constructor
 

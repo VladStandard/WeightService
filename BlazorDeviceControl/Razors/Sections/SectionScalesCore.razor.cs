@@ -29,11 +29,12 @@ public partial class SectionScalesCore : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<ScaleEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Description));
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListScales(IsShowMarked, IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

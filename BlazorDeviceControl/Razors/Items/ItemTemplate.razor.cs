@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemTemplate : BlazorCore.Models.RazorBase
+public partial class ItemTemplate : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public partial class ItemTemplate : BlazorCore.Models.RazorBase
 		base.OnInitialized();
 
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-		TemplateCategories = BlazorCore.Models.DataSourceDicsEntity.GetTemplateCategories();
+		TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
 		ItemCast = new();
 	}
 

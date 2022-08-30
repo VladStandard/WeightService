@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Models;
 using DataCore.Sql.Tables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -705,7 +706,7 @@ public class RazorBase : LayoutComponentBase
                         page = LocaleData.DeviceControl.UriRouteItem.Host;
                         break;
                     case ProjectsEnums.TableScale.PlusLabels:
-                        page = LocaleData.DeviceControl.UriRouteItem.Label;
+                        page = LocaleData.DeviceControl.UriRouteItem.PluLabel;
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
                         page = LocaleData.DeviceControl.UriRouteItem.Nomenclature;
@@ -851,7 +852,7 @@ public class RazorBase : LayoutComponentBase
                         page = LocaleData.DeviceControl.UriRouteSection.Hosts;
                         break;
                     case ProjectsEnums.TableScale.PlusLabels:
-                        page = LocaleData.DeviceControl.UriRouteSection.Labels;
+                        page = LocaleData.DeviceControl.UriRouteSection.PluLabels;
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
                         page = LocaleData.DeviceControl.UriRouteSection.Nomenclatures;
@@ -1175,8 +1176,8 @@ public class RazorBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
             () =>
             {
-                List<TemplateResourceEntity> templateResources = AppSettings.DataAccess.Crud.GetItemsListNotNull<TemplateResourceEntity>(
-                    false, false, new(DbField.Description));
+	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+                List<TemplateResourceEntity> templateResources = AppSettings.DataAccess.Crud.GetList<TemplateResourceEntity>(sqlCrudConfig);
                 foreach (TemplateResourceEntity templateResource in templateResources)
                 {
                     if (templateResource.Name.Contains("TTF"))
@@ -1204,8 +1205,8 @@ public class RazorBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, LocaleCore.Dialog.DialogResultCancel, GetQuestionAdd(),
             () =>
             {
-                List<TemplateResourceEntity> templateResources = AppSettings.DataAccess.Crud.GetItemsListNotNull<TemplateResourceEntity>(
-                        false, false, new(DbField.Description));
+	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+				List<TemplateResourceEntity> templateResources = AppSettings.DataAccess.Crud.GetList<TemplateResourceEntity>(sqlCrudConfig);
                 foreach (TemplateResourceEntity templateResource in templateResources)
                 {
                     if (templateResource.Name.Contains(fileType))

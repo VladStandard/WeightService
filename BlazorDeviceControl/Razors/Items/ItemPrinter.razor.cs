@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemPrinter : BlazorCore.Models.RazorBase
+public partial class ItemPrinter : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -44,7 +44,8 @@ public partial class ItemPrinter : BlazorCore.Models.RazorBase
 						break;
 				}
 
-				PrinterTypes = AppSettings.DataAccess.Crud.GetItemsListNotNull<PrinterTypeEntity>(false, false);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, false, false);
+				PrinterTypes = AppSettings.DataAccess.Crud.GetList<PrinterTypeEntity>(sqlCrudConfig);
 
 				if (IdentityId != null && TableAction == DbTableAction.New)
 				{

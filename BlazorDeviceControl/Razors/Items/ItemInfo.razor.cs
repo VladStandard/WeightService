@@ -3,21 +3,21 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemInfo : BlazorCore.Models.RazorBase
+public partial class ItemInfo : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
 	private string VerApp => AssemblyUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
 	private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
 	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
-	private List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
+	private List<TypeEntity<Lang>>? TemplateLanguages { get; set; }
 	private List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
 	private uint DbCurSize { get; set; }
 	private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
 	private uint DbMaxSize { get; set; } = 10_240;
 	private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
 	private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
-	private List<ShareEnums.Lang> Langs { get; set; } = new();
+	private List<Lang> Langs { get; set; } = new();
 
 	#endregion
 
@@ -28,7 +28,7 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
 		base.OnInitialized();
 
 		Langs = new();
-		foreach (ShareEnums.Lang lang in Enum.GetValues(typeof(ShareEnums.Lang)))
+		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
 			Langs.Add(lang);
 	}
 
@@ -41,9 +41,9 @@ public partial class ItemInfo : BlazorCore.Models.RazorBase
 			() =>
 			{
 				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-				TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
+				TemplateIsDebug = AppSettings.DataSourceDics.GetTemplateIsDebug();
 				object[] objects =
-					AppSettings.DataAccess.Crud.GetItemsNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+					AppSettings.DataAccess.Crud.GetItemsNativeAsObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
 				DbCurSize = 0;
 				foreach (object obj in objects)
 				{

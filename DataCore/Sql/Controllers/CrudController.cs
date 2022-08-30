@@ -1,15 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
 using DataCore.Sql.Tables;
 using FluentNHibernate.Conventions;
-using FluentNHibernate.Mapping;
 using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Loader;
-using NHibernate.Loader.Criteria;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers;
 
@@ -59,20 +53,15 @@ public partial class CrudController
         return result;
     }
 
-    private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig)
-        where T : TableModel, new()
+    private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
-        if (maxResults > 0)
-            criteria.SetMaxResults(maxResults);
-        criteria.SetCriteriaFilters(filters);
-        criteria.SetCriteriaOrder(order);
+        if (sqlCrudConfig.MaxResults > 0)
+            criteria.SetMaxResults(sqlCrudConfig.MaxResults);
+        criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
+        criteria.SetCriteriaOrder(sqlCrudConfig.Order);
         return criteria;
     }
-
-    private ICriteria GetCriteria<T>(ISession session, FieldOrderModel? order, int maxResults)
-	    where T : TableModel, new() =>
-	    GetCriteria<T>(session, null, order, maxResults);
 
     private void ExecuteTransaction(ExecCallback callback)
     {
@@ -83,7 +72,7 @@ public partial class CrudController
             using ITransaction? transaction = session.BeginTransaction();
             try
             {
-                callback?.Invoke(session);
+                callback.Invoke(session);
                 session.Flush();
                 transaction.Commit();
             }
@@ -101,9 +90,9 @@ public partial class CrudController
                 session.Dispose();
             }
         }
-        if (!isException && exception != null)
+        if (exception != null)
         {
-            DataAccess.Log.LogError(exception, null, null, filePath, lineNumber, memberName);
+            DataAccess.Log.LogError(exception);
         }
     }
 
@@ -115,7 +104,7 @@ public partial class CrudController
         return session.CreateSQLQuery(query);
     }
 
-    public int ExecQueryNativeInside(string query, Dictionary<string, object> parameters)
+    public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
     {
         int result = 0;
         ExecuteTransaction((session) =>
@@ -136,10 +125,6 @@ public partial class CrudController
         return result;
     }
 
-    public int ExecQueryNative(string query, Dictionary<string, object> parameters,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        => ExecQueryNativeInside(query, parameters, filePath, lineNumber, memberName);
-
     public void Save<T>(T? item) where T : TableModel, new()
     {
         if (item == null)
@@ -147,9 +132,9 @@ public partial class CrudController
 
         switch (item)
         {
-            case ContragentEntity contragent:
+            case ContragentEntity:
                 throw new($"{nameof(Save)} for {nameof(ContragentEntity)} is deny!");
-            case TableScaleModels.NomenclatureEntity nomenclature:
+            case TableScaleModels.NomenclatureEntity:
                 throw new($"{nameof(Save)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
             default:
                 ExecuteTransaction((session) => { session.Save(item); });
@@ -182,12 +167,12 @@ public partial class CrudController
         ExecuteTransaction((session) => { session.SaveOrUpdate(item); });
     }
 
-    private bool ExistsEntityInside<T>(T? item) where T : TableModel, new()
+    private bool IsExistsItem<T>(T? item) where T : TableModel, new()
     {
-        bool result = false;
         if (item == null)
-            return result;
-
+            return false;
+        
+        bool result = false;
         ExecuteTransaction((session) =>
         {
             result = session.Query<T>().Any(x => x.IsAny(item));
@@ -195,27 +180,15 @@ public partial class CrudController
         return result;
     }
 
-    public bool ExistsEntity<T>(T? item) where T : TableModel, new()
-    {
-        if (item == null)
-            return false;
-
-        return ExistsEntityInside(item);
-    }
-
-    private bool ExistsEntityInside<T>(List<FieldFilterModel>? filters, FieldOrderModel? order) where T : TableModel, new()
+    private bool IsExistsItem<T>(SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
     {
         bool result = false;
-        ExecuteTransaction((session) =>
+        sqlCrudConfig.MaxResults = 1;
+		ExecuteTransaction((session) =>
         {
-            result = GetCriteria<T>(session, filters, order, 1).List<T>().Count > 0;
+            result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Count > 0;
         });
         return result;
-    }
-
-    public bool ExistsEntity<T>(List<FieldFilterModel>? filters, FieldOrderModel? order) where T : TableModel, new()
-    {
-        return ExistsEntityInside<T>(filters, order);
     }
 
     /// <summary>

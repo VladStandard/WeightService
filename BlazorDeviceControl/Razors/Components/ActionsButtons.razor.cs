@@ -5,9 +5,5 @@ namespace BlazorDeviceControl.Razors.Components;
 
 public partial class ActionsButtons : RazorBase
 {
-	#region Public and private methods
-
 	//
-
-	#endregion
 }

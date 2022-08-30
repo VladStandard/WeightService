@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemTemplateResource : BlazorCore.Models.RazorBase
+public partial class ItemTemplateResource : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -53,7 +53,7 @@ public partial class ItemTemplateResource : BlazorCore.Models.RazorBase
             Severity = NotificationSeverity.Error,
             Summary = $"{LocaleCore.Strings.MethodError} [{name}]!",
             Detail = args.Message,
-            Duration = BlazorCore.Models.AppSettingsHelper.Delay
+            Duration = AppSettingsHelper.Delay
         };
         NotificationService.Notify(msg);
     }

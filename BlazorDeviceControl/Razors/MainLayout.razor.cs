@@ -5,12 +5,6 @@ namespace BlazorDeviceControl.Razors;
 
 public partial class MainLayout : BlazorCore.Models.RazorBase
 {
-    #region Public and private fields, properties, constructor
-
-    //
-
-    #endregion
-
     #region Public and private methods
 
     protected override void OnInitialized()
@@ -39,14 +33,6 @@ public partial class MainLayout : BlazorCore.Models.RazorBase
                 AppSettings.Memory.OpenAsync().ConfigureAwait(false);
             }
         });
-        //// Don't change it, because GuiRefreshAsync can get exception!
-        //RunTasks($"{LocaleCore.Action.ActionMethod} {nameof(SetParametersAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
-        //    new Task(async () =>
-        //    {
-        //        AppSettings.SetupMemory();
-        //        //await AppSettings.Memory.OpenAsync(GuiRefreshAsync).ConfigureAwait(false);
-        //        await AppSettings.Memory.OpenAsync().ConfigureAwait(false);
-        //    }), true);
     }
 
     #endregion

@@ -28,11 +28,12 @@ public partial class SectionPrinters : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PrinterEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListPrinters(IsShowMarked, IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

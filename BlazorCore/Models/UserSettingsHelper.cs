@@ -39,7 +39,9 @@ public class UserSettingsHelper
 
     public void SetupAccessRights()
     {
-        AccessEntity? access = DataAccess.Crud.GetItem<AccessEntity>(new FieldFilterModel(DbField.User, DbComparer.Equal, Identity.UserName));
+	    SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() { new(DbField.User, DbComparer.Equal, Identity.UserName) }, 
+		    null, 0, false, false);
+        AccessEntity? access = DataAccess.Crud.GetItem<AccessEntity>(sqlCrudConfig);
         if (access != null)
 			Identity.SetAccessRights(access.Rights);
         //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(

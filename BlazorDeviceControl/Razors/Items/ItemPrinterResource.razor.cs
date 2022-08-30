@@ -1,14 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
-
 namespace BlazorDeviceControl.Razors.Items;
 
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public partial class ItemPrinterResource : BlazorCore.Models.RazorBase
+public partial class ItemPrinterResource : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -59,13 +57,13 @@ public partial class ItemPrinterResource : BlazorCore.Models.RazorBase
 						break;
 				}
 
-				PrinterEntity[]? printers = AppSettings.DataAccess.Crud.GetItems<PrinterEntity>(
-					new FieldFilterModel(DbField.IsMarked, false), new(DbField.Name));
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+				PrinterEntity[]? printers = AppSettings.DataAccess.Crud.GetItems<PrinterEntity>(sqlCrudConfig);
 				Printers = new();
 				if (printers is not null)
 					Printers.AddRange(printers);
 
-				TemplateResourceEntity[]? resources = AppSettings.DataAccess.Crud.GetItems<TemplateResourceEntity>(null, 0);
+				TemplateResourceEntity[]? resources = AppSettings.DataAccess.Crud.GetItems<TemplateResourceEntity>(new());
 				Resources = new();
 				if (resources is not null)
 					Resources.AddRange(resources);

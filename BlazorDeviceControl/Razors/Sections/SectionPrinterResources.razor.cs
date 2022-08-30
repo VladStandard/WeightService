@@ -30,17 +30,12 @@ public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                long? printerId = null;
-                if (ItemFilter is PrinterEntity printer)
-                    printerId = printer.IdentityId;
-                List<FieldFilterModel> filters = IsShowMarkedFilter ? new() : new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) };
-                if (printerId is not null)
-                    filters.Add(new($"{nameof(PrinterResourceEntity.Printer)}.{DbField.IdentityId}", DbComparer.Equal, printerId));
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<PrinterResourceEntity>(IsShowOnlyTop, filters, new(DbField.Description));
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListPrinterResources(IsShowMarked, IsShowOnlyTop, ItemFilter);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

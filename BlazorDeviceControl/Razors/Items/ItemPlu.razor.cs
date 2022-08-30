@@ -1,12 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
 using DataCore.Sql.QueriesModels;
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemPlu : BlazorCore.Models.RazorBase
+public partial class ItemPlu : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -57,28 +56,29 @@ public partial class ItemPlu : BlazorCore.Models.RazorBase
 
 	            // Templates.
 	            Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
-                TemplateEntity[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(
-                    new FieldFilterModel(DbField.IsMarked, false), new(DbField.Title));
+                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Title), 0, false, false);
+                TemplateEntity[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(sqlCrudConfig);
                 if (templates is not null)
                     Templates.AddRange(templates);
 
 	            // Nomenclatures.
 	            Nomenclatures = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
-                NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(
-                    new FieldFilterModel(DbField.IsMarked, false), new(DbField.Name));
+                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+                NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(sqlCrudConfig);
                 if (nomenclatures is not null)
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // Scales.
 	            Scales = new() { new(0, false) { Description = LocaleCore.Table.FieldNull } };
-                ScaleEntity[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(
-                    new FieldFilterModel(DbField.IsMarked, false), new(DbField.Name));
+                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+                ScaleEntity[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
                 if (scales is not null)
                     Scales.AddRange(scales);
 
 	            // Plus.
 	            Plus = new() { new(Guid.Empty, false) { Description = LocaleCore.Table.FieldNull } };
-                PluEntity[]? plus = AppSettings.DataAccess.Crud.GetItems<PluEntity>(new FieldOrderModel(DbField.Name));
+                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+                PluEntity[]? plus = AppSettings.DataAccess.Crud.GetItems<PluEntity>(sqlCrudConfig);
                 if (plus is not null)
                     Plus.AddRange(plus);
 

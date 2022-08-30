@@ -17,7 +17,7 @@ internal class CrudControllerExtensionTests
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostEntity> hosts = DataCore.DataAccess.Crud.GetHostsFree(id, isMarked);
+					List<HostEntity> hosts = DataCore.DataAccess.Crud.GetListHostsFree(id, isMarked);
 				}
 			}
 		});
@@ -32,7 +32,7 @@ internal class CrudControllerExtensionTests
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostEntity> hosts = DataCore.DataAccess.Crud.GetHostsBusy(id, isMarked);
+					List<HostEntity> hosts = DataCore.DataAccess.Crud.GetListHostsBusy(id, isMarked);
 				}
 			}
 		});

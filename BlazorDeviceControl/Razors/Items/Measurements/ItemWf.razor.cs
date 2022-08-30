@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items.Measurements;
 
-public partial class ItemWf : BlazorCore.Models.RazorBase
+public partial class ItemWf : RazorBase
 {
     #region Public and private fields, properties, constructor
 

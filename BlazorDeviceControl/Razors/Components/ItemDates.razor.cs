@@ -48,101 +48,101 @@ public partial class ItemDates : RazorBase
         switch (ProjectsEnums.GetTableScale(Table.Name))
         {
             case ProjectsEnums.TableScale.BarCodeTypes:
-                BarCodeTypeEntity barcodeType = AppSettings.DataAccess.Crud.GetItemByUid<BarCodeTypeEntity>(IdentityUid);
+                BarCodeTypeEntity barcodeType = AppSettings.DataAccess.Crud.GetItemByUidNotNull<BarCodeTypeEntity>(IdentityUid);
                 CreateDt = barcodeType.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = barcodeType.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Contragents:
-                ContragentEntity contragent = AppSettings.DataAccess.Crud.GetItemByUid<ContragentEntity>(IdentityUid);
+                ContragentEntity contragent = AppSettings.DataAccess.Crud.GetItemByUidNotNull<ContragentEntity>(IdentityUid);
                 CreateDt = contragent.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = contragent.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Hosts:
-                HostEntity host = AppSettings.DataAccess.Crud.GetItemById<HostEntity>(IdentityId);
+                HostEntity host = AppSettings.DataAccess.Crud.GetItemByIdNotNull<HostEntity>(IdentityId);
                 CreateDt = host.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = host.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Nomenclatures:
-                NomenclatureEntity nomenclature = AppSettings.DataAccess.Crud.GetItemById<NomenclatureEntity>(IdentityId);
+                NomenclatureEntity nomenclature = AppSettings.DataAccess.Crud.GetItemByIdNotNull<NomenclatureEntity>(IdentityId);
                 CreateDt = nomenclature.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = nomenclature.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Orders:
-                OrderEntity order = AppSettings.DataAccess.Crud.GetItemById<OrderEntity>(IdentityId);
+                OrderEntity order = AppSettings.DataAccess.Crud.GetItemByIdNotNull<OrderEntity>(IdentityId);
                 CreateDt = order.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = order.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.OrdersWeighings:
-                OrderWeighingEntity orderWeighing = AppSettings.DataAccess.Crud.GetItemByUid<OrderWeighingEntity>(IdentityUid);
+                OrderWeighingEntity orderWeighing = AppSettings.DataAccess.Crud.GetItemByUidNotNull<OrderWeighingEntity>(IdentityUid);
                 CreateDt = orderWeighing.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = orderWeighing.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Organizations:
-                OrganizationEntity organization = AppSettings.DataAccess.Crud.GetItemById<OrganizationEntity>(IdentityId);
+                OrganizationEntity organization = AppSettings.DataAccess.Crud.GetItemByIdNotNull<OrganizationEntity>(IdentityId);
                 CreateDt = organization.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = organization.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Plus:
-                PluEntity plu = AppSettings.DataAccess.Crud.GetItemByUid<PluEntity>(IdentityUid);
+                PluEntity plu = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluEntity>(IdentityUid);
                 CreateDt = plu.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = plu.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.PlusLabels:
-                PluLabelEntity pluLabel = AppSettings.DataAccess.Crud.GetItemByUid<PluLabelEntity>(IdentityUid);
+                PluLabelEntity pluLabel = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluLabelEntity>(IdentityUid);
                 CreateDt = pluLabel.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluLabel.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.PlusObsolete:
-                PluObsoleteEntity pluObsolete = AppSettings.DataAccess.Crud.GetItemById<PluObsoleteEntity>(IdentityId);
+                PluObsoleteEntity pluObsolete = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluObsoleteEntity>(IdentityId);
                 CreateDt = pluObsolete.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluObsolete.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.PlusScales:
-                PluScaleEntity pluScale = AppSettings.DataAccess.Crud.GetItemByUid<PluScaleEntity>(IdentityUid);
+                PluScaleEntity pluScale = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluScaleEntity>(IdentityUid);
                 CreateDt = pluScale.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluScale.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.PlusWeighings:
-	            PluWeighingEntity weithingFact = AppSettings.DataAccess.Crud.GetItemByUid<PluWeighingEntity>(IdentityUid);
+	            PluWeighingEntity weithingFact = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluWeighingEntity>(IdentityUid);
 	            CreateDt = weithingFact.CreateDt.ToString(CultureInfo.InvariantCulture);
 	            ChangeDt = weithingFact.ChangeDt.ToString(CultureInfo.InvariantCulture);
 	            break;
             case ProjectsEnums.TableScale.Printers:
-                PrinterEntity printer = AppSettings.DataAccess.Crud.GetItemById<PrinterEntity>(IdentityId);
+                PrinterEntity printer = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterEntity>(IdentityId);
                 CreateDt = printer.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = printer.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.PrintersResources:
-                PrinterResourceEntity printerResource = AppSettings.DataAccess.Crud.GetItemById<PrinterResourceEntity>(IdentityId);
+                PrinterResourceEntity printerResource = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterResourceEntity>(IdentityId);
                 CreateDt = printerResource.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = printerResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.ProductionFacilities:
-                ProductionFacilityEntity productionFacility = AppSettings.DataAccess.Crud.GetItemById<ProductionFacilityEntity>(IdentityId);
+                ProductionFacilityEntity productionFacility = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ProductionFacilityEntity>(IdentityId);
                 CreateDt = productionFacility.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = productionFacility.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.ProductSeries:
-                ProductSeriesEntity productSeries = AppSettings.DataAccess.Crud.GetItemById<ProductSeriesEntity>(IdentityId);
+                ProductSeriesEntity productSeries = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ProductSeriesEntity>(IdentityId);
                 CreateDt = productSeries.CreateDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Scales:
-                ScaleEntity scale = AppSettings.DataAccess.Crud.GetItemById<ScaleEntity>(IdentityId);
+                ScaleEntity scale = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ScaleEntity>(IdentityId);
                 CreateDt = scale.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = scale.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Templates:
-                TemplateEntity template = AppSettings.DataAccess.Crud.GetItemById<TemplateEntity>(IdentityId);
+                TemplateEntity template = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateEntity>(IdentityId);
                 CreateDt = template.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = template.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.TemplatesResources:
-                TemplateResourceEntity templateResource = AppSettings.DataAccess.Crud.GetItemById<TemplateResourceEntity>(IdentityId);
+                TemplateResourceEntity templateResource = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateResourceEntity>(IdentityId);
                 CreateDt = templateResource.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = templateResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
             case ProjectsEnums.TableScale.Workshops:
-                WorkShopEntity workshop = AppSettings.DataAccess.Crud.GetItemById<WorkShopEntity>(IdentityId);
+                WorkShopEntity workshop = AppSettings.DataAccess.Crud.GetItemByIdNotNull<WorkShopEntity>(IdentityId);
                 CreateDt = workshop.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = workshop.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;

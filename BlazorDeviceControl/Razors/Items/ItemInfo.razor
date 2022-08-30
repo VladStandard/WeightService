@@ -5,18 +5,18 @@
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using BlazorCore.Razors
 
-<ActionsReloadItem ParentRazor=@this Title=@LocaleCore.System.SystemInfo />
+<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead ParentRazor=@this TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
+	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>
             <td colspan=2>
                 @if (string.IsNullOrEmpty(VerApp))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -29,7 +29,7 @@
             <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -39,7 +39,7 @@
             <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -52,7 +52,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(Environment.MachineName))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -65,7 +65,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -80,7 +80,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -102,7 +102,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId))
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -115,7 +115,7 @@
             <td >
                 @if (DbCurSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -125,7 +125,7 @@
             <td>
                 @if (AppSettings.Memory == null)
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -138,7 +138,7 @@
             <td>
                 @if (DbCurSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -148,7 +148,7 @@
             <td>
                 @if (AppSettings.Memory == null)
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -161,7 +161,7 @@
             <td>
                 @if (DbFillSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -184,7 +184,7 @@
                 @if (AppSettings.Memory == null || AppSettings.Memory.MemorySize == null ||
                 AppSettings.Memory.MemorySize.PhysicalTotal == null || AppSettings.Memory.MemorySize.PhysicalCurrent == null)
                 {
-                    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
                 }
                 else
                 {
@@ -238,13 +238,13 @@
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.UserSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead ParentRazor=@this TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25 }) />
+	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25 }) />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.AuthorizingUserName</td>
             @if (string.IsNullOrEmpty(UserSettings.Identity.UserName))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -259,16 +259,16 @@
             <td>@LocaleCore.Strings.Language</td>
             @if (TemplateLanguages == null)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						@bind-Value=@LocaleCore.Lang>
-                        @foreach (ShareEnums.Lang lang in Langs)
+                        @foreach (Lang lang in Langs)
                         {
-                            <MudSelectItem T=@ShareEnums.Lang Value=@lang>@lang.ToString()</MudSelectItem>
+                            <MudSelectItem T=@Lang Value=@lang>@lang.ToString()</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

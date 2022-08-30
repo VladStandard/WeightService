@@ -118,27 +118,31 @@ public class DataCoreHelper
 	{
 		AssertAction(() =>
 		{
-			// Arrange.
-			IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
-			T[]? items = DataAccess.Crud.GetItems<T>(null, maxResults);
-			// Act.
-			if (items == null || !items.Any())
+			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
-				TestContext.WriteLine($"{nameof(items)} is null or empty!");
-			}
-			else
-			{
-				TestContext.WriteLine($"Found {items.Length} items. Print top 10.");
-				int i = 0;
-				foreach (T item in items)
+				// Arrange.
+				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, maxResults, isShowMarked, true);
+				T[]? items = DataAccess.Crud.GetItems<T>(sqlCrudConfig);
+				// Act.
+				if (items == null || !items.Any())
 				{
-					if (i < 10)
-						TestContext.WriteLine(item);
-					i++;
-					ValidationResult result = validator.Validate(item);
-					FailureWriteLine(result);
-					// Assert.
-					Assert.IsTrue(result.IsValid);
+					TestContext.WriteLine($"{nameof(items)} is null or empty!");
+				}
+				else
+				{
+					TestContext.WriteLine($"Found {items.Length} items. Print top 10.");
+					int i = 0;
+					foreach (T item in items)
+					{
+						if (i < 10)
+							TestContext.WriteLine(item);
+						i++;
+						ValidationResult result = validator.Validate(item);
+						FailureWriteLine(result);
+						// Assert.
+						Assert.IsTrue(result.IsValid);
+					}
 				}
 			}
 		});
@@ -152,7 +156,8 @@ public class DataCoreHelper
 			{
 				// Arrange.
 				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
-				List<T> items = DataAccess.Crud.GetItemsListNotNull<T>(isShowMarked, true, null);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, isShowMarked, true);
+				List<T> items = DataAccess.Crud.GetList<T>(sqlCrudConfig);
 				// Act.
 				if (!items.Any())
 				{
@@ -283,6 +288,8 @@ public class DataCoreHelper
 				plu.Gtin = "Test";
 				plu.Ean13 = "Test";
 				plu.Itf14 = "Test";
+				plu.Template = CreateNewSubstitute<TemplateEntity>(isNotDefault);
+				plu.Nomenclature = CreateNewSubstitute<NomenclatureEntity>(isNotDefault);
 				break;
 			case PluLabelEntity pluLabel:
 				pluLabel.Zpl = "Test";
@@ -290,6 +297,8 @@ public class DataCoreHelper
 				break;
 			case PluScaleEntity pluScale:
 				pluScale.IsActive = true;
+				pluScale.Plu = CreateNewSubstitute<PluEntity>(isNotDefault);
+				pluScale.Scale = CreateNewSubstitute<ScaleEntity>(isNotDefault);
 				break;
 			case PluWeighingEntity pluWeighing:
 				pluWeighing.Sscc = "Test";
@@ -303,15 +312,19 @@ public class DataCoreHelper
 				break;
 			case PrinterEntity printer:
 				printer.DarknessLevel = 1;
+				printer.PrinterType = CreateNewSubstitute<PrinterTypeEntity>(isNotDefault);
 				break;
 			case PrinterResourceEntity printerResource:
 				printerResource.Description = "Test";
+				printerResource.Printer = CreateNewSubstitute<PrinterEntity>(isNotDefault);
+				printerResource.Resource = CreateNewSubstitute<TemplateResourceEntity>(isNotDefault);
 				break;
 			case PrinterTypeEntity printerType:
 				printerType.Name = "Test";
 				break;
 			case ProductionFacilityEntity productionFacility:
 				productionFacility.Name = "Test";
+				productionFacility.Address = "Test";
 				break;
 			case ProductSeriesEntity productSeries:
 				productSeries.Sscc = "Test";
@@ -324,6 +337,7 @@ public class DataCoreHelper
 			case VersionEntity version:
 				version.Version = 1;
 				version.Description = "Test";
+				version.ReleaseDt = DateTime.Now;
 				break;
 			case TaskEntity task:
 				task.TaskType = CreateNewSubstitute<TaskTypeEntity>(isNotDefault);
@@ -341,6 +355,7 @@ public class DataCoreHelper
 				break;
 			case WorkShopEntity workShop:
 				workShop.Name = "Test";
+				workShop.ProductionFacility = CreateNewSubstitute<ProductionFacilityEntity>(isNotDefault);
 				break;
 		}
 		return item;

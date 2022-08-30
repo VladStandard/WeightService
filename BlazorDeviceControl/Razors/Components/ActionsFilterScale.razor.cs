@@ -46,8 +46,8 @@ public partial class ActionsFilterScale : RazorBase
 			() =>
 			{
 				ItemsFilter = new() { new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull } };
-				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(
-					new FieldFilterModel(DbField.IsMarked, false), new(DbField.Description));
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{
 					ItemsFilter.AddRange(itemsFilter.ToList<TableModel>());

@@ -8,9 +8,5 @@ namespace BlazorDeviceControl.Razors.Components;
 /// </summary>
 public partial class ActionsSave : RazorBase
 {
-	#region Public and private methods
-
 	//
-
-	#endregion
 }

@@ -7,8 +7,16 @@ namespace BlazorDeviceControl.Razors;
 
 public partial class MudDialogExample
 {
+    #region Public and private fields, properties, constructor
+
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
-    void Submit() => MudDialog.Close(DialogResult.Ok(true));
-    void Cancel() => MudDialog.Cancel();
+    #endregion
+
+    #region Public and private methods
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    private void Cancel() => MudDialog.Cancel();
+
+    #endregion
 }

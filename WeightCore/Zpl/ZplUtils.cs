@@ -14,6 +14,7 @@ using DataCore.Sql.Fields;
 using WeightCore.Helpers;
 using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
+using DataCore.Sql.Models;
 
 namespace WeightCore.Zpl
 {
@@ -105,12 +106,13 @@ namespace WeightCore.Zpl
             if (string.IsNullOrEmpty(result))
                 return result;
 
-            TemplateResourceEntity[]? resources = DataAccessHelper.Instance.Crud.GetItems<TemplateResourceEntity>(
-                new FieldFilterModel($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL"),
-                new(DbField.Name));
-            if (resources != null)
+            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
+				{ new($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL") }, 
+	            new(DbField.Name), 0, false, false);
+            TemplateResourceEntity[]? templateReources = DataAccessHelper.Instance.Crud.GetItems<TemplateResourceEntity>(sqlCrudConfig);
+            if (templateReources != null)
             {
-                foreach (TemplateResourceEntity resource in resources.ToList())
+                foreach (TemplateResourceEntity resource in templateReources.ToList())
                 {
                     string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);
                     result = result.Replace($"[{resource.Name}]", resourceHex);

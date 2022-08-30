@@ -137,13 +137,35 @@ public static class GuiUtils
         /// <param name="isLog"></param>
         /// <param name="logType"></param>
         /// <param name="visibility"></param>
+        /// <param name="hostName"></param>
+        /// <param name="appName"></param>
         /// <returns></returns>
         public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogType logType,
-            VisibilitySettingsEntity visibility = null, string hostName = "", string appName = "",
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+            VisibilitySettingsEntity? visibility = null, string hostName = "", string appName = "")
         {
             if (isLog)
-                DataAccess.Log.Log(message, logType, hostName, appName, filePath, lineNumber, memberName);
+            {
+	            switch (logType)
+	            {
+		            case LogType.None:
+			            DataAccess.Log.LogInformation(message, hostName, appName);
+			            break;
+		            case LogType.Error:
+			            DataAccess.Log.LogError(message, hostName, appName);
+			            break;
+		            case LogType.Question:
+			            DataAccess.Log.LogQuestion(message, hostName, appName);
+			            break;
+		            case LogType.Warning:
+			            DataAccess.Log.LogWarning(message, hostName, appName);
+			            break;
+		            case LogType.Information:
+						DataAccess.Log.LogInformation(message, hostName, appName);
+			            break;
+		            default:
+			            throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
+	            }
+            }
             return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
                 visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
         }

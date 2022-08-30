@@ -31,10 +31,4 @@ public partial class NavMenu : BlazorCore.Models.RazorBase
     }
 
     #endregion
-
-    #region Public and private methods
-
-    //
-
-    #endregion
 }

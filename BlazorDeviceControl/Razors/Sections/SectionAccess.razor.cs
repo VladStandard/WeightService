@@ -37,14 +37,14 @@ public partial class SectionAccess : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<AccessEntity>(
-                    IsShowMarked, IsShowOnlyTop, new(DbField.User));
+                ItemsCast = AppSettings.DataAccess.Crud.GetListAcesses(IsShowMarked, IsShowOnlyTop);
 
-                ButtonSettings = new(true, false, true, true, true, false, false);
+				ButtonSettings = new(true, false, true, true, true, false, false);
             }
         });
     }

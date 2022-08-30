@@ -5,9 +5,5 @@ namespace BlazorDeviceControl.Razors.Components;
 
 public partial class ActionsReloadSection : ActionsReloadBase
 {
-	#region Public and private methods
-
 	//
-
-	#endregion
 }

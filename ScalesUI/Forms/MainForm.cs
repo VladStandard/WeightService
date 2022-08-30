@@ -115,12 +115,12 @@ public partial class MainForm : Form
                 SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
                 if (UserSession.SqlViewModel.Scale.Host != null)
                 {
-                    UserSession.DataAccess.Log.Log($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
-                        LogType.Information, UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
-                    UserSession.DataAccess.Log.Log(
+                    UserSession.DataAccess.Log.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
+                        UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.DataAccess.Log.LogInformation(
                         LocaleData.Program.IsLoaded +
                         $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                        LogType.Information, UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                        UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
                 }
 
                 UserSession.StopwatchMain.Stop();

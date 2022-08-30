@@ -28,11 +28,12 @@ public partial class SectionVersions : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<VersionEntity>(IsShowMarked, IsShowOnlyTop, new (DbField.Version, DbOrderDirection.Desc));
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListVersions(IsShowMarked, IsShowOnlyTop);
 
                 ButtonSettings = new(false, false, false, false, false, false, false);
             }

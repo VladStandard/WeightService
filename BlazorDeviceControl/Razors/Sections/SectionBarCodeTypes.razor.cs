@@ -28,13 +28,14 @@ public partial class SectionBarCodeTypes : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<BarCodeTypeEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Name));
+				ItemsCast = AppSettings.DataAccess.Crud.GetListBarCodeTypes(IsShowMarked, IsShowOnlyTop);
 
-                ButtonSettings = new(true, true, true, true, true, false, false);
+				ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

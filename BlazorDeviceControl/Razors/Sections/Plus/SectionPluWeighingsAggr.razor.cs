@@ -2,11 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.QueriesModels;
-using DataCore.Sql.Tables;
 
-namespace BlazorDeviceControl.Razors.Sections.Measurements;
+namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionWfAggr : BlazorCore.Models.RazorBase
+public partial class SectionPluWeighingsAggr : BlazorCore.Models.RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -31,11 +30,12 @@ public partial class SectionWfAggr : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
+
 		RunActions(new()
 		{
             () =>
             {
-                object[] objects = AppSettings.DataAccess.Crud.GetItemsNativeObject(
+                object[] objects = AppSettings.DataAccess.Crud.GetItemsNativeAsObjects(
                     SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
                         IsShowOnlyTop ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
                 ItemsCast = new();

@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.Tables;
+using FluentNHibernate.Visitors;
 using FluentValidation.Results;
 using static DataCore.ShareEnums;
 
@@ -386,10 +386,13 @@ public static class SqlUtils
         return result;
     }
 
-    public static HostEntity? GetHost(string hostName) =>
-	    DataAccess.Crud.GetItem<HostEntity>(new List<FieldFilterModel> {
-			    new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
-		    new(DbField.CreateDt, DbOrderDirection.Desc));
+    public static HostEntity? GetHost(string hostName)
+    {
+	    SqlCrudConfigModel sqlCrudConfig = new(new()
+			{ new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
+		    new(DbField.CreateDt, DbOrderDirection.Desc), 0);
+	    return DataAccess.Crud.GetItem<HostEntity>(sqlCrudConfig);
+    }
 
     public static HostDirect Load(Guid uid) =>
 	    SqlConnect.ExecuteReaderForItem(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
@@ -488,24 +491,39 @@ public static class SqlUtils
         return result;
     }
 
-    public static ScaleEntity? GetScaleFromHost(long hostId) => 
-	    DataAccess.Crud.GetItem<ScaleEntity>(new List<FieldFilterModel> { 
-			new($"Host.IdentityId", DbComparer.Equal, hostId), new(DbField.IsMarked, DbComparer.Equal, false) },
-            new(DbField.CreateDt, DbOrderDirection.Desc));
+    public static ScaleEntity? GetScaleFromHost(long hostId)
+    {
+	    SqlCrudConfigModel sqlCrudConfig = new(new()
+		    { new($"Host.IdentityId", DbComparer.Equal, hostId), new(DbField.IsMarked, DbComparer.Equal, false) },
+		    new(DbField.CreateDt, DbOrderDirection.Desc), 0);
+	    return DataAccess.Crud.GetItem<ScaleEntity>(sqlCrudConfig);
+    }
 
-    public static ScaleEntity? GetScale(long id) =>
-	    DataAccess.Crud.GetItem<ScaleEntity>(new List<FieldFilterModel> {
-		    new(DbField.IdentityId, DbComparer.Equal, id), new(DbField.IsMarked, DbComparer.Equal, false) });
+    public static ScaleEntity? GetScale(long id)
+    {
+	    SqlCrudConfigModel sqlCrudConfig = new(new()
+			{ new(DbField.IdentityId, DbComparer.Equal, id), new(DbField.IsMarked, DbComparer.Equal, false) },
+		    null, 0);
+	    return DataAccess.Crud.GetItem<ScaleEntity>(sqlCrudConfig);
+    }
 
-    public static ScaleEntity? GetScale(string description) => 
-        DataAccess.Crud.GetItem<ScaleEntity>(new List<FieldFilterModel> {
-	        new(DbField.Description, DbComparer.Equal, description), new(DbField.IsMarked, DbComparer.Equal, false) });
+    public static ScaleEntity? GetScale(string description)
+    {
+	    SqlCrudConfigModel sqlCrudConfig = new(new()
+			{ new(DbField.Description, DbComparer.Equal, description), new(DbField.IsMarked, DbComparer.Equal, false) },
+		    null, 0);
+	    return DataAccess.Crud.GetItem<ScaleEntity>(sqlCrudConfig);
+    }
 
-    public static ProductionFacilityEntity? GetArea(string name) =>
-	    DataAccess.Crud.GetItem<ProductionFacilityEntity>(new List<FieldFilterModel> { 
-		    new(DbField.Name, DbComparer.Equal, name), new(DbField.IsMarked, DbComparer.Equal, false) });
+    public static ProductionFacilityEntity? GetArea(string name)
+    {
+	    SqlCrudConfigModel sqlCrudConfig = new(new()
+			{ new(DbField.Name, DbComparer.Equal, name), new(DbField.IsMarked, DbComparer.Equal, false) },
+		    null, 0);
+	    return DataAccess.Crud.GetItem<ProductionFacilityEntity>(sqlCrudConfig);
+    }
 
-	#endregion
+    #endregion
 
 	#region Public and private methods - Tasks
 
@@ -723,6 +741,29 @@ public static class SqlUtils
         }
         con.Close();
         return result;
+    }
+    
+    public static SqlCrudConfigModel GetCrudConfigIsMarked() => GetCrudConfig(null, null, 0, false, false);
+    
+    public static SqlCrudConfigModel GetCrudConfig(List<FieldFilterModel>? filters, FieldOrderModel? order, int maxResults, bool isShowMarked, bool isShowOnlyTop)
+    {
+		maxResults = isShowOnlyTop ? DataAccess.JsonSettingsLocal.SelectTopRowsCount : maxResults;
+		SqlCrudConfigModel sqlCrudConfig = new(filters, order, maxResults);
+	    List<FieldFilterModel> filtersMarked = new() { new(DbField.IsMarked, DbComparer.Equal, false) };
+	    if (!isShowMarked)
+	    {
+		    switch (sqlCrudConfig.Filters)
+		    {
+			    case null:
+				    sqlCrudConfig.Filters = filtersMarked;
+				    break;
+			    default:
+				    sqlCrudConfig.Filters.AddRange(filtersMarked);
+				    break;
+		    }
+	    }
+
+		return sqlCrudConfig;
     }
 
     #endregion

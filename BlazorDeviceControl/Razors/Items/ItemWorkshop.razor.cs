@@ -1,11 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
-
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemWorkshop : BlazorCore.Models.RazorBase
+public partial class ItemWorkshop : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -38,8 +36,8 @@ public partial class ItemWorkshop : BlazorCore.Models.RazorBase
 					ItemCast.IdentityId = (long)IdentityId;
 				
 				// ProductionFacilities.
-				ProductionFacilityEntity[]? productionFacilities = AppSettings.DataAccess.Crud.GetItems<ProductionFacilityEntity>(
-					new FieldFilterModel(DbField.IsMarked, DbComparer.Equal, false), new(DbField.Name));
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+				ProductionFacilityEntity[]? productionFacilities = AppSettings.DataAccess.Crud.GetItems<ProductionFacilityEntity>(sqlCrudConfig);
 				if (productionFacilities is not null)
 					ProductionFacilities.AddRange(productionFacilities.Where(x => x.IdentityId > 0).ToList());
 

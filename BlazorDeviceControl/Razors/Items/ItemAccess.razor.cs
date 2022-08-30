@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemAccess : BlazorCore.Models.RazorBase
+public partial class ItemAccess : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -49,7 +49,6 @@ public partial class ItemAccess : BlazorCore.Models.RazorBase
 						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<AccessEntity>(IdentityUid);
 						break;
 				}
-
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

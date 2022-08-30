@@ -10,10 +10,4 @@ public partial class ItemTableBody : RazorBase
 	[Parameter] public TableBodyStyleModel? TableStyle { get; set; }
 
 	#endregion
-
-	#region Public and private methods
-
-	//
-
-	#endregion
 }

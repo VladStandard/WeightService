@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/measurements/labels"
+@page "/section/plu_labels"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 @using BlazorDeviceControl.Razors.Components
@@ -14,7 +14,7 @@ else
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="PluLabelEntity" @bind-Value=@ItemObject
-        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >

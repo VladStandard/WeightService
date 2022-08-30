@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
-using DataCore.Sql.Fields;
 using DataCore.Sql.TableDirectModels;
 using static DataCore.ShareEnums;
 
@@ -214,16 +213,16 @@ public class SqlViewModelHelper : BaseViewModel
     private void SetScales()
     {
         Scales = new();
-        ScaleEntity[]? scales = SqlUtils.DataAccess.Crud.GetItems<ScaleEntity>(
-            new List<FieldFilterModel> { new(DbField.IsMarked, DbComparer.Equal, false) }, new(DbField.Description));
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+        ScaleEntity[]? scales = SqlUtils.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
         scales?.ToList().ForEach(scale => Scales.Add(scale.Description));
     }
 
     private void SetAreas()
     {
         Areas = new();
-        ProductionFacilityEntity[]? areas = SqlUtils.DataAccess.Crud.GetItems<ProductionFacilityEntity>(new List<FieldFilterModel> {
-            new(DbField.IsMarked, DbComparer.Equal, false) }, new(DbField.Name));
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+        ProductionFacilityEntity[]? areas = SqlUtils.DataAccess.Crud.GetItems<ProductionFacilityEntity>(sqlCrudConfig);
         areas?.Where(x => x.IdentityId > 0).ToList().ForEach(area => Areas.Add(area.Name));
     }
 

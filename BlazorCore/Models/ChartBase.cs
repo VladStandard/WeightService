@@ -5,6 +5,7 @@ using DataCore;
 using System.Collections.Generic;
 using System.Globalization;
 using DataCore.Sql.Fields;
+using DataCore.Sql.Models;
 
 namespace BlazorCore.Models;
 
@@ -23,7 +24,8 @@ public class ChartBase
     public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
     {
         ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-        ContragentEntity[]? contragents = AppSettings.DataAccess.Crud.GetItems<ContragentEntity>(new FieldOrderModel(ShareEnums.DbField.CreateDt));
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(ShareEnums.DbField.CreateDt), 0, false, false);
+        ContragentEntity[]? contragents = AppSettings.DataAccess.Crud.GetItems<ContragentEntity>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {
@@ -72,7 +74,8 @@ public class ChartBase
     public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
     {
         ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-        NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(new FieldOrderModel(ShareEnums.DbField.CreateDt));
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(ShareEnums.DbField.CreateDt), 0, false, false);
+        NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {

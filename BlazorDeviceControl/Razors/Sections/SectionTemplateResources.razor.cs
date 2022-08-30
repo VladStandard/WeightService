@@ -28,13 +28,12 @@ public partial class SectionTemplateResources : BlazorCore.Models.RazorBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         RunActions(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetItemsListNotNull<TemplateResourceEntity>(IsShowMarked, IsShowOnlyTop, new(DbField.Type));
-                ItemsCast = ItemsCast.OrderBy(x => x.Name).ToList();
-                ItemsCast = ItemsCast.OrderBy(x => x.Type).ToList();
+	            ItemsCast = AppSettings.DataAccess.Crud.GetListTemplateResources(IsShowMarked, IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

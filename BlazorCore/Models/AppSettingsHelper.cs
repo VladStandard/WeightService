@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
 using System.Threading;
+using DataCore.Models;
 
 namespace BlazorCore.Models;
 
@@ -22,7 +23,7 @@ public class AppSettingsHelper : LayoutComponentBase
     #region Public and private fields, properties, constructor
 
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public DataSourceDicsEntity DataSourceDics { get; } = new();
+    public DataSourceDicsHelper DataSourceDics { get; } = DataSourceDicsHelper.Instance;
     public MemoryEntity Memory { get; private set; } = new();
     public int FontSizeHeader { get; set; }
     public int FontSize { get; set; }
