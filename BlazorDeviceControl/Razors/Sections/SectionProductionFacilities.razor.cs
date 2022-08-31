@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Razors.Sections;
 /// <summary>
 /// Section ProductionFacilities.
 /// </summary>
-public partial class SectionProductionFacilities : BlazorCore.Models.RazorBase
+public partial class SectionProductionFacilities : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -25,7 +25,8 @@ public partial class SectionProductionFacilities : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
-        ItemsCast = new();
+        IsShowMarkedFilter = true;
+		ItemsCast = new();
     }
 
     protected override void OnParametersSet()

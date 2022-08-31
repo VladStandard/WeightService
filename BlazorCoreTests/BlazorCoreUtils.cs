@@ -29,7 +29,7 @@ public static class BlazorCoreUtils
 		// Arrange.
 		IValidator<T> validator = GetStyleValidator<T>(item);
 		// Act & Assert.
-		DataCoreUtils.AssertValidate<T>(item, validator, assertResult);
+		DataCoreHelper.Instance.AssertValidate<T>(item, validator, assertResult);
 	}
 
 	#endregion

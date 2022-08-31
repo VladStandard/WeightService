@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using FluentValidation.Results;
-using static DataCore.Sql.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.Tables;
 

@@ -40,7 +40,7 @@
                                 Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleData.DeviceControl.UriRouteSection.Root />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                 Text=@AppSettings.MemoryInfo Path=@LocaleData.DeviceControl.UriRouteSection.Root 
-                                Click=@MemoryClear />
+                                Click=@(_ => MemoryClear()) />
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
                                 Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights(ShareEnums.AccessRights.None)}]") 
                                 Path=@LocaleData.DeviceControl.UriRouteSection.Access

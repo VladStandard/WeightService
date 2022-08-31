@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
-using System.Diagnostics;
 using DataCore.Wmi;
 
 namespace DataCore.Memory
@@ -17,6 +16,10 @@ namespace DataCore.Memory
         public MemorySizeConvertEntity? PhysicalFree { get; private set; }
         public MemorySizeConvertEntity? VirtualTotal { get; private set; }
         public MemorySizeConvertEntity? PhysicalTotal { get; private set; }
+        public MemorySizeConvertEntity VirtualAllocated =>
+            new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
+        public MemorySizeConvertEntity PhysicalAllocated =>
+            new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
         private WmiHelper? Wmi { get; set; } = WmiHelper.Instance;
 
         #endregion

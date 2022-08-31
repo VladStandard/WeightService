@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionTemplates : BlazorCore.Models.RazorBase
+public partial class SectionTemplates : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +22,8 @@ public partial class SectionTemplates : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-        ItemsCast = new();
+        IsShowMarkedFilter = true;
+		ItemsCast = new();
     }
 
     protected override void OnParametersSet()

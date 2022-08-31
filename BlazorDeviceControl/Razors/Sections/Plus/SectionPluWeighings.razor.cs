@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPluWeighings : BlazorCore.Models.RazorBase
+public partial class SectionPluWeighings : RazorBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -15,7 +15,7 @@ public class StatusEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StatusEntity() : base(0, false)
+	public StatusEntity() : base(ColumnName.Id, 0, false)
     {
 	    Init();
     }
@@ -23,7 +23,7 @@ public class StatusEntity : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StatusEntity(long identityId, bool isSetupDates) : base(identityId, isSetupDates)
+	public StatusEntity(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
     {
 	    Init();
     }

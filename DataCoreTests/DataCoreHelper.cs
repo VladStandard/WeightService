@@ -191,7 +191,7 @@ public class DataCoreHelper
 		AssertValidate(item, validator, assertResult);
 	}
 
-	private void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
+	public void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{

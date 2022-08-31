@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionBarCodes : BlazorCore.Models.RazorBase
+public partial class SectionBarCodes : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,6 +22,7 @@ public partial class SectionBarCodes : BlazorCore.Models.RazorBase
 		base.OnInitialized();
 
 		Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodes);
+		IsShowMarkedFilter = true;
 		ItemsCast = new();
 	}
 

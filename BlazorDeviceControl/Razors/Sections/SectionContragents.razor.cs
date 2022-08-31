@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionContragents : BlazorCore.Models.RazorBase
+public partial class SectionContragents : RazorBase
 {
     #region Public and private fields, properties, constructor
 

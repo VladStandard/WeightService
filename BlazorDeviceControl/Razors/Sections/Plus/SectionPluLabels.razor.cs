@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPluLabels : BlazorCore.Models.RazorBase
+public partial class SectionPluLabels : RazorBase
 {
 	#region Public and private fields, properties, constructor
 

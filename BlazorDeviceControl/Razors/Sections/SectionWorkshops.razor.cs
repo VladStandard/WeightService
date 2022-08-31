@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionWorkshops : BlazorCore.Models.RazorBase
+public partial class SectionWorkshops : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +22,8 @@ public partial class SectionWorkshops : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-        Items = new();
+        IsShowMarkedFilter = true;
+		Items = new();
     }
 
     protected override void OnParametersSet()

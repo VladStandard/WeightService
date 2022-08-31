@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionPrinters : BlazorCore.Models.RazorBase
+public partial class SectionPrinters : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -22,7 +22,8 @@ public partial class SectionPrinters : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-        ItemsCast = new();
+        IsShowMarkedFilter = true;
+		ItemsCast = new();
     }
 
     protected override void OnParametersSet()

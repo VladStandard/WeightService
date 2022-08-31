@@ -25,22 +25,13 @@ public class AppSettingsHelper : LayoutComponentBase
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     public DataSourceDicsHelper DataSourceDics { get; } = DataSourceDicsHelper.Instance;
     public MemoryEntity Memory { get; private set; } = new();
-    public int FontSizeHeader { get; set; }
-    public int FontSize { get; set; }
     public static int Delay => 5_000;
-    public string MemoryInfoWithDt => Memory.MemorySize.PhysicalCurrent != null
-        ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
+    public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null
+		? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
+		  $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
         : $"{LocaleCore.Memory.Memory}: - MB";
-    public string MemoryInfo => Memory.MemorySize.PhysicalCurrent != null
-        ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
-        : $"{LocaleCore.Memory.Memory}: - MB";
-    public string MemoryInfoShort => Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
-        ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
-          $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-        : $"{LocaleCore.Memory.Memory}: - MB";
-    public uint MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
-        || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
-        ? 0 : (uint)(Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
+    public uint MemoryFillSize => Memory.MemorySize.PhysicalTotal == null || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
+        ? 0 : (uint)(Memory.MemorySize.PhysicalAllocated.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
     public bool IsSqlServerRelease => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&
         DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
     public bool IsSqlServerDebug => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&

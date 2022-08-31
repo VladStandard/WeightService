@@ -246,6 +246,13 @@ public static class CrudControllerExtensions
 		return crud.GetList<PluScaleEntity>(sqlCrudConfig);
 	}
 
+	public static List<PluScaleEntity> GetListPluScales(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, long scaleId)
+	{
+		List<FieldFilterModel> filters = new() { new($"{nameof(PluScaleEntity.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) };
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
+		return crud.GetList<PluScaleEntity>(sqlCrudConfig);
+	}
+
 	public static List<PrinterResourceEntity> GetListPrinterResources(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
 	{
 		long? printerId = null;

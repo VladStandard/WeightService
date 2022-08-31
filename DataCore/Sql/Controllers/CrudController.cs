@@ -32,7 +32,7 @@ public partial class CrudController
     public T[]? GetItemsWithConfig<T>() where T : TableModel, new()
     {
         T[]? result = null;
-        ExecuteTransaction((session) =>
+        ExecuteTransaction(session =>
         {
             if (DataConfig != null)
             {
@@ -107,7 +107,7 @@ public partial class CrudController
     public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
     {
         int result = 0;
-        ExecuteTransaction((session) =>
+        ExecuteTransaction(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query);
             if (sqlQuery != null && parameters != null)
@@ -125,55 +125,26 @@ public partial class CrudController
         return result;
     }
 
-    public void Save<T>(T? item) where T : TableModel, new()
+    public void Save<T>(T item) where T : TableModel, new() => ExecuteTransaction(session => { session.Save(item); });
+
+    public void Update<T>(T item) where T : TableModel, new()
     {
-        if (item == null)
-            return;
-
-        switch (item)
-        {
-            case ContragentEntity:
-                throw new($"{nameof(Save)} for {nameof(ContragentEntity)} is deny!");
-            case TableScaleModels.NomenclatureEntity:
-                throw new($"{nameof(Save)} for {nameof(TableScaleModels.NomenclatureEntity)} is deny!");
-            default:
-                ExecuteTransaction((session) => { session.Save(item); });
-                break;
-        }
-    }
-
-    public void Update<T>(T? item) where T : TableModel, new()
-    {
-        if (item == null)
-            return;
-
         item.ChangeDt = DateTime.Now;
-        ExecuteTransaction((session) => { session.SaveOrUpdate(item); });
+        ExecuteTransaction(session => { session.SaveOrUpdate(item); });
     }
 
-    public void Delete<T>(T? item) where T : TableModel
-    {
-        //if (item == null || item.EqualsEmpty()) return;
-        if (item == null) return;
-        ExecuteTransaction((session) => { session.Delete(item); });
-    }
+    public void Delete<T>(T item) where T : TableModel, new() => ExecuteTransaction(session => { session.Delete(item); });
 
-    public void Mark<T>(T? item) where T : TableModel
+    public void Mark<T>(T item) where T : TableModel, new()
     {
-        if (item == null)
-            return;
-
         item.IsMarked = true;
-        ExecuteTransaction((session) => { session.SaveOrUpdate(item); });
+        ExecuteTransaction(session => { session.SaveOrUpdate(item); });
     }
 
-    private bool IsExistsItem<T>(T? item) where T : TableModel, new()
+    private bool IsExistsItem<T>(T item) where T : TableModel, new()
     {
-        if (item == null)
-            return false;
-        
         bool result = false;
-        ExecuteTransaction((session) =>
+        ExecuteTransaction(session =>
         {
             result = session.Query<T>().Any(x => x.IsAny(item));
         });
@@ -184,55 +155,12 @@ public partial class CrudController
     {
         bool result = false;
         sqlCrudConfig.MaxResults = 1;
-		ExecuteTransaction((session) =>
+		ExecuteTransaction(session =>
         {
             result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Count > 0;
         });
         return result;
     }
 
-    /// <summary>
-    /// Get column identity.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    public ColumnName GetColumnIdentity<T>(T? item) where T : TableModel
-    {
-		return item switch
-        {
-            AccessEntity => AccessEntity.IdentityName,
-            AppEntity => AppEntity.IdentityName,
-            BarCodeTypeEntity => BarCodeTypeEntity.IdentityName,
-            BarCodeEntity => BarCodeEntity.IdentityName,
-            ContragentEntity => ContragentEntity.IdentityName,
-            HostEntity => HostEntity.IdentityName,
-            LogTypeEntity => LogTypeEntity.IdentityName,
-            LogEntity => LogEntity.IdentityName,
-            TableScaleModels.NomenclatureEntity => TableScaleModels.NomenclatureEntity.IdentityName,
-            OrderEntity => OrderEntity.IdentityName,
-            OrderWeighingEntity => OrderWeighingEntity.IdentityName,
-            OrganizationEntity => OrganizationEntity.IdentityName,
-            PluEntity => PluEntity.IdentityName,
-            PluLabelEntity => PluLabelEntity.IdentityName,
-            PluObsoleteEntity => PluObsoleteEntity.IdentityName,
-            PluScaleEntity => PluScaleEntity.IdentityName,
-            PluWeighingEntity => PluWeighingEntity.IdentityName,
-            ProductionFacilityEntity => ProductionFacilityEntity.IdentityName,
-            ProductSeriesEntity => ProductSeriesEntity.IdentityName,
-            ScaleEntity => ScaleEntity.IdentityName,
-            TaskEntity => TaskEntity.IdentityName,
-            TaskTypeEntity => TaskTypeEntity.IdentityName,
-            TemplateResourceEntity => TemplateResourceEntity.IdentityName,
-            TemplateEntity => TemplateEntity.IdentityName,
-            VersionEntity => VersionEntity.IdentityName,
-            WorkShopEntity => WorkShopEntity.IdentityName,
-            PrinterEntity => PrinterEntity.IdentityName,
-            PrinterResourceEntity => PrinterResourceEntity.IdentityName,
-            PrinterTypeEntity => PrinterTypeEntity.IdentityName,
-            _ => ColumnName.Default
-        };
-    }
-
     #endregion
-
 }

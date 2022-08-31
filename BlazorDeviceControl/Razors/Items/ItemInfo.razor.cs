@@ -13,8 +13,8 @@ public partial class ItemInfo : RazorBase
 	private List<TypeEntity<Lang>>? TemplateLanguages { get; set; }
 	private List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
 	private uint DbCurSize { get; set; }
-	private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
-	private uint DbMaxSize { get; set; } = 10_240;
+	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbCurSize:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
+	private uint DbMaxSize => 10_240;
 	private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
 	private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
 	private List<Lang> Langs { get; set; } = new();
@@ -42,8 +42,7 @@ public partial class ItemInfo : RazorBase
 			{
 				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
 				TemplateIsDebug = AppSettings.DataSourceDics.GetTemplateIsDebug();
-				object[] objects =
-					AppSettings.DataAccess.Crud.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
+				object[] objects = AppSettings.DataAccess.Crud.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
 				DbCurSize = 0;
 				foreach (object obj in objects)
 				{

@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionScales : BlazorCore.Models.RazorBase
+public partial class SectionScales : RazorBase
 {
 	//
 }

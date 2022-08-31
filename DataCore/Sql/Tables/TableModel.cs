@@ -28,7 +28,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     [XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }
-    [XmlIgnore] public virtual string IdentityUidStr => IdentityUid.ToString();
+    //[XmlIgnore] public virtual string IdentityUidStr => IdentityUid.ToString();
 
     /// <summary>
     /// Constructor.
@@ -153,7 +153,6 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     public virtual bool EqualsDefault()
     {
         return
-            Equals(IdentityName, ColumnName.Default) &&
             Equals(IdentityId, (long)0) &&
             Equals(IdentityUid, Guid.Empty) &&
             Equals(CreateDt, DateTime.MinValue) &&

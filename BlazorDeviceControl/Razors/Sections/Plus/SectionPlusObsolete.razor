@@ -7,11 +7,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.Plus
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Plus
         IsShowMarked=@IsShowMarked IsShowAdditionalFilter=@IsShowAdditionalFilter 
         ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
         FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
@@ -88,5 +88,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@this />
+    <ActionsButtons ParentRazor=@(this) />
 }

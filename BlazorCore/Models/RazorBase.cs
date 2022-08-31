@@ -753,7 +753,7 @@ public class RazorBase : LayoutComponentBase
         return page;
     }
 
-    private void RouteItemNavigateCore<T>(T? item, string page, DbTableAction tableAction) where T : TableModel
+    private void RouteItemNavigateCore<T>(T? item, string page, DbTableAction tableAction) where T : TableModel, new()
     {
         switch (tableAction)
         {
@@ -764,7 +764,7 @@ public class RazorBase : LayoutComponentBase
             case DbTableAction.Edit:
                 if (item == null)
                     return;
-                switch (AppSettings.DataAccess.Crud.GetColumnIdentity(item))
+                switch (item.IdentityName)
                 {
                     case ColumnName.Id:
                         NavigationManager.NavigateTo($"{page}/{item.IdentityId}");
@@ -920,17 +920,16 @@ public class RazorBase : LayoutComponentBase
 
     private string GetQuestionAdd()
     {
-        if (ParentRazor?.Item != null)
-        {
-            switch (AppSettings.DataAccess.Crud.GetColumnIdentity(Item))
-            {
-                case ColumnName.Id:
-                    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
-                case ColumnName.Uid:
-                    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
-            }
-        }
-        return string.Empty;
+	    switch (ParentRazor?.Item?.IdentityName)
+	    {
+		    case ColumnName.Id:
+			    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
+			           $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
+		    case ColumnName.Uid:
+			    return LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
+			           $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
+	    }
+	    return string.Empty;
     }
 
     private void ItemSystemSave(ProjectsEnums.TableSystem tableSystem)

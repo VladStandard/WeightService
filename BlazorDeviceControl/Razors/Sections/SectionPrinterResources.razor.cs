@@ -5,7 +5,7 @@ using DataCore.Sql.Fields;
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
+public partial class SectionPrinterResources : RazorBase
 {
     #region Public and private fields, properties, constructor
 
@@ -24,7 +24,8 @@ public partial class SectionPrinterResources : BlazorCore.Models.RazorBase
         base.OnInitialized();
 
         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-        ItemsCast = new();
+        IsShowMarkedFilter = true;
+		ItemsCast = new();
     }
 
     protected override void OnParametersSet()

@@ -6,11 +6,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this Title=@LocaleCore.Print.Types />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterTypeEntity" @bind-Value=@ItemObject
@@ -18,6 +18,15 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
+	        @if (IsShowMarked)
+	        {
+		        <RadzenGridColumn TItem="PrinterTypeEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+		            Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
+			        <Template Context="itemCast" >
+				        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
+			        </Template>
+		        </RadzenGridColumn>
+	        }
             <RadzenGridColumn TItem="PrinterTypeEntity" Title=@LocaleCore.Print.Name 
                 Type="string" Width="100%" >
                 <Template Context="itemCast" >
@@ -29,5 +38,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@this />
+    <ActionsButtons ParentRazor=@(this) />
 }

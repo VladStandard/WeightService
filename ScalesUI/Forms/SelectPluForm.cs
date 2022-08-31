@@ -3,7 +3,10 @@
 
 using DataCore;
 using DataCore.Localizations;
+using DataCore.Sql;
+using DataCore.Sql.Controllers;
 using DataCore.Sql.Fields;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using System;
 using System.Collections.Generic;
@@ -47,18 +50,8 @@ public partial class SelectPluForm : Form
 	{
 		try
 		{
-			List<PluScaleEntity> pluScales = UserSession.DataAccess.Crud.GetItems<PluScaleEntity>(
-					new List<FieldFilterModel> {
-						new($"{nameof(PluScaleEntity.Scale)}.{ShareEnums.DbField.IdentityId}",
-							ShareEnums.DbComparer.Equal, UserSession.SqlViewModel.Scale.IdentityId),
-						new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false),
-					},
-					new(ShareEnums.DbField.Name))
-				?.ToList();
-			if (pluScales is not null)
-			{
-				PluScales.AddRange(pluScales);
-			}
+			PluScales = UserSession.DataAccess.Crud.GetListPluScales(false, false, 
+				UserSession.SqlViewModel.Scale.IdentityId);
 
 			LoadFormControls();
 

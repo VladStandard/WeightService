@@ -17,9 +17,6 @@
 //        private string DbServer => JsonAppSettings.Server.Contains(LocalizationStrings.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
 //                ? "Промышленный сервер" : "Сервер разработки";
 //        private bool IsSqlServerRelease => JsonAppSettings.Server.Contains(LocalizationStrings.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-//        private string MemoryInfo => BlazorSettings.Memory != null
-//            ? $"{LocalizationStrings.MemoryUsed}: {BlazorSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
-//            : $"{LocalizationStrings.MemoryUsed}: - MB";
 //        private string AuthMessage => BlazorSettings.Identity != null ? BlazorSettings.Identity.Name : @"User error!";
 
 //        #endregion

@@ -6,11 +6,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this Title=@LocaleData.DeviceControl.Sections.TemplateResources />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.TemplateResources />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TemplateResourceEntity" @bind-Value=@ItemObject
@@ -50,5 +50,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@this />
+    <ActionsButtons ParentRazor=@(this) />
 }

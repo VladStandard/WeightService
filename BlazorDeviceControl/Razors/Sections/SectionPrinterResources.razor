@@ -7,11 +7,11 @@
 
 @if (!IsLoaded)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@this 
+    <ActionsReloadSection ParentRazor=@(this) 
         Title=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
@@ -58,5 +58,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@this />
+    <ActionsButtons ParentRazor=@(this) />
 }

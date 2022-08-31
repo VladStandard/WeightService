@@ -27,13 +27,11 @@ public static class SqlUtils
 		switch (result.IsValid)
 		{
 			case false:
+				foreach (ValidationFailure failure in result.Errors)
 				{
-					foreach (ValidationFailure failure in result.Errors)
-					{
-						detailAddition += $"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}";
-					}
-					break;
+					detailAddition += $"{LocaleCore.Validator.Property} {failure.PropertyName} {LocaleCore.Validator.FailedValidation}. {LocaleCore.Validator.Error}: {failure.ErrorMessage}";
 				}
+				break;
 		}
 	}
 
