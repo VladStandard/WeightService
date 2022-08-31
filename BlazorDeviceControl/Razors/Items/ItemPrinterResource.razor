@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/printerresource"
-@page "/item/printerresource/{IdentityId:long}"
-@page "/item/printerresource/{IdentityId:long}/{TableAction}"
+@page "/item/printerresource/{Identity.Id:long}"
+@page "/item/printerresource/{Identity.Id:long}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
@@ -26,9 +26,9 @@ else
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.Printer>
-						@foreach (PrinterEntity item in Printers)
+						@foreach (PrinterModel item in Printers)
 						{
-							<MudSelectItem T=@PrinterEntity Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -43,9 +43,9 @@ else
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.Resource>
-						@foreach (TemplateResourceEntity item in Resources)
+						@foreach (TemplateResourceModel item in Resources)
 						{
-							<MudSelectItem T=@TemplateResourceEntity Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@TemplateResourceModel Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>

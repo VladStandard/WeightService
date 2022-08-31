@@ -14,12 +14,12 @@ public class AccessValidator : TableValidator
     /// <summary>
     /// Constructor.
     /// </summary>
-    public AccessValidator() : base(ColumnName.Uid)
+    public AccessValidator()
     {
-        RuleFor(item => ((AccessEntity)item).User)
+        RuleFor(item => ((AccessModel)item).User)
 	        .NotEmpty()
 	        .NotNull();
-        RuleFor(item => ((AccessEntity)item).Rights)
+        RuleFor(item => ((AccessModel)item).Rights)
 	        .NotNull()
 	        .LessThanOrEqualTo((byte)AccessRights.Admin)
 	        .GreaterThanOrEqualTo((byte)AccessRights.None);

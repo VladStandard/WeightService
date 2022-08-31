@@ -55,9 +55,9 @@ public class XmlProductHelper
                     {
                         ProductUnitEntity? item = new()
                         {
-                            Heft = Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
-                            Capacity = Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
-                            Rate = Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
+                            Heft = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
+                            Capacity = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
+                            Rate = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                             Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                             Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
                             Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
@@ -112,9 +112,9 @@ public class XmlProductHelper
                         ProductBoxEntity? item = new()
                         {
                             Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
-                            Heft = Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
-                            Capacity = Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
-                            Rate = Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
+                            Heft = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
+                            Capacity = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
+                            Rate = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                             Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                             Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
                             Unit = GetAttribute<string>(xmlChild, "Unit") ?? string.Empty
@@ -128,7 +128,7 @@ public class XmlProductHelper
         return entities;
     }
 
-    public XmlProductModel GetProductEntity(string? value)
+    public XmlProductModel GetXmlProduct(string? value)
     {
         XmlProductModel productEntity = new();
         if (string.IsNullOrEmpty(value))
@@ -336,9 +336,9 @@ public class XmlProductHelper
 		return (T)Convert.ChangeType(string.Empty, typeof(string));
 	}
 
-	public string GetXmlName(NomenclatureEntity nomenclature, string name)
+	public string GetXmlName(NomenclatureModel nomenclature, string name)
     {
-	    XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+	    XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 	    if (!xmlProduct.EqualsNew())
 	    {
 		    return GetXmlValue<string>(xmlProduct, "GoodsName");
@@ -346,9 +346,9 @@ public class XmlProductHelper
 	    return name;
     }
 
-	public string GetXmlFullName(NomenclatureEntity nomenclature, string fullName)
+	public string GetXmlFullName(NomenclatureModel nomenclature, string fullName)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<string>(xmlProduct, "GoodsFullName");
@@ -356,9 +356,9 @@ public class XmlProductHelper
 		return fullName;
 	}
 
-	public string GetXmlDescription(NomenclatureEntity nomenclature, string description)
+	public string GetXmlDescription(NomenclatureModel nomenclature, string description)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<string>(xmlProduct, "GoodsDescription");
@@ -366,9 +366,9 @@ public class XmlProductHelper
 		return description;
 	}
 
-	public short GetXmlShelfLifeDays(NomenclatureEntity nomenclature, short shelfLifeDays)
+	public short GetXmlShelfLifeDays(NomenclatureModel nomenclature, short shelfLifeDays)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			string strProductShelfLife = GetXmlValue<string>(xmlProduct, "ProductShelfLife");
@@ -384,9 +384,9 @@ public class XmlProductHelper
 		return shelfLifeDays;
 	}
 
-	public string GetXmlGtin(NomenclatureEntity nomenclature, string gtin)
+	public string GetXmlGtin(NomenclatureModel nomenclature, string gtin)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<string>(xmlProduct, "GTIN");
@@ -394,9 +394,9 @@ public class XmlProductHelper
 		return gtin;
 	}
 
-	public string GetXmlEan13(NomenclatureEntity nomenclature, string ean13)
+	public string GetXmlEan13(NomenclatureModel nomenclature, string ean13)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<string>(xmlProduct, "EAN13");
@@ -404,9 +404,9 @@ public class XmlProductHelper
 		return ean13;
 	}
 
-	public string GetXmlItf14(NomenclatureEntity nomenclature, string itf14)
+	public string GetXmlItf14(NomenclatureModel nomenclature, string itf14)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<string>(xmlProduct, "ITF14");
@@ -414,9 +414,9 @@ public class XmlProductHelper
 		return itf14;
 	}
 
-	public int GetXmlBoxQuantly(NomenclatureEntity nomenclature, int boxQuantly)
+	public int GetXmlBoxQuantly(NomenclatureModel nomenclature, int boxQuantly)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<int>(xmlProduct, "GoodsBoxQuantly");
@@ -424,9 +424,9 @@ public class XmlProductHelper
 		return boxQuantly;
 	}
 
-	public decimal GetXmlTareWeight(NomenclatureEntity nomenclature, decimal tareWeight)
+	public decimal GetXmlTareWeight(NomenclatureModel nomenclature, decimal tareWeight)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew())
 		{
 			return GetXmlValue<decimal>(xmlProduct, "GoodsTareWeight");
@@ -438,7 +438,7 @@ public class XmlProductHelper
 	/// Вес коробки.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightBox(NomenclatureEntity nomenclature, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightBox(NomenclatureModel nomenclature, XmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
 		{
@@ -456,7 +456,7 @@ public class XmlProductHelper
 	/// Вес пакета.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodWeightPack(NomenclatureEntity nomenclature, XmlProductModel xmlProduct)
+	public decimal CalcGoodWeightPack(NomenclatureModel nomenclature, XmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
 		{
@@ -474,7 +474,7 @@ public class XmlProductHelper
 	/// Кол-во вложений.
 	/// </summary>
 	/// <returns></returns>
-	public decimal CalcGoodRateUnit(NomenclatureEntity nomenclature, XmlProductModel xmlProduct)
+	public decimal CalcGoodRateUnit(NomenclatureModel nomenclature, XmlProductModel xmlProduct)
 	{
 		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
 		{
@@ -488,9 +488,9 @@ public class XmlProductHelper
 		return 0M;
 	}
 
-	public decimal CalcGoodsTareWeight(NomenclatureEntity nomenclature)
+	public decimal CalcGoodsTareWeight(NomenclatureModel nomenclature)
 	{
-		XmlProductModel xmlProduct = GetProductEntity(nomenclature.Xml);
+		XmlProductModel xmlProduct = GetXmlProduct(nomenclature.Xml);
 		if (!xmlProduct.EqualsNew() && !nomenclature.EqualsNew())
 		{
 			// Вес коробки.

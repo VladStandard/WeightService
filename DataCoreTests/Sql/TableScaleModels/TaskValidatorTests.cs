@@ -9,19 +9,19 @@ internal class TaskValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		TaskEntity item = DataCore.CreateNewSubstitute<TaskEntity>(false);
+		TaskModel item = DataCore.CreateNewSubstitute<TaskModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		TaskEntity item = DataCore.CreateNewSubstitute<TaskEntity>(true);
+		TaskModel item = DataCore.CreateNewSubstitute<TaskModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class TaskValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<TaskEntity>(1_000);
+		DataCore.AssertSqlDataValidate<TaskModel>(1_000);
 	}
 }

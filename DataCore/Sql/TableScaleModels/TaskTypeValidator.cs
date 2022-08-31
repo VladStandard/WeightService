@@ -13,9 +13,9 @@ public class TaskTypeValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TaskTypeValidator() : base(ColumnName.Uid, false, false)
+	public TaskTypeValidator() : base(false, false)
 	{
-		RuleFor(item => ((TaskTypeEntity)item).Name)
+		RuleFor(item => ((TaskTypeModel)item).Name)
 			.NotEmpty()
 			.NotNull();
 	}

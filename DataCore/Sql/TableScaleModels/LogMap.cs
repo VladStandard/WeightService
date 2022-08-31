@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "LOGS".
 /// </summary>
-public class LogMap : ClassMap<LogEntity>
+public class LogMap : ClassMap<LogModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class LogMap : ClassMap<LogEntity>
         Schema("db_scales");
         Table("LOGS");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.Version).CustomSqlType("NVARCHAR").Column("VERSION").Length(12).Nullable();

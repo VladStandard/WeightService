@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/plu_weighings"
-@page "/item/plu_weighings/{IdentityId:long}"
-@page "/item/plu_weighings/{IdentityId:long}/{TableAction}"
+@page "/item/plu_weighings/{Identity.Id:long}"
+@page "/item/plu_weighings/{Identity.Id:long}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
@@ -61,7 +61,7 @@ else
 				<td>@LocaleCore.Table.Plu</td>
 				<td>
 					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-					               Disabled=false ReadOnly=true Value=@ItemCast.Plu.IdentityId.ToString()/>
+					               Disabled=false ReadOnly=true Value=@ItemCast.Plu.Identity.Id.ToString()/>
 				</td>
 				<td>@LocaleCore.Table.PluNumber</td>
 				<td>

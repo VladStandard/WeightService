@@ -10,7 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 // Inject.
 //builder.Services.AddSingleton<JsonSettingsBase>();
-builder.Services.AddScoped<DialogService>();
+builder.Services.AddScoped<Radzen.DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();

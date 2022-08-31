@@ -10,11 +10,11 @@ public partial class ItemPluScale : RazorBase
     #region Public and private fields, properties, constructor
 
     private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
-    private List<NomenclatureEntity> Nomenclatures { get; set; }
-    private List<TemplateEntity> Templates { get; set; }
-    private List<ScaleEntity> Scales { get; set; }
-    private List<PluEntity> Plus { get; set; }
-    private PluScaleEntity ItemCast { get => Item == null ? new() : (PluScaleEntity)Item; set => Item = value; }
+    private List<NomenclatureModel> Nomenclatures { get; set; }
+    private List<TemplateModel> Templates { get; set; }
+    private List<ScaleModel> Scales { get; set; }
+    private List<PluModel> Plus { get; set; }
+    private PluScaleModel ItemCast { get => Item == null ? new() : (PluScaleModel)Item; set => Item = value; }
 
     #endregion
 
@@ -24,7 +24,7 @@ public partial class ItemPluScale : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusScales);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusScales);
         ItemCast = new();
         Templates = new();
         Nomenclatures = new();
@@ -44,11 +44,11 @@ public partial class ItemPluScale : RazorBase
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
-                        ItemCast.IsMarked = false;
+                        ItemCast.SetDt();
+						ItemCast.IsMarked = false;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluScaleEntity>(IdentityUid);
+                        ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
                         break;
                 }
 	            Templates = AppSettings.DataAccess.Crud.GetListTemplates(false, false, true);
@@ -64,12 +64,12 @@ public partial class ItemPluScale : RazorBase
 	            //// Номер PLU.
 	            //if (PluItem.Plu == 0)
 	            //{
-	            //    PluV2Entity pluEntity = AppSettings.DataAccess.PlusCrud.GetItem(
-	            //        new FieldListEntity(new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.IdentityId } }),
-	            //        new FieldOrderEntity { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
-	            //    if (pluEntity != null && !pluEntity.EqualsDefault())
+	            //    PluModel plu = AppSettings.DataAccess.PlusCrud.GetItem(
+	            //        new (new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.Identity.Id } }),
+	            //        new FieldOrderModel { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
+	            //    if (plu != null && !plu.EqualsDefault())
 	            //    {
-	            //        PluItem.Plu = pluEntity.Plu + 1;
+	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }
 
 	            ButtonSettings = new(false, false, false, false, false, true, true);

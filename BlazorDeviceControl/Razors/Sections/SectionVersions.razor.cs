@@ -7,9 +7,9 @@ public partial class SectionVersions : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<VersionEntity> ItemsCast
+    private List<VersionModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (VersionEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (VersionModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionVersions : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Versions);
+        Table = new TableSystemModel(ProjectsEnums.TableSystem.Versions);
         ItemsCast = new();
     }
 

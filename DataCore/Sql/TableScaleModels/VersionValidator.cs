@@ -13,17 +13,17 @@ public class VersionValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public VersionValidator() : base(ColumnName.Uid, false, false)
+	public VersionValidator() : base(false, false)
 	{
-		RuleFor(item => ((VersionEntity)item).ReleaseDt)
+		RuleFor(item => ((VersionModel)item).ReleaseDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((VersionEntity)item).Version)
+		RuleFor(item => ((VersionModel)item).Version)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThan(default(short));
-		RuleFor(item => ((VersionEntity)item).Description)
+		RuleFor(item => ((VersionModel)item).Description)
 			.NotEmpty()
 			.NotNull();
 	}

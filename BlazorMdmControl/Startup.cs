@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using MdmControlBlazor.Data;
+using BlazorMdmControl.Data;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +28,7 @@ namespace MdmControlBlazor
             services.AddRazorPages();
             services.AddServerSideBlazor();
             // appsettings.json
-            services.AddSingleton<JsonAppSettingsEntity>();
+            services.AddSingleton<JsonAppSettingsModel>();
             // User settings.
             //services.AddScoped<BlazorSettingsEntity>();
             // Radzen.

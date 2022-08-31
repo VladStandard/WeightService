@@ -7,9 +7,9 @@ public partial class SectionBarCodes : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<BarCodeEntity> ItemsCast
+	private List<BarCodeModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (BarCodeEntity)x).ToList();
+		get => Items == null ? new() : Items.Select(x => (BarCodeModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 
@@ -21,7 +21,7 @@ public partial class SectionBarCodes : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodes);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.BarCodes);
 		IsShowMarkedFilter = true;
 		ItemsCast = new();
 	}

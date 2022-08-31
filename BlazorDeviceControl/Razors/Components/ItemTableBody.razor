@@ -23,12 +23,12 @@
 					case ColumnName.Id:
 						<RadzenTextBox 
 							Style="width: 100%; text-align: center; background-color: lightgray;"
-							ReadOnly=true Value=@Item.IdentityId.ToString() />
+							ReadOnly=true Value=@Item.Identity.Id.ToString() />
 						break;
 					case ColumnName.Uid:
 						<RadzenTextBox 
 							Style="width: 100%; text-align: center; background-color: lightgray;"
-						    ReadOnly=true Value=@Item.IdentityUid.ToString() />
+						    ReadOnly=true Value=@Item.Identity.Uid.ToString() />
 						break;
 				}
 			}

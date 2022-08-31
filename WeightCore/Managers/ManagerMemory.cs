@@ -18,7 +18,7 @@ namespace WeightCore.Managers
 
         private Label FieldMemory { get; set; }
         private Label FieldTasks { get; set; }
-        private MemorySizeEntity MemorySize { get; set; }
+        private MemorySizeModel MemorySize { get; set; }
         public DebugHelper Debug { get; } = DebugHelper.Instance;
 
         #endregion
@@ -85,7 +85,7 @@ namespace WeightCore.Managers
 
         private void Response()
         {
-            if (UserSessionHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+            //if (UserSessionHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
                     $"{LocaleCore.Scales.Memory} | " +

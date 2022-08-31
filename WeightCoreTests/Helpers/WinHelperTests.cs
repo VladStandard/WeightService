@@ -50,8 +50,8 @@ namespace WeightCoreTests.Helpers
             {
                 foreach (ShareEnums.StringTemplate template in Enum.GetValues(typeof(ShareEnums.StringTemplate)))
                 {
-                    WmiSoftwareEntity actual = Win.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
-                    WmiSoftwareEntity expected = new();
+                    WmiSoftwareModel actual = Win.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
+                    WmiSoftwareModel expected = new();
                     TestContext.WriteLine($@"actual = {actual}");
                     Assert.AreEqual(expected.ToString(), actual.ToString());
                 }
@@ -68,7 +68,7 @@ namespace WeightCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            WmiSoftwareEntity actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
+            WmiSoftwareModel actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"actual.Name: {actual.Name}");
             Assert.AreEqual("Microsoft Corporation", actual.Vendor);

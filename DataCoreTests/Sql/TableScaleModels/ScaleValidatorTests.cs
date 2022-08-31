@@ -9,19 +9,19 @@ internal class ScaleValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		ScaleEntity item = DataCore.CreateNewSubstitute<ScaleEntity>(false);
+		ScaleModel item = DataCore.CreateNewSubstitute<ScaleModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		ScaleEntity item = DataCore.CreateNewSubstitute<ScaleEntity>(true);
+		ScaleModel item = DataCore.CreateNewSubstitute<ScaleModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class ScaleValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<ScaleEntity>(1_000);
+		DataCore.AssertSqlDataValidate<ScaleModel>(1_000);
 	}
 }

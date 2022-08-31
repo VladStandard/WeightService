@@ -12,13 +12,13 @@
 //    internal class NomenclatureTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
 //            Assert.DoesNotThrow(() =>
 //            {
-//                NomenclatureEntity entityNew = new();
+//                NomenclatureModel entityNew = new();
 //                Assert.AreEqual(true, entityNew.EqualsNew());
 //                Assert.AreEqual(true, entityNew.EqualsDefault());
 //                object entityCopy = entityNew.CloneCast();
@@ -28,7 +28,7 @@
 //                    foreach (DateTime dt in TestsEnums.GetDateTime())
 //                        foreach (string s in TestsEnums.GetString())
 //                        {
-//                            NomenclatureEntity item = new()
+//                            NomenclatureModel item = new()
 //                            {
 //                                Id = i,
 //                                CreateDate = dt,
@@ -52,13 +52,13 @@
 
 //            Assert.Throws<Exception>(() =>
 //            {
-//                NomenclatureEntity item = new()
+//                NomenclatureModel item = new()
 //                {
 //                    Id = -1,
 //                    CreateDate = DateTime.Now,
 //                    ChangeDt = DateTime.Now,
 //                    Code = default,
-//                    Name = "NomenclatureEntity test",
+//                    Name = "NomenclatureModel test",
 //                    SerializedRepresentationObject = default,
 //                };
 //                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
@@ -74,8 +74,8 @@
 
 //            Assert.DoesNotThrow(() =>
 //            {
-//                string name = "NomenclatureEntity test";
-//                NomenclatureEntity entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<NomenclatureEntity>(new FieldListEntity(
+//                string name = "NomenclatureModel test";
+//                NomenclatureModel entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<NomenclatureModel>(new (
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;
@@ -86,11 +86,11 @@
 
 //            Assert.DoesNotThrow(() =>
 //            {
-//                string name = "NomenclatureEntity test";
+//                string name = "NomenclatureModel test";
 //                // GetEntities
-//                NomenclatureEntity[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<NomenclatureEntity>(null, null);
+//                NomenclatureModel[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<NomenclatureModel>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (NomenclatureEntity item in entities)
+//                foreach (NomenclatureModel item in entities)
 //                {
 //                    if (item.Name.Equals(name))
 //                    {

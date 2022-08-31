@@ -9,19 +9,19 @@ internal class LogTypeValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		LogTypeEntity item = DataCore.CreateNewSubstitute<LogTypeEntity>(false);
+		LogTypeModel item = DataCore.CreateNewSubstitute<LogTypeModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		LogTypeEntity item = DataCore.CreateNewSubstitute<LogTypeEntity>(true);
+		LogTypeModel item = DataCore.CreateNewSubstitute<LogTypeModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class LogTypeValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<LogTypeEntity>(1_000);
+		DataCore.AssertSqlDataValidate<LogTypeModel>(1_000);
 	}
 }

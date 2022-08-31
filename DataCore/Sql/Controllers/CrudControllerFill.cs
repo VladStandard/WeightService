@@ -24,10 +24,10 @@ public partial class CrudController
 		if (item == null) return;
 		switch (item)
 		{
-			case LogEntity log:
-				log.App = log.App?.IdentityUid == null ? new() : GetItemByUid<AppEntity>(log.App.IdentityUid);
-				log.Host = log.Host?.IdentityId == null ? new() : GetItemById<HostEntity>(log.Host.IdentityId);
-				log.LogType = log.LogType?.IdentityUid == null ? new() : GetItemByUid<LogTypeEntity>(log.LogType.IdentityUid);
+			case LogModel log:
+				log.App = log.App?.Identity.Uid == null ? new() : GetItemByUid<AppModel>(log.App.Identity.Uid);
+				log.Host = log.Host?.Identity.Id == null ? new() : GetItemById<HostModel>(log.Host.Identity.Id);
+				log.LogType = log.LogType?.Identity.Uid == null ? new() : GetItemByUid<LogTypeModel>(log.LogType.Identity.Uid);
 				break;
 		}
 	}
@@ -38,9 +38,9 @@ public partial class CrudController
 		switch (item)
 		{
 			case DeviceModel device:
-				ScaleEntity? scale = GetItemById<ScaleEntity>(device.Scales.IdentityId);
+				ScaleModel? scale = GetItemById<ScaleModel>(device.Scale.Identity.Id);
 				if (scale is not null)
-					device.Scales = scale;
+					device.Scale = scale;
 				break;
 		}
 	}
@@ -50,97 +50,97 @@ public partial class CrudController
 		if (item == null) return;
 		switch (item)
 		{
-			case BarCodeEntity barcode:
-				barcode.BarcodeType = GetItemByUid<BarCodeTypeEntity>(barcode.BarcodeType?.IdentityUid);
-				barcode.Contragent = GetItemByUid<ContragentEntity>(barcode.Contragent?.IdentityUid);
-				barcode.Nomenclature = GetItemById<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature?.IdentityId);
+			case BarCodeModel barcode:
+				barcode.BarcodeType = GetItemByUid<BarCodeTypeModel>(barcode.BarcodeType?.Identity.Uid);
+				barcode.Contragent = GetItemByUid<ContragentModel>(barcode.Contragent?.Identity.Uid);
+				barcode.Nomenclature = GetItemById<TableScaleModels.NomenclatureModel>(barcode.Nomenclature?.Identity.Id);
 				break;
-			case OrderWeighingEntity orderWeighing:
-				OrderEntity? order = GetItemByUid<OrderEntity>(orderWeighing.Order.IdentityUid);
+			case OrderWeighingModel orderWeighing:
+				OrderModel? order = GetItemByUid<OrderModel>(orderWeighing.Order.Identity.Uid);
 				if (order is not null)
 					orderWeighing.Order = order;
-				PluWeighingEntity? pluWeighing1 = GetItemByUid<PluWeighingEntity>(orderWeighing.PluWeighing.IdentityUid);
+				PluWeighingModel? pluWeighing1 = GetItemByUid<PluWeighingModel>(orderWeighing.PluWeighing.Identity.Uid);
 				if (pluWeighing1 is not null)
 					orderWeighing.PluWeighing = pluWeighing1;
 				break;
-			case PluEntity plu:
-				TemplateEntity? template = GetItemById<TemplateEntity>(plu.Template.IdentityId);
+			case PluModel plu:
+				TemplateModel? template = GetItemById<TemplateModel>(plu.Template.Identity.Id);
 				if (template is not null)
 					plu.Template = template;
-				TableScaleModels.NomenclatureEntity? nomenclature = GetItemById<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+				TableScaleModels.NomenclatureModel? nomenclature = GetItemById<TableScaleModels.NomenclatureModel>(plu.Nomenclature.Identity.Id);
 				if (nomenclature is not null)
 					plu.Nomenclature = nomenclature;
 				break;
-			case PluLabelEntity pluLabel:
-				PluWeighingEntity? pluWeighing2 = GetItemByUid<PluWeighingEntity>(pluLabel.PluWeighing?.IdentityUid);
+			case PluLabelModel pluLabel:
+				PluWeighingModel? pluWeighing2 = GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing?.Identity.Uid);
 				if (pluWeighing2 is not null)
 					pluLabel.PluWeighing = pluWeighing2;
 				break;
-			case PluObsoleteEntity pluObsolete:
-				TemplateEntity? template1 = GetItemById<TemplateEntity>(pluObsolete.Template.IdentityId);
+			case PluObsoleteModel pluObsolete:
+				TemplateModel? template1 = GetItemById<TemplateModel>(pluObsolete.Template.Identity.Id);
 				if (template1 is not null)
 					pluObsolete.Template = template1;
-				ScaleEntity? scale1 = GetItemById<ScaleEntity>(pluObsolete.Scale.IdentityId);
+				ScaleModel? scale1 = GetItemById<ScaleModel>(pluObsolete.Scale.Identity.Id);
 				if (scale1 is not null)
 					pluObsolete.Scale = scale1;
-				TableScaleModels.NomenclatureEntity? nomenclature2 = GetItemById<TableScaleModels.NomenclatureEntity>(pluObsolete.Nomenclature.IdentityId);
+				TableScaleModels.NomenclatureModel? nomenclature2 = GetItemById<TableScaleModels.NomenclatureModel>(pluObsolete.Nomenclature.Identity.Id);
 				if (nomenclature2 is not null)
 					pluObsolete.Nomenclature = nomenclature2;
 				break;
-			case PluScaleEntity pluScale:
-				PluEntity? plu2 = GetItemByUid<PluEntity>(pluScale.Plu.IdentityUid);
+			case PluScaleModel pluScale:
+				PluModel? plu2 = GetItemByUid<PluModel>(pluScale.Plu.Identity.Uid);
 				if (plu2 is not null)
 					pluScale.Plu = plu2;
-				ScaleEntity? scale2 = GetItemById<ScaleEntity>(pluScale.Scale.IdentityId);
+				ScaleModel? scale2 = GetItemById<ScaleModel>(pluScale.Scale.Identity.Id);
 				if (scale2 is not null)
 					pluScale.Scale = scale2;
 				break;
-			case PluWeighingEntity pluWeighing:
-				PluScaleEntity? pluScale2 = GetItemByUid<PluScaleEntity>(pluWeighing.PluScale.IdentityUid);
+			case PluWeighingModel pluWeighing:
+				PluScaleModel? pluScale2 = GetItemByUid<PluScaleModel>(pluWeighing.PluScale.Identity.Uid);
 				if (pluScale2 is not null)
 					pluWeighing.PluScale = pluScale2;
-				ProductSeriesEntity? productSeries = GetItemById<ProductSeriesEntity>(pluWeighing.Series.IdentityId);
+				ProductSeriesModel? productSeries = GetItemById<ProductSeriesModel>(pluWeighing.Series.Identity.Id);
 				if (productSeries is not null)
 					pluWeighing.Series = productSeries;
 				break;
-			case PrinterEntity printer:
-				PrinterTypeEntity? printerType = GetItemById<PrinterTypeEntity>(printer.PrinterType.IdentityId);
+			case PrinterModel printer:
+				PrinterTypeModel? printerType = GetItemById<PrinterTypeModel>(printer.PrinterType.Identity.Id);
 				if (printerType is not null)
 					printer.PrinterType = printerType;
 				break;
-			case PrinterResourceEntity printerResource:
-				PrinterEntity? printer2 = GetItemById<PrinterEntity>(printerResource.Printer.IdentityId);
+			case PrinterResourceModel printerResource:
+				PrinterModel? printer2 = GetItemById<PrinterModel>(printerResource.Printer.Identity.Id);
 				if (printer2 is not null)
 					printerResource.Printer = printer2;
-				TemplateResourceEntity? templateResource2 = GetItemById<TemplateResourceEntity>(printerResource.Resource.IdentityId);
+				TemplateResourceModel? templateResource2 = GetItemById<TemplateResourceModel>(printerResource.Resource.Identity.Id);
 				if (templateResource2 is not null)
 					printerResource.Resource = templateResource2;
 				if (string.IsNullOrEmpty(printerResource.Resource.Description))
 					printerResource.Resource.Description = printerResource.Resource.Name;
 				break;
-			case ProductSeriesEntity product:
-				ScaleEntity? scale3 = GetItemById<ScaleEntity>(product.Scale.IdentityId);
+			case ProductSeriesModel product:
+				ScaleModel? scale3 = GetItemById<ScaleModel>(product.Scale.Identity.Id);
 				if (scale3 is not null)
 					product.Scale = scale3;
 				break;
-			case ScaleEntity scale:
-				scale.TemplateDefault = GetItemById<TemplateEntity>(scale.TemplateDefault?.IdentityId);
-				scale.TemplateSeries = GetItemById<TemplateEntity>(scale.TemplateSeries?.IdentityId);
-				scale.PrinterMain = GetItemById<PrinterEntity>(scale.PrinterMain?.IdentityId);
-				scale.PrinterShipping = GetItemById<PrinterEntity>(scale.PrinterShipping?.IdentityId);
-				scale.Host = GetItemById<HostEntity>(scale.Host?.IdentityId);
-				scale.WorkShop = GetItemById<WorkShopEntity>(scale.WorkShop?.IdentityId);
+			case ScaleModel scale:
+				scale.TemplateDefault = GetItemById<TemplateModel>(scale.TemplateDefault?.Identity.Id);
+				scale.TemplateSeries = GetItemById<TemplateModel>(scale.TemplateSeries?.Identity.Id);
+				scale.PrinterMain = GetItemById<PrinterModel>(scale.PrinterMain?.Identity.Id);
+				scale.PrinterShipping = GetItemById<PrinterModel>(scale.PrinterShipping?.Identity.Id);
+				scale.Host = GetItemById<HostModel>(scale.Host?.Identity.Id);
+				scale.WorkShop = GetItemById<WorkShopModel>(scale.WorkShop?.Identity.Id);
 				break;
-			case TaskEntity task:
-				TaskTypeEntity? taskType = GetItemByUid<TaskTypeEntity>(task.TaskType.IdentityUid);
+			case TaskModel task:
+				TaskTypeModel? taskType = GetItemByUid<TaskTypeModel>(task.TaskType.Identity.Uid);
 				if (taskType is not null)
 					task.TaskType = taskType;
-				ScaleEntity? scale4 = GetItemById<ScaleEntity>(task.Scale.IdentityId);
+				ScaleModel? scale4 = GetItemById<ScaleModel>(task.Scale.Identity.Id);
 				if (scale4 is not null)
 					task.Scale = scale4;
 				break;
-			case WorkShopEntity workshop:
-				ProductionFacilityEntity? productionFacility = GetItemById<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
+			case WorkShopModel workshop:
+				ProductionFacilityModel? productionFacility = GetItemById<ProductionFacilityModel>(workshop.ProductionFacility.Identity.Id);
 				if (productionFacility is not null)
 					workshop.ProductionFacility = productionFacility;
 				break;
@@ -150,31 +150,31 @@ public partial class CrudController
 	private void FillReferencesDwh<T>(T? item) where T : TableModel, new()
 	{
 		if (item == null) return;
-		InformationSystemEntity? informationSystem;
+		InformationSystemModel? informationSystem;
 		switch (item)
 		{
-			case BrandEntity brand:
-				informationSystem = GetItemById<InformationSystemEntity>(brand.InformationSystem.IdentityId);
+			case BrandModel brand:
+				informationSystem = GetItemById<InformationSystemModel>(brand.InformationSystem.Identity.Id);
 				if (informationSystem is not null)
 					brand.InformationSystem = informationSystem;
 				break;
-			case TableDwhModels.NomenclatureEntity nomenclature:
-				StatusEntity? status = GetItemById<StatusEntity>(nomenclature.Status.IdentityId);
+			case TableDwhModels.NomenclatureModel nomenclature:
+				StatusModel? status = GetItemById<StatusModel>(nomenclature.Status.Identity.Id);
 				if (status is not null)
 					nomenclature.Status = status;
 				break;
-			case NomenclatureGroupEntity nomenclatureGroup:
-				informationSystem = GetItemById<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
+			case NomenclatureGroupModel nomenclatureGroup:
+				informationSystem = GetItemById<InformationSystemModel>(nomenclatureGroup.InformationSystem.Identity.Id);
 				if (informationSystem is not null)
 					nomenclatureGroup.InformationSystem = informationSystem;
 				break;
-			case NomenclatureLightEntity nomenclatureLight:
-				informationSystem = GetItemById<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
+			case NomenclatureLightModel nomenclatureLight:
+				informationSystem = GetItemById<InformationSystemModel>(nomenclatureLight.InformationSystem.Identity.Id);
 				if (informationSystem is not null)
 					nomenclatureLight.InformationSystem = informationSystem;
 				break;
-			case NomenclatureTypeEntity nomenclatureType:
-				informationSystem = GetItemById<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
+			case NomenclatureTypeModel nomenclatureType:
+				informationSystem = GetItemById<InformationSystemModel>(nomenclatureType.InformationSystem.Identity.Id);
 				if (informationSystem is not null)
 					nomenclatureType.InformationSystem = informationSystem;
 				break;

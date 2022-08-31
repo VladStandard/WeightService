@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "ORDERS".
 /// </summary>
-public class OrderMap : ClassMap<OrderEntity>
+public class OrderMap : ClassMap<OrderModel>
 {
     /// <summary>
     /// Constructor.
@@ -18,7 +18,7 @@ public class OrderMap : ClassMap<OrderEntity>
         Schema("db_scales");
         Table("ORDERS");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

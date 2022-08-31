@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Controllers;
@@ -12,9 +10,9 @@ public class LogController
     #region Public and private fields, properties, constructor
 
     private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
-    private AppEntity? App { get; set; }
+    private AppModel? App { get; set; }
     private DataAccessHelper DataAccess { get; set; } = DataAccessHelper.Instance;
-    private HostEntity? Host { get; set; }
+    private HostModel? Host { get; set; }
 
     #endregion
 
@@ -22,12 +20,12 @@ public class LogController
 
     public void Setup(string? hostName, string? appName)
     {
-        HostEntity? host = DataAccess.Crud.GetItemHost(hostName);
+        HostModel? host = DataAccess.Crud.GetItemHost(hostName);
 
         if (host != null && !host.EqualsDefault())
             Host = host;
 
-        AppEntity? app = DataAccess.Crud.GetOrCreateNewApp(appName);
+        AppModel? app = DataAccess.Crud.GetOrCreateNewApp(appName);
         if (app != null && !app.EqualsDefault())
             App = app;
     }
@@ -75,17 +73,17 @@ public class LogController
         byte logNumber = (byte)logType;
         StringUtils.SetStringValueTrim(ref message, 1024);
         SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.Number, DbComparer.Equal, logNumber) }, null, 0);
-        LogTypeEntity? logTypeItem = DataAccess.Crud.GetItem<LogTypeEntity>(sqlCrudConfig);
+        LogTypeModel? logTypeItem = DataAccess.Crud.GetItem<LogTypeModel>(sqlCrudConfig);
 
-        HostEntity? host = Host;
-        AppEntity? app = App;
+        HostModel? host = Host;
+        AppModel? app = App;
 
         if (!string.IsNullOrEmpty(hostName))
             host = DataAccess.Crud.GetItemHost(hostName);
         if (!string.IsNullOrEmpty(appName))
             app = DataAccess.Crud.GetOrCreateNewApp(appName);
 
-        LogEntity log = new()
+        LogModel log = new()
         {
             CreateDt = DateTime.Now,
             ChangeDt = DateTime.Now,
@@ -111,17 +109,17 @@ public class LogController
     public Guid SaveApp(string name)
     {
         StringUtils.SetStringValueTrim(ref name, 32);
-        AppEntity app = new() { Name = name };
+        AppModel app = new() { Name = name };
         DataAccess.Crud.Save(app);
-        return app.IdentityUid;
+        return app.Identity.Uid;
     }
 
     public long? GetHostId(string name)
     {
         StringUtils.SetStringValueTrim(ref name, 150);
         SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.Name, DbComparer.Equal, name) }, null, 0);
-		HostEntity? host = DataAccess.Crud.GetItem<HostEntity>(sqlCrudConfig);
-        return host?.IdentityId;
+		HostModel? host = DataAccess.Crud.GetItem<HostModel>(sqlCrudConfig);
+        return host?.Identity.Id;
     }
 
     #endregion

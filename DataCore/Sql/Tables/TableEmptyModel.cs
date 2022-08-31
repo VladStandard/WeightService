@@ -13,39 +13,14 @@ public class TableEmptyModel : TableModel, ISerializable, ITableModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableEmptyModel() : base(ColumnName.Uid, Guid.Empty, false)
+    public TableEmptyModel() : base()
     {
-        Init();
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="identityUid"></param>
-    /// <param name="isSetupDates"></param>
-    public TableEmptyModel(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
-    {
-        Init();
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="identityId"></param>
-    /// <param name="isSetupDates"></param>
-    public TableEmptyModel(long identityId, bool isSetupDates) : base(ColumnName.Uid, identityId, isSetupDates)
-    {
-        Init();
+        //
     }
 
     #endregion
 
     #region Public and private methods
-
-    public new virtual void Init()
-    {
-        base.Init();
-    }
 
     public virtual bool Equals(TableEmptyModel item)
     {

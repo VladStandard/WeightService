@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils.Tsc;
 using System;
@@ -10,11 +11,9 @@ using System.Linq;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
-using DataCore.Sql.Fields;
 using WeightCore.Helpers;
 using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
-using DataCore.Sql.Models;
 
 namespace WeightCore.Zpl
 {
@@ -44,17 +43,17 @@ namespace WeightCore.Zpl
             //result = result.Replace(nameof(TableDirectModels.ProductionFacilityDirect), "ProductionFacilityEntity");
             result = result.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
             result = result.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
-            result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
+            //result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
             //result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
             //result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
-            result = result.Replace(nameof(PluWeighingEntity), "WeighingFactEntity");
+            result = result.Replace(nameof(PluWeighingModel), "WeighingFactEntity");
             //result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
             //result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
-            result = result.Replace(nameof(PluLabelEntity), "ZplLabelEntity");
+            result = result.Replace(nameof(PluLabelModel), "ZplLabelEntity");
             // TableScaleModels.
-            result = result.Replace(nameof(PrinterEntity), "PrinterEntity");
-            result = result.Replace(nameof(ScaleEntity), "ScaleEntity");
-            result = result.Replace(nameof(TemplateEntity), "TemplateEntity");
+            result = result.Replace(nameof(PrinterModel), "PrinterEntity");
+            result = result.Replace(nameof(ScaleModel), "ScaleEntity");
+            result = result.Replace(nameof(TemplateModel), "TemplateEntity");
             // SqlViewModelHelper.
             result = result.Replace(nameof(SqlViewModelHelper.Instance.Area), "Area");
             // Result.
@@ -106,13 +105,13 @@ namespace WeightCore.Zpl
             if (string.IsNullOrEmpty(result))
                 return result;
 
-            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
-				{ new($"{nameof(TemplateResourceEntity.Type)}", DbComparer.Equal, "ZPL") }, 
-	            new(DbField.Name), 0, false, false);
-            TemplateResourceEntity[]? templateReources = DataAccessHelper.Instance.Crud.GetItems<TemplateResourceEntity>(sqlCrudConfig);
+            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
+                { new($"{nameof(TemplateResourceModel.Type)}", DbComparer.Equal, "ZPL") },
+                new(DbField.Name), 0, false, false);
+            TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.Crud.GetItems<TemplateResourceModel>(sqlCrudConfig);
             if (templateReources != null)
             {
-                foreach (TemplateResourceEntity resource in templateReources.ToList())
+                foreach (TemplateResourceModel resource in templateReources.ToList())
                 {
                     string resourceHex = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(resource.ImageData.ValueUnicode);
                     result = result.Replace($"[{resource.Name}]", resourceHex);
@@ -158,24 +157,24 @@ namespace WeightCore.Zpl
 
         public static string MergeXml(string xmlParent, string xmlChild)
         {
-	        string result = string.Empty;
+            string result = string.Empty;
             bool isInsert = false;
-	        foreach (string lineParent in xmlParent.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
-			{
-		        if (isInsert && !string.IsNullOrEmpty(xmlChild))
-		        {
-			        foreach (string lineChild in xmlChild.Split(new [] { Environment.NewLine }, StringSplitOptions.None))
-			        {
-				        if (!lineChild.StartsWith("<?xml "))
-							result += "\t" + lineChild + Environment.NewLine;
-			        }
-			        xmlChild = string.Empty;
-		        }
+            foreach (string lineParent in xmlParent.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+            {
+                if (isInsert && !string.IsNullOrEmpty(xmlChild))
+                {
+                    foreach (string lineChild in xmlChild.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+                    {
+                        if (!lineChild.StartsWith("<?xml "))
+                            result += "\t" + lineChild + Environment.NewLine;
+                    }
+                    xmlChild = string.Empty;
+                }
                 if (lineParent.StartsWith("<") && !lineParent.StartsWith("<?xml "))
                     isInsert = true;
-				result += lineParent + Environment.NewLine;
-	        }
-			return result;
+                result += lineParent + Environment.NewLine;
+            }
+            return result;
         }
 
         #endregion

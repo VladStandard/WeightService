@@ -130,8 +130,8 @@ public class JsonSettingsController
 
         using StreamReader streamReader = File.OpenText(file);
         JsonSerializer serializer = new();
-        object? jsonObject = (JsonSettingsEntity?)serializer.Deserialize(streamReader, typeof(JsonSettingsEntity));
-        if (jsonObject is JsonSettingsEntity jsonSettings)
+        object? jsonObject = (JsonSettingsModel?)serializer.Deserialize(streamReader, typeof(JsonSettingsModel));
+        if (jsonObject is JsonSettingsModel jsonSettings)
         {
             SqlConnectionStringBuilder sqlConnectionStringBuilder = new();
             sqlConnectionStringBuilder["Data Source"] = jsonSettings.Sql.DataSource;
@@ -213,12 +213,12 @@ public class JsonSettingsController
             return 0;
         }
 
-        if (content.Contains(nameof(JsonSettingsEntity.Version)))
+        if (content.Contains(nameof(JsonSettingsModel.Version)))
         {
             string[] lines = content.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             foreach (string line in lines)
             {
-                if (line.Contains($"\"{nameof(JsonSettingsEntity.Version)}\""))
+                if (line.Contains($"\"{nameof(JsonSettingsModel.Version)}\""))
                 {
                     int posStart = line.IndexOf(": ") + 2;
                     int posEnd = line.IndexOf(",");

@@ -10,41 +10,26 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
-    public virtual ScaleEntity Scales { get; set; }
+    public virtual ScaleModel Scale { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public DeviceModel() : base(ColumnName.Id, 0, false)
+	public DeviceModel() : base(ColumnName.Id)
     {
-		Init();
+	    Scale = new();
 	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="identityId"></param>
-	/// <param name="isSetupDates"></param>
-	public DeviceModel(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
-	{
-		Init();
-	}
-
-    public void Init()
-    {
-        Scales = new();
-    }
 
     #endregion
 
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(Scales)}: {Scales}.";
+        $"{nameof(Scale)}: {Scale}.";
 
     public override int GetHashCode()
     {
-        return Scales.GetHashCode();
+        return Scale.GetHashCode();
     }
 
     public override bool Equals(object obj)
@@ -54,7 +39,7 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
 		if (obj is DeviceModel item)
         {
             return
-               Scales == null && item.Scales == null || Scales != null && Scales.Equals(item.Scales);
+               Scale.Equals(item.Scale);
         }
         return false;
     }
@@ -70,7 +55,7 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
 
     public new virtual bool EqualsDefault()
     {
-        if (Scales != null && !Scales.EqualsDefault())
+        if (!Scale.EqualsDefault())
             return false;
         return base.EqualsDefault();
     }
@@ -79,7 +64,7 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
     {
         DeviceModel item = new()
         {
-            Scales = Scales.CloneCast(),
+            Scale = Scale.CloneCast(),
         };
         item.Setup(((TableModel)this).CloneCast());
         return item;

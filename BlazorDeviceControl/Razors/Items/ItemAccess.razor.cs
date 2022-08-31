@@ -7,8 +7,8 @@ public partial class ItemAccess : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private AccessEntity ItemCast { get => Item == null ? new() : (AccessEntity)Item; set => Item = value; }
-	private List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }
+	private AccessModel ItemCast { get => Item == null ? new() : (AccessModel)Item; set => Item = value; }
+	private List<TypeModel<AccessRights>>? TemplateAccessRights { get; set; }
 
 	private AccessRights Rights
 	{
@@ -24,7 +24,7 @@ public partial class ItemAccess : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+		Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
 		ItemCast = new();
 		TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
 	}
@@ -41,12 +41,12 @@ public partial class ItemAccess : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.User = "NEW USER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<AccessEntity>(IdentityUid);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<AccessModel>(IdentityUid);
 						break;
 				}
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);

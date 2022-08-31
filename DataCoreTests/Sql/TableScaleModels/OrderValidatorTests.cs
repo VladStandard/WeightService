@@ -9,19 +9,19 @@ internal class OrderValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		OrderEntity item = DataCore.CreateNewSubstitute<OrderEntity>(false);
+		OrderModel item = DataCore.CreateNewSubstitute<OrderModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		OrderEntity item = DataCore.CreateNewSubstitute<OrderEntity>(true);
+		OrderModel item = DataCore.CreateNewSubstitute<OrderModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class OrderValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<OrderEntity>(1_000);
+		DataCore.AssertSqlDataValidate<OrderModel>(1_000);
 	}
 }

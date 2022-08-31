@@ -7,9 +7,9 @@ public partial class SectionPlus : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	[Parameter] public List<PluEntity> ItemsCast
+	[Parameter] public List<PluModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluEntity)x).ToList();
+		get => Items == null ? new() : Items.Select(x => (PluModel)x).ToList();
 		set => Items = value.Cast<TableModel>().ToList();
 	}
 
@@ -21,7 +21,7 @@ public partial class SectionPlus : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Plus);
 		IsShowMarkedFilter = true;
 		Items = new();
 	}

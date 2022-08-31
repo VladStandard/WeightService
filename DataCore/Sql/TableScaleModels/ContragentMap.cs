@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentMap : ClassMap<ContragentEntity>
+public class ContragentMap : ClassMap<ContragentModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class ContragentMap : ClassMap<ContragentEntity>
         Schema("db_scales");
         Table("CONTRAGENTS_V2");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("MARKED").Not.Nullable().Default("0");

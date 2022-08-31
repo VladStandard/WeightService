@@ -26,7 +26,7 @@ public partial class NavMenu : BlazorCore.Models.RazorBase
 
     public NavMenu()
     {
-        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
+        Table = new TableSystemModel(ProjectsEnums.TableSystem.Default);
         Items = new();
     }
 

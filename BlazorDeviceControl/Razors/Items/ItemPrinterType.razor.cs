@@ -7,7 +7,7 @@ public partial class ItemPrinterType : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private PrinterTypeEntity ItemCast { get => Item == null ? new() : (PrinterTypeEntity)Item; set => Item = value; }
+	private PrinterTypeModel ItemCast { get => Item == null ? new() : (PrinterTypeModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemPrinterType : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersTypes);
 		ItemCast = new();
 	}
 
@@ -33,18 +33,18 @@ public partial class ItemPrinterType : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW PRINTER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterTypeEntity>(IdentityId);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterTypeModel>(IdentityId);
 						break;
 				}
 
-				if (IdentityId != null && TableAction == DbTableAction.New)
+				if (TableAction == DbTableAction.New)
 				{
-					ItemCast.IdentityId = (long)IdentityId;
+					//ItemCast.Identity.Id = (long)IdentityId;
 					ItemCast.Name = "NEW PRINTER_TYPE";
 				}
 

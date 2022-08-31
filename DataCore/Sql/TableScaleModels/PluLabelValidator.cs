@@ -14,16 +14,16 @@ public class PluLabelValidator : TableValidator
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelValidator() : base(ColumnName.Uid)
-	{
-		RuleFor(item => ((PluLabelEntity)item).Zpl)
+    public PluLabelValidator()
+    {
+		RuleFor(item => ((PluLabelModel)item).Zpl)
 			.NotEmpty()
 			.NotNull();
 	}
 
     protected override bool PreValidate(ValidationContext<TableModel> context, ValidationResult result)
     {
-	    if (context.InstanceToValidate is PluLabelEntity scale)
+	    if (context.InstanceToValidate is PluLabelModel scale)
 	    {
 		    if (!PreValidateSubEntity(scale.PluWeighing, result))
 				return result.IsValid;

@@ -5,5 +5,5 @@ namespace BlazorCore.Services;
 
 public interface IFileDownload
 {
-    Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceEntity? item);
+    Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceModel? item);
 }

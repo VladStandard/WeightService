@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "Templates".
 /// </summary>
-public class TemplateMap : ClassMap<TemplateEntity>
+public class TemplateMap : ClassMap<TemplateModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class TemplateMap : ClassMap<TemplateEntity>
         Schema("db_scales");
         Table("Templates");
         LazyLoad();
-        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");

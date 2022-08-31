@@ -4,7 +4,7 @@
 //namespace DataCore.Sql.DataModels;
 
 //[Serializable]
-//public class LabelQuickModel : BaseEntity, ISerializable, IBaseEntity
+//public class LabelQuickModel : TableModel, ISerializable, IBaseEntity
 //{
 //    #region Public and private fields, properties, constructor
 
@@ -178,7 +178,7 @@
 //        item.Zpl = Zpl;
 //        item.TemplateId = TemplateId;
 //        item.TemplateName = TemplateName;
-//        item.Setup(((BaseEntity)this).CloneCast());
+//        item.Setup(((TableModel)this).CloneCast());
 //        return item;
 //    }
 

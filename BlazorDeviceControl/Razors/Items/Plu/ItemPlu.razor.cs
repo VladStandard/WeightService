@@ -10,11 +10,11 @@ public partial class ItemPlu : RazorBase
     #region Public and private fields, properties, constructor
 
     private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
-    private List<NomenclatureEntity> Nomenclatures { get; set; }
-    private List<TemplateEntity> Templates { get; set; }
-    private List<ScaleEntity> Scales { get; set; }
-    private List<PluEntity> Plus { get; set; }
-    private PluEntity ItemCast { get => Item == null ? new() : (PluEntity)Item; set => Item = value; }
+    private List<NomenclatureModel> Nomenclatures { get; set; }
+    private List<TemplateModel> Templates { get; set; }
+    private List<ScaleModel> Scales { get; set; }
+    private List<PluModel> Plus { get; set; }
+    private PluModel ItemCast { get => Item == null ? new() : (PluModel)Item; set => Item = value; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
     #endregion
@@ -25,7 +25,7 @@ public partial class ItemPlu : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Plus);
         ItemCast = new();
         Templates = new();
         Nomenclatures = new();
@@ -45,40 +45,40 @@ public partial class ItemPlu : RazorBase
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
-                        ItemCast.IsMarked = false;
+                        ItemCast.SetDt();
+						ItemCast.IsMarked = false;
                         break;
                     default:
-	                    //Guid uid = ItemFilter.IdentityUid;
-                        ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluEntity>(IdentityUid);
+	                    //Guid uid = ItemFilter.Identity.Uid;
+                        ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluModel>(IdentityUid);
                         break;
                 }
 
 	            // Templates.
-	            Templates = new() { new(0, false) { Title = LocaleCore.Table.FieldNull } };
+	            Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };
                 SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Title), 0, false, false);
-                TemplateEntity[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateEntity>(sqlCrudConfig);
+                TemplateModel[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateModel>(sqlCrudConfig);
                 if (templates is not null)
                     Templates.AddRange(templates);
 
 	            // Nomenclatures.
-	            Nomenclatures = new() { new(0, false) { Name = LocaleCore.Table.FieldNull } };
+	            Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-                NomenclatureEntity[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureEntity>(sqlCrudConfig);
+                NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureModel>(sqlCrudConfig);
                 if (nomenclatures is not null)
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // Scales.
-	            Scales = new() { new(0, false) { Description = LocaleCore.Table.FieldNull } };
+	            Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-                ScaleEntity[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
+                ScaleModel[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleModel>(sqlCrudConfig);
                 if (scales is not null)
                     Scales.AddRange(scales);
 
 	            // Plus.
-	            Plus = new() { new(Guid.Empty, false) { Description = LocaleCore.Table.FieldNull } };
+	            Plus = new() { new() { Description = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-                PluEntity[]? plus = AppSettings.DataAccess.Crud.GetItems<PluEntity>(sqlCrudConfig);
+                PluModel[]? plus = AppSettings.DataAccess.Crud.GetItems<PluModel>(sqlCrudConfig);
                 if (plus is not null)
                     Plus.AddRange(plus);
 
@@ -90,12 +90,12 @@ public partial class ItemPlu : RazorBase
 	            //// Номер PLU.
 	            //if (PluItem.Plu == 0)
 	            //{
-	            //    PluV2Entity pluEntity = AppSettings.DataAccess.PlusCrud.GetItem(
-	            //        new FieldListEntity(new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.IdentityId } }),
-	            //        new FieldOrderEntity { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
-	            //    if (pluEntity != null && !pluEntity.EqualsDefault())
+	            //    PluModel plu = AppSettings.DataAccess.PlusCrud.GetItem(
+	            //        new (new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.Identity.Id } }),
+	            //        new FieldOrderModel { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
+	            //    if (plu != null && !plu.EqualsDefault())
 	            //    {
-	            //        PluItem.Plu = pluEntity.Plu + 1;
+	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }
 
 	            ButtonSettings = new(false, false, false, false, false, true, true);
@@ -183,7 +183,7 @@ public partial class ItemPlu : RazorBase
 
     private string GetWeightFormula()
     {
-        XmlProductModel xmlProduct = ProductHelper.GetProductEntity(ItemCast.Nomenclature.Xml);
+        XmlProductModel xmlProduct = ProductHelper.GetXmlProduct(ItemCast.Nomenclature.Xml);
         // Вес тары = вес коробки + (вес пакета * кол. вложений)
         return $"{ProductHelper.CalcGoodWeightBox(ItemCast.Nomenclature, xmlProduct)} + " +
                $"({ProductHelper.CalcGoodWeightPack(ItemCast.Nomenclature, xmlProduct)} * " +

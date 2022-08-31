@@ -13,9 +13,9 @@ public class ContragentValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ContragentValidator() : base(ColumnName.Uid)
+	public ContragentValidator()
 	{
-		RuleFor(item => ((ContragentEntity)item).Name)
+		RuleFor(item => ((ContragentModel)item).Name)
 			.NotEmpty()
 			.NotNull();
 	}

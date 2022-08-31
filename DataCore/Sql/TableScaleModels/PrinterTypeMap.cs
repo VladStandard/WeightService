@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "ZebraPrinterType".
 /// </summary>
-public class PrinterTypeMap : ClassMap<PrinterTypeEntity>
+public class PrinterTypeMap : ClassMap<PrinterTypeModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class PrinterTypeMap : ClassMap<PrinterTypeEntity>
         Schema("db_scales");
         Table("ZebraPrinterType");
         LazyLoad();
-        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }

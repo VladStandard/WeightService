@@ -7,9 +7,9 @@ public partial class SectionPrinterTypes : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterTypeEntity> ItemsCast
+    private List<PrinterTypeModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (PrinterTypeEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (PrinterTypeModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionPrinterTypes : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersTypes);
         IsShowMarkedFilter = true;
 		ItemsCast = new();
     }

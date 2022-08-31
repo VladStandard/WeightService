@@ -11,19 +11,19 @@ internal class AccessValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		AccessEntity item = DataCore.CreateNewSubstitute<AccessEntity>(false);
+		AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange.
-		AccessEntity item = DataCore.CreateNewSubstitute<AccessEntity>(true);
+		AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(true);
 		// Act.
 		foreach (AccessRights rights in Enum.GetValues(typeof(AccessRights)))
 		{
@@ -36,6 +36,6 @@ internal class AccessValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<AccessEntity>(1_000);
+		DataCore.AssertSqlDataValidate<AccessModel>(1_000);
 	}
 }

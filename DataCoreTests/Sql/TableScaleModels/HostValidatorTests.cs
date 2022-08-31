@@ -9,19 +9,19 @@ internal class HostValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		HostEntity item = DataCore.CreateNewSubstitute<HostEntity>(false);
+		HostModel item = DataCore.CreateNewSubstitute<HostModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		HostEntity item = DataCore.CreateNewSubstitute<HostEntity>(true);
+		HostModel item = DataCore.CreateNewSubstitute<HostModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class HostValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<HostEntity>(1_000);
+		DataCore.AssertSqlDataValidate<HostModel>(1_000);
 	}
 }

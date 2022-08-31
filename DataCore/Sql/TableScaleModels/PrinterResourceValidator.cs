@@ -13,16 +13,16 @@ public class PrinterResourceValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PrinterResourceValidator() : base(ColumnName.Id, false, false)
+	public PrinterResourceValidator() : base(false, false)
 	{
-		RuleFor(item => ((PrinterResourceEntity)item).Description)
+		RuleFor(item => ((PrinterResourceModel)item).Description)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PrinterResourceEntity)item).Printer)
+		RuleFor(item => ((PrinterResourceModel)item).Printer)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PrinterValidator());
-		RuleFor(item => ((PrinterResourceEntity)item).Resource)
+		RuleFor(item => ((PrinterResourceModel)item).Resource)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TemplateResourceValidator());

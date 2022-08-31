@@ -8,9 +8,9 @@ public partial class SectionScalesCore : RazorBase
     #region Public and private fields, properties, constructor
 
     [Parameter] public bool IsPluNew { get; set; }
-    private List<ScaleEntity> ItemsCast
+    private List<ScaleModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (ScaleModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -22,7 +22,7 @@ public partial class SectionScalesCore : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Scales);
         IsShowMarkedFilter = true;
 		ItemsCast = new();
     }

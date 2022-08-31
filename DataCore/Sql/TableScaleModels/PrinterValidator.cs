@@ -13,12 +13,12 @@ public class PrinterValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PrinterValidator() : base(ColumnName.Id)
+	public PrinterValidator()
 	{
-		RuleFor(item => ((PrinterEntity)item).DarknessLevel)
+		RuleFor(item => ((PrinterModel)item).DarknessLevel)
 			.NotNull()
 			.GreaterThanOrEqualTo((short)0);
-		RuleFor(item => ((PrinterEntity)item).PrinterType)
+		RuleFor(item => ((PrinterModel)item).PrinterType)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PrinterTypeValidator());

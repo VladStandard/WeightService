@@ -48,13 +48,13 @@ public class UserSessionHelper : BaseViewModel
         SqlViewModel.Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
     public PrintBrand PrintBrandShipping => SqlViewModel.Scale.PrinterShipping != null &&
         SqlViewModel.Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-    [XmlElement(IsNullable = true)] public PluWeighingEntity? PluWeighing { get; private set; }
+    [XmlElement(IsNullable = true)] public PluWeighingModel? PluWeighing { get; private set; }
     public WeighingSettingsEntity WeighingSettings { get; private set; } = new();
     public Stopwatch StopwatchMain { get; set; } = new();
     public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
 
-    private PluScaleEntity? _pluScale;
-    [XmlElement] public PluScaleEntity? PluScale
+    private PluScaleModel? _pluScale;
+    [XmlElement] public PluScaleModel? PluScale
     {
         get => _pluScale;
         private set
@@ -84,8 +84,8 @@ public class UserSessionHelper : BaseViewModel
         {
             if (string.IsNullOrEmpty(hostName))
                 hostName = NetUtils.GetLocalHostName(false);
-            HostEntity host = SqlUtils.GetHost(hostName);
-            SqlViewModel.Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.IdentityId) : SqlUtils.GetScale(scaleId);
+            HostModel host = SqlUtils.GetHost(hostName);
+            SqlViewModel.Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.Identity.Id) : SqlUtils.GetScale(scaleId);
 
             AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {SqlViewModel.Scale.Description}.";
             //AppVersion.AppDescription = $"{AppVersion.AppTitle}. ";
@@ -127,11 +127,11 @@ public class UserSessionHelper : BaseViewModel
         }
     }
 
-    public void SetCurrentPlu(PluScaleEntity pluScale)
+    public void SetCurrentPlu(PluScaleModel pluScale)
     {
         if ((PluScale = pluScale) != null)
         {
-            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.IdentityId, PluScale.Plu.Number, PluScale.Plu.Name)}",
+            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.Identity.Id, PluScale.Plu.Number, PluScale.Plu.Name)}",
                 SqlViewModel.Scale.Host?.HostName);
         }
     }
@@ -308,7 +308,7 @@ public class UserSessionHelper : BaseViewModel
 
     public void PrintLabel(bool isClearBuffer)
     {
-        TemplateEntity? template = null;
+        TemplateModel? template = null;
         if (SqlViewModel.Scale is { IsOrder: true })
         {
             throw new Exception("Order under construct!");
@@ -321,8 +321,8 @@ public class UserSessionHelper : BaseViewModel
             if (PluScale != null)
             {
 	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
-		            { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.IdentityId) }, null, 0, false,false);
-                template = DataAccess.Crud.GetItem<TemplateEntity>(sqlCrudConfig);
+		            { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
+                template = DataAccess.Crud.GetItem<TemplateModel>(sqlCrudConfig);
             }
         }
 
@@ -354,9 +354,9 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="printCmd"></param>
     /// <param name="pluWeighing"></param>
-    private void PrintSaveLabel(string printCmd, PluWeighingEntity pluWeighing)
+    private void PrintSaveLabel(string printCmd, PluWeighingModel pluWeighing)
     {
-        PluLabelEntity pluLabel = new()
+        PluLabelModel pluLabel = new()
         {
             PluWeighing = pluWeighing,
             Zpl = printCmd,
@@ -369,7 +369,7 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(TemplateEntity template, bool isClearBuffer)
+    private void PrintLabelCount(TemplateModel template, bool isClearBuffer)
     {
         //// Указан номинальный вес.
         //bool isCheck = false;
@@ -455,7 +455,7 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     /// <param name="template"></param>
     /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(TemplateEntity template, bool isClearBuffer)
+    private void PrintLabelCore(TemplateModel template, bool isClearBuffer)
     {
         try
         {
@@ -464,10 +464,10 @@ public class UserSessionHelper : BaseViewModel
 
             DataAccess.Crud.Save(PluWeighing);
 
-            string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingEntity>(true);
+            string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingModel>(true);
             string xmlArea = string.Empty;
             if (SqlViewModel.Area != null)
-                xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityEntity>(true);
+                xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityModel>(true);
             xmlWeighingFact = Zpl.ZplUtils.XmlCompatibleReplace(xmlWeighingFact);
             string xml = Zpl.ZplUtils.MergeXml(xmlWeighingFact, xmlArea);
             // XSLT transform.

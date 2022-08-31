@@ -131,7 +131,7 @@ namespace MdmControlCore.XML
             return entities;
         }
 
-        public ProductEntity GetProductEntity(string value)
+        public ProductEntity GetXmlProduct(string value)
         {
             ProductEntity productEntity = new ProductEntity();
             if (string.IsNullOrEmpty(value))

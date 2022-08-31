@@ -13,69 +13,69 @@ public class PluObsoleteValidator : TableValidator
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluObsoleteValidator() : base(ColumnName.Id)
-	{
-	    RuleFor(item => ((PluObsoleteEntity)item).PluNumber)
+    public PluObsoleteValidator()
+    {
+	    RuleFor(item => ((PluObsoleteModel)item).PluNumber)
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThanOrEqualTo(100)
 		    .LessThanOrEqualTo(999);
-		RuleFor(item => ((PluObsoleteEntity)item).GoodsDescription)
+		RuleFor(item => ((PluObsoleteModel)item).GoodsDescription)
 			.NotEmpty()
 			.NotNull();
-        RuleFor(item => ((PluObsoleteEntity)item).GoodsFullName)
+        RuleFor(item => ((PluObsoleteModel)item).GoodsFullName)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => ((PluObsoleteEntity)item).GoodsShelfLifeDays)
+        RuleFor(item => ((PluObsoleteModel)item).GoodsShelfLifeDays)
 	        .NotNull()
 	        .GreaterThanOrEqualTo((short)0)
 	        .LessThanOrEqualTo((short)365);
-		RuleFor(item => ((PluObsoleteEntity)item).GoodsTareWeight)
+		RuleFor(item => ((PluObsoleteModel)item).GoodsTareWeight)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100);
-		RuleFor(item => ((PluObsoleteEntity)item).GoodsBoxQuantly)
+		RuleFor(item => ((PluObsoleteModel)item).GoodsBoxQuantly)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100);
-		RuleFor(item => ((PluObsoleteEntity)item).Gtin)
+		RuleFor(item => ((PluObsoleteModel)item).Gtin)
 			//.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluObsoleteEntity)item).Ean13)
+		RuleFor(item => ((PluObsoleteModel)item).Ean13)
 			//.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluObsoleteEntity)item).Itf14)
+		RuleFor(item => ((PluObsoleteModel)item).Itf14)
 			//.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluObsoleteEntity)item).UpperWeightThreshold)
+		RuleFor(item => ((PluObsoleteModel)item).UpperWeightThreshold)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100)
-			.GreaterThanOrEqualTo(item => ((PluObsoleteEntity)item).LowerWeightThreshold)
-			.GreaterThanOrEqualTo(item => ((PluObsoleteEntity)item).NominalWeight);
-		RuleFor(item => ((PluObsoleteEntity)item).NominalWeight)
+			.GreaterThanOrEqualTo(item => ((PluObsoleteModel)item).LowerWeightThreshold)
+			.GreaterThanOrEqualTo(item => ((PluObsoleteModel)item).NominalWeight);
+		RuleFor(item => ((PluObsoleteModel)item).NominalWeight)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
-			.GreaterThanOrEqualTo(item => ((PluObsoleteEntity)item).LowerWeightThreshold)
+			.GreaterThanOrEqualTo(item => ((PluObsoleteModel)item).LowerWeightThreshold)
 			.LessThanOrEqualTo(100)
-			.LessThanOrEqualTo(item => ((PluObsoleteEntity)item).UpperWeightThreshold);
-		RuleFor(item => ((PluObsoleteEntity)item).LowerWeightThreshold)
+			.LessThanOrEqualTo(item => ((PluObsoleteModel)item).UpperWeightThreshold);
+		RuleFor(item => ((PluObsoleteModel)item).LowerWeightThreshold)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100)
-			.LessThanOrEqualTo(item => ((PluObsoleteEntity)item).UpperWeightThreshold)
-			.LessThanOrEqualTo(item => ((PluObsoleteEntity)item).NominalWeight);
-		RuleFor(item => ((PluObsoleteEntity)item).IsCheckWeight)
+			.LessThanOrEqualTo(item => ((PluObsoleteModel)item).UpperWeightThreshold)
+			.LessThanOrEqualTo(item => ((PluObsoleteModel)item).NominalWeight);
+		RuleFor(item => ((PluObsoleteModel)item).IsCheckWeight)
 			.NotNull();
-		RuleFor(item => ((PluObsoleteEntity)item).Scale)
+		RuleFor(item => ((PluObsoleteModel)item).Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());
-		RuleFor(item => ((PluObsoleteEntity)item).Template)
+		RuleFor(item => ((PluObsoleteModel)item).Template)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TemplateValidator());
-		RuleFor(item => ((PluObsoleteEntity)item).Nomenclature)
+		RuleFor(item => ((PluObsoleteModel)item).Nomenclature)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new NomenclatureValidator());

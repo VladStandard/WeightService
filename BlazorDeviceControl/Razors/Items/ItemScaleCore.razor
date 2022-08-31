@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/scale_core"
-@page "/item/scale_core/{IdentityId:long}"
-@page "/item/scale_core/{IdentityId:long}/{TableAction}"
+@page "/item/scale_core/{Identity.Id:long}"
+@page "/item/scale_core/{Identity.Id:long}/{TableAction}"
 @using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
@@ -34,7 +34,7 @@ else
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 		                @bind-Value=@ItemCast.DeviceComPort>
-						@foreach (TypeEntity<string> item in ComPorts)
+						@foreach (TypeModel<string> item in ComPorts)
 						{
 							<MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
 						}
@@ -44,7 +44,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.IdentityId)
+					            Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.Identity.Id)
 					            Text=@LocaleCore.Table.Host/>
 				</td>
 				<td>
@@ -52,9 +52,9 @@ else
 					{
 						<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 			                @bind-Value=@ItemCast.Host>
-							@foreach (HostEntity item in Hosts)
+							@foreach (HostModel item in Hosts)
 							{
-								<MudSelectItem T=@HostEntity Value=@item>@item.Name</MudSelectItem>
+								<MudSelectItem T=@HostModel Value=@item>@item.Name</MudSelectItem>
 							}
 						</MudSelect>
 					}
@@ -68,7 +68,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterMain, ItemCast.PrinterMain?.IdentityId)
+					            Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterMain, ItemCast.PrinterMain?.Identity.Id)
 					            Text=@LocaleCore.Print.NameMain/>
 				</td>
 				<td>
@@ -76,9 +76,9 @@ else
 					{
 						<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 			                @bind-Value=@ItemCast.PrinterMain>
-							@foreach (PrinterEntity item in Printers)
+							@foreach (PrinterModel item in Printers)
 							{
-								<MudSelectItem T=@PrinterEntity Value=@item>@item.Name</MudSelectItem>
+								<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
 							}
 						</MudSelect>
 					}
@@ -92,7 +92,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.IdentityId)
+					            Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.Identity.Id)
 					            Text=@LocaleCore.Print.NameShipping/>
 				</td>
 				<td>
@@ -100,9 +100,9 @@ else
 					{
 						<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 			                @bind-Value=@ItemCast.PrinterShipping>
-							@foreach (PrinterEntity item in Printers)
+							@foreach (PrinterModel item in Printers)
 							{
-								<MudSelectItem T=@PrinterEntity Value=@item>@item.Name</MudSelectItem>
+								<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
 							}
 						</MudSelect>
 					}
@@ -127,7 +127,7 @@ else
 			<tr>
 				<td>@LocaleCore.Table.DeviceNumber</td>
 				<td>
-					<RadzenTemplateForm TItem="ScaleEntity" Data=@ItemCast>
+					<RadzenTemplateForm TItem="ScaleModel" Data=@ItemCast>
 						<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 						               Name="fieldNumber"
 						               TValue="int" @bind-Value=@ItemCast.Number/>
@@ -144,7 +144,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.IdentityId)
+					            Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.Identity.Id)
 					            Text=@LocaleCore.Table.TemplateDefault/>
 				</td>
 				<td>
@@ -152,16 +152,16 @@ else
 					{
 						<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 			                @bind-Value=@ItemCast.TemplateDefault>
-							@foreach (TemplateEntity item in Templates)
+							@foreach (TemplateModel item in Templates)
 							{
-								<MudSelectItem T=@TemplateEntity Value=@item>@item.Title</MudSelectItem>
+								<MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
 							}
 						</MudSelect>
 					}
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.IdentityId)
+					            Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.Identity.Id)
 					            Text=@LocaleCore.Table.TemplateSeries/>
 				</td>
 				<td>
@@ -169,9 +169,9 @@ else
 					{
 						<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 			                @bind-Value=@ItemCast.TemplateSeries>
-							@foreach (TemplateEntity item in Templates)
+							@foreach (TemplateModel item in Templates)
 							{
-								<MudSelectItem T=@TemplateEntity Value=@item>@item.Title</MudSelectItem>
+								<MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
 							}
 						</MudSelect>
 					}
@@ -180,29 +180,29 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-						Path=@(ItemCast.WorkShop == null ? string.Empty : GetPath(UriRouteItem.WorkShop, ItemCast.WorkShop, ItemCast.WorkShop.IdentityId))
+						Path=@(ItemCast.WorkShop == null ? string.Empty : GetPath(UriRouteItem.WorkShop, ItemCast.WorkShop, ItemCast.WorkShop.Identity.Id))
 					    Text=@LocaleCore.Table.WorkShopName />
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 		                @bind-Value=@ItemCast.WorkShop>
-						@foreach (WorkShopEntity item in WorkShops)
+						@foreach (WorkShopModel item in WorkShops)
 						{
-							<MudSelectItem T=@WorkShopEntity Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@WorkShopModel Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.WorkShop.ProductionFacility, ItemCast.WorkShop.ProductionFacility.IdentityId)
+					            Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.WorkShop.ProductionFacility, ItemCast.WorkShop.ProductionFacility.Identity.Id)
 					            Text=@LocaleCore.Table.ProductionFacilityName/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 		                @bind-Value=@ItemCast.WorkShop.ProductionFacility>
-						@foreach (ProductionFacilityEntity item in ProductionFacilities)
+						@foreach (ProductionFacilityModel item in ProductionFacilities)
 						{
-							<MudSelectItem T=@ProductionFacilityEntity Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@ProductionFacilityModel Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -215,7 +215,7 @@ else
 				</td>
 				<td>@LocaleCore.Table.Counter</td>
 				<td>
-					<RadzenTemplateForm TItem="ScaleEntity" Data=@ItemCast>
+					<RadzenTemplateForm TItem="ScaleModel" Data=@ItemCast>
 						<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 						               Name="fieldCounter" TValue="int" @bind-Value=@ItemCast.Counter/>
 						<RadzenNumericRangeValidator

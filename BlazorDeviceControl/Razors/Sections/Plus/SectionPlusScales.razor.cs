@@ -7,14 +7,14 @@ public partial class SectionPlusScales : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	[Parameter] public List<PluScaleEntity> ItemsCast
+	[Parameter] public List<PluScaleModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluScaleEntity)x).ToList();
+		get => Items == null ? new() : Items.Select(x => (PluScaleModel)x).ToList();
 		set => Items = value.Cast<TableModel>().ToList();
 	}
-	private ScaleEntity ItemFilterCast
+	private ScaleModel ItemFilterCast
 	{
-		get => ItemFilter == null ? new() : (ScaleEntity)ItemFilter;
+		get => ItemFilter == null ? new() : (ScaleModel)ItemFilter;
 		set => ItemFilter = value;
 	}
 
@@ -26,7 +26,7 @@ public partial class SectionPlusScales : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusScales);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.PlusScales);
 		IsShowAdditionalFilter = true;
 		Items = new();
 	}

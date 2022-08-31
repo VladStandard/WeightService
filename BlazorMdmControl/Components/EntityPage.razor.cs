@@ -20,7 +20,7 @@
 //        [Parameter]
 //        public ShareEnums.TableDwh Table { get; set; }
 //        [Parameter]
-//        public BaseEntity Entity { get; set; }
+//        public TableModel Entity { get; set; }
 //        [Parameter]
 //        public ShareEnums.DbTableAction Action { get; set; }
 //        [Parameter]
@@ -37,10 +37,10 @@
 //            await base.OnInitializedAsync().ConfigureAwait(true);
 //        }
 
-//        private bool FieldControlDeny(BaseEntity item, string field)
+//        private bool FieldControlDeny(TableModel item, string field)
 //        {
 //            bool result = item != null;
-//            if (item is NomenclatureEntity nomenclatureEntity)
+//            if (item is NomenclatureModel nomenclatureEntity)
 //            {
 //                if (nomenclatureEntity.EqualsDefault())
 //                    result = false;
@@ -72,9 +72,9 @@
 //                    case ShareEnums.TableDwh.NomenclatureMaster:
 //                    case ShareEnums.TableDwh.NomenclatureNonNormalize:
 //                        if (Action == ShareEnums.DbTableAction.Add)
-//                            BlazorSettings.SqlDataAccess.NomenclatureCrud.SaveEntity((NomenclatureEntity)Entity);
+//                            BlazorSettings.SqlDataAccess.NomenclatureCrud.SaveEntity((NomenclatureModel)Entity);
 //                        else
-//                            BlazorSettings.SqlDataAccess.NomenclatureCrud.UpdateEntity((NomenclatureEntity)Entity);
+//                            BlazorSettings.SqlDataAccess.NomenclatureCrud.UpdateEntity((NomenclatureModel)Entity);
 //                        break;
 //                }
 //            }

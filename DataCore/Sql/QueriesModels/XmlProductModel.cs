@@ -51,15 +51,6 @@ public class XmlProductModel : ITableModel
 
     public XmlProductModel()
     {
-	    Init();
-    }
-
-    #endregion
-
-    #region Public and private methods
-
-    public void Init()
-    {
 	    Category = string.Empty;
 	    Code = string.Empty;
 	    Description = string.Empty;
@@ -76,46 +67,38 @@ public class XmlProductModel : ITableModel
 	    Packs = new();
 	    NameFull = string.Empty;
 	    AdditionalDescriptionOfNomenclature = string.Empty;
-	}
+    }
 
-    public override string ToString()
+	#endregion
+
+	#region Public and private methods
+
+	public override string ToString()
     {
-        string? strUnits = "null. ";
-        if (Units != null)
+        string? strUnits = $"{Units.Count}. ";
+        foreach (ProductUnitEntity? unit in Units)
         {
-            strUnits = $"{Units.Count}. ";
-            foreach (ProductUnitEntity? unit in Units)
-            {
-                strUnits += $"{unit}. ";
-            }
+	        strUnits += $"{unit}. ";
         }
-        string? strBarcodes = "null. ";
-        if (Barcodes != null)
+
+        string strBarcodes = $"{Barcodes.Count}. ";
+        foreach (ProductBarcodeEntity? barcode in Barcodes)
         {
-            strBarcodes = $"{Barcodes.Count}. ";
-            foreach (ProductBarcodeEntity? barcode in Barcodes)
-            {
-                strBarcodes += $"{barcode}. ";
-            }
+	        strBarcodes += $"{barcode}. ";
         }
-        string? strBoxes = "null. ";
-        if (Boxes != null)
+
+        string strBoxes = $"{Boxes.Count}. ";
+        foreach (ProductBoxEntity? box in Boxes)
         {
-            strBoxes = $"{Boxes.Count}. ";
-            foreach (ProductBoxEntity? box in Boxes)
-            {
-                strBoxes += $"{box}. ";
-            }
+	        strBoxes += $"{box}. ";
         }
-        string? strPacks = "null. ";
-        if (Packs != null)
+
+        string strPacks = $"{Packs.Count}. ";
+        foreach (ProductBoxEntity? pack in Packs)
         {
-            strPacks = $"{Packs.Count}. ";
-            foreach (ProductBoxEntity? pack in Packs)
-            {
-                strPacks += $"{pack}. ";
-            }
+	        strPacks += $"{pack}. ";
         }
+
         return
             $"{nameof(Category)}: {Category}. " +
             $"{nameof(Code)}: {Code}. " +
@@ -137,17 +120,13 @@ public class XmlProductModel : ITableModel
 
     public virtual bool Equals(XmlProductModel item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        if (Units != null && item.Units != null)
+        if (Units.Count != item.Units.Count)
+	        return false;
+        for (int i = 0; i < Units.Count; i++)
         {
-            if (Units.Count != item.Units.Count)
-                return false;
-            for (int i = 0; i < Units.Count; i++)
-            {
-                if (!Units[i].Equals(item.Units[i]))
-                    return false;
-            }
+	        if (!Units[i].Equals(item.Units[i]))
+		        return false;
         }
         return
             string.Equals(Category, item.Category, StringComparison.InvariantCultureIgnoreCase) &&
@@ -194,7 +173,6 @@ public class ProductUnitEntity
 
     public virtual bool Equals(ProductUnitEntity item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
             Equals(Heft, item.Heft) &&
@@ -225,7 +203,6 @@ public class ProductBarcodeEntity
 
     public virtual bool Equals(ProductBarcodeEntity item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
             Equals(Type, item.Type) &&
@@ -271,7 +248,6 @@ public class ProductBoxEntity
 
     public virtual bool Equals(ProductBoxEntity item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
             Equals(Description, item.Description) &&

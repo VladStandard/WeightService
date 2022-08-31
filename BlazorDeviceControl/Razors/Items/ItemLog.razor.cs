@@ -7,7 +7,7 @@ public partial class ItemLog : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private LogEntity ItemCast { get => Item == null ? new() : (LogEntity)Item; set => Item = value; }
+	private LogModel ItemCast { get => Item == null ? new() : (LogModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemLog : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+		Table = new TableSystemModel(ProjectsEnums.TableSystem.Logs);
 		ItemCast = new();
 	}
 
@@ -33,10 +33,10 @@ public partial class ItemLog : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<LogEntity>(IdentityUid);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<LogModel>(IdentityUid);
 						break;
 				}
 

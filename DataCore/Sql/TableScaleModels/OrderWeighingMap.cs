@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "ORDERS_WEIGHINGS".
 /// </summary>
-public class OrderWeighingMap : ClassMap<OrderWeighingEntity>
+public class OrderWeighingMap : ClassMap<OrderWeighingModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class OrderWeighingMap : ClassMap<OrderWeighingEntity>
         Schema("db_scales");
         Table("ORDERS_WEIGHINGS");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

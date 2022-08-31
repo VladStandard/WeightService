@@ -24,7 +24,7 @@ public class AppSettingsHelper : LayoutComponentBase
 
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
     public DataSourceDicsHelper DataSourceDics { get; } = DataSourceDicsHelper.Instance;
-    public MemoryEntity Memory { get; private set; } = new();
+    public MemoryModel Memory { get; private set; } = new();
     public static int Delay => 5_000;
     public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null
 		? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
@@ -44,7 +44,7 @@ public class AppSettingsHelper : LayoutComponentBase
     public void SetupMemory()
     {
         Memory.Close();
-        Memory = new(1_000, 5_000);
+        Memory = new();
         //Memory.OpenAsync(callRefreshAsync);
         Memory.MemorySize.Open();
     }

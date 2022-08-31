@@ -13,48 +13,48 @@ else
     <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Hosts />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="HostEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="HostModel" @bind-Value=@ItemObject
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
             @if (IsShowMarked)
             {
-                <RadzenGridColumn TItem="HostEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="HostModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="HostEntity" TextAlign=TextAlign.Center
+            <RadzenGridColumn TItem="HostModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15.0%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Identity.Id}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostEntity" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
+                TItem="HostModel" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Identity.Id}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostEntity" Title=@LocaleCore.Table.Host Width="22.5%" >
+                TItem="HostModel" Title=@LocaleCore.Table.Host Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Identity.Id}")
                         Text=@itemCast.HostName />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Ip" Title=@LocaleCore.Table.DeviceIp Type="string" Width="20.0%" />
+                TItem="HostModel" Property="Ip" Title=@LocaleCore.Table.DeviceIp Type="string" Width="20.0%" />
             <RadzenGridColumn 
-                TItem="HostEntity" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocaleCore.Table.DeviceMac
+                TItem="HostModel" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocaleCore.Table.DeviceMac
                 Type="string" Width="20.0%" />
         </Columns>
     </RadzenGrid>

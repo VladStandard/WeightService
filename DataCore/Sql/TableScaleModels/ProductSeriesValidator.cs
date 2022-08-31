@@ -13,12 +13,12 @@ public class ProductSeriesValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductSeriesValidator() : base(ColumnName.Uid, true, false)
+	public ProductSeriesValidator() : base(true, false)
 	{
-		RuleFor(item => ((ProductSeriesEntity)item).Sscc)
+		RuleFor(item => ((ProductSeriesModel)item).Sscc)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((ProductSeriesEntity)item).Scale)
+		RuleFor(item => ((ProductSeriesModel)item).Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());

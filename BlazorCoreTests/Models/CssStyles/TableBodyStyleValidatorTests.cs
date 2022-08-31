@@ -13,7 +13,7 @@ namespace BlazorCoreTests.Models.CssStyles;
 internal class TableBodyStyleValidatorTests
 {
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange.
 		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>(
@@ -28,7 +28,7 @@ internal class TableBodyStyleValidatorTests
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange.
 		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>(true);

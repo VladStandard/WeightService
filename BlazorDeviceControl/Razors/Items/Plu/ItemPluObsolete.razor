@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/plu_obsolete"
-@page "/item/plu_obsolete/{IdentityId:long}"
-@page "/item/plu_obsolete/{IdentityId:long}/{TableAction}"
+@page "/item/plu_obsolete/{Identity.Id:long}"
+@page "/item/plu_obsolete/{Identity.Id:long}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using static DataCore.Localizations.LocaleData.DeviceControl
 @using BlazorDeviceControl.Razors.Components
@@ -30,15 +30,15 @@ else
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.IdentityId)
+                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.Identity.Id)
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.Template>
-                        @foreach (TemplateEntity item in Templates)
+                        @foreach (TemplateModel item in Templates)
                         {
-                            <MudSelectItem T=@TemplateEntity Value=@item>@item.Title</MudSelectItem>
+                            <MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
                         }
                     </MudSelect>
                 </td>
@@ -56,29 +56,29 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.IdentityId)
+                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
                         Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.Nomenclature>
-                        @foreach (NomenclatureEntity item in Nomenclatures)
+                        @foreach (NomenclatureModel item in Nomenclatures)
                         {
-                            <MudSelectItem T=@NomenclatureEntity Value=@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@NomenclatureModel Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
+                        Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.Identity.Id)
                         Text=@LocaleCore.Table.Scale />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.Scale>
-                        @foreach (ScaleEntity item in Scales)
+                        @foreach (ScaleModel item in Scales)
                         {
-	                        <MudSelectItem T=@ScaleEntity Value=@item>@item.Description</MudSelectItem>
+	                        <MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

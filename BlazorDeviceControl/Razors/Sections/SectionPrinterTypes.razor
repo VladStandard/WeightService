@@ -13,25 +13,25 @@ else
     <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterTypeEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="PrinterTypeModel" @bind-Value=@ItemObject
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
 	        @if (IsShowMarked)
 	        {
-		        <RadzenGridColumn TItem="PrinterTypeEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+		        <RadzenGridColumn TItem="PrinterTypeModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
 		            Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
 			        <Template Context="itemCast" >
 				        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
 			        </Template>
 		        </RadzenGridColumn>
 	        }
-            <RadzenGridColumn TItem="PrinterTypeEntity" Title=@LocaleCore.Print.Name 
+            <RadzenGridColumn TItem="PrinterTypeModel" Title=@LocaleCore.Print.Name 
                 Type="string" Width="100%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.Identity.Id}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>

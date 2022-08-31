@@ -7,7 +7,7 @@ public partial class ItemBarCodeType : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private BarCodeTypeEntity ItemCast { get => Item == null ? new() : (BarCodeTypeEntity)Item; set => Item = value; }
+	private BarCodeTypeModel ItemCast { get => Item == null ? new() : (BarCodeTypeModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemBarCodeType : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.BarCodeTypes);
 		ItemCast = new();
 	}
 
@@ -33,12 +33,12 @@ public partial class ItemBarCodeType : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW BARCODE_TYPE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<BarCodeTypeEntity>(IdentityUid);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<BarCodeTypeModel>(IdentityUid);
 						break;
 				}
 

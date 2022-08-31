@@ -9,19 +9,19 @@ internal class OrderWeighingValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		OrderWeighingEntity item = DataCore.CreateNewSubstitute<OrderWeighingEntity>(false);
+		OrderWeighingModel item = DataCore.CreateNewSubstitute<OrderWeighingModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		OrderWeighingEntity item = DataCore.CreateNewSubstitute<OrderWeighingEntity>(true);
+		OrderWeighingModel item = DataCore.CreateNewSubstitute<OrderWeighingModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class OrderWeighingValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<OrderWeighingEntity>(1_000);
+		DataCore.AssertSqlDataValidate<OrderWeighingModel>(1_000);
 	}
 }

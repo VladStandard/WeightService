@@ -7,9 +7,9 @@ public partial class SectionPluLabels : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PluLabelEntity> ItemsCast
+	private List<PluLabelModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluLabelEntity)x).ToList();
+		get => Items == null ? new() : Items.Select(x => (PluLabelModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 
@@ -21,7 +21,7 @@ public partial class SectionPluLabels : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusLabels);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusLabels);
         ItemsCast = new();
     }
 
@@ -36,7 +36,7 @@ public partial class SectionPluLabels : RazorBase
                 //object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
                 //    SqlQueries.DbScales.Tables.Labels.GetLabels(
                 //        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
-                //Items = new List<LabelQuickModel>().ToList<BaseEntity>();
+                //Items = new List<LabelQuickModel>().ToList<TableModel>();
                 //foreach (object obj in objects)
                 //{
                 //    if (obj is object[] { Length: 16 } item)
@@ -45,7 +45,7 @@ public partial class SectionPluLabels : RazorBase
                 //        {
                 //            Items.Add(new LabelQuickModel()
                 //            {
-                //                IdentityId = id, // item[1]
+                //                Identity.Id = id, // item[1]
                 //                CreateDt = Convert.ToDateTime(item[1]),
                 //                ScaleId = Convert.ToInt64(item[2]),
                 //                ScaleDescription = item[3] is string scaleDescr ? scaleDescr : string.Empty,

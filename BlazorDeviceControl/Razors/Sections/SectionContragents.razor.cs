@@ -7,9 +7,9 @@ public partial class SectionContragents : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<ContragentEntity> ItemsCast
+    private List<ContragentModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (ContragentEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (ContragentModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionContragents : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Contragents);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Contragents);
         ItemsCast = new();
     }
 

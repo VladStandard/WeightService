@@ -7,7 +7,7 @@ public partial class ItemContragent : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ContragentEntity ItemCast { get => Item == null ? new() : (ContragentEntity)Item; set => Item = value; }
+	private ContragentModel ItemCast { get => Item == null ? new() : (ContragentModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemContragent : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Contragents);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Contragents);
 		ItemCast = new();
 	}
 
@@ -33,12 +33,12 @@ public partial class ItemContragent : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW CONTRAGENT";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<ContragentEntity>(IdentityUid);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<ContragentModel>(IdentityUid);
 						break;
 				}
 

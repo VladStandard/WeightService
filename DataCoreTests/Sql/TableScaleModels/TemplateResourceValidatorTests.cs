@@ -9,19 +9,19 @@ internal class TemplateResourceValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		TemplateResourceEntity item = DataCore.CreateNewSubstitute<TemplateResourceEntity>(false);
+		TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		TemplateResourceEntity item = DataCore.CreateNewSubstitute<TemplateResourceEntity>(true);
+		TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class TemplateResourceValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<TemplateResourceEntity>(1_000);
+		DataCore.AssertSqlDataValidate<TemplateResourceModel>(1_000);
 	}
 }

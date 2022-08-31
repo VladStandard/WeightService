@@ -3,14 +3,14 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class BrandMap : ClassMap<BrandEntity>
+public class BrandMap : ClassMap<BrandModel>
 {
     public BrandMap()
     {
 	    Schema("DW");
         Table("DimBrands");
         LazyLoad();
-        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
         Map(x => x.Code).CustomSqlType("NVARCHAR").Length(15).Column("Code").Nullable();

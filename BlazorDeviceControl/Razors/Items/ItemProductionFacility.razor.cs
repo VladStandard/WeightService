@@ -7,7 +7,7 @@ public partial class ItemProductionFacility : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ProductionFacilityEntity ItemCast { get => Item == null ? new() : (ProductionFacilityEntity)Item; set => Item = value; }
+	private ProductionFacilityModel ItemCast { get => Item == null ? new() : (ProductionFacilityModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemProductionFacility : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.ProductionFacilities);
 		ItemCast = new();
 	}
 
@@ -29,9 +29,9 @@ public partial class ItemProductionFacility : RazorBase
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ProductionFacilityEntity>(IdentityId);
-				if (IdentityId != null && TableAction == DbTableAction.New)
-					ItemCast.IdentityId = (long)IdentityId;
+				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ProductionFacilityModel>(IdentityId);
+				//if (TableAction == DbTableAction.New)
+				//	ItemCast.Identity.Id = (long)IdentityId;
 				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

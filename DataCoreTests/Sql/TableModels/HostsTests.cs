@@ -10,7 +10,7 @@
 //    internal class HostsTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -57,7 +57,7 @@
 //            {
 //                // GetEntities.
 //                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<HostEntity>(null,
-//                    new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
+//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
 //                {
 //                    TestContext.WriteLine(item.ToString());
 //                    TestContext.WriteLine();

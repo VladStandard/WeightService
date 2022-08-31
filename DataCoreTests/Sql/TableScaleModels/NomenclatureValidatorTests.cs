@@ -9,19 +9,19 @@ internal class NomenclatureValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		NomenclatureEntity item = DataCore.CreateNewSubstitute<NomenclatureEntity>(false);
+		NomenclatureModel item = DataCore.CreateNewSubstitute<NomenclatureModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		NomenclatureEntity item = DataCore.CreateNewSubstitute<NomenclatureEntity>(true);
+		NomenclatureModel item = DataCore.CreateNewSubstitute<NomenclatureModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class NomenclatureValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<NomenclatureEntity>(1_000);
+		DataCore.AssertSqlDataValidate<NomenclatureModel>(1_000);
 	}
 }

@@ -227,7 +227,7 @@ public static class GuiUtils
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
             if (result == DialogResult.Yes)
             {
-                HostEntity host = new()
+                HostModel host = new()
                 {
                     Name = hostName,
                     HostName = hostName,

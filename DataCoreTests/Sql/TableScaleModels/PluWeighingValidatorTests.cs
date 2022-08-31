@@ -9,19 +9,19 @@ internal class PluWeighingValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluWeighingEntity item = DataCore.CreateNewSubstitute<PluWeighingEntity>(false);
+		PluWeighingModel item = DataCore.CreateNewSubstitute<PluWeighingModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluWeighingEntity item = DataCore.CreateNewSubstitute<PluWeighingEntity>(true);
+		PluWeighingModel item = DataCore.CreateNewSubstitute<PluWeighingModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class PluWeighingValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<PluWeighingEntity>(1_000);
+		DataCore.AssertSqlDataValidate<PluWeighingModel>(1_000);
 	}
 }

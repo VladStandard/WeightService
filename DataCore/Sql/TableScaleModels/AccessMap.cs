@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "ACCESS".
 /// </summary>
-public class AccessMap : ClassMap<AccessEntity>
+public class AccessMap : ClassMap<AccessModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class AccessMap : ClassMap<AccessEntity>
         Schema("db_scales");
         Table("ACCESS");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

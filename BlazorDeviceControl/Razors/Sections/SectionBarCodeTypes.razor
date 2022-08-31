@@ -13,14 +13,14 @@ else
     <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.BarCodeTypes />
     
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="BarCodeTypeEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="BarCodeTypeModel" @bind-Value=@ItemObject
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
             @if (IsShowMarked)
             {
-                <RadzenGridColumn TItem="BarCodeTypeEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="BarCodeTypeModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
@@ -28,27 +28,27 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="BarCodeTypeEntity" TextAlign=TextAlign.Center SortProperty="CreateDt"
+                TItem="BarCodeTypeModel" TextAlign=TextAlign.Center SortProperty="CreateDt"
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.Identity.Uid}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="BarCodeTypeEntity" TextAlign=TextAlign.Center SortProperty="ChangeDt"
+            <RadzenGridColumn TItem="BarCodeTypeModel" TextAlign=TextAlign.Center SortProperty="ChangeDt"
                     Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.Identity.Uid}")
                         Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="BarCodeTypeEntity" Title=@LocaleCore.Table.Name Width="60%" SortProperty="Name" >
+                TItem="BarCodeTypeModel" Title=@LocaleCore.Table.Name Width="60%" SortProperty="Name" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.IdentityUid}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.Identity.Uid}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>

@@ -7,9 +7,9 @@ public partial class SectionNomenclatures : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<NomenclatureEntity> ItemsCast
+    private List<NomenclatureModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (NomenclatureEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (NomenclatureModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionNomenclatures : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Nomenclatures);
         ItemsCast = new();
     }
 

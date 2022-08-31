@@ -11,7 +11,7 @@ namespace WeightCore.Gui;
 
 public static class SerialPortsUtils
 {
-    public static void DefaultComPortName(ScaleEntity scale, ComboBox fieldComPort, List<string> listComPorts)
+    public static void DefaultComPortName(ScaleModel scale, ComboBox fieldComPort, List<string> listComPorts)
     {
         try
         {

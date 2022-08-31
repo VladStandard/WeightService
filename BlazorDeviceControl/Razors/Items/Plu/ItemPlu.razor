@@ -37,15 +37,15 @@ else
 			<tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.IdentityId)
+                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.Identity.Id)
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.Template>
-                        @foreach (TemplateEntity item in Templates)
+                        @foreach (TemplateModel item in Templates)
                         {
-                            <MudSelectItem T=@TemplateEntity Value=@item>@item.Title</MudSelectItem>
+                            <MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
                         }
                     </MudSelect>
                 </td>
@@ -57,16 +57,16 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.IdentityId)
+                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
                         Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						ReadOnly=true Disabled=true
                         @bind-Value=@ItemCast.Nomenclature>
-                        @foreach (NomenclatureEntity item in Nomenclatures)
+                        @foreach (NomenclatureModel item in Nomenclatures)
                         {
-                            <MudSelectItem T=@NomenclatureEntity Value=@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@NomenclatureModel Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
 				</td>

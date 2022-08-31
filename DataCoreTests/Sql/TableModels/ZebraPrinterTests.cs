@@ -7,7 +7,7 @@
 //    internal class ZebraPrinterTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -77,7 +77,7 @@
 //                }
 //                // GetEntities
 //                foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null,
-//                    new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
+//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                {
 //                    if (item.Name.Equals(name))
 //                    {
@@ -88,7 +88,7 @@
 //                }
 //                // GetEntities
 //                foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null,
-//                    new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
+//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                {
 //                    if (item.Name.Equals(name2))
 //                    {

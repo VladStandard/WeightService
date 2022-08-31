@@ -24,8 +24,8 @@ public class DataAccessHelper
     private readonly object _locker = new();
     public bool JsonSettingsIsRemote { get; private set; }
 
-    private JsonSettingsEntity? _jsonSettingsLocal;
-    public JsonSettingsEntity JsonSettingsLocal
+    private JsonSettingsModel? _jsonSettingsLocal;
+    public JsonSettingsModel JsonSettingsLocal
     {
         get
         {
@@ -37,8 +37,8 @@ public class DataAccessHelper
         set => _jsonSettingsLocal = value;
     }
 
-    private JsonSettingsEntity? _jsonSettingsRemote;
-    public JsonSettingsEntity JsonSettingsRemote
+    private JsonSettingsModel? _jsonSettingsRemote;
+    public JsonSettingsModel JsonSettingsRemote
     {
         get
         {
@@ -225,7 +225,7 @@ public class DataAccessHelper
           (JsonSettingsLocal.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsLocal.Sql.UserId}; Password={JsonSettingsLocal.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettingsLocal.Sql.TrustServerCertificate}; ";
 
-    private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsEntity jsonSettings)
+    private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsModel jsonSettings)
     {
         switch (jsonSettings.Sql.InitialCatalog.ToUpper())
         {

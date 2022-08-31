@@ -7,15 +7,15 @@ public partial class ItemTemplateResource : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private TemplateResourceEntity ItemCast { get => Item == null ? new() : (TemplateResourceEntity)Item; set => Item = value; }
+    private TemplateResourceModel ItemCast { get => Item == null ? new() : (TemplateResourceModel)Item; set => Item = value; }
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
-    public string FileInfo { get; set; } = string.Empty;
-    public double FileProgress { get; set; } = default;
-    public string FileComplete { get; set; } = string.Empty;
-    private int ProgressValue { get; set; } = default;
-    public IFileListEntry? File { get; private set; }
+    //public string FileInfo { get; set; } = string.Empty;
+    //public double FileProgress { get; set; } = default;
+    //public string FileComplete { get; set; } = string.Empty;
+    //private int ProgressValue { get; set; } = default;
+    //public IFileListEntry? File { get; private set; }
 
     #endregion
 
@@ -25,7 +25,7 @@ public partial class ItemTemplateResource : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.TemplatesResources);
         ItemCast = new();
 	}
 
@@ -37,9 +37,9 @@ public partial class ItemTemplateResource : RazorBase
         {
             () =>
             {
-                ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateResourceEntity>(IdentityId);
-                if (IdentityId != null && TableAction == DbTableAction.New)
-                    ItemCast.IdentityId = (long)IdentityId;
+                ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
+                //if (IdentityId != null && TableAction == DbTableAction.New)
+                //    ItemCast.Identity.Id = (long)IdentityId;
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }

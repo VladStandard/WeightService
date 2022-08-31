@@ -9,9 +9,9 @@ public partial class SectionPrinterResources : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterResourceEntity> ItemsCast
+    private List<PrinterResourceModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (PrinterResourceEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (PrinterResourceModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -23,7 +23,7 @@ public partial class SectionPrinterResources : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersResources);
         IsShowMarkedFilter = true;
 		ItemsCast = new();
     }

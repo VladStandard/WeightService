@@ -9,19 +9,19 @@ internal class PluLabelValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluLabelEntity item = DataCore.CreateNewSubstitute<PluLabelEntity>(false);
+		PluLabelModel item = DataCore.CreateNewSubstitute<PluLabelModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluLabelEntity item = DataCore.CreateNewSubstitute<PluLabelEntity>(true);
+		PluLabelModel item = DataCore.CreateNewSubstitute<PluLabelModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class PluLabelValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<PluLabelEntity>(1_000);
+		DataCore.AssertSqlDataValidate<PluLabelModel>(1_000);
 	}
 }

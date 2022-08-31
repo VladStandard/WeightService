@@ -10,7 +10,7 @@ public class ProductSeriesDirect : SerializeModel, ISerializable
 
     public long Id { get; set; }
     public Guid Uuid { get; set; }
-    public ScaleEntity Scale { get; set; }
+    public ScaleModel Scale { get; set; }
     public DateTime CreateDate { get; set; }
     public SsccDirect Sscc { get; set; }
     public int CountUnit { get; set; }
@@ -35,7 +35,7 @@ public class ProductSeriesDirect : SerializeModel, ISerializable
         Scale = new();
     }
 
-    public ProductSeriesDirect(ScaleEntity scale) : this()
+    public ProductSeriesDirect(ScaleModel scale) : this()
     {
         Scale = scale;
         Load();
@@ -47,13 +47,13 @@ public class ProductSeriesDirect : SerializeModel, ISerializable
 
     public void Load()
     {
-        if (Scale == null || Scale.IdentityId == default) 
+        if (Scale == null || Scale.Identity.Id == default) 
         {
             throw new("Equipment instance not identified. Set [Scale].");
         }
 
         SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
-            new SqlParameter("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.IdentityId }, (SqlDataReader reader) =>
+            new SqlParameter("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.Identity.Id }, (SqlDataReader reader) =>
             {
                 byte count = 0;
                 while (reader.Read())

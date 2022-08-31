@@ -13,9 +13,9 @@ public class BarCodeValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public BarCodeValidator() : base(ColumnName.Uid)
+	public BarCodeValidator()
 	{
-		RuleFor(item => ((BarCodeEntity)item).Value)
+		RuleFor(item => ((BarCodeModel)item).Value)
 			.NotEmpty()
 			.NotNull();
 	}

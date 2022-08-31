@@ -11,7 +11,7 @@
 //    internal class TemplateResourcesTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -57,7 +57,7 @@
 //            Assert.DoesNotThrow(() =>
 //                {
 //                    int id = DataAccessUtilsTests.DataAccess.Crud.GetItem<TemplateResourceEntity>(null,
-//                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Id, Direction = ShareEnums.DbOrderDirection.Desc }).Id;
+//                        new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Id, Direction = ShareEnums.DbOrderDirection.Desc }).Id;
 //                    TemplateResourceEntity item = new()
 //                    {
 //                        Id = id + 1,

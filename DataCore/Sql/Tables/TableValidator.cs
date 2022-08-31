@@ -13,25 +13,9 @@ public class TableValidator : AbstractValidator<TableModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected TableValidator(ColumnName columnName, bool isCheckCreateDt = true, bool isCheckChangeDt = true)
+    protected TableValidator(bool isCheckCreateDt = true, bool isCheckChangeDt = true)
     {
-        switch (columnName)
-        {
-            case ColumnName.Id:
-                RuleFor(item => item.IdentityId)
-                    .NotEmpty()
-                    .NotNull()
-                    .NotEqual(0);
-                break;
-            case ColumnName.Uid:
-                RuleFor(item => item.IdentityUid)
-                    .NotEmpty()
-                    .NotNull()
-                    .NotEqual(Guid.Empty);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(columnName), columnName, null);
-        }
+	    RuleFor(item => item.Identity).SetValidator(new FieldIdentityValidator());
         if (isCheckCreateDt)
             RuleFor(item => item.CreateDt)
                 .NotEmpty()
@@ -48,149 +32,149 @@ public class TableValidator : AbstractValidator<TableModel>
     {
         if (item != null)
         {
-            switch (item)
+			switch (item)
             {
-                case AccessEntity access:
+                case AccessModel access:
                     result = new AccessValidator().Validate(access);
                     if (!result.IsValid)
                         return false;
                     break;
-                case AppEntity app:
+                case AppModel app:
                     result = new AppValidator().Validate(app);
                     if (!result.IsValid)
                         return false;
                     break;
-                case BarCodeEntity barCode:
+                case BarCodeModel barCode:
                     result = new BarCodeValidator().Validate(barCode);
                     if (!result.IsValid)
                         return false;
                     break;
-                case BarCodeTypeEntity barCodeType:
+                case BarCodeTypeModel barCodeType:
                     result = new BarCodeTypeValidator().Validate(barCodeType);
                     if (!result.IsValid)
                         return false;
                     break;
-                case ContragentEntity contragent:
+                case ContragentModel contragent:
                     result = new ContragentValidator().Validate(contragent);
                     if (!result.IsValid)
                         return false;
                     break;
-                case HostEntity host:
+                case HostModel host:
                     result = new HostValidator().Validate(host);
                     if (!result.IsValid)
                         return false;
                     break;
-                case LogEntity log:
+                case LogModel log:
                     result = new LogValidator().Validate(log);
                     if (!result.IsValid)
                         return false;
                     break;
-                case LogTypeEntity logType:
+                case LogTypeModel logType:
                     result = new LogTypeValidator().Validate(logType);
                     if (!result.IsValid)
                         return false;
                     break;
-                case NomenclatureEntity nomenclature:
+                case NomenclatureModel nomenclature:
                     result = new NomenclatureValidator().Validate(nomenclature);
                     if (!result.IsValid)
                         return false;
                     break;
-                case OrderEntity order:
+                case OrderModel order:
                     result = new OrderValidator().Validate(order);
                     if (!result.IsValid)
                         return false;
                     break;
-                case OrderWeighingEntity orderWeighing:
+                case OrderWeighingModel orderWeighing:
                     result = new OrderWeighingValidator().Validate(orderWeighing);
                     if (!result.IsValid)
                         return false;
                     break;
-                case OrganizationEntity organization:
+                case OrganizationModel organization:
                     result = new OrganizationValidator().Validate(organization);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PluEntity plu:
+                case PluModel plu:
                     result = new PluValidator().Validate(plu);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PluObsoleteEntity pluObsolete:
+                case PluObsoleteModel pluObsolete:
                     result = new PluObsoleteValidator().Validate(pluObsolete);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PluLabelEntity pluLabel:
+                case PluLabelModel pluLabel:
                     result = new PluLabelValidator().Validate(pluLabel);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PluScaleEntity pluScale:
+                case PluScaleModel pluScale:
                     result = new PluScaleValidator().Validate(pluScale);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PluWeighingEntity pluWeighing:
+                case PluWeighingModel pluWeighing:
                     result = new PluWeighingValidator().Validate(pluWeighing);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PrinterEntity printer:
+                case PrinterModel printer:
                     result = new PrinterValidator().Validate(printer);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PrinterResourceEntity printerResource:
+                case PrinterResourceModel printerResource:
                     result = new PrinterResourceValidator().Validate(printerResource);
                     if (!result.IsValid)
                         return false;
                     break;
-                case PrinterTypeEntity printerType:
+                case PrinterTypeModel printerType:
                     result = new PrinterTypeValidator().Validate(printerType);
                     if (!result.IsValid)
                         return false;
                     break;
-                case ProductionFacilityEntity productionFacility:
+                case ProductionFacilityModel productionFacility:
                     result = new ProductionFacilityValidator().Validate(productionFacility);
                     if (!result.IsValid)
                         return false;
                     break;
-                case ProductSeriesEntity productSeries:
+                case ProductSeriesModel productSeries:
                     result = new ProductSeriesValidator().Validate(productSeries);
                     if (!result.IsValid)
                         return false;
                     break;
-                case ScaleEntity scale:
+                case ScaleModel scale:
                     result = new ScaleValidator().Validate(scale);
                     if (!result.IsValid)
                         return false;
                     break;
-                case TaskEntity task:
+                case TaskModel task:
                     result = new TaskValidator().Validate(task);
                     if (!result.IsValid)
                         return false;
                     break;
-                case TaskTypeEntity taskType:
+                case TaskTypeModel taskType:
                     result = new TaskTypeValidator().Validate(taskType);
                     if (!result.IsValid)
                         return false;
                     break;
-                case TemplateEntity template:
+                case TemplateModel template:
                     result = new TemplateValidator().Validate(template);
                     if (!result.IsValid)
                         return false;
                     break;
-                case TemplateResourceEntity templateResource:
+                case TemplateResourceModel templateResource:
                     result = new TemplateResourceValidator().Validate(templateResource);
                     if (!result.IsValid)
                         return false;
                     break;
-                case VersionEntity version:
+                case VersionModel version:
                     result = new VersionValidator().Validate(version);
                     if (!result.IsValid)
                         return false;
                     break;
-                case WorkShopEntity workShop:
+                case WorkShopModel workShop:
                     result = new WorkShopValidator().Validate(workShop);
                     if (!result.IsValid)
                         return false;

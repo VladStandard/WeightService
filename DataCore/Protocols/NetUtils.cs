@@ -58,7 +58,7 @@ namespace DataCore.Protocols
             return macAddresses;
         }
 
-        public static void RequestHttpStatus(PrinterEntity printer, int timeOut)
+        public static void RequestHttpStatus(PrinterModel printer, int timeOut)
         {
             if (printer.HttpStatusCode == HttpStatusCode.OK)
                 return;
@@ -83,7 +83,7 @@ namespace DataCore.Protocols
             }
         }
 
-        public static bool RequestPing(PrinterEntity printer, int timeOut)
+        public static bool RequestPing(PrinterModel printer, int timeOut)
         {
             if (printer == null)
                 return false;

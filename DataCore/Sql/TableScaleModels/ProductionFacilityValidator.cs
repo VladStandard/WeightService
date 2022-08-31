@@ -13,12 +13,12 @@ public class ProductionFacilityValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductionFacilityValidator() : base(ColumnName.Id, false, false)
+	public ProductionFacilityValidator() : base(false, false)
 	{
-		RuleFor(item => ((ProductionFacilityEntity)item).Name)
+		RuleFor(item => ((ProductionFacilityModel)item).Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((ProductionFacilityEntity)item).Address)
+		RuleFor(item => ((ProductionFacilityModel)item).Address)
 			.NotEmpty()
 			.NotNull();
 	}

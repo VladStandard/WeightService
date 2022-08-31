@@ -9,19 +9,19 @@ internal class PluScaleValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluScaleEntity item = DataCore.CreateNewSubstitute<PluScaleEntity>(false);
+		PluScaleModel item = DataCore.CreateNewSubstitute<PluScaleModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluScaleEntity item = DataCore.CreateNewSubstitute<PluScaleEntity>(true);
+		PluScaleModel item = DataCore.CreateNewSubstitute<PluScaleModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class PluScaleValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<PluScaleEntity>(1_000);
+		DataCore.AssertSqlDataValidate<PluScaleModel>(1_000);
 	}
 }

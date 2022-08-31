@@ -13,15 +13,15 @@ public class OrganizationValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrganizationValidator() : base(ColumnName.Id)
+	public OrganizationValidator()
 	{
-		RuleFor(item => ((OrganizationEntity)item).Name)
+		RuleFor(item => ((OrganizationModel)item).Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((OrganizationEntity)item).Gln)
+		RuleFor(item => ((OrganizationModel)item).Gln)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((OrganizationEntity)item).Xml)
+		RuleFor(item => ((OrganizationModel)item).Xml)
 			.NotEmpty()
 			.NotNull();
 	}

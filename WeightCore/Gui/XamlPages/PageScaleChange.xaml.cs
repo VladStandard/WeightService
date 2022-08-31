@@ -51,7 +51,7 @@ public partial class PageScaleChange
 
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
-        UserSession.SqlViewModel.SetupTasks(UserSession.SqlViewModel.Scale.IdentityId);
+        //UserSession.SqlViewModel.SetupTasks(UserSession.SqlViewModel.Scale.Identity.Id);
     }
 
     //[Obsolete(@"Deprecated method")]
@@ -113,19 +113,19 @@ public partial class PageScaleChange
     private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
     {
         string scaleDescription = comboBoxDevice.Items[comboBoxDevice.SelectedIndex].ToString();
-        ScaleEntity scale = SqlUtils.GetScale(scaleDescription);
+        ScaleModel scale = SqlUtils.GetScale(scaleDescription);
         string areaName = comboBoxArea.Items[comboBoxArea.SelectedIndex].ToString();
-        SqlViewModel.Setup(scale.IdentityId, areaName);
-        UserSessionHelper.Instance.SqlViewModel.Setup(scale.IdentityId, areaName);
+        SqlViewModel.Setup(scale.Identity.Id, areaName);
+        UserSessionHelper.Instance.SqlViewModel.Setup(scale.Identity.Id, areaName);
 		Result = System.Windows.Forms.DialogResult.OK;
         OnClose.Invoke(sender, e);
     }
 
     private void ButtonClose_OnClick(object sender, RoutedEventArgs e)
     {
-        ScaleEntity scale = SqlUtils.GetScaleFromHost(UserSession.SqlViewModel.Scale.Host.IdentityId);
-        SqlViewModel.Setup(scale.IdentityId, "");
-        UserSessionHelper.Instance.SqlViewModel.Setup(scale.IdentityId, "");
+        ScaleModel scale = SqlUtils.GetScaleFromHost(UserSession.SqlViewModel.Scale.Host.Identity.Id);
+        SqlViewModel.Setup(scale.Identity.Id, "");
+        UserSessionHelper.Instance.SqlViewModel.Setup(scale.Identity.Id, "");
 		Result = System.Windows.Forms.DialogResult.Cancel;
         OnClose.Invoke(sender, e);
     }

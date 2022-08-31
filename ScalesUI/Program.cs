@@ -46,13 +46,13 @@ internal static class Program
 
             // Host.
             string hostName = NetUtils.GetLocalHostName(false);
-            HostEntity host = SqlUtils.GetHost(hostName);
-            if (host.IdentityId == 0)
+            HostModel host = SqlUtils.GetHost(hostName);
+            if (host.Identity.Id == 0)
             {
                 GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
                 host = SqlUtils.GetHost(hostName);
             }
-            if (host.IdentityId == 0)
+            if (host.Identity.Id == 0)
             {
                 string message = LocaleCore.Scales.RegistrationWarningHostNotFound(hostName);
                 GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
@@ -62,8 +62,8 @@ internal static class Program
             }
 
             // Scale.
-            ScaleEntity scale = SqlUtils.GetScaleFromHost(host.IdentityId);
-            if (scale.IdentityId == 0)
+            ScaleModel scale = SqlUtils.GetScaleFromHost(host.Identity.Id);
+            if (scale.Identity.Id == 0)
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);
                 GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);

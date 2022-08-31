@@ -14,16 +14,16 @@ public class ScaleValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ScaleValidator() : base(ColumnName.Id)
+	public ScaleValidator()
 	{
-		RuleFor(item => ((ScaleEntity)item).Description)
+		RuleFor(item => ((ScaleModel)item).Description)
 			.NotEmpty()
 			.NotNull();
 	}
 
 	protected override bool PreValidate(ValidationContext<TableModel> context, ValidationResult result)
 	{
-		if (context.InstanceToValidate is ScaleEntity scale)
+		if (context.InstanceToValidate is ScaleModel scale)
 		{
 			if (!PreValidateSubEntity(scale.TemplateDefault, result))
 				return result.IsValid;

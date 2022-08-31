@@ -7,9 +7,9 @@ public partial class SectionWorkshops : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<WorkShopEntity> ItemsCast
+    private List<WorkShopModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (WorkShopEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (WorkShopModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionWorkshops : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Workshops);
         IsShowMarkedFilter = true;
 		Items = new();
     }

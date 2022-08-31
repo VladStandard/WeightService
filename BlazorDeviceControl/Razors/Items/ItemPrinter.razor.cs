@@ -7,8 +7,8 @@ public partial class ItemPrinter : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
-	private List<PrinterTypeEntity> PrinterTypes { get; set; }
+	private PrinterModel ItemCast { get => Item == null ? new() : (PrinterModel)Item; set => Item = value; }
+	private List<PrinterTypeModel> PrinterTypes { get; set; }
 
 	#endregion
 
@@ -18,7 +18,7 @@ public partial class ItemPrinter : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Printers);
 		ItemCast = new();
 		PrinterTypes = new();
 	}
@@ -35,19 +35,18 @@ public partial class ItemPrinter : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW PRINTER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterEntity>(IdentityId);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterModel>(IdentityId);
 						break;
 				}
 
 				PrinterTypes = AppSettings.DataAccess.Crud.GetListPrinterTypes(false, false);
-				if (IdentityId != null && TableAction == DbTableAction.New)
+				if (TableAction == DbTableAction.New)
 				{
-					ItemCast.IdentityId = (long)IdentityId;
 					ItemCast.Name = "NEW PRINTER";
 					ItemCast.Ip = "127.0.0.1";
 					ItemCast.MacAddress.Default();

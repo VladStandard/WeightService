@@ -9,19 +9,19 @@ internal class PrinterValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PrinterEntity item = DataCore.CreateNewSubstitute<PrinterEntity>(false);
+		PrinterModel item = DataCore.CreateNewSubstitute<PrinterModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PrinterEntity item = DataCore.CreateNewSubstitute<PrinterEntity>(true);
+		PrinterModel item = DataCore.CreateNewSubstitute<PrinterModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class PrinterValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<PrinterEntity>(1_000);
+		DataCore.AssertSqlDataValidate<PrinterModel>(1_000);
 	}
 }

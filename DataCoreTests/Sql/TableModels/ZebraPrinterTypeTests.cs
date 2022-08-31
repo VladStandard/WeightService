@@ -7,7 +7,7 @@
 //    internal class ZebraPrinterTypeTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -26,7 +26,7 @@
 //                    {
 //                        Name = s,
 //                    };
-//                    item.IdentityId = i;
+//                    item.Identity.Id = i;
 //                    _ = item.ToString();
 //                    Assert.AreEqual(false, entityNew.Equals(item));
 //                }
@@ -48,7 +48,7 @@
 //                {
 //                    Name = name,
 //                };
-//                zebraPrinterType.IdentityId = -1;
+//                zebraPrinterType.Identity.Id = -1;
 //                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(zebraPrinterType);
 //            });
 
@@ -66,7 +66,7 @@
 //                    const string name2 = "ZebraPrinterType test 2";
 //                    // GetEntities
 //                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
-//                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
+//                        new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                    {
 //                        if (item.Name.Equals(name))
 //                        {
@@ -77,7 +77,7 @@
 //                    }
 //                    // GetEntities
 //                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
-//                        new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
+//                        new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                    {
 //                        if (item.Name.Equals(name2))
 //                        {

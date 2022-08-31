@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/plu_label"
-@page "/item/plu_label/{IdentityId:long}"
-@page "/item/plu_label/{IdentityId:long}/{TableAction}"
+@page "/item/plu_label/{Identity.Id:long}"
+@page "/item/plu_label/{Identity.Id:long}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
@@ -26,7 +26,7 @@ else
                     @if (ItemCast.PluWeighing != null)
                     {
 			            <RadzenLink Style="width: 100%; text-align: center;"
-	                        Path=@GetPath(UriRouteItem.Scale, ItemCast.PluWeighing.PluScale.Scale, ItemCast.PluWeighing.PluScale.Scale.IdentityId)
+	                        Path=@GetPath(UriRouteItem.Scale, ItemCast.PluWeighing.PluScale.Scale, ItemCast.PluWeighing.PluScale.Scale.Identity.Id)
 	                        Text=@ItemCast.PluWeighing.PluScale.Scale.Description/>
                     }
 	            </td>
@@ -35,7 +35,7 @@ else
 		            @if (ItemCast.PluWeighing != null)
                     {
 			            <RadzenLink Style="width: 100%; text-align: center;"
-	                        Path=@GetPath(UriRouteItem.Plu, ItemCast.PluWeighing.PluScale.Plu, ItemCast.PluWeighing.PluScale.Plu.IdentityUid)
+	                        Path=@GetPath(UriRouteItem.Plu, ItemCast.PluWeighing.PluScale.Plu, ItemCast.PluWeighing.PluScale.Plu.Identity.Uid)
 	                        Text=@ItemCast.PluWeighing.PluScale.Plu.Name/>
                     }
 	            </td>
@@ -99,7 +99,7 @@ else
 		            @if (ItemCast.PluWeighing != null)
 		            {
 			            <RadzenLink Style="width: 100%; text-align: center;"
-			                        Path=@GetPath(UriRouteItem.Template, ItemCast.PluWeighing.PluScale.Plu.Template, ItemCast.PluWeighing.PluScale.Plu.Template.IdentityUid)
+			                        Path=@GetPath(UriRouteItem.Template, ItemCast.PluWeighing.PluScale.Plu.Template, ItemCast.PluWeighing.PluScale.Plu.Template.Identity.Uid)
 			                        Text=@ItemCast.PluWeighing.PluScale.Plu.Template.Title/>
 		            }
 	            </td>

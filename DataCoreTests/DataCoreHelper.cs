@@ -5,6 +5,7 @@ using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql;
+using DataCore.Sql.Fields;
 using DataCore.Sql.Tables;
 using FluentValidation;
 using System;
@@ -81,35 +82,35 @@ public class DataCoreHelper
 	{
 		return item switch
 		{
-			AccessEntity => new AccessValidator(),
-			AppEntity => new AppValidator(),
-			BarCodeEntity => new BarCodeValidator(),
-			BarCodeTypeEntity => new BarCodeTypeValidator(),
-			ContragentEntity => new ContragentValidator(),
-			HostEntity => new HostValidator(),
-			LogEntity => new LogValidator(),
-			LogTypeEntity => new LogTypeValidator(),
-			NomenclatureEntity => new NomenclatureValidator(),
-			OrderEntity => new OrderValidator(),
-			OrderWeighingEntity => new OrderWeighingValidator(),
-			OrganizationEntity => new OrganizationValidator(),
-			PluEntity => new PluValidator(),
-			PluLabelEntity => new PluLabelValidator(),
-			PluObsoleteEntity => new PluObsoleteValidator(),
-			PluScaleEntity => new PluScaleValidator(),
-			PluWeighingEntity => new PluWeighingValidator(),
-			PrinterEntity => new PrinterValidator(),
-			PrinterResourceEntity => new PrinterResourceValidator(),
-			PrinterTypeEntity => new PrinterTypeValidator(),
-			ProductionFacilityEntity => new ProductionFacilityValidator(),
-			ProductSeriesEntity => new ProductSeriesValidator(),
-			ScaleEntity => new ScaleValidator(),
-			VersionEntity => new VersionValidator(),
-			TaskEntity => new TaskValidator(),
-			TaskTypeEntity => new TaskTypeValidator(),
-			TemplateEntity => new TemplateValidator(),
-			TemplateResourceEntity => new TemplateResourceValidator(),
-			WorkShopEntity => new WorkShopValidator(),
+			AccessModel => new AccessValidator(),
+			AppModel => new AppValidator(),
+			BarCodeModel => new BarCodeValidator(),
+			BarCodeTypeModel => new BarCodeTypeValidator(),
+			ContragentModel => new ContragentValidator(),
+			HostModel => new HostValidator(),
+			LogModel => new LogValidator(),
+			LogTypeModel => new LogTypeValidator(),
+			NomenclatureModel => new NomenclatureValidator(),
+			OrderModel => new OrderValidator(),
+			OrderWeighingModel => new OrderWeighingValidator(),
+			OrganizationModel => new OrganizationValidator(),
+			PluModel => new PluValidator(),
+			PluLabelModel => new PluLabelValidator(),
+			PluObsoleteModel => new PluObsoleteValidator(),
+			PluScaleModel => new PluScaleValidator(),
+			PluWeighingModel => new PluWeighingValidator(),
+			PrinterModel => new PrinterValidator(),
+			PrinterResourceModel => new PrinterResourceValidator(),
+			PrinterTypeModel => new PrinterTypeValidator(),
+			ProductionFacilityModel => new ProductionFacilityValidator(),
+			ProductSeriesModel => new ProductSeriesValidator(),
+			ScaleModel => new ScaleValidator(),
+			VersionModel => new VersionValidator(),
+			TaskModel => new TaskValidator(),
+			TaskTypeModel => new TaskTypeValidator(),
+			TemplateModel => new TemplateValidator(),
+			TemplateResourceModel => new TemplateResourceValidator(),
+			WorkShopModel => new WorkShopValidator(),
 			_ => throw new NotImplementedException()
 		};
 	}
@@ -213,74 +214,78 @@ public class DataCoreHelper
 
 	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableModel, new()
 	{
+		FieldIdentityModel fieldIdentity = Substitute.For<FieldIdentityModel>(ColumnName.Default);
+		fieldIdentity.Name.Returns(ColumnName.Default);
+		fieldIdentity.Uid.Returns(Guid.NewGuid());
+		fieldIdentity.Id.Returns(-1);
+
 		T item = Substitute.For<T>();
 		if (!isNotDefault)
 		{
 			return item;
 		}
 
-		item.IdentityUid = Guid.NewGuid();
-		item.IdentityId = -1;
-		item.CreateDt = DateTime.Now;
-		item.ChangeDt = DateTime.Now;
-		item.IsMarked = false;
+		item.Identity.Returns(fieldIdentity);
+		item.CreateDt.Returns(DateTime.Now);
+		item.ChangeDt.Returns(DateTime.Now);
+		item.IsMarked.Returns(false);
 
 		switch (item)
 		{
-			case AccessEntity access:
+			case AccessModel access:
 				access.User = "Test";
 				break;
-			case AppEntity app:
+			case AppModel app:
 				app.Name = "Test";
 				break;
-			case BarCodeTypeEntity barCodeTypeV2:
+			case BarCodeTypeModel barCodeTypeV2:
 				barCodeTypeV2.Name = "Test";
 				break;
-			case BarCodeEntity barCodeV2:
+			case BarCodeModel barCodeV2:
 				barCodeV2.Value = "Test";
 				break;
-			case ContragentEntity contragentV2:
+			case ContragentModel contragentV2:
 				contragentV2.Name = "Test";
 				break;
-			case HostEntity host:
+			case HostModel host:
 				host.Name = "Test";
 				host.Ip = "127.0.0.1";
 				host.MacAddressValue = "001122334455";
 				host.HostName = "Test";
 				host.AccessDt = DateTime.Now;
 				break;
-			case LogEntity log:
+			case LogModel log:
 				log.Version = "0.1.2";
 				log.File = "Test.cs";
 				log.Line = 1;
 				log.Member = "Test";
-				log.LogType = CreateNewSubstitute<LogTypeEntity>(isNotDefault);
+				log.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
 				log.Message = "Test";
 				break;
-			case LogTypeEntity logType:
+			case LogTypeModel logType:
 				logType.Icon = "Test";
 				break;
-			case NomenclatureEntity nomenclature:
+			case NomenclatureModel nomenclature:
 				nomenclature.Name = "0.1.2";
 				nomenclature.Code = "ЦБД00012345";
 				nomenclature.Xml = "<Product Category=\"Сосиски\" > </Product>";
 				nomenclature.Weighted = false;
 				break;
-			case OrderEntity order:
+			case OrderModel order:
 				order.Name = "Test";
 				order.BoxCount = 1;
 				order.PalletCount = 1;
 				break;
-			case OrderWeighingEntity orderWeighing:
-				orderWeighing.Order = CreateNewSubstitute<OrderEntity>(isNotDefault);
-				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
+			case OrderWeighingModel orderWeighing:
+				orderWeighing.Order = CreateNewSubstitute<OrderModel>(isNotDefault);
+				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				break;
-			case OrganizationEntity organization:
+			case OrganizationModel organization:
 				organization.Name = "Test";
 				organization.Gln = 1;
 				organization.Xml = "Test";
 				break;
-			case PluEntity plu:
+			case PluModel plu:
 				plu.Name = "Test";
 				plu.Number = 100;
 				plu.FullName = "Test";
@@ -288,74 +293,74 @@ public class DataCoreHelper
 				plu.Gtin = "Test";
 				plu.Ean13 = "Test";
 				plu.Itf14 = "Test";
-				plu.Template = CreateNewSubstitute<TemplateEntity>(isNotDefault);
-				plu.Nomenclature = CreateNewSubstitute<NomenclatureEntity>(isNotDefault);
+				plu.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
+				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
 				break;
-			case PluLabelEntity pluLabel:
+			case PluLabelModel pluLabel:
 				pluLabel.Zpl = "Test";
-				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingEntity>(isNotDefault);
+				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				break;
-			case PluScaleEntity pluScale:
+			case PluScaleModel pluScale:
 				pluScale.IsActive = true;
-				pluScale.Plu = CreateNewSubstitute<PluEntity>(isNotDefault);
-				pluScale.Scale = CreateNewSubstitute<ScaleEntity>(isNotDefault);
+				pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
-			case PluWeighingEntity pluWeighing:
+			case PluWeighingModel pluWeighing:
 				pluWeighing.Sscc = "Test";
 				pluWeighing.NettoWeight = (decimal)1.1;
 				pluWeighing.TareWeight = (decimal)0.25;
 				pluWeighing.ProductDt = DateTime.Now;
 				pluWeighing.RegNum = 1;
 				pluWeighing.Kneading = 1;
-				pluWeighing.PluScale = CreateNewSubstitute<PluScaleEntity>(isNotDefault);
-				pluWeighing.Series = CreateNewSubstitute<ProductSeriesEntity>(isNotDefault);
+				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
+				pluWeighing.Series = CreateNewSubstitute<ProductSeriesModel>(isNotDefault);
 				break;
-			case PrinterEntity printer:
+			case PrinterModel printer:
 				printer.DarknessLevel = 1;
-				printer.PrinterType = CreateNewSubstitute<PrinterTypeEntity>(isNotDefault);
+				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;
-			case PrinterResourceEntity printerResource:
+			case PrinterResourceModel printerResource:
 				printerResource.Description = "Test";
-				printerResource.Printer = CreateNewSubstitute<PrinterEntity>(isNotDefault);
-				printerResource.Resource = CreateNewSubstitute<TemplateResourceEntity>(isNotDefault);
+				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
+				printerResource.Resource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;
-			case PrinterTypeEntity printerType:
+			case PrinterTypeModel printerType:
 				printerType.Name = "Test";
 				break;
-			case ProductionFacilityEntity productionFacility:
+			case ProductionFacilityModel productionFacility:
 				productionFacility.Name = "Test";
 				productionFacility.Address = "Test";
 				break;
-			case ProductSeriesEntity productSeries:
+			case ProductSeriesModel productSeries:
 				productSeries.Sscc = "Test";
 				productSeries.IsClose = false;
-				productSeries.Scale = CreateNewSubstitute<ScaleEntity>(isNotDefault);
+				productSeries.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
-			case ScaleEntity scale:
+			case ScaleModel scale:
 				scale.Description = "Test";
 				break;
-			case VersionEntity version:
+			case VersionModel version:
 				version.Version = 1;
 				version.Description = "Test";
 				version.ReleaseDt = DateTime.Now;
 				break;
-			case TaskEntity task:
-				task.TaskType = CreateNewSubstitute<TaskTypeEntity>(isNotDefault);
-				task.Scale = CreateNewSubstitute<ScaleEntity>(isNotDefault);
+			case TaskModel task:
+				task.TaskType = CreateNewSubstitute<TaskTypeModel>(isNotDefault);
+				task.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
-			case TaskTypeEntity taskType:
+			case TaskTypeModel taskType:
 				taskType.Name = "Test";
 				break;
-			case TemplateEntity template:
+			case TemplateModel template:
 				template.Title = "Test";
 				break;
-			case TemplateResourceEntity templateResource:
+			case TemplateResourceModel templateResource:
 				templateResource.Name = "Test";
 				templateResource.Description = "Test";
 				break;
-			case WorkShopEntity workShop:
+			case WorkShopModel workShop:
 				workShop.Name = "Test";
-				workShop.ProductionFacility = CreateNewSubstitute<ProductionFacilityEntity>(isNotDefault);
+				workShop.ProductionFacility = CreateNewSubstitute<ProductionFacilityModel>(isNotDefault);
 				break;
 		}
 		return item;

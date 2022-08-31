@@ -216,7 +216,7 @@
 //    public void Save()
 //    {
 //        SqlParameter[] parameters = {
-//            new("@ScaleID", SqlDbType.VarChar, 38) { Value = Scale.IdentityId },
+//            new("@ScaleID", SqlDbType.VarChar, 38) { Value = Scale.Identity.Id },
 //            new("@PLU", SqlDbType.Int) { Value = PluScale.Plu.Number },
 //            new("@NetWeight", SqlDbType.Decimal) { Value = NetWeight },
 //            new("@TareWeight", SqlDbType.Decimal) { Value = TareWeight },

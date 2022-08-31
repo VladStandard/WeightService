@@ -51,32 +51,32 @@ public class SqlViewModelHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private List<TaskDirect> _tasks = new();
+    //private List<TaskDirect> _tasks = new();
 
-    private List<TaskDirect> Tasks
-    {
-        get => _tasks;
-        set
-        {
-            _tasks = value;
-            OnPropertyChanged();
-        }
-    }
-    private List<TaskTypeDirect> _taskTypes = new();
+    //private List<TaskDirect> Tasks
+    //{
+    //    get => _tasks;
+    //    set
+    //    {
+    //        _tasks = value;
+    //        OnPropertyChanged();
+    //    }
+    //}
+    //private List<TaskTypeDirect> _taskTypes = new();
 
-    private List<TaskTypeDirect> TaskTypes
-    {
-        get => _taskTypes;
-        set
-        {
-            _taskTypes = value;
-            OnPropertyChanged();
-        }
-    }
+    //private List<TaskTypeDirect> TaskTypes
+    //{
+    //    get => _taskTypes;
+    //    set
+    //    {
+    //        _taskTypes = value;
+    //        OnPropertyChanged();
+    //    }
+    //}
 
     private SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
-    private HostEntity _host;
-    public HostEntity Host
+    private HostModel _host;
+    public HostModel Host
     {
         get => _host;
         private set
@@ -85,19 +85,19 @@ public class SqlViewModelHelper : BaseViewModel
             OnPropertyChanged();
         }
     }
-    private ScaleEntity _scale;
-    public ScaleEntity Scale
+    private ScaleModel _scale;
+    public ScaleModel Scale
     {
         get => _scale;
         set
         {
             _scale = value;
-            SetupTasks(_scale.IdentityId);
+            //SetupTasks(_scale.Identity.Id);
             OnPropertyChanged();
         }
     }
-    private ProductionFacilityEntity? _area;
-    public ProductionFacilityEntity? Area
+    private ProductionFacilityModel? _area;
+    public ProductionFacilityModel? Area
     {
         get
         {
@@ -184,8 +184,8 @@ public class SqlViewModelHelper : BaseViewModel
 
     public void Setup(long scaleId, string areaName)
     {
-        TaskTypes = new();
-        Tasks = new();
+        //TaskTypes = new();
+        //Tasks = new();
         SetScale(scaleId, areaName);
         SetScales();
         SetAreas();
@@ -200,7 +200,7 @@ public class SqlViewModelHelper : BaseViewModel
                 string hostName = NetUtils.GetLocalHostName(false);
                 Host = SqlUtils.GetHost(hostName);
             }
-            Scale = SqlUtils.GetScaleFromHost(Host.IdentityId);
+            Scale = SqlUtils.GetScaleFromHost(Host.Identity.Id);
         }
         else
         {
@@ -214,7 +214,7 @@ public class SqlViewModelHelper : BaseViewModel
     {
         Scales = new();
         SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
-        ScaleEntity[]? scales = SqlUtils.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
+        ScaleModel[]? scales = SqlUtils.DataAccess.Crud.GetItems<ScaleModel>(sqlCrudConfig);
         scales?.ToList().ForEach(scale => Scales.Add(scale.Description));
     }
 
@@ -222,8 +222,8 @@ public class SqlViewModelHelper : BaseViewModel
     {
         Areas = new();
         SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-        ProductionFacilityEntity[]? areas = SqlUtils.DataAccess.Crud.GetItems<ProductionFacilityEntity>(sqlCrudConfig);
-        areas?.Where(x => x.IdentityId > 0).ToList().ForEach(area => Areas.Add(area.Name));
+        ProductionFacilityModel[]? areas = SqlUtils.DataAccess.Crud.GetItems<ProductionFacilityModel>(sqlCrudConfig);
+        areas?.Where(x => x.Identity.Id > 0).ToList().ForEach(area => Areas.Add(area.Name));
     }
 
     private void SetPublish()
@@ -253,41 +253,41 @@ public class SqlViewModelHelper : BaseViewModel
         }
     }
 
-    public void SetupTasks(long? scaleId)
-    {
-        if (scaleId == null)
-            return;
+    //public void SetupTasks(long? scaleId)
+    //{
+    //    if (scaleId == null)
+    //        return;
 
-        TaskTypes = SqlUtils.GetTasksTypes();
+    //    TaskTypes = SqlUtils.GetTasksTypes();
 
-        Tasks = new();
-        foreach (TaskTypeDirect taskType in TaskTypes)
-        {
-            TaskDirect? task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
-            if (task == null)
-            {
-                SqlUtils.SaveNullTask(taskType, (long)scaleId, true);
-                task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
-            }
-            if (task != null)
-                Tasks.Add(task);
-        }
-    }
+    //    Tasks = new();
+    //    foreach (TaskTypeDirect taskType in TaskTypes)
+    //    {
+    //        TaskDirect? task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
+    //        if (task == null)
+    //        {
+    //            SqlUtils.SaveNullTask(taskType, (long)scaleId, true);
+    //            task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
+    //        }
+    //        if (task != null)
+    //            Tasks.Add(task);
+    //    }
+    //}
 
-    public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
-    {
-        // Table [TASKS] don't has records.
-        if (Tasks.Count == 0)
-            return true;
-        foreach (TaskDirect task in Tasks)
-        {
-            if (string.Equals(task.TaskType.Name, taskType.ToString(), StringComparison.InvariantCultureIgnoreCase))
-            {
-                return task.Enabled;
-            }
-        }
-        return false;
-    }
+    //public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
+    //{
+    //    // Table [TASKS] don't has records.
+    //    if (Tasks.Count == 0)
+    //        return true;
+    //    foreach (TaskDirect task in Tasks)
+    //    {
+    //        if (string.Equals(task.TaskType.Name, taskType.ToString(), StringComparison.InvariantCultureIgnoreCase))
+    //        {
+    //            return task.Enabled;
+    //        }
+    //    }
+    //    return false;
+    //}
 
     private string GetInstance()
     {

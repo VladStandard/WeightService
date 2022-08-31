@@ -3,24 +3,23 @@
 
 using System;
 
-namespace MdmControlCore
+namespace MdmControlCore;
+
+public class TypeModel<T>
 {
-    public class TypeEntity<T>
+    public string Name { get; init; }
+    public T Value { get; init; }
+
+    public TypeModel(string name, T value)
     {
-        public string Name { get; set; }
-        public T Value { get; set; }
+        Name = name;
+        Value = value;
+    }
 
-        public TypeEntity(string name, T value)
-        {
-            Name = name;
-            Value = value;
-        }
-
-        public override string ToString()
-        {
-            return 
-                $"{nameof(Name)}: {Name}. " + Environment.NewLine +
-                $"{nameof(Value)}: {Value}. ";
-        }
+    public override string ToString()
+    {
+        return 
+            $"{nameof(Name)}: {Name}. " + Environment.NewLine +
+            $"{nameof(Value)}: {Value}. ";
     }
 }

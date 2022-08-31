@@ -13,23 +13,23 @@ public class LogValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogValidator() : base(ColumnName.Uid, true, false)
+	public LogValidator() : base(true, false)
 	{
-		RuleFor(item => ((LogEntity)item).Version)
+		RuleFor(item => ((LogModel)item).Version)
 			.NotNull();
-		RuleFor(item => ((LogEntity)item).File)
+		RuleFor(item => ((LogModel)item).File)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogEntity)item).Line)
+		RuleFor(item => ((LogModel)item).Line)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogEntity)item).Member)
+		RuleFor(item => ((LogModel)item).Member)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogEntity)item).LogType)
+		RuleFor(item => ((LogModel)item).LogType)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogEntity)item).Message)
+		RuleFor(item => ((LogModel)item).Message)
 			.NotEmpty()
 			.NotNull();
 	}

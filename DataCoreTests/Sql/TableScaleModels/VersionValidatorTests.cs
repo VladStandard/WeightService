@@ -9,19 +9,19 @@ internal class VersionValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		VersionEntity item = DataCore.CreateNewSubstitute<VersionEntity>(false);
+		VersionModel item = DataCore.CreateNewSubstitute<VersionModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		VersionEntity item = DataCore.CreateNewSubstitute<VersionEntity>(true);
+		VersionModel item = DataCore.CreateNewSubstitute<VersionModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class VersionValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<VersionEntity>(1_000);
+		DataCore.AssertSqlDataValidate<VersionModel>(1_000);
 	}
 }

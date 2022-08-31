@@ -7,7 +7,7 @@ namespace DataCore.Protocols;
 
 public static class ZplUtils
 {
-    public static TcpClient TcpClientSendData(string hostname, int port, List<ZplExchangeEntity> zplExchanges)
+    public static TcpClient TcpClientSendData(string hostname, int port, List<ZplExchangeModel> zplExchanges)
     {
         using TcpClient client = new();
         //client.ReceiveTimeout = 0;
@@ -15,7 +15,7 @@ public static class ZplUtils
         client.Connect(hostname, port);
         using (NetworkStream stream = client.GetStream())
         {
-            foreach (ZplExchangeEntity zpl in zplExchanges)
+            foreach (ZplExchangeModel zpl in zplExchanges)
             {
                 stream.Write(zpl.Cmd, 0, zpl.Length);
                 stream.Flush();

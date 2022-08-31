@@ -99,7 +99,7 @@ public class FieldMacAddressModel
         {
             Value = Value,
         };
-        //item.Setup(((BaseEntity)this).CloneCast);
+        //item.Setup(((TableModel)this).CloneCast);
         return item;
     }
 

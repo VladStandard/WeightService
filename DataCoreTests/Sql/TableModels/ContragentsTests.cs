@@ -12,7 +12,7 @@
 //    internal class ContragentsTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -76,7 +76,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "ContragentsEntity test";
-//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<ContragentEntityV2>(new FieldListEntity(
+//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<ContragentEntityV2>(new (
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;

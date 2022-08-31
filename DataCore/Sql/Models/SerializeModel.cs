@@ -152,8 +152,8 @@ public class SerializeModel : ISerializable
 
     public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        //info.AddValue(nameof(SqlConnect), SqlConnect);
-    }
+	    //info.AddValue(nameof(SqlConnect), SqlConnect);
+	}
 
 	public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
 	{

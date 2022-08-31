@@ -11,9 +11,9 @@ else
 	    Class=@BlazorCoreUtuls.GetCssName.MudSelect 
 	    Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px; "
 	    @bind-Value=@ItemFilterCast>
-		@foreach (ScaleEntity item in ItemsCast)
+		@foreach (ScaleModel item in ItemsCast)
 		{
-			<MudSelectItem T=@ScaleEntity Value=@item>@item.Description</MudSelectItem>
+			<MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
 		}
 	</MudSelect>
 }

@@ -13,12 +13,12 @@ public class WorkShopValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WorkShopValidator() : base(ColumnName.Id)
+	public WorkShopValidator()
 	{
-		RuleFor(item => ((WorkShopEntity)item).Name)
+		RuleFor(item => ((WorkShopModel)item).Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((WorkShopEntity)item).ProductionFacility)
+		RuleFor(item => ((WorkShopModel)item).ProductionFacility)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ProductionFacilityValidator());

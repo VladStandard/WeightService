@@ -9,19 +9,19 @@ internal class PluValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluEntity item = DataCore.CreateNewSubstitute<PluEntity>(false);
+		PluModel item = DataCore.CreateNewSubstitute<PluModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluEntity item = DataCore.CreateNewSubstitute<PluEntity>(true);
+		PluModel item = DataCore.CreateNewSubstitute<PluModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class PluValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<PluEntity>(1_000);
+		DataCore.AssertSqlDataValidate<PluModel>(1_000);
 	}
 }

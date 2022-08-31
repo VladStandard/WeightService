@@ -11,7 +11,7 @@ public class FileDownload : IFileDownload
     //    _environment = environment;
     //}
 
-    public async Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceEntity? item)
+    public async Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceModel? item)
     {
         if (item == null || item.ImageData == null || item.ImageData.Value.Length == 0)
             return;

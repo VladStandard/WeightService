@@ -31,29 +31,29 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					    Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
+					    Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.Identity.Id)
 					    Text=@LocaleCore.Table.Scale/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 					    ReadOnly=true Disabled=true @bind-Value=@ItemCast.Scale >
-						@foreach (ScaleEntity item in Scales)
+						@foreach (ScaleModel item in Scales)
 						{
-							<MudSelectItem T=@ScaleEntity Value=@item>@item.Description</MudSelectItem>
+							<MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					    Path=@GetPath(UriRouteItem.Plu, ItemCast.Plu, ItemCast.Plu.IdentityUid)
+					    Path=@GetPath(UriRouteItem.Plu, ItemCast.Plu, ItemCast.Plu.Identity.Uid)
 					    Text=@LocaleCore.Table.Plu />
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						ReadOnly=true Disabled=true @bind-Value=@ItemCast.Plu >
-						@foreach (PluEntity item in Plus)
+						@foreach (PluModel item in Plus)
 						{
-							<MudSelectItem T=@PluEntity Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem T=@PluModel Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>

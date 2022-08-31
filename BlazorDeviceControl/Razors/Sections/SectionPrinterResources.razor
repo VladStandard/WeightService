@@ -15,42 +15,42 @@ else
         Title=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterResourceEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="PrinterResourceModel" @bind-Value=@ItemObject
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
             @if (IsShowMarked)
             {
-                <RadzenGridColumn TItem="PrinterResourceEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="PrinterResourceModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Id Width="10%">
+            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Id Width="10%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.IdentityId}")
-                        Text=@itemCast.IdentityId.ToString() />
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.Identity.Id}")
+                        Text=@itemCast.Identity.Id.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Description Width="30%" >
+            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Description Width="30%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterResource}/{itemCast.Identity.Id}")
                         Text=@itemCast.Description />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Printer Width="30%">
+            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Printer Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.Printer.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.Printer.Identity.Id}")
                         Text=@itemCast.Printer.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterResourceEntity" Title=@LocaleCore.Table.Resource Width="30%">
+            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Resource Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Resource.Name />
                 </Template>

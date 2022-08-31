@@ -13,19 +13,19 @@ public class HostValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public HostValidator() : base(ColumnName.Id)
+	public HostValidator()
 	{
-		RuleFor(item => ((HostEntity)item).AccessDt)
+		RuleFor(item => ((HostModel)item).AccessDt)
 			.NotEmpty()
 			.NotNull()
 			.LessThanOrEqualTo(DateTime.Now.Date.AddDays(1));
-		RuleFor(item => ((HostEntity)item).Name)
+		RuleFor(item => ((HostModel)item).Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((HostEntity)item).HostName)
+		RuleFor(item => ((HostModel)item).HostName)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((HostEntity)item).Ip)
+		RuleFor(item => ((HostModel)item).Ip)
 			.NotEmpty()
 			.NotNull();
 		// RuleFor(item => ((HostEntity)item).MacAddressValue)

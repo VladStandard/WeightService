@@ -9,19 +9,19 @@ internal class WorkShopValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		WorkShopEntity item = DataCore.CreateNewSubstitute<WorkShopEntity>(false);
+		WorkShopModel item = DataCore.CreateNewSubstitute<WorkShopModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		WorkShopEntity item = DataCore.CreateNewSubstitute<WorkShopEntity>(true);
+		WorkShopModel item = DataCore.CreateNewSubstitute<WorkShopModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class WorkShopValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<WorkShopEntity>(1_000);
+		DataCore.AssertSqlDataValidate<WorkShopModel>(1_000);
 	}
 }

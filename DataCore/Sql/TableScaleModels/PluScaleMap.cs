@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "PLUS_SCALES".
 /// </summary>
-public class PluScaleMap : ClassMap<PluScaleEntity>
+public class PluScaleMap : ClassMap<PluScaleModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class PluScaleMap : ClassMap<PluScaleEntity>
         Schema("db_scales");
         Table("PLUS_SCALES");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");

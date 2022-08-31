@@ -11,7 +11,7 @@
 //	/// <summary>
 //	/// Constructor.
 //	/// </summary>
-//	public LabelValidator() : base(ColumnName.Uid)
+//	public LabelValidator() : base()
 //	{
 //		RuleFor(item => ((LabelEntity)item).WeithingFact)
 //			.NotEmpty()

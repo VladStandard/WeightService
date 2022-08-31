@@ -22,7 +22,7 @@ public class WmiHelper
 
     #region Public and private methods
 
-    public WmiWin32MemoryEntity GetWin32OperatingSystemMemory()
+    public WmiWin32MemoryModel GetWin32OperatingSystemMemory()
     {
         lock (_locker)
         {
@@ -43,7 +43,7 @@ public class WmiHelper
                     totalVirtual = Convert.ToUInt64(item["TotalVirtualMemorySize"]) * 1024;
                     totalPhysical = Convert.ToUInt64(item["TotalVisibleMemorySize"]) * 1024;
                 }
-            return new WmiWin32MemoryEntity(freeVirtual, freePhysical, totalVirtual, totalPhysical);
+            return new WmiWin32MemoryModel(freeVirtual, freePhysical, totalVirtual, totalPhysical);
         }
     }
 
@@ -70,7 +70,7 @@ public class WmiHelper
         }
     }
 
-    public WmiSoftwareEntity GetSoftware(string search)
+    public WmiSoftwareModel GetSoftware(string search)
     {
         lock (_locker)
         {
@@ -105,7 +105,7 @@ public class WmiHelper
                     }
                 }
             }
-            return new WmiSoftwareEntity(name, vendor, version, guid, language);
+            return new WmiSoftwareModel(name, vendor, version, guid, language);
         }
     }
 

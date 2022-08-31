@@ -13,13 +13,13 @@ public class PluScaleValidator : TableValidator
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluScaleValidator() : base(ColumnName.Uid)
-	{
-		RuleFor(item => ((PluScaleEntity)item).Plu)
+    public PluScaleValidator()
+    {
+		RuleFor(item => ((PluScaleModel)item).Plu)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluValidator());
-		RuleFor(item => ((PluScaleEntity)item).Scale)
+		RuleFor(item => ((PluScaleModel)item).Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());

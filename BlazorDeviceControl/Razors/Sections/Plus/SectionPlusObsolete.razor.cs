@@ -7,9 +7,9 @@ public partial class SectionPlusObsolete : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<PluObsoleteEntity> ItemsCast
+    private List<PluObsoleteModel> ItemsCast
     {
-	    get => Items == null ? new() : Items.Select(x => (PluObsoleteEntity)x).ToList();
+	    get => Items == null ? new() : Items.Select(x => (PluObsoleteModel)x).ToList();
 	    set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionPlusObsolete : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusObsolete);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusObsolete);
         IsShowMarkedFilter = true;
         ItemsCast = new();
 	}
@@ -48,7 +48,7 @@ public partial class SectionPlusObsolete : RazorBase
             Items = new();
             foreach (TableModel item in items)
             {
-                if (item is PluObsoleteEntity plu && plu.Scale.IdentityId == scaleId)
+                if (item is PluObsoleteModel plu && plu.Scale.Identity.Id == scaleId)
                     Items.Add(item);
             }
         }

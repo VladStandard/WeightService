@@ -17,7 +17,7 @@ internal class CrudControllerExtensionTests
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostEntity> hosts = DataCore.DataAccess.Crud.GetListHostsFree(id, isMarked);
+					List<HostModel> hosts = DataCore.DataAccess.Crud.GetListHostsFree(id, isMarked);
 				}
 			}
 		});
@@ -32,7 +32,7 @@ internal class CrudControllerExtensionTests
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostEntity> hosts = DataCore.DataAccess.Crud.GetListHostsBusy(id, isMarked);
+					List<HostModel> hosts = DataCore.DataAccess.Crud.GetListHostsBusy(id, isMarked);
 				}
 			}
 		});
@@ -41,168 +41,168 @@ internal class CrudControllerExtensionTests
 	[Test]
 	public void DbTable_Validate_AccessEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<AccessEntity>();
+		DataCore.AssertSqlExtensionValidate<AccessModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_AppEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<AppEntity>();
+		DataCore.AssertSqlExtensionValidate<AppModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_BarCodeEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<BarCodeEntity>();
+		DataCore.AssertSqlExtensionValidate<BarCodeModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_BarCodeTypeEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<BarCodeTypeEntity>();
+		DataCore.AssertSqlExtensionValidate<BarCodeTypeModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_ContragentEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<ContragentEntity>();
+		DataCore.AssertSqlExtensionValidate<ContragentModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_HostEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<HostEntity>();
+		DataCore.AssertSqlExtensionValidate<HostModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_LogEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<LogEntity>();
+		DataCore.AssertSqlExtensionValidate<LogModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_LogTypeEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<LogTypeEntity>();
+		DataCore.AssertSqlExtensionValidate<LogTypeModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_NomenclatureEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<NomenclatureEntity>();
+		DataCore.AssertSqlExtensionValidate<NomenclatureModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_OrderEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<OrderEntity>();
+		DataCore.AssertSqlExtensionValidate<OrderModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_OrderWeighingEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<OrderWeighingEntity>();
+		DataCore.AssertSqlExtensionValidate<OrderWeighingModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_OrganizationEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<OrganizationEntity>();
+		DataCore.AssertSqlExtensionValidate<OrganizationModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PluEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PluEntity>();
+		DataCore.AssertSqlExtensionValidate<PluModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PluObsoleteEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PluObsoleteEntity>();
+		DataCore.AssertSqlExtensionValidate<PluObsoleteModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PluScaleEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PluScaleEntity>();
+		DataCore.AssertSqlExtensionValidate<PluScaleModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PluWeighingEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PluWeighingEntity>();
+		DataCore.AssertSqlExtensionValidate<PluWeighingModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PrinterEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PrinterEntity>();
+		DataCore.AssertSqlExtensionValidate<PrinterModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PrinterResourceEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PrinterResourceEntity>();
+		DataCore.AssertSqlExtensionValidate<PrinterResourceModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_PrinterTypeEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<PrinterTypeEntity>();
+		DataCore.AssertSqlExtensionValidate<PrinterTypeModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_ProductionFacilityEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<ProductionFacilityEntity>();
+		DataCore.AssertSqlExtensionValidate<ProductionFacilityModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_ProductSeriesEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<ProductSeriesEntity>();
+		DataCore.AssertSqlExtensionValidate<ProductSeriesModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_ScaleEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<ScaleEntity>();
+		DataCore.AssertSqlExtensionValidate<ScaleModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_TaskEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<TaskEntity>();
+		DataCore.AssertSqlExtensionValidate<TaskModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_TaskTypeEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<TaskTypeEntity>();
+		DataCore.AssertSqlExtensionValidate<TaskTypeModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_TemplateEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<TemplateEntity>();
+		DataCore.AssertSqlExtensionValidate<TemplateModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_TemplateResourceEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<TemplateResourceEntity>();
+		DataCore.AssertSqlExtensionValidate<TemplateResourceModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_VersionEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<VersionEntity>();
+		DataCore.AssertSqlExtensionValidate<VersionModel>();
 	}
 	
 	[Test]
 	public void DbTable_Validate_WorkShopEntity()
 	{
-		DataCore.AssertSqlExtensionValidate<WorkShopEntity>();
+		DataCore.AssertSqlExtensionValidate<WorkShopModel>();
 	}
 }

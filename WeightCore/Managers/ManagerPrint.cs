@@ -30,7 +30,7 @@ namespace WeightCore.Managers
         public int LabelsCount { get; set; }
         public Label FieldPrint { get; private set; }
         public PrintBrand PrintBrand { get; private set; }
-        public PrinterEntity Printer { get; private set; }
+        public PrinterModel Printer { get; private set; }
         public string ZebraPeelerStatus { get; private set; }
         public TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
         public WmiWin32PrinterEntity TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
@@ -52,7 +52,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(PrintBrand printBrand, PrinterEntity printer, Label fieldPrint, bool isMain)
+        public void Init(PrintBrand printBrand, PrinterModel printer, Label fieldPrint, bool isMain)
         {
             try
             {

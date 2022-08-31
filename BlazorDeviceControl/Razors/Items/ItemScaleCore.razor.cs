@@ -10,13 +10,13 @@ public partial class ItemScaleCore : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ScaleEntity ItemCast { get => Item == null ? new() : (ScaleEntity)Item; set => Item = value; }
-	private List<PrinterEntity> Printers { get; set; }
-	private List<ProductionFacilityEntity> ProductionFacilities { get; set; }
-	private List<TemplateEntity> Templates { get; set; }
-	private List<WorkShopEntity> WorkShops { get; set; }
-	private List<TypeEntity<string>> ComPorts { get; set; }
-	private List<HostEntity> Hosts { get; set; }
+	private ScaleModel ItemCast { get => Item == null ? new() : (ScaleModel)Item; set => Item = value; }
+	private List<PrinterModel> Printers { get; set; }
+	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
+	private List<TemplateModel> Templates { get; set; }
+	private List<WorkShopModel> WorkShops { get; set; }
+	private List<TypeModel<string>> ComPorts { get; set; }
+	private List<HostModel> Hosts { get; set; }
 	[Parameter] public bool IsPluNew { get; set; }
 
 	#endregion
@@ -27,7 +27,7 @@ public partial class ItemScaleCore : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Scales);
 		Printers = new();
 		ComPorts = new();
 		Hosts = new();
@@ -45,15 +45,15 @@ public partial class ItemScaleCore : RazorBase
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ScaleEntity>(IdentityId);
-				if (IdentityId != null && TableAction == DbTableAction.New)
-					ItemCast.IdentityId = (long)IdentityId;
-				ItemCast.Host ??= new(0, false) { Name = LocaleCore.Table.FieldNull };
-				ItemCast.PrinterMain ??= new(0, false) { Name = LocaleCore.Table.FieldNull };
-				ItemCast.PrinterShipping ??= new(0, false) { Name = LocaleCore.Table.FieldNull };
-				ItemCast.TemplateDefault ??= new(0, false) { Title = LocaleCore.Table.FieldNull };
-				ItemCast.TemplateSeries ??= new(0, false) { Title = LocaleCore.Table.FieldNull };
-				ItemCast.WorkShop ??= new(0, false) { Name = LocaleCore.Table.FieldNull };
+				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ScaleModel>(IdentityId);
+				//if (Identity.Id != null && TableAction == DbTableAction.New)
+				//	ItemCast.Identity.Id = (long)Identity.Id;
+				ItemCast.Host ??= new() { Name = LocaleCore.Table.FieldNull };
+				ItemCast.PrinterMain ??= new() { Name = LocaleCore.Table.FieldNull };
+				ItemCast.PrinterShipping ??= new() { Name = LocaleCore.Table.FieldNull };
+				ItemCast.TemplateDefault ??= new() { Title = LocaleCore.Table.FieldNull };
+				ItemCast.TemplateSeries ??= new() { Title = LocaleCore.Table.FieldNull };
+				ItemCast.WorkShop ??= new() { Name = LocaleCore.Table.FieldNull };
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);

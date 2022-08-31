@@ -23,7 +23,7 @@ public partial class SectionPluWeighingsAggr : RazorBase
     {
         base.OnInitialized();
         
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
         ItemsCast = new();
 	}
 

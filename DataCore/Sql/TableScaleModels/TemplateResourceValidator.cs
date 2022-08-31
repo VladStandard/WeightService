@@ -13,12 +13,12 @@ public class TemplateResourceValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TemplateResourceValidator() : base(ColumnName.Id)
+	public TemplateResourceValidator()
 	{
-		RuleFor(item => ((TemplateResourceEntity)item).Name)
+		RuleFor(item => ((TemplateResourceModel)item).Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((TemplateResourceEntity)item).Description)
+		RuleFor(item => ((TemplateResourceModel)item).Description)
 			.NotEmpty()
 			.NotNull();
 	}

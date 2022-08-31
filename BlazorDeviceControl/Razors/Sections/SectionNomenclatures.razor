@@ -13,46 +13,46 @@ else
     <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Nomenclatures />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="NomenclatureEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="NomenclatureModel" @bind-Value=@ItemObject
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
             <RadzenGridColumn 
-                TItem="NomenclatureEntity" Property="IdentityId" TextAlign=TextAlign.Center
+                TItem="NomenclatureModel" Property="Identity.Id" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.Id 
                 Type="int" Width="10%" />
             @*<RadzenGridColumn 
-                TItem="NomenclatureEntity" TextAlign=TextAlign.Center
+                TItem="NomenclatureModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.Identity.Id}")
                         TValue="string" Value=@itemCast.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="NomenclatureEntity" TextAlign=TextAlign.Center
+                TItem="NomenclatureModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.ChangeDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.Identity.Id}")
                         TValue="string" Value=@itemCast.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>*@
-            <RadzenGridColumn TItem="NomenclatureEntity" Title=@LocaleCore.Table.Name Width="45%" >
+            <RadzenGridColumn TItem="NomenclatureModel" Title=@LocaleCore.Table.Name Width="45%" >
 	            <Template Context="itemCast" >
 		            <RadzenLink Style="width: 100%; margin-left: 0; "
-		                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.IdentityId}")
+		                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.Identity.Id}")
 		                        Text=@itemCast.Name />
 	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="NomenclatureEntity" Property="Code" 
+                TItem="NomenclatureModel" Property="Code" 
                 Title=@LocaleCore.Table.Code
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="NomenclatureEntity" TextAlign=TextAlign.Center Width="5%" 
+                TItem="NomenclatureModel" TextAlign=TextAlign.Center Width="5%" 
                 Title=@LocaleCore.Table.Weighted >
                 <Template Context="itemCast" >
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />

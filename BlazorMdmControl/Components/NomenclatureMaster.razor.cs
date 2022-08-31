@@ -18,18 +18,18 @@
 
 //        [Parameter]
 //        public int? ItemId { get; set; }
-//        private NomenclatureEntity _includeEntity;
-//        public NomenclatureEntity IncludeEntity
+//        private NomenclatureModel _includeEntity;
+//        public NomenclatureModel IncludeModel
 //        {
 //            get => _includeEntity;
 //            set
 //            {
 //                _includeEntity = value;
-//                ObjectIncludeEntity = _includeEntity;
+//                ObjectIncludeModel = _includeEntity;
 //            }
 //        }
-//        public object ObjectIncludeEntity { get; set; }
-//        public IEnumerable<NomenclatureEntity> IncludeEntities { get; set; }
+//        public object ObjectIncludeModel { get; set; }
+//        public IEnumerable<NomenclatureModel> IncludeEntities { get; set; }
 //        public string IncludeEntitiesCount => $"{LocalizationStrings.TableRowsCount}: {IncludeEntities?.Count()}";
 
 //        #endregion
@@ -58,11 +58,11 @@
 
 //        private void GetData()
 //        {
-//            IncludeEntities = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<DbField, object> {
+//            IncludeEntities = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntitiesAsIEnumerable(new (new Dictionary<DbField, object> {
 //            //{ ShareEnums.DbField.IsProduct, true },
 //            { ShareEnums.DbField.MasterId.ToString(), ItemId },
 //        }),
-//                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
+//                new FieldOrderModel(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 //            IncludeEntities = IncludeEntities.Select(x => x).Where(x => x.MasterId != x.Id && x.InformationSystem.Id != 7).ToArray();
 //        }
 
@@ -79,26 +79,26 @@
 //            StateHasChanged();
 //        }
 
-//        private void RowSelect(NomenclatureEntity item)
+//        private void RowSelect(NomenclatureModel item)
 //        {
-//            IncludeEntity = item;
+//            IncludeModel = item;
 //        }
 
-//        private async Task RowSelectAsync(NomenclatureEntity item)
+//        private async Task RowSelectAsync(NomenclatureModel item)
 //        {
 //            Task task = new Task(() => RowSelect(item));
 //            await BlazorSettings.RunTasks(LocalizationStrings.TableSelect, "", LocalizationStrings.DialogResultFail, "",
 //                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
 
-//        private async Task RowDoubleClickAsync(NomenclatureEntity item, bool isNewWindow)
+//        private async Task RowDoubleClickAsync(NomenclatureModel item, bool isNewWindow)
 //        {
 //            Task task = new Task(() => ActionEditAsync(item, isNewWindow).ConfigureAwait(false));
 //            await BlazorSettings.RunTasks(LocalizationStrings.TableEdit, "", LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
 //                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
 //        }
 
-//        private async Task ActionEditAsync(NomenclatureEntity item, bool isNewWindow)
+//        private async Task ActionEditAsync(NomenclatureModel item, bool isNewWindow)
 //        {
 //            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, item, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
 //            await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
@@ -106,7 +106,7 @@
 //                new List<Task> { task }, GuiRefreshAsync, item?.Name).ConfigureAwait(false);
 //        }
 
-//        private void ExcludeEntity(NomenclatureEntity item)
+//        private void ExcludeModel(NomenclatureModel item)
 //        {
 //            if (item == null || item.EqualsDefault())
 //                return;
@@ -117,9 +117,9 @@
 //            GetDataAsync().ConfigureAwait(true);
 //        }
 
-//        private async Task ExcludeEntityAsync(NomenclatureEntity item)
+//        private async Task ExcludeModelAsync(NomenclatureModel item)
 //        {
-//            Task task = new Task(() => { ExcludeEntity(item); });
+//            Task task = new Task(() => { ExcludeModel(item); });
 //            await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableMasterExclude,
 //                LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
 //                new List<Task> { task }, GuiRefreshAsync, item?.Name).ConfigureAwait(false);

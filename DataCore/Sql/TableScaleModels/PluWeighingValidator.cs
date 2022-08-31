@@ -14,36 +14,36 @@ public class PluWeighingValidator : TableValidator
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingValidator() : base(ColumnName.Uid)
-	{
-	    RuleFor(item => ((PluWeighingEntity)item).Kneading)
+    public PluWeighingValidator()
+    {
+	    RuleFor(item => ((PluWeighingModel)item).Kneading)
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThan(default(short));
-		RuleFor(item => ((PluWeighingEntity)item).PluScale)
+		RuleFor(item => ((PluWeighingModel)item).PluScale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluScaleValidator());
-		RuleFor(item => ((PluWeighingEntity)item).Series)
+		RuleFor(item => ((PluWeighingModel)item).Series)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ProductSeriesValidator());
-		RuleFor(item => ((PluWeighingEntity)item).Sscc)
+		RuleFor(item => ((PluWeighingModel)item).Sscc)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluWeighingEntity)item).NettoWeight)
+		RuleFor(item => ((PluWeighingModel)item).NettoWeight)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => ((PluWeighingEntity)item).TareWeight)
+		RuleFor(item => ((PluWeighingModel)item).TareWeight)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => ((PluWeighingEntity)item).ProductDt)
+		RuleFor(item => ((PluWeighingModel)item).ProductDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((PluWeighingEntity)item).RegNum)
+		RuleFor(item => ((PluWeighingModel)item).RegNum)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);

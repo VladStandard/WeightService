@@ -13,15 +13,15 @@ public partial class ItemPrinterResource : RazorBase
 	/// <summary>
 	/// PrinterResource.
 	/// </summary>
-	private PrinterResourceEntity ItemCast { get => Item == null ? new() : (PrinterResourceEntity)Item; set => Item = value; }
+	private PrinterResourceModel ItemCast { get => Item == null ? new() : (PrinterResourceModel)Item; set => Item = value; }
 	/// <summary>
 	/// Printers.
 	/// </summary>
-	private List<PrinterEntity> Printers { get; set; }
+	private List<PrinterModel> Printers { get; set; }
 	/// <summary>
 	/// Printer's resources.
 	/// </summary>
-	private List<TemplateResourceEntity> Resources { get; set; }
+	private List<TemplateResourceModel> Resources { get; set; }
 
 	#endregion
 
@@ -31,7 +31,7 @@ public partial class ItemPrinterResource : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersResources);
 		ItemCast = new();
 		Printers = new();
 		Resources = new();
@@ -49,11 +49,11 @@ public partial class ItemPrinterResource : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.Description = "NEW RESOURCE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterResourceEntity>(IdentityId);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
 						break;
 				}
 				Printers = AppSettings.DataAccess.Crud.GetListPrinters(false, false, false);

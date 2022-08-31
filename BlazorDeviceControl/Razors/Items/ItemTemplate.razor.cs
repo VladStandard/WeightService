@@ -7,8 +7,8 @@ public partial class ItemTemplate : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private TemplateEntity ItemCast { get => Item == null ? new() : (TemplateEntity)Item; set => Item = value; }
-	private List<TypeEntity<string>>? TemplateCategories { get; set; }
+	private TemplateModel ItemCast { get => Item == null ? new() : (TemplateModel)Item; set => Item = value; }
+	private List<TypeModel<string>>? TemplateCategories { get; set; }
 
 	#endregion
 
@@ -18,7 +18,7 @@ public partial class ItemTemplate : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Templates);
 		TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
 		ItemCast = new();
 	}
@@ -35,7 +35,7 @@ public partial class ItemTemplate : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.Title = "NEW TEMPLATE";
 						ItemCast.IdRRef = Guid.Empty;
@@ -43,7 +43,7 @@ public partial class ItemTemplate : RazorBase
 						ItemCast.ImageData.SetTemplateValue();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateEntity>(IdentityId);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateModel>(IdentityId);
 						break;
 				}
 

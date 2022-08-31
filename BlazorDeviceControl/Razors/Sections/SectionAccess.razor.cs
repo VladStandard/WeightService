@@ -7,9 +7,9 @@ public partial class SectionAccess : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<AccessEntity> ItemsCast
+    private List<AccessModel> ItemsCast
     {
-        get { return Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList(); }
+        get { return Items == null ? new() : Items.Select(x => (AccessModel)x).ToList(); }
         set
         {
             if (!value.Any())
@@ -30,7 +30,7 @@ public partial class SectionAccess : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+        Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
         ItemsCast = new();
     }
 
@@ -49,7 +49,7 @@ public partial class SectionAccess : RazorBase
         });
     }
 
-    public void RowRender(RowRenderEventArgs<AccessEntity> args)
+    public void RowRender(RowRenderEventArgs<AccessModel> args)
     {
         args.Attributes.Add("class", UserSettings.Identity.GetColorAccessRights(args.Data.Rights));
         //RowCounter += 1;

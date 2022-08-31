@@ -7,5 +7,5 @@ public interface IFileUpload
 {
     Task UploadAsync(IFileListEntry file);
     Task UploadAsync(string name, Stream stream);
-    Task UploadAsync(TemplateResourceEntity? item, Stream stream);
+    Task UploadAsync(TemplateResourceModel? item, Stream stream);
 }

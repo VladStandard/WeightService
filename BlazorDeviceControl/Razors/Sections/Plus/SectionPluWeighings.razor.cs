@@ -7,9 +7,9 @@ public partial class SectionPluWeighings : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PluWeighingEntity> ItemsCast
+	private List<PluWeighingModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluWeighingEntity)x).ToList();
+		get => Items == null ? new() : Items.Select(x => (PluWeighingModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 
@@ -21,7 +21,7 @@ public partial class SectionPluWeighings : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
 		ItemsCast = new();
 	}
 
@@ -34,7 +34,7 @@ public partial class SectionPluWeighings : RazorBase
 			() =>
 			{
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, IsShowMarked, IsShowOnlyTop);
-				ItemsCast = AppSettings.DataAccess.Crud.GetList<PluWeighingEntity>(sqlCrudConfig);
+				ItemsCast = AppSettings.DataAccess.Crud.GetList<PluWeighingModel>(sqlCrudConfig);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
 			}

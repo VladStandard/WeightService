@@ -19,32 +19,20 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WeithingFactSummaryModel() : base(ColumnName.Id, 0, false)
+	public WeithingFactSummaryModel() : base(ColumnName.Id)
     {
-	    Init();
+	    WeithingDate = DateTime.MinValue;
+	    Count = 0;
+	    Scale = string.Empty;
+	    Host = string.Empty;
+	    Printer = string.Empty;
     }
 
-	public WeithingFactSummaryModel(long identityId, bool isSetupDates) : base(ColumnName.Id, identityId, isSetupDates)
-    {
-	    Init();
-    }
+	#endregion
 
-    #endregion
+	#region Public and private methods
 
-    #region Public and private methods
-
-    public new virtual void Init()
-    {
-	    base.Init();
-        WeithingDate = DateTime.MinValue;
-        Count = 0;
-        Scale = string.Empty;
-        Host = string.Empty;
-        Printer = string.Empty;
-    }
-
-    public override string ToString() =>
-        base.ToString() +
+	public override string ToString() => base.ToString() +
         $"{nameof(WeithingDate)}: {WeithingDate}. " +
         $"{nameof(Count)}: {Count}. " +
         $"{nameof(Scale)}: {Scale}. " +
@@ -53,14 +41,14 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 
     public virtual bool Equals(WeithingFactSummaryModel item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-               Equals(WeithingDate, item.WeithingDate) &&
-               Equals(Count, item.Count) &&
-               Equals(Scale, item.Scale) &&
-               Equals(Host, item.Host) &&
-               Equals(Printer, item.Printer);
+        return 
+	        base.Equals(item) &&
+            Equals(WeithingDate, item.WeithingDate) &&
+            Equals(Count, item.Count) &&
+            Equals(Scale, item.Scale) &&
+            Equals(Host, item.Host) &&
+            Equals(Printer, item.Printer);
     }
 
     public override bool Equals(object obj)
@@ -80,12 +68,13 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 
     public new virtual bool EqualsDefault()
     {
-        return base.EqualsDefault() &&
-               Equals(WeithingDate, DateTime.MinValue) &&
-               Equals(Count, 0) &&
-               Equals(Scale, string.Empty) &&
-               Equals(Host, string.Empty) &&
-               Equals(Printer, string.Empty);
+        return 
+	        base.EqualsDefault() &&
+            Equals(WeithingDate, DateTime.MinValue) &&
+            Equals(Count, 0) &&
+            Equals(Scale, string.Empty) &&
+            Equals(Host, string.Empty) &&
+            Equals(Printer, string.Empty);
     }
 
     public new virtual object Clone()

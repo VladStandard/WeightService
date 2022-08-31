@@ -7,7 +7,7 @@ public partial class ItemHost : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private HostEntity ItemCast { get => Item == null ? new() : (HostEntity)Item; set => Item = value; }
+	private HostModel ItemCast { get => Item == null ? new() : (HostModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemHost : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
 		ItemCast = new();
 	}
 
@@ -33,14 +33,14 @@ public partial class ItemHost : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW HOST";
 						ItemCast.Ip = "127.0.0.1";
 						ItemCast.MacAddress.Default();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<HostEntity>(IdentityId);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<HostModel>(IdentityId);
 						break;
 				}
 

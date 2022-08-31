@@ -11,7 +11,7 @@ public partial class MainLayout : BlazorCore.Models.RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
+        Table = new TableSystemModel(ProjectsEnums.TableSystem.Default);
         Items = new();
     }
 

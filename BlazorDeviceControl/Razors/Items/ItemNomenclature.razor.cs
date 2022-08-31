@@ -7,7 +7,7 @@ public partial class ItemNomenclature : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private NomenclatureEntity ItemCast { get => Item == null ? new() : (NomenclatureEntity)Item; set => Item = value; }
+	private NomenclatureModel ItemCast { get => Item == null ? new() : (NomenclatureModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -17,7 +17,7 @@ public partial class ItemNomenclature : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Nomenclatures);
 		ItemCast = new();
 	}
 
@@ -33,11 +33,11 @@ public partial class ItemNomenclature : RazorBase
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+						ItemCast.SetDt();
 						ItemCast.Name = "NEW NOMENCLATURE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<NomenclatureEntity>(IdentityId);
+						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<NomenclatureModel>(IdentityId);
 						break;
 				}
 

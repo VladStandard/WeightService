@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "TASKS".
 /// </summary>
-public class TaskMap : ClassMap<TaskEntity>
+public class TaskMap : ClassMap<TaskModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class TaskMap : ClassMap<TaskEntity>
         Schema("db_scales");
         Table("TASKS");
         LazyLoad();
-        Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(x => x.Enabled).CustomSqlType("BIT").Column("ENABLED").Not.Nullable().Default("0");
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         References(x => x.TaskType).Column("TASK_UID").Not.Nullable();

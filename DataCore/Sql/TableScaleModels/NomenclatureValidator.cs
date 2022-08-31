@@ -13,19 +13,19 @@ public class NomenclatureValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public NomenclatureValidator() : base(ColumnName.Id)
+	public NomenclatureValidator()
 	{
-		RuleFor(item => ((NomenclatureEntity)item).CreateDt)
+		RuleFor(item => ((NomenclatureModel)item).CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((NomenclatureEntity)item).ChangeDt)
+		RuleFor(item => ((NomenclatureModel)item).ChangeDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((NomenclatureEntity)item).Name)
+		RuleFor(item => ((NomenclatureModel)item).Name)
 			.NotNull();
-		RuleFor(item => ((NomenclatureEntity)item).Xml)
+		RuleFor(item => ((NomenclatureModel)item).Xml)
 			.NotEmpty()
 			.NotNull();
 	}

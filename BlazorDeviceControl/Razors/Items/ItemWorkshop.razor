@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/workshop"
-@page "/item/workshop/{IdentityId:long}"
-@page "/item/workshop/{IdentityId:long}/{TableAction}"
+@page "/item/workshop/{Identity.Id:long}"
+@page "/item/workshop/{Identity.Id:long}/{TableAction}"
 @using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
@@ -33,15 +33,15 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.IdentityId)
+                        Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
                         Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>
                 <td colspan=3>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						@bind-Value=@ItemCast.ProductionFacility>
-                        @foreach (ProductionFacilityEntity item in ProductionFacilities)
+                        @foreach (ProductionFacilityModel item in ProductionFacilities)
                         {
-                            <MudSelectItem T=@ProductionFacilityEntity Value=@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@ProductionFacilityModel Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

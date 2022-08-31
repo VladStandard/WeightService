@@ -13,18 +13,18 @@ public class OrderValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrderValidator() : base(ColumnName.Uid)
+	public OrderValidator()
 	{
-		RuleFor(item => ((OrderEntity)item).Name)
+		RuleFor(item => ((OrderModel)item).Name)
 			.NotEmpty()
 			.NotNull()
 			.Length(1, 256);
-		RuleFor(item => ((OrderEntity)item).BoxCount)
+		RuleFor(item => ((OrderModel)item).BoxCount)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(1)
 			.LessThanOrEqualTo(999);
-		RuleFor(item => ((OrderEntity)item).PalletCount)
+		RuleFor(item => ((OrderModel)item).PalletCount)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(1)

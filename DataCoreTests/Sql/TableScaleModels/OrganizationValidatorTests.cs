@@ -9,19 +9,19 @@ internal class OrganizationValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		OrganizationEntity item = DataCore.CreateNewSubstitute<OrganizationEntity>(false);
+		OrganizationModel item = DataCore.CreateNewSubstitute<OrganizationModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		OrganizationEntity item = DataCore.CreateNewSubstitute<OrganizationEntity>(true);
+		OrganizationModel item = DataCore.CreateNewSubstitute<OrganizationModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class OrganizationValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<OrganizationEntity>(1_000);
+		DataCore.AssertSqlDataValidate<OrganizationModel>(1_000);
 	}
 }

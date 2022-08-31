@@ -10,8 +10,8 @@ public partial class ItemInfo : RazorBase
 	private string VerApp => AssemblyUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
 	private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
 	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
-	private List<TypeEntity<Lang>>? TemplateLanguages { get; set; }
-	private List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
+	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
+	private List<TypeModel<bool>> TemplateIsDebug { get; set; } = new();
 	private uint DbCurSize { get; set; }
 	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbCurSize:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
 	private uint DbMaxSize => 10_240;

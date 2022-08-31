@@ -108,7 +108,7 @@ namespace ScalesUI.Forms
             //}
         }
 
-        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderEntity order)
+        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderModel order)
         {
             //try
             //{

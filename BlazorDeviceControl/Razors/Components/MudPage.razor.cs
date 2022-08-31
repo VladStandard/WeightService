@@ -12,7 +12,7 @@ public partial class MudPage : RazorBase
 
     private string Country { get; set; } = "Hungary";
     private string ComPort { get; set; } = "COM10";
-    List<TypeEntity<string>> ComPorts { get; }
+    List<TypeModel<string>> ComPorts { get; }
     private List<string> ListComPorts { get; }
 
     /// <summary>

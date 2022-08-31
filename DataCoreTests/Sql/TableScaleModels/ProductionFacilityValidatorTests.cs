@@ -9,19 +9,19 @@ internal class ProductionFacilityValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		ProductionFacilityEntity item = DataCore.CreateNewSubstitute<ProductionFacilityEntity>(false);
+		ProductionFacilityModel item = DataCore.CreateNewSubstitute<ProductionFacilityModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		ProductionFacilityEntity item = DataCore.CreateNewSubstitute<ProductionFacilityEntity>(true);
+		ProductionFacilityModel item = DataCore.CreateNewSubstitute<ProductionFacilityModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
@@ -29,6 +29,6 @@ internal class ProductionFacilityValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<ProductionFacilityEntity>(1_000);
+		DataCore.AssertSqlDataValidate<ProductionFacilityModel>(1_000);
 	}
 }

@@ -13,13 +13,13 @@ public class OrderWeighingValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrderWeighingValidator() : base(ColumnName.Uid)
+	public OrderWeighingValidator()
 	{
-		RuleFor(item => ((OrderWeighingEntity)item).Order)
+		RuleFor(item => ((OrderWeighingModel)item).Order)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new OrderValidator());
-		RuleFor(item => ((OrderWeighingEntity)item).PluWeighing)
+		RuleFor(item => ((OrderWeighingModel)item).PluWeighing)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluWeighingValidator());

@@ -13,39 +13,39 @@ else
     <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Items.ProductionFacility />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="ProductionFacilityEntity" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="ProductionFacilityModel" @bind-Value=@ItemObject
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
             @if (IsShowMarked)
             {
-                <RadzenGridColumn TItem="ProductionFacilityEntity" TextAlign=TextAlign.Center SortProperty="IsMarked" 
+                <RadzenGridColumn TItem="ProductionFacilityModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
                     Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast" >
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
-            <RadzenGridColumn TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Id Width="5%">
+            <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Id Width="5%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
-                            Text=@itemCast.IdentityId.ToString() />
+                            Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.Identity.Id}")
+                            Text=@itemCast.Identity.Id.ToString() />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Name Width="20%" >
+            <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Name Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.Identity.Id}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ProductionFacilityEntity" Title=@LocaleCore.Table.Address Width="75%" >
+                TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Address Width="75%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.IdentityId}")
+                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.Identity.Id}")
                         Text=@itemCast.Address />
                 </Template>
             </RadzenGridColumn>

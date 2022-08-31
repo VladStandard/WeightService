@@ -7,7 +7,7 @@ public partial class ItemPluWeighing : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private PluWeighingEntity ItemCast { get => Item == null ? new() : (PluWeighingEntity)Item; set => Item = value; }
+    private PluWeighingModel ItemCast { get => Item == null ? new() : (PluWeighingModel)Item; set => Item = value; }
 
     #endregion
 
@@ -17,7 +17,7 @@ public partial class ItemPluWeighing : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusWeighings);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
         ItemCast = new();
 	}
 
@@ -33,10 +33,10 @@ public partial class ItemPluWeighing : RazorBase
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
-                        break;
+                        ItemCast.SetDt();
+						break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluWeighingEntity>(IdentityId);
+                        ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluWeighingModel>(IdentityId);
                         break;
                 }
 

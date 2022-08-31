@@ -600,7 +600,7 @@ public partial class MainForm : Form
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(
-	            SqlUtils.GetPluCount(UserSession.SqlViewModel.Scale.IdentityId)));
+	            SqlUtils.GetPluCount(UserSession.SqlViewModel.Scale.Identity.Id)));
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
             SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
@@ -636,7 +636,7 @@ public partial class MainForm : Form
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
             {
-                UserSession.Setup(wpfPageLoader.PageScaleChange.SqlViewModel.Scale.IdentityId, "");
+                UserSession.Setup(wpfPageLoader.PageScaleChange.SqlViewModel.Scale.Identity.Id, "");
             }
             FieldLang_SelectedIndexChanged(sender, e);
 

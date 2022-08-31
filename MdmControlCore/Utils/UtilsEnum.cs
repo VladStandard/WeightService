@@ -66,9 +66,9 @@ namespace MdmControlCore.Utils
             return (ShareEnums.RelevanceStatus[]) Enum.GetValues(typeof(ShareEnums.RelevanceStatus));
         }
         
-        public static IEnumerable<TypeEntity<short>> GetEnumRelevenaceStatusesRus()
+        public static IEnumerable<TypeModel<short>> GetEnumRelevenaceStatusesRus()
         {
-            List<TypeEntity<short>> result = new List<TypeEntity<short>>
+            List<TypeModel<short>> result = new List<TypeModel<short>>
             {
                 new("Неизвестно", 0),
                 new("Актуально", 1),
@@ -82,9 +82,9 @@ namespace MdmControlCore.Utils
             return (ShareEnums.NormilizationStatus[]) Enum.GetValues(typeof(ShareEnums.NormilizationStatus));
         }
         
-        public static IEnumerable<TypeEntity<short>> GetEnumNormilizationStatusesRus()
+        public static IEnumerable<TypeModel<short>> GetEnumNormilizationStatusesRus()
         {
-            List<TypeEntity<short>> result = new List<TypeEntity<short>>
+            List<TypeModel<short>> result = new List<TypeModel<short>>
             {
                 new("Ненормализована", 0),
                 new("Нормализована полностью", 1),

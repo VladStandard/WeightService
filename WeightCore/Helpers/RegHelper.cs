@@ -28,7 +28,7 @@ namespace WeightCore.Helpers
 
         #region Public and private methods
 
-        public WmiSoftwareEntity SearchingSoftwareFromRegistry(string search, ShareEnums.StringTemplate template)
+        public WmiSoftwareModel SearchingSoftwareFromRegistry(string search, ShareEnums.StringTemplate template)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace WeightCore.Helpers
                                 string vendor = key.GetValue("Publisher") as string;
                                 string version = key.GetValue("DisplayVersion") as string;
                                 string language = key.GetValue("Language") as string;
-                                return new WmiSoftwareEntity(name, vendor, version, guid, language);
+                                return new WmiSoftwareModel(name, vendor, version, guid, language);
                             }
                         }
                     }
@@ -79,12 +79,12 @@ namespace WeightCore.Helpers
             }
             catch (Exception ex)
             {
-                return new WmiSoftwareEntity(ex.Message, string.Empty, string.Empty, string.Empty, string.Empty);
+                return new WmiSoftwareModel(ex.Message, string.Empty, string.Empty, string.Empty, string.Empty);
             }
-            return new WmiSoftwareEntity();
+            return new WmiSoftwareModel();
         }
 
-        public WmiSoftwareEntity SearchingSoftware(ShareEnums.WinProvider winProvider, string search, ShareEnums.StringTemplate template)
+        public WmiSoftwareModel SearchingSoftware(ShareEnums.WinProvider winProvider, string search, ShareEnums.StringTemplate template)
         {
             switch (winProvider)
             {
@@ -104,7 +104,7 @@ namespace WeightCore.Helpers
                     return Wmi.GetSoftware(search);
             }
 
-            return new WmiSoftwareEntity();
+            return new WmiSoftwareModel();
         }
 
         #endregion

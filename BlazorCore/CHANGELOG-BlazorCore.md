@@ -17,11 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.470] - 2021-09-01
 ### Changed
-- BlazorCore.Models.BaseRazorEntity
+- BlazorCore.Models.BaseRazorModel
 
 ## [0.5.440] - 2021-08-23
 ### Changed
-- BlazorCore.Models.BaseRazorEntity
+- BlazorCore.Models.BaseRazorModel
 ### Added
 - BlazorCore.DAL.IBaseIdEntity
 - BlazorCore.Models.BaseRazorActionsEntity

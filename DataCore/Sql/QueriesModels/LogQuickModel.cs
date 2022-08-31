@@ -24,38 +24,22 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogQuickModel() : base(ColumnName.Uid, Guid.Empty, false)
+	public LogQuickModel() : base()
     {
-	    Init();
-    }
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="identityUid"></param>
-	/// <param name="isSetupDates"></param>
-	public LogQuickModel(Guid identityUid, bool isSetupDates) : base(ColumnName.Uid, identityUid, isSetupDates)
-    {
-	    Init();
+	    Scale = string.Empty;
+	    Host = string.Empty;
+	    App = string.Empty;
+	    Version = string.Empty;
+	    File = string.Empty;
+	    Line = 0;
+	    Member = string.Empty;
+	    Icon = string.Empty;
+	    Message = string.Empty;
     }
 
     #endregion
 
     #region Public and private methods
-
-    public new virtual void Init()
-    {
-	    base.Init();
-        Scale = string.Empty;
-        Host = string.Empty;
-        App = string.Empty;
-        Version = string.Empty;
-        File = string.Empty;
-        Line = 0;
-        Member = string.Empty;
-        Icon = string.Empty;
-        Message = string.Empty;
-    }
 
     public override string ToString() =>
         base.ToString() +
@@ -71,19 +55,19 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 
     public virtual bool Equals(LogQuickModel item)
     {
-        if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-               Equals(CreateDt, item.CreateDt) &&
-               Equals(Scale, item.Scale) &&
-               Equals(Host, item.Host) &&
-               Equals(App, item.App) &&
-               Equals(Version, item.Version) &&
-               Equals(File, item.File) &&
-               Equals(Line, item.Line) &&
-               Equals(Member, item.Member) &&
-               Equals(Icon, item.Icon) &&
-               Equals(Message, item.Message);
+        return 
+	        base.Equals(item) &&
+            Equals(CreateDt, item.CreateDt) &&
+            Equals(Scale, item.Scale) &&
+            Equals(Host, item.Host) &&
+            Equals(App, item.App) &&
+            Equals(Version, item.Version) &&
+            Equals(File, item.File) &&
+            Equals(Line, item.Line) &&
+            Equals(Member, item.Member) &&
+            Equals(Icon, item.Icon) &&
+            Equals(Message, item.Message);
     }
 
     public override bool Equals(object obj)
@@ -106,16 +90,17 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 
     public new virtual bool EqualsDefault()
     {
-        return base.EqualsDefault() &&
-               Equals(Scale, string.Empty) &&
-               Equals(Host, string.Empty) &&
-               Equals(App, string.Empty) &&
-               Equals(Version, string.Empty) &&
-               Equals(File, string.Empty) &&
-               Equals(Line, 0) &&
-               Equals(Member, string.Empty) &&
-               Equals(Icon, string.Empty) &&
-               Equals(Message, string.Empty);
+        return 
+	        base.EqualsDefault() &&
+            Equals(Scale, string.Empty) &&
+            Equals(Host, string.Empty) &&
+            Equals(App, string.Empty) &&
+            Equals(Version, string.Empty) &&
+            Equals(File, string.Empty) &&
+            Equals(Line, 0) &&
+            Equals(Member, string.Empty) &&
+            Equals(Icon, string.Empty) &&
+            Equals(Message, string.Empty);
     }
 
     public new virtual object Clone()
@@ -143,9 +128,9 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 		    case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 					new() { new(DbField.Description, DbComparer.Equal, Scale) }, null, 0, false, false);
-				ScaleEntity? scale = dataAccess.Crud.GetItem<ScaleEntity>(sqlCrudConfig);
+				ScaleModel? scale = dataAccess.Crud.GetItem<ScaleModel>(sqlCrudConfig);
 			    if (scale is not null)
-				    return scale.IdentityId;
+				    return scale.Identity.Id;
 			    break;
 	    }
 	    return 0;
@@ -158,9 +143,9 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 		    case false:
 			    SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 				    new() { new(DbField.HostName, DbComparer.Equal, Host) }, null, 0, false, false);
-			    HostEntity? host = dataAccess.Crud.GetItem<HostEntity>(sqlCrudConfig);
+			    HostModel? host = dataAccess.Crud.GetItem<HostModel>(sqlCrudConfig);
                 if (host is not null)
-					return host.IdentityId;
+					return host.Identity.Id;
                 break;
 	    }
 		return 0;

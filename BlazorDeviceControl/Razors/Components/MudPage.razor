@@ -22,7 +22,7 @@
 
 <h1>COM ports from type</h1>
 <MudSelect @bind-Value=@ComPort Variant=@Variant.Text >
-    @foreach (TypeEntity<string> item in ComPorts)
+    @foreach (TypeModel<string> item in ComPorts)
     {
         <MudSelectItem T=@string Value =@item.Value>@item.Name</MudSelectItem>
     }

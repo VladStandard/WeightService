@@ -9,23 +9,23 @@ internal class AppValidatorTests
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
-	public void Entity_Validate_IsFalse()
+	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		AppEntity item = DataCore.CreateNewSubstitute<AppEntity>(false);
+		AppModel item = DataCore.CreateNewSubstitute<AppModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
-	public void Entity_Validate_IsTrue()
+	public void Model_Validate_IsTrue()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			AppValidator validator = new();
 			// Act.
-			AppEntity item = DataCore.CreateNewSubstitute<AppEntity>(true);
+			AppModel item = DataCore.CreateNewSubstitute<AppModel>(true);
 			ValidationResult result = validator.Validate(item);
 			DataCore.FailureWriteLine(result);
 			// Assert.
@@ -36,6 +36,6 @@ internal class AppValidatorTests
 	[Test]
 	public void DbTable_Validate_IsTrue()
 	{
-		DataCore.AssertSqlDataValidate<AppEntity>(1_000);
+		DataCore.AssertSqlDataValidate<AppModel>(1_000);
 	}
 }

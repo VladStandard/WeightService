@@ -2,17 +2,17 @@
 @using MdmControlCore
 @using MdmControlCore.DAL.TableModels
 @using MdmControlBlazor.Utils
-@inherits MdmControlBlazor.Data.BaseRazorEntity
+@inherits MdmControlBlazor.Data.BaseRazorModel
 
 <RadzenCard Style="margin-bottom: 0; font-size: 11px; ">
     <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
         @switch (Table)
         {
             case ShareEnums.TableDwh.NomenclatureMaster:
-                <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureEntity)Entity) />
+                <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureModel)Entity) />
                 break;
             case ShareEnums.TableDwh.NomenclatureNonNormalize:
-                <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureEntity)Entity) />
+                <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureModel)Entity) />
                 break;
         }
     </div>

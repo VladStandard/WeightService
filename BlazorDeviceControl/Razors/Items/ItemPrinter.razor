@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/printer"
-@page "/item/printer/{IdentityId:long}"
-@page "/item/printer/{IdentityId:long}/{TableAction}"
+@page "/item/printer/{Identity.Id:long}"
+@page "/item/printer/{Identity.Id:long}/{TableAction}"
 @using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
@@ -47,15 +47,15 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.IdentityId)
+                        Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Identity.Id)
                         Text=@LocaleCore.Print.Type />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                         @bind-Value=@ItemCast.PrinterType>
-                        @foreach (PrinterTypeEntity item in PrinterTypes)
+                        @foreach (PrinterTypeModel item in PrinterTypes)
                         {
-                            <MudSelectItem T=@PrinterTypeEntity Value =@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@PrinterTypeModel Value =@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

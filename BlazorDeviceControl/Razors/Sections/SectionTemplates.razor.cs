@@ -7,9 +7,9 @@ public partial class SectionTemplates : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<TemplateEntity> ItemsCast
+    private List<TemplateModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (TemplateEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (TemplateModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionTemplates : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Templates);
         IsShowMarkedFilter = true;
 		ItemsCast = new();
     }

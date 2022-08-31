@@ -30,7 +30,7 @@ public partial class SelectPluForm : Form
 	private const ushort RowCount = 5;
 	private DebugHelper Debug { get; } = DebugHelper.Instance;
 	private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
-	private List<PluScaleEntity> PluScales { get; set; }
+	private List<PluScaleModel> PluScales { get; set; }
 	private int PageNumber { get; set; }
 	private UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
 
@@ -51,7 +51,7 @@ public partial class SelectPluForm : Form
 		try
 		{
 			PluScales = UserSession.DataAccess.Crud.GetListPluScales(false, false, 
-				UserSession.SqlViewModel.Scale.IdentityId);
+				UserSession.SqlViewModel.Scale.Identity.Id);
 
 			LoadFormControls();
 
@@ -81,7 +81,7 @@ public partial class SelectPluForm : Form
 
 	private ControlPluEntity[,] CreateControls()
 	{
-		List<PluScaleEntity> plus = GetCurrentPlus();
+		List<PluScaleModel> plus = GetCurrentPlus();
 		ControlPluEntity[,] controls = new ControlPluEntity[ColumnCount, RowCount];
 		try
 		{
@@ -103,14 +103,14 @@ public partial class SelectPluForm : Form
 		return controls;
 	}
 
-	private List<PluScaleEntity> GetCurrentPlus()
+	private List<PluScaleModel> GetCurrentPlus()
 	{
-		IEnumerable<PluScaleEntity> plusSkip = PluScales.Skip(PageNumber * PageSize);
-		IEnumerable<PluScaleEntity> plusTake = plusSkip.Take(PageSize);
+		IEnumerable<PluScaleModel> plusSkip = PluScales.Skip(PageNumber * PageSize);
+		IEnumerable<PluScaleModel> plusTake = plusSkip.Take(PageSize);
 		return plusTake.ToList();
 	}
 
-	private ControlPluEntity NewControlGroup(PluScaleEntity pluScale, int pageNumber, ushort buttonNumber)
+	private ControlPluEntity NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
 	{
 		int tabIndex = buttonNumber + pageNumber * PageSize;
 		Button buttonPlu = NewButtonPlu(pluScale.Plu, tabIndex);
@@ -122,7 +122,7 @@ public partial class SelectPluForm : Form
 		return new(buttonPlu, labelPluNumber, labelPluType, labelPluCode, labelTemplate);
 	}
 
-	private Button NewButtonPlu(PluEntity plu, int tabIndex)
+	private Button NewButtonPlu(PluModel plu, int tabIndex)
 	{
 		const ushort buttonWidth = 150;
 		const ushort buttonHeight = 30;
@@ -146,7 +146,7 @@ public partial class SelectPluForm : Form
 		return buttonPlu;
 	}
 
-	private Label NewLabelPluNumber(PluScaleEntity pluScale, int tabIndex, Control buttonPlu)
+	private Label NewLabelPluNumber(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
 	{
 		Label labelPluNumber = new()
 		{
@@ -165,7 +165,7 @@ public partial class SelectPluForm : Form
 		return labelPluNumber;
 	}
 
-	private Label NewLabelPluType(PluEntity plu, int tabIndex, Control buttonPlu)
+	private Label NewLabelPluType(PluModel plu, int tabIndex, Control buttonPlu)
 	{
 		Label labelPluType = new()
 		{
@@ -184,7 +184,7 @@ public partial class SelectPluForm : Form
 		return labelPluType;
 	}
 
-	private Label NewLabelPluCode(PluEntity plu, int tabIndex, Control buttonPlu)
+	private Label NewLabelPluCode(PluModel plu, int tabIndex, Control buttonPlu)
 	{
 		Label labelPluCode = new()
 		{
@@ -205,7 +205,7 @@ public partial class SelectPluForm : Form
 		return labelPluCode;
 	}
 
-	private Label NewLabelPluDescription(PluEntity plu, int tabIndex, Control buttonPlu)
+	private Label NewLabelPluDescription(PluModel plu, int tabIndex, Control buttonPlu)
 	{
 		Label labelPluDescription = new()
 		{
@@ -225,9 +225,9 @@ public partial class SelectPluForm : Form
 		return labelPluDescription;
 	}
 
-	private Label NewLabelPluTemplate(PluScaleEntity pluScale, int tabIndex, Control buttonPlu)
+	private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
 	{
-		TemplateEntity template = UserSession.DataAccess.Crud.GetItemByIdNotNull<TemplateEntity>(pluScale.Plu.Template.IdentityId);
+		TemplateModel template = UserSession.DataAccess.Crud.GetItemByIdNotNull<TemplateModel>(pluScale.Plu.Template.Identity.Id);
 		Label labelPluTemplate = new()
 		{
 			Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

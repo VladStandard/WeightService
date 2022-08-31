@@ -9,7 +9,7 @@
 //    internal class PluTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -35,7 +35,7 @@
 //                                            ChangeDt = dt,
 //                                            Templates = new TemplateEntity(),
 //                                            Scale = new ScaleEntity(),
-//                                            Nomenclature = new NomenclatureEntity(),
+//                                            Nomenclature = new NomenclatureModel(),
 //                                            GoodsName = s,
 //                                            GoodsFullName = s,
 //                                            GoodsDescription = s,

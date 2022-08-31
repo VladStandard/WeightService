@@ -7,9 +7,9 @@ public partial class SectionHosts : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private List<HostEntity> ItemsCast
+    private List<HostModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (HostEntity)x).ToList();
+        get => Items == null ? new() : Items.Select(x => (HostModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 
@@ -21,7 +21,7 @@ public partial class SectionHosts : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
         IsShowMarkedFilter = true;
 		ItemsCast = new();
     }

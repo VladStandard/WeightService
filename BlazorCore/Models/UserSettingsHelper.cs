@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Threading;
-using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
 using static DataCore.ShareEnums;
 
@@ -21,7 +20,7 @@ public class UserSettingsHelper
 
     #region Public and private fields, properties, constructor
 
-    public IdentityEntity Identity { get; }
+    public IdentityModel Identity { get; }
     public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
     #endregion
@@ -41,7 +40,7 @@ public class UserSettingsHelper
     {
 	    SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() { new(DbField.User, DbComparer.Equal, Identity.UserName) }, 
 		    null, 0, false, false);
-        AccessEntity? access = DataAccess.Crud.GetItem<AccessEntity>(sqlCrudConfig);
+        AccessModel? access = DataAccess.Crud.GetItem<AccessModel>(sqlCrudConfig);
         if (access != null)
 			Identity.SetAccessRights(access.Rights);
         //object[] objects = dataAccess.Crud.GetEntitiesNativeObject(

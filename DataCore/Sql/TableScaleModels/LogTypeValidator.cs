@@ -13,13 +13,13 @@ public class LogTypeValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogTypeValidator() : base(ColumnName.Uid, false, false)
+	public LogTypeValidator() : base(false, false)
 	{
-		RuleFor(item => ((LogTypeEntity)item).Number)
+		RuleFor(item => ((LogTypeModel)item).Number)
 			.NotNull()
 			.GreaterThanOrEqualTo((byte)ShareEnums.LogType.None)
 			.LessThanOrEqualTo((byte)ShareEnums.LogType.Information);
-		RuleFor(item => ((LogTypeEntity)item).Icon)
+		RuleFor(item => ((LogTypeModel)item).Icon)
 			.NotEmpty()
 			.NotNull();
 	}

@@ -740,7 +740,7 @@ window.Radzen = {
         Radzen.popups = [];
     }
 
-    Radzen.popups.push({IdentityId, instance, callback});
+    Radzen.popups.push({Identity.Id, instance, callback});
 
     document.body.appendChild(popup);
     document.removeEventListener('click', Radzen[id]);

@@ -7,18 +7,18 @@ public partial class ActionsFilterScale : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<ScaleEntity> ItemsCast
+	private List<ScaleModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (ScaleEntity)x).ToList();
+		get => Items == null ? new() : Items.Select(x => (ScaleModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 
-	private ScaleEntity ItemFilterCast
+	private ScaleModel ItemFilterCast
 	{
 		get
 		{
 			if (ParentRazor?.ParentRazor != null)
-				return ParentRazor.ParentRazor.ItemFilter == null ? new() : (ScaleEntity)ParentRazor.ParentRazor.ItemFilter;
+				return ParentRazor.ParentRazor.ItemFilter == null ? new() : (ScaleModel)ParentRazor.ParentRazor.ItemFilter;
 			return new();
 		}
 		set
@@ -42,9 +42,9 @@ public partial class ActionsFilterScale : RazorBase
 		{
 			() =>
 			{
-				ItemsFilter = new() { new ScaleEntity(0, false) { Description = LocaleCore.Table.FieldNull } };
+				ItemsFilter = new() { new ScaleModel() { Description = LocaleCore.Table.FieldNull } };
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
-				ScaleEntity[]? itemsFilter = AppSettings.DataAccess.Crud.GetItems<ScaleEntity>(sqlCrudConfig);
+				ScaleModel[]? itemsFilter = AppSettings.DataAccess.Crud.GetItems<ScaleModel>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{
 					ItemsFilter.AddRange(itemsFilter.ToList<TableModel>());

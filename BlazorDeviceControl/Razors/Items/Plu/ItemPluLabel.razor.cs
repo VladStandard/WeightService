@@ -7,7 +7,7 @@ public partial class ItemPluLabel : RazorBase
 {
     #region Public and private fields, properties, constructor
 
-    private PluLabelEntity ItemCast { get => Item == null ? new() : (PluLabelEntity)Item; set => Item = value; }
+    private PluLabelModel ItemCast { get => Item == null ? new() : (PluLabelModel)Item; set => Item = value; }
 
     #endregion
 
@@ -17,7 +17,7 @@ public partial class ItemPluLabel : RazorBase
     {
         base.OnInitialized();
 
-        Table = new TableScaleEntity(ProjectsEnums.TableScale.PlusLabels);
+        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusLabels);
         ItemCast = new();
 	}
 
@@ -33,10 +33,10 @@ public partial class ItemPluLabel : RazorBase
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
-                        break;
+                        ItemCast.SetDt();
+						break;
                     default:
-	                    ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluLabelEntity>(IdentityId);
+	                    ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluLabelModel>(IdentityId);
                         break;
                 }
 

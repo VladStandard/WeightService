@@ -7,8 +7,8 @@ public partial class ItemWorkshop : RazorBase
 {
 	#region Public and private fields, properties, constructor
 
-	private WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
-	private List<ProductionFacilityEntity> ProductionFacilities { get; set; }
+	private WorkShopModel ItemCast { get => Item == null ? new() : (WorkShopModel)Item; set => Item = value; }
+	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
 
 	#endregion
 
@@ -18,7 +18,7 @@ public partial class ItemWorkshop : RazorBase
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+		Table = new TableScaleModel(ProjectsEnums.TableScale.Workshops);
 		ItemCast = new();
 		ProductionFacilities = new();
 	}
@@ -31,9 +31,9 @@ public partial class ItemWorkshop : RazorBase
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<WorkShopEntity>(IdentityId);
-				if (IdentityId != null && TableAction == DbTableAction.New)
-					ItemCast.IdentityId = (long)IdentityId;
+				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<WorkShopModel>(IdentityId);
+				//if (TableAction == DbTableAction.New)
+				//	ItemCast.Identity.Id = (long)IdentityId;
 				ProductionFacilities = AppSettings.DataAccess.Crud.GetListProductionFacilities(false, false, false);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

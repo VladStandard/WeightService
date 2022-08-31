@@ -13,9 +13,9 @@ public class TemplateValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TemplateValidator() : base(ColumnName.Id)
+	public TemplateValidator()
 	{
-		RuleFor(item => ((TemplateEntity)item).Title)
+		RuleFor(item => ((TemplateModel)item).Title)
 			.NotEmpty()
 			.NotNull();
 	}

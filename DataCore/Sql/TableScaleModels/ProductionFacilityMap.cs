@@ -6,7 +6,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table map "ProductionFacility".
 /// </summary>
-public class ProductionFacilityMap : ClassMap<ProductionFacilityEntity>
+public class ProductionFacilityMap : ClassMap<ProductionFacilityModel>
 {
     /// <summary>
     /// Constructor.
@@ -16,7 +16,7 @@ public class ProductionFacilityMap : ClassMap<ProductionFacilityEntity>
         Schema("db_scales");
         Table("ProductionFacility");
         LazyLoad();
-        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");

@@ -3,14 +3,14 @@
 
 namespace DataCore.Sql.TableDwhModels;
 
-public class NomenclatureTypeMap : ClassMap<NomenclatureTypeEntity>
+public class NomenclatureTypeMap : ClassMap<NomenclatureTypeModel>
 {
     public NomenclatureTypeMap()
     {
         Schema("DW");
         Table("DimTypesOfNomenclature");
         LazyLoad();
-        Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();

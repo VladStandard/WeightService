@@ -13,13 +13,13 @@ public class TaskValidator : TableValidator
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TaskValidator() : base(ColumnName.Uid, false, false)
+	public TaskValidator() : base(false, false)
 	{
-		RuleFor(item => ((TaskEntity)item).TaskType)
+		RuleFor(item => ((TaskModel)item).TaskType)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TaskTypeValidator());
-		RuleFor(item => ((TaskEntity)item).Scale)
+		RuleFor(item => ((TaskModel)item).Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());

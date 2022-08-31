@@ -35,7 +35,7 @@ public class FileUpload : IFileUpload
         ms.WriteTo(file);
     }
 
-    public async Task UploadAsync(TemplateResourceEntity? item, Stream stream)
+    public async Task UploadAsync(TemplateResourceModel? item, Stream stream)
     {
         if (item == null)
             return;

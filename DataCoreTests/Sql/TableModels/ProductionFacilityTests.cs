@@ -12,7 +12,7 @@
 //    internal class ProductionFacilityTests
 //    {
 //        [Test]
-//        public void Entity_Equals_DoesNotThrow()
+//        public void Model_Equals_DoesNotThrow()
 //        {
 //            TestsUtils.MethodStart();
 
@@ -57,8 +57,8 @@
 //            };
 //            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
 //            return DataAccessUtilsTests.DataAccess.Crud.GetItem<ProductionFacilityEntity>(
-//                new FieldListEntity(new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
-//                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
+//                new (new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
+//                new FieldOrderModel(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }
 
 //        [Test]
