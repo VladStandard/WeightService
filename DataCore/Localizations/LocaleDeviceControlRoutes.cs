@@ -61,4 +61,5 @@ public partial class LocaleDeviceControl
     public string RouteSectionTemplates => "/section/templates";
     public string RouteSectionVersions => "/section/versions";
     public string RouteSectionWorkShops => "/section/workshops";
+    public string RouteIdentityFetchData => "/identity/fetchdata";
 }

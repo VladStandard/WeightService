@@ -8,6 +8,16 @@
 <component type="typeof(App)" render-mode="ServerPrerendered" />
 
 @{
-    UserSettingsHelper.Instance.Identity.IpAddress = HttpContext.Connection.RemoteIpAddress == null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
-    UserSettingsHelper.Instance.Identity.Id = HttpContext.Connection.Id;
+	//if (HttpContext.Connection.RemoteIpAddress is null)
+	//{
+	//	UserSettingsModel.Instance.Identity.IpAddress = string.Empty;
+	//}
+	//else
+	//{
+	//	if (HttpContext.Connection.RemoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+	//		UserSettingsModel.Instance.Identity.IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+	//	else
+	//		UserSettingsModel.Instance.Identity.IpAddress = HttpContext.Connection.RemoteIpAddress.AddressFamily.ToString();
+	//}
+	//UserSettingsModel.Instance.Identity.Id = HttpContext.Connection.Id;
 }

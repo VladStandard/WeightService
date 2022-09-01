@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using Radzen;
 using static DataCore.ShareEnums;
@@ -288,7 +289,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.Host?.Identity.Id != 0)
 	            {
-	                scale.Host = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<HostModel>(scale.Host?.Identity.Id);
+	                scale.Host = AppSettings.DataAccess.Crud.GetItemById<HostModel>(scale.Host?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.Host, LocaleCore.Table.Host);
 	            }
 	            else
@@ -298,7 +299,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.PrinterMain?.Identity.Id != 0)
 	            {
-	                scale.PrinterMain = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<PrinterModel>(scale.PrinterMain?.Identity.Id);
+	                scale.PrinterMain = AppSettings.DataAccess.Crud.GetItemById<PrinterModel>(scale.PrinterMain?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
 	            }
 	            else
@@ -308,7 +309,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.PrinterShipping?.Identity.Id != 0)
 	            {
-	                scale.PrinterShipping = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<PrinterModel>(scale.PrinterShipping?.Identity.Id);
+	                scale.PrinterShipping = AppSettings.DataAccess.Crud.GetItemById<PrinterModel>(scale.PrinterShipping?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
 	            }
 	            else
@@ -318,7 +319,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.TemplateDefault?.Identity.Id != 0)
 	            {
-	                scale.TemplateDefault = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<TemplateModel>(scale.TemplateDefault?.Identity.Id);
+	                scale.TemplateDefault = AppSettings.DataAccess.Crud.GetItemById<TemplateModel>(scale.TemplateDefault?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
 	            }
 	            else
@@ -328,7 +329,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.TemplateSeries?.Identity.Id != 0)
 	            {
-	                scale.TemplateSeries = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<TemplateModel>(scale.TemplateSeries?.Identity.Id);
+	                scale.TemplateSeries = AppSettings.DataAccess.Crud.GetItemById<TemplateModel>(scale.TemplateSeries?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
 	            }
 	            else
@@ -338,7 +339,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.WorkShop?.Identity.Id != 0)
 	            {
-	                scale.WorkShop = UserSettingsHelper.Instance.DataAccess.Crud.GetItemById<WorkShopModel>(scale.WorkShop?.Identity.Id);
+	                scale.WorkShop = AppSettings.DataAccess.Crud.GetItemById<WorkShopModel>(scale.WorkShop?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.WorkShop, LocaleCore.Table.Template);
 	            }
 	            else

@@ -15,34 +15,43 @@ public class IdentityModel
     public bool AccessRightsIsRead => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Read;
     public bool AccessRightsIsWrite => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Write;
     public ShareEnums.AccessRights AccessRights { get; private set; }
+    public string UserName { get; set; }
     public string Id { get; set; }
     public string IpAddress { get; set; }
-    public string UserName { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public IdentityModel(ShareEnums.AccessRights accessRights, string userName, string id, string ipAddress)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public IdentityModel()
     {
-        AccessRights = accessRights;
-        Id = id;
-        IpAddress = ipAddress;
-        UserName = userName;
+	    AccessRights = ShareEnums.AccessRights.None;
+	    UserName = string.Empty;
+	    Id = string.Empty;
+	    IpAddress = string.Empty;
     }
 
-    public IdentityModel() : this(ShareEnums.AccessRights.None, string.Empty, string.Empty, string.Empty) { }
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="accessRights"></param>
+	/// <param name="userName"></param>
+	/// <param name="id"></param>
+	/// <param name="ipAddress"></param>
+	public IdentityModel(ShareEnums.AccessRights accessRights, string userName, string id, string ipAddress)
+    {
+        AccessRights = accessRights;
+        UserName = userName;
+        Id = id;
+        IpAddress = ipAddress;
+    }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString()
-    {
-        return
-            $"{nameof(UserName)}: {UserName}. " + Environment.NewLine +
-            $"{nameof(AccessRights)}: {AccessRights}. ";
-    }
+    public override string ToString() =>
+	    $"{nameof(UserName)}: {UserName}. " + 
+	    $"{nameof(AccessRights)}: {AccessRights}. ";
 
     private void SetAccessRights(ShareEnums.AccessRights accessRights) => AccessRights = accessRights;
 

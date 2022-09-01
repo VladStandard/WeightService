@@ -51,14 +51,14 @@ public class RazorPageModel : LayoutComponentBase
     public TableModel? Item { get; set; }
     protected object? ItemObject { get => Item; set => Item = (TableModel?)value; }
     protected bool IsLoaded { get; private set; }
-    protected UserSettingsHelper UserSettings { get; } = UserSettingsHelper.Instance;
+    protected UserSettingsModel UserSettings { get; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public RazorPageModel()
     {
-        //
+	    UserSettings = new();
     }
 
     #endregion
@@ -1025,7 +1025,7 @@ public class RazorPageModel : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public async Task ActionNewAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+    public async Task ActionNewAsync(UserSettingsModel userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1044,7 +1044,7 @@ public class RazorPageModel : LayoutComponentBase
             });
     }
 
-    public async Task ActionCopyAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+    public async Task ActionCopyAsync(UserSettingsModel userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1060,7 +1060,7 @@ public class RazorPageModel : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public async Task ActionEditAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+    public async Task ActionEditAsync(UserSettingsModel userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1075,7 +1075,7 @@ public class RazorPageModel : LayoutComponentBase
             });
     }
 
-    protected async Task ActionPluScalePlusClickAsync(UserSettingsHelper userSettings, PluScaleModel pluScale, List<PluScaleModel> pluScales)
+    protected async Task ActionPluScalePlusClickAsync(UserSettingsModel userSettings, PluScaleModel pluScale, List<PluScaleModel> pluScales)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1091,7 +1091,7 @@ public class RazorPageModel : LayoutComponentBase
         //}
     }
 
-    public async Task ActionSaveAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+    public async Task ActionSaveAsync(UserSettingsModel userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1106,7 +1106,7 @@ public class RazorPageModel : LayoutComponentBase
             });
     }
 
-    protected async Task ActionMarkAsync(UserSettingsHelper userSettings, bool isNewWindow, bool isParentRazor)
+    protected async Task ActionMarkAsync(UserSettingsModel userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1123,7 +1123,7 @@ public class RazorPageModel : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    protected async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isParentRazor)
+    protected async Task ActionDeleteAsync(UserSettingsModel userSettings, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1140,7 +1140,7 @@ public class RazorPageModel : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    protected async Task PrinterResourcesClear(UserSettingsHelper userSettings, PrinterModel printer)
+    protected async Task PrinterResourcesClear(UserSettingsModel userSettings, PrinterModel printer)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1169,7 +1169,7 @@ public class RazorPageModel : LayoutComponentBase
             });
     }
 
-    protected async Task PrinterResourcesLoad(UserSettingsHelper userSettings, PrinterModel printer, string fileType)
+    protected async Task PrinterResourcesLoad(UserSettingsModel userSettings, PrinterModel printer, string fileType)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 

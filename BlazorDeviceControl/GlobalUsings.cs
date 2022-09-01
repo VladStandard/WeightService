@@ -3,7 +3,6 @@ global using BlazorCore.Models;
 global using BlazorCore.Services;
 global using BlazorCore.Utils;
 global using BlazorDownloadFile;
-global using BlazorInputFile;
 global using DataCore;
 global using DataCore.Localizations;
 global using DataCore.Models;

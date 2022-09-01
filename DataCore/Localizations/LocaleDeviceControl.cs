@@ -21,6 +21,7 @@ public partial class LocaleDeviceControl
 
     public string WebAppIsStarted => Lang == ShareEnums.Lang.English ? "Web-app is started" : "Веб-приложение запущено";
 
+    public string Identity => Lang == ShareEnums.Lang.English ? "Identity" : "Идентификация";
 	public string Actions => Lang == ShareEnums.Lang.English ? "Aaction" : "Действия";
 	public string DataRecords => Lang == ShareEnums.Lang.English ? "records" : "записей";
 	public string DevicesTitle => Lang == ShareEnums.Lang.English ? "Complexes of industrial devices" : "Комплексы промышленных устройств";
