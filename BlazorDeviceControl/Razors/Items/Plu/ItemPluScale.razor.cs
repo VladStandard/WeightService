@@ -5,7 +5,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluScale : RazorBase
+public partial class ItemPluScale : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/plus"
 @using BlazorDeviceControl.Razors.Components
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
@@ -10,7 +10,7 @@
 }
 else
 {
-	<ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Plus />
+	<ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
     <RadzenGrid 
         Data=@ItemsCast TItem="PluModel" @bind-Value=@ItemObject
@@ -28,7 +28,7 @@ else
 		    }
 		    <RadzenGridColumn TItem="PluModel" Width="70%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Name>
 			    <Template Context="itemCast">
-				    <RadzenLink Text=@itemCast.Name Path=@($"{LocaleData.DeviceControl.UriRouteItem.Plu}/{itemCast.Identity.Uid}")/>
+				    <RadzenLink Text=@itemCast.Name Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Identity.Uid}")/>
 			    </Template>
 		    </RadzenGridColumn>
 		    <RadzenGridColumn TItem="PluModel" Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.ShelfLifeDaysShort>

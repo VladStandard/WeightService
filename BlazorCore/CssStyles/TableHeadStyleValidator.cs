@@ -3,9 +3,9 @@
 
 using FluentValidation;
 
-namespace BlazorCore.Models.CssStyles;
+namespace BlazorCore.CssStyles;
 
-public class TableHeadStyleValidator : AbstractValidator<IBaseStyleModel>
+public class TableHeadStyleValidator : AbstractValidator<TableStyleModel>
 {
 	/// <summary>
 	/// Constructor.

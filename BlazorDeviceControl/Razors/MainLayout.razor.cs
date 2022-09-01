@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class MainLayout : BlazorCore.Models.RazorBase
+public partial class MainLayout : RazorPageModel
 {
     #region Public and private methods
 

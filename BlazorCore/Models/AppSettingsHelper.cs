@@ -34,9 +34,9 @@ public class AppSettingsHelper : LayoutComponentBase
     public uint MemoryFillSize => Memory.MemorySize.PhysicalTotal == null || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
         ? 0 : (uint)(Memory.MemorySize.PhysicalAllocated.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
     public bool IsSqlServerRelease => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&
-        DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
     public bool IsSqlServerDebug => DataAccess.JsonSettingsLocal.Sql is { DataSource: { } } &&
-        DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        DataAccess.JsonSettingsLocal.Sql.DataSource.Contains(LocaleCore.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
     #endregion
 

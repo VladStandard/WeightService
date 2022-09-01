@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class RadzenPage : RazorBase
+public partial class RadzenPage : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPlusScales : RazorBase
+public partial class SectionPlusScales : RazorPageModel
 {
 	#region Public and private fields, properties, constructor
 

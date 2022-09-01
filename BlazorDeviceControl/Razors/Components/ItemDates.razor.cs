@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ItemDates : RazorBase
+public partial class ItemDates : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

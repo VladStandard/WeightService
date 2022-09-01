@@ -6,7 +6,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPlu : RazorBase
+public partial class ItemPlu : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 
@@ -111,7 +111,7 @@ public partial class ItemPlu : RazorBase
         {
             switch (name)
             {
-                case nameof(LocaleData.DeviceControl.TableActionClear):
+                case nameof(LocaleCore.DeviceControl.TableActionClear):
                     ItemCast.Nomenclature = new();
                     ItemCast.Name = string.Empty;
                     ItemCast.FullName = string.Empty;
@@ -123,7 +123,7 @@ public partial class ItemPlu : RazorBase
                     ItemCast.BoxQuantly = 0;
                     ItemCast.TareWeight = 0;
                     break;
-                case nameof(LocaleData.DeviceControl.TableActionFill):
+                case nameof(LocaleCore.DeviceControl.TableActionFill):
                     if (string.IsNullOrEmpty(ItemCast.Name))
                         ItemCast.Name = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.Name);
                     if (string.IsNullOrEmpty(ItemCast.FullName))

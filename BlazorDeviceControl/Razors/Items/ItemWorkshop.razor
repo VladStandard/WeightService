@@ -1,8 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/workshop"
 @page "/item/workshop/{Identity.Id:long}"
 @page "/item/workshop/{Identity.Id:long}/{TableAction}"
-@using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
@@ -16,7 +15,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleData.DeviceControl.Items.Workshop />
+    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	    <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
@@ -32,8 +31,8 @@ else
             </tr>
             <tr>
                 <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
                         Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>
                 <td colspan=3>

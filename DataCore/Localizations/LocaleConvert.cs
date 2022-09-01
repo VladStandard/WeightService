@@ -1,26 +1,25 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Localizations
+namespace DataCore.Localizations;
+
+public class LocaleConvert
 {
-    public class LocaleConvert
-    {
-        #region Design pattern "Lazy Singleton"
+    #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static LocaleConvert _instance;
+    private static LocaleConvert _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static LocaleConvert Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static LocaleConvert Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-        #endregion
+    #endregion
 
-        public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+    public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
-        #region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-        public string BoolToString(bool isFlag) => isFlag ? (Lang == ShareEnums.Lang.English ? "yes" : "да") : (Lang == ShareEnums.Lang.English ? "no" : "нет");
-        public string ByteToString(byte isFlag, string yes, string no) => isFlag == 0x01 ? yes : no;
+    public string BoolToString(bool isFlag) => isFlag ? (Lang == ShareEnums.Lang.English ? "yes" : "да") : (Lang == ShareEnums.Lang.English ? "no" : "нет");
+    public string ByteToString(byte isFlag, string yes, string no) => isFlag == 0x01 ? yes : no;
 
-        #endregion
-    }
+    #endregion
 }

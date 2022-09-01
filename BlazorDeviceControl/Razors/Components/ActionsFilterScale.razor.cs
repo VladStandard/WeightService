@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsFilterScale : RazorBase
+public partial class ActionsFilterScale : RazorPageModel
 {
 	#region Public and private fields, properties, constructor
 

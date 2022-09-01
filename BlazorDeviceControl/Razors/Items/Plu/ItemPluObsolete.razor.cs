@@ -6,7 +6,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluObsolete : RazorBase
+public partial class ItemPluObsolete : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 
@@ -101,7 +101,7 @@ public partial class ItemPluObsolete : RazorBase
         {
             switch (name)
             {
-                case nameof(LocaleData.DeviceControl.TableActionClear):
+                case nameof(LocaleCore.DeviceControl.TableActionClear):
                     ItemCast.Nomenclature = new();
                     ItemCast.GoodsName = string.Empty;
                     ItemCast.GoodsFullName = string.Empty;
@@ -113,7 +113,7 @@ public partial class ItemPluObsolete : RazorBase
                     ItemCast.GoodsBoxQuantly = 0;
                     ItemCast.GoodsTareWeight = 0;
                     break;
-                case nameof(LocaleData.DeviceControl.TableActionFill):
+                case nameof(LocaleCore.DeviceControl.TableActionFill):
                     if (string.IsNullOrEmpty(ItemCast.GoodsName))
                         ItemCast.GoodsName = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.GoodsName);
                     if (string.IsNullOrEmpty(ItemCast.GoodsFullName))

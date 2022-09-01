@@ -1,8 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/scale_core"
 @page "/item/scale_core/{Identity.Id:long}"
 @page "/item/scale_core/{Identity.Id:long}/{TableAction}"
-@using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections
@@ -19,7 +18,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleData.DeviceControl.Items.Scale />
+    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -44,7 +43,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.Identity.Id)
+					            Path=@GetPath(LocaleCore.DeviceControl.RouteItemHost, ItemCast.Host, ItemCast.Host?.Identity.Id)
 					            Text=@LocaleCore.Table.Host/>
 				</td>
 				<td>
@@ -68,7 +67,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterMain, ItemCast.PrinterMain?.Identity.Id)
+							Path=@GetPath(LocaleCore.DeviceControl.RouteItemPrinter, ItemCast.PrinterMain, ItemCast.PrinterMain?.Identity.Id)
 					            Text=@LocaleCore.Print.NameMain/>
 				</td>
 				<td>
@@ -92,7 +91,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Printer, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.Identity.Id)
+					            Path=@GetPath(LocaleCore.DeviceControl.RouteItemPrinter, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.Identity.Id)
 					            Text=@LocaleCore.Print.NameShipping/>
 				</td>
 				<td>
@@ -144,7 +143,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.Identity.Id)
+					            Path=@GetPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.Identity.Id)
 					            Text=@LocaleCore.Table.TemplateDefault/>
 				</td>
 				<td>
@@ -161,7 +160,7 @@ else
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.Identity.Id)
+					            Path=@GetPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.Identity.Id)
 					            Text=@LocaleCore.Table.TemplateSeries/>
 				</td>
 				<td>
@@ -180,7 +179,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-						Path=@(ItemCast.WorkShop == null ? string.Empty : GetPath(UriRouteItem.WorkShop, ItemCast.WorkShop, ItemCast.WorkShop.Identity.Id))
+						Path=@(ItemCast.WorkShop == null ? string.Empty : GetPath(LocaleCore.DeviceControl.RouteItemWorkShop, ItemCast.WorkShop, ItemCast.WorkShop.Identity.Id))
 					    Text=@LocaleCore.Table.WorkShopName />
 				</td>
 				<td>
@@ -194,7 +193,7 @@ else
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.WorkShop.ProductionFacility, ItemCast.WorkShop.ProductionFacility.Identity.Id)
+					            Path=@GetPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.WorkShop.ProductionFacility, ItemCast.WorkShop.ProductionFacility.Identity.Id)
 					            Text=@LocaleCore.Table.ProductionFacilityName/>
 				</td>
 				<td>

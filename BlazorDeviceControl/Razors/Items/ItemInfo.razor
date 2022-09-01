@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/info"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
@@ -9,7 +9,7 @@
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead ParentRazor=@this TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
+	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>

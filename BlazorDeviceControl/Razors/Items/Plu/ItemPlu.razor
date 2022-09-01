@@ -1,9 +1,8 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/plu"
 @page "/item/plu/{IdentityUidStr}"
 @page "/item/plu/{IdentityUidStr}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
-@using static DataCore.Localizations.LocaleData.DeviceControl
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
@@ -16,7 +15,7 @@
 }
 else
 {
-	<ActionsReloadItem ParentRazor=@(this) Title=@LocaleData.DeviceControl.Items.Plu />
+	<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
 	
 	<MudSimpleTable Style="overflow-x: auto; margin-top: 10px; " Dense=true Bordered=true FixedHeader=false>
 	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
@@ -37,7 +36,7 @@ else
 			<tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.Identity.Id)
+                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.Template, ItemCast.Template.Identity.Id)
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
@@ -57,7 +56,7 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
+                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemNomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
                         Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>
@@ -158,13 +157,13 @@ else
                 </td>
                 <td >
                     <RadzenButton Style="width: 100%; " Icon="autorenew"
-                        Text=@TableActionFill
-                        Click=@(_ => OnClickFieldsFill(nameof(TableActionFill))) />
+                        Text=@LocaleCore.DeviceControl.TableActionFill
+                        Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionFill))) />
 				</td>
                 <td >
                     <RadzenButton Style="width: 100%; " Icon="clear" 
-                        Text=@TableActionClear
-                        Click=@(_ => OnClickFieldsFill(nameof(TableActionClear))) />
+                        Text=@LocaleCore.DeviceControl.TableActionClear
+                        Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionClear))) />
 				</td>
             </tr>
             <tr>

@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/printers"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -30,21 +30,21 @@ else
             <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Table.Id Width="5%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                                Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.Identity.Id}") 
+                                Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Identity.Id}") 
                                 Text=@itemCast.Identity.Id.ToString() />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Print.Name Width="18%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                                Path=@($"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.Identity.Id}") 
+                                Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Identity.Id}") 
                                 Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Print.Model Width="17%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.Identity.Id}") 
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPrinterType}/{itemCast.PrinterType.Identity.Id}") 
                         Text=@itemCast.PrinterType.Name />
                 </Template>
             </RadzenGridColumn>

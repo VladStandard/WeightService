@@ -19,7 +19,7 @@ using Environment = System.Environment;
 
 namespace BlazorCore.Models;
 
-public class RazorBase : LayoutComponentBase
+public class RazorPageModel : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -42,7 +42,7 @@ public class RazorBase : LayoutComponentBase
     [Parameter] public long? IdentityId { get; set; }
     [Parameter] public List<TableModel>? Items { get; set; }
     [Parameter] public List<TableModel>? ItemsFilter { get; set; }
-    [Parameter] public RazorBase? ParentRazor { get; set; }
+    [Parameter] public RazorPageModel? ParentRazor { get; set; }
     [Parameter] public string? FilterCaption { get; set; }
     [Parameter] public string? FilterName { get; set; }
     [Parameter] public TableBase Table { get; set; }
@@ -56,7 +56,7 @@ public class RazorBase : LayoutComponentBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public RazorBase()
+    public RazorPageModel()
     {
         //
     }
@@ -668,19 +668,19 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableSystem.Default:
                         break;
                     case ProjectsEnums.TableSystem.Logs:
-                        page = LocaleData.DeviceControl.UriRouteItem.Log;
+                        page = LocaleCore.DeviceControl.RouteItemLog;
                         break;
                     case ProjectsEnums.TableSystem.Accesses:
-                        page = LocaleData.DeviceControl.UriRouteItem.Access;
+                        page = LocaleCore.DeviceControl.RouteItemAccess;
                         break;
                     case ProjectsEnums.TableSystem.LogTypes:
-                        page = LocaleData.DeviceControl.UriRouteItem.LogType;
+                        page = LocaleCore.DeviceControl.RouteItemLogType;
                         break;
                     case ProjectsEnums.TableSystem.Tasks:
-                        page = LocaleData.DeviceControl.UriRouteItem.TaskModule;
+                        page = LocaleCore.DeviceControl.RouteItemTaskModule;
                         break;
                     case ProjectsEnums.TableSystem.TasksTypes:
-                        page = LocaleData.DeviceControl.UriRouteItem.TaskTypeModule;
+                        page = LocaleCore.DeviceControl.RouteItemTaskTypeModule;
                         break;
                 }
                 break;
@@ -688,55 +688,55 @@ public class RazorBase : LayoutComponentBase
                 switch (ProjectsEnums.GetTableScale(Table.Name))
                 {
                     case ProjectsEnums.TableScale.BarCodeTypes:
-                        page = LocaleData.DeviceControl.UriRouteItem.BarCodeType;
+                        page = LocaleCore.DeviceControl.RouteItemBarCodeType;
                         break;
                     case ProjectsEnums.TableScale.Contragents:
-                        page = LocaleData.DeviceControl.UriRouteItem.Contragent;
+                        page = LocaleCore.DeviceControl.RouteItemContragent;
                         break;
                     case ProjectsEnums.TableScale.Hosts:
-                        page = LocaleData.DeviceControl.UriRouteItem.Host;
+                        page = LocaleCore.DeviceControl.RouteItemHost;
                         break;
                     case ProjectsEnums.TableScale.PlusLabels:
-                        page = LocaleData.DeviceControl.UriRouteItem.PluLabel;
+                        page = LocaleCore.DeviceControl.RouteItemPluLabel;
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
-                        page = LocaleData.DeviceControl.UriRouteItem.Nomenclature;
+                        page = LocaleCore.DeviceControl.RouteItemNomenclature;
                         break;
                     case ProjectsEnums.TableScale.PlusObsolete:
-                        page = LocaleData.DeviceControl.UriRouteItem.PluObsolete;
+                        page = LocaleCore.DeviceControl.RouteItemPluObsolete;
                         break;
                     case ProjectsEnums.TableScale.Plus:
-                        page = LocaleData.DeviceControl.UriRouteItem.Plu;
+                        page = LocaleCore.DeviceControl.RouteItemPlu;
                         break;
                     case ProjectsEnums.TableScale.PlusScales:
-                        page = LocaleData.DeviceControl.UriRouteItem.PluScale;
+                        page = LocaleCore.DeviceControl.RouteItemPluScale;
                         break;
                     case ProjectsEnums.TableScale.PrintersResources:
-                        page = LocaleData.DeviceControl.UriRouteItem.PrinterResource;
+                        page = LocaleCore.DeviceControl.RouteItemPrinterResource;
                         break;
                     case ProjectsEnums.TableScale.Printers:
-                        page = LocaleData.DeviceControl.UriRouteItem.Printer;
+                        page = LocaleCore.DeviceControl.RouteItemPrinter;
                         break;
                     case ProjectsEnums.TableScale.PrintersTypes:
-                        page = LocaleData.DeviceControl.UriRouteItem.PrinterType;
+                        page = LocaleCore.DeviceControl.RouteItemPrinterType;
                         break;
                     case ProjectsEnums.TableScale.ProductionFacilities:
-                        page = LocaleData.DeviceControl.UriRouteItem.ProductionFacility;
+                        page = LocaleCore.DeviceControl.RouteItemProductionFacility;
                         break;
                     case ProjectsEnums.TableScale.Scales:
-                        page = LocaleData.DeviceControl.UriRouteItem.Scale;
+                        page = LocaleCore.DeviceControl.RouteItemScale;
                         break;
                     case ProjectsEnums.TableScale.TemplatesResources:
-                        page = LocaleData.DeviceControl.UriRouteItem.TemplateResource;
+                        page = LocaleCore.DeviceControl.RouteItemTemplateResource;
                         break;
                     case ProjectsEnums.TableScale.Templates:
-                        page = LocaleData.DeviceControl.UriRouteItem.Template;
+                        page = LocaleCore.DeviceControl.RouteItemTemplate;
                         break;
                     case ProjectsEnums.TableScale.PlusWeighings:
-                        page = LocaleData.DeviceControl.UriRouteItem.PluWeighing;
+                        page = LocaleCore.DeviceControl.RouteItemPluWeighing;
                         break;
                     case ProjectsEnums.TableScale.Workshops:
-                        page = LocaleData.DeviceControl.UriRouteItem.WorkShop;
+                        page = LocaleCore.DeviceControl.RouteItemWorkShop;
                         break;
                 }
                 break;
@@ -781,7 +781,7 @@ public class RazorBase : LayoutComponentBase
 
     public void RouteSectionNavigateToRoot()
     {
-        NavigationManager.NavigateTo(LocaleData.DeviceControl.UriRouteSection.Root);
+        NavigationManager.NavigateTo(LocaleCore.DeviceControl.RouteRoot);
     }
 
     private void RouteSectionNavigate(bool isNewWindow)
@@ -814,19 +814,19 @@ public class RazorBase : LayoutComponentBase
                     case ProjectsEnums.TableSystem.Default:
                         break;
                     case ProjectsEnums.TableSystem.Accesses:
-                        page = LocaleData.DeviceControl.UriRouteSection.Access;
+                        page = LocaleCore.DeviceControl.RouteSectionAccess;
                         break;
                     case ProjectsEnums.TableSystem.Logs:
-                        page = LocaleData.DeviceControl.UriRouteSection.Logs;
+                        page = LocaleCore.DeviceControl.RouteSectionLogs;
                         break;
                     case ProjectsEnums.TableSystem.LogTypes:
-                        page = LocaleData.DeviceControl.UriRouteSection.LogTypes;
+                        page = LocaleCore.DeviceControl.RouteSectionLogTypes;
                         break;
                     case ProjectsEnums.TableSystem.Tasks:
-                        page = LocaleData.DeviceControl.UriRouteSection.TaskModules;
+                        page = LocaleCore.DeviceControl.RouteSectionTaskModules;
                         break;
                     case ProjectsEnums.TableSystem.TasksTypes:
-                        page = LocaleData.DeviceControl.UriRouteSection.TaskTypeModules;
+                        page = LocaleCore.DeviceControl.RouteSectionTaskTypeModules;
                         break;
                 }
                 break;
@@ -834,61 +834,61 @@ public class RazorBase : LayoutComponentBase
                 switch (ProjectsEnums.GetTableScale(Table.Name))
                 {
                     case ProjectsEnums.TableScale.BarCodeTypes:
-                        page = LocaleData.DeviceControl.UriRouteSection.BarCodeTypes;
+                        page = LocaleCore.DeviceControl.RouteSectionBarCodeTypes;
                         break;
                     case ProjectsEnums.TableScale.Contragents:
-                        page = LocaleData.DeviceControl.UriRouteSection.Contragents;
+                        page = LocaleCore.DeviceControl.RouteSectionContragents;
                         break;
                     case ProjectsEnums.TableScale.Hosts:
-                        page = LocaleData.DeviceControl.UriRouteSection.Hosts;
+                        page = LocaleCore.DeviceControl.RouteSectionHosts;
                         break;
                     case ProjectsEnums.TableScale.PlusLabels:
-                        page = LocaleData.DeviceControl.UriRouteSection.PluLabels;
+                        page = LocaleCore.DeviceControl.RouteSectionPluLabels;
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
-                        page = LocaleData.DeviceControl.UriRouteSection.Nomenclatures;
+                        page = LocaleCore.DeviceControl.RouteSectionNomenclatures;
                         break;
                     case ProjectsEnums.TableScale.PlusObsolete:
-                        page = LocaleData.DeviceControl.UriRouteSection.PlusObsolete;
+                        page = LocaleCore.DeviceControl.RouteSectionPlusObsolete;
                         break;
                     case ProjectsEnums.TableScale.Plus:
-                        page = LocaleData.DeviceControl.UriRouteSection.Plus;
+                        page = LocaleCore.DeviceControl.RouteSectionPlus;
                         break;
                     case ProjectsEnums.TableScale.PlusScales:
                         if (Item is PluScaleModel pluScale)
-                            page = LocaleData.DeviceControl.UriRouteItem.Scale + $"/{pluScale.Scale.Identity.Id}";
+                            page = LocaleCore.DeviceControl.RouteItemScale + $"/{pluScale.Scale.Identity.Id}";
                         else
-                            page = LocaleData.DeviceControl.UriRouteSection.Scales;
+                            page = LocaleCore.DeviceControl.RouteSectionScales;
                         break;
                     case ProjectsEnums.TableScale.PrintersResources:
-                        page = LocaleData.DeviceControl.UriRouteSection.PrinterResources;
+                        page = LocaleCore.DeviceControl.RouteSectionPrinterResources;
                         break;
                     case ProjectsEnums.TableScale.Printers:
-                        page = LocaleData.DeviceControl.UriRouteSection.Printers;
+                        page = LocaleCore.DeviceControl.RouteSectionPrinters;
                         break;
                     case ProjectsEnums.TableScale.PrintersTypes:
-                        page = LocaleData.DeviceControl.UriRouteSection.PrinterTypes;
+                        page = LocaleCore.DeviceControl.RouteSectionPrinterTypes;
                         break;
                     case ProjectsEnums.TableScale.ProductionFacilities:
-                        page = LocaleData.DeviceControl.UriRouteSection.ProductionFacilities;
+                        page = LocaleCore.DeviceControl.RouteSectionProductionFacilities;
                         break;
                     case ProjectsEnums.TableScale.Scales:
                         if (Item is ScaleModel scale)
-                            page = LocaleData.DeviceControl.UriRouteItem.Scale + $"/{scale.Identity.Id}";
+                            page = LocaleCore.DeviceControl.RouteItemScale + $"/{scale.Identity.Id}";
                         else
-                            page = LocaleData.DeviceControl.UriRouteSection.Scales;
+                            page = LocaleCore.DeviceControl.RouteSectionScales;
                         break;
                     case ProjectsEnums.TableScale.TemplatesResources:
-                        page = LocaleData.DeviceControl.UriRouteSection.TemplateResources;
+                        page = LocaleCore.DeviceControl.RouteSectionTemplateResources;
                         break;
                     case ProjectsEnums.TableScale.Templates:
-                        page = LocaleData.DeviceControl.UriRouteSection.Templates;
+                        page = LocaleCore.DeviceControl.RouteSectionTemplates;
                         break;
                     case ProjectsEnums.TableScale.PlusWeighings:
-                        page = LocaleData.DeviceControl.UriRouteSection.PlusWeighings;
+                        page = LocaleCore.DeviceControl.RouteSectionPlusWeighings;
                         break;
                     case ProjectsEnums.TableScale.Workshops:
-                        page = LocaleData.DeviceControl.UriRouteSection.WorkShops;
+                        page = LocaleCore.DeviceControl.RouteSectionWorkShops;
                         break;
                 }
                 break;

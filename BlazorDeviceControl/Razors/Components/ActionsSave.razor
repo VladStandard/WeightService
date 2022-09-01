@@ -1,5 +1,5 @@
-﻿@inherits BlazorCore.Models.RazorBase
-@page "/component/action_ssave"
+﻿@inherits BlazorCore.Models.RazorPageModel
+@page "/action/save"
 @using BlazorCore
 
 <MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent >
@@ -15,7 +15,7 @@
                 <RadzenButton Click=@(_ => ItemSaveAsync()) 
                     class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                    Text=@LocaleData.DeviceControl.TableActionSave 
+                    Text=@LocaleCore.DeviceControl.TableActionSave 
                 />
             }
             @if (ButtonSettings.IsShowCancel)
@@ -23,7 +23,7 @@
                 <RadzenButton Click=@(_ => ItemCancelAsync())
                     class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Secondary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                    Text=@LocaleData.DeviceControl.TableActionCancel 
+                    Text=@LocaleCore.DeviceControl.TableActionCancel 
                 />
             }
         }

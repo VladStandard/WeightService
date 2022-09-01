@@ -3,31 +3,34 @@
 
 using DataCore.Sql.Tables;
 
-namespace BlazorCore.Models.CssStyles;
+namespace BlazorCore.CssStyles;
 
-public class TableBodyStyleModel : IBaseStyleModel
+public class TableBodyStyleModel : TableStyleModel
 {
     #region Public and private fields, properties, constructor
 
     public ColumnName IdentityName { get; set; }
     public bool IsShowMarked { get; set; }
 
-    public TableBodyStyleModel() : this(ColumnName.Default, false)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public TableBodyStyleModel()
     {
-        //
-    }
+		IdentityName = ColumnName.Default;
+		IsShowMarked = false;
+	}
 
-    public TableBodyStyleModel(ColumnName identityName, bool isShowMarked)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="identityName"></param>
+	/// <param name="isShowMarked"></param>
+	public TableBodyStyleModel(ColumnName identityName, bool isShowMarked)
     {
         IdentityName = identityName;
         IsShowMarked = isShowMarked;
     }
-
-    #endregion
-
-    #region Public and private methods
-
-    //
 
     #endregion
 }

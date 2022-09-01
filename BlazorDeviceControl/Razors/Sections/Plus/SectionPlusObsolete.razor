@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/plus_obsolete"
 @using BlazorCore
 @using BlazorDeviceControl.Razors.Components
@@ -11,10 +11,10 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Plus
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus
         IsShowMarked=@IsShowMarked IsShowAdditionalFilter=@IsShowAdditionalFilter 
         ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
-        FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
+        FilterCaption=LocaleCore.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluObsoleteModel" @bind-Value=@ItemObject
@@ -33,7 +33,7 @@ else
             <RadzenGridColumn TItem="PluObsoleteModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluObsolete}/{itemCast.Identity.Id}")
                         Text=@itemCast.PluNumber.ToString() />
                 </Template>
             </RadzenGridColumn>
@@ -55,7 +55,7 @@ else
             <RadzenGridColumn TItem="PluObsoleteModel" Width="19%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.GoodsName >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluObsolete}/{itemCast.Identity.Id}")
                         Text=@itemCast.GoodsName />
                 </Template>
             </RadzenGridColumn>

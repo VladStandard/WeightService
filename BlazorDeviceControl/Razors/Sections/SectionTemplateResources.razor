@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/templateresources"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -10,7 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.TemplateResources />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TemplateResourceModel" @bind-Value=@ItemObject
@@ -35,7 +35,7 @@ else
                 TItem="TemplateResourceModel" Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.TemplateResource}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.Identity.Id}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>

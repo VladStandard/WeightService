@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/hosts"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -10,7 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Hosts />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="HostModel" @bind-Value=@ItemObject
@@ -31,7 +31,7 @@ else
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15.0%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
@@ -39,7 +39,7 @@ else
                 TItem="HostModel" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
@@ -47,7 +47,7 @@ else
                 TItem="HostModel" Title=@LocaleCore.Table.Host Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
                         Text=@itemCast.HostName />
                 </Template>
             </RadzenGridColumn>

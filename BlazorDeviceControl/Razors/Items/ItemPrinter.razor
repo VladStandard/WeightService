@@ -1,8 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/printer"
 @page "/item/printer/{Identity.Id:long}"
 @page "/item/printer/{Identity.Id:long}/{TableAction}"
-@using static DataCore.Localizations.LocaleData.DeviceControl
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections
@@ -47,7 +46,7 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Identity.Id)
+                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemPrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Identity.Id)
                         Text=@LocaleCore.Print.Type />
                 </td>
                 <td>
@@ -94,7 +93,7 @@ else
                 }
             </tr>
             <tr>
-                <td>@Actions</td>
+                <td>@LocaleCore.DeviceControl.Actions</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
                         class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary

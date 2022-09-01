@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/scales_core"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -10,7 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Scales />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ScaleModel" @bind-Value=@ItemObject
@@ -30,23 +30,23 @@ else
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Number Width="5%" >
 	            <Template Context="itemCast" >
 		            <RadzenLink Style="width: 100%; "
-		                Path=@(IsPluNew ? $"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.Identity.Id}"
-							: $"{LocaleData.DeviceControl.UriRouteItem.ScaleObsolete}/{itemCast.Identity.Id}")
+		                Path=@(IsPluNew ? $"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.Identity.Id}"
+							: $"{LocaleCore.DeviceControl.RouteItemScaleObsolete}/{itemCast.Identity.Id}")
 		                Text=@itemCast.Number.ToString() />
 	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Description Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "
-                        Path=@(IsPluNew ? $"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.Identity.Id}"
-							: $"{LocaleData.DeviceControl.UriRouteItem.ScaleObsolete}/{itemCast.Identity.Id}")
+                        Path=@(IsPluNew ? $"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.Identity.Id}"
+							: $"{LocaleCore.DeviceControl.RouteItemScaleObsolete}/{itemCast.Identity.Id}")
                         Text=@itemCast.Description />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Host Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "
-                        Path=@(itemCast.Host == null ? "" : $"{LocaleData.DeviceControl.UriRouteItem.Host}/{itemCast.Host.Identity.Id}")
+                        Path=@(itemCast.Host == null ? "" : $"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Host.Identity.Id}")
                             Text=@(itemCast.Host == null ? LocaleCore.Table.FieldNull : itemCast.Host.Name) />
                 </Template>
             </RadzenGridColumn>
@@ -58,14 +58,14 @@ else
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Print.NameMain Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "
-                        Path=@(itemCast.PrinterMain == null ? "" : $"{LocaleData.DeviceControl.UriRouteItem.Printer}/{itemCast.PrinterMain.Identity.Id}")
+                        Path=@(itemCast.PrinterMain == null ? "" : $"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.PrinterMain.Identity.Id}")
                         Text=@(itemCast.PrinterMain == null ? LocaleCore.Table.FieldNull : itemCast.PrinterMain.Name) />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=TextAlign.Left >
 	            <Template Context="itemCast">
 		            <RadzenLink Style="width: 100%; "
-		                Path=@(itemCast.WorkShop == null ? "" : $"{LocaleData.DeviceControl.UriRouteItem.WorkShop}/{itemCast.WorkShop.Identity.Id}")
+		                Path=@(itemCast.WorkShop == null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{itemCast.WorkShop.Identity.Id}")
                         Text=@(itemCast.WorkShop == null ? LocaleCore.Table.FieldNull : itemCast.WorkShop.Name) />
 	            </Template>
             </RadzenGridColumn>

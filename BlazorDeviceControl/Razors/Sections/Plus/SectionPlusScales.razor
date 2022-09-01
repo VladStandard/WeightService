@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/plus_scales"
 @using BlazorDeviceControl.Razors.Components
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
@@ -10,9 +10,9 @@
 }
 else
 {
-	<ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Plus 
+	<ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus 
 	    FilterTable=@ProjectsEnums.TableScale.Scales
-		FilterCaption=LocaleData.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
+		FilterCaption=LocaleCore.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
 
     <RadzenGrid 
         Data=@ItemsCast TItem="PluScaleModel" @bind-Value=@ItemObject
@@ -32,7 +32,7 @@ else
 		    <RadzenGridColumn TItem="PluScaleModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 			    <Template Context="itemCast">
 				    <RadzenLink Style="width: 100%;"
-				                Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluScale}/{itemCast.Identity.Uid}")
+				                Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}")
 				                Text=@itemCast.Plu.Number.ToString()/>
 			    </Template>
 		    </RadzenGridColumn>
@@ -53,7 +53,7 @@ else
 		    </RadzenGridColumn>
 		    <RadzenGridColumn TItem="PluScaleModel" Width="19%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.GoodsName>
 			    <Template Context="itemCast">
-				    <RadzenLink Text=@itemCast.Plu.Name Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluScale}/{itemCast.Identity.Uid}")/>
+				    <RadzenLink Text=@itemCast.Plu.Name Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}")/>
 			    </Template>
 		    </RadzenGridColumn>
 		    <RadzenGridColumn TItem="PluScaleModel" Width="14%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Template>

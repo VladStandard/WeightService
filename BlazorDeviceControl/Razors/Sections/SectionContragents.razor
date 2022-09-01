@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/contragents"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -10,7 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleData.DeviceControl.Sections.Contragents />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
     
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ContragentModel" @bind-Value=@ItemObject
@@ -32,7 +32,7 @@ else
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluLabel}/{itemCast.Identity.Uid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.Identity.Uid}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
@@ -40,7 +40,7 @@ else
                     Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluLabel}/{itemCast.Identity.Uid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.Identity.Uid}")
                         Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
@@ -48,7 +48,7 @@ else
                 TItem="ContragentModel" Title=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Contragent}/{itemCast.Identity.Uid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.Identity.Uid}")
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>

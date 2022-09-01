@@ -5,7 +5,7 @@ using static DataCore.ProjectsEnums;
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public class ActionsReloadBase : RazorBase
+public class ActionsReloadBase : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

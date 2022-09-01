@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/plu_label"
 @page "/item/plu_label/{Identity.Id:long}"
 @page "/item/plu_label/{Identity.Id:long}/{TableAction}"
@@ -14,7 +14,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleData.DeviceControl.Items.Label />
+    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />

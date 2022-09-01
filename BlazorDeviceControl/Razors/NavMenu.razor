@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @using BlazorCore
 @using static BlazorCore.Utils.BlazorCoreUtuls
 
@@ -19,62 +19,62 @@
         @if (UserSettings.Identity.AccessRightsIsRead)
         {
             <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.Scales>
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.RouteSectionScales>
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.AutomatedWorkplaceShort Path=@LocaleData.DeviceControl.UriRouteSection.Scales />
+                        Text=@LocaleCore.DeviceControl.SectionAutomatedWorkplaceShort Path=@LocaleCore.DeviceControl.RouteSectionScales />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.ProductionFacilitiesShort Path=@LocaleData.DeviceControl.UriRouteSection.ProductionFacilities />
+                        Text=@LocaleCore.DeviceControl.SectionProductionFacilitiesShort Path=@LocaleCore.DeviceControl.RouteSectionProductionFacilities />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.WorkShops Path=@LocaleData.DeviceControl.UriRouteSection.WorkShops />
+                        Text=@LocaleCore.DeviceControl.SectionWorkShops Path=@LocaleCore.DeviceControl.RouteSectionWorkShops />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Hosts Path=@LocaleData.DeviceControl.UriRouteSection.Hosts />
+                        Text=@LocaleCore.DeviceControl.SectionHosts Path=@LocaleCore.DeviceControl.RouteSectionHosts />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleCore.Print.Names Path=@LocaleData.DeviceControl.UriRouteSection.Printers />
+                        Text=@LocaleCore.Print.Names Path=@LocaleCore.DeviceControl.RouteSectionPrinters />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleCore.Print.Types Path=@LocaleData.DeviceControl.UriRouteSection.PrinterTypes />
+                        Text=@LocaleCore.Print.Types Path=@LocaleCore.DeviceControl.RouteSectionPrinterTypes />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Resources Path=@LocaleData.DeviceControl.UriRouteSection.PrinterResources />
+                        Text=@LocaleCore.DeviceControl.SectionResources Path=@LocaleCore.DeviceControl.RouteSectionPrinterResources />
                 </RadzenPanelMenuItem>
 
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.Measurements>
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionMeasurements>
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.WeithingFactsAggregationShort Path=@LocaleData.DeviceControl.UriRouteSection.PlusWeighingsAggregation />
+                        Text=@LocaleCore.DeviceControl.SectionWeithingFactsAggregationShort Path=@LocaleCore.DeviceControl.RouteSectionPlusWeighingsAggregation />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.PlusWeighings Path=@LocaleData.DeviceControl.UriRouteSection.PlusWeighings />
+                        Text=@LocaleCore.DeviceControl.SectionPlusWeighings Path=@LocaleCore.DeviceControl.RouteSectionPlusWeighings />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Labels Path=@LocaleData.DeviceControl.UriRouteSection.PluLabels />
+                        Text=@LocaleCore.DeviceControl.SectionLabels Path=@LocaleCore.DeviceControl.RouteSectionPluLabels />
                 </RadzenPanelMenuItem>
                 
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.Dwh >
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionDwh >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Contragents Path=@LocaleData.DeviceControl.UriRouteSection.Contragents />
+                        Text=@LocaleCore.DeviceControl.SectionContragents Path=@LocaleCore.DeviceControl.RouteSectionContragents />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Nomenclatures Path=@LocaleData.DeviceControl.UriRouteSection.Nomenclatures />
+                        Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionNomenclatures />
                 </RadzenPanelMenuItem>
                 
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.References >
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionReferences >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Plus Path=@LocaleData.DeviceControl.UriRouteSection.Plus />
+                        Text=@LocaleCore.DeviceControl.SectionPlus Path=@LocaleCore.DeviceControl.RouteSectionPlus />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Templates Path=@LocaleData.DeviceControl.UriRouteSection.Templates />
+                        Text=@LocaleCore.DeviceControl.SectionTemplates Path=@LocaleCore.DeviceControl.RouteSectionTemplates />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.TemplateResources Path=@LocaleData.DeviceControl.UriRouteSection.TemplateResources />
+                        Text=@LocaleCore.DeviceControl.SectionTemplateResources Path=@LocaleCore.DeviceControl.RouteSectionTemplateResources />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.BarCodesShort Path=@LocaleData.DeviceControl.UriRouteSection.BarCodes />
+                        Text=@LocaleCore.DeviceControl.SectionBarCodesShort Path=@LocaleCore.DeviceControl.RouteSectionBarCodes />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.BarCodeTypesShort Path=@LocaleData.DeviceControl.UriRouteSection.BarCodeTypes />
+                        Text=@LocaleCore.DeviceControl.SectionBarCodeTypesShort Path=@LocaleCore.DeviceControl.RouteSectionBarCodeTypes />
                 </RadzenPanelMenuItem>
                 
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.Obsoletes >
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionObsoletes >
 	                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-	                                     Text=@LocaleData.DeviceControl.Sections.AutomatedWorkplaceShort Path=@LocaleData.DeviceControl.UriRouteSection.ScalesObsolete />
+	                                     Text=@LocaleCore.DeviceControl.SectionAutomatedWorkplaceShort Path=@LocaleCore.DeviceControl.RouteSectionScalesObsolete />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                        Text=@LocaleData.DeviceControl.Sections.Plus Path=@LocaleData.DeviceControl.UriRouteSection.PlusObsolete />
+                        Text=@LocaleCore.DeviceControl.SectionPlus Path=@LocaleCore.DeviceControl.RouteSectionPlusObsolete />
                 </RadzenPanelMenuItem>
                 
                 @if (IsDebug)
                 {
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleData.DeviceControl.Sections.ReferencesDev>
+                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev>
                         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Mud" Path="mud" />
                         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Radzen" Path="radzen" />
                         <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="NetBarcode" Path="netbarcode" />

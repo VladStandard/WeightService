@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionVersions : RazorBase
+public partial class SectionVersions : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

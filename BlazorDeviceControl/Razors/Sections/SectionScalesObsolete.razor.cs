@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionScalesObsolete : RazorBase
+public partial class SectionScalesObsolete : RazorPageModel
 {
 	//
 }

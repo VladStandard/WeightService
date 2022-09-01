@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluWeighing : RazorBase
+public partial class ItemPluWeighing : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

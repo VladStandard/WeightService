@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -35,37 +35,37 @@
                     <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; " >
                         <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuSystem >
                             <RadzenMenuItem Icon="home" Style="background-color: transparent; "
-                                Text=@LocaleCore.Menu.MenuMain Path=@LocaleData.DeviceControl.UriRouteSection.Root />
+                                Text=@LocaleCore.Menu.MenuMain Path=@LocaleCore.DeviceControl.RouteRoot />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleData.DeviceControl.UriRouteSection.Root />
+                                Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleCore.DeviceControl.RouteRoot />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@AppSettings.MemoryInfo Path=@LocaleData.DeviceControl.UriRouteSection.Root 
+                                Text=@AppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteRoot 
                                 Click=@(_ => MemoryClear()) />
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights(ShareEnums.AccessRights.None)}]") 
-                                Path=@LocaleData.DeviceControl.UriRouteSection.Access
+                                Text=@($"{UserSettings.Identity.UserName} [{UserSettings.Identity.GetDescriptionAccessRights(AccessRights.None)}]") 
+                                Path=@LocaleCore.DeviceControl.RouteSectionAccess
                                 Click=@(_ => OnChange()) />
                             @*Click=@(args => SetParametersAsync(new()))*@
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@LocaleCore.Menu.MenuInfo Path=@LocaleData.DeviceControl.UriRouteItem.Info />
+                                Text=@LocaleCore.Menu.MenuInfo Path=@LocaleCore.DeviceControl.RouteItemInfo />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleData.DeviceControl.UriRouteSection.Versions />
+                                Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
                         </RadzenMenuItem>
                         <RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuReports >
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleData.DeviceControl.UriRouteSection.Logs />
+                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
                             <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsNones Path=@LocaleData.DeviceControl.UriRouteSection.LogsNones />
+                                Text=@LocaleCore.System.SystemLogsNones Path=@LocaleCore.DeviceControl.RouteSectionLogsNones />
                             <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleData.DeviceControl.UriRouteSection.LogsInformations />
+                                Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleCore.DeviceControl.RouteSectionLogsInformations />
                             <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleData.DeviceControl.UriRouteSection.LogsErrors />
+                                Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleCore.DeviceControl.RouteSectionLogsErrors />
                             <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleData.DeviceControl.UriRouteSection.LogsQuestions />
+                                Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleCore.DeviceControl.RouteSectionLogsQuestions />
                             <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsStops Path=@LocaleData.DeviceControl.UriRouteSection.LogsStops />
+                                Text=@LocaleCore.System.SystemLogsStops Path=@LocaleCore.DeviceControl.RouteSectionLogsStops />
                             <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleData.DeviceControl.UriRouteSection.LogsWarnings />
+                                Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleCore.DeviceControl.RouteSectionLogsWarnings />
                         </RadzenMenuItem>
                     </RadzenMenu>
                 }

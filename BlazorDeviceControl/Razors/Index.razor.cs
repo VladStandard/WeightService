@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class Index : BlazorCore.Models.RazorBase
+public partial class Index : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

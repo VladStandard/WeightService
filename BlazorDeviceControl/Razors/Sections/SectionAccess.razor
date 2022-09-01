@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/access"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -33,7 +33,7 @@ else
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Access}/{itemCast.Identity.Uid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemAccess}/{itemCast.Identity.Uid}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
@@ -41,7 +41,7 @@ else
                     Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Access}/{itemCast.Identity.Uid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemAccess}/{itemCast.Identity.Uid}")
                         Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
@@ -49,7 +49,7 @@ else
                 Title=@LocaleCore.Table.User Type="string" Width="30%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Access}/{itemCast.Identity.Uid}")
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemAccess}/{itemCast.Identity.Uid}")
                         Text=@itemCast.User />
                 </Template>
             </RadzenGridColumn>

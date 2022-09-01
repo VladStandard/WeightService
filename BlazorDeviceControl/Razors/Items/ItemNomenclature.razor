@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/item/nomenclature"
 @page "/item/nomenclature/{Identity.Id:long}"
 @page "/item/nomenclature/{Identity.Id:long}/{TableAction}"
@@ -15,7 +15,7 @@
 else
 {
     <ActionsReloadItem ParentRazor=@(this) 
-        Title=@LocaleData.DeviceControl.Items.Nomenclature />
+        Title=@LocaleCore.DeviceControl.ItemNomenclature />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -54,11 +54,11 @@ else
 }
 
 @*
-<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleData.DeviceControl.Sections.NomenclatureUnits />
+<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.DeviceControl.SectionNomenclatureUnits />
 <br />
     @if (NomenclatureUnitsEntities == null)
     {
-        <RadzenLabel Text=@LocaleData.DeviceControl.DataLoading />
+        <RadzenLabel Text=@LocaleCore.DeviceControl.DataLoading />
         <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else
@@ -91,11 +91,11 @@ else
         </RadzenGrid>
     }
 
-<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleData.DeviceControl.Sections.Barcodes />
+<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.DeviceControl.SectionBarcodes />
 <br />
 @if (BarCodesEntities == null)
     {
-        <RadzenLabel Text=@LocaleData.DeviceControl.DataLoading />
+        <RadzenLabel Text=@LocaleCore.DeviceControl.DataLoading />
         <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else

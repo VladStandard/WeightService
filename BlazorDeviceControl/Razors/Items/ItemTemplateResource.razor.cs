@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemTemplateResource : RazorBase
+public partial class ItemTemplateResource : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

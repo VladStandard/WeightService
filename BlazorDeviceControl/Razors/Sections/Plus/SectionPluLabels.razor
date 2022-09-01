@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorBase
+﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/section/plu_labels"
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -23,7 +23,7 @@ else
                 Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Label}/{itemCast.Identity.Id}")
+                        Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Label}/{itemCast.Identity.Id}")
                         Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
@@ -31,7 +31,7 @@ else
                 TItem="PluLabelModel" Title=@LocaleCore.Table.Scale Type="string" Width="18%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Scale}/{itemCast.ScaleId}")
+                        Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Scale}/{itemCast.ScaleId}")
                         Text=@itemCast.PluWeighing.PluScale.Scale.Description />
                 </Template>
             </RadzenGridColumn>
@@ -39,7 +39,7 @@ else
                 TItem="PluLabelModel" Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" TextAlign=TextAlign.Center >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
+                        Path=@($"{LocaleCore.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
                         Text=@itemCast.PluWeighing.PluScale.Plu.Number.ToString() />
                 </Template>
             </RadzenGridColumn>
@@ -47,7 +47,7 @@ else
                 TItem="PluLabelModel" Title=@LocaleCore.Table.Plu Type="string" Width="27%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
+                        Path=@($"{LocaleCore.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
                         Text=@itemCast.PluWeighing.PluScale.Plu.Name />
                 </Template>
             </RadzenGridColumn>
@@ -55,7 +55,7 @@ else
                 TItem="PluLabelModel" Title=@LocaleCore.Table.Template Type="string" Width="16%" TextAlign=TextAlign.Center >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@($"{LocaleData.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateId}")
+                        Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateId}")
                         Text=@itemCast.PluWeighing.PluScale.Plu.Template.Name.ToString() />
                 </Template>
             </RadzenGridColumn>

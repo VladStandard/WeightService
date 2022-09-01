@@ -4,10 +4,12 @@
 using DataCore.Sql.Tables;
 using FluentValidation;
 
-namespace BlazorCore.Models.CssStyles;
+namespace BlazorCore.CssStyles;
 
-public class TableBodyStyleValidator : AbstractValidator<IBaseStyleModel>
+public class TableBodyStyleValidator : AbstractValidator<TableStyleModel>
 {
+	#region Public and private fields, properties, constructor
+
 	/// <summary>
 	/// Constructor.
 	/// </summary>
@@ -16,4 +18,6 @@ public class TableBodyStyleValidator : AbstractValidator<IBaseStyleModel>
 		RuleFor(item => ((TableBodyStyleModel)item).IdentityName)
 			.NotEqual(ColumnName.Default);
 	}
+
+	#endregion
 }

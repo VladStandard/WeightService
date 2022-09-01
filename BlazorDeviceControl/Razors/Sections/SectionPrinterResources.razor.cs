@@ -5,7 +5,7 @@ using DataCore.Sql.Fields;
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionPrinterResources : RazorBase
+public partial class SectionPrinterResources : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

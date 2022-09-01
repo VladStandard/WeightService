@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
-using BlazorCore.Models.CssStyles;
+using BlazorCore.CssStyles;
 using DataCore.Localizations;
 using DataCore.Sql.Tables;
 

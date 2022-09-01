@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Razors.Components;
 /// <summary>
 /// MUD Blazor page.
 /// </summary>
-public partial class MudPage : RazorBase
+public partial class MudPage : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 
