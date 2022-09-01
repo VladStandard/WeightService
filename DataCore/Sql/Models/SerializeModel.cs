@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
 using static DataCore.ShareEnums;
@@ -152,7 +153,7 @@ public class SerializeModel : ISerializable
 
     public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-	    //info.AddValue(nameof(SqlConnect), SqlConnect);
+	    //
 	}
 
 	public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()

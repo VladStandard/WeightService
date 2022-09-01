@@ -1,10 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql.QueriesModels;
+namespace DataCore.Sql.Xml;
 
 [Serializable]
 public class LogQuickModel : TableModel, ISerializable, ITableModel
@@ -37,12 +38,11 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 	    Message = string.Empty;
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString() =>
-        base.ToString() +
+	public new virtual string ToString() =>
         $"{nameof(Scale)}: {Scale}. " +
         $"{nameof(Host)}: {Host}. " +
         $"{nameof(App)}: {App}. " +
@@ -70,18 +70,15 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
             Equals(Message, item.Message);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
         return Equals((LogQuickModel)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+    public new virtual int GetHashCode() => base.GetHashCode();
 
     public virtual bool EqualsNew()
     {
@@ -115,8 +112,8 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
         item.Member = Member;
         item.Icon = Icon;
         item.Message = Message;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual LogQuickModel CloneCast() => (LogQuickModel)Clone();

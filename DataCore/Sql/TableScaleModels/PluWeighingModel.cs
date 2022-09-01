@@ -55,22 +55,18 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
         RegNum = info.GetInt32(nameof(RegNum));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString()
-    {
-        return
-            $"{nameof(IsMarked)}: {IsMarked}. " +
-            $"{nameof(Kneading)}: {Kneading}. " +
-            $"{nameof(PluScale)}: {PluScale}. " + 
-            $"{nameof(Series)}: {Series}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+	    $"{nameof(Kneading)}: {Kneading}. " +
+	    $"{nameof(PluScale)}: {PluScale}. " + 
+	    $"{nameof(Series)}: {Series}. ";
 
     public virtual bool Equals(PluWeighingModel item)
     {
-        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
         if (!PluScale.Equals(item.PluScale))
             return false;
@@ -85,8 +81,8 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
             Equals(RegNum, item.RegNum);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -114,7 +110,9 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
             Equals(RegNum, default(int));
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         PluWeighingModel item = new();
         item.Kneading = Kneading;
@@ -124,8 +122,8 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
         item.TareWeight = TareWeight;
         item.ProductDt = ProductDt;
         item.RegNum = RegNum;
-		item.Setup(((TableModel)this).CloneCast());
-        return item;
+        item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual PluWeighingModel CloneCast() => (PluWeighingModel)Clone();
@@ -133,8 +131,9 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Kneading), Kneading);
         info.AddValue(nameof(PluScale), PluScale);
+        info.AddValue(nameof(Series), Series);
+        info.AddValue(nameof(Kneading), Kneading);
         info.AddValue(nameof(Sscc), Sscc);
         info.AddValue(nameof(NettoWeight), NettoWeight);
         info.AddValue(nameof(TareWeight), TareWeight);

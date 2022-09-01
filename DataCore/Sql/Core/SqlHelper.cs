@@ -3,7 +3,7 @@
 
 using System.Data.Common;
 
-namespace DataCore.Sql;
+namespace DataCore.Sql.Core;
 
 /// <summary>
 /// SQL helper.
@@ -73,7 +73,7 @@ public class SqlHelper
 
     public void SetConnectionString()
     {
-        string workstation = !string.IsNullOrEmpty(WorkstationId) ? $@"Workstation ID={WorkstationId}" : $@"Workstation ID={System.Net.Dns.GetHostName()}";
+        string workstation = !string.IsNullOrEmpty(WorkstationId) ? $@"Workstation ID={WorkstationId}" : $@"Workstation ID={Dns.GetHostName()}";
         ConnectionString = $@"Application Name={ApplicationName}; Connect Timeout={ConnectTimeout}; Packet Size={PacketSize}; {workstation};";
         Console.WriteLine($@"ConnectionString=""{ConnectionString}""");
     }

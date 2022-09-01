@@ -47,7 +47,7 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 
 	#region Public and private methods
 
-	public override string ToString()
+	public new virtual string ToString()
 	{
 		string strIdentityValue = string.Empty;
 		switch (Name)
@@ -71,7 +71,7 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 			Uid.Equals(item.Uid);
 	}
 
-	public override bool Equals(object obj)
+	public new virtual bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -79,7 +79,7 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 		return Equals((FieldIdentityModel)obj);
 	}
 
-	public override int GetHashCode() => Name switch
+	public new virtual int GetHashCode() => Name switch
 	{
 		ColumnName.Id => Id.GetHashCode(),
 		ColumnName.Uid => Uid.GetHashCode(),

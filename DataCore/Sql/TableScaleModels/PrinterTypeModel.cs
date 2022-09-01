@@ -27,7 +27,7 @@ public class PrinterTypeModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString() =>
+	public new virtual string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Name)}: {Name}. ";
 
@@ -38,7 +38,7 @@ public class PrinterTypeModel : TableModel, ISerializable, ITableModel
 			   Equals(Name, item.Name);
 	}
 
-	public override bool Equals(object obj)
+	public new virtual bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -57,11 +57,13 @@ public class PrinterTypeModel : TableModel, ISerializable, ITableModel
 			   Equals(Name, string.Empty);
 	}
 
+	public new virtual int GetHashCode() => base.GetHashCode();
+
 	public new virtual object Clone()
 	{
 		PrinterTypeModel item = new();
 		item.Name = Name;
-		item.Setup(((TableModel)this).CloneCast());
+		item.CloneSetup(base.CloneCast());
 		return item;
 	}
 

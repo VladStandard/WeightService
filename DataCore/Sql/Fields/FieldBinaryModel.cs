@@ -32,11 +32,11 @@ public class FieldBinaryModel : ICloneable
     /// </summary>
     public FieldBinaryModel() => Value = Array.Empty<byte>();
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString() =>
+	public new virtual string ToString() =>
         $"{nameof(Info)}: {Info}. ";
 
     public virtual bool Equals(FieldBinaryModel item)
@@ -46,18 +46,15 @@ public class FieldBinaryModel : ICloneable
         return DataUtils.ByteEquals(Value, item.Value);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((FieldBinaryModel)obj);
     }
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
+    public new virtual int GetHashCode() => base.GetHashCode();
 
     public virtual bool EqualsNew()
     {

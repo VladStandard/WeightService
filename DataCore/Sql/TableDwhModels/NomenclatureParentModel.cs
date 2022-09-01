@@ -19,6 +19,5 @@ public class NomenclatureParentModel
         //Parents = new string[0];
     }
 
-    public override string ToString() => 
-        $"{nameof(Parents)}: {string.Join(",", Parents)}. ";
+    public new virtual string ToString() => $"{nameof(Parents)}: {string.Join(",", Parents)}. ";
 }

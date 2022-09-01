@@ -37,15 +37,12 @@ public class PluLabelModel : TableModel, ISerializable, ITableModel
         Zpl = info.GetString(nameof(Zpl));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString()
-    {
-	    return
-            $"{nameof(PluWeighing)}: {PluWeighing?.ToString() ?? string.Empty}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(PluWeighing)}: {PluWeighing?.ToString() ?? string.Empty}. ";
 
     public virtual bool Equals(PluLabelModel item)
     {
@@ -58,8 +55,8 @@ public class PluLabelModel : TableModel, ISerializable, ITableModel
             Equals(Zpl, item.Zpl);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -80,14 +77,16 @@ public class PluLabelModel : TableModel, ISerializable, ITableModel
             Equals(Zpl, string.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         PluLabelModel item = new();
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
         item.Zpl = Zpl;
-		item.Setup(((TableModel)this).CloneCast());
-        return item;
+        item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();

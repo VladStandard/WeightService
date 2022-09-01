@@ -2,10 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
-using DataCore.Sql.TableDirectModels;
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql;
+namespace DataCore.Sql.Core;
 
 public class SqlViewModelHelper : BaseViewModel
 {
@@ -141,31 +140,31 @@ public class SqlViewModelHelper : BaseViewModel
     }
     public readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+31);
     public readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
-	//private OrderEntity? _order;
-	//public OrderEntity? Order
-	//{
-	//    get => _order;
-	//    set
-	//    {
-	//     _order = value;
-	//     OnPropertyChanged();
-	//    }
-	//}
-	private DateTime _productDate;
+    //private OrderEntity? _order;
+    //public OrderEntity? Order
+    //{
+    //    get => _order;
+    //    set
+    //    {
+    //     _order = value;
+    //     OnPropertyChanged();
+    //    }
+    //}
+    private DateTime _productDate;
     public DateTime ProductDate
     {
         get => _productDate;
         set
         {
-	        _productDate = value;
-	        OnPropertyChanged();
+            _productDate = value;
+            OnPropertyChanged();
         }
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public SqlViewModelHelper()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public SqlViewModelHelper()
     {
         SetPublish();
 
@@ -175,7 +174,7 @@ public class SqlViewModelHelper : BaseViewModel
         _area = null;
         _areas = new();
         //_order = new();
-		Setup(-1, "");
+        Setup(-1, "");
     }
 
     #endregion

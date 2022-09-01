@@ -4,7 +4,7 @@
 using DataCore.Sql.TableDirectModels;
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql;
+namespace DataCore.Sql.Core;
 
 public static partial class SqlUtils
 {

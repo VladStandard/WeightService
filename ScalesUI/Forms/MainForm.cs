@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using DataCore.Sql.Core;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;

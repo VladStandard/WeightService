@@ -73,14 +73,7 @@ public class SqlTableField<T> where T : IConvertible
 
     #region Public and private methods
 
-    /// <summary>
-    /// To string override.
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
-    {
-        return Value is string value ? value : string.Empty;
-    }
+    public new virtual string ToString() => Value is string value ? value : string.Empty;
 
     #endregion
 }

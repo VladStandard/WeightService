@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.QueriesModels;
 using DataCore.Sql.TableDwhModels;
 using DataCore.Sql.Tables;
+using DataCore.Sql.Xml;
 
 namespace DataCore.Sql.Controllers;
 

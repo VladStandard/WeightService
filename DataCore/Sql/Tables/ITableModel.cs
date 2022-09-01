@@ -5,6 +5,10 @@ namespace DataCore.Sql.Tables;
 
 public interface ITableModel
 {
-	//ColumnName IdentityName { get; set; }
-	//void Init();
+	string ToString();
+	bool Equals(object obj);
+	bool EqualsNew();
+	int GetHashCode();
+	object Clone();
+	void GetObjectData(SerializationInfo info, StreamingContext context);
 }

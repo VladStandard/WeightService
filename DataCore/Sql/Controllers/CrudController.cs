@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using FluentNHibernate.Conventions;
 using NHibernate;
@@ -16,11 +17,10 @@ public partial class CrudController
 
     private delegate void ExecCallback(ISession session);
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public CrudController()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public CrudController()
     {
         DataConfig = new();
     }
@@ -29,31 +29,7 @@ public partial class CrudController
 
     #region Public and private methods
 
-    public T[]? GetItemsWithConfig<T>() where T : TableModel, new()
-    {
-        T[]? result = null;
-        ExecuteTransaction(session =>
-        {
-            if (DataConfig != null)
-            {
-                result = DataConfig.OrderAsc
-                    ? session.Query<T>()
-                    .OrderBy(ent => ent)
-                    .Skip(DataConfig.PageNo * DataConfig.PageSize)
-                    .Take(DataConfig.PageSize)
-                    .ToArray()
-                    : session.Query<T>()
-                        .OrderByDescending(ent => ent)
-                        .Skip(DataConfig.PageNo * DataConfig.PageSize)
-                        .Take(DataConfig.PageSize)
-                        .ToArray()
-                    ;
-            }
-        });
-        return result;
-    }
-
-    private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
+	private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
         if (sqlCrudConfig.MaxResults > 0)

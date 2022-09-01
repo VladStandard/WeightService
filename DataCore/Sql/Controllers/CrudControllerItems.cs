@@ -10,6 +10,27 @@ public partial class CrudController
 {
 	#region Public and private methods
 
+	public T[] GetItemsWithConfig<T>() where T : TableModel, new()
+	{
+		T[] result = Array.Empty<T>();
+		ExecuteTransaction(session =>
+		{
+			result = DataConfig.OrderAsc
+					? session.Query<T>()
+						.OrderBy(ent => ent)
+						.Skip(DataConfig.PageNo * DataConfig.PageSize)
+						.Take(DataConfig.PageSize)
+						.ToArray()
+					: session.Query<T>()
+						.OrderByDescending(ent => ent)
+						.Skip(DataConfig.PageNo * DataConfig.PageSize)
+						.Take(DataConfig.PageSize)
+						.ToArray()
+				;
+		});
+		return result;
+	}
+	
 	private T[] GetItemsCore<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
 	{
 		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);

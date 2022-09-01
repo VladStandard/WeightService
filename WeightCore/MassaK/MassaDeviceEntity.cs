@@ -3,7 +3,7 @@
 
 using DataCore.Models;
 using DataCore.Protocols;
-using DataCore.Sql;
+using DataCore.Sql.Core;
 using MDSoft.SerialPorts;
 using System;
 using System.Runtime.CompilerServices;

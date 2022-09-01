@@ -39,18 +39,15 @@ public class PluScaleModel : TableModel, ISerializable, ITableModel
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString()
-    {
-        return
-            $"{nameof(IsMarked)}: {IsMarked}. " +
-            $"{nameof(IsActive)}: {IsActive}. " +
-            $"{nameof(Plu)}: {Plu.Name}. " +
-            $"{nameof(Scale)}: {Scale.Description}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+	    $"{nameof(IsActive)}: {IsActive}. " +
+	    $"{nameof(Plu)}: {Plu.Name}. " +
+	    $"{nameof(Scale)}: {Scale.Description}. ";
 
     public virtual bool Equals(PluScaleModel item)
     {
@@ -66,8 +63,8 @@ public class PluScaleModel : TableModel, ISerializable, ITableModel
             Equals(Scale, item.Scale);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
@@ -89,14 +86,16 @@ public class PluScaleModel : TableModel, ISerializable, ITableModel
             base.EqualsDefault();
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         PluScaleModel item = new();
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Scale = Scale.CloneCast();
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual PluScaleModel CloneCast() => (PluScaleModel)Clone();

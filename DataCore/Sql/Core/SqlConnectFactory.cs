@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql;
+namespace DataCore.Sql.Core;
 
 public class SqlConnectFactory
 {
@@ -87,12 +87,12 @@ public class SqlConnectFactory
         cmd.Connection = con;
         cmd.Parameters.Clear();
         if (parameters?.Length > 0)
-	        cmd.Parameters.AddRange(parameters);
+            cmd.Parameters.AddRange(parameters);
         //cmd.CommandType = CommandType.TableDirect;
         using SqlDataReader reader = cmd.ExecuteReader();
         if (reader.HasRows)
         {
-	        callback?.Invoke(reader);
+            callback?.Invoke(reader);
         }
         reader.Close();
         con.Close();

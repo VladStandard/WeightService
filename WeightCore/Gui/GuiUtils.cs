@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql;
+using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.Data.SqlClient;
 using System;

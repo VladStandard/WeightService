@@ -66,26 +66,45 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
 	    IsKneading = false;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ScaleModel(SerializationInfo info, StreamingContext context) : this()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public ScaleModel(SerializationInfo info, StreamingContext context) : this()
     {
-        ShippingLength = info.GetByte(nameof(ShippingLength));
+        TemplateDefault = (TemplateModel?)info.GetValue(nameof(TemplateDefault), typeof(TemplateModel));
+		TemplateSeries = (TemplateModel?)info.GetValue(nameof(TemplateSeries), typeof(TemplateModel));
+		WorkShop = (WorkShopModel?)info.GetValue(nameof(WorkShop), typeof(WorkShopModel));
+		Host = (HostModel?)info.GetValue(nameof(Host), typeof(HostModel));
+		PrinterMain = (PrinterModel?)info.GetValue(nameof(PrinterMain), typeof(PrinterModel));
+		PrinterShipping = (PrinterModel?)info.GetValue(nameof(PrinterShipping), typeof(PrinterModel));
+		ShippingLength = info.GetByte(nameof(ShippingLength));
 		Description = info.GetString(nameof(Description));
-    }
+		DeviceIp = info.GetString(nameof(DeviceIp));
+		DevicePort = info.GetInt16(nameof(DevicePort));
+		DeviceMac = info.GetString(nameof(DeviceMac));
+		DeviceSendTimeout = (short?)info.GetValue(nameof(DeviceSendTimeout), typeof(short));
+		DeviceReceiveTimeout = (short?)info.GetValue(nameof(DeviceReceiveTimeout), typeof(short));
+		DeviceComPort = info.GetString(nameof(DeviceComPort));
+		ZebraIp = info.GetString(nameof(ZebraIp));
+		ZebraPort = (short?)info.GetValue(nameof(ZebraPort), typeof(short));
+		Number = info.GetInt32(nameof(Number));
+		Counter = info.GetInt32(nameof(Counter));
+		ScaleFactor = (int?)info.GetValue(nameof(ScaleFactor), typeof(int));
+		IsShipping = info.GetBoolean(nameof(IsShipping));
+		IsOrder = info.GetBoolean(nameof(IsOrder));
+		IsKneading = info.GetBoolean(nameof(IsKneading));
+	}
 
 	#endregion
 
-	#region Public and private methods - override
+	#region Public and private methods
 
-    public override string ToString()
-    {
-        return
-			$"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Description)}: {Description}. " +
-			$"{nameof(DeviceIp)}: {DeviceIp}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+	    $"{nameof(Description)}: {Description}. " +
+	    $"{nameof(DeviceIp)}: {DeviceIp}. ";
 
     public virtual bool Equals(ScaleModel item)
     {
@@ -121,8 +140,8 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
                ShippingLength.Equals(item.ShippingLength);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -167,7 +186,9 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
                Equals(ShippingLength, (byte)0);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         ScaleModel item = new();
         item.TemplateDefault = TemplateDefault?.CloneCast();
@@ -192,11 +213,43 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
         item.Number = Number;
         item.Counter = Counter;
         item.ScaleFactor = ScaleFactor;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual ScaleModel CloneCast() => (ScaleModel)Clone();
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(TemplateDefault), TemplateDefault);
+        info.AddValue(nameof(TemplateSeries), TemplateSeries);
+        info.AddValue(nameof(WorkShop), WorkShop);
+        info.AddValue(nameof(Host), Host);
+        info.AddValue(nameof(PrinterMain), PrinterMain);
+        info.AddValue(nameof(PrinterShipping), PrinterShipping);
+        info.AddValue(nameof(ShippingLength), ShippingLength);
+        info.AddValue(nameof(Description), Description);
+        info.AddValue(nameof(DeviceIp), DeviceIp);
+        info.AddValue(nameof(DevicePort), DevicePort);
+        info.AddValue(nameof(DeviceMac), DeviceMac);
+        info.AddValue(nameof(DeviceSendTimeout), DeviceSendTimeout);
+        info.AddValue(nameof(DeviceReceiveTimeout), DeviceReceiveTimeout);
+        info.AddValue(nameof(DeviceComPort), DeviceComPort);
+        info.AddValue(nameof(ZebraIp), ZebraIp);
+        info.AddValue(nameof(ZebraPort), ZebraPort);
+        info.AddValue(nameof(Number), Number);
+        info.AddValue(nameof(Counter), Counter);
+        info.AddValue(nameof(ScaleFactor), ScaleFactor);
+        info.AddValue(nameof(IsShipping), IsShipping);
+        info.AddValue(nameof(IsOrder), IsOrder);
+        info.AddValue(nameof(IsKneading), IsKneading);
+	}
 
     #endregion
 }

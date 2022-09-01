@@ -66,11 +66,11 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
         IsMarked = info.GetBoolean(nameof(IsMarked));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString()
+	public new virtual string ToString()
     {
         string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
         string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
@@ -78,7 +78,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
-    public override int GetHashCode() => Identity.GetHashCode();
+    public new virtual int GetHashCode() => Identity.GetHashCode();
 
     public virtual bool Equals(TableModel item)
     {
@@ -90,7 +90,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
             Equals(IsMarked, item.IsMarked);
     }
 
-    public override bool Equals(object obj)
+    public new virtual bool Equals(object obj)
     {
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -98,9 +98,15 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
         return Equals((TableModel)obj);
     }
 
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        info.AddValue(nameof(Identity), Identity);
+	    base.GetObjectData(info, context);
+		info.AddValue(nameof(Identity), Identity);
         info.AddValue(nameof(ChangeDt), ChangeDt);
         info.AddValue(nameof(CreateDt), CreateDt);
         info.AddValue(nameof(IsMarked), IsMarked);
@@ -124,11 +130,11 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
 
     public virtual TableModel CloneCast() => (TableModel)Clone();
 
-    public virtual void Setup(TableModel baseItem)
+    public virtual void CloneSetup(TableModel item)
     {
-        CreateDt = baseItem.CreateDt;
-        ChangeDt = baseItem.ChangeDt;
-        IsMarked = baseItem.IsMarked;
+        CreateDt = item.CreateDt;
+        ChangeDt = item.ChangeDt;
+        IsMarked = item.IsMarked;
     }
 
     public virtual void SetDt()

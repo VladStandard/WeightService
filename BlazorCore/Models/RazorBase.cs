@@ -13,6 +13,7 @@ using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using DataCore.Sql.Core;
 using static DataCore.ShareEnums;
 using Environment = System.Environment;
 

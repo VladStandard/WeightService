@@ -4,7 +4,7 @@
 using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
-using DataCore.Sql;
+using DataCore.Sql.Core;
 using DataCore.Sql.Fields;
 using DataCore.Sql.Tables;
 using FluentValidation;
@@ -78,43 +78,6 @@ public class DataCoreHelper
 		}
 	}
 
-	private IValidator<T> GetSqlValidator<T>(T item) where T : TableModel, new()
-	{
-		return item switch
-		{
-			AccessModel => new AccessValidator(),
-			AppModel => new AppValidator(),
-			BarCodeModel => new BarCodeValidator(),
-			BarCodeTypeModel => new BarCodeTypeValidator(),
-			ContragentModel => new ContragentValidator(),
-			HostModel => new HostValidator(),
-			LogModel => new LogValidator(),
-			LogTypeModel => new LogTypeValidator(),
-			NomenclatureModel => new NomenclatureValidator(),
-			OrderModel => new OrderValidator(),
-			OrderWeighingModel => new OrderWeighingValidator(),
-			OrganizationModel => new OrganizationValidator(),
-			PluModel => new PluValidator(),
-			PluLabelModel => new PluLabelValidator(),
-			PluObsoleteModel => new PluObsoleteValidator(),
-			PluScaleModel => new PluScaleValidator(),
-			PluWeighingModel => new PluWeighingValidator(),
-			PrinterModel => new PrinterValidator(),
-			PrinterResourceModel => new PrinterResourceValidator(),
-			PrinterTypeModel => new PrinterTypeValidator(),
-			ProductionFacilityModel => new ProductionFacilityValidator(),
-			ProductSeriesModel => new ProductSeriesValidator(),
-			ScaleModel => new ScaleValidator(),
-			VersionModel => new VersionValidator(),
-			TaskModel => new TaskValidator(),
-			TaskTypeModel => new TaskTypeValidator(),
-			TemplateModel => new TemplateValidator(),
-			TemplateResourceModel => new TemplateResourceValidator(),
-			WorkShopModel => new WorkShopValidator(),
-			_ => throw new NotImplementedException()
-		};
-	}
-
 	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : TableModel, new()
 	{
 		AssertAction(() =>
@@ -122,7 +85,7 @@ public class DataCoreHelper
 			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
 				// Arrange.
-				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
+				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, maxResults, isShowMarked, true);
 				T[]? items = DataAccess.Crud.GetItems<T>(sqlCrudConfig);
 				// Act.
@@ -156,7 +119,7 @@ public class DataCoreHelper
 			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
 				// Arrange.
-				IValidator<T> validator = GetSqlValidator(Substitute.For<T>());
+				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, isShowMarked, true);
 				List<T> items = DataAccess.Crud.GetList<T>(sqlCrudConfig);
 				// Act.
@@ -187,7 +150,7 @@ public class DataCoreHelper
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableModel, new()
 	{
 		// Arrange.
-		IValidator<T> validator = GetSqlValidator(item);
+		IValidator<T> validator = SqlUtils.GetSqlValidator(item);
 		// Act & Assert.
 		AssertValidate(item, validator, assertResult);
 	}

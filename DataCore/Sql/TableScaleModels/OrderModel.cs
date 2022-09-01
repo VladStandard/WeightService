@@ -37,19 +37,16 @@ public class OrderModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString()
-    {
-        return
-			$"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Name)}: {Name}. " + 
-			$"{nameof(BeginDt)}: {BeginDt}. " +
-			$"{nameof(EndDt)}: {EndDt}. " + 
-			$"{nameof(ProdDt)}: {ProdDt}. " +
-			$"{nameof(BoxCount)}: {BoxCount}. " +
-			$"{nameof(PalletCount)}: {PalletCount}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+		$"{nameof(Name)}: {Name}. " + 
+		$"{nameof(BeginDt)}: {BeginDt}. " +
+		$"{nameof(EndDt)}: {EndDt}. " + 
+		$"{nameof(ProdDt)}: {ProdDt}. " +
+		$"{nameof(BoxCount)}: {BoxCount}. " +
+		$"{nameof(PalletCount)}: {PalletCount}. ";
 
-    public virtual bool Equals(OrderModel item)
+	public virtual bool Equals(OrderModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         return 
@@ -62,8 +59,8 @@ public class OrderModel : TableModel, ISerializable, ITableModel
             Equals(PalletCount, item.PalletCount);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -87,7 +84,9 @@ public class OrderModel : TableModel, ISerializable, ITableModel
             Equals(PalletCount, 0);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         OrderModel item = new();
         item.Name = Name;
@@ -96,8 +95,8 @@ public class OrderModel : TableModel, ISerializable, ITableModel
         item.ProdDt = ProdDt;
         item.BoxCount = BoxCount;
         item.PalletCount = PalletCount;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual OrderModel CloneCast() => (OrderModel)Clone();

@@ -27,12 +27,12 @@ public class OrganizationModel : TableModel, ISerializable, ITableModel
 		Xml = string.Empty;
 	}
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Gln)}: {Gln}. " +
         $"{nameof(Xml)}: {Xml.Length}. ";
@@ -46,8 +46,8 @@ public class OrganizationModel : TableModel, ISerializable, ITableModel
                Equals(Xml, item.Xml);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -68,14 +68,16 @@ public class OrganizationModel : TableModel, ISerializable, ITableModel
             Equals(Xml, string.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         OrganizationModel item = new();
         item.Name = Name;
         item.Gln = Gln;
         item.Xml = Xml;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual OrganizationModel CloneCast() => (OrganizationModel)Clone();

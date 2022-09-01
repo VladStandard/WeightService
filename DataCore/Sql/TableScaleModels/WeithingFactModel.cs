@@ -54,8 +54,7 @@
 //        Kneading = null;
 //    }
 
-//    public override string ToString()
-//    {
+//    public new virtual string ToString() =>
 //        string strPlu = Plu != null ? Plu.Identity.Id.ToString() : "null";
 //        string strScale = Scale != null ? Scale.Identity.Id.ToString() : "null";
 //        string strSeries = Serie != null ? Serie.Identity.Id.ToString() : "null";
@@ -72,11 +71,9 @@
 //			$"{nameof(ProductDate)}: {ProductDate}." +
 //			$"{nameof(RegNum)}: {RegNum}." +
 //			$"{nameof(Kneading)}: {Kneading}.";
-//    }
 
 //    public virtual bool Equals(WeithingFactEntity item)
 //    {
-//        if (item is null) return false;
 //        if (ReferenceEquals(this, item)) return true;
 //        if (!Plu.Equals(item.Plu))
 //            return false;
@@ -94,7 +91,7 @@
 //               Equals(Kneading, item.Kneading);
 //    }
 
-//    public override bool Equals(object obj)
+//    public new virtual bool Equals(object obj)
 //    {
 //if (ReferenceEquals(null, obj)) return false;
 //if (ReferenceEquals(this, obj)) return true;

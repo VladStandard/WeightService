@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.QueriesModels;
+namespace DataCore.Sql.Xml;
 
 [Serializable]
 public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
@@ -32,8 +32,8 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString() => base.ToString() +
-        $"{nameof(WeithingDate)}: {WeithingDate}. " +
+	public new virtual string ToString() =>
+		$"{nameof(WeithingDate)}: {WeithingDate}. " +
         $"{nameof(Count)}: {Count}. " +
         $"{nameof(Scale)}: {Scale}. " +
         $"{nameof(Host)}: {Host}. " +
@@ -51,15 +51,15 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
             Equals(Printer, item.Printer);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
         return Equals((WeithingFactSummaryModel)obj);
     }
 
-    public override int GetHashCode() => base.GetHashCode();
+    public new virtual int GetHashCode() => base.GetHashCode();
 
     public virtual bool EqualsNew()
     {
@@ -85,8 +85,8 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
         item.Scale = Scale;
         item.Host = Host;
         item.Printer = Printer;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual WeithingFactSummaryModel CloneCast() => (WeithingFactSummaryModel)Clone();

@@ -41,21 +41,18 @@ public class LogModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString()
-    {
-        return
-			$"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Host)}: {Host?.Name ?? "null"}. " +
-			$"{nameof(App)}: {App?.Name ?? "null"}. " +
-			$"{nameof(LogType)}: {LogType?.Icon ?? "null"}. " +
-			$"{nameof(Version)}: {Version}. " +
-			$"{nameof(File)}: {File}. " +
-			$"{nameof(Line)}: {Line}. " +
-			$"{nameof(Member)}: {Member}. " +
-			$"{nameof(Message)}: {Message}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+		$"{nameof(Host)}: {Host?.Name ?? "null"}. " +
+		$"{nameof(App)}: {App?.Name ?? "null"}. " +
+		$"{nameof(LogType)}: {LogType?.Icon ?? "null"}. " +
+		$"{nameof(Version)}: {Version}. " +
+		$"{nameof(File)}: {File}. " +
+		$"{nameof(Line)}: {Line}. " +
+		$"{nameof(Member)}: {Member}. " +
+		$"{nameof(Message)}: {Message}. ";
 
-    public virtual bool Equals(LogModel item)
+	public virtual bool Equals(LogModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         if (Host != null && item.Host != null && !Host.Equals(item.Host))
@@ -72,8 +69,8 @@ public class LogModel : TableModel, ISerializable, ITableModel
                Equals(Message, item.Message);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -101,7 +98,9 @@ public class LogModel : TableModel, ISerializable, ITableModel
                Equals(Message, string.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         LogModel item = new();
         item.Host = Host?.CloneCast();
@@ -112,8 +111,8 @@ public class LogModel : TableModel, ISerializable, ITableModel
         item.Line = Line;
         item.Member = Member;
         item.Message = Message;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual LogModel CloneCast() => (LogModel)Clone();

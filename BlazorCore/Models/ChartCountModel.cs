@@ -14,8 +14,5 @@ public class ChartCountModel
         Count = count;
     }
 
-    public override string ToString()
-    {
-        return $"{nameof(Date)}: {Date}. {nameof(Count)}: {Count}. ";
-    }
+    public override string ToString() => $"{nameof(Date)}: {Date}. {nameof(Count)}: {Count}. ";
 }

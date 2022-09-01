@@ -3,6 +3,7 @@
 
 using System;
 using DataCore.Sql;
+using DataCore.Sql.Core;
 
 namespace DataCoreTests.Sql;
 

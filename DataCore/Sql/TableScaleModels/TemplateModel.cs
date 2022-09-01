@@ -48,8 +48,8 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(CategoryId)}: {CategoryId}. " +
         $"{nameof(IdRRef)}: {IdRRef}. " +
         $"{nameof(Title)}: {Title}. " +
@@ -67,8 +67,8 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
             Equals(Title, item.Title);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -90,15 +90,17 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
             ImageData.EqualsDefault();
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         TemplateModel item = new();
         item.CategoryId = CategoryId;
         item.IdRRef = IdRRef;
         item.Title = Title;
         item.ImageData = ImageData.CloneCast();
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual TemplateModel CloneCast() => (TemplateModel)Clone();

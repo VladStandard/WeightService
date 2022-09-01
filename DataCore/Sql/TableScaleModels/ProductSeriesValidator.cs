@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "___".
+/// Table validation "ProductSeries".
 /// </summary>
 public class ProductSeriesValidator : TableValidator
 {

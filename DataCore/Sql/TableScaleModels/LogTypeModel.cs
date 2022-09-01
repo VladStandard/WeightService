@@ -29,8 +29,8 @@ public class LogTypeModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Number)}: {Number}. " +
         $"{nameof(Icon)}: {Icon}. ";
 
@@ -42,8 +42,8 @@ public class LogTypeModel : TableModel, ISerializable, ITableModel
                Equals(Icon, item.Icon);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -63,13 +63,15 @@ public class LogTypeModel : TableModel, ISerializable, ITableModel
             Equals(Icon, string.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         LogTypeModel item = new();
         item.Number = Number;
         item.Icon = Icon;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual LogTypeModel CloneCast() => (LogTypeModel)Clone();

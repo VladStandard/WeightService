@@ -79,31 +79,14 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString()
-    {
-        return
-            $"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Template)}: {Template}. " +
-			$"{nameof(Scale)}: {Scale}. " +
-			$"{nameof(Nomenclature)}: {Nomenclature}. " +
-			$"{nameof(GoodsName)}: {GoodsName}. " +
-			$"{nameof(GoodsFullName)}: {GoodsFullName}. " +
-			$"{nameof(GoodsDescription)}: {GoodsDescription}. " +
-			$"{nameof(Gtin)}: {Gtin}. " +
-			$"{nameof(Ean13)}: {Ean13}. " +
-			$"{nameof(Itf14)}: {Itf14}. " +
-			$"{nameof(GoodsShelfLifeDays)}: {GoodsShelfLifeDays}. " +
-			$"{nameof(GoodsTareWeight)}: {GoodsTareWeight}. " +
-			$"{nameof(GoodsBoxQuantly)}: {GoodsBoxQuantly}. " +
-			$"{nameof(PluNumber)}: {PluNumber}. " +
-			$"{nameof(Active)}: {Active}. " +
-			$"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
-			$"{nameof(NominalWeight)}: {NominalWeight}. " +
-			$"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
-			$"{nameof(IsCheckWeight)}: {IsCheckWeight}. ";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+		$"{nameof(Template)}: {Template}. " +
+		$"{nameof(Scale)}: {Scale}. " +
+		$"{nameof(Nomenclature)}: {Nomenclature}. " +
+		$"{nameof(GoodsName)}: {GoodsName}. ";
 
-    public virtual bool Equals(PluObsoleteModel item)
+	public virtual bool Equals(PluObsoleteModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         if (!Template.Equals(item.Template))
@@ -130,8 +113,8 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
                Equals(IsCheckWeight, item.IsCheckWeight);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -169,7 +152,9 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
                Equals(IsCheckWeight, false);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         PluObsoleteModel item = new();
         item.Template = Template.CloneCast();
@@ -190,8 +175,8 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
         item.NominalWeight = NominalWeight;
         item.LowerWeightThreshold = LowerWeightThreshold;
         item.IsCheckWeight = IsCheckWeight;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual PluObsoleteModel CloneCast() => (PluObsoleteModel)Clone();

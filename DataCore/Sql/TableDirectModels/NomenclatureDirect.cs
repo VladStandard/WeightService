@@ -41,12 +41,12 @@ public class NomenclatureDirect : SerializeModel, ISerializable
         Load();
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 		if (obj is not NomenclatureDirect item)

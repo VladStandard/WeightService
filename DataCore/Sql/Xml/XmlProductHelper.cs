@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql.QueriesModels;
+namespace DataCore.Sql.Xml;
 
 public class XmlProductHelper
 {
@@ -40,9 +40,9 @@ public class XmlProductHelper
         return value;
     }
 
-    public List<ProductUnitEntity> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
+    public List<XmlProductUnitModel> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
     {
-        List<ProductUnitEntity>? entities = new();
+        List<XmlProductUnitModel>? entities = new();
         List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
         if (xmlEntities.Any())
         {
@@ -53,7 +53,7 @@ public class XmlProductHelper
                 {
                     foreach (XElement? xmlChild in xmlChilds)
                     {
-                        ProductUnitEntity? item = new()
+                        XmlProductUnitModel? item = new()
                         {
                             Heft = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
                             Capacity = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
@@ -70,9 +70,9 @@ public class XmlProductHelper
         return entities;
     }
 
-    public List<ProductBarcodeEntity> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
+    public List<XmlProductBarcodeModel> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
     {
-        List<ProductBarcodeEntity>? entities = new();
+        List<XmlProductBarcodeModel>? entities = new();
         List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
         if (xmlEntities.Any())
         {
@@ -83,7 +83,7 @@ public class XmlProductHelper
                 {
                     foreach (XElement? xmlChild in xmlChilds)
                     {
-                        ProductBarcodeEntity? item = new()
+                        XmlProductBarcodeModel? item = new()
                         {
                             Type = GetAttribute<string>(xmlChild, "Type") ?? string.Empty,
                             Barcode = GetAttribute<string>(xmlChild, "Barcode") ?? string.Empty,
@@ -96,9 +96,9 @@ public class XmlProductHelper
         return entities;
     }
 
-    public List<ProductBoxEntity> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
+    public List<XmlProductBoxModel> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
     {
-        List<ProductBoxEntity>? entities = new();
+        List<XmlProductBoxModel>? items = new();
         List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
         if (xmlEntities.Any())
         {
@@ -109,7 +109,7 @@ public class XmlProductHelper
                 {
                     foreach (XElement? xmlChild in xmlChilds)
                     {
-                        ProductBoxEntity? item = new()
+	                    XmlProductBoxModel? item = new()
                         {
                             Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
                             Heft = StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
@@ -119,13 +119,13 @@ public class XmlProductHelper
                             Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
                             Unit = GetAttribute<string>(xmlChild, "Unit") ?? string.Empty
                         };
-                        entities.Add(item);
+                        items.Add(item);
                         Console.WriteLine($"{nameof(item)}: {item}");
                     }
                 }
             }
         }
-        return entities;
+        return items;
     }
 
     public XmlProductModel GetXmlProduct(string? value)
@@ -269,7 +269,7 @@ public class XmlProductHelper
 				case "GTIN":
 					if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
 					{
-						ProductBarcodeEntity barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
+						XmlProductBarcodeModel barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
 							x => x.Type.Equals("EAN13"));
 						if (barcodeGtin != null)
 						{
@@ -280,7 +280,7 @@ public class XmlProductHelper
 				case "EAN13":
 					if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
 					{
-						ProductBarcodeEntity barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
+						XmlProductBarcodeModel barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
 							x => x.Type.Equals("EAN13"));
 						if (barcodeEan13 != null)
 						{
@@ -291,7 +291,7 @@ public class XmlProductHelper
 				case "ITF14":
 					if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
 					{
-						ProductBarcodeEntity barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
+						XmlProductBarcodeModel barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
 						x => x.Type.Equals("ITF14"));
 						if (barcodeItf14 != null)
 							return (T)Convert.ChangeType(barcodeItf14.Barcode, typeof(string));

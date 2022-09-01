@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore.Sql;
+namespace DataCore.Sql.Core;
 
 /// <summary>
 /// SQL extensions.
@@ -25,6 +25,6 @@ public static class SqlExtensions
         }
         return false;
     }
-    
+
     #endregion
 }

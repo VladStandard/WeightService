@@ -23,9 +23,9 @@ public class DataConfigurationModel
     #region Public and private methods
 
     public override string ToString() =>
-            $"{nameof(OrderAsc)}: {OrderAsc}. " +
-            $"{nameof(PageNo)}: {PageNo}. " +
-            $"{nameof(PageSize)}: {PageSize}.";
+        $"{nameof(OrderAsc)}: {OrderAsc}. " +
+        $"{nameof(PageNo)}: {PageNo}. " +
+        $"{nameof(PageSize)}: {PageSize}.";
 
     #endregion
 }

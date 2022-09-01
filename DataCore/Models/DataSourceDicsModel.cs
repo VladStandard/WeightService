@@ -19,14 +19,11 @@ public class DataSourceDicsHelper
 
     #region Public and private methods
 
-    public override string ToString()
-    {
-        return
-            $"{nameof(GetTemplateCategories)}: {GetTemplateCategories().Count}. " +
-            $"{nameof(GetTemplateLanguagesEng)}: {GetTemplateLanguagesEng().Count}. " +
-            $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}. " +
-            $"{nameof(GetTemplateIsDebug)}: {GetTemplateIsDebug().Count}. ";
-    }
+    public override string ToString() =>
+	    $"{nameof(GetTemplateCategories)}: {GetTemplateCategories().Count}. " +
+	    $"{nameof(GetTemplateLanguagesEng)}: {GetTemplateLanguagesEng().Count}. " +
+	    $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}. " +
+	    $"{nameof(GetTemplateIsDebug)}: {GetTemplateIsDebug().Count}. ";
 
     public List<TypeModel<string>> GetTemplateCategories()
     {

@@ -16,43 +16,56 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
 	[XmlElement] public virtual ScaleModel Scale { get; set; }
 	[XmlElement] public virtual bool IsClose { get; set; }
 	[XmlElement] public virtual string Sscc { get; set; }
+	[XmlElement] public virtual Guid Uid { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ProductSeriesModel() : base(ColumnName.Id)
+	public ProductSeriesModel() : base(ColumnName.Id)
     {
 	    Scale = new();
 	    IsClose = false;
 	    Sscc = string.Empty;
+	    Uid = Guid.Empty;
+    }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    private ProductSeriesModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+		Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
+		IsClose = info.GetBoolean(nameof(IsClose));
+		Sscc = info.GetString(nameof(Sscc));
+		Uid = (Guid)info.GetValue(nameof(Sscc), typeof(Guid));
 	}
 
 	#endregion
 
 	#region Public and private methods
 
-	public override string ToString()
-    {
-        return
-			$"{nameof(IsMarked)}: {IsMarked}. " +
-			$"{nameof(Scale)}: {Scale}. " +
-			$"{nameof(IsClose)}: {IsClose}. " +
-			$"{nameof(Sscc)}: {Sscc}.";
-    }
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
+		$"{nameof(Scale)}: {Scale}. " +
+		$"{nameof(IsClose)}: {IsClose}. " +
+		$"{nameof(Sscc)}: {Sscc}.";
 
-    public virtual bool Equals(ProductSeriesModel item)
+	public virtual bool Equals(ProductSeriesModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         if (!Scale.Equals(item.Scale))
             return false;
-        return base.Equals(item) &&
-               Equals(CreateDt, item.CreateDt) &&
-               Equals(IsClose, item.IsClose) &&
-               Equals(Sscc, item.Sscc);
+        return 
+	        base.Equals(item) &&
+            Equals(CreateDt, item.CreateDt) &&
+            Equals(IsClose, item.IsClose) &&
+            Equals(Sscc, item.Sscc);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -68,10 +81,14 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
     {
         if (!Scale.EqualsDefault())
             return false;
-        return base.EqualsDefault() &&
-               Equals(IsClose, false) &&
-               Equals(Sscc, string.Empty);
+        return 
+	        base.EqualsDefault() &&
+            Equals(IsClose, false) &&
+            Equals(Sscc, string.Empty) &&
+	        Equals(Uid, Guid.Empty);
     }
+
+    public new virtual int GetHashCode() => base.GetHashCode();
 
     public new virtual object Clone()
     {
@@ -79,11 +96,26 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
         item.Scale = Scale.CloneCast();
         item.IsClose = IsClose;
         item.Sscc = Sscc;
-        item.Setup(((TableModel)this).CloneCast());
+        item.Uid = Uid;
+        item.CloneSetup(base.CloneCast());
         return item;
     }
 
     public new virtual ProductSeriesModel CloneCast() => (ProductSeriesModel)Clone();
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(Scale), Scale);
+        info.AddValue(nameof(IsClose), IsClose);
+        info.AddValue(nameof(Sscc), Sscc);
+        info.AddValue(nameof(Uid), Uid);
+    }
 
     #endregion
 }

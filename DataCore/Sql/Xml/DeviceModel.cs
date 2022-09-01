@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.QueriesModels;
+namespace DataCore.Sql.Xml;
 
 [Serializable]
 public class DeviceModel : TableModel, ISerializable, ITableModel
@@ -20,20 +20,27 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
 	    Scale = new();
 	}
 
-    #endregion
-
-    #region Public and private methods - override
-
-    public override string ToString() =>
-        $"{nameof(Scale)}: {Scale}.";
-
-    public override int GetHashCode()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    private DeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        return Scale.GetHashCode();
+        Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
     }
 
-    public override bool Equals(object obj)
-    {
+	#endregion
+
+	#region Public and private methods
+
+	public new virtual string ToString() =>
+		$"{nameof(Scale)}: {Scale}.";
+
+    public new virtual int GetHashCode() => Scale.GetHashCode();
+
+	public new virtual bool Equals(object obj)
+	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 		if (obj is DeviceModel item)
@@ -66,11 +73,22 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
         {
             Scale = Scale.CloneCast(),
         };
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual DeviceModel CloneCast() => (DeviceModel)Clone();
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+		base.GetObjectData(info, context);
+        info.AddValue(nameof(Scale), Scale);
+    }
 
     #endregion
 }

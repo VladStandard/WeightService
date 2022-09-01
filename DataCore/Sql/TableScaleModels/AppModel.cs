@@ -37,7 +37,7 @@ public class AppModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString() =>
+	public new virtual string ToString() =>
 	    $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
@@ -48,8 +48,8 @@ public class AppModel : TableModel, ISerializable, ITableModel
                Equals(Name, item.Name);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -67,12 +67,14 @@ public class AppModel : TableModel, ISerializable, ITableModel
             Equals(Name, string.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         AppModel item = new();
         item.Name = Name;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual AppModel CloneCast() => (AppModel)Clone();

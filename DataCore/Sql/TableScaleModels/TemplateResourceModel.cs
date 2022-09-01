@@ -36,8 +36,8 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-    public override string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Description)}: {Description}. " +
         $"{nameof(Type)}: {Type}. " +
@@ -57,8 +57,8 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
             Equals(IdRRef, item.IdRRef);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -81,7 +81,9 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
             Equals(IdRRef, Guid.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         TemplateResourceModel item = new();
         item.Name = Name;
@@ -89,8 +91,8 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
         item.Type = Type;
         item.IdRRef = IdRRef;
         item.ImageData = ImageData.CloneCast();
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual TemplateResourceModel CloneCast() => (TemplateResourceModel)Clone();

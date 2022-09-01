@@ -83,13 +83,13 @@ public class FieldFilterModel
             Equals(Value, item.Value);
     }
 
-    /// <summary>
-    /// Equals.
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
-    public override bool Equals(object obj)
-    {
+	/// <summary>
+	/// Equals.
+	/// </summary>
+	/// <param name="obj"></param>
+	/// <returns></returns>
+	public new virtual bool Equals(object obj)
+	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 	    if (obj.GetType() != GetType()) return false;
@@ -100,13 +100,9 @@ public class FieldFilterModel
     /// Get hash code.
     /// </summary>
     /// <returns></returns>
-    public override int GetHashCode() => (Name, Comparer, Value).GetHashCode();
+    public new virtual int GetHashCode() => (Name, Comparer, Value).GetHashCode();
 
-    /// <summary>
-    /// To string override.
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString() =>
+	public new virtual string ToString() =>
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Comparer)}: {Comparer}. " +
         $"{nameof(Value)}: {Value}. ";

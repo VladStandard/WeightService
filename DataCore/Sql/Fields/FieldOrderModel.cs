@@ -52,18 +52,18 @@ public class FieldOrderModel
             Direction.Equals(item.Direction);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 	    if (obj.GetType() != GetType()) return false;
 	    return Equals((FieldOrderModel)obj);
     }
 
-    public override int GetHashCode() => (Name, Direction).GetHashCode();
+	public new virtual int GetHashCode() => (Name, Direction).GetHashCode();
 
-    public override string ToString() => 
-	    $"{nameof(Name)}: {Name}. " +
+	public new virtual string ToString() =>
+		$"{nameof(Name)}: {Name}. " +
         $"{nameof(Direction)}: {Direction}. ";
 
     #endregion

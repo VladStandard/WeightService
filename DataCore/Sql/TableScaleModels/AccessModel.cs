@@ -36,24 +36,16 @@ public class AccessModel : TableModel, ISerializable, ITableModel
         Rights = info.GetByte(nameof(Rights));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    /// <summary>
-    /// To string.
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(User)}: {User}. " +
-        $"{nameof(Rights)}: {Rights}. ";
-
-    /// <summary>
-    /// To short string.
-    /// </summary>
-    /// <returns></returns>
-    public virtual string ToStringShort() =>
+	/// <summary>
+	/// To string.
+	/// </summary>
+	/// <returns></returns>
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(User)}: {User}. " +
         $"{nameof(Rights)}: {Rights}. ";
 
@@ -65,8 +57,8 @@ public class AccessModel : TableModel, ISerializable, ITableModel
                Equals(Rights, item.Rights);
     }
 
-    public override bool Equals(object obj)
-    {
+    public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -85,23 +77,30 @@ public class AccessModel : TableModel, ISerializable, ITableModel
                Equals(Rights, (byte)0x00);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         AccessModel item = new();
         item.User = User;
         item.Rights = Rights;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual AccessModel CloneCast() => (AccessModel)Clone();
 
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
     public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(User), User);
-        info.AddValue(nameof(Rights), Rights);
-    }
+		info.AddValue(nameof(User), User);
+		info.AddValue(nameof(Rights), Rights);
+	}
 
     #endregion
 }

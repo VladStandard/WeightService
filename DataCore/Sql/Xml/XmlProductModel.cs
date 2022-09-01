@@ -3,13 +3,13 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.QueriesModels;
+namespace DataCore.Sql.Xml;
 
 /// <summary>
 /// XML-класс продукта.
 /// </summary>
 [Serializable]
-public class XmlProductModel : ITableModel
+public class XmlProductModel : ISerializable, ITableModel
 {
     #region Public and private fields, properties, constructor
 
@@ -38,17 +38,16 @@ public class XmlProductModel : ITableModel
         set => ProductShelfLife = $"{value}  сут.";
     }
     public string Brand { get; set; }
-    public List<ProductUnitEntity> Units { get; set; }
-    public List<ProductBarcodeEntity> Barcodes { get; set; }
-    public List<ProductBoxEntity> Boxes { get; set; }
-    public List<ProductBoxEntity> Packs { get; set; }
+    public List<XmlProductUnitModel> Units { get; set; }
+    public List<XmlProductBarcodeModel> Barcodes { get; set; }
+    public List<XmlProductBoxModel> Boxes { get; set; }
+    public List<XmlProductBoxModel> Packs { get; set; }
     public string NameFull { get; set; }
     public string AdditionalDescriptionOfNomenclature { get; set; }
 
-    #endregion
-
-    #region Constructor and destructor
-
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public XmlProductModel()
     {
 	    Category = string.Empty;
@@ -69,32 +68,57 @@ public class XmlProductModel : ITableModel
 	    AdditionalDescriptionOfNomenclature = string.Empty;
     }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    private XmlProductModel(SerializationInfo info, StreamingContext context)
+    {
+	    Category = info.GetString(nameof(Category));
+	    Code = info.GetString(nameof(Code));
+	    Description = info.GetString(nameof(Description));
+	    Comment = info.GetString(nameof(Comment));
+	    Sku = info.GetString(nameof(Sku));
+	    DescriptionOptional = info.GetString(nameof(DescriptionOptional));
+	    GuidMercury = (Guid)info.GetValue(nameof(GuidMercury), typeof(Guid));
+	    Temperature = info.GetString(nameof(Temperature));
+	    ProductShelfLife = info.GetString(nameof(ProductShelfLife));
+	    Brand = info.GetString(nameof(Brand));
+	    Units = (List<XmlProductUnitModel>)info.GetValue(nameof(Units), typeof(List<XmlProductUnitModel>));
+	    Barcodes = (List<XmlProductBarcodeModel>)info.GetValue(nameof(Barcodes), typeof(List<XmlProductBarcodeModel>));
+	    Boxes = (List<XmlProductBoxModel>)info.GetValue(nameof(Boxes), typeof(List<XmlProductBoxModel>));
+	    Packs = (List<XmlProductBoxModel>)info.GetValue(nameof(Packs), typeof(List<XmlProductBoxModel>));
+	    NameFull = info.GetString(nameof(NameFull));
+	    AdditionalDescriptionOfNomenclature = info.GetString(nameof(AdditionalDescriptionOfNomenclature));
+	}
+
 	#endregion
 
 	#region Public and private methods
 
-	public override string ToString()
+	public new virtual string ToString()
     {
         string? strUnits = $"{Units.Count}. ";
-        foreach (ProductUnitEntity? unit in Units)
+        foreach (XmlProductUnitModel? unit in Units)
         {
 	        strUnits += $"{unit}. ";
         }
 
         string strBarcodes = $"{Barcodes.Count}. ";
-        foreach (ProductBarcodeEntity? barcode in Barcodes)
+        foreach (XmlProductBarcodeModel? barcode in Barcodes)
         {
 	        strBarcodes += $"{barcode}. ";
         }
 
         string strBoxes = $"{Boxes.Count}. ";
-        foreach (ProductBoxEntity? box in Boxes)
+        foreach (XmlProductBoxModel? box in Boxes)
         {
 	        strBoxes += $"{box}. ";
         }
 
         string strPacks = $"{Packs.Count}. ";
-        foreach (ProductBoxEntity? pack in Packs)
+        foreach (XmlProductBoxModel? pack in Packs)
         {
 	        strPacks += $"{pack}. ";
         }
@@ -118,7 +142,7 @@ public class XmlProductModel : ITableModel
             $"{nameof(Packs)}: {strPacks}";
     }
 
-    public virtual bool Equals(XmlProductModel item)
+    public bool Equals(XmlProductModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         if (Units.Count != item.Units.Count)
@@ -143,124 +167,57 @@ public class XmlProductModel : ITableModel
             string.Equals(AdditionalDescriptionOfNomenclature, item.AdditionalDescriptionOfNomenclature, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public virtual bool EqualsNew()
+    public bool EqualsNew()
     {
         return Equals(new());
     }
 
-    #endregion
-}
-
-/// <summary>
-/// XML-класс юнита продукта.
-/// </summary>
-public class ProductUnitEntity
-{
-    public decimal Heft { get; set; }
-    public decimal Capacity { get; set; }
-    public decimal Rate { get; set; }
-    public int Threshold { get; set; }
-    public string Okei { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-
-    public override string ToString() =>
-        $"{nameof(Heft)}: {Heft}. " +
-        $"{nameof(Capacity)}: {Capacity}. " +
-        $"{nameof(Rate)}: {Rate}. " +
-        $"{nameof(Threshold)}: {Threshold}. " +
-        $"{nameof(Okei)}: {Okei}. " +
-        $"{nameof(Description)}: {Description}. ";
-
-    public virtual bool Equals(ProductUnitEntity item)
+    public object Clone()
     {
-        if (ReferenceEquals(this, item)) return true;
-        return
-            Equals(Heft, item.Heft) &&
-            Equals(Capacity, item.Capacity) &&
-            Equals(Rate, item.Rate) &&
-            Equals(Threshold, item.Threshold) &&
-            Equals(Okei, item.Okei) &&
-            Equals(Description, item.Description);
+	    XmlProductModel item = new();
+	    item.Category = Category;
+	    item.Code = Code;
+	    item.Description = Description;
+	    item.Comment = Comment;
+	    item.Sku = Sku;
+	    item.DescriptionOptional = DescriptionOptional;
+	    item.GuidMercury = GuidMercury;
+	    item.Temperature = Temperature;
+	    item.ProductShelfLife = ProductShelfLife;
+		item.Brand = Brand;
+		item.Units = Units;
+		item.Barcodes = Barcodes;
+		item.Boxes = Boxes;
+		item.Packs = Packs;
+		item.NameFull = NameFull;
+		item.AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature;
+	    return item;
     }
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
-}
-
-/// <summary>
-/// XML-класс штрих-кода.
-/// </summary>
-public class ProductBarcodeEntity
-{
-    public string Type { get; set; } = string.Empty;
-    public string Barcode { get; set; } = string.Empty;
-
-    public override string ToString() =>
-        $"{nameof(Type)}: {Type}. " +
-        $"{nameof(Barcode)}: {Barcode}. ";
-
-    public virtual bool Equals(ProductBarcodeEntity item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return
-            Equals(Type, item.Type) &&
-            Equals(Barcode, item.Barcode);
-    }
-
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
-}
-
-/// <summary>
-/// XML-класс коробки.
-/// </summary>
-public class ProductBoxEntity
-{
-    public string Description { get; set; } = string.Empty;
     /// <summary>
-    /// Вес.
+    /// Get object data for serialization info.
     /// </summary>
-    public decimal Heft { get; set; }
-    /// <summary>
-    /// .
-    /// </summary>
-    public decimal Capacity { get; set; }
-    /// <summary>
-    /// .
-    /// </summary>
-    public decimal Rate { get; set; }
-    public int Threshold { get; set; }
-    public string Okei { get; set; } = string.Empty;
-    public string Unit { get; set; } = string.Empty;
-
-    public override string ToString() =>
-        $"{nameof(Description)}: {Description}. " +
-        $"{nameof(Heft)}: {Heft}. " +
-        $"{nameof(Capacity)}: {Capacity}. " +
-        $"{nameof(Rate)}: {Rate}. " +
-        $"{nameof(Threshold)}: {Threshold}. " +
-        $"{nameof(Okei)}: {Okei}. " +
-        $"{nameof(Unit)}: {Unit}. ";
-
-    public virtual bool Equals(ProductBoxEntity item)
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        if (ReferenceEquals(this, item)) return true;
-        return
-            Equals(Description, item.Description) &&
-            Equals(Heft, item.Heft) &&
-            Equals(Capacity, item.Capacity) &&
-            Equals(Rate, item.Rate) &&
-            Equals(Threshold, item.Threshold) &&
-            Equals(Okei, item.Okei) &&
-            Equals(Unit, item.Unit);
-    }
+	    info.AddValue(nameof(Category), Category);
+	    info.AddValue(nameof(Code), Code);
+	    info.AddValue(nameof(Description), Description);
+	    info.AddValue(nameof(Comment), Comment);
+	    info.AddValue(nameof(Sku), Sku);
+	    info.AddValue(nameof(DescriptionOptional), DescriptionOptional);
+	    info.AddValue(nameof(GuidMercury), GuidMercury);
+	    info.AddValue(nameof(Temperature), Temperature);
+	    info.AddValue(nameof(ProductShelfLife), ProductShelfLife);
+	    info.AddValue(nameof(Brand), Brand);
+	    info.AddValue(nameof(Units), Units);
+	    info.AddValue(nameof(Barcodes), Barcodes);
+	    info.AddValue(nameof(Boxes), Boxes);
+	    info.AddValue(nameof(Packs), Packs);
+	    info.AddValue(nameof(NameFull), NameFull);
+	    info.AddValue(nameof(AdditionalDescriptionOfNomenclature), AdditionalDescriptionOfNomenclature);
+	}
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+	#endregion
 }

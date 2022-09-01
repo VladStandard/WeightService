@@ -6,7 +6,7 @@
 using DataCore.Files;
 using DataCore.Sql.Controllers;
 
-namespace DataCore.Sql;
+namespace DataCore.Sql.Core;
 
 public class DataAccessHelper
 {
@@ -107,19 +107,19 @@ public class DataAccessHelper
 
     public void InitSessionFactory()
     {
-	    lock (_locker)
+        lock (_locker)
         {
             _fluentConfiguration = null;
             _sqlConfiguration = null;
             _sessionFactory = null;
             _crud = null;
-		}
+        }
     }
 
     public void InitSessionFactoryWithJson(bool isRemote)
     {
-	    JsonSettingsIsRemote = isRemote;
-	    InitSessionFactory();
+        JsonSettingsIsRemote = isRemote;
+        InitSessionFactory();
         _ = SessionFactory;
         _ = SqlConfiguration;
         _ = FluentConfiguration;
@@ -194,7 +194,7 @@ public class DataAccessHelper
 
     public DataAccessHelper()
     {
-	    InitSessionFactory();
+        InitSessionFactory();
     }
 
     #endregion
@@ -212,15 +212,15 @@ public class DataAccessHelper
 
     private string GetConnectionString() =>
         JsonSettingsIsRemote
-		? $"Data Source={JsonSettingsRemote.Sql.DataSource}; " +
-		  $"Initial Catalog={JsonSettingsRemote.Sql.InitialCatalog}; " +
-		  $"Persist Security Info={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
-		  $"Integrated Security={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
-		  (JsonSettingsRemote.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsRemote.Sql.UserId}; Password={JsonSettingsRemote.Sql.Password}; ") +
-		  $"TrustServerCertificate={JsonSettingsRemote.Sql.TrustServerCertificate}; "
-		: $"Data Source={JsonSettingsLocal.Sql.DataSource}; " +
-		  $"Initial Catalog={JsonSettingsLocal.Sql.InitialCatalog}; " +
-		  $"Persist Security Info={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
+        ? $"Data Source={JsonSettingsRemote.Sql.DataSource}; " +
+          $"Initial Catalog={JsonSettingsRemote.Sql.InitialCatalog}; " +
+          $"Persist Security Info={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
+          $"Integrated Security={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
+          (JsonSettingsRemote.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsRemote.Sql.UserId}; Password={JsonSettingsRemote.Sql.Password}; ") +
+          $"TrustServerCertificate={JsonSettingsRemote.Sql.TrustServerCertificate}; "
+        : $"Data Source={JsonSettingsLocal.Sql.DataSource}; " +
+          $"Initial Catalog={JsonSettingsLocal.Sql.InitialCatalog}; " +
+          $"Persist Security Info={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
           $"Integrated Security={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
           (JsonSettingsLocal.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsLocal.Sql.UserId}; Password={JsonSettingsLocal.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettingsLocal.Sql.TrustServerCertificate}; ";
@@ -241,35 +241,35 @@ public class DataAccessHelper
 
     private void AddConfigurationMappingsForScale(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
     {
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarCodeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderWeighingMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrganizationMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluLabelMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluObsoleteMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluWeighingMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TaskTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.VersionMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkShopMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<HostMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluObsoleteMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterResourceMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductSeriesMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
     }
 
     private void AddConfigurationMappingsForDwh(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)

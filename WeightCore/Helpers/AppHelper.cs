@@ -3,6 +3,7 @@
 
 using DataCore;
 using DataCore.Sql;
+using DataCore.Sql.Core;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System;

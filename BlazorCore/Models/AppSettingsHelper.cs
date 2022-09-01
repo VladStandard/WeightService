@@ -6,6 +6,7 @@ using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
 using System.Threading;
 using DataCore.Models;
+using DataCore.Sql.Core;
 
 namespace BlazorCore.Models;
 

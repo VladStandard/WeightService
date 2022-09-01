@@ -30,22 +30,22 @@ public class ProductionFacilityModel : TableModel, ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public override string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
+	public new virtual string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Address)}: {Address}. ";
 
     public virtual bool Equals(ProductionFacilityModel item)
     {
-        //if (item is null) return false;
         if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-               Equals(Name, item.Name) &&
-               Equals(Address, item.Address);
+        return 
+	        base.Equals(item) &&
+            Equals(Name, item.Name) &&
+            Equals(Address, item.Address);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
@@ -65,13 +65,15 @@ public class ProductionFacilityModel : TableModel, ISerializable, ITableModel
             Equals(Address, string.Empty);
     }
 
-    public new virtual object Clone()
+    public new virtual int GetHashCode() => base.GetHashCode();
+
+	public new virtual object Clone()
     {
         ProductionFacilityModel item = new();
         item.Name = Name;
         item.Address = Address;
-        item.Setup(((TableModel)this).CloneCast());
-        return item;
+		item.CloneSetup(base.CloneCast());
+		return item;
     }
 
     public new virtual ProductionFacilityModel CloneCast() => (ProductionFacilityModel)Clone();

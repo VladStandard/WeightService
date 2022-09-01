@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Threading;
+using DataCore.Sql.Core;
 using DataCore.Sql.Models;
 using static DataCore.ShareEnums;
 

@@ -60,12 +60,12 @@ public class FieldMacAddressModel
         _value = address;
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public override string ToString() =>
-        $"{nameof(Value)}: {ValuePrettyLookMinus}. ";
+	public new virtual string ToString() =>
+		$"{nameof(Value)}: {ValuePrettyLookMinus}. ";
 
     public virtual bool Equals(FieldMacAddressModel item)
     {
@@ -73,15 +73,15 @@ public class FieldMacAddressModel
         return Equals(Value, item.Value);
     }
 
-    public override bool Equals(object obj)
-    {
+	public new virtual bool Equals(object obj)
+	{
 	    if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         return Equals((FieldMacAddressModel)obj);
     }
 
-    public override int GetHashCode() => Value.GetHashCode();
+	public new virtual int GetHashCode() => Value.GetHashCode();
 
     public bool EqualsNew()
     {
