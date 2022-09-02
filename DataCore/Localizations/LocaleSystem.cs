@@ -30,6 +30,10 @@ public class LocaleSystem
     public string SystemAccount => Lang == ShareEnums.Lang.English ? "Account" : "Аккаунт";
     public string SystemErrors => Lang == ShareEnums.Lang.English ? "Errors" : "Ошибки";
     public string SystemInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
+    public string SystemIdentity => Lang == ShareEnums.Lang.English ? "Identity" : "Идентификация";
+    public string SystemIdentityNotAuthorized => Lang == ShareEnums.Lang.English ? "Not authorized" : "Не авторизован";
+    public string SystemIdentityData => Lang == ShareEnums.Lang.English ? "Data" : "Данные";
+    public string SystemIdentityDataFull => Lang == ShareEnums.Lang.English ? "Identity data" : "Идентификационные данные";
     public string SystemLogin => Lang == ShareEnums.Lang.English ? "Log in" : "Вход";
     public string SystemLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Журналы";
     public string SystemLogsAll => Lang == ShareEnums.Lang.English ? "Alls" : "Все";

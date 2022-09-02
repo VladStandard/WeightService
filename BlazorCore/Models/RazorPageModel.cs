@@ -28,8 +28,17 @@ public class RazorPageModel : LayoutComponentBase
     [Inject] public NavigationManager NavigationManager { get; set; }
     [Inject] public NotificationService NotificationService { get; set; }
     [Inject] public TooltipService TooltipService { get; set; }
-    [Parameter] public TableModel? ItemFilter { get; set; }
+    [Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
+	[Parameter] public TableModel? ItemFilter { get; set; }
     public event Action? Change;
+    [Parameter] public bool IsShowReload { get; set; }
+
+    [Parameter]
+    public string IsShowReloadStr
+    {
+	    get => IsShowReload ? "true" : "false";
+	    set => IsShowReload = value.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
+    }
     [Parameter] public bool IsShowAdditionalFilter { get; set; }
     [Parameter] public bool IsShowItemsCount { get; set; }
     [Parameter] public bool IsShowMarkedFilter { get; set; }
@@ -51,14 +60,14 @@ public class RazorPageModel : LayoutComponentBase
     public TableModel? Item { get; set; }
     protected object? ItemObject { get => Item; set => Item = (TableModel?)value; }
     protected bool IsLoaded { get; private set; }
-    protected UserSettingsModel UserSettings { get; }
+    [Parameter] public UserSettingsModel? UserSettings { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public RazorPageModel()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public RazorPageModel()
     {
-	    UserSettings = new();
+	    UserSettings = null;
     }
 
     #endregion
@@ -77,22 +86,24 @@ public class RazorPageModel : LayoutComponentBase
         Table = new(string.Empty);
         TableAction = DbTableAction.Default;
         ItemSaveCheck = new();
-        if (ParentRazor != null)
+        UserSettings = new();
+
+		if (ParentRazor is not null)
         {
-            if (ParentRazor.ItemFilter != null)
+			if (ParentRazor.ItemFilter is not null)
                 ItemFilter = ParentRazor.ItemFilter;
-            if (ParentRazor.ItemsFilter != null)
+            if (ParentRazor.ItemsFilter is not null)
                 ItemsFilter = ParentRazor.ItemsFilter;
             IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
             IsShowItemsCount = ParentRazor.IsShowItemsCount;
             IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
             IsShowMarked = ParentRazor.IsShowMarked;
             IsShowOnlyTop = ParentRazor.IsShowOnlyTop;
-            if (IdentityId == null && ParentRazor.IdentityId != null)
+            if (IdentityId is null && ParentRazor.IdentityId is not null)
                 IdentityId = ParentRazor.IdentityId;
-            if (IdentityUid == null && ParentRazor.IdentityUid != null)
+            if (IdentityUid is null && ParentRazor.IdentityUid is not null)
                 IdentityUid = ParentRazor.IdentityUid;
-            if (ParentRazor.Item != null)
+            if (ParentRazor.Item is not null)
                 Item = ParentRazor.Item;
             if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
             {
@@ -289,18 +300,18 @@ public class RazorPageModel : LayoutComponentBase
     //    //AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
     //    //AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
 
-    //    //if (Identity.Id == null && ParentRazor?.Identity.Id != null)
+    //    //if (Identity.Id is null && ParentRazor?.Identity.Id is not null)
     //    //    Identity.Id = ParentRazor.Identity.Id;
-    //    //if (IdentityUid == null && ParentRazor?.Identity.Uid != null)
+    //    //if (IdentityUid is null && ParentRazor?.Identity.Uid is not null)
     //    //    IdentityUid = ParentRazor.Identity.Uid;
     //    //if (string.IsNullOrEmpty(Table.Name))
     //    //{
-    //    //    if (ParentRazor != null)
+    //    //    if (ParentRazor is not null)
     //    //    {
     //    //        Table = ParentRazor.Table;
     //    //    }
     //    //}
-    //    //if (TableAction == DbTableAction.Default && ParentRazor != null)
+    //    //if (TableAction == DbTableAction.Default && ParentRazor is not null)
     //    //{
     //    //    if (ParentRazor.TableAction != DbTableAction.Default)
     //    //        TableAction = ParentRazor.TableAction;
@@ -315,7 +326,7 @@ public class RazorPageModel : LayoutComponentBase
     //    return base.SetParametersAsync(ParameterView.Empty);
     //}
 
-    protected void RunActions(List<Action> actions)
+    protected void RunActions(List<Action> actions, bool isStateHasChanged = true)
     {
         List<Action> actionsInjected = new()
         {
@@ -329,7 +340,8 @@ public class RazorPageModel : LayoutComponentBase
         actionsInjected.Add(() =>
         {
             IsLoaded = true;
-            InvokeAsync(StateHasChanged);
+            if (isStateHasChanged)
+				InvokeAsync(StateHasChanged);
         });
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(RunActions)}", "",
             LocaleCore.Dialog.DialogResultFail, "", actionsInjected);
@@ -628,10 +640,10 @@ public class RazorPageModel : LayoutComponentBase
     }
 
     public static string GetPath(string uriItemRoute, TableModel? item, long? id) =>
-        item == null || id == null ? string.Empty : $"{uriItemRoute}/{id}";
+        item is null || id is null ? string.Empty : $"{uriItemRoute}/{id}";
 
     public static string GetPath(string uriItemRoute, TableModel? item, Guid? uid) =>
-        item == null || uid == null ? string.Empty : $"{uriItemRoute}/{uid}";
+        item is null || uid is null ? string.Empty : $"{uriItemRoute}/{uid}";
 
     public void OnChange()
     {
@@ -657,8 +669,8 @@ public class RazorPageModel : LayoutComponentBase
     private string RouteItemNavigatePage()
     {
         string page = string.Empty;
-        if (Table == null || string.IsNullOrEmpty(Table.Name))
-            if (ParentRazor != null)
+        if (Table is null || string.IsNullOrEmpty(Table.Name))
+            if (ParentRazor is not null)
                 Table = ParentRazor.Table;
         switch (Table)
         {
@@ -753,7 +765,7 @@ public class RazorPageModel : LayoutComponentBase
                 NavigationManager.NavigateTo($"{page}/{tableAction}");
                 break;
             case DbTableAction.Edit:
-                if (item == null)
+                if (item is null)
                     return;
                 switch (item.Identity.Name)
                 {
@@ -772,16 +784,16 @@ public class RazorPageModel : LayoutComponentBase
     {
         _ = Task.Run(async () =>
         {
-            if (IdentityUid != null && IdentityUid != Guid.Empty)
+            if (IdentityUid is not null && IdentityUid != Guid.Empty)
                 await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityUid}", "_blank").ConfigureAwait(false);
-            else if (IdentityId != null && JsRuntime != null)
+            else if (IdentityId is not null && JsRuntime is not null)
                 await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityId}", "_blank").ConfigureAwait(false);
         }).ConfigureAwait(true);
     }
 
     public void RouteSectionNavigateToRoot()
     {
-        NavigationManager.NavigateTo(LocaleCore.DeviceControl.RouteRoot);
+        NavigationManager.NavigateTo(LocaleCore.DeviceControl.RouteSystemRoot);
     }
 
     private void RouteSectionNavigate(bool isNewWindow)
@@ -962,7 +974,7 @@ public class RazorPageModel : LayoutComponentBase
                 ItemSaveCheck.Plu(NotificationService, (PluModel?)ParentRazor?.Item, DbTableAction.Save);
                 break;
             case ProjectsEnums.TableScale.PlusScales:
-                if (ParentRazor?.Items != null)
+                if (ParentRazor?.Items is not null)
                 {
                     List<PluScaleModel> pluScales = ParentRazor.Items.Cast<PluScaleModel>().ToList();
                     foreach (PluScaleModel pluScale in pluScales)
@@ -970,7 +982,7 @@ public class RazorPageModel : LayoutComponentBase
                         ItemSaveCheck.PluScale(NotificationService, pluScale, DbTableAction.Save);
                     }
                 }
-                else if (ParentRazor?.Item != null)
+                else if (ParentRazor?.Item is not null)
                 {
                     ItemSaveCheck.PluScale(NotificationService, (PluScaleModel?)ParentRazor?.Item, DbTableAction.Save);
                 }
@@ -1029,7 +1041,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
         
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionNewAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
@@ -1048,7 +1060,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
         
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionCopyAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
@@ -1060,11 +1072,11 @@ public class RazorPageModel : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public async Task ActionEditAsync(UserSettingsModel userSettings, bool isNewWindow, bool isParentRazor)
+    public async Task ActionEditAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (userSettings is null || !userSettings.AccessRightsIsWrite)
             return;
         
         RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionEditAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
@@ -1079,7 +1091,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
 
         //foreach (PluScaleModel item in pluScales)
@@ -1095,7 +1107,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
 
 		RunActions($"{LocaleCore.Action.ActionMethod} {nameof(ActionSaveAsync)}", "", LocaleCore.Dialog.DialogResultFail, "",
@@ -1110,7 +1122,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
         
         RunActionsWithQeustion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogResultSuccess,
@@ -1127,7 +1139,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
         
         RunActionsWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogResultSuccess,
@@ -1144,7 +1156,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
 
         RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Dialog.DialogResultSuccess,
@@ -1173,7 +1185,7 @@ public class RazorPageModel : LayoutComponentBase
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        if (!userSettings.Identity.AccessRightsIsWrite)
+        if (!userSettings.AccessRightsIsWrite)
             return;
 
         RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Dialog.DialogResultSuccess,

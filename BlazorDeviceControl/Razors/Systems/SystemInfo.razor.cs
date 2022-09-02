@@ -3,9 +3,9 @@
 
 using DataCore.Sql.Core;
 
-namespace BlazorDeviceControl.Razors.Items;
+namespace BlazorDeviceControl.Razors.Systems;
 
-public partial class ItemInfo : RazorPageModel
+public partial class SystemInfo : RazorPageModel
 {
 	#region Public and private fields, properties, constructor
 

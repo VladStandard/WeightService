@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Authorization;
 using MudBlazor.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -31,7 +32,9 @@ builder.Services.AddScoped<IFileDownload, FileDownload>();
 //
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
-
+builder.Services.AddHttpClient();
+//builder.Services.AddScoped<IAuthorizationHandler>();
+// Registering services is done.
 WebApplication app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

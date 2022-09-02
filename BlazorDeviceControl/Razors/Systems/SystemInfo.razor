@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorPageModel
-@page "/item/info"
+@page "/system/info"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
@@ -227,18 +227,21 @@
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.AuthorizingUserName</td>
-            @if (string.IsNullOrEmpty(UserSettings.Identity.UserName))
+            @if (string.IsNullOrEmpty(UserSettings?.UserName))
             {
                 <td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement Class="ma-0">@UserSettings.Identity.UserName</MudElement></td>
+                <td><MudElement Class="ma-0">@UserSettings.UserName</MudElement></td>
             }
         </tr>
         <tr>
-            <td>@LocaleCore.Strings.AccessRights</td>
-            <td><MudElement Class="ma-0">@UserSettings.Identity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
+	        <td>@LocaleCore.Strings.AccessRights</td>
+            @if (UserSettings is not null)
+            {
+				<td><MudElement Class="ma-0">@UserSettings.GetDescriptionAccessRights(UserSettings.AccessRights)</MudElement></td>
+            }
         </tr>
         <tr>
             <td>@LocaleCore.Strings.Language</td>

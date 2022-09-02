@@ -9,7 +9,6 @@ public partial class LocaleDeviceControl
     public string RouteItemBarCodeType => "/item/barcodetype";
     public string RouteItemContragent => "/item/contragent";
     public string RouteItemHost => "/item/host";
-    public string RouteItemInfo => "/item/info";
     public string RouteItemLog => "/item/log";
     public string RouteItemLogType => "/item/logtype";
     public string RouteItemNomenclature => "/item/nomenclature";
@@ -29,7 +28,6 @@ public partial class LocaleDeviceControl
     public string RouteItemTemplate => "/item/template";
     public string RouteItemTemplateResource => "/item/templateresource";
     public string RouteItemWorkShop => "/item/workshop";
-    public string RouteRoot => "/";
     public string RouteSectionAccess => "/section/access";
     public string RouteSectionBarCodes => "/section/barcodes";
     public string RouteSectionBarCodeTypes => "/section/barcodetypes";
@@ -61,5 +59,10 @@ public partial class LocaleDeviceControl
     public string RouteSectionTemplates => "/section/templates";
     public string RouteSectionVersions => "/section/versions";
     public string RouteSectionWorkShops => "/section/workshops";
-    public string RouteIdentityFetchData => "/identity/fetchdata";
+    public string RouteSystemIdentityData => "/system/identity";
+    public string RouteSystemInfo => "/system/info";
+    public string RouteSystemRoot => "/";
+    public string RouteExampleMud => "/example/mud";
+    public string RouteExampleRadzen => "/example/radzen";
+    public string RouteExampleNetBarcode => "/example/netbarcode";
 }

@@ -56,7 +56,7 @@ else
             <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Left
                 Title=@LocaleCore.Table.AccessLevel Type="string" Width="30%">
                 <Template Context="itemCast" >
-                    <RadzenLabel Text=@UserSettings.Identity.GetDescriptionAccessRights(itemCast.Rights) Disabled=false ReadOnly=true />
+                    <RadzenLabel Text=@UserSettings.GetDescriptionAccessRights(itemCast.Rights) Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
         </Columns>

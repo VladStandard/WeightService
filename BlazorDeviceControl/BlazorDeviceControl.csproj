@@ -44,7 +44,6 @@
     <None Remove="Upload\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Razors\Systems\" />
     <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>
@@ -84,8 +83,14 @@
     <Watch Remove="Razors\Components\ActionsReloadSection.razor" />
     <Watch Remove="Razors\Components\ItemTableBody.razor" />
     <Watch Remove="Razors\Components\ItemTableHead.razor" />
+    <Watch Remove="Razors\Components\MainLayout.razor.css" />
     <Watch Remove="Razors\Components\MudPage.razor" />
     <Watch Remove="Razors\Components\NetBarcodePage.razor" />
+    <Watch Remove="Razors\Components\SystemAuthorize.razor" />
+    <Watch Remove="Razors\Examples\ExampleMud.razor" />
+    <Watch Remove="Razors\Examples\ExampleMudDialog.razor" />
+    <Watch Remove="Razors\Examples\ExampleNetBarcode.razor" />
+    <Watch Remove="Razors\Examples\ExampleRadzen.razor" />
     <Watch Remove="Razors\IdentityFetchData.razor" />
     <Watch Remove="Razors\Items\ItemAccess.razor" />
     <Watch Remove="Razors\Items\ItemBarCode.razor" />
@@ -137,9 +142,11 @@
     <Watch Remove="Razors\Sections\SectionTemplates.razor" />
     <Watch Remove="Razors\Sections\SectionVersions.razor" />
     <Watch Remove="Razors\Sections\SectionWorkshops.razor" />
+    <Watch Remove="Razors\Systems\SystemIdentity.razor" />
+    <Watch Remove="Razors\Systems\SystemInfo.razor" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Razors\IdentityFetchData.razor" />
+    <None Include="Razors\Systems\SystemIdentity.razor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />

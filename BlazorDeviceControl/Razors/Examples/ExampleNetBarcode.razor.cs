@@ -4,9 +4,9 @@
 using System.Drawing.Imaging;
 using NetBarcode;
 
-namespace BlazorDeviceControl.Razors.Components;
+namespace BlazorDeviceControl.Razors.Examples;
 
-public partial class NetBarcodePage : RazorPageModel
+public partial class ExampleNetBarcode : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 

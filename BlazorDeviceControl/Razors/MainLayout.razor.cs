@@ -13,7 +13,7 @@ public partial class MainLayout : RazorPageModel
 
         Table = new TableSystemModel(ProjectsEnums.TableSystem.Default);
         Items = new();
-    }
+	}
 
     private void MemoryClear()
     {
@@ -26,7 +26,6 @@ public partial class MainLayout : RazorPageModel
 
         RunActions(new()
         {
-            () => UserSettings.SetupAccessRights(),
             () =>
             {
                 AppSettings.SetupMemory();

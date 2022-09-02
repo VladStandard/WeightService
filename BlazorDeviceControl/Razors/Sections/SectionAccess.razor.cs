@@ -51,7 +51,7 @@ public partial class SectionAccess : RazorPageModel
 
     public void RowRender(RowRenderEventArgs<AccessModel> args)
     {
-        args.Attributes.Add("class", UserSettings.Identity.GetColorAccessRights(args.Data.Rights));
+        args.Attributes.Add("class", UserSettings?.GetColorAccessRights(args.Data.Rights));
         //RowCounter += 1;
     }
 

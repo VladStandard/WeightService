@@ -5,11 +5,5 @@ namespace BlazorDeviceControl.Razors;
 
 public partial class Index : RazorPageModel
 {
-    #region Public and private fields, properties, constructor
-
-    private string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {UserSettings.Identity.Id}";
-    private string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {UserSettings.Identity.IpAddress}";
-    private string UserDescription => $"{LocaleCore.Strings.AuthorizingUserName}: {UserSettings.Identity.UserName}";
-
-    #endregion
+    //
 }

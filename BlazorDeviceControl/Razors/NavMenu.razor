@@ -1,6 +1,9 @@
 ﻿@inherits BlazorCore.Models.RazorPageModel
 @using BlazorCore
+@using BlazorDeviceControl.Razors.Systems
 @using static BlazorCore.Utils.BlazorCoreUtuls
+
+<SystemIdentity ParentRazor=@(this) />
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">
@@ -16,10 +19,10 @@
 
 <div class=@GetCssName.NavMenu(CollapseNavMenu) @onclick=@ToggleNavMenu>
     <ul class="nav flex-column">
-        @if (UserSettings.Identity.AccessRightsIsRead)
-        {
-            <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.RouteSectionScales>
+        <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
+	        @if (UserSettings?.AccessRightsIsRead == true)
+	        {
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionScales >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleCore.DeviceControl.SectionAutomatedWorkplaceShort Path=@LocaleCore.DeviceControl.RouteSectionScales />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
@@ -36,7 +39,7 @@
                         Text=@LocaleCore.DeviceControl.SectionResources Path=@LocaleCore.DeviceControl.RouteSectionPrinterResources />
                 </RadzenPanelMenuItem>
 
-                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionMeasurements>
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionMeasurements >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleCore.DeviceControl.SectionWeithingFactsAggregationShort Path=@LocaleCore.DeviceControl.RouteSectionPlusWeighingsAggregation />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
@@ -72,17 +75,22 @@
                         Text=@LocaleCore.DeviceControl.SectionPlus Path=@LocaleCore.DeviceControl.RouteSectionPlusObsolete />
                 </RadzenPanelMenuItem>
                 
-                @if (IsDebug)
-                {
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev>
-                        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Mud" Path="mud" />
-                        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Radzen" Path="radzen" />
-                        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="NetBarcode" Path="netbarcode" />
-                        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-							Text=@LocaleCore.DeviceControl.Identity Path=@LocaleCore.DeviceControl.RouteIdentityFetchData />
-                    </RadzenPanelMenuItem>
-                }
-            </RadzenPanelMenu>
-        }
+			}
+            @if (IsDebug)
+            {
+				<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev >
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Mud" 
+					    Path=@LocaleCore.DeviceControl.RouteExampleMud />
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Radzen"
+                        Path=@LocaleCore.DeviceControl.RouteExampleRadzen />
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="NetBarcode" 
+					    Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
+                </RadzenPanelMenuItem>
+            }
+            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.System.SystemIdentity >
+		        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
+                    Text=@LocaleCore.System.SystemIdentityData Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
+	        </RadzenPanelMenuItem>
+        </RadzenPanelMenu>
     </ul>
 </div>
