@@ -222,7 +222,7 @@ public static class CrudControllerExtensions
 			scaleId = scale.Identity.Id;
 		List<FieldFilterModel>? filters = null;
 		if (scaleId is not null)
-			filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) };
+			filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(DbField.GoodsName), 0, isShowMarked, isShowOnlyTop);
 		return crud.GetList<PluObsoleteModel>(sqlCrudConfig);
 	}
@@ -234,14 +234,14 @@ public static class CrudControllerExtensions
 			scaleId = scale.Identity.Id;
 		List<FieldFilterModel>? filters = null;
 		if (scaleId is not null)
-			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) };
+			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
 		return crud.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
 	public static List<PluScaleModel> GetListPluScales(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, long scaleId)
 	{
-		List<FieldFilterModel> filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityId}", DbComparer.Equal, scaleId) };
+		List<FieldFilterModel> filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
 		return crud.GetList<PluScaleModel>(sqlCrudConfig);
 	}
@@ -253,7 +253,7 @@ public static class CrudControllerExtensions
 			printerId = printer.Identity.Id;
 		List<FieldFilterModel>? filters = null;
 		if (printerId is not null)
-			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{DbField.IdentityId}", DbComparer.Equal, printerId) };
+			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{DbField.IdentityValueId}", DbComparer.Equal, printerId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(DbField.Description), 0, isShowMarked, isShowOnlyTop);
 		return crud.GetList<PrinterResourceModel>(sqlCrudConfig);
 	}

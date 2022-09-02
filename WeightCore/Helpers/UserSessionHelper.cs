@@ -322,7 +322,7 @@ public class UserSessionHelper : BaseViewModel
             if (PluScale != null)
             {
 	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
-		            { new(DbField.IdentityId, DbComparer.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
+		            { new(DbField.IdentityValueId, DbComparer.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
                 template = DataAccess.Crud.GetItem<TemplateModel>(sqlCrudConfig);
             }
         }

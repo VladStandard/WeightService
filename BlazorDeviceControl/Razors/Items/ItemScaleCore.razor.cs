@@ -46,8 +46,6 @@ public partial class ItemScaleCore : RazorPageModel
 			() =>
 			{
 				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ScaleModel>(IdentityId);
-				//if (Identity.Id != null && TableAction == DbTableAction.New)
-				//	ItemCast.Identity.Id = (long)Identity.Id;
 				ItemCast.Host ??= new() { Name = LocaleCore.Table.FieldNull };
 				ItemCast.PrinterMain ??= new() { Name = LocaleCore.Table.FieldNull };
 				ItemCast.PrinterShipping ??= new() { Name = LocaleCore.Table.FieldNull };

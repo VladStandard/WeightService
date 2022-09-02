@@ -3,13 +3,10 @@
 @page "/item/access/{IdentityUidStr}"
 @page "/item/access/{IdentityUidStr}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
-@using BlazorDeviceControl.Razors.Systems
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
 @using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
-
-<SystemIdentity ParentRazor=@(this) />
 
 @if (!IsLoaded)
 {

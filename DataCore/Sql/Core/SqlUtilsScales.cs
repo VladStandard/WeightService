@@ -43,7 +43,7 @@ public static partial class SqlUtils
 	public static ScaleModel? GetScale(long id)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(ShareEnums.DbField.IdentityId, ShareEnums.DbComparer.Equal, id), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
+				{ new(ShareEnums.DbField.IdentityValueId, ShareEnums.DbComparer.Equal, id), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
 			null, 0);
 		return DataAccess.Crud.GetItem<ScaleModel>(sqlCrudConfig);
 	}

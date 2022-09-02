@@ -40,8 +40,8 @@ public partial class CrudController
 	/// <returns></returns>
 	public T? GetItemById<T>(long? id) where T : TableModel, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.IdentityId, DbComparer.Equal, id) },
-			new(DbField.IdentityId, DbOrderDirection.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.IdentityValueId, DbComparer.Equal, id) },
+			new(DbField.IdentityValueId, DbOrderDirection.Desc), 0);
 		return GetItem<T>(sqlCrudConfig);
 	}
 
@@ -53,8 +53,8 @@ public partial class CrudController
 	/// <returns></returns>
 	public T? GetItemByUid<T>(Guid? uid) where T : TableModel, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.IdentityUid, DbComparer.Equal, uid) },
-			new(DbField.IdentityUid, DbOrderDirection.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.IdentityValueUid, DbComparer.Equal, uid) },
+			new(DbField.IdentityValueUid, DbOrderDirection.Desc), 0);
 		return GetItem<T>(sqlCrudConfig);
 	}
 
