@@ -1,43 +1,44 @@
 ﻿@inherits BlazorCore.Models.RazorPageModel
 @page "/action/buttons"
 @using BlazorCore
+@using DataCore.Sql.Core
 
 <MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent >
 	<div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (ButtonSettings.IsShowNew && UserSettings?.AccessRightsIsAdmin == true)
+        @if (ButtonSettings.IsShowNew && UserSettings.AccessRightsIsAdmin == true)
         {
             <RadzenButton Click=@(_ => ActionNewAsync(UserSettings, false, true))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                Text=@LocaleCore.DeviceControl.TableActionNew Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                Text=@LocaleCore.DeviceControl.TableActionNew Disabled=@(!AppSettings.DataAccess.IsConnected()) />
         }
-        @if (ButtonSettings.IsShowEdit && UserSettings?.AccessRightsIsWrite == true)
+        @if (ButtonSettings.IsShowEdit && UserSettings.AccessRightsIsWrite == true)
         {
             <RadzenButton Click=@(_ => ActionEditAsync(UserSettings, false, true))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                Text=@LocaleCore.DeviceControl.TableActionEdit Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                Text=@LocaleCore.DeviceControl.TableActionEdit Disabled=@(!AppSettings.DataAccess.IsConnected()) />
         }
-        @if (ButtonSettings.IsShowCopy && UserSettings?.AccessRightsIsAdmin == true)
+        @if (ButtonSettings.IsShowCopy && UserSettings.AccessRightsIsAdmin == true)
         {
             <RadzenButton Click=@(_ => ActionCopyAsync(UserSettings, false, true))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                Text=@LocaleCore.DeviceControl.TableActionCopy Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                      Text=@LocaleCore.DeviceControl.TableActionCopy Disabled=@(!AppSettings.DataAccess.IsConnected()) />
         }
-        @if (ButtonSettings.IsShowMark && UserSettings?.AccessRightsIsWrite == true)
+        @if (ButtonSettings.IsShowMark && UserSettings.AccessRightsIsWrite == true)
         {
             <RadzenButton Click=@(_ => ActionMarkAsync(UserSettings, false, true))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                Text=@LocaleCore.DeviceControl.TableActionMark Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                      Text=@LocaleCore.DeviceControl.TableActionMark Disabled=@(!AppSettings.DataAccess.IsConnected()) />
         }
-        @if (ButtonSettings.IsShowDelete && UserSettings?.AccessRightsIsWrite == true)
+        @if (ButtonSettings.IsShowDelete && UserSettings.AccessRightsIsWrite == true)
         {
             <RadzenButton Click=@(_ => ActionDeleteAsync(UserSettings, true))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
-                Text=@LocaleCore.DeviceControl.TableActionDelete Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                      Text=@LocaleCore.DeviceControl.TableActionDelete Disabled=@(!AppSettings.DataAccess.IsConnected()) />
         }
     </div>
 </MudPaper>

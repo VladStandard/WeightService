@@ -102,7 +102,7 @@ namespace WeightCore.MassaK
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             IsExceptionResult = true;
-            DataAccessHelper.Instance.Log.LogError(ex, NetUtils.GetLocalHostName(false), nameof(MassaDeviceEntity), filePath, lineNumber, memberName);
+            DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalHostName(false), nameof(MassaDeviceEntity), filePath, lineNumber, memberName);
         }
 
         #endregion

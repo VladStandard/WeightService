@@ -1,18 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
-using DataCore.Sql;
-using DataCore.Sql.Controllers;
-using DataCore.Sql.Fields;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using DataCore.Sql.Core;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 
@@ -50,7 +46,7 @@ public partial class SelectPluForm : Form
 	{
 		try
 		{
-			PluScales = UserSession.DataAccess.Crud.GetListPluScales(false, false, 
+			PluScales = UserSession.DataAccess.GetListPluScales(false, false, 
 				UserSession.SqlViewModel.Scale.Identity.Id);
 
 			LoadFormControls();
@@ -227,7 +223,7 @@ public partial class SelectPluForm : Form
 
 	private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
 	{
-		TemplateModel template = UserSession.DataAccess.Crud.GetItemByIdNotNull<TemplateModel>(pluScale.Plu.Template.Identity.Id);
+		TemplateModel template = UserSession.DataAccess.GetItemByIdNotNull<TemplateModel>(pluScale.Plu.Template.Identity.Id);
 		Label labelPluTemplate = new()
 		{
 			Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

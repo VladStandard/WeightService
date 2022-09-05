@@ -1,16 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
-using DataCore.Localizations;
-using DataCore.Sql.TableDirectModels;
 using System;
-using System.Threading;
 using System.Windows.Forms;
-using MDSoft.BarcodePrintUtils;
-using WeightCore.Gui;
-using WeightCore.Helpers;
-using WeightCore.Zpl;
 
 namespace ScalesUI.Forms;
 
@@ -70,7 +62,7 @@ public partial class SettingsForm : Form
         //try
         //{
         //    // Data.
-        //    UserSession.DataAccess.Crud.UpdateEntity(UserSession.SqlViewModel.Scale);
+        //    UserSession.DataAccess.UpdateEntity(UserSession.SqlViewModel.Scale);
         //}
         //catch (Exception ex)
         //{

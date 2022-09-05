@@ -87,7 +87,7 @@ public class DataCoreHelper
 				// Arrange.
 				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, maxResults, isShowMarked, true);
-				T[]? items = DataAccess.Crud.GetItems<T>(sqlCrudConfig);
+				T[]? items = DataAccess.GetItems<T>(sqlCrudConfig);
 				// Act.
 				if (items == null || !items.Any())
 				{
@@ -121,7 +121,7 @@ public class DataCoreHelper
 				// Arrange.
 				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, isShowMarked, true);
-				List<T> items = DataAccess.Crud.GetList<T>(sqlCrudConfig);
+				List<T> items = DataAccess.GetList<T>(sqlCrudConfig);
 				// Act.
 				if (!items.Any())
 				{

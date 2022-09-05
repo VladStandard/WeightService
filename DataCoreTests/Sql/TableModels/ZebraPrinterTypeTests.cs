@@ -49,7 +49,7 @@
 //                    Name = name,
 //                };
 //                zebraPrinterType.Identity.Id = -1;
-//                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(zebraPrinterType);
+//                DataAccessUtilsTests.DataAccess.SaveEntity(zebraPrinterType);
 //            });
 
 //            TestsUtils.MethodComplete();
@@ -65,24 +65,24 @@
 //                    const string name = "ZebraPrinterType test";
 //                    const string name2 = "ZebraPrinterType test 2";
 //                    // GetEntities
-//                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
+//                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.GetEntities<PrinterEntity>(null,
 //                        new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                    {
 //                        if (item.Name.Equals(name))
 //                        {
 //                            // UpdateEntity
 //                            item.Name = name2;
-//                            DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(item);
+//                            DataAccessUtilsTests.DataAccess.UpdateEntity(item);
 //                        }
 //                    }
 //                    // GetEntities
-//                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterEntity>(null,
+//                    foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.GetEntities<PrinterEntity>(null,
 //                        new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
 //                    {
 //                        if (item.Name.Equals(name2))
 //                        {
 //                            // DeleteEntity
-//                            DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(item);
+//                            DataAccessUtilsTests.DataAccess.DeleteEntity(item);
 //                        }
 //                    }
 //                }

@@ -72,9 +72,6 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
 	public new virtual string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Ip)}: {Ip}. " +
-        $"{nameof(Port)}: {Port}. " +
-        $"{nameof(Password)}: {Password}. " +
         $"{nameof(PrinterType)}: {PrinterType}. " +
         $"{nameof(MacAddress)}: {MacAddress}. " +
         $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
@@ -119,15 +116,16 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
             return false;
         if (!MacAddress.EqualsDefault())
             return false;
-        return base.EqualsDefault() &&
-               Equals(Name, string.Empty) &&
-               Equals(Ip, string.Empty) &&
-               Equals(Port, (short)0) &&
-               Equals(Password, string.Empty) &&
-               Equals(PeelOffSet, false) &&
-               Equals(DarknessLevel, (short)0) &&
-               Equals(HttpStatusCode, HttpStatusCode.BadRequest) &&
-               Equals(HttpStatusException, null);
+        return 
+	        base.EqualsDefault() &&
+            Equals(Name, string.Empty) &&
+            Equals(Ip, string.Empty) &&
+            Equals(Port, (short)0) &&
+            Equals(Password, string.Empty) &&
+            Equals(PeelOffSet, false) &&
+            Equals(DarknessLevel, (short)0) &&
+            Equals(HttpStatusCode, HttpStatusCode.BadRequest) &&
+            Equals(HttpStatusException, null);
     }
 
     public new virtual int GetHashCode() => base.GetHashCode();

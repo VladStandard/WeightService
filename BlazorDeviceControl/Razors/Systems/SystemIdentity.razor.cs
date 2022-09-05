@@ -5,30 +5,34 @@ namespace BlazorDeviceControl.Razors.Systems;
 
 public partial class SystemIdentity : RazorPageModel
 {
-	private bool IsAuthorizingLoad { get; set; }
+	#region Public and private fields, properties, constructor
 
-	#region Public and private methods
+	//private bool IsAuthorizingLoad { get; set; }
+	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
+	private List<Lang> Langs { get; set; }
 
-	protected override void OnInitialized()
-    {
-        base.OnInitialized();
+	public SystemIdentity()
+	{
+		Langs = new();
+		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
+			Langs.Add(lang);
+		TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+
+		ActionsInitialized = new()
+		{
+			() =>
+			{
+				if (HttpContextAccess?.HttpContext is not null)
+				{
+					UserSettings = new(HttpContextAccess.HttpContext);
+				}
+			}
+		};
 	}
 
-	protected override void OnParametersSet()
-    {
-	    base.OnParametersSet();
+	#endregion
 
-	    RunActions(new()
-	    {
-		    () =>
-		    {
-			    if (HttpContextAccess?.HttpContext is not null)
-			    {
-				    UserSettings = new(HttpContextAccess.HttpContext);
-			    }
-		    }
-	    });
-    }
+	#region Public and private methods
 
 	#endregion
 }

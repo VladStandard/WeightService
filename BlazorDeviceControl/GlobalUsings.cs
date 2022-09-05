@@ -8,7 +8,6 @@ global using DataCore.Localizations;
 global using DataCore.Models;
 global using DataCore.Protocols;
 global using DataCore.Sql;
-global using DataCore.Sql.Controllers;
 global using DataCore.Sql.Models;
 global using DataCore.Sql.Tables;
 global using DataCore.Sql.TableScaleModels;

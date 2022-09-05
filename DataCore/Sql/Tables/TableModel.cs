@@ -23,11 +23,11 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual FieldIdentityModel Identity { get; }
+	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
+	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
     [XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }
-	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
-	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
 
     /// <summary>
     /// Constructor.

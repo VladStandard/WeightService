@@ -55,8 +55,8 @@
 //                ChangeDt = DateTime.Now,
 //                IdRRef = Guid.Empty
 //            };
-//            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
-//            return DataAccessUtilsTests.DataAccess.Crud.GetItem<ProductionFacilityEntity>(
+//            DataAccessUtilsTests.DataAccess.SaveEntity(item);
+//            return DataAccessUtilsTests.DataAccess.GetItem<ProductionFacilityEntity>(
 //                new (new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
 //                new FieldOrderModel(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }
@@ -72,16 +72,16 @@
 //                ProductionFacilityEntity entityNew = EntityCreate(name);
 //                // UpdateEntity
 //                entityNew.Name = "Modify name";
-//                DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(entityNew);
+//                DataAccessUtilsTests.DataAccess.UpdateEntity(entityNew);
 //                // GetEntities
-//                ProductionFacilityEntity[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null);
+//                ProductionFacilityEntity[] entities = DataAccessUtilsTests.DataAccess.GetEntities<ProductionFacilityEntity>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
 //                foreach (ProductionFacilityEntity item in entities)
 //                {
 //                    if (item.Name.Equals(entityNew.Name) || item.Name.Equals(name))
 //                    {
 //                        // DeleteEntity
-//                        DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(item);
+//                        DataAccessUtilsTests.DataAccess.DeleteEntity(item);
 //                    }
 //                }
 //            }

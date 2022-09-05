@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemAccess : RazorPageModel
@@ -33,7 +35,7 @@ public partial class ItemAccess : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
@@ -46,7 +48,7 @@ public partial class ItemAccess : RazorPageModel
 						ItemCast.User = "NEW USER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<AccessModel>(IdentityUid);
+						ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
 						break;
 				}
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);

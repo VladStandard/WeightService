@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
@@ -109,7 +108,7 @@ namespace WeightCore.Zpl
             SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
                 { new($"{nameof(TemplateResourceModel.Type)}", DbComparer.Equal, "ZPL") },
                 new(DbField.Name), 0, false, false);
-            TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.Crud.GetItems<TemplateResourceModel>(sqlCrudConfig);
+            TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetItems<TemplateResourceModel>(sqlCrudConfig);
             if (templateReources != null)
             {
                 foreach (TemplateResourceModel resource in templateReources.ToList())

@@ -20,7 +20,7 @@
 <div class=@GetCssName.NavMenu(CollapseNavMenu) @onclick=@ToggleNavMenu>
     <ul class="nav flex-column">
         <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
-	        @if (UserSettings?.AccessRightsIsRead == true)
+	        @if (UserSettings.AccessRightsIsRead == true)
 	        {
                 <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionScales >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
@@ -87,10 +87,6 @@
 					    Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
                 </RadzenPanelMenuItem>
             }
-            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.System.SystemIdentity >
-		        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
-                    Text=@LocaleCore.System.SystemIdentityData Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
-	        </RadzenPanelMenuItem>
         </RadzenPanelMenu>
     </ul>
 </div>

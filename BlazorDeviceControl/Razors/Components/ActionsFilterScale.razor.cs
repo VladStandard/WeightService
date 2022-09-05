@@ -40,13 +40,13 @@ public partial class ActionsFilterScale : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
 				ItemsFilter = new() { new ScaleModel() { Description = LocaleCore.Table.FieldNull } };
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
-				ScaleModel[]? itemsFilter = AppSettings.DataAccess.Crud.GetItems<ScaleModel>(sqlCrudConfig);
+				ScaleModel[]? itemsFilter = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{
 					ItemsFilter.AddRange(itemsFilter.ToList<TableModel>());

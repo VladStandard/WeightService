@@ -45,6 +45,6 @@ public class FileUpload : IFileUpload
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         item.ImageData = new() { Value = DataUtils.GetBytes(stream, true) };
-        DataAccess.Crud.Update(item);
+        DataAccess.Update(item);
     }
 }

@@ -72,7 +72,7 @@
 //                    DataAccessUtilsTests.DataAccess.ProductSeriesCrud.SaveEntity(item);
 //                }
 //                // UpdateEntity
-//                foreach (ProductSeriesEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductSeriesEntity>(null, null))
+//                foreach (ProductSeriesEntity item in DataAccessUtilsTests.DataAccess.GetEntities<ProductSeriesEntity>(null, null))
 //                {
 //                    if (item.Scale.Id < 0)
 //                    {

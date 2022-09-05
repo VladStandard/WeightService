@@ -9,7 +9,7 @@
 @using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
 
-@if (!IsLoaded)
+@if (!IsActionsParametersSetFinished)
 {
     <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }

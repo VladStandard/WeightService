@@ -22,41 +22,43 @@
                 <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; ">
                     <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuSystem>
                         <RadzenMenuItem Icon="home" Style="background-color: transparent; "
-                                    Text=@LocaleCore.Menu.MenuMain Path=@LocaleCore.DeviceControl.RouteSystemRoot />
+                            Text=@LocaleCore.Menu.MenuMain Path=@LocaleCore.DeviceControl.RouteSystemRoot />
                         <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleCore.DeviceControl.RouteSystemRoot />
+                            Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleCore.DeviceControl.RouteSystemRoot />
                         <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@AppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
-                                    Click=@(_ => MemoryClear()) />
-		                @if (UserSettings?.AccessRightsIsRead == true)
+                            Text=@AppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
+                            Click=@(_ => MemoryClear()) />
+		                @if (UserSettings.AccessRightsIsRead == true)
 		                {
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                        Text=@($"{UserSettings.UserName} [{UserSettings.GetDescriptionAccessRights(AccessRights.None)}]")
-                                        Path=@LocaleCore.DeviceControl.RouteSectionAccess
-                                        Click=@(_ => OnChange()) />
+                                Text=@($"{UserSettings.UserName} [{UserSettings.GetDescriptionAccessRights(AccessRights.None)}]")
+                                Path=@LocaleCore.DeviceControl.RouteSectionAccess
+                                Click=@(_ => OnChange()) />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                        Text=@LocaleCore.Menu.MenuInfo Path=@LocaleCore.DeviceControl.RouteSystemInfo />
+                                Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                        Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
+                                Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
+                            <RadzenMenuItem Icon="info" Style="background-color: transparent; "
+                                Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
 						}
                         </RadzenMenuItem>
-                        @if (UserSettings?.AccessRightsIsRead == true)
+                        @if (UserSettings.AccessRightsIsRead == true)
                         {
 							<RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuReports>
 		                        <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
+	                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
 	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsNones Path=@LocaleCore.DeviceControl.RouteSectionLogsNones />
+	                                Text=@LocaleCore.System.SystemLogsNones Path=@LocaleCore.DeviceControl.RouteSectionLogsNones />
 	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleCore.DeviceControl.RouteSectionLogsInformations />
+	                                Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleCore.DeviceControl.RouteSectionLogsInformations />
 	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleCore.DeviceControl.RouteSectionLogsErrors />
+	                                Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleCore.DeviceControl.RouteSectionLogsErrors />
 	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleCore.DeviceControl.RouteSectionLogsQuestions />
+	                                Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleCore.DeviceControl.RouteSectionLogsQuestions />
 	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsStops Path=@LocaleCore.DeviceControl.RouteSectionLogsStops />
+	                                Text=@LocaleCore.System.SystemLogsStops Path=@LocaleCore.DeviceControl.RouteSectionLogsStops />
 	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                        Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleCore.DeviceControl.RouteSectionLogsWarnings />
+	                                Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleCore.DeviceControl.RouteSectionLogsWarnings />
 							</RadzenMenuItem>
                         }
                 </RadzenMenu>

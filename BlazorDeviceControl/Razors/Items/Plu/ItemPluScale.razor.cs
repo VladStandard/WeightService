@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
@@ -36,7 +37,7 @@ public partial class ItemPluScale : RazorPageModel
     {
         base.OnParametersSet();
 
-        RunActions(new()
+        RunActionsSilent(new()
         {
             () =>
             {
@@ -48,13 +49,13 @@ public partial class ItemPluScale : RazorPageModel
 						ItemCast.IsMarked = false;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
+                        ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
                         break;
                 }
-	            Templates = AppSettings.DataAccess.Crud.GetListTemplates(false, false, true);
-	            Nomenclatures = AppSettings.DataAccess.Crud.GetListNomenclatures(false, false, true);
-	            Scales = AppSettings.DataAccess.Crud.GetListScales(false, false, true);
-                Plus = AppSettings.DataAccess.Crud.GetListPlus(false, false, true);
+	            Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
+	            Nomenclatures = AppSettings.DataAccess.GetListNomenclatures(false, false, true);
+	            Scales = AppSettings.DataAccess.GetListScales(false, false, true);
+                Plus = AppSettings.DataAccess.GetListPlus(false, false, true);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)

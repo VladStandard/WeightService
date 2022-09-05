@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPluLabels : RazorPageModel
@@ -29,11 +31,11 @@ public partial class SectionPluLabels : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
             () =>
             {
-                //object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                //object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
                 //    SqlQueries.DbScales.Tables.Labels.GetLabels(
                 //        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
                 //Items = new List<LabelQuickModel>().ToList<TableModel>();
@@ -66,7 +68,7 @@ public partial class SectionPluLabels : RazorPageModel
                 //    }
                 //}
                 
-                ItemsCast = AppSettings.DataAccess.Crud.GetListPluLabels(IsShowMarked, IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.GetListPluLabels(IsShowMarked, IsShowOnlyTop);
 
 				ButtonSettings = new(true, true, true, false, false, false, false);
             }

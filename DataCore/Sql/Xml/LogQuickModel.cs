@@ -125,7 +125,7 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 		    case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 					new() { new(DbField.Description, DbComparer.Equal, Scale) }, null, 0, false, false);
-				ScaleModel? scale = dataAccess.Crud.GetItem<ScaleModel>(sqlCrudConfig);
+				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 			    if (scale is not null)
 				    return scale.Identity.Id;
 			    break;
@@ -140,7 +140,7 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 		    case false:
 			    SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 				    new() { new(DbField.HostName, DbComparer.Equal, Host) }, null, 0, false, false);
-			    HostModel? host = dataAccess.Crud.GetItem<HostModel>(sqlCrudConfig);
+			    HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
                 if (host is not null)
 					return host.Identity.Id;
                 break;

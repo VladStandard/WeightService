@@ -4,7 +4,6 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
-using DataCore.Sql.Controllers;
 
 namespace DataCore.Sql.Core;
 
@@ -22,15 +21,18 @@ public class DataAccessHelper
     #region Public and private fields, properties, constructor
 
     private readonly object _locker = new();
-    public bool JsonSettingsIsRemote { get; private set; }
+
+    public delegate void ExecCallback(NHibernate.ISession session);
+	public bool JsonSettingsIsRemote { get; private set; }
 
     private JsonSettingsModel? _jsonSettingsLocal;
     public JsonSettingsModel JsonSettingsLocal
     {
         get
         {
-            if (_jsonSettingsLocal == null)
-                throw new ArgumentException($"{nameof(DataAccessHelper)}.{nameof(JsonSettingsLocal)} is null!");
+            if (_jsonSettingsLocal is null)
+                throw new ArgumentNullException(nameof(DataAccessHelper));
+
             _jsonSettingsLocal.CheckProperties(true);
             return _jsonSettingsLocal;
         }
@@ -42,150 +44,77 @@ public class DataAccessHelper
     {
         get
         {
-            if (_jsonSettingsRemote == null)
-                throw new ArgumentException($"{nameof(DataAccessHelper)}.{nameof(JsonSettingsRemote)} is null!");
+            if (_jsonSettingsRemote is null)
+                throw new ArgumentNullException(nameof(DataAccessHelper));
+
             _jsonSettingsRemote.CheckProperties(true);
             return _jsonSettingsRemote;
         }
         set => _jsonSettingsRemote = value;
     }
 
-    private FluentNHibernate.Cfg.Db.MsSqlConfiguration? _sqlConfiguration;
-    /// <summary>
-    /// Get MsSqlConfiguration.
-    /// Be careful. If setup _sqlConfiguration.DefaultSchema, this line will make an Exception!
-    /// </summary>
-    private FluentNHibernate.Cfg.Db.MsSqlConfiguration SqlConfiguration
+    private FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; set; }
+
+    // Be careful. If setup _sqlConfiguration.DefaultSchema, this line will make an Exception!
+    private void SetupSqlConfiguration()
     {
-        get
-        {
-            if (_sqlConfiguration != null)
-                return _sqlConfiguration;
-            _sqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
-            _sqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
-            //_sqlConfiguration.DefaultSchema(JsonSettings.Sql.Schema);
-            return _sqlConfiguration;
-        }
+        string connectionString = GetConnectionString();
+        if (string.IsNullOrEmpty(connectionString))
+            throw new ArgumentNullException(nameof(connectionString));
+
+        SqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
+        SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
+        //_sqlConfiguration.DefaultSchema(JsonSettings.Sql.Schema);
     }
 
-    private FluentNHibernate.Cfg.FluentConfiguration? _fluentConfiguration;
-    /// <summary>
-    /// Get FluentConfiguration.
-    /// Be careful. If there are errors in the mapping, this line will make an Exception!
-    /// </summary>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public FluentNHibernate.Cfg.FluentConfiguration FluentConfiguration
+    private FluentNHibernate.Cfg.FluentConfiguration? FluentConfiguration { get; set; }
+
+    // Be careful. If there are errors in the mapping, this line will make an Exception!
+    private void SetupFluentConfiguration()
     {
-        get
-        {
-            if (_fluentConfiguration != null)
-                return _fluentConfiguration;
-            _fluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
-            AddConfigurationMappings(_fluentConfiguration, JsonSettingsIsRemote ? JsonSettingsRemote : JsonSettingsLocal);
-            //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
-            //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
-            _fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
-            return _fluentConfiguration;
-        }
+        if (SqlConfiguration is null)
+            throw new ArgumentNullException(nameof(SqlConfiguration));
+
+        FluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
+        AddConfigurationMappings(FluentConfiguration, JsonSettingsIsRemote ? JsonSettingsRemote : JsonSettingsLocal);
+        //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
+        //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
+        FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
-    private NHibernate.ISessionFactory? _sessionFactory;
-    public NHibernate.ISessionFactory SessionFactory
-    {
-        get
-        {
-            lock (_locker)
-            {
-                if (_sessionFactory != null)
-                    return _sessionFactory;
-                _sessionFactory = FluentConfiguration.BuildSessionFactory();
-                return _sessionFactory;
-            }
-        }
-    }
+    public NHibernate.ISessionFactory? SessionFactory { get; private set; }
 
-    public void InitSessionFactory()
+    public void SetupSessionFactory(bool isRemote)
     {
         lock (_locker)
         {
-            _fluentConfiguration = null;
-            _sqlConfiguration = null;
-            _sessionFactory = null;
-            _crud = null;
+            JsonSettingsIsRemote = isRemote;
+            SetupSqlConfiguration();
+            SetupFluentConfiguration();
+            if (FluentConfiguration is null)
+                throw new ArgumentNullException(nameof(FluentConfiguration));
+
+            SessionFactory = FluentConfiguration.BuildSessionFactory();
         }
     }
 
-    public void InitSessionFactoryWithJson(bool isRemote)
-    {
-        JsonSettingsIsRemote = isRemote;
-        InitSessionFactory();
-        _ = SessionFactory;
-        _ = SqlConfiguration;
-        _ = FluentConfiguration;
-    }
-
-    public NHibernate.ISession OpenSession() => SessionFactory.OpenSession();
-
-    public void CloseSessionFactory()
-    {
-        using NHibernate.ISessionFactory session = SessionFactory;
-        session.Close();
-        session.Dispose();
-    }
-
-    private CrudController? _crud;
-    public CrudController Crud
-    {
-        get
-        {
-            if (_crud != null)
-                return _crud;
-            return _crud = new();
-        }
-        set => _crud = value;
-    }
+    //public void CloseSessionFactory()
+    //{
+    //    using NHibernate.ISessionFactory session = SessionFactory;
+    //    session.Close();
+    //    session.Dispose();
+    //}
 
     private JsonSettingsController? _jsonControl;
     public JsonSettingsController JsonControl
     {
         get
         {
-            if (_jsonControl != null)
+            if (_jsonControl is not null)
                 return _jsonControl;
             return _jsonControl = new();
         }
         set => _jsonControl = value;
-    }
-
-    private LogController? _log;
-    public LogController Log
-    {
-        get
-        {
-            if (_log != null)
-                return _log;
-            return _log = new();
-        }
-        set => _log = value;
-    }
-
-    public bool IsConnected
-    {
-        get
-        {
-            NHibernate.ISession session = OpenSession();
-            try
-            {
-                return session.IsConnected;
-            }
-            finally
-            {
-                session.Disconnect();
-                session.Close();
-                session.Dispose();
-            }
-        }
     }
 
     #endregion
@@ -194,7 +123,13 @@ public class DataAccessHelper
 
     public DataAccessHelper()
     {
-        InitSessionFactory();
+        //
+    }
+    
+    ~DataAccessHelper()
+    {
+	    SessionFactory?.Close();
+	    SessionFactory?.Dispose();
     }
 
     #endregion

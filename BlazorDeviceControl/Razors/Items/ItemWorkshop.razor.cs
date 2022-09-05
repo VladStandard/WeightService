@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemWorkshop : RazorPageModel
@@ -27,14 +29,14 @@ public partial class ItemWorkshop : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<WorkShopModel>(IdentityId);
+				ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	ItemCast.Identity.Id = (long)IdentityId;
-				ProductionFacilities = AppSettings.DataAccess.Crud.GetListProductionFacilities(false, false, false);
+				ProductionFacilities = AppSettings.DataAccess.GetListProductionFacilities(false, false, false);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

@@ -149,19 +149,19 @@ public static class GuiUtils
 	            switch (logType)
 	            {
 		            case LogType.None:
-			            DataAccess.Log.LogInformation(message, hostName, appName);
+			            DataAccess.LogInformation(message, hostName, appName);
 			            break;
 		            case LogType.Error:
-			            DataAccess.Log.LogError(message, hostName, appName);
+			            DataAccess.LogError(message, hostName, appName);
 			            break;
 		            case LogType.Question:
-			            DataAccess.Log.LogQuestion(message, hostName, appName);
+			            DataAccess.LogQuestion(message, hostName, appName);
 			            break;
 		            case LogType.Warning:
-			            DataAccess.Log.LogWarning(message, hostName, appName);
+			            DataAccess.LogWarning(message, hostName, appName);
 			            break;
 		            case LogType.Information:
-						DataAccess.Log.LogInformation(message, hostName, appName);
+						DataAccess.LogInformation(message, hostName, appName);
 			            break;
 		            default:
 			            throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
@@ -239,7 +239,7 @@ public static class GuiUtils
                     AccessDt = DateTime.Now,
                     IsMarked = false,
                 };
-                DataAccess.Crud.Save(host);
+                DataAccess.Save(host);
             }
             return result;
         }
@@ -279,7 +279,7 @@ public static class GuiUtils
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (isLog)
-                DataAccess.Log.LogError(ex, UserSessionHelper.Instance.SqlViewModel.Scale.Host.HostName, null, filePath, lineNumber, memberName);
+                DataAccess.LogError(ex, UserSessionHelper.Instance.SqlViewModel.Scale.Host.HostName, null, filePath, lineNumber, memberName);
             string message = ex.Message;
             if (ex.InnerException != null)
                 message += ex.InnerException.Message;

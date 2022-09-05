@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionAccess : RazorPageModel
@@ -38,11 +40,11 @@ public partial class SectionAccess : RazorPageModel
     {
         base.OnParametersSet();
 
-        RunActions(new()
+        RunActionsSilent(new()
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.Crud.GetListAcesses(IsShowMarked, IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.GetListAcesses(IsShowMarked, IsShowOnlyTop);
 
 				ButtonSettings = new(true, false, true, true, true, false, false);
             }
@@ -51,7 +53,7 @@ public partial class SectionAccess : RazorPageModel
 
     public void RowRender(RowRenderEventArgs<AccessModel> args)
     {
-        args.Attributes.Add("class", UserSettings?.GetColorAccessRights(args.Data.Rights));
+        args.Attributes.Add("class", UserSettings.GetColorAccessRights(args.Data.Rights));
         //RowCounter += 1;
     }
 

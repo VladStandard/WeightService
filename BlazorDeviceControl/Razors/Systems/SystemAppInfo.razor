@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorPageModel
-@page "/system/info"
+@page "/system/appinfo"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
@@ -7,7 +7,7 @@
 
 <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
-<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.AppSettings</MudElement>
+<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
     <tbody>
@@ -220,47 +220,3 @@
     </tbody>
 </MudSimpleTable>
 <br />
-
-<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.UserSettings</MudElement>
-<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25 }) />
-    <tbody>
-        <tr>
-            <td>@LocaleCore.Strings.AuthorizingUserName</td>
-            @if (string.IsNullOrEmpty(UserSettings?.UserName))
-            {
-                <td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td><MudElement Class="ma-0">@UserSettings.UserName</MudElement></td>
-            }
-        </tr>
-        <tr>
-	        <td>@LocaleCore.Strings.AccessRights</td>
-            @if (UserSettings is not null)
-            {
-				<td><MudElement Class="ma-0">@UserSettings.GetDescriptionAccessRights(UserSettings.AccessRights)</MudElement></td>
-            }
-        </tr>
-        <tr>
-            <td>@LocaleCore.Strings.Language</td>
-            @if (TemplateLanguages == null)
-            {
-                <td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
-            }
-            else
-            {
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@LocaleCore.Lang>
-                        @foreach (Lang lang in Langs)
-                        {
-                            <MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
-                        }
-                    </MudSelect>
-                </td>
-            }
-        </tr>
-    </tbody>
-</MudSimpleTable>

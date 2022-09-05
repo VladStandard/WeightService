@@ -127,7 +127,7 @@ public class UserSettingsModel
 
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() { new(DbField.User, DbComparer.Equal, UserName) },
 			null, 0, false, false);
-		AccessModel access = DataAccessHelper.Instance.Crud.GetItemNotNull<AccessModel>(sqlCrudConfig);
+		AccessModel access = DataAccessHelper.Instance.GetItemNotNull<AccessModel>(sqlCrudConfig);
 		AccessRights = (AccessRights)access.Rights;
 
 		if (parentRazorPage is not null)

@@ -9,8 +9,9 @@
 @using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
 @using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
+@using DataCore.Sql.Core
 
-@if (!IsLoaded)
+@if (!IsActionsParametersSetFinished)
 {
     <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }
@@ -97,17 +98,17 @@ else
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
                         class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocaleCore.Print.ResourcesClear Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                        Text=@LocaleCore.Print.ResourcesClear Disabled=@(!AppSettings.DataAccess.IsConnected()) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "TTF"))
                         class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                        Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!AppSettings.DataAccess.IsConnected()) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "GRF"))
                         class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!AppSettings.DataAccess.IsConnected) />
+                              Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!AppSettings.DataAccess.IsConnected()) />
 				</td>
             </tr>
         </tbody>

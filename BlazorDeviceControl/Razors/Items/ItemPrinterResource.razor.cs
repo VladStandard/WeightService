@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 /// <summary>
@@ -41,7 +43,7 @@ public partial class ItemPrinterResource : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
@@ -53,11 +55,11 @@ public partial class ItemPrinterResource : RazorPageModel
 						ItemCast.Description = "NEW RESOURCE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
+						ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
 						break;
 				}
-				Printers = AppSettings.DataAccess.Crud.GetListPrinters(false, false, false);
-				Resources = AppSettings.DataAccess.Crud.GetListTemplateResources(false, false);
+				Printers = AppSettings.DataAccess.GetListPrinters(false, false, false);
+				Resources = AppSettings.DataAccess.GetListTemplateResources(false, false);
 				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

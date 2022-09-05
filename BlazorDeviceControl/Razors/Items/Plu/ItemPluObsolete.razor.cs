@@ -36,7 +36,7 @@ public partial class ItemPluObsolete : RazorPageModel
     {
         base.OnParametersSet();
 
-        RunActions(new()
+        RunActionsSilent(new()
         {
             () =>
             {
@@ -48,28 +48,28 @@ public partial class ItemPluObsolete : RazorPageModel
 						ItemCast.IsMarked = false;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
+                        ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
                         break;
                 }
 
 	            // Templates.
                 Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };
                 SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Title), 0, false, false);
-				TemplateModel[]? templates = AppSettings.DataAccess.Crud.GetItems<TemplateModel>(sqlCrudConfig);
+				TemplateModel[]? templates = AppSettings.DataAccess.GetItems<TemplateModel>(sqlCrudConfig);
                 if (templates is not null)
                     Templates.AddRange(templates);
 
 	            // Nomenclatures.
                 Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-				NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureModel>(sqlCrudConfig);
+				NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
                 if (nomenclatures is not null)
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // ScaleItems.
                 Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
-				ScaleModel[]? scales = AppSettings.DataAccess.Crud.GetItems<ScaleModel>(sqlCrudConfig);
+				ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
                 if (scales is not null)
                     Scales.AddRange(scales);
 
@@ -94,8 +94,7 @@ public partial class ItemPluObsolete : RazorPageModel
         });
     }
 
-    private void OnClickFieldsFill(string name,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private void OnClickFieldsFill(string name, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -168,7 +167,7 @@ public partial class ItemPluObsolete : RazorPageModel
         }
         catch (Exception ex)
         {
-            RunTasksCatch(ex, Table.Name, memberName, filePath, lineNumber, memberName);
+            CatchException(ex, Table.Name, memberName);
         }
     }
 

@@ -37,7 +37,7 @@ public static partial class SqlUtils
 		SqlCrudConfigModel sqlCrudConfig = new(new()
 				{ new($"Host.Identity.Id", ShareEnums.DbComparer.Equal, hostId), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
 			new(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Desc), 0);
-		return DataAccess.Crud.GetItem<ScaleModel>(sqlCrudConfig);
+		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(long id)
@@ -45,7 +45,7 @@ public static partial class SqlUtils
 		SqlCrudConfigModel sqlCrudConfig = new(new()
 				{ new(ShareEnums.DbField.IdentityValueId, ShareEnums.DbComparer.Equal, id), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
 			null, 0);
-		return DataAccess.Crud.GetItem<ScaleModel>(sqlCrudConfig);
+		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(string description)
@@ -53,7 +53,7 @@ public static partial class SqlUtils
 		SqlCrudConfigModel sqlCrudConfig = new(new()
 				{ new(ShareEnums.DbField.Description, ShareEnums.DbComparer.Equal, description), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
 			null, 0);
-		return DataAccess.Crud.GetItem<ScaleModel>(sqlCrudConfig);
+		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ProductionFacilityModel? GetArea(string name)
@@ -61,7 +61,7 @@ public static partial class SqlUtils
 		SqlCrudConfigModel sqlCrudConfig = new(new()
 				{ new(ShareEnums.DbField.Name, ShareEnums.DbComparer.Equal, name), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
 			null, 0);
-		return DataAccess.Crud.GetItem<ProductionFacilityModel>(sqlCrudConfig);
+		return DataAccess.GetItem<ProductionFacilityModel>(sqlCrudConfig);
 	}
 
 	#endregion

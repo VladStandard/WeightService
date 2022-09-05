@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemTemplateResource : RazorPageModel
@@ -33,11 +35,11 @@ public partial class ItemTemplateResource : RazorPageModel
     {
         base.OnParametersSet();
 
-        RunActions(new()
+        RunActionsSilent(new()
         {
             () =>
             {
-                ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
+                ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
                 //if (IdentityId != null && TableAction == DbTableAction.New)
                 //    ItemCast.Identity.Id = (long)IdentityId;
 

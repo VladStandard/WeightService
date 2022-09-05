@@ -5,7 +5,6 @@ using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
-using DataCore.Sql;
 using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels;
 using ScalesUI.Forms;
@@ -57,7 +56,7 @@ internal static class Program
             {
                 string message = LocaleCore.Scales.RegistrationWarningHostNotFound(hostName);
                 GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                //DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
+                //DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
                 Application.Exit();
                 return;
             }
@@ -68,7 +67,7 @@ internal static class Program
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);
                 GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
+                DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
                 Application.Exit();
                 return;
             }
@@ -79,12 +78,12 @@ internal static class Program
             {
                 string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
                 GuiUtils.WpfForm.ShowNewRegistration(message);
-                DataAccess.Log.LogError(new Exception(message), hostName, nameof(ScalesUI));
+                DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
                 Application.Exit();
             }
             else
             {
-                DataAccess.Log.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description), 
+                DataAccess.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description), 
                     hostName, nameof(ScalesUI));
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

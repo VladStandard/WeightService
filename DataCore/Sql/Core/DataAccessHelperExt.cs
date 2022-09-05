@@ -2,17 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using static DataCore.ShareEnums;
 
-namespace DataCore.Sql.Controllers;
+namespace DataCore.Sql.Core;
 
-public static class CrudControllerExtensions
+public static class DataAccessHelperExt
 {
 	#region Public and private methods
 
-	public static AppModel? GetOrCreateNewApp(this CrudController crud, string? appName)
+	public static AppModel? GetOrCreateNewApp(this DataAccessHelper dataAccess, string? appName)
 	{
 		AppModel? app = null;
 		if (!string.IsNullOrEmpty(appName) && appName is not null)
@@ -20,7 +19,7 @@ public static class CrudControllerExtensions
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
 				{ new(DbField.Name, DbComparer.Equal, appName), new(DbField.IsMarked, DbComparer.Equal, false) },
 				null, 0, false, false);
-			app = crud.GetItem<AppModel>(sqlCrudConfig);
+			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
 			if (app is null || app.EqualsDefault())
 			{
 				app = new()
@@ -30,13 +29,13 @@ public static class CrudControllerExtensions
 					ChangeDt = DateTime.Now,
 					IsMarked = false,
 				};
-				crud.Save(app);
+				dataAccess.Save(app);
 			}
 		}
 		return app;
 	}
 
-	public static AppModel? GetItemApp(this CrudController crud, string? appName)
+	public static AppModel? GetItemApp(this DataAccessHelper dataAccess, string? appName)
 	{
 		AppModel? app = null;
 		if (!string.IsNullOrEmpty(appName) && appName is not null)
@@ -44,12 +43,12 @@ public static class CrudControllerExtensions
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
 				{ new(DbField.Name, DbComparer.Equal, appName), new(DbField.IsMarked, DbComparer.Equal, false) },
 				null, 0, false, false);
-			app = crud.GetItem<AppModel>(sqlCrudConfig);
+			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
 		}
 		return app;
 	}
 
-	public static HostModel? GetItemOrCreateNewHost(this CrudController crud, string? hostName)
+	public static HostModel? GetItemOrCreateNewHost(this DataAccessHelper dataAccess, string? hostName)
 	{
 		HostModel? host = null;
 		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
@@ -57,7 +56,7 @@ public static class CrudControllerExtensions
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
 				{ new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
 				null, 0, false, false);
-			host = crud.GetItem<HostModel>(sqlCrudConfig);
+			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 			if (host is null || host.EqualsDefault())
 			{
 				host = new()
@@ -70,18 +69,18 @@ public static class CrudControllerExtensions
 					Ip = NetUtils.GetLocalIpAddress(),
 					AccessDt = DateTime.Now,
 				};
-				crud.Save(host);
+				dataAccess.Save(host);
 			}
 			else
 			{
 				host.AccessDt = DateTime.Now;
-				crud.Update(host);
+				dataAccess.Update(host);
 			}
 		}
 		return host;
 	}
 
-	public static HostModel? GetItemHost(this CrudController crud, string? hostName)
+	public static HostModel? GetItemHost(this DataAccessHelper dataAccess, string? hostName)
 	{
 		HostModel? host = null;
 		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
@@ -89,55 +88,55 @@ public static class CrudControllerExtensions
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
 				{ new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
 				null, 0, false, false);
-			host = crud.GetItem<HostModel>(sqlCrudConfig);
+			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 			if (host is not null && !host.EqualsDefault())
 			{
 				host.AccessDt = DateTime.Now;
-				crud.Update(host);
+				dataAccess.Update(host);
 			}
 		}
 		return host;
 	}
 
-	public static List<AccessModel> GetListAcesses(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<AccessModel> GetListAcesses(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.User), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<AccessModel>(sqlCrudConfig);
+		return dataAccess.GetList<AccessModel>(sqlCrudConfig);
 	}
 
-	public static List<BarCodeModel> GetListBarCodes(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<BarCodeModel> GetListBarCodes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Value), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<BarCodeModel>(sqlCrudConfig);
+		return dataAccess.GetList<BarCodeModel>(sqlCrudConfig);
 	}
 
-	public static List<BarCodeTypeModel> GetListBarCodeTypes(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<BarCodeTypeModel> GetListBarCodeTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<BarCodeTypeModel>(sqlCrudConfig);
+		return dataAccess.GetList<BarCodeTypeModel>(sqlCrudConfig);
 	}
 
-	public static List<ContragentModel> GetListContragents(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<ContragentModel> GetListContragents(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<ContragentModel>(sqlCrudConfig);
+		return dataAccess.GetList<ContragentModel>(sqlCrudConfig);
 
 	}
 
-	public static List<HostModel> GetListHosts(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<HostModel> GetListHosts(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		HostModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
 		List<HostModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<HostModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<HostModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<HostModel> GetListHostsFree(this CrudController crud, long? id, bool? isMarked)
+	public static List<HostModel> GetListHostsFree(this DataAccessHelper dataAccess, long? id, bool? isMarked)
 	{
-		object[] entities = crud.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
+		object[] entities = dataAccess.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
 		List<HostModel> items = new();
 		foreach (object? item in entities)
 		{
@@ -154,16 +153,16 @@ public static class CrudControllerExtensions
 					IsMarked = Convert.ToBoolean(obj[7]),
 				};
 				if ((id == null || Equals(host.Identity.Id, id)) &&
-				    (isMarked == null || Equals(host.IsMarked, isMarked)))
+					(isMarked == null || Equals(host.IsMarked, isMarked)))
 					items.Add(host);
 			}
 		}
 		return items;
 	}
 
-	public static List<HostModel> GetListHostsBusy(this CrudController crud, long? id, bool? isMarked)
+	public static List<HostModel> GetListHostsBusy(this DataAccessHelper dataAccess, long? id, bool? isMarked)
 	{
-		object[] entities = crud.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
+		object[] entities = dataAccess.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
 		List<HostModel> items = new();
 		foreach (object? item in entities)
 		{
@@ -180,42 +179,42 @@ public static class CrudControllerExtensions
 					IsMarked = Convert.ToBoolean(obj[9]),
 				};
 				if ((id == null || Equals(host.Identity.Id, id)) &&
-				    (isMarked == null || Equals(host.IsMarked, isMarked)))
+					(isMarked == null || Equals(host.IsMarked, isMarked)))
 					items.Add(host);
 			}
 		}
 		return items;
 	}
 
-	public static List<NomenclatureModel> GetListNomenclatures(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<NomenclatureModel> GetListNomenclatures(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		NomenclatureModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
 		List<NomenclatureModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<NomenclatureModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<NomenclatureModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<PluModel> GetListPlus(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<PluModel> GetListPlus(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		PluModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
 		List<PluModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<PluModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<PluModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<PluLabelModel> GetListPluLabels(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<PluLabelModel> GetListPluLabels(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<PluLabelModel>(sqlCrudConfig);
+		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-	public static List<PluObsoleteModel> GetListPluObsoletes(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
+	public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
@@ -224,10 +223,10 @@ public static class CrudControllerExtensions
 		if (scaleId is not null)
 			filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(DbField.GoodsName), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<PluObsoleteModel>(sqlCrudConfig);
+		return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
 	}
 
-	public static List<PluScaleModel> GetListPluScales(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
+	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
@@ -236,17 +235,17 @@ public static class CrudControllerExtensions
 		if (scaleId is not null)
 			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<PluScaleModel>(sqlCrudConfig);
+		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
-	public static List<PluScaleModel> GetListPluScales(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, long scaleId)
+	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, long scaleId)
 	{
 		List<FieldFilterModel> filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<PluScaleModel>(sqlCrudConfig);
+		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
-	public static List<PrinterResourceModel> GetListPrinterResources(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
+	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
 	{
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)
@@ -255,60 +254,60 @@ public static class CrudControllerExtensions
 		if (printerId is not null)
 			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{DbField.IdentityValueId}", DbComparer.Equal, printerId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(DbField.Description), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<PrinterResourceModel>(sqlCrudConfig);
+		return dataAccess.GetList<PrinterResourceModel>(sqlCrudConfig);
 	}
 
-	public static List<PrinterModel> GetListPrinters(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<PrinterModel> GetListPrinters(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		PrinterModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
 		List<PrinterModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<PrinterModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<PrinterModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<PrinterTypeModel> GetListPrinterTypes(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<PrinterTypeModel> GetListPrinterTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
-		return crud.GetList<PrinterTypeModel>(sqlCrudConfig);
+		return dataAccess.GetList<PrinterTypeModel>(sqlCrudConfig);
 	}
 
-	public static List<ProductionFacilityModel> GetListProductionFacilities(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<ProductionFacilityModel> GetListProductionFacilities(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		ProductionFacilityModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
 		List<ProductionFacilityModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<ProductionFacilityModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<ProductionFacilityModel>(sqlCrudConfig));
 		if (!isAddFieldNull)
 			result = result.Where(x => x.Identity.Id > 0).ToList();
 		return result;
 	}
 
-	public static List<ScaleModel> GetListScales(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<ScaleModel> GetListScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		ScaleModel item = new() { Description = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, isShowMarked, isShowOnlyTop);
 		List<ScaleModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<ScaleModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<ScaleModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<TemplateResourceModel> GetListTemplateResources(this CrudController crud, bool isShowMarked, bool isShowOnlyTop)
+	public static List<TemplateResourceModel> GetListTemplateResources(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Type), 0, isShowMarked, isShowOnlyTop);
-		List<TemplateResourceModel> result = crud.GetList<TemplateResourceModel>(sqlCrudConfig);
+		List<TemplateResourceModel> result = dataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Name).ToList();
 		result = result.OrderBy(x => x.Type).ToList();
 		return result;
 	}
 
-	public static List<TemplateModel> GetListTemplates(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<TemplateModel> GetListTemplates(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		TemplateModel item = new() { Title = LocaleCore.Table.FieldNull };
 		List<FieldFilterModel>? filters = null;
@@ -320,25 +319,25 @@ public static class CrudControllerExtensions
 		List<TemplateModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<TemplateModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<TemplateModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<VersionModel> GetListVersions(this CrudController crud)
+	public static List<VersionModel> GetListVersions(this DataAccessHelper dataAccess)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 			null, new(DbField.Version, DbOrderDirection.Desc), 0, true, false);
-		return crud.GetList<VersionModel>(sqlCrudConfig);
+		return dataAccess.GetList<VersionModel>(sqlCrudConfig);
 	}
 
-	public static List<WorkShopModel> GetListWorkShops(this CrudController crud, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<WorkShopModel> GetListWorkShops(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		WorkShopModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, isShowMarked, isShowOnlyTop);
 		List<WorkShopModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
-		result.AddRange(crud.GetList<WorkShopModel>(sqlCrudConfig));
+		result.AddRange(dataAccess.GetList<WorkShopModel>(sqlCrudConfig));
 		result = result.OrderBy(x => x.ProductionFacility.Name).ToList();
 		return result;
 	}

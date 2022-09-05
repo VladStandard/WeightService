@@ -32,7 +32,7 @@ public static partial class SqlUtils
 		SqlCrudConfigModel sqlCrudConfig = new(new()
 			{ new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
 			new(DbField.CreateDt, DbOrderDirection.Desc), 0);
-		return DataAccess.Crud.GetItem<HostModel>(sqlCrudConfig);
+		return DataAccess.GetItem<HostModel>(sqlCrudConfig);
 	}
 
 	public static HostDirect Load(Guid uid) =>

@@ -62,7 +62,7 @@
 //                    IsMarked = default,
 //                    SerializedRepresentationObject = null,
 //                };
-//                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
+//                DataAccessUtilsTests.DataAccess.SaveEntity(item);
 //            });
 
 //            TestsUtils.MethodComplete();
@@ -76,20 +76,20 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "ContragentsEntity test";
-//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<ContragentEntityV2>(new (
+//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.GetItem<ContragentEntityV2>(new (
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;
 //                // UpdateEntity
 //                entityExists.IsMarked = true;
-//                DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(entityExists);
+//                DataAccessUtilsTests.DataAccess.UpdateEntity(entityExists);
 //            });
 
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "ContragentsEntity test";
 //                // GetEntities
-//                ContragentEntityV2[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ContragentEntityV2>(null, null);
+//                ContragentEntityV2[] entities = DataAccessUtilsTests.DataAccess.GetEntities<ContragentEntityV2>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
 //                foreach (ContragentEntityV2 item in entities)
 //                {

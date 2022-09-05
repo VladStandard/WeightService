@@ -56,7 +56,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                // GetEntities.
-//                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<HostEntity>(null,
+//                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.GetEntities<HostEntity>(null,
 //                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
 //                {
 //                    TestContext.WriteLine(item.ToString());
@@ -75,7 +75,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                // GetEntities.
-//                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.Crud.GetFreeHosts(null))
+//                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.GetFreeHosts(null))
 //                {
 //                    TestContext.WriteLine(item.ToString());
 //                    TestContext.WriteLine();

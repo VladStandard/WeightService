@@ -61,7 +61,7 @@
 //                    Name = "NomenclatureModel test",
 //                    SerializedRepresentationObject = default,
 //                };
-//                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
+//                DataAccessUtilsTests.DataAccess.SaveEntity(item);
 //            });
 
 //            TestsUtils.MethodComplete();
@@ -75,20 +75,20 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "NomenclatureModel test";
-//                NomenclatureModel entityExists = DataAccessUtilsTests.DataAccess.Crud.GetItem<NomenclatureModel>(new (
+//                NomenclatureModel entityExists = DataAccessUtilsTests.DataAccess.GetItem<NomenclatureModel>(new (
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;
 //                // UpdateEntity
 //                entityExists.Code = "code test";
-//                DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(entityExists);
+//                DataAccessUtilsTests.DataAccess.UpdateEntity(entityExists);
 //            });
 
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "NomenclatureModel test";
 //                // GetEntities
-//                NomenclatureModel[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<NomenclatureModel>(null, null);
+//                NomenclatureModel[] entities = DataAccessUtilsTests.DataAccess.GetEntities<NomenclatureModel>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
 //                foreach (NomenclatureModel item in entities)
 //                {

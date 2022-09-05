@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemHost : RazorPageModel
@@ -25,7 +27,7 @@ public partial class ItemHost : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
@@ -40,7 +42,7 @@ public partial class ItemHost : RazorPageModel
 						ItemCast.MacAddress.Default();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<HostModel>(IdentityId);
+						ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
 						break;
 				}
 

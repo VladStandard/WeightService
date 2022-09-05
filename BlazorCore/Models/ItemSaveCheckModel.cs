@@ -31,11 +31,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -51,11 +51,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -71,11 +71,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -91,11 +91,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -111,11 +111,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -137,11 +137,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -161,11 +161,11 @@ public class ItemSaveCheckModel
 		    if (tableAction == DbTableAction.New)
 		    {
 			    item.CreateDt = DateTime.Now;
-			    AppSettings.DataAccess.Crud.Save(item);
+			    AppSettings.DataAccess.Save(item);
 		    }
 		    else
 		    {
-				AppSettings.DataAccess.Crud.Update(item);
+				AppSettings.DataAccess.Update(item);
 		    }
 	    }
     }
@@ -185,11 +185,11 @@ public class ItemSaveCheckModel
 		    if (tableAction == DbTableAction.New)
 		    {
 			    item.CreateDt = DateTime.Now;
-			    AppSettings.DataAccess.Crud.Save(item);
+			    AppSettings.DataAccess.Save(item);
 		    }
 		    else
 		    {
-				AppSettings.DataAccess.Crud.Update(item);
+				AppSettings.DataAccess.Update(item);
 		    }
 	    }
     }
@@ -207,11 +207,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -227,11 +227,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -247,11 +247,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -267,11 +267,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -289,7 +289,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.Host?.Identity.Id != 0)
 	            {
-	                scale.Host = AppSettings.DataAccess.Crud.GetItemById<HostModel>(scale.Host?.Identity.Id);
+	                scale.Host = AppSettings.DataAccess.GetItemById<HostModel>(scale.Host?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.Host, LocaleCore.Table.Host);
 	            }
 	            else
@@ -299,7 +299,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.PrinterMain?.Identity.Id != 0)
 	            {
-	                scale.PrinterMain = AppSettings.DataAccess.Crud.GetItemById<PrinterModel>(scale.PrinterMain?.Identity.Id);
+	                scale.PrinterMain = AppSettings.DataAccess.GetItemById<PrinterModel>(scale.PrinterMain?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.PrinterMain, LocaleCore.Table.Printer);
 	            }
 	            else
@@ -309,7 +309,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.PrinterShipping?.Identity.Id != 0)
 	            {
-	                scale.PrinterShipping = AppSettings.DataAccess.Crud.GetItemById<PrinterModel>(scale.PrinterShipping?.Identity.Id);
+	                scale.PrinterShipping = AppSettings.DataAccess.GetItemById<PrinterModel>(scale.PrinterShipping?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.PrinterShipping, LocaleCore.Table.Printer);
 	            }
 	            else
@@ -319,7 +319,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.TemplateDefault?.Identity.Id != 0)
 	            {
-	                scale.TemplateDefault = AppSettings.DataAccess.Crud.GetItemById<TemplateModel>(scale.TemplateDefault?.Identity.Id);
+	                scale.TemplateDefault = AppSettings.DataAccess.GetItemById<TemplateModel>(scale.TemplateDefault?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.TemplateDefault, LocaleCore.Table.Template);
 	            }
 	            else
@@ -329,7 +329,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.TemplateSeries?.Identity.Id != 0)
 	            {
-	                scale.TemplateSeries = AppSettings.DataAccess.Crud.GetItemById<TemplateModel>(scale.TemplateSeries?.Identity.Id);
+	                scale.TemplateSeries = AppSettings.DataAccess.GetItemById<TemplateModel>(scale.TemplateSeries?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.TemplateSeries, LocaleCore.Table.Template);
 	            }
 	            else
@@ -339,7 +339,7 @@ public class ItemSaveCheckModel
 	        {
 	            if (scale.WorkShop?.Identity.Id != 0)
 	            {
-	                scale.WorkShop = AppSettings.DataAccess.Crud.GetItemById<WorkShopModel>(scale.WorkShop?.Identity.Id);
+	                scale.WorkShop = AppSettings.DataAccess.GetItemById<WorkShopModel>(scale.WorkShop?.Identity.Id);
 	                success = FieldControl.ValidateModel(notificationService, scale.WorkShop, LocaleCore.Table.Template);
 	            }
 	            else
@@ -355,11 +355,11 @@ public class ItemSaveCheckModel
 				        scale.CreateDt = DateTime.Now;
 				        if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
 					        scale.TemplateSeries = null;
-				        AppSettings.DataAccess.Crud.Save(scale);
+				        AppSettings.DataAccess.Save(scale);
 				        break;
 			        }
 			        case DbTableAction.Save:
-				        AppSettings.DataAccess.Crud.Update(scale);
+				        AppSettings.DataAccess.Update(scale);
 				        break;
 		        }
 	        }
@@ -381,11 +381,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -401,11 +401,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -421,11 +421,11 @@ public class ItemSaveCheckModel
             if (parentTableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -441,11 +441,11 @@ public class ItemSaveCheckModel
             if (parentTableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }
@@ -461,11 +461,11 @@ public class ItemSaveCheckModel
             if (tableAction == DbTableAction.New)
             {
                 item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Crud.Save(item);
+                AppSettings.DataAccess.Save(item);
             }
             else
             {
-                AppSettings.DataAccess.Crud.Update(item);
+                AppSettings.DataAccess.Update(item);
             }
         }
     }

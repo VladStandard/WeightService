@@ -4,44 +4,92 @@
 @using BlazorDeviceControl.Razors.Systems
 @using BlazorDeviceControl.Razors.Components
 @using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
+@using BlazorCore.Razors
 
 <AuthorizeView>
 	<Authorizing>
-		@if (UserSettings is not null)
+		@LocaleCore.Strings.AuthorizingProcess
+		@(_ = ActionsParametersSet = new()
 		{
-			RunActions(new() { () => UserSettings.SetupUserName(string.Empty, ParentRazor) }, !IsAuthorizingLoad);
-			IsAuthorizingLoad = true;
-		}
+			() => UserSettings.SetupUserName(string.Empty, ParentRazor),
+			//() => { if (!IsAuthorizingLoad) StateHasChanged(); }
+		})
 	</Authorizing>
 	<Authorized>
-		@if (UserSettings is not null)
+		@LocaleCore.Strings.AuthorizingSuccess
+		@(_ = ActionsParametersSet = new()
 		{
-			RunActions(new() { () => UserSettings.SetupUserName(context.User.Identity?.Name, ParentRazor) }, !IsAuthorizingLoad);
-			IsAuthorizingLoad = true;
-		}
+			() => UserSettings.SetupUserName(context.User.Identity?.Name, ParentRazor),
+			//() => { if (!IsAuthorizingLoad) StateHasChanged(); }
+		})
 	</Authorized>
 	<NotAuthorized>
-		@if (UserSettings is not null)
+		@LocaleCore.Strings.AuthorizingNot
+		@(_ = ActionsParametersSet = new()
 		{
-			RunActions(new() { () => UserSettings.SetupUserName(LocaleCore.System.SystemIdentityNotAuthorized, ParentRazor) }, !IsAuthorizingLoad);
-			IsAuthorizingLoad = true;
-		}
+			() => UserSettings.SetupUserName(LocaleCore.System.SystemIdentityNotAuthorized, ParentRazor),
+			//() => { if (!IsAuthorizingLoad) StateHasChanged(); }
+		})
 	</NotAuthorized>
 </AuthorizeView>
 
 @if (IsShowReload)
 {
-	<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.System.SystemIdentityDataFull />
+	<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.System.UserInfo />
 	
 	<div>
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; "
-			Text=@(UserSettings is null ? LocaleCore.System.SystemIdentityNotAuthorized : UserSettings.UserDescription) />
+			Text=@(UserSettings.UserDescription) />
 		<br />
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; " 
-		    Text=@(UserSettings is null ? LocaleCore.System.SystemIdentityNotAuthorized : UserSettings.IdDescription) />
+		    Text=@(UserSettings.IdDescription) />
 		<br />
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; "
-			Text=@(UserSettings is null ? LocaleCore.System.SystemIdentityNotAuthorized : UserSettings.IpAddressDescription) />
+			Text=@(UserSettings.IpAddressDescription) />
 		<br />
 	</div>
+
+	<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.UserSettings</MudElement>
+	<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25 }) />
+		<tbody>
+		<tr>
+			<td>@LocaleCore.Strings.AuthorizingUserName</td>
+			@if (string.IsNullOrEmpty(UserSettings.UserName))
+			{
+				<td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
+			}
+			else
+			{
+				<td><MudElement Class="ma-0">@UserSettings.UserName</MudElement></td>
+			}
+		</tr>
+		<tr>
+			<td>@LocaleCore.Strings.AccessRights</td>
+			@if (UserSettings is not null)
+			{
+				<td><MudElement Class="ma-0">@UserSettings.GetDescriptionAccessRights(UserSettings.AccessRights)</MudElement></td>
+			}
+		</tr>
+		<tr>
+			<td>@LocaleCore.Strings.Language</td>
+			@if (TemplateLanguages == null)
+			{
+				<td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
+			}
+			else
+			{
+				<td>
+					<MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+						@bind-Value=@LocaleCore.Lang>
+						@foreach (Lang lang in Langs)
+						{
+							<MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
+						}
+					</MudSelect>
+				</td>
+			}
+		</tr>
+		</tbody>
+	</MudSimpleTable>
 }

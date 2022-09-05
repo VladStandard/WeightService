@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemLog : RazorPageModel
@@ -25,7 +27,7 @@ public partial class ItemLog : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
@@ -36,7 +38,7 @@ public partial class ItemLog : RazorPageModel
 						ItemCast.SetDt();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByUidNotNull<LogModel>(IdentityUid);
+						ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);
 						break;
 				}
 

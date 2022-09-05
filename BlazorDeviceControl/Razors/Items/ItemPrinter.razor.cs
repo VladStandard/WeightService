@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemPrinter : RazorPageModel
@@ -27,7 +29,7 @@ public partial class ItemPrinter : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
@@ -40,11 +42,11 @@ public partial class ItemPrinter : RazorPageModel
 						ItemCast.Name = "NEW PRINTER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<PrinterModel>(IdentityId);
+						ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
 						break;
 				}
 
-				PrinterTypes = AppSettings.DataAccess.Crud.GetListPrinterTypes(false, false);
+				PrinterTypes = AppSettings.DataAccess.GetListPrinterTypes(false, false);
 				if (TableAction == DbTableAction.New)
 				{
 					ItemCast.Name = "NEW PRINTER";

@@ -213,7 +213,7 @@ public class SqlViewModelHelper : BaseViewModel
     {
         Scales = new();
         SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
-        ScaleModel[]? scales = SqlUtils.DataAccess.Crud.GetItems<ScaleModel>(sqlCrudConfig);
+        ScaleModel[]? scales = SqlUtils.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
         scales?.ToList().ForEach(scale => Scales.Add(scale.Description));
     }
 
@@ -221,7 +221,7 @@ public class SqlViewModelHelper : BaseViewModel
     {
         Areas = new();
         SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
-        ProductionFacilityModel[]? areas = SqlUtils.DataAccess.Crud.GetItems<ProductionFacilityModel>(sqlCrudConfig);
+        ProductionFacilityModel[]? areas = SqlUtils.DataAccess.GetItems<ProductionFacilityModel>(sqlCrudConfig);
         areas?.Where(x => x.Identity.Id > 0).ToList().ForEach(area => Areas.Add(area.Name));
     }
 

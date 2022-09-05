@@ -71,13 +71,14 @@ namespace DataCore.Localizations
             public static string DataSizeLength => Lang == ShareEnums.Lang.English ? "Length" : "Длина";
             public static string DataSizeMBytes => Lang == ShareEnums.Lang.English ? "Mbytes" : "МБайтов";
             public static string DataSizeVolume => Lang == ShareEnums.Lang.English ? "Data volume" : "Объём данных";
-            public static string DbInfo => Lang == ShareEnums.Lang.English ? "Information about the DB" : "Информация о БД";
             public static string DbAndMemory => Lang == ShareEnums.Lang.English ? "DB and memory" : "БД и память";
-            public static string DbAndMemoryProgressBar => Lang == ShareEnums.Lang.English ? "DB and memory (progressbar)" : "БД и память (шкала прогресса)";
             public static string DbAndMemoryGauge => Lang == ShareEnums.Lang.English ? "DB and memory (gauge)" : "БД и память (измеритель)";
+            public static string DbAndMemoryProgressBar => Lang == ShareEnums.Lang.English ? "DB and memory (progressbar)" : "БД и память (шкала прогресса)";
+            public static string DbInfo => Lang == ShareEnums.Lang.English ? "Information about the DB" : "Информация о БД";
             public static string DebugMode => Lang == ShareEnums.Lang.English ? "Debug mode" : "Режим отладки";
             public static string Doc => Lang == ShareEnums.Lang.English ? "Documentation" : "Документация";
             public static string Feedback => Lang == ShareEnums.Lang.English ? "Feedback" : "Обратная связь";
+            public static string FillSize => Lang == ShareEnums.Lang.English ? "Fill percentage" : "Процент заполнения";
             public static string From => Lang == ShareEnums.Lang.English ? "from" : "из";
             public static string HostName => Lang == ShareEnums.Lang.English ? "Host name" : "Имя хоста";
             public static string IdentityError => Lang == ShareEnums.Lang.English ? "User error!" : "Ошибка пользователя";
@@ -99,8 +100,6 @@ namespace DataCore.Localizations
             public static string MethodError => Lang == ShareEnums.Lang.English ? "Method error" : "Ошибка метода";
             public static string NotLoad => Lang == ShareEnums.Lang.English ? "Not load!" : "Не загружено";
             public static string PageError => Lang == ShareEnums.Lang.English ? "Sorry, there's nothing at this address." : "Извините, по этому адресу ничего нет.";
-            public static string SettingName => Lang == ShareEnums.Lang.English ? "Setting" : "Настройка";
-            public static string SettingValue => Lang == ShareEnums.Lang.English ? "Value" : "Значение";
             public static string SectionAccess => Lang == ShareEnums.Lang.English ? "Access" : "Доступ";
             public static string SectionAccessAllow => Lang == ShareEnums.Lang.English ? "Section access allowed" : "Доступ к разделу разрешён";
             public static string SectionAccessDeny => Lang == ShareEnums.Lang.English ? "Section access denied" : "Доступ к разделу запрещён";
@@ -108,16 +107,17 @@ namespace DataCore.Localizations
             public static string SectionLog => Lang == ShareEnums.Lang.English ? "Log" : "Лог";
             public static string ServerDevelop => Lang == ShareEnums.Lang.English ? "Debug server" : "Сервер разработки";
             public static string ServerRelease => Lang == ShareEnums.Lang.English ? "Debug release" : "Промышленный сервер";
-            public static string FillSize => Lang == ShareEnums.Lang.English ? "Fill percentage" : "Процент заполнения";
+            public static string SettingName => Lang == ShareEnums.Lang.English ? "Setting" : "Настройка";
+            public static string SettingValue => Lang == ShareEnums.Lang.English ? "Value" : "Значение";
             public static string UserSettings => Lang == ShareEnums.Lang.English ? "User settings" : "Пользовательские настройки";
             public static string VerApp => Lang == ShareEnums.Lang.English ? "Application version" : "Версия приложения";
             public static string VerCore => Lang == ShareEnums.Lang.English ? "Core version" : "Версия ядра";
-            public static string VersionDb => Lang == ShareEnums.Lang.English ? "DB version" : "Версия БД";
-            public static string VersionsDb => Lang == ShareEnums.Lang.English ? "DB versions" : "Версии БД";
             public static string VerLibBlazorAndDataCore => Lang == ShareEnums.Lang.English ? "BlazorCore / DataCore lib versions" : "Версия библиотек BlazorCore / DataCore";
             public static string VerLibBlazorCore => Lang == ShareEnums.Lang.English ? "BlazorCore lib version" : "Версия библиотеки BlazorCore";
             public static string VerLibDataCore => Lang == ShareEnums.Lang.English ? "DataCore lib version" : "Версия библиотеки DataCore";
             public static string VerProgram => Lang == ShareEnums.Lang.English ? "Program version" : "Версия программы";
+            public static string VersionDb => Lang == ShareEnums.Lang.English ? "DB version" : "Версия БД";
+            public static string VersionsDb => Lang == ShareEnums.Lang.English ? "DB versions" : "Версии БД";
         }
     }
 }

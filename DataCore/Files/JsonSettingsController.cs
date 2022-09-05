@@ -81,14 +81,14 @@ public class JsonSettingsController
                     throw new(LocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            DataAccess.Log.Setup(hostName, appName);
-            DataAccess.Log.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
+            DataAccess.SetupLog(hostName, appName);
+            DataAccess.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
         }
         catch (Exception ex)
         {
-            DataAccess.Log.LogToFile(ExceptionFileName(localDir), ex.Message);
+            DataAccess.LogToFile(ExceptionFileName(localDir), ex.Message);
             if (ex.InnerException != null)
-                DataAccess.Log.LogToFile(ExceptionFileName(localDir), $"{FileName}.log", ex.InnerException.Message);
+                DataAccess.LogToFile(ExceptionFileName(localDir), $"{FileName}.log", ex.InnerException.Message);
         }
     }
 
@@ -99,7 +99,7 @@ public class JsonSettingsController
         if (!Setup(localDir, false, fileName))
             throw new(LocaleCore.System.JsonSettingsLocalFileException);
 
-        DataAccess.Log.Setup(hostName, appName);
+        DataAccess.SetupLog(hostName, appName);
     }
 
     public void SetupForScales(string localDir)
@@ -155,7 +155,7 @@ public class JsonSettingsController
 		            DataAccess.JsonSettingsRemote.ConnectionString = sqlConnectionStringBuilder.ConnectionString;
 		            break;
             }
-		    DataAccess.InitSessionFactoryWithJson(isRemote);
+		    DataAccess.SetupSessionFactory(isRemote);
         }
 		return jsonObject != null;
     }

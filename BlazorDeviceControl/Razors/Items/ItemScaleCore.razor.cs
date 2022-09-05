@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Items;
 
 /// <summary>
@@ -11,6 +13,12 @@ public partial class ItemScaleCore : RazorPageModel
 	#region Public and private fields, properties, constructor
 
 	private ScaleModel ItemCast { get => Item == null ? new() : (ScaleModel)Item; set => Item = value; }
+	private PrinterModel PrinterMain { get => ItemCast.PrinterMain ?? new(); set => ItemCast.PrinterMain = value; }
+	private PrinterModel PrinterShipping { get => ItemCast.PrinterShipping ?? new(); set => ItemCast.PrinterShipping = value; }
+	private TemplateModel TemplateDefault { get => ItemCast.TemplateDefault ?? new(); set => ItemCast.TemplateDefault = value; }
+	private TemplateModel TemplateSeries { get => ItemCast.TemplateSeries ?? new(); set => ItemCast.TemplateSeries = value; }
+	private WorkShopModel WorkShop { get => ItemCast.WorkShop ?? new(); set => ItemCast.WorkShop = value; }
+	private HostModel Host { get => ItemCast.Host ?? new(); set => ItemCast.Host = value; }
 	private List<PrinterModel> Printers { get; set; }
 	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
 	private List<TemplateModel> Templates { get; set; }
@@ -41,11 +49,11 @@ public partial class ItemScaleCore : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.Crud.GetItemByIdNotNull<ScaleModel>(IdentityId);
+				ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<ScaleModel>(IdentityId);
 				ItemCast.Host ??= new() { Name = LocaleCore.Table.FieldNull };
 				ItemCast.PrinterMain ??= new() { Name = LocaleCore.Table.FieldNull };
 				ItemCast.PrinterShipping ??= new() { Name = LocaleCore.Table.FieldNull };
@@ -57,11 +65,11 @@ public partial class ItemScaleCore : RazorPageModel
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
 			    // ScaleFactor
 			    ItemCast.ScaleFactor ??= 1000;
-			    Hosts = AppSettings.DataAccess.Crud.GetListHosts(false, false, true);
-			    Printers = AppSettings.DataAccess.Crud.GetListPrinters(false, false, true);
-			    Templates = AppSettings.DataAccess.Crud.GetListTemplates(false, false, true);
-			    ProductionFacilities = AppSettings.DataAccess.Crud.GetListProductionFacilities(false, false, true);
-			    WorkShops = AppSettings.DataAccess.Crud.GetListWorkShops(false, false, true);
+			    Hosts = AppSettings.DataAccess.GetListHosts(false, false, true);
+			    Printers = AppSettings.DataAccess.GetListPrinters(false, false, true);
+			    Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
+			    ProductionFacilities = AppSettings.DataAccess.GetListProductionFacilities(false, false, true);
+			    WorkShops = AppSettings.DataAccess.GetListWorkShops(false, false, true);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

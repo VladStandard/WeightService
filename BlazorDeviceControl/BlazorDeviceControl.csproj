@@ -142,8 +142,8 @@
     <Watch Remove="Razors\Sections\SectionTemplates.razor" />
     <Watch Remove="Razors\Sections\SectionVersions.razor" />
     <Watch Remove="Razors\Sections\SectionWorkshops.razor" />
+    <Watch Remove="Razors\Systems\SystemAppInfo.razor" />
     <Watch Remove="Razors\Systems\SystemIdentity.razor" />
-    <Watch Remove="Razors\Systems\SystemInfo.razor" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Razors\Systems\SystemIdentity.razor" />

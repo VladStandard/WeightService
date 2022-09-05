@@ -61,8 +61,8 @@
 //                    ChangeDt = DateTime.Now,
 //                    IdRRef = Guid.Empty,
 //                };
-//                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(facility);
-//                facility = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList().FirstOrDefault();
+//                DataAccessUtilsTests.DataAccess.SaveEntity(facility);
+//                facility = DataAccessUtilsTests.DataAccess.GetEntities<ProductionFacilityEntity>(null, null).ToList().FirstOrDefault();
 //                for (int i = iStart; i < iEnd; i++)
 //                {
 //                    WorkshopEntity item = new()
@@ -95,10 +95,10 @@
 //                    }
 //                }
 //                // DeleteEntity
-//                foreach (ProductionFacilityEntity facilityEntity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null))
+//                foreach (ProductionFacilityEntity facilityEntity in DataAccessUtilsTests.DataAccess.GetEntities<ProductionFacilityEntity>(null, null))
 //                {
 //                    if (facilityEntity.Name.Equals(nameFafility))
-//                        DataAccessUtilsTests.DataAccess.Crud.DeleteEntity(facilityEntity);
+//                        DataAccessUtilsTests.DataAccess.DeleteEntity(facilityEntity);
 //                }
 //            }
 //            );

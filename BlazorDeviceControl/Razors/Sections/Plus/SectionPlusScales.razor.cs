@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPlusScales : RazorPageModel
@@ -35,11 +37,11 @@ public partial class SectionPlusScales : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
-				ItemsCast = AppSettings.DataAccess.Crud.GetListPluScales(IsShowMarked, IsShowOnlyTop, ItemFilter);
+				ItemsCast = AppSettings.DataAccess.GetListPluScales(IsShowMarked, IsShowOnlyTop, ItemFilter);
 
 				ButtonSettings = new(true, true, true, true, true, true, false);
 			}

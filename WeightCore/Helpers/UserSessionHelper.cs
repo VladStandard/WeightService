@@ -132,7 +132,7 @@ public class UserSessionHelper : BaseViewModel
     {
         if ((PluScale = pluScale) != null)
         {
-            DataAccess.Log.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.Identity.Id, PluScale.Plu.Number, PluScale.Plu.Name)}",
+            DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.Identity.Id, PluScale.Plu.Number, PluScale.Plu.Name)}",
                 SqlViewModel.Scale.Host?.HostName);
         }
     }
@@ -323,7 +323,7 @@ public class UserSessionHelper : BaseViewModel
             {
 	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
 		            { new(DbField.IdentityValueId, DbComparer.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
-                template = DataAccess.Crud.GetItem<TemplateModel>(sqlCrudConfig);
+                template = DataAccess.GetItem<TemplateModel>(sqlCrudConfig);
             }
         }
 
@@ -347,7 +347,7 @@ public class UserSessionHelper : BaseViewModel
     private void SetNewScaleCounter()
     {
         SqlViewModel.Scale.Counter++;
-        DataAccess.Crud.Update(SqlViewModel.Scale);
+        DataAccess.Update(SqlViewModel.Scale);
     }
 
     /// <summary>
@@ -362,7 +362,7 @@ public class UserSessionHelper : BaseViewModel
             PluWeighing = pluWeighing,
             Zpl = printCmd,
         };
-        DataAccess.Crud.Save(pluLabel);
+        DataAccess.Save(pluLabel);
     }
 
     /// <summary>
@@ -463,7 +463,7 @@ public class UserSessionHelper : BaseViewModel
             if (PluWeighing == null)
                 return;
 
-            DataAccess.Crud.Save(PluWeighing);
+            DataAccess.Save(PluWeighing);
 
             string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingModel>(true);
             string xmlArea = string.Empty;

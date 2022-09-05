@@ -4,7 +4,7 @@
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 @using BlazorDeviceControl.Razors.Components
 
-@if (!IsLoaded)
+@if (!IsActionsParametersSetFinished)
 {
     <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }

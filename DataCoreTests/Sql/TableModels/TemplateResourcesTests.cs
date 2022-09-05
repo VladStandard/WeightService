@@ -56,7 +56,7 @@
 
 //            Assert.DoesNotThrow(() =>
 //                {
-//                    int id = DataAccessUtilsTests.DataAccess.Crud.GetItem<TemplateResourceEntity>(null,
+//                    int id = DataAccessUtilsTests.DataAccess.GetItem<TemplateResourceEntity>(null,
 //                        new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Id, Direction = ShareEnums.DbOrderDirection.Desc }).Id;
 //                    TemplateResourceEntity item = new()
 //                    {
@@ -66,10 +66,10 @@
 //                        CreateDate = DateTime.Now,
 //                        ChangeDt = DateTime.Now,
 //                    };
-//                    DataAccessUtilsTests.DataAccess.Crud.SaveEntity(item);
+//                    DataAccessUtilsTests.DataAccess.SaveEntity(item);
 
 //                    item.Description = "Updated";
-//                    DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(item);
+//                    DataAccessUtilsTests.DataAccess.UpdateEntity(item);
 
 //                    //var result = DataAccessUtils.DataAccess.TemplateResourceCrud.LoadResource(
 //                    //    item.Id, item.Name, "New description", "GRF", 
@@ -77,7 +77,7 @@
 //                    //Assert.AreEqual(1, result);
 
 //                    // GetEntities.
-//                    foreach (TemplateResourceEntity entityGet in DataAccessUtilsTests.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null))
+//                    foreach (TemplateResourceEntity entityGet in DataAccessUtilsTests.DataAccess.GetEntities<TemplateResourceEntity>(null, null))
 //                    {
 //                        if (Equals(entityGet.Name, item.Name))
 //                        {

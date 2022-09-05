@@ -5,6 +5,9 @@ namespace DataCore.Localizations;
 
 public partial class LocaleDeviceControl
 {
+    public string RouteExampleMud => "/example/mud";
+    public string RouteExampleNetBarcode => "/example/netbarcode";
+    public string RouteExampleRadzen => "/example/radzen";
     public string RouteItemAccess => "/item/access";
     public string RouteItemBarCodeType => "/item/barcodetype";
     public string RouteItemContragent => "/item/contragent";
@@ -59,10 +62,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionTemplates => "/section/templates";
     public string RouteSectionVersions => "/section/versions";
     public string RouteSectionWorkShops => "/section/workshops";
+    public string RouteSystemAppInfo => "/system/appinfo";
     public string RouteSystemIdentityData => "/system/identity";
-    public string RouteSystemInfo => "/system/info";
     public string RouteSystemRoot => "/";
-    public string RouteExampleMud => "/example/mud";
-    public string RouteExampleRadzen => "/example/radzen";
-    public string RouteExampleNetBarcode => "/example/netbarcode";
 }

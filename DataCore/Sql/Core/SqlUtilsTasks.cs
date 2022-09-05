@@ -80,7 +80,7 @@ public static partial class SqlUtils
 	//					Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
 	//					TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
 	//					//Scale = ScalesUtils.GetScale(dataAccess, SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-	//					Scale = DataAccess.Crud.GetItemById<ScaleModel>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+	//					Scale = DataAccess.GetItemById<ScaleModel>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
 	//					Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
 	//				};
 	//			}
@@ -111,7 +111,7 @@ public static partial class SqlUtils
 	//					Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
 	//					TaskType = GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
 	//					//Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-	//					Scale = DataAccess.Crud.GetItemById<ScaleModel>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+	//					Scale = DataAccess.GetItemById<ScaleModel>(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
 	//					Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
 	//				};
 	//			}

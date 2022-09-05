@@ -5,46 +5,33 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Systems;
 
-public partial class SystemInfo : RazorPageModel
+public partial class SystemAppInfo : RazorPageModel
 {
 	#region Public and private fields, properties, constructor
 
 	private string VerApp => AssemblyUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
 	private string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
 	private string VerLibDataCore => AssemblyUtuls.GetLibVersion();
-	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
 	private List<TypeModel<bool>> TemplateIsDebug { get; set; } = new();
 	private uint DbCurSize { get; set; }
 	private string DbCurSizeAsString => $"{LocaleCore.Sql.SqlDbCurSize}: {DbCurSize:### ###} MB {LocaleCore.Strings.From} {DbMaxSize:### ###} MB";
 	private uint DbMaxSize => 10_240;
 	private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
-	private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
-	private List<Lang> Langs { get; set; } = new();
 
 	#endregion
 
 	#region Public and private methods
 
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		Langs = new();
-		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
-			Langs.Add(lang);
-	}
-
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActions(new()
+		RunActionsSilent(new()
 		{
 			() =>
 			{
-				TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
 				TemplateIsDebug = AppSettings.DataSourceDics.GetTemplateIsDebug();
-				object[] objects = AppSettings.DataAccess.Crud.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
+				object[] objects = AppSettings.DataAccess.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
 				DbCurSize = 0;
 				foreach (object obj in objects)
 				{

@@ -69,7 +69,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                // GetEntities.
-//                foreach (ScaleEntity item in DataAccessUtilsTests.DataAccess.Crud.GetEntities<ScaleEntity>(null,
+//                foreach (ScaleEntity item in DataAccessUtilsTests.DataAccess.GetEntities<ScaleEntity>(null,
 //                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Description, Direction = ShareEnums.DbOrderDirection.Desc }))
 //                {
 //                    TestContext.WriteLine(item.ToString());

@@ -5,7 +5,6 @@ using DataCore;
 using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
-using DataCore.Sql;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using MDSoft.BarcodePrintUtils.Wmi;
@@ -79,7 +78,7 @@ public partial class MainForm : Form
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
             if (UserSession.SqlViewModel.Scale.Host != null)
-                UserSession.DataAccess.Log.Setup(UserSession.SqlViewModel.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
+                UserSession.DataAccess.SetupLog(UserSession.SqlViewModel.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
             FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !Debug.IsDebug;
             MainForm_ButtonsCreate();
@@ -116,9 +115,9 @@ public partial class MainForm : Form
                 SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
                 if (UserSession.SqlViewModel.Scale.Host != null)
                 {
-                    UserSession.DataAccess.Log.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
+                    UserSession.DataAccess.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
                         UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
-                    UserSession.DataAccess.Log.LogInformation(
+                    UserSession.DataAccess.LogInformation(
                         LocaleData.Program.IsLoaded +
                         $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
                         UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
@@ -228,7 +227,7 @@ public partial class MainForm : Form
         finally
         {
             if (UserSession.SqlViewModel.Scale.Host != null)
-                UserSession.DataAccess.Log.LogInformation(LocaleData.Program.IsClosed +
+                UserSession.DataAccess.LogInformation(LocaleData.Program.IsClosed +
                     $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
             UserSession.StopwatchMain.Stop();
@@ -379,7 +378,7 @@ public partial class MainForm : Form
                 return;
             UserSession.SqlViewModel.ProductDate = DateTime.Now;
             if (UserSession.SqlViewModel.Scale.Host != null)
-                UserSession.DataAccess.Log.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
+                UserSession.DataAccess.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
                     UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
         }
     }
@@ -963,7 +962,7 @@ public partial class MainForm : Form
         catch (Exception ex)
         {
             if (UserSession.PluScale != null && UserSession.SqlViewModel.Scale.Host != null)
-				UserSession.DataAccess.Log.LogError(new Exception(
+				UserSession.DataAccess.LogError(new Exception(
 		            $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
 					UserSession.SqlViewModel.Scale.Host.HostName);
             GuiUtils.WpfForm.CatchException(this, ex);

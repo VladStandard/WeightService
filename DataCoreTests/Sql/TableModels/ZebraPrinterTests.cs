@@ -56,7 +56,7 @@
 //            {
 //                const string name = "ZebraPrinterEntity test";
 //                const string name2 = "ZebraPrinterEntity test 2";
-//                foreach (PrinterTypeEntity zebraPrinterTypeEntity in DataAccessUtilsTests.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null))
+//                foreach (PrinterTypeEntity zebraPrinterTypeEntity in DataAccessUtilsTests.DataAccess.GetEntities<PrinterTypeEntity>(null, null))
 //                {
 //                    // SaveEntity
 //                    PrinterEntity zebraPrinterType = new()

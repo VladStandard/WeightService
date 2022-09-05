@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace DataCoreTests.Sql.Controllers;
 
 [TestFixture]
@@ -17,7 +19,7 @@ internal class CrudControllerExtensionTests
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostModel> hosts = DataCore.DataAccess.Crud.GetListHostsFree(id, isMarked);
+					List<HostModel> hosts = DataCore.DataAccess.GetListHostsFree(id, isMarked);
 				}
 			}
 		});
@@ -32,7 +34,7 @@ internal class CrudControllerExtensionTests
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostModel> hosts = DataCore.DataAccess.Crud.GetListHostsBusy(id, isMarked);
+					List<HostModel> hosts = DataCore.DataAccess.GetListHostsBusy(id, isMarked);
 				}
 			}
 		});

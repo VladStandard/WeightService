@@ -5,7 +5,7 @@
 @using BlazorDeviceControl.Razors.Components
 @using DataCore.Sql.Xml
 
-@if (!IsLoaded)
+@if (!IsActionsParametersSetFinished)
 {
     <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
 }

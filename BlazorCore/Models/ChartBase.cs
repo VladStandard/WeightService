@@ -25,7 +25,7 @@ public class ChartBase
     {
         ChartCountModel[] result = Array.Empty<ChartCountModel>();
         SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(ShareEnums.DbField.CreateDt), 0, false, false);
-        ContragentModel[]? contragents = AppSettings.DataAccess.Crud.GetItems<ContragentModel>(sqlCrudConfig);
+        ContragentModel[]? contragents = AppSettings.DataAccess.GetItems<ContragentModel>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {
@@ -75,7 +75,7 @@ public class ChartBase
     {
         ChartCountModel[] result = Array.Empty<ChartCountModel>();
         SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(ShareEnums.DbField.CreateDt), 0, false, false);
-        NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.Crud.GetItems<NomenclatureModel>(sqlCrudConfig);
+        NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {

@@ -48,7 +48,7 @@
 //            //};
 //            //// Не сохранять.
 //            //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(item);
-//            return DataAccessUtilsTests.DataAccess.Crud.GetItem<BarcodeTypeEntityV2>(
+//            return DataAccessUtilsTests.DataAccess.GetItem<BarcodeTypeEntityV2>(
 //                new (new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
 //                new FieldOrderModel(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }
@@ -66,7 +66,7 @@
 //                //entityNew.Name += " changed";
 //                //DataAccessUtils.DataAccess.BarCodeTypesCrud.UpdateEntity(entityNew);
 //                // GetEntities
-//                BarcodeTypeEntityV2[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<BarcodeTypeEntityV2>(null, null);
+//                BarcodeTypeEntityV2[] entities = DataAccessUtilsTests.DataAccess.GetEntities<BarcodeTypeEntityV2>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
 //                foreach (BarcodeTypeEntityV2 item in entities)
 //                {
