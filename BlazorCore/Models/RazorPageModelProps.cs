@@ -15,11 +15,11 @@ public partial class RazorPageModel : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Inject] public DialogService DialogService { get; set; }
-    [Inject] public IJSRuntime JsRuntime { get; set; }
-    [Inject] public NavigationManager NavigationManager { get; set; }
-    [Inject] public NotificationService NotificationService { get; set; }
-    [Inject] public TooltipService TooltipService { get; set; }
+    [Inject] public DialogService? DialogService { get; set; }
+    [Inject] public IJSRuntime? JsRuntime { get; set; }
+    [Inject] public NavigationManager? NavigationManager { get; set; }
+    [Inject] public NotificationService? NotificationService { get; set; }
+    [Inject] public TooltipService? TooltipService { get; set; }
     [Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
     [Parameter] public TableBaseModel? ItemFilter { get; set; }
     [Parameter] public bool IsShowReload { get; set; }
@@ -49,10 +49,8 @@ public partial class RazorPageModel : LayoutComponentBase
     public TableBaseModel? Item { get; set; }
     protected object? ItemObject { get => Item; set => Item = (TableBaseModel?)value; }
     [Parameter] public UserSettingsModel UserSettings { get; set; }
-    [Parameter] public List<Action> ActionsInitialized { get; set; }
-    protected bool IsActionsInitializedFinished { get; private set; }
-    [Parameter] public List<Action> ActionsParametersSet { get; set; }
-    protected bool IsActionsParametersSetFinished { get; private set; }
+    public bool IsActionsInitializedFinished { get; set; }
+    public bool IsActionsParametersSetFinished { get; set; }
 	public event Action ActionChange;
 
 	/// <summary>
@@ -60,9 +58,12 @@ public partial class RazorPageModel : LayoutComponentBase
 	/// </summary>
 	public RazorPageModel()
 	{
-		ActionsInitialized = new();
-		ActionsParametersSet = new();
-		//ActionChange = () => { };
+		NotificationService = null;
+		NavigationManager = null;
+		JsRuntime = null;
+		DialogService = null;
+		TooltipService = null;
+
 		ActionChange += OnParametersSet;
 		UserSettings = new();
 		ButtonSettings = new();
@@ -72,6 +73,8 @@ public partial class RazorPageModel : LayoutComponentBase
 		Table = new(string.Empty);
 		TableAction = DbTableAction.Default;
 		ItemSaveCheck = new();
+		IsActionsInitializedFinished = false;
+		IsActionsParametersSetFinished = false;
 
 		if (ParentRazor is not null)
 		{

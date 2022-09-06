@@ -5,31 +5,6 @@ namespace BlazorDeviceControl.Razors;
 
 public partial class MainLayout : RazorPageModel
 {
-	#region Public and private fields, properties, constructor
-
-	public MainLayout()
-    {
-	    ActionsInitialized = new()
-	    {
-		    () =>
-		    {
-			    Table = new TableSystemModel(ProjectsEnums.TableSystem.Default);
-			    Items = new();
-		    }
-		};
-
-	    ActionsParametersSet = new()
-	    {
-			() =>
-			{
-				AppSettings.SetupMemory();
-				AppSettings.Memory.OpenAsync().ConfigureAwait(false);
-			}
-		};
-    }
-
-	#endregion
-
 	#region Public and private methods
     
 	private void MemoryClear()
@@ -37,5 +12,33 @@ public partial class MainLayout : RazorPageModel
         GC.Collect();
     }
 
-    #endregion
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableSystemModel(ProjectsEnums.TableSystem.Default);
+				Items = new();
+			}
+		});
+	}
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		RunActionsParametersSet(new()
+		{
+			() =>
+			{
+				AppSettings.SetupMemory();
+				AppSettings.Memory.OpenAsync().ConfigureAwait(false);
+			}
+		});
+	}
+
+	#endregion
 }

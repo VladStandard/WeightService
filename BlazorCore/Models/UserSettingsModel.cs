@@ -132,7 +132,7 @@ public class UserSettingsModel
 
 		if (parentRazorPage is not null)
 		{
-			parentRazorPage.UserSettings = this;
+			//parentRazorPage.UserSettings = this;
 			parentRazorPage.UserSettings.SetupUserName(UserName, parentRazorPage.ParentRazor);
 		}
 	}

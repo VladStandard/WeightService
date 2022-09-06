@@ -12,15 +12,11 @@ public partial class RazorPageModel : LayoutComponentBase
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        RunActionsInitialized();
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        RunActionsParametersSet();
     }
 
     #endregion

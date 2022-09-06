@@ -16,19 +16,18 @@ public partial class RazorPageModel : LayoutComponentBase
 {
     #region Public and private methods
 
-    private void RunActionsInitialized()
+    protected void RunActionsInitialized(List<Action> actionsInitialized)
     {
         IsActionsInitializedFinished = false;
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, ActionsInitialized);
+        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actionsInitialized);
         IsActionsInitializedFinished = true;
     }
 
-    private void RunActionsParametersSet()
-    {
+    protected void RunActionsParametersSet(List<Action> actionsParametersSet)
+	{
         IsActionsParametersSetFinished = false;
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, ActionsParametersSet);
+        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actionsParametersSet);
         IsActionsParametersSetFinished = true;
-        //StateHasChanged();
     }
 
     protected void RunActionsSilent(List<Action> actions)

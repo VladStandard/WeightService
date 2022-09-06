@@ -23,21 +23,26 @@ public partial class SectionHosts : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
-        IsShowMarkedFilter = true;
-		ItemsCast = new();
+        RunActionsInitialized(new()
+        {
+	        () =>
+	        {
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
+		        IsShowMarkedFilter = true;
+		        ItemsCast = new();
+	        }
+		});
     }
 
     protected override void OnParametersSet()
     {
 		base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {
 	            ItemsCast = AppSettings.DataAccess.GetListHosts(IsShowMarked, IsShowOnlyTop, false);
-
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

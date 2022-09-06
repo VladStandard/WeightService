@@ -1,13 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Microsoft.AspNetCore.Components;
 namespace BlazorDeviceControl.Razors.Systems;
 
 public partial class SystemIdentity : RazorPageModel
 {
 	#region Public and private fields, properties, constructor
 
-	//private bool IsAuthorizingLoad { get; set; }
+	[Parameter] public string AuthorizingText { get; set; }
 	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
 	private List<Lang> Langs { get; set; }
 
@@ -17,8 +18,17 @@ public partial class SystemIdentity : RazorPageModel
 		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
 			Langs.Add(lang);
 		TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+	}
 
-		ActionsInitialized = new()
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		RunActionsInitialized(new()
 		{
 			() =>
 			{
@@ -27,12 +37,39 @@ public partial class SystemIdentity : RazorPageModel
 					UserSettings = new(HttpContextAccess.HttpContext);
 				}
 			}
-		};
+		});
 	}
 
-	#endregion
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
 
-	#region Public and private methods
+		RunActionsParametersSet(new()
+		{
+			() =>
+			{
+				//
+			}
+		});
+	}
+
+	private string GetAuthorizingText()
+	{
+		UserSettings.SetupUserName(string.Empty, ParentRazor);
+		return AuthorizingText = LocaleCore.Strings.AuthorizingProcess;
+	}
+
+	private string GetAuthorizedText(string? name)
+	{
+		UserSettings.SetupUserName(name, ParentRazor);
+		return AuthorizingText = LocaleCore.Strings.AuthorizingSuccess;
+	}
+
+	private string GetNotAuthorizedText()
+	{
+		UserSettings.SetupUserName(LocaleCore.System.SystemIdentityNotAuthorized, ParentRazor);
+		return AuthorizingText = LocaleCore.Strings.AuthorizingNot;
+	}
 
 	#endregion
 }

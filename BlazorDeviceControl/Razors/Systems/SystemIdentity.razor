@@ -8,28 +8,13 @@
 
 <AuthorizeView>
 	<Authorizing>
-		@LocaleCore.Strings.AuthorizingProcess
-		@(_ = ActionsParametersSet = new()
-		{
-			() => UserSettings.SetupUserName(string.Empty, ParentRazor),
-			//() => { if (!IsAuthorizingLoad) StateHasChanged(); }
-		})
+		<RadzenLabel Style="margin-left: 0; margin-top: 2%; " Text=@(UserSettings.UserDescription) Visible=@IsShowReload />
 	</Authorizing>
 	<Authorized>
-		@LocaleCore.Strings.AuthorizingSuccess
-		@(_ = ActionsParametersSet = new()
-		{
-			() => UserSettings.SetupUserName(context.User.Identity?.Name, ParentRazor),
-			//() => { if (!IsAuthorizingLoad) StateHasChanged(); }
-		})
+		<RadzenLabel Style="margin-left: 0; margin-top: 2%; " Text=@(GetAuthorizedText(context.User.Identity?.Name)) Visible=@IsShowReload />
 	</Authorized>
 	<NotAuthorized>
-		@LocaleCore.Strings.AuthorizingNot
-		@(_ = ActionsParametersSet = new()
-		{
-			() => UserSettings.SetupUserName(LocaleCore.System.SystemIdentityNotAuthorized, ParentRazor),
-			//() => { if (!IsAuthorizingLoad) StateHasChanged(); }
-		})
+		<RadzenLabel Style="margin-left: 0; margin-top: 2%; " Text=@(GetNotAuthorizedText()) Visible=@IsShowReload />
 	</NotAuthorized>
 </AuthorizeView>
 

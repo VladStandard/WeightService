@@ -26,7 +26,7 @@ public partial class SystemAppInfo : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{
