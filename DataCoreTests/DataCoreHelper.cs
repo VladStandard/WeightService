@@ -79,7 +79,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : TableBaseModel, new()
+	public void AssertSqlDbContentValidate<T>(int maxResults = 0) where T : TableBaseModel, new()
 	{
 		AssertAction(() =>
 		{
@@ -88,40 +88,6 @@ public class DataCoreHelper
 				// Arrange.
 				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, maxResults, isShowMarked, true);
-				T[]? items = DataAccess.GetItems<T>(sqlCrudConfig);
-				// Act.
-				if (items == null || !items.Any())
-				{
-					TestContext.WriteLine($"{nameof(items)} is null or empty!");
-				}
-				else
-				{
-					TestContext.WriteLine($"Found {items.Length} items. Print top 10.");
-					int i = 0;
-					foreach (T item in items)
-					{
-						if (i < 10)
-							TestContext.WriteLine(item);
-						i++;
-						ValidationResult result = validator.Validate(item);
-						FailureWriteLine(result);
-						// Assert.
-						Assert.IsTrue(result.IsValid);
-					}
-				}
-			}
-		});
-	}
-
-	public void AssertSqlExtensionValidate<T>() where T : TableBaseModel, new()
-	{
-		AssertAction(() =>
-		{
-			foreach (bool isShowMarked in DataCoreEnums.GetBool())
-			{
-				// Arrange.
-				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, isShowMarked, true);
 				List<T> items = DataAccess.GetList<T>(sqlCrudConfig);
 				// Act.
 				if (!items.Any())
