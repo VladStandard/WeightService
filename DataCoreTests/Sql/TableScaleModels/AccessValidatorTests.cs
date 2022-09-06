@@ -32,10 +32,4 @@ internal class AccessValidatorTests
 			DataCore.AssertSqlValidate(item, true);
 		}
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<AccessModel>(1_000);
-	}
 }

@@ -1,24 +1,25 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class DeviceModel : TableModel, ISerializable, ITableModel
+public class DeviceModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
     public virtual ScaleModel Scale { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public DeviceModel() : base(ColumnName.Id)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public DeviceModel() : base(ColumnName.Id)
     {
-	    Scale = new();
-	}
+        Scale = new();
+    }
 
     /// <summary>
     /// Constructor.
@@ -30,20 +31,18 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
     }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods - override
 
-	public new virtual string ToString() =>
-		$"{nameof(Scale)}: {Scale}.";
+    public override string ToString() =>
+        $"{nameof(Scale)}: {Scale}.";
 
-    public new virtual int GetHashCode() => Scale.GetHashCode();
-
-	public new virtual bool Equals(object obj)
-	{
-	    if (ReferenceEquals(null, obj)) return false;
-	    if (ReferenceEquals(this, obj)) return true;
-		if (obj is DeviceModel item)
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj is DeviceModel item)
         {
             return
                Scale.Equals(item.Scale);
@@ -51,44 +50,51 @@ public class DeviceModel : TableModel, ISerializable, ITableModel
         return false;
     }
 
-    #endregion
+    public override int GetHashCode() => Scale.GetHashCode();
 
-    #region Public and private methods
+    public override bool EqualsNew() => Equals(new DeviceModel());
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new DeviceModel());
-    }
-
-    public new virtual bool EqualsDefault()
+    public override bool EqualsDefault()
     {
         if (!Scale.EqualsDefault())
             return false;
         return base.EqualsDefault();
     }
 
-    public new virtual object Clone()
+    public override object Clone()
     {
         DeviceModel item = new()
         {
             Scale = Scale.CloneCast(),
         };
-		item.CloneSetup(base.CloneCast());
-		return item;
+        item.CloneSetup(base.CloneCast());
+        return item;
     }
-
-    public new virtual DeviceModel CloneCast() => (DeviceModel)Clone();
 
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-		base.GetObjectData(info, context);
+        base.GetObjectData(info, context);
         info.AddValue(nameof(Scale), Scale);
     }
+
+    #endregion
+
+    #region Public and private methods - virtual
+
+    public virtual bool Equals(DeviceModel item)
+    {
+        if (ReferenceEquals(this, item)) return true;
+        return
+            base.Equals(item) &&
+            Equals(Scale, item.Scale);
+    }
+
+    public new virtual DeviceModel CloneCast() => (DeviceModel)Clone();
 
     #endregion
 }

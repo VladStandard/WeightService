@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class LogQuickModel : TableModel, ISerializable, ITableModel
+public class LogQuickModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -40,10 +40,10 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
-        $"{nameof(Scale)}: {Scale}. " +
+	public override string ToString() =>
+		$"{nameof(Scale)}: {Scale}. " +
         $"{nameof(Host)}: {Host}. " +
         $"{nameof(App)}: {App}. " +
         $"{nameof(Version)}: {Version}. " +
@@ -53,24 +53,7 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
         $"{nameof(Icon)}: {Icon}. " +
         $"{nameof(Message)}: {Message}. ";
 
-    public virtual bool Equals(LogQuickModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return 
-	        base.Equals(item) &&
-            Equals(CreateDt, item.CreateDt) &&
-            Equals(Scale, item.Scale) &&
-            Equals(Host, item.Host) &&
-            Equals(App, item.App) &&
-            Equals(Version, item.Version) &&
-            Equals(File, item.File) &&
-            Equals(Line, item.Line) &&
-            Equals(Member, item.Member) &&
-            Equals(Icon, item.Icon) &&
-            Equals(Message, item.Message);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -78,29 +61,23 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
         return Equals((LogQuickModel)obj);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+    public override int GetHashCode() => base.GetHashCode();
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-            Equals(Scale, string.Empty) &&
-            Equals(Host, string.Empty) &&
-            Equals(App, string.Empty) &&
-            Equals(Version, string.Empty) &&
-            Equals(File, string.Empty) &&
-            Equals(Line, 0) &&
-            Equals(Member, string.Empty) &&
-            Equals(Icon, string.Empty) &&
-            Equals(Message, string.Empty);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Scale, string.Empty) &&
+	    Equals(Host, string.Empty) &&
+	    Equals(App, string.Empty) &&
+	    Equals(Version, string.Empty) &&
+	    Equals(File, string.Empty) &&
+	    Equals(Line, 0) &&
+	    Equals(Member, string.Empty) &&
+	    Equals(Icon, string.Empty) &&
+	    Equals(Message, string.Empty);
 
-    public new virtual object Clone()
+    public override object Clone()
     {
         LogQuickModel item = new();
         item.Scale = Scale;
@@ -116,37 +93,58 @@ public class LogQuickModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual LogQuickModel CloneCast() => (LogQuickModel)Clone();
+	#endregion
+	
+	#region Public and private methods - virtual
 
-    public virtual long GetScaleIdentityId(DataAccessHelper dataAccess)
-    {
-	    switch (string.IsNullOrEmpty(Scale))
-	    {
-		    case false:
+	public virtual bool Equals(LogQuickModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return
+			base.Equals(item) &&
+			Equals(CreateDt, item.CreateDt) &&
+			Equals(Scale, item.Scale) &&
+			Equals(Host, item.Host) &&
+			Equals(App, item.App) &&
+			Equals(Version, item.Version) &&
+			Equals(File, item.File) &&
+			Equals(Line, item.Line) &&
+			Equals(Member, item.Member) &&
+			Equals(Icon, item.Icon) &&
+			Equals(Message, item.Message);
+	}
+
+	public new virtual LogQuickModel CloneCast() => (LogQuickModel)Clone();
+
+	public virtual long GetScaleIdentityId(DataAccessHelper dataAccess)
+	{
+		switch (string.IsNullOrEmpty(Scale))
+		{
+			case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 					new() { new(DbField.Description, DbComparer.Equal, Scale) }, null, 0, false, false);
 				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
-			    if (scale is not null)
-				    return scale.Identity.Id;
-			    break;
-	    }
-	    return 0;
-    }
-
-    public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
-    {
-	    switch (string.IsNullOrEmpty(Host))
-	    {
-		    case false:
-			    SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-				    new() { new(DbField.HostName, DbComparer.Equal, Host) }, null, 0, false, false);
-			    HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-                if (host is not null)
-					return host.Identity.Id;
-                break;
-	    }
+				if (scale is not null)
+					return scale.Identity.Id;
+				break;
+		}
 		return 0;
-    }
+	}
 
-    #endregion
+	public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
+	{
+		switch (string.IsNullOrEmpty(Host))
+		{
+			case false:
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+					new() { new(DbField.HostName, DbComparer.Equal, Host) }, null, 0, false, false);
+				HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+				if (host is not null)
+					return host.Identity.Id;
+				break;
+		}
+		return 0;
+	}
+
+	#endregion
 }

@@ -25,10 +25,4 @@ internal class WorkShopValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<WorkShopModel>(1_000);
-	}
 }

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "APPS".
 /// </summary>
 [Serializable]
-public class AppModel : TableModel, ISerializable, ITableModel
+public class AppModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -35,20 +36,13 @@ public class AppModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
-	    $"{nameof(IsMarked)}: {IsMarked}. " +
+	public override string ToString() =>
+		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
-    public virtual bool Equals(AppModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-               Equals(Name, item.Name);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -56,20 +50,15 @@ public class AppModel : TableModel, ISerializable, ITableModel
         return Equals((AppModel)obj);
     }
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return base.EqualsDefault() &&
-            Equals(Name, string.Empty);
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Name, string.Empty);
 
-	public new virtual object Clone()
+    public override object Clone()
     {
         AppModel item = new();
         item.Name = Name;
@@ -77,13 +66,24 @@ public class AppModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual AppModel CloneCast() => (AppModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Name), Name);
     }
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(AppModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return base.Equals(item) &&
+		       Equals(Name, item.Name);
+	}
+
+	public new virtual AppModel CloneCast() => (AppModel)Clone();
+
+	#endregion
 }

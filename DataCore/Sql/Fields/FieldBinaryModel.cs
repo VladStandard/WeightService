@@ -1,52 +1,59 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+using System.Xml.Serialization;
+
 namespace DataCore.Sql.Fields;
 
-public class FieldBinaryModel : ICloneable
+[Serializable]
+public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public virtual byte[] Value { get; set; }
+	[XmlElement] public virtual byte[] Value { get; set; }
 
-    public virtual string ValueAscii
+	[XmlIgnore] public virtual string ValueAscii
     {
         get => Value.Length == 0 ? string.Empty : Encoding.Default.GetString(Value);
         set => Value = Encoding.Default.GetBytes(value);
     }
 
-    public virtual string ValueUnicode
+    [XmlIgnore] public virtual string ValueUnicode
     {
         get => Value.Length == 0 ? string.Empty : Encoding.Unicode.GetString(Value);
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
-    public string Info
-    {
-        get => DataUtils.GetBytesLength(Value);
-        set => _ = value;
-    }
+    [XmlIgnore] public virtual string Info { get => DataUtils.GetBytesLength(Value); set => _ = value; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public FieldBinaryModel() => Value = Array.Empty<byte>();
+    public FieldBinaryModel()
+    {
+	    FieldName = nameof(FieldBinaryModel);
+		Value = Array.Empty<byte>();
+    }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	protected FieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+	    Value = (byte[])info.GetValue(nameof(Value), typeof(byte[]));
+    }
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
         $"{nameof(Info)}: {Info}. ";
 
-    public virtual bool Equals(FieldBinaryModel item)
-    {
-        //if (item is null) return false;
-        if (ReferenceEquals(this, item)) return true;
-        return DataUtils.ByteEquals(Value, item.Value);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -54,21 +61,51 @@ public class FieldBinaryModel : ICloneable
         return Equals((FieldBinaryModel)obj);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+    public override int GetHashCode() => Value.GetHashCode();
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new FieldBinaryModel());
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public virtual bool EqualsDefault()
+    public override bool EqualsDefault()
     {
         return DataUtils.ByteEquals(Value, new byte[0]);
     }
 
-    public void SetTemplateValue()
+    public override object Clone()
     {
-        ValueUnicode = @"
+        FieldBinaryModel item = new()
+        {
+            Value = DataUtils.ByteClone(Value),
+        };
+        return item;
+    }
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(Value), Value);
+    }
+
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(FieldBinaryModel item)
+	{
+		//if (item is null) return false;
+		if (ReferenceEquals(this, item)) return true;
+		return DataUtils.ByteEquals(Value, item.Value);
+	}
+
+	public new virtual FieldBinaryModel CloneCast() => (FieldBinaryModel)Clone();
+
+	public virtual void SetTemplateValue()
+	{
+		ValueUnicode = @"
 <?xml version=""1.0"" encoding=""UTF-16""?>
 <xsl:stylesheet version=""2.0"" xmlns:xsl=""http://www.w3.org/1999/XSL/Transform"" xmlns:xs=""http://www.w3.org/2001/XMLSchema"">
 <xsl:output method=""text"" encoding=""UTF-16"" omit-xml-declaration=""no""/>
@@ -117,18 +154,7 @@ public class FieldBinaryModel : ICloneable
 </xsl:template>
 </xsl:stylesheet>
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-    }
+	}
 
-    public object Clone()
-    {
-        FieldBinaryModel item = new()
-        {
-            Value = DataUtils.ByteClone(Value),
-        };
-        return item;
-    }
-
-    public FieldBinaryModel CloneCast() => (FieldBinaryModel)Clone();
-
-    #endregion
+	#endregion
 }

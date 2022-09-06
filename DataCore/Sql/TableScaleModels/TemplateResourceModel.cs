@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TemplateResources".
 /// </summary>
 [Serializable]
-public class TemplateResourceModel : TableModel, ISerializable, ITableModel
+public class TemplateResourceModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -17,7 +18,7 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
 	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string Type { get; set; }
 	[XmlElement] public virtual FieldBinaryModel ImageData { get; set; }
-	[XmlElement] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
+	[XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 
 	/// <summary>
@@ -32,11 +33,25 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
 		IdRRef = Guid.Empty;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private TemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Name = info.GetString(nameof(Name));
+		Description = info.GetString(nameof(Description));
+		Type = info.GetString(nameof(Type));
+		ImageData = (FieldBinaryModel)info.GetValue(nameof(ImageData), typeof(FieldBinaryModel));
+		IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Description)}: {Description}. " +
@@ -44,20 +59,7 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
         $"{nameof(ImageData)}: {ImageData}. " +
         $"{nameof(IdRRef)}: {IdRRef}. ";
 
-    public virtual bool Equals(TemplateResourceModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!ImageData.Equals(item.ImageData))
-            return false;
-        return 
-	        base.Equals(item) &&
-            Equals(Name, item.Name) &&
-            Equals(Description, item.Description) &&
-            Equals(Type, item.Type) &&
-            Equals(IdRRef, item.IdRRef);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -65,25 +67,19 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
         return Equals((TemplateResourceModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+	public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-	        Equals(Name, string.Empty) &&
-	        Equals(Description, string.Empty) &&
-	        Equals(Type, string.Empty) && 
-	        ImageData.Equals(new())  &&
-            Equals(IdRRef, Guid.Empty);
-    }
+	public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Name, string.Empty) &&
+		Equals(Description, string.Empty) &&
+		Equals(Type, string.Empty) && 
+		ImageData.Equals(new())  &&
+		Equals(IdRRef, Guid.Empty);
 
-	public new virtual object Clone()
+	public override object Clone()
     {
         TemplateResourceModel item = new();
         item.Name = Name;
@@ -95,7 +91,39 @@ public class TemplateResourceModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual TemplateResourceModel CloneCast() => (TemplateResourceModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Name), Name);
+		info.AddValue(nameof(Description), Description);
+		info.AddValue(nameof(Type), Type);
+		info.AddValue(nameof(ImageData), ImageData);
+		info.AddValue(nameof(IdRRef), IdRRef);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(TemplateResourceModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!ImageData.Equals(item.ImageData))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(Name, item.Name) &&
+			Equals(Description, item.Description) &&
+			Equals(Type, item.Type) &&
+			Equals(IdRRef, item.IdRRef);
+	}
+
+	public new virtual TemplateResourceModel CloneCast() => (TemplateResourceModel)Clone();
+
+	#endregion
 }

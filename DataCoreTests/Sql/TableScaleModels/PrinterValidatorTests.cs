@@ -25,10 +25,4 @@ internal class PrinterValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<PrinterModel>(1_000);
-	}
 }

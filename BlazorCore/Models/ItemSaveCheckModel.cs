@@ -276,7 +276,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Scale(NotificationService notificationService, TableModel? item, DbTableAction tableAction)
+    public void Scale(NotificationService notificationService, TableBaseModel? item, DbTableAction tableAction)
     {
 	    if (item == null) return;
 	    item.ChangeDt = DateTime.Now;

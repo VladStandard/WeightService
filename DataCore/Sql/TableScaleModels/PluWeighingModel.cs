@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -10,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS_WEIGHINGS".
 /// </summary>
 [Serializable]
-public class PluWeighingModel : TableModel, ISerializable, ITableModel
+public class PluWeighingModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -57,31 +58,15 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 	    $"{nameof(Kneading)}: {Kneading}. " +
 	    $"{nameof(PluScale)}: {PluScale}. " + 
 	    $"{nameof(Series)}: {Series}. ";
 
-    public virtual bool Equals(PluWeighingModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!PluScale.Equals(item.PluScale))
-            return false;
-        return
-            base.Equals(item) &&
-            Equals(Kneading, item.Kneading) &&
-            Equals(PluScale, item.PluScale) &&
-            Equals(Sscc, item.Sscc) &&
-            Equals(NettoWeight, item.NettoWeight) &&
-            Equals(TareWeight, item.TareWeight) &&
-            Equals(ProductDt, item.ProductDt) &&
-            Equals(RegNum, item.RegNum);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -89,12 +74,11 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
         return Equals((PluWeighingModel)obj);
     }
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+    public override bool EqualsNew() => Equals(new());
+
+    public override bool EqualsDefault()
     {
         if (!PluScale.EqualsDefault())
             return false;
@@ -110,9 +94,7 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
             Equals(RegNum, default(int));
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         PluWeighingModel item = new();
         item.Kneading = Kneading;
@@ -126,9 +108,7 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual PluWeighingModel CloneCast() => (PluWeighingModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(PluScale), PluScale);
@@ -141,5 +121,27 @@ public class PluWeighingModel : TableModel, ISerializable, ITableModel
         info.AddValue(nameof(RegNum), RegNum);
     }
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(PluWeighingModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!PluScale.Equals(item.PluScale))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(Kneading, item.Kneading) &&
+			Equals(PluScale, item.PluScale) &&
+			Equals(Sscc, item.Sscc) &&
+			Equals(NettoWeight, item.NettoWeight) &&
+			Equals(TareWeight, item.TareWeight) &&
+			Equals(ProductDt, item.ProductDt) &&
+			Equals(RegNum, item.RegNum);
+	}
+
+	public new virtual PluWeighingModel CloneCast() => (PluWeighingModel)Clone();
+
+	#endregion
 }

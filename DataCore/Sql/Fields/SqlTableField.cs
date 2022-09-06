@@ -27,9 +27,12 @@ public class SqlTableField<T> where T : IConvertible
     public T? DefaultValue { get; }
 
     /// <summary>
-    /// Constructor for serialization.
+    /// Constructor.
     /// </summary>
-    public SqlTableField() : this(string.Empty, default, default) { }
+    public SqlTableField() : this(string.Empty, default, default)
+    {
+
+    }
 
     /// <summary>
     /// Constructor.
@@ -69,11 +72,12 @@ public class SqlTableField<T> where T : IConvertible
     /// <param name="name"></param>
     public SqlTableField(string name) : this(name, default, default) { }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    public new virtual string ToString() => Value is string value ? value : string.Empty;
+	public override string ToString() => 
+		Value as string ?? string.Empty;
 
     #endregion
 }

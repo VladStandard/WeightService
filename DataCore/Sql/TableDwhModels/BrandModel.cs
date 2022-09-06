@@ -1,12 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableDwhModels;
 
 [Serializable]
-public class BrandModel : TableModel, ISerializable, ITableModel
+public class BrandModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -30,27 +31,14 @@ public class BrandModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - virtual
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(Code)}: {Code}. " +
 		$"{nameof(Name)}: {Name}. " +
 		$"{nameof(StatusId)}: {StatusId}. ";
 
-	public virtual bool Equals(BrandModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!InformationSystem.Equals(item.InformationSystem))
-            return false;
-        return 
-	        base.Equals(item) &&
-            Equals(Code, item.Code) &&
-            Equals(Name, item.Name) &&
-            Equals(StatusId, item.StatusId) &&
-            Equals(CodeInIs, item.CodeInIs);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -58,25 +46,23 @@ public class BrandModel : TableModel, ISerializable, ITableModel
         return Equals((BrandModel)obj);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+    public override int GetHashCode() => base.GetHashCode();
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual bool EqualsDefault()
+    public override bool EqualsDefault()
     {
         if (!InformationSystem.EqualsDefault())
             return false;
-        return base.EqualsDefault() &&
-               Equals(Code, string.Empty) &&
-               Equals(Name, string.Empty) &&
-               Equals(StatusId, 0) &&
-               Equals(CodeInIs, new byte[0]);
+        return 
+	        base.EqualsDefault() &&
+            Equals(Code, string.Empty) &&
+            Equals(Name, string.Empty) &&
+            Equals(StatusId, 0) &&
+            Equals(CodeInIs, new byte[0]);
     }
 
-    public new virtual object Clone()
+    public override object Clone()
     {
         BrandModel item = new();
         item.Code = Code;
@@ -88,7 +74,24 @@ public class BrandModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual BrandModel CloneCast() => (BrandModel)Clone();
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(BrandModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!InformationSystem.Equals(item.InformationSystem))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(Code, item.Code) &&
+			Equals(Name, item.Name) &&
+			Equals(StatusId, item.StatusId) &&
+			Equals(CodeInIs, item.CodeInIs);
+	}
+
+	public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
     #endregion
 }

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ProductSeries".
 /// </summary>
 [Serializable]
-public class ProductSeriesModel : TableModel, ISerializable, ITableModel
+public class ProductSeriesModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -39,32 +40,20 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
 		Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
 		IsClose = info.GetBoolean(nameof(IsClose));
 		Sscc = info.GetString(nameof(Sscc));
-		Uid = (Guid)info.GetValue(nameof(Sscc), typeof(Guid));
+		Uid = (Guid)info.GetValue(nameof(Uid), typeof(Guid));
 	}
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Scale)}: {Scale}. " +
 		$"{nameof(IsClose)}: {IsClose}. " +
 		$"{nameof(Sscc)}: {Sscc}.";
 
-	public virtual bool Equals(ProductSeriesModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!Scale.Equals(item.Scale))
-            return false;
-        return 
-	        base.Equals(item) &&
-            Equals(CreateDt, item.CreateDt) &&
-            Equals(IsClose, item.IsClose) &&
-            Equals(Sscc, item.Sscc);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -72,12 +61,11 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
         return Equals((ProductSeriesModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (!Scale.EqualsDefault())
             return false;
@@ -88,9 +76,7 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
 	        Equals(Uid, Guid.Empty);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-    public new virtual object Clone()
+    public override object Clone()
     {
         ProductSeriesModel item = new();
         item.Scale = Scale.CloneCast();
@@ -101,14 +87,12 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
         return item;
     }
 
-    public new virtual ProductSeriesModel CloneCast() => (ProductSeriesModel)Clone();
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Scale), Scale);
@@ -117,5 +101,23 @@ public class ProductSeriesModel : TableModel, ISerializable, ITableModel
         info.AddValue(nameof(Uid), Uid);
     }
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(ProductSeriesModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!Scale.Equals(item.Scale))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(CreateDt, item.CreateDt) &&
+			Equals(IsClose, item.IsClose) &&
+			Equals(Sscc, item.Sscc);
+	}
+
+    public new virtual ProductSeriesModel CloneCast() => (ProductSeriesModel)Clone();
+
+	#endregion
 }

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -10,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ProductionFacility".
 /// </summary>
 [Serializable]
-public class ProductionFacilityModel : TableModel, ISerializable, ITableModel
+public class ProductionFacilityModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -26,25 +27,27 @@ public class ProductionFacilityModel : TableModel, ISerializable, ITableModel
 		Address = string.Empty;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private ProductionFacilityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Name = info.GetString(nameof(Name));
+		Address = info.GetString(nameof(Address));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Address)}: {Address}. ";
 
-    public virtual bool Equals(ProductionFacilityModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return 
-	        base.Equals(item) &&
-            Equals(Name, item.Name) &&
-            Equals(Address, item.Address);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -52,22 +55,16 @@ public class ProductionFacilityModel : TableModel, ISerializable, ITableModel
         return Equals((ProductionFacilityModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+	public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-            Equals(Name, string.Empty) &&
-            Equals(Address, string.Empty);
-    }
+	public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Name, string.Empty) &&
+		Equals(Address, string.Empty);
 
-	public new virtual object Clone()
+	public override object Clone()
     {
         ProductionFacilityModel item = new();
         item.Name = Name;
@@ -76,7 +73,32 @@ public class ProductionFacilityModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual ProductionFacilityModel CloneCast() => (ProductionFacilityModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Name), Name);
+		info.AddValue(nameof(Address), Address);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(ProductionFacilityModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return
+			base.Equals(item) &&
+			Equals(Name, item.Name) &&
+			Equals(Address, item.Address);
+	}
+
+	public new virtual ProductionFacilityModel CloneCast() => (ProductionFacilityModel)Clone();
+
+	#endregion
 }

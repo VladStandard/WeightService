@@ -1,12 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
+public class WeithingFactSummaryModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -30,28 +31,16 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(WeithingDate)}: {WeithingDate}. " +
         $"{nameof(Count)}: {Count}. " +
         $"{nameof(Scale)}: {Scale}. " +
         $"{nameof(Host)}: {Host}. " +
         $"{nameof(Printer)}: {Printer}. ";
 
-    public virtual bool Equals(WeithingFactSummaryModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return 
-	        base.Equals(item) &&
-            Equals(WeithingDate, item.WeithingDate) &&
-            Equals(Count, item.Count) &&
-            Equals(Scale, item.Scale) &&
-            Equals(Host, item.Host) &&
-            Equals(Printer, item.Printer);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
@@ -59,25 +48,19 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
         return Equals((WeithingFactSummaryModel)obj);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+    public override int GetHashCode() => base.GetHashCode();
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-            Equals(WeithingDate, DateTime.MinValue) &&
-            Equals(Count, 0) &&
-            Equals(Scale, string.Empty) &&
-            Equals(Host, string.Empty) &&
-            Equals(Printer, string.Empty);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(WeithingDate, DateTime.MinValue) &&
+	    Equals(Count, 0) &&
+	    Equals(Scale, string.Empty) &&
+	    Equals(Host, string.Empty) &&
+	    Equals(Printer, string.Empty);
 
-    public new virtual object Clone()
+    public override object Clone()
     {
         WeithingFactSummaryModel item = new();
         item.WeithingDate = WeithingDate;
@@ -89,7 +72,23 @@ public class WeithingFactSummaryModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual WeithingFactSummaryModel CloneCast() => (WeithingFactSummaryModel)Clone();
+	#endregion
 
-    #endregion
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(WeithingFactSummaryModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return
+			base.Equals(item) &&
+			Equals(WeithingDate, item.WeithingDate) &&
+			Equals(Count, item.Count) &&
+			Equals(Scale, item.Scale) &&
+			Equals(Host, item.Host) &&
+			Equals(Printer, item.Printer);
+	}
+
+	public new virtual WeithingFactSummaryModel CloneCast() => (WeithingFactSummaryModel)Clone();
+
+	#endregion
 }

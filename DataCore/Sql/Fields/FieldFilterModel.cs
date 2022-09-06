@@ -8,6 +8,7 @@ namespace DataCore.Sql.Fields;
 /// <summary>
 /// DB table field comparing model.
 /// </summary>
+[Serializable]
 public class FieldFilterModel
 {
     #region Public and private fields, properties, constructor
@@ -88,7 +89,7 @@ public class FieldFilterModel
 	/// </summary>
 	/// <param name="obj"></param>
 	/// <returns></returns>
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
@@ -100,10 +101,10 @@ public class FieldFilterModel
     /// Get hash code.
     /// </summary>
     /// <returns></returns>
-    public new virtual int GetHashCode() => (Name, Comparer, Value).GetHashCode();
+    public override int GetHashCode() => (Name, Comparer, Value).GetHashCode();
 
-	public new virtual string ToString() =>
-        $"{nameof(Name)}: {Name}. " +
+    public override string ToString() =>
+		$"{nameof(Name)}: {Name}. " +
         $"{nameof(Comparer)}: {Comparer}. " +
         $"{nameof(Value)}: {Value}. ";
 

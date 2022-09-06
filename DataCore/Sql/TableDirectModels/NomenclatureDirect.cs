@@ -45,7 +45,7 @@ public class NomenclatureDirect : SerializeModel, ISerializable
 
 	#region Public and private methods
 
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
@@ -56,10 +56,8 @@ public class NomenclatureDirect : SerializeModel, ISerializable
         return Id.Equals(item.Id);
     }
 
-    public override int GetHashCode()
-    {
-        return Id.GetHashCode();
-    }
+    public override int GetHashCode() => 
+	    Id.GetHashCode();
 
     public void Load()
     {

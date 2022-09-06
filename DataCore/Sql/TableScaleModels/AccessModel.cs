@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ACCESS".
 /// </summary>
 [Serializable]
-public class AccessModel : TableModel, ISerializable, ITableModel
+public class AccessModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -38,26 +39,18 @@ public class AccessModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
 	/// <summary>
 	/// To string.
 	/// </summary>
 	/// <returns></returns>
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(User)}: {User}. " +
         $"{nameof(Rights)}: {Rights}. ";
 
-    public virtual bool Equals(AccessModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-               Equals(User, item.User) &&
-               Equals(Rights, item.Rights);
-    }
-
-    public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -65,21 +58,16 @@ public class AccessModel : TableModel, ISerializable, ITableModel
         return Equals((AccessModel)obj);
     }
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return base.EqualsDefault() &&
-               Equals(User, string.Empty) &&
-               Equals(Rights, (byte)0x00);
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(User, string.Empty) &&
+	    Equals(Rights, (byte)0x00);
+    
+    public override object Clone()
     {
         AccessModel item = new();
         item.User = User;
@@ -88,19 +76,31 @@ public class AccessModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual AccessModel CloneCast() => (AccessModel)Clone();
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
 		info.AddValue(nameof(User), User);
 		info.AddValue(nameof(Rights), Rights);
 	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(AccessModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return base.Equals(item) &&
+		       Equals(User, item.User) &&
+		       Equals(Rights, item.Rights);
+	}
+
+	public new virtual AccessModel CloneCast() => (AccessModel)Clone();
+
+	#endregion
 }

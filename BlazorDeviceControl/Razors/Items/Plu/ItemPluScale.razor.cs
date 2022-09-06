@@ -45,7 +45,7 @@ public partial class ItemPluScale : RazorPageModel
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.SetDt();
+                        ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
                         break;
                     default:

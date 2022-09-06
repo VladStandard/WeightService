@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
 
@@ -11,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-public class PluModel : TableModel, ISerializable, ITableModel
+public class PluModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -23,7 +24,7 @@ public class PluModel : TableModel, ISerializable, ITableModel
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
-    [XmlElement] public virtual string PrettyGtin14
+    [XmlIgnore] public virtual string PrettyGtin14
     {
 	    get
 	    {
@@ -81,7 +82,7 @@ public class PluModel : TableModel, ISerializable, ITableModel
 	    FullName = info.GetString(nameof(FullName));
 	    Description = info.GetString(nameof(Description));
 	    ShelfLifeDays = info.GetInt16(nameof(ShelfLifeDays));
-	    TareWeight = info.GetDecimal(nameof(TareWeight));
+		TareWeight = info.GetDecimal(nameof(TareWeight));
 	    BoxQuantly = info.GetInt32(nameof(BoxQuantly));
 	    Gtin = info.GetString(nameof(Gtin));
 	    Ean13 = info.GetString(nameof(Ean13));
@@ -91,44 +92,19 @@ public class PluModel : TableModel, ISerializable, ITableModel
 	    LowerThreshold = info.GetDecimal(nameof(LowerThreshold));
 	    IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
 	    Template = (TemplateModel)info.GetValue(nameof(Template), typeof(TemplateModel));
-	    Nomenclature = (NomenclatureModel)info.GetValue(nameof(Template), typeof(NomenclatureModel));
+	    Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
     }
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 	    $"{nameof(Number)}: {Number}. " +
 	    $"{nameof(Name)}: {Name}. ";
 
-    public virtual bool Equals(PluModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!Template.Equals(item.Template))
-            return false;
-        if (!Nomenclature.Equals(item.Nomenclature))
-            return false;
-        return 
-	        base.Equals(item) &&
-			Equals(Number, item.Number) &&
-			Equals(Name, item.Name) &&
-			Equals(FullName, item.FullName) &&
-			Equals(Description, item.Description) &&
-			Equals(ShelfLifeDays, item.ShelfLifeDays) &&
-			Equals(TareWeight, item.TareWeight) &&
-			Equals(BoxQuantly, item.BoxQuantly) &&
-			Equals(Gtin, item.Gtin) &&
-			Equals(Ean13, item.Ean13) &&
-			Equals(Itf14, item.Itf14) &&
-			Equals(UpperThreshold, item.UpperThreshold) &&
-			Equals(NominalWeight, item.NominalWeight) &&
-			Equals(LowerThreshold, item.LowerThreshold) &&
-			Equals(IsCheckWeight, item.IsCheckWeight);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -136,12 +112,11 @@ public class PluModel : TableModel, ISerializable, ITableModel
         return Equals((PluModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (!Template.EqualsDefault())
             return false;
@@ -165,9 +140,7 @@ public class PluModel : TableModel, ISerializable, ITableModel
 			Equals(IsCheckWeight, false);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         PluModel item = new();
         item.Number = Number;
@@ -190,28 +163,57 @@ public class PluModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual PluModel CloneCast() => (PluModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Number), Number);
-        info.AddValue(nameof(Name), Name);
-        info.AddValue(nameof(FullName), FullName);
-        info.AddValue(nameof(Description), Description);
-        info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
-        info.AddValue(nameof(TareWeight), TareWeight);
-        info.AddValue(nameof(BoxQuantly), BoxQuantly);
-        info.AddValue(nameof(Gtin), Gtin);
-        info.AddValue(nameof(Ean13), Ean13);
-        info.AddValue(nameof(Itf14), Itf14);
-        info.AddValue(nameof(UpperThreshold), UpperThreshold);
-        info.AddValue(nameof(NominalWeight), NominalWeight);
-        info.AddValue(nameof(LowerThreshold), LowerThreshold);
-        info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
-		info.AddValue(nameof(Template), Template);
-        info.AddValue(nameof(Nomenclature), Nomenclature);
+	    base.GetObjectData(info, context);
+	    info.AddValue(nameof(Number), Number);
+	    info.AddValue(nameof(Name), Name);
+	    info.AddValue(nameof(FullName), FullName);
+	    info.AddValue(nameof(Description), Description);
+	    info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
+	    info.AddValue(nameof(TareWeight), TareWeight);
+	    info.AddValue(nameof(BoxQuantly), BoxQuantly);
+	    info.AddValue(nameof(Gtin), Gtin);
+	    info.AddValue(nameof(Ean13), Ean13);
+	    info.AddValue(nameof(Itf14), Itf14);
+	    info.AddValue(nameof(UpperThreshold), UpperThreshold);
+	    info.AddValue(nameof(NominalWeight), NominalWeight);
+	    info.AddValue(nameof(LowerThreshold), LowerThreshold);
+	    info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
+	    info.AddValue(nameof(Template), Template);
+	    info.AddValue(nameof(Nomenclature), Nomenclature);
     }
-    
-    #endregion
+
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(PluModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!Template.Equals(item.Template))
+			return false;
+		if (!Nomenclature.Equals(item.Nomenclature))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(Number, item.Number) &&
+			Equals(Name, item.Name) &&
+			Equals(FullName, item.FullName) &&
+			Equals(Description, item.Description) &&
+			Equals(ShelfLifeDays, item.ShelfLifeDays) &&
+			Equals(TareWeight, item.TareWeight) &&
+			Equals(BoxQuantly, item.BoxQuantly) &&
+			Equals(Gtin, item.Gtin) &&
+			Equals(Ean13, item.Ean13) &&
+			Equals(Itf14, item.Itf14) &&
+			Equals(UpperThreshold, item.UpperThreshold) &&
+			Equals(NominalWeight, item.NominalWeight) &&
+			Equals(LowerThreshold, item.LowerThreshold) &&
+			Equals(IsCheckWeight, item.IsCheckWeight);
+	}
+
+	public new virtual PluModel CloneCast() => (PluModel)Clone();
+
+	#endregion
 }

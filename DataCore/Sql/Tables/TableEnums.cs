@@ -3,12 +3,12 @@
 
 namespace DataCore.Sql.Tables;
 
-public interface ITableModel
+/// <summary>
+/// Enum column name.
+/// </summary>
+public enum ColumnName
 {
-	string ToString();
-	bool Equals(object obj);
-	bool EqualsNew();
-	int GetHashCode();
-	object Clone();
-	void GetObjectData(SerializationInfo info, StreamingContext context);
+	Default,
+	Id,
+	Uid,
 }

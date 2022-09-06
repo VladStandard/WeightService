@@ -25,10 +25,4 @@ internal class TaskValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<TaskModel>(1_000);
-	}
 }

@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
+using DataCore.Sql.Core;
 
 namespace DataCore.Sql.Xml;
 
@@ -9,7 +9,7 @@ namespace DataCore.Sql.Xml;
 /// XML-класс коробки.
 /// </summary>
 [Serializable]
-public class XmlProductBoxModel : ISerializable, ITableModel
+public class XmlProductBoxModel : ISerializable, IDbBaseModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -61,7 +61,7 @@ public class XmlProductBoxModel : ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(Description)}: {Description}. " +
 		$"{nameof(Heft)}: {Heft}. " +
 		$"{nameof(Capacity)}: {Capacity}. " +

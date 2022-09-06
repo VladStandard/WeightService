@@ -1,19 +1,20 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
+
 namespace DataCore.Sql.Fields;
 
 /// <summary>
 /// MAC address.
 /// </summary>
 [Serializable]
-public class FieldMacAddressModel
+public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private string _value;
-    [XmlElement]
-    public string Value
+	[XmlIgnore] private string _value;
+    [XmlElement] public string Value
     {
         get => _value;
         set
@@ -37,43 +38,48 @@ public class FieldMacAddressModel
         }
     }
 
-    [XmlElement] public string ValuePrettyLookSpace => GetValueAsString(' ');
+    [XmlIgnore] public string ValuePrettyLookSpace => GetValueAsString(' ');
 
-    [XmlElement] public string ValuePrettyLookMinus => GetValueAsString('-');
+    [XmlIgnore] public string ValuePrettyLookMinus => GetValueAsString('-');
 
-    [XmlElement] public string ValuePrettyLookColon => GetValueAsString(':');
+    [XmlIgnore] public string ValuePrettyLookColon => GetValueAsString(':');
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public FieldMacAddressModel()
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public FieldMacAddressModel()
     {
-        _value = string.Empty;
+	    FieldName = nameof(FieldMacAddressModel);
+		_value = string.Empty;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="address"></param>
-    public FieldMacAddressModel(string address)
+    public FieldMacAddressModel(string address) : this()
     {
         _value = address;
+    }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	protected FieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+	    _value = info.GetString(nameof(Value));
     }
 
 	#endregion
 
 	#region Public and private methods
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(Value)}: {ValuePrettyLookMinus}. ";
 
-    public virtual bool Equals(FieldMacAddressModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return Equals(Value, item.Value);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 	    if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -81,19 +87,19 @@ public class FieldMacAddressModel
         return Equals((FieldMacAddressModel)obj);
     }
 
-	public new virtual int GetHashCode() => Value.GetHashCode();
+	public override int GetHashCode() => Value.GetHashCode();
 
-    public bool EqualsNew()
+    public override bool EqualsNew()
     {
         return Equals(new FieldMacAddressModel());
     }
 
-    public bool EqualsDefault()
+    public override bool EqualsDefault()
     {
         return Equals(Value, string.Empty);
     }
 
-    public object Clone()
+    public override object Clone()
     {
         FieldMacAddressModel item = new()
         {
@@ -103,9 +109,7 @@ public class FieldMacAddressModel
         return item;
     }
 
-    public FieldMacAddressModel CloneCast() => (FieldMacAddressModel)Clone();
-
-    public void Default()
+    public virtual void Default()
     {
         Value = "000000000000";
     }
@@ -124,5 +128,28 @@ public class FieldMacAddressModel
         };
     }
 
-    #endregion
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(Value), Value);
+    }
+
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(FieldMacAddressModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return Equals(Value, item.Value);
+	}
+
+	public new virtual FieldMacAddressModel CloneCast() => (FieldMacAddressModel)Clone();
+
+	#endregion
 }

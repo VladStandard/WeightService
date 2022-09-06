@@ -1,5 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using DataCore.Sql.Core;
+using DataCore.Sql.Tables;
 using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Fields;
@@ -7,7 +9,8 @@ namespace DataCore.Sql.Fields;
 /// <summary>
 /// DB table sorting model.
 /// </summary>
-public class FieldOrderModel
+[Serializable]
+public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -40,19 +43,26 @@ public class FieldOrderModel
         Direction = direction;
     }
 
-    #endregion
-
-    #region Public and private methods
-
-    protected virtual bool Equals(FieldOrderModel item)
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    protected FieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
     {
-        if (ReferenceEquals(this, item)) return true;
-        return
-	        Equals(Name, item.Name) &&
-            Direction.Equals(item.Direction);
+        Name = (DbField)info.GetValue(nameof(Name), typeof(DbField));
+        Direction = (DbOrderDirection)info.GetValue(nameof(Direction), typeof(DbOrderDirection));
     }
 
-	public new virtual bool Equals(object obj)
+	#endregion
+
+	#region Public and private methods - override
+
+	public override string ToString() =>
+		$"{nameof(Name)}: {Name}. " +
+        $"{nameof(Direction)}: {Direction}. ";
+
+    public override bool Equals(object obj)
 	{
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
@@ -60,11 +70,41 @@ public class FieldOrderModel
 	    return Equals((FieldOrderModel)obj);
     }
 
-	public new virtual int GetHashCode() => (Name, Direction).GetHashCode();
+	public override int GetHashCode() => (Name, Direction).GetHashCode();
 
-	public new virtual string ToString() =>
-		$"{nameof(Name)}: {Name}. " +
-        $"{nameof(Direction)}: {Direction}. ";
+	public virtual bool EqualsNew() => Equals(new());
 
-    #endregion
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        //base.GetObjectData(info, context);
+        info.AddValue(nameof(Name), Name);
+        info.AddValue(nameof(Direction), Direction);
+    }
+
+	public virtual bool EqualsDefault() =>
+		Equals(Name, ColumnName.Default) &&
+		Equals(Direction, DbOrderDirection.Asc);
+
+	public virtual object Clone() => new FieldOrderModel(Name, Direction);
+
+	#endregion
+
+	#region Public and private methods - virtual
+
+	protected virtual bool Equals(FieldOrderModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return
+			Equals(Name, item.Name) &&
+			Direction.Equals(item.Direction);
+	}
+
+	public virtual FieldOrderModel CloneCast() => (FieldOrderModel)Clone();
+
+	#endregion
 }

@@ -49,7 +49,7 @@ public partial class ActionsFilterScale : RazorPageModel
 				ScaleModel[]? itemsFilter = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{
-					ItemsFilter.AddRange(itemsFilter.ToList<TableModel>());
+					ItemsFilter.AddRange(itemsFilter.ToList<TableBaseModel>());
 					if (ParentRazor?.ItemFilter == null)
 						ItemFilterCast = ItemsCast.First();
 				}

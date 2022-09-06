@@ -1,7 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -9,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "WorkShop".
 /// </summary>
 [Serializable]
-public class WorkShopModel : TableModel, ISerializable, ITableModel
+public class WorkShopModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -25,26 +27,27 @@ public class WorkShopModel : TableModel, ISerializable, ITableModel
 		Name = string.Empty;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private WorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		ProductionFacility = (ProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(ProductionFacilityModel));
+		Name = info.GetString(nameof(Name));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Name)}: {Name}. " +
 		$"{nameof(ProductionFacility)}: {ProductionFacility}. ";
 
-	public virtual bool Equals(WorkShopModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!ProductionFacility.Equals(item.ProductionFacility))
-            return false;
-        return 
-	        base.Equals(item) &&
-            Equals(Name, item.Name);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -52,12 +55,11 @@ public class WorkShopModel : TableModel, ISerializable, ITableModel
         return Equals((WorkShopModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (!ProductionFacility.EqualsDefault())
             return false;
@@ -66,9 +68,7 @@ public class WorkShopModel : TableModel, ISerializable, ITableModel
             Equals(Name, string.Empty);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         WorkShopModel item = new();
         item.ProductionFacility = ProductionFacility.CloneCast();
@@ -77,7 +77,33 @@ public class WorkShopModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual WorkShopModel CloneCast() => (WorkShopModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(ProductionFacility), ProductionFacility);
+		info.AddValue(nameof(Name), Name);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods
+
+	public virtual bool Equals(WorkShopModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!ProductionFacility.Equals(item.ProductionFacility))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(Name, item.Name);
+	}
+
+	public new virtual WorkShopModel CloneCast() => (WorkShopModel)Clone();
+
+	#endregion
 }

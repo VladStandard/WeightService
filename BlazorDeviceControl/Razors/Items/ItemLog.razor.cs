@@ -35,7 +35,7 @@ public partial class ItemLog : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						break;
 					default:
 						ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);

@@ -35,7 +35,7 @@ public partial class ItemPluWeighing : RazorPageModel
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.SetDt();
+                        ItemCast.SetDtNow();
 						break;
                     default:
                         ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluWeighingModel>(IdentityId);

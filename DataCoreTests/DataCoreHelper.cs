@@ -10,6 +10,7 @@ using DataCore.Sql.Tables;
 using FluentValidation;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 
 namespace DataCoreTests;
@@ -78,7 +79,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : TableModel, new()
+	public void AssertSqlDataValidate<T>(int maxResults = 0) where T : TableBaseModel, new()
 	{
 		AssertAction(() =>
 		{
@@ -112,7 +113,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public void AssertSqlExtensionValidate<T>() where T : TableModel, new()
+	public void AssertSqlExtensionValidate<T>() where T : TableBaseModel, new()
 	{
 		AssertAction(() =>
 		{
@@ -147,7 +148,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableModel, new()
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableBaseModel, new()
 	{
 		// Arrange.
 		IValidator<T> validator = SqlUtils.GetSqlValidator(item);
@@ -175,7 +176,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableModel, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableBaseModel, new()
 	{
 		FieldIdentityModel fieldIdentity = Substitute.For<FieldIdentityModel>(ColumnName.Default);
 		fieldIdentity.Name.Returns(ColumnName.Default);
@@ -327,6 +328,144 @@ public class DataCoreHelper
 				break;
 		}
 		return item;
+	}
+
+	public void TableBaseModelAssertEqualsNew<T>() where T : TableBaseModel, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange.
+			T item = new();
+			TableBaseModel baseItem = new();
+			// Act.
+			bool itemEqualsNew = item.EqualsNew();
+			bool baseEqualsNew = baseItem.EqualsNew();
+			// Assert.
+			Assert.AreEqual(baseEqualsNew, itemEqualsNew);
+		});
+	}
+
+	public void FieldBaseModelAssertEqualsNew<T>() where T : FieldBaseModel, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange.
+			T item = new();
+			FieldBaseModel baseItem = new();
+			// Act.
+			bool itemEqualsNew = item.EqualsNew();
+			bool baseEqualsNew = baseItem.EqualsNew();
+			// Assert.
+			Assert.AreEqual(baseEqualsNew, itemEqualsNew);
+		});
+	}
+
+	public void TableBaseModelAssertSerialize<T>() where T : TableBaseModel, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+#pragma warning disable SYSLIB0011
+			// Arrange.
+			T item1 = new();
+			TableBaseModel base1 = new();
+			BinaryFormatter binaryFormatterItem = new();
+			BinaryFormatter binaryFormatterBase = new();
+			MemoryStream memoryStreamItem = new();
+			MemoryStream memoryStreamBase = new();
+			// Act.
+			binaryFormatterItem.Serialize(memoryStreamItem, item1);
+			binaryFormatterBase.Serialize(memoryStreamBase, base1);
+			TestContext.WriteLine($"{nameof(item1)}: {item1}");
+			TestContext.WriteLine($"{nameof(base1)}: {base1}");
+			// Assert.
+			Assert.AreNotEqual(memoryStreamItem, memoryStreamBase);
+			// Act.
+			memoryStreamItem.Position = 0;
+			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
+			TestContext.WriteLine($"{nameof(item2)}: {item2}");
+			memoryStreamBase.Position = 0;
+			TableBaseModel base2 = (TableBaseModel)binaryFormatterBase.Deserialize(memoryStreamBase);
+			TestContext.WriteLine($"{nameof(base2)}: {base2}");
+			// Assert.
+			Assert.AreNotEqual(item2, base2);
+#pragma warning restore SYSLIB0011
+			// Finally.
+			memoryStreamItem.Close();
+			memoryStreamItem.Dispose();
+			memoryStreamBase.Close();
+			memoryStreamBase.Dispose();
+		});
+	}
+
+	public void FieldBaseModelAssertSerialize<T>() where T : FieldBaseModel, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+#pragma warning disable SYSLIB0011
+			// Arrange.
+			T item1 = new();
+			FieldBaseModel base1 = new();
+			BinaryFormatter binaryFormatterItem = new();
+			BinaryFormatter binaryFormatterBase = new();
+			MemoryStream memoryStreamItem = new();
+			MemoryStream memoryStreamBase = new();
+			// Act.
+			binaryFormatterItem.Serialize(memoryStreamItem, item1);
+			binaryFormatterBase.Serialize(memoryStreamBase, base1);
+			TestContext.WriteLine($"{nameof(item1)}: {item1}");
+			TestContext.WriteLine($"{nameof(base1)}: {base1}");
+			// Assert.
+			Assert.AreNotEqual(memoryStreamItem, memoryStreamBase);
+			// Act.
+			memoryStreamItem.Position = 0;
+			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
+			TestContext.WriteLine($"{nameof(item2)}: {item2}");
+			memoryStreamBase.Position = 0;
+			TableBaseModel base2 = (TableBaseModel)binaryFormatterBase.Deserialize(memoryStreamBase);
+			TestContext.WriteLine($"{nameof(base2)}: {base2}");
+			// Assert.
+			Assert.AreNotEqual(item2, base2);
+#pragma warning restore SYSLIB0011
+			// Finally.
+			memoryStreamItem.Close();
+			memoryStreamItem.Dispose();
+			memoryStreamBase.Close();
+			memoryStreamBase.Dispose();
+		});
+	}
+
+	public void TableBaseModelAssertToString<T>() where T : TableBaseModel, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange.
+			T item = new();
+			TableBaseModel baseItem = new();
+			// Act.
+			string itemString = item.ToString();
+			string baseString = baseItem.ToString();
+			TestContext.WriteLine($"{nameof(itemString)}: {itemString}");
+			TestContext.WriteLine($"{nameof(baseString)}: {baseString}");
+			// Assert.
+			Assert.AreNotEqual(baseString, itemString);
+		});
+	}
+
+	public void FieldBaseModelAssertToString<T>() where T : FieldBaseModel, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange.
+			T item = new();
+			FieldBaseModel baseItem = new();
+			// Act.
+			string itemString = item.ToString();
+			string baseString = baseItem.ToString();
+			TestContext.WriteLine($"{nameof(itemString)}: {itemString}");
+			TestContext.WriteLine($"{nameof(baseString)}: {baseString}");
+			// Assert.
+			Assert.AreNotEqual(baseString, itemString);
+		});
 	}
 
 	#endregion

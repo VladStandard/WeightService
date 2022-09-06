@@ -25,10 +25,4 @@ internal class ProductionFacilityValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<ProductionFacilityModel>(1_000);
-	}
 }

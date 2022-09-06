@@ -35,7 +35,7 @@ public partial class ItemNomenclature : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						ItemCast.Name = "NEW NOMENCLATURE";
 						break;
 					default:

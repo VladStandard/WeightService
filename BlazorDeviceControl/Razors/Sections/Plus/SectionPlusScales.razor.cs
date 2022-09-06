@@ -12,7 +12,7 @@ public partial class SectionPlusScales : RazorPageModel
 	[Parameter] public List<PluScaleModel> ItemsCast
 	{
 		get => Items == null ? new() : Items.Select(x => (PluScaleModel)x).ToList();
-		set => Items = value.Cast<TableModel>().ToList();
+		set => Items = value.Cast<TableBaseModel>().ToList();
 	}
 	private ScaleModel ItemFilterCast
 	{

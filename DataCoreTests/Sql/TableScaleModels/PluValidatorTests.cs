@@ -25,10 +25,4 @@ internal class PluValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<PluModel>(1_000);
-	}
 }

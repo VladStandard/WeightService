@@ -37,7 +37,7 @@ public partial class ItemTemplate : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
 						ItemCast.Title = "NEW TEMPLATE";
 						ItemCast.IdRRef = Guid.Empty;

@@ -3,43 +3,13 @@
 
 using DataCore.Sql.Core;
 
-namespace DataCoreTests.Sql.Controllers;
+namespace DataCoreTests.Sql.Core;
 
 [TestFixture]
 internal class CrudControllerExtensionTests
 {
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
-	[Test]
-	public void GetFreeHosts_Exec_DoesNotThrow()
-	{
-		DataCore.AssertAction(() =>
-		{
-			foreach (long? id in DataCoreEnums.GetLongNullable())
-			{
-				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
-				{
-					List<HostModel> hosts = DataCore.DataAccess.GetListHostsFree(id, isMarked);
-				}
-			}
-		});
-	}
-
-	[Test]
-	public void GetBusyHosts_Exec_DoesNotThrow()
-	{
-		DataCore.AssertAction(() =>
-		{
-			foreach (int? id in DataCoreEnums.GetIntNullable())
-			{
-				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
-				{
-					List<HostModel> hosts = DataCore.DataAccess.GetListHostsBusy(id, isMarked);
-				}
-			}
-		});
-	}
-	
 	[Test]
 	public void DbTable_Validate_AccessModel()
 	{
@@ -117,7 +87,13 @@ internal class CrudControllerExtensionTests
 	{
 		DataCore.AssertSqlExtensionValidate<PluModel>();
 	}
-	
+
+	[Test]
+	public void DbTable_Validate_PluLabelModel()
+	{
+		DataCore.AssertSqlExtensionValidate<PluLabelModel>();
+	}
+
 	[Test]
 	public void DbTable_Validate_PluObsoleteModel()
 	{

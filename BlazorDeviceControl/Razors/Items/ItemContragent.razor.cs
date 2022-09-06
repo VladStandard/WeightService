@@ -35,7 +35,7 @@ public partial class ItemContragent : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
 						ItemCast.Name = "NEW CONTRAGENT";
 						break;

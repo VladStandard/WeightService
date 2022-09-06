@@ -46,7 +46,7 @@ public partial class ItemPlu : RazorPageModel
                 {
                     case DbTableAction.New:
                         ItemCast = new();
-                        ItemCast.SetDt();
+                        ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
                         break;
                     default:

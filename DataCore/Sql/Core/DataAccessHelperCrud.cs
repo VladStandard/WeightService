@@ -11,7 +11,7 @@ public static class DataAccessHelperCrud
 {
 	#region Public and private methods
 
-	public static ICriteria GetCriteria<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
+	public static ICriteria GetCriteria<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.MaxResults > 0)
@@ -96,7 +96,7 @@ public static class DataAccessHelperCrud
 		return result;
 	}
 
-	public static void Save<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	public static void Save<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item is null)
 			return;
@@ -104,7 +104,7 @@ public static class DataAccessHelperCrud
 		ExecuteTransaction(dataAccess, session => { session.Save(item); });
 	}
 
-	public static void Update<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	public static void Update<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item is null)
 			return;
@@ -113,7 +113,7 @@ public static class DataAccessHelperCrud
 		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
 	}
 
-	public static void Delete<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	public static void Delete<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item is null)
 			return;
@@ -121,7 +121,7 @@ public static class DataAccessHelperCrud
 		ExecuteTransaction(dataAccess, session => { session.Delete(item); });
 	}
 
-	public static void Mark<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	public static void Mark<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item is null)
 			return;
@@ -130,7 +130,7 @@ public static class DataAccessHelperCrud
 		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
 	}
 
-	public static bool IsExistsItem<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	public static bool IsExistsItem<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item is null)
 			return false;
@@ -143,7 +143,7 @@ public static class DataAccessHelperCrud
 		return result;
 	}
 
-	public static bool IsExistsItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableModel, new()
+	public static bool IsExistsItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
 	{
 		bool result = false;
 		sqlCrudConfig.MaxResults = 1;

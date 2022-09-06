@@ -25,10 +25,4 @@ internal class TemplateResourceValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<TemplateResourceModel>(1_000);
-	}
 }

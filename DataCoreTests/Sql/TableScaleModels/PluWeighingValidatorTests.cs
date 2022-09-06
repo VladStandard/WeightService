@@ -25,10 +25,4 @@ internal class PluWeighingValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<PluWeighingModel>(1_000);
-	}
 }

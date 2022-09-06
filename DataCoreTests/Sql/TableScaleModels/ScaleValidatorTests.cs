@@ -25,10 +25,4 @@ internal class ScaleValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<ScaleModel>(1_000);
-	}
 }

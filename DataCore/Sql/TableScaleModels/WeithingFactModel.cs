@@ -54,7 +54,7 @@
 //        Kneading = null;
 //    }
 
-//    public new virtual string ToString() =>
+//    public override string ToString() =>
 //        string strPlu = Plu != null ? Plu.Identity.Id.ToString() : "null";
 //        string strScale = Scale != null ? Scale.Identity.Id.ToString() : "null";
 //        string strSeries = Serie != null ? Serie.Identity.Id.ToString() : "null";
@@ -91,7 +91,7 @@
 //               Equals(Kneading, item.Kneading);
 //    }
 
-//    public new virtual bool Equals(object obj)
+//    public override bool Equals(object obj)
 //    {
 //if (ReferenceEquals(null, obj)) return false;
 //if (ReferenceEquals(this, obj)) return true;
@@ -104,7 +104,7 @@
 //        return Equals(new());
 //    }
 
-//    public new virtual bool EqualsDefault()
+//    public override bool EqualsDefault()
 //    {
 //        if (!Plu.EqualsDefault())
 //            return false;

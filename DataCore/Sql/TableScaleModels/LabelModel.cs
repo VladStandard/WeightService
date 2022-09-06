@@ -60,7 +60,7 @@
 //		Zpl = string.Empty;
 //	}
 
-//    public new virtual string ToString() =>
+//    public override string ToString() =>
 //			$"{nameof(Identity.Id)}: {Identity.Id}. " + 
 //			$"{nameof(IsMarked)}: {IsMarked}. " +
 //            $"{nameof(WeithingFact)}: {WeithingFact.Identity.Id}. " +
@@ -76,7 +76,7 @@
 //               Equals(Zpl, item.Zpl);
 //    }
 
-//    public new virtual bool Equals(object obj)
+//    public override bool Equals(object obj)
 //    {
 //if (ReferenceEquals(null, obj)) return false;
 //if (ReferenceEquals(this, obj)) return true;
@@ -84,7 +84,7 @@
 //        return Equals((LabelEntity)obj);
 //    }
 
-//	public new virtual int GetHashCode() => Identity.Id.GetHashCode();
+//	public override int GetHashCode() => Identity.Id.GetHashCode();
 
 //	public virtual bool EqualsNew()
 //    {

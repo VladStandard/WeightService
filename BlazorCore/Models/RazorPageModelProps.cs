@@ -21,7 +21,7 @@ public partial class RazorPageModel : LayoutComponentBase
     [Inject] public NotificationService NotificationService { get; set; }
     [Inject] public TooltipService TooltipService { get; set; }
     [Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
-    [Parameter] public TableModel? ItemFilter { get; set; }
+    [Parameter] public TableBaseModel? ItemFilter { get; set; }
     [Parameter] public bool IsShowReload { get; set; }
     [Parameter] public string IsShowReloadStr
     {
@@ -38,16 +38,16 @@ public partial class RazorPageModel : LayoutComponentBase
     [Parameter] public Guid? IdentityUid { get; set; }
     [Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
     [Parameter] public long? IdentityId { get; set; }
-    [Parameter] public List<TableModel>? Items { get; set; }
-    [Parameter] public List<TableModel>? ItemsFilter { get; set; }
+    [Parameter] public List<TableBaseModel>? Items { get; set; }
+    [Parameter] public List<TableBaseModel>? ItemsFilter { get; set; }
     [Parameter] public RazorPageModel? ParentRazor { get; set; }
     [Parameter] public string? FilterCaption { get; set; }
     [Parameter] public string? FilterName { get; set; }
     [Parameter] public TableBase Table { get; set; }
     private ItemSaveCheckModel ItemSaveCheck { get; set; }
     protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
-    public TableModel? Item { get; set; }
-    protected object? ItemObject { get => Item; set => Item = (TableModel?)value; }
+    public TableBaseModel? Item { get; set; }
+    protected object? ItemObject { get => Item; set => Item = (TableBaseModel?)value; }
     [Parameter] public UserSettingsModel UserSettings { get; set; }
     [Parameter] public List<Action> ActionsInitialized { get; set; }
     protected bool IsActionsInitializedFinished { get; private set; }

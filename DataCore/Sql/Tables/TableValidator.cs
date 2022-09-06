@@ -9,7 +9,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// Table validation.
 /// </summary>
-public class TableValidator : AbstractValidator<TableModel>
+public class TableValidator : AbstractValidator<TableBaseModel>
 {
     /// <summary>
     /// Constructor.
@@ -29,7 +29,7 @@ public class TableValidator : AbstractValidator<TableModel>
                 .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
     }
 
-    protected bool PreValidateSubEntity<T>(T? item, ValidationResult result) where T : TableModel, new()
+    protected bool PreValidateSubEntity<T>(T? item, ValidationResult result) where T : TableBaseModel, new()
     {
         if (item != null)
         {

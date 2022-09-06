@@ -15,14 +15,22 @@ public class SerializeModel : ISerializable
 
     [XmlIgnore] public virtual SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
+    /// <summary>
+    /// Contrsuctor.
+    /// </summary>
     public SerializeModel()
     {
         //
     }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
     protected SerializeModel(SerializationInfo info, StreamingContext context)
     {
-        //
+        //SqlConnect = (SqlConnectFactory)info.GetValue(nameof(SqlConnect), typeof(SqlConnectFactory));
     }
 
     #endregion
@@ -151,10 +159,15 @@ public class SerializeModel : ISerializable
         };
     }
 
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
     public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-	    //
-	}
+        //info.AddValue(nameof(SqlConnect), SqlConnect);
+    }
 
 	public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
 	{

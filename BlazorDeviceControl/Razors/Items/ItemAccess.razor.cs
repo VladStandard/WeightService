@@ -43,7 +43,7 @@ public partial class ItemAccess : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
 						ItemCast.User = "NEW USER";
 						break;

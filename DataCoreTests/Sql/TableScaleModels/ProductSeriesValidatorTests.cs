@@ -25,10 +25,4 @@ internal class ProductSeriesValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<ProductSeriesModel>(1_000);
-	}
 }

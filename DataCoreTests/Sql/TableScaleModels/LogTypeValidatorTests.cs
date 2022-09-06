@@ -25,10 +25,4 @@ internal class LogTypeValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<LogTypeModel>(1_000);
-	}
 }

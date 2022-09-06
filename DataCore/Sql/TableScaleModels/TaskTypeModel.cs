@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TASKS_TYPES".
 /// </summary>
 [Serializable]
-public class TaskTypeModel : TableModel, ISerializable, ITableModel
+public class TaskTypeModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -23,22 +24,25 @@ public class TaskTypeModel : TableModel, ISerializable, ITableModel
 		Name = string.Empty;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private TaskTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Name = info.GetString(nameof(Name));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. ";
 
-    public virtual bool Equals(TaskTypeModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-            Equals(Name, item.Name);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -46,20 +50,15 @@ public class TaskTypeModel : TableModel, ISerializable, ITableModel
         return Equals((TaskTypeModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+	public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return base.EqualsDefault() &&
-            Equals(Name, string.Empty);
-    }
+	public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Name, string.Empty);
 
-	public new virtual object Clone()
+	public override object Clone()
     {
         TaskTypeModel item = new();
         item.Name = Name;
@@ -67,7 +66,29 @@ public class TaskTypeModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Name), Name);
+	}
+
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(TaskTypeModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return base.Equals(item) &&
+		       Equals(Name, item.Name);
+	}
+
     public new virtual TaskTypeModel CloneCast() => (TaskTypeModel)Clone();
 
-    #endregion
+	#endregion
 }

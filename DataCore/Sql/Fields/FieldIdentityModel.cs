@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Fields;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.Fields;
 /// DB field Identity model.
 /// </summary>
 [Serializable]
-public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
+public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -20,9 +21,10 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public FieldIdentityModel(ColumnName identityName)
+	public FieldIdentityModel()
 	{
-		Name = identityName;
+		FieldName = nameof(FieldIdentityModel);
+		Name = ColumnName.Default;
 		Id = 0;
 		Uid = Guid.Empty;
 	}
@@ -30,24 +32,38 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	protected FieldIdentityModel(SerializationInfo info, StreamingContext context)
+	/// <param name="identityName"></param>
+	public FieldIdentityModel(ColumnName identityName) : this()
+	{
+		Name = identityName;
+	}
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	private FieldIdentityModel(ColumnName identityName, long identityId, Guid identityUid) : this(identityName)
+	{
+		Id = identityId;
+		Uid = identityUid;
+	}
+	
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	protected FieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		Name = (ColumnName)info.GetValue(nameof(Name), typeof(ColumnName));
 		Id = info.GetInt64(nameof(Id));
 		Uid = Guid.Parse(info.GetString(nameof(Uid)));
 	}
 
-	private FieldIdentityModel(ColumnName identityName, long identityId, Guid identityUid) : this(identityName)
-	{
-		Id = identityId;
-		Uid = identityUid;
-	}
-
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString()
+	public override string ToString()
 	{
 		string strIdentityValue = string.Empty;
 		switch (Name)
@@ -62,6 +78,41 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 		return $"{nameof(Name)}: {Name}. " + strIdentityValue;
 	}
 
+	public override bool Equals(object obj)
+	{
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
+		return Equals((FieldIdentityModel)obj);
+	}
+
+	public override int GetHashCode() => Name switch
+	{
+		ColumnName.Id => Id.GetHashCode(),
+		ColumnName.Uid => Uid.GetHashCode(),
+		_ => default,
+	};
+
+	public override bool EqualsNew() => Equals(new());
+
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Name), Name);
+		info.AddValue(nameof(Id), Id);
+		info.AddValue(nameof(Uid), Uid);
+	}
+
+	public override bool EqualsDefault() =>
+		Equals(Id, (long)0) &&
+		Equals(Uid, Guid.Empty);
+
+	public override object Clone() => new FieldIdentityModel(Name, Id, Uid);
+
+	#endregion
+
+	#region Public and private methods - virtual
+
 	public virtual bool Equals(FieldIdentityModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
@@ -71,48 +122,11 @@ public class FieldIdentityModel : SerializeModel, ICloneable, ISerializable
 			Uid.Equals(item.Uid);
 	}
 
-	public new virtual bool Equals(object obj)
-	{
-		if (ReferenceEquals(null, obj)) return false;
-		if (ReferenceEquals(this, obj)) return true;
-		if (obj.GetType() != GetType()) return false;
-		return Equals((FieldIdentityModel)obj);
-	}
+	public new virtual FieldIdentityModel CloneCast() => (FieldIdentityModel)Clone();
 
-	public new virtual int GetHashCode() => Name switch
-	{
-		ColumnName.Id => Id.GetHashCode(),
-		ColumnName.Uid => Uid.GetHashCode(),
-		_ => default,
-	};
+	public virtual void SetId(long value) => Id = value;
 
-	public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-	{
-		info.AddValue(nameof(Name), Name);
-		info.AddValue(nameof(Id), Id);
-		info.AddValue(nameof(Uid), Uid);
-	}
-
-	public virtual bool EqualsDefault()
-	{
-		return
-			Equals(Id, (long)0) &&
-			Equals(Uid, Guid.Empty);
-	}
-
-	public virtual object Clone() => new FieldIdentityModel(Name, Id, Uid);
-
-	public virtual FieldIdentityModel CloneCast() => (FieldIdentityModel)Clone();
-
-	public void SetId(long value)
-	{
-		Id = value;
-	}
-
-	public void SetUid(Guid value)
-	{
-		Uid = value;
-	}
+	public virtual void SetUid(Guid value) => Uid = value;
 
 	#endregion
 }

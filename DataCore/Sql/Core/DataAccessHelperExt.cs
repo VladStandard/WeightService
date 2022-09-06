@@ -214,7 +214,7 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-	public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
+	public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableBaseModel? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
@@ -226,7 +226,7 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
 	}
 
-	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
+	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableBaseModel? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
@@ -245,7 +245,7 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
-	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableModel? itemFilter)
+	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableBaseModel? itemFilter)
 	{
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)

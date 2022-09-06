@@ -35,7 +35,7 @@ public partial class ItemBarCode : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
 						ItemCast.Value = "NEW BARCODE";
 						break;

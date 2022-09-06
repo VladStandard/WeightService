@@ -2,23 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-namespace DataCore.Sql.Tables;
+using DataCore.Sql.Core;
 
-/// <summary>
-/// Enum column name.
-/// </summary>
-public enum ColumnName
-{
-    Default,
-    Id,
-    Uid,
-}
+namespace DataCore.Sql.Tables;
 
 /// <summary>
 /// DB table model.
 /// </summary>
 [Serializable]
-public class TableModel : SerializeModel, ICloneable, ISerializable
+public class TableBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -32,7 +24,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableModel()
+    public TableBaseModel()
     {
 	    Identity = new(ColumnName.Default);
 	    ChangeDt = CreateDt = DateTime.MinValue;
@@ -42,7 +34,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TableModel(ColumnName identityName) : this()
+	public TableBaseModel(ColumnName identityName) : this()
     {
 	    Identity = new(identityName);
     }
@@ -50,7 +42,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableModel(FieldIdentityModel identity) : this()
+    public TableBaseModel(FieldIdentityModel identity) : this()
 	{
 		Identity = (FieldIdentityModel)identity.Clone();
     }
@@ -58,7 +50,7 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected TableModel(SerializationInfo info, StreamingContext context)
+    protected TableBaseModel(SerializationInfo info, StreamingContext context)
     {
 		Identity = (FieldIdentityModel)info.GetValue(nameof(Identity), typeof(FieldIdentityModel));
         CreateDt = info.GetDateTime(nameof(CreateDt));
@@ -68,19 +60,17 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString()
+	public override string ToString()
     {
         string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
         string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
-        string strIsMarked = IsMarked ? $"{nameof(IsMarked)}: {IsMarked}. " : string.Empty;
+        string strIsMarked = $"{nameof(IsMarked)}: {IsMarked}. ";
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
-    public new virtual int GetHashCode() => Identity.GetHashCode();
-
-    public virtual bool Equals(TableModel item)
+    public virtual bool Equals(TableBaseModel item)
     {
         if (ReferenceEquals(this, item)) return true;
         return
@@ -90,20 +80,22 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
             Equals(IsMarked, item.IsMarked);
     }
 
-    public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
     {
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((TableModel)obj);
+        return Equals((TableBaseModel)obj);
     }
+    
+    public override int GetHashCode() => Identity.GetHashCode();
 
 	/// <summary>
 	/// Get object data for serialization info.
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
 	    base.GetObjectData(info, context);
 		info.AddValue(nameof(Identity), Identity);
@@ -112,35 +104,38 @@ public class TableModel : SerializeModel, ICloneable, ISerializable
         info.AddValue(nameof(IsMarked), IsMarked);
     }
 
-    public virtual bool EqualsDefault()
-    {
-        return
-	        Identity.EqualsDefault() &&
-            Equals(CreateDt, DateTime.MinValue) &&
-            Equals(ChangeDt, DateTime.MinValue) &&
-            Equals(IsMarked, false);
-    }
+	#endregion
 
-    public virtual object Clone() => new TableModel(Identity)
-    {
-        CreateDt = CreateDt,
-        ChangeDt = ChangeDt,
-        IsMarked = IsMarked,
-    };
+	#region Public and private methods - virtual
 
-    public virtual TableModel CloneCast() => (TableModel)Clone();
+	public virtual bool EqualsNew() => Equals(new());
 
-    public virtual void CloneSetup(TableModel item)
-    {
-        CreateDt = item.CreateDt;
-        ChangeDt = item.ChangeDt;
-        IsMarked = item.IsMarked;
-    }
+	public virtual bool EqualsDefault() =>
+		Identity.EqualsDefault() &&
+		Equals(CreateDt, DateTime.MinValue) &&
+		Equals(ChangeDt, DateTime.MinValue) &&
+		Equals(IsMarked, false);
 
-    public virtual void SetDt()
-    {
-	    ChangeDt = CreateDt = DateTime.Now;
-    }
+	public virtual object Clone() => new TableBaseModel(Identity)
+	{
+		CreateDt = CreateDt,
+		ChangeDt = ChangeDt,
+		IsMarked = IsMarked,
+	};
 
-    #endregion
+	public virtual TableBaseModel CloneCast() => (TableBaseModel)Clone();
+
+	public virtual void CloneSetup(TableBaseModel item)
+	{
+		CreateDt = item.CreateDt;
+		ChangeDt = item.ChangeDt;
+		IsMarked = item.IsMarked;
+	}
+
+	public virtual void SetDtNow()
+	{
+		ChangeDt = CreateDt = DateTime.Now;
+	}
+
+	#endregion
 }

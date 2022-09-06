@@ -85,7 +85,7 @@
 
 //    #region Public and private methods
 
-//    public new virtual string ToString() =>
+//    public override string ToString() =>
 //        $"{nameof(ScaleId)}: {ScaleId}. " +
 //        $"{nameof(ScaleDescription)}: {ScaleDescription}. " +
 //        $"{nameof(PluId)}: {PluId}. " +
@@ -122,7 +122,7 @@
 //               Equals(TemplateName, item.TemplateName);
 //    }
 
-//    public new virtual bool Equals(object obj)
+//    public override bool Equals(object obj)
 //    {
 //if (ReferenceEquals(null, obj)) return false;
 //if (ReferenceEquals(this, obj)) return true;
@@ -130,14 +130,14 @@
 //        return Equals((LabelQuickModel)obj);
 //    }
 
-//    public new virtual int GetHashCode() => base.GetHashCode();
+//    public override int GetHashCode() => base.GetHashCode();
 
 //    public virtual bool EqualsNew()
 //    {
 //        return Equals(new());
 //    }
 
-//    public new virtual bool EqualsDefault()
+//    public override bool EqualsDefault()
 //    {
 //        return base.EqualsDefault() &&
 //               Equals(ScaleId, 0) &&

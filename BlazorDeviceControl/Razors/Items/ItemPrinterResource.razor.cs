@@ -51,7 +51,7 @@ public partial class ItemPrinterResource : RazorPageModel
 				{
 					case DbTableAction.New:
 						ItemCast = new();
-						ItemCast.SetDt();
+						ItemCast.SetDtNow();
 						ItemCast.Description = "NEW RESOURCE";
 						break;
 					default:

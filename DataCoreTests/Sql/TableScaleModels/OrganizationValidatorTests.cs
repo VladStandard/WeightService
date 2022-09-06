@@ -25,10 +25,4 @@ internal class OrganizationValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<OrganizationModel>(1_000);
-	}
 }

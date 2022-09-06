@@ -11,7 +11,7 @@ public static class DataAccessHelperFill
 {
 	#region Public and private methods
 
-	public static void FillReferences<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	public static void FillReferences<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		dataAccess.FillReferencesSystem(item);
 		dataAccess.FillReferencesDatas(item);
@@ -19,7 +19,7 @@ public static class DataAccessHelperFill
 		dataAccess.FillReferencesDwh(item);
 	}
 
-	private static void FillReferencesSystem<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	private static void FillReferencesSystem<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item == null) return;
 		switch (item)
@@ -32,7 +32,7 @@ public static class DataAccessHelperFill
 		}
 	}
 
-	private static void FillReferencesDatas<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	private static void FillReferencesDatas<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item == null) return;
 		switch (item)
@@ -45,7 +45,7 @@ public static class DataAccessHelperFill
 		}
 	}
 
-	private static void FillReferencesScales<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	private static void FillReferencesScales<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item == null) return;
 		switch (item)
@@ -147,7 +147,7 @@ public static class DataAccessHelperFill
 		}
 	}
 
-	private static void FillReferencesDwh<T>(this DataAccessHelper dataAccess, T? item) where T : TableModel, new()
+	private static void FillReferencesDwh<T>(this DataAccessHelper dataAccess, T? item) where T : TableBaseModel, new()
 	{
 		if (item == null) return;
 		InformationSystemModel? informationSystem;

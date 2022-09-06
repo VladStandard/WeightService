@@ -12,7 +12,7 @@ public partial class SectionPlus : RazorPageModel
 	[Parameter] public List<PluModel> ItemsCast
 	{
 		get => Items == null ? new() : Items.Select(x => (PluModel)x).ToList();
-		set => Items = value.Cast<TableModel>().ToList();
+		set => Items = value.Cast<TableBaseModel>().ToList();
 	}
 
 	#endregion

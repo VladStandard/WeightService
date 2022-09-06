@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "LOG_TYPES".
 /// </summary>
 [Serializable]
-public class LogTypeModel : TableModel, ISerializable, ITableModel
+public class LogTypeModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -25,24 +26,27 @@ public class LogTypeModel : TableModel, ISerializable, ITableModel
 		Icon = string.Empty;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private LogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Number = info.GetByte(nameof(Number));
+		Icon = info.GetString(nameof(Icon));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Number)}: {Number}. " +
         $"{nameof(Icon)}: {Icon}. ";
 
-    public virtual bool Equals(LogTypeModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item) &&
-               Equals(Number, item.Number) &&
-               Equals(Icon, item.Icon);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -50,22 +54,16 @@ public class LogTypeModel : TableModel, ISerializable, ITableModel
         return Equals((LogTypeModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-            Equals(Number, (byte)0x00) &&
-            Equals(Icon, string.Empty);
-    }
+	public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+	public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Number, (byte)0x00) &&
+	    Equals(Icon, string.Empty);
 
-	public new virtual object Clone()
+    public override object Clone()
     {
         LogTypeModel item = new();
         item.Number = Number;
@@ -74,7 +72,31 @@ public class LogTypeModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual LogTypeModel CloneCast() => (LogTypeModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Number), Number);
+		info.AddValue(nameof(Icon), Icon);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(LogTypeModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return base.Equals(item) &&
+		       Equals(Number, item.Number) &&
+		       Equals(Icon, item.Icon);
+	}
+
+	public new virtual LogTypeModel CloneCast() => (LogTypeModel)Clone();
+
+	#endregion
 }

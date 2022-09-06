@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ORDERS".
 /// </summary>
 [Serializable]
-public class OrderModel : TableModel, ISerializable, ITableModel
+public class OrderModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -33,11 +34,26 @@ public class OrderModel : TableModel, ISerializable, ITableModel
 		PalletCount = default;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private OrderModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Name = info.GetString(nameof(Name));
+		BeginDt = info.GetDateTime(nameof(BeginDt));
+		EndDt = info.GetDateTime(nameof(EndDt));
+		ProdDt = info.GetDateTime(nameof(ProdDt));
+		BoxCount = info.GetInt32(nameof(BoxCount));
+		PalletCount = info.GetInt32(nameof(PalletCount));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Name)}: {Name}. " + 
 		$"{nameof(BeginDt)}: {BeginDt}. " +
@@ -46,20 +62,7 @@ public class OrderModel : TableModel, ISerializable, ITableModel
 		$"{nameof(BoxCount)}: {BoxCount}. " +
 		$"{nameof(PalletCount)}: {PalletCount}. ";
 
-	public virtual bool Equals(OrderModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return 
-	        base.Equals(item) &&
-            Equals(Name, item.Name) &&
-            Equals(BeginDt, item.BeginDt) &&
-            Equals(EndDt, item.EndDt) && 
-            Equals(ProdDt, item.ProdDt) &&
-            Equals(BoxCount, item.BoxCount) &&
-            Equals(PalletCount, item.PalletCount);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -67,26 +70,20 @@ public class OrderModel : TableModel, ISerializable, ITableModel
         return Equals((OrderModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-            Equals(Name, string.Empty) &&
-            Equals(BeginDt, DateTime.MinValue) &&
-            Equals(EndDt, DateTime.MinValue) &&
-            Equals(ProdDt, DateTime.MinValue) &&
-            Equals(BoxCount, 0) &&
-            Equals(PalletCount, 0);
-    }
+	public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+	public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Name, string.Empty) &&
+	    Equals(BeginDt, DateTime.MinValue) &&
+	    Equals(EndDt, DateTime.MinValue) &&
+	    Equals(ProdDt, DateTime.MinValue) &&
+	    Equals(BoxCount, 0) &&
+	    Equals(PalletCount, 0);
 
-	public new virtual object Clone()
+    public override object Clone()
     {
         OrderModel item = new();
         item.Name = Name;
@@ -99,7 +96,40 @@ public class OrderModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual OrderModel CloneCast() => (OrderModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Name), Name);
+		info.AddValue(nameof(BeginDt), BeginDt);
+		info.AddValue(nameof(EndDt), EndDt);
+		info.AddValue(nameof(ProdDt), ProdDt);
+		info.AddValue(nameof(BoxCount), BoxCount);
+		info.AddValue(nameof(PalletCount), PalletCount);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(OrderModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		return
+			base.Equals(item) &&
+			Equals(Name, item.Name) &&
+			Equals(BeginDt, item.BeginDt) &&
+			Equals(EndDt, item.EndDt) &&
+			Equals(ProdDt, item.ProdDt) &&
+			Equals(BoxCount, item.BoxCount) &&
+			Equals(PalletCount, item.PalletCount);
+	}
+
+	public new virtual OrderModel CloneCast() => (OrderModel)Clone();
+
+	#endregion
 }

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -10,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS_LABELS".
 /// </summary>
 [Serializable]
-public class PluLabelModel : TableModel, ISerializable, ITableModel
+public class PluLabelModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -39,36 +40,25 @@ public class PluLabelModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
-		$"{nameof(PluWeighing)}: {PluWeighing?.ToString() ?? string.Empty}. ";
+	public override string ToString() => base.ToString() + 
+		$"{nameof(PluWeighing)}: {PluWeighing?.ToString() ?? string.Empty}. " + 
+		$"{nameof(Zpl)}: {Zpl.Length}. ";
 
-    public virtual bool Equals(PluLabelModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (PluWeighing != null && item.PluWeighing != null && !PluWeighing.Equals(item.PluWeighing))
-            return false;
-        return
-            base.Equals(item) &&
-            Equals(PluWeighing, item.PluWeighing) &&
-            Equals(Zpl, item.Zpl);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
         return Equals((PluLabelModel)obj);
     }
+    
+    public override int GetHashCode() => base.GetHashCode();
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual bool EqualsDefault()
+    public override bool EqualsDefault()
     {
         if (PluWeighing != null && !PluWeighing.EqualsDefault())
             return false;
@@ -77,9 +67,7 @@ public class PluLabelModel : TableModel, ISerializable, ITableModel
             Equals(Zpl, string.Empty);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         PluLabelModel item = new();
         item.IsMarked = IsMarked;
@@ -89,14 +77,29 @@ public class PluLabelModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(PluWeighing), PluWeighing);
         info.AddValue(nameof(Zpl), Zpl);
     }
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(PluLabelModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (PluWeighing != null && item.PluWeighing != null && !PluWeighing.Equals(item.PluWeighing))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(PluWeighing, item.PluWeighing) &&
+			Equals(Zpl, item.Zpl);
+	}
+
+	public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();
+
+	#endregion
 }

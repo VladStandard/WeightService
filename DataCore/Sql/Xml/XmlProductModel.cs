@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
+using DataCore.Sql.Core;
 
 namespace DataCore.Sql.Xml;
 
@@ -9,7 +9,7 @@ namespace DataCore.Sql.Xml;
 /// XML-класс продукта.
 /// </summary>
 [Serializable]
-public class XmlProductModel : ISerializable, ITableModel
+public class XmlProductModel : ISerializable, IDbBaseModel
 {
     #region Public and private fields, properties, constructor
 
@@ -97,7 +97,7 @@ public class XmlProductModel : ISerializable, ITableModel
 
 	#region Public and private methods
 
-	public new virtual string ToString()
+	public override string ToString()
     {
         string? strUnits = $"{Units.Count}. ";
         foreach (XmlProductUnitModel? unit in Units)

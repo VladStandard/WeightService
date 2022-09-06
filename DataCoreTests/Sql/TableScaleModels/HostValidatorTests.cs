@@ -25,10 +25,4 @@ internal class HostValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<HostModel>(1_000);
-	}
 }

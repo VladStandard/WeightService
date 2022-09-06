@@ -42,7 +42,7 @@
 
 //    #region Public and private methods
 
-//    public new virtual string ToString()
+//    public override string ToString()
 //    {
 //        string? strFields = string.Empty;
 //        int i = 0;

@@ -1,7 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
+using NHibernate.Criterion;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -9,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ORDERS_WEIGHINGS".
 /// </summary>
 [Serializable]
-public class OrderWeighingModel : TableModel, ISerializable, ITableModel
+public class OrderWeighingModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -25,26 +27,27 @@ public class OrderWeighingModel : TableModel, ISerializable, ITableModel
 		PluWeighing = new();
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private OrderWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Order = (OrderModel)info.GetValue(nameof(Order), typeof(OrderModel));
+		PluWeighing = (PluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Order)}: {Order}. " + 
 		$"{nameof(PluWeighing)}: {PluWeighing}. ";
 
-	public virtual bool Equals(OrderWeighingModel item)
-    {
-		if (!Order.Equals(item.Order))
-			return false;
-		if (!PluWeighing.Equals(item.PluWeighing))
-			return false;
-        if (ReferenceEquals(this, item)) return true;
-        return base.Equals(item);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -52,12 +55,11 @@ public class OrderWeighingModel : TableModel, ISerializable, ITableModel
         return Equals((OrderWeighingModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
 		if (!Order.EqualsDefault())
 			return false;
@@ -66,9 +68,7 @@ public class OrderWeighingModel : TableModel, ISerializable, ITableModel
         return base.EqualsDefault();
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         OrderWeighingModel item = new();
         item.Order = Order.CloneCast();
@@ -77,7 +77,33 @@ public class OrderWeighingModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual OrderWeighingModel CloneCast() => (OrderWeighingModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Order), Order);
+		info.AddValue(nameof(PluWeighing), PluWeighing);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(OrderWeighingModel item)
+	{
+		if (!Order.Equals(item.Order))
+			return false;
+		if (!PluWeighing.Equals(item.PluWeighing))
+			return false;
+		if (ReferenceEquals(this, item)) return true;
+		return base.Equals(item);
+	}
+
+	public new virtual OrderWeighingModel CloneCast() => (OrderWeighingModel)Clone();
+	
+	#endregion
 }

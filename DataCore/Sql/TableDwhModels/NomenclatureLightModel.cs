@@ -1,12 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableDwhModels;
 
 [Serializable]
-public class NomenclatureLightModel : TableModel, ISerializable, ITableModel
+public class NomenclatureLightModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -42,10 +43,10 @@ public class NomenclatureLightModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-    public new virtual string ToString() =>
-	    $"{nameof(Code)}: {Code}. " +
+	public override string ToString() =>
+		$"{nameof(Code)}: {Code}. " +
 	    $"{nameof(Name)}: {Name}. " +
 	    $"{nameof(Parents)}: {Parents}. " +
 	    $"{nameof(NameFull)}: {NameFull}. " +
@@ -56,25 +57,7 @@ public class NomenclatureLightModel : TableModel, ISerializable, ITableModel
 	    $"{nameof(NormalizationStatus)}: {NormalizationStatus}. " +
 	    $"{nameof(MasterId)}: {MasterId}. ";
 
-    public virtual bool Equals(NomenclatureLightModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!InformationSystem.Equals(item.InformationSystem))
-            return false;
-        return 
-	        base.Equals(item) &&
-            Equals(Code, item.Code) &&
-            Equals(Name, item.Name) &&
-            Equals(Parents, item.Parents) &&
-            Equals(NameFull, item.NameFull) &&
-            Equals(IsService, item.IsService) &&
-            Equals(IsProduct, item.IsProduct) &&
-            Equals(RelevanceStatus, item.RelevanceStatus) &&
-            Equals(NormalizationStatus, item.NormalizationStatus) &&
-            Equals(MasterId, item.MasterId);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -82,30 +65,28 @@ public class NomenclatureLightModel : TableModel, ISerializable, ITableModel
         return Equals((NomenclatureLightModel)obj);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+    public override int GetHashCode() => base.GetHashCode();
 
-    public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual bool EqualsDefault()
-    {
+    public override bool EqualsDefault()
+	{
         if (!InformationSystem.EqualsDefault())
             return false;
-        return base.EqualsDefault() &&
-               Equals(Code, string.Empty) &&
-               Equals(Name, string.Empty) &&
-               Equals(Parents, string.Empty) &&
-               Equals(NameFull, string.Empty) &&
-               Equals(IsService, false) &&
-               Equals(IsProduct, false) &&
-               Equals(RelevanceStatus, null) &&
-               Equals(NormalizationStatus, null) &&
-               Equals(MasterId, null);
+        return 
+	        base.EqualsDefault() &&
+            Equals(Code, string.Empty) &&
+            Equals(Name, string.Empty) &&
+			Equals(Parents, string.Empty) &&
+			Equals(NameFull, string.Empty) &&
+			Equals(IsService, false) &&
+			Equals(IsProduct, false) &&
+			Equals(RelevanceStatus, null) &&
+			Equals(NormalizationStatus, null) &&
+			Equals(MasterId, null);
     }
 
-    public new virtual object Clone()
+    public override object Clone()
     {
         NomenclatureLightModel item = new();
         item.Code = Code;
@@ -122,7 +103,29 @@ public class NomenclatureLightModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual NomenclatureLightModel CloneCast() => (NomenclatureLightModel)Clone();
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(NomenclatureLightModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!InformationSystem.Equals(item.InformationSystem))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(Code, item.Code) &&
+			Equals(Name, item.Name) &&
+			Equals(Parents, item.Parents) &&
+			Equals(NameFull, item.NameFull) &&
+			Equals(IsService, item.IsService) &&
+			Equals(IsProduct, item.IsProduct) &&
+			Equals(RelevanceStatus, item.RelevanceStatus) &&
+			Equals(NormalizationStatus, item.NormalizationStatus) &&
+			Equals(MasterId, item.MasterId);
+	}
+
+	public new virtual NomenclatureLightModel CloneCast() => (NomenclatureLightModel)Clone();
 
     #endregion
 }

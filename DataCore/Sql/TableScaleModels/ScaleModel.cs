@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Scales".
 /// </summary>
 [Serializable]
-public class ScaleModel : TableModel, ISerializable, ITableModel
+public class ScaleModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -99,48 +100,14 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 	    $"{nameof(Description)}: {Description}. " +
 	    $"{nameof(DeviceIp)}: {DeviceIp}. ";
 
-    public virtual bool Equals(ScaleModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (TemplateDefault != null && item.TemplateDefault != null && !TemplateDefault.Equals(item.TemplateDefault))
-            return false;
-        if (TemplateSeries != null && item.TemplateSeries != null && !TemplateSeries.Equals(item.TemplateSeries))
-            return false;
-        if (WorkShop != null && item.WorkShop != null && !WorkShop.Equals(item.WorkShop))
-            return false;
-        if (PrinterMain != null && item.PrinterMain != null && !PrinterMain.Equals(item.PrinterMain))
-            return false;
-        if (PrinterShipping != null && item.PrinterShipping != null && !PrinterShipping.Equals(item.PrinterShipping))
-	        return false;
-		if (Host != null && item.Host != null && !Host.Equals(item.Host))
-			return false;
-        return base.Equals(item) &&
-               Equals(Description, item.Description) &&
-               Equals(DeviceIp, item.DeviceIp) &&
-               Equals(DevicePort, item.DevicePort) &&
-               Equals(DeviceMac, item.DeviceMac) &&
-               Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
-               Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
-               Equals(DeviceComPort, item.DeviceComPort) &&
-               Equals(ZebraIp, item.ZebraIp) &&
-               Equals(ZebraPort, item.ZebraPort) &&
-               Equals(IsOrder, item.IsOrder) &&
-               Equals(Number, item.Number) &&
-               Equals(Counter, item.Counter) &&
-               Equals(ScaleFactor, item.ScaleFactor) &&
-               Equals(IsShipping, item.IsShipping) &&
-               Equals(IsKneading, item.IsKneading) &&
-               ShippingLength.Equals(item.ShippingLength);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -148,12 +115,11 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
         return Equals((ScaleModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (TemplateDefault != null && !TemplateDefault.EqualsDefault())
             return false;
@@ -186,9 +152,7 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
                Equals(ShippingLength, (byte)0);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         ScaleModel item = new();
         item.TemplateDefault = TemplateDefault?.CloneCast();
@@ -217,14 +181,12 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual ScaleModel CloneCast() => (ScaleModel)Clone();
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(TemplateDefault), TemplateDefault);
@@ -251,5 +213,46 @@ public class ScaleModel : TableModel, ISerializable, ITableModel
         info.AddValue(nameof(IsKneading), IsKneading);
 	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(ScaleModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (TemplateDefault != null && item.TemplateDefault != null && !TemplateDefault.Equals(item.TemplateDefault))
+			return false;
+		if (TemplateSeries != null && item.TemplateSeries != null && !TemplateSeries.Equals(item.TemplateSeries))
+			return false;
+		if (WorkShop != null && item.WorkShop != null && !WorkShop.Equals(item.WorkShop))
+			return false;
+		if (PrinterMain != null && item.PrinterMain != null && !PrinterMain.Equals(item.PrinterMain))
+			return false;
+		if (PrinterShipping != null && item.PrinterShipping != null && !PrinterShipping.Equals(item.PrinterShipping))
+			return false;
+		if (Host != null && item.Host != null && !Host.Equals(item.Host))
+			return false;
+		return base.Equals(item) &&
+			   Equals(Description, item.Description) &&
+			   Equals(DeviceIp, item.DeviceIp) &&
+			   Equals(DevicePort, item.DevicePort) &&
+			   Equals(DeviceMac, item.DeviceMac) &&
+			   Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
+			   Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
+			   Equals(DeviceComPort, item.DeviceComPort) &&
+			   Equals(ZebraIp, item.ZebraIp) &&
+			   Equals(ZebraPort, item.ZebraPort) &&
+			   Equals(IsOrder, item.IsOrder) &&
+			   Equals(Number, item.Number) &&
+			   Equals(Counter, item.Counter) &&
+			   Equals(ScaleFactor, item.ScaleFactor) &&
+			   Equals(IsShipping, item.IsShipping) &&
+			   Equals(IsKneading, item.IsKneading) &&
+			   ShippingLength.Equals(item.ShippingLength);
+	}
+
+	public new virtual ScaleModel CloneCast() => (ScaleModel)Clone();
+
+
+	#endregion
 }

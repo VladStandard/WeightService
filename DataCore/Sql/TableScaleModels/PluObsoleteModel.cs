@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLU".
 /// </summary>
 [Serializable]
-public class PluObsoleteModel : TableModel, ISerializable, ITableModel
+public class PluObsoleteModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -77,43 +78,16 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Template)}: {Template}. " +
 		$"{nameof(Scale)}: {Scale}. " +
 		$"{nameof(Nomenclature)}: {Nomenclature}. " +
 		$"{nameof(GoodsName)}: {GoodsName}. ";
 
-	public virtual bool Equals(PluObsoleteModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!Template.Equals(item.Template))
-            return false;
-        if (!Scale.Equals(item.Scale))
-            return false;
-        if (!Nomenclature.Equals(item.Nomenclature))
-            return false;
-        return base.Equals(item) &&
-               Equals(GoodsName, item.GoodsName) &&
-               Equals(GoodsFullName, item.GoodsFullName) &&
-               Equals(GoodsDescription, item.GoodsDescription) &&
-               Equals(Gtin, item.Gtin) &&
-               Equals(Ean13, item.Ean13) &&
-               Equals(Itf14, item.Itf14) &&
-               Equals(GoodsShelfLifeDays, item.GoodsShelfLifeDays) &&
-               Equals(GoodsTareWeight, item.GoodsTareWeight) &&
-               Equals(GoodsBoxQuantly, item.GoodsBoxQuantly) &&
-               Equals(PluNumber, item.PluNumber) &&
-               Equals(Active, item.Active) &&
-               Equals(UpperWeightThreshold, item.UpperWeightThreshold) &&
-               Equals(NominalWeight, item.NominalWeight) &&
-               Equals(LowerWeightThreshold, item.LowerWeightThreshold) &&
-               Equals(IsCheckWeight, item.IsCheckWeight);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -121,12 +95,11 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
         return Equals((PluObsoleteModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (!Template.EqualsDefault())
             return false;
@@ -152,9 +125,7 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
                Equals(IsCheckWeight, false);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         PluObsoleteModel item = new();
         item.Template = Template.CloneCast();
@@ -179,9 +150,7 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual PluObsoleteModel CloneCast() => (PluObsoleteModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(Template), Template);
@@ -194,6 +163,39 @@ public class PluObsoleteModel : TableModel, ISerializable, ITableModel
         info.AddValue(nameof(Ean13), Ean13);
         info.AddValue(nameof(Itf14), Itf14);
     }
-    
-    #endregion
+
+	#endregion
+
+	#region Public and private methods
+
+	public virtual bool Equals(PluObsoleteModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!Template.Equals(item.Template))
+			return false;
+		if (!Scale.Equals(item.Scale))
+			return false;
+		if (!Nomenclature.Equals(item.Nomenclature))
+			return false;
+		return base.Equals(item) &&
+		       Equals(GoodsName, item.GoodsName) &&
+		       Equals(GoodsFullName, item.GoodsFullName) &&
+		       Equals(GoodsDescription, item.GoodsDescription) &&
+		       Equals(Gtin, item.Gtin) &&
+		       Equals(Ean13, item.Ean13) &&
+		       Equals(Itf14, item.Itf14) &&
+		       Equals(GoodsShelfLifeDays, item.GoodsShelfLifeDays) &&
+		       Equals(GoodsTareWeight, item.GoodsTareWeight) &&
+		       Equals(GoodsBoxQuantly, item.GoodsBoxQuantly) &&
+		       Equals(PluNumber, item.PluNumber) &&
+		       Equals(Active, item.Active) &&
+		       Equals(UpperWeightThreshold, item.UpperWeightThreshold) &&
+		       Equals(NominalWeight, item.NominalWeight) &&
+		       Equals(LowerWeightThreshold, item.LowerWeightThreshold) &&
+		       Equals(IsCheckWeight, item.IsCheckWeight);
+	}
+
+	public new virtual PluObsoleteModel CloneCast() => (PluObsoleteModel)Clone();
+
+	#endregion
 }

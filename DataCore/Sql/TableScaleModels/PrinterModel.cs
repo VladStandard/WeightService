@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,13 +10,12 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-public class PrinterModel : TableModel, ISerializable, ITableModel
+public class PrinterModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Ip { get; set; }
-	[XmlElement] public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
 	[XmlElement] public virtual short Port { get; set; }
 	[XmlElement] public virtual string Password { get; set; }
 	[XmlElement] public virtual PrinterTypeModel PrinterType { get; set; }
@@ -23,6 +23,7 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
 	[XmlElement] public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
 	[XmlElement] public virtual bool PeelOffSet { get; set; }
 	[XmlElement] public virtual short DarknessLevel { get; set; }
+	[XmlIgnore] public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
     [XmlIgnore] public virtual HttpStatusCode HttpStatusCode { get; set; }
     [XmlIgnore] public virtual IPStatus PingStatus { get; set; }
     [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
@@ -61,15 +62,13 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
 		MacAddress = (FieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(FieldMacAddressModel));
 		PeelOffSet = info.GetBoolean(nameof(PeelOffSet));
 		DarknessLevel = info.GetInt16(nameof(DarknessLevel));
-		HttpStatusCode = (HttpStatusCode)info.GetValue(nameof(HttpStatusCode), typeof(HttpStatusCode));
-		HttpStatusException = (Exception)info.GetValue(nameof(HttpStatusException), typeof(Exception));
 	}
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(PrinterType)}: {PrinterType}. " +
@@ -79,25 +78,7 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
         $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " +
         $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
 
-    public virtual bool Equals(PrinterModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!PrinterType.Equals(item.PrinterType))
-            return false;
-        if (!MacAddress.Equals(item.MacAddress))
-            return false;
-        return base.Equals(item) &&
-               Equals(Name, item.Name) &&
-               Equals(Ip, item.Ip) &&
-               Equals(Port, item.Port) &&
-               Equals(Password, item.Password) &&
-               Equals(PeelOffSet, item.PeelOffSet) &&
-               Equals(DarknessLevel, item.DarknessLevel) &&
-               Equals(HttpStatusCode, item.HttpStatusCode) &&
-               Equals(HttpStatusException, item.HttpStatusException);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -105,12 +86,11 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
         return Equals((PrinterModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (!PrinterType.EqualsDefault())
             return false;
@@ -128,9 +108,7 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
             Equals(HttpStatusException, null);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         PrinterModel item = new();
         item.Name = Name;
@@ -147,9 +125,7 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual PrinterModel CloneCast() => (PrinterModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
 	    base.GetObjectData(info, context);
 	    info.AddValue(nameof(Name), Name);
@@ -160,9 +136,31 @@ public class PrinterModel : TableModel, ISerializable, ITableModel
 	    info.AddValue(nameof(MacAddress), MacAddress);
 	    info.AddValue(nameof(PeelOffSet), PeelOffSet);
 	    info.AddValue(nameof(DarknessLevel), DarknessLevel);
-	    info.AddValue(nameof(HttpStatusCode), HttpStatusCode);
-	    info.AddValue(nameof(HttpStatusException), HttpStatusException);
 	}
+
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(PrinterModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!PrinterType.Equals(item.PrinterType))
+			return false;
+		if (!MacAddress.Equals(item.MacAddress))
+			return false;
+		return base.Equals(item) &&
+		       Equals(Name, item.Name) &&
+		       Equals(Ip, item.Ip) &&
+		       Equals(Port, item.Port) &&
+		       Equals(Password, item.Password) &&
+		       Equals(PeelOffSet, item.PeelOffSet) &&
+		       Equals(DarknessLevel, item.DarknessLevel) &&
+		       Equals(HttpStatusCode, item.HttpStatusCode) &&
+		       Equals(HttpStatusException, item.HttpStatusException);
+	}
+
+	public new virtual PrinterModel CloneCast() => (PrinterModel)Clone();
 
 	#endregion
 }

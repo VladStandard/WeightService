@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -9,15 +10,15 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Templates".
 /// </summary>
 [Serializable]
-public class TemplateModel : TableModel, ISerializable, ITableModel
+public class TemplateModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual string CategoryId { get; set; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 	[XmlElement] public virtual string Title { get; set; }
-    [XmlIgnore] public virtual FieldBinaryModel ImageData { get; set; }
-    [XmlElement] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
+    [XmlElement] public virtual FieldBinaryModel ImageData { get; set; }
+    [XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 
 	/// <summary>
 	/// Constructor.
@@ -46,28 +47,16 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(CategoryId)}: {CategoryId}. " +
         $"{nameof(IdRRef)}: {IdRRef}. " +
         $"{nameof(Title)}: {Title}. " +
         $"{nameof(ImageData)}: {ImageData}. ";
 
-    public virtual bool Equals(TemplateModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!ImageData.Equals(item.ImageData))
-            return false;
-        return 
-	        base.Equals(item) &&
-            Equals(CategoryId, item.CategoryId) &&
-            Equals(IdRRef, item.IdRRef) &&
-            Equals(Title, item.Title);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -75,24 +64,18 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
         return Equals((TemplateModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+	public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
-    {
-        return 
-	        base.EqualsDefault() &&
-            Equals(CategoryId, string.Empty) &&
-            Equals(IdRRef, Guid.Empty) &&
-            Equals(Title, string.Empty) &&
-            ImageData.EqualsDefault();
-    }
+	public override bool EqualsNew() => Equals(new());
 
-    public new virtual int GetHashCode() => base.GetHashCode();
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(CategoryId, string.Empty) &&
+		Equals(IdRRef, Guid.Empty) &&
+		Equals(Title, string.Empty) &&
+		ImageData.EqualsDefault();
 
-	public new virtual object Clone()
+	public override object Clone()
     {
         TemplateModel item = new();
         item.CategoryId = CategoryId;
@@ -103,9 +86,12 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual TemplateModel CloneCast() => (TemplateModel)Clone();
-
-    public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(CategoryId), CategoryId);
@@ -114,5 +100,23 @@ public class TemplateModel : TableModel, ISerializable, ITableModel
         info.AddValue(nameof(ImageData), ImageData);
 	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(TemplateModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!ImageData.Equals(item.ImageData))
+			return false;
+		return
+			base.Equals(item) &&
+			Equals(CategoryId, item.CategoryId) &&
+			Equals(IdRRef, item.IdRRef) &&
+			Equals(Title, item.Title);
+	}
+
+	public new virtual TemplateModel CloneCast() => (TemplateModel)Clone();
+
+	#endregion
 }

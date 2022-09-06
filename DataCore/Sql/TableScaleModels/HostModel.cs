@@ -1,7 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
+using System.Net.Mail;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -9,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Hosts".
 /// </summary>
 [Serializable]
-public class HostModel : TableModel, ISerializable, ITableModel
+public class HostModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -37,27 +39,29 @@ public class HostModel : TableModel, ISerializable, ITableModel
 		MacAddress = new();
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private HostModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		AccessDt = info.GetDateTime(nameof(AccessDt));
+		Name = info.GetString(nameof(Name));
+		HostName = info.GetString(nameof(HostName));
+		Ip = info.GetString(nameof(Ip));
+		MacAddress = (FieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(FieldMacAddressModel));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 	    $"{nameof(HostName)}: {HostName}. ";
 
-    public virtual bool Equals(HostModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!MacAddress.Equals(item.MacAddress))
-            return false;
-        return base.Equals(item) &&
-               Equals(AccessDt, item.AccessDt) &&
-               Equals(Name, item.Name) &&
-               Equals(HostName, item.HostName) &&
-               Equals(Ip, item.Ip);
-    }
-
-	public new virtual bool Equals(object obj)
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -65,12 +69,11 @@ public class HostModel : TableModel, ISerializable, ITableModel
         return Equals((HostModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
+	
+    public override bool EqualsNew() => Equals(new());
 
-    public new virtual bool EqualsDefault()
+    public override bool EqualsDefault()
     {
         if (!MacAddress.EqualsDefault())
             return false;
@@ -82,9 +85,7 @@ public class HostModel : TableModel, ISerializable, ITableModel
             Equals(Ip, string.Empty);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         HostModel item = new();
         item.AccessDt = AccessDt;
@@ -96,7 +97,38 @@ public class HostModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual HostModel CloneCast() => (HostModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(AccessDt), AccessDt);
+		info.AddValue(nameof(Name), Name);
+		info.AddValue(nameof(HostName), HostName);
+		info.AddValue(nameof(Ip), Ip);
+		info.AddValue(nameof(MacAddress), MacAddress);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(HostModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!MacAddress.Equals(item.MacAddress))
+			return false;
+		return base.Equals(item) &&
+		       Equals(AccessDt, item.AccessDt) &&
+		       Equals(Name, item.Name) &&
+		       Equals(HostName, item.HostName) &&
+		       Equals(Ip, item.Ip);
+	}
+
+	public new virtual HostModel CloneCast() => (HostModel)Clone();
+
+	#endregion
 }

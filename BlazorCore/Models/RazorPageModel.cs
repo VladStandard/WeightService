@@ -42,7 +42,7 @@ public partial class RazorPageModel : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public void OnItemValueChange(TableModel? item, string? filterName, object? value)
+    public void OnItemValueChange(TableBaseModel? item, string? filterName, object? value)
     {
         RunActionsSafe(nameof(OnItemValueChange), LocaleCore.Dialog.DialogResultFail,
             () =>
@@ -122,7 +122,7 @@ public partial class RazorPageModel : LayoutComponentBase
 
     private void OnItemValueChangeScale(string? filterName, object? value, ScaleModel scale)
     {
-        if (filterName == nameof(TableModel.Identity.Id) && value is long id)
+        if (filterName == nameof(TableBaseModel.Identity.Id) && value is long id)
         {
             scale = AppSettings.DataAccess.GetItemById<ScaleModel>(id) ?? new();
         }
@@ -168,7 +168,7 @@ public partial class RazorPageModel : LayoutComponentBase
         }
     }
 
-    public async Task ItemSelectAsync(TableModel item)
+    public async Task ItemSelectAsync(TableBaseModel item)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RunActionsSafe(nameof(ItemSelectAsync), LocaleCore.Dialog.DialogResultFail,
@@ -178,7 +178,7 @@ public partial class RazorPageModel : LayoutComponentBase
             });
     }
 
-    private void ItemSelect(TableModel item)
+    private void ItemSelect(TableBaseModel item)
     {
         if (Item is not null && !Item.Equals(item))
             Item = item;
@@ -188,17 +188,17 @@ public partial class RazorPageModel : LayoutComponentBase
             IdentityUid = item.Identity.Uid;
     }
 
-    protected static string GetPath(string uriItemRoute, TableModel? item, long? id) =>
+    protected static string GetPath(string uriItemRoute, TableBaseModel? item, long? id) =>
         item is null || id is null ? string.Empty : $"{uriItemRoute}/{id}";
 
-    protected static string GetPath(string uriItemRoute, TableModel? item, Guid? uid) =>
+    protected static string GetPath(string uriItemRoute, TableBaseModel? item, Guid? uid) =>
         item is null || uid is null ? string.Empty : $"{uriItemRoute}/{uid}";
 
     #endregion
 
     #region Public and private methods - Actions
 
-    private void RouteItemNavigate<T>(bool isNewWindow, T? item, DbTableAction tableAction) where T : TableModel, new()
+    private void RouteItemNavigate<T>(bool isNewWindow, T? item, DbTableAction tableAction) where T : TableBaseModel, new()
     {
         string page = RouteItemNavigatePage();
         if (string.IsNullOrEmpty(page))
@@ -300,7 +300,7 @@ public partial class RazorPageModel : LayoutComponentBase
         return page;
     }
 
-    private void RouteItemNavigateCore<T>(T? item, string page, DbTableAction tableAction) where T : TableModel, new()
+    private void RouteItemNavigateCore<T>(T? item, string page, DbTableAction tableAction) where T : TableBaseModel, new()
     {
         switch (tableAction)
         {

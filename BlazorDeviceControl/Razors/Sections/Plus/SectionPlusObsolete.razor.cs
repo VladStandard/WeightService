@@ -43,12 +43,12 @@ public partial class SectionPlusObsolete : RazorPageModel
         });
     }
 
-    private void SetFilterItems(List<TableModel>? items, long? scaleId)
+    private void SetFilterItems(List<TableBaseModel>? items, long? scaleId)
     {
         if (items != null)
         {
             Items = new();
-            foreach (TableModel item in items)
+            foreach (TableBaseModel item in items)
             {
                 if (item is PluObsoleteModel plu && plu.Scale.Identity.Id == scaleId)
                     Items.Add(item);

@@ -25,10 +25,4 @@ internal class ContragentValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<ContragentModel>(1_000);
-	}
 }

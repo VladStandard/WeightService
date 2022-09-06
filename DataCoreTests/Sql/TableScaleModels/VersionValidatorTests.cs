@@ -25,10 +25,4 @@ internal class VersionValidatorTests
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<VersionModel>(1_000);
-	}
 }

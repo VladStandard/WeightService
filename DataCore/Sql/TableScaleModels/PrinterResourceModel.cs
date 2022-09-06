@@ -1,7 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
+using static DataCore.Localizations.LocaleData;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -9,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-public class PrinterResourceModel : TableModel, ISerializable, ITableModel
+public class PrinterResourceModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -27,28 +29,29 @@ public class PrinterResourceModel : TableModel, ISerializable, ITableModel
 		Description = string.Empty;
 	}
 
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	private PrinterResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	{
+		Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
+		Resource = (TemplateResourceModel)info.GetValue(nameof(Resource), typeof(TemplateResourceModel));
+		Description = info.GetString(nameof(Description));
+	}
+
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - override
 
-	public new virtual string ToString() =>
+	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Printer)}: {Printer}. " +
 		$"{nameof(Resource)}: {Resource}. " +
 		$"{nameof(Description)}: {Description}. ";
 
-	public virtual bool Equals(PrinterResourceModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!Printer.Equals(item.Printer))
-            return false;
-        if (!Resource.Equals(item.Resource))
-            return false;
-        return base.Equals(item) &&
-               Equals(Description, item.Description);
-    }
-
-	public new virtual bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
@@ -56,12 +59,11 @@ public class PrinterResourceModel : TableModel, ISerializable, ITableModel
         return Equals((PrinterResourceModel)obj);
     }
 
-	public virtual bool EqualsNew()
-    {
-        return Equals(new());
-    }
+    public override int GetHashCode() => base.GetHashCode();
 
-    public new virtual bool EqualsDefault()
+	public override bool EqualsNew() => Equals(new());
+
+	public override bool EqualsDefault()
     {
         if (!Printer.EqualsDefault())
             return false;
@@ -71,9 +73,7 @@ public class PrinterResourceModel : TableModel, ISerializable, ITableModel
                Equals(Description, string.Empty);
     }
 
-    public new virtual int GetHashCode() => base.GetHashCode();
-
-	public new virtual object Clone()
+	public override object Clone()
     {
         PrinterResourceModel item = new();
         item.Printer = Printer.CloneCast();
@@ -83,7 +83,35 @@ public class PrinterResourceModel : TableModel, ISerializable, ITableModel
 		return item;
     }
 
-    public new virtual PrinterResourceModel CloneCast() => (PrinterResourceModel)Clone();
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(Printer), Printer);
+		info.AddValue(nameof(Resource), Resource);
+		info.AddValue(nameof(Description), Description);
+	}
 
-    #endregion
+	#endregion
+
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(PrinterResourceModel item)
+	{
+		if (ReferenceEquals(this, item)) return true;
+		if (!Printer.Equals(item.Printer))
+			return false;
+		if (!Resource.Equals(item.Resource))
+			return false;
+		return base.Equals(item) &&
+		       Equals(Description, item.Description);
+	}
+
+	public new virtual PrinterResourceModel CloneCast() => (PrinterResourceModel)Clone();
+
+	#endregion
 }

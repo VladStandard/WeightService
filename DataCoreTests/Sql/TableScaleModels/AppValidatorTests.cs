@@ -32,10 +32,4 @@ internal class AppValidatorTests
 			Assert.IsTrue(result.IsValid);
 		});
 	}
-
-	[Test]
-	public void DbTable_Validate_IsTrue()
-	{
-		DataCore.AssertSqlDataValidate<AppModel>(1_000);
-	}
 }
