@@ -7,7 +7,7 @@ public partial class ItemWorkshop : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private WorkShopModel ItemCast { get => Item == null ? new() : (WorkShopModel)Item; set => Item = value; }
+	private WorkShopModel ItemCast { get => Item is null ? new() : (WorkShopModel)Item; set => Item = value; }
 	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
 
 	#endregion

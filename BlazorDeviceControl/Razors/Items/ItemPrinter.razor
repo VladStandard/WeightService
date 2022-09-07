@@ -114,7 +114,8 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <SectionPrinterResources Table=@Table IsShowMarkedFilter=true />
+    <br style="margin-top: 10px; "/>
+    <SectionPrinterResources Table=@Table IsShowMarkedFilter=true ParentRazor=@(this) />
     
     <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@(this) />

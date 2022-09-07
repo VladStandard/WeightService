@@ -9,7 +9,7 @@ public partial class SectionAccess : RazorPageBase
 
     private List<AccessModel> ItemsCast
     {
-        get { return Items == null ? new() : Items.Select(x => (AccessModel)x).ToList(); }
+        get { return Items is null ? new() : Items.Select(x => (AccessModel)x).ToList(); }
         set
         {
             if (!value.Any())

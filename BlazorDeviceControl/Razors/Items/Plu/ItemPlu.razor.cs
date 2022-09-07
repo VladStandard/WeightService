@@ -14,7 +14,7 @@ public partial class ItemPlu : RazorPageBase
     private List<TemplateModel> Templates { get; set; }
     private List<ScaleModel> Scales { get; set; }
     private List<PluModel> Plus { get; set; }
-    private PluModel ItemCast { get => Item == null ? new() : (PluModel)Item; set => Item = value; }
+    private PluModel ItemCast { get => Item is null ? new() : (PluModel)Item; set => Item = value; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
     #endregion
@@ -55,8 +55,7 @@ public partial class ItemPlu : RazorPageBase
 						ItemCast.IsMarked = false;
                         break;
                     default:
-	                    //Guid uid = ItemFilter.Identity.Uid;
-                        ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
+	                    ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
                         break;
                 }
 
@@ -89,7 +88,7 @@ public partial class ItemPlu : RazorPageBase
                     Plus.AddRange(plus);
 
 	            //// Проверка шаблона.
-	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
+	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
 	            //{
 	            //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast();
 	            //}

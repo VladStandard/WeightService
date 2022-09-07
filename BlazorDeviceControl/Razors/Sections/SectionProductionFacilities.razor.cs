@@ -12,7 +12,7 @@ public partial class SectionProductionFacilities : RazorPageBase
 
     private List<ProductionFacilityModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (ProductionFacilityModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (ProductionFacilityModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

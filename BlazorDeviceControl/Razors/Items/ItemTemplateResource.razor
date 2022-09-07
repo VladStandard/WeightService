@@ -61,7 +61,7 @@ else
 <RadzenButton Style="width: 50%; height: 30px; text-align: center; "
                 Click=@OnFileDownload Text=@LocaleCore.Strings.FileDownload />
 <RadzenLabel Style="width: 27%;" Text=@LocaleCore.TableField.Type />
-@if (ResourceTypes == null)
+@if (ResourceTypes is null)
 {
     <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
     <RadzenProgressBar Value=@ProgressValue Unit=@FileInfo

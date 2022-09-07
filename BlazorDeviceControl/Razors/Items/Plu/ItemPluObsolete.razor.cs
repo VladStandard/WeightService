@@ -13,7 +13,7 @@ public partial class ItemPluObsolete : RazorPageBase
     private List<NomenclatureModel> Nomenclatures { get; set; }
     private List<ScaleModel> Scales { get; set; }
     private List<TemplateModel> Templates { get; set; }
-    private PluObsoleteModel ItemCast { get => Item == null ? new() : (PluObsoleteModel)Item; set => Item = value; }
+    private PluObsoleteModel ItemCast { get => Item is null ? new() : (PluObsoleteModel)Item; set => Item = value; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
     #endregion
@@ -79,7 +79,7 @@ public partial class ItemPluObsolete : RazorPageBase
                     Scales.AddRange(scales);
 
 	            //// Проверка шаблона.
-	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
+	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
 	            //{
 	            //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast();
 	            //}

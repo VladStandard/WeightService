@@ -9,7 +9,7 @@ public partial class SectionBarCodeTypes : RazorPageBase
 
     private List<BarCodeTypeModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (BarCodeTypeModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (BarCodeTypeModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

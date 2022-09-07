@@ -30,7 +30,7 @@ else
 					<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.Table.CategoryName/>
 				</td>
 				<td>
-					@if (TemplateCategories == null)
+					@if (TemplateCategories is null)
 					{
 						<RadzenTextBox Style="width: 100%;" Disabled=false ReadOnly=true TValue="string" Value=""/>
 						<RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px"/>

@@ -13,7 +13,7 @@ public partial class ItemPrinterResource : RazorPageBase
 	/// <summary>
 	/// PrinterResource.
 	/// </summary>
-	private PrinterResourceModel ItemCast { get => Item == null ? new() : (PrinterResourceModel)Item; set => Item = value; }
+	private PrinterResourceModel ItemCast { get => Item is null ? new() : (PrinterResourceModel)Item; set => Item = value; }
 	/// <summary>
 	/// Printers.
 	/// </summary>

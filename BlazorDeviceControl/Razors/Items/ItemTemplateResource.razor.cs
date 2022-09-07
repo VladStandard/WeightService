@@ -7,7 +7,7 @@ public partial class ItemTemplateResource : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 
-    private TemplateResourceModel ItemCast { get => Item == null ? new() : (TemplateResourceModel)Item; set => Item = value; }
+    private TemplateResourceModel ItemCast { get => Item is null ? new() : (TemplateResourceModel)Item; set => Item = value; }
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }

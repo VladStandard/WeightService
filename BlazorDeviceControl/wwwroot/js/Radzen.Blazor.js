@@ -11,7 +11,7 @@ if (!Element.prototype.closest) {
     do {
       if (el.matches(s)) return el;
       el = el.parentElement || el.parentNode;
-    } while (el !== null && el.nodeType === 1);
+    } while (el !is null && el.nodeType === 1);
     return null;
   };
 }
@@ -379,7 +379,7 @@ window.Radzen = {
 
     if (!childNodes || childNodes.length == 0) return;
 
-    if (startIndex == undefined || startIndex == null) {
+    if (startIndex == undefined || startIndex is null) {
       startIndex = -1;
     }
 

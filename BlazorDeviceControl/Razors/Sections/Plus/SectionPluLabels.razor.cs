@@ -9,7 +9,7 @@ public partial class SectionPluLabels : RazorPageBase
 
 	private List<PluLabelModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluLabelModel)x).ToList();
+		get => Items is null ? new() : Items.Select(x => (PluLabelModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 

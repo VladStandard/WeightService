@@ -9,13 +9,8 @@ public partial class SectionPlusScales : RazorPageBase
 
 	[Parameter] public List<PluScaleModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluScaleModel)x).ToList();
+		get => Items is null ? new() : Items.Select(x => (PluScaleModel)x).ToList();
 		set => Items = value.Cast<TableBaseModel>().ToList();
-	}
-	private ScaleModel ItemFilterCast
-	{
-		get => ItemFilter == null ? new() : (ScaleModel)ItemFilter;
-		set => ItemFilter = value;
 	}
 
 	#endregion
@@ -45,7 +40,7 @@ public partial class SectionPlusScales : RazorPageBase
 		{
 			() =>
 			{
-				ItemsCast = AppSettings.DataAccess.GetListPluScales(IsShowMarked, IsShowOnlyTop, ItemFilter);
+				ItemsCast = AppSettings.DataAccess.GetListPluScales(IsShowMarked, IsShowOnlyTop, Item);
 
 				ButtonSettings = new(true, true, true, true, true, true, false);
 			}

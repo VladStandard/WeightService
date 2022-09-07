@@ -7,7 +7,7 @@ public partial class ItemLog : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private LogModel ItemCast { get => Item == null ? new() : (LogModel)Item; set => Item = value; }
+	private LogModel ItemCast { get => Item is null ? new() : (LogModel)Item; set => Item = value; }
 
 	#endregion
 

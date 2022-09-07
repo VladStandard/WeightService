@@ -7,7 +7,7 @@ public partial class ItemNomenclature : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private NomenclatureModel ItemCast { get => Item == null ? new() : (NomenclatureModel)Item; set => Item = value; }
+	private NomenclatureModel ItemCast { get => Item is null ? new() : (NomenclatureModel)Item; set => Item = value; }
 
 	#endregion
 

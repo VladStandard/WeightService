@@ -9,7 +9,7 @@ public partial class SectionPluWeighings : RazorPageBase
 
 	private List<PluWeighingModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluWeighingModel)x).ToList();
+		get => Items is null ? new() : Items.Select(x => (PluWeighingModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 

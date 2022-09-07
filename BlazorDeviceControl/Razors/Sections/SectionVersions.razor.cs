@@ -9,7 +9,7 @@ public partial class SectionVersions : RazorPageBase
 
     private List<VersionModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (VersionModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (VersionModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

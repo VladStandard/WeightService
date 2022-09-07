@@ -7,7 +7,7 @@ public partial class ItemProductionFacility : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ProductionFacilityModel ItemCast { get => Item == null ? new() : (ProductionFacilityModel)Item; set => Item = value; }
+	private ProductionFacilityModel ItemCast { get => Item is null ? new() : (ProductionFacilityModel)Item; set => Item = value; }
 
 	#endregion
 

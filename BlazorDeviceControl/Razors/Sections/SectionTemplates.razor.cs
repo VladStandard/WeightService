@@ -9,7 +9,7 @@ public partial class SectionTemplates : RazorPageBase
 
     private List<TemplateModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (TemplateModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (TemplateModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

@@ -21,7 +21,6 @@ public partial class RazorPageBase : LayoutComponentBase
 	[Inject] public NotificationService? NotificationService { get; set; }
 	[Inject] public TooltipService? TooltipService { get; set; }
 	[Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
-	[Parameter] public TableBaseModel? ItemFilter { get; set; }
 	[Parameter] public bool IsShowReload { get; set; }
 	[Parameter]
 	public string IsShowReloadStr
@@ -76,31 +75,32 @@ public partial class RazorPageBase : LayoutComponentBase
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;
 		IsActionsParametersSetFinished = false;
+	}
 
-		if (ParentRazor is not null)
-		{
-			if (ParentRazor.ItemFilter is not null)
-				ItemFilter = ParentRazor.ItemFilter;
-			if (ParentRazor.ItemsFilter is not null)
-				ItemsFilter = ParentRazor.ItemsFilter;
-			IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
-			IsShowItemsCount = ParentRazor.IsShowItemsCount;
-			IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
-			IsShowMarked = ParentRazor.IsShowMarked;
-			IsShowOnlyTop = ParentRazor.IsShowOnlyTop;
-			if (IdentityId is null && ParentRazor.IdentityId is not null)
-				IdentityId = ParentRazor.IdentityId;
-			if (IdentityUid is null && ParentRazor.IdentityUid is not null)
-				IdentityUid = ParentRazor.IdentityUid;
-			if (ParentRazor.Item is not null)
-				Item = ParentRazor.Item;
-			if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
-				Table = ParentRazor.Table;
-			if (ParentRazor.TableAction != SqlTableActionEnum.Default)
-				TableAction = ParentRazor.TableAction;
+	public void SetPropertiesFromParent()
+	{
+		if (ParentRazor is null) return;
 
-			ButtonSettings = ParentRazor.ButtonSettings;
-		}
+		if (ParentRazor.ItemsFilter is not null)
+			ItemsFilter = ParentRazor.ItemsFilter;
+
+		IsShowAdditionalFilter = ParentRazor.IsShowAdditionalFilter;
+		IsShowItemsCount = ParentRazor.IsShowItemsCount;
+		IsShowMarkedFilter = ParentRazor.IsShowMarkedFilter;
+		IsShowMarked = ParentRazor.IsShowMarked;
+		IsShowOnlyTop = ParentRazor.IsShowOnlyTop;
+		if (IdentityId is null && ParentRazor.IdentityId is not null)
+			IdentityId = ParentRazor.IdentityId;
+		if (IdentityUid is null && ParentRazor.IdentityUid is not null)
+			IdentityUid = ParentRazor.IdentityUid;
+		if (ParentRazor.Item is not null)
+			Item = ParentRazor.Item;
+		if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
+			Table = ParentRazor.Table;
+		if (ParentRazor.TableAction != SqlTableActionEnum.Default)
+			TableAction = ParentRazor.TableAction;
+
+		ButtonSettings = ParentRazor.ButtonSettings;
 	}
 
 	#endregion

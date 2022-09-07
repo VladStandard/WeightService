@@ -5,32 +5,37 @@ namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionPrinterResources : RazorPageBase
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
     private List<PrinterResourceModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (PrinterResourceModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (PrinterResourceModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
+    }
+
+    public SectionPrinterResources()
+    {
+	    Table = new TableScaleModel(SqlTableScaleEnum.PrintersResources);
+	    IsShowMarkedFilter = true;
+	    ItemsCast = new();
     }
 
     #endregion
 
     #region Public and private methods
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+  //  protected override void OnInitialized()
+  //  {
+  //      base.OnInitialized();
 
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PrintersResources);
-		        IsShowMarkedFilter = true;
-				ItemsCast = new();
-			}
-		});
-    }
+		//RunActionsInitialized(new()
+		//{
+		//	() =>
+		//	{
+		//        //
+		//	}
+		//});
+  //  }
 
     protected override void OnParametersSet()
     {
@@ -40,7 +45,7 @@ public partial class SectionPrinterResources : RazorPageBase
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListPrinterResources(IsShowMarked, IsShowOnlyTop, ItemFilter);
+				ItemsCast = AppSettings.DataAccess.GetListPrinterResources(IsShowMarked, IsShowOnlyTop, Item);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

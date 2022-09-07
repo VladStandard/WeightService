@@ -245,7 +245,8 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
-	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, TableBaseModel? itemFilter)
+	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked, 
+		bool isShowOnlyTop, TableBaseModel? itemFilter)
 	{
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)

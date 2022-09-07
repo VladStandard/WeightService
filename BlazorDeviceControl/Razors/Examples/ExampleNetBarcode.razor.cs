@@ -65,7 +65,7 @@ public partial class ExampleNetBarcode : RazorPageBase
 
             Barcode.Configure(new BarcodeSettings { BarcodeType = BarcodeType });
             byte[]? barcodeByteArray = Barcode.GetByteArray(BarcodeValue, ImageFormat);
-            BarcodeImage = barcodeByteArray == null
+            BarcodeImage = barcodeByteArray is null
                 ? string.Empty
                 : "data:image/png;base64, " + Convert.ToBase64String(barcodeByteArray);
         }

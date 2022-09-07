@@ -26,6 +26,7 @@ public partial class RazorPageBase : LayoutComponentBase
     protected void RunActionsParametersSet(List<Action> actionsParametersSet)
 	{
         IsActionsParametersSetFinished = false;
+		SetPropertiesFromParent();
         RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actionsParametersSet);
         IsActionsParametersSetFinished = true;
     }

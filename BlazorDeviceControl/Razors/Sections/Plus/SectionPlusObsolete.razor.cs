@@ -9,7 +9,7 @@ public partial class SectionPlusObsolete : RazorPageBase
 
     private List<PluObsoleteModel> ItemsCast
     {
-	    get => Items == null ? new() : Items.Select(x => (PluObsoleteModel)x).ToList();
+	    get => Items is null ? new() : Items.Select(x => (PluObsoleteModel)x).ToList();
 	    set => Items = !value.Any() ? null : new(value);
     }
 
@@ -40,7 +40,7 @@ public partial class SectionPlusObsolete : RazorPageBase
         {
             () =>
             {
-				ItemsCast = AppSettings.DataAccess.GetListPluObsoletes(IsShowMarked, IsShowOnlyTop, ItemFilter);
+				ItemsCast = AppSettings.DataAccess.GetListPluObsoletes(IsShowMarked, IsShowOnlyTop, Item);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
             }

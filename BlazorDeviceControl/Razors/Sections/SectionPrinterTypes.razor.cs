@@ -9,7 +9,7 @@ public partial class SectionPrinterTypes : RazorPageBase
 
     private List<PrinterTypeModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (PrinterTypeModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (PrinterTypeModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

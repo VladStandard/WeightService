@@ -8,7 +8,7 @@
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@Title />
     }
     
-    @if (ParentRazor == null)
+    @if (ParentRazor is null)
     {
         <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
     }

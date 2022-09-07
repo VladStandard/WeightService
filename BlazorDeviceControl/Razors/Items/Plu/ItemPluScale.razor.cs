@@ -11,7 +11,7 @@ public partial class ItemPluScale : RazorPageBase
     private List<TemplateModel> Templates { get; set; }
     private List<ScaleModel> Scales { get; set; }
     private List<PluModel> Plus { get; set; }
-    private PluScaleModel ItemCast { get => Item == null ? new() : (PluScaleModel)Item; set => Item = value; }
+    private PluScaleModel ItemCast { get => Item is null ? new() : (PluScaleModel)Item; set => Item = value; }
 
     #endregion
 
@@ -60,7 +60,7 @@ public partial class ItemPluScale : RazorPageBase
                 Plus = AppSettings.DataAccess.GetListPlus(false, false, true);
 
 	            //// Проверка шаблона.
-	            //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
+	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
 	            //{
 	            //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast();
 	            //}

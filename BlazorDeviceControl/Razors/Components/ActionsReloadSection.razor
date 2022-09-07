@@ -14,7 +14,7 @@
 		<tbody>
 		<tr>
 			<td colspan=@(IsShowAdditionalFilter ? 1 : 3) >
-				@if (ParentRazor == null)
+				@if (ParentRazor is null)
 				{
 					<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 				}

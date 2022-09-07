@@ -7,7 +7,7 @@ public partial class ItemHost : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private HostModel ItemCast { get => Item == null ? new() : (HostModel)Item; set => Item = value; }
+	private HostModel ItemCast { get => Item is null ? new() : (HostModel)Item; set => Item = value; }
 
 	#endregion
 

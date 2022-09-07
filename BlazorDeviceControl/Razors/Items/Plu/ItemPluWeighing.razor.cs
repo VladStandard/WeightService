@@ -7,7 +7,7 @@ public partial class ItemPluWeighing : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 
-    private PluWeighingModel ItemCast { get => Item == null ? new() : (PluWeighingModel)Item; set => Item = value; }
+    private PluWeighingModel ItemCast { get => Item is null ? new() : (PluWeighingModel)Item; set => Item = value; }
 
     #endregion
 

@@ -9,7 +9,7 @@ public partial class SectionNomenclatures : RazorPageBase
 
     private List<NomenclatureModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (NomenclatureModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (NomenclatureModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

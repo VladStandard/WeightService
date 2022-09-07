@@ -7,7 +7,7 @@ public partial class ItemPluLabel : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 
-    private PluLabelModel ItemCast { get => Item == null ? new() : (PluLabelModel)Item; set => Item = value; }
+    private PluLabelModel ItemCast { get => Item is null ? new() : (PluLabelModel)Item; set => Item = value; }
 
     #endregion
 

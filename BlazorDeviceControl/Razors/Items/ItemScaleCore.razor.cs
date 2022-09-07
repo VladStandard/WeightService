@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Items;
 
 /// <summary>
@@ -12,7 +10,7 @@ public partial class ItemScaleCore : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ScaleModel ItemCast { get => Item == null ? new() : (ScaleModel)Item; set => Item = value; }
+	private ScaleModel ItemCast { get => Item is null ? new() : (ScaleModel)Item; set => Item = value; }
 	private PrinterModel PrinterMain { get => ItemCast.PrinterMain ?? new(); set => ItemCast.PrinterMain = value; }
 	private PrinterModel PrinterShipping { get => ItemCast.PrinterShipping ?? new(); set => ItemCast.PrinterShipping = value; }
 	private TemplateModel TemplateDefault { get => ItemCast.TemplateDefault ?? new(); set => ItemCast.TemplateDefault = value; }

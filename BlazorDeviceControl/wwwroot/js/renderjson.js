@@ -111,7 +111,7 @@ var module;
             return el;
         };
 
-        if (json === null) return themetext(null, my_indent, "keyword", "null");
+        if (json =is null) return themetext(null, my_indent, "keyword", "null");
         if (json === void 0) return themetext(null, my_indent, "keyword", "undefined");
 
         if (typeof(json) == "string" && json.length > max_string)

@@ -9,7 +9,7 @@ public partial class SectionContragents : RazorPageBase
 
     private List<ContragentModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (ContragentModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (ContragentModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

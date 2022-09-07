@@ -164,7 +164,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-						Path=@(ItemCast.WorkShop == null ? string.Empty : GetRoutePath(LocaleCore.DeviceControl.RouteItemWorkShop, ItemCast.WorkShop, ItemCast.WorkShop.Identity.Id))
+						Path=@(ItemCast.WorkShop is null ? string.Empty : GetRoutePath(LocaleCore.DeviceControl.RouteItemWorkShop, ItemCast.WorkShop, ItemCast.WorkShop.Identity.Id))
 					    Text=@LocaleCore.Table.WorkShopName />
 				</td>
 				<td>
@@ -178,8 +178,8 @@ else
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-					            Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.WorkShop.ProductionFacility, ItemCast.WorkShop.ProductionFacility.Identity.Id)
-					            Text=@LocaleCore.Table.ProductionFacilityName/>
+					    Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.WorkShop?.ProductionFacility, ItemCast.WorkShop?.ProductionFacility.Identity.Id)
+					    Text=@LocaleCore.Table.ProductionFacilityName/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
@@ -217,9 +217,9 @@ else
 
 @if (IsPluNew)
 {
-	<SectionPlusScales ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+	<SectionPlusScales ParentRazor=@(this) IsShowAdditionalFilter=false />
 }
 else
 {
-	<SectionPlusObsolete ItemFilter=@ItemCast IsShowAdditionalFilter=false />
+	<SectionPlusObsolete ParentRazor=@(this) IsShowAdditionalFilter=false />
 }

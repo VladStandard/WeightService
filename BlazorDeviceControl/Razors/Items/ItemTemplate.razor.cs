@@ -7,7 +7,7 @@ public partial class ItemTemplate : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private TemplateModel ItemCast { get => Item == null ? new() : (TemplateModel)Item; set => Item = value; }
+	private TemplateModel ItemCast { get => Item is null ? new() : (TemplateModel)Item; set => Item = value; }
 	private List<TypeModel<string>>? TemplateCategories { get; set; }
 
 	#endregion

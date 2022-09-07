@@ -9,7 +9,7 @@ public partial class SectionPlus : RazorPageBase
 
 	[Parameter] public List<PluModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (PluModel)x).ToList();
+		get => Items is null ? new() : Items.Select(x => (PluModel)x).ToList();
 		set => Items = value.Cast<TableBaseModel>().ToList();
 	}
 

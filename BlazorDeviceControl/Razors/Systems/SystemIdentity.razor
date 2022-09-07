@@ -58,7 +58,7 @@
 		</tr>
 		<tr>
 			<td>@LocaleCore.Strings.Language</td>
-			@if (TemplateLanguages == null)
+			@if (TemplateLanguages is null)
 			{
 				<td><ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true /></td>
 			}

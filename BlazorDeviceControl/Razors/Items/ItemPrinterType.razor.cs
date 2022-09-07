@@ -7,7 +7,7 @@ public partial class ItemPrinterType : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private PrinterTypeModel ItemCast { get => Item == null ? new() : (PrinterTypeModel)Item; set => Item = value; }
+	private PrinterTypeModel ItemCast { get => Item is null ? new() : (PrinterTypeModel)Item; set => Item = value; }
 
 	#endregion
 

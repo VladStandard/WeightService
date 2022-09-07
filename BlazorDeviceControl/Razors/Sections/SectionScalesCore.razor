@@ -46,8 +46,8 @@ else
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Host Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "
-                        Path=@(itemCast.Host == null ? "" : $"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Host.Identity.Id}")
-                            Text=@(itemCast.Host == null ? LocaleCore.Table.FieldNull : itemCast.Host.Name) />
+                        Path=@(itemCast.Host is null ? "" : $"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Host.Identity.Id}")
+                            Text=@(itemCast.Host is null ? LocaleCore.Table.FieldNull : itemCast.Host.Name) />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.DeviceIp Width="10%" TextAlign=TextAlign.Left >
@@ -58,15 +58,15 @@ else
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Print.NameMain Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "
-                        Path=@(itemCast.PrinterMain == null ? "" : $"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.PrinterMain.Identity.Id}")
-                        Text=@(itemCast.PrinterMain == null ? LocaleCore.Table.FieldNull : itemCast.PrinterMain.Name) />
+                        Path=@(itemCast.PrinterMain is null ? "" : $"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.PrinterMain.Identity.Id}")
+                        Text=@(itemCast.PrinterMain is null ? LocaleCore.Table.FieldNull : itemCast.PrinterMain.Name) />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=TextAlign.Left >
 	            <Template Context="itemCast">
 		            <RadzenLink Style="width: 100%; "
-		                Path=@(itemCast.WorkShop == null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{itemCast.WorkShop.Identity.Id}")
-                        Text=@(itemCast.WorkShop == null ? LocaleCore.Table.FieldNull : itemCast.WorkShop.Name) />
+		                Path=@(itemCast.WorkShop is null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{itemCast.WorkShop.Identity.Id}")
+                        Text=@(itemCast.WorkShop is null ? LocaleCore.Table.FieldNull : itemCast.WorkShop.Name) />
 	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="ScaleModel" TextAlign=TextAlign.Center Title=@LocaleCore.Table.IsKneading Width="5%">

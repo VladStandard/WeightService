@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Components;
 
 public partial class ActionsFilterScale : RazorPageBase
@@ -11,26 +9,11 @@ public partial class ActionsFilterScale : RazorPageBase
 
 	private List<ScaleModel> ItemsCast
 	{
-		get => Items == null ? new() : Items.Select(x => (ScaleModel)x).ToList();
+		get => Items is null ? new() : Items.Select(x => (ScaleModel)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 
-	private ScaleModel ItemFilterCast
-	{
-		get
-		{
-			if (ParentRazor?.ParentRazor != null)
-				return ParentRazor.ParentRazor.ItemFilter == null ? new() : (ScaleModel)ParentRazor.ParentRazor.ItemFilter;
-			return new();
-		}
-		set
-		{
-			if (ParentRazor?.ParentRazor != null)
-			{
-				ParentRazor.ParentRazor.ItemFilter = value;
-			}
-		}
-	}
+	private ScaleModel ItemFilterCast { get => Item is null ? new() : (ScaleModel)Item; set => Item = value; }
 
 	#endregion
 
@@ -50,7 +33,7 @@ public partial class ActionsFilterScale : RazorPageBase
 				if (itemsFilter is not null)
 				{
 					ItemsFilter.AddRange(itemsFilter.ToList<TableBaseModel>());
-					if (ParentRazor?.ItemFilter == null)
+					if (ItemFilterCast.EqualsDefault())
 						ItemFilterCast = ItemsCast.First();
 				}
 			}

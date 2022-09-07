@@ -11,7 +11,7 @@ public partial class SectionPluWeighingsAggr : RazorPageBase
 
     private List<WeithingFactSummaryModel> ItemsCast
     {
-	    get => Items == null ? new() : Items.Select(x => (WeithingFactSummaryModel)x).ToList();
+	    get => Items is null ? new() : Items.Select(x => (WeithingFactSummaryModel)x).ToList();
 	    set => Items = !value.Any() ? null : new(value);
     }
 

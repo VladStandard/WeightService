@@ -167,7 +167,7 @@
                 }
             </td>
             <td>
-                @if (AppSettings.Memory.MemorySize.PhysicalTotal == null)
+                @if (AppSettings.Memory.MemorySize.PhysicalTotal is null)
                 {
                     <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }

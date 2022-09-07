@@ -12,7 +12,7 @@ public partial class SectionScalesCore : RazorPageBase
     [Parameter] public bool IsPluNew { get; set; }
     private List<ScaleModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (ScaleModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (ScaleModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

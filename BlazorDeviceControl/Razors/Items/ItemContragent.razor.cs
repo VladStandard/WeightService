@@ -7,7 +7,7 @@ public partial class ItemContragent : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private ContragentModel ItemCast { get => Item == null ? new() : (ContragentModel)Item; set => Item = value; }
+	private ContragentModel ItemCast { get => Item is null ? new() : (ContragentModel)Item; set => Item = value; }
 
 	#endregion
 

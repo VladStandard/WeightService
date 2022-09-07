@@ -56,7 +56,7 @@ else
 @*
 <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.DeviceControl.SectionNomenclatureUnits />
 <br />
-    @if (NomenclatureUnitsEntities == null)
+    @if (NomenclatureUnitsEntities is null)
     {
         <RadzenLabel Text=@LocaleCore.DeviceControl.DataLoading />
         <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
@@ -93,7 +93,7 @@ else
 
 <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.DeviceControl.SectionBarcodes />
 <br />
-@if (BarCodesEntities == null)
+@if (BarCodesEntities is null)
     {
         <RadzenLabel Text=@LocaleCore.DeviceControl.DataLoading />
         <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />

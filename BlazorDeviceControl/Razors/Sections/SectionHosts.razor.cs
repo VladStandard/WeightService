@@ -9,7 +9,7 @@ public partial class SectionHosts : RazorPageBase
 
     private List<HostModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (HostModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (HostModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

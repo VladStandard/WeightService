@@ -9,7 +9,7 @@ public partial class SectionWorkshops : RazorPageBase
 
     private List<WorkShopModel> ItemsCast
     {
-        get => Items == null ? new() : Items.Select(x => (WorkShopModel)x).ToList();
+        get => Items is null ? new() : Items.Select(x => (WorkShopModel)x).ToList();
         set => Items = !value.Any() ? null : new(value);
     }
 

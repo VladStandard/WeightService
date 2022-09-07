@@ -7,7 +7,7 @@ public partial class ItemAccess : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private AccessModel ItemCast { get => Item == null ? new() : (AccessModel)Item; set => Item = value; }
+	private AccessModel ItemCast { get => Item is null ? new() : (AccessModel)Item; set => Item = value; }
 	private List<TypeModel<AccessRightsEnum>>? TemplateAccessRights { get; set; }
 
 	private AccessRightsEnum Rights

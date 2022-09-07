@@ -7,7 +7,7 @@ public partial class ItemBarCodeType : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	private BarCodeTypeModel ItemCast { get => Item == null ? new() : (BarCodeTypeModel)Item; set => Item = value; }
+	private BarCodeTypeModel ItemCast { get => Item is null ? new() : (BarCodeTypeModel)Item; set => Item = value; }
 
 	#endregion
 
