@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.ItemRazorPageBase<PrinterModel>
+﻿@inherits BlazorCore.Models.RazorPageItemBase<PrinterModel>
 @page "/item/printer"
 @page "/item/printer/{IdentityId:long}"
 @page "/item/printer/{IdentityId:long}/{TableAction}"
@@ -115,7 +115,7 @@ else
     </MudSimpleTable>
     
     <br style="margin-top: 10px; "/>
-    <SectionPrinterResources Table=@Table IsShowMarkedFilter=true ParentRazor=@(this) />
+    <SectionPrintersResources ParentRazor=@(this) />
     
     <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@(this) />

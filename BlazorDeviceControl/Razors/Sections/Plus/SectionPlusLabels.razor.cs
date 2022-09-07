@@ -3,33 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPluLabels : RazorPageBase
+public partial class SectionPlusLabels : RazorPageSectionBase<PluLabelModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PluLabelModel> ItemsCast
+	public SectionPlusLabels()
 	{
-		get => Items is null ? new() : Items.Select(x => (PluLabelModel)x).ToList();
-		set => Items = !value.Any() ? null : new(value);
+		//
 	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusLabels);
-		        ItemsCast = new();
-			}
-		});
-    }
 
 	protected override void OnParametersSet()
 	{

@@ -4,6 +4,9 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
+using DataCore.Models;
+using DataCore.Sql.Tables;
+using DataCore.Sql.Xml;
 
 namespace DataCore.Sql.Core;
 
@@ -217,6 +220,40 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
     }
+
+    public TableBase GetTable<T>(T item) where T : TableBaseModel, new()
+	{
+		return item switch
+		{
+			AccessModel => new(SqlTableScaleEnum.Accesses),
+			BarCodeModel => new(SqlTableScaleEnum.BarCodes),
+			BarCodeTypeModel => new(SqlTableScaleEnum.BarCodesTypes),
+			ContragentModel => new(SqlTableScaleEnum.Contragents),
+			HostModel => new(SqlTableScaleEnum.Hosts),
+			LogModel => new(SqlTableScaleEnum.Logs),
+			NomenclatureModel => new(SqlTableScaleEnum.Nomenclatures),
+			PluLabelModel => new(SqlTableScaleEnum.PlusLabels),
+			PluModel => new(SqlTableScaleEnum.Plus),
+			PluObsoleteModel => new(SqlTableScaleEnum.PlusObsolete),
+			PluScaleModel => new(SqlTableScaleEnum.PlusScales),
+			PluWeighingModel => new(SqlTableScaleEnum.PlusWeighings),
+			PrinterModel => new(SqlTableScaleEnum.Printers),
+			PrinterResourceModel => new(SqlTableScaleEnum.PrintersResources),
+			PrinterTypeModel => new(SqlTableScaleEnum.PrintersTypes),
+			ProductionFacilityModel => new(SqlTableScaleEnum.ProductionFacilities),
+			ScaleModel => new(SqlTableScaleEnum.Scales),
+			TaskModel => new(SqlTableScaleEnum.Tasks),
+			TaskTypeModel => new(SqlTableScaleEnum.TasksTypes),
+			TemplateModel => new(SqlTableScaleEnum.Templates),
+			TemplateResourceModel => new(SqlTableScaleEnum.TemplatesResources),
+			VersionModel => new(SqlTableScaleEnum.Versions),
+			WeithingFactSummaryModel => new(SqlTableScaleEnum.PlusWeighings),
+			WorkShopModel => new TableScaleModel(SqlTableScaleEnum.WorkShops),
+			_ => new(SqlTableScaleEnum.Empty),
+		};
+	}
+
+    public TableBase GetTable<T>(List<T> items) where T : TableBaseModel, new() => GetTable(items.Any() ? items.First() : new());
 
     #endregion
 }

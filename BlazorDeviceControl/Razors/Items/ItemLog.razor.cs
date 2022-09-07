@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemLog : ItemRazorPageBase<LogModel>
+public partial class ItemLog : RazorPageItemBase<LogModel>
 {
 	#region Public and private fields, properties, constructor
 

@@ -5,33 +5,18 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPluWeighingsAggr : RazorPageBase
+public partial class SectionPluWeighingsAggr : RazorPageSectionBase<WeithingFactSummaryModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WeithingFactSummaryModel> ItemsCast
+    public SectionPluWeighingsAggr()
     {
-	    get => Items is null ? new() : Items.Select(x => (WeithingFactSummaryModel)x).ToList();
-	    set => Items = !value.Any() ? null : new(value);
+	    //
     }
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusWeighings);
-		        ItemsCast = new();
-			}
-		});
-	}
 
     protected override void OnParametersSet()
 	{

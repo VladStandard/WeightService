@@ -5,7 +5,7 @@ using BlazorCore.Models;
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemNomenclature : ItemRazorPageBase<NomenclatureModel>
+public partial class ItemNomenclature : RazorPageItemBase<NomenclatureModel>
 {
 	#region Public and private fields, properties, constructor
 

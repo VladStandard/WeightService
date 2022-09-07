@@ -3,42 +3,32 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionAccess : RazorPageBase
+public partial class SectionAccess : RazorPageSectionBase<AccessModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<AccessModel> ItemsCast
+    //private List<AccessModel> ItemsCast
+    //{
+    //    get { return Items is null ? new() : Items.Select(x => (AccessModel)x).ToList(); }
+    //    set
+    //    {
+    //        if (!value.Any())
+    //            Items = null;
+    //        else
+    //        {
+    //            Items = new();
+    //            Items.AddRange(value);
+    //        }
+    //    }
+    //}
+    public SectionAccess()
     {
-        get { return Items is null ? new() : Items.Select(x => (AccessModel)x).ToList(); }
-        set
-        {
-            if (!value.Any())
-                Items = null;
-            else
-            {
-                Items = new();
-                Items.AddRange(value);
-            }
-        }
+	    //
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        RunActionsInitialized(new()
-        {
-	        () =>
-	        {
-		        Table = new TableScaleModel(SqlTableScaleEnum.Accesses);
-		        ItemsCast = new();
-	        }
-        });
-    }
 
     protected override void OnParametersSet()
     {

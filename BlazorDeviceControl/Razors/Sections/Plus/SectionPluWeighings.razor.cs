@@ -3,33 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPluWeighings : RazorPageBase
+public partial class SectionPluWeighings : RazorPageSectionBase<PluWeighingModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PluWeighingModel> ItemsCast
+	public SectionPluWeighings()
 	{
-		get => Items is null ? new() : Items.Select(x => (PluWeighingModel)x).ToList();
-		set => Items = !value.Any() ? null : new(value);
+		//
 	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.PlusWeighings);
-				ItemsCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

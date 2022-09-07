@@ -3,33 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionNomenclatures : RazorPageBase
+public partial class SectionNomenclatures : RazorPageSectionBase<NomenclatureModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<NomenclatureModel> ItemsCast
+    public SectionNomenclatures()
     {
-        get => Items is null ? new() : Items.Select(x => (NomenclatureModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+	    //
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        RunActionsInitialized(new()
-        {
-	        () =>
-	        {
-		        Table = new TableScaleModel(SqlTableScaleEnum.Nomenclatures);
-		        ItemsCast = new();
-	        }
-        });
-    }
 
     protected override void OnParametersSet()
     {

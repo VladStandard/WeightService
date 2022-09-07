@@ -3,33 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionContragents : RazorPageBase
+public partial class SectionContragents : RazorPageSectionBase<ContragentModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<ContragentModel> ItemsCast
+    public SectionContragents()
     {
-        get => Items is null ? new() : Items.Select(x => (ContragentModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+	    //
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        RunActionsInitialized(new()
-        {
-	        () =>
-	        {
-		        Table = new TableScaleModel(SqlTableScaleEnum.Contragents);
-		        ItemsCast = new();
-	        }
-        });
-    }
 
     protected override void OnParametersSet()
     {

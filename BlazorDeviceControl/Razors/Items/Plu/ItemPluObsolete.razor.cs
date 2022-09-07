@@ -5,7 +5,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluObsolete : ItemRazorPageBase<PluObsoleteModel>
+public partial class ItemPluObsolete : RazorPageItemBase<PluObsoleteModel>
 {
     #region Public and private fields, properties, constructor
 

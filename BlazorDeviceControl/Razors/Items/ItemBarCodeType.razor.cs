@@ -5,7 +5,7 @@ using BlazorCore.Models;
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemBarCodeType : ItemRazorPageBase<BarCodeTypeModel>
+public partial class ItemBarCodeType : RazorPageItemBase<BarCodeTypeModel>
 {
 	#region Public and private methods
 

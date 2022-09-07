@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Razors.Items;
 /// <summary>
 /// Scale item page.
 /// </summary>
-public partial class ItemScaleCore : ItemRazorPageBase<ScaleModel>
+public partial class ItemScaleCore : RazorPageItemBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 

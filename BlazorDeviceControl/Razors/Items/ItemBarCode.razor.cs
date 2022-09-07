@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemBarCode : ItemRazorPageBase<BarCodeModel>
+public partial class ItemBarCode : RazorPageItemBase<BarCodeModel>
 {
 	#region Public and private fields, properties, constructor
 

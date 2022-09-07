@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluScale : ItemRazorPageBase<PluScaleModel>
+public partial class ItemPluScale : RazorPageItemBase<PluScaleModel>
 {
     #region Public and private fields, properties, constructor
 

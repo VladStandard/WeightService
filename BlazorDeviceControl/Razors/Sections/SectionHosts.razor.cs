@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionHosts : RazorPageBase
+public partial class SectionHosts : RazorPageSectionBase<HostModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<HostModel> ItemsCast
+    public SectionHosts()
     {
-        get => Items is null ? new() : Items.Select(x => (HostModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        RunActionsInitialized(new()
-        {
-	        () =>
-	        {
-		        Table = new TableScaleModel(SqlTableScaleEnum.Hosts);
-		        IsShowMarkedFilter = true;
-		        ItemsCast = new();
-	        }
-		});
-    }
 
     protected override void OnParametersSet()
     {

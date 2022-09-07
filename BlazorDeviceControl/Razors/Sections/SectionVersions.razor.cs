@@ -3,33 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionVersions : RazorPageBase
+public partial class SectionVersions : RazorPageSectionBase<VersionModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<VersionModel> ItemsCast
+    public SectionVersions()
     {
-        get => Items is null ? new() : Items.Select(x => (VersionModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+	    //
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.Versions);
-		        ItemsCast = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {

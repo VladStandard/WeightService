@@ -6,34 +6,18 @@ namespace BlazorDeviceControl.Razors.Sections;
 /// <summary>
 /// Section ProductionFacilities.
 /// </summary>
-public partial class SectionProductionFacilities : RazorPageBase
+public partial class SectionProductionFacilities : RazorPageSectionBase<ProductionFacilityModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<ProductionFacilityModel> ItemsCast
+    public SectionProductionFacilities()
     {
-        get => Items is null ? new() : Items.Select(x => (ProductionFacilityModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        RunActionsInitialized(new()
-        {
-	        () =>
-	        {
-		        Table = new TableScaleModel(SqlTableScaleEnum.ProductionFacilities);
-		        IsShowMarkedFilter = true;
-				ItemsCast = new();
-	        }
-        });
-    }
 
     protected override void OnParametersSet()
     {

@@ -117,7 +117,7 @@
     <Watch Remove="Razors\Sections\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsStops.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsWarnings.razor" />
-    <Watch Remove="Razors\Sections\Plus\SectionPluLabels.razor" />
+    <Watch Remove="Razors\Sections\Plus\SectionPlusLabels.razor" />
     <Watch Remove="Razors\Sections\Plus\SectionPluWeighings.razor" />
     <Watch Remove="Razors\Sections\Plus\SectionPluWeighingsAggr.razor" />
     <Watch Remove="Razors\Sections\SectionAccess.razor" />
@@ -132,9 +132,9 @@
     <Watch Remove="Razors\Sections\SectionNomenclatures.razor" />
     <Watch Remove="Razors\Sections\SectionPlus.razor" />
     <Watch Remove="Razors\Sections\SectionPlusScales.razor" />
-    <Watch Remove="Razors\Sections\SectionPrinterResources.razor" />
     <Watch Remove="Razors\Sections\SectionPrinters.razor" />
-    <Watch Remove="Razors\Sections\SectionPrinterTypes.razor" />
+    <Watch Remove="Razors\Sections\SectionPrintersResources.razor" />
+    <Watch Remove="Razors\Sections\SectionPrintersTypes.razor" />
     <Watch Remove="Razors\Sections\SectionProductionFacilities.razor" />
     <Watch Remove="Razors\Sections\SectionScales.razor" />
     <Watch Remove="Razors\Sections\SectionScalesCore.razor" />

@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemWorkshop : ItemRazorPageBase<WorkShopModel>
+public partial class ItemWorkshop : RazorPageItemBase<WorkShopModel>
 {
 	#region Public and private fields, properties, constructor
 

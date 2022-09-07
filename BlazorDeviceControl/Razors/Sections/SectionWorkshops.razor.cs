@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionWorkshops : RazorPageBase
+public partial class SectionWorkshops : RazorPageSectionBase<WorkShopModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WorkShopModel> ItemsCast
+    public SectionWorkshops()
     {
-        get => Items is null ? new() : Items.Select(x => (WorkShopModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.WorkShops);
-		        IsShowMarkedFilter = true;
-				Items = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {

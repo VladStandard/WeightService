@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionPrinterTypes : RazorPageBase
+public partial class SectionPrintersTypes : RazorPageSectionBase<PrinterTypeModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<PrinterTypeModel> ItemsCast
+    public SectionPrintersTypes()
     {
-        get => Items is null ? new() : Items.Select(x => (PrinterTypeModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PrintersTypes);
-		        IsShowMarkedFilter = true;
-				ItemsCast = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {

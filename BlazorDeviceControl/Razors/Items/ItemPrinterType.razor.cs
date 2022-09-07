@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemPrinterType : ItemRazorPageBase<PrinterTypeModel>
+public partial class ItemPrinterType : RazorPageItemBase<PrinterTypeModel>
 {
 	#region Public and private fields, properties, constructor
 

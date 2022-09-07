@@ -1,5 +1,5 @@
-﻿@inherits BlazorCore.Models.RazorPageBase
-@page "/section/printerresources"
+﻿@inherits BlazorCore.Models.RazorPageSectionBase<PrinterResourceModel>
+@page "/section/printers_resources"
 @using BlazorDeviceControl.Razors.Components
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
@@ -10,8 +10,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) 
-        Title=@LocaleCore.Print.Resources />
+    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterResourceModel" @bind-Value=@ItemObject

@@ -45,12 +45,12 @@ public partial class LocaleDeviceControl
     public string RouteSectionLogsWarnings => "/section/logs_warnings";
     public string RouteSectionLogTypes => "/section/logtypes";
     public string RouteSectionNomenclatures => "/section/nomenclatures";
-    public string RouteSectionPluLabels => "/section/plu_labels";
+    public string RouteSectionPluLabels => "/section/plus_labels";
     public string RouteSectionPlus => "/section/plus";
     public string RouteSectionPlusObsolete => "/section/plus_obsolete";
     public string RouteSectionPlusWeighings => "/section/plu_weighings";
-    public string RouteSectionPlusWeighingsAggregation => "/section/plu_weighings_aggr";
-    public string RouteSectionPrinterResources => "/section/printerresources";
+    public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";
+    public string RouteSectionPrinterResources => "/section/printers_resources";
     public string RouteSectionPrinters => "/section/printers";
     public string RouteSectionPrinterTypes => "/section/printertypes";
     public string RouteSectionProductionFacilities => "/section/productionfacilities";
@@ -58,7 +58,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionScalesObsolete => "/section/scales_obsolete";
     public string RouteSectionTaskModules => "/section/taskmodules";
     public string RouteSectionTaskTypeModules => "/section/tasktypemodules";
-    public string RouteSectionTemplateResources => "/section/templateresources";
+    public string RouteSectionTemplateResources => "/section/templates_resources";
     public string RouteSectionTemplates => "/section/templates";
     public string RouteSectionVersions => "/section/versions";
     public string RouteSectionWorkShops => "/section/workshops";

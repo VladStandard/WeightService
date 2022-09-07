@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPlusScales : RazorPageBase
+public partial class SectionPlusScales : RazorPageSectionBase<PluScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
-	[Parameter] public List<PluScaleModel> ItemsCast
+	public SectionPlusScales()
 	{
-		get => Items is null ? new() : Items.Select(x => (PluScaleModel)x).ToList();
-		set => Items = value.Cast<TableBaseModel>().ToList();
+		IsShowAdditionalFilter = true;
 	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.PlusScales);
-				IsShowAdditionalFilter = true;
-				Items = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

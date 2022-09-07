@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPlusObsolete : RazorPageBase
+public partial class SectionPlusObsolete : RazorPageSectionBase<PluObsoleteModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<PluObsoleteModel> ItemsCast
+    public SectionPlusObsolete()
     {
-	    get => Items is null ? new() : Items.Select(x => (PluObsoleteModel)x).ToList();
-	    set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
     }
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusObsolete);
-		        IsShowMarkedFilter = true;
-		        ItemsCast = new();
-			}
-		});
-	}
 
     protected override void OnParametersSet()
     {

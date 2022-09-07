@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluLabel : ItemRazorPageBase<PluLabelModel>
+public partial class ItemPluLabel : RazorPageItemBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
 

@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemContragent : ItemRazorPageBase<ContragentModel>
+public partial class ItemContragent : RazorPageItemBase<ContragentModel>
 {
 	#region Public and private fields, properties, constructor
 

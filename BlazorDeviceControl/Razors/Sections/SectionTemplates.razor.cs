@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionTemplates : RazorPageBase
+public partial class SectionTemplates : RazorPageSectionBase<TemplateModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<TemplateModel> ItemsCast
+    public SectionTemplates()
     {
-        get => Items is null ? new() : Items.Select(x => (TemplateModel)x).ToList();
-        set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
     }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.Templates);
-		        IsShowMarkedFilter = true;
-				ItemsCast = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {

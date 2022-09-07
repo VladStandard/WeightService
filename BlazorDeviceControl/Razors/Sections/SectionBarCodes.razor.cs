@@ -3,34 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionBarCodes : RazorPageBase
+public partial class SectionBarCodes : RazorPageSectionBase<BarCodeModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<BarCodeModel> ItemsCast
+	public SectionBarCodes()
 	{
-		get => Items is null ? new() : Items.Select(x => (BarCodeModel)x).ToList();
-		set => Items = !value.Any() ? null : new(value);
+		IsShowMarkedFilter = true;
 	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.BarCodes);
-				IsShowMarkedFilter = true;
-				ItemsCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{
