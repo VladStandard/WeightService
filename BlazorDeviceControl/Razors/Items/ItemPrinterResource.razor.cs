@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Razors.Items;
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public partial class ItemPrinterResource : RazorPageModel
+public partial class ItemPrinterResource : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

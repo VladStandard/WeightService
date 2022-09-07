@@ -9,7 +9,7 @@ namespace DataCore.Sql.Xml;
 /// XML-класс штрих-кода.
 /// </summary>
 [Serializable]
-public class XmlProductBarcodeModel : ISerializable, IDbBaseModel
+public class XmlProductBarcodeModel : ISerializable, ISqlDbBase
 {
 	#region Public and private fields, properties, constructor
 

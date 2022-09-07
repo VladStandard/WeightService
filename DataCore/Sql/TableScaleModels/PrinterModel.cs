@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-public class PrinterModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class PrinterModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public class PrinterModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializa
 	[XmlElement] public virtual short Port { get; set; }
 	[XmlElement] public virtual string Password { get; set; }
 	[XmlElement] public virtual PrinterTypeModel PrinterType { get; set; }
-	[XmlElement] public virtual FieldMacAddressModel MacAddress { get; set; }
+	[XmlElement] public virtual SqlFieldMacAddressModel MacAddress { get; set; }
 	[XmlElement] public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
 	[XmlElement] public virtual bool PeelOffSet { get; set; }
 	[XmlElement] public virtual short DarknessLevel { get; set; }
@@ -59,7 +59,7 @@ public class PrinterModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializa
 		Port = info.GetInt16(nameof(Port));
 		Password = info.GetString(nameof(Password));
 		PrinterType = (PrinterTypeModel)info.GetValue(nameof(PrinterType), typeof(PrinterTypeModel));
-		MacAddress = (FieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(FieldMacAddressModel));
+		MacAddress = (SqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(SqlFieldMacAddressModel));
 		PeelOffSet = info.GetBoolean(nameof(PeelOffSet));
 		DarknessLevel = info.GetInt16(nameof(DarknessLevel));
 	}

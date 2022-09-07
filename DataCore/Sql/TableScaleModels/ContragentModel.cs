@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "CONTRAGENTS_V2".
 /// </summary>
 [Serializable]
-public class ContragentModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class ContragentModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

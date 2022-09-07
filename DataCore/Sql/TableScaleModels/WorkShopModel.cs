@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "WorkShop".
 /// </summary>
 [Serializable]
-public class WorkShopModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class WorkShopModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
 using static DataCore.ShareEnums;
@@ -9,16 +8,14 @@ using static DataCore.ShareEnums;
 namespace DataCore.Sql.Models;
 
 [Serializable]
-public class SerializeModel : ISerializable
+public class SerializeBase : ISerializable
 {
     #region Public and private fields, properties, constructor
-
-    [XmlIgnore] public virtual SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
     /// <summary>
     /// Contrsuctor.
     /// </summary>
-    public SerializeModel()
+    public SerializeBase()
     {
         //
     }
@@ -28,14 +25,24 @@ public class SerializeModel : ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected SerializeModel(SerializationInfo info, StreamingContext context)
+    protected SerializeBase(SerializationInfo info, StreamingContext context)
     {
-        //SqlConnect = (SqlConnectFactory)info.GetValue(nameof(SqlConnect), typeof(SqlConnectFactory));
+        //
     }
 
     #endregion
 
     #region Public and private methods
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        //
+    }
 
     public virtual XmlWriterSettings GetXmlWriterSettings() => new()
     {
@@ -58,43 +65,43 @@ public class SerializeModel : ISerializable
         using StringWriter stringWriter = new();
         switch (isAddEmptyNamespace)
         {
-	        case true:
-	        {
-		        XmlSerializerNamespaces emptyNamespaces = new();
-		        emptyNamespaces.Add(string.Empty, string.Empty);
-		        using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-		        xmlSerializer.Serialize(xmlWriter, this, emptyNamespaces);
-		        xmlWriter.Flush();
-		        xmlWriter.Close();
-		        break;
-	        }
-	        default:
-		        xmlSerializer.Serialize(stringWriter, this);
-		        break;
+            case true:
+                {
+                    XmlSerializerNamespaces emptyNamespaces = new();
+                    emptyNamespaces.Add(string.Empty, string.Empty);
+                    using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
+                    xmlSerializer.Serialize(xmlWriter, this, emptyNamespaces);
+                    xmlWriter.Flush();
+                    xmlWriter.Close();
+                    break;
+                }
+            default:
+                xmlSerializer.Serialize(stringWriter, this);
+                break;
         }
-		return stringWriter.ToString();
+        return stringWriter.ToString();
     }
 
     public virtual string SerializeByMemoryStream<T>() where T : new()
     {
-		MemoryStream memoryStream = new();
-		IFormatter binaryFormatter = new BinaryFormatter();
-		binaryFormatter.Serialize(memoryStream, this);
-		//string result = memoryStream.ToString();
-		string result;
-		using StreamReader streamReader = new(memoryStream);
-		memoryStream.Position = 0;
-		result = streamReader.ReadToEnd();
-		memoryStream.Close();
+        MemoryStream memoryStream = new();
+        IFormatter binaryFormatter = new BinaryFormatter();
+        binaryFormatter.Serialize(memoryStream, this);
+        //string result = memoryStream.ToString();
+        string result;
+        using StreamReader streamReader = new(memoryStream);
+        memoryStream.Position = 0;
+        result = streamReader.ReadToEnd();
+        memoryStream.Close();
         return result;
-	}
+    }
 
     public virtual T DeserializeFromMemoryStream<T>(MemoryStream memoryStream) where T : new()
     {
-	    IFormatter formatter = new BinaryFormatter();
-	    memoryStream.Seek(0, SeekOrigin.Begin);
-		return (T)formatter.Deserialize(memoryStream);
-	}
+        IFormatter formatter = new BinaryFormatter();
+        memoryStream.Seek(0, SeekOrigin.Begin);
+        return (T)formatter.Deserialize(memoryStream);
+    }
 
     public virtual T DeserializeFromXml<T>(string xml) where T : new()
     {
@@ -159,57 +166,47 @@ public class SerializeModel : ISerializable
         };
     }
 
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+    public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
     {
-        //info.AddValue(nameof(SqlConnect), SqlConnect);
+        Type type = typeof(T);
+        T result = (T)Activator.CreateInstance(type);
+        foreach (KeyValuePair<string, object> item in dict)
+        {
+            type.GetProperty(item.Key)?.SetValue(result, item.Value, null);
+        }
+        return result;
     }
-
-	public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
-	{
-		Type type = typeof(T);
-		T result = (T)Activator.CreateInstance(type);
-		foreach (KeyValuePair<string, object> item in dict)
-		{
-			type.GetProperty(item.Key)?.SetValue(result, item.Value, null);
-		}
-		return result;
-	}
 
     public virtual IDictionary<string, object> ObjectToDictionary<T>(T item) where T : new()
     {
-	    IDictionary<string, object> result = new Dictionary<string, object>();
+        IDictionary<string, object> result = new Dictionary<string, object>();
         if (item is null)
             return result;
-	    Type myObjectType = item.GetType();
-	    object[] indexer = Array.Empty<object>();
-	    PropertyInfo[] properties = myObjectType.GetProperties();
-	    foreach (PropertyInfo info in properties)
-	    {
-		    object value = info.GetValue(item, indexer);
-		    result.Add(info.Name, value);
-	    }
-	    return result;
+        Type myObjectType = item.GetType();
+        object[] indexer = Array.Empty<object>();
+        PropertyInfo[] properties = myObjectType.GetProperties();
+        foreach (PropertyInfo info in properties)
+        {
+            object value = info.GetValue(item, indexer);
+            result.Add(info.Name, value);
+        }
+        return result;
     }
 
     public virtual XDocument GetBtXmlNamedSubString<T>(T item, XName name, object value) where T : new()
     {
-	    IDictionary<string, object> dict = ObjectToDictionary(item);
-	    XDocument result = new(
-		    new XElement("XMLScript", new XAttribute("Version", "2.0"),
-			    new XElement("Command",
-				    new XElement("Print",
-					    new XElement("Format", new XAttribute(name, value)),
-					    dict.Select(x => new XElement("NameSubString",
-						    new XAttribute("Key", x.Key),
-						    new XElement("Value", x.Value)))
-				    ))));
-	    return result;
+        IDictionary<string, object> dict = ObjectToDictionary(item);
+        XDocument result = new(
+            new XElement("XMLScript", new XAttribute("Version", "2.0"),
+                new XElement("Command",
+                    new XElement("Print",
+                        new XElement("Format", new XAttribute(name, value)),
+                        dict.Select(x => new XElement("NameSubString",
+                            new XAttribute("Key", x.Key),
+                            new XElement("Value", x.Value)))
+                    ))));
+        return result;
     }
 
-	#endregion
+    #endregion
 }

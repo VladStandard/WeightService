@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Sections;
 
-public partial class SectionBarCodes : RazorPageModel
+public partial class SectionBarCodes : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

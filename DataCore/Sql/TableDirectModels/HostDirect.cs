@@ -4,18 +4,18 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class HostDirect : SerializeModel, ISerializable
+public class HostDirect : SqlSerializeBase, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public long Id { get; set; }
-    public long ScaleId { get; set; }
-    public string? Name { get; set; }
+	[XmlElement] public long Id { get; set; }
+	[XmlElement] public long ScaleId { get; set; }
+	[XmlElement] public string? Name { get; set; }
     [XmlIgnore] public string? HostName { get; set; }
-    public string? Ip { get; set; }
-    public string? Mac { get; set; }
-    public Guid IdRRef { get; set; }
-    public bool IsMarked { get; set; }
+    [XmlElement] public string? Ip { get; set; }
+    [XmlElement] public string? Mac { get; set; }
+    [XmlElement] public Guid IdRRef { get; set; }
+    [XmlElement] public bool IsMarked { get; set; }
 
 	/// <summary>
 	/// Constructor.

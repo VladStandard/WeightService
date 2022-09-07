@@ -17,7 +17,7 @@ internal class FieldMacAddressModelTests
 	        foreach (string? address in DataCoreEnums.GetString())
 	        {
                 if (address is not null)
-					_ = new FieldMacAddressModel(address);
+					_ = new SqlFieldMacAddressModel(address);
 	        }
         }));
     }

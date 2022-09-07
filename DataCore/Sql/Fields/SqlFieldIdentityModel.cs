@@ -10,7 +10,7 @@ namespace DataCore.Sql.Fields;
 /// DB field Identity model.
 /// </summary>
 [Serializable]
-public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,9 +21,9 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public FieldIdentityModel()
+	public SqlFieldIdentityModel()
 	{
-		FieldName = nameof(FieldIdentityModel);
+		FieldName = nameof(SqlFieldIdentityModel);
 		Name = ColumnName.Default;
 		Id = 0;
 		Uid = Guid.Empty;
@@ -33,7 +33,7 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 	/// Constructor.
 	/// </summary>
 	/// <param name="identityName"></param>
-	public FieldIdentityModel(ColumnName identityName) : this()
+	public SqlFieldIdentityModel(ColumnName identityName) : this()
 	{
 		Name = identityName;
 	}
@@ -41,7 +41,7 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	private FieldIdentityModel(ColumnName identityName, long identityId, Guid identityUid) : this(identityName)
+	private SqlFieldIdentityModel(ColumnName identityName, long identityId, Guid identityUid) : this(identityName)
 	{
 		Id = identityId;
 		Uid = identityUid;
@@ -52,7 +52,7 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	protected FieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	protected SqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		Name = (ColumnName)info.GetValue(nameof(Name), typeof(ColumnName));
 		Id = info.GetInt64(nameof(Id));
@@ -83,7 +83,7 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-		return Equals((FieldIdentityModel)obj);
+		return Equals((SqlFieldIdentityModel)obj);
 	}
 
 	public override int GetHashCode() => Name switch
@@ -107,13 +107,13 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 		Equals(Id, (long)0) &&
 		Equals(Uid, Guid.Empty);
 
-	public override object Clone() => new FieldIdentityModel(Name, Id, Uid);
+	public override object Clone() => new SqlFieldIdentityModel(Name, Id, Uid);
 
 	#endregion
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(FieldIdentityModel item)
+	public virtual bool Equals(SqlFieldIdentityModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return
@@ -122,7 +122,7 @@ public class FieldIdentityModel : FieldBaseModel, ICloneable, IDbBaseModel, ISer
 			Uid.Equals(item.Uid);
 	}
 
-	public new virtual FieldIdentityModel CloneCast() => (FieldIdentityModel)Clone();
+	public new virtual SqlFieldIdentityModel CloneCast() => (SqlFieldIdentityModel)Clone();
 
 	public virtual void SetId(long value) => Id = value;
 

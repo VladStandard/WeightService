@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace DataCore.Sql.Fields;
 
 [Serializable]
-public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -30,9 +30,9 @@ public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISeria
     /// <summary>
     /// Constructor.
     /// </summary>
-    public FieldBinaryModel()
+    public SqlFieldBinaryModel()
     {
-	    FieldName = nameof(FieldBinaryModel);
+	    FieldName = nameof(SqlFieldBinaryModel);
 		Value = Array.Empty<byte>();
     }
 
@@ -41,7 +41,7 @@ public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISeria
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	protected FieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	protected SqlFieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
 	    Value = (byte[])info.GetValue(nameof(Value), typeof(byte[]));
     }
@@ -58,7 +58,7 @@ public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISeria
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((FieldBinaryModel)obj);
+        return Equals((SqlFieldBinaryModel)obj);
     }
 
     public override int GetHashCode() => Value.GetHashCode();
@@ -72,7 +72,7 @@ public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISeria
 
     public override object Clone()
     {
-        FieldBinaryModel item = new()
+        SqlFieldBinaryModel item = new()
         {
             Value = DataUtils.ByteClone(Value),
         };
@@ -94,14 +94,14 @@ public class FieldBinaryModel : FieldBaseModel, ICloneable, IDbBaseModel, ISeria
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(FieldBinaryModel item)
+	public virtual bool Equals(SqlFieldBinaryModel item)
 	{
 		//if (item is null) return false;
 		if (ReferenceEquals(this, item)) return true;
 		return DataUtils.ByteEquals(Value, item.Value);
 	}
 
-	public new virtual FieldBinaryModel CloneCast() => (FieldBinaryModel)Clone();
+	public new virtual SqlFieldBinaryModel CloneCast() => (SqlFieldBinaryModel)Clone();
 
 	public virtual void SetTemplateValue()
 	{

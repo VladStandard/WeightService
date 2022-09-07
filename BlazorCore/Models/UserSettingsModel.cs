@@ -56,17 +56,7 @@ public class UserSettingsModel
 	/// <param name="httpContext"></param>
 	public UserSettingsModel(HttpContext httpContext) : this()
 	{
-		if (httpContext.Connection.RemoteIpAddress is null)
-		{
-			IpAddress = string.Empty;
-		}
-		else
-		{
-			IpAddress = httpContext.Connection.RemoteIpAddress.ToString();
-			//if (httpContext.Connection.RemoteIpAddress.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-			//else
-			//	IpAddress = httpContext.Connection.RemoteIpAddress.AddressFamily.ToString();
-		}
+		IpAddress = httpContext.Connection.RemoteIpAddress is null ? string.Empty : httpContext.Connection.RemoteIpAddress.ToString();
 		Id = httpContext.Connection.Id;
 	}
 
@@ -121,7 +111,7 @@ public class UserSettingsModel
 
 	public string GetColorAccessRights(byte accessRights) => GetColorAccessRights((AccessRights)accessRights);
 
-	public void SetupUserName(string? value, RazorPageModel? parentRazorPage)
+	public void SetupUserName(string? value, RazorPageBase? parentRazorPage)
 	{
 		UserName = value ?? string.Empty;
 

@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class PrinterDirect : SerializeModel, ISerializable
+public class PrinterDirect : SqlSerializeBase, ISerializable
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,17 +13,17 @@ public class PrinterDirect : SerializeModel, ISerializable
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static PrinterDirect Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-    #endregion
+	#endregion
 
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public long Id { get; set; } = default;
-    public virtual string Name { get; set; } = string.Empty;
-    public virtual string Ip { get; set; } = string.Empty;
-    public virtual short Port { get; set; } = default;
-    public virtual string Mac { get; set; } = string.Empty;
-    public virtual string Password { get; set; } = string.Empty;
-    public virtual string PrinterType { get; set; } = string.Empty;
+	[XmlElement] public long Id { get; set; } = default;
+	[XmlElement] public string Name { get; set; } = string.Empty;
+	[XmlElement] public string Ip { get; set; } = string.Empty;
+	[XmlElement] public short Port { get; set; } = default;
+	[XmlElement] public string Mac { get; set; } = string.Empty;
+	[XmlElement] public string Password { get; set; } = string.Empty;
+	[XmlElement] public string PrinterType { get; set; } = string.Empty;
 
     #endregion
 

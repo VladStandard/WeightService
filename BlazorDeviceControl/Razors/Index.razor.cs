@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class Index : RazorPageModel
+public partial class Index : RazorPageBase
 {
     //
 }

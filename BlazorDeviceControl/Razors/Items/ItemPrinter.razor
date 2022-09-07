@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageModel
+﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/item/printer"
 @page "/item/printer/{IdentityId:long}"
 @page "/item/printer/{IdentityId:long}/{TableAction}"
@@ -47,7 +47,7 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemPrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemPrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Identity.Id)
                         Text=@LocaleCore.Print.Type />
                 </td>
                 <td>
@@ -114,7 +114,7 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <SectionPrinterResources Table=@Table ItemFilter=@ItemCast IsShowMarkedFilter=true />
+    <SectionPrinterResources Table=@Table IsShowMarkedFilter=true />
     
     <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@(this) />

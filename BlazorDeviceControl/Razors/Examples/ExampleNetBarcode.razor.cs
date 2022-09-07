@@ -6,7 +6,7 @@ using NetBarcode;
 
 namespace BlazorDeviceControl.Razors.Examples;
 
-public partial class ExampleNetBarcode : RazorPageModel
+public partial class ExampleNetBarcode : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 

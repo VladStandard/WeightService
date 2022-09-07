@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluLabel : RazorPageModel
+public partial class ItemPluLabel : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 

@@ -12,9 +12,9 @@ using Environment = System.Environment;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageModel : LayoutComponentBase
+public partial class RazorPageBase : LayoutComponentBase
 {
-    #region Public and private methods
+    #region Public and private methods - Run actions
 
     protected void RunActionsInitialized(List<Action> actionsInitialized)
     {

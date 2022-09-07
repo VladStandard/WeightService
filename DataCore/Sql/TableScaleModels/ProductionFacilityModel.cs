@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ProductionFacility".
 /// </summary>
 [Serializable]
-public class ProductionFacilityModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class ProductionFacilityModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

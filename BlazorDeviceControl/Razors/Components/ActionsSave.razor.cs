@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Razors.Components;
 /// <summary>
 /// Actions save.
 /// </summary>
-public partial class ActionsSave : RazorPageModel
+public partial class ActionsSave : RazorPageBase
 {
 	//
 }

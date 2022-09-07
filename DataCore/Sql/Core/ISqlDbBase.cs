@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.Core;
 
-public interface IDbBaseModel
+public interface ISqlDbBase
 {
     string ToString();
     bool Equals(object obj);

@@ -16,7 +16,7 @@ public class TableValidator : AbstractValidator<TableBaseModel>
     /// </summary>
     protected TableValidator(bool isCheckCreateDt = true, bool isCheckChangeDt = true)
     {
-	    RuleFor(item => item.Identity).SetValidator(new FieldIdentityValidator());
+	    RuleFor(item => item.Identity).SetValidator(new SqlFieldIdentityValidator());
         if (isCheckCreateDt)
             RuleFor(item => item.CreateDt)
                 .NotEmpty()

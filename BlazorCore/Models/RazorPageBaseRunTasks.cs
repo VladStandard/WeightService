@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageModel : LayoutComponentBase
+public partial class RazorPageBase : LayoutComponentBase
 {
-	#region Public and private methods
+	#region Public and private methods - Tun tasks
 
 	//public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
 	//{

@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Hosts".
 /// </summary>
 [Serializable]
-public class HostModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class HostModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public class HostModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string HostName { get; set; }
 	[XmlElement] public virtual string Ip { get; set; }
-	[XmlElement] public virtual FieldMacAddressModel MacAddress { get; set; }
+	[XmlElement] public virtual SqlFieldMacAddressModel MacAddress { get; set; }
 
 	[XmlElement] public virtual string MacAddressValue
 	{
@@ -50,7 +50,7 @@ public class HostModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
 		Name = info.GetString(nameof(Name));
 		HostName = info.GetString(nameof(HostName));
 		Ip = info.GetString(nameof(Ip));
-		MacAddress = (FieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(FieldMacAddressModel));
+		MacAddress = (SqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(SqlFieldMacAddressModel));
 	}
 
 	#endregion

@@ -219,7 +219,7 @@ public static class DataAccessHelperExt
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
 			scaleId = scale.Identity.Id;
-		List<FieldFilterModel>? filters = null;
+		List<SqlFieldFilterModel>? filters = null;
 		if (scaleId is not null)
 			filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(DbField.GoodsName), 0, isShowMarked, isShowOnlyTop);
@@ -231,7 +231,7 @@ public static class DataAccessHelperExt
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
 			scaleId = scale.Identity.Id;
-		List<FieldFilterModel>? filters = null;
+		List<SqlFieldFilterModel>? filters = null;
 		if (scaleId is not null)
 			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
@@ -240,7 +240,7 @@ public static class DataAccessHelperExt
 
 	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, long scaleId)
 	{
-		List<FieldFilterModel> filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
+		List<SqlFieldFilterModel> filters = new() { new($"{nameof(PluScaleModel.Scale)}.{DbField.IdentityValueId}", DbComparer.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
@@ -250,7 +250,7 @@ public static class DataAccessHelperExt
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)
 			printerId = printer.Identity.Id;
-		List<FieldFilterModel>? filters = null;
+		List<SqlFieldFilterModel>? filters = null;
 		if (printerId is not null)
 			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{DbField.IdentityValueId}", DbComparer.Equal, printerId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(DbField.Description), 0, isShowMarked, isShowOnlyTop);
@@ -310,7 +310,7 @@ public static class DataAccessHelperExt
 	public static List<TemplateModel> GetListTemplates(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		TemplateModel item = new() { Title = LocaleCore.Table.FieldNull };
-		List<FieldFilterModel>? filters = null;
+		List<SqlFieldFilterModel>? filters = null;
 		//List<TypeModel<string>>? templateCategories = DataSourceDicsHelper.Instance.GetTemplateCategories();
 		//string? templateCategory = templateCategories?.FirstOrDefault()?.Value;
 		//if (!string.IsNullOrEmpty(templateCategory))

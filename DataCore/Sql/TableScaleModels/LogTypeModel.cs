@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "LOG_TYPES".
 /// </summary>
 [Serializable]
-public class LogTypeModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class LogTypeModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

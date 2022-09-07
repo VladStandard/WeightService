@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageModel
+﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/item/plu_obsolete"
 @page "/item/plu_obsolete/{IdentityId:long}"
 @page "/item/plu_obsolete/{IdentityId:long}/{TableAction}"
@@ -29,7 +29,7 @@ else
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.Template, ItemCast.Template.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.Template, ItemCast.Template.Identity.Id)
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
@@ -55,7 +55,7 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemNomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemNomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
                         Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>
@@ -69,7 +69,7 @@ else
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemScale, ItemCast.Scale, ItemCast.Scale.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemScale, ItemCast.Scale, ItemCast.Scale.Identity.Id)
                         Text=@LocaleCore.Table.Scale />
                 </td>
                 <td>

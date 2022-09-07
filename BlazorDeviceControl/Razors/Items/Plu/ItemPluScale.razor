@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageModel
+﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/item/plu_scale"
 @page "/item/plu_scale/{IdentityUidStr}"
 @page "/item/plu_scale/{IdentityUidStr}/{TableAction}"
@@ -30,7 +30,7 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-							Path=@GetPath(LocaleCore.DeviceControl.RouteItemScale, ItemCast.Scale, ItemCast.Scale.Identity.Id)
+							Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemScale, ItemCast.Scale, ItemCast.Scale.Identity.Id)
 					    Text=@LocaleCore.Table.Scale/>
 				</td>
 				<td>
@@ -44,7 +44,7 @@ else
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
-							Path=@GetPath(LocaleCore.DeviceControl.RouteItemPlu, ItemCast.Plu, ItemCast.Plu.Identity.Uid)
+							Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemPlu, ItemCast.Plu, ItemCast.Plu.Identity.Uid)
 					    Text=@LocaleCore.Table.Plu />
 				</td>
 				<td>

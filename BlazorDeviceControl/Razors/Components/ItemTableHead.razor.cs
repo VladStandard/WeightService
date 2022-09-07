@@ -5,7 +5,7 @@ using BlazorCore.CssStyles;
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ItemTableHead : RazorPageModel
+public partial class ItemTableHead : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

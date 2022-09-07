@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Nomenclature".
 /// </summary>
 [Serializable]
-public class NomenclatureModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class NomenclatureModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

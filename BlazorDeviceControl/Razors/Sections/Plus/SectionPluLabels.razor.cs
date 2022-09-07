@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
-public partial class SectionPluLabels : RazorPageModel
+public partial class SectionPluLabels : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

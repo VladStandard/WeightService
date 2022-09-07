@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
-public class PluModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class PluModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

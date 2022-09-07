@@ -413,11 +413,11 @@ public static partial class SqlUtils
 
 	public static SqlCrudConfigModel GetCrudConfigIsMarked() => GetCrudConfig(null, null, 0, false, false);
 
-	public static SqlCrudConfigModel GetCrudConfig(List<FieldFilterModel>? filters, FieldOrderModel? order, int maxResults, bool isShowMarked, bool isShowOnlyTop)
+	public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel>? filters, SqlFieldOrderModel? order, int maxResults, bool isShowMarked, bool isShowOnlyTop)
 	{
 		maxResults = isShowOnlyTop ? DataAccess.JsonSettingsLocal.SelectTopRowsCount : maxResults;
 		SqlCrudConfigModel sqlCrudConfig = new(filters, order, maxResults);
-		List<FieldFilterModel> filtersMarked = new() { new(DbField.IsMarked, DbComparer.Equal, false) };
+		List<SqlFieldFilterModel> filtersMarked = new() { new(DbField.IsMarked, DbComparer.Equal, false) };
 		if (!isShowMarked)
 		{
 			switch (sqlCrudConfig.Filters)

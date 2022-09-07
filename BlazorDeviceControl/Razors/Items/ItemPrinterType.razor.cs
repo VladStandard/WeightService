@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemPrinterType : RazorPageModel
+public partial class ItemPrinterType : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

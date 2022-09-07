@@ -4,24 +4,24 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class NomenclatureDirect : SerializeModel, ISerializable
+public class NomenclatureDirect : SqlSerializeBase, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public long Id { get; set; } = default;
-    public string? Name { get; set; } = string.Empty;
-    public DateTime CreateDate { get; set; } = default;
-    public DateTime ChangeDt { get; set; } = default;
-    public string? RRefID { get; set; } = default;
-    public string? Code { get; set; } = default;
-    public bool IsMarked { get; set; } = false;
-    public string NameFull { get; set; } = "";
-    public string Description { get; set; } = string.Empty;
-    public string Comment { get; set; } = string.Empty;
-    public string Brand { get; set; } = string.Empty;
-    public string GUID_Mercury { get; set; } = string.Empty;
-    public string NomenclatureType { get; set; } = string.Empty;
-    public string VATRate { get; set; } = string.Empty;
+	[XmlElement] public long Id { get; set; } = default;
+	[XmlElement] public string? Name { get; set; } = string.Empty;
+	[XmlElement] public DateTime CreateDate { get; set; } = default;
+	[XmlElement] public DateTime ChangeDt { get; set; } = default;
+	[XmlElement] public string? RRefID { get; set; } = default;
+	[XmlElement] public string? Code { get; set; } = default;
+	[XmlElement] public bool IsMarked { get; set; } = false;
+	[XmlElement] public string NameFull { get; set; } = "";
+	[XmlElement] public string Description { get; set; } = string.Empty;
+	[XmlElement] public string Comment { get; set; } = string.Empty;
+	[XmlElement] public string Brand { get; set; } = string.Empty;
+	[XmlElement] public string GUID_Mercury { get; set; } = string.Empty;
+	[XmlElement] public string NomenclatureType { get; set; } = string.Empty;
+	[XmlElement] public string VATRate { get; set; } = string.Empty;
 
 	/// <summary>
 	/// Constructor.

@@ -6,19 +6,19 @@ using DataCore.Sql.Core;
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class ProductSeriesDirect : SerializeModel, ISerializable
+public class ProductSeriesDirect : SqlSerializeBase, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public long Id { get; set; }
-    public Guid Uuid { get; set; }
-    public ScaleModel Scale { get; set; }
-    public DateTime CreateDate { get; set; }
-    public SsccDirect Sscc { get; set; }
-    public int CountUnit { get; set; }
-    public decimal TotalNetWeight { get; set; }
-    public decimal TotalTareWeight { get; set; }
-    public bool IsMarked { get; set; }
+	[XmlElement] public long Id { get; set; }
+	[XmlElement] public Guid Uuid { get; set; }
+	[XmlElement] public ScaleModel Scale { get; set; }
+	[XmlElement] public DateTime CreateDate { get; set; }
+	[XmlElement] public SsccDirect Sscc { get; set; }
+	[XmlElement] public int CountUnit { get; set; }
+	[XmlElement] public decimal TotalNetWeight { get; set; }
+	[XmlElement] public decimal TotalTareWeight { get; set; }
+	[XmlElement] public bool IsMarked { get; set; }
 
     #endregion
 

@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS_WEIGHINGS".
 /// </summary>
 [Serializable]
-public class PluWeighingModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class PluWeighingModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

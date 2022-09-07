@@ -9,7 +9,7 @@ namespace DataCore.Sql.Fields;
 /// MAC address.
 /// </summary>
 [Serializable]
-public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -47,9 +47,9 @@ public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, IS
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public FieldMacAddressModel()
+	public SqlFieldMacAddressModel()
     {
-	    FieldName = nameof(FieldMacAddressModel);
+	    FieldName = nameof(SqlFieldMacAddressModel);
 		_value = string.Empty;
     }
 
@@ -57,7 +57,7 @@ public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, IS
     /// Constructor.
     /// </summary>
     /// <param name="address"></param>
-    public FieldMacAddressModel(string address) : this()
+    public SqlFieldMacAddressModel(string address) : this()
     {
         _value = address;
     }
@@ -67,7 +67,7 @@ public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, IS
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	protected FieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	protected SqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
 	    _value = info.GetString(nameof(Value));
     }
@@ -84,14 +84,14 @@ public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, IS
 	    if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((FieldMacAddressModel)obj);
+        return Equals((SqlFieldMacAddressModel)obj);
     }
 
 	public override int GetHashCode() => Value.GetHashCode();
 
     public override bool EqualsNew()
     {
-        return Equals(new FieldMacAddressModel());
+        return Equals(new SqlFieldMacAddressModel());
     }
 
     public override bool EqualsDefault()
@@ -101,7 +101,7 @@ public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, IS
 
     public override object Clone()
     {
-        FieldMacAddressModel item = new()
+        SqlFieldMacAddressModel item = new()
         {
             Value = Value,
         };
@@ -143,13 +143,13 @@ public class FieldMacAddressModel : FieldBaseModel, ICloneable, IDbBaseModel, IS
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(FieldMacAddressModel item)
+	public virtual bool Equals(SqlFieldMacAddressModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return Equals(Value, item.Value);
 	}
 
-	public new virtual FieldMacAddressModel CloneCast() => (FieldMacAddressModel)Clone();
+	public new virtual SqlFieldMacAddressModel CloneCast() => (SqlFieldMacAddressModel)Clone();
 
 	#endregion
 }

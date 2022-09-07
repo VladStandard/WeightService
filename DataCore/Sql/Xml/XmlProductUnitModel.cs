@@ -9,7 +9,7 @@ namespace DataCore.Sql.Xml;
 /// XML-класс юнита продукта.
 /// </summary>
 [Serializable]
-public class XmlProductUnitModel : ISerializable, IDbBaseModel
+public class XmlProductUnitModel : ISerializable, ISqlDbBase
 {
 	#region Public and private fields, properties, constructor
 

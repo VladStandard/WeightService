@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageModel
+﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/item/plu"
 @page "/item/plu/{IdentityUidStr}"
 @page "/item/plu/{IdentityUidStr}/{TableAction}"
@@ -36,7 +36,7 @@ else
 			<tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.Template, ItemCast.Template.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.Template, ItemCast.Template.Identity.Id)
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
@@ -56,7 +56,7 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemNomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemNomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
                         Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>

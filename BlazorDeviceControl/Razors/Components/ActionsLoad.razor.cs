@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsLoad : RazorPageModel
+public partial class ActionsLoad : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -144,7 +144,7 @@ public class DataCoreHelper
 
 	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableBaseModel, new()
 	{
-		FieldIdentityModel fieldIdentity = Substitute.For<FieldIdentityModel>(ColumnName.Default);
+		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(ColumnName.Default);
 		fieldIdentity.Name.Returns(ColumnName.Default);
 		fieldIdentity.Uid.Returns(Guid.NewGuid());
 		fieldIdentity.Id.Returns(-1);
@@ -311,13 +311,13 @@ public class DataCoreHelper
 		});
 	}
 
-	public void FieldBaseModelAssertEqualsNew<T>() where T : FieldBaseModel, new()
+	public void FieldBaseModelAssertEqualsNew<T>() where T : SqlFieldBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			FieldBaseModel baseItem = new();
+			SqlFieldBase baseItem = new();
 			// Act.
 			bool itemEqualsNew = item.EqualsNew();
 			bool baseEqualsNew = baseItem.EqualsNew();
@@ -363,14 +363,14 @@ public class DataCoreHelper
 		});
 	}
 
-	public void FieldBaseModelAssertSerialize<T>() where T : FieldBaseModel, new()
+	public void FieldBaseModelAssertSerialize<T>() where T : SqlFieldBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 #pragma warning disable SYSLIB0011
 			// Arrange.
 			T item1 = new();
-			FieldBaseModel base1 = new();
+			SqlFieldBase base1 = new();
 			BinaryFormatter binaryFormatterItem = new();
 			BinaryFormatter binaryFormatterBase = new();
 			MemoryStream memoryStreamItem = new();
@@ -417,13 +417,13 @@ public class DataCoreHelper
 		});
 	}
 
-	public void FieldBaseModelAssertToString<T>() where T : FieldBaseModel, new()
+	public void FieldBaseModelAssertToString<T>() where T : SqlFieldBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			FieldBaseModel baseItem = new();
+			SqlFieldBase baseItem = new();
 			// Act.
 			string itemString = item.ToString();
 			string baseString = baseItem.ToString();

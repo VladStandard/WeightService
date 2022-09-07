@@ -10,7 +10,7 @@ namespace DataCore.Sql.Fields;
 /// DB table sorting model.
 /// </summary>
 [Serializable]
-public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerializable
+public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,7 @@ public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerial
     /// <summary>
     /// Constructor.
     /// </summary>
-    public FieldOrderModel()
+    public SqlFieldOrderModel()
     {
 	    Name = DbField.Default;
 	    Direction = DbOrderDirection.Asc;
@@ -37,7 +37,7 @@ public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerial
 	/// </summary>
 	/// <param name="name"></param>
 	/// <param name="direction"></param>
-	public FieldOrderModel(DbField name, DbOrderDirection direction = DbOrderDirection.Asc)
+	public SqlFieldOrderModel(DbField name, DbOrderDirection direction = DbOrderDirection.Asc)
     {
         Name = name;
         Direction = direction;
@@ -48,7 +48,7 @@ public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerial
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected FieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
+    protected SqlFieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
     {
         Name = (DbField)info.GetValue(nameof(Name), typeof(DbField));
         Direction = (DbOrderDirection)info.GetValue(nameof(Direction), typeof(DbOrderDirection));
@@ -67,7 +67,7 @@ public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerial
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 	    if (obj.GetType() != GetType()) return false;
-	    return Equals((FieldOrderModel)obj);
+	    return Equals((SqlFieldOrderModel)obj);
     }
 
 	public override int GetHashCode() => (Name, Direction).GetHashCode();
@@ -90,13 +90,13 @@ public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerial
 		Equals(Name, ColumnName.Default) &&
 		Equals(Direction, DbOrderDirection.Asc);
 
-	public virtual object Clone() => new FieldOrderModel(Name, Direction);
+	public virtual object Clone() => new SqlFieldOrderModel(Name, Direction);
 
 	#endregion
 
 	#region Public and private methods - virtual
 
-	protected virtual bool Equals(FieldOrderModel item)
+	protected virtual bool Equals(SqlFieldOrderModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return
@@ -104,7 +104,7 @@ public class FieldOrderModel : SerializeModel, ICloneable, IDbBaseModel, ISerial
 			Direction.Equals(item.Direction);
 	}
 
-	public virtual FieldOrderModel CloneCast() => (FieldOrderModel)Clone();
+	public virtual SqlFieldOrderModel CloneCast() => (SqlFieldOrderModel)Clone();
 
 	#endregion
 }

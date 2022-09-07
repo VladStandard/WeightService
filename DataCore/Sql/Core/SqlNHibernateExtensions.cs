@@ -6,14 +6,14 @@ using NHibernate.Criterion;
 
 namespace DataCore.Sql.Core;
 
-public static class NHibernateExtensions
+public static class SqlNHibernateExtensions
 {
-    public static void SetCriteriaFilters(this ICriteria criteria, List<FieldFilterModel>? filters)
+    public static void SetCriteriaFilters(this ICriteria criteria, List<SqlFieldFilterModel>? filters)
     {
         if (filters is null)
             return;
 
-        foreach (FieldFilterModel filter in filters)
+        foreach (SqlFieldFilterModel filter in filters)
         {
             AbstractCriterion? criterion = filter.Comparer switch
             {
@@ -26,7 +26,7 @@ public static class NHibernateExtensions
         }
     }
 
-    public static void SetCriteriaOrder(this ICriteria criteria, FieldOrderModel? order)
+    public static void SetCriteriaOrder(this ICriteria criteria, SqlFieldOrderModel? order)
     {
         if (order is not null)
         {
@@ -35,5 +35,4 @@ public static class NHibernateExtensions
             criteria.AddOrder(fieldOrder);
         }
     }
-
 }

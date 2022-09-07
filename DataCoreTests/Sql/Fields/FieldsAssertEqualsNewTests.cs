@@ -13,18 +13,18 @@ internal class FieldsAssertEqualsNewTests
     [Test]
     public void FieldBinaryModel_Assert_EqualsNew()
     {
-        DataCore.FieldBaseModelAssertEqualsNew<FieldBinaryModel>();
+        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
     }
 
     [Test]
     public void FieldIdentityModel_Assert_EqualsNew()
     {
-        DataCore.FieldBaseModelAssertEqualsNew<FieldIdentityModel>();
+        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
     }
 
     [Test]
     public void FieldMacAddressModel_Assert_EqualsNew()
     {
-        DataCore.FieldBaseModelAssertEqualsNew<FieldMacAddressModel>();
+        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
     }
 }

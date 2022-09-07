@@ -11,7 +11,7 @@ using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageModel : LayoutComponentBase
+public partial class RazorPageBase : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -40,7 +40,7 @@ public partial class RazorPageModel : LayoutComponentBase
     [Parameter] public long? IdentityId { get; set; }
     [Parameter] public List<TableBaseModel>? Items { get; set; }
     [Parameter] public List<TableBaseModel>? ItemsFilter { get; set; }
-    [Parameter] public RazorPageModel? ParentRazor { get; set; }
+    [Parameter] public RazorPageBase? ParentRazor { get; set; }
     [Parameter] public string? FilterCaption { get; set; }
     [Parameter] public string? FilterName { get; set; }
     [Parameter] public TableBase Table { get; set; }
@@ -56,7 +56,7 @@ public partial class RazorPageModel : LayoutComponentBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public RazorPageModel()
+	public RazorPageBase()
 	{
 		NotificationService = null;
 		NavigationManager = null;
@@ -93,10 +93,8 @@ public partial class RazorPageModel : LayoutComponentBase
 				IdentityUid = ParentRazor.IdentityUid;
 			if (ParentRazor.Item is not null)
 				Item = ParentRazor.Item;
-			if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
-			{
+			if (!string.IsNullOrEmpty(ParentRazor.Table.Name)) 
 				Table = ParentRazor.Table;
-			}
 			if (ParentRazor.TableAction != DbTableAction.Default)
 				TableAction = ParentRazor.TableAction;
 

@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ORDERS".
 /// </summary>
 [Serializable]
-public class OrderModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class OrderModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

@@ -5,12 +5,12 @@ using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Fields;
 
-public class FieldIdentityValidator : AbstractValidator<FieldIdentityModel>
+public class SqlFieldIdentityValidator : AbstractValidator<SqlFieldIdentityModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public FieldIdentityValidator()
+	public SqlFieldIdentityValidator()
 	{
 		RuleFor(item => item.Id)
 			.NotEmpty()

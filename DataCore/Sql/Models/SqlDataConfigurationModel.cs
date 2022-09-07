@@ -3,7 +3,7 @@
 
 namespace DataCore.Sql.Models;
 
-public class DataConfigurationModel
+public class SqlDataConfigurationModel
 {
     #region Public and private fields, properties, constructor
 
@@ -11,7 +11,7 @@ public class DataConfigurationModel
     public int PageNo { get; set; }
     public int PageSize { get; set; }
 
-    public DataConfigurationModel(bool orderAsc = true, int pageNo = 0, int pageSize = 10)
+    public SqlDataConfigurationModel(bool orderAsc = true, int pageNo = 0, int pageSize = 10)
     {
         OrderAsc = orderAsc;
         PageNo = pageNo;

@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageModel
+﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/item/workshop"
 @page "/item/workshop/{IdentityId:long}"
 @page "/item/workshop/{IdentityId:long}/{TableAction}"
@@ -32,7 +32,7 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
+                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
                         Text=@LocaleCore.Table.ProductionFacilityName />
                 </td>
                 <td colspan=3>

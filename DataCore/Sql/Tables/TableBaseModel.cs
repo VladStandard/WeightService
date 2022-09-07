@@ -10,11 +10,11 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class TableBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISerializable
+public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual FieldIdentityModel Identity { get; }
+	[XmlElement] public virtual SqlFieldIdentityModel Identity { get; }
 	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
     [XmlElement] public virtual DateTime CreateDt { get; set; }
@@ -42,9 +42,9 @@ public class TableBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISeriali
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableBaseModel(FieldIdentityModel identity) : this()
+    public TableBaseModel(SqlFieldIdentityModel identity) : this()
 	{
-		Identity = (FieldIdentityModel)identity.Clone();
+		Identity = (SqlFieldIdentityModel)identity.Clone();
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class TableBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISeriali
     /// </summary>
     protected TableBaseModel(SerializationInfo info, StreamingContext context)
     {
-		Identity = (FieldIdentityModel)info.GetValue(nameof(Identity), typeof(FieldIdentityModel));
+		Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));

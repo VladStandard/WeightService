@@ -4,11 +4,11 @@
 namespace DataCore.Sql.TableDirectModels;
 
 [Serializable]
-public class SsccDirect : SerializeModel, ISerializable
+public class SsccDirect : SqlSerializeBase, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    [XmlElement("SSCC")] public string Sscc { get; set; } = string.Empty;
+	[XmlElement("SSCC")] public string Sscc { get; set; } = string.Empty;
     [XmlElement("GLN")] public string Gln { get; set; } = string.Empty;
 	[XmlElement("UnitID")] public int UnitId { get; set; }
     [XmlElement("UnitType")] public byte UnitType { get; set; }

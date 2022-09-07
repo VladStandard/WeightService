@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsButtons : RazorPageModel
+public partial class ActionsButtons : RazorPageBase
 {
 	//
 }

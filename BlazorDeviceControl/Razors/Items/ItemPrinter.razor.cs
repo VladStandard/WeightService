@@ -5,11 +5,12 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemPrinter : RazorPageModel
+public partial class ItemPrinter : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
 	private PrinterModel ItemCast { get => Item == null ? new() : (PrinterModel)Item; set => Item = value; }
+	private PrinterModel ItemFilterCast { get => Item == null ? new() : (PrinterModel)Item; set => Item = value; }
 	private List<PrinterTypeModel> PrinterTypes { get; set; }
 
 	#endregion

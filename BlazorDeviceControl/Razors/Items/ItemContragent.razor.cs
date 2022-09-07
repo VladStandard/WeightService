@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemContragent : RazorPageModel
+public partial class ItemContragent : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

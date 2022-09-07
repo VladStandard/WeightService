@@ -7,7 +7,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class DeviceModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class DeviceModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

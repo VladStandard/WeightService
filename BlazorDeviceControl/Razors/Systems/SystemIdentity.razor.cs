@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Components;
 namespace BlazorDeviceControl.Razors.Systems;
 
-public partial class SystemIdentity : RazorPageModel
+public partial class SystemIdentity : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class NavMenu : RazorPageModel
+public partial class NavMenu : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 

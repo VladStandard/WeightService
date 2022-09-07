@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ORDERS_WEIGHINGS".
 /// </summary>
 [Serializable]
-public class OrderWeighingModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class OrderWeighingModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

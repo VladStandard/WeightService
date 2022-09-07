@@ -10,14 +10,14 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TemplateResources".
 /// </summary>
 [Serializable]
-public class TemplateResourceModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class TemplateResourceModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string Type { get; set; }
-	[XmlElement] public virtual FieldBinaryModel ImageData { get; set; }
+	[XmlElement] public virtual SqlFieldBinaryModel ImageData { get; set; }
 	[XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 
@@ -43,7 +43,7 @@ public class TemplateResourceModel : TableBaseModel, ICloneable, IDbBaseModel, I
 		Name = info.GetString(nameof(Name));
 		Description = info.GetString(nameof(Description));
 		Type = info.GetString(nameof(Type));
-		ImageData = (FieldBinaryModel)info.GetValue(nameof(ImageData), typeof(FieldBinaryModel));
+		ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));
 		IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));
 	}
 

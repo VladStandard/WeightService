@@ -8,7 +8,7 @@ using static DataCore.ShareEnums;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class LogQuickModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class LogQuickModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

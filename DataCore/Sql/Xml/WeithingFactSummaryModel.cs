@@ -7,7 +7,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class WeithingFactSummaryModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class WeithingFactSummaryModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

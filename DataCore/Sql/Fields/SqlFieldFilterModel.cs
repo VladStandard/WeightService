@@ -9,7 +9,7 @@ namespace DataCore.Sql.Fields;
 /// DB table field comparing model.
 /// </summary>
 [Serializable]
-public class FieldFilterModel
+public class SqlFieldFilterModel
 {
     #region Public and private fields, properties, constructor
 
@@ -32,7 +32,7 @@ public class FieldFilterModel
     /// <param name="field"></param>
     /// <param name="comparer"></param>
     /// <param name="value"></param>
-    public FieldFilterModel(DbField field, DbComparer comparer, object? value)
+    public SqlFieldFilterModel(DbField field, DbComparer comparer, object? value)
     {
         Name = field.ToString();
         Comparer = comparer;
@@ -44,7 +44,7 @@ public class FieldFilterModel
     /// </summary>
     /// <param name="field"></param>
     /// <param name="value"></param>
-    public FieldFilterModel(DbField field, object? value)
+    public SqlFieldFilterModel(DbField field, object? value)
     {
         Name = field.ToString();
         Comparer = DbComparer.Equal;
@@ -58,7 +58,7 @@ public class FieldFilterModel
     /// <param name="comparer"></param>
     /// <param name="value"></param>
     /// <param name="valueType"></param>
-    public FieldFilterModel(string name, DbComparer comparer, object? value, Type? valueType = null)
+    public SqlFieldFilterModel(string name, DbComparer comparer, object? value, Type? valueType = null)
     {
         Name = name;
         Comparer = comparer;
@@ -74,7 +74,7 @@ public class FieldFilterModel
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public virtual bool Equals(FieldFilterModel item)
+    public virtual bool Equals(SqlFieldFilterModel item)
     {
 		if (Value == null && item.Value != null) return false;
         if (Value != null && item.Value == null) return false;
@@ -94,7 +94,7 @@ public class FieldFilterModel
 	    if (ReferenceEquals(null, obj)) return false;
 	    if (ReferenceEquals(this, obj)) return true;
 	    if (obj.GetType() != GetType()) return false;
-        return Equals((FieldFilterModel)obj);
+        return Equals((SqlFieldFilterModel)obj);
     }
 
     /// <summary>

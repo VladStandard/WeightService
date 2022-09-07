@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ProductSeries".
 /// </summary>
 [Serializable]
-public class ProductSeriesModel : TableBaseModel, ICloneable, IDbBaseModel, ISerializable
+public class ProductSeriesModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

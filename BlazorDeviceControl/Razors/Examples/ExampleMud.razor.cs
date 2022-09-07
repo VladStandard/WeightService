@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Razors.Examples;
 /// <summary>
 /// MUD Blazor page.
 /// </summary>
-public partial class ExampleMud : RazorPageModel
+public partial class ExampleMud : RazorPageBase
 {
     #region Public and private fields, properties, constructor
 

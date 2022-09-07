@@ -10,7 +10,7 @@ namespace DataCore.Sql.Fields;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class FieldBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISerializable
+public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -19,15 +19,15 @@ public class FieldBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISeriali
     /// <summary>
     /// Constructor.
     /// </summary>
-    public FieldBaseModel()
+    public SqlFieldBase()
     {
-	    FieldName = nameof(FieldBaseModel);
+	    FieldName = nameof(SqlFieldBase);
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected FieldBaseModel(SerializationInfo info, StreamingContext context)// : base(info, context)
+    protected SqlFieldBase(SerializationInfo info, StreamingContext context)// : base(info, context)
     {
 	    FieldName = info.GetString(nameof(FieldName));
     }
@@ -43,7 +43,7 @@ public class FieldBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISeriali
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((FieldBaseModel)obj);
+        return Equals((SqlFieldBase)obj);
     }
     
     public override int GetHashCode() => FieldName.GetHashCode();
@@ -65,7 +65,7 @@ public class FieldBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISeriali
 
 	public virtual bool EqualsNew() => Equals(new());
 
-	public virtual bool Equals(FieldBaseModel item)
+	public virtual bool Equals(SqlFieldBase item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return
@@ -74,14 +74,14 @@ public class FieldBaseModel : SerializeModel, ICloneable, IDbBaseModel, ISeriali
 
 	public virtual bool EqualsDefault() => Equals(FieldName, string.Empty);
 
-	public virtual object Clone() => new FieldBaseModel()
+	public virtual object Clone() => new SqlFieldBase()
 	{
 		FieldName = FieldName,
 	};
 
-	public virtual FieldBaseModel CloneCast() => (FieldBaseModel)Clone();
+	public virtual SqlFieldBase CloneCast() => (SqlFieldBase)Clone();
 
-	public virtual void CloneSetup(FieldBaseModel item)
+	public virtual void CloneSetup(SqlFieldBase item)
 	{
 		FieldName = item.FieldName;
 	}
