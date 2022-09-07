@@ -91,11 +91,11 @@ public partial class RazorPageModel : LayoutComponentBase
 	//        }
 	//    }
 	//    if (!string.IsNullOrEmpty(success))
-	//        NotificationService.Notify(NotificationSeverity.Success, title + Environment.NewLine, success, AppSettingsHelper.Delay);
+	//        NotificationService?.Notify(NotificationSeverity.Success, title + Environment.NewLine, success, AppSettingsHelper.Delay);
 	//    else
 	//    {
 	//        if (!string.IsNullOrEmpty(cancel))
-	//            NotificationService.Notify(NotificationSeverity.Info, title + Environment.NewLine, cancel, AppSettingsHelper.Delay);
+	//            NotificationService?.Notify(NotificationSeverity.Info, title + Environment.NewLine, cancel, AppSettingsHelper.Delay);
 	//    }
 	//}
 

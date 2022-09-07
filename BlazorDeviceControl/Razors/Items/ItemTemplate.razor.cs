@@ -20,16 +20,22 @@ public partial class ItemTemplate : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleModel(ProjectsEnums.TableScale.Templates);
-		TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
-		ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableScaleModel(ProjectsEnums.TableScale.Templates);
+				TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
+				ItemCast = new();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

@@ -33,17 +33,23 @@ public partial class ItemPrinterResource : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersResources);
-		ItemCast = new();
-		Printers = new();
-		Resources = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersResources);
+				ItemCast = new();
+				Printers = new();
+				Resources = new();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

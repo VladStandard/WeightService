@@ -19,15 +19,21 @@ public partial class ItemHost : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
-		ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
+				ItemCast = new();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

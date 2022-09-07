@@ -19,15 +19,21 @@ public partial class ItemPluWeighing : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
-        ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
+		        ItemCast = new();
+			}
+		});
 	}
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

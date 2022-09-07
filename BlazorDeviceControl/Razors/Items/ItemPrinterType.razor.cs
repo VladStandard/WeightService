@@ -19,15 +19,21 @@ public partial class ItemPrinterType : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersTypes);
-		ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersTypes);
+				ItemCast = new();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

@@ -27,15 +27,21 @@ public partial class ItemTemplateResource : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.TemplatesResources);
-        ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.TemplatesResources);
+		        ItemCast = new();
+			}
+		});
 	}
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {
@@ -57,7 +63,7 @@ public partial class ItemTemplateResource : RazorPageModel
             Detail = args.Message,
             Duration = AppSettingsHelper.Delay
         };
-        NotificationService.Notify(msg);
+        NotificationService?.Notify(msg);
     }
 
     private void OnFileUpload(InputFileChangeEventArgs e)

@@ -25,18 +25,24 @@ public partial class ItemPluObsolete : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusObsolete);
-        ItemCast = new();
-        Scales = new();
-        Templates = new();
-        Nomenclatures = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusObsolete);
+		        ItemCast = new();
+		        Scales = new();
+		        Templates = new();
+		        Nomenclatures = new();
+			}
+		});
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

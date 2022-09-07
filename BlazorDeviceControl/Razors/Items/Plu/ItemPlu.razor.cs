@@ -26,19 +26,25 @@ public partial class ItemPlu : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.Plus);
-        ItemCast = new();
-        Templates = new();
-        Nomenclatures = new();
-        Scales = new();
-        Plus = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.Plus);
+		        ItemCast = new();
+		        Templates = new();
+		        Nomenclatures = new();
+		        Scales = new();
+		        Plus = new();
+			}
+		});
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

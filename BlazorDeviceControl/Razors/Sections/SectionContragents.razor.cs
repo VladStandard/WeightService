@@ -23,15 +23,21 @@ public partial class SectionContragents : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.Contragents);
-        ItemsCast = new();
+        RunActionsInitialized(new()
+        {
+	        () =>
+	        {
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.Contragents);
+		        ItemsCast = new();
+	        }
+        });
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

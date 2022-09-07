@@ -23,16 +23,22 @@ public partial class SectionPrinterTypes : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersTypes);
-        IsShowMarkedFilter = true;
-		ItemsCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.PrintersTypes);
+		        IsShowMarkedFilter = true;
+				ItemsCast = new();
+			}
+		});
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

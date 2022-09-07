@@ -23,16 +23,22 @@ public partial class SectionPluWeighingsAggr : RazorPageModel
 	protected override void OnInitialized()
     {
         base.OnInitialized();
-        
-        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
-        ItemsCast = new();
+
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
+		        ItemsCast = new();
+			}
+		});
 	}
 
     protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
             () =>
             {

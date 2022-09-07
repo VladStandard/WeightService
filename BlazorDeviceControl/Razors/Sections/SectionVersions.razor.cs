@@ -23,15 +23,21 @@ public partial class SectionVersions : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableSystemModel(ProjectsEnums.TableSystem.Versions);
-        ItemsCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableSystemModel(ProjectsEnums.TableSystem.Versions);
+		        ItemsCast = new();
+			}
+		});
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

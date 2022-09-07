@@ -14,6 +14,7 @@ public partial class SystemIdentity : RazorPageModel
 
 	public SystemIdentity()
 	{
+		AuthorizingText = string.Empty;
 		Langs = new();
 		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
 			Langs.Add(lang);

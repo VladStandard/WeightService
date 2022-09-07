@@ -27,27 +27,33 @@ public partial class ExampleNetBarcode : RazorPageModel
     {
         base.OnInitialized();
 
-        Barcode = new();
-        BarcodeTypes = new();
-        foreach (BarcodeType value in Enum.GetValues(typeof(BarcodeType)))
-	        BarcodeTypes.Add(value);
-        BarcodeType = BarcodeType.Code128;
-        ImageFormats = new()
-        {
-	        ImageFormat.Bmp,
-	        ImageFormat.Emf,
-	        ImageFormat.Exif,
-	        ImageFormat.Gif,
-	        ImageFormat.Icon,
-	        ImageFormat.Jpeg,
-	        ImageFormat.MemoryBmp,
-	        ImageFormat.Png,
-	        ImageFormat.Tiff,
-	        ImageFormat.Wmf
-        };
-        ImageFormat = ImageFormat.Jpeg;
-        BarcodeValue = string.Empty;
-        BarcodeImage = string.Empty;
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Barcode = new();
+		        BarcodeTypes = new();
+		        foreach (BarcodeType value in Enum.GetValues(typeof(BarcodeType)))
+			        BarcodeTypes.Add(value);
+		        BarcodeType = BarcodeType.Code128;
+		        ImageFormats = new()
+		        {
+			        ImageFormat.Bmp,
+			        ImageFormat.Emf,
+			        ImageFormat.Exif,
+			        ImageFormat.Gif,
+			        ImageFormat.Icon,
+			        ImageFormat.Jpeg,
+			        ImageFormat.MemoryBmp,
+			        ImageFormat.Png,
+			        ImageFormat.Tiff,
+			        ImageFormat.Wmf
+		        };
+		        ImageFormat = ImageFormat.Jpeg;
+		        BarcodeValue = string.Empty;
+		        BarcodeImage = string.Empty;
+			}
+		});
 	}
 
 	private void RedrawImage()

@@ -35,21 +35,27 @@ public partial class ItemScaleCore : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableScaleModel(ProjectsEnums.TableScale.Scales);
-		Printers = new();
-		ComPorts = new();
-		Hosts = new();
-		ProductionFacilities = new();
-		WorkShops = new();
-		Templates = new();
-		ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableScaleModel(ProjectsEnums.TableScale.Scales);
+				Printers = new();
+				ComPorts = new();
+				Hosts = new();
+				ProductionFacilities = new();
+				WorkShops = new();
+				Templates = new();
+				ItemCast = new();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

@@ -306,7 +306,7 @@ public partial class RazorPageModel : LayoutComponentBase
         {
             case DbTableAction.Copy:
             case DbTableAction.New:
-                NavigationManager.NavigateTo($"{page}/{tableAction}");
+                NavigationManager?.NavigateTo($"{page}/{tableAction}");
                 break;
             case DbTableAction.Edit:
                 if (item is null)
@@ -314,10 +314,10 @@ public partial class RazorPageModel : LayoutComponentBase
                 switch (item.Identity.Name)
                 {
                     case ColumnName.Id:
-                        NavigationManager.NavigateTo($"{page}/{item.Identity.Id}");
+                        NavigationManager?.NavigateTo($"{page}/{item.Identity.Id}");
                         break;
                     case ColumnName.Uid:
-                        NavigationManager.NavigateTo($"{page}/{item.Identity.Uid}");
+                        NavigationManager?.NavigateTo($"{page}/{item.Identity.Uid}");
                         break;
                 }
                 break;
@@ -329,15 +329,15 @@ public partial class RazorPageModel : LayoutComponentBase
         _ = Task.Run(async () =>
         {
             if (IdentityUid is not null && IdentityUid != Guid.Empty)
-                await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityUid}", "_blank").ConfigureAwait(false);
+                await JsRuntime?.InvokeAsync<object>("open", $"{page}/{IdentityUid}", "_blank").ConfigureAwait(false);
             else if (IdentityId is not null && JsRuntime is not null)
-                await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityId}", "_blank").ConfigureAwait(false);
+                await JsRuntime?.InvokeAsync<object>("open", $"{page}/{IdentityId}", "_blank").ConfigureAwait(false);
         }).ConfigureAwait(true);
     }
 
     public void RouteSectionNavigateToRoot()
     {
-        NavigationManager.NavigateTo(LocaleCore.DeviceControl.RouteSystemRoot);
+        NavigationManager?.NavigateTo(LocaleCore.DeviceControl.RouteSystemRoot);
     }
 
     private void RouteSectionNavigate(bool isNewWindow)
@@ -348,13 +348,13 @@ public partial class RazorPageModel : LayoutComponentBase
 
         if (!isNewWindow)
         {
-            NavigationManager.NavigateTo(page);
+            NavigationManager?.NavigateTo(page);
         }
         else
         {
             _ = Task.Run(async () =>
             {
-                await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                await JsRuntime?.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
             }).ConfigureAwait(true);
         }
     }

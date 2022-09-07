@@ -19,15 +19,21 @@ public partial class ItemLog : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableSystemModel(ProjectsEnums.TableSystem.Logs);
-		ItemCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableSystemModel(ProjectsEnums.TableSystem.Logs);
+				ItemCast = new();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

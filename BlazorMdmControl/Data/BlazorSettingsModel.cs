@@ -129,7 +129,7 @@
 //                                //if (!isNewWindow)
 //                                Navigation.NavigateTo($"{page}/{item.Id}");
 //                                //else
-//                                //    await JsRuntime.InvokeAsync<object>("open", $"{page}/{item.Id}", "_blank").ConfigureAwait(false);
+//                                //    await JsRuntime?.InvokeAsync<object>("open", $"{page}/{item.Id}", "_blank").ConfigureAwait(false);
 //                                break;
 //                        }
 //                        break;

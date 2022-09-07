@@ -10,7 +10,6 @@ public partial class ItemPluScale : RazorPageModel
 {
     #region Public and private fields, properties, constructor
 
-    private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
     private List<NomenclatureModel> Nomenclatures { get; set; }
     private List<TemplateModel> Templates { get; set; }
     private List<ScaleModel> Scales { get; set; }
@@ -25,19 +24,25 @@ public partial class ItemPluScale : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusScales);
-        ItemCast = new();
-        Templates = new();
-        Nomenclatures = new();
-        Scales = new();
-        Plus = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusScales);
+		        ItemCast = new();
+		        Templates = new();
+		        Nomenclatures = new();
+		        Scales = new();
+		        Plus = new();
+			}
+		});
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

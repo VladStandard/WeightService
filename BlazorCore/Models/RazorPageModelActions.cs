@@ -30,11 +30,6 @@ public partial class RazorPageModel : LayoutComponentBase
         IsActionsParametersSetFinished = true;
     }
 
-    protected void RunActionsSilent(List<Action> actions)
-    {
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actions);
-    }
-
     private void RunActionsSafe(string success, string fail, List<Action> actions, [CallerMemberName] string memberName = "")
     {
         try
@@ -47,7 +42,7 @@ public partial class RazorPageModel : LayoutComponentBase
                 }
             }
             if (!string.IsNullOrEmpty(success))
-                NotificationService.Notify(NotificationSeverity.Success,
+                NotificationService?.Notify(NotificationSeverity.Success,
                     $"{LocaleCore.Action.ActionMethod}: {memberName}" + Environment.NewLine, success, AppSettingsHelper.Delay);
         }
         catch (Exception ex)
@@ -68,14 +63,14 @@ public partial class RazorPageModel : LayoutComponentBase
         if (!string.IsNullOrEmpty(fail))
         {
             if (!string.IsNullOrEmpty(msg))
-                NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail + Environment.NewLine + msg, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail + Environment.NewLine + msg, AppSettingsHelper.Delay);
             else
-                NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail, AppSettingsHelper.Delay);
         }
         else
         {
             if (!string.IsNullOrEmpty(msg))
-                NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
         }
 
         // SQL log.
@@ -87,7 +82,7 @@ public partial class RazorPageModel : LayoutComponentBase
         try
         {
             string question = string.IsNullOrEmpty(questionAdd) ? LocaleCore.Dialog.DialogQuestion : questionAdd;
-            Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+            Task<bool?> dialog = DialogService?.Confirm(question, title, GetConfirmOptions());
             bool? result = dialog.Result;
             if (result == true)
             {

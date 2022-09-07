@@ -23,8 +23,14 @@ public partial class ExampleMud : RazorPageModel
     {
         base.OnInitialized();
 
-        ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.Russian);
-        ListComPorts = SerialPortsUtils.GetListComPorts(Lang.Russian);
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.Russian);
+		        ListComPorts = SerialPortsUtils.GetListComPorts(Lang.Russian);
+			}
+		});
 	}
 
     #endregion

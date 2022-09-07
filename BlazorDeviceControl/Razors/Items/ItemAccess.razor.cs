@@ -26,16 +26,22 @@ public partial class ItemAccess : RazorPageModel
 	{
 		base.OnInitialized();
 
-		Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
-		ItemCast = new();
-		TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
+				ItemCast = new();
+				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
+			}
+		});
 	}
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

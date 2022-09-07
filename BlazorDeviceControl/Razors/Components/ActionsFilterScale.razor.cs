@@ -40,7 +40,7 @@ public partial class ActionsFilterScale : RazorPageModel
 	{
 		base.OnParametersSet();
 
-		RunActionsSilent(new()
+		RunActionsParametersSet(new()
 		{
 			() =>
 			{

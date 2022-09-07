@@ -32,15 +32,22 @@ public partial class SectionAccess : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
-        ItemsCast = new();
+        RunActionsInitialized(new()
+        {
+	        () =>
+	        {
+		        Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
+		        ItemsCast = new();
+
+	        }
+        });
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {
@@ -51,7 +58,7 @@ public partial class SectionAccess : RazorPageModel
         });
     }
 
-    public void RowRender(RowRenderEventArgs<AccessModel> args)
+    private void RowRender(RowRenderEventArgs<AccessModel> args)
     {
         args.Attributes.Add("class", UserSettings.GetColorAccessRights(args.Data.Rights));
         //RowCounter += 1;

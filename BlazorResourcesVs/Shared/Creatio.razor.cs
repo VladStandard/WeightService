@@ -49,7 +49,7 @@
 //        {
 //            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-//            //NavigationManager.NavigateTo(WebSite.Link, true);
+//            //NavigationManager?.NavigateTo(WebSite.Link, true);
 //        }
 
 //        #endregion

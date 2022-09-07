@@ -23,16 +23,22 @@ public partial class SectionTemplateResources : RazorPageModel
     {
         base.OnInitialized();
 
-        Table = new TableScaleModel(ProjectsEnums.TableScale.TemplatesResources);
-        IsShowMarkedFilter = true;
-		ItemsCast = new();
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        Table = new TableScaleModel(ProjectsEnums.TableScale.TemplatesResources);
+		        IsShowMarkedFilter = true;
+				ItemsCast = new();
+			}
+		});
     }
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {

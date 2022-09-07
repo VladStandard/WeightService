@@ -17,12 +17,18 @@ public partial class ExampleRadzen : RazorPageModel
 	{
 		base.OnInitialized();
 
-		ListComPorts = SerialPortsUtils.GetListComPorts(LocaleCore.Lang);
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+				ListComPorts = SerialPortsUtils.GetListComPorts(LocaleCore.Lang);
+			}
+		});
 	}
     
     private void ShowNotification(NotificationMessage message)
     {
-        NotificationService.Notify(message);
+        NotificationService?.Notify(message);
     }
 
     #endregion

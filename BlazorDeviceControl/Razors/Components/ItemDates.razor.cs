@@ -20,15 +20,21 @@ public partial class ItemDates : RazorPageModel
     {
         base.OnInitialized();
 
-        CreateDt = string.Empty;
-        ChangeDt = string.Empty;
+		RunActionsInitialized(new()
+		{
+			() =>
+			{
+		        CreateDt = string.Empty;
+		        ChangeDt = string.Empty;
+			}
+		});
     }
 
    protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        RunActionsSilent(new()
+        RunActionsParametersSet(new()
         {
             () =>
             {
