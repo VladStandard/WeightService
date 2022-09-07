@@ -58,8 +58,8 @@
 
 //            foreach (EnumZebraAction action in Enum.GetValues(typeof(EnumZebraAction)))
 //            {
-//                Assert.DoesNotThrowAsync(() => _printZebra.ActionAsync(action, "127.0.0.1", 9100, ProjectsEnums.SilentUI.True, new Button(), null, null, null));
-//                TestContext.WriteLine($@"_printZebra.ActionAsync({action}, ""127.0.0.1"", 9100, ProjectsEnums.SilentUI.True, new Button()).");
+//                Assert.DoesNotThrowAsync(() => _printZebra.ActionAsync(action, "127.0.0.1", 9100, SilentUI.True, new Button(), null, null, null));
+//                TestContext.WriteLine($@"_printZebra.ActionAsync({action}, ""127.0.0.1"", 9100, SilentUI.True, new Button()).");
 //            }
 
 //            TestContext.WriteLine($@"{nameof(ResetAsync_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");

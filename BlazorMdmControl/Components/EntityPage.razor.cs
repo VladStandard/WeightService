@@ -18,11 +18,11 @@
 //        #region Public and private fields and properties
 
 //        [Parameter]
-//        public ShareEnums.TableDwh Table { get; set; }
+//        public TableDwh Table { get; set; }
 //        [Parameter]
 //        public TableModel Entity { get; set; }
 //        [Parameter]
-//        public ShareEnums.DbTableAction Action { get; set; }
+//        public DbTableAction Action { get; set; }
 //        [Parameter]
 //        public EventCallback CallbackActionSaveAsync { get; set; }
 //        [Parameter]
@@ -69,9 +69,9 @@
 //                BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
 //                switch (Table)
 //                {
-//                    case ShareEnums.TableDwh.NomenclatureMaster:
-//                    case ShareEnums.TableDwh.NomenclatureNonNormalize:
-//                        if (Action == ShareEnums.DbTableAction.Add)
+//                    case TableDwh.NomenclatureMaster:
+//                    case TableDwh.NomenclatureNonNormalize:
+//                        if (Action == DbTableAction.Add)
 //                            BlazorSettings.SqlDataAccess.NomenclatureCrud.SaveEntity((NomenclatureModel)Entity);
 //                        else
 //                            BlazorSettings.SqlDataAccess.NomenclatureCrud.UpdateEntity((NomenclatureModel)Entity);

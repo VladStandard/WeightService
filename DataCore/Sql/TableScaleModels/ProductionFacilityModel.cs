@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -21,7 +20,7 @@ public class ProductionFacilityModel : TableBaseModel, ICloneable, ISqlDbBase, I
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductionFacilityModel() : base(ColumnName.Id)
+	public ProductionFacilityModel() : base(SqlFieldIdentityEnum.Id)
 	{
 		Name = string.Empty;
 		Address = string.Empty;

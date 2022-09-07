@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableDwhModels;
@@ -20,7 +19,7 @@ public class InformationSystemModel : TableBaseModel, ICloneable, ISqlDbBase, IS
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public InformationSystemModel() : base(ColumnName.Id)
+	public InformationSystemModel() : base(SqlFieldIdentityEnum.Id)
     {
 	    Name = string.Empty;
 	    ConnectString1 = string.Empty;

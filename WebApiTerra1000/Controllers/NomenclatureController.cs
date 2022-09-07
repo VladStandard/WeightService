@@ -11,9 +11,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -33,7 +33,7 @@ public class NomenclatureController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/nomenclature/")]
-    public ContentResult GetNomenclature(string code, long id, FormatType format = FormatType.Xml)
+    public ContentResult GetNomenclature(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -50,7 +50,7 @@ public class NomenclatureController : BaseController
     [HttpGet()]
     [Route("api/nomenclatures/")]
     public ContentResult GetNomenclatures(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
-        FormatType format = FormatType.Xml)
+        FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -65,7 +65,7 @@ public class NomenclatureController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/nomenclaturescosts/")]
-    public ContentResult GetNomenclaturesCosts(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
+    public ContentResult GetNomenclaturesCosts(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

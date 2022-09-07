@@ -2,12 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net;
+using DataCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using WebApiCore.Common;
 using WebApiCore.Controllers;
-using static DataCore.ShareEnums;
 
 namespace WebApiScales.Controllers;
 
@@ -42,7 +42,7 @@ public class BarcodeControllerV1 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v1/barcode/top/")]
-    public ContentResult GetBarcodeTop(string barcode, bool useCrc = false, FormatType format = FormatType.Xml)
+    public ContentResult GetBarcodeTop(string barcode, bool useCrc = false, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
         {
@@ -61,7 +61,7 @@ public class BarcodeControllerV1 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v1/barcode/down/")]
-    public ContentResult GetBarcodeDown(string barcode, FormatType format = FormatType.Xml)
+    public ContentResult GetBarcodeDown(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
         {
@@ -78,7 +78,7 @@ public class BarcodeControllerV1 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v1/barcode/right/")]
-    public ContentResult GetBarcodeRight(string barcode, FormatType format = FormatType.Xml)
+    public ContentResult GetBarcodeRight(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
         {

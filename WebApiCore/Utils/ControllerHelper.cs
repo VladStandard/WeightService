@@ -3,9 +3,9 @@
 
 using System.Net;
 using System.Runtime.CompilerServices;
+using DataCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebApiCore.Common;
-using static DataCore.ShareEnums;
 
 namespace WebApiCore.Utils;
 
@@ -32,7 +32,7 @@ public class ControllerHelper
 
     #region Public and private methods
 
-    public ContentResult RunTask(Task<ContentResult> task, FormatType format,
+    public ContentResult RunTask(Task<ContentResult> task, FormatTypeEnum format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try

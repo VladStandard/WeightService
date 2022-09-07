@@ -6,12 +6,12 @@
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
 	<ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus 
-	    FilterTable=@ProjectsEnums.TableScale.Scales
+	    FilterTable=@SqlTableScaleEnum.Scales
 		FilterCaption=LocaleCore.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
 
     <RadzenGrid 

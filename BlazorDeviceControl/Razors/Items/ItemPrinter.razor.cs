@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemPrinter : RazorPageBase
@@ -25,7 +23,7 @@ public partial class ItemPrinter : RazorPageBase
 		{
 			() =>
 			{
-				Table = new TableScaleModel(ProjectsEnums.TableScale.Printers);
+				Table = new TableScaleModel(SqlTableScaleEnum.Printers);
 				ItemCast = new();
 				PrinterTypes = new();
 			}
@@ -42,7 +40,7 @@ public partial class ItemPrinter : RazorPageBase
 			{
 				switch (TableAction)
 				{
-					case DbTableAction.New:
+					case SqlTableActionEnum.New:
 						ItemCast = new();
 						ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
@@ -54,7 +52,7 @@ public partial class ItemPrinter : RazorPageBase
 				}
 
 				PrinterTypes = AppSettings.DataAccess.GetListPrinterTypes(false, false);
-				if (TableAction == DbTableAction.New)
+				if (TableAction == SqlTableActionEnum.New)
 				{
 					ItemCast.Name = "NEW PRINTER";
 					ItemCast.Ip = "127.0.0.1";

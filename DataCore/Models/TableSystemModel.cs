@@ -5,5 +5,5 @@ namespace DataCore.Models;
 
 public class TableSystemModel : TableBase
 {
-    public TableSystemModel(ProjectsEnums.TableSystem value) : base(value.ToString()) { }
+    public TableSystemModel(SqlTableSystemEnum value) : base(value.ToString()) { }
 }

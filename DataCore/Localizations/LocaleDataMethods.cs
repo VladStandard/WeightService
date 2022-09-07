@@ -14,89 +14,89 @@ public static partial class LocaleData
         {
             string result = string.Empty;
 
-            ProjectsEnums.TableSystem tableSystem = ProjectsEnums.GetTableSystem(table.Name);
+            SqlTableSystemEnum tableSystem = SqlUtils.GetTableSystem(table.Name);
             {
                 switch (tableSystem)
                 {
-                    case ProjectsEnums.TableSystem.Accesses:
+                    case SqlTableSystemEnum.Accesses:
                         result = Strings.ItemAccess;
                         break;
-                    case ProjectsEnums.TableSystem.Logs:
+                    case SqlTableSystemEnum.Logs:
                         result = Strings.ItemLog;
                         break;
                 }
             }
 
-            ProjectsEnums.TableScale tableScale = ProjectsEnums.GetTableScale(table.Name);
+            SqlTableScaleEnum tableScale = SqlUtils.GetTableScale(table.Name);
             {
                 switch (tableScale)
                 {
-                    case ProjectsEnums.TableScale.BarCodeTypes:
+                    case SqlTableScaleEnum.BarCodeTypes:
                         result = DeviceControl.ItemBarCodeType;
                         break;
-                    case ProjectsEnums.TableScale.Contragents:
+                    case SqlTableScaleEnum.Contragents:
                         result = DeviceControl.ItemContragent;
                         break;
-                    case ProjectsEnums.TableScale.Hosts:
+                    case SqlTableScaleEnum.Hosts:
                         result = DeviceControl.ItemHost;
                         break;
-                    case ProjectsEnums.TableScale.PlusLabels:
+                    case SqlTableScaleEnum.PlusLabels:
                         result = DeviceControl.ItemLabel;
                         break;
-                    case ProjectsEnums.TableScale.Nomenclatures:
+                    case SqlTableScaleEnum.Nomenclatures:
                         result = DeviceControl.ItemNomenclature;
                         break;
-                    case ProjectsEnums.TableScale.Orders:
+                    case SqlTableScaleEnum.Orders:
                         result = DeviceControl.ItemOrder;
                         break;
-                    case ProjectsEnums.TableScale.OrdersWeighings:
+                    case SqlTableScaleEnum.OrdersWeighings:
                         result = DeviceControl.ItemOrderWeighing;
                         break;
-                    case ProjectsEnums.TableScale.PlusObsolete:
+                    case SqlTableScaleEnum.PlusObsolete:
                         result = DeviceControl.ItemPlu;
                         break;
-                    case ProjectsEnums.TableScale.Plus:
+                    case SqlTableScaleEnum.Plus:
                         result = DeviceControl.ItemPlu;
                         break;
-                    case ProjectsEnums.TableScale.PlusScales:
+                    case SqlTableScaleEnum.PlusScales:
                         result = DeviceControl.ItemPluScale;
                         break;
-                    case ProjectsEnums.TableScale.Printers:
+                    case SqlTableScaleEnum.Printers:
                         result = Print.Name;
                         break;
-                    case ProjectsEnums.TableScale.PrintersResources:
+                    case SqlTableScaleEnum.PrintersResources:
                         result = Print.Resource;
                         break;
-                    case ProjectsEnums.TableScale.PrintersTypes:
+                    case SqlTableScaleEnum.PrintersTypes:
                         result = Print.Type;
                         break;
-                    case ProjectsEnums.TableScale.ProductSeries:
+                    case SqlTableScaleEnum.ProductSeries:
                         result = DeviceControl.ItemProductSeries;
                         break;
-                    case ProjectsEnums.TableScale.ProductionFacilities:
+                    case SqlTableScaleEnum.ProductionFacilities:
                         result = DeviceControl.ItemProductionFacility;
                         break;
-                    case ProjectsEnums.TableScale.Scales:
+                    case SqlTableScaleEnum.Scales:
                         result = DeviceControl.ItemScale;
                         break;
-                    case ProjectsEnums.TableScale.TemplatesResources:
+                    case SqlTableScaleEnum.TemplatesResources:
                         result = DeviceControl.ItemTemplateResource;
                         break;
-                    case ProjectsEnums.TableScale.Templates:
+                    case SqlTableScaleEnum.Templates:
                         result = DeviceControl.ItemTemplate;
                         break;
-                    case ProjectsEnums.TableScale.PlusWeighings:
+                    case SqlTableScaleEnum.PlusWeighings:
                         result = DeviceControl.ItemWeithingFact;
                         break;
-                    case ProjectsEnums.TableScale.Workshops:
+                    case SqlTableScaleEnum.Workshops:
                         result = DeviceControl.ItemWorkshop;
                         break;
-                    case ProjectsEnums.TableScale.Default:
+                    case SqlTableScaleEnum.Default:
                         break;
-                    case ProjectsEnums.TableScale.Organizations:
+                    case SqlTableScaleEnum.Organizations:
                         result = DeviceControl.ItemOrganization;
                         break;
-                    case ProjectsEnums.TableScale.BarCodes:
+                    case SqlTableScaleEnum.BarCodes:
                         break;
                 }
             }
@@ -117,92 +117,44 @@ public static partial class LocaleData
         {
             string result = string.Empty;
 
-            ProjectsEnums.TableSystem tableSystem = ProjectsEnums.GetTableSystem(table.Name);
+            SqlTableSystemEnum tableSystem = SqlUtils.GetTableSystem(table.Name);
             {
-                switch (tableSystem)
-                {
-                    case ProjectsEnums.TableSystem.Accesses:
-                        result = Strings.SectionAccess;
-                        break;
-                    case ProjectsEnums.TableSystem.Logs:
-                        result = Strings.SectionLog;
-                        break;
-                }
+	            result = tableSystem switch
+	            {
+		            SqlTableSystemEnum.Accesses => Strings.SectionAccess,
+		            SqlTableSystemEnum.Logs => Strings.SectionLog,
+		            _ => result
+	            };
             }
 
-            ProjectsEnums.TableScale tableScale = ProjectsEnums.GetTableScale(table.Name);
+            SqlTableScaleEnum tableScale = SqlUtils.GetTableScale(table.Name);
             {
-                switch (tableScale)
-                {
-                    case ProjectsEnums.TableScale.Default:
-                        break;
-                    case ProjectsEnums.TableScale.BarCodes:
-                        result = DeviceControl.SectionBarCodes;
-                        break;
-                    case ProjectsEnums.TableScale.BarCodeTypes:
-                        result = DeviceControl.SectionBarCodeTypes;
-                        break;
-                    case ProjectsEnums.TableScale.Contragents:
-                        result = DeviceControl.SectionContragents;
-                        break;
-                    case ProjectsEnums.TableScale.Hosts:
-                        result = DeviceControl.SectionHosts;
-                        break;
-                    case ProjectsEnums.TableScale.PlusLabels:
-                        result = DeviceControl.SectionLabels;
-                        break;
-                    case ProjectsEnums.TableScale.Nomenclatures:
-                        result = DeviceControl.SectionNomenclatures;
-                        break;
-                    case ProjectsEnums.TableScale.Orders:
-                        result = DeviceControl.SectionOrders;
-                        break;
-                    case ProjectsEnums.TableScale.OrdersWeighings:
-                        result = DeviceControl.SectionOrdersWeighings;
-                        break;
-                    case ProjectsEnums.TableScale.PlusObsolete:
-                        result = DeviceControl.SectionPlus;
-                        break;
-                    case ProjectsEnums.TableScale.Plus:
-                        result = DeviceControl.SectionPlus;
-                        break;
-                    case ProjectsEnums.TableScale.PlusScales:
-                        result = DeviceControl.SectionPlusScales;
-                        break;
-                    case ProjectsEnums.TableScale.Printers:
-                        result = Print.Name;
-                        break;
-                    case ProjectsEnums.TableScale.PrintersResources:
-                        result = Print.Resources;
-                        break;
-                    case ProjectsEnums.TableScale.PrintersTypes:
-                        result = Print.Types;
-                        break;
-                    case ProjectsEnums.TableScale.ProductSeries:
-                        result = DeviceControl.SectionProductSeries;
-                        break;
-                    case ProjectsEnums.TableScale.ProductionFacilities:
-                        result = DeviceControl.SectionProductionFacilities;
-                        break;
-                    case ProjectsEnums.TableScale.Scales:
-                        result = DeviceControl.SectionScales;
-                        break;
-                    case ProjectsEnums.TableScale.TemplatesResources:
-                        result = DeviceControl.SectionTemplateResources;
-                        break;
-                    case ProjectsEnums.TableScale.Templates:
-                        result = DeviceControl.SectionTemplates;
-                        break;
-                    case ProjectsEnums.TableScale.PlusWeighings:
-                        result = DeviceControl.SectionPlusWeighings;
-                        break;
-                    case ProjectsEnums.TableScale.Workshops:
-                        result = DeviceControl.SectionWorkShops;
-                        break;
-                    case ProjectsEnums.TableScale.Organizations:
-                        result = DeviceControl.SectionOrganizations;
-                        break;
-                }
+	            result = tableScale switch
+	            {
+		            SqlTableScaleEnum.BarCodes => DeviceControl.SectionBarCodes,
+		            SqlTableScaleEnum.BarCodeTypes => DeviceControl.SectionBarCodeTypes,
+		            SqlTableScaleEnum.Contragents => DeviceControl.SectionContragents,
+		            SqlTableScaleEnum.Hosts => DeviceControl.SectionHosts,
+		            SqlTableScaleEnum.PlusLabels => DeviceControl.SectionLabels,
+		            SqlTableScaleEnum.Nomenclatures => DeviceControl.SectionNomenclatures,
+		            SqlTableScaleEnum.Orders => DeviceControl.SectionOrders,
+		            SqlTableScaleEnum.OrdersWeighings => DeviceControl.SectionOrdersWeighings,
+		            SqlTableScaleEnum.PlusObsolete => DeviceControl.SectionPlus,
+		            SqlTableScaleEnum.Plus => DeviceControl.SectionPlus,
+		            SqlTableScaleEnum.PlusScales => DeviceControl.SectionPlusScales,
+		            SqlTableScaleEnum.Printers => Print.Name,
+		            SqlTableScaleEnum.PrintersResources => Print.Resources,
+		            SqlTableScaleEnum.PrintersTypes => Print.Types,
+		            SqlTableScaleEnum.ProductSeries => DeviceControl.SectionProductSeries,
+		            SqlTableScaleEnum.ProductionFacilities => DeviceControl.SectionProductionFacilities,
+		            SqlTableScaleEnum.Scales => DeviceControl.SectionScales,
+		            SqlTableScaleEnum.TemplatesResources => DeviceControl.SectionTemplateResources,
+		            SqlTableScaleEnum.Templates => DeviceControl.SectionTemplates,
+		            SqlTableScaleEnum.PlusWeighings => DeviceControl.SectionPlusWeighings,
+		            SqlTableScaleEnum.Workshops => DeviceControl.SectionWorkShops,
+		            SqlTableScaleEnum.Organizations => DeviceControl.SectionOrganizations,
+		            _ => result
+	            };
             }
 
             return result;

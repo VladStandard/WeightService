@@ -58,7 +58,7 @@ public partial class PagePinCode : UserControl
     {
         //if (_settings.PinCode.AccessGranted)
         //{
-        //    _settings.ActivePage = ProjectsEnums.WpfActivePage.Settings;
+        //    _settings.ActivePage = WpfActivePage.Settings;
         //}
         //else
         //{

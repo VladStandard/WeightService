@@ -1,9 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
+using DataCore.Models;
 using DataCore.Sql.Tables;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Xml;
 
@@ -122,7 +121,7 @@ public class LogQuickModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializab
 		{
 			case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new() { new(DbField.Description, DbComparer.Equal, Scale) }, null, 0, false, false);
+					new() { new(SqlFieldEnum.Description, SqlFieldComparerEnum.Equal, Scale) }, null, 0, false, false);
 				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 				if (scale is not null)
 					return scale.Identity.Id;
@@ -137,7 +136,7 @@ public class LogQuickModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializab
 		{
 			case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new() { new(DbField.HostName, DbComparer.Equal, Host) }, null, 0, false, false);
+					new() { new(SqlFieldEnum.HostName, SqlFieldComparerEnum.Equal, Host) }, null, 0, false, false);
 				HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 				if (host is not null)
 					return host.Identity.Id;

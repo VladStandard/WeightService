@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
+using DataCore.Models;
 
 namespace WeightCore.Helpers;
 
@@ -43,16 +43,16 @@ public class WeighingSettingsEntity
     }
     public byte CurrentLabelsCountShipping { get; set; }
 
-	//public void RotatePalletSize(ProjectsEnums.Direction direction)
+	//public void RotatePalletSize(Direction direction)
 	//{
-	//    if (direction == ProjectsEnums.Direction.Left)
+	//    if (direction == Direction.Left)
 	//    {
 	//        CurrentLabelsCountMain--;
 	//        if (CurrentLabelsCountMain < LabelsCountMinValue)
 	//            CurrentLabelsCountMain = LabelsCountMinValue;
 
 	//    }
-	//    if (direction == ProjectsEnums.Direction.Right)
+	//    if (direction == Direction.Right)
 	//    {
 	//        CurrentLabelsCountMain++;
 	//        if (CurrentLabelsCountMain > LabelsCountMaxValue)
@@ -73,15 +73,15 @@ public class WeighingSettingsEntity
 
     #region Public and private methods
 
-    public void RotateKneading(ProjectsEnums.Direction direction)
+    public void RotateKneading(DirectionEnum direction)
     {
-        if (direction == ProjectsEnums.Direction.Left)
+        if (direction == DirectionEnum.Left)
         {
             Kneading--;
             if (Kneading < KneadingMinValue)
                 Kneading = KneadingMinValue;
         }
-        if (direction == ProjectsEnums.Direction.Right)
+        if (direction == DirectionEnum.Right)
         {
             Kneading++;
             if (Kneading > KneadingMaxValue)

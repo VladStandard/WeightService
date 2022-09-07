@@ -5,5 +5,5 @@ namespace DataCore.Models;
 
 public class TableDwhModel : TableBase
 {
-    public TableDwhModel(ProjectsEnums.TableDwh value) : base(value.ToString()) { }
+    public TableDwhModel(SqlTableDwhEnum value) : base(value.ToString()) { }
 }

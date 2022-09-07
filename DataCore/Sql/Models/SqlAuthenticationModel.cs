@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace DataCore.Sql.Models;
 
 /// <summary>
@@ -92,28 +94,28 @@ public class SqlAuthenticationModel
     /// </summary>
     /// <param name="conStringLevel"></param>
     /// <returns></returns>
-    public string AsString(ProjectsEnums.ConStringLevel conStringLevel)
+    public string AsString(ConStringLevelEnum conStringLevel)
     {
         if (Port <= 0)
         {
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Full)
+            if (conStringLevel == ConStringLevelEnum.Full)
                 return $@"Data Source={Server}; Initial Catalog={Database}; Persist Security Info={PersistSecurityInfo}; Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Middle)
+            if (conStringLevel == ConStringLevelEnum.Middle)
                 return $@"Server={Server}; Database={Database}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Low)
+            if (conStringLevel == ConStringLevelEnum.Low)
                 return $@"Server={Server}; Database={Database}; {GetStringIntegratedSecurity(true)}";
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Basic)
+            if (conStringLevel == ConStringLevelEnum.Basic)
                 return $@"Server={Server}; Database={Database}";
         }
         else
         {
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Full)
+            if (conStringLevel == ConStringLevelEnum.Full)
                 return $@"Data Source={Server},{Port}; Initial Catalog={Database}; Persist Security Info={PersistSecurityInfo}; Encrypt={Encrypt}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Middle)
+            if (conStringLevel == ConStringLevelEnum.Middle)
                 return $@"Server={Server},{Port}; Database={Database}; {GetStringIntegratedSecurity()}";
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Low)
+            if (conStringLevel == ConStringLevelEnum.Low)
                 return $@"Server={Server}; Database={Database}; {GetStringIntegratedSecurity(true)}";
-            if (conStringLevel == ProjectsEnums.ConStringLevel.Basic)
+            if (conStringLevel == ConStringLevelEnum.Basic)
                 return $@"Server={Server}; Database={Database}";
         }
         return string.Empty;

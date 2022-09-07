@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Fields;
 using DataCore.Utils;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
+using DataCore.Sql.Core;
 
 namespace WeightCoreTests.Models
 {
@@ -49,10 +49,10 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new(); });
-            foreach (string name in EnumValuesUtils.GetString())
+            Assert.Catch<ArgumentException>(() => { SqlTableIdentityModel field = new(); });
+            foreach (SqlFieldIdentityEnum name in Enum.GetValues(typeof(SqlFieldIdentityEnum)))
             {
-                Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new(name); });
+                Assert.Catch<ArgumentException>(() => { SqlTableIdentityModel field = new(name); });
             }
 
             TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} complete. Elapsed time: {stopwatch.Elapsed}");
@@ -66,23 +66,17 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            SqlTableField<string> field = new("FieldName");
+            SqlTableIdentityModel field = new(SqlFieldIdentityEnum.Default);
             Assert.AreEqual("FieldName", field.Name);
-            Assert.AreEqual(string.Empty, field.Value);
-            Assert.AreEqual(string.Empty, field.DefaultValue);
 
             foreach (string value in EnumValuesUtils.GetString())
             {
-                field = new SqlTableField<string>("FieldName", value);
+                field = new(SqlFieldIdentityEnum.Default);
                 Assert.AreEqual("FieldName", field.Name);
-                Assert.AreEqual(string.Empty, field.Value);
-                Assert.AreEqual(string.Empty, field.DefaultValue);
-                foreach (string defValue in EnumValuesUtils.GetString())
-                {
-                    field = new SqlTableField<string>("FieldName", value, defValue);
-                    Assert.AreEqual("FieldName", field.Name);
-                    Assert.AreEqual(string.Empty, field.Value);
-                    Assert.AreEqual(string.Empty, field.DefaultValue);
+				foreach (SqlFieldIdentityEnum name in Enum.GetValues(typeof(SqlFieldIdentityEnum)))
+				{
+                    field = new(name);
+                    Assert.AreEqual(SqlFieldIdentityEnum.Default, field.Name);
                 }
             }
 

@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
 using DataCore.Sql.Tables;
 using FluentValidation.Results;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Core;
 
@@ -417,7 +417,7 @@ public static partial class SqlUtils
 	{
 		maxResults = isShowOnlyTop ? DataAccess.JsonSettingsLocal.SelectTopRowsCount : maxResults;
 		SqlCrudConfigModel sqlCrudConfig = new(filters, order, maxResults);
-		List<SqlFieldFilterModel> filtersMarked = new() { new(DbField.IsMarked, DbComparer.Equal, false) };
+		List<SqlFieldFilterModel> filtersMarked = new() { new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) };
 		if (!isShowMarked)
 		{
 			switch (sqlCrudConfig.Filters)
@@ -432,6 +432,27 @@ public static partial class SqlUtils
 		}
 
 		return sqlCrudConfig;
+	}
+
+	public static SqlTableSystemEnum GetTableSystem(string tableName)
+	{
+		if (Enum.TryParse(tableName, out SqlTableSystemEnum tableSystem))
+			return tableSystem;
+		return SqlTableSystemEnum.Default;
+	}
+
+	public static SqlTableScaleEnum GetTableScale(string tableName)
+	{
+		if (Enum.TryParse(tableName, out SqlTableScaleEnum tableScale))
+			return tableScale;
+		return SqlTableScaleEnum.Default;
+	}
+
+	public static SqlTableDwhEnum GetTableDwh(string tableName)
+	{
+		if (Enum.TryParse(tableName, out SqlTableDwhEnum tableDwh))
+			return tableDwh;
+		return SqlTableDwhEnum.Default;
 	}
 
 	#endregion

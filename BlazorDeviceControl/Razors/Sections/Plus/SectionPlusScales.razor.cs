@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Sections.Plus;
 
 public partial class SectionPlusScales : RazorPageBase
@@ -32,7 +30,7 @@ public partial class SectionPlusScales : RazorPageBase
 		{
 			() =>
 			{
-				Table = new TableScaleModel(ProjectsEnums.TableScale.PlusScales);
+				Table = new TableScaleModel(SqlTableScaleEnum.PlusScales);
 				IsShowAdditionalFilter = true;
 				Items = new();
 			}

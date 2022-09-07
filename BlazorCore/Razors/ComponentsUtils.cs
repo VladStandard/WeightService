@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using BlazorCore.CssStyles;
 using DataCore.Localizations;
-using DataCore.Sql.Tables;
+using DataCore.Sql.Core;
 
 namespace BlazorCore.Razors;
 
@@ -18,5 +18,5 @@ public static class ComponentsUtils
 		new() { LocaleCore.Strings.SettingName, LocaleCore.Strings.SettingValue }, 
 		"blue", "12px", "center");
 
-	public static TableBodyStyleModel GetTableBodyStyle(ColumnName columnName, bool isShowMarked) => new(columnName, isShowMarked);
+	public static TableBodyStyleModel GetTableBodyStyle(SqlFieldIdentityEnum columnName, bool isShowMarked) => new(columnName, isShowMarked);
 }

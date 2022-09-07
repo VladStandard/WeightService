@@ -1,9 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-using DataCore.Sql.Tables;
-
 namespace DataCore.Sql.Fields;
 
 /// <summary>
@@ -14,7 +11,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual ColumnName Name { get; private set; }
+	[XmlElement] public virtual SqlFieldIdentityEnum Name { get; private set; }
 	[XmlElement] public virtual long Id { get; private set; }
 	[XmlElement] public virtual Guid Uid { get; private set; }
 
@@ -24,7 +21,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	public SqlFieldIdentityModel()
 	{
 		FieldName = nameof(SqlFieldIdentityModel);
-		Name = ColumnName.Default;
+		Name = SqlFieldIdentityEnum.Default;
 		Id = 0;
 		Uid = Guid.Empty;
 	}
@@ -33,7 +30,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	/// Constructor.
 	/// </summary>
 	/// <param name="identityName"></param>
-	public SqlFieldIdentityModel(ColumnName identityName) : this()
+	public SqlFieldIdentityModel(SqlFieldIdentityEnum identityName) : this()
 	{
 		Name = identityName;
 	}
@@ -41,7 +38,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	private SqlFieldIdentityModel(ColumnName identityName, long identityId, Guid identityUid) : this(identityName)
+	private SqlFieldIdentityModel(SqlFieldIdentityEnum identityName, long identityId, Guid identityUid) : this(identityName)
 	{
 		Id = identityId;
 		Uid = identityUid;
@@ -54,7 +51,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	/// <param name="context"></param>
 	protected SqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = (ColumnName)info.GetValue(nameof(Name), typeof(ColumnName));
+		Name = (SqlFieldIdentityEnum)info.GetValue(nameof(Name), typeof(SqlFieldIdentityEnum));
 		Id = info.GetInt64(nameof(Id));
 		Uid = Guid.Parse(info.GetString(nameof(Uid)));
 	}
@@ -68,10 +65,10 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 		string strIdentityValue = string.Empty;
 		switch (Name)
 		{
-			case ColumnName.Id:
+			case SqlFieldIdentityEnum.Id:
 				strIdentityValue = $"{nameof(Id)}: {Id}. ";
 				break;
-			case ColumnName.Uid:
+			case SqlFieldIdentityEnum.Uid:
 				strIdentityValue = $"{nameof(Uid)}: {Uid}. ";
 				break;
 		}
@@ -88,8 +85,8 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 
 	public override int GetHashCode() => Name switch
 	{
-		ColumnName.Id => Id.GetHashCode(),
-		ColumnName.Uid => Uid.GetHashCode(),
+		SqlFieldIdentityEnum.Id => Id.GetHashCode(),
+		SqlFieldIdentityEnum.Uid => Uid.GetHashCode(),
 		_ => default,
 	};
 

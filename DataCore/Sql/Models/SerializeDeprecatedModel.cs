@@ -1,9 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
+using DataCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Models;
 
@@ -95,33 +94,33 @@ public class SerializeDeprecatedModel<T> where T : new()
 
     public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
 
-    private static string GetContentType(FormatType format) => format switch
+    private static string GetContentType(FormatTypeEnum format) => format switch
     {
-        FormatType.Xml => "application/xml",
-        FormatType.Json => "application/json",
-        FormatType.Html => "application/html",
-        FormatType.Text => "application/text",
-        FormatType.Raw => "application/text",
+        FormatTypeEnum.Xml => "application/xml",
+        FormatTypeEnum.Json => "application/json",
+        FormatTypeEnum.Html => "application/html",
+        FormatTypeEnum.Text => "application/text",
+        FormatTypeEnum.Raw => "application/text",
         _ => throw GetArgumentException(nameof(format)),
     };
 
-    private static ContentResult GetResultInside(FormatType format, object content, HttpStatusCode statusCode) => new()
+    private static ContentResult GetResultInside(FormatTypeEnum format, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = GetContentType(format),
         StatusCode = (int)statusCode,
         Content = content is string ? content as string : content?.ToString()
     };
 
-    public static ContentResult GetResult(FormatType format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
+    public static ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
 
-    public ContentResult GetResult(FormatType format, HttpStatusCode statusCode)
+    public ContentResult GetResult(FormatTypeEnum format, HttpStatusCode statusCode)
     {
         return format switch
         {
-            FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
-            FormatType.Xml => GetResult(format, SerializeAsXml(), statusCode),
-            FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
-            FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
+            FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
+            FormatTypeEnum.Xml => GetResult(format, SerializeAsXml(), statusCode),
+            FormatTypeEnum.Html => GetResult(format, SerializeAsHtml(), statusCode),
+            FormatTypeEnum.Text or FormatTypeEnum.Raw => GetResult(format, SerializeAsText(), statusCode),
             _ => throw GetArgumentException(nameof(format)),
         };
     }

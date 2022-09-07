@@ -1,6 +1,5 @@
 ﻿@inherits ActionsReloadBase
 @page "/action/reload_section"
-@using static DataCore.ProjectsEnums
 @using DataCore.Sql.Core
 
 <MudPaper Width="100%" Height="32px" Style="margin-bottom: 30px;" Square=false>
@@ -17,7 +16,7 @@
 			<td colspan=@(IsShowAdditionalFilter ? 1 : 3) >
 				@if (ParentRazor == null)
 				{
-					<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+					<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 				}
 				else
 				{
@@ -48,7 +47,7 @@
 				<td>
 					@switch (FilterTable)
 					{
-						case TableScale.Scales:
+						case SqlTableScaleEnum.Scales:
 							<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; "
 							             Text=@LocaleCore.Table.Scale/>
 							break;
@@ -57,7 +56,7 @@
 				<td>
 					@switch (FilterTable)
 					{
-						case TableScale.Scales:
+						case SqlTableScaleEnum.Scales:
 							<ActionsFilterScale ParentRazor=@(this) />
 							break;
 					}

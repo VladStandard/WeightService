@@ -31,7 +31,7 @@
 		                @if (UserSettings.AccessRightsIsRead == true)
 		                {
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                Text=@($"{UserSettings.UserName} [{UserSettings.GetDescriptionAccessRights(AccessRights.None)}]")
+                                Text=@($"{UserSettings.UserName} [{UserSettings.GetDescriptionAccessRights(AccessRightsEnum.None)}]")
                                 Path=@LocaleCore.DeviceControl.RouteSectionAccess
                                 Click=@(_ => OnChange()) />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "

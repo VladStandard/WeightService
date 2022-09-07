@@ -45,7 +45,7 @@ public partial class ActionsFilterScale : RazorPageBase
 			() =>
 			{
 				ItemsFilter = new() { new ScaleModel() { Description = LocaleCore.Table.FieldNull } };
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
 				ScaleModel[]? itemsFilter = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{

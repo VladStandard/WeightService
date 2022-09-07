@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
+using DataCore.Models;
 using DataCore.Wmi;
 using WeightCore.Helpers;
 
@@ -46,11 +46,11 @@ namespace WeightCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            foreach (ShareEnums.WinProvider provider in Enum.GetValues(typeof(ShareEnums.WinProvider)))
+            foreach (WinProviderEnum provider in Enum.GetValues(typeof(WinProviderEnum)))
             {
-                foreach (ShareEnums.StringTemplate template in Enum.GetValues(typeof(ShareEnums.StringTemplate)))
+                foreach (StringTemplateEnum template in Enum.GetValues(typeof(StringTemplateEnum)))
                 {
-                    WmiSoftwareModel actual = Win.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
+                    WmiSoftwareModel actual = Win.SearchingSoftware(WinProviderEnum.Alias, "Unknown Software", template);
                     WmiSoftwareModel expected = new();
                     TestContext.WriteLine($@"actual = {actual}");
                     Assert.AreEqual(expected.ToString(), actual.ToString());
@@ -68,7 +68,7 @@ namespace WeightCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            WmiSoftwareModel actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
+            WmiSoftwareModel actual = Win.SearchingSoftware(WinProviderEnum.Registry, "Microsoft .NET Framework", StringTemplateEnum.StartsWith);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"actual.Name: {actual.Name}");
             Assert.AreEqual("Microsoft Corporation", actual.Vendor);

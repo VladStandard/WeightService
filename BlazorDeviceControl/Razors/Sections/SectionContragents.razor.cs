@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionContragents : RazorPageBase
@@ -27,7 +25,7 @@ public partial class SectionContragents : RazorPageBase
         {
 	        () =>
 	        {
-		        Table = new TableScaleModel(ProjectsEnums.TableScale.Contragents);
+		        Table = new TableScaleModel(SqlTableScaleEnum.Contragents);
 		        ItemsCast = new();
 	        }
         });

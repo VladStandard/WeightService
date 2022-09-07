@@ -70,7 +70,7 @@
 //            {
 //                // GetEntities.
 //                foreach (ScaleEntity item in DataAccessUtilsTests.DataAccess.GetEntities<ScaleEntity>(null,
-//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Description, Direction = ShareEnums.DbOrderDirection.Desc }))
+//                    new FieldOrderModel { Use = true, Name = DbField.Description, Direction = DbOrderDirection.Desc }))
 //                {
 //                    TestContext.WriteLine(item.ToString());
 //                    TestContext.WriteLine();

@@ -4,7 +4,7 @@
 namespace DataCore.Utils;
 
 /// <summary>
-/// Утилита занчений перечислений.
+/// Utility of enumeration values.
 /// </summary>
 public static class EnumValuesUtils
 {
@@ -21,9 +21,18 @@ public static class EnumValuesUtils
     /// Список значений string.
     /// </summary>
     /// <returns></returns>
-    public static List<string?> GetString()
+    public static List<string?> GetStringNullable()
     {
         return new() { null, "", string.Empty };
+    }
+
+    /// <summary>
+    /// Список значений string.
+    /// </summary>
+    /// <returns></returns>
+    public static List<string> GetString()
+    {
+        return new() { "", string.Empty };
     }
 
     /// <summary>

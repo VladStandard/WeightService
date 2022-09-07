@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Settings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 
@@ -62,7 +62,7 @@ namespace WeightCore.Managers
         {
             try
             {
-                Init(ProjectsEnums.TaskType.LabelManager,
+                Init(TaskTypeEnum.LabelManager,
                     () =>
                     {
                         FieldTitle = fieldTitle;
@@ -138,7 +138,7 @@ namespace WeightCore.Managers
                 //$". {UserSessionHelper.Instance.Scale.Description}" +
                 $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
             MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, 
-                UserSessionHelper.Instance.SqlViewModel.PublishType == ShareEnums.PublishType.Default ? Color.IndianRed : Color.Transparent);
+                UserSessionHelper.Instance.SqlViewModel.PublishType == PublishTypeEnum.Default ? Color.IndianRed : Color.Transparent);
             MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
         }
 

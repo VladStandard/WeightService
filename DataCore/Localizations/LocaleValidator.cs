@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace DataCore.Localizations;
 
 public class LocaleValidator
@@ -14,14 +16,14 @@ public class LocaleValidator
 
     #endregion
 
-    public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+    public LangEnum Lang { get; set; } = LangEnum.Russian;
 
     #region Public and private fields, properties, constructor
 
-    public string EqualsDefault => Lang == ShareEnums.Lang.English ? "Equals default" : "Равно по умолчанию";
-    public string Error => Lang == ShareEnums.Lang.English ? "Error" : "Ошибка";
-    public string FailedValidation => Lang == ShareEnums.Lang.English ? "failed validation" : "неудачная валидация";
-    public string Property => Lang == ShareEnums.Lang.English ? "Property" : "Свойство";
+    public string EqualsDefault => Lang == LangEnum.English ? "Equals default" : "Равно по умолчанию";
+    public string Error => Lang == LangEnum.English ? "Error" : "Ошибка";
+    public string FailedValidation => Lang == LangEnum.English ? "failed validation" : "неудачная валидация";
+    public string Property => Lang == LangEnum.English ? "Property" : "Свойство";
 
     #endregion
 }

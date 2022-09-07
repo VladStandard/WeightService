@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -17,8 +18,8 @@ public class LogTypeValidator : TableValidator
 	{
 		RuleFor(item => ((LogTypeModel)item).Number)
 			.NotNull()
-			.GreaterThanOrEqualTo((byte)ShareEnums.LogType.None)
-			.LessThanOrEqualTo((byte)ShareEnums.LogType.Information);
+			.GreaterThanOrEqualTo((byte)LogTypeEnum.None)
+			.LessThanOrEqualTo((byte)LogTypeEnum.Information);
 		RuleFor(item => ((LogTypeModel)item).Icon)
 			.NotEmpty()
 			.NotNull();

@@ -27,8 +27,8 @@ public partial class ExampleMud : RazorPageBase
 		{
 			() =>
 			{
-		        ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.Russian);
-		        ListComPorts = SerialPortsUtils.GetListComPorts(Lang.Russian);
+		        ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.Russian);
+		        ListComPorts = SerialPortsUtils.GetListComPorts(LangEnum.Russian);
 			}
 		});
 	}

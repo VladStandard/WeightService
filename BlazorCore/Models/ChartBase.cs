@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using System.Collections.Generic;
 using System.Globalization;
+using DataCore.Models;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
 
@@ -21,15 +21,15 @@ public class ChartBase
 
     public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);
 
-    public ChartCountModel[] GetContragentsChartEntities(ShareEnums.DbField field)
+    public ChartCountModel[] GetContragentsChartEntities(SqlFieldEnum field)
     {
         ChartCountModel[] result = Array.Empty<ChartCountModel>();
-        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(ShareEnums.DbField.CreateDt), 0, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.CreateDt), 0, false, false);
         ContragentModel[]? contragents = AppSettings.DataAccess.GetItems<ContragentModel>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {
-            case ShareEnums.DbField.CreateDt:
+            case SqlFieldEnum.CreateDt:
                 List<ChartCountModel> entitiesDateCreated = new();
                 if (contragents?.Any() == true)
                 {
@@ -48,7 +48,7 @@ public class ChartBase
                     i++;
                 }
                 break;
-            case ShareEnums.DbField.ChangeDt:
+            case SqlFieldEnum.ChangeDt:
                 List<ChartCountModel> entitiesDateModified = new();
                 if (contragents?.Any() == true)
                 {
@@ -71,15 +71,15 @@ public class ChartBase
         return result;
     }
 
-    public ChartCountModel[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
+    public ChartCountModel[] GetNomenclaturesChartEntities(SqlFieldEnum field)
     {
         ChartCountModel[] result = Array.Empty<ChartCountModel>();
-        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(ShareEnums.DbField.CreateDt), 0, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.CreateDt), 0, false, false);
         NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {
-            case ShareEnums.DbField.CreateDt:
+            case SqlFieldEnum.CreateDt:
                 List<ChartCountModel> entitiesDateCreated = new();
                 if (nomenclatures?.Any() == true)
                 {
@@ -99,7 +99,7 @@ public class ChartBase
                     i++;
                 }
                 break;
-            case ShareEnums.DbField.ChangeDt:
+            case SqlFieldEnum.ChangeDt:
                 List<ChartCountModel> entitiesDateModified = new();
                 foreach (NomenclatureModel item in nomenclatures)
                 {

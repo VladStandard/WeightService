@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
 public partial class ItemPluWeighing : RazorPageBase
@@ -23,7 +21,7 @@ public partial class ItemPluWeighing : RazorPageBase
 		{
 			() =>
 			{
-		        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusWeighings);
+		        Table = new TableScaleModel(SqlTableScaleEnum.PlusWeighings);
 		        ItemCast = new();
 			}
 		});
@@ -39,7 +37,7 @@ public partial class ItemPluWeighing : RazorPageBase
             {
                 switch (TableAction)
                 {
-                    case DbTableAction.New:
+                    case SqlTableActionEnum.New:
                         ItemCast = new();
                         ItemCast.SetDtNow();
 						break;

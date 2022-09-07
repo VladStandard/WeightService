@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -34,7 +34,7 @@ public class ContragentControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/contragent/")]
-    public ContentResult GetContragentFromCodeIdProd(string code, long id, FormatType format = FormatType.Xml) =>
+    public ContentResult GetContragentFromCodeIdProd(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
         GetContragentFromCodeIdWork(code != null
             ? SqlQueriesContragentsV2.GetContragentFromCodeProd : SqlQueriesContragentsV2.GetContragentFromIdProd,
             code, id, format);
@@ -42,12 +42,12 @@ public class ContragentControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/contragent_preview/")]
-    public ContentResult GetContragentFromCodeIdPreview(string code, long id, FormatType format = FormatType.Xml) =>
+    public ContentResult GetContragentFromCodeIdPreview(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
         GetContragentFromCodeIdWork(code != null
             ? SqlQueriesContragentsV2.GetContragentFromCodePreview : SqlQueriesContragentsV2.GetContragentFromIdPreview,
             code, id, format);
 
-    private ContentResult GetContragentFromCodeIdWork(string url, string code, long id, FormatType format = FormatType.Xml)
+    private ContentResult GetContragentFromCodeIdWork(string url, string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -63,7 +63,7 @@ public class ContragentControllerV2 : BaseController
     [HttpGet()]
     [Route("api/v2/contragents/")]
     public ContentResult GetContragentsProd(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
+        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
             return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
@@ -78,7 +78,7 @@ public class ContragentControllerV2 : BaseController
     [HttpGet()]
     [Route("api/v2/contragents_preview/")]
     public ContentResult GetContragentsPreview(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
+        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
             return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
@@ -89,7 +89,7 @@ public class ContragentControllerV2 : BaseController
         return GetContragentsEmptyWork(SqlQueriesContragentsV2.GetContragentsEmptyPreview, format);
     }
 
-    private ContentResult GetContragentsEmptyWork(string url, FormatType format = FormatType.Xml)
+    private ContentResult GetContragentsEmptyWork(string url, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -101,7 +101,7 @@ public class ContragentControllerV2 : BaseController
     }
 
     private ContentResult GetContragentsWork(string url, DateTime? startDate = null, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
+        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

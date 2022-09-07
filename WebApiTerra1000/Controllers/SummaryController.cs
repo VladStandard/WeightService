@@ -10,9 +10,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -32,7 +32,7 @@ public class SummaryController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/summary/")]
-    public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
+    public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

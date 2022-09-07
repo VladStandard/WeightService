@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using DataCore.Models;
 
 namespace DataCoreTests.Sql.TableScaleModels;
 
@@ -25,7 +26,7 @@ internal class AccessValidatorTests
 		// Arrange.
 		AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(true);
 		// Act.
-		foreach (AccessRights rights in Enum.GetValues(typeof(AccessRights)))
+		foreach (AccessRightsEnum rights in Enum.GetValues(typeof(AccessRightsEnum)))
 		{
 			item.Rights = (byte)rights;
 			// Assert.

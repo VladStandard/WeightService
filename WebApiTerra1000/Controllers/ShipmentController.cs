@@ -12,9 +12,9 @@ using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -34,7 +34,7 @@ public class ShipmentController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/shipment/")]
-    public ContentResult GetShipment(long id, FormatType format = FormatType.Xml)
+    public ContentResult GetShipment(long id, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -73,7 +73,7 @@ public class ShipmentController : BaseController
     [HttpGet()]
     [Route("api/shipmentsbydocdate/")]
     [Route("api/shipments/")]
-    public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
+    public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

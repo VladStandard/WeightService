@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using DataCore.Models;
 
 namespace WeightCore.Helpers
 {
@@ -27,7 +27,7 @@ namespace WeightCore.Helpers
 
         private SettingsHelper()
         {
-            CurrentLanguage = ShareEnums.Lang.Russian;
+            CurrentLanguage = LangEnum.Russian;
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace WeightCore.Helpers
         /// </summary>
         public string DirManuals { get; private set; }
 
-        private ShareEnums.Lang CurrentLanguage { get; }
+        private LangEnum CurrentLanguage { get; }
 
         /// <summary>
         /// Исходный каталог документации.
@@ -136,7 +136,7 @@ namespace WeightCore.Helpers
         /// <param name="silentUI"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public bool SetupAndCheckDirs(string installDir, ProjectsEnums.SilentUI silentUI, ShareEnums.Lang language)
+        public bool SetupAndCheckDirs(string installDir, SilentUiEnum silentUI, LangEnum language)
         {
             if (string.IsNullOrEmpty(installDir))
                 return false;
@@ -149,9 +149,9 @@ namespace WeightCore.Helpers
 
             if (!Directory.Exists(DirMain))
             {
-                string message = language == ShareEnums.Lang.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
+                string message = language == LangEnum.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
                 Console.WriteLine(message);
-                if (silentUI == ProjectsEnums.SilentUI.False)
+                if (silentUI == SilentUiEnum.False)
                     MessageBox.Show(message);
                 DirMain = string.Empty;
                 return false;
@@ -169,7 +169,7 @@ namespace WeightCore.Helpers
         /// <summary>
         /// Установить.
         /// </summary>
-        public ShareEnums.Result DirCreate()
+        public ResultEnum DirCreate()
         {
             try
             {
@@ -179,13 +179,13 @@ namespace WeightCore.Helpers
                 DirCreateAndMoveFiles(DirDrivers, Collections.DriversArchives);
 
                 Console.WriteLine(@"Install complete.");
-                return ShareEnums.Result.Good;
+                return ResultEnum.Good;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"Install error: " + ex.Message);
             }
-            return ShareEnums.Result.Error;
+            return ResultEnum.Error;
         }
 
         /// <summary>
@@ -241,18 +241,18 @@ namespace WeightCore.Helpers
             // Windows 8 - 10.
             if (WinInfo.MajorVersion == 6 && WinInfo.MinorVersion >= 2 || WinInfo.MajorVersion > 6)
             {
-                driverFileName = Collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win10x64 : ShareEnums.WinVersion.Win10x32);
+                driverFileName = Collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? WinVersionEnum.Win10x64 : WinVersionEnum.Win10x32);
             }
             // Windows 7.
             //else if (_winInfo.MajorVersion == 6 && _winInfo.MinorVersion == 1)
             else
             {
-                driverFileName = Collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win7x64 : ShareEnums.WinVersion.Win7x32);
+                driverFileName = Collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? WinVersionEnum.Win7x64 : WinVersionEnum.Win7x32);
             }
 
             // Проверить установку драйвера.
-            if (Reg.SearchingSoftware(ShareEnums.WinProvider.Registry, "Virtual Comport Driver",
-                ShareEnums.StringTemplate.Equals).Vendor.
+            if (Reg.SearchingSoftware(WinProviderEnum.Registry, "Virtual Comport Driver",
+                StringTemplateEnum.Equals).Vendor.
                 Equals("STMicroelectronics", StringComparison.InvariantCultureIgnoreCase))
                 return;
 
@@ -268,7 +268,7 @@ namespace WeightCore.Helpers
         /// <summary>
         /// Удалить.
         /// </summary>
-        public ShareEnums.Result DirClear()
+        public ResultEnum DirClear()
         {
             try
             {
@@ -288,7 +288,7 @@ namespace WeightCore.Helpers
             {
                 Console.WriteLine(@"Uninstall error: " + ex.Message);
             }
-            return ShareEnums.Result.Error;
+            return ResultEnum.Error;
         }
 
         /// <summary>

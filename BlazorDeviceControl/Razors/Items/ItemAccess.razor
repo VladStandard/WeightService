@@ -10,7 +10,7 @@
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
@@ -19,7 +19,7 @@ else
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	    <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(ColumnName.Uid, true) />
+			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.User</td>
                 <td>
@@ -30,7 +30,7 @@ else
                 <td>@LocaleCore.Strings.AccessRights</td>
                 <td>
                     <RadzenDropDown Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                        Disabled=false TValue=@AccessRights
+                        Disabled=false TValue=@AccessRightsEnum
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                         Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
                         TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 

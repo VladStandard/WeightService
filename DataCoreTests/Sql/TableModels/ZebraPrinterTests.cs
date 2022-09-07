@@ -77,7 +77,7 @@
 //                }
 //                // GetEntities
 //                foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null,
-//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
+//                    new FieldOrderModel { Use = true, Name = DbField.Name, Direction = DbOrderDirection.Asc }))
 //                {
 //                    if (item.Name.Equals(name))
 //                    {
@@ -88,7 +88,7 @@
 //                }
 //                // GetEntities
 //                foreach (PrinterEntity item in DataAccessUtilsTests.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null,
-//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
+//                    new FieldOrderModel { Use = true, Name = DbField.Name, Direction = DbOrderDirection.Asc }))
 //                {
 //                    if (item.Name.Equals(name2))
 //                    {

@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionHosts : RazorPageBase
@@ -27,7 +25,7 @@ public partial class SectionHosts : RazorPageBase
         {
 	        () =>
 	        {
-		        Table = new TableScaleModel(ProjectsEnums.TableScale.Hosts);
+		        Table = new TableScaleModel(SqlTableScaleEnum.Hosts);
 		        IsShowMarkedFilter = true;
 		        ItemsCast = new();
 	        }

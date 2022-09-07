@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Sections;
 
 public partial class SectionPrinters : RazorPageBase
@@ -27,7 +25,7 @@ public partial class SectionPrinters : RazorPageBase
         {
 	        () =>
 	        {
-				Table = new TableScaleModel(ProjectsEnums.TableScale.Printers);
+				Table = new TableScaleModel(SqlTableScaleEnum.Printers);
 				IsShowMarkedFilter = true;
 				ItemsCast = new();
 			}

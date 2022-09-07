@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace DataCore.Localizations;
 
 public class LocaleConvert
@@ -14,11 +16,11 @@ public class LocaleConvert
 
     #endregion
 
-    public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+    public LangEnum Lang { get; set; } = LangEnum.Russian;
 
     #region Public and private fields, properties, constructor
 
-    public string BoolToString(bool isFlag) => isFlag ? (Lang == ShareEnums.Lang.English ? "yes" : "да") : (Lang == ShareEnums.Lang.English ? "no" : "нет");
+    public string BoolToString(bool isFlag) => isFlag ? (Lang == LangEnum.English ? "yes" : "да") : (Lang == LangEnum.English ? "no" : "нет");
     public string ByteToString(byte isFlag, string yes, string no) => isFlag == 0x01 ? yes : no;
 
     #endregion

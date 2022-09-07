@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-
 namespace BlazorDeviceControl.Razors.Items;
 
 public partial class ItemAccess : RazorPageBase
@@ -10,11 +8,11 @@ public partial class ItemAccess : RazorPageBase
 	#region Public and private fields, properties, constructor
 
 	private AccessModel ItemCast { get => Item == null ? new() : (AccessModel)Item; set => Item = value; }
-	private List<TypeModel<AccessRights>>? TemplateAccessRights { get; set; }
+	private List<TypeModel<AccessRightsEnum>>? TemplateAccessRights { get; set; }
 
-	private AccessRights Rights
+	private AccessRightsEnum Rights
 	{
-		get => (AccessRights)ItemCast.Rights;
+		get => (AccessRightsEnum)ItemCast.Rights;
 		set => ItemCast.Rights = (byte)value;
 	}
 
@@ -30,7 +28,7 @@ public partial class ItemAccess : RazorPageBase
 		{
 			() =>
 			{
-				Table = new TableSystemModel(ProjectsEnums.TableSystem.Accesses);
+				Table = new TableSystemModel(SqlTableSystemEnum.Accesses);
 				ItemCast = new();
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
 			}
@@ -47,7 +45,7 @@ public partial class ItemAccess : RazorPageBase
 			{
 				switch (TableAction)
 				{
-					case DbTableAction.New:
+					case SqlTableActionEnum.New:
 						ItemCast = new();
 						ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;

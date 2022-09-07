@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using DataCore.Models;
 using WeightCore.Helpers;
 
 namespace WeightCoreTests.Helpers
@@ -74,14 +74,14 @@ namespace WeightCoreTests.Helpers
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             string result = string.Empty;
-            foreach (ShareEnums.AppVerStringFormat strFormat in Enum.GetValues(typeof(ShareEnums.AppVerStringFormat)))
+            foreach (AppVerStringFormatEnum strFormat in Enum.GetValues(typeof(AppVerStringFormatEnum)))
             {
-                foreach (ShareEnums.AppVerCountDigits countDigits in Enum.GetValues(typeof(ShareEnums.AppVerCountDigits)))
+                foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
                 {
                     Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, null));
                     TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, null) = {result}");
-                    Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, new List<ShareEnums.AppVerStringFormat>()));
-                    TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, new List<ShareEnums.AppVerStringFormat>()) = {result}");
+                    Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, new List<AppVerStringFormatEnum>()));
+                    TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, new List<AppVerStringFormat>()) = {result}");
                 }
             }
 
@@ -98,8 +98,8 @@ namespace WeightCoreTests.Helpers
 
             string result = string.Empty;
 
-            List<ShareEnums.AppVerStringFormat> strFormats = new() { ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use3 };
-            foreach (ShareEnums.AppVerCountDigits countDigits in Enum.GetValues(typeof(ShareEnums.AppVerCountDigits)))
+            List<AppVerStringFormatEnum> strFormats = new() { AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use3 };
+            foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
             {
                 Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, strFormats));
                 TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
@@ -119,33 +119,33 @@ namespace WeightCoreTests.Helpers
             string result = string.Empty;
             Version version = new(0, 1, 5, 123);
 
-            List<ShareEnums.AppVerStringFormat> strFormats = new() { ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use2 };
-            foreach (ShareEnums.AppVerCountDigits countDigits in Enum.GetValues(typeof(ShareEnums.AppVerCountDigits)))
+            List<AppVerStringFormatEnum> strFormats = new() { AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
+            foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
             {
                 Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, strFormats, version));
                 TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
-                if (countDigits == ShareEnums.AppVerCountDigits.Use1)
+                if (countDigits == AppVerCountDigitsEnum.Use1)
                     Assert.AreEqual("00", result);
-                if (countDigits == ShareEnums.AppVerCountDigits.Use2)
+                if (countDigits == AppVerCountDigitsEnum.Use2)
                     Assert.AreEqual("00.01", result);
-                if (countDigits == ShareEnums.AppVerCountDigits.Use3)
+                if (countDigits == AppVerCountDigitsEnum.Use3)
                     Assert.AreEqual("00.01.05", result);
-                if (countDigits == ShareEnums.AppVerCountDigits.Use4)
+                if (countDigits == AppVerCountDigitsEnum.Use4)
                     Assert.AreEqual("00.01.05.123", result);
             }
 
-            strFormats = new List<ShareEnums.AppVerStringFormat>() { ShareEnums.AppVerStringFormat.Use1, ShareEnums.AppVerStringFormat.Use1, ShareEnums.AppVerStringFormat.Use1 };
-            foreach (ShareEnums.AppVerCountDigits countDigits in Enum.GetValues(typeof(ShareEnums.AppVerCountDigits)))
+            strFormats = new List<AppVerStringFormatEnum>() { AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use1 };
+            foreach (AppVerCountDigitsEnum countDigits in Enum.GetValues(typeof(AppVerCountDigitsEnum)))
             {
                 Assert.DoesNotThrow(() => result = App.GetCurrentVersion(countDigits, strFormats, version));
                 TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
-                if (countDigits == ShareEnums.AppVerCountDigits.Use1)
+                if (countDigits == AppVerCountDigitsEnum.Use1)
                     Assert.AreEqual("0", result);
-                if (countDigits == ShareEnums.AppVerCountDigits.Use2)
+                if (countDigits == AppVerCountDigitsEnum.Use2)
                     Assert.AreEqual("0.1", result);
-                if (countDigits == ShareEnums.AppVerCountDigits.Use3)
+                if (countDigits == AppVerCountDigitsEnum.Use3)
                     Assert.AreEqual("0.1.5", result);
-                if (countDigits == ShareEnums.AppVerCountDigits.Use4)
+                if (countDigits == AppVerCountDigitsEnum.Use4)
                     Assert.AreEqual("0.1.5.123", result);
             }
 

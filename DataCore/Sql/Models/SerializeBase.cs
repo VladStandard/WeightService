@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
-using static DataCore.ShareEnums;
+using DataCore.Models;
 
 namespace DataCore.Sql.Models;
 
@@ -135,33 +135,33 @@ public class SerializeBase : ISerializable
 
     public virtual ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
 
-    public virtual string GetContentType(FormatType format) => format switch
+    public virtual string GetContentType(FormatTypeEnum format) => format switch
     {
-        FormatType.Xml => "application/xml",
-        FormatType.Json => "application/json",
-        FormatType.Html => "application/html",
-        FormatType.Text => "application/text",
-        FormatType.Raw => "application/text",
+        FormatTypeEnum.Xml => "application/xml",
+        FormatTypeEnum.Json => "application/json",
+        FormatTypeEnum.Html => "application/html",
+        FormatTypeEnum.Text => "application/text",
+        FormatTypeEnum.Raw => "application/text",
         _ => throw GetArgumentException(nameof(format)),
     };
 
-    public virtual ContentResult GetResultInside(FormatType format, object content, HttpStatusCode statusCode) => new()
+    public virtual ContentResult GetResultInside(FormatTypeEnum format, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = GetContentType(format),
         StatusCode = (int)statusCode,
         Content = content is string ? content as string : content?.ToString()
     };
 
-    public virtual ContentResult GetResult(FormatType format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
+    public virtual ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
 
-    public virtual ContentResult GetResult<T>(FormatType format, HttpStatusCode statusCode) where T : new()
+    public virtual ContentResult GetResult<T>(FormatTypeEnum format, HttpStatusCode statusCode) where T : new()
     {
         return format switch
         {
-            FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
-            FormatType.Xml => GetResult(format, SerializeAsXml<T>(false), statusCode),
-            FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
-            FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
+            FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
+            FormatTypeEnum.Xml => GetResult(format, SerializeAsXml<T>(false), statusCode),
+            FormatTypeEnum.Html => GetResult(format, SerializeAsHtml(), statusCode),
+            FormatTypeEnum.Text or FormatTypeEnum.Raw => GetResult(format, SerializeAsText(), statusCode),
             _ => throw GetArgumentException(nameof(format)),
         };
     }

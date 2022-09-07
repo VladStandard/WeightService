@@ -42,7 +42,7 @@
 			<td>@LocaleCore.Strings.AuthorizingUserName</td>
 			@if (string.IsNullOrEmpty(UserSettings.UserName))
 			{
-				<td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
+				<td><ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true /></td>
 			}
 			else
 			{
@@ -60,14 +60,14 @@
 			<td>@LocaleCore.Strings.Language</td>
 			@if (TemplateLanguages == null)
 			{
-				<td><ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true /></td>
+				<td><ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true /></td>
 			}
 			else
 			{
 				<td>
 					<MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						@bind-Value=@LocaleCore.Lang>
-						@foreach (Lang lang in Langs)
+						@foreach (LangEnum lang in Langs)
 						{
 							<MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
 						}

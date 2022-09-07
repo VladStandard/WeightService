@@ -11,7 +11,7 @@
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
@@ -20,7 +20,7 @@ else
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 		<tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(ColumnName.Uid, true) />
+			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
 			<tr>
 				<td>@LocaleCore.Table.IsActive</td>
 				<td>

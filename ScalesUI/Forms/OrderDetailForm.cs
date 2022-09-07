@@ -59,7 +59,7 @@ public partial class OrderDetailForm : Form
     {
         //try
         //{
-        //    UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Paused);
+        //    UserSession.SqlViewModel.Order?.SetStatus(OrderStatus.Paused);
         //    UserSession.SqlViewModel.Order = null;
         //    DialogResult = DialogResult.Retry;
         //    Close();
@@ -74,7 +74,7 @@ public partial class OrderDetailForm : Form
     {
         //try
         //{
-        //    UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.Performed);
+        //    UserSession.SqlViewModel.Order?.SetStatus(OrderStatus.Performed);
         //    UserSession.SqlViewModel.Order = null;
         //    DialogResult = DialogResult.Retry;
         //    Close();
@@ -89,7 +89,7 @@ public partial class OrderDetailForm : Form
     {
         //try
         //{
-        //    UserSession.SqlViewModel.Order?.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+        //    UserSession.SqlViewModel.Order?.SetStatus(OrderStatus.InProgress);
         //    UserSession.SqlViewModel.Order = null;
         //    DialogResult = DialogResult.OK;
         //    Close();

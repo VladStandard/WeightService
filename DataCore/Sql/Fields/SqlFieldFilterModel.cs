@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using static DataCore.ShareEnums;
+using DataCore.Models;
 
 namespace DataCore.Sql.Fields;
 
@@ -20,7 +20,7 @@ public class SqlFieldFilterModel
     /// <summary>
     /// Field comparer.
     /// </summary>
-    public DbComparer Comparer { get; }
+    public SqlFieldComparerEnum Comparer { get; }
     /// <summary>
     /// Field value.
     /// </summary>
@@ -32,7 +32,7 @@ public class SqlFieldFilterModel
     /// <param name="field"></param>
     /// <param name="comparer"></param>
     /// <param name="value"></param>
-    public SqlFieldFilterModel(DbField field, DbComparer comparer, object? value)
+    public SqlFieldFilterModel(SqlFieldEnum field, SqlFieldComparerEnum comparer, object? value)
     {
         Name = field.ToString();
         Comparer = comparer;
@@ -44,10 +44,10 @@ public class SqlFieldFilterModel
     /// </summary>
     /// <param name="field"></param>
     /// <param name="value"></param>
-    public SqlFieldFilterModel(DbField field, object? value)
+    public SqlFieldFilterModel(SqlFieldEnum field, object? value)
     {
         Name = field.ToString();
-        Comparer = DbComparer.Equal;
+        Comparer = SqlFieldComparerEnum.Equal;
         Value = value;
     }
 
@@ -58,7 +58,7 @@ public class SqlFieldFilterModel
     /// <param name="comparer"></param>
     /// <param name="value"></param>
     /// <param name="valueType"></param>
-    public SqlFieldFilterModel(string name, DbComparer comparer, object? value, Type? valueType = null)
+    public SqlFieldFilterModel(string name, SqlFieldComparerEnum comparer, object? value, Type? valueType = null)
     {
         Name = name;
         Comparer = comparer;
@@ -76,24 +76,24 @@ public class SqlFieldFilterModel
     /// <returns></returns>
     public virtual bool Equals(SqlFieldFilterModel item)
     {
-		if (Value == null && item.Value != null) return false;
+        if (Value == null && item.Value != null) return false;
         if (Value != null && item.Value == null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
-	        Equals(Name, item.Name) &&
+            Equals(Name, item.Name) &&
             Equals(Value, item.Value);
     }
 
-	/// <summary>
-	/// Equals.
-	/// </summary>
-	/// <param name="obj"></param>
-	/// <returns></returns>
-	public override bool Equals(object obj)
-	{
-	    if (ReferenceEquals(null, obj)) return false;
-	    if (ReferenceEquals(this, obj)) return true;
-	    if (obj.GetType() != GetType()) return false;
+    /// <summary>
+    /// Equals.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
         return Equals((SqlFieldFilterModel)obj);
     }
 
@@ -104,7 +104,7 @@ public class SqlFieldFilterModel
     public override int GetHashCode() => (Name, Comparer, Value).GetHashCode();
 
     public override string ToString() =>
-		$"{nameof(Name)}: {Name}. " +
+        $"{nameof(Name)}: {Name}. " +
         $"{nameof(Comparer)}: {Comparer}. " +
         $"{nameof(Value)}: {Value}. ";
 

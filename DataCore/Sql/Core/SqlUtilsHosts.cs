@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
 using DataCore.Sql.TableDirectModels;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Core;
 
@@ -30,8 +30,8 @@ public static partial class SqlUtils
 	public static HostModel? GetHost(string hostName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-			{ new(DbField.HostName, DbComparer.Equal, hostName), new(DbField.IsMarked, DbComparer.Equal, false) },
-			new(DbField.CreateDt, DbOrderDirection.Desc), 0);
+			{ new(SqlFieldEnum.HostName, SqlFieldComparerEnum.Equal, hostName), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+			new(SqlFieldEnum.CreateDt, SqlFieldOrderDirectionEnum.Desc), 0);
 		return DataAccess.GetItem<HostModel>(sqlCrudConfig);
 	}
 

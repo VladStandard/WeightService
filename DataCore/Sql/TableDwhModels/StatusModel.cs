@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableDwhModels;
@@ -16,7 +15,7 @@ public class StatusModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public StatusModel() : base(ColumnName.Id)
+	public StatusModel() : base(SqlFieldIdentityEnum.Id)
     {
 	    Name = string.Empty;
     }

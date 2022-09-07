@@ -1,16 +1,26 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
 using DataCore.Sql.Tables;
 using NHibernate;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Core;
 
+/// <summary>
+/// 
+/// </summary>
 public static class DataAccessHelperItem
 {
 	#region Public and private methods
 
+	/// <summary>
+	/// Get table item.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="dataAccess"></param>
+	/// <param name="sqlCrudConfig"></param>
+	/// <returns></returns>
 	public static T? GetItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
 	{
 		T? item = null;
@@ -22,6 +32,14 @@ public static class DataAccessHelperItem
 		return item;
 	}
 
+	/// <summary>
+	/// Get table item core.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="dataAccess"></param>
+	/// <param name="session"></param>
+	/// <param name="sqlCrudConfig"></param>
+	/// <returns></returns>
 	private static T? GetItemCore<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
 	{
 		sqlCrudConfig.MaxResults = 1;
@@ -33,31 +51,40 @@ public static class DataAccessHelperItem
 	}
 
 	/// <summary>
-	/// Get entity by ID.
+	/// Get table item by ID.
 	/// </summary>
+	/// <param name="dataAccess"></param>
 	/// <param name="id"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
 	public static T? GetItemById<T>(this DataAccessHelper dataAccess, long? id) where T : TableBaseModel, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.IdentityValueId, DbComparer.Equal, id) },
-			new(DbField.IdentityValueId, DbOrderDirection.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, id) },
+			new(SqlFieldEnum.IdentityValueId, SqlFieldOrderDirectionEnum.Desc), 0);
 		return GetItem<T>(dataAccess, sqlCrudConfig);
 	}
 
 	/// <summary>
-	/// Get entity by UID.
+	/// Get table item by UID.
 	/// </summary>
+	/// <param name="dataAccess"></param>
 	/// <param name="uid"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
 	public static T? GetItemByUid<T>(this DataAccessHelper dataAccess, Guid? uid) where T : TableBaseModel, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.IdentityValueUid, DbComparer.Equal, uid) },
-			new(DbField.IdentityValueUid, DbOrderDirection.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.IdentityValueUid, SqlFieldComparerEnum.Equal, uid) },
+			new(SqlFieldEnum.IdentityValueUid, SqlFieldOrderDirectionEnum.Desc), 0);
 		return GetItem<T>(dataAccess, sqlCrudConfig);
 	}
 
+	/// <summary>
+	/// Get table not null item.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="dataAccess"></param>
+	/// <param name="sqlCrudConfig"></param>
+	/// <returns></returns>
 	public static T GetItemNotNull<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
 	{
 		T? item = GetItem<T>(dataAccess, sqlCrudConfig);
@@ -66,6 +93,13 @@ public static class DataAccessHelperItem
 		return new();
 	}
 
+	/// <summary>
+	/// Get table not null item by ID.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="dataAccess"></param>
+	/// <param name="id"></param>
+	/// <returns></returns>
 	public static T GetItemByIdNotNull<T>(this DataAccessHelper dataAccess, long? id) where T : TableBaseModel, new()
 	{
 		T? item = GetItemById<T>(dataAccess, id);
@@ -74,6 +108,13 @@ public static class DataAccessHelperItem
 		return new();
 	}
 
+	/// <summary>
+	/// Get table not null item by UID.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="dataAccess"></param>
+	/// <param name="uid"></param>
+	/// <returns></returns>
 	public static T GetItemByUidNotNull<T>(this DataAccessHelper dataAccess, Guid? uid) where T : TableBaseModel, new()
 	{
 		T? item = GetItemByUid<T>(dataAccess, uid);

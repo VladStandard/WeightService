@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -24,7 +23,7 @@ public partial class WpfPageLoader : Form
     private PagePinCode PagePinCode { get; set; }
     public PageScaleChange PageScaleChange { get; private set; }
     private PageSqlSettings PageSqlSettings { get; set; }
-    private ProjectsEnums.Page Page { get; }
+    private DataCore.Models.PageEnum Page { get; }
 
     #endregion
 
@@ -34,10 +33,10 @@ public partial class WpfPageLoader : Form
     {
         InitializeComponent();
 
-        Page = ProjectsEnums.Page.Default;
+        Page = DataCore.Models.PageEnum.Default;
     }
 
-    public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
+    public WpfPageLoader(DataCore.Models.PageEnum page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None,
         double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
         ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
     {
@@ -94,39 +93,37 @@ public partial class WpfPageLoader : Form
             }
 
             // WPF element.
-            if (Page != ProjectsEnums.Page.Default)
+            if (Page != DataCore.Models.PageEnum.Default)
             {
                 ElementHost = new() { Dock = DockStyle.Fill };
                 panelMain.Controls.Add(ElementHost);
             }
             switch (Page)
             {
-                case ProjectsEnums.Page.ScaleChange:
+                case DataCore.Models.PageEnum.ScaleChange:
                     PageScaleChange = new();
                     PageScaleChange.InitializeComponent();
                     ElementHost.Child = PageScaleChange;
                     PageScaleChange.OnClose += WpfPageLoader_OnClose;
                     break;
-                case ProjectsEnums.Page.MessageBox:
+                case DataCore.Models.PageEnum.MessageBox:
                     PageMessageBox = new();
                     PageMessageBox.InitializeComponent();
                     ElementHost.Child = PageMessageBox;
                     PageMessageBox.MessageBox = MessageBox;
                     PageMessageBox.OnClose += WpfPageLoader_OnClose;
                     break;
-                case ProjectsEnums.Page.PinCode:
+                case DataCore.Models.PageEnum.PinCode:
                     PagePinCode = new();
                     PagePinCode.InitializeComponent();
                     ElementHost.Child = PagePinCode;
                     PagePinCode.OnClose += WpfPageLoader_OnClose;
                     break;
-                case ProjectsEnums.Page.SqlSettings:
+                case DataCore.Models.PageEnum.SqlSettings:
                     PageSqlSettings = new();
                     PageSqlSettings.InitializeComponent();
                     ElementHost.Child = PageSqlSettings;
                     PageSqlSettings.OnClose += WpfPageLoader_OnClose;
-                    break;
-                default:
                     break;
             }
         }
@@ -154,19 +151,17 @@ public partial class WpfPageLoader : Form
         {
             switch (Page)
             {
-                case ProjectsEnums.Page.ScaleChange:
+                case DataCore.Models.PageEnum.ScaleChange:
                     DialogResult = PageScaleChange.Result;
                     break;
-                case ProjectsEnums.Page.MessageBox:
+                case DataCore.Models.PageEnum.MessageBox:
                     DialogResult = MessageBox.Result;
                     break;
-                case ProjectsEnums.Page.PinCode:
+                case DataCore.Models.PageEnum.PinCode:
                     DialogResult = PagePinCode.Result;
                     break;
-                case ProjectsEnums.Page.SqlSettings:
+                case DataCore.Models.PageEnum.SqlSettings:
                     DialogResult = PageSqlSettings.Result;
-                    break;
-                default:
                     break;
             }
         }

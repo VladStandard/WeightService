@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -21,7 +19,7 @@ public class WorkShopModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializab
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public WorkShopModel() : base(ColumnName.Id)
+    public WorkShopModel() : base(SqlFieldIdentityEnum.Id)
 	{
 		ProductionFacility = new();
 		Name = string.Empty;

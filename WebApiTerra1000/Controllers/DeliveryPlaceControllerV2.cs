@@ -10,9 +10,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -33,18 +33,18 @@ public class DeliveryPlaceControllerV2 : BaseController
     [HttpGet()]
     [Route("api/v2/deliveryplaces/")]
     public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatType format = FormatType.Xml) =>
+        FormatTypeEnum format = FormatTypeEnum.Xml) =>
         GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, format);
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/deliveryplaces_preview/")]
     public ContentResult GetDeliveryPlacesPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatType format = FormatType.Xml) =>
+        FormatTypeEnum format = FormatTypeEnum.Xml) =>
         GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, format);
 
     private ContentResult GetDeliveryPlacesWork(string url, DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatType format = FormatType.Xml)
+        FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

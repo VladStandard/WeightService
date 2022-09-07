@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using System.Collections.ObjectModel;
 using System.Threading;
+using DataCore.Models;
 
 namespace WeightCore.Helpers
 {
@@ -44,15 +44,15 @@ namespace WeightCore.Helpers
         /// </summary>
         /// <param name="winVersion">Версия WiNdows</param>
         /// <returns></returns>
-        public string GetDriverFileName(ShareEnums.WinVersion winVersion)
+        public string GetDriverFileName(WinVersionEnum winVersion)
         {
-            if (winVersion == ShareEnums.WinVersion.Win7x64)
+            if (winVersion == WinVersionEnum.Win7x64)
                 return "VCP_V1.5.0_Setup_W7_x64_64bits.exe";
-            if (winVersion == ShareEnums.WinVersion.Win7x32)
+            if (winVersion == WinVersionEnum.Win7x32)
                 return "VCP_V1.5.0_Setup_W7_x86_32bits.exe";
-            if (winVersion == ShareEnums.WinVersion.Win10x64)
+            if (winVersion == WinVersionEnum.Win10x64)
                 return "VCP_V1.5.0_Setup_W8_x64_64bits.exe";
-            if (winVersion == ShareEnums.WinVersion.Win10x32)
+            if (winVersion == WinVersionEnum.Win10x32)
                 return "VCP_V1.5.0_Setup_W8_x86_32bits.exe";
 
             return string.Empty;

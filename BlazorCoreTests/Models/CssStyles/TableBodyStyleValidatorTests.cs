@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using BlazorCore.CssStyles;
-using DataCore.Sql.Tables;
+using DataCore.Sql.Core;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -22,7 +22,7 @@ internal class TableBodyStyleValidatorTests
 		// Assert.
 		BlazorCoreUtils.AssertStyleValidate(item, false);
 		// Act.
-		item.IdentityName = ColumnName.Default;
+		item.IdentityName = SqlFieldIdentityEnum.Default;
 		// Assert.
 		BlazorCoreUtils.AssertStyleValidate(item, false);
 	}
@@ -33,7 +33,7 @@ internal class TableBodyStyleValidatorTests
 		// Arrange.
 		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>(true);
 		// Act.
-		item.IdentityName = ColumnName.Uid;
+		item.IdentityName = SqlFieldIdentityEnum.Uid;
 		// Assert.
 		BlazorCoreUtils.AssertStyleValidate(item, true);
 	}

@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Protocols;
-using DataCore.Sql;
 using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.Data.SqlClient;
@@ -16,9 +14,9 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using DataCore.Models;
 using WeightCore.Gui.XamlPages;
 using WeightCore.Helpers;
-using static DataCore.ShareEnums;
 
 namespace WeightCore.Gui;
 
@@ -84,7 +82,7 @@ public static class GuiUtils
         {
             CloseIfExistsWpfPage();
 
-            WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            WpfPage = new(DataCore.Models.PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = caption;
             WpfPage.MessageBox.Message = message;
             WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
@@ -99,7 +97,7 @@ public static class GuiUtils
         {
             CloseIfExistsWpfPage();
 
-            WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            WpfPage = new(DataCore.Models.PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
             WpfPage.MessageBox.Message = message;
             WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
@@ -141,26 +139,26 @@ public static class GuiUtils
         /// <param name="hostName"></param>
         /// <param name="appName"></param>
         /// <returns></returns>
-        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogType logType,
+        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogTypeEnum logType,
             VisibilitySettingsEntity? visibility = null, string hostName = "", string appName = "")
         {
             if (isLog)
             {
 	            switch (logType)
 	            {
-		            case LogType.None:
+		            case LogTypeEnum.None:
 			            DataAccess.LogInformation(message, hostName, appName);
 			            break;
-		            case LogType.Error:
+		            case LogTypeEnum.Error:
 			            DataAccess.LogError(message, hostName, appName);
 			            break;
-		            case LogType.Question:
+		            case LogTypeEnum.Question:
 			            DataAccess.LogQuestion(message, hostName, appName);
 			            break;
-		            case LogType.Warning:
+		            case LogTypeEnum.Warning:
 			            DataAccess.LogWarning(message, hostName, appName);
 			            break;
-		            case LogType.Information:
+		            case LogTypeEnum.Information:
 						DataAccess.LogInformation(message, hostName, appName);
 			            break;
 		            default:
@@ -183,7 +181,7 @@ public static class GuiUtils
             doc.Add(root);
 
             DialogResult resultWpf = new();
-            WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
             WpfPage.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
             WpfPage.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
@@ -203,7 +201,7 @@ public static class GuiUtils
         {
             DialogResult result = ShowNewOperationControl(null,
                 LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
-                false, LogType.Information,
+                false, LogTypeEnum.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
             if (result == DialogResult.Yes)
             {
@@ -224,7 +222,7 @@ public static class GuiUtils
         {
             DialogResult result = ShowNewOperationControl(null,
                 LocaleCore.Scales.HostNotFound(hostName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                false, LogType.Information,
+                false, LogTypeEnum.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
             if (result == DialogResult.Yes)
             {
@@ -253,7 +251,7 @@ public static class GuiUtils
         {
             CloseIfExistsWpfPage();
 
-            WpfPage = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
             WpfPage.MessageBox.Message = LocaleCore.Scales.RegistrationWarning(uid);
             WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;

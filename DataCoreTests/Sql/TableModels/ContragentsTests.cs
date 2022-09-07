@@ -77,7 +77,7 @@
 //            {
 //                string name = "ContragentsEntity test";
 //                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.GetItem<ContragentEntityV2>(new (
-//                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
+//                    new Dictionary<string, object> { { DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;
 //                // UpdateEntity

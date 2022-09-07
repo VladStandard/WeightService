@@ -7,7 +7,7 @@ public partial class ActionsLoad : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
-	[Parameter] public ActionLoad DataLoadItem { get; set; }
+	[Parameter] public ActionLoadEnum DataLoadItem { get; set; }
 	[Parameter] public bool IsShowProgress { get; set; }
 
 	#endregion

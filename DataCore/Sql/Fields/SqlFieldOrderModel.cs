@@ -1,8 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-using DataCore.Sql.Core;
-using DataCore.Sql.Tables;
-using static DataCore.ShareEnums;
+
+using DataCore.Models;
 
 namespace DataCore.Sql.Fields;
 
@@ -17,19 +16,19 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     /// <summary>
     /// Name order.
     /// </summary>
-    public DbField Name { get; private set; }
+    public SqlFieldEnum Name { get; private set; }
     /// <summary>
     /// Direction order.
     /// </summary>
-    public DbOrderDirection Direction { get; private set; }
+    public SqlFieldOrderDirectionEnum Direction { get; private set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public SqlFieldOrderModel()
     {
-	    Name = DbField.Default;
-	    Direction = DbOrderDirection.Asc;
+	    Name = SqlFieldEnum.Default;
+	    Direction = SqlFieldOrderDirectionEnum.Asc;
     }
 
     /// <summary>
@@ -37,7 +36,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 	/// </summary>
 	/// <param name="name"></param>
 	/// <param name="direction"></param>
-	public SqlFieldOrderModel(DbField name, DbOrderDirection direction = DbOrderDirection.Asc)
+	public SqlFieldOrderModel(SqlFieldEnum name, SqlFieldOrderDirectionEnum direction = SqlFieldOrderDirectionEnum.Asc)
     {
         Name = name;
         Direction = direction;
@@ -50,8 +49,8 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     /// <param name="context"></param>
     protected SqlFieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
     {
-        Name = (DbField)info.GetValue(nameof(Name), typeof(DbField));
-        Direction = (DbOrderDirection)info.GetValue(nameof(Direction), typeof(DbOrderDirection));
+        Name = (SqlFieldEnum)info.GetValue(nameof(Name), typeof(SqlFieldEnum));
+        Direction = (SqlFieldOrderDirectionEnum)info.GetValue(nameof(Direction), typeof(SqlFieldOrderDirectionEnum));
     }
 
 	#endregion
@@ -87,8 +86,8 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     }
 
 	public virtual bool EqualsDefault() =>
-		Equals(Name, ColumnName.Default) &&
-		Equals(Direction, DbOrderDirection.Asc);
+		Equals(Name, SqlFieldIdentityEnum.Default) &&
+		Equals(Direction, SqlFieldOrderDirectionEnum.Asc);
 
 	public virtual object Clone() => new SqlFieldOrderModel(Name, Direction);
 

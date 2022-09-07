@@ -11,9 +11,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -33,7 +33,7 @@ public class ContragentController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/contragent/")]
-    public ContentResult GetContragent(long id, FormatType format = FormatType.Xml)
+    public ContentResult GetContragent(long id, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -48,7 +48,7 @@ public class ContragentController : BaseController
     [HttpGet()]
     [Route("api/contragents/")]
     public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
-        FormatType format = FormatType.Xml)
+        FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

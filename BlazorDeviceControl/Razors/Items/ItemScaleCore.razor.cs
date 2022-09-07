@@ -39,7 +39,7 @@ public partial class ItemScaleCore : RazorPageBase
 		{
 			() =>
 			{
-				Table = new TableScaleModel(ProjectsEnums.TableScale.Scales);
+				Table = new TableScaleModel(SqlTableScaleEnum.Scales);
 				Printers = new();
 				ComPorts = new();
 				Hosts = new();
@@ -68,7 +68,7 @@ public partial class ItemScaleCore : RazorPageBase
 				ItemCast.WorkShop ??= new() { Name = LocaleCore.Table.FieldNull };
 
 			    // ComPorts
-			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
+			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);
 			    // ScaleFactor
 			    ItemCast.ScaleFactor ??= 1000;
 			    Hosts = AppSettings.DataAccess.GetListHosts(false, false, true);

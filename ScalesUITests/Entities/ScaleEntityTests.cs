@@ -51,7 +51,7 @@
 //        {
 //            var random = new Random();
 
-//            _scale.Load("F1A90176-894E-11EA-9E4C-4CCC6A93A440", ProjectsEnums.SilentUI.False);
+//            _scale.Load("F1A90176-894E-11EA-9E4C-4CCC6A93A440", SilentUI.False);
 //            PluEntity plu = PLUHelper.GetPLU("F1A90176-894E-11EA-9E4C-4CCC6A93A440", 50);
 //            TemplateEntity template = new TemplateEntity("36432385-A0BC-11EA-9E4D-4CCC6A93A440");
 

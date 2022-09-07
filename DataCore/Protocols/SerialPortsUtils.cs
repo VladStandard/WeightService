@@ -9,14 +9,14 @@ namespace DataCore.Protocols
     {
         #region Public and private methods
 
-        public static List<string> GetListComPorts(ShareEnums.Lang lang)
+        public static List<string> GetListComPorts(LangEnum lang)
         {
             List<string> result = new();
             for (int i = 1; i < 256; i++)
             {
                 switch (lang)
                 {
-                    case ShareEnums.Lang.Russian:
+                    case LangEnum.Russian:
                         result.Add($"КОМ{i}");
                         break;
                     default:
@@ -27,14 +27,14 @@ namespace DataCore.Protocols
             return result;
         }
 
-        public static List<TypeModel<string>> GetListTypeComPorts(ShareEnums.Lang lang)
+        public static List<TypeModel<string>> GetListTypeComPorts(LangEnum lang)
         {
             List<TypeModel<string>> result = new();
             for (int i = 1; i < 256; i++)
             {
                 switch (lang)
                 {
-                    case ShareEnums.Lang.Russian:
+                    case LangEnum.Russian:
                         result.Add(new TypeModel<string>($"КОМ{i}", $"COM{i}"));
                         break;
                     default:

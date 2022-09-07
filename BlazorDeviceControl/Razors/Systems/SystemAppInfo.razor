@@ -16,7 +16,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(VerApp))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -29,7 +29,7 @@
             <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -39,7 +39,7 @@
             <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -52,7 +52,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(Environment.MachineName))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -65,7 +65,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -80,7 +80,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -102,7 +102,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -115,7 +115,7 @@
             <td >
                 @if (DbCurSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -131,7 +131,7 @@
             <td>
                 @if (DbCurSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -147,7 +147,7 @@
             <td>
                 @if (DbFillSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -169,7 +169,7 @@
             <td>
                 @if (AppSettings.Memory.MemorySize.PhysicalTotal == null)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoad.None IsShowProgress=true />
+                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {

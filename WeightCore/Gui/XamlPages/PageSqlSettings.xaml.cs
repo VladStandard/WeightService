@@ -87,13 +87,13 @@ public partial class PageSqlSettings : UserControl
         //_settings.SqlHelp.Authentication.UserId = fieldSqlUser.Text;
         //_settings.SqlHelp.Authentication.Password = fieldSqlPassword.Text;
         //_settings.SqlHelp.Authentication.IntegratedSecurity = fieldSqlIntegratedSecurity.IsChecked == true;
-        //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ProjectsEnums.ConStringLevel.Middle);
+        //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ConStringLevel.Middle);
     }
 
     private void ButtonSqlLoadConfig_Click(object sender, RoutedEventArgs e)
     {
         SqlLoadGui();
-        //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ProjectsEnums.ConStringLevel.Middle);
+        //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ConStringLevel.Middle);
     }
 
     private void SetGuiSqlEnabled(bool enabled)

@@ -4,9 +4,9 @@
 
 <MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (IdentityId == null && IdentityUid == null && TableAction != DbTableAction.New && Item == null&& ItemFilter == null)
+        @if (IdentityId == null && IdentityUid == null && TableAction != SqlTableActionEnum.New && Item == null&& ItemFilter == null)
         {
-            <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+            <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
         }
         else
         {

@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace DataCore.Sql.Core;
 
 public static partial class SqlUtils
@@ -35,15 +37,15 @@ public static partial class SqlUtils
 	public static ScaleModel? GetScaleFromHost(long hostId)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new($"Host.Identity.Id", ShareEnums.DbComparer.Equal, hostId), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
-			new(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Desc), 0);
+				{ new($"Host.Identity.Id", SqlFieldComparerEnum.Equal, hostId), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+			new(SqlFieldEnum.CreateDt, SqlFieldOrderDirectionEnum.Desc), 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(long id)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(ShareEnums.DbField.IdentityValueId, ShareEnums.DbComparer.Equal, id), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
+				{ new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, id), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
 			null, 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
@@ -51,7 +53,7 @@ public static partial class SqlUtils
 	public static ScaleModel? GetScale(string description)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(ShareEnums.DbField.Description, ShareEnums.DbComparer.Equal, description), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
+				{ new(SqlFieldEnum.Description, SqlFieldComparerEnum.Equal, description), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
 			null, 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
@@ -59,7 +61,7 @@ public static partial class SqlUtils
 	public static ProductionFacilityModel? GetArea(string name)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(ShareEnums.DbField.Name, ShareEnums.DbComparer.Equal, name), new(ShareEnums.DbField.IsMarked, ShareEnums.DbComparer.Equal, false) },
+				{ new(SqlFieldEnum.Name, SqlFieldComparerEnum.Equal, name), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
 			null, 0);
 		return DataAccess.GetItem<ProductionFacilityModel>(sqlCrudConfig);
 	}

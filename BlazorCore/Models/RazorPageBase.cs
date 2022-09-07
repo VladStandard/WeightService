@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
@@ -11,7 +10,6 @@ using DataCore.Sql.Tables;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using static DataCore.ShareEnums;
 using Environment = System.Environment;
 
 namespace BlazorCore.Models;
@@ -77,7 +75,7 @@ public partial class RazorPageBase : LayoutComponentBase
 
     private void OnItemValueChangeAccess(string? filterName, object? value, AccessModel access)
     {
-        if (filterName == nameof(access.Rights) && value is AccessRights rights)
+        if (filterName == nameof(access.Rights) && value is AccessRightsEnum rights)
         {
             access.Rights = (byte)rights;
         }
@@ -186,91 +184,91 @@ public partial class RazorPageBase : LayoutComponentBase
     {
         switch (ParentRazor?.Item?.Identity.Name)
         {
-            case ColumnName.Id:
+            case SqlFieldIdentityEnum.Id:
                 return LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
                        $"{nameof(ParentRazor.Item.Identity.Id)}: {ParentRazor.Item.Identity.Id}";
-            case ColumnName.Uid:
+            case SqlFieldIdentityEnum.Uid:
                 return LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
                        $"{nameof(ParentRazor.Item.Identity.Uid)}: {ParentRazor.Item.Identity.Uid}";
         }
         return string.Empty;
     }
 
-    private void ItemSystemSave(ProjectsEnums.TableSystem tableSystem)
+    private void ItemSystemSave(SqlTableSystemEnum tableSystem)
     {
         switch (tableSystem)
         {
-            case ProjectsEnums.TableSystem.Accesses:
-                ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableSystemEnum.Accesses:
+                ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableSystem.Tasks:
-                ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableSystemEnum.Tasks:
+                ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableSystem.TasksTypes:
-                ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableSystemEnum.TasksTypes:
+                ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
         }
     }
 
-    private void ItemScaleSave(ProjectsEnums.TableScale tableScale)
+    private void ItemScaleSave(SqlTableScaleEnum tableScale)
     {
         switch (tableScale)
         {
-            case ProjectsEnums.TableScale.BarCodeTypes:
-                ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.BarCodeTypes:
+                ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Contragents:
-                ItemSaveCheck.Contragent(NotificationService, (ContragentModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Contragents:
+                ItemSaveCheck.Contragent(NotificationService, (ContragentModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Hosts:
-                ItemSaveCheck.Host(NotificationService, (HostModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Hosts:
+                ItemSaveCheck.Host(NotificationService, (HostModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Nomenclatures:
-                ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Nomenclatures:
+                ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.PlusObsolete:
-                ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.PlusObsolete:
+                ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Plus:
-                ItemSaveCheck.Plu(NotificationService, (PluModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Plus:
+                ItemSaveCheck.Plu(NotificationService, (PluModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.PlusScales:
+            case SqlTableScaleEnum.PlusScales:
                 if (ParentRazor?.Items is not null)
                 {
                     List<PluScaleModel> pluScales = ParentRazor.Items.Cast<PluScaleModel>().ToList();
                     foreach (PluScaleModel pluScale in pluScales)
                     {
-                        ItemSaveCheck.PluScale(NotificationService, pluScale, DbTableAction.Save);
+                        ItemSaveCheck.PluScale(NotificationService, pluScale, SqlTableActionEnum.Save);
                     }
                 }
                 else if (ParentRazor?.Item is not null)
                 {
-                    ItemSaveCheck.PluScale(NotificationService, (PluScaleModel?)ParentRazor?.Item, DbTableAction.Save);
+                    ItemSaveCheck.PluScale(NotificationService, (PluScaleModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 }
                 break;
-            case ProjectsEnums.TableScale.PrintersResources:
-                ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.PrintersResources:
+                ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Printers:
-                ItemSaveCheck.Printer(NotificationService, (PrinterModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Printers:
+                ItemSaveCheck.Printer(NotificationService, (PrinterModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.PrintersTypes:
-                ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.PrintersTypes:
+                ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.ProductionFacilities:
-                ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.ProductionFacilities:
+                ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Scales:
-                ItemSaveCheck.Scale(NotificationService, Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Scales:
+                ItemSaveCheck.Scale(NotificationService, Item, SqlTableActionEnum.Save);
                 break;
-            case ProjectsEnums.TableScale.Templates:
+            case SqlTableScaleEnum.Templates:
                 ItemSaveCheck.Template(NotificationService, (TemplateModel?)ParentRazor?.Item, ParentRazor?.TableAction);
                 break;
-            case ProjectsEnums.TableScale.TemplatesResources:
+            case SqlTableScaleEnum.TemplatesResources:
                 ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceModel?)ParentRazor?.Item, ParentRazor?.TableAction);
                 break;
-            case ProjectsEnums.TableScale.Workshops:
-                ItemSaveCheck.Workshop(NotificationService, (WorkShopModel?)ParentRazor?.Item, DbTableAction.Save);
+            case SqlTableScaleEnum.Workshops:
+                ItemSaveCheck.Workshop(NotificationService, (WorkShopModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
         }
     }
@@ -286,10 +284,10 @@ public partial class RazorPageBase : LayoutComponentBase
                 switch (Table)
                 {
                     case TableSystemModel:
-                        ItemSystemSave(ProjectsEnums.GetTableSystem(Table.Name));
+                        ItemSystemSave(SqlUtils.GetTableSystem(Table.Name));
                         break;
                     case TableScaleModel:
-                        ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
+                        ItemScaleSave(SqlUtils.GetTableScale(Table.Name));
                         break;
                 }
                 SetRouteSectionNavigate(false);
@@ -327,7 +325,7 @@ public partial class RazorPageBase : LayoutComponentBase
         RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
-                SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, DbTableAction.Copy);
+                SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, SqlTableActionEnum.Copy);
             });
 
         ParentRazor?.OnChange();
@@ -343,7 +341,7 @@ public partial class RazorPageBase : LayoutComponentBase
         RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
-                SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, DbTableAction.Edit);
+                SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, SqlTableActionEnum.Edit);
                 InvokeAsync(StateHasChanged);
             });
     }
@@ -424,7 +422,7 @@ public partial class RazorPageBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
             () =>
             {
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
                 List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
                 foreach (TemplateResourceModel templateResource in templateResources)
                 {
@@ -453,7 +451,7 @@ public partial class RazorPageBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
             () =>
             {
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
                 List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
                 foreach (TemplateResourceModel templateResource in templateResources)
                 {

@@ -57,7 +57,7 @@
 //            {
 //                // GetEntities.
 //                foreach (HostEntity item in DataAccessUtilsTests.DataAccess.GetEntities<HostEntity>(null,
-//                    new FieldOrderModel { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
+//                    new FieldOrderModel { Use = true, Name = DbField.Name, Direction = DbOrderDirection.Desc }))
 //                {
 //                    TestContext.WriteLine(item.ToString());
 //                    TestContext.WriteLine();

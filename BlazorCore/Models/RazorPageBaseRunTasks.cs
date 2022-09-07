@@ -45,7 +45,7 @@ public partial class RazorPageBase : LayoutComponentBase
 	//    //switch (Table)
 	//    //{
 	//    //    case TableScaleEntity:
-	//    //        SetParametersForTableScale(parameters, ProjectsEnums.GetTableScale(Table.Name));
+	//    //        SetParametersForTableScale(parameters, GetTableScale(Table.Name));
 	//    //        break;
 	//    //}
 

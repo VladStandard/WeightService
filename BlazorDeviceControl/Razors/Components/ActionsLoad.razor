@@ -6,19 +6,19 @@
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
         @switch (DataLoadItem)
         {
-            case ActionLoad.Loading:
+            case ActionLoadEnum.Loading:
                 <RadzenLabel 
                     Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
                     Text=@LocaleCore.Strings.DataLoading
                 />
                 break;
-            case ActionLoad.Success:
+            case ActionLoadEnum.Success:
                 <RadzenLabel 
                     Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
                     Text=@LocaleCore.Strings.DataLoadComplete 
                 />
                 break;
-            case ActionLoad.Error:
+            case ActionLoadEnum.Error:
                 <RadzenLabel 
                     Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
                     Text=@LocaleCore.Strings.DataLoadError

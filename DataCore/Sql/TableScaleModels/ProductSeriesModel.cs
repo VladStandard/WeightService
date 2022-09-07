@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -22,7 +21,7 @@ public class ProductSeriesModel : TableBaseModel, ICloneable, ISqlDbBase, ISeria
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public ProductSeriesModel() : base(ColumnName.Id)
+	public ProductSeriesModel() : base(SqlFieldIdentityEnum.Id)
     {
 	    Scale = new();
 	    IsClose = false;

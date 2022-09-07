@@ -11,8 +11,8 @@ using System.Linq;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
+using DataCore.Models;
 using WeightCore.Helpers;
-using static DataCore.ShareEnums;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 
 namespace WeightCore.Zpl
@@ -106,8 +106,8 @@ namespace WeightCore.Zpl
                 return result;
 
             SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-                { new($"{nameof(TemplateResourceModel.Type)}", DbComparer.Equal, "ZPL") },
-                new(DbField.Name), 0, false, false);
+                { new($"{nameof(TemplateResourceModel.Type)}", SqlFieldComparerEnum.Equal, "ZPL") },
+                new(SqlFieldEnum.Name), 0, false, false);
             TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetItems<TemplateResourceModel>(sqlCrudConfig);
             if (templateReources != null)
             {

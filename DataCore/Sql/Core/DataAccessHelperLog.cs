@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using static DataCore.ShareEnums;
+using DataCore.Models;
 
 namespace DataCore.Sql.Core;
 
@@ -11,7 +11,6 @@ public static class DataAccessHelperLog
 
 	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
 	private static AppModel? App { get; set; }
-	//private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	private static HostModel? Host { get; set; }
 
 	#endregion
@@ -43,36 +42,36 @@ public static class DataAccessHelperLog
 	public static void LogError(this DataAccessHelper dataAccess, Exception ex, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(dataAccess, ex.Message, LogType.Error, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(dataAccess, ex.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 		if (ex.InnerException != null)
-			LogCore(dataAccess, ex.InnerException.Message, LogType.Error, hostName, appName, filePath, lineNumber, memberName);
+			LogCore(dataAccess, ex.InnerException.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 	}
 
 	public static void LogError(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(dataAccess, message, LogType.Error, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(dataAccess, message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 	}
 
 	public static void LogStop(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(dataAccess, message, LogType.Stop, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(dataAccess, message, LogTypeEnum.Stop, hostName, appName, filePath, lineNumber, memberName);
 
 	public static void LogInformation(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(dataAccess, message, LogType.Information, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(dataAccess, message, LogTypeEnum.Information, hostName, appName, filePath, lineNumber, memberName);
 
 	public static void LogWarning(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(dataAccess, message, LogType.Warning, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(dataAccess, message, LogTypeEnum.Warning, hostName, appName, filePath, lineNumber, memberName);
 
-	private static void LogCore(this DataAccessHelper dataAccess, string message, LogType logType, string? hostName, string? appName, string filePath, int lineNumber, string memberName)
+	private static void LogCore(this DataAccessHelper dataAccess, string message, LogTypeEnum logType, string? hostName, string? appName, string filePath, int lineNumber, string memberName)
 	{
 		StringUtils.SetStringValueTrim(ref filePath, 32, true);
 		StringUtils.SetStringValueTrim(ref memberName, 32);
 		byte logNumber = (byte)logType;
 		StringUtils.SetStringValueTrim(ref message, 1024);
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.Number, DbComparer.Equal, logNumber) }, null, 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.Number, SqlFieldComparerEnum.Equal, logNumber) }, null, 0);
 		LogTypeModel? logTypeItem = dataAccess.GetItem<LogTypeModel>(sqlCrudConfig);
 
 		HostModel? host = Host;
@@ -103,7 +102,7 @@ public static class DataAccessHelperLog
 	public static void LogQuestion(this DataAccessHelper dataAccess, string message, string? hostName, string? appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(dataAccess, message, LogType.Question, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(dataAccess, message, LogTypeEnum.Question, hostName, appName, filePath, lineNumber, memberName);
 	}
 
 	public static Guid SaveApp(this DataAccessHelper dataAccess, string name)
@@ -117,7 +116,7 @@ public static class DataAccessHelperLog
 	public static long? GetHostId(this DataAccessHelper dataAccess, string name)
 	{
 		StringUtils.SetStringValueTrim(ref name, 150);
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(DbField.Name, DbComparer.Equal, name) }, null, 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.Name, SqlFieldComparerEnum.Equal, name) }, null, 0);
 		HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 		return host?.Identity.Id;
 	}

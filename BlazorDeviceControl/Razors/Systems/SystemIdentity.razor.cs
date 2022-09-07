@@ -9,14 +9,14 @@ public partial class SystemIdentity : RazorPageBase
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public string AuthorizingText { get; set; }
-	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
-	private List<Lang> Langs { get; set; }
+	private List<TypeModel<LangEnum>>? TemplateLanguages { get; set; }
+	private List<LangEnum> Langs { get; set; }
 
 	public SystemIdentity()
 	{
 		AuthorizingText = string.Empty;
 		Langs = new();
-		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
+		foreach (LangEnum lang in Enum.GetValues(typeof(LangEnum)))
 			Langs.Add(lang);
 		TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
 	}

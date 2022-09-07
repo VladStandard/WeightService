@@ -57,8 +57,8 @@
 //            };
 //            DataAccessUtilsTests.DataAccess.SaveEntity(item);
 //            return DataAccessUtilsTests.DataAccess.GetItem<ProductionFacilityEntity>(
-//                new (new Dictionary<DbField, object?> { { ShareEnums.DbField.Name, name } }),
-//                new FieldOrderModel(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
+//                new (new Dictionary<DbField, object?> { { DbField.Name, name } }),
+//                new FieldOrderModel(DbField.Id, DbOrderDirection.Desc));
 //        }
 
 //        [Test]

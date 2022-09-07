@@ -28,7 +28,7 @@ public partial class SectionScalesCore : RazorPageBase
 		{
 			() =>
 			{
-		        Table = new TableScaleModel(ProjectsEnums.TableScale.Scales);
+		        Table = new TableScaleModel(SqlTableScaleEnum.Scales);
 		        IsShowMarkedFilter = true;
 				ItemsCast = new();
 			}

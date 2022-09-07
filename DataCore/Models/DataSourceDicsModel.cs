@@ -41,42 +41,42 @@ public class DataSourceDicsHelper
         };
     }
 
-    public List<TypeModel<ShareEnums.AccessRights>> GetTemplateAccessRights(byte? accessRights = null)
+    public List<TypeModel<AccessRightsEnum>> GetTemplateAccessRights(byte? accessRights = null)
     {
-        List<TypeModel<ShareEnums.AccessRights>> result = new();
-        result.Add(new($"{ShareEnums.AccessRights.None}", ShareEnums.AccessRights.None));
-        result.Add(new($"{ShareEnums.AccessRights.Read}", ShareEnums.AccessRights.Read));
-        result.Add(new($"{ShareEnums.AccessRights.Write}", ShareEnums.AccessRights.Write));
-        if (accessRights >= (byte)ShareEnums.AccessRights.Admin)
-            result.Add(new($"{ShareEnums.AccessRights.Admin}", ShareEnums.AccessRights.Admin));
+        List<TypeModel<AccessRightsEnum>> result = new();
+        result.Add(new($"{AccessRightsEnum.None}", AccessRightsEnum.None));
+        result.Add(new($"{AccessRightsEnum.Read}", AccessRightsEnum.Read));
+        result.Add(new($"{AccessRightsEnum.Write}", AccessRightsEnum.Write));
+        if (accessRights >= (byte)AccessRightsEnum.Admin)
+            result.Add(new($"{AccessRightsEnum.Admin}", AccessRightsEnum.Admin));
         return result;
     }
 
-    public List<TypeModel<ShareEnums.Lang>> GetTemplateLanguages()
+    public List<TypeModel<LangEnum>> GetTemplateLanguages()
     {
         return LocaleCore.Lang switch
         {
-            ShareEnums.Lang.English => GetTemplateLanguagesEng(),
-            ShareEnums.Lang.Russian => GetTemplateLanguagesRus(),
+            LangEnum.English => GetTemplateLanguagesEng(),
+            LangEnum.Russian => GetTemplateLanguagesRus(),
             _ => new()
         };
     }
 
-    private List<TypeModel<ShareEnums.Lang>> GetTemplateLanguagesEng()
+    private List<TypeModel<LangEnum>> GetTemplateLanguagesEng()
     {
         return new()
         {
-            new($"{ShareEnums.Lang.English}", ShareEnums.Lang.English),
-            new($"{ShareEnums.Lang.Russian}", ShareEnums.Lang.Russian),
+            new($"{LangEnum.English}", LangEnum.English),
+            new($"{LangEnum.Russian}", LangEnum.Russian),
         };
     }
 
-    private List<TypeModel<ShareEnums.Lang>> GetTemplateLanguagesRus()
+    private List<TypeModel<LangEnum>> GetTemplateLanguagesRus()
     {
         return new()
         {
-            new("Английский", ShareEnums.Lang.English),
-            new("Русский", ShareEnums.Lang.Russian),
+            new("Английский", LangEnum.English),
+            new("Русский", LangEnum.Russian),
         };
     }
 

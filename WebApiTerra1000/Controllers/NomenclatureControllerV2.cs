@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DataCore.Models;
 using WebApiCore.Common;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers;
 
@@ -35,7 +35,7 @@ public class NomenclatureControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclature/")]
-    public ContentResult GetNomenclatureFromCodeIdProd(string code, long id, FormatType format = FormatType.Xml) =>
+    public ContentResult GetNomenclatureFromCodeIdProd(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
         GetNomenclatureFromCodeIdWork(code != null 
             ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodeProd : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdProd,
             code, id, format);
@@ -43,12 +43,12 @@ public class NomenclatureControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclature_preview/")]
-    public ContentResult GetNomenclatureFromCodeIdPreview(string code, long id, FormatType format = FormatType.Xml) =>
+    public ContentResult GetNomenclatureFromCodeIdPreview(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
         GetNomenclatureFromCodeIdWork(code != null 
             ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodePreview : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdPreview,
             code, id, format);
 
-    private ContentResult GetNomenclatureFromCodeIdWork(string url, string code, long id, FormatType format = FormatType.Xml)
+    private ContentResult GetNomenclatureFromCodeIdWork(string url, string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -64,7 +64,7 @@ public class NomenclatureControllerV2 : BaseController
     [HttpGet()]
     [Route("api/v2/nomenclatures/")]
     public ContentResult GetNomenclaturesProd(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
+        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
             return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
@@ -78,7 +78,7 @@ public class NomenclatureControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclaturescosts/")]
-    public ContentResult GetNomenclaturesProdDeprecated(FormatType format = FormatType.Xml) =>
+    public ContentResult GetNomenclaturesProdDeprecated(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
             return new ServiceReplyEntity("Deprecated method. Use: api/nomenclatures/")
@@ -89,7 +89,7 @@ public class NomenclatureControllerV2 : BaseController
     [HttpGet()]
     [Route("api/v2/nomenclatures_preview/")]
     public ContentResult GetNomenclaturesPreview(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
+        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
             return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
@@ -103,14 +103,14 @@ public class NomenclatureControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclaturescosts_preview/")]
-    public ContentResult GetNomenclaturesPreviewDeprecated(FormatType format = FormatType.Xml) =>
+    public ContentResult GetNomenclaturesPreviewDeprecated(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
             return new ServiceReplyEntity("Deprecated method. Use: api/nomenclatures_preview/")
             .GetResult(format, HttpStatusCode.OK);
         }), format);
 
-    private ContentResult GetNomenclaturesEmptyWork(string url, FormatType format = FormatType.Xml)
+    private ContentResult GetNomenclaturesEmptyWork(string url, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
@@ -122,7 +122,7 @@ public class NomenclatureControllerV2 : BaseController
     }
 
     private ContentResult GetNomenclaturesWork(string url, DateTime? startDate = null, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
+        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

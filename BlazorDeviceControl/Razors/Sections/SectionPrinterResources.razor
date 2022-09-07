@@ -1,13 +1,12 @@
 ﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/section/printerresources"
-@using BlazorCore
 @using BlazorDeviceControl.Razors.Components
 @using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
 @using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {

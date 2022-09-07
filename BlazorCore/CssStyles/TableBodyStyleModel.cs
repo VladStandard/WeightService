@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
+using DataCore.Sql.Core;
 
 namespace BlazorCore.CssStyles;
 
@@ -9,7 +9,7 @@ public class TableBodyStyleModel : TableStyleModel
 {
     #region Public and private fields, properties, constructor
 
-    public ColumnName IdentityName { get; set; }
+    public SqlFieldIdentityEnum IdentityName { get; set; }
     public bool IsShowMarked { get; set; }
 
 	/// <summary>
@@ -17,7 +17,7 @@ public class TableBodyStyleModel : TableStyleModel
 	/// </summary>
 	public TableBodyStyleModel()
     {
-		IdentityName = ColumnName.Default;
+		IdentityName = SqlFieldIdentityEnum.Default;
 		IsShowMarked = false;
 	}
 
@@ -26,7 +26,7 @@ public class TableBodyStyleModel : TableStyleModel
 	/// </summary>
 	/// <param name="identityName"></param>
 	/// <param name="isShowMarked"></param>
-	public TableBodyStyleModel(ColumnName identityName, bool isShowMarked)
+	public TableBodyStyleModel(SqlFieldIdentityEnum identityName, bool isShowMarked)
     {
         IdentityName = identityName;
         IsShowMarked = isShowMarked;

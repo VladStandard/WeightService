@@ -8,10 +8,10 @@
     <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
         @switch (Table)
         {
-            case ShareEnums.TableDwh.NomenclatureMaster:
+            case TableDwh.NomenclatureMaster:
                 <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureModel)Entity) />
                 break;
-            case ShareEnums.TableDwh.NomenclatureNonNormalize:
+            case TableDwh.NomenclatureNonNormalize:
                 <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureModel)Entity) />
                 break;
         }

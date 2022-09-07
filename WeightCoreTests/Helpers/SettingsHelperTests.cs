@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.IO;
+using DataCore.Models;
 using WeightCore.Helpers;
 
 namespace WeightCoreTests.Helpers
@@ -46,8 +46,8 @@ namespace WeightCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            bool actual = Settings.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", ProjectsEnums.SilentUI.True,
-                ShareEnums.Lang.Russian);
+            bool actual = Settings.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", SilentUiEnum.True,
+                LangEnum.Russian);
             Assert.AreEqual(
                 Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\"), actual);
 

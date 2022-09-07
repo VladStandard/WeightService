@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace DataCore.Localizations;
 
 public class LocaleButtons
@@ -14,24 +16,24 @@ public class LocaleButtons
 
     #endregion
 
-    public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+    public LangEnum Lang { get; set; } = LangEnum.Russian;
 
     #region Public and private fields, properties, constructor
 
-    public string Abort => Lang == ShareEnums.Lang.English ? "Abort" : "Прервать";
-    public string Apply => Lang == ShareEnums.Lang.English ? "Apply" : "Применить";
-    public string Cancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
-    public string Clear => Lang == ShareEnums.Lang.English ? "Clear" : "Очистить";
-    public string Close => Lang == ShareEnums.Lang.English ? "Close" : "Закрыть";
-    public string Custom => Lang == ShareEnums.Lang.English ? "Custom" : "Кастом";
-    public string Enter => Lang == ShareEnums.Lang.English ? "Enter" : "Ввод";
-    public string Ignore => Lang == ShareEnums.Lang.English ? "Ignore" : "Игнорировать";
-    public string Next => Lang == ShareEnums.Lang.English ? "Next" : "Следующие";
-    public string No => Lang == ShareEnums.Lang.English ? "No" : "Нет";
-    public string Ok => Lang == ShareEnums.Lang.English ? "Ok" : "Ок";
-    public string Previous => Lang == ShareEnums.Lang.English ? "Previous" : "Предыдущие";
-    public string Retry => Lang == ShareEnums.Lang.English ? "Retry" : "Повторить";
-    public string Yes => Lang == ShareEnums.Lang.English ? "Yes" : "Да";
+    public string Abort => Lang == LangEnum.English ? "Abort" : "Прервать";
+    public string Apply => Lang == LangEnum.English ? "Apply" : "Применить";
+    public string Cancel => Lang == LangEnum.English ? "Cancel" : "Отмена";
+    public string Clear => Lang == LangEnum.English ? "Clear" : "Очистить";
+    public string Close => Lang == LangEnum.English ? "Close" : "Закрыть";
+    public string Custom => Lang == LangEnum.English ? "Custom" : "Кастом";
+    public string Enter => Lang == LangEnum.English ? "Enter" : "Ввод";
+    public string Ignore => Lang == LangEnum.English ? "Ignore" : "Игнорировать";
+    public string Next => Lang == LangEnum.English ? "Next" : "Следующие";
+    public string No => Lang == LangEnum.English ? "No" : "Нет";
+    public string Ok => Lang == LangEnum.English ? "Ok" : "Ок";
+    public string Previous => Lang == LangEnum.English ? "Previous" : "Предыдущие";
+    public string Retry => Lang == LangEnum.English ? "Retry" : "Повторить";
+    public string Yes => Lang == LangEnum.English ? "Yes" : "Да";
     
     #endregion
 }

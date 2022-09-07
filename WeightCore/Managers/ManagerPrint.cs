@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.TableScaleModels;
@@ -12,6 +11,7 @@ using System;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using Zebra.Sdk.Comm;
@@ -56,7 +56,7 @@ namespace WeightCore.Managers
         {
             try
             {
-                Init(ProjectsEnums.TaskType.MemoryManager,
+                Init(TaskTypeEnum.MemoryManager,
                     () =>
                     {
                         PrintBrand = printBrand;
@@ -449,11 +449,11 @@ namespace WeightCore.Managers
             return new WmiWin32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
         }
 
-        public string GetPrinterStatusDescription(ShareEnums.Lang lang, Win32PrinterStatusEnum printerStatus)
+        public string GetPrinterStatusDescription(LangEnum lang, Win32PrinterStatusEnum printerStatus)
         {
             return lang switch
             {
-                ShareEnums.Lang.Russian => printerStatus switch
+                LangEnum.Russian => printerStatus switch
                 {
                     Win32PrinterStatusEnum.Idle => "Бездействие",
                     Win32PrinterStatusEnum.Paused => "Пауза",

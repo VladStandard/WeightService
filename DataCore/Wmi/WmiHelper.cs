@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace DataCore.Wmi;
 
 public class WmiHelper
@@ -109,9 +111,9 @@ public class WmiHelper
         }
     }
 
-    public string GetStatusDescription(ShareEnums.Lang lang, string status)
+    public string GetStatusDescription(LangEnum lang, string status)
     {
-        return lang == ShareEnums.Lang.Russian
+        return lang == LangEnum.Russian
             ? status switch
             {
                 "OK" => "ОК",

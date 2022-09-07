@@ -59,10 +59,10 @@
 //        private void GetData()
 //        {
 //            IncludeEntities = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntitiesAsIEnumerable(new (new Dictionary<DbField, object> {
-//            //{ ShareEnums.DbField.IsProduct, true },
-//            { ShareEnums.DbField.MasterId.ToString(), ItemId },
+//            //{ DbField.IsProduct, true },
+//            { DbField.MasterId.ToString(), ItemId },
 //        }),
-//                new FieldOrderModel(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
+//                new FieldOrderModel(DbField.Name, DbOrderDirection.Asc), 0);
 //            IncludeEntities = IncludeEntities.Select(x => x).Where(x => x.MasterId != x.Id && x.InformationSystem.Id != 7).ToArray();
 //        }
 
@@ -100,7 +100,7 @@
 
 //        private async Task ActionEditAsync(NomenclatureModel item, bool isNewWindow)
 //        {
-//            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, item, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
+//            Task task = new Task(() => { ActionEdit(TableDwh.Nomenclature, item, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
 //            await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
 //                LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
 //                new List<Task> { task }, GuiRefreshAsync, item?.Name).ConfigureAwait(false);

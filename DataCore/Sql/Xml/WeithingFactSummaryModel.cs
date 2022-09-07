@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Xml;
@@ -20,7 +19,7 @@ public class WeithingFactSummaryModel : TableBaseModel, ICloneable, ISqlDbBase, 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WeithingFactSummaryModel() : base(ColumnName.Id)
+	public WeithingFactSummaryModel() : base(SqlFieldIdentityEnum.Id)
     {
 	    WeithingDate = DateTime.MinValue;
 	    Count = 0;

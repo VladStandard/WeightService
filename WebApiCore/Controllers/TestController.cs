@@ -5,13 +5,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Reflection;
+using DataCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using WebApiCore.Common;
 using WebApiCore.Utils;
-using static DataCore.ShareEnums;
 
 namespace WebApiCore.Controllers;
 
@@ -39,7 +39,7 @@ public class TestController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/info/")]
-    public ContentResult GetInfo(FormatType format = FormatType.Xml) =>
+    public ContentResult GetInfo(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
@@ -67,7 +67,7 @@ public class TestController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/exception/")]
-    public ContentResult GetException(FormatType format = FormatType.Xml) =>
+    public ContentResult GetException(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
             string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
@@ -78,7 +78,7 @@ public class TestController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/simple/")]
-    public ContentResult GetSimple(FormatType format = FormatType.Xml, int version = 0)
+    public ContentResult GetSimple(FormatTypeEnum format = FormatTypeEnum.Xml, int version = 0)
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {

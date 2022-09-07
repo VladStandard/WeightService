@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Schedulers;
 using DataCore.Settings;
@@ -17,11 +16,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using DataCore.Models;
 using DataCore.Sql.Core;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
-using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms;
 
@@ -456,7 +455,7 @@ public partial class MainForm : Form
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
-        using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
+        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
         { Width = 700, Height = 450 };
         wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
@@ -506,7 +505,7 @@ public partial class MainForm : Form
 
     private void FieldSscc_Click(object sender, EventArgs e)
     {
-        using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
+        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
         wpfPageLoader.Text = LocaleCore.Scales.FieldSsccShort;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.FieldSscc;
         wpfPageLoader.MessageBox.Message =
@@ -532,7 +531,7 @@ public partial class MainForm : Form
                 $"{LocaleCore.Scales.ThreadState}: {thread.ThreadState}. " +
                 $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
         }
-        using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog,
+        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog,
             20, 14, 18, 0, 12, 1)
         { Width = Width - 50, Height = Height - 50 };
         wpfPageLoader.Text = $"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
@@ -591,7 +590,7 @@ public partial class MainForm : Form
     {
         try
         {
-            LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
+            LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => LangEnum.English, _ => LangEnum.Russian, };
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, UserSession.SqlViewModel.Scale.Description);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonArea, UserSession.SqlViewModel.Area.Name);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
@@ -631,7 +630,7 @@ public partial class MainForm : Form
         {
             UserSession.ManagerControl.Massa.Close();
 
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.ScaleChange, false) { Width = 600, Height = 225 };
+            using WpfPageLoader wpfPageLoader = new(PageEnum.ScaleChange, false) { Width = 600, Height = 225 };
             DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
@@ -659,7 +658,7 @@ public partial class MainForm : Form
             if (UserSession.SqlViewModel.Scale.Host != null)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                    true, LogType.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    true, LogTypeEnum.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                     UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
                 if (result != DialogResult.Yes)
                     return;
@@ -674,7 +673,7 @@ public partial class MainForm : Form
             else
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this,
-                    LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogType.Warning,
+                    LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
                     null, UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
             }
             UserSession.ManagerControl.Open();
@@ -697,7 +696,7 @@ public partial class MainForm : Form
             {
                 if (UserSession.SqlViewModel.Scale.Host != null)
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true,
-                        LogType.Warning, null,
+                        LogTypeEnum.Warning, null,
                         UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
                 return;
             }
@@ -705,14 +704,14 @@ public partial class MainForm : Form
             {
                 if (UserSession.SqlViewModel.Scale.Host != null)
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true,
-                        LogType.Warning, null,
+                        LogTypeEnum.Warning, null,
                         UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
                 return;
             }
 
             if (UserSession.SqlViewModel.Scale.Host != null)
             {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogType.Question,
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                     UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
                 if (result != DialogResult.Yes)
@@ -885,7 +884,7 @@ public partial class MainForm : Form
         {
             if (UserSession.PluScale == null)
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true, LogType.Warning, null,
+                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, null,
                     UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
                 return;
             }
@@ -948,7 +947,7 @@ public partial class MainForm : Form
             if (Debug.IsDebug)
             {
                 DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
-                    true, LogType.Question,
+                    true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                     UserSession.SqlViewModel.Scale.Host == null ? string.Empty : UserSession.SqlViewModel.Scale.Host.HostName, 
                     nameof(WeightCore));

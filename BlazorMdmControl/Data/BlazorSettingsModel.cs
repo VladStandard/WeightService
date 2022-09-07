@@ -31,7 +31,7 @@
 //        public TooltipService Tooltip { get; private set; }
 //        public DataAccessEntity SqlDataAccess { get; set; }
 //        public IJSRuntime JsRuntime { get; set; }
-//        //public ShareEnums.AccessRights AccessRights { get; set; }
+//        //public AccessRights AccessRights { get; set; }
 //        public bool ChartSmooth { get; set; }
 //        public int Delay { get; } = 5_000;
 //        public DataCore.MemoryEntity Memory { get; set; }
@@ -94,7 +94,7 @@
 //            AppSettingsEntity appSettings = new(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
 //            SqlDataAccess = new DataAccessEntity(appSettings);
 //            Notification = notification;
-//            //AccessRights = ShareEnums.AccessRights.Guest;
+//            //AccessRights = AccessRights.Guest;
 //            Dialog = dialog;
 //            Navigation = navigation;
 //            ChartSmooth = false;
@@ -106,26 +106,26 @@
 
 //        #region Public and private methods
 
-//        public async Task ActionAsync(ShareEnums.TableDwh table, ShareEnums.DbTableAction tableAction, TableModel item, string page, bool isNewWindow,
+//        public async Task ActionAsync(TableDwh table, DbTableAction tableAction, TableModel item, string page, bool isNewWindow,
 //            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 //        {
 //            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 //            try
 //            {
-//                if (table == ShareEnums.TableDwh.Default)
+//                if (table == TableDwh.Default)
 //                    return;
 //                if (item == null || item.EqualsDefault())
 //                    return;
 
 //                switch (tableAction)
 //                {
-//                    case ShareEnums.DbTableAction.Add:
-//                    case ShareEnums.DbTableAction.Edit:
-//                    case ShareEnums.DbTableAction.Copy:
+//                    case DbTableAction.Add:
+//                    case DbTableAction.Edit:
+//                    case DbTableAction.Copy:
 //                        switch (table)
 //                        {
-//                            case ShareEnums.TableDwh.NomenclatureMaster:
-//                            case ShareEnums.TableDwh.NomenclatureNonNormalize:
+//                            case TableDwh.NomenclatureMaster:
+//                            case TableDwh.NomenclatureNonNormalize:
 //                                //if (!isNewWindow)
 //                                Navigation.NavigateTo($"{page}/{item.Id}");
 //                                //else
@@ -133,10 +133,10 @@
 //                                break;
 //                        }
 //                        break;
-//                    case ShareEnums.DbTableAction.Delete:
+//                    case DbTableAction.Delete:
 //                        SqlDataAccess.Crud.DeleteEntity(item);
 //                        break;
-//                    case ShareEnums.DbTableAction.Mark:
+//                    case DbTableAction.Mark:
 //                        SqlDataAccess.Crud.MarkedEntity(item);
 //                        break;
 //                }
@@ -161,15 +161,15 @@
 //            return ((int)value).ToString("####", CultureInfo.InvariantCulture);
 //        }
 
-//        public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field, int count)
+//        public ChartCountEntity[] GetNomenclaturesChartEntities(DbField field, int count)
 //        {
 //            ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
 //            NomenclatureModel[] entities = SqlDataAccess.NomenclatureCrud.GetEntities(null,
-//                new FieldOrderModel(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc), count);
+//                new FieldOrderModel(DbField.CreateDate, DbOrderDirection.Asc), count);
 //            int i = 0;
 //            switch (field)
 //            {
-//                case ShareEnums.DbField.CreateDate:
+//                case DbField.CreateDate:
 //                    List<ChartCountEntity> entitiesDateCreated = new();
 //                    foreach (NomenclatureModel item in entities)
 //                    {

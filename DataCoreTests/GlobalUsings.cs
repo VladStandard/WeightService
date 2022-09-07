@@ -9,4 +9,3 @@ global using DataCore.Sql.TableScaleModels;
 global using FluentValidation.Results;
 global using NSubstitute;
 global using NUnit.Framework;
-global using static DataCore.ShareEnums;

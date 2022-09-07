@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
@@ -30,7 +29,7 @@ public partial class ItemPlu : RazorPageBase
 		{
 			() =>
 			{
-		        Table = new TableScaleModel(ProjectsEnums.TableScale.Plus);
+		        Table = new TableScaleModel(SqlTableScaleEnum.Plus);
 		        ItemCast = new();
 		        Templates = new();
 		        Nomenclatures = new();
@@ -50,7 +49,7 @@ public partial class ItemPlu : RazorPageBase
             {
                 switch (TableAction)
                 {
-                    case DbTableAction.New:
+                    case SqlTableActionEnum.New:
                         ItemCast = new();
                         ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;
@@ -63,28 +62,28 @@ public partial class ItemPlu : RazorPageBase
 
 	            // Templates.
 	            Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Title), 0, false, false);
+                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Title), 0, false, false);
                 TemplateModel[]? templates = AppSettings.DataAccess.GetItems<TemplateModel>(sqlCrudConfig);
                 if (templates is not null)
                     Templates.AddRange(templates);
 
 	            // Nomenclatures.
 	            Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, false, false);
                 NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
                 if (nomenclatures is not null)
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // Scales.
 	            Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, false, false);
                 ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
                 if (scales is not null)
                     Scales.AddRange(scales);
 
 	            // Plus.
 	            Plus = new() { new() { Description = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, false, false);
                 PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
                 if (plus is not null)
                     Plus.AddRange(plus);

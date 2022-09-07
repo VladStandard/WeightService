@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using Microsoft.Win32;
 using System;
 using System.Threading;
+using DataCore.Models;
 using DataCore.Wmi;
 
 namespace WeightCore.Helpers
@@ -28,7 +28,7 @@ namespace WeightCore.Helpers
 
         #region Public and private methods
 
-        public WmiSoftwareModel SearchingSoftwareFromRegistry(string search, ShareEnums.StringTemplate template)
+        public WmiSoftwareModel SearchingSoftwareFromRegistry(string search, StringTemplateEnum template)
         {
             try
             {
@@ -48,19 +48,19 @@ namespace WeightCore.Helpers
                             {
                                 switch (template)
                                 {
-                                    case ShareEnums.StringTemplate.Equals:
+                                    case StringTemplateEnum.Equals:
                                         if (name.Equals(search, StringComparison.InvariantCultureIgnoreCase))
                                             isFind = true;
                                         break;
-                                    case ShareEnums.StringTemplate.Contains:
+                                    case StringTemplateEnum.Contains:
                                         if (name.ToUpper().Contains(search.ToUpper()))
                                             isFind = true;
                                         break;
-                                    case ShareEnums.StringTemplate.StartsWith:
+                                    case StringTemplateEnum.StartsWith:
                                         if (name.ToUpper().StartsWith(search.ToUpper()))
                                             isFind = true;
                                         break;
-                                    case ShareEnums.StringTemplate.EndsWith:
+                                    case StringTemplateEnum.EndsWith:
                                         if (name.ToUpper().EndsWith(search.ToUpper()))
                                             isFind = true;
                                         break;
@@ -84,23 +84,23 @@ namespace WeightCore.Helpers
             return new WmiSoftwareModel();
         }
 
-        public WmiSoftwareModel SearchingSoftware(ShareEnums.WinProvider winProvider, string search, ShareEnums.StringTemplate template)
+        public WmiSoftwareModel SearchingSoftware(WinProviderEnum winProvider, string search, StringTemplateEnum template)
         {
             switch (winProvider)
             {
-                case ShareEnums.WinProvider.Registry:
+                case WinProviderEnum.Registry:
                     return SearchingSoftwareFromRegistry(search, template);
-                case ShareEnums.WinProvider.Alias:
+                case WinProviderEnum.Alias:
                     break;
-                case ShareEnums.WinProvider.Environment:
+                case WinProviderEnum.Environment:
                     break;
-                case ShareEnums.WinProvider.FileSystem:
+                case WinProviderEnum.FileSystem:
                     break;
-                case ShareEnums.WinProvider.Function:
+                case WinProviderEnum.Function:
                     break;
-                case ShareEnums.WinProvider.Variable:
+                case WinProviderEnum.Variable:
                     break;
-                case ShareEnums.WinProvider.Wmi:
+                case WinProviderEnum.Wmi:
                     return Wmi.GetSoftware(search);
             }
 

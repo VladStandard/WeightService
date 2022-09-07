@@ -27,4 +27,5 @@ global using System.Threading;
 global using System.Xml;
 global using System.Xml.Linq;
 global using System.Xml.Serialization;
+global using DataCore.Sql.Core;
 global using DataCore.Sql.Fields;

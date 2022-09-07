@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using System;
 using System.Collections.Generic;
+using DataCore.Models;
 
 namespace MdmControlCore.Utils
 {
@@ -19,13 +19,13 @@ namespace MdmControlCore.Utils
             };
         }
 
-        public static ShareEnums.RelevanceStatus GetEnumRelevanceStatusEng(short? value)
+        public static RelevanceStatusEnum GetEnumRelevanceStatusEng(short? value)
         {
             return value switch
             {
-                1 => ShareEnums.RelevanceStatus.Actual,
-                2 => ShareEnums.RelevanceStatus.NoActual,
-                _ => ShareEnums.RelevanceStatus.Unknown
+                1 => RelevanceStatusEnum.Actual,
+                2 => RelevanceStatusEnum.NoActual,
+                _ => RelevanceStatusEnum.Unknown
             };
         }
         
@@ -39,14 +39,14 @@ namespace MdmControlCore.Utils
             };
         }
         
-        public static ShareEnums.NormilizationStatus GetEnumNormalizationStatusEng(short? value)
+        public static NormilizationStatusEnum GetEnumNormalizationStatusEng(short? value)
         {
             return value switch
             {
-                1 => ShareEnums.NormilizationStatus.NormilizedFull,
-                2 => ShareEnums.NormilizationStatus.NormilizedPart,
-                3 => ShareEnums.NormilizationStatus.NotSubjectNormalization,
-                _ => ShareEnums.NormilizationStatus.NotNormilized
+                1 => NormilizationStatusEnum.NormilizedFull,
+                2 => NormilizationStatusEnum.NormilizedPart,
+                3 => NormilizationStatusEnum.NotSubjectNormalization,
+                _ => NormilizationStatusEnum.NotNormilized
             };
         }
         
@@ -61,9 +61,9 @@ namespace MdmControlCore.Utils
             };
         }
 
-        public static IEnumerable<ShareEnums.RelevanceStatus> GetEnumRelevenaceStatusesEng()
+        public static IEnumerable<RelevanceStatusEnum> GetEnumRelevenaceStatusesEng()
         {
-            return (ShareEnums.RelevanceStatus[]) Enum.GetValues(typeof(ShareEnums.RelevanceStatus));
+            return (RelevanceStatusEnum[]) Enum.GetValues(typeof(RelevanceStatusEnum));
         }
         
         public static IEnumerable<TypeModel<short>> GetEnumRelevenaceStatusesRus()
@@ -77,9 +77,9 @@ namespace MdmControlCore.Utils
             return result;
         }
         
-        public static IEnumerable<ShareEnums.NormilizationStatus> GetEnumNormilizationStatusesEng()
+        public static IEnumerable<NormilizationStatusEnum> GetEnumNormilizationStatusesEng()
         {
-            return (ShareEnums.NormilizationStatus[]) Enum.GetValues(typeof(ShareEnums.NormilizationStatus));
+            return (NormilizationStatusEnum[]) Enum.GetValues(typeof(NormilizationStatusEnum));
         }
         
         public static IEnumerable<TypeModel<short>> GetEnumNormilizationStatusesRus()

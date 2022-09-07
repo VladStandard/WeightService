@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
 using DataCore.Protocols;
-using static DataCore.ShareEnums;
 
 namespace DataCore.Sql.Core;
 
@@ -19,8 +19,8 @@ public class SqlViewModelHelper : BaseViewModel
 
     #region Public and private fields, properties, constructor
 
-    private PublishType _publishType = PublishType.Default;
-    public PublishType PublishType
+    private PublishTypeEnum _publishType = PublishTypeEnum.Default;
+    public PublishTypeEnum PublishType
     {
         get => _publishType;
         private set
@@ -212,7 +212,7 @@ public class SqlViewModelHelper : BaseViewModel
     private void SetScales()
     {
         Scales = new();
-        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Description), 0, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
         ScaleModel[]? scales = SqlUtils.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
         scales?.ToList().ForEach(scale => Scales.Add(scale.Description));
     }
@@ -220,14 +220,14 @@ public class SqlViewModelHelper : BaseViewModel
     private void SetAreas()
     {
         Areas = new();
-        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(DbField.Name), 0, false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, false, false);
         ProductionFacilityModel[]? areas = SqlUtils.DataAccess.GetItems<ProductionFacilityModel>(sqlCrudConfig);
         areas?.Where(x => x.Identity.Id > 0).ToList().ForEach(area => Areas.Add(area.Name));
     }
 
     private void SetPublish()
     {
-        PublishType = PublishType.Default;
+        PublishType = PublishTypeEnum.Default;
         PublishDescription = "Неизвестный сервер";
         SqlInstance = GetInstance();
         SetPublishFromInstance();
@@ -238,15 +238,15 @@ public class SqlViewModelHelper : BaseViewModel
         switch (SqlInstance)
         {
             case "INS1":
-                PublishType = PublishType.Debug;
+                PublishType = PublishTypeEnum.Debug;
                 PublishDescription = LocaleCore.Sql.SqlServerTest;
                 break;
             case "SQL2019":
-                PublishType = PublishType.Dev;
+                PublishType = PublishTypeEnum.Dev;
                 PublishDescription = LocaleCore.Sql.SqlServerDev;
                 break;
             case "LUTON":
-                PublishType = PublishType.Release;
+                PublishType = PublishTypeEnum.Release;
                 PublishDescription = LocaleCore.Sql.SqlServerProd;
                 break;
         }
@@ -273,7 +273,7 @@ public class SqlViewModelHelper : BaseViewModel
     //    }
     //}
 
-    //public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
+    //public bool IsTaskEnabled(TaskType taskType)
     //{
     //    // Table [TASKS] don't has records.
     //    if (Tasks.Count == 0)

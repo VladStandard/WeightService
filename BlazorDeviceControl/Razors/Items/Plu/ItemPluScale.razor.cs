@@ -1,9 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-using DataCore.Sql.Xml;
-
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
 public partial class ItemPluScale : RazorPageBase
@@ -28,7 +25,7 @@ public partial class ItemPluScale : RazorPageBase
 		{
 			() =>
 			{
-		        Table = new TableScaleModel(ProjectsEnums.TableScale.PlusScales);
+		        Table = new TableScaleModel(SqlTableScaleEnum.PlusScales);
 		        ItemCast = new();
 		        Templates = new();
 		        Nomenclatures = new();
@@ -48,7 +45,7 @@ public partial class ItemPluScale : RazorPageBase
             {
                 switch (TableAction)
                 {
-                    case DbTableAction.New:
+                    case SqlTableActionEnum.New:
                         ItemCast = new();
                         ItemCast.SetDtNow();
 						ItemCast.IsMarked = false;

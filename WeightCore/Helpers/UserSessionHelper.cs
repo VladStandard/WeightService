@@ -1,28 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
-using DataCore.Sql;
 using DataCore.Sql.Core;
-using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils;
 using MvvmHelpers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Managers;
-using static DataCore.ShareEnums;
 
 namespace WeightCore.Helpers;
 
@@ -107,18 +103,18 @@ public class UserSessionHelper : BaseViewModel
         //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
     }
 
-    public void RotateProductDate(ProjectsEnums.Direction direction)
+    public void RotateProductDate(DirectionEnum direction)
     {
         switch (direction)
         {
-            case ProjectsEnums.Direction.Left:
+            case DirectionEnum.Left:
                 {
                     SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(-1);
                     if (SqlViewModel.ProductDate < SqlViewModel.ProductDateMinValue)
                         SqlViewModel.ProductDate = SqlViewModel.ProductDateMinValue;
                     break;
                 }
-            case ProjectsEnums.Direction.Right:
+            case DirectionEnum.Right:
                 {
                     SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(1);
                     if (SqlViewModel.ProductDate > SqlViewModel.ProductDateMaxValue)
@@ -147,7 +143,7 @@ public class UserSessionHelper : BaseViewModel
         if (PluScale == null)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -165,7 +161,7 @@ public class UserSessionHelper : BaseViewModel
         if (ManagerControl == null || ManagerControl.Massa == null)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -183,7 +179,7 @@ public class UserSessionHelper : BaseViewModel
         if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -203,7 +199,7 @@ public class UserSessionHelper : BaseViewModel
             GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
                 ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
                 : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -225,7 +221,7 @@ public class UserSessionHelper : BaseViewModel
             GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
                 ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
                 : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -246,7 +242,7 @@ public class UserSessionHelper : BaseViewModel
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -267,7 +263,7 @@ public class UserSessionHelper : BaseViewModel
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-                true, LogType.Warning,
+                true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
                 SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return result == DialogResult.Cancel;
@@ -299,7 +295,7 @@ public class UserSessionHelper : BaseViewModel
                     PluWeighing.NettoWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold,
                     PluScale == null ? 0 : PluScale.Plu.NominalWeight,
                     PluScale == null ? 0 : PluScale.Plu.LowerThreshold),
-                    true, LogType.Warning,
+                    true, LogTypeEnum.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible },
                     SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
@@ -322,7 +318,7 @@ public class UserSessionHelper : BaseViewModel
             if (PluScale != null)
             {
 	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
-		            { new(DbField.IdentityValueId, DbComparer.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
+		            { new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
                 template = DataAccess.GetItem<TemplateModel>(sqlCrudConfig);
             }
         }
@@ -391,7 +387,7 @@ public class UserSessionHelper : BaseViewModel
         //if (!isCheck)
         //{
         //    // WPF MessageBox.
-        //    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+        //    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
         //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
         //    wpfPageLoader.MessageBox.Message =
         //        LocaleCore.Scales.WeightingControl + Environment.NewLine +

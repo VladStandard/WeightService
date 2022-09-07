@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Localizations;
 using DataCore.Memory;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 
@@ -38,7 +38,7 @@ namespace WeightCore.Managers
         {
             try
             {
-                Init(ProjectsEnums.TaskType.MemoryManager,
+                Init(TaskTypeEnum.MemoryManager,
                     () =>
                     {
                         MemorySize = new();
@@ -85,7 +85,7 @@ namespace WeightCore.Managers
 
         private void Response()
         {
-            //if (UserSessionHelper.Instance.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+            //if (UserSessionHelper.Instance.SqlViewModel.IsTaskEnabled(TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
                     $"{LocaleCore.Scales.Memory} | " +

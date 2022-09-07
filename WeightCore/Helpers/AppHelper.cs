@@ -1,18 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
-using DataCore.Sql;
-using DataCore.Sql.Core;
-using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 using System.Windows.Forms;
+using DataCore.Models;
 
 namespace WeightCore.Helpers
 {
@@ -27,33 +23,6 @@ namespace WeightCore.Helpers
         private static AppHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static AppHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        #endregion
-
-        #region Public fields and properties
-
-        public SqlHelper SqlHelp { get; } = SqlHelper.Instance;
-
-        private string _status;
-        public string Status
-        {
-            get => _status;
-            set
-            {
-                _status = value;
-                OnPropertyChanged();
-            }
-        }
-        public Mutex InstanceCheckMutex { get; set; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public AppHelper()
-        {
-            _status = string.Empty;
-        }
 
         #endregion
 
@@ -78,7 +47,7 @@ namespace WeightCore.Helpers
             return result;
         }
 
-        public string GetCurrentVersion(ShareEnums.AppVerCountDigits countDigits, List<ShareEnums.AppVerStringFormat> stringFormats = null, Version version = null)
+        public string GetCurrentVersion(AppVerCountDigitsEnum countDigits, List<AppVerStringFormatEnum> stringFormats = null, Version version = null)
         {
             if (version == null)
                 version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -87,12 +56,12 @@ namespace WeightCore.Helpers
             string version3;
             string version4;
             if (stringFormats == null || stringFormats.Count == 0)
-                stringFormats = new List<ShareEnums.AppVerStringFormat>() { ShareEnums.AppVerStringFormat.Use1, ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use2 };
+                stringFormats = new List<AppVerStringFormatEnum>() { AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
 
-            ShareEnums.AppVerStringFormat formatMajor = stringFormats[0];
-            ShareEnums.AppVerStringFormat formatMinor = ShareEnums.AppVerStringFormat.AsString;
-            ShareEnums.AppVerStringFormat formatBuild = ShareEnums.AppVerStringFormat.AsString;
-            ShareEnums.AppVerStringFormat formatRevision = ShareEnums.AppVerStringFormat.AsString;
+            AppVerStringFormatEnum formatMajor = stringFormats[0];
+            AppVerStringFormatEnum formatMinor = AppVerStringFormatEnum.AsString;
+            AppVerStringFormatEnum formatBuild = AppVerStringFormatEnum.AsString;
+            AppVerStringFormatEnum formatRevision = AppVerStringFormatEnum.AsString;
             if (stringFormats.Count > 1)
                 formatMinor = stringFormats[1];
             if (stringFormats.Count > 2)
@@ -109,9 +78,9 @@ namespace WeightCore.Helpers
             version2 = $"{major}.{minor}";
             version1 = $"{major}";
 
-            return countDigits == ShareEnums.AppVerCountDigits.Use1
-                ? version1 : countDigits == ShareEnums.AppVerCountDigits.Use2
-                ? version2 : countDigits == ShareEnums.AppVerCountDigits.Use3
+            return countDigits == AppVerCountDigitsEnum.Use1
+                ? version1 : countDigits == AppVerCountDigitsEnum.Use2
+                ? version2 : countDigits == AppVerCountDigitsEnum.Use3
                 ? version3 : version4;
         }
 
@@ -130,27 +99,27 @@ namespace WeightCore.Helpers
         /// <param name="input"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        public string GetCurrentVersionFormat(int input, ShareEnums.AppVerStringFormat format)
+        private string GetCurrentVersionFormat(int input, AppVerStringFormatEnum format)
         {
             return format switch
             {
-                ShareEnums.AppVerStringFormat.Use1 => $"{input:D1}",
-                ShareEnums.AppVerStringFormat.Use2 => $"{input:D2}",
-                ShareEnums.AppVerStringFormat.Use3 => $"{input:D3}",
-                ShareEnums.AppVerStringFormat.Use4 => $"{input:D4}",
+                AppVerStringFormatEnum.Use1 => $"{input:D1}",
+                AppVerStringFormatEnum.Use2 => $"{input:D2}",
+                AppVerStringFormatEnum.Use3 => $"{input:D3}",
+                AppVerStringFormatEnum.Use4 => $"{input:D4}",
                 _ => $"{input:D}",
             };
         }
 
-        /// <summary>
-        /// Checl instance run.
-        /// </summary>
-        /// <returns></returns>
-        public bool CheckInstance()
-        {
-            InstanceCheckMutex = new Mutex(true, "ScalesUI", out bool result);
-            return result;
-        }
+        ///// <summary>
+        ///// Checl instance run.
+        ///// </summary>
+        ///// <returns></returns>
+        //public bool CheckInstance()
+        //{
+        //    InstanceCheckMutex = new Mutex(true, "ScalesUI", out bool result);
+        //    return result;
+        //}
 
         /// <summary>
         /// Set new form size.
@@ -159,9 +128,6 @@ namespace WeightCore.Helpers
         /// <param name="startPosition"></param>
         public void SetNewSize(Form form, FormStartPosition startPosition = FormStartPosition.CenterScreen)
         {
-            if (form == null)
-                return;
-
             if (Application.OpenForms.Count > 0)
             {
                 form.Width = Application.OpenForms[0].Width;
@@ -170,63 +136,6 @@ namespace WeightCore.Helpers
                 form.Top = Application.OpenForms[0].Top;
             }
             form.StartPosition = startPosition;
-        }
-        
-
-        /// <summary>
-        /// Check SQL-connection.
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        //public bool SqlConCheck(ShareEnums.Lang language)
-        //{
-        //    if (string.IsNullOrEmpty(SqlHelp.Authentication.Server) || string.IsNullOrEmpty(SqlHelp.Authentication.Database))
-        //    {
-        //        Status = LocaleCore.Sql.StatusExceptionConnect();
-        //        return false;
-        //    }
-
-        //    if (!SqlHelp.Authentication.IntegratedSecurity && 
-        //        (string.IsNullOrEmpty(SqlHelp.Authentication.UserId) || string.IsNullOrEmpty(SqlHelp.Authentication.Password)))
-        //    {
-        //        Status = LocaleCore.Sql.StatusExceptionConnect();
-        //        return false;
-        //    }
-
-        //    SqlHelp.Open();
-        //    SqlHelp.OpenConnection();
-        //    if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
-        //    {
-        //        Status = LocaleCore.Sql.StatusConnected;
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-        /// <summary>
-        /// Check guid exists.
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        public bool SqlExistsGuid(string guid)
-        {
-            if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
-            {
-                Collection<Collection<object>> records = SqlHelp.SelectData(SqlQueries.DbScales.Tables.Scales.QueryFindGuid,
-                    new Collection<string>() { "RESULT" },
-                    new Collection<SqlParameter>() { new SqlParameter("GUID", guid) });
-                foreach (Collection<object> rec in records)
-                {
-                    foreach (object field in rec)
-                    {
-                        if (field.ToString().Equals("TRUE", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
         }
 
         #endregion

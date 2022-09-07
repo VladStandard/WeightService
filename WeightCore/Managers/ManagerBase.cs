@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.Models;
 using Nito.AsyncEx;
 using System;
@@ -16,7 +15,7 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties - Manager
 
-        private ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
+        private TaskTypeEnum TaskType { get; set; } = TaskTypeEnum.Default;
         private AsyncLock MutexReopen { get; set; }
         private AsyncLock MutexRequest { get; set; }
         private AsyncLock MutexResponse { get; set; }
@@ -40,7 +39,7 @@ namespace WeightCore.Managers
             WaitConfig = new();
         }
 
-        public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback, ManagerWaitConfig waitConfig)
+        public void Init(TaskTypeEnum taskType, InitCallback initCallback, ManagerWaitConfig waitConfig)
         {
             lock (_locker)
             {

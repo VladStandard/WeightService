@@ -1,6 +1,5 @@
 ﻿@inherits ActionsReloadBase
 @page "/action/reload_item"
-@using static DataCore.ProjectsEnums
 @using DataCore.Sql.Core
 
 <MudPaper Width="100%" Height="32px;" Style="margin-bottom: 10px;" Square=false >
@@ -11,7 +10,7 @@
     
     @if (ParentRazor == null)
     {
-        <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoad.Loading IsShowProgress=true />
+        <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
     }
     else
     {

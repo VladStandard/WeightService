@@ -42,7 +42,7 @@
 //        public OrderTypeEntity EntityCreate(string description)
 //        {
 //            if (!DataAccessUtilsTests.DataAccess.OrderTypesCrud.ExistsEntity<OrderTypeEntity>(new (
-//                new Dictionary<string, object> { { ShareEnums.DbField.Description.ToString(), description } }), null))
+//                new Dictionary<string, object> { { DbField.Description.ToString(), description } }), null))
 //            {
 //                OrderTypeEntity item = new()
 //                {
@@ -52,8 +52,8 @@
 //                DataAccessUtilsTests.DataAccess.OrderTypesCrud.SaveEntity(item);
 //            }
 //            return DataAccessUtilsTests.DataAccess.OrderTypesCrud.GetItem<OrderTypeEntity>(new (
-//                new Dictionary<string, object> { { ShareEnums.DbField.Description.ToString(), description } }),
-//                new FieldOrderModel(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
+//                new Dictionary<string, object> { { DbField.Description.ToString(), description } }),
+//                new FieldOrderModel(DbField.Id, DbOrderDirection.Desc));
 //        }
 
 //        [Test]

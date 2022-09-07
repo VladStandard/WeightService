@@ -117,7 +117,7 @@ public partial class SettingsForm : Form
     {
         //try
         //{
-        //    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+        //    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
         //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
         //    wpfPageLoader.MessageBox.Message = LocaleCore.Print.WarningOpenCover;
         //    wpfPageLoader.MessageBox.VisibilitySettings.ButtonRetryVisibility = System.Windows.Visibility.Visible;

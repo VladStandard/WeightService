@@ -5,5 +5,5 @@ namespace DataCore.Models;
 
 public class TableScaleModel : TableBase
 {
-    public TableScaleModel(ProjectsEnums.TableScale value) : base(value.ToString()) { }
+    public TableScaleModel(SqlTableScaleEnum value) : base(value.ToString()) { }
 }

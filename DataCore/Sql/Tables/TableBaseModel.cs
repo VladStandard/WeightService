@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-using DataCore.Sql.Core;
-
 namespace DataCore.Sql.Tables;
 
 /// <summary>
@@ -26,7 +24,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
     /// </summary>
     public TableBaseModel()
     {
-	    Identity = new(ColumnName.Default);
+	    Identity = new(SqlFieldIdentityEnum.Default);
 	    ChangeDt = CreateDt = DateTime.MinValue;
 	    IsMarked = false;
     }
@@ -34,7 +32,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TableBaseModel(ColumnName identityName) : this()
+	public TableBaseModel(SqlFieldIdentityEnum identityName) : this()
     {
 	    Identity = new(identityName);
     }
