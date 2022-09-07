@@ -5,13 +5,14 @@ namespace DataCore.Sql.Core;
 
 public enum SqlDbTypeEnum
 {
+	Empty,
 	Debug,
 	Release,
 }
 
 public enum SqlTableActionEnum
 {
-	Default,
+	Empty,
 	Cancel,
 	Copy,
 	Delete,
@@ -24,31 +25,23 @@ public enum SqlTableActionEnum
 
 public enum SqlTableDwhEnum
 {
-	Default,
+	Empty,
 	InformationSystem,
 	Nomenclature,
 	NomenclatureMaster,
 	NomenclatureNonNormalize,
 }
 
-public enum SqlTableSystemEnum
-{
-	Default,
-	Accesses,
-	Logs,
-	LogTypes,
-	Versions,
-	Tasks,
-	TasksTypes,
-}
-
 public enum SqlTableScaleEnum
 {
-	Default,
+	Empty,
+	Accesses,
 	BarCodes,
-	BarCodeTypes,
+	BarCodesTypes,
 	Contragents,
 	Hosts,
+	Logs,
+	LogTypes,
 	Nomenclatures,
 	Orders,
 	OrdersWeighings,
@@ -64,14 +57,17 @@ public enum SqlTableScaleEnum
 	ProductionFacilities,
 	ProductSeries,
 	Scales,
+	Tasks,
+	TasksTypes,
 	Templates,
 	TemplatesResources,
-	Workshops,
+	Versions,
+	WorkShops,
 }
 
 public enum SqlFieldEnum
 {
-	Default,
+	Empty,
 	CategoryId,
 	ChangeDt,
 	CodeInIs,
@@ -103,13 +99,14 @@ public enum SqlFieldEnum
 
 public enum SqlFieldIdentityEnum
 {
-    Default,
+	Empty,
     Id,
     Uid,
 }
 
 public enum SqlFieldComparerEnum
 {
+	Empty,
 	Equal,
 	NotEqual,
 	More,
@@ -118,6 +115,7 @@ public enum SqlFieldComparerEnum
 
 public enum SqlFieldOrderDirectionEnum
 {
+	Empty,
 	Asc,
 	Desc
 }

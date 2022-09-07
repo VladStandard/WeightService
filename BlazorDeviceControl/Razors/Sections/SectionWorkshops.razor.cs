@@ -25,7 +25,7 @@ public partial class SectionWorkshops : RazorPageBase
 		{
 			() =>
 			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.Workshops);
+		        Table = new TableScaleModel(SqlTableScaleEnum.WorkShops);
 		        IsShowMarkedFilter = true;
 				Items = new();
 			}

@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemContragent : RazorPageBase
+public partial class ItemContragent : ItemRazorPageBase<ContragentModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private ContragentModel ItemCast { get => Item is null ? new() : (ContragentModel)Item; set => Item = value; }
+	public ItemContragent()
+	{
+		//
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.Contragents);
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

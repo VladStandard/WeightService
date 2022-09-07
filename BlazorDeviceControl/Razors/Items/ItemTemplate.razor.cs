@@ -3,31 +3,20 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemTemplate : RazorPageBase
+public partial class ItemTemplate : ItemRazorPageBase<TemplateModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private TemplateModel ItemCast { get => Item is null ? new() : (TemplateModel)Item; set => Item = value; }
 	private List<TypeModel<string>>? TemplateCategories { get; set; }
+
+	public ItemTemplate()
+	{
+		TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.Templates);
-				TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

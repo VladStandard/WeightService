@@ -5,7 +5,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPlu : RazorPageBase
+public partial class ItemPlu : ItemRazorPageBase<PluModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -14,30 +14,19 @@ public partial class ItemPlu : RazorPageBase
     private List<TemplateModel> Templates { get; set; }
     private List<ScaleModel> Scales { get; set; }
     private List<PluModel> Plus { get; set; }
-    private PluModel ItemCast { get => Item is null ? new() : (PluModel)Item; set => Item = value; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
+
+    public ItemPlu()
+    {
+        Templates = new();
+        Nomenclatures = new();
+        Scales = new();
+        Plus = new();
+    }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.Plus);
-		        ItemCast = new();
-		        Templates = new();
-		        Nomenclatures = new();
-		        Scales = new();
-		        Plus = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {

@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
-
 namespace DataCore.Sql.Fields;
 
 /// <summary>
@@ -27,7 +25,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     /// </summary>
     public SqlFieldOrderModel()
     {
-	    Name = SqlFieldEnum.Default;
+	    Name = SqlFieldEnum.Empty;
 	    Direction = SqlFieldOrderDirectionEnum.Asc;
     }
 
@@ -86,7 +84,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     }
 
 	public virtual bool EqualsDefault() =>
-		Equals(Name, SqlFieldIdentityEnum.Default) &&
+		Equals(Name, SqlFieldIdentityEnum.Empty) &&
 		Equals(Direction, SqlFieldOrderDirectionEnum.Asc);
 
 	public virtual object Clone() => new SqlFieldOrderModel(Name, Direction);

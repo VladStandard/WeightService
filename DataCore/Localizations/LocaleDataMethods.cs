@@ -14,14 +14,14 @@ public static partial class LocaleData
         {
             string result = string.Empty;
 
-            SqlTableSystemEnum tableSystem = SqlUtils.GetTableSystem(table.Name);
+            SqlTableScaleEnum tableSystem = SqlUtils.GetTableScale(table.Name);
             {
                 switch (tableSystem)
                 {
-                    case SqlTableSystemEnum.Accesses:
+                    case SqlTableScaleEnum.Accesses:
                         result = Strings.ItemAccess;
                         break;
-                    case SqlTableSystemEnum.Logs:
+                    case SqlTableScaleEnum.Logs:
                         result = Strings.ItemLog;
                         break;
                 }
@@ -31,7 +31,7 @@ public static partial class LocaleData
             {
                 switch (tableScale)
                 {
-                    case SqlTableScaleEnum.BarCodeTypes:
+                    case SqlTableScaleEnum.BarCodesTypes:
                         result = DeviceControl.ItemBarCodeType;
                         break;
                     case SqlTableScaleEnum.Contragents:
@@ -88,10 +88,10 @@ public static partial class LocaleData
                     case SqlTableScaleEnum.PlusWeighings:
                         result = DeviceControl.ItemWeithingFact;
                         break;
-                    case SqlTableScaleEnum.Workshops:
+                    case SqlTableScaleEnum.WorkShops:
                         result = DeviceControl.ItemWorkshop;
                         break;
-                    case SqlTableScaleEnum.Default:
+                    case SqlTableScaleEnum.Empty:
                         break;
                     case SqlTableScaleEnum.Organizations:
                         result = DeviceControl.ItemOrganization;
@@ -117,12 +117,12 @@ public static partial class LocaleData
         {
             string result = string.Empty;
 
-            SqlTableSystemEnum tableSystem = SqlUtils.GetTableSystem(table.Name);
+            SqlTableScaleEnum tableSystem = SqlUtils.GetTableScale(table.Name);
             {
 	            result = tableSystem switch
 	            {
-		            SqlTableSystemEnum.Accesses => Strings.SectionAccess,
-		            SqlTableSystemEnum.Logs => Strings.SectionLog,
+		            SqlTableScaleEnum.Accesses => Strings.SectionAccess,
+		            SqlTableScaleEnum.Logs => Strings.SectionLog,
 		            _ => result
 	            };
             }
@@ -132,7 +132,7 @@ public static partial class LocaleData
 	            result = tableScale switch
 	            {
 		            SqlTableScaleEnum.BarCodes => DeviceControl.SectionBarCodes,
-		            SqlTableScaleEnum.BarCodeTypes => DeviceControl.SectionBarCodeTypes,
+		            SqlTableScaleEnum.BarCodesTypes => DeviceControl.SectionBarCodeTypes,
 		            SqlTableScaleEnum.Contragents => DeviceControl.SectionContragents,
 		            SqlTableScaleEnum.Hosts => DeviceControl.SectionHosts,
 		            SqlTableScaleEnum.PlusLabels => DeviceControl.SectionLabels,
@@ -151,7 +151,7 @@ public static partial class LocaleData
 		            SqlTableScaleEnum.TemplatesResources => DeviceControl.SectionTemplateResources,
 		            SqlTableScaleEnum.Templates => DeviceControl.SectionTemplates,
 		            SqlTableScaleEnum.PlusWeighings => DeviceControl.SectionPlusWeighings,
-		            SqlTableScaleEnum.Workshops => DeviceControl.SectionWorkShops,
+		            SqlTableScaleEnum.WorkShops => DeviceControl.SectionWorkShops,
 		            SqlTableScaleEnum.Organizations => DeviceControl.SectionOrganizations,
 		            _ => result
 	            };

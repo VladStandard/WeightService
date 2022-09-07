@@ -66,17 +66,17 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            SqlTableIdentityModel field = new(SqlFieldIdentityEnum.Default);
+            SqlTableIdentityModel field = new(SqlFieldIdentityEnum.Empty);
             Assert.AreEqual("FieldName", field.Name);
 
             foreach (string value in EnumValuesUtils.GetString())
             {
-                field = new(SqlFieldIdentityEnum.Default);
+                field = new(SqlFieldIdentityEnum.Empty);
                 Assert.AreEqual("FieldName", field.Name);
 				foreach (SqlFieldIdentityEnum name in Enum.GetValues(typeof(SqlFieldIdentityEnum)))
 				{
                     field = new(name);
-                    Assert.AreEqual(SqlFieldIdentityEnum.Default, field.Name);
+                    Assert.AreEqual(SqlFieldIdentityEnum.Empty, field.Name);
                 }
             }
 

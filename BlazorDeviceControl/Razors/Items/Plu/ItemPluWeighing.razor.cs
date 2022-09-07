@@ -3,31 +3,20 @@
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluWeighing : RazorPageBase
+public partial class ItemPluWeighing : ItemRazorPageBase<PluWeighingModel>
 {
     #region Public and private fields, properties, constructor
 
-    private PluWeighingModel ItemCast { get => Item is null ? new() : (PluWeighingModel)Item; set => Item = value; }
+    public ItemPluWeighing()
+    {
+	    //
+    }
 
     #endregion
 
     #region Public and private methods
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusWeighings);
-		        ItemCast = new();
-			}
-		});
-	}
-
-    protected override void OnParametersSet()
+	protected override void OnParametersSet()
     {
         base.OnParametersSet();
 

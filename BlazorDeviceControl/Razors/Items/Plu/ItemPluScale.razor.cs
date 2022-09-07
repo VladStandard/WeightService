@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluScale : RazorPageBase
+public partial class ItemPluScale : ItemRazorPageBase<PluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -11,29 +11,18 @@ public partial class ItemPluScale : RazorPageBase
     private List<TemplateModel> Templates { get; set; }
     private List<ScaleModel> Scales { get; set; }
     private List<PluModel> Plus { get; set; }
-    private PluScaleModel ItemCast { get => Item is null ? new() : (PluScaleModel)Item; set => Item = value; }
+
+    public ItemPluScale()
+    {
+        Templates = new();
+        Nomenclatures = new();
+        Scales = new();
+        Plus = new();
+    }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusScales);
-		        ItemCast = new();
-		        Templates = new();
-		        Nomenclatures = new();
-		        Scales = new();
-		        Plus = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {

@@ -25,7 +25,7 @@ public partial class SectionBarCodeTypes : RazorPageBase
         {
 	        () =>
 	        {
-		        Table = new TableScaleModel(SqlTableScaleEnum.BarCodeTypes);
+		        Table = new TableScaleModel(SqlTableScaleEnum.BarCodesTypes);
 		        IsShowMarkedFilter = true;
 				ItemsCast = new();
 	        }

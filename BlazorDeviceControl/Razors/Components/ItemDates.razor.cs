@@ -10,42 +10,23 @@ public partial class ItemDates : RazorPageBase
     private string CreateDt { get; set; }
 	private string ChangeDt { get; set; }
 
+	public ItemDates()
+	{
+		CreateDt = string.Empty;
+		ChangeDt = string.Empty;
+	}
+
 	#endregion
 
 	#region Public and private methods
 
-	protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        CreateDt = string.Empty;
-		        ChangeDt = string.Empty;
-			}
-		});
-    }
-
-   protected override void OnParametersSet()
+	protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
         RunActionsParametersSet(new()
         {
-            () =>
-            {
-                switch (Table)
-                {
-                    case TableSystemModel:
-                        SetDtFromTableSystem();
-                        break;
-                    case TableScaleModel:
-                        SetDtFromTableScale();
-                        break;
-                }
-            }
+            SetDtFromTableScale
         });
     }
 
@@ -53,7 +34,16 @@ public partial class ItemDates : RazorPageBase
     {
         switch (SqlUtils.GetTableScale(Table.Name))
         {
-            case SqlTableScaleEnum.BarCodeTypes:
+			case SqlTableScaleEnum.Accesses:
+				AccessModel access = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
+				CreateDt = access.CreateDt.ToString(CultureInfo.InvariantCulture);
+				ChangeDt = access.ChangeDt.ToString(CultureInfo.InvariantCulture);
+				break;
+			case SqlTableScaleEnum.Logs:
+				LogModel log = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);
+				CreateDt = log.CreateDt.ToString(CultureInfo.InvariantCulture);
+				break;
+            case SqlTableScaleEnum.BarCodesTypes:
                 BarCodeTypeModel barcodeType = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeTypeModel>(IdentityUid);
                 CreateDt = barcodeType.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = barcodeType.ChangeDt.ToString(CultureInfo.InvariantCulture);
@@ -147,26 +137,10 @@ public partial class ItemDates : RazorPageBase
                 CreateDt = templateResource.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = templateResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Workshops:
+            case SqlTableScaleEnum.WorkShops:
                 WorkShopModel workshop = AppSettings.DataAccess.GetItemByIdNotNull<WorkShopModel>(IdentityId);
                 CreateDt = workshop.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = workshop.ChangeDt.ToString(CultureInfo.InvariantCulture);
-                break;
-        }
-    }
-
-    private void SetDtFromTableSystem()
-    {
-        switch (SqlUtils.GetTableSystem(Table.Name))
-        {
-            case SqlTableSystemEnum.Accesses:
-                AccessModel access = AppSettings.DataAccess.GetItemByUid<AccessModel>(IdentityUid);
-                CreateDt = access.CreateDt.ToString(CultureInfo.InvariantCulture);
-                ChangeDt = access.ChangeDt.ToString(CultureInfo.InvariantCulture);
-                break;
-            case SqlTableSystemEnum.Logs:
-                LogModel log = AppSettings.DataAccess.GetItemByUid<LogModel>(IdentityUid);
-                CreateDt = log.CreateDt.ToString(CultureInfo.InvariantCulture);
                 break;
         }
     }

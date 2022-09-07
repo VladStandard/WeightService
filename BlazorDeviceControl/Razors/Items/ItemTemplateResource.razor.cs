@@ -3,11 +3,10 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemTemplateResource : RazorPageBase
+public partial class ItemTemplateResource : ItemRazorPageBase<TemplateResourceModel>
 {
     #region Public and private fields, properties, constructor
 
-    private TemplateResourceModel ItemCast { get => Item is null ? new() : (TemplateResourceModel)Item; set => Item = value; }
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
@@ -17,23 +16,14 @@ public partial class ItemTemplateResource : RazorPageBase
     //private int ProgressValue { get; set; } = default;
     //public IFileListEntry? File { get; private set; }
 
+    public ItemTemplateResource()
+    {
+		//
+    }
+
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.TemplatesResources);
-		        ItemCast = new();
-			}
-		});
-	}
 
     protected override void OnParametersSet()
     {

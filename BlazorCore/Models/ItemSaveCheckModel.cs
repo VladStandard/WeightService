@@ -19,7 +19,7 @@ public class ItemSaveCheckModel
 
     #region Public and private methods
 
-    public void Access(NotificationService notificationService, AccessModel? item, SqlTableActionEnum tableAction)
+    public void Access(NotificationService? notificationService, AccessModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -39,7 +39,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void BarcodeType(NotificationService notificationService, BarCodeTypeModel? item, SqlTableActionEnum tableAction)
+    public void BarcodeType(NotificationService? notificationService, BarCodeTypeModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -59,7 +59,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Contragent(NotificationService notificationService, ContragentModel? item, SqlTableActionEnum tableAction)
+    public void Contragent(NotificationService? notificationService, ContragentModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -79,7 +79,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Host(NotificationService notificationService, HostModel? item, SqlTableActionEnum tableAction)
+    public void Host(NotificationService? notificationService, HostModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -99,7 +99,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Nomenclature(NotificationService notificationService, NomenclatureModel? item, SqlTableActionEnum tableAction)
+    public void Nomenclature(NotificationService? notificationService, NomenclatureModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -119,7 +119,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void PluObsolete(NotificationService notificationService, PluObsoleteModel? item, SqlTableActionEnum tableAction)
+    public void PluObsolete(NotificationService? notificationService, PluObsoleteModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -145,7 +145,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Plu(NotificationService notificationService, PluModel? item, SqlTableActionEnum tableAction)
+    public void Plu(NotificationService? notificationService, PluModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -169,7 +169,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void PluScale(NotificationService notificationService, PluScaleModel? item, SqlTableActionEnum tableAction)
+    public void PluScale(NotificationService? notificationService, PluScaleModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -193,7 +193,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Printer(NotificationService notificationService, PrinterModel? item, SqlTableActionEnum tableAction)
+    public void Printer(NotificationService? notificationService, PrinterModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -215,7 +215,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void PrinterResource(NotificationService notificationService, PrinterResourceModel? item, SqlTableActionEnum tableAction)
+    public void PrinterResource(NotificationService? notificationService, PrinterResourceModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -235,7 +235,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void PrinterType(NotificationService notificationService, PrinterTypeModel? item, SqlTableActionEnum tableAction)
+    public void PrinterType(NotificationService? notificationService, PrinterTypeModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -255,7 +255,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void ProductionFacility(NotificationService notificationService, ProductionFacilityModel? item, SqlTableActionEnum tableAction)
+    public void ProductionFacility(NotificationService? notificationService, ProductionFacilityModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -275,7 +275,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Scale(NotificationService notificationService, TableBaseModel? item, SqlTableActionEnum tableAction)
+    public void Scale(NotificationService? notificationService, TableBaseModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -365,7 +365,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Task(NotificationService notificationService, TaskModel? item, SqlTableActionEnum tableAction)
+    public void Task(NotificationService? notificationService, TaskModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -389,7 +389,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void TaskType(NotificationService notificationService, TaskTypeModel? item, SqlTableActionEnum tableAction)
+    public void TaskType(NotificationService? notificationService, TaskTypeModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -409,7 +409,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Template(NotificationService notificationService, TemplateModel? item, SqlTableActionEnum? parentTableAction)
+    public void Template(NotificationService? notificationService, TemplateModel? item, SqlTableActionEnum? parentTableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -429,7 +429,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void TemplateResource(NotificationService notificationService, TemplateResourceModel? item, SqlTableActionEnum? parentTableAction)
+    public void TemplateResource(NotificationService? notificationService, TemplateResourceModel? item, SqlTableActionEnum? parentTableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
@@ -449,7 +449,7 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void Workshop(NotificationService notificationService, WorkShopModel? item, SqlTableActionEnum tableAction)
+    public void Workshop(NotificationService? notificationService, WorkShopModel? item, SqlTableActionEnum tableAction)
     {
         if (item == null) return;
         item.ChangeDt = DateTime.Now;

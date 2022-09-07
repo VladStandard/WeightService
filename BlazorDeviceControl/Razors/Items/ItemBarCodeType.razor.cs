@@ -1,30 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Models;
+
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemBarCodeType : RazorPageBase
+public partial class ItemBarCodeType : ItemRazorPageBase<BarCodeTypeModel>
 {
-	#region Public and private fields, properties, constructor
-
-	private BarCodeTypeModel ItemCast { get => Item is null ? new() : (BarCodeTypeModel)Item; set => Item = value; }
-
-	#endregion
-
 	#region Public and private methods
 
-	protected override void OnInitialized()
+	public ItemBarCodeType()
 	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.BarCodeTypes);
-				ItemCast = new();
-			}
-		});
+		//
 	}
 
 	protected override void OnParametersSet()

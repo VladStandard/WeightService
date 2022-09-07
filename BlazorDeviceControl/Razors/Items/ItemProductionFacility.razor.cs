@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemProductionFacility : RazorPageBase
+public partial class ItemProductionFacility : ItemRazorPageBase<ProductionFacilityModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private ProductionFacilityModel ItemCast { get => Item is null ? new() : (ProductionFacilityModel)Item; set => Item = value; }
+	public ItemProductionFacility()
+	{
+		//
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.ProductionFacilities);
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

@@ -21,7 +21,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	public SqlFieldIdentityModel()
 	{
 		FieldName = nameof(SqlFieldIdentityModel);
-		Name = SqlFieldIdentityEnum.Default;
+		Name = SqlFieldIdentityEnum.Empty;
 		Id = 0;
 		Uid = Guid.Empty;
 	}

@@ -3,31 +3,20 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemWorkshop : RazorPageBase
+public partial class ItemWorkshop : ItemRazorPageBase<WorkShopModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private WorkShopModel ItemCast { get => Item is null ? new() : (WorkShopModel)Item; set => Item = value; }
 	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
+
+	public ItemWorkshop()
+	{
+		ProductionFacilities = new();
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.Workshops);
-				ItemCast = new();
-				ProductionFacilities = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

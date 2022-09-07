@@ -24,7 +24,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
     /// </summary>
     public TableBaseModel()
     {
-	    Identity = new(SqlFieldIdentityEnum.Default);
+	    Identity = new(SqlFieldIdentityEnum.Empty);
 	    ChangeDt = CreateDt = DateTime.MinValue;
 	    IsMarked = false;
     }

@@ -6,42 +6,22 @@ namespace BlazorDeviceControl.Razors.Items;
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public partial class ItemPrinterResource : RazorPageBase
+public partial class ItemPrinterResource : ItemRazorPageBase<PrinterResourceModel>
 {
 	#region Public and private fields, properties, constructor
 
-	/// <summary>
-	/// PrinterResource.
-	/// </summary>
-	private PrinterResourceModel ItemCast { get => Item is null ? new() : (PrinterResourceModel)Item; set => Item = value; }
-	/// <summary>
-	/// Printers.
-	/// </summary>
 	private List<PrinterModel> Printers { get; set; }
-	/// <summary>
-	/// Printer's resources.
-	/// </summary>
 	private List<TemplateResourceModel> Resources { get; set; }
+
+	public ItemPrinterResource()
+	{
+		Printers = new();
+		Resources = new();
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.PrintersResources);
-				ItemCast = new();
-				Printers = new();
-				Resources = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemBarCode : RazorPageBase
+public partial class ItemBarCode : ItemRazorPageBase<BarCodeModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private BarCodeModel ItemCast { get => Item is null ? new() : (BarCodeModel)Item; set => Item = value; }
+	public ItemBarCode()
+	{
+		//
+	}
 
 	#endregion
-
+	
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.BarCodeTypes);
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

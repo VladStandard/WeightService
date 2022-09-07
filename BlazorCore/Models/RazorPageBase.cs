@@ -194,27 +194,20 @@ public partial class RazorPageBase : LayoutComponentBase
         return string.Empty;
     }
 
-    private void ItemSystemSave(SqlTableSystemEnum tableSystem)
-    {
-        switch (tableSystem)
-        {
-            case SqlTableSystemEnum.Accesses:
-                ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-                break;
-            case SqlTableSystemEnum.Tasks:
-                ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-                break;
-            case SqlTableSystemEnum.TasksTypes:
-                ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-                break;
-        }
-    }
-
     private void ItemScaleSave(SqlTableScaleEnum tableScale)
     {
         switch (tableScale)
         {
-            case SqlTableScaleEnum.BarCodeTypes:
+	        case SqlTableScaleEnum.Accesses:
+		        ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+		        break;
+	        case SqlTableScaleEnum.Tasks:
+		        ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+		        break;
+	        case SqlTableScaleEnum.TasksTypes:
+		        ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+		        break;
+			case SqlTableScaleEnum.BarCodesTypes:
                 ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
             case SqlTableScaleEnum.Contragents:
@@ -267,7 +260,7 @@ public partial class RazorPageBase : LayoutComponentBase
             case SqlTableScaleEnum.TemplatesResources:
                 ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceModel?)ParentRazor?.Item, ParentRazor?.TableAction);
                 break;
-            case SqlTableScaleEnum.Workshops:
+            case SqlTableScaleEnum.WorkShops:
                 ItemSaveCheck.Workshop(NotificationService, (WorkShopModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
         }
@@ -281,15 +274,7 @@ public partial class RazorPageBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
             () =>
             {
-                switch (Table)
-                {
-                    case TableSystemModel:
-                        ItemSystemSave(SqlUtils.GetTableSystem(Table.Name));
-                        break;
-                    case TableScaleModel:
-                        ItemScaleSave(SqlUtils.GetTableScale(Table.Name));
-                        break;
-                }
+                ItemScaleSave(SqlUtils.GetTableScale(Table.Name));
                 SetRouteSectionNavigate(false);
             });
 

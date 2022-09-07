@@ -34,9 +34,8 @@ public partial class SectionAccess : RazorPageBase
         {
 	        () =>
 	        {
-		        Table = new TableSystemModel(SqlTableSystemEnum.Accesses);
+		        Table = new TableScaleModel(SqlTableScaleEnum.Accesses);
 		        ItemsCast = new();
-
 	        }
         });
     }

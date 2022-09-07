@@ -434,25 +434,18 @@ public static partial class SqlUtils
 		return sqlCrudConfig;
 	}
 
-	public static SqlTableSystemEnum GetTableSystem(string tableName)
-	{
-		if (Enum.TryParse(tableName, out SqlTableSystemEnum tableSystem))
-			return tableSystem;
-		return SqlTableSystemEnum.Default;
-	}
-
 	public static SqlTableScaleEnum GetTableScale(string tableName)
 	{
 		if (Enum.TryParse(tableName, out SqlTableScaleEnum tableScale))
 			return tableScale;
-		return SqlTableScaleEnum.Default;
+		return SqlTableScaleEnum.Empty;
 	}
 
 	public static SqlTableDwhEnum GetTableDwh(string tableName)
 	{
 		if (Enum.TryParse(tableName, out SqlTableDwhEnum tableDwh))
 			return tableDwh;
-		return SqlTableDwhEnum.Default;
+		return SqlTableDwhEnum.Empty;
 	}
 
 	#endregion

@@ -6,11 +6,10 @@ namespace BlazorDeviceControl.Razors.Items;
 /// <summary>
 /// Scale item page.
 /// </summary>
-public partial class ItemScaleCore : RazorPageBase
+public partial class ItemScaleCore : ItemRazorPageBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private ScaleModel ItemCast { get => Item is null ? new() : (ScaleModel)Item; set => Item = value; }
 	private PrinterModel PrinterMain { get => ItemCast.PrinterMain ?? new(); set => ItemCast.PrinterMain = value; }
 	private PrinterModel PrinterShipping { get => ItemCast.PrinterShipping ?? new(); set => ItemCast.PrinterShipping = value; }
 	private TemplateModel TemplateDefault { get => ItemCast.TemplateDefault ?? new(); set => ItemCast.TemplateDefault = value; }
@@ -25,29 +24,19 @@ public partial class ItemScaleCore : RazorPageBase
 	private List<HostModel> Hosts { get; set; }
 	[Parameter] public bool IsPluNew { get; set; }
 
+	public ItemScaleCore()
+	{
+		Printers = new();
+		ComPorts = new();
+		Hosts = new();
+		ProductionFacilities = new();
+		WorkShops = new();
+		Templates = new();
+	}
+
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.Scales);
-				Printers = new();
-				ComPorts = new();
-				Hosts = new();
-				ProductionFacilities = new();
-				WorkShops = new();
-				Templates = new();
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

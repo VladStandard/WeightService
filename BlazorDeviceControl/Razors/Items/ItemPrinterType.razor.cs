@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemPrinterType : RazorPageBase
+public partial class ItemPrinterType : ItemRazorPageBase<PrinterTypeModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private PrinterTypeModel ItemCast { get => Item is null ? new() : (PrinterTypeModel)Item; set => Item = value; }
+	public ItemPrinterType()
+	{
+		//
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.PrintersTypes);
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

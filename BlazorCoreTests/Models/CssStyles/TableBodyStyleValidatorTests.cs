@@ -22,7 +22,7 @@ internal class TableBodyStyleValidatorTests
 		// Assert.
 		BlazorCoreUtils.AssertStyleValidate(item, false);
 		// Act.
-		item.IdentityName = SqlFieldIdentityEnum.Default;
+		item.IdentityName = SqlFieldIdentityEnum.Empty;
 		// Assert.
 		BlazorCoreUtils.AssertStyleValidate(item, false);
 	}

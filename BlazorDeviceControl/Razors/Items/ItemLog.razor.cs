@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemLog : RazorPageBase
+public partial class ItemLog : ItemRazorPageBase<LogModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private LogModel ItemCast { get => Item is null ? new() : (LogModel)Item; set => Item = value; }
+	public ItemLog()
+	{
+		//
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableSystemModel(SqlTableSystemEnum.Logs);
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

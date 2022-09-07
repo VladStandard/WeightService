@@ -4,7 +4,6 @@
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
-using Microsoft.AspNetCore.Components;
 using Radzen;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -12,7 +11,7 @@ using Environment = System.Environment;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageBase : LayoutComponentBase
+public partial class RazorPageBase
 {
     #region Public and private methods - Run actions
 
@@ -24,9 +23,9 @@ public partial class RazorPageBase : LayoutComponentBase
     }
 
     protected void RunActionsParametersSet(List<Action> actionsParametersSet)
-	{
+    {
         IsActionsParametersSetFinished = false;
-		SetPropertiesFromParent();
+        SetPropertiesFromParent();
         RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actionsParametersSet);
         IsActionsParametersSetFinished = true;
     }

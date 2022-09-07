@@ -16,7 +16,7 @@ public class TableBodyStyleValidator : AbstractValidator<TableStyleModel>
 	public TableBodyStyleValidator()
 	{
 		RuleFor(item => ((TableBodyStyleModel)item).IdentityName)
-			.NotEqual(SqlFieldIdentityEnum.Default);
+			.NotEqual(SqlFieldIdentityEnum.Empty);
 	}
 
 	#endregion

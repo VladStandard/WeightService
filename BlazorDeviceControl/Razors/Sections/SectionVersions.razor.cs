@@ -25,7 +25,7 @@ public partial class SectionVersions : RazorPageBase
 		{
 			() =>
 			{
-		        Table = new TableSystemModel(SqlTableSystemEnum.Versions);
+		        Table = new TableScaleModel(SqlTableScaleEnum.Versions);
 		        ItemsCast = new();
 			}
 		});

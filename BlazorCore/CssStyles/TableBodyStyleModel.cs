@@ -17,7 +17,7 @@ public class TableBodyStyleModel : TableStyleModel
 	/// </summary>
 	public TableBodyStyleModel()
     {
-		IdentityName = SqlFieldIdentityEnum.Default;
+		IdentityName = SqlFieldIdentityEnum.Empty;
 		IsShowMarked = false;
 	}
 

@@ -21,7 +21,7 @@ public class SqlTableIdentityModel : SerializeBase, ICloneable, ISqlDbBase, ISer
     /// </summary>
     public SqlTableIdentityModel()
     {
-        Name = SqlFieldIdentityEnum.Default;
+        Name = SqlFieldIdentityEnum.Empty;
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class SqlTableIdentityModel : SerializeBase, ICloneable, ISqlDbBase, ISer
 			Equals(Name, item.Name);
 	}
 
-	public virtual bool EqualsDefault() => Equals(Name, SqlFieldIdentityEnum.Default);
+	public virtual bool EqualsDefault() => Equals(Name, SqlFieldIdentityEnum.Empty);
 
 	public virtual object Clone() => new SqlTableIdentityModel(Name);
 

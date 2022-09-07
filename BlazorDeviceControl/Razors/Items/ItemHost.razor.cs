@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemHost : RazorPageBase
+public partial class ItemHost : ItemRazorPageBase<HostModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private HostModel ItemCast { get => Item is null ? new() : (HostModel)Item; set => Item = value; }
+	public ItemHost()
+	{
+		//
+	}
 
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableScaleModel(SqlTableScaleEnum.Hosts);
-				ItemCast = new();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

@@ -3,29 +3,18 @@
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluLabel : RazorPageBase
+public partial class ItemPluLabel : ItemRazorPageBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
-    private PluLabelModel ItemCast { get => Item is null ? new() : (PluLabelModel)Item; set => Item = value; }
+    public ItemPluLabel()
+    {
+		//
+    }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusLabels);
-		        ItemCast = new();
-			}
-		});
-	}
 
     protected override void OnParametersSet()
     {

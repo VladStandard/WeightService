@@ -3,11 +3,10 @@
 
 namespace BlazorDeviceControl.Razors.Items;
 
-public partial class ItemAccess : RazorPageBase
+public partial class ItemAccess : ItemRazorPageBase<AccessModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private AccessModel ItemCast { get => Item is null ? new() : (AccessModel)Item; set => Item = value; }
 	private List<TypeModel<AccessRightsEnum>>? TemplateAccessRights { get; set; }
 
 	private AccessRightsEnum Rights
@@ -16,24 +15,14 @@ public partial class ItemAccess : RazorPageBase
 		set => ItemCast.Rights = (byte)value;
 	}
 
+	public ItemAccess()
+	{
+		TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
+	}
+
 	#endregion
 
 	#region Public and private methods
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-				Table = new TableSystemModel(SqlTableSystemEnum.Accesses);
-				ItemCast = new();
-				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
-			}
-		});
-	}
 
 	protected override void OnParametersSet()
 	{

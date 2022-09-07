@@ -2,16 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
-using DataCore.Sql.Core;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageBase : LayoutComponentBase
+public partial class RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -71,7 +71,7 @@ public partial class RazorPageBase : LayoutComponentBase
 		FilterName = string.Empty;
 		IsShowOnlyTop = true;
 		Table = new(string.Empty);
-		TableAction = SqlTableActionEnum.Default;
+		TableAction = SqlTableActionEnum.Empty;
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;
 		IsActionsParametersSetFinished = false;
@@ -97,7 +97,7 @@ public partial class RazorPageBase : LayoutComponentBase
 			Item = ParentRazor.Item;
 		if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
 			Table = ParentRazor.Table;
-		if (ParentRazor.TableAction != SqlTableActionEnum.Default)
+		if (ParentRazor.TableAction != SqlTableActionEnum.Empty)
 			TableAction = ParentRazor.TableAction;
 
 		ButtonSettings = ParentRazor.ButtonSettings;

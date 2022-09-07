@@ -5,7 +5,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.Items.Plu;
 
-public partial class ItemPluObsolete : RazorPageBase
+public partial class ItemPluObsolete : ItemRazorPageBase<PluObsoleteModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -13,29 +13,18 @@ public partial class ItemPluObsolete : RazorPageBase
     private List<NomenclatureModel> Nomenclatures { get; set; }
     private List<ScaleModel> Scales { get; set; }
     private List<TemplateModel> Templates { get; set; }
-    private PluObsoleteModel ItemCast { get => Item is null ? new() : (PluObsoleteModel)Item; set => Item = value; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
+
+    public ItemPluObsolete()
+    {
+        Scales = new();
+        Templates = new();
+        Nomenclatures = new();
+    }
 
     #endregion
 
     #region Public and private methods
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
-		{
-			() =>
-			{
-		        Table = new TableScaleModel(SqlTableScaleEnum.PlusObsolete);
-		        ItemCast = new();
-		        Scales = new();
-		        Templates = new();
-		        Nomenclatures = new();
-			}
-		});
-    }
 
     protected override void OnParametersSet()
     {
