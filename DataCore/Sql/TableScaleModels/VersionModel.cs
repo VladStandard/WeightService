@@ -15,8 +15,7 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 
     public virtual DateTime ReleaseDt { get; set; }
     public virtual short Version { get; set; }
-    public virtual string Description { get; set; }
-
+    
 	/// <summary>
 	/// Constructor.
 	/// </summary>
@@ -24,7 +23,6 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		ReleaseDt = DateTime.MinValue;
 		Version = 0;
-		Description = string.Empty;
 	}
 
 	/// <summary>
@@ -36,7 +34,6 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
     {
         ReleaseDt = info.GetDateTime(nameof(ReleaseDt));
         Version = info.GetInt16(nameof(Version));
-        Description = info.GetString(nameof(Description));
     }
 
 	#endregion
@@ -46,8 +43,7 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(ReleaseDt)}: {ReleaseDt}. " +
-        $"{nameof(Version)}: {Version}. " +
-        $"{nameof(Description)}: {Description}. ";
+        $"{nameof(Version)}: {Version}. ";
 
     public override bool Equals(object obj)
 	{
@@ -64,16 +60,14 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
 		Equals(ReleaseDt, DateTime.MinValue) &&
-		Equals(Version, (short)0) &&
-		Equals(Description, string.Empty);
+		Equals(Version, (short)0);
 
 	public override object Clone()
     {
         VersionModel item = new();
         item.ReleaseDt = ReleaseDt;
         item.Version = Version;
-        item.Description = Description;
-		item.CloneSetup(base.CloneCast());
+        item.CloneSetup(base.CloneCast());
 		return item;
     }
 
@@ -82,7 +76,6 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
         base.GetObjectData(info, context);
         info.AddValue(nameof(ReleaseDt), ReleaseDt);
         info.AddValue(nameof(Version), Version);
-        info.AddValue(nameof(Description), Description);
     }
 
 	#endregion
@@ -95,8 +88,7 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 		return
 			base.Equals(item) &&
 			Equals(ReleaseDt, item.ReleaseDt) &&
-			Equals(Version, item.Version) &&
-			Equals(Description, item.Description);
+			Equals(Version, item.Version);
 	}
 
 	public new virtual VersionModel CloneCast() => (VersionModel)Clone();

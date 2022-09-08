@@ -15,8 +15,7 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
 
 	[XmlElement] public virtual PrinterModel Printer { get; set; }
 	[XmlElement] public virtual TemplateResourceModel Resource { get; set; }
-	[XmlElement] public virtual string Description { get; set; }
-
+	
 	/// <summary>
 	/// Constructor.
 	/// </summary>
@@ -24,7 +23,6 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
 	{
 		Printer = new();
 		Resource = new();
-		Description = string.Empty;
 	}
 
 	/// <summary>
@@ -36,7 +34,6 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
 	{
 		Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
 		Resource = (TemplateResourceModel)info.GetValue(nameof(Resource), typeof(TemplateResourceModel));
-		Description = info.GetString(nameof(Description));
 	}
 
 	#endregion
@@ -46,8 +43,7 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Printer)}: {Printer}. " +
-		$"{nameof(Resource)}: {Resource}. " +
-		$"{nameof(Description)}: {Description}. ";
+		$"{nameof(Resource)}: {Resource}. ";
 
 	public override bool Equals(object obj)
 	{
@@ -67,8 +63,7 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
             return false;
         if (!Resource.EqualsDefault())
             return false;
-        return base.EqualsDefault() &&
-               Equals(Description, string.Empty);
+        return base.EqualsDefault();
     }
 
 	public override object Clone()
@@ -76,7 +71,6 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
         PrinterResourceModel item = new();
         item.Printer = Printer.CloneCast();
         item.Resource = Resource.CloneCast();
-        item.Description = Description;
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -91,7 +85,6 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Printer), Printer);
 		info.AddValue(nameof(Resource), Resource);
-		info.AddValue(nameof(Description), Description);
 	}
 
 	#endregion
@@ -105,8 +98,7 @@ public class PrinterResourceModel : TableBase, ICloneable, ISqlDbBase, ISerializ
 			return false;
 		if (!Resource.Equals(item.Resource))
 			return false;
-		return base.Equals(item) &&
-		       Equals(Description, item.Description);
+		return base.Equals(item);
 	}
 
 	public new virtual PrinterResourceModel CloneCast() => (PrinterResourceModel)Clone();

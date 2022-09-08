@@ -20,7 +20,6 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterShipping { get; set; }
 	[XmlElement] public virtual byte ShippingLength { get; set; }
 	[XmlElement(IsNullable = true)] public virtual HostModel? Host { get; set; }
-	//[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string DeviceIp { get; set; }
 	[XmlElement] public virtual short DevicePort { get; set; }
 	[XmlElement] public virtual string DeviceMac { get; set; }
@@ -49,7 +48,6 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	    PrinterMain = null;
 	    PrinterShipping = null;
 	    ShippingLength = 0;
-	    Description = string.Empty;
 	    DeviceIp = string.Empty;
 	    DevicePort = 0;
 	    DeviceMac = string.Empty;
@@ -80,7 +78,6 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 		PrinterMain = (PrinterModel?)info.GetValue(nameof(PrinterMain), typeof(PrinterModel));
 		PrinterShipping = (PrinterModel?)info.GetValue(nameof(PrinterShipping), typeof(PrinterModel));
 		ShippingLength = info.GetByte(nameof(ShippingLength));
-		Description = info.GetString(nameof(Description));
 		DeviceIp = info.GetString(nameof(DeviceIp));
 		DevicePort = info.GetInt16(nameof(DevicePort));
 		DeviceMac = info.GetString(nameof(DeviceMac));
@@ -101,10 +98,7 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - override
 
-	public override string ToString() =>
-		$"{nameof(IsMarked)}: {IsMarked}. " +
-	    $"{nameof(Description)}: {Description}. " +
-	    $"{nameof(DeviceIp)}: {DeviceIp}. ";
+	public override string ToString() => base.ToString() + $"{nameof(DeviceIp)}: {DeviceIp}. ";
 
     public override bool Equals(object obj)
 	{
@@ -132,23 +126,23 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	        return false;
 		if (Host != null && !Host.EqualsDefault())
 			return false;
-        return base.EqualsDefault() &&
-               Equals(Description, string.Empty) &&
-               Equals(DeviceIp, string.Empty) &&
-               Equals(DevicePort, (short)0) &&
-               Equals(DeviceMac, string.Empty) &&
-               Equals(DeviceSendTimeout, null) &&
-               Equals(DeviceReceiveTimeout, null) &&
-               Equals(DeviceComPort, string.Empty) &&
-               Equals(ZebraIp, string.Empty) &&
-               Equals(ZebraPort, null) &&
-               Equals(IsOrder, false) &&
-               Equals(Number, 0) &&
-               Equals(Counter, 0) &&
-               Equals(ScaleFactor, null) &&
-               Equals(IsShipping, false) &&
-               Equals(IsKneading, false) &&
-               Equals(ShippingLength, (byte)0);
+        return 
+	        base.EqualsDefault() &&
+            Equals(DeviceIp, string.Empty) &&
+            Equals(DevicePort, (short)0) &&
+            Equals(DeviceMac, string.Empty) &&
+            Equals(DeviceSendTimeout, null) &&
+            Equals(DeviceReceiveTimeout, null) &&
+            Equals(DeviceComPort, string.Empty) &&
+            Equals(ZebraIp, string.Empty) &&
+            Equals(ZebraPort, null) &&
+            Equals(IsOrder, false) &&
+            Equals(Number, 0) &&
+            Equals(Counter, 0) &&
+            Equals(ScaleFactor, null) &&
+            Equals(IsShipping, false) &&
+            Equals(IsKneading, false) &&
+            Equals(ShippingLength, (byte)0);
     }
 
 	public override object Clone()
@@ -163,7 +157,6 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
         item.IsKneading = IsKneading;
         item.ShippingLength = ShippingLength;
         item.Host = Host?.CloneCast();
-        item.Description = Description;
         item.DeviceIp = DeviceIp;
         item.DevicePort = DevicePort;
         item.DeviceMac = DeviceMac;
@@ -195,7 +188,6 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(PrinterMain), PrinterMain);
         info.AddValue(nameof(PrinterShipping), PrinterShipping);
         info.AddValue(nameof(ShippingLength), ShippingLength);
-        info.AddValue(nameof(Description), Description);
         info.AddValue(nameof(DeviceIp), DeviceIp);
         info.AddValue(nameof(DevicePort), DevicePort);
         info.AddValue(nameof(DeviceMac), DeviceMac);
@@ -232,7 +224,6 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 		if (Host != null && item.Host != null && !Host.Equals(item.Host))
 			return false;
 		return base.Equals(item) &&
-			   Equals(Description, item.Description) &&
 			   Equals(DeviceIp, item.DeviceIp) &&
 			   Equals(DevicePort, item.DevicePort) &&
 			   Equals(DeviceMac, item.DeviceMac) &&

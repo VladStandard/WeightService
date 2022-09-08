@@ -18,7 +18,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
     [XmlElement] public virtual int Number { get; set; }
     [XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string FullName { get; set; }
-	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual short ShelfLifeDays { get; set; }
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
@@ -54,7 +53,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 		Number = 0;
 		Name = string.Empty;
 		FullName = string.Empty;
-		Description = string.Empty;
 		ShelfLifeDays = 0;
 		TareWeight = 0;
 		BoxQuantly = 0;
@@ -79,7 +77,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	    Number = info.GetInt32(nameof(Number));
 	    Name = info.GetString(nameof(Name));
 	    FullName = info.GetString(nameof(FullName));
-	    Description = info.GetString(nameof(Description));
 	    ShelfLifeDays = info.GetInt16(nameof(ShelfLifeDays));
 		TareWeight = info.GetDecimal(nameof(TareWeight));
 	    BoxQuantly = info.GetInt32(nameof(BoxQuantly));
@@ -126,7 +123,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 			Equals(Number, default(int)) &&
 			Equals(Name, string.Empty) &&
 			Equals(FullName, string.Empty) &&
-			Equals(Description, string.Empty) &&
 			Equals(ShelfLifeDays, default(short)) &&
 			Equals(TareWeight, default(decimal)) &&
 			Equals(BoxQuantly, default(int)) &&
@@ -145,7 +141,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
         item.Number = Number;
         item.Name = Name;
         item.FullName = FullName;
-        item.Description = Description;
         item.ShelfLifeDays = ShelfLifeDays;
         item.TareWeight = TareWeight;
         item.BoxQuantly = BoxQuantly;
@@ -168,7 +163,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	    info.AddValue(nameof(Number), Number);
 	    info.AddValue(nameof(Name), Name);
 	    info.AddValue(nameof(FullName), FullName);
-	    info.AddValue(nameof(Description), Description);
 	    info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
 	    info.AddValue(nameof(TareWeight), TareWeight);
 	    info.AddValue(nameof(BoxQuantly), BoxQuantly);
@@ -199,7 +193,6 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 			Equals(Number, item.Number) &&
 			Equals(Name, item.Name) &&
 			Equals(FullName, item.FullName) &&
-			Equals(Description, item.Description) &&
 			Equals(ShelfLifeDays, item.ShelfLifeDays) &&
 			Equals(TareWeight, item.TareWeight) &&
 			Equals(BoxQuantly, item.BoxQuantly) &&

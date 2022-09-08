@@ -14,7 +14,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual string Name { get; set; }
-	[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string Type { get; set; }
 	[XmlElement] public virtual SqlFieldBinaryModel ImageData { get; set; }
 	[XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
@@ -26,7 +25,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
     public TemplateResourceModel() : base(SqlFieldIdentityEnum.Id)
 	{
 		Name = string.Empty;
-		Description = string.Empty;
 		Type = string.Empty;
 		ImageData = new();
 		IdRRef = Guid.Empty;
@@ -40,7 +38,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
 	private TemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		Name = info.GetString(nameof(Name));
-		Description = info.GetString(nameof(Description));
 		Type = info.GetString(nameof(Type));
 		ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));
 		IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));
@@ -53,7 +50,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Description)}: {Description}. " +
         $"{nameof(Type)}: {Type}. " +
         $"{nameof(ImageData)}: {ImageData}. " +
         $"{nameof(IdRRef)}: {IdRRef}. ";
@@ -73,7 +69,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
 		Equals(Name, string.Empty) &&
-		Equals(Description, string.Empty) &&
 		Equals(Type, string.Empty) && 
 		ImageData.Equals(new())  &&
 		Equals(IdRRef, Guid.Empty);
@@ -82,7 +77,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
     {
         TemplateResourceModel item = new();
         item.Name = Name;
-        item.Description = Description;
         item.Type = Type;
         item.IdRRef = IdRRef;
         item.ImageData = ImageData.CloneCast();
@@ -99,7 +93,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
 	{
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Name), Name);
-		info.AddValue(nameof(Description), Description);
 		info.AddValue(nameof(Type), Type);
 		info.AddValue(nameof(ImageData), ImageData);
 		info.AddValue(nameof(IdRRef), IdRRef);
@@ -117,7 +110,6 @@ public class TemplateResourceModel : TableBase, ICloneable, ISqlDbBase, ISeriali
 		return
 			base.Equals(item) &&
 			Equals(Name, item.Name) &&
-			Equals(Description, item.Description) &&
 			Equals(Type, item.Type) &&
 			Equals(IdRRef, item.IdRRef);
 	}
