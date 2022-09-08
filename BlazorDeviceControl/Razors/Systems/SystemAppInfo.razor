@@ -2,10 +2,9 @@
 @page "/system/appinfo"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using BlazorCore.Razors
 
-<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
+<ItemReload T=TableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>

@@ -21,7 +21,7 @@ public static class DataAccessHelperItem
 	/// <param name="dataAccess"></param>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	public static T? GetItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
+	public static T? GetItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : Tables.TableBase, new()
 	{
 		T? item = null;
 		dataAccess.ExecuteTransaction((session) =>
@@ -40,7 +40,7 @@ public static class DataAccessHelperItem
 	/// <param name="session"></param>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	private static T? GetItemCore<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
+	private static T? GetItemCore<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : Tables.TableBase, new()
 	{
 		sqlCrudConfig.MaxResults = 1;
 		ICriteria criteria = dataAccess.GetCriteria<T>(session, sqlCrudConfig);
@@ -57,7 +57,7 @@ public static class DataAccessHelperItem
 	/// <param name="id"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
-	public static T? GetItemById<T>(this DataAccessHelper dataAccess, long? id) where T : TableBaseModel, new()
+	public static T? GetItemById<T>(this DataAccessHelper dataAccess, long? id) where T : Tables.TableBase, new()
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, id) },
 			new(SqlFieldEnum.IdentityValueId, SqlFieldOrderDirectionEnum.Desc), 0);
@@ -71,7 +71,7 @@ public static class DataAccessHelperItem
 	/// <param name="uid"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
-	public static T? GetItemByUid<T>(this DataAccessHelper dataAccess, Guid? uid) where T : TableBaseModel, new()
+	public static T? GetItemByUid<T>(this DataAccessHelper dataAccess, Guid? uid) where T : Tables.TableBase, new()
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.IdentityValueUid, SqlFieldComparerEnum.Equal, uid) },
 			new(SqlFieldEnum.IdentityValueUid, SqlFieldOrderDirectionEnum.Desc), 0);
@@ -85,7 +85,7 @@ public static class DataAccessHelperItem
 	/// <param name="dataAccess"></param>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	public static T GetItemNotNull<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBaseModel, new()
+	public static T GetItemNotNull<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : Tables.TableBase, new()
 	{
 		T? item = GetItem<T>(dataAccess, sqlCrudConfig);
 		if (item is not null)
@@ -100,7 +100,7 @@ public static class DataAccessHelperItem
 	/// <param name="dataAccess"></param>
 	/// <param name="id"></param>
 	/// <returns></returns>
-	public static T GetItemByIdNotNull<T>(this DataAccessHelper dataAccess, long? id) where T : TableBaseModel, new()
+	public static T GetItemByIdNotNull<T>(this DataAccessHelper dataAccess, long? id) where T : Tables.TableBase, new()
 	{
 		T? item = GetItemById<T>(dataAccess, id);
 		if (item is not null)
@@ -115,7 +115,7 @@ public static class DataAccessHelperItem
 	/// <param name="dataAccess"></param>
 	/// <param name="uid"></param>
 	/// <returns></returns>
-	public static T GetItemByUidNotNull<T>(this DataAccessHelper dataAccess, Guid? uid) where T : TableBaseModel, new()
+	public static T GetItemByUidNotNull<T>(this DataAccessHelper dataAccess, Guid? uid) where T : Tables.TableBase, new()
 	{
 		T? item = GetItemByUid<T>(dataAccess, uid);
 		if (item is not null)

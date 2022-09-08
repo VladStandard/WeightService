@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Templates".
 /// </summary>
 [Serializable]
-public class TemplateModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
+public class TemplateModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

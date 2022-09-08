@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "VERSIONS".
 /// </summary>
 [Serializable]
-public class VersionModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
+public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

@@ -13,10 +13,10 @@ public partial class RazorPageBase
 {
     #region Public and private methods - Routes
 
-    protected static string GetRoutePath(string uriItemRoute, TableBaseModel? item, long? id) =>
+    protected static string GetRoutePath(string uriItemRoute, DataCore.Sql.Tables.TableBase? item, long? id) =>
         item is null || id is null ? string.Empty : $"{uriItemRoute}/{id}";
 
-    protected static string GetRoutePath(string uriItemRoute, TableBaseModel? item, Guid? uid) =>
+    protected static string GetRoutePath(string uriItemRoute, DataCore.Sql.Tables.TableBase? item, Guid? uid) =>
         item is null || uid is null ? string.Empty : $"{uriItemRoute}/{uid}";
 
     private string GetRouteSectionNavigatePage()
@@ -141,7 +141,7 @@ public partial class RazorPageBase
         return page;
     }
 
-    private void SetRouteItemNavigate<T>(bool isNewWindow, T? item, SqlTableActionEnum tableAction) where T : TableBaseModel, new()
+    private void SetRouteItemNavigate<T>(bool isNewWindow, T? item, SqlTableActionEnum tableAction) where T : DataCore.Sql.Tables.TableBase, new()
     {
         string page = GetRouteItemNavigatePage();
         if (string.IsNullOrEmpty(page))
@@ -153,7 +153,7 @@ public partial class RazorPageBase
             SetRouteItemNavigateUsingJsRuntime(page);
     }
 
-    private void SetRouteItemNavigateCore<T>(T? item, string page, SqlTableActionEnum tableAction) where T : TableBaseModel, new()
+    private void SetRouteItemNavigateCore<T>(T? item, string page, SqlTableActionEnum tableAction) where T : DataCore.Sql.Tables.TableBase, new()
     {
         switch (tableAction)
         {

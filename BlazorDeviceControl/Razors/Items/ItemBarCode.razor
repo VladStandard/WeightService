@@ -3,9 +3,6 @@
 @page "/item/barcode/{IdentityUidStr}"
 @page "/item/barcode/{IdentityUidStr}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
-@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
-@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
 
 @if (!IsActionsParametersSetFinished)
@@ -14,7 +11,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
+    <ItemReload T=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	    <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -29,7 +26,7 @@ else
             </tr>
         </tbody>
     </MudSimpleTable>
-    
-    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@(this) />
+
+    <ItemSave T=BarCodeModel ParentRazor=@(this) />
+    <ItemDates T=BarCodeModel ParentRazor=@(this) />
 }

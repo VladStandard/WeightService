@@ -3,9 +3,6 @@
 @page "/item/template/{IdentityId:long}"
 @page "/item/template/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
-@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
-@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
 
 @if (!IsActionsParametersSetFinished)
@@ -14,7 +11,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplate />
+	<ItemReload T=TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplate />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
@@ -54,7 +51,7 @@ else
 			</tr>
 		</tbody>
 	</MudSimpleTable>
-    
-    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@(this) />
+
+	<ItemSave T=TemplateModel ParentRazor=@(this) />
+	<ItemDates T=TemplateModel ParentRazor=@(this) />
 }

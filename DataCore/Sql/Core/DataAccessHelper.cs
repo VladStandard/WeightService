@@ -221,7 +221,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
     }
 
-    public TableBase GetTable<T>(T item) where T : TableBaseModel, new()
+    public DataCore.Models.TableBase GetTable<T>(T item) where T : Tables.TableBase, new()
 	{
 		return item switch
 		{
@@ -253,7 +253,7 @@ public class DataAccessHelper
 		};
 	}
 
-    public TableBase GetTable<T>(List<T> items) where T : TableBaseModel, new() => GetTable(items.Any() ? items.First() : new());
+    public DataCore.Models.TableBase GetTable<T>(List<T> items) where T : Tables.TableBase, new() => GetTable(items.Any() ? items.First() : new());
 
     #endregion
 }

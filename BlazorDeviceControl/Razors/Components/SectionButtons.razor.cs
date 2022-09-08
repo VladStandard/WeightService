@@ -3,10 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-/// <summary>
-/// Actions save.
-/// </summary>
-public partial class ActionsSave : RazorPageBase
+public partial class SectionButtons<T> : RazorPageSectionBase<T> where T : DataCore.Sql.Tables.TableBase, new()
 {
 	//
 }

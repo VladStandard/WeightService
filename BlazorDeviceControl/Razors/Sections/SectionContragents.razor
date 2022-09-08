@@ -1,7 +1,6 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<ContragentModel>
 @page "/section/contragents"
-@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
-@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
+
 @using BlazorDeviceControl.Razors.Components
 
 @if (!IsActionsParametersSetFinished)
@@ -10,7 +9,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
+    <SectionReload T=ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
     
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ContragentModel" @bind-Value=@ItemObject
@@ -59,5 +58,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@(this) />
+    <SectionButtons T=ContragentModel ParentRazor=@(this) />
 }

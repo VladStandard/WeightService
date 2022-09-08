@@ -1,4 +1,5 @@
-﻿@inherits BlazorCore.Models.RazorPageBase
+﻿@typeparam T
+@inherits BlazorCore.Models.RazorPageSectionBase<T>
 @page "/action/filter_scale"
 
 @if (ParentRazor is null)
@@ -11,9 +12,9 @@ else
 	    Class=@BlazorCoreUtuls.GetCssName.MudSelect 
 	    Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px; "
 	    @bind-Value=@ItemFilterCast>
-		@foreach (ScaleModel item in ItemsCast)
+		@foreach (T item in ItemsCast)
 		{
-			<MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
+			<MudSelectItem T=@T Value=@item>@item.ToString()</MudSelectItem>
 		}
 	</MudSelect>
 }

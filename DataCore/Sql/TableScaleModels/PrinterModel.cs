@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-public class PrinterModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
+public class PrinterModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

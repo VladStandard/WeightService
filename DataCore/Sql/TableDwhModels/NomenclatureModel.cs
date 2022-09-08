@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableDwhModels;
 
 [Serializable]
-public class NomenclatureModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
+public class NomenclatureModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

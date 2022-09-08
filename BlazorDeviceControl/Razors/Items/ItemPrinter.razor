@@ -5,9 +5,6 @@
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
-@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
-@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
 @using DataCore.Sql.Core
 
@@ -17,7 +14,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.Print.Name />
+    <ItemReload T=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Name />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	    <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
@@ -117,6 +114,6 @@ else
     <br style="margin-top: 10px; "/>
     <SectionPrintersResources ParentRazor=@(this) />
     
-    <ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@(this) />
+    <ItemSave T=PrinterModel ParentRazor=@(this) />
+    <ItemDates T=PrinterModel ParentRazor=@(this) />
 }

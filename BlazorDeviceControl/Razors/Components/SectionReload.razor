@@ -1,5 +1,6 @@
-﻿@inherits ActionsReloadBase
-@page "/action/reload_section"
+﻿@typeparam T
+@inherits BlazorCore.Models.RazorPageSectionBase<T>
+@page "/action/section_reload"
 @using DataCore.Sql.Core
 
 <MudPaper Width="100%" Height="32px" Style="margin-bottom: 30px;" Square=false>
@@ -45,21 +46,22 @@
 			@if (IsShowAdditionalFilter)
 			{
 				<td>
-					@switch (FilterTable)
+					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@Title />
+@*					@switch (FilterTable)
 					{
 						case SqlTableScaleEnum.Scales:
 							<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; "
 							             Text=@LocaleCore.Table.Scale/>
 							break;
-					}
+					}*@
 				</td>
 				<td>
-					@switch (FilterTable)
+					<SectionFilter T=T ParentRazor=@(this) />
+					@*@switch (FilterTable)
 					{
 						case SqlTableScaleEnum.Scales:
-							<ActionsFilterScale ParentRazor=@(this) />
 							break;
-					}
+					}*@
 				</td>
 			}
 		</tr>

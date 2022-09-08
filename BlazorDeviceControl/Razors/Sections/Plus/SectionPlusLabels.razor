@@ -1,7 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<PluLabelModel>
 @page "/section/plus_labels"
-@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
-@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 @using BlazorDeviceControl.Razors.Components
 
 @if (!IsActionsParametersSetFinished)
@@ -10,7 +8,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
+    <SectionReload T=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="PluLabelModel" @bind-Value=@ItemObject
@@ -71,5 +69,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@(this) />
+    <SectionButtons T=PluLabelModel ParentRazor=@(this) />
 }

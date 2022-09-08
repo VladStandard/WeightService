@@ -3,7 +3,10 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsReloadItem : ActionsReloadBase
+/// <summary>
+/// Actions save.
+/// </summary>
+public partial class ItemSave<T> : RazorPageItemBase<T> where T : DataCore.Sql.Tables.TableBase, new()
 {
 	//
 }

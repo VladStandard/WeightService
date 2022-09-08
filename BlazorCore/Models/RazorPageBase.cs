@@ -39,7 +39,7 @@ public partial class RazorPageBase : LayoutComponentBase
         ParentRazor?.OnChange();
     }
 
-    public void OnItemValueChange(TableBaseModel? item, string? filterName, object? value)
+    public void OnItemValueChange(DataCore.Sql.Tables.TableBase? item, string? filterName, object? value)
     {
         RunActionsSafe(nameof(OnItemValueChange), LocaleCore.Dialog.DialogResultFail,
             () =>
@@ -119,7 +119,7 @@ public partial class RazorPageBase : LayoutComponentBase
 
     private void OnItemValueChangeScale(string? filterName, object? value, ScaleModel scale)
     {
-        if (filterName == nameof(TableBaseModel.Identity.Id) && value is long id)
+        if (filterName == nameof(ScaleModel.Identity.Id) && value is long id)
         {
             scale = AppSettings.DataAccess.GetItemById<ScaleModel>(id) ?? new();
         }

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "BARCODES_V2".
 /// </summary>
 [Serializable]
-public class BarCodeModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
+public class BarCodeModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

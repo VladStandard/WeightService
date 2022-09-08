@@ -8,7 +8,7 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializable
+public class TableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,7 +22,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableBaseModel()
+    public TableBase()
     {
 	    Identity = new(SqlFieldIdentityEnum.Empty);
 	    ChangeDt = CreateDt = DateTime.MinValue;
@@ -32,7 +32,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TableBaseModel(SqlFieldIdentityEnum identityName) : this()
+	public TableBase(SqlFieldIdentityEnum identityName) : this()
     {
 	    Identity = new(identityName);
     }
@@ -40,7 +40,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableBaseModel(SqlFieldIdentityModel identity) : this()
+    public TableBase(SqlFieldIdentityModel identity) : this()
 	{
 		Identity = (SqlFieldIdentityModel)identity.Clone();
     }
@@ -48,7 +48,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected TableBaseModel(SerializationInfo info, StreamingContext context)
+    protected TableBase(SerializationInfo info, StreamingContext context)
     {
 		Identity = (SqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(SqlFieldIdentityModel));
         CreateDt = info.GetDateTime(nameof(CreateDt));
@@ -68,7 +68,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
         return strCreateDt + strChangeDt + strIsMarked;
     }
 
-    public virtual bool Equals(TableBaseModel item)
+    public virtual bool Equals(TableBase item)
     {
         if (ReferenceEquals(this, item)) return true;
         return
@@ -83,7 +83,7 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((TableBaseModel)obj);
+        return Equals((TableBase)obj);
     }
     
     public override int GetHashCode() => Identity.GetHashCode();
@@ -114,16 +114,16 @@ public class TableBaseModel : SerializeBase, ICloneable, ISqlDbBase, ISerializab
 		Equals(ChangeDt, DateTime.MinValue) &&
 		Equals(IsMarked, false);
 
-	public virtual object Clone() => new TableBaseModel(Identity)
+	public virtual object Clone() => new TableBase(Identity)
 	{
 		CreateDt = CreateDt,
 		ChangeDt = ChangeDt,
 		IsMarked = IsMarked,
 	};
 
-	public virtual TableBaseModel CloneCast() => (TableBaseModel)Clone();
+	public virtual TableBase CloneCast() => (TableBase)Clone();
 
-	public virtual void CloneSetup(TableBaseModel item)
+	public virtual void CloneSetup(TableBase item)
 	{
 		CreateDt = item.CreateDt;
 		ChangeDt = item.ChangeDt;

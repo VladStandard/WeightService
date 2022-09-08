@@ -12,7 +12,7 @@ public class ItemFieldControlModel
 {
     #region Public and private methods
 
-    public bool ValidateModel<T>(NotificationService? notificationService, T? item, string field) where T : TableBaseModel, new()
+    public bool ValidateModel<T>(NotificationService? notificationService, T? item, string field) where T : TableBase, new()
     {
         bool result = item is not null;
         string detailAddition = Environment.NewLine;

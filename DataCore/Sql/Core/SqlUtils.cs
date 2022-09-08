@@ -32,7 +32,7 @@ public static partial class SqlUtils
 		}
 	}
 
-	public static IValidator<T> GetSqlValidator<T>(T? item) where T : TableBaseModel, new()
+	public static IValidator<T> GetSqlValidator<T>(T? item) where T : TableBase, new()
 	{
 		return item switch
 		{
@@ -69,7 +69,7 @@ public static partial class SqlUtils
 		};
 	}
 
-	public static bool IsValidation<T>(T? item, ref string detailAddition) where T : TableBaseModel, new()
+	public static bool IsValidation<T>(T? item, ref string detailAddition) where T : TableBase, new()
 	{
 		if (item is null)
 		{

@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsReloadSection : ActionsReloadBase
+public partial class SectionReload<T> : RazorPageSectionBase<T> where T : DataCore.Sql.Tables.TableBase, new()
 {
 	//
 }

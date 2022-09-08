@@ -4,9 +4,6 @@
 @page "/item/plu/{IdentityUidStr}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
-@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
-@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
 @using BlazorCore.Razors
 
 @if (!IsActionsParametersSetFinished)
@@ -15,7 +12,7 @@
 }
 else
 {
-	<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
+	<ItemReload T=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
 	
 	<MudSimpleTable Style="overflow-x: auto; margin-top: 10px; " Dense=true Bordered=true FixedHeader=false>
 	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
@@ -211,7 +208,7 @@ else
         </tbody>
     </MudSimpleTable>
 	
-	<ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    
-	<ItemDates ParentRazor=@(this) />
+	<ItemSave T=PluModel ParentRazor=@(this) />
+
+    <ItemDates T=PluModel ParentRazor=@(this) />
 }

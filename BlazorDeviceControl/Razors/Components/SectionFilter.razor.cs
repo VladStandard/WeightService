@@ -3,17 +3,11 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsFilterScale : RazorPageBase
+public partial class SectionFilter<T> : RazorPageSectionBase<T> where T : DataCore.Sql.Tables.TableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
-	private List<ScaleModel> ItemsCast
-	{
-		get => Items is null ? new() : Items.Select(x => (ScaleModel)x).ToList();
-		set => Items = !value.Any() ? null : new(value);
-	}
-
-	private ScaleModel ItemFilterCast { get => Item is null ? new() : (ScaleModel)Item; set => Item = value; }
+	[Parameter] public SqlTableScaleEnum FilterTable { get; set; }
 
 	#endregion
 
@@ -32,7 +26,7 @@ public partial class ActionsFilterScale : RazorPageBase
 				ScaleModel[]? itemsFilter = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{
-					ItemsFilter.AddRange(itemsFilter.ToList<TableBaseModel>());
+                    ItemsFilter.AddRange(itemsFilter.ToList<DataCore.Sql.Tables.TableBase>());
 					if (ItemFilterCast.EqualsDefault())
 						ItemFilterCast = ItemsCast.First();
 				}

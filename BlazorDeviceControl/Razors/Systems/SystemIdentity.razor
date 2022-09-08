@@ -3,7 +3,6 @@
 @page "/system/identity/{IsShowReloadStr}"
 @using BlazorDeviceControl.Razors.Systems
 @using BlazorDeviceControl.Razors.Components
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
 @using BlazorCore.Razors
 
 <AuthorizeView>
@@ -20,7 +19,7 @@
 
 @if (IsShowReload)
 {
-	<ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.System.UserInfo />
+	<ItemReload T=AccessModel ParentRazor=@(this) Title=@LocaleCore.System.UserInfo />
 	
 	<div>
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; "

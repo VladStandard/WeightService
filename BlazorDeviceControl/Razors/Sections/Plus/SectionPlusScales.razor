@@ -1,8 +1,6 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<PluScaleModel>
 @page "/section/plus_scales"
 @using BlazorDeviceControl.Razors.Components
-@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
-@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -10,7 +8,7 @@
 }
 else
 {
-	<ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus 
+	<SectionReload T=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus 
 	    FilterTable=@SqlTableScaleEnum.Scales
 		FilterCaption=LocaleCore.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
 
@@ -79,9 +77,9 @@ else
 	    </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@(this) />
+    <SectionButtons T=PluScaleModel ParentRazor=@(this) />
 	
 	<br style="margin-bottom: 10px; "/>
 
-	<ActionsSave ParentRazor=@(this) />
+	@*<ActionsSave ParentRazor=@(this) />*@
 }

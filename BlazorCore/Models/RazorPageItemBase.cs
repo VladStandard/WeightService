@@ -5,7 +5,7 @@ using DataCore.Sql.Tables;
 
 namespace BlazorCore.Models;
 
-public class RazorPageItemBase<T> : RazorPageBase where T : TableBaseModel, new()
+public class RazorPageItemBase<T> : RazorPageBase where T : TableBase, new()
 {
 	#region Public and private fields, properties, constructor
 

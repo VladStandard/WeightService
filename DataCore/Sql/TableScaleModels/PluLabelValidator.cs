@@ -21,7 +21,7 @@ public class PluLabelValidator : TableValidator
 			.NotNull();
 	}
 
-    protected override bool PreValidate(ValidationContext<TableBaseModel> context, ValidationResult result)
+    protected override bool PreValidate(ValidationContext<TableBase> context, ValidationResult result)
     {
 	    if (context.InstanceToValidate is PluLabelModel scale)
 	    {

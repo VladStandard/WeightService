@@ -31,12 +31,12 @@ public partial class SectionPlusObsolete : RazorPageSectionBase<PluObsoleteModel
         });
     }
 
-    private void SetFilterItems(List<TableBaseModel>? items, long? scaleId)
+    private void SetFilterItems(List<DataCore.Sql.Tables.TableBase>? items, long? scaleId)
     {
         if (items != null)
         {
             Items = new();
-            foreach (TableBaseModel item in items)
+            foreach (DataCore.Sql.Tables.TableBase item in items)
             {
                 if (item is PluObsoleteModel plu && plu.Scale.Identity.Id == scaleId)
                     Items.Add(item);

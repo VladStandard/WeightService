@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ActionsButtons : RazorPageBase
+public partial class ItemReload<T> : RazorPageItemBase<T> where T : DataCore.Sql.Tables.TableBase, new()
 {
 	//
 }

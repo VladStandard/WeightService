@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Components;
 
-public partial class ItemDates : RazorPageBase
+public partial class ItemDates<T> : RazorPageItemBase<T> where T : DataCore.Sql.Tables.TableBase, new ()
 {
     #region Public and private fields, properties, constructor
 

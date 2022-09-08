@@ -5,10 +5,6 @@
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections
-@using ActionsReloadItem = BlazorDeviceControl.Razors.Components.ActionsReloadItem
-@using ActionsSave = BlazorDeviceControl.Razors.Components.ActionsSave
-@using ItemDates = BlazorDeviceControl.Razors.Components.ItemDates
-@using SectionPlusScales = BlazorDeviceControl.Razors.Sections.Plus.SectionPlusScales
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Sections.Plus
 
@@ -18,7 +14,7 @@
 }
 else
 {
-    <ActionsReloadItem ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
+    <ItemReload T=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -211,8 +207,8 @@ else
 		</tbody>
 	</MudSimpleTable>
     
-	<ActionsSave ParentRazor=@(this) ButtonSettings=@ButtonSettings />
-    <ItemDates ParentRazor=@(this) />
+	<ItemSave T=ScaleModel ParentRazor=@(this) />
+    <ItemDates T=ScaleModel ParentRazor=@(this) />
 }
 
 @if (IsPluNew)

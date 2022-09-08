@@ -1,7 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<TemplateResourceModel>
 @page "/section/templates_resources"
-@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
-@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 @using BlazorDeviceControl.Razors.Components
 
 @if (!IsActionsParametersSetFinished)
@@ -10,7 +8,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
+    <SectionReload T=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TemplateResourceModel" @bind-Value=@ItemObject
@@ -50,5 +48,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@(this) />
+    <SectionButtons T=TemplateResourceModel ParentRazor=@(this) />
 }

@@ -79,7 +79,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDbContentValidate<T>(int maxResults = 0) where T : TableBaseModel, new()
+	public void AssertSqlDbContentValidate<T>(int maxResults = 0) where T : TableBase, new()
 	{
 		AssertAction(() =>
 		{
@@ -114,7 +114,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableBaseModel, new()
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableBase, new()
 	{
 		// Arrange.
 		IValidator<T> validator = SqlUtils.GetSqlValidator(item);
@@ -142,7 +142,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableBaseModel, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableBase, new()
 	{
 		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(SqlFieldIdentityEnum.Empty);
 		fieldIdentity.Name.Returns(SqlFieldIdentityEnum.Empty);
@@ -296,13 +296,13 @@ public class DataCoreHelper
 		return item;
 	}
 
-	public void TableBaseModelAssertEqualsNew<T>() where T : TableBaseModel, new()
+	public void TableBaseModelAssertEqualsNew<T>() where T : TableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			TableBaseModel baseItem = new();
+			TableBase baseItem = new();
 			// Act.
 			bool itemEqualsNew = item.EqualsNew();
 			bool baseEqualsNew = baseItem.EqualsNew();
@@ -326,14 +326,14 @@ public class DataCoreHelper
 		});
 	}
 
-	public void TableBaseModelAssertSerialize<T>() where T : TableBaseModel, new()
+	public void TableBaseModelAssertSerialize<T>() where T : TableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 #pragma warning disable SYSLIB0011
 			// Arrange.
 			T item1 = new();
-			TableBaseModel base1 = new();
+			TableBase base1 = new();
 			BinaryFormatter binaryFormatterItem = new();
 			BinaryFormatter binaryFormatterBase = new();
 			MemoryStream memoryStreamItem = new();
@@ -350,7 +350,7 @@ public class DataCoreHelper
 			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
 			memoryStreamBase.Position = 0;
-			TableBaseModel base2 = (TableBaseModel)binaryFormatterBase.Deserialize(memoryStreamBase);
+			TableBase base2 = (TableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
@@ -387,7 +387,7 @@ public class DataCoreHelper
 			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
 			memoryStreamBase.Position = 0;
-			TableBaseModel base2 = (TableBaseModel)binaryFormatterBase.Deserialize(memoryStreamBase);
+			TableBase base2 = (TableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
@@ -400,13 +400,13 @@ public class DataCoreHelper
 		});
 	}
 
-	public void TableBaseModelAssertToString<T>() where T : TableBaseModel, new()
+	public void TableBaseModelAssertToString<T>() where T : TableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			TableBaseModel baseItem = new();
+			TableBase baseItem = new();
 			// Act.
 			string itemString = item.ToString();
 			string baseString = baseItem.ToString();

@@ -22,8 +22,7 @@ public partial class RazorPageBase
 	[Inject] public TooltipService? TooltipService { get; set; }
 	[Inject] public IHttpContextAccessor? HttpContextAccess { get; set; }
 	[Parameter] public bool IsShowReload { get; set; }
-	[Parameter]
-	public string IsShowReloadStr
+	[Parameter] public string IsShowReloadStr
 	{
 		get => IsShowReload ? "true" : "false";
 		set => IsShowReload = value.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
@@ -38,17 +37,18 @@ public partial class RazorPageBase
 	[Parameter] public Guid? IdentityUid { get; set; }
 	[Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 	[Parameter] public long? IdentityId { get; set; }
-	[Parameter] public List<TableBaseModel>? Items { get; set; }
-	[Parameter] public List<TableBaseModel>? ItemsFilter { get; set; }
+	[Parameter] public List<DataCore.Sql.Tables.TableBase>? Items { get; set; }
+	[Parameter] public List<DataCore.Sql.Tables.TableBase>? ItemsFilter { get; set; }
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
 	[Parameter] public string? FilterCaption { get; set; }
 	[Parameter] public string? FilterName { get; set; }
-	[Parameter] public TableBase Table { get; set; }
+	[Parameter] public DataCore.Models.TableBase Table { get; set; }
+	[Parameter] public UserSettingsModel UserSettings { get; set; }
+	[Parameter] public string Title { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
-	public TableBaseModel? Item { get; set; }
-	protected object? ItemObject { get => Item; set => Item = (TableBaseModel?)value; }
-	[Parameter] public UserSettingsModel UserSettings { get; set; }
+	public DataCore.Sql.Tables.TableBase? Item { get; set; }
+	protected object? ItemObject { get => Item; set => Item = (DataCore.Sql.Tables.TableBase?)value; }
 	public bool IsActionsInitializedFinished { get; set; }
 	public bool IsActionsParametersSetFinished { get; set; }
 	public event Action ActionChange;
@@ -71,6 +71,7 @@ public partial class RazorPageBase
 		FilterName = string.Empty;
 		IsShowOnlyTop = true;
 		Table = new(string.Empty);
+		Title = string.Empty;
 		TableAction = SqlTableActionEnum.Empty;
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;

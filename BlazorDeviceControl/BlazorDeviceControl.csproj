@@ -78,14 +78,16 @@
     <Content Remove="Razors\IdentityFetchData.razor" />
   </ItemGroup>
   <ItemGroup>
-    <Watch Remove="Razors\Components\ActionsFilterScale.razor" />
-    <Watch Remove="Razors\Components\ActionsReloadItem.razor" />
-    <Watch Remove="Razors\Components\ActionsReloadSection.razor" />
+    <Watch Remove="Razors\Components\ItemReload.razor" />
+    <Watch Remove="Razors\Components\ItemSave.razor" />
     <Watch Remove="Razors\Components\ItemTableBody.razor" />
     <Watch Remove="Razors\Components\ItemTableHead.razor" />
     <Watch Remove="Razors\Components\MainLayout.razor.css" />
     <Watch Remove="Razors\Components\MudPage.razor" />
     <Watch Remove="Razors\Components\NetBarcodePage.razor" />
+    <Watch Remove="Razors\Components\SectionButtons.razor" />
+    <Watch Remove="Razors\Components\SectionFilter.razor" />
+    <Watch Remove="Razors\Components\SectionReload.razor" />
     <Watch Remove="Razors\Components\SystemAuthorize.razor" />
     <Watch Remove="Razors\Examples\ExampleMud.razor" />
     <Watch Remove="Razors\Examples\ExampleMudDialog.razor" />

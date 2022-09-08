@@ -1,7 +1,6 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<PrinterTypeModel>
 @page "/section/printertypes"
-@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
-@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
+
 @using BlazorDeviceControl.Razors.Components
 
 @if (!IsActionsParametersSetFinished)
@@ -10,7 +9,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.Print.Types />
+    <SectionReload T=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterTypeModel" @bind-Value=@ItemObject
@@ -38,5 +37,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@(this) />
+    <SectionButtons T=PrinterTypeModel ParentRazor=@(this) />
 }

@@ -6,7 +6,7 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// DB empty table model.
 /// </summary>
-public class TableEmptyModel : TableBaseModel, ICloneable, ISqlDbBase, ISerializable
+public class TableEmptyModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 

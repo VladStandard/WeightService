@@ -1,7 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<PluWeighingModel>
 @page "/section/plu_weighings"
-@using ActionsLoad = BlazorDeviceControl.Razors.Components.ActionsLoad
-@using ActionsReloadSection = BlazorDeviceControl.Razors.Components.ActionsReloadSection
 @using BlazorDeviceControl.Razors.Components
 
 @if (!IsActionsParametersSetFinished)
@@ -10,7 +8,7 @@
 }
 else
 {
-    <ActionsReloadSection ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
+    <SectionReload T=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluWeighingModel" @bind-Value=@ItemObject
@@ -65,5 +63,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@(this) />
+    <SectionButtons T=PluWeighingModel ParentRazor=@(this) />
 }
