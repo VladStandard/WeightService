@@ -20,7 +20,6 @@ public partial class MainLayout : RazorPageBase
 		{
 			() =>
 			{
-				Table = new TableScaleModel(SqlTableScaleEnum.Empty);
 				Items = new();
 			}
 		});

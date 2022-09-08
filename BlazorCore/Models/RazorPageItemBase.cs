@@ -14,7 +14,6 @@ public class RazorPageItemBase<T> : RazorPageBase where T : TableBase, new()
 	public RazorPageItemBase()
 	{
 		ItemCast = new();
-		Table = AppSettings.DataAccess.GetTable(ItemCast);
 	}
 
 	#endregion

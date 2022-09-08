@@ -44,7 +44,6 @@
     <None Remove="Upload\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Razors\Items\Componets\" />
     <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>
@@ -116,6 +115,8 @@
     <Watch Remove="Razors\Items\Plu\ItemPluLabel.razor" />
     <Watch Remove="Razors\Items\Plu\ItemPluWeighing.razor" />
     <Watch Remove="Razors\Items\RadzenPage.razor" />
+    <Watch Remove="Razors\Sections\Componets\SectionFieldCreateDt.razor" />
+    <Watch Remove="Razors\Sections\Componets\SectionFieldIsMarked.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsNones.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsStops.razor" />
@@ -156,7 +157,7 @@
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Razors\Components\ItemTableBody.razor">
+    <Content Update="Razors\Items\Componets\ItemTableBody.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

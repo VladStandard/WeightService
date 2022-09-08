@@ -26,7 +26,6 @@ public partial class NavMenu : RazorPageBase
 
     public NavMenu()
     {
-        Table = new TableScaleModel(SqlTableScaleEnum.Empty);
         Items = new();
     }
 

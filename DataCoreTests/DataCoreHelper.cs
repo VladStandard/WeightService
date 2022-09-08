@@ -145,7 +145,7 @@ public class DataCoreHelper
 	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableBase, new()
 	{
 		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(SqlFieldIdentityEnum.Empty);
-		fieldIdentity.Name.Returns(SqlFieldIdentityEnum.Empty);
+		fieldIdentity.Name.Returns(SqlFieldIdentityEnum.Test);
 		fieldIdentity.Uid.Returns(Guid.NewGuid());
 		fieldIdentity.Id.Returns(-1);
 

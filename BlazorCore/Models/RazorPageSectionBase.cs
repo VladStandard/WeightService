@@ -23,7 +23,6 @@ public class RazorPageSectionBase<T> : RazorPageBase where T : TableBase, new()
 	public RazorPageSectionBase()
 	{
 		ItemsCast = new();
-		Table = AppSettings.DataAccess.GetTable(ItemsCast);
 	}
 
 	#endregion

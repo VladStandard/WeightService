@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
-using DataCore.Models;
 using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using Microsoft.JSInterop;
@@ -13,89 +12,125 @@ public partial class RazorPageBase
 {
     #region Public and private methods - Routes
 
-    protected static string GetRoutePath(string uriItemRoute, DataCore.Sql.Tables.TableBase? item, long? id) =>
+    public string GetRoutePath(TableBase? item)
+    {
+        if (item is not null)
+        {
+            string page = GetRouteSectionNavigatePage(item);
+            if (!string.IsNullOrEmpty(page))
+                return item.Identity.Name switch
+                {
+                    SqlFieldIdentityEnum.Id => $"{page}/{item.Identity.Id}",
+                    SqlFieldIdentityEnum.Uid => $"{page}/{item.Identity.Uid}",
+                    SqlFieldIdentityEnum.Test => $"{page}/{nameof(SqlFieldIdentityEnum.Test)}",
+                    _ => string.Empty
+                };
+        }
+        return string.Empty;
+    }
+
+    protected string GetRoutePath(string uriItemRoute, DataCore.Sql.Tables.TableBase? item, long? id) =>
         item is null || id is null ? string.Empty : $"{uriItemRoute}/{id}";
 
-    protected static string GetRoutePath(string uriItemRoute, DataCore.Sql.Tables.TableBase? item, Guid? uid) =>
+    protected string GetRoutePath(string uriItemRoute, DataCore.Sql.Tables.TableBase? item, Guid? uid) =>
         item is null || uid is null ? string.Empty : $"{uriItemRoute}/{uid}";
 
-    private string GetRouteSectionNavigatePage()
-    {
+    private string GetRouteSectionNavigatePage(TableBase? item)
+	{
         string page = string.Empty;
-        switch (SqlUtils.GetTableScale(Table.Name))
+        switch (item)
         {
-            case SqlTableScaleEnum.Empty:
-                break;
-            case SqlTableScaleEnum.Accesses:
+            case AccessModel:
                 page = LocaleCore.DeviceControl.RouteSectionAccess;
                 break;
-            case SqlTableScaleEnum.Logs:
-                page = LocaleCore.DeviceControl.RouteSectionLogs;
+            case AppModel:
+                page = LocaleCore.DeviceControl.RouteSectionApps;
                 break;
-            case SqlTableScaleEnum.LogTypes:
-                page = LocaleCore.DeviceControl.RouteSectionLogTypes;
+            case BarCodeModel:
+                page = LocaleCore.DeviceControl.RouteSectionBarCodes;
                 break;
-            case SqlTableScaleEnum.Tasks:
-                page = LocaleCore.DeviceControl.RouteSectionTaskModules;
-                break;
-            case SqlTableScaleEnum.TasksTypes:
-                page = LocaleCore.DeviceControl.RouteSectionTaskTypeModules;
-                break;
-            case SqlTableScaleEnum.BarCodesTypes:
+            case BarCodeTypeModel:
                 page = LocaleCore.DeviceControl.RouteSectionBarCodeTypes;
                 break;
-            case SqlTableScaleEnum.Contragents:
+            case ContragentModel:
                 page = LocaleCore.DeviceControl.RouteSectionContragents;
                 break;
-            case SqlTableScaleEnum.Hosts:
+            case LogModel:
+                page = LocaleCore.DeviceControl.RouteSectionLogs;
+                break;
+            case LogTypeModel:
+                page = LocaleCore.DeviceControl.RouteSectionLogTypes;
+                break;
+            case OrderModel:
+                page = LocaleCore.DeviceControl.RouteSectionOrders;
+                break;
+            case OrderWeighingModel:
+                page = LocaleCore.DeviceControl.RouteSectionOrdersWeighings;
+                break;
+            case OrganizationModel:
+                page = LocaleCore.DeviceControl.RouteSectionOrganizations;
+                break;
+            case TaskModel:
+                page = LocaleCore.DeviceControl.RouteSectionTaskModules;
+                break;
+            case TaskTypeModel:
+                page = LocaleCore.DeviceControl.RouteSectionTaskTypeModules;
+                break;
+            case HostModel:
                 page = LocaleCore.DeviceControl.RouteSectionHosts;
                 break;
-            case SqlTableScaleEnum.PlusLabels:
+            case PluLabelModel:
                 page = LocaleCore.DeviceControl.RouteSectionPluLabels;
                 break;
-            case SqlTableScaleEnum.Nomenclatures:
+            case NomenclatureModel:
                 page = LocaleCore.DeviceControl.RouteSectionNomenclatures;
                 break;
-            case SqlTableScaleEnum.PlusObsolete:
+            case PluObsoleteModel:
                 page = LocaleCore.DeviceControl.RouteSectionPlusObsolete;
                 break;
-            case SqlTableScaleEnum.Plus:
+            case PluModel:
                 page = LocaleCore.DeviceControl.RouteSectionPlus;
                 break;
-            case SqlTableScaleEnum.PlusScales:
+            case PluScaleModel:
                 if (Item is PluScaleModel pluScale)
                     page = LocaleCore.DeviceControl.RouteItemScale + $"/{pluScale.Scale.Identity.Id}";
                 else
                     page = LocaleCore.DeviceControl.RouteSectionScales;
                 break;
-            case SqlTableScaleEnum.PrintersResources:
+            case PrinterResourceModel:
                 page = LocaleCore.DeviceControl.RouteSectionPrinterResources;
                 break;
-            case SqlTableScaleEnum.Printers:
+            case PrinterModel:
                 page = LocaleCore.DeviceControl.RouteSectionPrinters;
                 break;
-            case SqlTableScaleEnum.PrintersTypes:
+            case PrinterTypeModel:
                 page = LocaleCore.DeviceControl.RouteSectionPrinterTypes;
                 break;
-            case SqlTableScaleEnum.ProductionFacilities:
+            case ProductionFacilityModel:
                 page = LocaleCore.DeviceControl.RouteSectionProductionFacilities;
                 break;
-            case SqlTableScaleEnum.Scales:
+            case ProductSeriesModel:
+                page = LocaleCore.DeviceControl.RouteSectionProductSeries;
+                break;
+            case ScaleModel:
                 if (Item is ScaleModel scale)
                     page = LocaleCore.DeviceControl.RouteItemScale + $"/{scale.Identity.Id}";
                 else
                     page = LocaleCore.DeviceControl.RouteSectionScales;
                 break;
-            case SqlTableScaleEnum.TemplatesResources:
+            case TemplateResourceModel:
                 page = LocaleCore.DeviceControl.RouteSectionTemplateResources;
                 break;
-            case SqlTableScaleEnum.Templates:
+            case TemplateModel:
                 page = LocaleCore.DeviceControl.RouteSectionTemplates;
                 break;
-            case SqlTableScaleEnum.PlusWeighings:
+            case PluWeighingModel:
                 page = LocaleCore.DeviceControl.RouteSectionPlusWeighings;
                 break;
-            case SqlTableScaleEnum.WorkShops:
+            case VersionModel:
+                page = LocaleCore.DeviceControl.RouteSectionVersions;
+                break;
+            case WorkShopModel:
                 page = LocaleCore.DeviceControl.RouteSectionWorkShops;
                 break;
         }
@@ -105,38 +140,31 @@ public partial class RazorPageBase
     private string GetRouteItemNavigatePage()
     {
         string page = string.Empty;
-        if (string.IsNullOrEmpty(Table.Name))
-            if (ParentRazor is not null)
-                Table = ParentRazor.Table;
-        page = Table switch
+        page = Item switch
         {
-            TableScaleModel => SqlUtils.GetTableScale(Table.Name) switch
-            {
-                SqlTableScaleEnum.Accesses => LocaleCore.DeviceControl.RouteItemAccess,
-                SqlTableScaleEnum.BarCodesTypes => LocaleCore.DeviceControl.RouteItemBarCodeType,
-                SqlTableScaleEnum.Contragents => LocaleCore.DeviceControl.RouteItemContragent,
-                SqlTableScaleEnum.Hosts => LocaleCore.DeviceControl.RouteItemHost,
-                SqlTableScaleEnum.Logs => LocaleCore.DeviceControl.RouteItemLog,
-                SqlTableScaleEnum.LogTypes => LocaleCore.DeviceControl.RouteItemLogType,
-                SqlTableScaleEnum.Nomenclatures => LocaleCore.DeviceControl.RouteItemNomenclature,
-                SqlTableScaleEnum.Plus => LocaleCore.DeviceControl.RouteItemPlu,
-                SqlTableScaleEnum.PlusLabels => LocaleCore.DeviceControl.RouteItemPluLabel,
-                SqlTableScaleEnum.PlusObsolete => LocaleCore.DeviceControl.RouteItemPluObsolete,
-                SqlTableScaleEnum.PlusScales => LocaleCore.DeviceControl.RouteItemPluScale,
-                SqlTableScaleEnum.PlusWeighings => LocaleCore.DeviceControl.RouteItemPluWeighing,
-                SqlTableScaleEnum.Printers => LocaleCore.DeviceControl.RouteItemPrinter,
-                SqlTableScaleEnum.PrintersResources => LocaleCore.DeviceControl.RouteItemPrinterResource,
-                SqlTableScaleEnum.PrintersTypes => LocaleCore.DeviceControl.RouteItemPrinterType,
-                SqlTableScaleEnum.ProductionFacilities => LocaleCore.DeviceControl.RouteItemProductionFacility,
-                SqlTableScaleEnum.Scales => LocaleCore.DeviceControl.RouteItemScale,
-                SqlTableScaleEnum.Tasks => LocaleCore.DeviceControl.RouteItemTaskModule,
-                SqlTableScaleEnum.TasksTypes => LocaleCore.DeviceControl.RouteItemTaskTypeModule,
-                SqlTableScaleEnum.Templates => LocaleCore.DeviceControl.RouteItemTemplate,
-                SqlTableScaleEnum.TemplatesResources => LocaleCore.DeviceControl.RouteItemTemplateResource,
-                SqlTableScaleEnum.WorkShops => LocaleCore.DeviceControl.RouteItemWorkShop,
-                _ => page
-            },
-            _ => page
+	        AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
+	        BarCodeTypeModel => LocaleCore.DeviceControl.RouteItemBarCodeType,
+	        ContragentModel => LocaleCore.DeviceControl.RouteItemContragent,
+	        HostModel => LocaleCore.DeviceControl.RouteItemHost,
+	        LogModel => LocaleCore.DeviceControl.RouteItemLog,
+	        LogTypeModel => LocaleCore.DeviceControl.RouteItemLogType,
+	        NomenclatureModel => LocaleCore.DeviceControl.RouteItemNomenclature,
+	        PluModel => LocaleCore.DeviceControl.RouteItemPlu,
+	        PluLabelModel => LocaleCore.DeviceControl.RouteItemPluLabel,
+	        PluObsoleteModel => LocaleCore.DeviceControl.RouteItemPluObsolete,
+	        PluScaleModel => LocaleCore.DeviceControl.RouteItemPluScale,
+	        PluWeighingModel => LocaleCore.DeviceControl.RouteItemPluWeighing,
+	        PrinterModel => LocaleCore.DeviceControl.RouteItemPrinter,
+	        PrinterResourceModel => LocaleCore.DeviceControl.RouteItemPrinterResource,
+	        PrinterTypeModel => LocaleCore.DeviceControl.RouteItemPrinterType,
+	        ProductionFacilityModel => LocaleCore.DeviceControl.RouteItemProductionFacility,
+	        ScaleModel => LocaleCore.DeviceControl.RouteItemScale,
+	        TaskModel => LocaleCore.DeviceControl.RouteItemTaskModule,
+	        TaskTypeModel => LocaleCore.DeviceControl.RouteItemTaskTypeModule,
+	        TemplateModel => LocaleCore.DeviceControl.RouteItemTemplate,
+	        TemplateResourceModel => LocaleCore.DeviceControl.RouteItemTemplateResource,
+	        WorkShopModel => LocaleCore.DeviceControl.RouteItemWorkShop,
+	        _ => page
         };
         return page;
     }
@@ -195,7 +223,7 @@ public partial class RazorPageBase
 
     private void SetRouteSectionNavigate(bool isNewWindow)
     {
-        string page = GetRouteSectionNavigatePage();
+        string page = GetRouteSectionNavigatePage(Item);
         if (string.IsNullOrEmpty(page))
             return;
 

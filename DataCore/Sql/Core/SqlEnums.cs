@@ -102,6 +102,7 @@ public enum SqlFieldIdentityEnum
 	Empty,
     Id,
     Uid,
+	Test,
 }
 
 public enum SqlFieldComparerEnum

@@ -12,6 +12,14 @@ namespace BlazorCoreTests.Models.CssStyles;
 [TestFixture]
 internal class TableBodyStyleValidatorTests
 {
+	#region Public and private fields, properties, constructor
+
+	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
+
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
@@ -20,11 +28,11 @@ internal class TableBodyStyleValidatorTests
 			new List<int>());
 		// Act.
 		// Assert.
-		BlazorCoreUtils.AssertStyleValidate(item, false);
+		Helper.AssertStyleValidate(item, false);
 		// Act.
 		item.IdentityName = SqlFieldIdentityEnum.Empty;
 		// Assert.
-		BlazorCoreUtils.AssertStyleValidate(item, false);
+		Helper.AssertStyleValidate(item, false);
 	}
 
 	[Test]
@@ -35,6 +43,8 @@ internal class TableBodyStyleValidatorTests
 		// Act.
 		item.IdentityName = SqlFieldIdentityEnum.Uid;
 		// Assert.
-		BlazorCoreUtils.AssertStyleValidate(item, true);
+		Helper.AssertStyleValidate(item, true);
 	}
+
+	#endregion
 }

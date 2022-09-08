@@ -6,23 +6,31 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class BarCodeTypeValidatorTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	#region Public and private fields, properties, constructor
+
+	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		BarCodeTypeModel item = DataCore.CreateNewSubstitute<BarCodeTypeModel>(false);
+		BarCodeTypeModel item = Helper.CreateNewSubstitute<BarCodeTypeModel>(false);
 		// Assert.
-		DataCore.AssertSqlValidate(item, false);
+		Helper.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		BarCodeTypeModel item = DataCore.CreateNewSubstitute<BarCodeTypeModel>(true);
+		BarCodeTypeModel item = Helper.CreateNewSubstitute<BarCodeTypeModel>(true);
 		// Assert.
-		DataCore.AssertSqlValidate(item, true);
+		Helper.AssertSqlValidate(item, true);
 	}
+
+	#endregion
 }

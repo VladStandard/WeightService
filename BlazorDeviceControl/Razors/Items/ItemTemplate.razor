@@ -4,6 +4,7 @@
 @page "/item/template/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.Items.Componets
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -38,7 +39,7 @@ else
 						                AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
 						                Data=@TemplateCategories PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name"
 						                ValueProperty="Value" Value=@ItemCast.CategoryId
-						                Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.CategoryId), args))/>
+						                Change=@(args => OnChangeItem(ItemCast, nameof(ItemCast.CategoryId), args))/>
 					}
 				</td>
 			</tr>

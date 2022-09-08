@@ -2,6 +2,7 @@
 @page "/section/barcodes"
 
 @using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Sections.Componets
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -16,36 +17,28 @@ else
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
-        <Columns >
-            @if (RazorConfig.IsShowMarked)
-            {
-                <RadzenGridColumn TItem="BarCodeModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
-                    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast" >
-                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
-                    </Template>
-                </RadzenGridColumn>
-            }
-            <RadzenGridColumn 
-                TItem="BarCodeModel" TextAlign=TextAlign.Center SortProperty="CreateDt"
-                Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="BarCodeModel" TextAlign=TextAlign.Center SortProperty="ChangeDt"
-                    Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="BarCodeModel" Property="Name" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Name
-                Type="string" Width="60%" />
-        </Columns>
+	    <Columns >
+		    <SectionFieldIsMarked T=BarCodeModel ParentRazor=@(this) />
+		    <RadzenGridColumn
+			    TItem="BarCodeModel" TextAlign=TextAlign.Center SortProperty="CreateDt"
+			    Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
+			    <Template Context="itemCast">
+				    <RadzenLink Style="width: 100%; margin-left: 0;"
+				                Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss")/>
+			    </Template>
+		    </RadzenGridColumn>
+		    <RadzenGridColumn TItem="BarCodeModel" TextAlign=TextAlign.Center SortProperty="ChangeDt"
+		                      Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
+			    <Template Context="itemCast">
+				    <RadzenLink Style="width: 100%; margin-left: 0;"
+				                Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss")/>
+			    </Template>
+		    </RadzenGridColumn>
+		    <RadzenGridColumn
+			    TItem="BarCodeModel" Property="Name" TextAlign=TextAlign.Left
+			    Title=@LocaleCore.Table.Name
+			    Type="string" Width="60%"/>
+	    </Columns>
     </RadzenGrid>
 
     <SectionButtons T=BarCodeModel ParentRazor=@(this) />

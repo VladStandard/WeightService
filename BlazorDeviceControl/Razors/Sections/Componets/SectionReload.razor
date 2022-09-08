@@ -1,7 +1,8 @@
 ﻿@typeparam T
 @inherits BlazorCore.Models.RazorPageSectionBase<T>
-@page "/action/section_reload"
+@page "/section/reload"
 @using DataCore.Sql.Core
+@using BlazorDeviceControl.Razors.Components
 
 <MudPaper Width="100%" Height="32px" Style="margin-bottom: 30px;" Square=false>
 	<MudSimpleTable Style="overflow-x: auto; margin-top: -10px; " Dense=true Bordered=false FixedHeader=false>
@@ -25,7 +26,7 @@
 					@if (RazorConfig.IsShowFilterOnlyTop)
 					{
 						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorConfig.IsShowOnlyTop
-							Change=@(args => OnChangeCheckBox(args, nameof(RazorConfig.IsShowOnlyTop)))
+							Change=@(_=> OnChange())
 						    Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
 						    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
@@ -33,13 +34,13 @@
 					@if (RazorConfig.IsShowFilterMarked)
 					{
 						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorConfig.IsShowMarked
-							Change=@(args => OnChangeCheckBox(args, nameof(RazorConfig.IsShowMarked)))
-						    Style="margin-top: -3px; margin-left: 20px; " />
+							Change=@(_ => OnChange())
+							Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
 					}
 					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 						Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
-						Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => ParentRazor.OnChange()) />
+						Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChange()) />
 					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
 				}
 			</td>

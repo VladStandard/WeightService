@@ -29,6 +29,7 @@ public partial class LocaleDeviceControl
 	public string IndexAccessQuery => Lang == LangEnum.English ? "Contact your system administrator to access." : "Свяжитесь с администратором системы, чтобы получить доступ.";
 	public string IndexContinue => Lang == LangEnum.English ? "Click on a menu section to continue." : "Нажмите на раздел меню, чтобы продолжить.";
 	public string ItemBarcode => Lang == LangEnum.English ? "Barcode" : "Штрихкод";
+	public string ItemBarCode => Lang == LangEnum.English ? "Barcode" : "Штрихкод";
 	public string ItemBarCodeType => Lang == LangEnum.English ? "Barcodes type" : "Тип штрихкода";
 	public string ItemContragent => Lang == LangEnum.English ? "Counterparty" : "Контрагент";
 	public string ItemDevice => Lang == LangEnum.English ? "Device" : "Устройство";
@@ -48,6 +49,7 @@ public partial class LocaleDeviceControl
 	public string ItemOrganization => Lang == LangEnum.English ? "Organization" : "Организация";
 	public string ItemPlu => Lang == LangEnum.English ? "PLU" : "ПЛУ";
 	public string ItemPluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
+	public string ItemPluWeighing => Lang == LangEnum.English ? "Plu weighings" : "Взвешивание ПЛУ";
 	public string ItemProductionFacilities => Lang == LangEnum.English ? "Prod. facilities" : "Производственные площадки";
 	public string ItemProductionFacility => Lang == LangEnum.English ? "Prod. facility" : "Произв. площадка";
 	public string ItemProductSeries => Lang == LangEnum.English ? "Product series" : "Серия продукта";
@@ -59,6 +61,7 @@ public partial class LocaleDeviceControl
 	public string ItemTemplateResource => Lang == LangEnum.English ? "Template resource" : "Ресурс шаблона";
 	public string ItemWeithingFact => Lang == LangEnum.English ? "Weithing fact" : "Взвешивание";
 	public string ItemWorkshop => Lang == LangEnum.English ? "Workshop" : "Цех";
+	public string ItemWorkShop => Lang == LangEnum.English ? "Workshop" : "Цех";
 	public string LinkEmail => "morozov_dv@kolbasa-vs.ru";
 	public string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
 	public string LinkLabelary => "http://labelary.com/viewer.html";

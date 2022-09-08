@@ -6,179 +6,187 @@ namespace DataCoreTests.Sql;
 [TestFixture]
 internal class TablesAssertSerializeTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	#region Public and private fields, properties, constructor
+
+	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
 
 	[Test]
 	public void Table_AssertSerialize_AccessModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<AccessModel>();
+		Helper.TableBaseModelAssertSerialize<AccessModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_AppModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<AppModel>();
+		Helper.TableBaseModelAssertSerialize<AppModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_BarCodeModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<BarCodeModel>();
+		Helper.TableBaseModelAssertSerialize<BarCodeModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_BarCodeTypeModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<BarCodeTypeModel>();
+		Helper.TableBaseModelAssertSerialize<BarCodeTypeModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_ContragentModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<ContragentModel>();
+		Helper.TableBaseModelAssertSerialize<ContragentModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_HostModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<HostModel>();
+		Helper.TableBaseModelAssertSerialize<HostModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_LogModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<LogModel>();
+		Helper.TableBaseModelAssertSerialize<LogModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_LogTypeModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<LogTypeModel>();
+		Helper.TableBaseModelAssertSerialize<LogTypeModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_NomenclatureModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<NomenclatureModel>();
+		Helper.TableBaseModelAssertSerialize<NomenclatureModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_OrderModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<OrderModel>();
+		Helper.TableBaseModelAssertSerialize<OrderModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_OrderWeighingModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<OrderWeighingModel>();
+		Helper.TableBaseModelAssertSerialize<OrderWeighingModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_OrganizationModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<OrganizationModel>();
+		Helper.TableBaseModelAssertSerialize<OrganizationModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PluModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PluModel>();
+		Helper.TableBaseModelAssertSerialize<PluModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PluLabelModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PluLabelModel>();
+		Helper.TableBaseModelAssertSerialize<PluLabelModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PluObsoleteModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PluObsoleteModel>();
+		Helper.TableBaseModelAssertSerialize<PluObsoleteModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PluScaleModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PluScaleModel>();
+		Helper.TableBaseModelAssertSerialize<PluScaleModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PluWeighingModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PluWeighingModel>();
+		Helper.TableBaseModelAssertSerialize<PluWeighingModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PrinterModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PrinterModel>();
+		Helper.TableBaseModelAssertSerialize<PrinterModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PrinterResourceModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PrinterResourceModel>();
+		Helper.TableBaseModelAssertSerialize<PrinterResourceModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_PrinterTypeModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<PrinterTypeModel>();
+		Helper.TableBaseModelAssertSerialize<PrinterTypeModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_ProductionFacilityModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<ProductionFacilityModel>();
+		Helper.TableBaseModelAssertSerialize<ProductionFacilityModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_ProductSeriesModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<ProductSeriesModel>();
+		Helper.TableBaseModelAssertSerialize<ProductSeriesModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_ScaleModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<ScaleModel>();
+		Helper.TableBaseModelAssertSerialize<ScaleModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_TaskModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<TaskModel>();
+		Helper.TableBaseModelAssertSerialize<TaskModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_TaskTypeModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<TaskTypeModel>();
+		Helper.TableBaseModelAssertSerialize<TaskTypeModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_TemplateModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<TemplateModel>();
+		Helper.TableBaseModelAssertSerialize<TemplateModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_TemplateResourceModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<TemplateResourceModel>();
+		Helper.TableBaseModelAssertSerialize<TemplateResourceModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_VersionModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<VersionModel>();
+		Helper.TableBaseModelAssertSerialize<VersionModel>();
 	}
 
 	[Test]
 	public void Table_AssertSerialize_WorkShopModel()
 	{
-		DataCore.TableBaseModelAssertSerialize<WorkShopModel>();
+		Helper.TableBaseModelAssertSerialize<WorkShopModel>();
 	}
+
+	#endregion
 }

@@ -34,7 +34,6 @@ public partial class RazorPageBase
 	[Parameter] public long? IdentityId { get; set; }
 	[Parameter] public List<DataCore.Sql.Tables.TableBase>? Items { get; set; }
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
-	[Parameter] public DataCore.Models.TableBase Table { get; set; }
 	[Parameter] public UserSettingsModel UserSettings { get; set; }
 	[Parameter] public string Title { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
@@ -57,11 +56,10 @@ public partial class RazorPageBase
 		TooltipService = null;
 
 		//ActionChange += OnParametersSet;
-		ActionChange += StateHasChanged;
+		ActionChange = StateHasChanged;
 		UserSettings = new();
 		ButtonSettings = new();
 		RazorConfig = new();
-		Table = new(string.Empty);
 		Title = string.Empty;
 		TableAction = SqlTableActionEnum.Empty;
 		ItemSaveCheck = new();
@@ -74,15 +72,15 @@ public partial class RazorPageBase
 		if (ParentRazor is null) return;
 
 		RazorConfig = ParentRazor.RazorConfig;
-		
+		ActionChange = ParentRazor.ActionChange;
+		ActionChange += StateHasChanged;
+
 		if (IdentityId is null && ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
 		if (IdentityUid is null && ParentRazor.IdentityUid is not null)
 			IdentityUid = ParentRazor.IdentityUid;
 		if (ParentRazor.Item is not null)
 			Item = ParentRazor.Item;
-		if (!string.IsNullOrEmpty(ParentRazor.Table.Name))
-			Table = ParentRazor.Table;
 		if (ParentRazor.TableAction != SqlTableActionEnum.Empty)
 			TableAction = ParentRazor.TableAction;
 

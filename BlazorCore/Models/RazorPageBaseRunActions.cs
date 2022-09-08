@@ -81,8 +81,11 @@ public partial class RazorPageBase
     {
         try
         {
+	        if (DialogService is null)
+		        throw new ArgumentNullException(nameof(DialogService));
+
             string question = string.IsNullOrEmpty(questionAdd) ? LocaleCore.Dialog.DialogQuestion : questionAdd;
-            Task<bool?> dialog = DialogService?.Confirm(question, title, GetConfirmOptions());
+            Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
             bool? result = dialog.Result;
             if (result == true)
             {
@@ -94,8 +97,6 @@ public partial class RazorPageBase
             CatchException(ex, title, fail);
         }
     }
-
-    public void OnChange() => ActionChange.Invoke();
 
     private static ConfirmOptions GetConfirmOptions() => new()
     {

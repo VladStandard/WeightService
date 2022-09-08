@@ -6,15 +6,21 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class AppValidatorTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	#region Public and private fields, properties, constructor
+
+	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		AppModel item = DataCore.CreateNewSubstitute<AppModel>(false);
+		AppModel item = Helper.CreateNewSubstitute<AppModel>(false);
 		// Assert.
-		DataCore.AssertSqlValidate(item, false);
+		Helper.AssertSqlValidate(item, false);
 	}
 
 	[Test]
@@ -25,11 +31,13 @@ internal class AppValidatorTests
 			// Arrange.
 			AppValidator validator = new();
 			// Act.
-			AppModel item = DataCore.CreateNewSubstitute<AppModel>(true);
+			AppModel item = Helper.CreateNewSubstitute<AppModel>(true);
 			ValidationResult result = validator.Validate(item);
-			DataCore.FailureWriteLine(result);
+			Helper.FailureWriteLine(result);
 			// Assert.
 			Assert.IsTrue(result.IsValid);
 		});
 	}
+
+	#endregion
 }

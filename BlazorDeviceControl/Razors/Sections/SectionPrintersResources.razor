@@ -1,6 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<PrinterResourceModel>
 @page "/section/printers_resources"
 @using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Sections.Componets
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -16,15 +17,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            @if (RazorConfig.IsShowMarked)
-            {
-                <RadzenGridColumn TItem="PrinterResourceModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
-                    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast" >
-                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
-                    </Template>
-                </RadzenGridColumn>
-            }
+	        <SectionFieldIsMarked T=PrinterResourceModel ParentRazor=@(this) />
             <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Id Width="10%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

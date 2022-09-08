@@ -4,6 +4,7 @@
 @page "/item/access/{IdentityUidStr}/{TableAction}"
 @using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.Items.Componets
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -30,7 +31,7 @@ else
                         Disabled=false TValue=@AccessRightsEnum
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                         Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                        TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 
+                        TextProperty="Name" Change=@(args => OnChangeItem(ItemCast, nameof(ItemCast.Rights), args)) 
                         ValueProperty="Value" Value=@Rights 
                     />
 				</td>

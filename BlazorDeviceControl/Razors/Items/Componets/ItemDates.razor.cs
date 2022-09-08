@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace BlazorDeviceControl.Razors.Components;
+namespace BlazorDeviceControl.Razors.Items.Componets;
 
 public partial class ItemDates<T> : RazorPageItemBase<T> where T : DataCore.Sql.Tables.TableBase, new ()
 {
@@ -32,112 +32,112 @@ public partial class ItemDates<T> : RazorPageItemBase<T> where T : DataCore.Sql.
 
     private void SetDtFromTableScale()
     {
-        switch (SqlUtils.GetTableScale(Table.Name))
+        switch (Item)
         {
-			case SqlTableScaleEnum.Accesses:
+			case AccessModel:
 				AccessModel access = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
 				CreateDt = access.CreateDt.ToString(CultureInfo.InvariantCulture);
 				ChangeDt = access.ChangeDt.ToString(CultureInfo.InvariantCulture);
 				break;
-			case SqlTableScaleEnum.Logs:
+			case LogModel:
 				LogModel log = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);
 				CreateDt = log.CreateDt.ToString(CultureInfo.InvariantCulture);
 				break;
-            case SqlTableScaleEnum.BarCodesTypes:
+            case BarCodeTypeModel:
                 BarCodeTypeModel barcodeType = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeTypeModel>(IdentityUid);
                 CreateDt = barcodeType.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = barcodeType.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Contragents:
+            case ContragentModel:
                 ContragentModel contragent = AppSettings.DataAccess.GetItemByUidNotNull<ContragentModel>(IdentityUid);
                 CreateDt = contragent.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = contragent.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Hosts:
+            case HostModel:
                 HostModel host = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
                 CreateDt = host.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = host.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Nomenclatures:
+            case NomenclatureModel:
                 NomenclatureModel nomenclature = AppSettings.DataAccess.GetItemByIdNotNull<NomenclatureModel>(IdentityId);
                 CreateDt = nomenclature.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = nomenclature.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Orders:
+            case OrderModel:
                 OrderModel order = AppSettings.DataAccess.GetItemByIdNotNull<OrderModel>(IdentityId);
                 CreateDt = order.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = order.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.OrdersWeighings:
+            case OrderWeighingModel:
                 OrderWeighingModel orderWeighing = AppSettings.DataAccess.GetItemByUidNotNull<OrderWeighingModel>(IdentityUid);
                 CreateDt = orderWeighing.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = orderWeighing.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Organizations:
+            case OrganizationModel:
                 OrganizationModel organization = AppSettings.DataAccess.GetItemByIdNotNull<OrganizationModel>(IdentityId);
                 CreateDt = organization.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = organization.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Plus:
+            case PluModel:
                 PluModel plu = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
                 CreateDt = plu.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = plu.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.PlusLabels:
+            case PluLabelModel:
                 PluLabelModel pluLabel = AppSettings.DataAccess.GetItemByUidNotNull<PluLabelModel>(IdentityUid);
                 CreateDt = pluLabel.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluLabel.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.PlusObsolete:
+            case PluObsoleteModel:
                 PluObsoleteModel pluObsolete = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
                 CreateDt = pluObsolete.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluObsolete.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.PlusScales:
+            case PluScaleModel:
                 PluScaleModel pluScale = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
                 CreateDt = pluScale.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluScale.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.PlusWeighings:
+            case PluWeighingModel:
 	            PluWeighingModel weithingFact = AppSettings.DataAccess.GetItemByUidNotNull<PluWeighingModel>(IdentityUid);
 	            CreateDt = weithingFact.CreateDt.ToString(CultureInfo.InvariantCulture);
 	            ChangeDt = weithingFact.ChangeDt.ToString(CultureInfo.InvariantCulture);
 	            break;
-            case SqlTableScaleEnum.Printers:
+            case PrinterModel:
                 PrinterModel printer = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
                 CreateDt = printer.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = printer.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.PrintersResources:
+            case PrinterResourceModel:
                 PrinterResourceModel printerResource = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
                 CreateDt = printerResource.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = printerResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.ProductionFacilities:
+            case ProductionFacilityModel:
                 ProductionFacilityModel productionFacility = AppSettings.DataAccess.GetItemByIdNotNull<ProductionFacilityModel>(IdentityId);
                 CreateDt = productionFacility.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = productionFacility.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.ProductSeries:
+            case ProductSeriesModel:
                 ProductSeriesModel productSeries = AppSettings.DataAccess.GetItemByIdNotNull<ProductSeriesModel>(IdentityId);
                 CreateDt = productSeries.CreateDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Scales:
+            case ScaleModel:
                 ScaleModel scale = AppSettings.DataAccess.GetItemByIdNotNull<ScaleModel>(IdentityId);
                 CreateDt = scale.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = scale.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.Templates:
+            case TemplateModel:
                 TemplateModel template = AppSettings.DataAccess.GetItemByIdNotNull<TemplateModel>(IdentityId);
                 CreateDt = template.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = template.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.TemplatesResources:
+            case TemplateResourceModel:
                 TemplateResourceModel templateResource = AppSettings.DataAccess.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
                 CreateDt = templateResource.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = templateResource.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case SqlTableScaleEnum.WorkShops:
+            case WorkShopModel:
                 WorkShopModel workshop = AppSettings.DataAccess.GetItemByIdNotNull<WorkShopModel>(IdentityId);
                 CreateDt = workshop.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = workshop.ChangeDt.ToString(CultureInfo.InvariantCulture);

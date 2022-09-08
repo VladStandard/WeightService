@@ -5,9 +5,15 @@ namespace DataCoreTests.Files;
 
 public class JsonSettingsFileModelTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+    #region Public and private fields, properties, constructor
 
-	[Test]
+    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+
+    #endregion
+
+    #region Public and private methods
+
+    [Test]
     public void JsonSettings_New_DoesNotThrow()
     {
         DataCore.AssertAction(() =>
@@ -15,4 +21,6 @@ public class JsonSettingsFileModelTests
             //
         });
     }
+
+    #endregion
 }

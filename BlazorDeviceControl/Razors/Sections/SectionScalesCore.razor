@@ -1,6 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<ScaleModel>
 @page "/section/scales_core"
 @using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Sections.Componets
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -16,15 +17,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            @if (RazorConfig.IsShowMarked)
-            {
-                <RadzenGridColumn TItem="ScaleModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
-                    Title=@LocaleCore.Table.IsMarkedShort Width="3.5%">
-                    <Template Context="itemCast" >
-                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
-                    </Template>
-                </RadzenGridColumn>
-            }
+	        <SectionFieldIsMarked T=ScaleModel ParentRazor=@(this) />
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Number Width="5%" >
 	            <Template Context="itemCast" >
 		            <RadzenLink Style="width: 100%; "

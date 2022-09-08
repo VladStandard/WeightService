@@ -1,6 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorPageSectionBase<TemplateModel>
 @page "/section/templates"
 @using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Sections.Componets
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -16,15 +17,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            @if (RazorConfig.IsShowMarked)
-            {
-                <RadzenGridColumn TItem="TemplateModel" TextAlign=TextAlign.Center SortProperty="IsMarked" 
-                    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="3.5%">
-                    <Template Context="itemCast" >
-                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
-                    </Template>
-                </RadzenGridColumn>
-            }
+	        <SectionFieldIsMarked T=TemplateModel ParentRazor=@(this) />
             <RadzenGridColumn 
                 TItem="TemplateModel" Property="CategoryId" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.CategoryName Width="15%" />

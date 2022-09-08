@@ -2,14 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
-using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
-using DataCore.Sql.Tables;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using DataCore.Sql.Tables;
 using Environment = System.Environment;
 
 namespace BlazorCore.Models;
@@ -17,158 +16,94 @@ namespace BlazorCore.Models;
 public partial class RazorPageBase : LayoutComponentBase
 {
     #region Public and private methods
-
-    protected void OnChangeCheckBox(object value, string name)
+    
+    private string GetQuestionAdd()
     {
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
-            () =>
-            {
-                switch (name)
-                {
-                    case nameof(RazorConfig.IsShowMarked):
-                        if (value is bool isShowMarkedItems)
-	                        RazorConfig.IsShowMarked = isShowMarkedItems;
-                        break;
-                    case nameof(RazorConfig.IsShowOnlyTop):
-                        if (value is bool isShowTOp100)
-	                        RazorConfig.IsShowMarked = isShowTOp100;
-                        break;
-                }
-            });
-        ParentRazor?.OnChange();
+	    return ParentRazor?.Item?.Identity.Name switch
+	    {
+		    SqlFieldIdentityEnum.Id => 
+			    LocaleCore.Dialog.DialogQuestion + Environment.NewLine + 
+			    $"{nameof(ParentRazor.Item.Identity.Id)}: {ParentRazor.Item.Identity.Id}",
+		    SqlFieldIdentityEnum.Uid => 
+			    LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
+		        $"{nameof(ParentRazor.Item.Identity.Uid)}: {ParentRazor.Item.Identity.Uid}",
+		    _ => string.Empty
+	    };
     }
 
-    public void OnItemValueChange(DataCore.Sql.Tables.TableBase? item, string? filterName, object? value)
+    protected string GetItemTitle(TableBase? item)
     {
-        RunActionsSafe(nameof(OnItemValueChange), LocaleCore.Dialog.DialogResultFail,
-            () =>
-            {
-                switch (item)
-                {
-                    case AccessModel access:
-                        OnItemValueChangeAccess(filterName, value, access);
-                        break;
-                    case PrinterModel printer:
-                        OnItemValueChangePrinter(filterName, value, printer);
-                        break;
-                    case PrinterResourceModel printerResource:
-                        OnItemValueChangePrinterResource(filterName, value, printerResource);
-                        break;
-                    case PluObsoleteModel pluObsolete:
-                        OnItemValueChangePlu(filterName, value, pluObsolete);
-                        break;
-                    case ScaleModel scale:
-                        OnItemValueChangeScale(filterName, value, scale);
-                        break;
-                    case TemplateModel template:
-                        OnItemValueChangeTemplate(filterName, value, template);
-                        break;
-                    case WorkShopModel workShop:
-                        OnItemValueChangeWorkShop(filterName, value, workShop);
-                        break;
-                }
-            });
-
-        ParentRazor?.OnChange();
+	    string result = string.Empty;
+	    result = item switch
+	    {
+		    AccessModel => LocaleCore.Strings.ItemAccess,
+		    LogModel => LocaleCore.Strings.ItemLog,
+		    BarCodeModel => LocaleCore.DeviceControl.ItemBarCode,
+		    BarCodeTypeModel => LocaleCore.DeviceControl.ItemBarCodeType,
+		    ContragentModel => LocaleCore.DeviceControl.ItemContragent,
+		    HostModel => LocaleCore.DeviceControl.ItemHost,
+		    PluLabelModel => LocaleCore.DeviceControl.ItemLabel,
+		    NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
+		    OrderModel => LocaleCore.DeviceControl.ItemOrder,
+		    OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
+		    PluObsoleteModel => LocaleCore.DeviceControl.ItemPlu,
+		    PluModel => LocaleCore.DeviceControl.ItemPlu,
+		    PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
+		    PrinterModel => LocaleCore.Print.Name,
+		    PrinterResourceModel => LocaleCore.Print.Resources,
+		    PrinterTypeModel => LocaleCore.Print.Types,
+		    ProductSeriesModel => LocaleCore.DeviceControl.ItemProductSeries,
+		    ProductionFacilityModel => LocaleCore.DeviceControl.ItemProductionFacility,
+		    ScaleModel => LocaleCore.DeviceControl.ItemScale,
+		    TemplateResourceModel => LocaleCore.DeviceControl.ItemTemplateResource,
+		    TemplateModel => LocaleCore.DeviceControl.ItemTemplate,
+		    PluWeighingModel => LocaleCore.DeviceControl.ItemPluWeighing,
+		    WorkShopModel => LocaleCore.DeviceControl.ItemWorkShop,
+		    OrganizationModel => LocaleCore.DeviceControl.ItemOrganization,
+		    _ => result
+	    };
+	    return result;
     }
 
-    private void OnItemValueChangeAccess(string? filterName, object? value, AccessModel access)
+    protected string GetSectionTitle(TableBase? item)
     {
-        if (filterName == nameof(access.Rights) && value is AccessRightsEnum rights)
-        {
-            access.Rights = (byte)rights;
-        }
+	    string result = string.Empty;
+	    result = item switch
+	    {
+		    AccessModel => LocaleCore.Strings.SectionAccess,
+		    LogModel => LocaleCore.Strings.SectionLog,
+		    BarCodeModel => LocaleCore.DeviceControl.SectionBarCodes,
+		    BarCodeTypeModel => LocaleCore.DeviceControl.SectionBarCodeTypes,
+		    ContragentModel => LocaleCore.DeviceControl.SectionContragents,
+		    HostModel => LocaleCore.DeviceControl.SectionHosts,
+		    PluLabelModel => LocaleCore.DeviceControl.SectionLabels,
+		    NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
+		    OrderModel => LocaleCore.DeviceControl.SectionOrders,
+		    OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
+		    PluObsoleteModel => LocaleCore.DeviceControl.SectionPlus,
+		    PluModel => LocaleCore.DeviceControl.SectionPlus,
+		    PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
+		    PrinterModel => LocaleCore.Print.Name,
+		    PrinterResourceModel => LocaleCore.Print.Resources,
+		    PrinterTypeModel => LocaleCore.Print.Types,
+		    ProductSeriesModel => LocaleCore.DeviceControl.SectionProductSeries,
+		    ProductionFacilityModel => LocaleCore.DeviceControl.SectionProductionFacilities,
+		    ScaleModel => LocaleCore.DeviceControl.SectionScales,
+		    TemplateResourceModel => LocaleCore.DeviceControl.SectionTemplateResources,
+		    TemplateModel => LocaleCore.DeviceControl.SectionTemplates,
+		    PluWeighingModel => LocaleCore.DeviceControl.SectionPlusWeighings,
+		    WorkShopModel => LocaleCore.DeviceControl.SectionWorkShops,
+		    OrganizationModel => LocaleCore.DeviceControl.SectionOrganizations,
+		    _ => result
+	    };
+	    return result;
     }
 
-    private void OnItemValueChangePrinter(string? filterName, object? value, PrinterModel printer)
-    {
-        if (filterName == nameof(printer.PrinterType) && value is long printerTypeId)
-        {
-            printer.PrinterType = AppSettings.DataAccess.GetItemById<PrinterTypeModel>(printerTypeId) ?? new();
-        }
-    }
+	#endregion
 
-    private void OnItemValueChangePrinterResource(string? filterName, object? value, PrinterResourceModel printerResource)
-    {
-        if (filterName == nameof(printerResource.Printer) && value is long printerId)
-        {
-            printerResource.Printer = AppSettings.DataAccess.GetItemById<PrinterModel>(printerId) ?? new();
-        }
-        if (filterName == nameof(printerResource.Resource) && value is long resourceId)
-        {
-            printerResource.Resource = AppSettings.DataAccess.GetItemById<TemplateResourceModel>(resourceId) ?? new();
-        }
-    }
+	#region Public and private methods - Actions
 
-    private void OnItemValueChangePlu(string? filterName, object? value, PluObsoleteModel pluObsolete)
-    {
-        if (filterName == nameof(pluObsolete.Nomenclature) && value is long nomenclatureId)
-        {
-            pluObsolete.Nomenclature = AppSettings.DataAccess.GetItemById<NomenclatureModel>(nomenclatureId) ?? new();
-        }
-        if (filterName == nameof(pluObsolete.Scale) && value is long scaleId)
-        {
-            pluObsolete.Scale = AppSettings.DataAccess.GetItemById<ScaleModel>(scaleId) ?? new();
-        }
-        if (filterName == nameof(pluObsolete.Template) && value is long templateId)
-        {
-            pluObsolete.Template = AppSettings.DataAccess.GetItemById<TemplateModel>(templateId) ?? new();
-        }
-    }
-
-    private void OnItemValueChangeScale(string? filterName, object? value, ScaleModel scale)
-    {
-        if (filterName == nameof(ScaleModel.Identity.Id) && value is long id)
-        {
-            scale = AppSettings.DataAccess.GetItemById<ScaleModel>(id) ?? new();
-        }
-        if (filterName == nameof(ScaleModel.DeviceComPort) && value is string deviceComPort)
-        {
-            scale.DeviceComPort = deviceComPort;
-        }
-        if (filterName == nameof(ScaleModel.Host) && value is long hostId)
-        {
-            scale.Host = AppSettings.DataAccess.GetItemById<HostModel>(hostId);
-        }
-        if (filterName == nameof(ScaleModel.TemplateDefault) && value is long templateDefaultId)
-        {
-            scale.TemplateDefault = AppSettings.DataAccess.GetItemById<TemplateModel>(templateDefaultId);
-        }
-        if (filterName == nameof(ScaleModel.TemplateSeries) && value is long templateSeriesId)
-        {
-            scale.TemplateSeries = AppSettings.DataAccess.GetItemById<TemplateModel>(templateSeriesId);
-        }
-        if (filterName == nameof(ScaleModel.PrinterMain) && value is long printerId)
-        {
-            scale.PrinterMain = AppSettings.DataAccess.GetItemById<PrinterModel>(printerId);
-        }
-        if (filterName == nameof(ScaleModel.WorkShop) && value is long workShopId)
-        {
-            scale.WorkShop = AppSettings.DataAccess.GetItemById<WorkShopModel>(workShopId);
-        }
-    }
-
-    private void OnItemValueChangeTemplate(string? filterName, object? value, TemplateModel template)
-    {
-        if (filterName == nameof(template.CategoryId) && value is string categoryId)
-        {
-            template.CategoryId = categoryId;
-        }
-    }
-
-    private void OnItemValueChangeWorkShop(string? filterName, object? value, WorkShopModel workshop)
-    {
-        if (filterName == nameof(workshop.ProductionFacility) && value is int productionFacilityId)
-        {
-            workshop.ProductionFacility = AppSettings.DataAccess.GetItemById<ProductionFacilityModel>(productionFacilityId) ?? new();
-        }
-    }
-
-    #endregion
-
-    #region Public and private methods - Actions
-
-    protected async Task ItemCancelAsync()
+	protected async Task ItemCancelAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -179,52 +114,38 @@ public partial class RazorPageBase : LayoutComponentBase
             });
     }
 
-    private string GetQuestionAdd()
+    private void ItemScaleSave()
     {
-        switch (ParentRazor?.Item?.Identity.Name)
+        switch (Item)
         {
-            case SqlFieldIdentityEnum.Id:
-                return LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
-                       $"{nameof(ParentRazor.Item.Identity.Id)}: {ParentRazor.Item.Identity.Id}";
-            case SqlFieldIdentityEnum.Uid:
-                return LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
-                       $"{nameof(ParentRazor.Item.Identity.Uid)}: {ParentRazor.Item.Identity.Uid}";
-        }
-        return string.Empty;
-    }
-
-    private void ItemScaleSave(SqlTableScaleEnum tableScale)
-    {
-        switch (tableScale)
-        {
-	        case SqlTableScaleEnum.Accesses:
-		        ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-		        break;
-	        case SqlTableScaleEnum.Tasks:
-		        ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-		        break;
-	        case SqlTableScaleEnum.TasksTypes:
-		        ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-		        break;
-			case SqlTableScaleEnum.BarCodesTypes:
+            case AccessModel:
+                ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+                break;
+            case TaskModel:
+                ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+                break;
+            case TaskTypeModel:
+                ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+                break;
+            case BarCodeTypeModel:
                 ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Contragents:
+            case ContragentModel:
                 ItemSaveCheck.Contragent(NotificationService, (ContragentModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Hosts:
+            case HostModel:
                 ItemSaveCheck.Host(NotificationService, (HostModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Nomenclatures:
+            case NomenclatureModel:
                 ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.PlusObsolete:
+            case PluObsoleteModel:
                 ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Plus:
+            case PluModel:
                 ItemSaveCheck.Plu(NotificationService, (PluModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.PlusScales:
+            case PluScaleModel:
                 if (ParentRazor?.Items is not null)
                 {
                     List<PluScaleModel> pluScales = ParentRazor.Items.Cast<PluScaleModel>().ToList();
@@ -238,28 +159,28 @@ public partial class RazorPageBase : LayoutComponentBase
                     ItemSaveCheck.PluScale(NotificationService, (PluScaleModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 }
                 break;
-            case SqlTableScaleEnum.PrintersResources:
+            case PrinterResourceModel:
                 ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Printers:
+            case PrinterModel:
                 ItemSaveCheck.Printer(NotificationService, (PrinterModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.PrintersTypes:
+            case PrinterTypeModel:
                 ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.ProductionFacilities:
+            case ProductionFacilityModel:
                 ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Scales:
+            case ScaleModel:
                 ItemSaveCheck.Scale(NotificationService, Item, SqlTableActionEnum.Save);
                 break;
-            case SqlTableScaleEnum.Templates:
+            case TemplateModel:
                 ItemSaveCheck.Template(NotificationService, (TemplateModel?)ParentRazor?.Item, ParentRazor?.TableAction);
                 break;
-            case SqlTableScaleEnum.TemplatesResources:
+            case TemplateResourceModel:
                 ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceModel?)ParentRazor?.Item, ParentRazor?.TableAction);
                 break;
-            case SqlTableScaleEnum.WorkShops:
+            case WorkShopModel:
                 ItemSaveCheck.Workshop(NotificationService, (WorkShopModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
                 break;
         }
@@ -273,11 +194,10 @@ public partial class RazorPageBase : LayoutComponentBase
             LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
             () =>
             {
-                ItemScaleSave(SqlUtils.GetTableScale(Table.Name));
+                ItemScaleSave();
                 SetRouteSectionNavigate(false);
             });
-
-        ParentRazor?.OnChange();
+        //ParentRazor?.OnChange();
     }
 
     protected async Task ActionNewAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
@@ -311,8 +231,7 @@ public partial class RazorPageBase : LayoutComponentBase
             {
                 SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, SqlTableActionEnum.Copy);
             });
-
-        ParentRazor?.OnChange();
+        //ParentRazor?.OnChange();
     }
 
     protected async Task ActionEditAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
@@ -374,8 +293,7 @@ public partial class RazorPageBase : LayoutComponentBase
             {
                 AppSettings.DataAccess.Mark(isParentRazor ? ParentRazor?.Item : Item);
             });
-
-        ParentRazor?.OnChange();
+        //ParentRazor?.OnChange();
     }
 
     protected async Task ActionDeleteAsync(UserSettingsModel? userSettings, bool isParentRazor)
@@ -391,8 +309,7 @@ public partial class RazorPageBase : LayoutComponentBase
             {
                 AppSettings.DataAccess.Delete(isParentRazor ? ParentRazor?.Item : Item);
             });
-
-        ParentRazor?.OnChange();
+        //ParentRazor?.OnChange();
     }
 
     protected async Task PrinterResourcesClear(UserSettingsModel? userSettings, PrinterModel printer)

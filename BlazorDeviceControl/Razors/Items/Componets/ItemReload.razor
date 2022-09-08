@@ -1,7 +1,7 @@
 ﻿@typeparam T
 @inherits BlazorCore.Models.RazorPageItemBase<T>
 @page "/action/reload_item"
-@using DataCore.Sql.Core
+@using BlazorDeviceControl.Razors.Components
 
 <MudPaper Width="100%" Height="32px;" Style="margin-bottom: 10px;" Square=false >
     @if (!string.IsNullOrEmpty(Title))
@@ -17,7 +17,7 @@
     {
         <RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
             Style="margin-top: 0; margin-left: 1%; margin-right: 1%; width: 60px; height: 26px; "
-            Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => ParentRazor.OnChange()) />
+            Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChange()) />
 	    @if (ParentRazor.Item != null)
 	    {
 	        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Disabled=false ReadOnly=true 

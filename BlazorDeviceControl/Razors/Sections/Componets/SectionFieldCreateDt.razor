@@ -1,0 +1,13 @@
+﻿@typeparam T
+@inherits BlazorCore.Models.RazorPageSectionBase<T>
+@page "/section/field_create_dt"
+
+<RadzenGridColumn
+	TItem=T TextAlign=TextAlign.Center
+	Title=@LocaleCore.Table.CreateDt Type="date" Width="20%">
+	<Template Context="itemCast">
+		<RadzenLink Style="width: 100%; margin-left: 0;"
+			Path=@(GetRoutePath(itemCast))
+			Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+	</Template>
+</RadzenGridColumn>

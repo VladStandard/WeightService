@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class PluWeighingValidatorTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluWeighingModel item = DataCore.CreateNewSubstitute<PluWeighingModel>(false);
+		PluWeighingModel item = Helper.CreateNewSubstitute<PluWeighingModel>(false);
 		// Assert.
-		DataCore.AssertSqlValidate(item, false);
+		Helper.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluWeighingModel item = DataCore.CreateNewSubstitute<PluWeighingModel>(true);
+		PluWeighingModel item = Helper.CreateNewSubstitute<PluWeighingModel>(true);
 		// Assert.
-		DataCore.AssertSqlValidate(item, true);
+		Helper.AssertSqlValidate(item, true);
 	}
 }

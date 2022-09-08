@@ -1,0 +1,14 @@
+﻿@typeparam T
+@inherits BlazorCore.Models.RazorPageSectionBase<T>
+@page "/section/field_ismarked"
+
+@if (RazorConfig.IsShowMarked)
+{
+	<RadzenGridColumn 
+		TItem="AccessModel" TextAlign=TextAlign.Center SortProperty="IsMarked"
+	    Title=@LocaleCore.Table.IsMarkedShort Type="bool" Width="5.0%">
+		<Template Context="itemCast">
+			<RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "")/>
+		</Template>
+	</RadzenGridColumn>
+}

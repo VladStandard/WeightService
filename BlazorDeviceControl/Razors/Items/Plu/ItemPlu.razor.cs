@@ -170,7 +170,7 @@ public partial class ItemPlu : RazorPageItemBase<PluModel>
         }
         catch (Exception ex)
         {
-            CatchException(ex, Table.Name, memberName);
+            CatchException(ex, GetItemTitle(Item), memberName);
         }
     }
 

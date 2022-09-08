@@ -3,13 +3,27 @@
 
 using BlazorCore.CssStyles;
 
-namespace BlazorDeviceControl.Razors.Components;
+namespace BlazorDeviceControl.Razors.Items.Componets;
 
 public partial class ItemTableHead : RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public TableHeadStyleModel? TableStyle { get; set; }
+
+	#endregion
+
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		RunActionsParametersSet(new()
+		{
+			//
+		});
+	}
 
 	#endregion
 }

@@ -9,28 +9,36 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class AccessValidatorTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	#region Public and private fields, properties, constructor
+
+	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(false);
+		AccessModel item = Helper.CreateNewSubstitute<AccessModel>(false);
 		// Assert.
-		DataCore.AssertSqlValidate(item, false);
+		Helper.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange.
-		AccessModel item = DataCore.CreateNewSubstitute<AccessModel>(true);
+		AccessModel item = Helper.CreateNewSubstitute<AccessModel>(true);
 		// Act.
 		foreach (AccessRightsEnum rights in Enum.GetValues(typeof(AccessRightsEnum)))
 		{
 			item.Rights = (byte)rights;
 			// Assert.
-			DataCore.AssertSqlValidate(item, true);
+			Helper.AssertSqlValidate(item, true);
 		}
 	}
+
+	#endregion
 }

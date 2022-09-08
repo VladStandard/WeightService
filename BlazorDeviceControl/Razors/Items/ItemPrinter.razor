@@ -6,6 +6,7 @@
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.Items.Componets
 @using DataCore.Sql.Core
 
 @if (!IsActionsParametersSetFinished)
@@ -44,7 +45,7 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetRoutePath(LocaleCore.DeviceControl.RouteItemPrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Identity.Id)
+                        Path=@GetRoutePath(ItemCast.PrinterType)
                         Text=@LocaleCore.Print.Type />
                 </td>
                 <td>

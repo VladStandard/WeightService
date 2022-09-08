@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class ProductSeriesValidatorTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		ProductSeriesModel item = DataCore.CreateNewSubstitute<ProductSeriesModel>(false);
+		ProductSeriesModel item = Helper.CreateNewSubstitute<ProductSeriesModel>(false);
 		// Assert.
-		DataCore.AssertSqlValidate(item, false);
+		Helper.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		ProductSeriesModel item = DataCore.CreateNewSubstitute<ProductSeriesModel>(true);
+		ProductSeriesModel item = Helper.CreateNewSubstitute<ProductSeriesModel>(true);
 		// Assert.
-		DataCore.AssertSqlValidate(item, true);
+		Helper.AssertSqlValidate(item, true);
 	}
 }

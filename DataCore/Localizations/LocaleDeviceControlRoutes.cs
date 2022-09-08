@@ -32,6 +32,7 @@ public partial class LocaleDeviceControl
     public string RouteItemTemplateResource => "/item/templateresource";
     public string RouteItemWorkShop => "/item/workshop";
     public string RouteSectionAccess => "/section/access";
+    public string RouteSectionApps => "/section/apps";
     public string RouteSectionBarCodes => "/section/barcodes";
     public string RouteSectionBarCodeTypes => "/section/barcodetypes";
     public string RouteSectionContragents => "/section/contragents";
@@ -45,6 +46,9 @@ public partial class LocaleDeviceControl
     public string RouteSectionLogsWarnings => "/section/logs_warnings";
     public string RouteSectionLogTypes => "/section/logtypes";
     public string RouteSectionNomenclatures => "/section/nomenclatures";
+    public string RouteSectionOrders => "/section/orders";
+    public string RouteSectionOrdersWeighings => "/section/ordersweighings";
+    public string RouteSectionOrganizations => "/section/organizations";
     public string RouteSectionPluLabels => "/section/plus_labels";
     public string RouteSectionPlus => "/section/plus";
     public string RouteSectionPlusObsolete => "/section/plus_obsolete";
@@ -54,6 +58,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionPrinters => "/section/printers";
     public string RouteSectionPrinterTypes => "/section/printertypes";
     public string RouteSectionProductionFacilities => "/section/productionfacilities";
+    public string RouteSectionProductSeries => "/section/productseries";
     public string RouteSectionScales => "/section/scales";
     public string RouteSectionScalesObsolete => "/section/scales_obsolete";
     public string RouteSectionTaskModules => "/section/taskmodules";
