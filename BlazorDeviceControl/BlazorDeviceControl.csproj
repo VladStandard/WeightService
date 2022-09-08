@@ -116,6 +116,7 @@
     <Watch Remove="Razors\Items\Plu\ItemPluWeighing.razor" />
     <Watch Remove="Razors\Items\RadzenPage.razor" />
     <Watch Remove="Razors\Sections\Componets\SectionFieldCreateDt.razor" />
+    <Watch Remove="Razors\Sections\Componets\SectionFieldIdentity.razor" />
     <Watch Remove="Razors\Sections\Componets\SectionFieldIsMarked.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsNones.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsQuestions.razor" />

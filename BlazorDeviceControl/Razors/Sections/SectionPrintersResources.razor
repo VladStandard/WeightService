@@ -18,7 +18,9 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
 	        <SectionFieldIsMarked T=PrinterResourceModel ParentRazor=@(this) />
-            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Id Width="10%">
+            <SectionFieldIdentity T=PrinterResourceModel ParentRazor=@(this) />
+	        
+	        <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Id Width="10%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemPrinterResource}/{itemCast.Identity.Id}")

@@ -75,6 +75,16 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 		return $"{nameof(Name)}: {Name}. " + strIdentityValue;
 	}
 
+	public virtual string GetValueAsString()
+	{
+		return Name switch
+		{
+			SqlFieldIdentityEnum.Id => Id.ToString(),
+			SqlFieldIdentityEnum.Uid => Uid.ToString(),
+			_ => string.Empty
+		};
+	}
+
 	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;

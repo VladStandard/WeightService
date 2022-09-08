@@ -103,16 +103,18 @@ public partial class RazorPageBase : LayoutComponentBase
 
 	#region Public and private methods - Actions
 
-	protected async Task ItemCancelAsync()
+	protected async Task ItemCancel()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        RunActionsSafe(LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
+		RunActionsSafe(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
                 SetRouteSectionNavigate(false);
             });
-    }
+
+		OnChangeAsync();
+	}
 
     private void ItemScaleSave()
     {
@@ -186,28 +188,29 @@ public partial class RazorPageBase : LayoutComponentBase
         }
     }
 
-    protected async Task ItemSaveAsync()
+    protected async Task ItemSave()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
+		RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
             LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
             () =>
             {
                 ItemScaleSave();
                 SetRouteSectionNavigate(false);
             });
-        //ParentRazor?.OnChange();
+        
+		OnChangeAsync();
     }
 
-    protected async Task ActionNewAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
+    protected async Task ActionNewAsync(UserSettingsModel? userSettings)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         if (userSettings is null || !userSettings.AccessRightsIsWrite)
             return;
 
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
+        RunActionsSafe(LocaleCore.Table.TableNew, string.Empty, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
                 throw new NotImplementedException("Fix here!");
@@ -217,22 +220,25 @@ public partial class RazorPageBase : LayoutComponentBase
                 //IdentityUid = null;
                 //RouteItemNavigate(isNewWindow, item, DbTableAction.New);
             });
-    }
 
-    protected async Task ActionCopyAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
+        OnChangeAsync();
+	}
+
+    protected async Task ActionCopyAsync(UserSettingsModel? userSettings)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         if (userSettings is null || !userSettings.AccessRightsIsWrite)
             return;
 
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
+        RunActionsSafe(LocaleCore.Table.TableCopy, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
-                SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, SqlTableActionEnum.Copy);
+                SetRouteItemNavigate(false, Item, SqlTableActionEnum.Copy);
             });
-        //ParentRazor?.OnChange();
-    }
+
+		OnChangeAsync();
+	}
 
     protected async Task ActionEditAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
     {
@@ -241,13 +247,15 @@ public partial class RazorPageBase : LayoutComponentBase
         if (userSettings is null || !userSettings.AccessRightsIsWrite)
             return;
 
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
+        RunActionsSafe(LocaleCore.Table.TableEdit, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
                 SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, SqlTableActionEnum.Edit);
                 InvokeAsync(StateHasChanged);
             });
-    }
+        
+        OnChangeAsync();
+	}
 
     protected async Task ActionPluScalePlusClickAsync(UserSettingsModel? userSettings, PluScaleModel pluScale, List<PluScaleModel> pluScales)
     {
@@ -256,14 +264,16 @@ public partial class RazorPageBase : LayoutComponentBase
         if (userSettings is null || !userSettings.AccessRightsIsWrite)
             return;
 
-        //foreach (PluScaleModel item in pluScales)
-        //{
-        // if (item.Identity.Uid.Equals(pluScale.Identity.Uid))
-        // {
-        //  item.IsActive = pluScale.IsActive;
-        // }
-        //}
-    }
+		//foreach (PluScaleModel item in pluScales)
+		//{
+		// if (item.Identity.Uid.Equals(pluScale.Identity.Uid))
+		// {
+		//  item.IsActive = pluScale.IsActive;
+		// }
+		//}
+
+		OnChangeAsync();
+	}
 
     public async Task ActionSaveAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
     {
@@ -272,13 +282,15 @@ public partial class RazorPageBase : LayoutComponentBase
         if (userSettings is null || !userSettings.AccessRightsIsWrite)
             return;
 
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
+        RunActionsSafe(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
                 //AppSettings.DataAccess.Save(isParentRazor ? ParentRazor?.Item : Item);
                 InvokeAsync(StateHasChanged);
             });
-    }
+
+        OnChangeAsync();
+	}
 
     protected async Task ActionMarkAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
     {
@@ -293,7 +305,8 @@ public partial class RazorPageBase : LayoutComponentBase
             {
                 AppSettings.DataAccess.Mark(isParentRazor ? ParentRazor?.Item : Item);
             });
-        //ParentRazor?.OnChange();
+
+		OnChangeAsync();
     }
 
     protected async Task ActionDeleteAsync(UserSettingsModel? userSettings, bool isParentRazor)
@@ -309,7 +322,8 @@ public partial class RazorPageBase : LayoutComponentBase
             {
                 AppSettings.DataAccess.Delete(isParentRazor ? ParentRazor?.Item : Item);
             });
-        //ParentRazor?.OnChange();
+        
+        OnChangeAsync();
     }
 
     protected async Task PrinterResourcesClear(UserSettingsModel? userSettings, PrinterModel printer)
@@ -339,7 +353,9 @@ public partial class RazorPageBase : LayoutComponentBase
                     }
                 }
             });
-    }
+
+        OnChangeAsync();
+	}
 
     protected async Task PrinterResourcesLoad(UserSettingsModel? userSettings, PrinterModel printer, string fileType)
     {
@@ -368,7 +384,9 @@ public partial class RazorPageBase : LayoutComponentBase
                     }
                 }
             });
-    }
+
+        OnChangeAsync();
+	}
 
     #endregion
 }

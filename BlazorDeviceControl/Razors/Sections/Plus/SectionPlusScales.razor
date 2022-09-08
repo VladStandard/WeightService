@@ -19,6 +19,8 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns>
 		    <SectionFieldIsMarked T=PluScaleModel ParentRazor=@(this) />
+		    <SectionFieldIdentity T=PluScaleModel ParentRazor=@(this) />
+
 		    <RadzenGridColumn TItem="PluScaleModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 			    <Template Context="itemCast">
 				    <RadzenLink Style="width: 100%;"

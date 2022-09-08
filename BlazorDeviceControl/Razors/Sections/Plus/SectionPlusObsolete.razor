@@ -18,7 +18,9 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
 	        <SectionFieldIsMarked T=PluObsoleteModel ParentRazor=@(this) />
-            <RadzenGridColumn TItem="PluObsoleteModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
+	        <SectionFieldIdentity T=PluObsoleteModel ParentRazor=@(this) />
+
+	        <RadzenGridColumn TItem="PluObsoleteModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
                         Path=@($"{LocaleCore.DeviceControl.RouteItemPluObsolete}/{itemCast.Identity.Id}")

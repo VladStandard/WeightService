@@ -17,15 +17,10 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            @*<RadzenGridColumn 
-                TItem="PluLabelModel" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CreateDt Type="date" Width="15%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Label}/{itemCast.Identity.Id}")
-                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
-                </Template>
-            </RadzenGridColumn>
+            <SectionFieldIsMarked T=PluLabelModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=PluLabelModel ParentRazor=@(this) />
+
+	        @*
             <RadzenGridColumn 
                 TItem="PluLabelModel" Title=@LocaleCore.Table.Scale Type="string" Width="18%" >
                 <Template Context="itemCast" >

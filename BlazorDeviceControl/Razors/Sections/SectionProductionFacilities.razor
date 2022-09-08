@@ -19,6 +19,8 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
 	        <SectionFieldIsMarked T=ProductionFacilityModel ParentRazor=@(this) />
+            <SectionFieldIdentity T=ProductionFacilityModel ParentRazor=@(this) />
+
             <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Id Width="5%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

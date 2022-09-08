@@ -20,8 +20,9 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
 		    <SectionFieldIsMarked T=AccessModel ParentRazor=@(this) />
-			<SectionFieldCreateDt T=AccessModel ParentRazor=@(this) />
-		    <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Center
+			<SectionFieldIdentity T=AccessModel ParentRazor=@(this) />
+
+			<RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Center
 		                      Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
 			    <Template Context="itemCast">
 				    <RadzenLink Style="width: 100%; margin-left: 0;"

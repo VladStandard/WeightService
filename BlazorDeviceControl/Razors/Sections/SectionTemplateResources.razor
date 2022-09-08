@@ -18,6 +18,8 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
 	        <SectionFieldIsMarked T=TemplateResourceModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=TemplateResourceModel ParentRazor=@(this) />
+
             <RadzenGridColumn 
                 TItem="TemplateResourceModel" Property="Type" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.Type 

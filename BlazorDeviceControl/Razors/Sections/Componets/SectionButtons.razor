@@ -7,7 +7,7 @@
 	<div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
         @if (ButtonSettings.IsShowNew && UserSettings.AccessRightsIsAdmin == true)
         {
-            <RadzenButton Click=@(_ => ActionNewAsync(UserSettings, false, true))
+            <RadzenButton Click=@(_ => ActionNewAsync(UserSettings))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
                 Text=@LocaleCore.DeviceControl.TableActionNew Disabled=@(!AppSettings.DataAccess.IsConnected()) />
@@ -21,7 +21,7 @@
         }
         @if (ButtonSettings.IsShowCopy && UserSettings.AccessRightsIsAdmin == true)
         {
-            <RadzenButton Click=@(_ => ActionCopyAsync(UserSettings, false, true))
+            <RadzenButton Click=@(_ => ActionCopyAsync(UserSettings))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
                       Text=@LocaleCore.DeviceControl.TableActionCopy Disabled=@(!AppSettings.DataAccess.IsConnected()) />

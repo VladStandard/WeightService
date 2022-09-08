@@ -18,6 +18,8 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
 	        <SectionFieldIsMarked T=PluWeighingModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=PluWeighingModel ParentRazor=@(this) />
+
             @*<RadzenGridColumn TItem="PluWeighingModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="17.5%">

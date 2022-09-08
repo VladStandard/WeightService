@@ -18,15 +18,9 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
 	        <SectionFieldIsMarked T=HostModel ParentRazor=@(this) />
-            <RadzenGridColumn TItem="HostModel" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CreateDt Type="date" Width="15.0%">
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
-                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
+            <SectionFieldIdentity T=HostModel ParentRazor=@(this) />
+
+	        <RadzenGridColumn 
                 TItem="HostModel" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

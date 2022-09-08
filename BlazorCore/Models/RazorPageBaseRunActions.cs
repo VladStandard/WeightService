@@ -18,7 +18,7 @@ public partial class RazorPageBase
     protected void RunActionsInitialized(List<Action> actionsInitialized)
     {
         IsActionsInitializedFinished = false;
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actionsInitialized);
+        RunActionsSafe(string.Empty, string.Empty, LocaleCore.Dialog.DialogResultFail, actionsInitialized);
         IsActionsInitializedFinished = true;
     }
 
@@ -26,11 +26,11 @@ public partial class RazorPageBase
     {
         IsActionsParametersSetFinished = false;
         SetPropertiesFromParent();
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail, actionsParametersSet);
+        RunActionsSafe(string.Empty, string.Empty, LocaleCore.Dialog.DialogResultFail, actionsParametersSet);
         IsActionsParametersSetFinished = true;
     }
 
-    private void RunActionsSafe(string success, string fail, List<Action> actions, [CallerMemberName] string memberName = "")
+    private void RunActionsSafe(string title, string success, string fail, List<Action> actions, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -41,9 +41,9 @@ public partial class RazorPageBase
                     action.Invoke();
                 }
             }
-            if (!string.IsNullOrEmpty(success))
+            if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(success))
                 NotificationService?.Notify(NotificationSeverity.Success,
-                    $"{LocaleCore.Action.ActionMethod}: {memberName}" + Environment.NewLine, success, AppSettingsHelper.Delay);
+                    $"{LocaleCore.Action.ActionMethod}: {title}" + Environment.NewLine, success, AppSettingsHelper.Delay);
         }
         catch (Exception ex)
         {
@@ -51,10 +51,10 @@ public partial class RazorPageBase
         }
     }
 
-    private void RunActionsSafe(string success, string fail, Action action) =>
-        RunActionsSafe(success, fail, new List<Action>() { action });
+    private void RunActionsSafe(string title, string success, string fail, Action action) => 
+	    RunActionsSafe(title, success, fail, new List<Action> { action });
 
-    public void CatchException(Exception ex, string title, string fail)
+    protected void CatchException(Exception ex, string title, string fail)
     {
         // Notify log.
         string msg = ex.Message;
@@ -85,11 +85,11 @@ public partial class RazorPageBase
 		        throw new ArgumentNullException(nameof(DialogService));
 
             string question = string.IsNullOrEmpty(questionAdd) ? LocaleCore.Dialog.DialogQuestion : questionAdd;
-            Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
-            bool? result = dialog.Result;
-            if (result == true)
+			Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+			bool? result = dialog.Result;
+			if (result == true)
             {
-                RunActionsSafe(success, fail, action);
+                RunActionsSafe(title, success, fail, action);
             }
         }
         catch (Exception ex)

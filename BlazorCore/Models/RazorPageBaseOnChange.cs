@@ -13,10 +13,11 @@ public partial class RazorPageBase : LayoutComponentBase
     #region Public and private methods - OnChange
 
     protected void OnChange() => ActionChange.Invoke();
+    protected void OnChangeAsync() => InvokeAsync(ActionChange);
 
     protected void OnChangeItem(DataCore.Sql.Tables.TableBase? item, string filterName, object? value)
     {
-        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
+        RunActionsSafe(LocaleCore.Table.TableEdit, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
                 switch (item)

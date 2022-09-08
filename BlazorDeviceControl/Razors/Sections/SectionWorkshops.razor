@@ -18,6 +18,8 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
 	        <SectionFieldIsMarked T=WorkShopModel ParentRazor=@(this) />
+            <SectionFieldIdentity T=WorkShopModel ParentRazor=@(this) />
+
             <RadzenGridColumn 
                 TItem="WorkShopModel" Title=@LocaleCore.Table.WorkShopName Width="50%" >
                 <Template Context="itemCast" >

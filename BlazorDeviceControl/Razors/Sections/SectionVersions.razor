@@ -17,6 +17,9 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
+	        <SectionFieldCreateDt T=VersionModel ParentRazor=@(this) />
+            <SectionFieldIdentity T=VersionModel ParentRazor=@(this) />
+
 	        <RadzenGridColumn TItem="VersionModel" TextAlign=TextAlign.Center Title=@LocaleCore.Table.Version Width="10%" >
 		        <Template Context="itemCast" >
 			        <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Version.ToString() />

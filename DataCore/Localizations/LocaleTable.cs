@@ -43,6 +43,7 @@ public class LocaleTable
     public string Count => Lang == LangEnum.English ? "Count" : "Количество";
     public string Counter => Lang == LangEnum.English ? "Counter" : "Счётчик";
     public string CreateDt => Lang == LangEnum.English ? "Creation date" : "Дата создания";
+    public string Identity => Lang == LangEnum.English ? "Identity" : "ИД";
     public string Date => Lang == LangEnum.English ? "Date" : "Дата";
     public string DayOfWeek => Lang == LangEnum.English ? "Weekday" : "День недели";
     public string Deactive => Lang == LangEnum.English ? "Deactivate" : "Деактивировано";
@@ -133,10 +134,10 @@ public class LocaleTable
     public string PackTypeId => Lang == LangEnum.English ? "Package type ID" : "ID типа упаковки";
     public string PackWeight => Lang == LangEnum.English ? "Package weight" : "Вес упаковки";
     public string Plu => Lang == LangEnum.English ? "PLU" : "ПЛУ";
-    public string PluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
     public string PluDescription => Lang == LangEnum.English ? "Use the `|` symbol to move the line." : "Для переноса строки используйте символ `|`";
     public string PluId => Lang == LangEnum.English ? "ID PLU" : "ИД ПЛУ";
     public string PluNumber => Lang == LangEnum.English ? "# PLU" : "№ ПЛУ";
+    public string PluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
     public string Printer => Lang == LangEnum.English ? "Printer" : "Принтер";
     public string PrinterResource => Lang == LangEnum.English ? "Printer resource" : "Ресурс принтера";
     public string PrinterType => Lang == LangEnum.English ? "Printer type" : "Тип принтера";
@@ -158,15 +159,17 @@ public class LocaleTable
     public string TableCalc => Lang == LangEnum.English ? "Calc" : "Расчитать";
     public string TableCancel => Lang == LangEnum.English ? "Close record" : "Закрыть запись";
     public string TableClear => Lang == LangEnum.English ? "Deactivate active record" : "Деактивировать активную запись";
+    public string TableCopy => Lang == LangEnum.English ? "Cope record" : "Копировать запись";
     public string TableCreate => Lang == LangEnum.English ? "Create record" : "Создать запись";
     public string TableDelete => Lang == LangEnum.English ? "Delete record" : "Удалить запись";
     public string TableEdit => Lang == LangEnum.English ? "Edit record" : "Редактировать запись";
     public string TableIncludes => Lang == LangEnum.English ? "Included records" : "Вложенные записи";
+    public string TableMark => Lang == LangEnum.English ? "Save record" : "Пометить запись на удаление";
+    public string TableNew => Lang == LangEnum.English ? "New record" : "Новая запись";
     public string TablePluHavingPlu => Lang == LangEnum.English ? "The PLU table already has this number" : "Таблица PLU уже имеет такой номер";
     public string TableRead => Lang == LangEnum.English ? "Read data" : "Прочитать данные";
     public string TableReadCancel => Lang == LangEnum.English ? "Cancel data reading" : "Отмена чтения данных";
     public string TableRereadFromDb => Lang == LangEnum.English ? "Reread from the database" : "Перечитать из БД";
-    public string TableMark => Lang == LangEnum.English ? "Save record" : "Пометить запись на удаление";
     public string TableSave => Lang == LangEnum.English ? "Save record" : "Сохранить запись";
     public string TableSelect => Lang == LangEnum.English ? "Highlight record" : "Выделить запись";
     public string TableTab => Lang == LangEnum.English ? "Switch between panels" : "Переключиться между панелями";
