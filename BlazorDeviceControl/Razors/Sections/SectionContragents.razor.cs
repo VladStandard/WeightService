@@ -24,7 +24,7 @@ public partial class SectionContragents : RazorPageSectionBase<ContragentModel>
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListContragents(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.GetListContragents(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

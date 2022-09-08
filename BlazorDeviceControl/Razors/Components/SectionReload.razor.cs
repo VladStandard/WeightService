@@ -5,5 +5,17 @@ namespace BlazorDeviceControl.Razors.Components;
 
 public partial class SectionReload<T> : RazorPageSectionBase<T> where T : DataCore.Sql.Tables.TableBase, new()
 {
-	//
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		RunActionsParametersSet(new()
+		{
+			//
+		});
+	}
+
+	#endregion
 }

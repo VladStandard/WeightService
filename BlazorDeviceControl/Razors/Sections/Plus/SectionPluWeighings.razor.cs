@@ -24,7 +24,7 @@ public partial class SectionPluWeighings : RazorPageSectionBase<PluWeighingModel
 		{
 			() =>
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, IsShowMarked, IsShowOnlyTop);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
 				ItemsCast = AppSettings.DataAccess.GetList<PluWeighingModel>(sqlCrudConfig);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);

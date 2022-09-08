@@ -32,6 +32,7 @@ public partial class ItemScaleCore : RazorPageItemBase<ScaleModel>
 		ProductionFacilities = new();
 		WorkShops = new();
 		Templates = new();
+		RazorConfig.IsShowFilterAdditional = false;
 	}
 
 	#endregion

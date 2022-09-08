@@ -9,7 +9,7 @@ public partial class SectionTemplateResources : RazorPageSectionBase<TemplateRes
 
     public SectionTemplateResources()
     {
-		IsShowMarkedFilter = true;
+	    RazorConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionTemplateResources : RazorPageSectionBase<TemplateRes
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListTemplateResources(IsShowMarked, IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.GetListTemplateResources(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

@@ -9,7 +9,7 @@ public partial class SectionWorkshops : RazorPageSectionBase<WorkShopModel>
 
     public SectionWorkshops()
     {
-		IsShowMarkedFilter = true;
+	    RazorConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionWorkshops : RazorPageSectionBase<WorkShopModel>
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListWorkShops(IsShowMarked, IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListWorkShops(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

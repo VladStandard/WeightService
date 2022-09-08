@@ -7,24 +7,11 @@ public partial class SectionAccess : RazorPageSectionBase<AccessModel>
 {
     #region Public and private fields, properties, constructor
 
-    //private List<AccessModel> ItemsCast
-    //{
-    //    get { return Items is null ? new() : Items.Select(x => (AccessModel)x).ToList(); }
-    //    set
-    //    {
-    //        if (!value.Any())
-    //            Items = null;
-    //        else
-    //        {
-    //            Items = new();
-    //            Items.AddRange(value);
-    //        }
-    //    }
-    //}
     public SectionAccess()
     {
-	    //
-    }
+	    RazorConfig.IsShowFilterMarked = true;
+	    RazorConfig.IsShowFilterOnlyTop = true;
+	}
 
     #endregion
 
@@ -38,7 +25,7 @@ public partial class SectionAccess : RazorPageSectionBase<AccessModel>
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.GetListAcesses(IsShowMarked, IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.GetListAcesses(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(true, false, true, true, true, false, false);
             }

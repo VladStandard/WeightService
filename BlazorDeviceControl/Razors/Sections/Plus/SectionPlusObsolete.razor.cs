@@ -9,7 +9,9 @@ public partial class SectionPlusObsolete : RazorPageSectionBase<PluObsoleteModel
 
     public SectionPlusObsolete()
     {
-		IsShowMarkedFilter = true;
+		RazorConfig.IsShowMarked = true;
+		RazorConfig.IsShowFilterMarked = true;
+		RazorConfig.IsShowFilterAdditional = true;
     }
 
 	#endregion
@@ -24,7 +26,7 @@ public partial class SectionPlusObsolete : RazorPageSectionBase<PluObsoleteModel
         {
             () =>
             {
-				ItemsCast = AppSettings.DataAccess.GetListPluObsoletes(IsShowMarked, IsShowOnlyTop, Item);
+				ItemsCast = AppSettings.DataAccess.GetListPluObsoletes(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, Item);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
             }

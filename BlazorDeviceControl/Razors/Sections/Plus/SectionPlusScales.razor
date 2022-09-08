@@ -8,9 +8,7 @@
 }
 else
 {
-	<SectionReload T=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus 
-	    FilterTable=@SqlTableScaleEnum.Scales
-		FilterCaption=LocaleCore.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
+	<SectionReload T=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
     <RadzenGrid 
         Data=@ItemsCast TItem="PluScaleModel" @bind-Value=@ItemObject
@@ -19,7 +17,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns>
-		    @if (IsShowMarked)
+		    @if (RazorConfig.IsShowMarked)
 		    {
 				<RadzenGridColumn TItem="PluScaleModel" Width="3.5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.IsMarkedShort>
 				    <Template Context="itemCast" >

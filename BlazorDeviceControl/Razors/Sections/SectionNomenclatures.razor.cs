@@ -24,7 +24,7 @@ public partial class SectionNomenclatures : RazorPageSectionBase<NomenclatureMod
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListNomenclatures(IsShowMarked, IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListNomenclatures(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

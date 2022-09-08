@@ -7,7 +7,7 @@ public partial class SectionFilter<T> : RazorPageSectionBase<T> where T : DataCo
 {
 	#region Public and private fields, properties, constructor
 
-	[Parameter] public SqlTableScaleEnum FilterTable { get; set; }
+	//[Parameter] public SqlTableScaleEnum FilterTable { get; set; }
 
 	#endregion
 
@@ -21,12 +21,13 @@ public partial class SectionFilter<T> : RazorPageSectionBase<T> where T : DataCo
 		{
 			() =>
 			{
-				ItemsFilter = new() { new ScaleModel() { Description = LocaleCore.Table.FieldNull } };
+				ItemsCast = new() { new T() { Description = LocaleCore.Table.FieldNull } };
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
-				ScaleModel[]? itemsFilter = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
+				T[]? itemsFilter = AppSettings.DataAccess.GetItems<T>(sqlCrudConfig);
 				if (itemsFilter is not null)
 				{
-                    ItemsFilter.AddRange(itemsFilter.ToList<DataCore.Sql.Tables.TableBase>());
+                    //ItemsCast.AddRange(itemsFilter.ToList<DataCore.Sql.Tables.TableBase>());
+                    ItemsCast.AddRange(itemsFilter);
 					if (ItemFilterCast.EqualsDefault())
 						ItemFilterCast = ItemsCast.First();
 				}

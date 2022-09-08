@@ -20,7 +20,7 @@ public class ScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterShipping { get; set; }
 	[XmlElement] public virtual byte ShippingLength { get; set; }
 	[XmlElement(IsNullable = true)] public virtual HostModel? Host { get; set; }
-	[XmlElement] public virtual string Description { get; set; }
+	//[XmlElement] public virtual string Description { get; set; }
 	[XmlElement] public virtual string DeviceIp { get; set; }
 	[XmlElement] public virtual short DevicePort { get; set; }
 	[XmlElement] public virtual string DeviceMac { get; set; }

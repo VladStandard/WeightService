@@ -18,24 +18,23 @@ public partial class RazorPageBase : LayoutComponentBase
 {
     #region Public and private methods
 
-    public void OnChangeCheckBox(object value, string name)
+    protected void OnChangeCheckBox(object value, string name)
     {
-        RunActionsSafe(nameof(OnChangeCheckBox), LocaleCore.Dialog.DialogResultFail,
+        RunActionsSafe(string.Empty, LocaleCore.Dialog.DialogResultFail,
             () =>
             {
                 switch (name)
                 {
-                    case nameof(IsShowMarked):
+                    case nameof(RazorConfig.IsShowMarked):
                         if (value is bool isShowMarkedItems)
-                            IsShowMarked = isShowMarkedItems;
+	                        RazorConfig.IsShowMarked = isShowMarkedItems;
                         break;
-                    case nameof(IsShowOnlyTop):
+                    case nameof(RazorConfig.IsShowOnlyTop):
                         if (value is bool isShowTOp100)
-                            IsShowMarked = isShowTOp100;
+	                        RazorConfig.IsShowMarked = isShowTOp100;
                         break;
                 }
             });
-
         ParentRazor?.OnChange();
     }
 

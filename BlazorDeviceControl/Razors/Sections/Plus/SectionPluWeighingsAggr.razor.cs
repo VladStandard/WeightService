@@ -28,7 +28,7 @@ public partial class SectionPluWeighingsAggr : RazorPageSectionBase<WeithingFact
             {
                 object[] objects = AppSettings.DataAccess.GetObjects(
                     SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
-                        IsShowOnlyTop ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
+                        RazorConfig.IsShowOnlyTop ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
                 List<WeithingFactSummaryModel> items = new();
                 foreach (object obj in objects)
                 {

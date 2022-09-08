@@ -44,6 +44,7 @@
     <None Remove="Upload\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Razors\Items\Componets\" />
     <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>

@@ -57,7 +57,7 @@ public partial class SectionPlusLabels : RazorPageSectionBase<PluLabelModel>
                 //    }
                 //}
                 
-                ItemsCast = AppSettings.DataAccess.GetListPluLabels(IsShowMarked, IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.GetListPluLabels(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(true, true, true, false, false, false, false);
             }

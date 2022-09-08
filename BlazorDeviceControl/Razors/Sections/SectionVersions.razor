@@ -8,7 +8,7 @@
 }
 else
 {
-    <SectionReload T=VersionModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb IsShowMarkedFilter=false />
+    <SectionReload T=VersionModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb IsShowFilterMarked=false />
 
     <RadzenGrid Style="margin-top: 5px; " 
         Data=@ItemsCast TItem="VersionModel" @bind-Value=@ItemObject

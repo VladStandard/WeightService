@@ -9,7 +9,7 @@ public partial class SectionPlusScales : RazorPageSectionBase<PluScaleModel>
 
 	public SectionPlusScales()
 	{
-		IsShowAdditionalFilter = true;
+		RazorConfig.IsShowFilterAdditional = true;
 	}
 
 	#endregion
@@ -24,7 +24,7 @@ public partial class SectionPlusScales : RazorPageSectionBase<PluScaleModel>
 		{
 			() =>
 			{
-				ItemsCast = AppSettings.DataAccess.GetListPluScales(IsShowMarked, IsShowOnlyTop, Item);
+				ItemsCast = AppSettings.DataAccess.GetListPluScales(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, Item);
 
 				ButtonSettings = new(true, true, true, true, true, true, false);
 			}

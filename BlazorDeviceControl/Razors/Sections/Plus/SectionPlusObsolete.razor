@@ -8,9 +8,7 @@
 }
 else
 {
-    <SectionReload T=PluObsoleteModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus
-        IsShowMarked=@IsShowMarked IsShowAdditionalFilter=@IsShowAdditionalFilter ItemsFilter=@ItemsFilter 
-        FilterCaption=LocaleCore.DeviceControl.ItemScale FilterName=@nameof(ScaleModel) />
+    <SectionReload T=PluObsoleteModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluObsoleteModel" @bind-Value=@ItemObject
@@ -18,7 +16,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            @if (IsShowMarked)
+            @if (RazorConfig.IsShowMarked)
             {
                 <RadzenGridColumn TItem="PluObsoleteModel" Width="3.5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.IsMarkedShort >
                     <Template Context="itemCast" >
