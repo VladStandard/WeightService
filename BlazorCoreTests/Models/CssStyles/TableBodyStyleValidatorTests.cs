@@ -24,8 +24,7 @@ internal class TableBodyStyleValidatorTests
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange.
-		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>(
-			new List<int>());
+		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>();
 		// Act.
 		// Assert.
 		Helper.AssertStyleValidate(item, false);
@@ -39,9 +38,10 @@ internal class TableBodyStyleValidatorTests
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange.
-		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>(true);
+		TableBodyStyleModel item = Substitute.For<TableBodyStyleModel>();
 		// Act.
 		item.IdentityName = SqlFieldIdentityEnum.Uid;
+		item.IsShowMarked = true;
 		// Assert.
 		Helper.AssertStyleValidate(item, true);
 	}

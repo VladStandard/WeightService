@@ -3,7 +3,7 @@
 
 namespace BlazorCore.CssStyles;
 
-public class TableStyleModel
+public class CssStyleModel
 {
 	//
 }

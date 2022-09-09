@@ -1,22 +1,29 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
-using FluentValidation;
-
 namespace BlazorCore.CssStyles;
 
-public class TableBodyStyleValidator : AbstractValidator<CssStyleModel>
+public class RadzenColumnStyleModel : CssStyleModel
 {
 	#region Public and private fields, properties, constructor
+
+	public string Width { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public TableBodyStyleValidator()
+	public RadzenColumnStyleModel()
 	{
-		RuleFor(item => ((TableBodyStyleModel)item).IdentityName)
-			.NotEqual(SqlFieldIdentityEnum.Empty);
+		Width = string.Empty;
+	}
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="width"></param>
+	public RadzenColumnStyleModel(string width)
+	{
+		Width = width;
 	}
 
 	#endregion

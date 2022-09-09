@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BlazorCore.CssStyles;
 
-public class TableHeadStyleModel : TableStyleModel
+public class TableHeadStyleModel : CssStyleModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -76,15 +76,20 @@ public class TableHeadStyleModel : TableStyleModel
 			return new();
 
 		List<string> columnsTitles = new();
-		if (columnsTitles.Count > 0)
+		if (ColumnsWidths.Count > 0)
 			columnsTitles.Add(LocaleCore.Strings.SettingName);
-		if (columnsTitles.Count > 1)
+		if (ColumnsWidths.Count > 1)
 			columnsTitles.Add(LocaleCore.Strings.SettingValue);
-		if (columnsTitles.Count > 2)
+		if (ColumnsWidths.Count > 2)
 			columnsTitles.Add(LocaleCore.Strings.SettingName);
-		if (columnsTitles.Count > 3)
+		if (ColumnsWidths.Count > 3)
 			columnsTitles.Add(LocaleCore.Strings.SettingValue);
 		return columnsTitles;
+	}
+
+	public void SetColumnsTitles()
+	{
+		ColumnsTitles = GetColumnsTitles();
 	}
 
 	#endregion

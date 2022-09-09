@@ -32,19 +32,18 @@ public class BlazorCoreHelper
 
 	#region Public and private methods
 
-	private IValidator<T> GetStyleValidator<T>(T item) where T : TableStyleModel, new()
+	private IValidator<T> GetStyleValidator<T>(T item) where T : CssStyleModel, new()
 	{
-		switch (item)
+		return item switch
 		{
-			case TableHeadStyleModel:
-				return new TableHeadStyleValidator();
-			case TableBodyStyleModel:
-				return new TableBodyStyleValidator();
-		}
-		throw new NotImplementedException();
+			RadzenColumnStyleModel => new RadzenColumnStyleValidator(),
+			TableHeadStyleModel => new TableHeadStyleValidator(),
+			TableBodyStyleModel => new TableBodyStyleValidator(),
+			_ => throw new NotImplementedException()
+		};
 	}
 
-	public void AssertStyleValidate<T>(T item, bool assertResult) where T : TableStyleModel, new()
+	public void AssertStyleValidate<T>(T item, bool assertResult) where T : CssStyleModel, new()
 	{
 		// Arrange.
 		IValidator<T> validator = GetStyleValidator<T>(item);

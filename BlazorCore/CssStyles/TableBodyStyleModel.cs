@@ -5,7 +5,7 @@ using DataCore.Sql.Core;
 
 namespace BlazorCore.CssStyles;
 
-public class TableBodyStyleModel : TableStyleModel
+public class TableBodyStyleModel : CssStyleModel
 {
     #region Public and private fields, properties, constructor
 

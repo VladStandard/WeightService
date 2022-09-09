@@ -4,25 +4,30 @@
 using BlazorCore.CssStyles;
 using NSubstitute;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace BlazorCoreTests.Models.CssStyles;
 
 [TestFixture]
-internal class TableHeadStyleValidatorTests
+internal class RadzenColumnStyleValidatorTests
 {
+	#region Public and private fields, properties, constructor
+
 	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange.
-		TableHeadStyleModel item = Substitute.For<TableHeadStyleModel>();
+		RadzenColumnStyleModel item = Substitute.For<RadzenColumnStyleModel>();
 		// Act.
 		// Assert.
 		Helper.AssertStyleValidate(item, false);
 		// Act.
-		item.Color = "";
+		item.Width = "";
 		// Assert.
 		Helper.AssertStyleValidate(item, false);
 	}
@@ -31,14 +36,12 @@ internal class TableHeadStyleValidatorTests
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange.
-		TableHeadStyleModel item = Substitute.For<TableHeadStyleModel>();
+		RadzenColumnStyleModel item = Substitute.For<RadzenColumnStyleModel>();
 		// Act.
-		item.ColumnsWidths = new() { 20, 30, 20, 30 };
-		item.SetColumnsTitles();
-		item.Color = "blue";
-		item.FontWeight = "bold";
-		item.TextAlign = "center";
+		item.Width = "10%";
 		// Assert.
 		Helper.AssertStyleValidate(item, true);
 	}
+
+	#endregion
 }
