@@ -9,7 +9,7 @@ public partial class SectionNomenclatures : RazorPageSectionBase<NomenclatureMod
 
     public SectionNomenclatures()
     {
-	    //
+        RazorConfig.IsShowFilterMarked = true;
     }
 
     #endregion

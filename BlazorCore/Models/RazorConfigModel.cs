@@ -17,12 +17,12 @@ public class RazorConfigModel
 
 	public RazorConfigModel()
 	{
+		IsShowFilterOnlyTop = true;
+		IsShowOnlyTop = true;
 		IsShowFilterAdditional = false;
 		IsShowFilterMarked = false;
-		IsShowFilterOnlyTop = true;
 		IsShowItemsCount = false;
 		IsShowMarked = false;
-		IsShowOnlyTop = true;
 	}
 
 	#endregion

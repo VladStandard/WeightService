@@ -17,8 +17,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-	        <SectionFieldIsMarked T=TemplateModel ParentRazor=@(this) />
-	        <SectionFieldIdentity T=TemplateModel ParentRazor=@(this) />
+            <SectionFieldIsMarked T=TemplateModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
+            <SectionFieldIdentity T=TemplateModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
 
             <RadzenGridColumn 
                 TItem="TemplateModel" Property="CategoryId" TextAlign=TextAlign.Center

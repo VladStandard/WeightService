@@ -76,6 +76,8 @@ public partial class RazorPageBase
 			IdentityUid = ParentRazor.IdentityUid;
 		if (ParentRazor.Item is not null)
 			Item = ParentRazor.Item;
+		if (ParentRazor.Items is not null)
+			Items = ParentRazor.Items;
 		if (ParentRazor.TableAction != SqlTableActionEnum.Empty)
 			TableAction = ParentRazor.TableAction;
 

@@ -4,8 +4,13 @@
 
 <RadzenGridColumn TItem=T TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<T>()) >
 	<Template Context="itemCast">
-		<RadzenLink Style="width: 100%; margin-left: 0;"
-			Path=@(GetRoutePath(itemCast))
-			Text=@itemCast.Identity.GetValueAsString() />
+		@if (CssStyleRadzenColumn.IsShowLink)
+		{
+			<RadzenLink Style="width: 100%; margin-left: 0;" Path=@(GetRoutePath(itemCast)) Text=@itemCast.Identity.GetValueAsString() />
+		}
+		else
+		{
+			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@itemCast.Identity.GetValueAsString() />
+		}
 	</Template>
 </RadzenGridColumn>

@@ -39,9 +39,12 @@
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
 					}
 					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
-						Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
-						Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
-					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
+					              Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
+					              Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
+					@if (RazorConfig.IsShowItemsCount)
+					{
+						<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
+					}
 				}
 			</td>
 			@if (RazorConfig.IsShowFilterAdditional)

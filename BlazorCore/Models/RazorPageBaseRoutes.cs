@@ -4,6 +4,7 @@
 using DataCore.Localizations;
 using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
+using DataCore.Sql.Xml;
 using Microsoft.JSInterop;
 
 namespace BlazorCore.Models;
@@ -161,10 +162,11 @@ public partial class RazorPageBase
 	        ContragentModel => LocaleCore.DeviceControl.RouteItemContragent,
 	        HostModel => LocaleCore.DeviceControl.RouteItemHost,
 	        LogModel => LocaleCore.DeviceControl.RouteItemLog,
+	        LogQuickModel => LocaleCore.DeviceControl.RouteItemLog,
 	        LogTypeModel => LocaleCore.DeviceControl.RouteItemLogType,
 	        NomenclatureModel => LocaleCore.DeviceControl.RouteItemNomenclature,
-	        PluModel => LocaleCore.DeviceControl.RouteItemPlu,
 	        PluLabelModel => LocaleCore.DeviceControl.RouteItemPluLabel,
+	        PluModel => LocaleCore.DeviceControl.RouteItemPlu,
 	        PluObsoleteModel => LocaleCore.DeviceControl.RouteItemPluObsolete,
 	        PluScaleModel => LocaleCore.DeviceControl.RouteItemPluScale,
 	        PluWeighingModel => LocaleCore.DeviceControl.RouteItemPluWeighing,

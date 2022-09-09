@@ -31,4 +31,21 @@ public class RazorPageSectionBase<T> : RazorPageBase where T : TableBase, new()
 	}
 
 	#endregion
+
+	#region Public and private methods
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		RunActionsParametersSet(new()
+		{
+			() =>
+			{
+				//
+			}
+		});
+	}
+
+	#endregion
 }

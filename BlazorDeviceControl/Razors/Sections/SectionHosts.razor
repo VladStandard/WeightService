@@ -17,10 +17,10 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=HostModel ParentRazor=@(this) />
-	        <SectionFieldIdentity T=HostModel ParentRazor=@(this) />
-            <SectionFieldChangeDt T=HostModel ParentRazor=@(this) />
-
+            <SectionFieldIsMarked T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
+	        <SectionFieldIdentity T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+            <SectionFieldChangeDt T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) />
+	        
 	        <RadzenGridColumn 
                 TItem="HostModel" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
                 <Template Context="itemCast" >

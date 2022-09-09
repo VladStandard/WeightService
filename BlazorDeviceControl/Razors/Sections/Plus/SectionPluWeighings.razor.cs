@@ -9,7 +9,7 @@ public partial class SectionPluWeighings : RazorPageSectionBase<PluWeighingModel
 
 	public SectionPluWeighings()
 	{
-		//
+		RazorConfig.IsShowFilterMarked = true;
 	}
 
 	#endregion

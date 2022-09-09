@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.Xml;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.Models;
@@ -28,6 +29,7 @@ internal class RazorPageBaseTests
 		Helper.Model_GetRoutePath_IsNotEmpty<HostModel>();
 		Helper.Model_GetRoutePath_IsNotEmpty<LogModel>();
 		Helper.Model_GetRoutePath_IsNotEmpty<LogTypeModel>();
+		Helper.Model_GetRoutePath_IsNotEmpty<LogQuickModel>();
 		Helper.Model_GetRoutePath_IsNotEmpty<NomenclatureModel>();
 		Helper.Model_GetRoutePath_IsNotEmpty<OrderModel>();
 		Helper.Model_GetRoutePath_IsNotEmpty<OrderWeighingModel>();

@@ -4,8 +4,14 @@
 
 <RadzenGridColumn TItem=T Type="date" TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@LocaleCore.Table.CreateDt >
 	<Template Context="itemCast">
-		<RadzenLink Style="width: 100%; margin-left: 0;"
-			Path=@(GetRoutePath(itemCast))
-			Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+		@if (CssStyleRadzenColumn.IsShowLink)
+		{
+			<RadzenLink Style="width: 100%; margin-left: 0;" 
+			    Path=@(GetRoutePath(itemCast)) Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+		}
+		else
+		{
+			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+		}
 	</Template>
 </RadzenGridColumn>

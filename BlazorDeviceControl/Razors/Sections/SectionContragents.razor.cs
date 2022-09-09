@@ -9,8 +9,8 @@ public partial class SectionContragents : RazorPageSectionBase<ContragentModel>
 
     public SectionContragents()
     {
-	    //
-    }
+		RazorConfig.IsShowFilterMarked = true;
+	}
 
     #endregion
 

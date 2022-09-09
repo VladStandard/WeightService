@@ -9,7 +9,7 @@ public partial class SectionPlusLabels : RazorPageSectionBase<PluLabelModel>
 
 	public SectionPlusLabels()
 	{
-		//
+		RazorConfig.IsShowFilterMarked = true;
 	}
 
 	#endregion

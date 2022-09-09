@@ -17,8 +17,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-	        <SectionFieldIsMarked T=PrinterTypeModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=PrinterTypeModel ParentRazor=@(this) />
+            <SectionFieldIsMarked T=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
+            <SectionFieldIdentity T=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
 
             <RadzenGridColumn TItem="PrinterTypeModel" Title=@LocaleCore.Print.Name 
                 Type="string" Width="100%" >

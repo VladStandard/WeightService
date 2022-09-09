@@ -2,10 +2,15 @@
 @inherits BlazorCore.Models.RazorPageSectionBase<T>
 @page "/section/field_description"
 
-<RadzenGridColumn TItem=T TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@LocaleCore.Table.Description >
+<RadzenGridColumn TItem=T TextAlign=TextAlign.Left Width=@(CssStyleRadzenColumn.Width) Title=@LocaleCore.Table.Description >
 	<Template Context="itemCast">
-		<RadzenLink Style="width: 100%; margin-left: 0;"
-			Path=@(GetRoutePath(itemCast))
-			Text=@itemCast.Description />
+		@if (CssStyleRadzenColumn.IsShowLink)
+		{
+			<RadzenLink Style="width: 100%; margin-left: 0;" Path=@(GetRoutePath(itemCast)) Text=@itemCast.Description/>
+		}
+		else
+		{
+			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@itemCast.Description/>
+		}
 	</Template>
 </RadzenGridColumn>

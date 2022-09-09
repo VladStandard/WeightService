@@ -17,9 +17,9 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
-		    <SectionFieldIsMarked T=BarCodeModel ParentRazor=@(this) />
-		    <SectionFieldIdentity T=BarCodeModel ParentRazor=@(this) />
-		    <SectionFieldChangeDt T=BarCodeModel ParentRazor=@(this) />
+		    <SectionFieldIsMarked T=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
+		    <SectionFieldIdentity T=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+		    <SectionFieldChangeDt T=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) />
 
 		    <RadzenGridColumn
 			    TItem="BarCodeModel" Property="Name" TextAlign=TextAlign.Left

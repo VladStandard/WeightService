@@ -18,8 +18,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns>
-		    <SectionFieldIsMarked T=PluScaleModel ParentRazor=@(this) />
-		    <SectionFieldIdentity T=PluScaleModel ParentRazor=@(this) />
+			<SectionFieldIsMarked T=PluScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
+			<SectionFieldIdentity T=PluScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
 
 		    <RadzenGridColumn TItem="PluScaleModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 			    <Template Context="itemCast">

@@ -17,8 +17,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=WeithingFactSummaryModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=WeithingFactSummaryModel ParentRazor=@(this) />
+	        <SectionFieldIsMarked T=WeithingFactSummaryModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
+            <SectionFieldIdentity T=WeithingFactSummaryModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
 	        
 	        <RadzenGridColumn TItem="WeithingFactSummaryModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
