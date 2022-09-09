@@ -15,9 +15,9 @@ else
     <ItemReload T=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	    <ItemTableHead T=AccessModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+	    <ItemTableHead T=AccessModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-			<ItemTableBody T=AccessModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+			<ItemTableBody T=AccessModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.User</td>
                 <td>

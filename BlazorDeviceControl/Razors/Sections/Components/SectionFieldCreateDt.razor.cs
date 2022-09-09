@@ -9,7 +9,7 @@ public partial class SectionFieldCreateDt<T> : RazorPageSectionBase<T> where T :
 
 	public SectionFieldCreateDt()
 	{
-		CssStyleRadzenColumn.Width = "15%";
+		CssStyleRadzenColumn.Width = "12%";
 	}
 
 	#endregion

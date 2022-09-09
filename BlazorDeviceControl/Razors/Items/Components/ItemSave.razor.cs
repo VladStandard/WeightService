@@ -8,6 +8,17 @@ namespace BlazorDeviceControl.Razors.Items.Components;
 /// </summary>
 public partial class ItemSave<T> : RazorPageItemBase<T> where T : TableBase, new()
 {
+	#region Public and private fields, properties, constructor
+
+	public ItemSave()
+	{
+		//
+	}
+
+	#endregion
+
+	#region Public and private methods
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
@@ -17,4 +28,6 @@ public partial class ItemSave<T> : RazorPageItemBase<T> where T : TableBase, new
 			//
 		});
 	}
+
+	#endregion
 }

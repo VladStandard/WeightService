@@ -43,7 +43,9 @@ public class LocaleTable
     public string Count => Lang == LangEnum.English ? "Count" : "Количество";
     public string Counter => Lang == LangEnum.English ? "Counter" : "Счётчик";
     public string CreateDt => Lang == LangEnum.English ? "Creation date" : "Дата создания";
-    public string Identity => Lang == LangEnum.English ? "Identity" : "ИД";
+    public string Identity => Lang == LangEnum.English ? "Identity" : "Идентификатор";
+    public string IdentityId => Lang == LangEnum.English ? "ID" : "ИД";
+    public string IdentityUid => Lang == LangEnum.English ? "UID" : "УИД";
     public string Date => Lang == LangEnum.English ? "Date" : "Дата";
     public string DayOfWeek => Lang == LangEnum.English ? "Weekday" : "День недели";
     public string Deactive => Lang == LangEnum.English ? "Deactivate" : "Деактивировано";

@@ -5,6 +5,17 @@ namespace BlazorDeviceControl.Razors.Items.Components;
 
 public partial class ItemReload<T> : RazorPageItemBase<T> where T : TableBase, new()
 {
+	#region Public and private fields, properties, constructor
+
+	public ItemReload()
+	{
+		//
+	}
+
+	#endregion
+
+	#region Public and private methods
+
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
@@ -14,4 +25,6 @@ public partial class ItemReload<T> : RazorPageItemBase<T> where T : TableBase, n
 			//
 		});
 	}
+
+	#endregion
 }

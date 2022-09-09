@@ -25,7 +25,7 @@ public class LogModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogModel()
+	public LogModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Host = null;
 		App = null;

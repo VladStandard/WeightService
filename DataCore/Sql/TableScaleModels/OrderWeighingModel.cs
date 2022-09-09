@@ -19,7 +19,7 @@ public class OrderWeighingModel : TableBase, ICloneable, ISqlDbBase, ISerializab
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderWeighingModel()
+    public OrderWeighingModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Order = new();
 		PluWeighing = new();

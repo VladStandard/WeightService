@@ -26,8 +26,8 @@ public class PluWeighingModel : TableBase, ICloneable, ISqlDbBase, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluWeighingModel()
-    {
+    public PluWeighingModel() : base(SqlFieldIdentityEnum.Uid)
+	{
 	    PluScale = new();
 	    Series = new();
 	    Kneading = 0;

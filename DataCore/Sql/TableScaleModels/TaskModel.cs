@@ -20,7 +20,7 @@ public class TaskModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskModel()
+    public TaskModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		TaskType = new();
 		Scale = new();

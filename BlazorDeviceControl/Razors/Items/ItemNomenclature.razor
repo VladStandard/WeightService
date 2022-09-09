@@ -15,9 +15,9 @@ else
     <ItemReload T=NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclature />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <ItemTableHead T=NomenclatureModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <ItemTableHead T=NomenclatureModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-			<ItemTableBody T=NomenclatureModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody T=NomenclatureModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             <tr>
                 <td>@LocaleCore.Table.Weighted</td>
                 <td>

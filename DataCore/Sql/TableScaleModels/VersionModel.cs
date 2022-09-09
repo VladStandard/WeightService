@@ -19,7 +19,7 @@ public class VersionModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public VersionModel()
+    public VersionModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		ReleaseDt = DateTime.MinValue;
 		Version = 0;

@@ -23,7 +23,7 @@ public class ContragentModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public ContragentModel()
+    public ContragentModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Name = string.Empty;
 		FullName = string.Empty;

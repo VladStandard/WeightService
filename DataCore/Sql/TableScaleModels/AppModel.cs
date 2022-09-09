@@ -18,7 +18,7 @@ public class AppModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AppModel()
+	public AppModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Name = string.Empty;
 	}

@@ -48,7 +48,7 @@ public class PluModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluModel()
+	public PluModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Number = 0;
 		Name = string.Empty;

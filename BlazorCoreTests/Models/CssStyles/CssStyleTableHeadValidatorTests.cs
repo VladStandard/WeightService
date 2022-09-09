@@ -34,7 +34,7 @@ internal class CssStyleTableHeadValidatorTests
 		CssStyleTableHeadModel item = Substitute.For<CssStyleTableHeadModel>();
 		// Act.
 		item.ColumnsWidths = new() { 20, 30, 20, 30 };
-		item.SetColumnsTitles();
+		item.ColumnsTitles = item.GetColumnsTitles();
 		item.Color = "blue";
 		item.FontWeight = "bold";
 		item.TextAlign = "center";

@@ -12,11 +12,25 @@ public partial class RazorPageBase
 {
     #region Public and private methods - Routes
 
-    public string GetRoutePath(TableBase? item)
+    protected string GetColumnIdentityName<T>() where T : TableBase, new()
     {
-        if (item is not null)
-        {
-            string page = GetRouteSectionNavigatePage(item);
+	    T item = new();
+	    string page = GetRouteItemNavigatePage(item);
+	    if (!string.IsNullOrEmpty(page))
+		    return item.Identity.Name switch
+		    {
+			    SqlFieldIdentityEnum.Id => LocaleCore.Table.IdentityId,
+			    SqlFieldIdentityEnum.Uid => LocaleCore.Table.IdentityUid,
+			    _ => LocaleCore.Table.Identity
+		    };
+	    return string.Empty;
+    }
+
+    public string GetRoutePath(TableBase? item)
+	{
+		if (item is not null)
+		{
+            string page = GetRouteItemNavigatePage(item);
             if (!string.IsNullOrEmpty(page))
                 return item.Identity.Name switch
                 {
@@ -137,10 +151,10 @@ public partial class RazorPageBase
         return page;
     }
 
-    private string GetRouteItemNavigatePage()
+    private string GetRouteItemNavigatePage(TableBase? item)
     {
         string page = string.Empty;
-        page = Item switch
+        page = item switch
         {
 	        AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
 	        BarCodeTypeModel => LocaleCore.DeviceControl.RouteItemBarCodeType,
@@ -171,7 +185,7 @@ public partial class RazorPageBase
 
     private void SetRouteItemNavigate<T>(bool isNewWindow, T? item, SqlTableActionEnum tableAction) where T : DataCore.Sql.Tables.TableBase, new()
     {
-        string page = GetRouteItemNavigatePage();
+        string page = GetRouteItemNavigatePage(Item);
         if (string.IsNullOrEmpty(page))
             return;
 

@@ -19,7 +19,7 @@ public class LogTypeModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public LogTypeModel()
+    public LogTypeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Number = 0x00;
 		Icon = string.Empty;

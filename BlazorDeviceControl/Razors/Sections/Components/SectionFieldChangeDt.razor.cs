@@ -9,7 +9,7 @@ public partial class SectionFieldChangeDt<T> : RazorPageSectionBase<T> where T :
 
 	public SectionFieldChangeDt()
 	{
-		CssStyleRadzenColumn.Width = "15%";
+		CssStyleRadzenColumn.Width = "12%";
 	}
 
 	#endregion

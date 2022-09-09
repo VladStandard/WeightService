@@ -9,7 +9,13 @@ public partial class SectionFieldIdentity<T> : RazorPageSectionBase<T> where T :
 
 	public SectionFieldIdentity()
 	{
-		CssStyleRadzenColumn.Width = "10%";
+		T item = new();
+		CssStyleRadzenColumn.Width = item.Identity.Name switch
+		{
+			SqlFieldIdentityEnum.Id => "7.5%",
+			SqlFieldIdentityEnum.Uid => "20%",
+			_ => CssStyleRadzenColumn.Width
+		};
 	}
 
 	#endregion

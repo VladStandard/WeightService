@@ -5,6 +5,15 @@ namespace BlazorDeviceControl.Razors.Items.Components;
 
 public partial class ItemTableHead<T> : RazorPageItemBase<T> where T : TableBase, new()
 {
+	#region Public and private fields, properties, constructor
+
+	public ItemTableHead()
+	{
+		//
+	}
+
+	#endregion
+
 	#region Public and private methods
 
 	protected override void OnParametersSet()

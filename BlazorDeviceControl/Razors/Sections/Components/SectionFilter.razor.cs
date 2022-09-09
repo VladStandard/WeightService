@@ -33,7 +33,7 @@ public partial class SectionFilter<T> : RazorPageSectionBase<T> where T : TableB
                 }
             }
         });
-    }
+	}
 
     #endregion
 }

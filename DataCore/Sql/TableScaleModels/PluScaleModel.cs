@@ -21,8 +21,8 @@ public class PluScaleModel : TableBase, ICloneable, ISqlDbBase, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluScaleModel()
-    {
+    public PluScaleModel() : base(SqlFieldIdentityEnum.Uid)
+	{
 	    IsActive = false;
 	    Plu = new();
 	    Scale = new();

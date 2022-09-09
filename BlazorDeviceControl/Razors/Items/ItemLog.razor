@@ -14,9 +14,9 @@ else
     <ItemReload T=LogModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLog />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <ItemTableHead T=LogModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 } ) />
+        <ItemTableHead T=LogModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 } ) />
         <tbody>
-			<ItemTableBody T=LogModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+			<ItemTableBody T=LogModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.Host</td>
                 <td>

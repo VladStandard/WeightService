@@ -18,7 +18,7 @@ public class TaskTypeModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskTypeModel()
+    public TaskTypeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Name = string.Empty;
 	}

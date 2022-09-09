@@ -19,7 +19,7 @@ public class AccessModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AccessModel()
+	public AccessModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		User = string.Empty;
 		Rights = 0x00;

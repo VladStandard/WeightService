@@ -20,8 +20,8 @@ public class PluLabelModel : TableBase, ICloneable, ISqlDbBase, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluLabelModel()
-    {
+    public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
+	{
 	    PluWeighing = null;
 	    Zpl = string.Empty;
     }

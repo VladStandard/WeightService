@@ -23,7 +23,7 @@ public class OrderModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public OrderModel()
+    public OrderModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Name = string.Empty;
 		BeginDt = DateTime.MinValue;

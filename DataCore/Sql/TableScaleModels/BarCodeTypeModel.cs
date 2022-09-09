@@ -18,7 +18,7 @@ public class BarCodeTypeModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public BarCodeTypeModel()
+    public BarCodeTypeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Name = string.Empty;
 	}

@@ -72,10 +72,10 @@ public class CssStyleTableHeadModel : CssStyleBase
 
 	public List<string> GetColumnsTitles()
 	{
-		if (!ColumnsWidths.Any())
-			return new();
-
 		List<string> columnsTitles = new();
+		if (!ColumnsWidths.Any())
+			return columnsTitles;
+
 		if (ColumnsWidths.Count > 0)
 			columnsTitles.Add(LocaleCore.Strings.SettingName);
 		if (ColumnsWidths.Count > 1)
@@ -85,11 +85,6 @@ public class CssStyleTableHeadModel : CssStyleBase
 		if (ColumnsWidths.Count > 3)
 			columnsTitles.Add(LocaleCore.Strings.SettingValue);
 		return columnsTitles;
-	}
-
-	public void SetColumnsTitles()
-	{
-		ColumnsTitles = GetColumnsTitles();
 	}
 
 	#endregion

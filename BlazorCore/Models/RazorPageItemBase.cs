@@ -12,8 +12,8 @@ public class RazorPageItemBase<T> : RazorPageBase where T : TableBase, new()
 	#region Public and private fields, properties, constructor
 
 	protected T ItemCast { get => Item is null ? new() : (T)Item; set => Item = value; }
-	[Parameter] public CssStyleTableHeadModel? CssTableStyleHead { get; set; }
-	[Parameter] public CssStyleTableBodyModel? CssTableStyleBody { get; set; }
+	[Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
+	[Parameter] public CssStyleTableBodyModel CssTableStyleBody { get; set; }
 
 	public RazorPageItemBase()
 	{

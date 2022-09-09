@@ -16,9 +16,9 @@ else
     <ItemReload T=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resource />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead T=PrinterResourceModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+		<ItemTableHead T=PrinterResourceModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 		<tbody>
-			<ItemTableBody T=PrinterResourceModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody T=PrinterResourceModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Print.Name</td>
 				<td>

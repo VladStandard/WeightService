@@ -25,7 +25,7 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected SqlFieldBase(SerializationInfo info, StreamingContext context)// : base(info, context)
+    protected SqlFieldBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
 	    FieldName = info.GetString(nameof(FieldName));
     }
@@ -53,7 +53,7 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-	    //base.GetObjectData(info, context);
+	    base.GetObjectData(info, context);
 		info.AddValue(nameof(FieldName), FieldName);
     }
 

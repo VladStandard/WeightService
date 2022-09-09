@@ -29,7 +29,7 @@ public partial class SectionAccess : RazorPageSectionBase<AccessModel>
 
 				ButtonSettings = new(true, false, true, true, true, false, false);
             }
-        });
+		});
     }
 
     private void RowRender(RowRenderEventArgs<AccessModel> args)
