@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.CssStyles;
 using DataCore.Sql.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -36,7 +37,6 @@ public partial class RazorPageBase
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
 	[Parameter] public UserSettingsModel UserSettings { get; set; }
 	[Parameter] public string Title { get; set; }
-	[Parameter] public string Width { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 	public DataCore.Sql.Tables.TableBase? Item { get; set; }
@@ -66,7 +66,6 @@ public partial class RazorPageBase
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;
 		IsActionsParametersSetFinished = false;
-		Width = "10%";
 	}
 
 	public void SetPropertiesFromParent()

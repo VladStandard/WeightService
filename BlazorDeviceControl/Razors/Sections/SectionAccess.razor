@@ -2,7 +2,7 @@
 @page "/section/access"
 
 @using BlazorDeviceControl.Razors.Components
-@using BlazorDeviceControl.Razors.Sections.Componets
+@using BlazorDeviceControl.Razors.Sections.Components
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -19,19 +19,11 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
-		    <SectionFieldIsMarked T=AccessModel ParentRazor=@(this) />
+			<SectionFieldIsMarked T=AccessModel ParentRazor=@(this) />
 			<SectionFieldIdentity T=AccessModel ParentRazor=@(this) />
+			<SectionFieldChangeDt T=AccessModel ParentRazor=@(this) />
 
-			<RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Center
-		                      Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
-			    <Template Context="itemCast">
-				    <RadzenLink Style="width: 100%; margin-left: 0;"
-				                Path=@($"{LocaleCore.DeviceControl.RouteItemAccess}/{itemCast.Identity.Uid}")
-				                Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss")/>
-			    </Template>
-		    </RadzenGridColumn>
-		    <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Left
-		                      Title=@LocaleCore.Table.User Type="string" Width="30%">
+		    <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Left Title=@LocaleCore.Table.User Type="string" Width="30%">
 			    <Template Context="itemCast">
 				    <RadzenLink Style="width: 100%; margin-left: 0;"
 				                Path=@($"{LocaleCore.DeviceControl.RouteItemAccess}/{itemCast.Identity.Uid}")

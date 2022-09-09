@@ -2,9 +2,9 @@
 @page "/item/printertype"
 @page "/item/printertype/{IdentityId:long}"
 @page "/item/printertype/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.Items.Componets
+@using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Items.Components
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -15,9 +15,9 @@ else
 	<ItemReload T=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+		<ItemTableHead T=PrinterTypeModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 		<tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody T=PrinterTypeModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Table.Name</td>
 				<td>

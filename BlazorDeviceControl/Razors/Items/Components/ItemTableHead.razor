@@ -1,0 +1,48 @@
+﻿@typeparam T
+@inherits BlazorCore.Models.RazorPageItemBase<T>
+@page "/item/table_head"
+@using BlazorCore
+
+@if (CssTableStyleHead is not null)
+{
+	<thead>
+		<tr>
+			@if (CssTableStyleHead.ColumnsWidths.Count > 0)
+			{
+				<th style="color: @CssTableStyleHead.Color; text-align: @CssTableStyleHead.TextAlign; font-weight: @CssTableStyleHead.FontWeight; width: @CssTableStyleHead.ColumnsWidths[0]%;">
+					@if (CssTableStyleHead.ColumnsTitles.Count > 0)
+					{
+						<RadzenLabel Text=@CssTableStyleHead.ColumnsTitles[0]/>
+					}
+				</th>
+			}
+			@if (CssTableStyleHead.ColumnsWidths.Count > 1)
+			{
+				<th style="color: @CssTableStyleHead.Color; text-align: @CssTableStyleHead.TextAlign; font-weight: @CssTableStyleHead.FontWeight; width: @CssTableStyleHead.ColumnsWidths[1]%;">
+					@if (CssTableStyleHead.ColumnsTitles.Count > 1)
+					{
+						<RadzenLabel Text=@CssTableStyleHead.ColumnsTitles[1] />
+					}
+				</th>
+			}
+			@if (CssTableStyleHead.ColumnsWidths.Count > 2)
+			{
+				<th style="color: @CssTableStyleHead.Color; text-align: @CssTableStyleHead.TextAlign; font-weight: @CssTableStyleHead.FontWeight; width: @CssTableStyleHead.ColumnsWidths[2]%;">
+					@if (CssTableStyleHead.ColumnsTitles.Count > 2)
+					{
+						<RadzenLabel Text=@CssTableStyleHead.ColumnsTitles[2] />
+					}
+				</th>
+			}
+			@if (CssTableStyleHead.ColumnsWidths.Count > 3)
+			{
+				<th style="color: @CssTableStyleHead.Color; text-align: @CssTableStyleHead.TextAlign; font-weight: @CssTableStyleHead.FontWeight; width: @CssTableStyleHead.ColumnsWidths[3]%;">
+					@if (CssTableStyleHead.ColumnsTitles.Count > 3)
+					{
+						<RadzenLabel Text=@CssTableStyleHead.ColumnsTitles[3] />
+					}
+				</th>
+			}
+		</tr>
+	</thead>
+}

@@ -2,9 +2,9 @@
 @page "/item/barcode"
 @page "/item/barcode/{IdentityUidStr}"
 @page "/item/barcode/{IdentityUidStr}/{TableAction}"
-@using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.Items.Componets
+@using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Items.Components
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -15,9 +15,9 @@ else
     <ItemReload T=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	    <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+	    <ItemTableHead T=BarCodeModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+            <ItemTableBody T=BarCodeModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.Value</td>
                 <td>

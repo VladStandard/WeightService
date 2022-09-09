@@ -2,9 +2,9 @@
 @page "/item/plu_label"
 @page "/item/plu_label/{IdentityId:long}"
 @page "/item/plu_label/{IdentityId:long}/{TableAction}"
-@using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.Items.Componets
+@using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Items.Components
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -15,9 +15,9 @@ else
     <ItemReload T=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <ItemTableHead T=PluLabelModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+            <ItemTableBody T=PluLabelModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             @*<tr>
                 <td>@LocaleCore.Table.Scale</td>
 	            <td>

@@ -115,9 +115,10 @@
     <Watch Remove="Razors\Items\Plu\ItemPluLabel.razor" />
     <Watch Remove="Razors\Items\Plu\ItemPluWeighing.razor" />
     <Watch Remove="Razors\Items\RadzenPage.razor" />
-    <Watch Remove="Razors\Sections\Componets\SectionFieldCreateDt.razor" />
-    <Watch Remove="Razors\Sections\Componets\SectionFieldIdentity.razor" />
-    <Watch Remove="Razors\Sections\Componets\SectionFieldIsMarked.razor" />
+    <Watch Remove="Razors\Sections\Components\SectionFieldChangeDt.razor" />
+    <Watch Remove="Razors\Sections\Components\SectionFieldCreateDt.razor" />
+    <Watch Remove="Razors\Sections\Components\SectionFieldIdentity.razor" />
+    <Watch Remove="Razors\Sections\Components\SectionFieldIsMarked.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsNones.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsStops.razor" />
@@ -158,7 +159,7 @@
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Razors\Items\Componets\ItemTableBody.razor">
+    <Content Update="Razors\Items\Components\ItemTableBody.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

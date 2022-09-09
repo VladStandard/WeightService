@@ -2,9 +2,9 @@
 @page "/item/contragent"
 @page "/item/contragent/{IdentityUidStr}"
 @page "/item/contragent/{IdentityUidStr}/{TableAction}"
-@using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.Items.Componets
+@using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Items.Components
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -15,9 +15,9 @@ else
     <ItemReload T=ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <ItemTableHead T=ContragentModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+			<ItemTableBody T=ContragentModel ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.Name</td>
                 <td colspan=3>

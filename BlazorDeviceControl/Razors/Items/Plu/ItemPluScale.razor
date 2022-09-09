@@ -3,9 +3,9 @@
 @page "/item/plu_scale/{IdentityUidStr}"
 @page "/item/plu_scale/{IdentityUidStr}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
-@using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.Items.Componets
+@using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Items.Components
 
 @if (!IsActionsParametersSetFinished)
 {
@@ -16,9 +16,9 @@ else
 	<ItemReload T=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
 	
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+		<ItemTableHead T=PluScaleModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 		<tbody>
-			<ItemTableBody ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+			<ItemTableBody T=PluScaleModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
 			<tr>
 				<td>@LocaleCore.Table.IsActive</td>
 				<td>

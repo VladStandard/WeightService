@@ -10,13 +10,13 @@ namespace BlazorCore.Razors;
 
 public static class ComponentsUtils
 {
-	public static TableHeadStyleModel GetTableHeadStyle(List<int> columnsWidths) => 
+	public static CssStyleTableHeadModel GetTableHeadStyle(List<int> columnsWidths) => 
 		new(columnsWidths, "blue", "12px", "center");
 	
-	public static TableHeadStyleModel GetTabelHeadStyleInfo() => 
+	public static CssStyleTableHeadModel GetTabelHeadStyleInfo() => 
 		new(new() { 40, 30, 30 }, 
 		new() { LocaleCore.Strings.SettingName, LocaleCore.Strings.SettingValue }, 
 		"blue", "12px", "center");
 
-	public static TableBodyStyleModel GetTableBodyStyle(SqlFieldIdentityEnum columnName, bool isShowMarked) => new(columnName, isShowMarked);
+	public static CssStyleTableBodyModel GetTableBodyStyle(SqlFieldIdentityEnum columnName, bool isShowMarked) => new(columnName, isShowMarked);
 }

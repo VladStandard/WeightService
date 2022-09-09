@@ -1,15 +1,15 @@
 ﻿@inherits BlazorCore.Models.RazorPageBase
 @page "/system/appinfo"
 @using static BlazorCore.Utils.BlazorCoreUtuls
-@using BlazorDeviceControl.Razors.Components
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.Items.Componets
+@using BlazorDeviceControl.Razors.Components
+@using BlazorDeviceControl.Razors.Items.Components
 
-<ItemReload T=TableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
+<ItemReload T=TableBase ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
+	<ItemTableHead T=TableBase ParentRazor=@(this) TableStyle=@ComponentsUtils.GetTabelHeadStyleInfo() />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>
