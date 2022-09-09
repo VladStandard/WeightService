@@ -4,16 +4,38 @@
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.Core;
-using Microsoft.AspNetCore.Components;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageBase : LayoutComponentBase
+public partial class RazorPageBase
 {
     #region Public and private methods - OnChange
 
-    protected void OnChange() => ActionChange.Invoke();
-    protected void OnChangeAsync() => InvokeAsync(ActionChange);
+    protected void OnChange() => OnChangeParent(this);
+
+    protected void OnChangeAsync() => OnChangeParentAsync(this);
+
+    private void OnChangeParent(RazorPageBase? razorPage)
+    {
+	    while (true)
+	    {
+		    if (razorPage is null) return;
+		    razorPage.StateHasChanged();
+		    razorPage.OnParametersSet();
+		    razorPage = razorPage.ParentRazor;
+	    }
+    }
+
+    private void OnChangeParentAsync(RazorPageBase? razorPage)
+    {
+	    while (true)
+	    {
+		    if (razorPage is null) return;
+		    InvokeAsync(razorPage.StateHasChanged);
+            InvokeAsync(razorPage.OnParametersSet);
+		    razorPage = razorPage.ParentRazor;
+	    }
+    }
 
     protected void OnChangeItem(DataCore.Sql.Tables.TableBase? item, string filterName, object? value)
     {

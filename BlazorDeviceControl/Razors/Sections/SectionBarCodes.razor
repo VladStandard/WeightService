@@ -18,15 +18,9 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
 		    <SectionFieldIsMarked T=BarCodeModel ParentRazor=@(this) />
-			<SectionFieldIdentity T=BarCodeModel ParentRazor=@(this) />
+		    <SectionFieldIdentity T=BarCodeModel ParentRazor=@(this) />
+		    <SectionFieldChangeDt T=BarCodeModel ParentRazor=@(this) />
 
-		    <RadzenGridColumn TItem="BarCodeModel" TextAlign=TextAlign.Center SortProperty="ChangeDt"
-		                      Title=@LocaleCore.Table.ChangeDt Type="date" Width="20%">
-			    <Template Context="itemCast">
-				    <RadzenLink Style="width: 100%; margin-left: 0;"
-				                Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss")/>
-			    </Template>
-		    </RadzenGridColumn>
 		    <RadzenGridColumn
 			    TItem="BarCodeModel" Property="Name" TextAlign=TextAlign.Left
 			    Title=@LocaleCore.Table.Name

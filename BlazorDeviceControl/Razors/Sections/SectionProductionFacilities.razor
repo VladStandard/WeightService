@@ -20,13 +20,6 @@ else
 	        <SectionFieldIsMarked T=ProductionFacilityModel ParentRazor=@(this) />
             <SectionFieldIdentity T=ProductionFacilityModel ParentRazor=@(this) />
 
-            <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Id Width="5%">
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                            Path=@($"{LocaleCore.DeviceControl.RouteItemProductionFacility}/{itemCast.Identity.Id}")
-                            Text=@itemCast.Identity.Id.ToString() />
-                </Template>
-            </RadzenGridColumn>
             <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Name Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

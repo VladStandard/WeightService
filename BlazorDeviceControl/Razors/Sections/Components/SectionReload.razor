@@ -26,7 +26,7 @@
 					@if (RazorConfig.IsShowFilterOnlyTop)
 					{
 						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorConfig.IsShowOnlyTop
-							Change=@(_=> OnChange())
+							Change=@(_=> OnChangeAsync())
 						    Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
 						    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
@@ -34,13 +34,13 @@
 					@if (RazorConfig.IsShowFilterMarked)
 					{
 						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorConfig.IsShowMarked
-							Change=@(_ => OnChange())
+							Change=@(_ => OnChangeAsync())
 							Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
 					}
 					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 						Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
-						Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChange()) />
+						Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
 					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
 				}
 			</td>

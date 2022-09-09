@@ -117,6 +117,7 @@
     <Watch Remove="Razors\Items\RadzenPage.razor" />
     <Watch Remove="Razors\Sections\Components\SectionFieldChangeDt.razor" />
     <Watch Remove="Razors\Sections\Components\SectionFieldCreateDt.razor" />
+    <Watch Remove="Razors\Sections\Components\SectionFieldDescription.razor" />
     <Watch Remove="Razors\Sections\Components\SectionFieldIdentity.razor" />
     <Watch Remove="Razors\Sections\Components\SectionFieldIsMarked.razor" />
     <Watch Remove="Razors\Sections\Logs\SectionLogsNones.razor" />

@@ -10,6 +10,7 @@ public partial class SectionTemplateResources : RazorPageSectionBase<TemplateRes
     public SectionTemplateResources()
     {
 	    RazorConfig.IsShowFilterMarked = true;
+	    CssStyleRadzenColumn.Width = "40%";
     }
 
     #endregion

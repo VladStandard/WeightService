@@ -40,9 +40,8 @@ public partial class RazorPageBase
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 	public DataCore.Sql.Tables.TableBase? Item { get; set; }
 	protected object? ItemObject { get => Item; set => Item = (DataCore.Sql.Tables.TableBase?)value; }
-	public bool IsActionsInitializedFinished { get; set; }
-	public bool IsActionsParametersSetFinished { get; set; }
-	public event Action ActionChange;
+	private bool IsActionsInitializedFinished { get; set; }
+	protected bool IsActionsParametersSetFinished { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -55,8 +54,6 @@ public partial class RazorPageBase
 		DialogService = null;
 		TooltipService = null;
 
-		//ActionChange += OnParametersSet;
-		ActionChange = StateHasChanged;
 		UserSettings = new();
 		ButtonSettings = new();
 		RazorConfig = new();
@@ -72,8 +69,6 @@ public partial class RazorPageBase
 		if (ParentRazor is null) return;
 
 		RazorConfig = ParentRazor.RazorConfig;
-		ActionChange = ParentRazor.ActionChange;
-		ActionChange += StateHasChanged;
 
 		if (IdentityId is null && ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;

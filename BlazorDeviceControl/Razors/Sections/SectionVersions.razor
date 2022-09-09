@@ -30,11 +30,7 @@ else
 	                <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.ReleaseDt.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="VersionModel" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Description Width="75%">
-                <Template Context="itemCast" >
-	                <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Description />
-                </Template>
-            </RadzenGridColumn>
+            <SectionFieldDescription T=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%")) />
         </Columns>
     </RadzenGrid>
 
