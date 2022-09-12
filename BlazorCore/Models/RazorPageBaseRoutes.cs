@@ -61,7 +61,7 @@ public partial class RazorPageBase
 		OrganizationModel => LocaleCore.DeviceControl.RouteItemOrganization,
 		PluLabelModel => LocaleCore.DeviceControl.RouteItemPluLabel,
 		PluModel => LocaleCore.DeviceControl.RouteItemPlu,
-		PluObsoleteModel => LocaleCore.DeviceControl.RouteItemPluObsolete,
+		//PluObsoleteModel => LocaleCore.DeviceControl.RouteItemPluObsolete,
 		PluScaleModel => LocaleCore.DeviceControl.RouteItemPluScale,
 		PluWeighingModel => LocaleCore.DeviceControl.RouteItemPluWeighing,
 		PrinterModel => LocaleCore.DeviceControl.RouteItemPrinter,
@@ -97,7 +97,7 @@ public partial class RazorPageBase
         HostModel => LocaleCore.DeviceControl.RouteSectionHosts,
         PluLabelModel => LocaleCore.DeviceControl.RouteSectionPluLabels,
         NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
-        PluObsoleteModel => LocaleCore.DeviceControl.RouteSectionPlusObsolete,
+        //PluObsoleteModel => LocaleCore.DeviceControl.RouteSectionPlusObsolete,
         PluModel => LocaleCore.DeviceControl.RouteSectionPlus,
         PluScaleModel => Item is PluScaleModel pluScale
             ? LocaleCore.DeviceControl.RouteItemScale + $"/{pluScale.Scale.Identity.Id}" : LocaleCore.DeviceControl.RouteSectionScales,

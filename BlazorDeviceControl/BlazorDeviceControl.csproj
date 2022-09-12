@@ -108,7 +108,6 @@
     <Watch Remove="Razors\Items\ItemPrinterType.razor" />
     <Watch Remove="Razors\Items\ItemProductionFacility.razor" />
     <Watch Remove="Razors\Items\ItemScale.razor" />
-    <Watch Remove="Razors\Items\ItemScaleCore.razor" />
     <Watch Remove="Razors\Items\ItemTemplate.razor" />
     <Watch Remove="Razors\Items\ItemTemplateResource.razor" />
     <Watch Remove="Razors\Items\ItemWorkshop.razor" />
@@ -142,7 +141,6 @@
     <Watch Remove="Razors\Sections\SectionPrintersTypes.razor" />
     <Watch Remove="Razors\Sections\SectionProductionFacilities.razor" />
     <Watch Remove="Razors\Sections\SectionScales.razor" />
-    <Watch Remove="Razors\Sections\SectionScalesCore.razor" />
     <Watch Remove="Razors\Sections\SectionTemplateResources.razor" />
     <Watch Remove="Razors\Sections\SectionTemplates.razor" />
     <Watch Remove="Razors\Sections\SectionVersions.razor" />

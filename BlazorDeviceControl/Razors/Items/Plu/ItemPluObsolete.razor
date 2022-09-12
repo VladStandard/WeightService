@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageItemBase<PluObsoleteModel>
+﻿@*@inherits BlazorCore.Models.RazorPageItemBase<PluObsoleteModel>
 @page "/item/plu_obsolete"
 @page "/item/plu_obsolete/{IdentityId:long}"
 @page "/item/plu_obsolete/{IdentityId:long}/{TableAction}"
@@ -224,3 +224,4 @@ else
     <ItemSave T=PluObsoleteModel ParentRazor=@(this) />
     <ItemDates T=PluObsoleteModel ParentRazor=@(this) />
 }
+*@

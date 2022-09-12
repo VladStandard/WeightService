@@ -100,11 +100,11 @@ internal class TablesAssertEqualsNewTests
         Helper.TableBaseModelAssertEqualsNew<PluLabelModel>();
     }
 
-    [Test]
-    public void DbTable_Validate_PluObsoleteModel()
-    {
-        Helper.TableBaseModelAssertEqualsNew<PluObsoleteModel>();
-    }
+    //[Test]
+    //public void DbTable_Validate_PluObsoleteModel()
+    //{
+    //    Helper.TableBaseModelAssertEqualsNew<PluObsoleteModel>();
+    //}
 
     [Test]
     public void DbTable_Validate_PluScaleModel()

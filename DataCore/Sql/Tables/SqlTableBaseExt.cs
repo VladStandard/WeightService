@@ -26,11 +26,13 @@ public static class SqlTableBaseExt
 					ScaleModel scale => fieldName switch
 					{
 						nameof(scale.Number) => scale.Number.ToString(),
+						nameof(scale.Host) => scale.Host is not null ? scale.Host.ToString() : LocaleCore.Table.FieldNull,
 						_ => string.Empty
 					},
 					VersionModel version => fieldName switch
 					{
 						nameof(version.ReleaseDt) => version.ReleaseDt.ToString("yyyy-MM-dd"),
+						nameof(version.Version) => version.Version.ToString(),
 						_ => string.Empty
 					},
 					_ => string.Empty,

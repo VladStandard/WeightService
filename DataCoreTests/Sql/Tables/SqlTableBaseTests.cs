@@ -129,13 +129,13 @@ internal class SqlTableBaseTests
 		Helper.AssertSqlFieldDtCheck<PluModel>(nameof(PluModel.ChangeDt));
 	}
 
-	[Test]
-	public void PluObsoleteModel_AssertSqlFields_Check()
-	{
-		// Arrange & Act & Assert.
-		Helper.AssertSqlFieldDtCheck<PluObsoleteModel>(nameof(PluObsoleteModel.CreateDt));
-		Helper.AssertSqlFieldDtCheck<PluObsoleteModel>(nameof(PluObsoleteModel.ChangeDt));
-	}
+	//[Test]
+	//public void PluObsoleteModel_AssertSqlFields_Check()
+	//{
+	//	// Arrange & Act & Assert.
+	//	Helper.AssertSqlFieldDtCheck<PluObsoleteModel>(nameof(PluObsoleteModel.CreateDt));
+	//	Helper.AssertSqlFieldDtCheck<PluObsoleteModel>(nameof(PluObsoleteModel.ChangeDt));
+	//}
 
 	[Test]
 	public void PluScaleModel_AssertSqlFields_Check()
@@ -241,6 +241,7 @@ internal class SqlTableBaseTests
 		Helper.AssertSqlFieldDtCheck<VersionModel>(nameof(VersionModel.ChangeDt));
 		Helper.AssertSqlFieldDtCheck<VersionModel>(nameof(VersionModel.ReleaseDt));
 		Helper.AssertSqlFieldStringCheck<VersionModel>(nameof(VersionModel.Description));
+		Helper.AssertSqlFieldStringCheck<VersionModel>(nameof(VersionModel.Version));
 	}
 
 	[Test]

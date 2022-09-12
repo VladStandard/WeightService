@@ -98,11 +98,11 @@ internal class AssertSqlDbContentValidateTests
         Helper.AssertSqlDbContentValidate<PluLabelModel>();
     }
 
-    [Test]
-    public void DbContent_Validate_PluObsoleteModel()
-    {
-        Helper.AssertSqlDbContentValidate<PluObsoleteModel>();
-    }
+    //[Test]
+    //public void DbContent_Validate_PluObsoleteModel()
+    //{
+    //    Helper.AssertSqlDbContentValidate<PluObsoleteModel>();
+    //}
 
     [Test]
     public void DbContent_Validate_PluScaleModel()

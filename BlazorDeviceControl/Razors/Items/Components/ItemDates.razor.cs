@@ -88,11 +88,11 @@ public partial class ItemDates<T> : RazorPageItemBase<T> where T : SqlTableBase,
                 CreateDt = pluLabel.CreateDt.ToString(CultureInfo.InvariantCulture);
                 ChangeDt = pluLabel.ChangeDt.ToString(CultureInfo.InvariantCulture);
                 break;
-            case PluObsoleteModel:
-                PluObsoleteModel pluObsolete = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
-                CreateDt = pluObsolete.CreateDt.ToString(CultureInfo.InvariantCulture);
-                ChangeDt = pluObsolete.ChangeDt.ToString(CultureInfo.InvariantCulture);
-                break;
+            //case PluObsoleteModel:
+            //    PluObsoleteModel pluObsolete = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
+            //    CreateDt = pluObsolete.CreateDt.ToString(CultureInfo.InvariantCulture);
+            //    ChangeDt = pluObsolete.ChangeDt.ToString(CultureInfo.InvariantCulture);
+            //    break;
             case PluScaleModel:
                 PluScaleModel pluScale = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
                 CreateDt = pluScale.CreateDt.ToString(CultureInfo.InvariantCulture);

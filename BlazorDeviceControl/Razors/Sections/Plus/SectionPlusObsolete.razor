@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageSectionBase<PluObsoleteModel>
+﻿@*@inherits BlazorCore.Models.RazorPageSectionBase<PluObsoleteModel>
 @page "/section/plus_obsolete"
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections.Components
@@ -37,7 +37,7 @@ else
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsCheckWeight />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluObsoleteModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.Description >
+            <RadzenGridColumn TItem="PluObsoleteModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.Description>
                 <Template Context="itemCast" >
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" Value=@(!string.IsNullOrEmpty(itemCast.GoodsDescription)) />
                 </Template>
@@ -80,3 +80,4 @@ else
 
     <SectionButtons T=PluObsoleteModel ParentRazor=@(this) />
 }
+*@

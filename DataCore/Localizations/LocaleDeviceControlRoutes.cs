@@ -67,7 +67,6 @@ public partial class LocaleDeviceControl
     public string RouteSectionProductionFacilities => "/section/productionfacilities";
     public string RouteSectionProductSeries => "/section/productseries";
     public string RouteSectionScales => "/section/scales";
-    public string RouteSectionScalesObsolete => "/section/scales_obsolete";
     public string RouteSectionTaskModules => "/section/taskmodules";
     public string RouteSectionTaskTypeModules => "/section/tasktypemodules";
     public string RouteSectionTemplateResources => "/section/templates_resources";

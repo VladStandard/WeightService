@@ -36,7 +36,7 @@ internal class RazorPageBaseTests
 		Helper.Model_GetRoutePathItem_IsNotEmpty<OrganizationModel>();
 		Helper.Model_GetRoutePathItem_IsNotEmpty<PluLabelModel>();
 		Helper.Model_GetRoutePathItem_IsNotEmpty<PluModel>();
-		Helper.Model_GetRoutePathItem_IsNotEmpty<PluObsoleteModel>();
+		//Helper.Model_GetRoutePathItem_IsNotEmpty<PluObsoleteModel>();
 		Helper.Model_GetRoutePathItem_IsNotEmpty<PluScaleModel>();
 		Helper.Model_GetRoutePathItem_IsNotEmpty<PluWeighingModel>();
 		Helper.Model_GetRoutePathItem_IsNotEmpty<PrinterModel>();
@@ -71,7 +71,7 @@ internal class RazorPageBaseTests
 		Helper.Model_GetRoutePathSection_IsNotEmpty<OrganizationModel>();
 		Helper.Model_GetRoutePathSection_IsNotEmpty<PluLabelModel>();
 		Helper.Model_GetRoutePathSection_IsNotEmpty<PluModel>();
-		Helper.Model_GetRoutePathSection_IsNotEmpty<PluObsoleteModel>();
+		//Helper.Model_GetRoutePathSection_IsNotEmpty<PluObsoleteModel>();
 		Helper.Model_GetRoutePathSection_IsNotEmpty<PluScaleModel>();
 		Helper.Model_GetRoutePathSection_IsNotEmpty<PluWeighingModel>();
 		Helper.Model_GetRoutePathSection_IsNotEmpty<PrinterModel>();

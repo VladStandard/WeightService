@@ -17,16 +17,12 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            <SectionField T=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%"))
+            <SectionField T=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
                 FieldName=@(nameof(VersionModel.ReleaseDt)) Title=@LocaleCore.Table.ReleaseDt />
-
-	        <RadzenGridColumn TItem="VersionModel" TextAlign=TextAlign.Center Title=@LocaleCore.Table.Version Width="10%" >
-		        <Template Context="itemCast" >
-			        <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Version.ToString() />
-		        </Template>
-	        </RadzenGridColumn>
-            <SectionField T=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
-                FieldName=@(nameof(VersionModel.Description)) Title=@LocaleCore.Table.Description TextAlign=TextAlign.Center />
+            <SectionField T=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", false))
+                FieldName=@(nameof(VersionModel.Version)) Title=@LocaleCore.Table.Version />
+            <SectionField T=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("80%", false))
+                FieldName=@(nameof(VersionModel.Description)) Title=@LocaleCore.Table.Description TextAlign=TextAlign.Left />
         </Columns>
     </RadzenGrid>
 

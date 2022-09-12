@@ -119,31 +119,31 @@ public class ItemSaveCheckModel
         }
     }
 
-    public void PluObsolete(NotificationService? notificationService, PluObsoleteModel? item, SqlTableActionEnum tableAction)
-    {
-        if (item == null) return;
-        item.ChangeDt = DateTime.Now;
+    //public void PluObsolete(NotificationService? notificationService, PluObsoleteModel? item, SqlTableActionEnum tableAction)
+    //{
+    //    if (item == null) return;
+    //    item.ChangeDt = DateTime.Now;
 
-        bool success = FieldControl.ValidateModel(notificationService, item, LocaleCore.Table.Plu);
-        if (success)
-            success = FieldControl.ValidateModel(notificationService, item.Scale, LocaleCore.Table.Device);
-        if (success)
-            success = FieldControl.ValidateModel(notificationService, item.Template, LocaleCore.Table.LabelTemplate);
-        if (success)
-            success = FieldControl.ValidateModel(notificationService, item.Nomenclature, LocaleCore.Table.Product);
-        if (success)
-        {
-            if (tableAction == SqlTableActionEnum.New)
-            {
-                item.CreateDt = DateTime.Now;
-                AppSettings.DataAccess.Save(item);
-            }
-            else
-            {
-                AppSettings.DataAccess.Update(item);
-            }
-        }
-    }
+    //    bool success = FieldControl.ValidateModel(notificationService, item, LocaleCore.Table.Plu);
+    //    if (success)
+    //        success = FieldControl.ValidateModel(notificationService, item.Scale, LocaleCore.Table.Device);
+    //    if (success)
+    //        success = FieldControl.ValidateModel(notificationService, item.Template, LocaleCore.Table.LabelTemplate);
+    //    if (success)
+    //        success = FieldControl.ValidateModel(notificationService, item.Nomenclature, LocaleCore.Table.Product);
+    //    if (success)
+    //    {
+    //        if (tableAction == SqlTableActionEnum.New)
+    //        {
+    //            item.CreateDt = DateTime.Now;
+    //            AppSettings.DataAccess.Save(item);
+    //        }
+    //        else
+    //        {
+    //            AppSettings.DataAccess.Update(item);
+    //        }
+    //    }
+    //}
 
     public void Plu(NotificationService? notificationService, PluModel? item, SqlTableActionEnum tableAction)
     {

@@ -132,7 +132,6 @@ public class DataCoreHelper
 		return result;
 	}
 
-	[Test]
 	public void AssertSqlFieldDtCheck<T>(string fieldName) where T : SqlTableBase, new()
 	{
 		// Arrange & Act.
@@ -143,7 +142,6 @@ public class DataCoreHelper
 		Assert.AreNotEqual(DateTime.MinValue, value);
 	}
 
-	[Test]
 	public void AssertSqlFieldStringCheck<T>(string fieldName) where T : SqlTableBase, new()
 	{
 		// Arrange & Act.

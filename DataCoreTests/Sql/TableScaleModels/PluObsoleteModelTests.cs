@@ -1,19 +1,19 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCoreTests.Sql.TableScaleModels;
+//namespace DataCoreTests.Sql.TableScaleModels;
 
-[TestFixture]
-internal class PluObsoleteModelTests
-{
-    [Test]
-    public void Model_Equals_DoesNotThrow()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            PluObsoleteModel item = new();
-            Assert.AreEqual(true, item.EqualsNew());
-            Assert.AreEqual(true, item.EqualsDefault());
-        });
-    }
-}
+//[TestFixture]
+//internal class PluObsoleteModelTests
+//{
+//    [Test]
+//    public void Model_Equals_DoesNotThrow()
+//    {
+//        Assert.DoesNotThrow(() =>
+//        {
+//            PluObsoleteModel item = new();
+//            Assert.AreEqual(true, item.EqualsNew());
+//            Assert.AreEqual(true, item.EqualsDefault());
+//        });
+//    }
+//}

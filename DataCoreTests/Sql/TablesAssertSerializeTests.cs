@@ -98,11 +98,11 @@ internal class TablesAssertSerializeTests
 		Helper.TableBaseModelAssertSerialize<PluLabelModel>();
 	}
 
-	[Test]
-	public void Table_AssertSerialize_PluObsoleteModel()
-	{
-		Helper.TableBaseModelAssertSerialize<PluObsoleteModel>();
-	}
+	//[Test]
+	//public void Table_AssertSerialize_PluObsoleteModel()
+	//{
+	//	Helper.TableBaseModelAssertSerialize<PluObsoleteModel>();
+	//}
 
 	[Test]
 	public void Table_AssertSerialize_PluScaleModel()

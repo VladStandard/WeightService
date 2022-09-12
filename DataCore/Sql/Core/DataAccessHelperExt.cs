@@ -213,17 +213,17 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-	public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
-	{
-		long? scaleId = null;
-		if (itemFilter is ScaleModel scale)
-			scaleId = scale.Identity.Id;
-		List<SqlFieldFilterModel>? filters = null;
-		if (scaleId is not null)
-			filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{SqlFieldEnum.IdentityValueId}", SqlFieldComparerEnum.Equal, scaleId) };
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.GoodsName), 0, isShowMarked, isShowOnlyTop);
-		return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
-	}
+	//public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
+	//{
+	//	long? scaleId = null;
+	//	if (itemFilter is ScaleModel scale)
+	//		scaleId = scale.Identity.Id;
+	//	List<SqlFieldFilterModel>? filters = null;
+	//	if (scaleId is not null)
+	//		filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{SqlFieldEnum.IdentityValueId}", SqlFieldComparerEnum.Equal, scaleId) };
+	//	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.GoodsName), 0, isShowMarked, isShowOnlyTop);
+	//	return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
+	//}
 
 	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
 	{

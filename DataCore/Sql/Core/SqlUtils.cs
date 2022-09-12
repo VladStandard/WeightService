@@ -50,7 +50,7 @@ public static partial class SqlUtils
 			OrganizationModel => new OrganizationValidator(),
 			PluModel => new PluValidator(),
 			PluLabelModel => new PluLabelValidator(),
-			PluObsoleteModel => new PluObsoleteValidator(),
+			//PluObsoleteModel => new PluObsoleteValidator(),
 			PluScaleModel => new PluScaleValidator(),
 			PluWeighingModel => new PluWeighingValidator(),
 			PrinterModel => new PrinterValidator(),

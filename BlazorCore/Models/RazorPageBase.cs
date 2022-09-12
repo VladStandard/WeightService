@@ -46,7 +46,7 @@ public partial class RazorPageBase : LayoutComponentBase
 			NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
 			OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
-			PluObsoleteModel => LocaleCore.DeviceControl.ItemPlu,
+			//PluObsoleteModel => LocaleCore.DeviceControl.ItemPlu,
 			PluModel => LocaleCore.DeviceControl.ItemPlu,
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
 			PrinterModel => LocaleCore.Print.Name,
@@ -80,7 +80,7 @@ public partial class RazorPageBase : LayoutComponentBase
 			NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
 			OrderModel => LocaleCore.DeviceControl.SectionOrders,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
-			PluObsoleteModel => LocaleCore.DeviceControl.SectionPlus,
+			//PluObsoleteModel => LocaleCore.DeviceControl.SectionPlus,
 			PluModel => LocaleCore.DeviceControl.SectionPlus,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PrinterModel => LocaleCore.Print.Name,
@@ -141,9 +141,9 @@ public partial class RazorPageBase : LayoutComponentBase
 			case NomenclatureModel:
 				ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
 				break;
-			case PluObsoleteModel:
-				ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
+			//case PluObsoleteModel:
+			//	ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
+			//	break;
 			case PluModel:
 				ItemSaveCheck.Plu(NotificationService, (PluModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
 				break;
