@@ -32,7 +32,8 @@ else
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
-	        <SectionFieldDescription T=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%")) />
+            <SectionField T=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+                FieldName=@(nameof(VersionModel.Description)) Title=@LocaleCore.Table.Description TextAlign=TextAlign.Center />
             <RadzenGridColumn 
                 TItem="TemplateResourceModel" Property="ImageData.Info"
                 Title=@LocaleCore.Table.ImageDataInfo 

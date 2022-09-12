@@ -9,7 +9,8 @@ using System.Collections.Generic;
 
 namespace BlazorCore.Models;
 
-public partial class RazorPageBase
+public partial class 
+	RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -36,6 +37,7 @@ public partial class RazorPageBase
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
 	[Parameter] public UserSettingsModel UserSettings { get; set; }
 	[Parameter] public string Title { get; set; }
+	[Parameter] public TextAlign TextAlign { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 	public DataCore.Sql.Tables.SqlTableBase? Item { get; set; }
@@ -57,11 +59,13 @@ public partial class RazorPageBase
 		UserSettings = new();
 		ButtonSettings = new();
 		RazorConfig = new();
-		Title = string.Empty;
 		TableAction = SqlTableActionEnum.Empty;
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;
 		IsActionsParametersSetFinished = false;
+		
+		Title = string.Empty;
+		TextAlign = TextAlign.Center;
 	}
 
 	public void SetPropertiesFromParent()

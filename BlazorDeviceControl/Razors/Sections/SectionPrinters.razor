@@ -19,7 +19,7 @@ else
         <Columns>
             <SectionFieldIsMarked T=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
             <SectionFieldIdentity T=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
-            <SectionFieldDt T=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            <SectionField T=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
 
             <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Print.Name Width="18%" >

@@ -122,17 +122,35 @@ public class DataCoreHelper
 		AssertValidate(item, validator, assertResult);
 	}
 
-	public void AssertSqlFieldsDt<T>(bool isNotDefault, string fieldName) where T : SqlTableBase, new()
+	public string AssertSqlFields<T>(bool isNotDefault, string fieldName) where T : SqlTableBase, new()
 	{
 		// Arrange
 		T item = CreateNewSubstitute<T>(isNotDefault);
 		// Act.
-		string value = item.GetFieldDt(fieldName);
+		string result = item.GetFieldAsString(fieldName);
+		TestContext.WriteLine($"{typeof(T)}. {fieldName}: {result}");
+		return result;
+	}
+
+	[Test]
+	public void AssertSqlFieldDtCheck<T>(string fieldName) where T : SqlTableBase, new()
+	{
+		// Arrange & Act.
+		string value = AssertSqlFields<T>(true, fieldName);
 		// Assert.
-		TestContext.WriteLine($"{typeof(T)}. {fieldName}: {value}");
 		Assert.IsNotEmpty(value);
 		Assert.IsNotNull(value);
 		Assert.AreNotEqual(DateTime.MinValue, value);
+	}
+
+	[Test]
+	public void AssertSqlFieldStringCheck<T>(string fieldName) where T : SqlTableBase, new()
+	{
+		// Arrange & Act.
+		string value = AssertSqlFields<T>(true, fieldName);
+		// Assert.
+		Assert.IsNotEmpty(value);
+		Assert.IsNotNull(value);
 	}
 
 	public void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()

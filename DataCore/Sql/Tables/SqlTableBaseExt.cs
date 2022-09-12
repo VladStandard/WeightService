@@ -11,36 +11,35 @@ public static class SqlTableBaseExt
 {
 	#region Public and private methods
 
-	public static string GetFieldDt<T>(this T? item, string fieldName) where T : SqlTableBase, new()
+	public static string GetFieldAsString<T>(this T? item, string fieldName) where T : SqlTableBase, new()
 	{
 		string result = string.Empty;
 		if (item is not null && !string.IsNullOrEmpty(fieldName))
 		{
-			switch (fieldName)
+			result = fieldName switch
 			{
-				case nameof(item.CreateDt):
-					result = item.CreateDt.ToString("yyyy-MM-dd HH:mm:ss");
-					break;
-				case nameof(item.ChangeDt):
-					result = item.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss");
-					break;
-				default:
-					switch (item)
+				nameof(item.CreateDt) => item.CreateDt.ToString("yyyy-MM-dd HH:mm:ss"),
+				nameof(item.ChangeDt) => item.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss"),
+				nameof(item.Description) => item.Description.ToString(),
+				_ => item switch
+				{
+					ScaleModel scale => fieldName switch
 					{
-						case VersionModel version:
-							result = fieldName switch
-							{
-								nameof(version.ReleaseDt) => version.ReleaseDt.ToString("yyyy-MM-dd"),
-								_ => string.Empty
-							};
-							break;
-					}
-					break;
+						nameof(scale.Number) => scale.Number.ToString(),
+						_ => string.Empty
+					},
+					VersionModel version => fieldName switch
+					{
+						nameof(version.ReleaseDt) => version.ReleaseDt.ToString("yyyy-MM-dd"),
+						_ => string.Empty
+					},
+					_ => string.Empty,
+				},
 			};
+			;
 		}
 		return result;
 	}
-
 
 	#endregion
 }
