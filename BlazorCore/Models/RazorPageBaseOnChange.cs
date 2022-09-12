@@ -37,7 +37,7 @@ public partial class RazorPageBase
 	    }
     }
 
-    protected void OnChangeItem(DataCore.Sql.Tables.TableBase? item, string filterName, object? value)
+    protected void OnChangeItem(DataCore.Sql.Tables.SqlTableBase? item, string filterName, object? value)
     {
         RunActionsSafe(LocaleCore.Table.TableEdit, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
             () =>

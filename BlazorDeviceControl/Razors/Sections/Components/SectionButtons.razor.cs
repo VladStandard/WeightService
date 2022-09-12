@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Components;
 
-public partial class SectionButtons<T> : RazorPageSectionBase<T> where T : TableBase, new()
+public partial class SectionButtons<T> : RazorPageSectionBase<T> where T : SqlTableBase, new()
 {
 	#region Public and private methods
 

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_LABELS".
 /// </summary>
-public class PluLabelValidator : TableValidator
+public class PluLabelValidator : SqlTableValidator
 {
     /// <summary>
     /// Constructor.
@@ -21,7 +21,7 @@ public class PluLabelValidator : TableValidator
 			.NotNull();
 	}
 
-    protected override bool PreValidate(ValidationContext<TableBase> context, ValidationResult result)
+    protected override bool PreValidate(ValidationContext<SqlTableBase> context, ValidationResult result)
     {
 	    if (context.InstanceToValidate is PluLabelModel scale)
 	    {

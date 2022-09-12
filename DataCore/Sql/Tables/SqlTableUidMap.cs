@@ -6,12 +6,12 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// Table map "EMPTY".
 /// </summary>
-public class TableUidMap : ClassMap<TableEmptyModel>
+public class SqlTableUidMap : ClassMap<SqlTableEmptyModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableUidMap()
+    public SqlTableUidMap()
     {
         //Schema("");
         //Table("");

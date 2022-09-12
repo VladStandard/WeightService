@@ -5,11 +5,11 @@
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Items.Components
 
-<ItemReload T=TableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
+<ItemReload T=SqlTableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead T=TableEmptyModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTabelHeadStyleInfo() />
+	<ItemTableHead T=SqlTableEmptyModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTabelHeadStyleInfo() />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>

@@ -1,17 +1,17 @@
 ﻿@typeparam T
 @inherits BlazorCore.Models.RazorPageSectionBase<T>
-@page "/section/field_create_dt"
+@page "/section/field_dt"
 
 <RadzenGridColumn TItem=T Type="date" TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@LocaleCore.Table.CreateDt >
 	<Template Context="itemCast">
 		@if (CssStyleRadzenColumn.IsShowLink)
 		{
 			<RadzenLink Style="width: 100%; margin-left: 0;" 
-			    Path=@(GetRouteItemPath(itemCast)) Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+			    Path=@(GetRouteItemPath(itemCast)) Text=@itemCast.GetFieldDt(FieldName) />
 		}
 		else
 		{
-			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
+			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@itemCast.GetFieldDt(FieldName) />
 		}
 	</Template>
 </RadzenGridColumn>

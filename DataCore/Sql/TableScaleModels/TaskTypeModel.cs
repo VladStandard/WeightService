@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "TASKS_TYPES".
 /// </summary>
 [Serializable]
-public class TaskTypeModel : TableBase, ICloneable, ISqlDbBase, ISerializable
+public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

@@ -10,13 +10,13 @@ public static class DataAccessHelperItems
 {
 	#region Public and private methods
 
-	private static T[] GetItemsCore<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : TableBase, new()
+	private static T[] GetItemsCore<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		ICriteria criteria = dataAccess.GetCriteria<T>(session, sqlCrudConfig);
 		return criteria.List<T>().ToArray();
 	}
 
-	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBase, new()
+	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = null;
 		dataAccess.ExecuteTransaction((session) =>
@@ -30,7 +30,7 @@ public static class DataAccessHelperItems
 		return items;
 	}
 
-	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, string query) where T : TableBase, new()
+	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, string query) where T : SqlTableBase, new()
 	{
 		T[]? result = null;
 		dataAccess.ExecuteTransaction((session) =>
@@ -45,7 +45,7 @@ public static class DataAccessHelperItems
 		return result;
 	}
 
-	public static List<T> GetList<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : TableBase, new()
+	public static List<T> GetList<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = GetItems<T>(dataAccess, sqlCrudConfig);
 		if (items is not null && items.Length > 0)

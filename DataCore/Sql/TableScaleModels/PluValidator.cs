@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS".
 /// </summary>
-public class PluValidator : TableValidator
+public class PluValidator : SqlTableValidator
 {
     /// <summary>
     /// Constructor.

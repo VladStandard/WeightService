@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class ScaleValidator : TableValidator
+public class ScaleValidator : SqlTableValidator
 {
 	/// <summary>
 	/// Constructor.
@@ -21,7 +21,7 @@ public class ScaleValidator : TableValidator
 			.NotNull();
 	}
 
-	protected override bool PreValidate(ValidationContext<TableBase> context, ValidationResult result)
+	protected override bool PreValidate(ValidationContext<SqlTableBase> context, ValidationResult result)
 	{
 		if (context.InstanceToValidate is ScaleModel scale)
 		{

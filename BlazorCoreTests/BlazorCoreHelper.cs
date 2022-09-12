@@ -8,7 +8,7 @@ using FluentValidation;
 using NUnit.Framework;
 using System;
 using System.Threading;
-using TableBase = DataCore.Sql.Tables.TableBase;
+using SqlTableBase = DataCore.Sql.Tables.SqlTableBase;
 
 namespace BlazorCoreTests;
 
@@ -51,7 +51,7 @@ public class BlazorCoreHelper
 		DataCoreHelper.Instance.AssertValidate<T>(item, validator, assertResult);
 	}
 
-	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : TableBase, new()
+	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : SqlTableBase, new()
 	{
 		// Arrange.
 		RazorPageBase razorPage = new();
@@ -63,7 +63,7 @@ public class BlazorCoreHelper
 		Assert.IsNotEmpty(urlItem);
 	}
 
-	public void Model_GetRoutePathSection_IsNotEmpty<T>() where T : TableBase, new()
+	public void Model_GetRoutePathSection_IsNotEmpty<T>() where T : SqlTableBase, new()
 	{
 		// Arrange.
 		RazorPageBase razorPage = new();

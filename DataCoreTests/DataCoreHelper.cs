@@ -79,7 +79,7 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDbContentValidate<T>(int maxResults = 0) where T : TableBase, new()
+	public void AssertSqlDbContentValidate<T>(int maxResults = 0) where T : SqlTableBase, new()
 	{
 		AssertAction(() =>
 		{
@@ -114,12 +114,25 @@ public class DataCoreHelper
 		});
 	}
 
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : TableBase, new()
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new()
 	{
 		// Arrange.
 		IValidator<T> validator = SqlUtils.GetSqlValidator(item);
 		// Act & Assert.
 		AssertValidate(item, validator, assertResult);
+	}
+
+	public void AssertSqlFieldsDt<T>(bool isNotDefault, string fieldName) where T : SqlTableBase, new()
+	{
+		// Arrange
+		T item = CreateNewSubstitute<T>(isNotDefault);
+		// Act.
+		string value = item.GetFieldDt(fieldName);
+		// Assert.
+		TestContext.WriteLine($"{typeof(T)}. {fieldName}: {value}");
+		Assert.IsNotEmpty(value);
+		Assert.IsNotNull(value);
+		Assert.AreNotEqual(DateTime.MinValue, value);
 	}
 
 	public void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
@@ -142,7 +155,7 @@ public class DataCoreHelper
 		});
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : TableBase, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()
 	{
 		SqlFieldIdentityModel fieldIdentity = Substitute.For<SqlFieldIdentityModel>(SqlFieldIdentityEnum.Empty);
 		fieldIdentity.Name.Returns(SqlFieldIdentityEnum.Test);
@@ -296,13 +309,13 @@ public class DataCoreHelper
 		return item;
 	}
 
-	public void TableBaseModelAssertEqualsNew<T>() where T : TableBase, new()
+	public void TableBaseModelAssertEqualsNew<T>() where T : SqlTableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			TableBase baseItem = new();
+			SqlTableBase baseItem = new();
 			// Act.
 			bool itemEqualsNew = item.EqualsNew();
 			bool baseEqualsNew = baseItem.EqualsNew();
@@ -326,14 +339,14 @@ public class DataCoreHelper
 		});
 	}
 
-	public void TableBaseModelAssertSerialize<T>() where T : TableBase, new()
+	public void TableBaseModelAssertSerialize<T>() where T : SqlTableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 #pragma warning disable SYSLIB0011
 			// Arrange.
 			T item1 = new();
-			TableBase base1 = new();
+			SqlTableBase base1 = new();
 			BinaryFormatter binaryFormatterItem = new();
 			BinaryFormatter binaryFormatterBase = new();
 			MemoryStream memoryStreamItem = new();
@@ -350,7 +363,7 @@ public class DataCoreHelper
 			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
 			memoryStreamBase.Position = 0;
-			TableBase base2 = (TableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
+			SqlTableBase base2 = (SqlTableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
@@ -387,7 +400,7 @@ public class DataCoreHelper
 			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
 			memoryStreamBase.Position = 0;
-			TableBase base2 = (TableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
+			SqlTableBase base2 = (SqlTableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
@@ -400,13 +413,13 @@ public class DataCoreHelper
 		});
 	}
 
-	public void TableBaseModelAssertToString<T>() where T : TableBase, new()
+	public void TableBaseModelAssertToString<T>() where T : SqlTableBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			TableBase baseItem = new();
+			SqlTableBase baseItem = new();
 			// Act.
 			string itemString = item.ToString();
 			string baseString = baseItem.ToString();

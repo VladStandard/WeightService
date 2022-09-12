@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Organization".
 /// </summary>
 [Serializable]
-public class OrganizationModel : TableBase, ICloneable, ISqlDbBase, ISerializable
+public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorCore.Models;
 
-public class RazorPageItemBase<T> : RazorPageBase where T : TableBase, new()
+public class RazorPageItemBase<T> : RazorPageBase where T : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 

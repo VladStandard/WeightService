@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ORDERS_WEIGHINGS".
 /// </summary>
-public class OrderWeighingValidator : TableValidator
+public class OrderWeighingValidator : SqlTableValidator
 {
 	/// <summary>
 	/// Constructor.

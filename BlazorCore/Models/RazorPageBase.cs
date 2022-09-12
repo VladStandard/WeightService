@@ -31,7 +31,7 @@ public partial class RazorPageBase : LayoutComponentBase
 		};
 	}
 
-	protected string GetItemTitle(TableBase? item)
+	protected string GetItemTitle(SqlTableBase? item)
 	{
 		string result = string.Empty;
 		result = item switch
@@ -65,7 +65,7 @@ public partial class RazorPageBase : LayoutComponentBase
 		return result;
 	}
 
-	protected string GetSectionTitle(TableBase? item)
+	protected string GetSectionTitle(SqlTableBase? item)
 	{
 		string result = string.Empty;
 		result = item switch
@@ -116,7 +116,7 @@ public partial class RazorPageBase : LayoutComponentBase
 		OnChangeAsync();
 	}
 
-	private void ItemSave<T>(T? item) where T : TableBase, new()
+	private void ItemSave<T>(T? item) where T : SqlTableBase, new()
 	{
 		switch (item)
 		{

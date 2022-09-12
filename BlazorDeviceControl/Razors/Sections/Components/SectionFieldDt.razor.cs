@@ -3,11 +3,13 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Components;
 
-public partial class SectionFieldCreateDt<T> : RazorPageSectionBase<T> where T : TableBase, new()
+public partial class SectionFieldDt<T> : RazorPageSectionBase<T> where T : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
-	public SectionFieldCreateDt()
+	private DateTime FieldDt { get; set; }
+
+	public SectionFieldDt()
 	{
 		CssStyleRadzenColumn.Width = "12%";
 	}

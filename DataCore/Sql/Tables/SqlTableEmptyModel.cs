@@ -6,14 +6,14 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// DB empty table model.
 /// </summary>
-public class TableEmptyModel : TableBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlTableEmptyModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableEmptyModel()
+    public SqlTableEmptyModel()
     {
         //
     }
@@ -29,7 +29,7 @@ public class TableEmptyModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((TableEmptyModel)obj);
+        return Equals((SqlTableEmptyModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -40,7 +40,7 @@ public class TableEmptyModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override object Clone()
     {
-        TableEmptyModel item = new();
+        SqlTableEmptyModel item = new();
         item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -49,13 +49,13 @@ public class TableEmptyModel : TableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(TableEmptyModel item)
+	public virtual bool Equals(SqlTableEmptyModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return base.Equals(item);
 	}
 
-	public new virtual TableEmptyModel CloneCast() => (TableEmptyModel)Clone();
+	public new virtual SqlTableEmptyModel CloneCast() => (SqlTableEmptyModel)Clone();
 
     #endregion
 }

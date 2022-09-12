@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Protocols;
+using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
 
@@ -212,7 +213,7 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-	public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.TableBase? itemFilter)
+	public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
@@ -224,7 +225,7 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
 	}
 
-	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.TableBase? itemFilter)
+	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
@@ -244,7 +245,7 @@ public static class DataAccessHelperExt
 	}
 
 	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked, 
-		bool isShowOnlyTop, Tables.TableBase? itemFilter)
+		bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
 	{
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLU".
 /// </summary>
 [Serializable]
-public class PluObsoleteModel : TableBase, ICloneable, ISqlDbBase, ISerializable
+public class PluObsoleteModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

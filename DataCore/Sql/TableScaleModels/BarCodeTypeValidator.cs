@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "BARCODE_TYPES_V2".
 /// </summary>
-public class BarCodeTypeValidator : TableValidator
+public class BarCodeTypeValidator : SqlTableValidator
 {
 	/// <summary>
 	/// Constructor.

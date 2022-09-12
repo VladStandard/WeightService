@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class PrinterResourceValidator : TableValidator
+public class PrinterResourceValidator : SqlTableValidator
 {
 	/// <summary>
 	/// Constructor.

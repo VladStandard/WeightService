@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "Hosts".
 /// </summary>
 [Serializable]
-public class HostModel : TableBase, ICloneable, ISqlDbBase, ISerializable
+public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

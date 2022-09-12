@@ -32,14 +32,14 @@ public partial class RazorPageBase
 	[Parameter] public Guid? IdentityUid { get; set; }
 	[Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 	[Parameter] public long? IdentityId { get; set; }
-	[Parameter] public List<DataCore.Sql.Tables.TableBase>? Items { get; set; }
+	[Parameter] public List<DataCore.Sql.Tables.SqlTableBase>? Items { get; set; }
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
 	[Parameter] public UserSettingsModel UserSettings { get; set; }
 	[Parameter] public string Title { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
-	public DataCore.Sql.Tables.TableBase? Item { get; set; }
-	protected object? ItemObject { get => Item; set => Item = (DataCore.Sql.Tables.TableBase?)value; }
+	public DataCore.Sql.Tables.SqlTableBase? Item { get; set; }
+	protected object? ItemObject { get => Item; set => Item = (DataCore.Sql.Tables.SqlTableBase?)value; }
 	private bool IsActionsInitializedFinished { get; set; }
 	protected bool IsActionsParametersSetFinished { get; set; }
 

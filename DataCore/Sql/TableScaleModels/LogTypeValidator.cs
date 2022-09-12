@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LogTypeValidator : TableValidator
+public class LogTypeValidator : SqlTableValidator
 {
 	/// <summary>
 	/// Constructor.

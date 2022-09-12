@@ -6,18 +6,18 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// Table map "EMPTY".
 /// </summary>
-public class TableEmptyMap : ClassMap<TableEmptyModel>
+public class SqlTableIdMap : ClassMap<SqlTableEmptyModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public TableEmptyMap()
+    public SqlTableIdMap()
     {
-        //Schema("db_scales");
-        //Table("EMPTY");
+        //Schema("");
+        //Table("");
         LazyLoad();
-        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+		Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
     }

@@ -8,12 +8,12 @@ namespace DataCore.Sql.Tables;
 /// <summary>
 /// Table validation.
 /// </summary>
-public class TableValidator : AbstractValidator<TableBase>
+public class SqlTableValidator : AbstractValidator<SqlTableBase>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    protected TableValidator(bool isCheckCreateDt = true, bool isCheckChangeDt = true)
+    protected SqlTableValidator(bool isCheckCreateDt = true, bool isCheckChangeDt = true)
     {
 	    RuleFor(item => item.Identity).SetValidator(new SqlFieldIdentityValidator());
         if (isCheckCreateDt)
@@ -28,7 +28,7 @@ public class TableValidator : AbstractValidator<TableBase>
                 .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
     }
 
-    protected bool PreValidateSubEntity<T>(T? item, ValidationResult result) where T : TableBase, new()
+    protected bool PreValidateSubEntity<T>(T? item, ValidationResult result) where T : SqlTableBase, new()
     {
         if (item != null)
         {

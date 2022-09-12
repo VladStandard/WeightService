@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public class AccessValidator : TableValidator
+public class AccessValidator : SqlTableValidator
 {
     /// <summary>
     /// Constructor.

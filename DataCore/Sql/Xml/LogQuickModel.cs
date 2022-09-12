@@ -4,7 +4,7 @@
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class LogQuickModel : Tables.TableBase, ICloneable, ISqlDbBase, ISerializable
+public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 

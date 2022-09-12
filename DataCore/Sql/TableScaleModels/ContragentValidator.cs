@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentValidator : TableValidator
+public class ContragentValidator : SqlTableValidator
 {
 	/// <summary>
 	/// Constructor.
