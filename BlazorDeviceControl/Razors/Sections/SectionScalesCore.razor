@@ -18,7 +18,7 @@ else
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
 	        <SectionFieldIsMarked T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-	        <SectionFieldIdentity T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+	        <SectionFieldIdentity T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true)) />
 
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Number Width="10%" >
 	            <Template Context="itemCast" >
@@ -28,7 +28,9 @@ else
 		                Text=@itemCast.Number.ToString() />
 	            </Template>
             </RadzenGridColumn>
+            
             <SectionFieldDescription T=ScaleModel ParentRazor=@(this) />
+            
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.Host Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "

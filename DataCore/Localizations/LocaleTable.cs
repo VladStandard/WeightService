@@ -43,9 +43,6 @@ public class LocaleTable
     public string Count => Lang == LangEnum.English ? "Count" : "Количество";
     public string Counter => Lang == LangEnum.English ? "Counter" : "Счётчик";
     public string CreateDt => Lang == LangEnum.English ? "Creation date" : "Дата создания";
-    public string Identity => Lang == LangEnum.English ? "Identity" : "Идентификатор";
-    public string IdentityId => Lang == LangEnum.English ? "ID" : "ИД";
-    public string IdentityUid => Lang == LangEnum.English ? "UID" : "УИД";
     public string Date => Lang == LangEnum.English ? "Date" : "Дата";
     public string DayOfWeek => Lang == LangEnum.English ? "Weekday" : "День недели";
     public string Deactive => Lang == LangEnum.English ? "Deactivate" : "Деактивировано";
@@ -98,6 +95,9 @@ public class LocaleTable
     public string Icon => Lang == LangEnum.English ? "Icon" : "Иконка";
     public string Id => Lang == LangEnum.English ? "ID" : "ИД";
     public string IdDwh => Lang == LangEnum.English ? "ID DWH" : "ИД ДВХ";
+    public string Identity => Lang == LangEnum.English ? "Identity" : "Идентификатор";
+    public string IdentityId => Lang == LangEnum.English ? "ID" : "ИД";
+    public string IdentityUid => Lang == LangEnum.English ? "UID" : "УИД";
     public string IdRRef => Lang == LangEnum.English ? "ID 1C" : "ИД 1С";
     public string ImageData => Lang == LangEnum.English ? "Image data" : "Данные";
     public string ImageDataInfo => Lang == LangEnum.English ? "Info" : "Информация";
@@ -148,6 +148,7 @@ public class LocaleTable
     public string ProductionFacility => Lang == LangEnum.English ? "Production facility" : "Производственная площадка";
     public string ProductionFacilityName => Lang == LangEnum.English ? "Production facility" : "Производственная площадка";
     public string RegNum => Lang == LangEnum.English ? "#" : "№";
+    public string ReleaseDt => Lang == LangEnum.English ? "Release date" : "Дата релиза";
     public string Resource => Lang == LangEnum.English ? "Resource" : "Ресурс";
     public string Row => Lang == LangEnum.English ? "Row" : "Строка";
     public string Scale => Lang == LangEnum.English ? "Device" : "Устройство";

@@ -19,7 +19,8 @@ else
         <Columns >
 	        <SectionFieldIsMarked T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
 	        <SectionFieldIdentity T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
-            <SectionFieldChangeDt T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) />
+            <SectionFieldDt T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
 	        
             <RadzenGridColumn 
                 TItem="ContragentModel" Title=@LocaleCore.Table.Name Width="25%" >

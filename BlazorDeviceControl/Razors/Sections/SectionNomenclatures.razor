@@ -19,7 +19,8 @@ else
         <Columns >
             <SectionFieldIsMarked T=NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
 	        <SectionFieldIdentity T=NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
-            <SectionFieldChangeDt T=NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) />
+            <SectionFieldDt T=NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
 
             @*
             <RadzenGridColumn 

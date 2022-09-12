@@ -2,7 +2,7 @@
 @inherits BlazorCore.Models.RazorPageSectionBase<T>
 @page "/section/field_dt"
 
-<RadzenGridColumn TItem=T Type="date" TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@LocaleCore.Table.CreateDt >
+<RadzenGridColumn TItem=T Type="date" TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) >
 	<Template Context="itemCast">
 		@if (CssStyleRadzenColumn.IsShowLink)
 		{

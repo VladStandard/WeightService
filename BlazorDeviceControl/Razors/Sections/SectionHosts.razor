@@ -19,9 +19,10 @@ else
         <Columns>
             <SectionFieldIsMarked T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
 	        <SectionFieldIdentity T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
-            <SectionFieldChangeDt T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) />
-	        
-	        <RadzenGridColumn 
+            <SectionFieldDt T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
+
+            <RadzenGridColumn 
                 TItem="HostModel" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

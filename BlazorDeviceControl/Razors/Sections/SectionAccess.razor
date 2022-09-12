@@ -21,7 +21,8 @@ else
 	    <Columns >
 			<SectionFieldIsMarked T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
 			<SectionFieldIdentity T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
-			<SectionFieldChangeDt T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) />
+			<SectionFieldDt T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) 
+				FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
 
 		    <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Left Title=@LocaleCore.Table.User Type="string" Width="30%">
 			    <Template Context="itemCast">
