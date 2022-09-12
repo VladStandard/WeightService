@@ -168,11 +168,11 @@ public class DataCoreHelper
 			case AppModel app:
 				app.Name = "Test";
 				break;
-			case BarCodeTypeModel barCodeTypeV2:
-				barCodeTypeV2.Name = "Test";
-				break;
 			case BarCodeModel barCodeV2:
 				barCodeV2.Value = "Test";
+				break;
+			case BarCodeTypeModel barCodeTypeV2:
+				barCodeTypeV2.Name = "Test";
 				break;
 			case ContragentModel contragentV2:
 				contragentV2.Name = "Test";
@@ -269,11 +269,6 @@ public class DataCoreHelper
 			case ScaleModel scale:
 				scale.Description = "Test";
 				break;
-			case VersionModel version:
-				version.Version = 1;
-				version.Description = "Test";
-				version.ReleaseDt = DateTime.Now;
-				break;
 			case TaskModel task:
 				task.TaskType = CreateNewSubstitute<TaskTypeModel>(isNotDefault);
 				task.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
@@ -287,6 +282,11 @@ public class DataCoreHelper
 			case TemplateResourceModel templateResource:
 				templateResource.Name = "Test";
 				templateResource.Description = "Test";
+				break;
+			case VersionModel version:
+				version.Version = 1;
+				version.Description = "Test";
+				version.ReleaseDt = DateTime.Now;
 				break;
 			case WorkShopModel workShop:
 				workShop.Name = "Test";

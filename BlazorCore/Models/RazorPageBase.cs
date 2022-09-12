@@ -103,22 +103,22 @@ public partial class RazorPageBase : LayoutComponentBase
 
 	#region Public and private methods - Actions
 
-	protected async Task ItemCancel()
+	protected async Task ItemCancelAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsSafe(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
 			() =>
 			{
-				SetRouteSectionNavigate(false);
+				SetRouteSectionNavigate();
 			});
 
 		OnChangeAsync();
 	}
 
-	private void ItemScaleSave()
+	private void ItemSave<T>(T? item) where T : TableBase, new()
 	{
-		switch (Item)
+		switch (item)
 		{
 			case AccessModel:
 				ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
@@ -188,7 +188,7 @@ public partial class RazorPageBase : LayoutComponentBase
 		}
 	}
 
-	protected async Task ItemSave()
+	protected async Task ItemSaveAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -196,8 +196,8 @@ public partial class RazorPageBase : LayoutComponentBase
 			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
 			() =>
 			{
-				ItemScaleSave();
-				SetRouteSectionNavigate(false);
+				ItemSave(Item);
+				SetRouteSectionNavigate();
 			});
 
 		OnChangeAsync();
@@ -234,13 +234,13 @@ public partial class RazorPageBase : LayoutComponentBase
 		RunActionsSafe(LocaleCore.Table.TableCopy, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
 			() =>
 			{
-				SetRouteItemNavigate(false, Item, SqlTableActionEnum.Copy);
+				SetRouteItemNavigate(Item, SqlTableActionEnum.Copy);
 			});
 
 		OnChangeAsync();
 	}
 
-	protected async Task ActionEditAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
+	protected async Task ActionEditAsync(UserSettingsModel? userSettings)
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -250,7 +250,7 @@ public partial class RazorPageBase : LayoutComponentBase
 		RunActionsSafe(LocaleCore.Table.TableEdit, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
 			() =>
 			{
-				SetRouteItemNavigate(isNewWindow, isParentRazor ? ParentRazor?.Item : Item, SqlTableActionEnum.Edit);
+				SetRouteItemNavigate(Item, SqlTableActionEnum.Edit);
 				InvokeAsync(StateHasChanged);
 			});
 

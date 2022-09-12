@@ -14,7 +14,7 @@ else
 
     <RadzenGrid Style="margin-top: 5px; " 
         Data=@ItemsCast TItem="AccessModel" @bind-Value=@ItemObject
-        RowDoubleClick=@(_ => ActionEditAsync(UserSettings, false, false))
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         RowRender=@RowRender
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >

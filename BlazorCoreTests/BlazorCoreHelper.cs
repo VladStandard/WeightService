@@ -51,17 +51,27 @@ public class BlazorCoreHelper
 		DataCoreHelper.Instance.AssertValidate<T>(item, validator, assertResult);
 	}
 
-	public void Model_GetRoutePath_IsNotEmpty<T>() where T : TableBase, new()
+	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : TableBase, new()
 	{
 		// Arrange.
 		RazorPageBase razorPage = new();
-		//AccessModel item = Substitute.For<AccessModel>();
 		T item = Helper.CreateNewSubstitute<T>(true);
 		// Act.
-		string url = razorPage.GetRoutePath(item);
-		TestContext.WriteLine(url);
+		string urlItem = razorPage.GetRouteItemPath(item);
+		TestContext.WriteLine(urlItem);
 		// Assert.
-		Assert.IsNotEmpty(url);
+		Assert.IsNotEmpty(urlItem);
+	}
+
+	public void Model_GetRoutePathSection_IsNotEmpty<T>() where T : TableBase, new()
+	{
+		// Arrange.
+		RazorPageBase razorPage = new();
+		// Act.
+		string urlSection = razorPage.GetRouteSectionPath<T>();
+		TestContext.WriteLine(urlSection);
+		// Assert.
+		Assert.IsNotEmpty(urlSection);
 	}
 
 	#endregion

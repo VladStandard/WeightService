@@ -14,7 +14,7 @@
         }
         @if (ButtonSettings.IsShowEdit && UserSettings.AccessRightsIsWrite == true)
         {
-            <RadzenButton Click=@(_ => ActionEditAsync(UserSettings, false, true))
+            <RadzenButton Click=@(_ => ActionEditAsync(UserSettings))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
                 Text=@LocaleCore.DeviceControl.TableActionEdit Disabled=@(!AppSettings.DataAccess.IsConnected()) />

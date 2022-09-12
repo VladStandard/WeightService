@@ -6,7 +6,7 @@
 	<Template Context="itemCast">
 		@if (CssStyleRadzenColumn.IsShowLink)
 		{
-			<RadzenLink Style="width: 100%; margin-left: 0;" Path=@(GetRoutePath(itemCast)) Text=@itemCast.Description/>
+			<RadzenLink Style="width: 100%; margin-left: 0;" Path=@(GetRouteItemPath(itemCast)) Text=@itemCast.Description/>
 		}
 		else
 		{
