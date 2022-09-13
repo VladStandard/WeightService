@@ -9,19 +9,19 @@ using System.Collections.Generic;
 
 namespace BlazorCore.Models;
 
-public class RazorPageSectionBase<T> : RazorPageBase where T : SqlTableBase, new()
+public class RazorPageSectionBase<TItem> : RazorPageBase where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
 
-	protected List<T> ItemsCast
+	protected List<TItem> ItemsCast
 	{
-		get => Items is null ? new() : Items.Select(x => (T)x).ToList();
+		get => Items is null ? new() : Items.Select(x => (TItem)x).ToList();
 		set => Items = !value.Any() ? null : new(value);
 	}
 
-	protected T ItemFilterCast { get => Item is null ? new() : (T)Item; set => Item = value; }
+	protected TItem ItemFilterCast { get => Item is null ? new() : (TItem)Item; set => Item = value; }
 	protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {ItemsCast.Count:### ### ###}";
 
 	public RazorPageSectionBase()

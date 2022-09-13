@@ -93,6 +93,7 @@ internal class RazorFieldConfigUtilsTests
 			RazorPageBase razorPage = Helper.CreateNewSubstituteRazorPageBase();
 			HostModel host = Helper.Helper.CreateNewSubstitute<HostModel>(true);
 			PrinterModel printer = Helper.Helper.CreateNewSubstitute<PrinterModel>(true);
+			WorkShopModel workShop = Helper.Helper.CreateNewSubstitute<WorkShopModel>(true);
 			// Arrange & Act & Assert.
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
 			TestContext.WriteLine(razorFieldConfig);
@@ -107,6 +108,12 @@ internal class RazorFieldConfigUtilsTests
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
 			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterMain(razorPage.GetRouteItemPath(printer));
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterShipping(razorPage.GetRouteItemPath(printer));
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetWorkShop(razorPage.GetRouteItemPath(workShop));
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}

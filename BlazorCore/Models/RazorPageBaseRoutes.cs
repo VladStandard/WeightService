@@ -6,6 +6,7 @@ using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
 using Microsoft.JSInterop;
+using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorCore.Models;
 
@@ -13,9 +14,9 @@ public partial class RazorPageBase
 {
     #region Public and private methods - Routes
 
-    protected string GetColumnIdentityName<T>() where T : SqlTableBase, new()
+    protected string GetColumnIdentityName<TItem>() where TItem : SqlTableBase, new()
     {
-	    T item = new();
+		TItem item = new();
 	    string page = GetRouteItemPathShort(item);
 	    if (!string.IsNullOrEmpty(page))
 		    return item.Identity.Name switch
@@ -27,11 +28,33 @@ public partial class RazorPageBase
 	    return string.Empty;
     }
 
-    public string GetRouteItemPath<T>(T? item) where T : SqlTableBase, new()
+    public string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : SqlTableBase, new()
+	{
+        if (string.IsNullOrEmpty(RazorFieldConfig.FieldLinkUrl))
+        {
+            return GetRouteItemPath<TItem>(item);
+		}
+        return item switch
+        {
+            ScaleModel scale => RazorFieldConfig.FieldSqlTable switch
+            {
+                SqlTableEmptyModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, item),
+                HostModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, scale.Host),
+                PrinterModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, scale.PrinterMain),
+                WorkShopModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, scale.WorkShop),
+                _ => string.Empty,
+            },
+            _ => string.Empty,
+        };
+    }
+
+    public string GetRouteItemPath<TItem>(TItem? item) where TItem : SqlTableBase, new() =>
+        GetRouteItemPathCombine(GetRouteItemPathShort<SqlTableBase>(item), item);
+
+    public string GetRouteItemPathCombine<TItem>(string page, TItem? item) where TItem : SqlTableBase, new()
 	{
 		if (item is not null)
 		{
-            string page = GetRouteItemPathShort<SqlTableBase>(item);
             if (!string.IsNullOrEmpty(page))
                 return item.Identity.Name switch
                 {
@@ -44,9 +67,9 @@ public partial class RazorPageBase
         return string.Empty;
     }
 
-    public string GetRouteItemPathShort<T>() where T : SqlTableBase, new() => GetRouteItemPathShort(new T());
+    public string GetRouteItemPathShort<TItem>() where TItem : SqlTableBase, new() => GetRouteItemPathShort(new TItem());
 
-    private string GetRouteItemPathShort<T>(T? item) where T : SqlTableBase, new() => item switch
+    private string GetRouteItemPathShort<TItem>(TItem? item) where TItem : SqlTableBase, new() => item switch
 	{
 		AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
 		AppModel => LocaleCore.DeviceControl.RouteItemApps,
@@ -81,7 +104,7 @@ public partial class RazorPageBase
 		_ => string.Empty
 	};
 
-    public string GetRouteSectionPath<T>(T? item) where T : SqlTableBase, new()
+    public string GetRouteSectionPath<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
         return item switch
         {
@@ -119,7 +142,7 @@ public partial class RazorPageBase
         };
     }
 
-    public string GetRouteSectionPath<T>() where T : SqlTableBase, new() => GetRouteSectionPath(new T());
+    public string GetRouteSectionPath<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
 
     protected string GetRouteItemPath(string uriItem, SqlTableBase? item, long? id) =>
         item is null || id is null ? string.Empty : $"{uriItem}/{id}";
@@ -127,9 +150,9 @@ public partial class RazorPageBase
     protected string GetRouteItemPath(string uriItem, SqlTableBase? item, Guid? uid) =>
         item is null || uid is null ? string.Empty : $"{uriItem}/{uid}";
 
-    private void SetRouteItemNavigate<T>(T? item, SqlTableActionEnum tableAction) where T : DataCore.Sql.Tables.SqlTableBase, new()
+    private void SetRouteItemNavigate<TItem>(TItem? item, SqlTableActionEnum tableAction) where TItem : SqlTableBase, new()
     {
-        string page = GetRouteItemPathShort<SqlTableBase>(Item);
+        string page = GetRouteItemPathShort(Item);
         if (string.IsNullOrEmpty(page))
             return;
 

@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />
+    <SectionReload TItem=ScaleModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionScales />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ScaleModel" 
@@ -17,39 +17,42 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-			<SectionFieldIsMarked T=ScaleModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=ScaleModel ParentRazor=@(this) />
-            <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+			<SectionFieldIsMarked TItem=ScaleModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=ScaleModel ParentRazor=@(this) />
+            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
-            <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDescription() />
-            <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetHost(GetRouteItemPathShort<HostModel>()) />
-            <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
+            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceIp() />
-            <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
-            <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Print.NameMain Width="20%">
-                <Template Context="itemCast" >
+            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
+            @*
+            <RadzenGridColumn TItem="ScaleModel" PageTitle=@LocaleCore.Print.NameMain Width="20%">
+                <Template Context="item" >
                     <RadzenLink Style="width: 100%; "
-                        Path=@(itemCast.PrinterMain is null ? "" : $"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.PrinterMain.Identity.Id}")
-                        Text=@(itemCast.PrinterMain is null ? LocaleCore.Table.FieldNull : itemCast.PrinterMain.Name) />
+                        Path=@(item.PrinterMain is null ? "" : $"{LocaleCore.DeviceControl.RouteItemPrinter}/{item.PrinterMain.Identity.Id}")
+                        Text=@(item.PrinterMain is null ? LocaleCore.Table.FieldNull : item.PrinterMain.Name) />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=TextAlign.Left >
-	            <Template Context="itemCast">
+            <RadzenGridColumn TItem="ScaleModel" PageTitle=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=TextAlign.Left >
+	            <Template Context="item">
 		            <RadzenLink Style="width: 100%; "
-		                Path=@(itemCast.WorkShop is null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{itemCast.WorkShop.Identity.Id}")
-                        Text=@(itemCast.WorkShop is null ? LocaleCore.Table.FieldNull : itemCast.WorkShop.Name) />
+		                Path=@(item.WorkShop is null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{item.WorkShop.Identity.Id}")
+                        Text=@(item.WorkShop is null ? LocaleCore.Table.FieldNull : item.WorkShop.Name) />
 	            </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="ScaleModel" TextAlign=TextAlign.Center Title=@LocaleCore.Table.IsKneading Width="5%">
-                <Template Context="itemCast" >
-                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.IsKneading />
+            <RadzenGridColumn TItem="ScaleModel" TextAlign=TextAlign.Center PageTitle=@LocaleCore.Table.IsKneading Width="5%">
+                <Template Context="item" >
+                    <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@item.IsKneading />
                 </Template>
-            </RadzenGridColumn>
+            </RadzenGridColumn>*@
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=ScaleModel ParentRazor=@(this) />
+    <SectionButtons TItem=ScaleModel ParentRazor=@(this) />
 }

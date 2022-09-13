@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
+    <SectionReload TItem=PrinterTypeModel ParentRazor=@(this) PageTitle=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterTypeModel" 
@@ -17,10 +17,10 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=PrinterTypeModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=PrinterTypeModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
 
-            <RadzenGridColumn TItem="PrinterTypeModel" Title=@LocaleCore.Print.Name 
+            <RadzenGridColumn TItem="PrinterTypeModel" PageTitle=@LocaleCore.Print.Name 
                 Type="string" Width="100%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
@@ -31,5 +31,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=PrinterTypeModel ParentRazor=@(this) />
+    <SectionButtons TItem=PrinterTypeModel ParentRazor=@(this) />
 }

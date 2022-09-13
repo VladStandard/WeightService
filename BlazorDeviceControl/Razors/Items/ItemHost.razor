@@ -12,7 +12,7 @@
 }
 else
 {
-    <ItemReload T=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
+    <ItemReload T=HostModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemHost />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead T=HostModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />

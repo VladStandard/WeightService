@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
+    <SectionReload TItem=PrinterResourceModel ParentRazor=@(this) PageTitle=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterResourceModel" 
@@ -17,18 +17,18 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=PrinterResourceModel ParentRazor=@(this) />
-	        <SectionFieldIdentity T=PrinterResourceModel ParentRazor=@(this) />
-            <SectionField T=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+            <SectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
+	        <SectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
+            <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
-            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Printer Width="30%">
+            <RadzenGridColumn TItem="PrinterResourceModel" PageTitle=@LocaleCore.Table.Printer Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Printer.Identity.Id}")
                         Text=@itemCast.Printer.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Resource Width="30%">
+            <RadzenGridColumn TItem="PrinterResourceModel" PageTitle=@LocaleCore.Table.Resource Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Resource.Name />
                 </Template>
@@ -36,5 +36,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=PrinterResourceModel ParentRazor=@(this) />
+    <SectionButtons TItem=PrinterResourceModel ParentRazor=@(this) />
 }

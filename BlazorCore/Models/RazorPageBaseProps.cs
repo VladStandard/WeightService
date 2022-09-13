@@ -36,6 +36,7 @@ public partial class RazorPageBase
 	[Parameter] public List<DataCore.Sql.Tables.SqlTableBase>? Items { get; set; }
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
 	[Parameter] public UserSettingsModel UserSettings { get; set; }
+	[Parameter] public string PageTitle { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 	public DataCore.Sql.Tables.SqlTableBase? Item { get; set; }
@@ -61,6 +62,7 @@ public partial class RazorPageBase
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;
 		IsActionsParametersSetFinished = false;
+		PageTitle = string.Empty;
 	}
 
 	public void SetPropertiesFromParent()

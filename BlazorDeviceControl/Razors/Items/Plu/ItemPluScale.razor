@@ -13,7 +13,7 @@
 }
 else
 {
-	<ItemReload T=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
+	<ItemReload T=PluScaleModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemPluScale />
 	
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead T=PluScaleModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />

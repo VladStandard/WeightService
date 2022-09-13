@@ -122,33 +122,60 @@ public class DataCoreHelper
 		AssertValidate(item, validator, assertResult);
 	}
 
-	public string AssertSqlFields<T>(bool isNotDefault, string fieldName) where T : SqlTableBase, new()
+	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
 	{
 		// Arrange
 		T item = CreateNewSubstitute<T>(isNotDefault);
 		// Act.
-		string result = item.GetFieldAsString(fieldName);
-		TestContext.WriteLine($"{typeof(T)}. {fieldName}: {result}");
+		string result = item.GetPropertyAsString(propertyName);
+		TestContext.WriteLine($"{typeof(T)}. {propertyName}: {result}");
 		return result;
 	}
 
-	public void AssertSqlFieldDtCheck<T>(string fieldName) where T : SqlTableBase, new()
+	public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
 	{
-		// Arrange & Act.
-		string value = AssertSqlFields<T>(true, fieldName);
-		// Assert.
-		Assert.IsNotEmpty(value);
-		Assert.IsNotNull(value);
-		Assert.AreNotEqual(DateTime.MinValue, value);
+		// Arrange
+		T item = CreateNewSubstitute<T>(isNotDefault);
+		// Act.
+		object? value = item.GetPropertyValue(propertyName);
+		TestContext.WriteLine($"{typeof(T)}. {propertyName}: {value}");
+		return value;
 	}
 
-	public void AssertSqlFieldStringCheck<T>(string fieldName) where T : SqlTableBase, new()
+	public void AssertSqlPropertyCheckDt<T>(string propertyName) where T : SqlTableBase, new()
 	{
 		// Arrange & Act.
-		string value = AssertSqlFields<T>(true, fieldName);
-		// Assert.
-		Assert.IsNotEmpty(value);
-		Assert.IsNotNull(value);
+		object? value = GetSqlPropertyValue<T>(true, propertyName);
+		if (value is DateTime dtValue)
+		{
+			// Assert.
+			Assert.IsNotNull(dtValue);
+			Assert.AreNotEqual(DateTime.MinValue, dtValue);
+		}
+	}
+
+	public void AssertSqlPropertyCheckBool<T>(string propertyName) where T : SqlTableBase, new()
+	{
+		// Arrange & Act.
+		object? value = GetSqlPropertyValue<T>(true, propertyName);
+		if (value is bool isValue)
+		{
+			// Assert.
+			Assert.IsNotNull(isValue);
+			Assert.IsFalse(isValue);
+		}
+	}
+
+	public void AssertSqlPropertyCheckString<T>(string propertyName) where T : SqlTableBase, new()
+	{
+		// Arrange & Act.
+		object? value = GetSqlPropertyValue<T>(true, propertyName);
+		if (value is string strValue)
+		{
+			// Assert.
+			Assert.IsNotEmpty(strValue);
+			Assert.IsNotNull(strValue);
+		}
 	}
 
 	public void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()

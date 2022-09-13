@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
+    <SectionReload TItem=PluWeighingModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionPlusWeighings />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluWeighingModel" 
@@ -17,11 +17,11 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=PluWeighingModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=PluWeighingModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItem=PluWeighingModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=PluWeighingModel ParentRazor=@(this) />
 
             @*<RadzenGridColumn TItem="PluWeighingModel" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.WeithingDate
+                PageTitle=@LocaleCore.Table.WeithingDate
                 Type="date" Width="17.5%">
 	            <Template Context="itemCast">
 		            <RadzenLink Style="width: 100%; margin-left: 0;"
@@ -30,7 +30,7 @@ else
 	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluWeighingModel" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.DayOfWeek
+                PageTitle=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="12.5%">
                 <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0; "
@@ -38,25 +38,25 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluWeighingModel" Property="Scale.Description" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Scale
+                PageTitle=@LocaleCore.Table.Scale
                 Type="string" Width="20.0%" />
             <RadzenGridColumn TItem="PluWeighingModel" Property="Scale.Host.HostName" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Host
+                PageTitle=@LocaleCore.Table.Host
                 Type="string" Width="20.0%" />
             <RadzenGridColumn TItem="PluWeighingModel" Property="Plu.GoodsName" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.GoodsName
+                PageTitle=@LocaleCore.Table.GoodsName
                 Type="string" Width="33.0%" />
             <RadzenGridColumn TItem="PluWeighingModel" Property="TareWeight" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.TareWeight
+                PageTitle=@LocaleCore.Table.TareWeight
                 Type="decimal" Width="13.0%" />
             <RadzenGridColumn TItem="PluWeighingModel" Property="NetWeight" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.NetWeight
+                PageTitle=@LocaleCore.Table.NetWeight
                 Type="decimal" Width="13.0%" />
             <RadzenGridColumn TItem="PluWeighingModel" Property="RegNum" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.RegNum
+                PageTitle=@LocaleCore.Table.RegNum
                 Type="int" Width="16.0%" />*@
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=PluWeighingModel ParentRazor=@(this) />
+    <SectionButtons TItem=PluWeighingModel ParentRazor=@(this) />
 }

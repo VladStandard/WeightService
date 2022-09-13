@@ -1,16 +1,17 @@
-﻿@typeparam T
-@inherits BlazorCore.Models.RazorPageSectionBase<T>
+﻿@typeparam TItem
+@inherits BlazorCore.Models.RazorPageSectionBase<TItem>
 @page "/section/field_identity"
 
-<RadzenGridColumn TItem=T TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<T>()) >
-	<Template Context="itemCast">
+<RadzenGridColumn TItem=TItem TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItem>())>
+	<Template Context="item">
 		@if (CssStyleRadzenColumn.IsShowLink)
 		{
-			<RadzenLink Style="width: 100%; margin-left: 0;" Path=@(GetRouteItemPath(itemCast)) Text=@itemCast.Identity.GetValueAsString() />
+			<RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString()
+				Path=@(GetRouteItemPath(item)) />
 		}
 		else
 		{
-			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@itemCast.Identity.GetValueAsString() />
+			<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.Identity.GetValueAsString() />
 		}
 	</Template>
 </RadzenGridColumn>

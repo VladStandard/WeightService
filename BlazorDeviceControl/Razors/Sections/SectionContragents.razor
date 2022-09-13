@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
+    <SectionReload TItem=ContragentModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionContragents />
     
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ContragentModel" 
@@ -17,12 +17,12 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-	        <SectionFieldIsMarked T=ContragentModel ParentRazor=@(this) />
-	        <SectionFieldIdentity T=ContragentModel ParentRazor=@(this) />
-            <SectionField T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+	        <SectionFieldIsMarked TItem=ContragentModel ParentRazor=@(this) />
+	        <SectionFieldIdentity TItem=ContragentModel ParentRazor=@(this) />
+            <SectionField TItem=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
             <RadzenGridColumn 
-                TItem="ContragentModel" Title=@LocaleCore.Table.Name Width="25%" >
+                TItem="ContragentModel" PageTitle=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.Identity.Uid}")
@@ -31,10 +31,10 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ContragentModel" Property="FullName" TextAlign=TextAlign.Left
-                Title=@LocaleCore.Table.Name
+                PageTitle=@LocaleCore.Table.Name
                 Type="string" Width="35%" />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=ContragentModel ParentRazor=@(this) />
+    <SectionButtons TItem=ContragentModel ParentRazor=@(this) />
 }

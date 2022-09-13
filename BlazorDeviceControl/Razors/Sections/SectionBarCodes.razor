@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+    <SectionReload TItem=BarCodeModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionBarCodeTypes />
     
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="BarCodeModel" 
@@ -17,14 +17,14 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
-		    <SectionFieldIsMarked T=BarCodeModel ParentRazor=@(this) />
-		    <SectionFieldIdentity T=BarCodeModel ParentRazor=@(this) />
-            <SectionField T=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) 
+		    <SectionFieldIsMarked TItem=BarCodeModel ParentRazor=@(this) />
+		    <SectionFieldIdentity TItem=BarCodeModel ParentRazor=@(this) />
+            <SectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) 
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-            <SectionField T=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+            <SectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValue() />
 	    </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=BarCodeModel ParentRazor=@(this) />
+    <SectionButtons TItem=BarCodeModel ParentRazor=@(this) />
 }

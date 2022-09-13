@@ -9,7 +9,7 @@
 }
 else
 {
-	<SectionReload T=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
+	<SectionReload TItem=PluModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionPlus />
 
     <RadzenGrid 
         Data=@ItemsCast TItem="PluModel" 
@@ -17,18 +17,18 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns>
-			<SectionFieldIsMarked T=PluModel ParentRazor=@(this) />
-			<SectionFieldIdentity T=PluModel ParentRazor=@(this) />
-			<SectionField T=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+			<SectionFieldIsMarked TItem=PluModel ParentRazor=@(this) />
+			<SectionFieldIdentity TItem=PluModel ParentRazor=@(this) />
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
 				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetName() />
-			<SectionField T=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
 				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetShelfLifeDays() />
-			<SectionField T=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
 				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetTareWeight() />
-			<SectionField T=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
 				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetBoxQuantly() />
 	    </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=PluModel ParentRazor=@(this) />
+    <SectionButtons TItem=PluModel ParentRazor=@(this) />
 }

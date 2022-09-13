@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
+    <SectionReload TItem=ProductionFacilityModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemProductionFacility />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ProductionFacilityModel" 
@@ -17,10 +17,10 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            <SectionFieldIsMarked T=ProductionFacilityModel ParentRazor=@(this) />
-	        <SectionFieldIdentity T=ProductionFacilityModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItem=ProductionFacilityModel ParentRazor=@(this) />
+	        <SectionFieldIdentity TItem=ProductionFacilityModel ParentRazor=@(this) />
 
-            <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Name Width="20%" >
+            <RadzenGridColumn TItem="ProductionFacilityModel" PageTitle=@LocaleCore.Table.Name Width="20%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemProductionFacility}/{itemCast.Identity.Id}")
@@ -28,7 +28,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Address Width="75%" >
+                TItem="ProductionFacilityModel" PageTitle=@LocaleCore.Table.Address Width="75%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemProductionFacility}/{itemCast.Identity.Id}")
@@ -38,5 +38,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=ProductionFacilityModel ParentRazor=@(this) />
+    <SectionButtons TItem=ProductionFacilityModel ParentRazor=@(this) />
 }

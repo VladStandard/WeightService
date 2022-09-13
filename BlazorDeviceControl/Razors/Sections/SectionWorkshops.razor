@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops />
+    <SectionReload TItem=WorkShopModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionWorkShops />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="WorkShopModel" 
@@ -17,11 +17,11 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-	        <SectionFieldIsMarked T=WorkShopModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=WorkShopModel ParentRazor=@(this) />
+	        <SectionFieldIsMarked TItem=WorkShopModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=WorkShopModel ParentRazor=@(this) />
 
             <RadzenGridColumn 
-                TItem="WorkShopModel" Title=@LocaleCore.Table.WorkShopName Width="50%" >
+                TItem="WorkShopModel" PageTitle=@LocaleCore.Table.WorkShopName Width="50%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemWorkShop}/{itemCast.Identity.Id}")
@@ -29,7 +29,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="WorkShopModel" Title=@LocaleCore.Table.ProductionFacilityName Width="50%" >
+                TItem="WorkShopModel" PageTitle=@LocaleCore.Table.ProductionFacilityName Width="50%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemProductionFacility}/{itemCast.ProductionFacility.Identity.Id}")
@@ -39,5 +39,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=WorkShopModel ParentRazor=@(this) />
+    <SectionButtons TItem=WorkShopModel ParentRazor=@(this) />
 }

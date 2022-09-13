@@ -197,7 +197,7 @@ public class LocaleTable
     public string Weighted => Lang == LangEnum.English ? "Weighted" : "Весовая";
     public string WeightShort => Lang == LangEnum.English ? "Weight" : "Вес";
     public string WeithingDate => Lang == LangEnum.English ? "Weighing date" : "Дата взвешивания";
-    public string Workshop => Lang == LangEnum.English ? "Workshop" : "Цех";
+    public string WorkShop => Lang == LangEnum.English ? "Workshop" : "Цех";
     public string WorkShopId => Lang == LangEnum.English ? "Workshop ID" : "ИД цеха";
     public string WorkShopName => Lang == LangEnum.English ? "Workshop" : "Цех";
     public string Xml => Lang == LangEnum.English ? "XML" : "Поле XML";

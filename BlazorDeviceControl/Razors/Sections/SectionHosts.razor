@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
+    <SectionReload TItem=HostModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionHosts />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="HostModel" 
@@ -17,12 +17,12 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=HostModel ParentRazor=@(this) />
-	        <SectionFieldIdentity T=HostModel ParentRazor=@(this) />
-            <SectionField T=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            <SectionFieldIsMarked TItem=HostModel ParentRazor=@(this) />
+	        <SectionFieldIdentity TItem=HostModel ParentRazor=@(this) />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
             <RadzenGridColumn 
-                TItem="HostModel" Title=@LocaleCore.Table.NamePretty Width="22.5%" >
+                TItem="HostModel" PageTitle=@LocaleCore.Table.NamePretty Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
@@ -30,7 +30,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostModel" Title=@LocaleCore.Table.Host Width="22.5%" >
+                TItem="HostModel" PageTitle=@LocaleCore.Table.Host Width="22.5%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
@@ -38,12 +38,12 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostModel" Property="Ip" Title=@LocaleCore.Table.DeviceIp Type="string" Width="20.0%" />
+                TItem="HostModel" Property="Ip" PageTitle=@LocaleCore.Table.DeviceIp Type="string" Width="20.0%" />
             <RadzenGridColumn 
-                TItem="HostModel" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocaleCore.Table.DeviceMac
+                TItem="HostModel" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" PageTitle=@LocaleCore.Table.DeviceMac
                 Type="string" Width="20.0%" />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=HostModel ParentRazor=@(this) />
+    <SectionButtons TItem=HostModel ParentRazor=@(this) />
 }

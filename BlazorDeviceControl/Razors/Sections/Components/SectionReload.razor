@@ -1,5 +1,5 @@
-﻿@typeparam T
-@inherits BlazorCore.Models.RazorPageSectionBase<T>
+﻿@typeparam TItem
+@inherits BlazorCore.Models.RazorPageSectionBase<TItem>
 @page "/section/reload"
 @using DataCore.Sql.Core
 @using BlazorDeviceControl.Razors.Components
@@ -22,7 +22,7 @@
 				}
 				else
 				{
-					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@RazorFieldConfig.FieldTitle />
+					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@PageTitle />
 					@if (RazorPageConfig.IsShowFilterOnlyTop)
 					{
 						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorPageConfig.IsShowOnlyTop
@@ -60,7 +60,7 @@
 					}*@
 				</td>
 				<td>
-					<SectionFilter T=T ParentRazor=@(this) />
+					<SectionFilter TItem=TItem ParentRazor=@(this) />
 					@*@switch (FilterTable)
 					{
 						case SqlTableScaleEnum.Scales:

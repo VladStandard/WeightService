@@ -3,7 +3,7 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Components;
 
-public partial class SectionFilter<T> : RazorPageSectionBase<T> where T : SqlTableBase, new()
+public partial class SectionFilter<TItem> : RazorPageSectionBase<TItem> where TItem : SqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -21,9 +21,9 @@ public partial class SectionFilter<T> : RazorPageSectionBase<T> where T : SqlTab
         {
             () =>
             {
-                ItemsCast = new() { new T() { Description = LocaleCore.Table.FieldNull } };
+                ItemsCast = new() { new TItem() { Description = LocaleCore.Table.FieldNull } };
                 SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
-                T[]? itemsFilter = AppSettings.DataAccess.GetItems<T>(sqlCrudConfig);
+				TItem[]? itemsFilter = AppSettings.DataAccess.GetItems<TItem>(sqlCrudConfig);
                 if (itemsFilter is not null)
                 {
                     //ItemsCast.AddRange(itemsFilter.ToList<DataCore.Sql.Tables.TableBase>());

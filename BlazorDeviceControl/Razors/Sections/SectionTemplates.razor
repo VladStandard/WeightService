@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
+    <SectionReload TItem=TemplateModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionTemplates />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="TemplateModel" 
@@ -17,14 +17,14 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=TemplateModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=TemplateModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItem=TemplateModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=TemplateModel ParentRazor=@(this) />
 
             <RadzenGridColumn 
                 TItem="TemplateModel" Property="CategoryId" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.CategoryName Width="15%" />
+                PageTitle=@LocaleCore.Table.CategoryName Width="15%" />
             <RadzenGridColumn 
-                TItem="TemplateModel" Title=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
+                TItem="TemplateModel" PageTitle=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.Identity.Id}")
@@ -33,10 +33,10 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TemplateModel" Property="ImageData.Info"
-                Title=@LocaleCore.Table.ImageDataInfo 
+                PageTitle=@LocaleCore.Table.ImageDataInfo 
                 Type="string" Width="25%" />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=TemplateModel ParentRazor=@(this) />
+    <SectionButtons TItem=TemplateModel ParentRazor=@(this) />
 }

@@ -11,7 +11,7 @@
 }
 else
 {
-    <ItemReload T=LogModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLog />
+    <ItemReload T=LogModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemLog />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <ItemTableHead T=LogModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 } ) />

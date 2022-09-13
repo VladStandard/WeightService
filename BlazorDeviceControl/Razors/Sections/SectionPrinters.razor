@@ -9,7 +9,7 @@
 }
 else
 {
-    <SectionReload T=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Names />
+    <SectionReload TItem=PrinterModel ParentRazor=@(this) PageTitle=@LocaleCore.Print.Names />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterModel" 
@@ -17,25 +17,25 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=PrinterModel ParentRazor=@(this) />
-            <SectionFieldIdentity T=PrinterModel ParentRazor=@(this) />
-            <SectionField T=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            <SectionFieldIsMarked TItem=PrinterModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=PrinterModel ParentRazor=@(this) />
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-            <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Print.Name Width="18%" >
+            <RadzenGridColumn TItem="PrinterModel" PageTitle=@LocaleCore.Print.Name Width="18%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                                 Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Identity.Id}") 
                                 Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Print.Model Width="17%" >
+            <RadzenGridColumn TItem="PrinterModel" PageTitle=@LocaleCore.Print.Model Width="17%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemPrinterType}/{itemCast.PrinterType.Identity.Id}") 
                         Text=@itemCast.PrinterType.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterModel" Title=@LocaleCore.Print.Ip Type="string" Width="14%" >
+            <RadzenGridColumn TItem="PrinterModel" PageTitle=@LocaleCore.Print.Ip Type="string" Width="14%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank" 
                         Path=@itemCast.Link
@@ -43,22 +43,22 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterModel" Property="HttpStatusCode" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
+                PageTitle=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
                 <Template Context="itemCast" >
                     <RadzenIcon 
                         Icon=@(itemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterModel" Property="HttpStatusException.Message" 
-                Title=@LocaleCore.Table.HttpStatusException Type="string" Width="14%" />
+                PageTitle=@LocaleCore.Table.HttpStatusException Type="string" Width="14%" />
             <RadzenGridColumn TItem="PrinterModel" Property="Port" 
                 TextAlign=TextAlign.Center Type="string" Width="7%" 
-                Title=@LocaleCore.Print.PortShort />
+                PageTitle=@LocaleCore.Print.PortShort />
             <RadzenGridColumn TItem="PrinterModel" Property="MacAddress.ValuePrettyLookMinus" 
                 TextAlign=TextAlign.Center Type="string" Width="14%" 
-                Title=@LocaleCore.Print.Mac />
+                PageTitle=@LocaleCore.Print.Mac />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons T=PrinterModel ParentRazor=@(this) />
+    <SectionButtons TItem=PrinterModel ParentRazor=@(this) />
 }

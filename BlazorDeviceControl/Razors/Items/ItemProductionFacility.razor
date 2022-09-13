@@ -12,7 +12,7 @@
 }
 else
 {
-	<ItemReload T=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
+	<ItemReload T=ProductionFacilityModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemProductionFacility />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead T=ProductionFacilityModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />

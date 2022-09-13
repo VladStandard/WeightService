@@ -12,7 +12,7 @@
 }
 else
 {
-    <ItemReload T=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
+    <ItemReload T=PluWeighingModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemLabel />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead T=PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />

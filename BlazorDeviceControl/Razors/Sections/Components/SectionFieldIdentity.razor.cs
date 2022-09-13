@@ -3,13 +3,14 @@
 
 namespace BlazorDeviceControl.Razors.Sections.Components;
 
-public partial class SectionFieldIdentity<T> : RazorPageSectionBase<T> where T : SqlTableBase, new()
+public partial class SectionFieldIdentity<TItem> : RazorPageSectionBase<TItem> where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
 	public SectionFieldIdentity()
 	{
-		CssStyleRadzenColumn.Width = new T().Identity.Name switch
+		CssStyleRadzenColumn.IsShowLink = true;
+		CssStyleRadzenColumn.Width = new TItem().Identity.Name switch
 		{
 			SqlFieldIdentityEnum.Id => "8%",
 			SqlFieldIdentityEnum.Uid => "21%",

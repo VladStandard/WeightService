@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-using NHibernate.Cfg;
 using System.Globalization;
 
 namespace DataCore.Sql.Tables;
@@ -14,64 +13,86 @@ public static class SqlTableBaseExt
 {
 	#region Public and private methods
 
-	public static string GetFieldAsString<T>(this T? item, string fieldName) where T : SqlTableBase, new()
+	public static string GetPropertyAsString<T>(this T? item, string propertyName) where T : SqlTableBase, new()
 	{
-		string result = string.Empty;
-		if (item is not null && !string.IsNullOrEmpty(fieldName))
+		object? value = GetPropertyValue(item, propertyName);
+		switch (value)
 		{
-			result = fieldName switch
-			{
-				nameof(item.Identity) => item.Identity.GetValueAsString(),
-				nameof(item.CreateDt) => item.CreateDt.ToString("yyyy-MM-dd HH:mm:ss"),
-				nameof(item.ChangeDt) => item.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss"),
-				nameof(item.Description) => item.Description.ToString(),
-				_ => item switch
+			case string strValue:
+				return strValue;
+			case int intValue:
+				return intValue.ToString(CultureInfo.InvariantCulture);
+			case short shortValue:
+				return shortValue.ToString(CultureInfo.InvariantCulture);
+			case decimal decValue:
+				return decValue.ToString(CultureInfo.InvariantCulture);
+			case DateTime dtValue:
+				if (item is VersionModel version && string.Equals(propertyName, nameof(version.ReleaseDt)))
 				{
-					AccessModel access => fieldName switch
-					{
-						nameof(access.User) => access.User,
-						nameof(access.Rights) => DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights),
-						_ => string.Empty
-					},
-					PluModel plu => fieldName switch
-					{
-						nameof(plu.Name) => plu.Name,
-						nameof(plu.ShelfLifeDays) => plu.ShelfLifeDays.ToString(CultureInfo.InvariantCulture),
-						nameof(plu.TareWeight) => plu.TareWeight.ToString(CultureInfo.InvariantCulture),
-						nameof(plu.BoxQuantly) => plu.BoxQuantly.ToString(CultureInfo.InvariantCulture),
-						_ => string.Empty
-					},
-					PluLabelModel pluLabel => fieldName switch
-					{
-						_ => string.Empty
-					},
-					PluScaleModel pluScale => fieldName switch
-					{
-						_ => string.Empty
-					},
-					PluWeighingModel pluWeighing => fieldName switch
-					{
-						_ => string.Empty
-					},
-					ScaleModel scale => fieldName switch
-					{
-						nameof(scale.Number) => scale.Number.ToString(CultureInfo.InvariantCulture),
-						nameof(scale.Host) => scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull,
-						nameof(scale.DeviceIp) => scale.DeviceIp,
-						_ => string.Empty
-					},
-					VersionModel version => fieldName switch
-					{
-						nameof(version.ReleaseDt) => version.ReleaseDt.ToString("yyyy-MM-dd"),
-						nameof(version.Version) => version.Version.ToString(),
-						_ => string.Empty
-					},
-					_ => string.Empty,
-				},
-			};
-			;
+					return version.ReleaseDt.ToString("yyyy-MM-dd");
+				}
+				else
+				{
+					return dtValue.ToString("yyyy-MM-dd HH:mm:ss");
+				}
+			case byte byteValue:
+				if (item is AccessModel access && string.Equals(propertyName, nameof(access.Rights)))
+				{
+					return DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights);
+				}
+				else
+				{
+					return byteValue.ToString(CultureInfo.InvariantCulture);
+				}
+			case HostModel host:
+				if (item is ScaleModel scale && string.Equals(propertyName, nameof(scale.Host)))
+				{
+					return (scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull);
+				}
+				else
+				{
+					return host.Name;
+				}
+			case PrinterModel printer:
+				if (item is ScaleModel scale2)
+				{
+					if (string.Equals(propertyName, nameof(scale.PrinterMain)))
+						return (scale2.PrinterMain is not null ? scale2.PrinterMain.Name : LocaleCore.Table.FieldNull);
+					if (string.Equals(propertyName, nameof(scale.PrinterShipping)))
+						return (scale2.PrinterShipping is not null ? scale2.PrinterShipping.Name : LocaleCore.Table.FieldNull);
+				}
+				return printer.Name;
+			case WorkShopModel workShop:
+				if (item is ScaleModel scale3)
+				{
+					if (string.Equals(propertyName, nameof(scale.WorkShop)))
+						return (scale3.WorkShop is not null ? scale3.WorkShop.Name : LocaleCore.Table.FieldNull);
+				}
+				return workShop.Name;
 		}
-		return result;
+		return string.Empty;
+	}
+
+	public static bool GetPropertyAsBool<T>(this T? item, string propertyName) where T : SqlTableBase, new()
+	{
+		object? value = GetPropertyValue(item, propertyName);
+		if (value is bool isValue)
+			return isValue;
+		return false;
+	}
+
+	public static object? GetPropertyValue<T>(this T? item, string propertyName) where T : SqlTableBase, new()
+	{
+		if (item is not null && !string.IsNullOrEmpty(propertyName))
+		{
+			PropertyInfo[] properties = typeof(T).GetProperties();
+			foreach (PropertyInfo property in properties)
+			{
+				if (string.Equals(property.Name, propertyName))
+					return property.GetValue(item);
+			}
+		}
+		return null;
 	}
 
 	#endregion

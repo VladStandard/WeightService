@@ -454,7 +454,7 @@ public class ItemSaveCheckModel
         if (item == null) return;
         item.ChangeDt = DateTime.Now;
 
-        bool success = FieldControl.ValidateModel(notificationService, item, LocaleCore.Table.Workshop);
+        bool success = FieldControl.ValidateModel(notificationService, item, LocaleCore.Table.WorkShop);
         if (success)
         {
             if (tableAction == SqlTableActionEnum.New)
