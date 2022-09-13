@@ -24,11 +24,11 @@ else
             <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDescription() />
             <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetHost(GetRouteItemPath<HostModel>()) />
+                RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetHost(GetRouteItemPathShort<HostModel>()) />
             <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceIp() />
             <SectionField T=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPath<PrinterModel>()) />
+                RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
             <RadzenGridColumn TItem="ScaleModel" Title=@LocaleCore.Print.NameMain Width="20%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; "

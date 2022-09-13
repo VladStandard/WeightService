@@ -1,0 +1,135 @@
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.Models;
+using BlazorCore.Utils;
+using DataCore.Sql.Core;
+using DataCore.Sql.Fields;
+using DataCore.Sql.TableScaleModels;
+using NSubstitute;
+using NUnit.Framework;
+using System;
+
+namespace BlazorCoreTests.Models;
+
+[TestFixture]
+internal class RazorFieldConfigUtilsTests
+{
+	#region Public and private fields, properties, constructor
+
+	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+
+	#endregion
+
+	#region Public and private methods
+
+	[Test]
+	public void Base_Get_DoesNotThrow()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange & Act & Assert.
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Base.GetCreateDt();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Base.GetChangeDt();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Base.GetDescription();
+			TestContext.WriteLine(razorFieldConfig);
+		});
+	}
+
+	[Test]
+	public void Access_Get_DoesNotThrow()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange & Act & Assert.
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Access.GetRights();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Access.GetUser();
+			TestContext.WriteLine(razorFieldConfig);
+		});
+	}
+
+	[Test]
+	public void BarCode_Get_DoesNotThrow()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange & Act & Assert.
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.BarCode.GetValue();
+			TestContext.WriteLine(razorFieldConfig);
+		});
+	}
+
+	[Test]
+	public void Plu_Get_DoesNotThrow()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange & Act & Assert.
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Plu.GetName();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Plu.GetShelfLifeDays();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Plu.GetTareWeight();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Plu.GetBoxQuantly();
+			TestContext.WriteLine(razorFieldConfig);
+		});
+	}
+
+	[Test]
+	public void Scale_Get_DoesNotThrow()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			RazorPageBase razorPage = Helper.CreateNewSubstituteRazorPageBase();
+			HostModel host = Helper.Helper.CreateNewSubstitute<HostModel>(true);
+			PrinterModel printer = Helper.Helper.CreateNewSubstitute<PrinterModel>(true);
+			// Arrange & Act & Assert.
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetDescription();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetDeviceIp();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetHost(razorPage.GetRouteItemPath(host));
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterMain(razorPage.GetRouteItemPath(printer));
+			TestContext.WriteLine(razorFieldConfig);
+		});
+	}
+
+	[Test]
+	public void Version_Get_DoesNotThrow()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			// Arrange & Act & Assert.
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Version.GetDescription();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Version.GetReleaseDt();
+			TestContext.WriteLine(razorFieldConfig);
+			// Arrange & Act & Assert.
+			razorFieldConfig = RazorFieldConfigUtils.Version.GetVersion();
+			TestContext.WriteLine(razorFieldConfig);
+		});
+	}
+
+	#endregion
+}

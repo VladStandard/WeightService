@@ -3,8 +3,11 @@
 
 using BlazorCore.CssStyles;
 using BlazorCore.Models;
+using DataCore.Sql.Core;
+using DataCore.Sql.TableScaleModels;
 using DataCoreTests;
 using FluentValidation;
+using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Threading;
@@ -25,10 +28,9 @@ public class BlazorCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	public DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
 
 	#endregion
-
 
 	#region Public and private methods
 
@@ -72,6 +74,13 @@ public class BlazorCoreHelper
 		TestContext.WriteLine(urlSection);
 		// Assert.
 		Assert.IsNotEmpty(urlSection);
+	}
+
+	public RazorPageBase CreateNewSubstituteRazorPageBase()
+	{
+		RazorPageBase razorPage = Substitute.For<RazorPageBase>();
+		razorPage.GetRouteItemPathShort<HostModel>();
+		return razorPage;
 	}
 
 	#endregion

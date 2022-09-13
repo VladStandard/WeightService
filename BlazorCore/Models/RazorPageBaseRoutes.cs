@@ -16,7 +16,7 @@ public partial class RazorPageBase
     protected string GetColumnIdentityName<T>() where T : SqlTableBase, new()
     {
 	    T item = new();
-	    string page = GetRouteItemPath(item);
+	    string page = GetRouteItemPathShort(item);
 	    if (!string.IsNullOrEmpty(page))
 		    return item.Identity.Name switch
 		    {
@@ -27,11 +27,11 @@ public partial class RazorPageBase
 	    return string.Empty;
     }
 
-    public string GetRouteItemPath(SqlTableBase? item)
+    public string GetRouteItemPath<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is not null)
 		{
-            string page = GetRouteItemPath<SqlTableBase>(item);
+            string page = GetRouteItemPathShort<SqlTableBase>(item);
             if (!string.IsNullOrEmpty(page))
                 return item.Identity.Name switch
                 {
@@ -44,9 +44,9 @@ public partial class RazorPageBase
         return string.Empty;
     }
 
-    public string GetRouteItemPath<T>() where T : SqlTableBase, new() => GetRouteItemPath(new T());
+    public string GetRouteItemPathShort<T>() where T : SqlTableBase, new() => GetRouteItemPathShort(new T());
 
-    private string GetRouteItemPath<T>(T? item) where T : SqlTableBase, new() => item switch
+    private string GetRouteItemPathShort<T>(T? item) where T : SqlTableBase, new() => item switch
 	{
 		AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
 		AppModel => LocaleCore.DeviceControl.RouteItemApps,
@@ -129,7 +129,7 @@ public partial class RazorPageBase
 
     private void SetRouteItemNavigate<T>(T? item, SqlTableActionEnum tableAction) where T : DataCore.Sql.Tables.SqlTableBase, new()
     {
-        string page = GetRouteItemPath<SqlTableBase>(Item);
+        string page = GetRouteItemPathShort<SqlTableBase>(Item);
         if (string.IsNullOrEmpty(page))
             return;
 

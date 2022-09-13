@@ -42,4 +42,15 @@ public class RazorFieldConfigModel
 		this("", name, textAlign, title, "string") { }
 
 	#endregion
+
+	#region Public and private methods
+
+	public override string ToString() =>
+		(!string.IsNullOrEmpty(FieldLink) ? $"{FieldLink}. " : string.Empty) +
+		(!string.IsNullOrEmpty(FieldName) ? $"{FieldName}. " : string.Empty) +
+		(!string.IsNullOrEmpty(FieldTitle) ? $"{FieldTitle}. " : string.Empty) +
+		$"{FieldTextAlign}. " +
+		(!string.IsNullOrEmpty(FieldType) ? $"{FieldType}. " : string.Empty);
+
+	#endregion
 }
