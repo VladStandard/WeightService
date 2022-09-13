@@ -13,7 +13,7 @@
 }
 else
 {
-    <ItemReload T=WorkShopModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemWorkshop />
+    <ItemReload T=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
 	    <ItemTableHead T=WorkShopModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
@@ -31,7 +31,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
-                        Text=@LocaleCore.Table.ProductionFacilityName />
+                        Text=@LocaleCore.Table.ProductionFacility />
                 </td>
                 <td colspan=3>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense

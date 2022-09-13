@@ -9,33 +9,20 @@
 }
 else
 {
-    <SectionReload TItem=WorkShopModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionWorkShops />
+    <SectionReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="WorkShopModel" 
+        Data=@ItemsCast TItem=WorkShopModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
 	        <SectionFieldIsMarked TItem=WorkShopModel ParentRazor=@(this) />
             <SectionFieldIdentity TItem=WorkShopModel ParentRazor=@(this) />
-
-            <RadzenGridColumn 
-                TItem="WorkShopModel" PageTitle=@LocaleCore.Table.WorkShopName Width="50%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemWorkShop}/{itemCast.Identity.Id}")
-                        Text=@itemCast.Name />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="WorkShopModel" PageTitle=@LocaleCore.Table.ProductionFacilityName Width="50%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemProductionFacility}/{itemCast.ProductionFacility.Identity.Id}")
-                        Text=@itemCast.ProductionFacility.Name />
-                </Template>
-            </RadzenGridColumn>
+            <SectionField TItem=WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetName() />
+            <SectionField TItem=WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetProductionFacility(GetRouteItemPathShort<ProductionFacilityModel>()) />
         </Columns>
     </RadzenGrid>
 

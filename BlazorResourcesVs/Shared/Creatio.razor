@@ -29,13 +29,13 @@
     }
     else
     {
-        <RadzenGrid Data=@LocalSites TItem="WebSiteEntity" Value=@WebSite 
+        <RadzenGrid Data=@LocalSites TItem=WebSiteEntity Value=@WebSite 
                     AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                     AllowPaging=true PageSize="20" AllowSorting="true" >
             <Columns>
-                <RadzenGridColumn TItem="WebSiteEntity" Property="Name" Title=@LocaleData.Resources.CreatioTableFieldName Type="string" />
-                <RadzenGridColumn TItem="WebSiteEntity" Property="Link" Title=@LocaleData.Resources.CreatioTableFieldLink Type="string" />
-                <RadzenGridColumn TItem="WebSiteEntity" Property="Dev" Title=@LocaleData.Resources.CreatioTableFieldDev Type="string" />
+                <RadzenGridColumn TItem=WebSiteEntity Property="Name" Title=@LocaleData.Resources.CreatioTableFieldName Type="string" />
+                <RadzenGridColumn TItem=WebSiteEntity Property="Link" Title=@LocaleData.Resources.CreatioTableFieldLink Type="string" />
+                <RadzenGridColumn TItem=WebSiteEntity Property="Dev" Title=@LocaleData.Resources.CreatioTableFieldDev Type="string" />
             </Columns>
         </RadzenGrid>
     }

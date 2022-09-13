@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=HostModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionHosts />
+    <SectionReload TItem=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="HostModel" 
+        Data=@ItemsCast TItem=HostModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -21,27 +21,14 @@ else
 	        <SectionFieldIdentity TItem=HostModel ParentRazor=@(this) />
             <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-            <RadzenGridColumn 
-                TItem="HostModel" PageTitle=@LocaleCore.Table.NamePretty Width="22.5%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
-                        Text=@itemCast.Name />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="HostModel" PageTitle=@LocaleCore.Table.Host Width="22.5%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.Identity.Id}")
-                        Text=@itemCast.HostName />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="HostModel" Property="Ip" PageTitle=@LocaleCore.Table.DeviceIp Type="string" Width="20.0%" />
-            <RadzenGridColumn 
-                TItem="HostModel" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" PageTitle=@LocaleCore.Table.DeviceMac
-                Type="string" Width="20.0%" />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetName() />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetHostName() />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetDeviceIp() />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetMacAddressPretty() />
         </Columns>
     </RadzenGrid>
 

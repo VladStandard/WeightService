@@ -145,7 +145,6 @@ public class LocaleTable
     public string Product => Lang == LangEnum.English ? "Product" : "Продукт";
     public string ProductDate => Lang == LangEnum.English ? "Product date" : "Дата продукции";
     public string ProductionFacility => Lang == LangEnum.English ? "Production facility" : "Производственная площадка";
-    public string ProductionFacilityName => Lang == LangEnum.English ? "Production facility" : "Производственная площадка";
     public string RegNum => Lang == LangEnum.English ? "#" : "№";
     public string ReleaseDt => Lang == LangEnum.English ? "Release date" : "Дата релиза";
     public string Resource => Lang == LangEnum.English ? "Resource" : "Ресурс";

@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorPageItemBase<ProductionFacilityModel>
-@page "/item/productionfacility"
-@page "/item/productionfacility/{IdentityId:long}"
-@page "/item/productionfacility/{IdentityId:long}/{TableAction}"
+@page "/item/production_facility"
+@page "/item/production_facility/{IdentityId:long}"
+@page "/item/production_facility/{IdentityId:long}/{TableAction}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Items.Components
@@ -12,7 +12,7 @@
 }
 else
 {
-	<ItemReload T=ProductionFacilityModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemProductionFacility />
+	<ItemReload T=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead T=ProductionFacilityModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />

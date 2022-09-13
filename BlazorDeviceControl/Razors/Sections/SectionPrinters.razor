@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=PrinterModel ParentRazor=@(this) PageTitle=@LocaleCore.Print.Names />
+    <SectionReload TItem=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Names />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterModel" 
+        Data=@ItemsCast TItem=PrinterModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -21,42 +21,33 @@ else
             <SectionFieldIdentity TItem=PrinterModel ParentRazor=@(this) />
             <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-            <RadzenGridColumn TItem="PrinterModel" PageTitle=@LocaleCore.Print.Name Width="18%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                                Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Identity.Id}") 
-                                Text=@itemCast.Name />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterModel" PageTitle=@LocaleCore.Print.Model Width="17%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPrinterType}/{itemCast.PrinterType.Identity.Id}") 
-                        Text=@itemCast.PrinterType.Name />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterModel" PageTitle=@LocaleCore.Print.Ip Type="string" Width="14%" >
-                <Template Context="itemCast" >
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("18%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetName() />
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("17%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
+            @*<SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("14%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetIp() />*@
+            <RadzenGridColumn TItem=PrinterModel Title=@LocaleCore.Print.Ip Type="string" Width="14%">
+                <Template Context="item" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank" 
-                        Path=@itemCast.Link
-                        Text=@itemCast.Ip />
+                        Path=@item.Link Text=@item.Ip />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterModel" Property="HttpStatusCode" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
-                <Template Context="itemCast" >
+            <RadzenGridColumn TItem=PrinterModel Property="HttpStatusCode" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
+                <Template Context="item" >
                     <RadzenIcon 
-                        Icon=@(itemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
+                        Icon=@(item.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterModel" Property="HttpStatusException.Message" 
-                PageTitle=@LocaleCore.Table.HttpStatusException Type="string" Width="14%" />
-            <RadzenGridColumn TItem="PrinterModel" Property="Port" 
+            <RadzenGridColumn TItem=PrinterModel Property="HttpStatusException.Message" 
+                Title=@LocaleCore.Table.HttpStatusException Type="string" Width="14%" />
+            <RadzenGridColumn TItem=PrinterModel Property="Port" 
                 TextAlign=TextAlign.Center Type="string" Width="7%" 
-                PageTitle=@LocaleCore.Print.PortShort />
-            <RadzenGridColumn TItem="PrinterModel" Property="MacAddress.ValuePrettyLookMinus" 
+                Title=@LocaleCore.Print.PortShort />
+            <RadzenGridColumn TItem=PrinterModel Property="MacAddress.ValuePrettyLookMinus" 
                 TextAlign=TextAlign.Center Type="string" Width="14%" 
-                PageTitle=@LocaleCore.Print.Mac />
+                Title=@LocaleCore.Print.Mac />
         </Columns>
     </RadzenGrid>
 

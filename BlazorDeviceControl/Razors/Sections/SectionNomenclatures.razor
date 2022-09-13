@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=NomenclatureModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionNomenclatures />
+    <SectionReload TItem=NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="NomenclatureModel" 
+        Data=@ItemsCast TItem=NomenclatureModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -23,15 +23,15 @@ else
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
             @*
             <RadzenGridColumn 
-                TItem="NomenclatureModel" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.ChangeDt Type="date" Width="15%" >
+                TItem=NomenclatureModel TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.ChangeDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.Identity.Id}")
                         TValue="string" Value=@itemCast.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>*@
-            <RadzenGridColumn TItem="NomenclatureModel" PageTitle=@LocaleCore.Table.Name Width="45%" >
+            <RadzenGridColumn TItem=NomenclatureModel Title=@LocaleCore.Table.Name Width="45%" >
 	            <Template Context="itemCast" >
 		            <RadzenLink Style="width: 100%; margin-left: 0; "
 		                        Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclature}/{itemCast.Identity.Id}")
@@ -39,12 +39,12 @@ else
 	            </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="NomenclatureModel" Property="Code" 
-                PageTitle=@LocaleCore.Table.Code
+                TItem=NomenclatureModel Property="Code" 
+                Title=@LocaleCore.Table.Code
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="NomenclatureModel" TextAlign=TextAlign.Center Width="5%" 
-                PageTitle=@LocaleCore.Table.Weighted >
+                TItem=NomenclatureModel TextAlign=TextAlign.Center Width="5%" 
+                Title=@LocaleCore.Table.Weighted >
                 <Template Context="itemCast" >
                     <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
                 </Template>

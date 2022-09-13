@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=TemplateResourceModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionTemplateResources />
+    <SectionReload TItem=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="TemplateResourceModel" 
+        Data=@ItemsCast TItem=TemplateResourceModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -21,11 +21,11 @@ else
             <SectionFieldIdentity TItem=TemplateResourceModel ParentRazor=@(this) />
 
             <RadzenGridColumn 
-                TItem="TemplateResourceModel" Property="Type" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.Type 
+                TItem=TemplateResourceModel Property="Type" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.Type 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="TemplateResourceModel" PageTitle=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
+                TItem=TemplateResourceModel Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.Identity.Id}")
@@ -35,8 +35,8 @@ else
             <SectionField TItem=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
             <RadzenGridColumn 
-                TItem="TemplateResourceModel" Property="ImageData.Info"
-                PageTitle=@LocaleCore.Table.ImageDataInfo 
+                TItem=TemplateResourceModel Property="ImageData.Info"
+                Title=@LocaleCore.Table.ImageDataInfo 
                 Type="string" Width="25%" />
         </Columns>
     </RadzenGrid>

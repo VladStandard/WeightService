@@ -44,6 +44,15 @@ public static class SqlTableBaseExt
 				{
 					return byteValue.ToString(CultureInfo.InvariantCulture);
 				}
+			case SqlFieldMacAddressModel macAddress:
+				if (item is HostModel host1 && string.Equals(propertyName, nameof(host1.MacAddress)))
+				{
+					return host1.MacAddress.ValuePrettyLookMinus;
+				}
+				else
+				{
+					return macAddress.ValuePrettyLookMinus;
+				}
 			case HostModel host:
 				if (item is ScaleModel scale && string.Equals(propertyName, nameof(scale.Host)))
 				{
@@ -53,7 +62,7 @@ public static class SqlTableBaseExt
 				{
 					return host.Name;
 				}
-			case PrinterModel printer:
+			case PrinterModel printer1:
 				if (item is ScaleModel scale2)
 				{
 					if (string.Equals(propertyName, nameof(scale.PrinterMain)))
@@ -61,7 +70,14 @@ public static class SqlTableBaseExt
 					if (string.Equals(propertyName, nameof(scale.PrinterShipping)))
 						return (scale2.PrinterShipping is not null ? scale2.PrinterShipping.Name : LocaleCore.Table.FieldNull);
 				}
-				return printer.Name;
+				return printer1.Name;
+			case PrinterTypeModel printerType:
+				if (item is PrinterModel printer)
+				{
+					if (string.Equals(propertyName, nameof(printer.PrinterType)))
+						return (printer.PrinterType is not null ? printer.PrinterType.Name : LocaleCore.Table.FieldNull);
+				}
+				return printerType.Name;
 			case WorkShopModel workShop:
 				if (item is ScaleModel scale3)
 				{

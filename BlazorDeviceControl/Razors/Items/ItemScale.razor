@@ -15,7 +15,7 @@
 }
 else
 {
-    <ItemReload T=ScaleModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemScale />
+    <ItemReload T=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 		<ItemTableHead T=ScaleModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
@@ -114,7 +114,7 @@ else
 			<tr>
 				<td>@LocaleCore.Table.DeviceNumber</td>
 				<td>
-					<RadzenTemplateForm TItem="ScaleModel" Data=@ItemCast>
+					<RadzenTemplateForm TItem=ScaleModel Data=@ItemCast>
 						<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 						               Name="fieldNumber"
 						               TValue="int" @bind-Value=@ItemCast.Number/>
@@ -176,7 +176,7 @@ else
 				<td>
 					<RadzenLink Style="width: 100%; margin-left: 0;"
 					    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.WorkShop?.ProductionFacility, ItemCast.WorkShop?.ProductionFacility.Identity.Id)
-					    Text=@LocaleCore.Table.ProductionFacilityName/>
+					    Text=@LocaleCore.Table.ProductionFacility />
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
@@ -196,7 +196,7 @@ else
 				</td>
 				<td>@LocaleCore.Table.Counter</td>
 				<td>
-					<RadzenTemplateForm TItem="ScaleModel" Data=@ItemCast>
+					<RadzenTemplateForm TItem=ScaleModel Data=@ItemCast>
 						<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 						               Name="fieldCounter" TValue="int" @bind-Value=@ItemCast.Counter/>
 						<RadzenNumericRangeValidator

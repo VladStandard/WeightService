@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=PluWeighingModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionPlusWeighings />
+    <SectionReload TItem=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PluWeighingModel" 
+        Data=@ItemsCast TItem=PluWeighingModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -20,8 +20,8 @@ else
             <SectionFieldIsMarked TItem=PluWeighingModel ParentRazor=@(this) />
             <SectionFieldIdentity TItem=PluWeighingModel ParentRazor=@(this) />
 
-            @*<RadzenGridColumn TItem="PluWeighingModel" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.WeithingDate
+            @*<RadzenGridColumn TItem=PluWeighingModel TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.WeithingDate
                 Type="date" Width="17.5%">
 	            <Template Context="itemCast">
 		            <RadzenLink Style="width: 100%; margin-left: 0;"
@@ -29,31 +29,31 @@ else
 		                Text=@itemCast.ProductDt.ToString("yyyy-MM-dd HH:mm:ss")/>
 	            </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluWeighingModel" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.DayOfWeek
+            <RadzenGridColumn TItem=PluWeighingModel TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.DayOfWeek
                 Type="string" Width="12.5%">
                 <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0; "
                         Text=@EnumUtils.GetDayOfWeekRu(itemCast.ProductDt.DayOfWeek) />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluWeighingModel" Property="Scale.Description" TextAlign=TextAlign.Left
-                PageTitle=@LocaleCore.Table.Scale
+            <RadzenGridColumn TItem=PluWeighingModel Property="Scale.Description" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Scale
                 Type="string" Width="20.0%" />
-            <RadzenGridColumn TItem="PluWeighingModel" Property="Scale.Host.HostName" TextAlign=TextAlign.Left
-                PageTitle=@LocaleCore.Table.Host
+            <RadzenGridColumn TItem=PluWeighingModel Property="Scale.Host.HostName" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.Host
                 Type="string" Width="20.0%" />
-            <RadzenGridColumn TItem="PluWeighingModel" Property="Plu.GoodsName" TextAlign=TextAlign.Left
-                PageTitle=@LocaleCore.Table.GoodsName
+            <RadzenGridColumn TItem=PluWeighingModel Property="Plu.GoodsName" TextAlign=TextAlign.Left
+                Title=@LocaleCore.Table.GoodsName
                 Type="string" Width="33.0%" />
-            <RadzenGridColumn TItem="PluWeighingModel" Property="TareWeight" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.TareWeight
+            <RadzenGridColumn TItem=PluWeighingModel Property="TareWeight" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.TareWeight
                 Type="decimal" Width="13.0%" />
-            <RadzenGridColumn TItem="PluWeighingModel" Property="NetWeight" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.NetWeight
+            <RadzenGridColumn TItem=PluWeighingModel Property="NetWeight" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.NetWeight
                 Type="decimal" Width="13.0%" />
-            <RadzenGridColumn TItem="PluWeighingModel" Property="RegNum" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.RegNum
+            <RadzenGridColumn TItem=PluWeighingModel Property="RegNum" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.RegNum
                 Type="int" Width="16.0%" />*@
         </Columns>
     </RadzenGrid>

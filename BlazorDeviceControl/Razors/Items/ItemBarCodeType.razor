@@ -12,7 +12,7 @@
 }
 else
 {
-    <ItemReload T=BarCodeTypeModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.ItemBarCodeType />
+    <ItemReload T=BarCodeTypeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <ItemTableHead T=BarCodeTypeModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />

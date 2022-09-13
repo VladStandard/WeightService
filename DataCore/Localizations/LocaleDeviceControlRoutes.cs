@@ -28,7 +28,7 @@ public partial class LocaleDeviceControl
     public string RouteItemPrinter => "/item/printer";
     public string RouteItemPrinterResource => "/item/printerresource";
     public string RouteItemPrinterType => "/item/printertype";
-    public string RouteItemProductionFacility => "/item/productionfacility";
+    public string RouteItemProductionFacility => "/item/production_facility";
     public string RouteItemProductSerie => "/item/product_serie";
     public string RouteItemScale => "/item/scale";
     public string RouteItemScaleObsolete => "/item/scale_obsolete";
@@ -64,7 +64,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionPrinterResources => "/section/printers_resources";
     public string RouteSectionPrinters => "/section/printers";
     public string RouteSectionPrinterTypes => "/section/printertypes";
-    public string RouteSectionProductionFacilities => "/section/productionfacilities";
+    public string RouteSectionProductionFacilities => "/section/production_facilities";
     public string RouteSectionProductSeries => "/section/productseries";
     public string RouteSectionScales => "/section/scales";
     public string RouteSectionTaskModules => "/section/taskmodules";

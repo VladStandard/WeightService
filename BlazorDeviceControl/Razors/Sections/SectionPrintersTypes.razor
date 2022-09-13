@@ -9,25 +9,18 @@
 }
 else
 {
-    <SectionReload TItem=PrinterTypeModel ParentRazor=@(this) PageTitle=@LocaleCore.Print.Types />
+    <SectionReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterTypeModel" 
+        Data=@ItemsCast TItem=PrinterTypeModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
             <SectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
             <SectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
-
-            <RadzenGridColumn TItem="PrinterTypeModel" PageTitle=@LocaleCore.Print.Name 
-                Type="string" Width="100%" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPrinterType}/{itemCast.Identity.Id}")
-                        Text=@itemCast.Name />
-                </Template>
-            </RadzenGridColumn>
+            <SectionField TItem=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
         </Columns>
     </RadzenGrid>
 

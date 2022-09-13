@@ -40,22 +40,22 @@
             else
             {
                 <RadzenGrid Style="font-size: 10px; margin-top: 30px; margin-left: 0px; margin-right: -30px; margin-bottom: -5px; position: absolute; "
-                            Data=@ItemsMaster TItem="NomenclatureLightEntity" 
+                            Data=@ItemsMaster TItem=NomenclatureLightModel 
                             RowDoubleClick=@(args => RowDoubleClickAsync(TableDwh.NomenclatureMaster, args, true))
                             AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                             AllowPaging=true PageSize=@BlazorSettings.GridPageSize AllowSorting="true" 
                             AllowColumnResize="true" SelectionMode="DataGridSelectionMode.Single"
                             @bind-Value=@ObjectMaster>
                     <Columns>
-                        <RadzenGridColumn TItem="NomenclatureLightEntity" Property="Code" Title=@LocalizationStrings.TableFieldCode
+                        <RadzenGridColumn TItem=NomenclatureLightModel Property="Code" Title=@LocalizationStrings.TableFieldCode
                                           Type="string" Width="20%" Sortable="true" />
-                        <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
+                        <RadzenGridColumn TItem=NomenclatureLightModel Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
                                           Type="string" Width="30%" Sortable="false">
                             <Template Context="itemCast">
                                 <RadzenLabel Style="height: 10px; " Text=@itemCast?.ParentConvert?.Parents?[0] />
                             </Template>
                         </RadzenGridColumn>
-                        <RadzenGridColumn TItem="NomenclatureLightEntity" Property="Name" Title=@LocalizationStrings.TableFieldName
+                        <RadzenGridColumn TItem=NomenclatureLightModel Property="Name" Title=@LocalizationStrings.TableFieldName
                                           Type="string" Width="50%" Sortable="true" />
                     </Columns>
                 </RadzenGrid>
@@ -131,25 +131,25 @@
         else
         {
             <RadzenGrid Style="font-size: 10px; margin-top: 25px; margin-left: 0px; margin-right: -115px; margin-bottom: 0px; position: absolute; "
-                        Data=@ItemsNonNormilize TItem="NomenclatureLightEntity" 
+                        Data=@ItemsNonNormilize TItem=NomenclatureLightModel 
                         AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                         AllowPaging=true PageSize=@BlazorSettings.GridPageSize AllowSorting="true" 
                         AllowColumnResize="true" SelectionMode="DataGridSelectionMode.Single"
                         @bind-Value=@ObjectNonNormilize>
                 <Columns>
-                    <RadzenGridColumn TItem="NomenclatureLightEntity" Property="Code" Title=@LocalizationStrings.TableFieldCode
+                    <RadzenGridColumn TItem=NomenclatureLightModel Property="Code" Title=@LocalizationStrings.TableFieldCode
                                       Type="string" Width="14%" Sortable="true" />
-                    <RadzenGridColumn TItem="NomenclatureLightEntity" Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem
+                    <RadzenGridColumn TItem=NomenclatureLightModel Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem
                                       Type="string" Width="17%" Sortable="true" />
-                    <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
+                    <RadzenGridColumn TItem=NomenclatureLightModel Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
                                       Type="string" Width="20%" Sortable="false">
                         <Template Context="itemCast">
                             <RadzenLabel Style="height: 10px; " Text=@itemCast.ParentConvert?.Parents?[0] />
                         </Template>
                     </RadzenGridColumn>
-                    <RadzenGridColumn TItem="NomenclatureLightEntity" Property="Name" Title=@LocalizationStrings.TableFieldName
+                    <RadzenGridColumn TItem=NomenclatureLightModel Property="Name" Title=@LocalizationStrings.TableFieldName
                                       Type="string" Width="42%" Sortable="true" />
-                    <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldRelevanceStatus
+                    <RadzenGridColumn TItem=NomenclatureLightModel Property="ParentConvert" Title=@LocalizationStrings.TableFieldRelevanceStatus
                                       Type="string" Width="5%" Sortable="false">
                         <Template Context="itemCast">
                             <RadzenCheckBox Value=@UtilsEnum.GetEnumRelevanceStatusBool(itemCast.RelevanceStatus) TValue="bool?" Disabled=false ReadOnly=true 

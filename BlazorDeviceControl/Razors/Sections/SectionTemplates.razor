@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=TemplateModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionTemplates />
+    <SectionReload TItem=TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="TemplateModel" 
+        Data=@ItemsCast TItem=TemplateModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -21,10 +21,10 @@ else
             <SectionFieldIdentity TItem=TemplateModel ParentRazor=@(this) />
 
             <RadzenGridColumn 
-                TItem="TemplateModel" Property="CategoryId" TextAlign=TextAlign.Center
-                PageTitle=@LocaleCore.Table.CategoryName Width="15%" />
+                TItem=TemplateModel Property="CategoryId" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CategoryName Width="15%" />
             <RadzenGridColumn 
-                TItem="TemplateModel" PageTitle=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
+                TItem=TemplateModel Title=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.Identity.Id}")
@@ -32,8 +32,8 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="TemplateModel" Property="ImageData.Info"
-                PageTitle=@LocaleCore.Table.ImageDataInfo 
+                TItem=TemplateModel Property="ImageData.Info"
+                Title=@LocaleCore.Table.ImageDataInfo 
                 Type="string" Width="25%" />
         </Columns>
     </RadzenGrid>

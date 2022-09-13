@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=PrinterResourceModel ParentRazor=@(this) PageTitle=@LocaleCore.Print.Resources />
+    <SectionReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterResourceModel" 
+        Data=@ItemsCast TItem=PrinterResourceModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -21,14 +21,14 @@ else
 	        <SectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
             <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
-            <RadzenGridColumn TItem="PrinterResourceModel" PageTitle=@LocaleCore.Table.Printer Width="30%">
+            <RadzenGridColumn TItem=PrinterResourceModel Title=@LocaleCore.Table.Printer Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Printer.Identity.Id}")
                         Text=@itemCast.Printer.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterResourceModel" PageTitle=@LocaleCore.Table.Resource Width="30%">
+            <RadzenGridColumn TItem=PrinterResourceModel Title=@LocaleCore.Table.Resource Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Resource.Name />
                 </Template>

@@ -34,6 +34,18 @@ public static class RazorFieldConfigUtils
 			new(nameof(AccessModel.Rights), TextAlign.Left, LocaleCore.Table.AccessLevel);
 	}
 
+	public static class Host
+	{
+		public static RazorFieldConfigModel GetName() =>
+			new(nameof(HostModel.Name), TextAlign.Left, LocaleCore.Table.NamePretty);
+		public static RazorFieldConfigModel GetHostName() =>
+			new(nameof(HostModel.HostName), TextAlign.Left, LocaleCore.Table.Host);
+		public static RazorFieldConfigModel GetDeviceIp() =>
+			new(nameof(HostModel.Ip), TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetMacAddressPretty() =>
+			new(nameof(HostModel.MacAddress), TextAlign.Left, LocaleCore.Table.DeviceMac);
+	}
+
 	public static class Plu
     {
         public static RazorFieldConfigModel GetName() => 
@@ -45,7 +57,31 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetBoxQuantly() => 
             new(nameof(PluModel.BoxQuantly), TextAlign.Center, LocaleCore.Table.GoodsBoxQuantlyShort);
     }
+
+	public static class Printer
+	{
+		public static RazorFieldConfigModel GetName() =>
+			new(nameof(PrinterModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetIp() =>
+			new(nameof(PrinterModel.Ip), TextAlign.Left, LocaleCore.Print.Ip);
+		public static RazorFieldConfigModel GetPrinterType(string link) =>
+			new(link, new PrinterTypeModel(), nameof(PrinterModel.PrinterType), TextAlign.Left, LocaleCore.Print.Model, "string");
+	}
 	
+	public static class PrinterType
+	{
+		public static RazorFieldConfigModel GetName() =>
+			new(nameof(PrinterTypeModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+	}
+
+	public static class ProductionFacility
+    {
+		public static RazorFieldConfigModel GetAddress() => 
+            new(nameof(ProductionFacilityModel.Address), TextAlign.Left, LocaleCore.Table.Address);
+		public static RazorFieldConfigModel GetName() => 
+            new(nameof(ProductionFacilityModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+	}
+
 	public static class Scale
     {
 		public static RazorFieldConfigModel GetNumber() => 
@@ -73,4 +109,12 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetVersion() => 
             new(nameof(VersionModel.Version), TextAlign.Center, LocaleCore.Table.Version);
     }
+
+	public static class WorkShop
+	{
+        public static RazorFieldConfigModel GetName() => 
+            new(nameof(WorkShopModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetProductionFacility(string link) =>
+			new(link, new ProductionFacilityModel(), nameof(WorkShopModel.ProductionFacility), TextAlign.Left, LocaleCore.Table.ProductionFacility, "string");
+	}
 }

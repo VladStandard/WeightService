@@ -9,10 +9,10 @@
 }
 else
 {
-    <SectionReload TItem=BarCodeTypeModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+    <SectionReload TItem=BarCodeTypeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
     
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="BarCodeTypeModel" 
+        Data=@ItemsCast TItem=BarCodeTypeModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
@@ -22,7 +22,7 @@ else
             <SectionField TItem=BarCodeTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
             <RadzenGridColumn 
-                TItem="BarCodeTypeModel" PageTitle=@LocaleCore.Table.Name Width="60%" SortProperty="Name" >
+                TItem=BarCodeTypeModel Title=@LocaleCore.Table.Name Width="60%" SortProperty="Name" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "
                         Path=@($"{LocaleCore.DeviceControl.RouteItemBarCodeType}/{itemCast.Identity.Uid}")

@@ -9,10 +9,10 @@
 }
 else
 {
-	<SectionReload TItem=PluModel ParentRazor=@(this) PageTitle=@LocaleCore.DeviceControl.SectionPlus />
+	<SectionReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
     <RadzenGrid 
-        Data=@ItemsCast TItem="PluModel" 
+        Data=@ItemsCast TItem=PluModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
