@@ -9,7 +9,7 @@ public partial class SectionHosts : RazorPageSectionBase<HostModel>
 
     public SectionHosts()
     {
-	    RazorConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionHosts : RazorPageSectionBase<HostModel>
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListHosts(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListHosts(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop, false);
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

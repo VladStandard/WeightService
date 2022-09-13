@@ -44,7 +44,9 @@ public partial class RazorPageBase
         return string.Empty;
     }
 
-	private string GetRouteItemPath<T>(T? item) where T : SqlTableBase, new() => item switch
+    public string GetRouteItemPath<T>() where T : SqlTableBase, new() => GetRouteItemPath(new T());
+
+    private string GetRouteItemPath<T>(T? item) where T : SqlTableBase, new() => item switch
 	{
 		AccessModel => LocaleCore.DeviceControl.RouteItemAccess,
 		AppModel => LocaleCore.DeviceControl.RouteItemApps,
@@ -79,42 +81,43 @@ public partial class RazorPageBase
 		_ => string.Empty
 	};
 
-	public string GetRouteSectionPath<T>(T? item) where T : SqlTableBase, new() => item switch
+    public string GetRouteSectionPath<T>(T? item) where T : SqlTableBase, new()
     {
-        AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
-        AppModel => LocaleCore.DeviceControl.RouteSectionApps,
-        BarCodeModel => LocaleCore.DeviceControl.RouteSectionBarCodes,
-        BarCodeTypeModel => LocaleCore.DeviceControl.RouteSectionBarCodeTypes,
-        ContragentModel => LocaleCore.DeviceControl.RouteSectionContragents,
-        LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
-        LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
-        LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
-        OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
-        OrderWeighingModel => LocaleCore.DeviceControl.RouteSectionOrdersWeighings,
-        OrganizationModel => LocaleCore.DeviceControl.RouteSectionOrganizations,
-        TaskModel => LocaleCore.DeviceControl.RouteSectionTaskModules,
-        TaskTypeModel => LocaleCore.DeviceControl.RouteSectionTaskTypeModules,
-        HostModel => LocaleCore.DeviceControl.RouteSectionHosts,
-        PluLabelModel => LocaleCore.DeviceControl.RouteSectionPluLabels,
-        NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
-        //PluObsoleteModel => LocaleCore.DeviceControl.RouteSectionPlusObsolete,
-        PluModel => LocaleCore.DeviceControl.RouteSectionPlus,
-        PluScaleModel => Item is PluScaleModel pluScale
-            ? LocaleCore.DeviceControl.RouteItemScale + $"/{pluScale.Scale.Identity.Id}" : LocaleCore.DeviceControl.RouteSectionScales,
-        PrinterResourceModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,
-        PrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
-        PrinterTypeModel => LocaleCore.DeviceControl.RouteSectionPrinterTypes,
-        ProductionFacilityModel => LocaleCore.DeviceControl.RouteSectionProductionFacilities,
-        ProductSeriesModel => LocaleCore.DeviceControl.RouteSectionProductSeries,
-        ScaleModel => Item is ScaleModel scale
-            ? LocaleCore.DeviceControl.RouteItemScale + $"/{scale.Identity.Id}" : LocaleCore.DeviceControl.RouteSectionScales,
-        TemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
-        TemplateModel => LocaleCore.DeviceControl.RouteSectionTemplates,
-        PluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
-        VersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
-        WorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
-        _ => string.Empty
-    };
+        return item switch
+        {
+            AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
+            AppModel => LocaleCore.DeviceControl.RouteSectionApps,
+            BarCodeModel => LocaleCore.DeviceControl.RouteSectionBarCodes,
+            BarCodeTypeModel => LocaleCore.DeviceControl.RouteSectionBarCodeTypes,
+            ContragentModel => LocaleCore.DeviceControl.RouteSectionContragents,
+            LogModel => LocaleCore.DeviceControl.RouteSectionLogs,
+            LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
+            LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
+            OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
+            OrderWeighingModel => LocaleCore.DeviceControl.RouteSectionOrdersWeighings,
+            OrganizationModel => LocaleCore.DeviceControl.RouteSectionOrganizations,
+            TaskModel => LocaleCore.DeviceControl.RouteSectionTaskModules,
+            TaskTypeModel => LocaleCore.DeviceControl.RouteSectionTaskTypeModules,
+            HostModel => LocaleCore.DeviceControl.RouteSectionHosts,
+            PluLabelModel => LocaleCore.DeviceControl.RouteSectionPluLabels,
+            NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
+            //PluObsoleteModel => LocaleCore.DeviceControl.RouteSectionPlusObsolete,
+            PluModel => LocaleCore.DeviceControl.RouteSectionPlus,
+            PluScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
+            PrinterResourceModel => LocaleCore.DeviceControl.RouteSectionPrinterResources,
+            PrinterModel => LocaleCore.DeviceControl.RouteSectionPrinters,
+            PrinterTypeModel => LocaleCore.DeviceControl.RouteSectionPrinterTypes,
+            ProductionFacilityModel => LocaleCore.DeviceControl.RouteSectionProductionFacilities,
+            ProductSeriesModel => LocaleCore.DeviceControl.RouteSectionProductSeries,
+            ScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
+            TemplateResourceModel => LocaleCore.DeviceControl.RouteSectionTemplateResources,
+            TemplateModel => LocaleCore.DeviceControl.RouteSectionTemplates,
+            PluWeighingModel => LocaleCore.DeviceControl.RouteSectionPlusWeighings,
+            VersionModel => LocaleCore.DeviceControl.RouteSectionVersions,
+            WorkShopModel => LocaleCore.DeviceControl.RouteSectionWorkShops,
+            _ => string.Empty
+        };
+    }
 
     public string GetRouteSectionPath<T>() where T : SqlTableBase, new() => GetRouteSectionPath(new T());
 
@@ -169,7 +172,7 @@ public partial class RazorPageBase
     }
 
     private void SetRouteSectionNavigate()
-    {
+	{
         string page = GetRouteSectionPath(Item);
         if (string.IsNullOrEmpty(page))
             return;

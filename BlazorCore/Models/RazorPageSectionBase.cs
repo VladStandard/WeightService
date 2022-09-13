@@ -14,7 +14,6 @@ public class RazorPageSectionBase<T> : RazorPageBase where T : SqlTableBase, new
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
-	[Parameter] public string FieldName { get; set; }
 
 	protected List<T> ItemsCast
 	{
@@ -29,7 +28,6 @@ public class RazorPageSectionBase<T> : RazorPageBase where T : SqlTableBase, new
 	{
 		ItemsCast = new();
 		CssStyleRadzenColumn = new("5%");
-		FieldName = string.Empty;
 	}
 
 	#endregion

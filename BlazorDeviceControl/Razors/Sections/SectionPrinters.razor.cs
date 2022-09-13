@@ -9,7 +9,7 @@ public partial class SectionPrinters : RazorPageSectionBase<PrinterModel>
 
     public SectionPrinters()
     {
-	    RazorConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionPrinters : RazorPageSectionBase<PrinterModel>
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListPrinters(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListPrinters(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

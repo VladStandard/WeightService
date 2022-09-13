@@ -18,3 +18,4 @@ global using Radzen;
 global using System.Globalization;
 global using System.Runtime.CompilerServices;
 global using BlazorDeviceControl.Razors.Components;
+global using RazorFieldConfigUtils = BlazorCore.Utils.RazorFieldConfigUtils;

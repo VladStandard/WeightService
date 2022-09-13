@@ -9,7 +9,7 @@ public partial class SectionPluWeighings : RazorPageSectionBase<PluWeighingModel
 
 	public SectionPluWeighings()
 	{
-		RazorConfig.IsShowFilterMarked = true;
+		RazorPageConfig.IsShowFilterMarked = true;
 	}
 
 	#endregion
@@ -24,7 +24,7 @@ public partial class SectionPluWeighings : RazorPageSectionBase<PluWeighingModel
 		{
 			() =>
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, 0, RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 				ItemsCast = AppSettings.DataAccess.GetList<PluWeighingModel>(sqlCrudConfig);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);

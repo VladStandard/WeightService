@@ -60,7 +60,7 @@ else
     }
     else
     {
-        <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsModel" @bind-Value=@ItemObject
+        <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsModel" 
                     RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
@@ -97,7 +97,7 @@ else
     }
     else
     {
-        <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesModel" @bind-Value=@ItemObject
+        <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesModel" 
                     RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount

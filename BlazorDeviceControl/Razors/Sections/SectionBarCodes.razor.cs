@@ -9,7 +9,7 @@ public partial class SectionBarCodes : RazorPageSectionBase<BarCodeModel>
 
 	public SectionBarCodes()
 	{
-		RazorConfig.IsShowFilterMarked = true;
+		RazorPageConfig.IsShowFilterMarked = true;
 	}
 
 	#endregion
@@ -24,7 +24,7 @@ public partial class SectionBarCodes : RazorPageSectionBase<BarCodeModel>
 		{
 			() =>
 			{
-				ItemsCast = AppSettings.DataAccess.GetListBarCodes(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+				ItemsCast = AppSettings.DataAccess.GetListBarCodes(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
 			}

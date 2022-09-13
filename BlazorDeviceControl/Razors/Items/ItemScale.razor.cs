@@ -22,8 +22,7 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 	private List<WorkShopModel> WorkShops { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
 	private List<HostModel> Hosts { get; set; }
-	[Parameter] public bool IsPluNew { get; set; }
-
+	
 	public ItemScale()
 	{
 		Printers = new();
@@ -32,7 +31,7 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 		ProductionFacilities = new();
 		WorkShops = new();
 		Templates = new();
-		RazorConfig.IsShowFilterAdditional = false;
+		RazorPageConfig.IsShowFilterAdditional = false;
 	}
 
 	#endregion

@@ -13,12 +13,12 @@ else
     <SectionReload T=WeithingFactSummaryModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="WeithingFactSummaryModel" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="WeithingFactSummaryModel" 
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-	        <SectionFieldIsMarked T=WeithingFactSummaryModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-            <SectionFieldIdentity T=WeithingFactSummaryModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+	        <SectionFieldIsMarked T=WeithingFactSummaryModel ParentRazor=@(this) />
+            <SectionFieldIdentity T=WeithingFactSummaryModel ParentRazor=@(this) />
 	        
 	        <RadzenGridColumn TItem="WeithingFactSummaryModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate

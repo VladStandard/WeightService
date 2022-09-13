@@ -12,13 +12,13 @@ else
     <SectionReload T=PluObsoleteModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PluObsoleteModel" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="PluObsoleteModel" 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-	        <SectionFieldIsMarked T=PluObsoleteModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-	        <SectionFieldIdentity T=PluObsoleteModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+	        <SectionFieldIsMarked T=PluObsoleteModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=PluObsoleteModel ParentRazor=@(this) />
 
 	        <RadzenGridColumn TItem="PluObsoleteModel" Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
                 <Template Context="itemCast" >

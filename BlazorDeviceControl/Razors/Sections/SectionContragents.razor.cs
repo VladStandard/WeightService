@@ -9,7 +9,7 @@ public partial class SectionContragents : RazorPageSectionBase<ContragentModel>
 
     public SectionContragents()
     {
-		RazorConfig.IsShowFilterMarked = true;
+		RazorPageConfig.IsShowFilterMarked = true;
 	}
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionContragents : RazorPageSectionBase<ContragentModel>
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListContragents(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.GetListContragents(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

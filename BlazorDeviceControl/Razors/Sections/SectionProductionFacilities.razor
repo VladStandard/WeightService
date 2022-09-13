@@ -12,13 +12,13 @@ else
     <SectionReload T=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="ProductionFacilityModel" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="ProductionFacilityModel" 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            <SectionFieldIsMarked T=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-	        <SectionFieldIdentity T=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+            <SectionFieldIsMarked T=ProductionFacilityModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=ProductionFacilityModel ParentRazor=@(this) />
 
             <RadzenGridColumn TItem="ProductionFacilityModel" Title=@LocaleCore.Table.Name Width="20%" >
                 <Template Context="itemCast" >

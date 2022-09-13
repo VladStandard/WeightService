@@ -9,7 +9,7 @@ public partial class SectionTemplateResources : RazorPageSectionBase<TemplateRes
 
     public SectionTemplateResources()
     {
-	    RazorConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
 	    CssStyleRadzenColumn.Width = "40%";
     }
 
@@ -25,7 +25,7 @@ public partial class SectionTemplateResources : RazorPageSectionBase<TemplateRes
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListTemplateResources(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.GetListTemplateResources(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

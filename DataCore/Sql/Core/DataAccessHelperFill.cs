@@ -13,43 +13,20 @@ public static class DataAccessHelperFill
 
 	public static void FillReferences<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
 	{
-		dataAccess.FillReferencesSystem(item);
-		dataAccess.FillReferencesDatas(item);
-		dataAccess.FillReferencesScales(item);
-		dataAccess.FillReferencesDwh(item);
-	}
-
-	private static void FillReferencesSystem<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
-	{
-		if (item == null) return;
+		InformationSystemModel? informationSystem;
 		switch (item)
 		{
+			case DeviceModel device:
+				ScaleModel? scaleDevice = dataAccess.GetItemById<ScaleModel>(device.Scale.IdentityValueId);
+				if (scaleDevice is not null)
+					device.Scale = scaleDevice;
+				break;
 			case LogModel log:
 				log.App = log.App?.IdentityValueUid == null ? new() : dataAccess.GetItemByUid<AppModel>(log.App.IdentityValueUid);
 				log.Host = log.Host?.IdentityValueId == null ? new() : dataAccess.GetItemById<HostModel>(log.Host.IdentityValueId);
 				log.LogType = log.LogType?.IdentityValueUid == null ? new() : dataAccess.GetItemByUid<LogTypeModel>(log.LogType.IdentityValueUid);
 				break;
-		}
-	}
-
-	private static void FillReferencesDatas<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
-	{
-		if (item == null) return;
-		switch (item)
-		{
-			case DeviceModel device:
-				ScaleModel? scale = dataAccess.GetItemById<ScaleModel>(device.Scale.IdentityValueId);
-				if (scale is not null)
-					device.Scale = scale;
-				break;
-		}
-	}
-
-	private static void FillReferencesScales<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
-	{
-		if (item == null) return;
-		switch (item)
-		{
+			// Scales.
 			case BarCodeModel barcode:
 				barcode.BarcodeType = dataAccess.GetItemByUid<BarCodeTypeModel>(barcode.BarcodeType?.IdentityValueUid);
 				barcode.Contragent = dataAccess.GetItemByUid<ContragentModel>(barcode.Contragent?.IdentityValueUid);
@@ -144,24 +121,16 @@ public static class DataAccessHelperFill
 				if (productionFacility is not null)
 					workshop.ProductionFacility = productionFacility;
 				break;
-		}
-	}
-
-	private static void FillReferencesDwh<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
-	{
-		if (item == null) return;
-		InformationSystemModel? informationSystem;
-		switch (item)
-		{
+			// Dwh.
 			case BrandModel brand:
 				informationSystem = dataAccess.GetItemById<InformationSystemModel>(brand.InformationSystem.IdentityValueId);
 				if (informationSystem is not null)
 					brand.InformationSystem = informationSystem;
 				break;
-			case TableDwhModels.NomenclatureModel nomenclature:
-				StatusModel? status = dataAccess.GetItemById<StatusModel>(nomenclature.Status.IdentityValueId);
+			case TableDwhModels.NomenclatureModel nomenclatureDwh:
+				StatusModel? status = dataAccess.GetItemById<StatusModel>(nomenclatureDwh.Status.IdentityValueId);
 				if (status is not null)
-					nomenclature.Status = status;
+					nomenclatureDwh.Status = status;
 				break;
 			case NomenclatureGroupModel nomenclatureGroup:
 				informationSystem = dataAccess.GetItemById<InformationSystemModel>(nomenclatureGroup.InformationSystem.IdentityValueId);

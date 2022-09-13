@@ -9,7 +9,7 @@ public partial class SectionVersions : RazorPageSectionBase<VersionModel>
 
     public SectionVersions()
     {
-        RazorConfig.IsShowFilterMarked = false;
+        RazorPageConfig.IsShowFilterMarked = false;
 	}
 
     #endregion

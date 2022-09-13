@@ -12,13 +12,13 @@ else
     <SectionReload T=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PluWeighingModel" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="PluWeighingModel" 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=PluWeighingModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-            <SectionFieldIdentity T=PluWeighingModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+            <SectionFieldIsMarked T=PluWeighingModel ParentRazor=@(this) />
+            <SectionFieldIdentity T=PluWeighingModel ParentRazor=@(this) />
 
             @*<RadzenGridColumn TItem="PluWeighingModel" TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate

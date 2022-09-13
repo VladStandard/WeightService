@@ -11,7 +11,7 @@ public partial class SectionScales : RazorPageSectionBase<ScaleModel>
 
     public SectionScales()
     {
-	    RazorConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -26,7 +26,7 @@ public partial class SectionScales : RazorPageSectionBase<ScaleModel>
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListScales(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListScales(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

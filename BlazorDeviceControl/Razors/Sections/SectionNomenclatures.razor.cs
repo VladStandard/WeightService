@@ -9,7 +9,7 @@ public partial class SectionNomenclatures : RazorPageSectionBase<NomenclatureMod
 
     public SectionNomenclatures()
     {
-        RazorConfig.IsShowFilterMarked = true;
+        RazorPageConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionNomenclatures : RazorPageSectionBase<NomenclatureMod
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListNomenclatures(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListNomenclatures(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

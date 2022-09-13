@@ -7,8 +7,6 @@ public partial class SectionField<T> : RazorPageSectionBase<T> where T : SqlTabl
 {
 	#region Public and private fields, properties, constructor
 
-	private DateTime FieldDt { get; set; }
-
 	public SectionField()
 	{
 		CssStyleRadzenColumn.Width = "12%";

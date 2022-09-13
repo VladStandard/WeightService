@@ -9,7 +9,7 @@ public partial class SectionPlus : RazorPageSectionBase<PluModel>
 
 	public SectionPlus()
 	{
-		RazorConfig.IsShowFilterMarked = true;
+		RazorPageConfig.IsShowFilterMarked = true;
 	}
 
 	#endregion
@@ -24,7 +24,7 @@ public partial class SectionPlus : RazorPageSectionBase<PluModel>
 		{
 			() =>
 			{
-				ItemsCast = AppSettings.DataAccess.GetListPlus(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
+				ItemsCast = AppSettings.DataAccess.GetListPlus(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop, false);
 
 				ButtonSettings = new(false, false, true, true, false, false, false);
 			}

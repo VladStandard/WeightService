@@ -12,7 +12,7 @@ public partial class SectionProductionFacilities : RazorPageSectionBase<Producti
 
     public SectionProductionFacilities()
     {
-	    RazorConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -27,7 +27,7 @@ public partial class SectionProductionFacilities : RazorPageSectionBase<Producti
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListProductionFacilities(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop, false);
+	            ItemsCast = AppSettings.DataAccess.GetListProductionFacilities(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop, false);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

@@ -9,8 +9,8 @@ public partial class SectionAccess : RazorPageSectionBase<AccessModel>
 
     public SectionAccess()
     {
-	    RazorConfig.IsShowFilterMarked = true;
-	    RazorConfig.IsShowFilterOnlyTop = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterOnlyTop = true;
 	}
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionAccess : RazorPageSectionBase<AccessModel>
         {
             () =>
             {
-                ItemsCast = AppSettings.DataAccess.GetListAcesses(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.GetListAcesses(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(true, false, true, true, true, false, false);
             }

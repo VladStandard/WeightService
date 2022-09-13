@@ -3,7 +3,7 @@
 
 namespace BlazorCore.Models;
 
-public class RazorConfigModel
+public class RazorPageConfigModel
 {
 	#region Public and private fields, properties, constructor
 
@@ -14,7 +14,7 @@ public class RazorConfigModel
 	public bool IsShowOnlyTop { get; set; }
 	public bool IsShowItemsCount { get; set; }
 
-	public RazorConfigModel()
+	public RazorPageConfigModel()
 	{
 		IsShowFilterOnlyTop = true;
 		IsShowOnlyTop = true;

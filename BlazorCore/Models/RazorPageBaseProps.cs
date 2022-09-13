@@ -9,8 +9,7 @@ using System.Collections.Generic;
 
 namespace BlazorCore.Models;
 
-public partial class 
-	RazorPageBase
+public partial class RazorPageBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -27,7 +26,8 @@ public partial class
 		get => IsShowReload ? "true" : "false";
 		set => IsShowReload = value.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
 	}
-	[Parameter] public RazorConfigModel RazorConfig { get; set; }
+	[Parameter] public RazorPageConfigModel RazorPageConfig { get; set; }
+	[Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
 	[Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
 	[Parameter] public SqlTableActionEnum TableAction { get; set; }
 	[Parameter] public Guid? IdentityUid { get; set; }
@@ -36,12 +36,9 @@ public partial class
 	[Parameter] public List<DataCore.Sql.Tables.SqlTableBase>? Items { get; set; }
 	[Parameter] public RazorPageBase? ParentRazor { get; set; }
 	[Parameter] public UserSettingsModel UserSettings { get; set; }
-	[Parameter] public string Title { get; set; }
-	[Parameter] public TextAlign TextAlign { get; set; }
 	private ItemSaveCheckModel ItemSaveCheck { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
 	public DataCore.Sql.Tables.SqlTableBase? Item { get; set; }
-	protected object? ItemObject { get => Item; set => Item = (DataCore.Sql.Tables.SqlTableBase?)value; }
 	private bool IsActionsInitializedFinished { get; set; }
 	protected bool IsActionsParametersSetFinished { get; set; }
 
@@ -58,21 +55,19 @@ public partial class
 
 		UserSettings = new();
 		ButtonSettings = new();
-		RazorConfig = new();
+		RazorPageConfig = new();
+		RazorFieldConfig = new();
 		TableAction = SqlTableActionEnum.Empty;
 		ItemSaveCheck = new();
 		IsActionsInitializedFinished = false;
 		IsActionsParametersSetFinished = false;
-		
-		Title = string.Empty;
-		TextAlign = TextAlign.Center;
 	}
 
 	public void SetPropertiesFromParent()
 	{
 		if (ParentRazor is null) return;
 
-		RazorConfig = ParentRazor.RazorConfig;
+		RazorPageConfig = ParentRazor.RazorPageConfig;
 
 		if (IdentityId is null && ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;

@@ -15,25 +15,25 @@
 		</thead>
 		<tbody>
 		<tr>
-			<td colspan=@(RazorConfig.IsShowFilterAdditional ? 1 : 3) >
+			<td colspan=@(RazorPageConfig.IsShowFilterAdditional ? 1 : 3) >
 				@if (ParentRazor is null)
 				{
 					<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
 				}
 				else
 				{
-					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@Title />
-					@if (RazorConfig.IsShowFilterOnlyTop)
+					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@RazorFieldConfig.FieldTitle />
+					@if (RazorPageConfig.IsShowFilterOnlyTop)
 					{
-						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorConfig.IsShowOnlyTop
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorPageConfig.IsShowOnlyTop
 							Change=@(_=> OnChangeAsync())
 						    Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
 						    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
 					}
-					@if (RazorConfig.IsShowFilterMarked)
+					@if (RazorPageConfig.IsShowFilterMarked)
 					{
-						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorConfig.IsShowMarked
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorPageConfig.IsShowMarked
 							Change=@(_ => OnChangeAsync())
 							Style="margin-top: -3px; margin-left: 20px; " />
 						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
@@ -41,16 +41,16 @@
 					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 					              Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
 					              Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
-					@if (RazorConfig.IsShowItemsCount)
+					@if (RazorPageConfig.IsShowItemsCount)
 					{
 						<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
 					}
 				}
 			</td>
-			@if (RazorConfig.IsShowFilterAdditional)
+			@if (RazorPageConfig.IsShowFilterAdditional)
 			{
 				<td>
-					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@Title />
+					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.FieldTitle />
 @*					@switch (FilterTable)
 					{
 						case SqlTableScaleEnum.Scales:

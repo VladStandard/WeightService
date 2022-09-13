@@ -12,31 +12,19 @@ else
 {
     <SectionReload T=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
 
-    <RadzenGrid Style="margin-top: 5px; " 
-        Data=@ItemsCast TItem="AccessModel" @bind-Value=@ItemObject
-        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
-        RowRender=@RowRender
+    <RadzenGrid Style="margin-top: 5px; " Data=@ItemsCast TItem="AccessModel" 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings)) RowRender=@RowRender
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
-			<SectionFieldIsMarked T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-			<SectionFieldIdentity T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
-			<SectionField T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) 
-				FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
-
-		    <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Left Title=@LocaleCore.Table.User Type="string" Width="30%">
-			    <Template Context="itemCast">
-				    <RadzenLink Style="width: 100%; margin-left: 0;"
-				                Path=@($"{LocaleCore.DeviceControl.RouteItemAccess}/{itemCast.Identity.Uid}")
-				                Text=@itemCast.User/>
-			    </Template>
-		    </RadzenGridColumn>
-		    <RadzenGridColumn TItem="AccessModel" TextAlign=TextAlign.Left
-		                      Title=@LocaleCore.Table.AccessLevel Type="string" Width="30%">
-			    <Template Context="itemCast">
-				    <RadzenLabel Text=@UserSettings.GetDescriptionAccessRights(itemCast.Rights) Disabled=false ReadOnly=true/>
-			    </Template>
-		    </RadzenGridColumn>
+			<SectionFieldIsMarked T=AccessModel ParentRazor=@(this) />
+			<SectionFieldIdentity T=AccessModel ParentRazor=@(this) />
+			<SectionField T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("13%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+			<SectionField T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true)) 
+				RazorFieldConfig=@RazorFieldConfigUtils.Access.GetUser() />
+			<SectionField T=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Access.GetRights() />
 	    </Columns>
     </RadzenGrid>
 

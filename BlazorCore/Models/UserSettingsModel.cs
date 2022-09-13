@@ -66,21 +66,6 @@ public class UserSettingsModel
 
 	public override string ToString() => $"{nameof(UserName)}: {UserName}. " + $"{nameof(AccessRights)}: {AccessRights}. ";
 
-	public string GetDescriptionAccessRights(AccessRightsEnum accessRights)
-	{
-		if (accessRights == AccessRightsEnum.None)
-			accessRights = AccessRights;
-		return accessRights switch
-		{
-			AccessRightsEnum.Read => LocaleCore.Strings.AccessRightsRead,
-			AccessRightsEnum.Write => LocaleCore.Strings.AccessRightsWrite,
-			AccessRightsEnum.Admin => LocaleCore.Strings.AccessRightsAdmin,
-			_ => LocaleCore.Strings.AccessRightsNone,
-		};
-	}
-
-	public string GetDescriptionAccessRights(byte accessRights) => GetDescriptionAccessRights((AccessRightsEnum)accessRights);
-
 	private string GetColorAccessRights(AccessRightsEnum accessRights, uint rowCounter)
 	{
 		if (accessRights == AccessRightsEnum.None)

@@ -9,7 +9,7 @@ public partial class SectionPlusLabels : RazorPageSectionBase<PluLabelModel>
 
 	public SectionPlusLabels()
 	{
-		RazorConfig.IsShowFilterMarked = true;
+		RazorPageConfig.IsShowFilterMarked = true;
 	}
 
 	#endregion
@@ -57,7 +57,7 @@ public partial class SectionPlusLabels : RazorPageSectionBase<PluLabelModel>
                 //    }
                 //}
                 
-                ItemsCast = AppSettings.DataAccess.GetListPluLabels(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+                ItemsCast = AppSettings.DataAccess.GetListPluLabels(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(true, true, true, false, false, false, false);
             }

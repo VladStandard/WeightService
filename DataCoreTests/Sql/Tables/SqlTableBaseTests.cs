@@ -199,6 +199,8 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlFieldDtCheck<ScaleModel>(nameof(ScaleModel.CreateDt));
 		Helper.AssertSqlFieldDtCheck<ScaleModel>(nameof(ScaleModel.ChangeDt));
+		//Helper.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
+		Helper.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Description));
 	}
 
 	[Test]

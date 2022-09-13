@@ -12,16 +12,15 @@ else
     <SectionReload T=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterResourceModel" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="PrinterResourceModel" 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked T=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-	        <SectionFieldIdentity T=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+            <SectionFieldIsMarked T=PrinterResourceModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=PrinterResourceModel ParentRazor=@(this) />
             <SectionField T=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-                FieldName=@(nameof(VersionModel.Description)) Title=@LocaleCore.Table.Description TextAlign=TextAlign.Left />
-
+                RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
             <RadzenGridColumn TItem="PrinterResourceModel" Title=@LocaleCore.Table.Printer Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

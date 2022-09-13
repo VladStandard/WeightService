@@ -12,16 +12,15 @@ else
     <SectionReload T=ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
     
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="ContragentModel" @bind-Value=@ItemObject
+        Data=@ItemsCast TItem="ContragentModel" 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-	        <SectionFieldIsMarked T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("4%", false)) />
-	        <SectionFieldIdentity T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true)) />
+	        <SectionFieldIsMarked T=ContragentModel ParentRazor=@(this) />
+	        <SectionFieldIdentity T=ContragentModel ParentRazor=@(this) />
             <SectionField T=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-                FieldName=@(nameof(VersionModel.ChangeDt)) Title=@LocaleCore.Table.ChangeDt />
-	        
+                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
             <RadzenGridColumn 
                 TItem="ContragentModel" Title=@LocaleCore.Table.Name Width="25%" >
                 <Template Context="itemCast" >

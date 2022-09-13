@@ -212,11 +212,4 @@ else
     <ItemDates T=ScaleModel ParentRazor=@(this) />
 }
 
-@if (IsPluNew)
-{
-	<SectionPlusScales ParentRazor=@(this) />
-}
-else
-{
-	<SectionPlusObsolete ParentRazor=@(this) />
-}
+<SectionPlusScales ParentRazor=@(this) />

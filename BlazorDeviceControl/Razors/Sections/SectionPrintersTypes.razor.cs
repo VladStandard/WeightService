@@ -9,7 +9,7 @@ public partial class SectionPrintersTypes : RazorPageSectionBase<PrinterTypeMode
 
     public SectionPrintersTypes()
     {
-	    RazorConfig.IsShowFilterMarked = true;
+	    RazorPageConfig.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -24,7 +24,7 @@ public partial class SectionPrintersTypes : RazorPageSectionBase<PrinterTypeMode
         {
             () =>
             {
-	            ItemsCast = AppSettings.DataAccess.GetListPrinterTypes(RazorConfig.IsShowMarked, RazorConfig.IsShowOnlyTop);
+	            ItemsCast = AppSettings.DataAccess.GetListPrinterTypes(RazorPageConfig.IsShowMarked, RazorPageConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

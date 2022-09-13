@@ -81,11 +81,10 @@ public class LocaleTable
     public string GoodsBoxQuantlyShort => Lang == LangEnum.English ? "Attach" : "Влож";
     public string GoodsBruttoWeight => Lang == LangEnum.English ? "Gross weight" : "Вес брутто";
     public string GoodsDescription => Lang == LangEnum.English ? "Good description" : "Описание товара";
-    public string GoodsFullName => Lang == LangEnum.English ? "Full name" : "Полное наименование";
     public string GoodsName => Lang == LangEnum.English ? "Product" : "Товар";
-    public string GoodsTareWeight => Lang == LangEnum.English ? "Tare weight, kg" : "Вес тары, кг";
-    public string GoodsTareWeightDescription => Lang == LangEnum.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
-    public string GoodsTareWeightShort => Lang == LangEnum.English ? "Weight" : "Вес";
+    public string TareWeight => Lang == LangEnum.English ? "Tare weight, kg" : "Вес тары, кг";
+    public string TareWeightDescription => Lang == LangEnum.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
+    public string TareWeightShort => Lang == LangEnum.English ? "Weight" : "Вес";
     public string Gtin => Lang == LangEnum.English ? "BC GTIN" : "ШК ГТИН";
     public string GuidMercury => Lang == LangEnum.English ? "GUID Mercury" : "ГУИД Меркурий";
     public string Host => Lang == LangEnum.English ? "Host" : "Хост";
@@ -176,7 +175,6 @@ public class LocaleTable
     public string TableSave => Lang == LangEnum.English ? "Save record" : "Сохранить запись";
     public string TableSelect => Lang == LangEnum.English ? "Highlight record" : "Выделить запись";
     public string TableTab => Lang == LangEnum.English ? "Switch between panels" : "Переключиться между панелями";
-    public string TareWeight => Lang == LangEnum.English ? "Tare weight" : "Вес тары";
     public string TaskModule => Lang == LangEnum.English ? "Task module" : "Модуль задачи";
     public string TaskModuleType => Lang == LangEnum.English ? "Task module type" : "Тип модуля задачи";
     public string TaskType => Lang == LangEnum.English ? "Task type" : "Тип задачи";
