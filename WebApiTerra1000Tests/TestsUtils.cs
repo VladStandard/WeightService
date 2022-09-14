@@ -74,17 +74,23 @@ namespace DataCoreTests
             "https://t1000-dev.kolbasa-vs.local:443/api/v2/contragent",
             "https://t1000-dev-preview.kolbasa-vs.local:443/api/v2/contragent",
         };
-        public static List<string> GetListUrlInfoV1 => new()
+        public static List<string> GetProdListUrlInfoV1 => new()
         {
             "https://t1000.kolbasa-vs.local:443/api/info",
             "https://t1000-preview.kolbasa-vs.local:443/api/info",
+        };
+        public static List<string> GetDevListUrlInfoV1 => new()
+        {
             "https://t1000-dev.kolbasa-vs.local:443/api/info",
             "https://t1000-dev-preview.kolbasa-vs.local:443/api/info",
         };
-        public static List<string> GetListUrlInfoV2 => new()
+        public static List<string> GetProdListUrlInfoV2 => new()
         {
             "https://t1000.kolbasa-vs.local:443/api/v2/info",
             "https://t1000-preview.kolbasa-vs.local:443/api/v2/info",
+        };
+        public static List<string> GetDevListUrlInfoV2 => new()
+        {
             "https://t1000-dev.kolbasa-vs.local:443/api/v2/info",
             "https://t1000-dev-preview.kolbasa-vs.local:443/api/v2/info",
         };

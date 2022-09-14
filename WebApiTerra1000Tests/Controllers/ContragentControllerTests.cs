@@ -12,36 +12,36 @@ namespace DataProjectsCoreTests.DAL
     [TestFixture]
     internal class ContragentControllerTests
     {
-        [Test]
-        public void GetContragentCodeV1_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetListUrlContragentV1)
-                {
-                    foreach (string code in TestsUtils.GetListContragentCode)
-                    {
-                        //await GetContragentAsync(url, code, null);
-                    }
-                }
-            });
-            TestContext.WriteLine();
-        }
+        //[Test]
+        //public void GetContragentCodeV1_Execute_DoesNotThrow()
+        //{
+        //    Assert.DoesNotThrowAsync(async () =>
+        //    {
+        //        foreach (string url in TestsUtils.GetListUrlContragentV1)
+        //        {
+        //            foreach (string code in TestsUtils.GetListContragentCode)
+        //            {
+        //                await GetContragentAsync(url, code, null);
+        //            }
+        //        }
+        //    });
+        //    TestContext.WriteLine();
+        //}
 
-        [Test]
-        public void GetContragentCodeV2_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetListUrlContragentV2)
-                {
-                    foreach (string code in TestsUtils.GetListContragentCode)
-                    {
-                        await GetContragentAsync(url, code, null);
-                    }
-                }
-            });
-        }
+        //[Test]
+        //public void GetContragentCodeV2_Execute_DoesNotThrow()
+        //{
+        //    Assert.DoesNotThrowAsync(async () =>
+        //    {
+        //        foreach (string url in TestsUtils.GetListUrlContragentV2)
+        //        {
+        //            foreach (string code in TestsUtils.GetListContragentCode)
+        //            {
+        //                await GetContragentAsync(url, code, null);
+        //            }
+        //        }
+        //    });
+        //}
 
         [Test]
         public void GetContragentIdV1_Execute_DoesNotThrow()
@@ -78,17 +78,17 @@ namespace DataProjectsCoreTests.DAL
 
         private async Task GetContragentAsync(string url, string? code, long? id)
         {
-            RestSharp.RestClientOptions options = new(url)
+			RestClientOptions options = new(url)
             {
                 UseDefaultCredentials = true,
                 ThrowOnAnyError = true,
-                Timeout = 60_000,
+                MaxTimeout = 60_000,
             };
-            using RestSharp.RestClient client = new(options);
+            using RestClient client = new(options);
             RestRequest request = new();
-            if (code != null)
+            if (code is not null)
                 request.AddQueryParameter("code", code);
-            else if (id != null)
+            if (id is not null)
                 request.AddQueryParameter("id", id.ToString());
             RestResponse response = await client.GetAsync(request);
 
@@ -96,9 +96,9 @@ namespace DataProjectsCoreTests.DAL
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
             if (!string.IsNullOrEmpty(response.Content))
             {
-                if (code != null)
+                if (code is not null)
                     Assert.IsTrue(response.Content.Contains($"Code=\"{code}\"", System.StringComparison.InvariantCultureIgnoreCase));
-                else if (id != null)
+                if (id is not null)
                     Assert.IsTrue(response.Content.Contains($"ID=\"{id}\"", System.StringComparison.InvariantCultureIgnoreCase));
             }
             TestContext.WriteLine();

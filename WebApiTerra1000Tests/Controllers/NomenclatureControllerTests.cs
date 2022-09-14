@@ -12,36 +12,36 @@ namespace DataProjectsCoreTests.DAL
     [TestFixture]
     internal class NomenclatureControllerTests
     {
-        [Test]
-        public void GetNomenclatureCodeV1_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetListUrlNomenclatureV1)
-                {
-                    foreach (string code in TestsUtils.GetListNomenclatureCode)
-                    {
-                        await GetNomenclatureAsync(url, code, null);
-                    }
-                }
-            });
-            TestContext.WriteLine();
-        }
+        //[Test]
+        //public void GetNomenclatureCodeV1_Execute_DoesNotThrow()
+        //{
+        //    Assert.DoesNotThrowAsync(async () =>
+        //    {
+        //        foreach (string url in TestsUtils.GetListUrlNomenclatureV1)
+        //        {
+        //            foreach (string code in TestsUtils.GetListNomenclatureCode)
+        //            {
+        //                await GetNomenclatureAsync(url, code, null);
+        //            }
+        //        }
+        //    });
+        //    TestContext.WriteLine();
+        //}
 
-        [Test]
-        public void GetNomenclatureCodeV2_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetListUrlNomenclatureV2)
-                {
-                    foreach (string code in TestsUtils.GetListNomenclatureCode)
-                    {
-                        await GetNomenclatureAsync(url, code, null);
-                    }
-                }
-            });
-        }
+        //[Test]
+        //public void GetNomenclatureCodeV2_Execute_DoesNotThrow()
+        //{
+        //    Assert.DoesNotThrowAsync(async () =>
+        //    {
+        //        foreach (string url in TestsUtils.GetListUrlNomenclatureV2)
+        //        {
+        //            foreach (string code in TestsUtils.GetListNomenclatureCode)
+        //            {
+        //                await GetNomenclatureAsync(url, code, null);
+        //            }
+        //        }
+        //    });
+        //}
 
         [Test]
         public void GetNomenclatureIdV1_Execute_DoesNotThrow()
@@ -78,13 +78,13 @@ namespace DataProjectsCoreTests.DAL
 
         private async Task GetNomenclatureAsync(string url, string? code, long? id)
         {
-            RestSharp.RestClientOptions options = new(url)
+			RestClientOptions options = new(url)
             {
                 UseDefaultCredentials = true,
                 ThrowOnAnyError = true,
                 Timeout = 60_000,
             };
-            using RestSharp.RestClient client = new(options);
+            using RestClient client = new(options);
             RestRequest request = new();
             if (code != null)
                 request.AddQueryParameter("code", code);

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using System.Net;
+using System.Net.Security;
 using System.Threading.Tasks;
 using WebApiCore.Common;
 
@@ -15,11 +16,11 @@ namespace DataProjectsCoreTests.DAL
     internal class TestControllerTests
     {
         [Test]
-        public void GetInfoV1_Execute_DoesNotThrow()
+        public void GetProdInfoV1_Execute_DoesNotThrow()
         {
             Assert.DoesNotThrowAsync(async () =>
             {
-                foreach (string url in TestsUtils.GetListUrlInfoV1)
+                foreach (string url in TestsUtils.GetProdListUrlInfoV1)
                 {
                     await GetInfoAsync(url);
                 }
@@ -27,11 +28,35 @@ namespace DataProjectsCoreTests.DAL
         }
 
         [Test]
-        public void GetInfoV2_Execute_DoesNotThrow()
+        public void GetDevInfoV1_Execute_DoesNotThrow()
         {
             Assert.DoesNotThrowAsync(async () =>
             {
-                foreach (string url in TestsUtils.GetListUrlInfoV2)
+                foreach (string url in TestsUtils.GetDevListUrlInfoV1)
+                {
+                    await GetInfoAsync(url);
+                }
+            });
+        }
+
+        [Test]
+        public void GetProdInfoV2_Execute_DoesNotThrow()
+        {
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                foreach (string url in TestsUtils.GetProdListUrlInfoV2)
+                {
+                    await GetInfoAsync(url);
+                }
+            });
+        }
+
+        [Test]
+        public void GetDevInfoV2_Execute_DoesNotThrow()
+        {
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                foreach (string url in TestsUtils.GetDevListUrlInfoV2)
                 {
                     await GetInfoAsync(url);
                 }
@@ -40,14 +65,15 @@ namespace DataProjectsCoreTests.DAL
 
         private async Task GetInfoAsync(string url)
         {
-            RestSharp.RestClientOptions options = new(url)
+            RestClientOptions options = new(url)
             {
                 UseDefaultCredentials = true,
                 ThrowOnAnyError = true,
-                Timeout = 60_000,
+                MaxTimeout = 60_000,
             };
-            using RestSharp.RestClient client = new(options);
-            RestRequest request = new RestSharp.RestRequest()
+            options.RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+			using RestClient client = new(options);
+            RestRequest request = new RestRequest()
                 .AddQueryParameter("format", "json");
             RestResponse response = await client.GetAsync(request);
 
@@ -58,7 +84,7 @@ namespace DataProjectsCoreTests.DAL
             {
                 ServiceInfoEntity? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoEntity>(response.Content);
                 Assert.IsTrue(serviceInfo != null);
-                Assert.AreEqual(serviceInfo?.App, "WebApiTerra1000");
+                Assert.IsTrue(serviceInfo?.App.StartsWith("WebApi", System.StringComparison.InvariantCultureIgnoreCase));
             }
             TestContext.WriteLine();
         }
