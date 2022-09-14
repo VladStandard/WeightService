@@ -12,12 +12,12 @@
 }
 else
 {
-    <ItemReload T=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
+    <ItemReload TItem=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead T=PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+		<ItemTableHead TItem=PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 		<tbody>
-			<ItemTableBody T=PluWeighingModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody TItem=PluWeighingModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			@*<tr>
 				<td>@LocaleCore.Table.WeithingDate</td>
 				<td>
@@ -106,6 +106,6 @@ else
 		</tbody>
 	</MudSimpleTable>
 
-	<ItemSave T=PluWeighingModel ParentRazor=@(this) />
-	<ItemDates T=PluWeighingModel ParentRazor=@(this) />
+	<ItemSave TItem=PluWeighingModel ParentRazor=@(this) />
+	<ItemDates TItem=PluWeighingModel ParentRazor=@(this) />
 }

@@ -12,12 +12,12 @@
 }
 else
 {
-	<ItemReload T=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplateResource />
+	<ItemReload TItem=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplateResource />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead T=TemplateResourceModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+		<ItemTableHead TItem=TemplateResourceModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 		<tbody>
-			<ItemTableBody T=TemplateResourceModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody TItem=TemplateResourceModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Table.Name</td>
 				<td>
@@ -47,8 +47,8 @@ else
 		</tbody>
 	</MudSimpleTable>
 
-	<ItemSave T=TemplateResourceModel ParentRazor=@(this) />
-	<ItemDates T=TemplateResourceModel ParentRazor=@(this) />
+	<ItemSave TItem=TemplateResourceModel ParentRazor=@(this) />
+	<ItemDates TItem=TemplateResourceModel ParentRazor=@(this) />
 }
 @*
 <RadzenLabel Style="width: 97%;" Text=@FileInfo />

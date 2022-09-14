@@ -12,12 +12,12 @@
 }
 else
 {
-    <ItemReload T=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
+    <ItemReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	    <ItemTableHead T=BarCodeModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+	    <ItemTableHead TItem=BarCodeModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-            <ItemTableBody T=BarCodeModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+            <ItemTableBody TItem=BarCodeModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.Value</td>
                 <td>
@@ -28,6 +28,6 @@ else
         </tbody>
     </MudSimpleTable>
 
-    <ItemSave T=BarCodeModel ParentRazor=@(this) />
-    <ItemDates T=BarCodeModel ParentRazor=@(this) />
+    <ItemSave TItem=BarCodeModel ParentRazor=@(this) />
+    <ItemDates TItem=BarCodeModel ParentRazor=@(this) />
 }

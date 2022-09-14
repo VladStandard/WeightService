@@ -13,12 +13,12 @@
 }
 else
 {
-    <ItemReload T=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
+    <ItemReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	    <ItemTableHead T=WorkShopModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
+	    <ItemTableHead TItem=WorkShopModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
         <tbody>
-			<ItemTableBody T=WorkShopModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody TItem=WorkShopModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             <tr>
                 <td>@LocaleCore.Table.Name</td>
                 <td colspan=3>
@@ -46,6 +46,6 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <ItemSave T=WorkShopModel ParentRazor=@(this) />
-    <ItemDates T=WorkShopModel ParentRazor=@(this) />
+    <ItemSave TItem=WorkShopModel ParentRazor=@(this) />
+    <ItemDates TItem=WorkShopModel ParentRazor=@(this) />
 }

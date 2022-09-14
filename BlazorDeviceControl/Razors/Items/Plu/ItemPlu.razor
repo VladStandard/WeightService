@@ -13,12 +13,12 @@
 }
 else
 {
-	<ItemReload T=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
+	<ItemReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
 	
 	<MudSimpleTable Style="overflow-x: auto; margin-top: 10px; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead T=PluModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<ItemTableHead TItem=PluModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
         <tbody>
-			<ItemTableBody T=PluModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+			<ItemTableBody TItem=PluModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.PluNumber</td>
                 <td>
@@ -209,7 +209,7 @@ else
         </tbody>
     </MudSimpleTable>
 	
-	<ItemSave T=PluModel ParentRazor=@(this) />
+	<ItemSave TItem=PluModel ParentRazor=@(this) />
 
-    <ItemDates T=PluModel ParentRazor=@(this) />
+    <ItemDates TItem=PluModel ParentRazor=@(this) />
 }

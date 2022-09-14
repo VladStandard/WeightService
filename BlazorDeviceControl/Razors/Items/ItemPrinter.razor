@@ -15,12 +15,12 @@
 }
 else
 {
-    <ItemReload T=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Name />
+    <ItemReload TItem=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Name />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	    <ItemTableHead T=PrinterModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
+	    <ItemTableHead TItem=PrinterModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
         <tbody>
-			<ItemTableBody T=PrinterModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<ItemTableBody TItem=PrinterModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             <tr>
                 <td>@LocaleCore.Table.Name</td>
                 <td>
@@ -115,6 +115,6 @@ else
     <br style="margin-top: 10px; "/>
     <SectionPrintersResources ParentRazor=@(this) />
     
-    <ItemSave T=PrinterModel ParentRazor=@(this) />
-    <ItemDates T=PrinterModel ParentRazor=@(this) />
+    <ItemSave TItem=PrinterModel ParentRazor=@(this) />
+    <ItemDates TItem=PrinterModel ParentRazor=@(this) />
 }

@@ -69,7 +69,8 @@ namespace DataCore.Protocols
                 UseDefaultCredentials = true,
                 ThrowOnAnyError = true,
                 MaxTimeout = timeOut,
-            };
+				RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+			};
             using RestClient client = new(options);
             RestRequest request = new();
             try

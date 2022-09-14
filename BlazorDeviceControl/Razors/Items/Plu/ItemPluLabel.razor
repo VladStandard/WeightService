@@ -12,12 +12,12 @@
 }
 else
 {
-    <ItemReload T=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
+    <ItemReload TItem=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <ItemTableHead T=PluLabelModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <ItemTableHead TItem=PluLabelModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-            <ItemTableBody T=PluLabelModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+            <ItemTableBody TItem=PluLabelModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             @*<tr>
                 <td>@LocaleCore.Table.Scale</td>
 	            <td>
@@ -118,6 +118,6 @@ else
         </tbody>
     </MudSimpleTable>
 
-    <ItemSave T=PluLabelModel ParentRazor=@(this) />
-    <ItemDates T=PluLabelModel ParentRazor=@(this) />
+    <ItemSave TItem=PluLabelModel ParentRazor=@(this) />
+    <ItemDates TItem=PluLabelModel ParentRazor=@(this) />
 }

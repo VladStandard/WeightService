@@ -6,7 +6,7 @@ namespace BlazorDeviceControl.Razors.Items.Components;
 /// <summary>
 /// Actions save.
 /// </summary>
-public partial class ItemSave<T> : RazorPageItemBase<T> where T : SqlTableBase, new()
+public partial class ItemSave<TItem> : RazorPageItemBase<TItem> where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
