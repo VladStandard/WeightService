@@ -6,7 +6,7 @@ using DataCore.Models;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public class UserSettingsModel
 {

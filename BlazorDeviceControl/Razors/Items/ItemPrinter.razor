@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageItemBase<PrinterModel>
+﻿@inherits RazorPageItemBase<PrinterModel>
 @page "/item/printer"
 @page "/item/printer/{IdentityId:long}"
 @page "/item/printer/{IdentityId:long}/{TableAction}"
@@ -53,7 +53,7 @@ else
                         @bind-Value=@ItemCast.PrinterType>
                         @foreach (PrinterTypeModel item in PrinterTypes)
                         {
-                            <MudSelectItem T=@PrinterTypeModel Value =@item>@item.Name</MudSelectItem>
+                            <MudSelectItem T=@PrinterTypeModel Value=@item>@item.Name</MudSelectItem>
                         }
                     </MudSelect>
                 </td>

@@ -6,9 +6,8 @@ using DataCore.Sql.Core;
 using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
 using Microsoft.JSInterop;
-using static BlazorCore.Utils.RazorFieldConfigUtils;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public partial class RazorPageBase
 {
@@ -30,18 +29,18 @@ public partial class RazorPageBase
 
     public string GetRouteItemPathForLink<TItem>(TItem? item) where TItem : SqlTableBase, new()
 	{
-        if (string.IsNullOrEmpty(RazorFieldConfig.FieldLinkUrl))
+        if (string.IsNullOrEmpty(RazorFieldConfig.LinkUrl))
         {
             return GetRouteItemPath<TItem>(item);
 		}
         return item switch
         {
-            ScaleModel scale => RazorFieldConfig.FieldSqlTable switch
+            ScaleModel scale => RazorFieldConfig.SqlTable switch
             {
-                SqlTableEmptyModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, item),
-                HostModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, scale.Host),
-                PrinterModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, scale.PrinterMain),
-                WorkShopModel => GetRouteItemPathCombine(RazorFieldConfig.FieldLinkUrl, scale.WorkShop),
+                SqlTableEmptyModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, item),
+                HostModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, scale.Host),
+                PrinterModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, scale.PrinterMain),
+                WorkShopModel => GetRouteItemPathCombine(RazorFieldConfig.LinkUrl, scale.WorkShop),
                 _ => string.Empty,
             },
             _ => string.Empty,

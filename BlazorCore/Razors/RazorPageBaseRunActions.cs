@@ -1,15 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
 using Radzen;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Environment = System.Environment;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public partial class RazorPageBase
 {

@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageItemBase<AccessModel>
+﻿@inherits RazorPageItemBase<AccessModel>
 @page "/item/access"
 @page "/item/access/{IdentityUidStr}"
 @page "/item/access/{IdentityUidStr}/{TableAction}"
@@ -26,15 +26,21 @@ else
                         TValue="string" @bind-Value=@ItemCast.User />
 				</td>
                 <td>@LocaleCore.Strings.AccessRights</td>
-                <td>
-                    <RadzenDropDown Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                        Disabled=false TValue=@AccessRightsEnum
-                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
-                        TextProperty="Name" Change=@(args => OnChangeItem(ItemCast, nameof(ItemCast.Rights), args)) 
-                        ValueProperty="Value" Value=@Rights 
-                    />
-				</td>
+	            <td>
+		            <MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@Rights>
+                        @foreach (TypeModel<AccessRightsEnum> item in TemplateAccessRights)
+			            {
+                            <MudSelectItem T=@AccessRightsEnum Value=@item.Value>@item.Name</MudSelectItem>
+			            }
+		            </MudSelect>
+		            @*<RadzenDropDown Style="width: 100 %;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+		                            Disabled=false TValue=@AccessRightsEnum
+		                            AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+		                            Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
+		                            TextProperty="Name" Change=@(args => OnChangeItem(ItemCast, nameof(ItemCast.Rights), args))
+		                            ValueProperty="Value" @bind-Value=@Rights/>*@
+	            </td>
             </tr>
         </tbody>
     </MudSimpleTable>

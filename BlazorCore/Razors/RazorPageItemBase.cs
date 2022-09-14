@@ -5,7 +5,7 @@ using BlazorCore.CssStyles;
 using DataCore.Sql.Tables;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public class RazorPageItemBase<T> : RazorPageBase where T : SqlTableBase, new()
 {

@@ -1,6 +1,7 @@
 ﻿@typeparam TItem
-@inherits BlazorCore.Models.RazorPageSectionBase<TItem>
+@inherits RazorPageSectionBase<TItem>
 @page "/section/reload"
+@using BlazorCore.Razors
 @using DataCore.Sql.Core
 @using BlazorDeviceControl.Razors.Components
 
@@ -50,7 +51,7 @@
 			@if (RazorPageConfig.IsShowFilterAdditional)
 			{
 				<td>
-					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.FieldTitle />
+					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title />
 @*					@switch (FilterTable)
 					{
 						case SqlTableScaleEnum.Scales:

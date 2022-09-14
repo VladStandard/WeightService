@@ -1,12 +1,13 @@
 ﻿@typeparam TItem
-@inherits BlazorCore.Models.RazorPageItemBase<TItem>
-@page "/action/reload_item"
+@inherits RazorPageItemBase<TItem>
+@page "/item/reload"
+@using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Components
 
 <MudPaper Width="100%" Height="32px;" Style="margin-bottom: 10px;" Square=false >
-    @if (!string.IsNullOrEmpty(RazorFieldConfig.FieldTitle))
+    @if (!string.IsNullOrEmpty(Title))
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@RazorFieldConfig.FieldTitle />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@RazorFieldConfig.Title />
     }
     
     @if (ParentRazor is null)

@@ -1,19 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Generic;
+using System.Net.Sockets;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
-using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Net.Sockets;
 using DataCore.Sql.Tables;
-using Environment = System.Environment;
+using Radzen;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
-public partial class RazorPageBase : LayoutComponentBase
+public partial class RazorPageBase
 {
 	#region Public and private methods
 
@@ -103,87 +102,63 @@ public partial class RazorPageBase : LayoutComponentBase
 
 	#region Public and private methods - Actions
 
+	public bool ItemValidate<T>(NotificationService? notificationService, T? item) where T : SqlTableBase, new()
+	{
+		bool result = item is not null;
+		string detailAddition = Environment.NewLine;
+		if (result)
+		{
+			result = SqlUtils.IsValidation(item, ref detailAddition);
+		}
+		switch (result)
+		{
+			case false:
+			{
+				NotificationMessage msg = new()
+				{
+					Severity = NotificationSeverity.Warning,
+					Summary = LocaleCore.Action.ActionDataControl,
+					Detail = $"{LocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
+					Duration = AppSettingsHelper.Delay
+				};
+				notificationService?.Notify(msg);
+				return false;
+			}
+			default:
+				return true;
+		}
+	}
+
 	protected async Task ItemCancelAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsSafe(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-			() =>
-			{
-				SetRouteSectionNavigate();
-			});
+			SetRouteSectionNavigate);
 
 		OnChangeAsync();
 	}
 
 	private void ItemSave<T>(T? item) where T : SqlTableBase, new()
 	{
-		switch (item)
+		if (item is null) return;
+		if (!ItemValidate(NotificationService, item)) return;
+
+		AppSettings.DataAccess.SaveOrUpdate(item, SqlTableActionEnum.Save);
+	}
+
+	private void ItemsSave<T>(List<T>? items) where T : SqlTableBase, new()
+	{
+		if (Items is null) return;
+
+		switch (new T())
 		{
-			case AccessModel:
-				ItemSaveCheck.Access(NotificationService, (AccessModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case TaskModel:
-				ItemSaveCheck.Task(NotificationService, (TaskModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case TaskTypeModel:
-				ItemSaveCheck.TaskType(NotificationService, (TaskTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case BarCodeTypeModel:
-				ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case ContragentModel:
-				ItemSaveCheck.Contragent(NotificationService, (ContragentModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case HostModel:
-				ItemSaveCheck.Host(NotificationService, (HostModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case NomenclatureModel:
-				ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			//case PluObsoleteModel:
-			//	ItemSaveCheck.PluObsolete(NotificationService, (PluObsoleteModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-			//	break;
-			case PluModel:
-				ItemSaveCheck.Plu(NotificationService, (PluModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
 			case PluScaleModel:
-				if (ParentRazor?.Items is not null)
+				List<PluScaleModel> pluScales = Items.Cast<PluScaleModel>().ToList();
+				foreach (PluScaleModel pluScale in pluScales)
 				{
-					List<PluScaleModel> pluScales = ParentRazor.Items.Cast<PluScaleModel>().ToList();
-					foreach (PluScaleModel pluScale in pluScales)
-					{
-						ItemSaveCheck.PluScale(NotificationService, pluScale, SqlTableActionEnum.Save);
-					}
+					ItemSave(pluScale);
 				}
-				else if (ParentRazor?.Item is not null)
-				{
-					ItemSaveCheck.PluScale(NotificationService, (PluScaleModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				}
-				break;
-			case PrinterResourceModel:
-				ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case PrinterModel:
-				ItemSaveCheck.Printer(NotificationService, (PrinterModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case PrinterTypeModel:
-				ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case ProductionFacilityModel:
-				ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
-				break;
-			case ScaleModel:
-				ItemSaveCheck.Scale(NotificationService, Item, SqlTableActionEnum.Save);
-				break;
-			case TemplateModel:
-				ItemSaveCheck.Template(NotificationService, (TemplateModel?)ParentRazor?.Item, ParentRazor?.TableAction);
-				break;
-			case TemplateResourceModel:
-				ItemSaveCheck.TemplateResource(NotificationService, (TemplateResourceModel?)ParentRazor?.Item, ParentRazor?.TableAction);
-				break;
-			case WorkShopModel:
-				ItemSaveCheck.Workshop(NotificationService, (WorkShopModel?)ParentRazor?.Item, SqlTableActionEnum.Save);
 				break;
 		}
 	}
@@ -197,6 +172,7 @@ public partial class RazorPageBase : LayoutComponentBase
 			() =>
 			{
 				ItemSave(Item);
+				ItemsSave(Items);
 				SetRouteSectionNavigate();
 			});
 
@@ -275,22 +251,21 @@ public partial class RazorPageBase : LayoutComponentBase
 		OnChangeAsync();
 	}
 
-	public async Task ActionSaveAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
-	{
-		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//public async Task ActionSaveAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
+	//{
+	//	await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (userSettings is null || !userSettings.AccessRightsIsWrite)
-			return;
+	//	if (userSettings is null || !userSettings.AccessRightsIsWrite)
+	//		return;
 
-		RunActionsSafe(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-			() =>
-			{
-				//AppSettings.DataAccess.Save(isParentRazor ? ParentRazor?.Item : Item);
-				InvokeAsync(StateHasChanged);
-			});
+	//	RunActionsSafe(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
+	//		() =>
+	//		{
+	//			InvokeAsync(StateHasChanged);
+	//		});
 
-		OnChangeAsync();
-	}
+	//	OnChangeAsync();
+	//}
 
 	protected async Task ActionMarkAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
 	{

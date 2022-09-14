@@ -56,7 +56,7 @@ public static class SqlTableBaseExt
 			case HostModel host:
 				if (item is ScaleModel scale && string.Equals(propertyName, nameof(scale.Host)))
 				{
-					return (scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull);
+					return scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull;
 				}
 				else
 				{
@@ -66,23 +66,28 @@ public static class SqlTableBaseExt
 				if (item is ScaleModel scale2)
 				{
 					if (string.Equals(propertyName, nameof(scale.PrinterMain)))
-						return (scale2.PrinterMain is not null ? scale2.PrinterMain.Name : LocaleCore.Table.FieldNull);
+						return scale2.PrinterMain is not null ? scale2.PrinterMain.Name : LocaleCore.Table.FieldNull;
 					if (string.Equals(propertyName, nameof(scale.PrinterShipping)))
-						return (scale2.PrinterShipping is not null ? scale2.PrinterShipping.Name : LocaleCore.Table.FieldNull);
+						return scale2.PrinterShipping is not null ? scale2.PrinterShipping.Name : LocaleCore.Table.FieldNull;
+				}
+				if (item is PrinterResourceModel printerResource)
+				{
+					if (string.Equals(propertyName, nameof(printerResource.Printer)))
+						return printerResource.Printer.Name;
 				}
 				return printer1.Name;
 			case PrinterTypeModel printerType:
 				if (item is PrinterModel printer)
 				{
 					if (string.Equals(propertyName, nameof(printer.PrinterType)))
-						return (printer.PrinterType is not null ? printer.PrinterType.Name : LocaleCore.Table.FieldNull);
+						return printer.PrinterType.Name;
 				}
 				return printerType.Name;
 			case WorkShopModel workShop:
 				if (item is ScaleModel scale3)
 				{
 					if (string.Equals(propertyName, nameof(scale.WorkShop)))
-						return (scale3.WorkShop is not null ? scale3.WorkShop.Name : LocaleCore.Table.FieldNull);
+						return scale3.WorkShop is not null ? scale3.WorkShop.Name : LocaleCore.Table.FieldNull;
 				}
 				return workShop.Name;
 		}

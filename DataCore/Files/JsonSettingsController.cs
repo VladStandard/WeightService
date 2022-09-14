@@ -139,10 +139,11 @@ public class JsonSettingsController
             sqlConnectionStringBuilder["Persist Security Info"] = jsonSettings.Sql.PersistSecurityInfo;
             sqlConnectionStringBuilder["User ID"] = jsonSettings.Sql.UserId;
             sqlConnectionStringBuilder["Password"] = jsonSettings.Sql.Password;
-            sqlConnectionStringBuilder["Encrypt"] = jsonSettings.Sql.Encrypt;
+            //sqlConnectionStringBuilder["Encrypt"] = jsonSettings.Sql.Encrypt;
             sqlConnectionStringBuilder["Connect Timeout"] = jsonSettings.Sql.ConnectTimeout;
             sqlConnectionStringBuilder["TrustServerCertificate"] = jsonSettings.Sql.TrustServerCertificate;
-            switch (isRemote)
+
+			switch (isRemote)
             {
 	            case false:
 		            DataAccess.JsonSettingsLocal = jsonSettings;

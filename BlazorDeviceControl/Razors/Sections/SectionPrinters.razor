@@ -1,5 +1,6 @@
-﻿@inherits BlazorCore.Models.RazorPageSectionBase<PrinterModel>
+﻿@inherits RazorPageSectionBase<PrinterModel>
 @page "/section/printers"
+@using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections.Components
 
@@ -19,21 +20,19 @@ else
         <Columns>
             <SectionFieldIsMarked TItem=PrinterModel ParentRazor=@(this) />
             <SectionFieldIdentity TItem=PrinterModel ParentRazor=@(this) />
-            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+@*            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />*@
             <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("18%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetName() />
             <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("17%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
-            @*<SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("14%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetIp() />*@
             <RadzenGridColumn TItem=PrinterModel Title=@LocaleCore.Print.Ip Type="string" Width="14%">
                 <Template Context="item" >
                     <RadzenLink Style="width: 100%; margin-left: 0; " Target="_blank" 
                         Path=@item.Link Text=@item.Ip />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem=PrinterModel Property="HttpStatusCode" TextAlign=TextAlign.Center
+            <RadzenGridColumn TItem=PrinterModel TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="8%" >
                 <Template Context="item" >
                     <RadzenIcon 

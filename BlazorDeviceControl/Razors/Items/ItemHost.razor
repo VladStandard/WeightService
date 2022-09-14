@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorPageItemBase<HostModel>
+﻿@inherits RazorPageItemBase<HostModel>
 @page "/item/host"
 @page "/item/host/{IdentityId:long}"
 @page "/item/host/{IdentityId:long}/{TableAction}"
@@ -19,15 +19,15 @@ else
 		<tbody>
 			<ItemTableBody TItem=HostModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
-				<td>@LocaleCore.Table.Host</td>
-				<td>
-					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
-					               TValue="string" @bind-Value=@ItemCast.HostName/>
-				</td>
 				<td>@LocaleCore.Table.NamePretty</td>
 				<td>
 					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
 					               TValue="string" @bind-Value=@ItemCast.Name/>
+				</td>
+				<td>@LocaleCore.Table.Host</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
+					               TValue="string" @bind-Value=@ItemCast.HostName/>
 				</td>
 			</tr>
 			<tr>

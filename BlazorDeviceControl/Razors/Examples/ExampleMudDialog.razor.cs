@@ -9,6 +9,11 @@ public partial class ExampleMudDialog
 
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
+    public ExampleMudDialog()
+    {
+	    MudDialog = new();
+    }
+
     #endregion
 
     #region Public and private methods

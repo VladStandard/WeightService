@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Drawing.Imaging;
+using BlazorCore.Razors;
 using NetBarcode;
 
 namespace BlazorDeviceControl.Razors.Examples;
@@ -19,11 +20,23 @@ public partial class ExampleNetBarcode : RazorPageBase
     private string BarcodeImage { get; set; }
     private string BarcodeValue { get; set; }
 
-	#endregion
+    public ExampleNetBarcode()
+    {
+	    Barcode = new();
+	    BarcodeType = new();
+	    Exception = new();
+	    ImageFormat = new(Guid.Empty);
+	    BarcodeTypes = new();
+	    ImageFormats = new();
+	    BarcodeImage = string.Empty;
+	    BarcodeValue = string.Empty;
+    }
+    
+    #endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    protected override void OnInitialized()
+	protected override void OnInitialized()
     {
         base.OnInitialized();
 

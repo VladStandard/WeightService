@@ -1,5 +1,6 @@
-﻿@inherits BlazorCore.Models.RazorPageSectionBase<PrinterResourceModel>
+﻿@inherits RazorPageSectionBase<PrinterResourceModel>
 @page "/section/printers_resources"
+@using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Sections.Components
 
@@ -20,7 +21,9 @@ else
             <SectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
 	        <SectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
             <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
+                RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetDescription() />
+            <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+                      RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
             <RadzenGridColumn TItem=PrinterResourceModel Title=@LocaleCore.Table.Printer Width="30%">
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0; "

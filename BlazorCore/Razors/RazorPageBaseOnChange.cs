@@ -5,7 +5,7 @@ using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.Core;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public partial class RazorPageBase
 {

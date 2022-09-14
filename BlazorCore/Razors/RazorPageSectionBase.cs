@@ -7,7 +7,7 @@ using DataCore.Sql.Tables;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public class RazorPageSectionBase<TItem> : RazorPageBase where TItem : SqlTableBase, new()
 {

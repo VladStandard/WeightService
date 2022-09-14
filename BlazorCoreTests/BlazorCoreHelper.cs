@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.CssStyles;
-using BlazorCore.Models;
 using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels;
 using DataCoreTests;
@@ -11,6 +10,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Threading;
+using BlazorCore.Razors;
 using SqlTableBase = DataCore.Sql.Tables.SqlTableBase;
 
 namespace BlazorCoreTests;

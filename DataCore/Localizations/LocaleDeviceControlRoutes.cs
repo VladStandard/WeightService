@@ -26,8 +26,8 @@ public partial class LocaleDeviceControl
     public string RouteItemPluScale => "/item/plu_scale";
     public string RouteItemPluWeighing => "/item/plu_weighing";
     public string RouteItemPrinter => "/item/printer";
-    public string RouteItemPrinterResource => "/item/printerresource";
-    public string RouteItemPrinterType => "/item/printertype";
+    public string RouteItemPrinterResource => "/item/printer_resource";
+    public string RouteItemPrinterType => "/item/printer_type";
     public string RouteItemProductionFacility => "/item/production_facility";
     public string RouteItemProductSerie => "/item/product_serie";
     public string RouteItemScale => "/item/scale";

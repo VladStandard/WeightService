@@ -8,7 +8,7 @@ using System.Threading;
 using DataCore.Models;
 using DataCore.Sql.Core;
 
-namespace BlazorCore.Models;
+namespace BlazorCore.Razors;
 
 public class AppSettingsHelper : LayoutComponentBase
 {
@@ -28,8 +28,8 @@ public class AppSettingsHelper : LayoutComponentBase
     public MemoryModel Memory { get; private set; } = new();
     public static int Delay => 5_000;
     public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null
-		? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
-		  $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
+        ? $"{LocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
+          $"{LocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
         : $"{LocaleCore.Memory.Memory}: - MB";
     public uint MemoryFillSize => Memory.MemorySize.PhysicalTotal == null || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
         ? 0 : (uint)(Memory.MemorySize.PhysicalAllocated.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);

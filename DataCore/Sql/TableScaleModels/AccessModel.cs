@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -15,6 +16,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	[XmlElement] public virtual string User { get; set; }
 	[XmlElement] public virtual byte Rights { get; set; }
+	[XmlIgnore] public virtual AccessRightsEnum RightsEnum => (AccessRightsEnum)Rights;
 
 	/// <summary>
 	/// Constructor.
@@ -47,7 +49,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(User)}: {User}. " +
-        $"{nameof(Rights)}: {Rights}. ";
+        $"{nameof(Rights)}: {RightsEnum}. ";
 
     public override bool Equals(object obj)
 	{

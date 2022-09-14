@@ -1,7 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorPageItemBase<PrinterResourceModel>
-@page "/item/printerresource"
-@page "/item/printerresource/{IdentityId:long}"
-@page "/item/printerresource/{IdentityId:long}/{TableAction}"
+﻿@inherits RazorPageItemBase<PrinterResourceModel>
+@page "/item/printer_resource"
+@page "/item/printer_resource/{IdentityId:long}"
+@page "/item/printer_resource/{IdentityId:long}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Components
@@ -34,8 +34,7 @@ else
 			<tr>
 				<td>@LocaleCore.Table.Description</td>
 				<td>
-					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
-					               TValue="string" @bind-Value=@ItemCast.Description/>
+					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false @bind-Value=@ItemCast.Description/>
 				</td>
 				<td>@LocaleCore.Table.Resource</td>
 				<td>

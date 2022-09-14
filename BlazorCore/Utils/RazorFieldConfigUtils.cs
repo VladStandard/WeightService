@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
+using BlazorCore.Razors;
 using DataCore.Localizations;
 using DataCore.Sql.Tables;
 using Radzen;
@@ -67,7 +67,15 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetPrinterType(string link) =>
 			new(link, new PrinterTypeModel(), nameof(PrinterModel.PrinterType), TextAlign.Left, LocaleCore.Print.Model, "string");
 	}
-	
+
+	public static class PrinterResource
+	{
+		public static RazorFieldConfigModel GetDescription() =>
+			new(nameof(PrinterResourceModel.Description), TextAlign.Left, LocaleCore.Table.Description);
+		public static RazorFieldConfigModel GetPrinter(string link) =>
+			new (link, new PrinterTypeModel(), nameof(PrinterResourceModel.Printer.Name), TextAlign.Left, LocaleCore.Print.Name, "string");
+	}
+
 	public static class PrinterType
 	{
 		public static RazorFieldConfigModel GetName() =>
@@ -103,7 +111,7 @@ public static class RazorFieldConfigUtils
 	public static class Version
 	{
         public static RazorFieldConfigModel GetDescription() => 
-            new(nameof(VersionModel.Description), TextAlign.Left, LocaleCore.Table.Version);
+            new(nameof(VersionModel.Description), TextAlign.Left, LocaleCore.Table.Description);
 		public static RazorFieldConfigModel GetReleaseDt() => 
             new(nameof(VersionModel.ReleaseDt), TextAlign.Center, LocaleCore.Table.ReleaseDt);
 		public static RazorFieldConfigModel GetVersion() => 

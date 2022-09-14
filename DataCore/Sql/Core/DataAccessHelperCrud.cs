@@ -4,6 +4,7 @@
 using DataCore.Sql.Tables;
 using FluentNHibernate.Conventions;
 using NHibernate;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.Core;
 
@@ -101,6 +102,8 @@ public static class DataAccessHelperCrud
 		if (item is null)
 			return;
 
+		item.CreateDt = DateTime.Now;
+		item.ChangeDt = DateTime.Now;
 		ExecuteTransaction(dataAccess, session => { session.Save(item); });
 	}
 
@@ -111,6 +114,19 @@ public static class DataAccessHelperCrud
 
 		item.ChangeDt = DateTime.Now;
 		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
+	}
+
+	public static void SaveOrUpdate<T>(this DataAccessHelper dataAccess, T? item, SqlTableActionEnum tableAction) where T : SqlTableBase, new()
+	{
+		switch (tableAction)
+		{
+			case SqlTableActionEnum.New:
+				Save(dataAccess, item);
+				break;
+			default:
+				Update(dataAccess, item);
+				break;
+		}
 	}
 
 	public static void Delete<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()

@@ -1,24 +1,25 @@
 ﻿@typeparam TItem
-@inherits BlazorCore.Models.RazorPageSectionBase<TItem>
+@inherits RazorPageSectionBase<TItem>
 @page "/section/field"
+@using BlazorCore.Razors
 
-<RadzenGridColumn TItem=TItem Type=@RazorFieldConfig.FieldType TextAlign=@RazorFieldConfig.FieldTextAlign
-	Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.FieldTitle >
+<RadzenGridColumn TItem=TItem Type=@RazorFieldConfig.Type TextAlign=@RazorFieldConfig.TextAlign
+	Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.Title >
 	<Template Context="item" >
-		@switch (RazorFieldConfig.FieldType)
+		@switch (RazorFieldConfig.Type)
 		{
 			case "bool":
-				<RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(RazorFieldConfig.FieldName) />
+				<RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(RazorFieldConfig.Name) />
 				break;
 			default:
 				@if (CssStyleRadzenColumn.IsShowLink)
 				{
-					<RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.FieldName) 
+					<RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.Name) 
 						Path=@GetRouteItemPathForLink(item) />
 				}
 				else
 				{
-					<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.FieldName) />
+					<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.Name) />
 				}
 				break;
 		}
