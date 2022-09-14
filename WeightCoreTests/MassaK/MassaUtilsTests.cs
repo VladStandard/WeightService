@@ -7,20 +7,17 @@
 using MDSoft.SerialPorts;
 using NUnit.Framework;
 using WeightCore.MassaK;
-using WeightCoreTests;
 
 namespace WeightCoreTests.MassaK;
 
 [TestFixture]
-internal class MassaUtilsTests
+public class MassaUtilsTests
 {
     private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
 
     [Test]
     public void ComputeChecksum_AreEqual()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             TestContext.WriteLine($"CMD_GET_MASSA: {Bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_MASSA)}");
@@ -37,7 +34,5 @@ internal class MassaUtilsTests
 
             Assert.AreEqual(0, 0);
         });
-
-        Utils.MethodComplete();
     }
 }

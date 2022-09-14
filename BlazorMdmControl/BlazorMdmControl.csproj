@@ -19,7 +19,6 @@
 	<Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Errata" Version="0.10.0" />
     <PackageReference Include="FluentValidation" Version="11.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.9" />

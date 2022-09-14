@@ -4,51 +4,22 @@
 using NUnit.Framework;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using WeightCore.Helpers;
 using WeightCore.Models;
 
 namespace WeightCoreTests.Helpers;
 
-internal class XmlHelperTests
+[TestFixture]
+public class XmlHelperTests
 {
     private XmlHelper Xml { get; set; } = XmlHelper.Instance;
     private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
     private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
 
-    /// <summary>
-    /// Setup private fields.
-    /// </summary>
-    [SetUp]
-    public void Setup()
-    {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Setup)} start.");
-        //
-        TestContext.WriteLine($@"{nameof(Setup)} complete.");
-    }
-
-    /// <summary>
-    /// Reset private fields to default state.
-    /// </summary>
-    [TearDown]
-    public void Teardown()
-    {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Teardown)} start.");
-        //
-        TestContext.WriteLine($@"{nameof(Teardown)} complete.");
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-    }
-
     [Test]
     public void Checks_Throws_Exception()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }));
         Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }, "test"));
         Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
@@ -62,18 +33,11 @@ internal class XmlHelperTests
 
         Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }));
         Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
-
-        TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 
     [Test]
     public void Read_AreEqual()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Read_AreEqual)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         ResultXmlRead actual = Xml.Read(TestFile, new Collection<XmlTag>()
         {
             new XmlTag("Wizard", "name", "SavedWIZ"),
@@ -90,18 +54,11 @@ internal class XmlHelperTests
         TestContext.WriteLine("----------------------------------------------");
 
         Assert.AreEqual(actual.NoError ? "NOT IsPersonalizationRestricted()" : string.Empty, actual.Value);
-
-        TestContext.WriteLine($@"{nameof(Read_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 
     [Test]
     public void ReadScalesUI_ConnectionString_AreEqual()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         if (File.Exists(Settings.GetScalesConfigFileName()))
         {
             ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
@@ -123,18 +80,11 @@ internal class XmlHelperTests
         }
         else
             Assert.AreEqual(string.Empty, string.Empty);
-
-        TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 
     [Test]
     public void ReadScalesUI_ScalesID_AreEqual()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         if (File.Exists(Settings.GetScalesConfigFileName()))
         {
             ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
@@ -155,8 +105,5 @@ internal class XmlHelperTests
         }
         else
             Assert.AreEqual(string.Empty, string.Empty);
-
-        TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 }

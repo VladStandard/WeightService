@@ -6,15 +6,13 @@ using NUnit.Framework;
 namespace WeightCoreTests.Tsc;
 
 [TestFixture]
-internal class PrintControlEntityTests
+public class PrintControlEntityTests
 {
     private readonly byte[] _byteArray = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x10, 0x20 };
 
     [Test]
     public void PrintControlEntity_GetStatusAsEnum_DoesNotThrow()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             //var printControl = new PrintControlEntity(PrintInterface.Ethernet, "192.168.6.132");
@@ -23,15 +21,11 @@ internal class PrintControlEntityTests
             //    TestContext.WriteLine(printControl.GetStatusAsEnum(b));
             //}
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void PrintControlEntity_GetStatusAsStringEng_DoesNotThrow()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             //var printControl = new PrintControlEntity(PrintInterface.Ethernet, "192.168.6.132");
@@ -40,15 +34,11 @@ internal class PrintControlEntityTests
             //    TestContext.WriteLine(printControl.GetStatusAsStringEng(b));
             //}
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void PrintControlEntity_GetStatusAsStringRus_DoesNotThrow()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             //var printControl = new PrintControlEntity(PrintInterface.Ethernet, "192.168.6.132");
@@ -57,7 +47,5 @@ internal class PrintControlEntityTests
             //    TestContext.WriteLine(printControl.GetStatusAsStringRus(b));
             //}
         });
-
-        Utils.MethodComplete();
     }
 }

@@ -7,13 +7,11 @@ using WeightCore.Zpl;
 namespace WeightCoreTests.Zpl;
 
 [TestFixture]
-internal class ZplUtilsTests
+public class ZplUtilsTests
 {
     [Test]
     public void ZplUtils_IsDigit_True()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             // Digits.
@@ -28,15 +26,11 @@ internal class ZplUtilsTests
             Assert.AreEqual(true, ZplUtils.IsDigit('8'));
             Assert.AreEqual(true, ZplUtils.IsDigit('9'));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_IsSpecial_True()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             // ' ', ',', '.', '-', 
@@ -75,15 +69,11 @@ internal class ZplUtilsTests
             Assert.AreEqual(true, ZplUtils.IsSpecial('<'));
             Assert.AreEqual(true, ZplUtils.IsSpecial('>'));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_IsCyrillic_False()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             // Digits.
@@ -190,15 +180,11 @@ internal class ZplUtilsTests
             Assert.AreEqual(false, ZplUtils.IsCyrillic('N'));
             Assert.AreEqual(false, ZplUtils.IsCyrillic('M'));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_IsCyrillic_True()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             // Russian lower letters.
@@ -271,54 +257,38 @@ internal class ZplUtilsTests
             Assert.AreEqual(true, ZplUtils.IsCyrillic('Ю'));
             Assert.AreEqual(true, ZplUtils.IsCyrillic('Ё'));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_ToCodePoints_GetZplSample1()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample1));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_ToCodePoints_GetZplSample2()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample2));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_ToCodePoints_GetZplSample3()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             TestContext.WriteLine(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSample3));
         });
-
-        Utils.MethodComplete();
     }
 
     [Test]
     public void ZplUtils_ToCodePoints_GetZplSampleFull()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             var zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(ZplSamples.GetSampleFull);
@@ -327,7 +297,5 @@ internal class ZplUtilsTests
             //zpl = zpl.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
             TestContext.WriteLine(zpl);
         });
-
-        Utils.MethodComplete();
     }
 }

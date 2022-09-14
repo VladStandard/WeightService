@@ -4,12 +4,11 @@
 
 using NUnit.Framework;
 using WeightCore.MassaK;
-using WeightCoreTests;
 
 namespace WeightCoreTests.MassaK;
 
 [TestFixture]
-internal class Crc16NullFXTests
+public class Crc16NullFXTests
 {
     // WRITE	F8 55 CE 01 00 23 23 00
     private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;
@@ -19,8 +18,6 @@ internal class Crc16NullFXTests
     [Test]
     public void ComputeChecksum_AreEqual()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             //byte[] data = getMassaRequest;
@@ -33,7 +30,5 @@ internal class Crc16NullFXTests
 
             Assert.AreEqual(0x2300, 0x2300);
         });
-
-        Utils.MethodComplete();
     }
 }

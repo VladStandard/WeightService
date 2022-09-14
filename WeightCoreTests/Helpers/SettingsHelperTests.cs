@@ -3,14 +3,14 @@
 
 using NUnit.Framework;
 using System;
-using System.Diagnostics;
 using System.IO;
 using DataCore.Models;
 using WeightCore.Helpers;
 
 namespace WeightCoreTests.Helpers;
 
-internal class SettingsHelperTests
+[TestFixture]
+public class SettingsHelperTests
 {
     private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
 
@@ -42,10 +42,6 @@ internal class SettingsHelperTests
     [Test]
     public void SetupDirs_AreEqual()
     {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} start.");
-        Stopwatch stopwatch = Stopwatch.StartNew();
-
         bool actual = Settings.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", SilentUiEnum.True,
             LangEnum.Russian);
         Assert.AreEqual(
@@ -68,8 +64,5 @@ internal class SettingsHelperTests
             TestContext.WriteLine("DirManuals: " + Settings.DirManuals);
             Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Manuals", Settings.DirManuals);
         }
-
-        TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-        stopwatch.Stop();
     }
 }

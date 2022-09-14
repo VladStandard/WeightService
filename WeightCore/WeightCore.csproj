@@ -82,9 +82,6 @@
     <Reference Include="Csv, Version=2.0.87.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Csv.2.0.87\lib\net40\Csv.dll</HintPath>
     </Reference>
-    <Reference Include="Errata, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Errata.0.10.0\lib\netstandard2.0\Errata.dll</HintPath>
-    </Reference>
     <Reference Include="FluentFTP, Version=40.0.0.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentFTP.40.0.0\lib\net472\FluentFTP.dll</HintPath>
     </Reference>

@@ -11,7 +11,7 @@ using WeightCore.MassaK;
 namespace WeightCoreTests.MassaK;
 
 [TestFixture]
-internal class Crc16MassaEntityTests
+public class Crc16MassaEntityTests
 {
     private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
     private MassaCrcHelper MassaCrc { get; set; } = MassaCrcHelper.Instance;
@@ -22,8 +22,6 @@ internal class Crc16MassaEntityTests
     [Test]
     public void ComputeChecksum_AreEqual()
     {
-        Utils.MethodStart();
-
         Assert.DoesNotThrow(() =>
         {
             byte[] request = new byte[] { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x00, 0x00 };
@@ -40,7 +38,5 @@ internal class Crc16MassaEntityTests
             requestCheck = MassaRequest.MakeRequestCrcAdd(body);
             Assert.AreEqual(requestCheck, new byte[] { 0xF8, 0x55, 0xCE, 0x0D, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x23 });
         });
-
-        Utils.MethodComplete();
     }
 }

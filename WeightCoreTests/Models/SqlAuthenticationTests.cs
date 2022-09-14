@@ -8,37 +8,10 @@ using System.Diagnostics;
 
 namespace WeightCoreTests.Models;
 
+
+[TestFixture]
 public class SqlAuthenticationTests
 {
-    #region Test methods
-
-    /// <summary>
-    /// Setup private fields.
-    /// </summary>
-    [SetUp]
-    public void Setup()
-    {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Setup)} start.");
-        //
-        TestContext.WriteLine($@"{nameof(Setup)} complete.");
-    }
-
-    /// <summary>
-    /// Reset private fields to default state.
-    /// </summary>
-    [TearDown]
-    public void Teardown()
-    {
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        TestContext.WriteLine($@"{nameof(Teardown)} start.");
-        //
-        TestContext.WriteLine($@"{nameof(Teardown)} complete.");
-        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-    }
-
-    #endregion
-
     #region Public methods
 
     [Test]
