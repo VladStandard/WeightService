@@ -1,4 +1,0 @@
-﻿CREATE SCHEMA [DW]
-AUTHORIZATION [OwnerUser];
-
- GO

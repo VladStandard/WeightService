@@ -1,4 +1,0 @@
-﻿CREATE SCHEMA [STG]
-AUTHORIZATION [OwnerUser];
-
-GO
