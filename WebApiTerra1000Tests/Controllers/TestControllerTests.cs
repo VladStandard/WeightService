@@ -10,83 +10,82 @@ using System.Net.Security;
 using System.Threading.Tasks;
 using WebApiCore.Common;
 
-namespace DataProjectsCoreTests.DAL
+namespace DataProjectsCoreTests.DAL;
+
+[TestFixture]
+internal class TestControllerTests
 {
-    [TestFixture]
-    internal class TestControllerTests
+    [Test]
+    public void GetProdInfoV1_Execute_DoesNotThrow()
     {
-        [Test]
-        public void GetProdInfoV1_Execute_DoesNotThrow()
+        Assert.DoesNotThrowAsync(async () =>
         {
-            Assert.DoesNotThrowAsync(async () =>
+            foreach (string url in TestsUtils.GetProdListUrlInfoV1)
             {
-                foreach (string url in TestsUtils.GetProdListUrlInfoV1)
-                {
-                    await GetInfoAsync(url);
-                }
-            });
-        }
-
-        [Test]
-        public void GetDevInfoV1_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetDevListUrlInfoV1)
-                {
-                    await GetInfoAsync(url);
-                }
-            });
-        }
-
-        [Test]
-        public void GetProdInfoV2_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetProdListUrlInfoV2)
-                {
-                    await GetInfoAsync(url);
-                }
-            });
-        }
-
-        [Test]
-        public void GetDevInfoV2_Execute_DoesNotThrow()
-        {
-            Assert.DoesNotThrowAsync(async () =>
-            {
-                foreach (string url in TestsUtils.GetDevListUrlInfoV2)
-                {
-                    await GetInfoAsync(url);
-                }
-            });
-        }
-
-        private async Task GetInfoAsync(string url)
-        {
-            RestClientOptions options = new(url)
-            {
-                UseDefaultCredentials = true,
-                ThrowOnAnyError = true,
-                MaxTimeout = 60_000,
-            };
-            options.RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-			using RestClient client = new(options);
-            RestRequest request = new RestRequest()
-                .AddQueryParameter("format", "json");
-            RestResponse response = await client.GetAsync(request);
-
-            TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
-            TestContext.WriteLine($"{nameof(response)}: {response.Content}");
-            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
-            if (!string.IsNullOrEmpty(response.Content))
-            {
-                ServiceInfoEntity? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoEntity>(response.Content);
-                Assert.IsTrue(serviceInfo != null);
-                Assert.IsTrue(serviceInfo?.App.StartsWith("WebApi", System.StringComparison.InvariantCultureIgnoreCase));
+                await GetInfoAsync(url);
             }
-            TestContext.WriteLine();
+        });
+    }
+
+    [Test]
+    public void GetDevInfoV1_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in TestsUtils.GetDevListUrlInfoV1)
+            {
+                await GetInfoAsync(url);
+            }
+        });
+    }
+
+    [Test]
+    public void GetProdInfoV2_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in TestsUtils.GetProdListUrlInfoV2)
+            {
+                await GetInfoAsync(url);
+            }
+        });
+    }
+
+    [Test]
+    public void GetDevInfoV2_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in TestsUtils.GetDevListUrlInfoV2)
+            {
+                await GetInfoAsync(url);
+            }
+        });
+    }
+
+    private async Task GetInfoAsync(string url)
+    {
+        RestClientOptions options = new(url)
+        {
+            UseDefaultCredentials = true,
+            ThrowOnAnyError = true,
+            MaxTimeout = 60_000,
+				RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+			};
+			using RestClient client = new(options);
+        RestRequest request = new RestRequest()
+            .AddQueryParameter("format", "json");
+        RestResponse response = await client.GetAsync(request);
+
+        TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
+        TestContext.WriteLine($"{nameof(response)}: {response.Content}");
+        Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+        if (!string.IsNullOrEmpty(response.Content))
+        {
+            ServiceInfoEntity? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoEntity>(response.Content);
+            Assert.IsTrue(serviceInfo != null);
+            Assert.IsTrue(serviceInfo?.App.StartsWith("WebApi", System.StringComparison.InvariantCultureIgnoreCase));
         }
+        TestContext.WriteLine();
     }
 }
