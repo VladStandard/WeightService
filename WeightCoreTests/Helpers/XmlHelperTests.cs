@@ -9,155 +9,154 @@ using System.IO;
 using WeightCore.Helpers;
 using WeightCore.Models;
 
-namespace WeightCoreTests.Helpers
+namespace WeightCoreTests.Helpers;
+
+internal class XmlHelperTests
 {
-    internal class XmlHelperTests
+    private XmlHelper Xml { get; set; } = XmlHelper.Instance;
+    private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
+    private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
+
+    /// <summary>
+    /// Setup private fields.
+    /// </summary>
+    [SetUp]
+    public void Setup()
     {
-        private XmlHelper Xml { get; set; } = XmlHelper.Instance;
-        private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
-        private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Setup)} start.");
+        //
+        TestContext.WriteLine($@"{nameof(Setup)} complete.");
+    }
 
-        /// <summary>
-        /// Setup private fields.
-        /// </summary>
-        [SetUp]
-        public void Setup()
+    /// <summary>
+    /// Reset private fields to default state.
+    /// </summary>
+    [TearDown]
+    public void Teardown()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Teardown)} start.");
+        //
+        TestContext.WriteLine($@"{nameof(Teardown)} complete.");
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+    }
+
+    [Test]
+    public void Checks_Throws_Exception()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }));
+        Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }, "test"));
+        Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
+
+        Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }));
+        Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(string.Empty, string.Empty) }, string.Empty));
+        Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("", "") }, ""));
+        Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }));
+        Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }, "test"));
+        //Assert.Throws<ArgumentNullException>(() => _xml.Checks(TestFile, new Collection<XmlAttribute>() { new XmlAttribute("test", "test", null) }, null));
+
+        Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }));
+        Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
+
+        TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
+    }
+
+    [Test]
+    public void Read_AreEqual()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Read_AreEqual)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        ResultXmlRead actual = Xml.Read(TestFile, new Collection<XmlTag>()
         {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Setup)} start.");
-            //
-            TestContext.WriteLine($@"{nameof(Setup)} complete.");
-        }
+            new XmlTag("Wizard", "name", "SavedWIZ"),
+            new XmlTag("Page", "resID", "IDR_DUI_SAVED"),
+            new XmlTag("Item", "name", "group2Link"),
+        }, "enabled");
+        TestContext.WriteLine(@"Wizard name=""SavedWIZ""");
+        TestContext.WriteLine(@"  Page resID=""IDR_DUI_SAVED""");
+        TestContext.WriteLine(@"    Item name=""group2Link""");
+        TestContext.WriteLine($@"      enabled=""{actual.Value}""");
 
-        /// <summary>
-        /// Reset private fields to default state.
-        /// </summary>
-        [TearDown]
-        public void Teardown()
+        TestContext.WriteLine("----------------------------------------------");
+        TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
+        TestContext.WriteLine("----------------------------------------------");
+
+        Assert.AreEqual(actual.NoError ? "NOT IsPersonalizationRestricted()" : string.Empty, actual.Value);
+
+        TestContext.WriteLine($@"{nameof(Read_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
+    }
+
+    [Test]
+    public void ReadScalesUI_ConnectionString_AreEqual()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        if (File.Exists(Settings.GetScalesConfigFileName()))
         {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Teardown)} start.");
-            //
-            TestContext.WriteLine($@"{nameof(Teardown)} complete.");
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        }
-
-        [Test]
-        public void Checks_Throws_Exception()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }));
-            Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }, "test"));
-            Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
-
-            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }));
-            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(string.Empty, string.Empty) }, string.Empty));
-            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("", "") }, ""));
-            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }));
-            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }, "test"));
-            //Assert.Throws<ArgumentNullException>(() => _xml.Checks(TestFile, new Collection<XmlAttribute>() { new XmlAttribute("test", "test", null) }, null));
-
-            Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }));
-            Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
-
-            TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
-        }
-
-        [Test]
-        public void Read_AreEqual()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Read_AreEqual)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            ResultXmlRead actual = Xml.Read(TestFile, new Collection<XmlTag>()
+            ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
             {
-                new XmlTag("Wizard", "name", "SavedWIZ"),
-                new XmlTag("Page", "resID", "IDR_DUI_SAVED"),
-                new XmlTag("Item", "name", "group2Link"),
-            }, "enabled");
-            TestContext.WriteLine(@"Wizard name=""SavedWIZ""");
-            TestContext.WriteLine(@"  Page resID=""IDR_DUI_SAVED""");
-            TestContext.WriteLine(@"    Item name=""group2Link""");
-            TestContext.WriteLine($@"      enabled=""{actual.Value}""");
+                new XmlTag("connectionStrings"),
+                new XmlTag("add", "name", "ScalesUI.Properties.Settings.ConnectionString"),
+            }, "connectionString");
+            TestContext.WriteLine($@"ConnectionString=""{actual.Value}""");
+            TestContext.WriteLine($@"actual.NoError=""{actual.NoError}""");
 
             TestContext.WriteLine("----------------------------------------------");
             TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
             TestContext.WriteLine("----------------------------------------------");
 
-            Assert.AreEqual(actual.NoError ? "NOT IsPersonalizationRestricted()" : string.Empty, actual.Value);
-
-            TestContext.WriteLine($@"{nameof(Read_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
+            Assert.AreEqual(
+                actual.NoError
+                    ? @"Server=CREATIO\INS1;Database=Scales;Uid=scale01;Pwd=scale01;"
+                    : string.Empty, actual.Value);
         }
+        else
+            Assert.AreEqual(string.Empty, string.Empty);
 
-        [Test]
-        public void ReadScalesUI_ConnectionString_AreEqual()
+        TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
+    }
+
+    [Test]
+    public void ReadScalesUI_ScalesID_AreEqual()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        if (File.Exists(Settings.GetScalesConfigFileName()))
         {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            if (File.Exists(Settings.GetScalesConfigFileName()))
+            ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
             {
-                ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
-                {
-                    new XmlTag("connectionStrings"),
-                    new XmlTag("add", "name", "ScalesUI.Properties.Settings.ConnectionString"),
-                }, "connectionString");
-                TestContext.WriteLine($@"ConnectionString=""{actual.Value}""");
-                TestContext.WriteLine($@"actual.NoError=""{actual.NoError}""");
+                new XmlTag("applicationSettings"),
+                new XmlTag("ScalesUI.Properties.Settings"),
+                new XmlTag("setting", "name", "ScalesID"),
+                new XmlTag("value"),
+            });
+            TestContext.WriteLine($@"ScalesID=""{actual.Value}""");
+            TestContext.WriteLine($@"actual.NoError=""{actual.NoError}""");
 
-                TestContext.WriteLine("----------------------------------------------");
-                TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
-                TestContext.WriteLine("----------------------------------------------");
+            TestContext.WriteLine("----------------------------------------------");
+            TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
+            TestContext.WriteLine("----------------------------------------------");
 
-                Assert.AreEqual(
-                    actual.NoError
-                        ? @"Server=CREATIO\INS1;Database=Scales;Uid=scale01;Pwd=scale01;"
-                        : string.Empty, actual.Value);
-            }
-            else
-                Assert.AreEqual(string.Empty, string.Empty);
-
-            TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
+            Assert.AreEqual(actual.NoError ? @"F1A90176-894E-11EA-9E4C-4CCC6A93A440" : string.Empty, actual.Value);
         }
+        else
+            Assert.AreEqual(string.Empty, string.Empty);
 
-        [Test]
-        public void ReadScalesUI_ScalesID_AreEqual()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            if (File.Exists(Settings.GetScalesConfigFileName()))
-            {
-                ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
-                {
-                    new XmlTag("applicationSettings"),
-                    new XmlTag("ScalesUI.Properties.Settings"),
-                    new XmlTag("setting", "name", "ScalesID"),
-                    new XmlTag("value"),
-                });
-                TestContext.WriteLine($@"ScalesID=""{actual.Value}""");
-                TestContext.WriteLine($@"actual.NoError=""{actual.NoError}""");
-
-                TestContext.WriteLine("----------------------------------------------");
-                TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
-                TestContext.WriteLine("----------------------------------------------");
-
-                Assert.AreEqual(actual.NoError ? @"F1A90176-894E-11EA-9E4C-4CCC6A93A440" : string.Empty, actual.Value);
-            }
-            else
-                Assert.AreEqual(string.Empty, string.Empty);
-
-            TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
-        }
+        TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
     }
 }

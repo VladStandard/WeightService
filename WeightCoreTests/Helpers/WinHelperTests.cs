@@ -8,73 +8,72 @@ using DataCore.Models;
 using DataCore.Wmi;
 using WeightCore.Helpers;
 
-namespace WeightCoreTests.Helpers
+namespace WeightCoreTests.Helpers;
+
+internal class WinHelperTests
 {
-    internal class WinHelperTests
+    private RegHelper Win { get; set; } = RegHelper.Instance;
+
+    /// <summary>
+    /// Setup private fields.
+    /// </summary>
+    [SetUp]
+    public void Setup()
     {
-        private RegHelper Win { get; set; } = RegHelper.Instance;
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Setup)} start.");
+        //
+        TestContext.WriteLine($@"{nameof(Setup)} complete.");
+    }
 
-        /// <summary>
-        /// Setup private fields.
-        /// </summary>
-        [SetUp]
-        public void Setup()
+    /// <summary>
+    /// Reset private fields to default state.
+    /// </summary>
+    [TearDown]
+    public void Teardown()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Teardown)} start.");
+        //
+        TestContext.WriteLine($@"{nameof(Teardown)} complete.");
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+    }
+
+    [Test]
+    public void SearchingSoftware_AreEqual_Empty()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        foreach (WinProviderEnum provider in Enum.GetValues(typeof(WinProviderEnum)))
         {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Setup)} start.");
-            //
-            TestContext.WriteLine($@"{nameof(Setup)} complete.");
-        }
-
-        /// <summary>
-        /// Reset private fields to default state.
-        /// </summary>
-        [TearDown]
-        public void Teardown()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Teardown)} start.");
-            //
-            TestContext.WriteLine($@"{nameof(Teardown)} complete.");
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        }
-
-        [Test]
-        public void SearchingSoftware_AreEqual_Empty()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            foreach (WinProviderEnum provider in Enum.GetValues(typeof(WinProviderEnum)))
+            foreach (StringTemplateEnum template in Enum.GetValues(typeof(StringTemplateEnum)))
             {
-                foreach (StringTemplateEnum template in Enum.GetValues(typeof(StringTemplateEnum)))
-                {
-                    WmiSoftwareModel actual = Win.SearchingSoftware(WinProviderEnum.Alias, "Unknown Software", template);
-                    WmiSoftwareModel expected = new();
-                    TestContext.WriteLine($@"actual = {actual}");
-                    Assert.AreEqual(expected.ToString(), actual.ToString());
-                }
+                WmiSoftwareModel actual = Win.SearchingSoftware(WinProviderEnum.Alias, "Unknown Software", template);
+                WmiSoftwareModel expected = new();
+                TestContext.WriteLine($@"actual = {actual}");
+                Assert.AreEqual(expected.ToString(), actual.ToString());
             }
-
-            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
         }
 
-        [Test]
-        public void SearchingSoftware_AreEqual_FromRegistry()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
+        TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
+    }
 
-            WmiSoftwareModel actual = Win.SearchingSoftware(WinProviderEnum.Registry, "Microsoft .NET Framework", StringTemplateEnum.StartsWith);
-            TestContext.WriteLine($"actual: {actual}");
-            TestContext.WriteLine($"actual.Name: {actual.Name}");
-            Assert.AreEqual("Microsoft Corporation", actual.Vendor);
+    [Test]
+    public void SearchingSoftware_AreEqual_FromRegistry()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
 
-            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
-        }
+        WmiSoftwareModel actual = Win.SearchingSoftware(WinProviderEnum.Registry, "Microsoft .NET Framework", StringTemplateEnum.StartsWith);
+        TestContext.WriteLine($"actual: {actual}");
+        TestContext.WriteLine($"actual.Name: {actual.Name}");
+        Assert.AreEqual("Microsoft Corporation", actual.Vendor);
+
+        TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
     }
 }

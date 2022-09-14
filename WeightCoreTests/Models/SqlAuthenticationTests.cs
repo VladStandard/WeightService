@@ -6,68 +6,67 @@ using DataCore.Utils;
 using NUnit.Framework;
 using System.Diagnostics;
 
-namespace WeightCoreTests.Models
+namespace WeightCoreTests.Models;
+
+public class SqlAuthenticationTests
 {
-    public class SqlAuthenticationTests
+    #region Test methods
+
+    /// <summary>
+    /// Setup private fields.
+    /// </summary>
+    [SetUp]
+    public void Setup()
     {
-        #region Test methods
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Setup)} start.");
+        //
+        TestContext.WriteLine($@"{nameof(Setup)} complete.");
+    }
 
-        /// <summary>
-        /// Setup private fields.
-        /// </summary>
-        [SetUp]
-        public void Setup()
+    /// <summary>
+    /// Reset private fields to default state.
+    /// </summary>
+    [TearDown]
+    public void Teardown()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Teardown)} start.");
+        //
+        TestContext.WriteLine($@"{nameof(Teardown)} complete.");
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+    }
+
+    #endregion
+
+    #region Public methods
+
+    [Test]
+    public void Constructor_Create_Correct()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        foreach (ushort port in EnumValuesUtils.GetUshort())
         {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Setup)} start.");
-            //
-            TestContext.WriteLine($@"{nameof(Setup)} complete.");
-        }
-
-        /// <summary>
-        /// Reset private fields to default state.
-        /// </summary>
-        [TearDown]
-        public void Teardown()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Teardown)} start.");
-            //
-            TestContext.WriteLine($@"{nameof(Teardown)} complete.");
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-        }
-
-        #endregion
-
-        #region Public methods
-
-        [Test]
-        public void Constructor_Create_Correct()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            foreach (ushort port in EnumValuesUtils.GetUshort())
+            foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
             {
-                foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
+                foreach (bool integratedSecurity in EnumValuesUtils.GetBool())
                 {
-                    foreach (bool integratedSecurity in EnumValuesUtils.GetBool())
+                    foreach (bool encrypt in EnumValuesUtils.GetBool())
                     {
-                        foreach (bool encrypt in EnumValuesUtils.GetBool())
+                        foreach (string userId in EnumValuesUtils.GetString())
                         {
-                            foreach (string userId in EnumValuesUtils.GetString())
+                            foreach (string password in EnumValuesUtils.GetString())
                             {
-                                foreach (string password in EnumValuesUtils.GetString())
+                                foreach (string database in EnumValuesUtils.GetString())
                                 {
-                                    foreach (string database in EnumValuesUtils.GetString())
+                                    foreach (string server in EnumValuesUtils.GetString())
                                     {
-                                        foreach (string server in EnumValuesUtils.GetString())
-                                        {
-                                            Assert.DoesNotThrow(() => { SqlAuthenticationModel sqlAu = new(server, database, 
-                                                persistSecurityInfo, integratedSecurity, userId, password, encrypt, port); });
-                                            TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");
-                                        }
+                                        Assert.DoesNotThrow(() => { SqlAuthenticationModel sqlAu = new(server, database, 
+                                            persistSecurityInfo, integratedSecurity, userId, password, encrypt, port); });
+                                        TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");
                                     }
                                 }
                             }
@@ -75,28 +74,28 @@ namespace WeightCoreTests.Models
                     }
                 }
             }
-
-            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
         }
 
-        [Test]
-        public void Exists_Execute_Assert()
-        {
-            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            SqlAuthenticationModel sqlAu = new();
-            Assert.IsFalse(sqlAu.Exists());
-
-            sqlAu = new SqlAuthenticationModel();
-            Assert.IsTrue(sqlAu.Exists());
-
-            TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {stopwatch.Elapsed}");
-            stopwatch.Stop();
-        }
-
-        #endregion
+        TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
     }
+
+    [Test]
+    public void Exists_Execute_Assert()
+    {
+        TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+        TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        SqlAuthenticationModel sqlAu = new();
+        Assert.IsFalse(sqlAu.Exists());
+
+        sqlAu = new SqlAuthenticationModel();
+        Assert.IsTrue(sqlAu.Exists());
+
+        TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {stopwatch.Elapsed}");
+        stopwatch.Stop();
+    }
+
+    #endregion
 }

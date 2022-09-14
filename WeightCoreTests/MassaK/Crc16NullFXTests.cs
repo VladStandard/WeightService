@@ -6,35 +6,34 @@ using NUnit.Framework;
 using WeightCore.MassaK;
 using WeightCoreTests;
 
-namespace HardwareTests.MassaK
+namespace WeightCoreTests.MassaK;
+
+[TestFixture]
+internal class Crc16NullFXTests
 {
-    [TestFixture]
-    internal class Crc16NullFXTests
+    // WRITE	F8 55 CE 01 00 23 23 00
+    private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;
+    // READ	    F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23
+    private readonly byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+
+    [Test]
+    public void ComputeChecksum_AreEqual()
     {
-        // WRITE	F8 55 CE 01 00 23 23 00
-        private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;
-        // READ	    F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23
-        private readonly byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+        Utils.MethodStart();
 
-        [Test]
-        public void ComputeChecksum_AreEqual()
+        Assert.DoesNotThrow(() =>
         {
-            Utils.MethodStart();
+            //byte[] data = getMassaRequest;
+            //ushort crc = 0;
+            //foreach (NullFX.CRC.Crc16Algorithm algorithm in (NullFX.CRC.Crc16Algorithm[])Enum.GetValues(typeof(NullFX.CRC.Crc16Algorithm)))
+            //{
+            //    crc = NullFX.CRC.Crc16.ComputeChecksum(algorithm, data);
+            //    TestContext.WriteLine($"{nameof(algorithm)}: {algorithm}. {nameof(data)}: {data}. {nameof(crc)}: {crc}");
+            //}
 
-            Assert.DoesNotThrow(() =>
-            {
-                //byte[] data = getMassaRequest;
-                //ushort crc = 0;
-                //foreach (NullFX.CRC.Crc16Algorithm algorithm in (NullFX.CRC.Crc16Algorithm[])Enum.GetValues(typeof(NullFX.CRC.Crc16Algorithm)))
-                //{
-                //    crc = NullFX.CRC.Crc16.ComputeChecksum(algorithm, data);
-                //    TestContext.WriteLine($"{nameof(algorithm)}: {algorithm}. {nameof(data)}: {data}. {nameof(crc)}: {crc}");
-                //}
+            Assert.AreEqual(0x2300, 0x2300);
+        });
 
-                Assert.AreEqual(0x2300, 0x2300);
-            });
-
-            Utils.MethodComplete();
-        }
+        Utils.MethodComplete();
     }
 }
