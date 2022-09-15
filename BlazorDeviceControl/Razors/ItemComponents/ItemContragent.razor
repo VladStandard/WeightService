@@ -1,0 +1,58 @@
+﻿@inherits RazorPageItemBase<ContragentModel>
+@page "/item/contragent"
+@page "/item/contragent/{IdentityUidStr}"
+@page "/item/contragent/{IdentityUidStr}/{TableAction}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <ItemReload TItem=ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <ItemTableHead TItem=ContragentModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <tbody>
+			<ItemTableBody TItem=ContragentModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+            <tr>
+                <td>@LocaleCore.Table.Name</td>
+                <td colspan=3>
+                    <RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Name />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.FullName</td>
+                <td colspan=3>
+                    <RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.FullName />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.IdRRef</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
+                        ReadOnly=true @bind-Value=@ItemCast.IdRRefAsString />
+                </td>
+                <td>@LocaleCore.Table.IdDwh</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+						ReadOnly=true TValue="int" @bind-Value=@ItemCast.DwhId />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.Xml</td>
+                <td colspan=3>
+                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 20px; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="string" @bind-Value=@ItemCast.Xml Rows=6 />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+
+    <ItemSave TItem=ContragentModel ParentRazor=@(this) />
+    <ItemDates TItem=ContragentModel ParentRazor=@(this) />
+}

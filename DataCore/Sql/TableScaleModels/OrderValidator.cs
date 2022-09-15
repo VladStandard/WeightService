@@ -8,23 +8,23 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class OrderValidator : SqlTableValidator
+public class OrderValidator : SqlTableValidator<OrderModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public OrderValidator()
 	{
-		RuleFor(item => ((OrderModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotEmpty()
 			.NotNull()
 			.Length(1, 256);
-		RuleFor(item => ((OrderModel)item).BoxCount)
+		RuleFor(item => item.BoxCount)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(1)
 			.LessThanOrEqualTo(999);
-		RuleFor(item => ((OrderModel)item).PalletCount)
+		RuleFor(item => item.PalletCount)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(1)

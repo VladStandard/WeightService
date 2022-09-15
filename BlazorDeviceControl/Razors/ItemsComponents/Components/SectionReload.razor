@@ -1,0 +1,75 @@
+﻿@typeparam TItem
+@inherits RazorPageSectionBase<TItem>
+@page "/items/reload"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ShareComponents
+@using DataCore.Sql.Core
+
+<MudPaper Width="100%" Height="32px" Style="margin-bottom: 30px;" Square=false>
+	<MudSimpleTable Style="overflow-x: auto; margin-top: -10px; " Dense=true Bordered=false FixedHeader=false>
+		<thead>
+		<tr>
+			<th style="color:blue; font-weight: normal; width: 60%; "></th>
+			<th style="color:blue; font-weight: normal; width: 10%; "></th>
+			<th style="color:blue; font-weight: normal; width: 30%; "></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td colspan=@(RazorPageConfig.IsShowFilterAdditional ? 1 : 3) >
+				@if (ParentRazor is null)
+				{
+					<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+				}
+				else
+				{
+					<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@Title />
+					@if (RazorPageConfig.IsShowFilterOnlyTop)
+					{
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorPageConfig.IsShowOnlyTop
+							Change=@(_=> OnChangeAsync())
+						    Style="margin-top: -3px; margin-left: 20px; " />
+						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
+						    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
+					}
+					@if (RazorPageConfig.IsShowFilterMarked)
+					{
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@RazorPageConfig.IsShowMarked
+							Change=@(_ => OnChangeAsync())
+							Style="margin-top: -3px; margin-left: 20px; " />
+						<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
+					}
+					<RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
+					              Style="margin-top: -3px; margin-left: 20px; width: 60px; height: 26px; "
+					              Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
+					@if (RazorPageConfig.IsShowItemsCount)
+					{
+						<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
+					}
+				}
+			</td>
+			@if (RazorPageConfig.IsShowFilterAdditional)
+			{
+				<td>
+					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title />
+@*					@switch (FilterTable)
+					{
+						case SqlTableScaleEnum.Scales:
+							<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; "
+							             Text=@LocaleCore.Table.Scale/>
+							break;
+					}*@
+				</td>
+				<td>
+					<SectionFilter TItem=TItem ParentRazor=@(this) />
+					@*@switch (FilterTable)
+					{
+						case SqlTableScaleEnum.Scales:
+							break;
+					}*@
+				</td>
+			}
+		</tr>
+		</tbody>
+    </MudSimpleTable>
+</MudPaper>

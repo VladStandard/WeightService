@@ -1,0 +1,35 @@
+﻿@inherits RazorPageSectionBase<HostModel>
+@page "/items/hosts"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <SectionReload TItem=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem=HostModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns>
+            <SectionFieldIsMarked TItem=HostModel ParentRazor=@(this) />
+	        <SectionFieldIdentity TItem=HostModel ParentRazor=@(this) />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetName() />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetHostName() />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetDeviceIp() />
+            <SectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Host.GetMacAddressPretty() />
+        </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=HostModel ParentRazor=@(this) />
+}

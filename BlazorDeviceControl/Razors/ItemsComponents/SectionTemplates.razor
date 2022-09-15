@@ -1,0 +1,43 @@
+﻿@inherits RazorPageSectionBase<TemplateModel>
+@page "/items/templates"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <SectionReload TItem=TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem=TemplateModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns>
+            <SectionFieldIsMarked TItem=TemplateModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=TemplateModel ParentRazor=@(this) />
+
+            <RadzenGridColumn 
+                TItem=TemplateModel Property="CategoryId" TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.CategoryName Width="15%" />
+            <RadzenGridColumn 
+                TItem=TemplateModel Title=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.Identity.Id}")
+                        Text=@itemCast.Title />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem=TemplateModel Property="ImageData.Info"
+                Title=@LocaleCore.Table.ImageDataInfo 
+                Type="string" Width="25%" />
+        </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=TemplateModel ParentRazor=@(this) />
+}

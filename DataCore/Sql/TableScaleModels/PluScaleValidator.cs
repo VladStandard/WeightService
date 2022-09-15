@@ -8,18 +8,18 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_SCALES".
 /// </summary>
-public class PluScaleValidator : SqlTableValidator
+public class PluScaleValidator : SqlTableValidator<PluScaleModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluScaleValidator()
     {
-		RuleFor(item => ((PluScaleModel)item).Plu)
+		RuleFor(item => item.Plu)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluValidator());
-		RuleFor(item => ((PluScaleModel)item).Scale)
+		RuleFor(item => item.Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());

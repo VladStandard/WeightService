@@ -8,14 +8,14 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class PrinterTypeValidator : SqlTableValidator
+public class PrinterTypeValidator : SqlTableValidator<PrinterTypeModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public PrinterTypeValidator() : base(false, false)
 	{
-		RuleFor(item => ((PrinterTypeModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotEmpty()
 			.NotNull();
 	}

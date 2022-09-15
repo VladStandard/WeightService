@@ -8,20 +8,20 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Organization".
 /// </summary>
-public class OrganizationValidator : SqlTableValidator
+public class OrganizationValidator : SqlTableValidator<OrganizationModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public OrganizationValidator()
 	{
-		RuleFor(item => ((OrganizationModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((OrganizationModel)item).Gln)
+		RuleFor(item => item.Gln)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((OrganizationModel)item).Xml)
+		RuleFor(item => item.Xml)
 			.NotEmpty()
 			.NotNull();
 	}

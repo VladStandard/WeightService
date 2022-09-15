@@ -8,18 +8,18 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ORDERS_WEIGHINGS".
 /// </summary>
-public class OrderWeighingValidator : SqlTableValidator
+public class OrderWeighingValidator : SqlTableValidator<OrderWeighingModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public OrderWeighingValidator()
 	{
-		RuleFor(item => ((OrderWeighingModel)item).Order)
+		RuleFor(item => item.Order)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new OrderValidator());
-		RuleFor(item => ((OrderWeighingModel)item).PluWeighing)
+		RuleFor(item => item.PluWeighing)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluWeighingValidator());

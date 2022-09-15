@@ -9,17 +9,17 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ACCESS".
 /// </summary>
-public class AccessValidator : SqlTableValidator
+public class AccessValidator : SqlTableValidator<AccessModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public AccessValidator()
     {
-        RuleFor(item => ((AccessModel)item).User)
+        RuleFor(item => item.User)
 	        .NotEmpty()
 	        .NotNull();
-        RuleFor(item => ((AccessModel)item).Rights)
+        RuleFor(item => item.Rights)
 	        .NotNull()
 	        .LessThanOrEqualTo((byte)AccessRightsEnum.Admin)
 	        .GreaterThanOrEqualTo((byte)AccessRightsEnum.None);

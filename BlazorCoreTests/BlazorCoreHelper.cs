@@ -34,7 +34,7 @@ public class BlazorCoreHelper
 
 	#region Public and private methods
 
-	private IValidator<T> GetStyleValidator<T>(T item) where T : CssStyleBase, new()
+	private IValidator GetStyleValidator<T>(T item) where T : CssStyleBase, new()
 	{
 		return item switch
 		{
@@ -48,9 +48,9 @@ public class BlazorCoreHelper
 	public void AssertStyleValidate<T>(T item, bool assertResult) where T : CssStyleBase, new()
 	{
 		// Arrange.
-		IValidator<T> validator = GetStyleValidator<T>(item);
+		//IValidator<T> validator = GetStyleValidator<T>(item);
 		// Act & Assert.
-		DataCoreHelper.Instance.AssertValidate<T>(item, validator, assertResult);
+		DataCoreHelper.Instance.AssertValidate<T>(item, assertResult);
 	}
 
 	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : SqlTableBase, new()

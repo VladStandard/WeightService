@@ -1,0 +1,29 @@
+﻿@inherits RazorPageSectionBase<PrinterTypeModel>
+@page "/items/printer_types"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <SectionReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem=PrinterTypeModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns>
+            <SectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
+            <SectionField TItem=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
+        </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=PrinterTypeModel ParentRazor=@(this) />
+}

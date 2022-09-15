@@ -8,17 +8,17 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "ProductSeries".
 /// </summary>
-public class ProductSeriesValidator : SqlTableValidator
+public class ProductSeriesValidator : SqlTableValidator<ProductSeriesModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public ProductSeriesValidator() : base(true, false)
 	{
-		RuleFor(item => ((ProductSeriesModel)item).Sscc)
+		RuleFor(item => item.Sscc)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((ProductSeriesModel)item).Scale)
+		RuleFor(item => item.Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());

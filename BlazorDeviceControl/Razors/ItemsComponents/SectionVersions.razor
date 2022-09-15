@@ -1,0 +1,31 @@
+﻿@inherits RazorPageSectionBase<VersionModel>
+@page "/items/versions"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <SectionReload TItem=VersionModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
+
+    <RadzenGrid Style="margin-top: 5px; " 
+        Data=@ItemsCast TItem=VersionModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns >
+            <SectionField TItem=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
+                RazorFieldConfig=@RazorFieldConfigUtils.Version.GetReleaseDt() />
+            <SectionField TItem=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
+                RazorFieldConfig=@RazorFieldConfigUtils.Version.GetVersion() />
+            <SectionField TItem=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("80%"))
+                RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
+        </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=VersionModel ParentRazor=@(this) />
+}

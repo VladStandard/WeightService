@@ -3,41 +3,72 @@
 
 using DataCore.Sql.Tables;
 using FluentValidation.Results;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "___".
+/// Table validation "SCALES".
 /// </summary>
-public class ScaleValidator : SqlTableValidator
+public class ScaleValidator : SqlTableValidator<ScaleModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public ScaleValidator()
 	{
-		RuleFor(item => ((ScaleModel)item).Description)
+		RuleFor(item => item.Description)
 			.NotEmpty()
 			.NotNull();
+		RuleFor(item => item.TemplateDefault)
+			.Custom((template, _) =>
+			{
+				if (template is not null)
+				{
+					TemplateValidator validator = new();
+					validator.Validate(template);
+				}
+			})
+			.SetValidator(new TemplateValidator());
+		//RuleFor(item => (item).TemplateSeries).Custom((x, context) =>
+		//	{
+		//		if (context.RootContextData.ContainsKey("MyCustomData"))
+		//		{
+		//			context.AddFailure("My error message");
+		//		}
+		//	});
 	}
 
-	protected override bool PreValidate(ValidationContext<SqlTableBase> context, ValidationResult result)
+	protected override bool PreValidate(ValidationContext<ScaleModel> context, ValidationResult result)
 	{
-		if (context.InstanceToValidate is ScaleModel scale)
+		//if (context.InstanceToValidate is ScaleModel scale1)
+		//{
+		//	if (!PreValidateSubEntity(scale1.TemplateSeries, ref result))
+		//	{
+		//		//result.Errors.Add(new(nameof(scale1.TemplateSeries), result.Errors.));
+		//		context.RootContextData["MyCustomData"] = "Test";
+		//		return result.IsValid;
+		//	}
+		//}
+		switch (context.InstanceToValidate)
 		{
-			if (!PreValidateSubEntity(scale.TemplateDefault, result))
-				return result.IsValid;
-			if (!PreValidateSubEntity(scale.TemplateSeries, result))
-				return result.IsValid;
-			if (!PreValidateSubEntity(scale.WorkShop, result))
-				return result.IsValid;
-			if (!PreValidateSubEntity(scale.PrinterMain, result))
-				return result.IsValid;
-			if (!PreValidateSubEntity(scale.PrinterShipping, result))
-				return result.IsValid;
-			if (!PreValidateSubEntity(scale.Host, result))
+			case null:
+				result.Errors.Add(new(nameof(context), "Please ensure a model was supplied!"));
+				return false;
+			default:
+				if (!PreValidateSubEntity(context.InstanceToValidate.TemplateDefault, ref result))
+					return result.IsValid;
+				if (!PreValidateSubEntity(context.InstanceToValidate.TemplateSeries, ref result))
+					return result.IsValid;
+				if (!PreValidateSubEntity(context.InstanceToValidate.WorkShop, ref result))
+					return result.IsValid;
+				if (!PreValidateSubEntity(context.InstanceToValidate.PrinterMain, ref result))
+					return result.IsValid;
+				if (!PreValidateSubEntity(context.InstanceToValidate.PrinterShipping, ref result))
+					return result.IsValid;
+				if (!PreValidateSubEntity(context.InstanceToValidate.Host, ref result))
+					return result.IsValid;
 				return result.IsValid;
 		}
-		return result.IsValid;
 	}
 }

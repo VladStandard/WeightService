@@ -8,28 +8,28 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LogValidator : SqlTableValidator
+public class LogValidator : SqlTableValidator<LogModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public LogValidator() : base(true, false)
 	{
-		RuleFor(item => ((LogModel)item).Version)
+		RuleFor(item => item.Version)
 			.NotNull();
-		RuleFor(item => ((LogModel)item).File)
+		RuleFor(item => item.File)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogModel)item).Line)
+		RuleFor(item => item.Line)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogModel)item).Member)
+		RuleFor(item => item.Member)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogModel)item).LogType)
+		RuleFor(item => item.LogType)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((LogModel)item).Message)
+		RuleFor(item => item.Message)
 			.NotEmpty()
 			.NotNull();
 	}

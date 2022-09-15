@@ -1,0 +1,33 @@
+﻿@inherits RazorPageSectionBase<AccessModel>
+@page "/items/access"
+
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+	<SectionReload TItem=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
+
+    <RadzenGrid Style="margin-top: 5px; " Data=@ItemsCast TItem=AccessModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings)) RowRender=@RowRender
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+	    <Columns >
+			<SectionFieldIsMarked TItem=AccessModel ParentRazor=@(this) />
+			<SectionFieldIdentity TItem=AccessModel ParentRazor=@(this) />
+			<SectionField TItem=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("13%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+			<SectionField TItem=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true)) 
+				RazorFieldConfig=@RazorFieldConfigUtils.Access.GetUser() />
+			<SectionField TItem=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Access.GetRights() />
+	    </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=AccessModel ParentRazor=@(this) />
+}

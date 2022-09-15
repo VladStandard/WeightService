@@ -8,14 +8,14 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "CONTRAGENTS_V2".
 /// </summary>
-public class ContragentValidator : SqlTableValidator
+public class ContragentValidator : SqlTableValidator<ContragentModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public ContragentValidator()
 	{
-		RuleFor(item => ((ContragentModel)item).Name)
+		RuleFor(item => (item).Name)
 			.NotEmpty()
 			.NotNull();
 	}

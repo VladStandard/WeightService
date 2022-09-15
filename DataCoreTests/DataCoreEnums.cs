@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
 using System;
 
 namespace DataCoreTests;
@@ -16,7 +17,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<bool> GetBool()
     {
-        return new List<bool>() { false, true };
+        return new() { false, true };
     }
 
     /// <summary>
@@ -25,7 +26,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<bool?> GetBoolNullable()
     {
-        return new List<bool?>() { null, false, true };
+        return new() { null, false, true };
     }
 
     /// <summary>
@@ -34,7 +35,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<string?> GetString()
     {
-        return new List<string?>() { null, "", string.Empty };
+        return new() { null, "", string.Empty };
     }
 
     /// <summary>
@@ -43,7 +44,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<Guid> GetGuid()
     {
-        return new List<Guid> { Guid.Empty, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), };
+        return new() { Guid.Empty, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), };
     }
 
     /// <summary>
@@ -52,7 +53,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<decimal> GetDecimal()
     {
-        return new List<decimal> { decimal.MinValue, decimal.MinValue / 2, 0, 1, decimal.MaxValue / 2, decimal.MaxValue };
+        return new() { decimal.MinValue, decimal.MinValue / 2, 0, 1, decimal.MaxValue / 2, decimal.MaxValue };
     }
 
     /// <summary>
@@ -61,7 +62,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<ushort> GetUshort()
     {
-        return new List<ushort>() { ushort.MinValue, 1, ushort.MaxValue / 2, ushort.MaxValue };
+        return new() { ushort.MinValue, 1, ushort.MaxValue / 2, ushort.MaxValue };
     }
 
     /// <summary>
@@ -70,7 +71,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<ushort> GetProgress()
     {
-        return new List<ushort>() { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
+        return new() { 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 };
     }
 
     /// <summary>
@@ -79,7 +80,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<short> GetShort()
     {
-        return new List<short>() { short.MinValue, 1, short.MaxValue / 2, short.MaxValue };
+        return new() { short.MinValue, 1, short.MaxValue / 2, short.MaxValue };
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<uint> GetUint()
     {
-        return new List<uint>() { uint.MinValue, 1, uint.MaxValue / 2, uint.MaxValue };
+        return new() { uint.MinValue, 1, uint.MaxValue / 2, uint.MaxValue };
     }
 
     /// <summary>
@@ -97,7 +98,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<int> GetInt()
     {
-        return new List<int>() { int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
+        return new() { int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
     }
 
     /// <summary>
@@ -106,7 +107,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<int?> GetIntNullable()
     {
-        return new List<int?>() { null, int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
+        return new() { null, int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
     }
 
     /// <summary>
@@ -115,7 +116,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<long?> GetLongNullable()
     {
-        return new List<long?>() { null, long.MinValue, 1, long.MaxValue / 2, long.MaxValue };
+        return new() { null, long.MinValue, 1, long.MaxValue / 2, long.MaxValue };
     }
 
     /// <summary>
@@ -124,7 +125,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<long> GetLong()
     {
-        return new List<long>() { long.MinValue, 1, long.MaxValue / 2, long.MaxValue };
+        return new() { long.MinValue, 1, long.MaxValue / 2, long.MaxValue };
     }
 
     /// <summary>
@@ -133,7 +134,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<DateTime> GetDateTime()
     {
-        return new List<DateTime>() { DateTime.MinValue, DateTime.MaxValue, DateTime.Now, DateTime.Today, DateTime.UtcNow };
+        return new() { DateTime.MinValue, DateTime.MaxValue, DateTime.Now, DateTime.Today, DateTime.UtcNow };
     }
 
     /// <summary>
@@ -152,7 +153,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<Uri> GetUri()
     {
-        return new List<Uri>() { new Uri("http://google.com/"), new Uri("http://microsoft.com/") };
+        return new() { new("http://google.com/"), new("http://microsoft.com/") };
     }
 
     /// <summary>
@@ -161,7 +162,7 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<int> GetTimeoutMs()
     {
-        return new List<int>() { 50, 500 };
+        return new() { 50, 500 };
     }
 
     /// <summary>
@@ -170,6 +171,76 @@ public static class DataCoreEnums
     /// <returns></returns>
     public static List<byte> GetBytes()
     {
-        return new List<byte>() { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, };
+        return new() { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, };
     }
+
+	/// <summary>
+	/// List of models SqlTableBase.
+	/// </summary>
+	/// <returns></returns>
+	public static List<SqlTableBase> GetSqlTableModels() => new()
+	{
+		new AccessModel(),
+		new AppModel(),
+		new BarCodeModel(),
+		new BarCodeTypeModel(),
+		new ContragentModel(),
+		new HostModel(),
+		new LogModel(),
+		new LogTypeModel(),
+		new NomenclatureModel(),
+		new OrderModel(),
+		new OrganizationModel(),
+		new PluModel(),
+		new PluLabelModel(),
+		new PluScaleModel(),
+		new PluWeighingModel(),
+		new PrinterModel(),
+		new PrinterResourceModel(),
+		new PrinterTypeModel(),
+		new ProductionFacilityModel(),
+		new ProductSeriesModel(),
+		new ScaleModel(),
+		new TaskModel(),
+		new TaskTypeModel(),
+		new TemplateModel(),
+		new TemplateResourceModel(),
+		new VersionModel(),
+		new WorkShopModel(),
+	};
+
+	/// <summary>
+	/// List of types SqlTableBase.
+	/// </summary>
+	/// <returns></returns>
+	public static List<Type> GetSqlTableTypes() => new()
+	{
+		typeof(AccessModel),
+		typeof(AppModel),
+		typeof(BarCodeModel),
+		typeof(BarCodeTypeModel),
+		typeof(ContragentModel),
+		typeof(HostModel),
+		typeof(LogModel),
+		typeof(LogTypeModel),
+		typeof(NomenclatureModel),
+		typeof(OrderModel),
+		typeof(OrganizationModel),
+		typeof(PluModel),
+		typeof(PluLabelModel),
+		typeof(PluScaleModel),
+		typeof(PluWeighingModel),
+		typeof(PrinterModel),
+		typeof(PrinterResourceModel),
+		typeof(PrinterTypeModel),
+		typeof(ProductionFacilityModel),
+		typeof(ProductSeriesModel),
+		typeof(ScaleModel),
+		typeof(TaskModel),
+		typeof(TaskTypeModel),
+		typeof(TemplateModel),
+		typeof(TemplateResourceModel),
+		typeof(VersionModel),
+		typeof(WorkShopModel),
+	};
 }

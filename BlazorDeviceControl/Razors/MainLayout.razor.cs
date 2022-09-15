@@ -29,8 +29,6 @@ public partial class MainLayout : RazorPageBase
 
 	protected override void OnParametersSet()
 	{
-		base.OnParametersSet();
-
 		RunActionsParametersSet(new()
 		{
 			() =>

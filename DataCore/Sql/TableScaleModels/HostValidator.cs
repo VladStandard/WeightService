@@ -8,27 +8,27 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class HostValidator : SqlTableValidator
+public class HostValidator : SqlTableValidator<HostModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public HostValidator()
 	{
-		RuleFor(item => ((HostModel)item).AccessDt)
+		RuleFor(item => item.AccessDt)
 			.NotEmpty()
 			.NotNull()
 			.LessThanOrEqualTo(DateTime.Now.Date.AddDays(1));
-		RuleFor(item => ((HostModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((HostModel)item).HostName)
+		RuleFor(item => item.HostName)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((HostModel)item).Ip)
+		RuleFor(item => item.Ip)
 			.NotEmpty()
 			.NotNull();
-		// RuleFor(item => ((HostEntity)item).MacAddressValue)
+		// RuleFor(item => (item).MacAddressValue)
 		// 	.NotEmpty()
 		// 	.NotNull();
 	}

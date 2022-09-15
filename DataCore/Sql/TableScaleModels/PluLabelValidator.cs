@@ -9,25 +9,29 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_LABELS".
 /// </summary>
-public class PluLabelValidator : SqlTableValidator
+public class PluLabelValidator : SqlTableValidator<PluLabelModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluLabelValidator()
     {
-		RuleFor(item => ((PluLabelModel)item).Zpl)
+		RuleFor(item => item.Zpl)
 			.NotEmpty()
 			.NotNull();
 	}
 
-    protected override bool PreValidate(ValidationContext<SqlTableBase> context, ValidationResult result)
+    protected override bool PreValidate(ValidationContext<PluLabelModel> context, ValidationResult result)
     {
-	    if (context.InstanceToValidate is PluLabelModel scale)
+	    switch (context.InstanceToValidate)
 	    {
-		    if (!PreValidateSubEntity(scale.PluWeighing, result))
+		    case null:
+			    result.Errors.Add(new(nameof(context), "Please ensure a model was supplied!"));
+			    return false;
+		    default:
+			    if (!PreValidateSubEntity(context.InstanceToValidate.PluWeighing, ref result))
+				    return result.IsValid;
 				return result.IsValid;
-		}
-		return result.IsValid;
+	    }
 	}
 }

@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace BlazorCore.CssStyles;
 
-public class CssStyleTableBodyValidator : AbstractValidator<CssStyleBase>
+public class CssStyleTableBodyValidator : AbstractValidator<CssStyleTableBodyModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -15,7 +15,7 @@ public class CssStyleTableBodyValidator : AbstractValidator<CssStyleBase>
 	/// </summary>
 	public CssStyleTableBodyValidator()
 	{
-		RuleFor(item => ((CssStyleTableBodyModel)item).IdentityName)
+		RuleFor(item => item.IdentityName)
 			.NotEqual(SqlFieldIdentityEnum.Empty);
 	}
 

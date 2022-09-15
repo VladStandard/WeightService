@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace BlazorCore.CssStyles;
 
-public class CssStyleRadzenColumnValidator : AbstractValidator<CssStyleBase>
+public class CssStyleRadzenColumnValidator : AbstractValidator<CssStyleRadzenColumnModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -14,7 +14,7 @@ public class CssStyleRadzenColumnValidator : AbstractValidator<CssStyleBase>
 	/// </summary>
 	public CssStyleRadzenColumnValidator()
 	{
-		RuleFor(item => ((CssStyleRadzenColumnModel)item).Width)
+		RuleFor(item => item.Width)
 			.NotEmpty()
 			.NotNull();
 	}

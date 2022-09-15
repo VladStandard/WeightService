@@ -9,18 +9,18 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class LogTypeValidator : SqlTableValidator
+public class LogTypeValidator : SqlTableValidator<LogTypeModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public LogTypeValidator() : base(false, false)
 	{
-		RuleFor(item => ((LogTypeModel)item).Number)
+		RuleFor(item => (item).Number)
 			.NotNull()
 			.GreaterThanOrEqualTo((byte)LogTypeEnum.None)
 			.LessThanOrEqualTo((byte)LogTypeEnum.Information);
-		RuleFor(item => ((LogTypeModel)item).Icon)
+		RuleFor(item => item.Icon)
 			.NotEmpty()
 			.NotNull();
 	}

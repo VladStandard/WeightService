@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// table map "Scales".
+/// table map "SCALES".
 /// </summary>
 public class ScaleMap : ClassMap<ScaleModel>
 {

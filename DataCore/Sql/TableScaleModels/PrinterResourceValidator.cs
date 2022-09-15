@@ -8,21 +8,21 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class PrinterResourceValidator : SqlTableValidator
+public class PrinterResourceValidator : SqlTableValidator<PrinterResourceModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public PrinterResourceValidator() : base(false, false)
 	{
-		RuleFor(item => ((PrinterResourceModel)item).Description)
+		RuleFor(item => item.Description)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PrinterResourceModel)item).Printer)
+		RuleFor(item => item.Printer)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PrinterValidator());
-		RuleFor(item => ((PrinterResourceModel)item).TemplateResource)
+		RuleFor(item => item.TemplateResource)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TemplateResourceValidator());

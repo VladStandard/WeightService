@@ -1,6 +1,6 @@
 ﻿@inherits BlazorCore.Razors.RazorPageBase
 @using BlazorCore
-@using BlazorDeviceControl.Razors.Systems
+@using BlazorDeviceControl.Razors.SystemComponents
 @using static BlazorCore.Utils.BlazorCoreUtuls
 
 <SystemIdentity ParentRazor=@(this) />
@@ -31,6 +31,9 @@
                         Text=@LocaleCore.DeviceControl.SectionWorkShops Path=@LocaleCore.DeviceControl.RouteSectionWorkShops />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleCore.DeviceControl.SectionHosts Path=@LocaleCore.DeviceControl.RouteSectionHosts />
+                </RadzenPanelMenuItem>
+
+                <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.Print.Names>
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleCore.Print.Names Path=@LocaleCore.DeviceControl.RouteSectionPrinters />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)

@@ -8,17 +8,17 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class ProductionFacilityValidator : SqlTableValidator
+public class ProductionFacilityValidator : SqlTableValidator<ProductionFacilityModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public ProductionFacilityValidator() : base(false, false)
 	{
-		RuleFor(item => ((ProductionFacilityModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((ProductionFacilityModel)item).Address)
+		RuleFor(item => item.Address)
 			.NotEmpty()
 			.NotNull();
 	}

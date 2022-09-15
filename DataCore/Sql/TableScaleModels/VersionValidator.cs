@@ -8,22 +8,22 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class VersionValidator : SqlTableValidator
+public class VersionValidator : SqlTableValidator<VersionModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public VersionValidator() : base(false, false)
 	{
-		RuleFor(item => ((VersionModel)item).ReleaseDt)
+		RuleFor(item => item.ReleaseDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((VersionModel)item).Version)
+		RuleFor(item => item.Version)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThan(default(short));
-		RuleFor(item => ((VersionModel)item).Description)
+		RuleFor(item => item.Description)
 			.NotEmpty()
 			.NotNull();
 	}

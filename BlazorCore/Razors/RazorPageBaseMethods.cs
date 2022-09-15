@@ -151,14 +151,12 @@ public partial class RazorPageBase
 	{
 		if (Items is null) return;
 
-		switch (new T())
+		switch (typeof(T))
 		{
-			case PluScaleModel:
-				List<PluScaleModel> pluScales = Items.Cast<PluScaleModel>().ToList();
-				foreach (PluScaleModel pluScale in pluScales)
-				{
-					ItemSave(pluScale);
-				}
+			case var cls when cls == typeof(PluScaleModel):
+				if (items is not null)
+					foreach (T item in items)
+						ItemSave(item);
 				break;
 		}
 	}

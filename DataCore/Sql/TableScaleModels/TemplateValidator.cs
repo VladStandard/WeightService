@@ -8,14 +8,14 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class TemplateValidator : SqlTableValidator
+public class TemplateValidator : SqlTableValidator<TemplateModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public TemplateValidator()
 	{
-		RuleFor(item => ((TemplateModel)item).Title)
+		RuleFor(item => item.Title)
 			.NotEmpty()
 			.NotNull();
 	}

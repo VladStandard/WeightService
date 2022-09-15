@@ -1,0 +1,35 @@
+﻿@inherits RazorPageSectionBase<PluModel>
+@page "/items/plus"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+	<ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+	<SectionReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
+
+    <RadzenGrid 
+        Data=@ItemsCast TItem=PluModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+	    <Columns>
+			<SectionFieldIsMarked TItem=PluModel ParentRazor=@(this) />
+			<SectionFieldIdentity TItem=PluModel ParentRazor=@(this) />
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetName() />
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetShelfLifeDays() />
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetTareWeight() />
+			<SectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+				RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetBoxQuantly() />
+	    </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=PluModel ParentRazor=@(this) />
+}

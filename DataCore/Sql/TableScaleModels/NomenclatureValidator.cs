@@ -8,24 +8,24 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "Hosts".
 /// </summary>
-public class NomenclatureValidator : SqlTableValidator
+public class NomenclatureValidator : SqlTableValidator<NomenclatureModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public NomenclatureValidator()
 	{
-		RuleFor(item => ((NomenclatureModel)item).CreateDt)
+		RuleFor(item => item.CreateDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((NomenclatureModel)item).ChangeDt)
+		RuleFor(item => item.ChangeDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((NomenclatureModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotNull();
-		RuleFor(item => ((NomenclatureModel)item).Xml)
+		RuleFor(item => item.Xml)
 			.NotEmpty()
 			.NotNull();
 	}

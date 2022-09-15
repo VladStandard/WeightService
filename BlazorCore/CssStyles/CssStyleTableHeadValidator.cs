@@ -5,26 +5,26 @@ using FluentValidation;
 
 namespace BlazorCore.CssStyles;
 
-public class CssStyleTableHeadValidator : AbstractValidator<CssStyleBase>
+public class CssStyleTableHeadValidator : AbstractValidator<CssStyleTableHeadModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public CssStyleTableHeadValidator()
 	{
-		RuleFor(item => ((CssStyleTableHeadModel)item).ColumnsWidths)
+		RuleFor(item => item.ColumnsWidths)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((CssStyleTableHeadModel)item).ColumnsTitles)
+		RuleFor(item => item.ColumnsTitles)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((CssStyleTableHeadModel)item).Color)
+		RuleFor(item => item.Color)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((CssStyleTableHeadModel)item).FontWeight)
+		RuleFor(item => item.FontWeight)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((CssStyleTableHeadModel)item).TextAlign)
+		RuleFor(item => item.TextAlign)
 			.NotEmpty()
 			.NotNull();
 	}

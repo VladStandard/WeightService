@@ -1,0 +1,22 @@
+﻿@typeparam TItem
+@inherits RazorPageSectionBase<TItem>
+@page "/items/filter"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (ParentRazor is null)
+{
+	<ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true/>
+}
+else
+{
+	<MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+	    Class=@BlazorCoreUtuls.GetCssName.MudSelect 
+	    Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px; "
+	    @bind-Value=@ItemFilterCast>
+		@foreach (TItem item in ItemsCast)
+		{
+			<MudSelectItem T=@TItem Value=@item>@item.Description.ToString()</MudSelectItem>
+		}
+	</MudSelect>
+}

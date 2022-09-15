@@ -1,0 +1,32 @@
+﻿@inherits RazorPageItemBase<BarCodeModel>
+@page "/item/barcode"
+@page "/item/barcode/{IdentityUidStr}"
+@page "/item/barcode/{IdentityUidStr}/{TableAction}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <ItemReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+	    <ItemTableHead TItem=BarCodeModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <tbody>
+            <ItemTableBody TItem=BarCodeModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+            <tr>
+                <td>@LocaleCore.Table.Value</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Value />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+
+    <ItemSave TItem=BarCodeModel ParentRazor=@(this) />
+    <ItemDates TItem=BarCodeModel ParentRazor=@(this) />
+}

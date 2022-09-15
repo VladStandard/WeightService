@@ -8,41 +8,41 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS_WEIGHINGS".
 /// </summary>
-public class PluWeighingValidator : SqlTableValidator
+public class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluWeighingValidator()
     {
-	    RuleFor(item => ((PluWeighingModel)item).Kneading)
+	    RuleFor(item => item.Kneading)
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThan(default(short));
-		RuleFor(item => ((PluWeighingModel)item).PluScale)
+		RuleFor(item => item.PluScale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluScaleValidator());
-		RuleFor(item => ((PluWeighingModel)item).Series)
+		RuleFor(item => item.Series)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ProductSeriesValidator());
-		RuleFor(item => ((PluWeighingModel)item).Sscc)
+		RuleFor(item => item.Sscc)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluWeighingModel)item).NettoWeight)
+		RuleFor(item => item.NettoWeight)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => ((PluWeighingModel)item).TareWeight)
+		RuleFor(item => item.TareWeight)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => ((PluWeighingModel)item).ProductDt)
+		RuleFor(item => item.ProductDt)
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => ((PluWeighingModel)item).RegNum)
+		RuleFor(item => item.RegNum)
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);

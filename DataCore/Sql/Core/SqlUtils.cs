@@ -2,7 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels;
+using FluentValidation;
 using FluentValidation.Results;
+using System.ComponentModel.DataAnnotations;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace DataCore.Sql.Core;
 
@@ -32,41 +36,160 @@ public static partial class SqlUtils
 		}
 	}
 
-	public static IValidator<T> GetSqlValidator<T>(T? item) where T : SqlTableBase, new()
+	public static IValidator GetSqlValidator<T>() where T : SqlTableBase, new()
 	{
-		return item switch
+		return typeof(T) switch
 		{
-			AccessModel => new AccessValidator(),
-			AppModel => new AppValidator(),
-			BarCodeModel => new BarCodeValidator(),
-			BarCodeTypeModel => new BarCodeTypeValidator(),
-			ContragentModel => new ContragentValidator(),
-			HostModel => new HostValidator(),
-			LogModel => new LogValidator(),
-			LogTypeModel => new LogTypeValidator(),
-			NomenclatureModel => new NomenclatureValidator(),
-			OrderModel => new OrderValidator(),
-			OrderWeighingModel => new OrderWeighingValidator(),
-			OrganizationModel => new OrganizationValidator(),
-			PluModel => new PluValidator(),
-			PluLabelModel => new PluLabelValidator(),
-			//PluObsoleteModel => new PluObsoleteValidator(),
-			PluScaleModel => new PluScaleValidator(),
-			PluWeighingModel => new PluWeighingValidator(),
-			PrinterModel => new PrinterValidator(),
-			PrinterResourceModel => new PrinterResourceValidator(),
-			PrinterTypeModel => new PrinterTypeValidator(),
-			ProductionFacilityModel => new ProductionFacilityValidator(),
-			ProductSeriesModel => new ProductSeriesValidator(),
-			ScaleModel => new ScaleValidator(),
-			VersionModel => new VersionValidator(),
-			TaskModel => new TaskValidator(),
-			TaskTypeModel => new TaskTypeValidator(),
-			TemplateModel => new TemplateValidator(),
-			TemplateResourceModel => new TemplateResourceValidator(),
-			WorkShopModel => new WorkShopValidator(),
+			var cls when cls == typeof(AccessModel) => new AccessValidator(),
+			var cls when cls == typeof(AppModel) => new AppValidator(),
+			var cls when cls == typeof(BarCodeModel) => new BarCodeValidator(),
+			var cls when cls == typeof(BarCodeTypeModel) => new BarCodeTypeValidator(),
+			var cls when cls == typeof(ContragentModel) => new ContragentValidator(),
+			var cls when cls == typeof(HostModel) => new HostValidator(),
+			var cls when cls == typeof(LogModel) => new LogValidator(),
+			var cls when cls == typeof(LogTypeModel) => new LogTypeValidator(),
+			var cls when cls == typeof(NomenclatureModel) => new NomenclatureValidator(),
+			var cls when cls == typeof(OrderModel) => new OrderValidator(),
+			var cls when cls == typeof(OrderWeighingModel) => new OrderWeighingValidator(),
+			var cls when cls == typeof(OrganizationModel) => new OrganizationValidator(),
+			var cls when cls == typeof(PluModel) => new PluValidator(),
+			var cls when cls == typeof(PluLabelModel) => new PluLabelValidator(),
+			var cls when cls == typeof(PluScaleModel) => new PluScaleValidator(),
+			var cls when cls == typeof(PluWeighingModel) => new PluWeighingValidator(),
+			var cls when cls == typeof(PrinterModel) => new PrinterValidator(),
+			var cls when cls == typeof(PrinterResourceModel) => new PrinterResourceValidator(),
+			var cls when cls == typeof(PrinterTypeModel) => new PrinterTypeValidator(),
+			var cls when cls == typeof(ProductionFacilityModel) => new ProductionFacilityValidator(),
+			var cls when cls == typeof(ProductSeriesModel) => new ProductSeriesValidator(),
+			var cls when cls == typeof(ScaleModel) => new ScaleValidator(),
+			var cls when cls == typeof(VersionModel) => new VersionValidator(),
+			var cls when cls == typeof(TaskModel) => new TaskValidator(),
+			var cls when cls == typeof(TaskTypeModel) => new TaskTypeValidator(),
+			var cls when cls == typeof(TemplateModel) => new TemplateValidator(),
+			var cls when cls == typeof(TemplateResourceModel) => new TemplateResourceValidator(),
+			var cls when cls == typeof(WorkShopModel) => new WorkShopValidator(),
 			_ => throw new NotImplementedException()
 		};
+	}
+
+	public static ValidationResult GetSqlValidationResult<T>(T? item) where T : SqlTableBase, new()
+	{
+		switch (typeof(T))
+		{
+			case var cls when cls == typeof(AccessModel):
+				if (item is AccessModel access)
+					return new AccessValidator().Validate(access);
+				break;
+			case var cls when cls == typeof(AppModel):
+				if (item is AppModel app)
+					return new AppValidator().Validate(app);
+				break;
+			case var cls when cls == typeof(BarCodeModel):
+				if (item is BarCodeModel barCode)
+					return new BarCodeValidator().Validate(barCode);
+				break;
+			case var cls when cls == typeof(BarCodeTypeModel):
+				if (item is BarCodeTypeModel barCodeType)
+					return new BarCodeTypeValidator().Validate(barCodeType);
+				break;
+			case var cls when cls == typeof(ContragentModel):
+				if (item is ContragentModel contragent)
+					return new ContragentValidator().Validate(contragent);
+				break;
+			case var cls when cls == typeof(HostModel):
+				if (item is HostModel host)
+					return new HostValidator().Validate(host);
+				break;
+			case var cls when cls == typeof(LogModel):
+				if (item is LogModel log)
+					return new LogValidator().Validate(log);
+				break;
+			case var cls when cls == typeof(LogTypeModel):
+				if (item is LogTypeModel logType)
+					return new LogTypeValidator().Validate(logType);
+				break;
+			case var cls when cls == typeof(NomenclatureModel):
+				if (item is NomenclatureModel nomenclature)
+					return new NomenclatureValidator().Validate(nomenclature);
+				break;
+			case var cls when cls == typeof(OrderModel):
+				if (item is OrderModel order)
+					return new OrderValidator().Validate(order);
+				break;
+			case var cls when cls == typeof(OrderWeighingModel):
+				if (item is OrderWeighingModel orderWeighing)
+					return new OrderWeighingValidator().Validate(orderWeighing);
+				break;
+			case var cls when cls == typeof(OrganizationModel):
+				if (item is OrganizationModel organization)
+					return new OrganizationValidator().Validate(organization);
+				break;
+			case var cls when cls == typeof(PluModel):
+				if (item is PluModel plu)
+					return new PluValidator().Validate(plu);
+				break;
+			case var cls when cls == typeof(PluLabelModel):
+				if (item is PluLabelModel pluLabel)
+					return new PluLabelValidator().Validate(pluLabel);
+				break;
+			case var cls when cls == typeof(PluScaleModel):
+				if (item is PluScaleModel pluScale)
+					return new PluScaleValidator().Validate(pluScale);
+				break;
+			case var cls when cls == typeof(PluWeighingModel):
+				if (item is PluWeighingModel pluWeighing)
+					return new PluWeighingValidator().Validate(pluWeighing);
+				break;
+			case var cls when cls == typeof(PrinterModel):
+				if (item is PrinterModel printer)
+					return new PrinterValidator().Validate(printer);
+				break;
+			case var cls when cls == typeof(PrinterResourceModel):
+				if (item is PrinterResourceModel printerResource)
+					return new PrinterResourceValidator().Validate(printerResource);
+				break;
+			case var cls when cls == typeof(PrinterTypeModel):
+				if (item is PrinterTypeModel printerType)
+					return new PrinterTypeValidator().Validate(printerType);
+				break;
+			case var cls when cls == typeof(ProductionFacilityModel):
+				if (item is ProductionFacilityModel productionFacility)
+					return new ProductionFacilityValidator().Validate(productionFacility);
+				break;
+			case var cls when cls == typeof(ProductSeriesModel):
+				if (item is ProductSeriesModel productSeries)
+					return new ProductSeriesValidator().Validate(productSeries);
+				break;
+			case var cls when cls == typeof(ScaleModel):
+				if (item is ScaleModel scale)
+					return new ScaleValidator().Validate(scale);
+				break;
+			case var cls when cls == typeof(VersionModel):
+				if (item is VersionModel version)
+					return new VersionValidator().Validate(version);
+				break;
+			case var cls when cls == typeof(TaskModel):
+				if (item is TaskModel task)
+					return new TaskValidator().Validate(task);
+				break;
+			case var cls when cls == typeof(TaskTypeModel):
+				if (item is TaskTypeModel taskType)
+					return new TaskTypeValidator().Validate(taskType);
+				break;
+			case var cls when cls == typeof(TemplateModel):
+				if (item is TemplateModel template)
+					return new TemplateValidator().Validate(template);
+				break;
+			case var cls when cls == typeof(TemplateResourceModel):
+				if (item is TemplateResourceModel templateResource)
+					return new TemplateResourceValidator().Validate(templateResource);
+				break;
+			case var cls when cls == typeof(WorkShopModel):
+				if (item is WorkShopModel workShop)
+					return new WorkShopValidator().Validate(workShop);
+				break;
+		}
+		return new(new List<ValidationFailure>() { new(nameof(item), "is not found!") });
 	}
 
 	public static bool IsValidation<T>(T? item, ref string detailAddition) where T : SqlTableBase, new()
@@ -77,8 +200,7 @@ public static partial class SqlUtils
 			return false;
 		}
 
-		IValidator<T> validator = GetSqlValidator(item);
-		ValidationResult validationResult = validator.Validate(item);
+		ValidationResult validationResult = GetSqlValidationResult<T>(item);
 		if (!validationResult.IsValid)
 		{
 			FailureLog(validationResult, ref detailAddition);

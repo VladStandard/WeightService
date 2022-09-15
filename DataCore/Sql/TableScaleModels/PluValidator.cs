@@ -8,73 +8,73 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "PLUS".
 /// </summary>
-public class PluValidator : SqlTableValidator
+public class PluValidator : SqlTableValidator<PluModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
     public PluValidator()
     {
-	    RuleFor(item => ((PluModel)item).Number)
+	    RuleFor(item => item.Number)
 		    .NotEmpty()
 		    .NotNull()
 		    .GreaterThanOrEqualTo(100)
 		    .LessThanOrEqualTo(999);
-		RuleFor(item => ((PluModel)item).Name)
+		RuleFor(item => item.Name)
 			.NotEmpty()
 			.NotNull();
-        RuleFor(item => ((PluModel)item).FullName)
+        RuleFor(item => item.FullName)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => ((PluModel)item).Description)
+        RuleFor(item => item.Description)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => ((PluModel)item).ShelfLifeDays)
+        RuleFor(item => item.ShelfLifeDays)
 	        .NotNull()
 	        .GreaterThanOrEqualTo((short)0)
 	        .LessThanOrEqualTo((short)365);
-		RuleFor(item => ((PluModel)item).TareWeight)
+		RuleFor(item => item.TareWeight)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100);
-		RuleFor(item => ((PluModel)item).BoxQuantly)
+		RuleFor(item => item.BoxQuantly)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100);
-		RuleFor(item => ((PluModel)item).Gtin)
+		RuleFor(item => item.Gtin)
 			//.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluModel)item).Ean13)
+		RuleFor(item => item.Ean13)
 			//.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluModel)item).Itf14)
+		RuleFor(item => item.Itf14)
 			//.NotEmpty()
 			.NotNull();
-		RuleFor(item => ((PluModel)item).UpperThreshold)
+		RuleFor(item => item.UpperThreshold)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100)
-			.GreaterThanOrEqualTo(item => ((PluModel)item).LowerThreshold)
-			.GreaterThanOrEqualTo(item => ((PluModel)item).NominalWeight);
-		RuleFor(item => ((PluModel)item).NominalWeight)
+			.GreaterThanOrEqualTo(item => item.LowerThreshold)
+			.GreaterThanOrEqualTo(item => item.NominalWeight);
+		RuleFor(item => item.NominalWeight)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
-			.GreaterThanOrEqualTo(item => ((PluModel)item).LowerThreshold)
+			.GreaterThanOrEqualTo(item => item.LowerThreshold)
 			.LessThanOrEqualTo(100)
-			.LessThanOrEqualTo(item => ((PluModel)item).UpperThreshold);
-		RuleFor(item => ((PluModel)item).LowerThreshold)
+			.LessThanOrEqualTo(item => item.UpperThreshold);
+		RuleFor(item => item.LowerThreshold)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)
 			.LessThanOrEqualTo(100)
-			.LessThanOrEqualTo(item => ((PluModel)item).UpperThreshold)
-			.LessThanOrEqualTo(item => ((PluModel)item).NominalWeight);
-		RuleFor(item => ((PluModel)item).IsCheckWeight)
+			.LessThanOrEqualTo(item => item.UpperThreshold)
+			.LessThanOrEqualTo(item => item.NominalWeight);
+		RuleFor(item => item.IsCheckWeight)
 			.NotNull();
-		RuleFor(item => ((PluModel)item).Template)
+		RuleFor(item => item.Template)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TemplateValidator());
-		RuleFor(item => ((PluModel)item).Nomenclature)
+		RuleFor(item => item.Nomenclature)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new NomenclatureValidator());

@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "Scales".
+/// Table "SCALES".
 /// </summary>
 [Serializable]
 public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable

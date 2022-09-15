@@ -3,6 +3,7 @@
 // ReSharper disable MissingXmlDoc
 
 using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.Xml;
 using System.Globalization;
 
 namespace DataCore.Sql.Tables;
@@ -84,6 +85,13 @@ public static class SqlTableBaseExt
 						return printer.PrinterType.Name;
 				}
 				return printerType.Name;
+			case ProductionFacilityModel productionFacility:
+				if (item is WorkShopModel workShop1)
+				{
+					if (string.Equals(propertyName, nameof(workShop1.ProductionFacility)))
+						return workShop1.ProductionFacility.Name;
+				}
+				return productionFacility.Name;
 			case TemplateResourceModel templateResource:
 				if (item is PrinterResourceModel printerResource1)
 				{

@@ -86,7 +86,7 @@ public class DataCoreHelper
 			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
 				// Arrange.
-				IValidator<T> validator = SqlUtils.GetSqlValidator(Substitute.For<T>());
+				//IValidator<T> validator = SqlUtils.GetSqlValidator<T>();
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, maxResults, isShowMarked, true);
 				List<T> items = DataAccess.GetList<T>(sqlCrudConfig);
 				// Act.
@@ -104,7 +104,8 @@ public class DataCoreHelper
 						if (i < 10)
 							TestContext.WriteLine(item);
 						i++;
-						ValidationResult result = validator.Validate(item);
+						//ValidationResult result = validator.Validate(item);
+						ValidationResult result = SqlUtils.GetSqlValidationResult(item);
 						FailureWriteLine(result);
 						// Assert.
 						Assert.IsTrue(result.IsValid);
@@ -116,10 +117,10 @@ public class DataCoreHelper
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new()
 	{
-		// Arrange.
-		IValidator<T> validator = SqlUtils.GetSqlValidator(item);
+		//// Arrange.
+		//IValidator<T> validator = SqlUtils.GetSqlValidator<T>();
 		// Act & Assert.
-		AssertValidate(item, validator, assertResult);
+		AssertValidate(item, assertResult);
 	}
 
 	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
@@ -178,12 +179,25 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertValidate<T>(T item, IValidator<T> validator, bool assertResult) where T : class, new()
+	public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			// Act.
-			ValidationResult result = validator.Validate(item);
+			ValidationResult? result = null;
+			switch (typeof(T))
+			{
+				case var cls when cls == typeof(SqlTableBase):
+					// Act.
+					result = SqlUtils.GetSqlValidationResult(item as SqlTableBase);
+					break;
+					//case var cls when cls == typeof(CssStyleBase):
+					//	// Act.
+					//	result = SqlUtils.GetSqlValidationResult(item as CssStyleBase);
+					//	break;
+			}
+			//ValidationResult result = validator.Validate(item);
+			if (result is null)
+				throw new NullReferenceException(nameof(result));
 			FailureWriteLine(result);
 			// Assert.
 			switch (assertResult)
@@ -324,6 +338,12 @@ public class DataCoreHelper
 				break;
 			case ScaleModel scale:
 				scale.Description = "Test";
+				scale.TemplateDefault = CreateNewSubstitute<TemplateModel>(isNotDefault);
+				scale.TemplateSeries = CreateNewSubstitute<TemplateModel>(isNotDefault);
+				scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
+				scale.PrinterMain = CreateNewSubstitute<PrinterModel>(isNotDefault);
+				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
+				scale.Host = CreateNewSubstitute<HostModel>(isNotDefault);
 				break;
 			case TaskModel task:
 				task.TaskType = CreateNewSubstitute<TaskTypeModel>(isNotDefault);

@@ -1,0 +1,42 @@
+﻿@inherits RazorPageSectionBase<PrinterModel>
+@page "/items/printers"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemsComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <SectionReload TItem=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Names />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem=PrinterModel 
+        RowDoubleClick=@(_ => ActionEditAsync(UserSettings))
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns>
+            <SectionFieldIsMarked TItem=PrinterModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItem=PrinterModel ParentRazor=@(this) />
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetName() />
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterIp() />
+            <RadzenGridColumn TItem=PrinterModel TextAlign=TextAlign.Center
+                Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="10%" >
+                <Template Context="item" >
+                    <RadzenIcon 
+                        Icon=@(item.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
+                </Template>
+            </RadzenGridColumn>
+            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetMacAddress() />
+        </Columns>
+    </RadzenGrid>
+
+    <SectionButtons TItem=PrinterModel ParentRazor=@(this) />
+}

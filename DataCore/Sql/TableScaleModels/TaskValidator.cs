@@ -8,18 +8,18 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table validation "___".
 /// </summary>
-public class TaskValidator : SqlTableValidator
+public class TaskValidator : SqlTableValidator<TaskModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public TaskValidator() : base(false, false)
 	{
-		RuleFor(item => ((TaskModel)item).TaskType)
+		RuleFor(item => item.TaskType)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TaskTypeValidator());
-		RuleFor(item => ((TaskModel)item).Scale)
+		RuleFor(item => item.Scale)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new ScaleValidator());

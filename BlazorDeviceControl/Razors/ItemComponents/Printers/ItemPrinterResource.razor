@@ -1,0 +1,55 @@
+﻿@inherits RazorPageItemBase<PrinterResourceModel>
+@page "/item/printer_resource"
+@page "/item/printer_resource/{IdentityId:long}"
+@page "/item/printer_resource/{IdentityId:long}/{TableAction}"
+@using static BlazorCore.Utils.BlazorCoreUtuls
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.ItemComponents.Components
+@using BlazorDeviceControl.Razors.ShareComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <ItemReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resource />
+
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<ItemTableHead TItem=PrinterResourceModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+		<tbody>
+			<ItemTableBody TItem=PrinterResourceModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<tr>
+				<td>@LocaleCore.Print.Name</td>
+				<td>
+					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@ItemCast.Printer>
+						@foreach (PrinterModel item in Printers)
+						{
+							<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
+						}
+					</MudSelect>
+				</td>
+				<td>@LocaleCore.Table.Resource</td>
+				<td>
+					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@ItemCast.TemplateResource>
+						@foreach (TemplateResourceModel item in Resources)
+						{
+							<MudSelectItem T=@TemplateResourceModel Value=@item>@item.Name</MudSelectItem>
+						}
+					</MudSelect>
+				</td>
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.Description</td>
+				<td colspan=3>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Description/>
+				</td>
+			</tr>
+		</tbody>
+	</MudSimpleTable>
+    
+    <ItemSave TItem=PrinterResourceModel ParentRazor=@(this) />
+	<ItemDates TItem=PrinterResourceModel ParentRazor=@(this) />
+}

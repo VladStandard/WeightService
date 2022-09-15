@@ -69,15 +69,11 @@ public class SqlConnectFactory
 
     #region Public and private methods - Wrappers execute
 
-    public void ExecuteReader(string query, ExecuteReaderCallback callback)
-    {
-        ExecuteReader(query, new SqlParameter[] { }, callback);
-    }
+    public void ExecuteReader(string query, ExecuteReaderCallback callback) => 
+	    ExecuteReader(query, new SqlParameter[] { }, callback);
 
-    public void ExecuteReader(string query, SqlParameter parameter, ExecuteReaderCallback callback)
-    {
-        ExecuteReader(query, new[] { parameter }, callback);
-    }
+    public void ExecuteReader(string query, SqlParameter parameter, ExecuteReaderCallback callback) => 
+	    ExecuteReader(query, new[] { parameter }, callback);
 
     public void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderCallback callback)
     {
@@ -98,10 +94,8 @@ public class SqlConnectFactory
         con.Close();
     }
 
-    public T? ExecuteReader<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback)
-    {
-        return ExecuteReader(query, new[] { parameter }, callback);
-    }
+    public T? ExecuteReader<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) => 
+	    ExecuteReader(query, new[] { parameter }, callback);
 
     public T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback)
     {
@@ -118,8 +112,7 @@ public class SqlConnectFactory
             using SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
-                if (callback != null)
-                    result = callback.Invoke(reader);
+                result = callback.Invoke(reader);
             }
             reader.Close();
         }
@@ -127,10 +120,8 @@ public class SqlConnectFactory
         return result;
     }
 
-    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) where T : new()
-    {
-        return ExecuteReaderForItem(query, new[] { parameter }, callback);
-    }
+    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) where T : new() => 
+	    ExecuteReaderForItem(query, new[] { parameter }, callback);
 
     public T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback) where T : new()
     {
