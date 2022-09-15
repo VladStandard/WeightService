@@ -43,11 +43,11 @@ public class LocalePrint
     public string Ip => Lang == LangEnum.English ? "IP-address" : "IP-адрес";
     public string Mac => Lang == LangEnum.English ? "MAC-address" : "MAC-адрес";
     public string Mode => Lang == LangEnum.English ? "Mode" : "Режим";
-    public string Model => Lang == LangEnum.English ? "Model" : "Модель";
     public string ModeApplicator => Lang == LangEnum.English ? "Applicator" : "Аппликатор";
     public string ModeCutter => Lang == LangEnum.English ? "Cutter" : "Отрезание";
     public string ModeDelayedCut => Lang == LangEnum.English ? "Delayed Cut" : "Отложенный срез";
     public string ModeKiosk => Lang == LangEnum.English ? "Kiosk" : "Киоск";
+    public string Model => Lang == LangEnum.English ? "Model" : "Модель";
     public string ModeLinerlessPeel => Lang == LangEnum.English ? "Linerless Peel" : "Бесслойный пилинг";
     public string ModeLinerlessRewind => Lang == LangEnum.English ? "Linerless Rewind" : "Бесслойная перемотка";
     public string ModePartialCutter => Lang == LangEnum.English ? "Partial Cutter" : "Частичная резка";
@@ -97,6 +97,7 @@ public class LocalePrint
     public string StatusIsReceiveBufferFull => Lang == LangEnum.English ? "Receive buffer full" : "Буфер приема заполнен";
     public string StatusIsRibbonOut => Lang == LangEnum.English ? "Ribbon out" : "Лента на выходе";
     public string StatusIsUnavailable => Lang == LangEnum.English ? "Status is unavailable" : "Статус не доступен";
+    public string TemplateResource => Lang == LangEnum.English ? "Template resource" : "Ресурс шаблона";
     public string Type => Lang == LangEnum.English ? "Printer type" : "Тип принтера";
     public string Types => Lang == LangEnum.English ? "Printer types" : "Типы принтеров";
     public string WarningOpenCover => Lang == LangEnum.English ? "Open the cover of the separator before proceeding with the calibration!" : "Прежде чем продолжить калибровку, откройте крышку отделителя!";

@@ -89,11 +89,11 @@ public static class DataAccessHelperFill
 				PrinterModel? printer2 = dataAccess.GetItemById<PrinterModel>(printerResource.Printer.IdentityValueId);
 				if (printer2 is not null)
 					printerResource.Printer = printer2;
-				TemplateResourceModel? templateResource2 = dataAccess.GetItemById<TemplateResourceModel>(printerResource.Resource.IdentityValueId);
+				TemplateResourceModel? templateResource2 = dataAccess.GetItemById<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueId);
 				if (templateResource2 is not null)
-					printerResource.Resource = templateResource2;
-				if (string.IsNullOrEmpty(printerResource.Resource.Description))
-					printerResource.Resource.Description = printerResource.Resource.Name;
+					printerResource.TemplateResource = templateResource2;
+				if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
+					printerResource.TemplateResource.Description = printerResource.TemplateResource.Name;
 				break;
 			case ProductSeriesModel product:
 				ScaleModel? scale3 = dataAccess.GetItemById<ScaleModel>(product.Scale.IdentityValueId);

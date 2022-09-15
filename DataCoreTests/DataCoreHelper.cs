@@ -308,7 +308,7 @@ public class DataCoreHelper
 			case PrinterResourceModel printerResource:
 				printerResource.Description = "Test";
 				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
-				printerResource.Resource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
+				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;
 			case PrinterTypeModel printerType:
 				printerType.Name = "Test";

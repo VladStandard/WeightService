@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
+using DataCore.Sql.TableScaleModels;
 using System.Globalization;
 
 namespace DataCore.Sql.Tables;
@@ -83,6 +84,13 @@ public static class SqlTableBaseExt
 						return printer.PrinterType.Name;
 				}
 				return printerType.Name;
+			case TemplateResourceModel templateResource:
+				if (item is PrinterResourceModel printerResource1)
+				{
+					if (string.Equals(propertyName, nameof(printerResource1.TemplateResource)))
+						return printerResource1.TemplateResource.Name;
+				}
+				return templateResource.Name;
 			case WorkShopModel workShop:
 				if (item is ScaleModel scale3)
 				{

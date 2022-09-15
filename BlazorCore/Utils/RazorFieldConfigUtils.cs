@@ -65,7 +65,7 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetIp() =>
 			new(nameof(PrinterModel.Ip), TextAlign.Left, LocaleCore.Print.Ip);
 		public static RazorFieldConfigModel GetPrinterType(string link) =>
-			new(link, new PrinterTypeModel(), nameof(PrinterModel.PrinterType), TextAlign.Left, LocaleCore.Print.Model, "string");
+			new(link, new PrinterTypeModel(), nameof(PrinterModel.PrinterType), TextAlign.Left, LocaleCore.Print.Type, "string");
 	}
 
 	public static class PrinterResource
@@ -73,7 +73,9 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetDescription() =>
 			new(nameof(PrinterResourceModel.Description), TextAlign.Left, LocaleCore.Table.Description);
 		public static RazorFieldConfigModel GetPrinter(string link) =>
-			new (link, new PrinterTypeModel(), nameof(PrinterResourceModel.Printer.Name), TextAlign.Left, LocaleCore.Print.Name, "string");
+			new (link, new PrinterModel(), nameof(PrinterResourceModel.Printer), TextAlign.Left, LocaleCore.Print.Name, "string");
+		public static RazorFieldConfigModel GetResource(string link) =>
+			new (link, new PrinterResourceModel(), nameof(PrinterResourceModel.TemplateResource), TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
 	}
 
 	public static class PrinterType

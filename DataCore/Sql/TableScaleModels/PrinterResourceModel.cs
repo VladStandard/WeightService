@@ -14,7 +14,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual PrinterModel Printer { get; set; }
-	[XmlElement] public virtual TemplateResourceModel Resource { get; set; }
+	[XmlElement] public virtual TemplateResourceModel TemplateResource { get; set; }
 	
 	/// <summary>
 	/// Constructor.
@@ -22,7 +22,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
     public PrinterResourceModel() : base(SqlFieldIdentityEnum.Id)
 	{
 		Printer = new();
-		Resource = new();
+		TemplateResource = new();
 	}
 
 	/// <summary>
@@ -33,7 +33,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	private PrinterResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
-		Resource = (TemplateResourceModel)info.GetValue(nameof(Resource), typeof(TemplateResourceModel));
+		TemplateResource = (TemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(TemplateResourceModel));
 	}
 
 	#endregion
@@ -43,7 +43,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Printer)}: {Printer}. " +
-		$"{nameof(Resource)}: {Resource}. ";
+		$"{nameof(TemplateResource)}: {TemplateResource}. ";
 
 	public override bool Equals(object obj)
 	{
@@ -61,7 +61,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
     {
         if (!Printer.EqualsDefault())
             return false;
-        if (!Resource.EqualsDefault())
+        if (!TemplateResource.EqualsDefault())
             return false;
         return base.EqualsDefault();
     }
@@ -70,7 +70,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
     {
         PrinterResourceModel item = new();
         item.Printer = Printer.CloneCast();
-        item.Resource = Resource.CloneCast();
+        item.TemplateResource = TemplateResource.CloneCast();
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -84,7 +84,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	{
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Printer), Printer);
-		info.AddValue(nameof(Resource), Resource);
+		info.AddValue(nameof(TemplateResource), TemplateResource);
 	}
 
 	#endregion
@@ -96,7 +96,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 		if (ReferenceEquals(this, item)) return true;
 		if (!Printer.Equals(item.Printer))
 			return false;
-		if (!Resource.Equals(item.Resource))
+		if (!TemplateResource.Equals(item.TemplateResource))
 			return false;
 		return base.Equals(item);
 	}

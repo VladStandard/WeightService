@@ -30,21 +30,21 @@ else
 						}
 					</MudSelect>
 				</td>
-			</tr>
-			<tr>
-				<td>@LocaleCore.Table.Description</td>
-				<td>
-					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false @bind-Value=@ItemCast.Description/>
-				</td>
 				<td>@LocaleCore.Table.Resource</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.Resource>
+                        @bind-Value=@ItemCast.TemplateResource>
 						@foreach (TemplateResourceModel item in Resources)
 						{
 							<MudSelectItem T=@TemplateResourceModel Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
+				</td>
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.Description</td>
+				<td colspan=3>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Description/>
 				</td>
 			</tr>
 		</tbody>

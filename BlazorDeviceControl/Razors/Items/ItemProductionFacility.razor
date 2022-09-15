@@ -21,17 +21,13 @@ else
 			<tr>
 				<td>@LocaleCore.Table.Name</td>
 				<td colspan=3>
-					<RadzenTextBox Style="width: 100%; text-align: left;"
-					               Disabled=false ReadOnly=false
-					               TValue="string" @bind-Value=@ItemCast.Name/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Name/>
 				</td>
 			</tr>
 			<tr>
 				<td >@LocaleCore.Table.Address</td>
 				<td colspan=3>
-					<RadzenTextArea Style="width: 100%; text-align: left;"
-					                Disabled=false ReadOnly=false Rows=3
-					                TValue="string" @bind-Value=@ItemCast.Address/>
+					<RadzenTextArea Style="width: 100%; " Rows=3 @bind-Value=@ItemCast.Address/>
 				</td>
 			</tr>
 		</tbody>

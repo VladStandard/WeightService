@@ -23,19 +23,9 @@ else
             <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetDescription() />
             <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
-                      RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
-            <RadzenGridColumn TItem=PrinterResourceModel Title=@LocaleCore.Table.Printer Width="30%">
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPrinter}/{itemCast.Printer.Identity.Id}")
-                        Text=@itemCast.Printer.Name />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem=PrinterResourceModel Title=@LocaleCore.Table.Resource Width="30%">
-                <Template Context="itemCast" >
-                    <RadzenLabel Style="width: 100%; margin-left: 0; " Text=@itemCast.Resource.Name />
-                </Template>
-            </RadzenGridColumn>
+                RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
+            <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetResource(GetRouteItemPathShort<TemplateResourceModel>()) />
         </Columns>
     </RadzenGrid>
 

@@ -92,9 +92,9 @@ public partial class RazorPageBase
         {
             item.Printer = AppSettings.DataAccess.GetItemById<PrinterModel>(printerId) ?? new();
         }
-        if (filterName == nameof(item.Resource) && value is long resourceId)
+        if (filterName == nameof(item.TemplateResource) && value is long resourceId)
         {
-            item.Resource = AppSettings.DataAccess.GetItemById<TemplateResourceModel>(resourceId) ?? new();
+            item.TemplateResource = AppSettings.DataAccess.GetItemById<TemplateResourceModel>(resourceId) ?? new();
         }
     }
 

@@ -20,8 +20,6 @@ else
         <Columns>
             <SectionFieldIsMarked TItem=PrinterModel ParentRazor=@(this) />
             <SectionFieldIdentity TItem=PrinterModel ParentRazor=@(this) />
-@*            <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />*@
             <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("18%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetName() />
             <SectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("17%", true))

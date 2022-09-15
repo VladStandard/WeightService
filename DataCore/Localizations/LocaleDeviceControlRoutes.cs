@@ -63,7 +63,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";
     public string RouteSectionPrinterResources => "/section/printers_resources";
     public string RouteSectionPrinters => "/section/printers";
-    public string RouteSectionPrinterTypes => "/section/printertypes";
+    public string RouteSectionPrinterTypes => "/section/printer_types";
     public string RouteSectionProductionFacilities => "/section/production_facilities";
     public string RouteSectionProductSeries => "/section/productseries";
     public string RouteSectionScales => "/section/scales";

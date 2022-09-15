@@ -20,9 +20,8 @@ else
 			<ItemTableBody TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Table.Name</td>
-				<td>
-					<RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false
-					               TValue="string" @bind-Value=@ItemCast.Name/>
+				<td colspan=3>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Name/>
 				</td>
 			</tr>
 		</tbody>

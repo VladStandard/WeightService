@@ -22,7 +22,7 @@ public class PrinterResourceValidator : SqlTableValidator
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PrinterValidator());
-		RuleFor(item => ((PrinterResourceModel)item).Resource)
+		RuleFor(item => ((PrinterResourceModel)item).TemplateResource)
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new TemplateResourceValidator());
