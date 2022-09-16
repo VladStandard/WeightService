@@ -1,17 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.CssStyles;
 using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
 using DataCore.Sql.Fields;
 using DataCore.Sql.Tables;
-using FluentValidation;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using DataCore.Utils;
 
 namespace DataCoreTests;
 
@@ -104,24 +105,18 @@ public class DataCoreHelper
 						if (i < 10)
 							TestContext.WriteLine(item);
 						i++;
-						//ValidationResult result = validator.Validate(item);
-						ValidationResult result = SqlUtils.GetSqlValidationResult(item);
-						FailureWriteLine(result);
+						ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
+						FailureWriteLine(validationResult);
 						// Assert.
-						Assert.IsTrue(result.IsValid);
+						Assert.IsTrue(validationResult.IsValid);
 					}
 				}
 			}
 		});
 	}
 
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new()
-	{
-		//// Arrange.
-		//IValidator<T> validator = SqlUtils.GetSqlValidator<T>();
-		// Act & Assert.
+	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
 		AssertValidate(item, assertResult);
-	}
 
 	public string GetSqlPropertyAsString<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
 	{
@@ -131,6 +126,25 @@ public class DataCoreHelper
 		string result = item.GetPropertyAsString(propertyName);
 		TestContext.WriteLine($"{typeof(T)}. {propertyName}: {result}");
 		return result;
+	}
+
+	public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
+	{
+		Assert.DoesNotThrow(() =>
+		{
+			ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
+			FailureWriteLine(validationResult);
+			// Assert.
+			switch (assertResult)
+			{
+				case true:
+					Assert.IsTrue(validationResult.IsValid);
+					break;
+				default:
+					Assert.IsFalse(validationResult.IsValid);
+					break;
+			}
+		});
 	}
 
 	public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : SqlTableBase, new()
@@ -177,39 +191,6 @@ public class DataCoreHelper
 			Assert.IsNotEmpty(strValue);
 			Assert.IsNotNull(strValue);
 		}
-	}
-
-	public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
-	{
-		Assert.DoesNotThrow(() =>
-		{
-			ValidationResult? result = null;
-			switch (typeof(T))
-			{
-				case var cls when cls == typeof(SqlTableBase):
-					// Act.
-					result = SqlUtils.GetSqlValidationResult(item as SqlTableBase);
-					break;
-					//case var cls when cls == typeof(CssStyleBase):
-					//	// Act.
-					//	result = SqlUtils.GetSqlValidationResult(item as CssStyleBase);
-					//	break;
-			}
-			//ValidationResult result = validator.Validate(item);
-			if (result is null)
-				throw new NullReferenceException(nameof(result));
-			FailureWriteLine(result);
-			// Assert.
-			switch (assertResult)
-			{
-				case true:
-					Assert.IsTrue(result.IsValid);
-					break;
-				default:
-					Assert.IsFalse(result.IsValid);
-					break;
-			}
-		});
 	}
 
 	public T CreateNewSubstitute<T>(bool isNotDefault) where T : SqlTableBase, new()

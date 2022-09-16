@@ -6,90 +6,89 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WeightCore.Managers
+namespace WeightCore.Managers;
+
+public class ManagerWaitConfig
 {
-    public class ManagerWaitConfig
-    {
-        #region Public and private fields and properties
+	#region Public and private fields and properties
 
-        public ushort WaitClose { get; }
-        public ushort WaitException { get; }
-        public ushort WaitReopen { get; }
-        public ushort WaitRequest { get; }
-        public ushort WaitResponse { get; }
-        public const ushort WaitSleep = 0_050;
-        public const ushort WaitLowLimit = 0_050;
-        public const ushort WaitHighLimit = 5_000;
-        public Stopwatch StopwatchReopen { get; }
-        public Stopwatch StopwatchRequest { get; }
-        public Stopwatch StopwatchResponse { get; }
+	public ushort WaitClose { get; }
+	public ushort WaitException { get; }
+	public ushort WaitReopen { get; }
+	public ushort WaitRequest { get; }
+	public ushort WaitResponse { get; }
+	public const ushort WaitSleep = 0_050;
+	public const ushort WaitLowLimit = 0_050;
+	public const ushort WaitHighLimit = 5_000;
+	public Stopwatch StopwatchReopen { get; }
+	public Stopwatch StopwatchRequest { get; }
+	public Stopwatch StopwatchResponse { get; }
 
-        #endregion
+	#endregion
 
-        #region Constructor and destructor
+	#region Constructor and destructor
 
-        public ManagerWaitConfig(ushort waitReopen, ushort waitRequest, ushort waitResponse, ushort waitClose, ushort waitException)
-        {
-            WaitReopen = waitReopen == 0 ? (ushort)1_000 : waitReopen;
-            WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
-            WaitResponse = waitResponse == 0 ? (ushort)500 : waitResponse;
-            WaitClose = waitClose == 0 ? (ushort)0_200 : waitClose;
-            WaitException = waitException == 0 ? (ushort)1_000 : waitException;
-            StopwatchReopen = Stopwatch.StartNew();
-            StopwatchRequest = Stopwatch.StartNew();
-            StopwatchResponse = Stopwatch.StartNew();
-        }
+	public ManagerWaitConfig(ushort waitReopen, ushort waitRequest, ushort waitResponse, ushort waitClose, ushort waitException)
+	{
+		WaitReopen = waitReopen == 0 ? (ushort)1_000 : waitReopen;
+		WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
+		WaitResponse = waitResponse == 0 ? (ushort)500 : waitResponse;
+		WaitClose = waitClose == 0 ? (ushort)0_200 : waitClose;
+		WaitException = waitException == 0 ? (ushort)1_000 : waitException;
+		StopwatchReopen = Stopwatch.StartNew();
+		StopwatchRequest = Stopwatch.StartNew();
+		StopwatchResponse = Stopwatch.StartNew();
+	}
 
-        public ManagerWaitConfig() : this(1_000, 0_250, 0_250, 1_000, 1_000) { }
+	public ManagerWaitConfig() : this(1_000, 0_250, 0_250, 1_000, 1_000) { }
 
-        public void WaitSync(ushort miliSeconds = 0, bool isDoEvents = true)
-        {
-            Stopwatch stopwatchSleep = Stopwatch.StartNew();
-            if (miliSeconds < WaitLowLimit)
-                miliSeconds = WaitLowLimit;
-            if (miliSeconds > WaitHighLimit)
-                miliSeconds = WaitHighLimit;
-            stopwatchSleep.Restart();
-            while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
-            {
-                Thread.Sleep(WaitSleep);
-                if (isDoEvents)
-                    System.Windows.Forms.Application.DoEvents();
-            }
-            stopwatchSleep.Stop();
-        }
+	public void WaitSync(ushort miliSeconds = 0, bool isDoEvents = true)
+	{
+		Stopwatch stopwatchSleep = Stopwatch.StartNew();
+		if (miliSeconds < WaitLowLimit)
+			miliSeconds = WaitLowLimit;
+		if (miliSeconds > WaitHighLimit)
+			miliSeconds = WaitHighLimit;
+		stopwatchSleep.Restart();
+		while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
+		{
+			Thread.Sleep(WaitSleep);
+			if (isDoEvents)
+				System.Windows.Forms.Application.DoEvents();
+		}
+		stopwatchSleep.Stop();
+	}
 
-        public void WaitSync(Stopwatch stopwatch, ushort wait)
-        {
-            if (stopwatch == null)
-                return;
+	public void WaitSync(Stopwatch stopwatch, ushort wait)
+	{
+		if (stopwatch == null)
+			return;
 
-            stopwatch.Restart();
-            while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
-            {
-                Thread.Sleep(WaitSleep);
-                //System.Windows.Forms.Application.DoEvents();
-            }
-            stopwatch.Stop();
-        }
+		stopwatch.Restart();
+		while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
+		{
+			Thread.Sleep(WaitSleep);
+			//System.Windows.Forms.Application.DoEvents();
+		}
+		stopwatch.Stop();
+	}
 
-        public async Task WaitAsync(ushort miliSeconds = 0, bool isDoEvents = true)
-        {
-            Stopwatch stopwatchSleep = Stopwatch.StartNew();
-            if (miliSeconds < WaitLowLimit)
-                miliSeconds = WaitLowLimit;
-            if (miliSeconds > WaitHighLimit)
-                miliSeconds = WaitHighLimit;
-            stopwatchSleep.Restart();
-            while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
-            {
-                await Task.Delay(TimeSpan.FromMilliseconds(WaitSleep)).ConfigureAwait(true);
-                if (isDoEvents)
-                    System.Windows.Forms.Application.DoEvents();
-            }
-            stopwatchSleep.Stop();
-        }
+	public async Task WaitAsync(ushort miliSeconds = 0, bool isDoEvents = true)
+	{
+		Stopwatch stopwatchSleep = Stopwatch.StartNew();
+		if (miliSeconds < WaitLowLimit)
+			miliSeconds = WaitLowLimit;
+		if (miliSeconds > WaitHighLimit)
+			miliSeconds = WaitHighLimit;
+		stopwatchSleep.Restart();
+		while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
+		{
+			await Task.Delay(TimeSpan.FromMilliseconds(WaitSleep)).ConfigureAwait(true);
+			if (isDoEvents)
+				System.Windows.Forms.Application.DoEvents();
+		}
+		stopwatchSleep.Stop();
+	}
 
-        #endregion
-    }
+	#endregion
 }

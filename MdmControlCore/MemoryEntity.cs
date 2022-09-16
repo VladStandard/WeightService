@@ -7,84 +7,83 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MdmControlCore
+namespace MdmControlCore;
+
+/// <summary>
+/// Task memory.
+/// </summary>
+public class MemoryEntity
 {
-    /// <summary>
-    /// Task memory.
-    /// </summary>
-    public class MemoryEntity
-    {
-        #region Public and private fields and properties
+	#region Public and private fields and properties
 
-        public int SleepMiliSeconds { get; private set; }
-        public int WaitCloseMiliSeconds { get; private set; }
-        public MemorySizeEntity MemorySize { get; private set; }
-        public string ExceptionMsg { get; private set; }
-        public delegate Task DelegateGuiRefresh();
-        public bool IsExecute { get; set; }
+	public int SleepMiliSeconds { get; private set; }
+	public int WaitCloseMiliSeconds { get; private set; }
+	public MemorySizeEntity MemorySize { get; private set; }
+	public string ExceptionMsg { get; private set; }
+	public delegate Task DelegateGuiRefresh();
+	public bool IsExecute { get; set; }
 
-        #endregion
+	#endregion
 
-        #region Constructor and destructor
+	#region Constructor and destructor
 
-        public MemoryEntity(int sleepMiliSeconds, int waitCloseMiliSeconds, ulong limitBytes)
-        {
-            SleepMiliSeconds = sleepMiliSeconds;
-            WaitCloseMiliSeconds = waitCloseMiliSeconds;
-            MemorySize = new MemorySizeEntity(limitBytes);
-            IsExecute = false;
-        }
+	public MemoryEntity(int sleepMiliSeconds, int waitCloseMiliSeconds, ulong limitBytes)
+	{
+		SleepMiliSeconds = sleepMiliSeconds;
+		WaitCloseMiliSeconds = waitCloseMiliSeconds;
+		MemorySize = new MemorySizeEntity(limitBytes);
+		IsExecute = false;
+	}
 
-        #endregion
+	#endregion
 
-        #region Public and private methods
+	#region Public and private methods
 
-        public void Open(DelegateGuiRefresh callRefresh, 
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            IsExecute = true;
-            try
-            {
-                while (IsExecute)
-                {
-                    MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
-                    MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
+	public void Open(DelegateGuiRefresh callRefresh, 
+		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	{
+		IsExecute = true;
+		try
+		{
+			while (IsExecute)
+			{
+				MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
+				MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-                    _ = (callRefresh?.Invoke().ConfigureAwait(false));
-                    Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                // Console.WriteLine(tcex.Message);
-                // Not the problem.
-            }
-            catch (Exception ex)
-            {
-                ExceptionMsg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                    ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                Console.WriteLine(ExceptionMsg);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-            }
-        }
+				_ = (callRefresh?.Invoke().ConfigureAwait(false));
+				Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
+			}
+		}
+		catch (TaskCanceledException)
+		{
+			// Console.WriteLine(tcex.Message);
+			// Not the problem.
+		}
+		catch (Exception ex)
+		{
+			ExceptionMsg = ex.Message;
+			if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+				ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
+			Console.WriteLine(ExceptionMsg);
+			Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+		}
+	}
 
-        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                IsExecute = false;
-            }
-            catch (Exception ex)
-            {
-                ExceptionMsg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                    ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                Console.WriteLine(ExceptionMsg);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-            }
-        }
+	public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	{
+		try
+		{
+			IsExecute = false;
+		}
+		catch (Exception ex)
+		{
+			ExceptionMsg = ex.Message;
+			if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+				ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
+			Console.WriteLine(ExceptionMsg);
+			Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+		}
+	}
 
-        #endregion
-    }
+	#endregion
 }

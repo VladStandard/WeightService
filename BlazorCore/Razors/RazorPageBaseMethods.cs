@@ -108,7 +108,7 @@ public partial class RazorPageBase
 		string detailAddition = Environment.NewLine;
 		if (result)
 		{
-			result = SqlUtils.IsValidation(item, ref detailAddition);
+			result = ValidationUtils.IsValidation(item, ref detailAddition);
 		}
 		switch (result)
 		{

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DataCoreTests;
+namespace WebApiTerra1000Tests;
 
 /// <summary>
 /// Enumeration of values.

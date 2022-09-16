@@ -9,530 +9,529 @@ using System.Threading.Tasks;
 using WeightCore.Gui;
 using static DataCore.Models.IDisposableBase;
 
-namespace WeightCore.Managers
+namespace WeightCore.Managers;
+
+public class ManagerBase : DisposableBase, IDisposableBase
 {
-    public class ManagerBase : DisposableBase, IDisposableBase
-    {
-        #region Public and private fields and properties - Manager
+	#region Public and private fields and properties - Manager
 
-        private TaskTypeEnum TaskType { get; set; } = TaskTypeEnum.Default;
-        private AsyncLock MutexReopen { get; set; }
-        private AsyncLock MutexRequest { get; set; }
-        private AsyncLock MutexResponse { get; set; }
-        private CancellationTokenSource CtsReopen { get; set; }
-        private CancellationTokenSource CtsRequest { get; set; }
-        private CancellationTokenSource CtsResponse { get; set; }
-        private ManagerWaitConfig WaitConfig { get; set; }
-        private string ExceptionMsg { get; set; }
-        private Task TaskReopen { get; set; }
-        private Task TaskRequest { get; set; }
-        private Task TaskResponse { get; set; }
-        private readonly object _locker = new();
+	private TaskTypeEnum TaskType { get; set; } = TaskTypeEnum.Default;
+	private AsyncLock MutexReopen { get; set; }
+	private AsyncLock MutexRequest { get; set; }
+	private AsyncLock MutexResponse { get; set; }
+	private CancellationTokenSource CtsReopen { get; set; }
+	private CancellationTokenSource CtsRequest { get; set; }
+	private CancellationTokenSource CtsResponse { get; set; }
+	private ManagerWaitConfig WaitConfig { get; set; }
+	private string ExceptionMsg { get; set; }
+	private Task TaskReopen { get; set; }
+	private Task TaskRequest { get; set; }
+	private Task TaskResponse { get; set; }
+	private readonly object _locker = new();
 
-        #endregion
+	#endregion
 
-        #region Public and private methods
+	#region Public and private methods
 
-        public ManagerBase() : base()
-        {
-            Init(Close, ReleaseManaged, ReleaseUnmanaged);
-            WaitConfig = new();
-        }
+	public ManagerBase() : base()
+	{
+		Init(Close, ReleaseManaged, ReleaseUnmanaged);
+		WaitConfig = new();
+	}
 
-        public void Init(TaskTypeEnum taskType, InitCallback initCallback, ManagerWaitConfig waitConfig)
-        {
-            lock (_locker)
-            {
-                TaskType = taskType;
-                WaitConfig = waitConfig;
-                initCallback?.Invoke();
-            }
-        }
+	public void Init(TaskTypeEnum taskType, InitCallback initCallback, ManagerWaitConfig waitConfig)
+	{
+		lock (_locker)
+		{
+			TaskType = taskType;
+			WaitConfig = waitConfig;
+			initCallback?.Invoke();
+		}
+	}
 
-        public void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
-        {
-            Close();
-            //if (IsOpen) return;
-            Open();
+	public void Open(ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
+	{
+		Close();
+		//if (IsOpen) return;
+		Open();
 
-            MutexReopen = null;
-            MutexRequest = null;
-            MutexResponse = null;
+		MutexReopen = null;
+		MutexRequest = null;
+		MutexResponse = null;
 
-            CtsReopen = null;
-            CtsRequest = null;
-            CtsResponse = null;
+		CtsReopen = null;
+		CtsRequest = null;
+		CtsResponse = null;
 
-            OpenTaskReopen(reopenCallback);
-            OpenTaskRequest(requestCallback);
-            OpenTaskResponse(responseCallback);
-        }
+		OpenTaskReopen(reopenCallback);
+		OpenTaskRequest(requestCallback);
+		OpenTaskResponse(responseCallback);
+	}
 
-        private void OpenTaskBase(Task task, CancellationTokenSource cts)
-        {
-            CheckIsDisposed();
-            if (task == null) return;
+	private void OpenTaskBase(Task task, CancellationTokenSource cts)
+	{
+		CheckIsDisposed();
+		if (task == null) return;
 
-            cts?.Cancel();
-            task.Wait(WaitConfig.WaitClose);
-            if (task.IsCompleted)
-                task.Dispose();
-        }
+		cts?.Cancel();
+		task.Wait(WaitConfig.WaitClose);
+		if (task.IsCompleted)
+			task.Dispose();
+	}
 
-        // OpenTaskReopen v.1
-        //private void OpenTaskReopen(ReopenCallback callback,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    OpenTaskBase(TaskReopen, CtsReopen);
-        //    CtsReopen = new CancellationTokenSource();
+	// OpenTaskReopen v.1
+	//private void OpenTaskReopen(ReopenCallback callback,
+	//    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	//{
+	//    OpenTaskBase(TaskReopen, CtsReopen);
+	//    CtsReopen = new CancellationTokenSource();
 
-        //    TaskReopen = Task.Run(async () =>
-        //    {
-        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //        MutexReopen = new AsyncLock();
-        //        while (MutexReopen != null && CtsReopen != null)
-        //        {
-        //            try
-        //            {
-        //                // AsyncLock can be locked asynchronously
-        //                using (await MutexReopen.LockAsync(CtsReopen.Token))
-        //                {
-        //                    if (CtsReopen.IsCancellationRequested)
-        //                        break;
-        //                    // It's safe to await while the lock is held
-        //                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-        //                    callback?.Invoke();
-        //                    //WaitSync(WaitReopen);
-        //                }
-        //            }
-        //            catch (TaskCanceledException tcex)
-        //            {
-        //                // Not the problem.
-        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitException);
-        //            }
-        //        }
-        //    });
-        //}
+	//    TaskReopen = Task.Run(async () =>
+	//    {
+	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//        MutexReopen = new AsyncLock();
+	//        while (MutexReopen != null && CtsReopen != null)
+	//        {
+	//            try
+	//            {
+	//                // AsyncLock can be locked asynchronously
+	//                using (await MutexReopen.LockAsync(CtsReopen.Token))
+	//                {
+	//                    if (CtsReopen.IsCancellationRequested)
+	//                        break;
+	//                    // It's safe to await while the lock is held
+	//                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	//                    callback?.Invoke();
+	//                    //WaitSync(WaitReopen);
+	//                }
+	//            }
+	//            catch (TaskCanceledException tcex)
+	//            {
+	//                // Not the problem.
+	//                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+	//            }
+	//            catch (Exception ex)
+	//            {
+	//                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitException);
+	//            }
+	//        }
+	//    });
+	//}
 
-        // OpenTaskReopen v.2
-        //private void OpenTaskReopen(ReopenCallback callback,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    OpenTaskBase(TaskReopen, CtsReopen);
-        //    CtsReopen = new CancellationTokenSource();
+	// OpenTaskReopen v.2
+	//private void OpenTaskReopen(ReopenCallback callback,
+	//    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	//{
+	//    OpenTaskBase(TaskReopen, CtsReopen);
+	//    CtsReopen = new CancellationTokenSource();
 
-        //    TaskReopen = Task.Run(async () =>
-        //    {
-        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //        MutexReopen = new AsyncLock();
-        //        while (MutexReopen != null && CtsReopen != null)
-        //        {
-        //            try
-        //            {
-        //                // AsyncLock can be locked asynchronously
-        //                AwaitableDisposable<IDisposable> lockTask = MutexReopen.LockAsync(CtsReopen.Token);
-        //                if (CtsReopen.IsCancellationRequested)
-        //                    break;
-        //                using (await lockTask)
-        //                {
-        //                    // It's safe to await while the lock is held
-        //                    //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(true);
-        //                    callback?.Invoke();
-        //                }
-        //                WaitSync(WaitConfig.WaitReopen);
-        //            }
-        //            catch (TaskCanceledException tcex)
-        //            {
-        //                // Not the problem.
-        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitConfig.WaitException);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitConfig.WaitException);
-        //            }
-        //        }
-        //    });
-        //}
+	//    TaskReopen = Task.Run(async () =>
+	//    {
+	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//        MutexReopen = new AsyncLock();
+	//        while (MutexReopen != null && CtsReopen != null)
+	//        {
+	//            try
+	//            {
+	//                // AsyncLock can be locked asynchronously
+	//                AwaitableDisposable<IDisposable> lockTask = MutexReopen.LockAsync(CtsReopen.Token);
+	//                if (CtsReopen.IsCancellationRequested)
+	//                    break;
+	//                using (await lockTask)
+	//                {
+	//                    // It's safe to await while the lock is held
+	//                    //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(true);
+	//                    callback?.Invoke();
+	//                }
+	//                WaitSync(WaitConfig.WaitReopen);
+	//            }
+	//            catch (TaskCanceledException tcex)
+	//            {
+	//                // Not the problem.
+	//                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitConfig.WaitException);
+	//            }
+	//            catch (Exception ex)
+	//            {
+	//                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitConfig.WaitException);
+	//            }
+	//        }
+	//    });
+	//}
 
-        private void OpenTaskReopen(ReopenCallback callback)
-        {
-            OpenTaskBase(TaskReopen, CtsReopen);
+	private void OpenTaskReopen(ReopenCallback callback)
+	{
+		OpenTaskBase(TaskReopen, CtsReopen);
 
-            TaskReopen = Task.Run(async () =>
-            {
-                ReopenCount = 0;
-                while (IsOpen)
-                {
-                    ReopenCount++;
-                    if (MutexReopen == null)
-                        MutexReopen = new AsyncLock();
-                    if (CtsReopen == null)
-                        CtsReopen = new CancellationTokenSource();
-                    try
-                    {
-                        // AsyncLock can be locked asynchronously
-                        AwaitableDisposable<IDisposable> lockTask = MutexReopen.LockAsync(CtsReopen.Token);
-                        using (await lockTask.ConfigureAwait(true))
-                        {
-                            WaitConfig.WaitSync(WaitConfig.StopwatchReopen, WaitConfig.WaitReopen);
+		TaskReopen = Task.Run(async () =>
+		{
+			ReopenCount = 0;
+			while (IsOpen)
+			{
+				ReopenCount++;
+				if (MutexReopen == null)
+					MutexReopen = new AsyncLock();
+				if (CtsReopen == null)
+					CtsReopen = new CancellationTokenSource();
+				try
+				{
+					// AsyncLock can be locked asynchronously
+					AwaitableDisposable<IDisposable> lockTask = MutexReopen.LockAsync(CtsReopen.Token);
+					using (await lockTask.ConfigureAwait(true))
+					{
+						WaitConfig.WaitSync(WaitConfig.StopwatchReopen, WaitConfig.WaitReopen);
 
-                            if (CtsReopen == null || CtsReopen.IsCancellationRequested)
-                                continue;
-                            // It's safe to await while the lock is held
-                            if (callback != null)
-                                callback.Invoke();
-                        }
-                    }
-                    //catch (TaskCanceledException tcex)
-                    //{
-                    //    // Not the problem.
-                    //    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                    //    WaitConfig.WaitSync(WaitConfig.WaitException);
-                    //}
-                    catch (TaskCanceledException)
-                    {
-                        // Not the problem.
-                    }
-                    catch (Exception ex)
-                    {
-                        GuiUtils.WpfForm.CatchException(null, ex, true, false);
-                        WaitConfig.WaitSync(WaitConfig.WaitException);
-                    }
-                }
-            });
-        }
+						if (CtsReopen == null || CtsReopen.IsCancellationRequested)
+							continue;
+						// It's safe to await while the lock is held
+						if (callback != null)
+							callback.Invoke();
+					}
+				}
+				//catch (TaskCanceledException tcex)
+				//{
+				//    // Not the problem.
+				//    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+				//    WaitConfig.WaitSync(WaitConfig.WaitException);
+				//}
+				catch (TaskCanceledException)
+				{
+					// Not the problem.
+				}
+				catch (Exception ex)
+				{
+					GuiUtils.WpfForm.CatchException(null, ex, true, false);
+					WaitConfig.WaitSync(WaitConfig.WaitException);
+				}
+			}
+		});
+	}
 
-        // OpenTaskRequest v.1
-        //private void OpenTaskRequest(RequestCallback callback,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    OpenTaskBase(TaskRequest, CtsRequest);
-        //    CtsRequest = new CancellationTokenSource();
+	// OpenTaskRequest v.1
+	//private void OpenTaskRequest(RequestCallback callback,
+	//    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	//{
+	//    OpenTaskBase(TaskRequest, CtsRequest);
+	//    CtsRequest = new CancellationTokenSource();
 
-        //    TaskRequest = Task.Run(async () =>
-        //    {
-        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //        MutexRequest = new AsyncLock();
-        //        while (MutexRequest != null && CtsRequest != null)
-        //        {
-        //            try
-        //            {
-        //                // AsyncLock can be locked asynchronously
-        //                using (await MutexRequest.LockAsync(CtsRequest.Token))
-        //                {
-        //                    if (CtsRequest == null || CtsRequest.IsCancellationRequested)
-        //                        break;
-        //                    // It's safe to await while the lock is held
-        //                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-        //                    callback?.Invoke();
-        //                    //WaitSync(WaitRequest);
-        //                }
-        //            }
-        //            catch (TaskCanceledException tcex)
-        //            {
-        //                // Not the problem.
-        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitException);
-        //            }
-        //        }
-        //    });
-        //}
+	//    TaskRequest = Task.Run(async () =>
+	//    {
+	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//        MutexRequest = new AsyncLock();
+	//        while (MutexRequest != null && CtsRequest != null)
+	//        {
+	//            try
+	//            {
+	//                // AsyncLock can be locked asynchronously
+	//                using (await MutexRequest.LockAsync(CtsRequest.Token))
+	//                {
+	//                    if (CtsRequest == null || CtsRequest.IsCancellationRequested)
+	//                        break;
+	//                    // It's safe to await while the lock is held
+	//                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	//                    callback?.Invoke();
+	//                    //WaitSync(WaitRequest);
+	//                }
+	//            }
+	//            catch (TaskCanceledException tcex)
+	//            {
+	//                // Not the problem.
+	//                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+	//            }
+	//            catch (Exception ex)
+	//            {
+	//                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitException);
+	//            }
+	//        }
+	//    });
+	//}
 
-        // OpenTaskRequest v.2
-        //private void OpenTaskRequest(RequestCallback callback,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    OpenTaskBase(TaskRequest, CtsRequest);
-        //    CtsRequest = new CancellationTokenSource();
+	// OpenTaskRequest v.2
+	//private void OpenTaskRequest(RequestCallback callback,
+	//    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	//{
+	//    OpenTaskBase(TaskRequest, CtsRequest);
+	//    CtsRequest = new CancellationTokenSource();
 
-        //    TaskRequest = Task.Run(async () =>
-        //    {
-        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //        MutexRequest = new AsyncLock();
-        //        while (MutexRequest != null && CtsRequest != null)
-        //        {
-        //            try
-        //            {
-        //                // AsyncLock can be locked asynchronously
-        //                AwaitableDisposable<IDisposable> lockTask = MutexRequest.LockAsync(CtsRequest.Token);
-        //                if (CtsRequest.IsCancellationRequested)
-        //                    break;
-        //                using (await lockTask)
-        //                {
-        //                    // It's safe to await while the lock is held
-        //                    //await Task.Delay(TimeSpan.FromMilliseconds(WaitRequest)).ConfigureAwait(true);
-        //                    callback?.Invoke();
-        //                }
-        //                WaitSync(WaitConfig.WaitRequest);
-        //            }
-        //            catch (TaskCanceledException tcex)
-        //            {
-        //                // Not the problem.
-        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitConfig.WaitException);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitConfig.WaitException);
-        //            }
-        //        }
-        //    });
-        //}
+	//    TaskRequest = Task.Run(async () =>
+	//    {
+	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//        MutexRequest = new AsyncLock();
+	//        while (MutexRequest != null && CtsRequest != null)
+	//        {
+	//            try
+	//            {
+	//                // AsyncLock can be locked asynchronously
+	//                AwaitableDisposable<IDisposable> lockTask = MutexRequest.LockAsync(CtsRequest.Token);
+	//                if (CtsRequest.IsCancellationRequested)
+	//                    break;
+	//                using (await lockTask)
+	//                {
+	//                    // It's safe to await while the lock is held
+	//                    //await Task.Delay(TimeSpan.FromMilliseconds(WaitRequest)).ConfigureAwait(true);
+	//                    callback?.Invoke();
+	//                }
+	//                WaitSync(WaitConfig.WaitRequest);
+	//            }
+	//            catch (TaskCanceledException tcex)
+	//            {
+	//                // Not the problem.
+	//                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitConfig.WaitException);
+	//            }
+	//            catch (Exception ex)
+	//            {
+	//                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitConfig.WaitException);
+	//            }
+	//        }
+	//    });
+	//}
 
-        private void OpenTaskRequest(RequestCallback callback)
-        {
-            OpenTaskBase(TaskRequest, CtsRequest);
+	private void OpenTaskRequest(RequestCallback callback)
+	{
+		OpenTaskBase(TaskRequest, CtsRequest);
 
-            TaskRequest = Task.Run(async () =>
-            {
-                RequestCount = 0;
-                while (IsOpen)
-                {
-                    RequestCount++;
-                    if (MutexRequest == null)
-                        MutexRequest = new AsyncLock();
-                    if (CtsRequest == null)
-                        CtsRequest = new CancellationTokenSource();
-                    try
-                    {
-                        // AsyncLock can be locked asynchronously
-                        AwaitableDisposable<IDisposable> lockTask = MutexRequest.LockAsync(CtsRequest.Token);
-                        using (await lockTask.ConfigureAwait(true))
-                        {
-                            WaitConfig.WaitSync(WaitConfig.StopwatchRequest, WaitConfig.WaitRequest);
+		TaskRequest = Task.Run(async () =>
+		{
+			RequestCount = 0;
+			while (IsOpen)
+			{
+				RequestCount++;
+				if (MutexRequest == null)
+					MutexRequest = new AsyncLock();
+				if (CtsRequest == null)
+					CtsRequest = new CancellationTokenSource();
+				try
+				{
+					// AsyncLock can be locked asynchronously
+					AwaitableDisposable<IDisposable> lockTask = MutexRequest.LockAsync(CtsRequest.Token);
+					using (await lockTask.ConfigureAwait(true))
+					{
+						WaitConfig.WaitSync(WaitConfig.StopwatchRequest, WaitConfig.WaitRequest);
 
-                            if (CtsRequest == null || CtsRequest.IsCancellationRequested)
-                                continue;
-                            // It's safe to await while the lock is held
-                            if (callback != null)
-                                callback.Invoke();
-                        }
-                    }
-                    //catch (TaskCanceledException tcex)
-                    //{
-                    //    // Not the problem.
-                    //    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                    //    WaitConfig.WaitSync(WaitConfig.WaitException);
-                    //}
-                    catch (TaskCanceledException)
-                    {
-                        // Not the problem.
-                    }
-                    catch (Exception ex)
-                    {
-                        GuiUtils.WpfForm.CatchException(null, ex, true, false);
-                        WaitConfig.WaitSync(WaitConfig.WaitException);
-                    }
-                }
-            });
-        }
+						if (CtsRequest == null || CtsRequest.IsCancellationRequested)
+							continue;
+						// It's safe to await while the lock is held
+						if (callback != null)
+							callback.Invoke();
+					}
+				}
+				//catch (TaskCanceledException tcex)
+				//{
+				//    // Not the problem.
+				//    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+				//    WaitConfig.WaitSync(WaitConfig.WaitException);
+				//}
+				catch (TaskCanceledException)
+				{
+					// Not the problem.
+				}
+				catch (Exception ex)
+				{
+					GuiUtils.WpfForm.CatchException(null, ex, true, false);
+					WaitConfig.WaitSync(WaitConfig.WaitException);
+				}
+			}
+		});
+	}
 
-        // OpenTaskResponse v.1
-        //private void OpenTaskResponse(ResponseCallback callback,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    OpenTaskBase(TaskResponse, CtsResponse);
-        //    CtsResponse = new CancellationTokenSource();
+	// OpenTaskResponse v.1
+	//private void OpenTaskResponse(ResponseCallback callback,
+	//    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	//{
+	//    OpenTaskBase(TaskResponse, CtsResponse);
+	//    CtsResponse = new CancellationTokenSource();
 
-        //    TaskResponse = Task.Run(async () =>
-        //    {
-        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //        MutexResponse = new AsyncLock();
-        //        while (MutexResponse != null && CtsResponse != null)
-        //        {
-        //            try
-        //            {
-        //                // AsyncLock can be locked asynchronously
-        //                using (await MutexResponse.LockAsync(CtsResponse.Token))
-        //                {
-        //                    if (CtsResponse == null || CtsResponse.IsCancellationRequested)
-        //                        break;
-        //                    // It's safe to await while the lock is held
-        //                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-        //                    callback?.Invoke();
-        //                    //WaitSync(WaitResponse);
-        //                }
-        //            }
-        //            catch (TaskCanceledException tcex)
-        //            {
-        //                // Not the problem.
-        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitException);
-        //            }
-        //        }
-        //    });
-        //}
+	//    TaskResponse = Task.Run(async () =>
+	//    {
+	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//        MutexResponse = new AsyncLock();
+	//        while (MutexResponse != null && CtsResponse != null)
+	//        {
+	//            try
+	//            {
+	//                // AsyncLock can be locked asynchronously
+	//                using (await MutexResponse.LockAsync(CtsResponse.Token))
+	//                {
+	//                    if (CtsResponse == null || CtsResponse.IsCancellationRequested)
+	//                        break;
+	//                    // It's safe to await while the lock is held
+	//                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+	//                    callback?.Invoke();
+	//                    //WaitSync(WaitResponse);
+	//                }
+	//            }
+	//            catch (TaskCanceledException tcex)
+	//            {
+	//                // Not the problem.
+	//                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+	//            }
+	//            catch (Exception ex)
+	//            {
+	//                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitException);
+	//            }
+	//        }
+	//    });
+	//}
 
-        // OpenTaskResponse v.2
-        //private void OpenTaskResponse(ResponseCallback callback,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    OpenTaskBase(TaskResponse, CtsResponse);
-        //    CtsResponse = new CancellationTokenSource();
+	// OpenTaskResponse v.2
+	//private void OpenTaskResponse(ResponseCallback callback,
+	//    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	//{
+	//    OpenTaskBase(TaskResponse, CtsResponse);
+	//    CtsResponse = new CancellationTokenSource();
 
-        //    TaskResponse = Task.Run(async () =>
-        //    {
-        //        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //        MutexResponse = new AsyncLock();
-        //        while (MutexResponse != null && CtsResponse != null)
-        //        {
-        //            try
-        //            {
-        //                // AsyncLock can be locked asynchronously
-        //                AwaitableDisposable<IDisposable> lockTask = MutexResponse.LockAsync(CtsResponse.Token);
-        //                if (CtsResponse.IsCancellationRequested)
-        //                    break;
-        //                using (await lockTask)
-        //                {
-        //                    // It's safe to await while the lock is held
-        //                    //await Task.Delay(TimeSpan.FromMilliseconds(WaitResponse)).ConfigureAwait(true);
-        //                    callback?.Invoke();
-        //                }
-        //                WaitSync(WaitConfig.WaitResponse);
-        //            }
-        //            catch (TaskCanceledException tcex)
-        //            {
-        //                // Not the problem.
-        //                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitConfig.WaitException);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
-        //                WaitSync(WaitConfig.WaitException);
-        //            }
-        //        }
-        //    });
-        //}
+	//    TaskResponse = Task.Run(async () =>
+	//    {
+	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	//        MutexResponse = new AsyncLock();
+	//        while (MutexResponse != null && CtsResponse != null)
+	//        {
+	//            try
+	//            {
+	//                // AsyncLock can be locked asynchronously
+	//                AwaitableDisposable<IDisposable> lockTask = MutexResponse.LockAsync(CtsResponse.Token);
+	//                if (CtsResponse.IsCancellationRequested)
+	//                    break;
+	//                using (await lockTask)
+	//                {
+	//                    // It's safe to await while the lock is held
+	//                    //await Task.Delay(TimeSpan.FromMilliseconds(WaitResponse)).ConfigureAwait(true);
+	//                    callback?.Invoke();
+	//                }
+	//                WaitSync(WaitConfig.WaitResponse);
+	//            }
+	//            catch (TaskCanceledException tcex)
+	//            {
+	//                // Not the problem.
+	//                Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitConfig.WaitException);
+	//            }
+	//            catch (Exception ex)
+	//            {
+	//                Exception.Catch(null, ex, false, filePath, lineNumber, memberName);
+	//                WaitSync(WaitConfig.WaitException);
+	//            }
+	//        }
+	//    });
+	//}
 
-        private void OpenTaskResponse(ResponseCallback callback)
-        {
-            OpenTaskBase(TaskResponse, CtsResponse);
+	private void OpenTaskResponse(ResponseCallback callback)
+	{
+		OpenTaskBase(TaskResponse, CtsResponse);
 
-            TaskResponse = Task.Run(async () =>
-            {
-                ResponseCount = 0;
-                while (IsOpen)
-                {
-                    ResponseCount++;
-                    if (MutexResponse == null)
-                        MutexResponse = new AsyncLock();
-                    if (CtsResponse == null)
-                        CtsResponse = new CancellationTokenSource();
-                    try
-                    {
-                        // AsyncLock can be locked asynchronously
-                        AwaitableDisposable<IDisposable> lockTask = MutexResponse.LockAsync(CtsResponse.Token);
-                        using (await lockTask.ConfigureAwait(true))
-                        {
-                            WaitConfig.WaitSync(WaitConfig.StopwatchResponse, WaitConfig.WaitResponse);
+		TaskResponse = Task.Run(async () =>
+		{
+			ResponseCount = 0;
+			while (IsOpen)
+			{
+				ResponseCount++;
+				if (MutexResponse == null)
+					MutexResponse = new AsyncLock();
+				if (CtsResponse == null)
+					CtsResponse = new CancellationTokenSource();
+				try
+				{
+					// AsyncLock can be locked asynchronously
+					AwaitableDisposable<IDisposable> lockTask = MutexResponse.LockAsync(CtsResponse.Token);
+					using (await lockTask.ConfigureAwait(true))
+					{
+						WaitConfig.WaitSync(WaitConfig.StopwatchResponse, WaitConfig.WaitResponse);
 
-                            if (CtsResponse == null || CtsResponse.IsCancellationRequested)
-                                continue;
-                            // It's safe to await while the lock is held
-                            if (callback != null)
-                                callback.Invoke();
-                        }
-                    }
-                    //catch (TaskCanceledException tcex)
-                    //{
-                    //    // Not the problem.
-                    //    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
-                    //    WaitConfig.WaitSync(WaitConfig.WaitException);
-                    //}
-                    catch (TaskCanceledException)
-                    {
-                        // Not the problem.
-                    }
-                    catch (Exception ex)
-                    {
-                        GuiUtils.WpfForm.CatchException(null, ex, true, false);
-                        WaitConfig.WaitSync(WaitConfig.WaitException);
-                    }
-                }
-            });
-        }
+						if (CtsResponse == null || CtsResponse.IsCancellationRequested)
+							continue;
+						// It's safe to await while the lock is held
+						if (callback != null)
+							callback.Invoke();
+					}
+				}
+				//catch (TaskCanceledException tcex)
+				//{
+				//    // Not the problem.
+				//    Exception.Catch(null, ref tcex, false, filePath, lineNumber, memberName);
+				//    WaitConfig.WaitSync(WaitConfig.WaitException);
+				//}
+				catch (TaskCanceledException)
+				{
+					// Not the problem.
+				}
+				catch (Exception ex)
+				{
+					GuiUtils.WpfForm.CatchException(null, ex, true, false);
+					WaitConfig.WaitSync(WaitConfig.WaitException);
+				}
+			}
+		});
+	}
 
-        public new void Close()
-        {
-            base.Close();
+	public new void Close()
+	{
+		base.Close();
 
-            //if (!IsOpen) return;
-            CheckIsDisposed();
+		//if (!IsOpen) return;
+		CheckIsDisposed();
 
-            CtsReopen?.Cancel();
-            CtsRequest?.Cancel();
-            CtsResponse?.Cancel();
+		CtsReopen?.Cancel();
+		CtsRequest?.Cancel();
+		CtsResponse?.Cancel();
 
-            WaitConfig.WaitSync(WaitConfig.WaitClose);
+		WaitConfig.WaitSync(WaitConfig.WaitClose);
 
-            MutexReopen = null;
-            MutexRequest = null;
-            MutexResponse = null;
+		MutexReopen = null;
+		MutexRequest = null;
+		MutexResponse = null;
 
-        }
+	}
 
-        public void ReleaseManaged()
-        {
-            Close();
+	public void ReleaseManaged()
+	{
+		Close();
 
-            CtsReopen?.Cancel();
-            CtsReopen?.Dispose();
-            CtsRequest?.Cancel();
-            CtsRequest?.Dispose();
-            CtsResponse?.Cancel();
-            CtsResponse?.Dispose();
+		CtsReopen?.Cancel();
+		CtsReopen?.Dispose();
+		CtsRequest?.Cancel();
+		CtsRequest?.Dispose();
+		CtsResponse?.Cancel();
+		CtsResponse?.Dispose();
 
-            if (TaskReopen != null)
-            {
-                TaskReopen.Wait(ManagerWaitConfig.WaitLowLimit);
-                if (TaskReopen.IsCompleted)
-                    TaskReopen.Dispose();
-                TaskReopen = null;
-            }
+		if (TaskReopen != null)
+		{
+			TaskReopen.Wait(ManagerWaitConfig.WaitLowLimit);
+			if (TaskReopen.IsCompleted)
+				TaskReopen.Dispose();
+			TaskReopen = null;
+		}
 
-            if (TaskRequest != null)
-            {
-                TaskRequest.Wait(ManagerWaitConfig.WaitLowLimit);
-                if (TaskRequest.IsCompleted)
-                    TaskRequest.Dispose();
-                TaskRequest = null;
-            }
+		if (TaskRequest != null)
+		{
+			TaskRequest.Wait(ManagerWaitConfig.WaitLowLimit);
+			if (TaskRequest.IsCompleted)
+				TaskRequest.Dispose();
+			TaskRequest = null;
+		}
 
-            if (TaskResponse != null)
-            {
-                TaskResponse.Wait(ManagerWaitConfig.WaitLowLimit);
-                if (TaskResponse.IsCompleted)
-                    TaskResponse.Dispose();
-                TaskResponse = null;
-            }
+		if (TaskResponse != null)
+		{
+			TaskResponse.Wait(ManagerWaitConfig.WaitLowLimit);
+			if (TaskResponse.IsCompleted)
+				TaskResponse.Dispose();
+			TaskResponse = null;
+		}
 
-            CtsReopen = null;
-            CtsRequest = null;
-            CtsResponse = null;
-        }
+		CtsReopen = null;
+		CtsRequest = null;
+		CtsResponse = null;
+	}
 
-        public void ReleaseUnmanaged()
-        {
-            //
-        }
+	public void ReleaseUnmanaged()
+	{
+		//
+	}
 
-        #endregion
-    }
+	#endregion
 }

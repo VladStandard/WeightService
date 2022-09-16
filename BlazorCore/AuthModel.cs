@@ -8,30 +8,30 @@ namespace BlazorCore;
 
 public class AuthModel
 {
-    private readonly AuthenticationStateProvider _stateProvider;
+	private readonly AuthenticationStateProvider _stateProvider;
 
-    public AuthModel(AuthenticationStateProvider authenticationStateProvider)
-    {
-        _stateProvider = authenticationStateProvider;
-    }
+	public AuthModel(AuthenticationStateProvider authenticationStateProvider)
+	{
+		_stateProvider = authenticationStateProvider;
+	}
 
-    public async Task<IIdentity> GetIdentityAsync()
-    {
-        AuthenticationState authState = await _stateProvider.GetAuthenticationStateAsync();
-        System.Security.Claims.ClaimsPrincipal user = authState.User;
-        return user.Identity;
-    }
+	public async Task<IIdentity> GetIdentityAsync()
+	{
+		AuthenticationState authState = await _stateProvider.GetAuthenticationStateAsync();
+		System.Security.Claims.ClaimsPrincipal user = authState.User;
+		return user.Identity;
+	}
 
-    public IIdentity GetIdentity()
-    {
-        Task<AuthenticationState> state = _stateProvider.GetAuthenticationStateAsync();
-        if (!state.IsCompleted)
-            return null;
+	public IIdentity GetIdentity()
+	{
+		Task<AuthenticationState> state = _stateProvider.GetAuthenticationStateAsync();
+		if (!state.IsCompleted)
+			return null;
 
-        AuthenticationState authenticationState = state.Result;
-        if (authenticationState?.User == null)
-            return null;
-        IIdentity identity = authenticationState.User.Identity;
-        return identity;
-    }
+		AuthenticationState authenticationState = state.Result;
+		if (authenticationState?.User == null)
+			return null;
+		IIdentity identity = authenticationState.User.Identity;
+		return identity;
+	}
 }

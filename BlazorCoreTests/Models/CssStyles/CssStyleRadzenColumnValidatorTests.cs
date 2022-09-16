@@ -1,7 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.CssStyles;
+using DataCore.CssStyles;
+using DataCoreTests;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,7 +13,8 @@ internal class CssStyleRadzenColumnValidatorTests
 {
 	#region Public and private fields, properties, constructor
 
-	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+	private BlazorCoreHelper BlazorCore { get; } = BlazorCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -25,11 +27,11 @@ internal class CssStyleRadzenColumnValidatorTests
 		CssStyleRadzenColumnModel item = Substitute.For<CssStyleRadzenColumnModel>();
 		// Act.
 		// Assert.
-		Helper.AssertStyleValidate(item, false);
+		DataCore.AssertValidate(item, false);
 		// Act.
 		item.Width = "";
 		// Assert.
-		Helper.AssertStyleValidate(item, false);
+		DataCore.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -40,7 +42,7 @@ internal class CssStyleRadzenColumnValidatorTests
 		// Act.
 		item.Width = "10%";
 		// Assert.
-		Helper.AssertStyleValidate(item, true);
+		DataCore.AssertValidate(item, true);
 	}
 
 	#endregion

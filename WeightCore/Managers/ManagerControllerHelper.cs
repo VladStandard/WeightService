@@ -4,86 +4,85 @@
 using DataCore.Models;
 using System.Threading;
 
-namespace WeightCore.Managers
+namespace WeightCore.Managers;
+
+public class ManagerControllerHelper : DisposableBase
 {
-    public class ManagerControllerHelper : DisposableBase
-    {
-        #region Design pattern "Lazy Singleton"
+	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618
-        private static ManagerControllerHelper _instance;
+	private static ManagerControllerHelper _instance;
 #pragma warning restore CS8618
-        public static ManagerControllerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static ManagerControllerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-        #endregion
+	#endregion
 
-        #region Public and private fields and properties
+	#region Public and private fields and properties
 
-        public ManagerLabels Labels { get; }
-        public ManagerMassa Massa { get; }
-        public ManagerMemory Memory { get; }
-        public ManagerPrint PrintMain { get; }
-        public ManagerPrint PrintShipping { get; }
-        private readonly object _locker = new();
+	public ManagerLabels Labels { get; }
+	public ManagerMassa Massa { get; }
+	public ManagerMemory Memory { get; }
+	public ManagerPrint PrintMain { get; }
+	public ManagerPrint PrintShipping { get; }
+	private readonly object _locker = new();
 
-        #endregion
+	#endregion
 
-        #region Constructor and destructor
+	#region Constructor and destructor
 
-        public ManagerControllerHelper()
-        {
-            lock (_locker)
-            {
-                Labels = new();
-                Massa = new();
-                Memory = new();
-                PrintMain = new();
-                PrintShipping = new();
-                Init(Close, ReleaseManaged, ReleaseUnmanaged);
-            }
-        }
+	public ManagerControllerHelper()
+	{
+		lock (_locker)
+		{
+			Labels = new();
+			Massa = new();
+			Memory = new();
+			PrintMain = new();
+			PrintShipping = new();
+			Init(Close, ReleaseManaged, ReleaseUnmanaged);
+		}
+	}
 
-        ~ManagerControllerHelper()
-        {
-            Labels?.Dispose();
-            Massa?.Dispose(false);
-            Memory?.Dispose(false);
-            PrintMain?.Dispose(false);
-            PrintShipping?.Dispose(false);
-        }
+	~ManagerControllerHelper()
+	{
+		Labels?.Dispose();
+		Massa?.Dispose(false);
+		Memory?.Dispose(false);
+		PrintMain?.Dispose(false);
+		PrintShipping?.Dispose(false);
+	}
 
-        #endregion
+	#endregion
 
-        #region Public and private methods
+	#region Public and private methods
 
-        public new void Open()
-        {
-            base.Open();
-        }
+	public new void Open()
+	{
+		base.Open();
+	}
 
-        public new void Close()
-        {
-            base.Close();
-        }
+	public new void Close()
+	{
+		base.Close();
+	}
 
-        public void ReleaseManaged()
-        {
-            Labels?.ReleaseManaged();
-            Massa?.ReleaseManaged();
-            Memory?.ReleaseManaged();
-            PrintMain?.ReleaseManaged();
-            PrintShipping?.ReleaseManaged();
-        }
+	public void ReleaseManaged()
+	{
+		Labels?.ReleaseManaged();
+		Massa?.ReleaseManaged();
+		Memory?.ReleaseManaged();
+		PrintMain?.ReleaseManaged();
+		PrintShipping?.ReleaseManaged();
+	}
 
-        public void ReleaseUnmanaged()
-        {
-            Labels?.ReleaseUnmanaged();
-            Massa?.ReleaseUnmanaged();
-            Memory?.ReleaseUnmanaged();
-            PrintMain?.ReleaseUnmanaged();
-            PrintShipping?.ReleaseUnmanaged();
-        }
+	public void ReleaseUnmanaged()
+	{
+		Labels?.ReleaseUnmanaged();
+		Massa?.ReleaseUnmanaged();
+		Memory?.ReleaseUnmanaged();
+		PrintMain?.ReleaseUnmanaged();
+		PrintShipping?.ReleaseUnmanaged();
+	}
 
-        #endregion
-    }
+	#endregion
 }

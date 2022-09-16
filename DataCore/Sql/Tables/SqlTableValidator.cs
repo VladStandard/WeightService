@@ -32,8 +32,8 @@ public class SqlTableValidator<T> : AbstractValidator<T> where T : SqlTableBase,
 	{
         if (item is not null)
         {
-	        result = SqlUtils.GetSqlValidationResult<TItem>(item);
-			if (!result.IsValid) return result.IsValid;
+	        ValidationResult validationResult = ValidationUtils.GetValidationResult<TItem>(item);
+	        if (!result.IsValid) return result.IsValid;
         }
         return result.IsValid;
     }

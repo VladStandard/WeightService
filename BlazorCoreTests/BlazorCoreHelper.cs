@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.CssStyles;
 using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels;
 using DataCoreTests;
@@ -11,6 +10,7 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using BlazorCore.Razors;
+using DataCore.CssStyles;
 using SqlTableBase = DataCore.Sql.Tables.SqlTableBase;
 
 namespace BlazorCoreTests;
@@ -43,14 +43,6 @@ public class BlazorCoreHelper
 			CssStyleTableBodyModel => new CssStyleTableBodyValidator(),
 			_ => throw new NotImplementedException()
 		};
-	}
-
-	public void AssertStyleValidate<T>(T item, bool assertResult) where T : CssStyleBase, new()
-	{
-		// Arrange.
-		//IValidator<T> validator = GetStyleValidator<T>(item);
-		// Act & Assert.
-		DataCoreHelper.Instance.AssertValidate<T>(item, assertResult);
 	}
 
 	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : SqlTableBase, new()

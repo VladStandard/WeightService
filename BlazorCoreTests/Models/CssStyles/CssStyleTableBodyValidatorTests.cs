@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Collections.Generic;
-using BlazorCore.CssStyles;
+using DataCore.CssStyles;
 using DataCore.Sql.Core;
+using DataCoreTests;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -14,7 +14,7 @@ internal class CssStyleTableBodyValidatorTests
 {
 	#region Public and private fields, properties, constructor
 
-	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -27,11 +27,11 @@ internal class CssStyleTableBodyValidatorTests
 		CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
 		// Act.
 		// Assert.
-		Helper.AssertStyleValidate(item, false);
+		DataCore.AssertValidate(item, false);
 		// Act.
 		item.IdentityName = SqlFieldIdentityEnum.Empty;
 		// Assert.
-		Helper.AssertStyleValidate(item, false);
+		DataCore.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -43,7 +43,7 @@ internal class CssStyleTableBodyValidatorTests
 		item.IdentityName = SqlFieldIdentityEnum.Uid;
 		item.IsShowMarked = true;
 		// Assert.
-		Helper.AssertStyleValidate(item, true);
+		DataCore.AssertValidate(item, true);
 	}
 
 	#endregion

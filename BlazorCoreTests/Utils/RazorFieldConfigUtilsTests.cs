@@ -3,14 +3,10 @@
 
 using BlazorCore.Razors;
 using BlazorCore.Utils;
-using DataCore.Sql.Core;
-using DataCore.Sql.Fields;
 using DataCore.Sql.TableScaleModels;
-using NSubstitute;
 using NUnit.Framework;
-using System;
 
-namespace BlazorCoreTests.Models;
+namespace BlazorCoreTests.Utils;
 
 [TestFixture]
 internal class RazorFieldConfigUtilsTests

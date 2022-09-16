@@ -4,11 +4,10 @@
 using System;
 using System.IO.Ports;
 
-namespace MDSoft.SerialPorts
+namespace MDSoft.SerialPorts;
+
+public class SerialPortEventArgs : EventArgs
 {
-    public class SerialPortEventArgs : EventArgs
-    {
-        public SerialPort SerialPort { get; set; } = new();
-        public byte[] ReceivedBytes { get; set; } = new byte[0];
-    }
+	public SerialPort SerialPort { get; set; } = new();
+	public byte[] ReceivedBytes { get; set; } = new byte[0];
 }

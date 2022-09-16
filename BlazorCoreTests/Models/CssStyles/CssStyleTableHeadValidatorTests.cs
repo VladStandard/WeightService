@@ -1,17 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.CssStyles;
+using DataCore.CssStyles;
+using DataCoreTests;
 using NSubstitute;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace BlazorCoreTests.Models.CssStyles;
 
 [TestFixture]
 internal class CssStyleTableHeadValidatorTests
 {
-	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
@@ -20,11 +20,11 @@ internal class CssStyleTableHeadValidatorTests
 		CssStyleTableHeadModel item = Substitute.For<CssStyleTableHeadModel>();
 		// Act.
 		// Assert.
-		Helper.AssertStyleValidate(item, false);
+		DataCore.AssertValidate(item, false);
 		// Act.
 		item.Color = "";
 		// Assert.
-		Helper.AssertStyleValidate(item, false);
+		DataCore.AssertValidate(item, false);
 	}
 
 	[Test]
@@ -39,6 +39,6 @@ internal class CssStyleTableHeadValidatorTests
 		item.FontWeight = "bold";
 		item.TextAlign = "center";
 		// Assert.
-		Helper.AssertStyleValidate(item, true);
+		DataCore.AssertValidate(item, true);
 	}
 }

@@ -3,34 +3,33 @@
 
 using System.Collections.ObjectModel;
 
-namespace WeightCore.Models
+namespace WeightCore.Models;
+
+public class ResultXmlRead
 {
-    public class ResultXmlRead
-    {
-        public ResultXmlRead() : this(false, string.Empty, new Collection<string>())
-        {
-            //
-        }
+	public ResultXmlRead() : this(false, string.Empty, new Collection<string>())
+	{
+		//
+	}
 
-        public ResultXmlRead(bool noError, string value) : this(noError, value, new Collection<string>())
-        {
-            //
-        }
+	public ResultXmlRead(bool noError, string value) : this(noError, value, new Collection<string>())
+	{
+		//
+	}
 
-        public ResultXmlRead(bool noError, string value, Collection<string> str)
-        {
-            NoError = noError;
-            Value = value;
-            Str = str;
-        }
+	public ResultXmlRead(bool noError, string value, Collection<string> str)
+	{
+		NoError = noError;
+		Value = value;
+		Str = str;
+	}
 
-        public bool NoError { get; }
-        public Collection<string> Str { get; }
-        public string Value { get; }
+	public bool NoError { get; }
+	public Collection<string> Str { get; }
+	public string Value { get; }
 
-        public override string ToString()
-        {
-            return $"NoError: {NoError}; Value: {Value}; Str: {Str}.";
-        }
-    }
+	public override string ToString()
+	{
+		return $"NoError: {NoError}; Value: {Value}; Str: {Str}.";
+	}
 }

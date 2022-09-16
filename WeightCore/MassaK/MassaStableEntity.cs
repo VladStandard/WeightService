@@ -3,29 +3,28 @@
 
 using System.Diagnostics;
 
-namespace WeightCore.MassaK
+namespace WeightCore.MassaK;
+
+public class MassaStableEntity
 {
-    public class MassaStableEntity
-    {
-        public ushort WaitMilliseconds => 0_100;
-        public Stopwatch StopwatchStable { get; } = new();
-        private bool _isStable;
-        public bool IsStable
-        {
-            get
-            {
-                if ((ushort)StopwatchStable.Elapsed.TotalMilliseconds < WaitMilliseconds)
-                    return false;
-                return _isStable;
-            }
-            set
-            {
-                if (_isStable != value)
-                {
-                    StopwatchStable.Restart();
-                    _isStable = value;
-                }
-            }
-        }
-    }
+	public ushort WaitMilliseconds => 0_100;
+	public Stopwatch StopwatchStable { get; } = new();
+	private bool _isStable;
+	public bool IsStable
+	{
+		get
+		{
+			if ((ushort)StopwatchStable.Elapsed.TotalMilliseconds < WaitMilliseconds)
+				return false;
+			return _isStable;
+		}
+		set
+		{
+			if (_isStable != value)
+			{
+				StopwatchStable.Restart();
+				_isStable = value;
+			}
+		}
+	}
 }

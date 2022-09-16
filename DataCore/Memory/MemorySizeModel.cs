@@ -4,85 +4,84 @@
 using DataCore.Models;
 using DataCore.Wmi;
 
-namespace DataCore.Memory
+namespace DataCore.Memory;
+
+public class MemorySizeModel : DisposableBase, IDisposableBase
 {
-    public class MemorySizeModel : DisposableBase, IDisposableBase
-    {
-        #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-        public MemorySizeConvertModel? VirtualCurrent { get; private set; }
-        public MemorySizeConvertModel? PhysicalCurrent { get; private set; }
-        public MemorySizeConvertModel? VirtualFree { get; private set; }
-        public MemorySizeConvertModel? PhysicalFree { get; private set; }
-        public MemorySizeConvertModel? VirtualTotal { get; private set; }
-        public MemorySizeConvertModel? PhysicalTotal { get; private set; }
-        public MemorySizeConvertModel VirtualAllocated =>
-            new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
-        public MemorySizeConvertModel PhysicalAllocated =>
-            new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
-        private WmiHelper? Wmi { get; set; } = WmiHelper.Instance;
+	public MemorySizeConvertModel? VirtualCurrent { get; private set; }
+	public MemorySizeConvertModel? PhysicalCurrent { get; private set; }
+	public MemorySizeConvertModel? VirtualFree { get; private set; }
+	public MemorySizeConvertModel? PhysicalFree { get; private set; }
+	public MemorySizeConvertModel? VirtualTotal { get; private set; }
+	public MemorySizeConvertModel? PhysicalTotal { get; private set; }
+	public MemorySizeConvertModel VirtualAllocated =>
+		new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
+	public MemorySizeConvertModel PhysicalAllocated =>
+		new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
+	private WmiHelper? Wmi { get; set; } = WmiHelper.Instance;
 
-        #endregion
+	#endregion
 
-        #region Constructor and destructor
+	#region Constructor and destructor
 
-        public MemorySizeModel() : base()
-        {
-            Init(Close, ReleaseManaged, ReleaseUnmanaged);
+	public MemorySizeModel() : base()
+	{
+		Init(Close, ReleaseManaged, ReleaseUnmanaged);
 
-            PhysicalCurrent = new MemorySizeConvertModel();
-            VirtualCurrent = new MemorySizeConvertModel();
-            VirtualFree = new MemorySizeConvertModel();
-            VirtualTotal = new MemorySizeConvertModel();
-            PhysicalFree = new MemorySizeConvertModel();
-            PhysicalTotal = new MemorySizeConvertModel();
-        }
+		PhysicalCurrent = new MemorySizeConvertModel();
+		VirtualCurrent = new MemorySizeConvertModel();
+		VirtualFree = new MemorySizeConvertModel();
+		VirtualTotal = new MemorySizeConvertModel();
+		PhysicalFree = new MemorySizeConvertModel();
+		PhysicalTotal = new MemorySizeConvertModel();
+	}
 
-        #endregion
+	#endregion
 
-        #region Public and private methods
+	#region Public and private methods
 
-        public new void Open()
-        {
-            base.Open();
-            CheckIsDisposed();
+	public new void Open()
+	{
+		base.Open();
+		CheckIsDisposed();
 
-            if (PhysicalCurrent != null)
-                PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
-            if (VirtualCurrent != null)
-                VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
+		if (PhysicalCurrent != null)
+			PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
+		if (VirtualCurrent != null)
+			VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-            if (Wmi != null)
-            {
-                WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
-                VirtualFree = new MemorySizeConvertModel { Bytes = getWmi.FreeVirtual };
-                PhysicalFree = new MemorySizeConvertModel { Bytes = getWmi.FreePhysical };
-                VirtualTotal = new MemorySizeConvertModel { Bytes = getWmi.TotalVirtual };
-                PhysicalTotal = new MemorySizeConvertModel { Bytes = getWmi.TotalPhysical };
-            }
-        }
+		if (Wmi != null)
+		{
+			WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
+			VirtualFree = new MemorySizeConvertModel { Bytes = getWmi.FreeVirtual };
+			PhysicalFree = new MemorySizeConvertModel { Bytes = getWmi.FreePhysical };
+			VirtualTotal = new MemorySizeConvertModel { Bytes = getWmi.TotalVirtual };
+			PhysicalTotal = new MemorySizeConvertModel { Bytes = getWmi.TotalPhysical };
+		}
+	}
 
-        public new void Close()
-        {
-            base.Close();
-        }
+	public new void Close()
+	{
+		base.Close();
+	}
 
-        public void ReleaseManaged()
-        {
-            VirtualCurrent = null;
-            PhysicalCurrent = null;
-            VirtualFree = null;
-            PhysicalFree = null;
-            VirtualTotal = null;
-            PhysicalTotal = null;
-            Wmi = null;
-        }
+	public void ReleaseManaged()
+	{
+		VirtualCurrent = null;
+		PhysicalCurrent = null;
+		VirtualFree = null;
+		PhysicalFree = null;
+		VirtualTotal = null;
+		PhysicalTotal = null;
+		Wmi = null;
+	}
 
-        public void ReleaseUnmanaged()
-        {
-            //
-        }
+	public void ReleaseUnmanaged()
+	{
+		//
+	}
 
-        #endregion
-    }
+	#endregion
 }

@@ -1,11 +1,11 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+О╩©// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using NUnit.Framework;
 
-namespace DataCoreTests;
+namespace WebApiTerra1000Tests;
 
 /// <summary>
 /// Utilites.
@@ -16,11 +16,11 @@ public static class TestsUtils
 
     public static List<string> GetListNomenclatureCode => new()
     {
-        "жад00018851",
-        "жад00008809",
-        "жад00008818",
-        "жад00009938",
-        "жад00009937",
+        "ц√ц│ц└00018851",
+        "ц√ц│ц└00008809",
+        "ц√ц│ц└00008818",
+        "ц√ц│ц└00009938",
+        "ц√ц│ц└00009937",
     };
     public static List<int> GetListNomenclatureId => new()
     {
@@ -46,11 +46,11 @@ public static class TestsUtils
     };
     public static List<string> GetListContragentCode => new()
     {
-        "жад001603",
+        "ц√ц│ц└001603",
         "000000130",
-        "жад001626",
-        "жад001627",
-        "жад001629",
+        "ц√ц│ц└001626",
+        "ц√ц│ц└001627",
+        "ц√ц│ц└001629",
     };
     public static List<int> GetListContragentId => new()
     {

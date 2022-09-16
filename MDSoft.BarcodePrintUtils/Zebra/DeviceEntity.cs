@@ -6,8 +6,8 @@
 //using System.Threading.Tasks;
 //using WeightCore.Zpl;
 
-namespace MDSoft.BarcodePrintUtils.Zebra
-{
+namespace MDSoft.BarcodePrintUtils.Zebra;
+
 //    public class DeviceEntity
 //    {
 //        public StateEntity ZebraCurrentState = new();
@@ -115,4 +115,3 @@ namespace MDSoft.BarcodePrintUtils.Zebra
 //        //    }
 //        //}
 //    }
-}

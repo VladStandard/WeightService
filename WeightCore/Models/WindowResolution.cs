@@ -3,33 +3,32 @@
 
 using System.Collections.ObjectModel;
 
-namespace WeightCore.Models
+namespace WeightCore.Models;
+
+public class WindowResolution
 {
-    public class WindowResolution
-    {
-        #region Constructor
+	#region Constructor
 
-        public WindowResolution()
-        {
-            //
-        }
+	public WindowResolution()
+	{
+		//
+	}
 
-        #endregion
+	#endregion
 
-        #region Public methods
+	#region Public methods
 
-        public ObservableCollection<string> GetItems()
-        {
-            return new ObservableCollection<string>()
-            {
-                "Максимальное",
-                "800x600",
-                "1024х768",
-                "1366х768",
-                "1920х1080"
-            };
-        }
+	public ObservableCollection<string> GetItems()
+	{
+		return new ObservableCollection<string>()
+		{
+			"Максимальное",
+			"800x600",
+			"1024х768",
+			"1366х768",
+			"1920х1080"
+		};
+	}
 
-        #endregion
-    }
+	#endregion
 }

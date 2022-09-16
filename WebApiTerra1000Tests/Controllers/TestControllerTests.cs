@@ -1,16 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCoreTests;
+using System.Net;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
-using System.Net;
-using System.Net.Security;
-using System.Threading.Tasks;
 using WebApiCore.Common;
 
-namespace DataProjectsCoreTests.DAL;
+namespace WebApiTerra1000Tests.Controllers;
 
 [TestFixture]
 internal class TestControllerTests
