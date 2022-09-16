@@ -75,5 +75,10 @@ public class XmlProductBarcodeModel : ISerializable, ISqlDbBase
 		info.AddValue(nameof(Barcode), Barcode);
 	}
 
+	public void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

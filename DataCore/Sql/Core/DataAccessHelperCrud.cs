@@ -4,7 +4,6 @@
 using DataCore.Sql.Tables;
 using FluentNHibernate.Conventions;
 using NHibernate;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.Core;
 
@@ -118,6 +117,7 @@ public static class DataAccessHelperCrud
 
 	public static void SaveOrUpdate<T>(this DataAccessHelper dataAccess, T? item, SqlTableActionEnum tableAction) where T : SqlTableBase, new()
 	{
+		item?.ClearNullProperties();
 		switch (tableAction)
 		{
 			case SqlTableActionEnum.New:

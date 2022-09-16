@@ -18,8 +18,8 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual WorkShopModel? WorkShop { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterMain { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterShipping { get; set; }
-	[XmlElement] public virtual byte ShippingLength { get; set; }
 	[XmlElement(IsNullable = true)] public virtual HostModel? Host { get; set; }
+	[XmlElement] public virtual byte ShippingLength { get; set; }
 	[XmlElement] public virtual string DeviceIp { get; set; }
 	[XmlElement] public virtual short DevicePort { get; set; }
 	[XmlElement] public virtual string DeviceMac { get; set; }
@@ -202,6 +202,22 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(IsShipping), IsShipping);
         info.AddValue(nameof(IsOrder), IsOrder);
         info.AddValue(nameof(IsKneading), IsKneading);
+	}
+
+    public override void ClearNullProperties()
+    {
+		if (TemplateSeries is not null && TemplateSeries.Identity.EqualsDefault())
+			TemplateSeries = null;
+		if (TemplateDefault is not null && TemplateDefault.Identity.EqualsDefault())
+			TemplateDefault = null;
+		if (WorkShop is not null && WorkShop.Identity.EqualsDefault())
+			WorkShop = null;
+		if (PrinterMain is not null && PrinterMain.Identity.EqualsDefault())
+			PrinterMain = null;
+		if (PrinterShipping is not null && PrinterShipping.Identity.EqualsDefault())
+			PrinterShipping = null;
+		if (Host is not null && Host.Identity.EqualsDefault())
+			Host = null;
 	}
 
 	#endregion

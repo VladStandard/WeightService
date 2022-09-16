@@ -97,5 +97,10 @@ public class SqlTableIdentityModel : SerializeBase, ICloneable, ISqlDbBase, ISer
 
 	public virtual SqlTableIdentityModel CloneCast() => (SqlTableIdentityModel)Clone();
 
+	public virtual void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

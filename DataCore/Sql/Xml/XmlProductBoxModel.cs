@@ -119,5 +119,10 @@ public class XmlProductBoxModel : ISerializable, ISqlDbBase
 		info.AddValue(nameof(Unit), Unit);
 	}
 
+	public void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

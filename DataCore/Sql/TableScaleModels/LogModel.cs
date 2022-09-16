@@ -130,6 +130,16 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(Message), Message);
 	}
 
+	public override void ClearNullProperties()
+	{
+		if (Host is not null && Host.Identity.EqualsDefault())
+			Host = null;
+		if (App is not null && App.Identity.EqualsDefault())
+			App = null;
+		if (LogType is not null && LogType.Identity.EqualsDefault())
+			LogType = null;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

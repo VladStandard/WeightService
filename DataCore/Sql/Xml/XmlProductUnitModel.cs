@@ -99,5 +99,10 @@ public class XmlProductUnitModel : ISerializable, ISqlDbBase
 		info.AddValue(nameof(Description), Description);
 	}
 
+	public void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

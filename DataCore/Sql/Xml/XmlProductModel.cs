@@ -217,5 +217,10 @@ public class XmlProductModel : ISerializable, ISqlDbBase
 	    info.AddValue(nameof(AdditionalDescriptionOfNomenclature), AdditionalDescriptionOfNomenclature);
 	}
 
+    public void ClearNullProperties()
+    {
+	    throw new NotImplementedException();
+    }
+
 	#endregion
 }

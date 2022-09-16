@@ -182,10 +182,8 @@ public class SerializeBase : ISerializable
         IDictionary<string, object> result = new Dictionary<string, object>();
         if (item is null)
             return result;
-        Type myObjectType = item.GetType();
         object[] indexer = Array.Empty<object>();
-        PropertyInfo[] properties = myObjectType.GetProperties();
-        foreach (PropertyInfo info in properties)
+        foreach (PropertyInfo info in item.GetType().GetProperties())
         {
             object value = info.GetValue(item, indexer);
             result.Add(info.Name, value);

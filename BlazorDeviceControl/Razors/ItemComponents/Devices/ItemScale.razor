@@ -47,7 +47,7 @@ else
 		                @bind-Value=@Host>
 						@foreach (HostModel item in Hosts)
 						{
-							<MudSelectItem T=@HostModel Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -68,7 +68,7 @@ else
 						@bind-Value=@PrinterMain>
 						@foreach (PrinterModel item in Printers)
 						{
-							<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -89,7 +89,7 @@ else
 						@bind-Value=@PrinterShipping>
 						@foreach (PrinterModel item in Printers)
 						{
-							<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -123,8 +123,7 @@ else
 				</td>
 				<td>@LocaleCore.Table.IsOrder</td>
 				<td>
-					<RadzenCheckBox Disabled=false
-					                TValue="bool" @bind-Value=@ItemCast.IsOrder/>
+					<RadzenCheckBox Disabled=false @bind-Value=@ItemCast.IsOrder/>
 				</td>
 			</tr>
 			<tr>
@@ -138,7 +137,7 @@ else
 		                @bind-Value=@TemplateDefault>
 						@foreach (TemplateModel item in Templates)
 						{
-							<MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Title</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -149,10 +148,10 @@ else
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-		                @bind-Value=@TemplateSeries>
+						@bind-Value=@ItemCast.TemplateSeries>
 						@foreach (TemplateModel item in Templates)
 						{
-							<MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Title</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -168,7 +167,7 @@ else
 						@bind-Value=@WorkShop>
 						@foreach (WorkShopModel item in WorkShops)
 						{
-							<MudSelectItem T=@WorkShopModel Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>
@@ -182,7 +181,7 @@ else
 		                @bind-Value=@WorkShop.ProductionFacility>
 						@foreach (ProductionFacilityModel item in ProductionFacilities)
 						{
-							<MudSelectItem T=@ProductionFacilityModel Value=@item>@item.Name</MudSelectItem>
+							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 						}
 					</MudSelect>
 				</td>

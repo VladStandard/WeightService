@@ -84,5 +84,10 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		FieldName = item.FieldName;
 	}
 
+	public virtual void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

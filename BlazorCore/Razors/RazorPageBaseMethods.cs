@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Collections.Generic;
-using System.Net.Sockets;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
 using DataCore.Sql.Tables;
 using Radzen;
+using System.Collections.Generic;
+using System.Net.Sockets;
 
 namespace BlazorCore.Razors;
 
@@ -102,7 +102,7 @@ public partial class RazorPageBase
 
 	#region Public and private methods - Actions
 
-	public bool ItemValidate<T>(NotificationService? notificationService, T? item) where T : SqlTableBase, new()
+	private bool ItemValidate<T>(NotificationService? notificationService, T? item) where T : SqlTableBase, new()
 	{
 		bool result = item is not null;
 		string detailAddition = Environment.NewLine;
@@ -113,17 +113,17 @@ public partial class RazorPageBase
 		switch (result)
 		{
 			case false:
-			{
-				NotificationMessage msg = new()
 				{
-					Severity = NotificationSeverity.Warning,
-					Summary = LocaleCore.Action.ActionDataControl,
-					Detail = $"{LocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
-					Duration = AppSettingsHelper.Delay
-				};
-				notificationService?.Notify(msg);
-				return false;
-			}
+					NotificationMessage msg = new()
+					{
+						Severity = NotificationSeverity.Warning,
+						Summary = LocaleCore.Action.ActionDataControl,
+						Detail = $"{LocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
+						Duration = AppSettingsHelper.Delay
+					};
+					notificationService?.Notify(msg);
+					return false;
+				}
 			default:
 				return true;
 		}
@@ -144,7 +144,7 @@ public partial class RazorPageBase
 		if (item is null) return;
 		if (!ItemValidate(NotificationService, item)) return;
 
-		AppSettings.DataAccess.SaveOrUpdate(item, SqlTableActionEnum.Save);
+		AppSettings.DataAccess.SaveOrUpdate(item as SqlTableBase, SqlTableActionEnum.Save);
 	}
 
 	private void ItemsSave<T>(List<T>? items) where T : SqlTableBase, new()
@@ -188,11 +188,6 @@ public partial class RazorPageBase
 			() =>
 			{
 				throw new NotImplementedException("Fix here!");
-				// Uncomment here.
-				//item = new();
-				//Identity.Id = null;
-				//IdentityUid = null;
-				//RouteItemNavigate(isNewWindow, item, DbTableAction.New);
 			});
 
 		OnChangeAsync();
@@ -249,23 +244,7 @@ public partial class RazorPageBase
 		OnChangeAsync();
 	}
 
-	//public async Task ActionSaveAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
-	//{
-	//	await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-	//	if (userSettings is null || !userSettings.AccessRightsIsWrite)
-	//		return;
-
-	//	RunActionsSafe(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-	//		() =>
-	//		{
-	//			InvokeAsync(StateHasChanged);
-	//		});
-
-	//	OnChangeAsync();
-	//}
-
-	protected async Task ActionMarkAsync(UserSettingsModel? userSettings, bool isNewWindow, bool isParentRazor)
+	protected async Task ActionMarkAsync(UserSettingsModel? userSettings, bool isParentRazor)
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 

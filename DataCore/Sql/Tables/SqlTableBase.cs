@@ -144,5 +144,10 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		ChangeDt = CreateDt = DateTime.Now;
 	}
 
+	public virtual void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

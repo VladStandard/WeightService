@@ -97,6 +97,16 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    info.AddValue(nameof(Nomenclature), Nomenclature);
     }
 
+    public override void ClearNullProperties()
+    {
+	    if (BarcodeType is not null && BarcodeType.Identity.EqualsDefault())
+		    BarcodeType = null;
+	    if (Contragent is not null && Contragent.Identity.EqualsDefault())
+		    Contragent = null;
+	    if (Nomenclature is not null && Nomenclature.Identity.EqualsDefault())
+		    Nomenclature = null;
+    }
+
 	#endregion
 
 	#region Public and private methods - virtual

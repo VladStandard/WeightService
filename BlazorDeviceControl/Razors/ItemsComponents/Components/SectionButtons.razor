@@ -29,7 +29,7 @@
         }
         @if (ButtonSettings.IsShowMark && UserSettings.AccessRightsIsWrite == true)
         {
-            <RadzenButton Click=@(_ => ActionMarkAsync(UserSettings, false, true))
+            <RadzenButton Click=@(_ => ActionMarkAsync(UserSettings, true))
 				class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
 				Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
                       Text=@LocaleCore.DeviceControl.TableActionMark Disabled=@(!AppSettings.DataAccess.IsConnected()) />

@@ -103,5 +103,10 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 
 	public virtual SqlFieldOrderModel CloneCast() => (SqlFieldOrderModel)Clone();
 
+	public virtual void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

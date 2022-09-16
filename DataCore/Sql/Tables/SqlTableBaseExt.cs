@@ -122,8 +122,7 @@ public static class SqlTableBaseExt
 	{
 		if (item is not null && !string.IsNullOrEmpty(propertyName))
 		{
-			PropertyInfo[] properties = typeof(T).GetProperties();
-			foreach (PropertyInfo property in properties)
+			foreach (PropertyInfo property in typeof(T).GetProperties())
 			{
 				if (string.Equals(property.Name, propertyName))
 					return property.GetValue(item);

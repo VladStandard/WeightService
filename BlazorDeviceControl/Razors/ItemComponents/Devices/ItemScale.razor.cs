@@ -15,7 +15,12 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 	private PrinterModel PrinterMain { get => ItemCast.PrinterMain ?? new(); set => ItemCast.PrinterMain = value; }
 	private PrinterModel PrinterShipping { get => ItemCast.PrinterShipping ?? new(); set => ItemCast.PrinterShipping = value; }
 	private TemplateModel TemplateDefault { get => ItemCast.TemplateDefault ?? new(); set => ItemCast.TemplateDefault = value; }
-	private TemplateModel TemplateSeries { get => ItemCast.TemplateSeries ?? new(); set => ItemCast.TemplateSeries = value; }
+	//private TemplateModel? TemplateSeries { get => ItemCast.TemplateSeries; set => ItemCast.TemplateSeries = value; }
+	//{
+	//	get => ItemCast.TemplateSeries;
+	//	set => ItemCast.TemplateSeries = !Equals(value?.Identity.EqualsNew(), LocaleCore.Table.FieldNull) ? value : null;
+	//}
+
 	private WorkShopModel WorkShop { get => ItemCast.WorkShop ?? new(); set => ItemCast.WorkShop = value; }
 	private HostModel Host { get => ItemCast.Host ?? new(); set => ItemCast.Host = value; }
 	private List<PrinterModel> Printers { get; set; }

@@ -20,16 +20,16 @@ public class ScaleValidator : SqlTableValidator<ScaleModel>
 		RuleFor(item => item.Description)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => item.TemplateDefault)
-			.Custom((template, _) =>
-			{
-				if (template is not null)
-				{
-					TemplateValidator validator = new();
-					validator.Validate(template);
-				}
-			})
-			.SetValidator(new TemplateValidator());
+		//RuleFor(item => item.TemplateDefault)
+		//	.Custom((template, _) =>
+		//	{
+		//		if (template is not null)
+		//		{
+		//			TemplateValidator validator = new();
+		//			validator.Validate(template);
+		//		}
+		//	})
+		//	.SetValidator(new TemplateValidator());
 		//RuleFor(item => (item).TemplateSeries).Custom((x, context) =>
 		//	{
 		//		if (context.RootContextData.ContainsKey("MyCustomData"))

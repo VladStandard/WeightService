@@ -11,4 +11,5 @@ public interface ISqlDbBase
     int GetHashCode();
     object Clone();
     void GetObjectData(SerializationInfo info, StreamingContext context);
+    void ClearNullProperties();
 }

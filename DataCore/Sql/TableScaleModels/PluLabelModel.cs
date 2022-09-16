@@ -14,7 +14,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PluWeighingModel? PluWeighing { get; set; }
+    [XmlElement] public virtual PluWeighingModel PluWeighing { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
 
     /// <summary>
@@ -22,7 +22,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-	    PluWeighing = null;
+	    PluWeighing = new();
 	    Zpl = string.Empty;
     }
 
@@ -59,7 +59,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsDefault()
     {
-        if (PluWeighing != null && !PluWeighing.EqualsDefault())
+        if (!PluWeighing.EqualsDefault())
             return false;
         return
             base.EqualsDefault() &&
@@ -70,7 +70,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         PluLabelModel item = new();
         item.IsMarked = IsMarked;
-        item.PluWeighing = PluWeighing?.CloneCast();
+        item.PluWeighing = PluWeighing.CloneCast();
         item.Zpl = Zpl;
         item.CloneSetup(base.CloneCast());
 		return item;
@@ -90,7 +90,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(PluLabelModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (PluWeighing != null && item.PluWeighing != null && !PluWeighing.Equals(item.PluWeighing))
+		if (!PluWeighing.Equals(item.PluWeighing))
 			return false;
 		return
 			base.Equals(item) &&
