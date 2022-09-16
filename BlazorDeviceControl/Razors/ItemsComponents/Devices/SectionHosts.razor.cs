@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Devices;
 
-public partial class SectionHosts : RazorPageSectionBase<HostModel>
+public partial class SectionHosts : RazorPageSectionBase<HostModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

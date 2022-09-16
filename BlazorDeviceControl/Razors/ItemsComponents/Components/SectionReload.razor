@@ -1,5 +1,6 @@
-﻿@typeparam TItem
-@inherits RazorPageSectionBase<TItem>
+﻿@typeparam TItems
+@typeparam TItemFilter
+@inherits RazorPageSectionBase<TItems, TItemFilter>
 @page "/items/reload"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ShareComponents
@@ -61,7 +62,7 @@
 					}*@
 				</td>
 				<td>
-					<SectionFilter TItem=TItem ParentRazor=@(this) />
+					<SectionFilter TItems=TItems TItemFilter=TItemFilter ParentRazor=@(this) />
 					@*@switch (FilterTable)
 					{
 						case SqlTableScaleEnum.Scales:

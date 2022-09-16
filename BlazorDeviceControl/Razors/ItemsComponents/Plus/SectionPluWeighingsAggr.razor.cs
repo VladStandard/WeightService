@@ -6,7 +6,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Plus;
 
-public partial class SectionPluWeighingsAggr : RazorPageSectionBase<WeithingFactSummaryModel>
+public partial class SectionPluWeighingsAggr : RazorPageSectionBase<WeithingFactSummaryModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

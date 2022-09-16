@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<PluLabelModel>
+﻿@inherits RazorPageSectionBase<PluLabelModel, SqlTableBase>
 @page "/items/plus_labels"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
+    <SectionReload TItems=PluLabelModel TItemFilter=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem=PluLabelModel 
@@ -18,8 +18,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-	        <SectionFieldIsMarked TItem=PluLabelModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=PluLabelModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItems=PluLabelModel TItemFilter=PluLabelModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=PluLabelModel TItemFilter=PluLabelModel ParentRazor=@(this) />
 
 	        @*
             <RadzenGridColumn 
@@ -66,5 +66,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=PluLabelModel ParentRazor=@(this) />
+    <SectionButtons TItems=PluLabelModel TItemFilter=PluLabelModel ParentRazor=@(this) />
 }

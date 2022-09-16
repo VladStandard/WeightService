@@ -5,7 +5,8 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Components;
 
-public partial class SectionFilter<TItem> : RazorPageSectionBase<TItem> where TItem : SqlTableBase, new()
+public partial class SectionFilter<TItems, TItemFilter> : RazorPageSectionBase<TItems, TItemFilter>
+	where TItems : SqlTableBase, new() where TItemFilter : SqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -21,15 +22,15 @@ public partial class SectionFilter<TItem> : RazorPageSectionBase<TItem> where TI
         {
             () =>
             {
-                ItemsCast = new() { new TItem() { Description = LocaleCore.Table.FieldNull } };
+                ItemsFilterCast = new() { new() { Description = LocaleCore.Table.FieldNull } };
                 SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
-				TItem[]? itemsFilter = AppSettings.DataAccess.GetItems<TItem>(sqlCrudConfig);
+                TItems[]? itemsFilter = AppSettings.DataAccess.GetItems<TItems>(sqlCrudConfig);
                 if (itemsFilter is not null)
                 {
                     //ItemsCast.AddRange(itemsFilter.ToList<DataCore.Sql.Tables.TableBase>());
                     ItemsCast.AddRange(itemsFilter);
                     if (ItemFilterCast.EqualsDefault())
-                        ItemFilterCast = ItemsCast.First();
+                        ItemFilterCast = ItemsFilterCast.First();
                 }
             }
         });

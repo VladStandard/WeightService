@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<WeithingFactSummaryModel>
+﻿@inherits RazorPageSectionBase<WeithingFactSummaryModel, SqlTableBase>
 @page "/items/plus_weighings_aggr"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -11,15 +11,15 @@
 }
 else
 {
-    <SectionReload TItem=WeithingFactSummaryModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
+    <SectionReload TItems=WeithingFactSummaryModel TItemFilter=WeithingFactSummaryModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem=WeithingFactSummaryModel 
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-	        <SectionFieldIsMarked TItem=WeithingFactSummaryModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=WeithingFactSummaryModel ParentRazor=@(this) />
+	        <SectionFieldIsMarked TItems=WeithingFactSummaryModel TItemFilter=WeithingFactSummaryModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=WeithingFactSummaryModel TItemFilter=WeithingFactSummaryModel ParentRazor=@(this) />
 	        
 	        <RadzenGridColumn TItem=WeithingFactSummaryModel TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
@@ -46,5 +46,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=WeithingFactSummaryModel ParentRazor=@(this) />
+    <SectionButtons TItems=WeithingFactSummaryModel TItemFilter=WeithingFactSummaryModel ParentRazor=@(this) />
 }

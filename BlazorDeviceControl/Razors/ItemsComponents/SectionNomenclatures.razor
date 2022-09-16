@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<NomenclatureModel>
+﻿@inherits RazorPageSectionBase<NomenclatureModel, SqlTableBase>
 @page "/items/nomenclatures"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
+    <SectionReload TItems=NomenclatureModel TItemFilter=NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem=NomenclatureModel 
@@ -18,9 +18,9 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            <SectionFieldIsMarked TItem=NomenclatureModel ParentRazor=@(this) />
-	        <SectionFieldIdentity TItem=NomenclatureModel ParentRazor=@(this) />
-            <SectionField TItem=NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            <SectionFieldIsMarked TItems=NomenclatureModel TItemFilter=NomenclatureModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=NomenclatureModel TItemFilter=NomenclatureModel ParentRazor=@(this) />
+            <SectionField TItems=NomenclatureModel TItemFilter=NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
             @*
             <RadzenGridColumn 
@@ -53,5 +53,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=NomenclatureModel ParentRazor=@(this) />
+    <SectionButtons TItems=NomenclatureModel TItemFilter=NomenclatureModel ParentRazor=@(this) />
 }

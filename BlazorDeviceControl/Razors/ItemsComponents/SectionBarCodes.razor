@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<BarCodeModel>
+﻿@inherits RazorPageSectionBase<BarCodeModel, SqlTableBase>
 @page "/items/barcodes"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+    <SectionReload TItems=BarCodeModel TItemFilter=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
     
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem=BarCodeModel 
@@ -18,14 +18,14 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
-		    <SectionFieldIsMarked TItem=BarCodeModel ParentRazor=@(this) />
-		    <SectionFieldIdentity TItem=BarCodeModel ParentRazor=@(this) />
-            <SectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true)) 
-                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-            <SectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+            <SectionFieldIsMarked TItems=BarCodeModel TItemFilter=BarCodeModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=BarCodeModel TItemFilter=BarCodeModel ParentRazor=@(this) />
+            <SectionField TItems=BarCodeModel TItemFilter=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                      RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+            <SectionField TItems=BarCodeModel TItemFilter=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValue() />
 	    </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=BarCodeModel ParentRazor=@(this) />
+    <SectionButtons TItems=BarCodeModel TItemFilter=BarCodeModel ParentRazor=@(this) />
 }

@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<AccessModel>
+﻿@inherits RazorPageSectionBase<AccessModel, SqlTableBase>
 @page "/items/access"
 
 @using BlazorCore.Razors
@@ -11,23 +11,23 @@
 }
 else
 {
-	<SectionReload TItem=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
+	<SectionReload TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
 
     <RadzenGrid Style="margin-top: 5px; " Data=@ItemsCast TItem=AccessModel 
         RowDoubleClick=@(_ => ActionEditAsync(UserSettings)) RowRender=@RowRender
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
 	    <Columns >
-			<SectionFieldIsMarked TItem=AccessModel ParentRazor=@(this) />
-			<SectionFieldIdentity TItem=AccessModel ParentRazor=@(this) />
-			<SectionField TItem=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("13%", true))
+			<SectionFieldIsMarked TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) />
+			<SectionFieldIdentity TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) />
+			<SectionField TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("13%", true))
 				RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-			<SectionField TItem=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true)) 
-				RazorFieldConfig=@RazorFieldConfigUtils.Access.GetUser() />
-			<SectionField TItem=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+			<SectionField TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+					  RazorFieldConfig=@RazorFieldConfigUtils.Access.GetUser() />
+			<SectionField TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
 				RazorFieldConfig=@RazorFieldConfigUtils.Access.GetRights() />
 	    </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=AccessModel ParentRazor=@(this) />
+    <SectionButtons TItems=AccessModel TItemFilter=AccessModel ParentRazor=@(this) />
 }

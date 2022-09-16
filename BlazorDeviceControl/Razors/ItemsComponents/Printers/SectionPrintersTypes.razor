@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<PrinterTypeModel>
+﻿@inherits RazorPageSectionBase<PrinterTypeModel, SqlTableBase>
 @page "/items/printer_types"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
+    <SectionReload TItems=PrinterTypeModel TItemFilter=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem=PrinterTypeModel 
@@ -18,12 +18,12 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
-            <SectionField TItem=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+            <SectionFieldIsMarked TItems=PrinterTypeModel TItemFilter=PrinterTypeModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=PrinterTypeModel TItemFilter=PrinterTypeModel ParentRazor=@(this) />
+            <SectionField TItems=PrinterTypeModel TItemFilter=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=PrinterTypeModel ParentRazor=@(this) />
+    <SectionButtons TItems=PrinterTypeModel TItemFilter=PrinterTypeModel ParentRazor=@(this) />
 }

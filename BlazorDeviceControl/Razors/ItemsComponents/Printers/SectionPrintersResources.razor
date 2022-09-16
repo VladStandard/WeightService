@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<PrinterResourceModel>
+﻿@inherits RazorPageSectionBase<PrinterResourceModel, SqlTableBase>
 @page "/items/printers_resources"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
+    <SectionReload TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem=PrinterResourceModel 
@@ -18,16 +18,16 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
-	        <SectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
-            <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+            <SectionFieldIsMarked TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) />
+            <SectionField TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetDescription() />
-            <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+            <SectionField TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
-            <SectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+            <SectionField TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetResource(GetRouteItemPathShort<TemplateResourceModel>()) />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=PrinterResourceModel ParentRazor=@(this) />
+    <SectionButtons TItems=PrinterResourceModel TItemFilter=PrinterResourceModel ParentRazor=@(this) />
 }

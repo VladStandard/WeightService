@@ -1,9 +1,10 @@
-﻿@typeparam TItem
-@inherits RazorPageSectionBase<TItem>
+﻿@typeparam TItems
+@typeparam TItemFilter
+@inherits RazorPageSectionBase<TItems, TItemFilter>
 @page "/items/field_identity"
 @using BlazorCore.Razors
 
-<RadzenGridColumn TItem=TItem TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItem>())>
+<RadzenGridColumn TItem=TItems TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItems>())>
 	<Template Context="item">
 		@if (CssStyleRadzenColumn.IsShowLink)
 		{

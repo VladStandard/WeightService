@@ -9,11 +9,12 @@ using DataCore.CssStyles;
 
 namespace BlazorCore.Razors;
 
-public class RazorPageSectionBase<TItems> : RazorPageBase where TItems : SqlTableBase, new()
+public class RazorPageSectionBase<TItems, TItemFilter> : RazorPageBase where TItems : SqlTableBase, new() where TItemFilter : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
+	[Parameter] public RenderFragment<TItems>? Template { get; set; }
 
 	protected List<TItems> ItemsCast
 	{
@@ -21,7 +22,12 @@ public class RazorPageSectionBase<TItems> : RazorPageBase where TItems : SqlTabl
 		set => Items = !value.Any() ? null : new(value);
 	}
 
-	protected TItems ItemFilterCast { get => Item is null ? new() : (TItems)Item; set => Item = value; }
+	protected TItemFilter ItemFilterCast { get => Item is null ? new() : (TItemFilter)Item; set => Item = value; }
+    protected List<TItemFilter> ItemsFilterCast
+    {
+        get => Items is null ? new() : Items.Select(x => (TItemFilter)x).ToList();
+        set => Items = !value.Any() ? null : new(value);
+    }
 	protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {ItemsCast.Count:### ### ###}";
 
 	public RazorPageSectionBase()

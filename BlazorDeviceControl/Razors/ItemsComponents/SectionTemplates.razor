@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<TemplateModel>
+﻿@inherits RazorPageSectionBase<TemplateModel, SqlTableBase>
 @page "/items/templates"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
+    <SectionReload TItems=TemplateModel TItemFilter=TemplateModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem=TemplateModel 
@@ -18,8 +18,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked TItem=TemplateModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=TemplateModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItems=TemplateModel TItemFilter=TemplateModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=TemplateModel TItemFilter=TemplateModel ParentRazor=@(this) />
 
             <RadzenGridColumn 
                 TItem=TemplateModel Property="CategoryId" TextAlign=TextAlign.Center
@@ -39,5 +39,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=TemplateModel ParentRazor=@(this) />
+    <SectionButtons TItems=TemplateModel TItemFilter=TemplateModel ParentRazor=@(this) />
 }

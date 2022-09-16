@@ -5,14 +5,15 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Components;
 
-public partial class SectionFieldIdentity<TItem> : RazorPageSectionBase<TItem> where TItem : SqlTableBase, new()
+public partial class SectionFieldIdentity<TItems, TItemFilter> : RazorPageSectionBase<TItems, TItemFilter>
+	where TItems : SqlTableBase, new() where TItemFilter : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 
 	public SectionFieldIdentity()
 	{
 		CssStyleRadzenColumn.IsShowLink = true;
-		CssStyleRadzenColumn.Width = new TItem().Identity.Name switch
+		CssStyleRadzenColumn.Width = new TItems().Identity.Name switch
 		{
 			SqlFieldIdentityEnum.Id => "5%",
 			SqlFieldIdentityEnum.Uid => "20%",

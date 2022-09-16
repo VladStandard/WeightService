@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<ProductionFacilityModel>
+﻿@inherits RazorPageSectionBase<ProductionFacilityModel, SqlTableBase>
 @page "/items/production_facilities"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
+    <SectionReload TItems=ProductionFacilityModel TItemFilter=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem=ProductionFacilityModel 
@@ -18,14 +18,14 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-            <SectionFieldIsMarked TItem=ProductionFacilityModel ParentRazor=@(this) />
-	        <SectionFieldIdentity TItem=ProductionFacilityModel ParentRazor=@(this) />
-            <SectionField TItem=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19%", true))
+            <SectionFieldIsMarked TItems=ProductionFacilityModel TItemFilter=ProductionFacilityModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=ProductionFacilityModel TItemFilter=ProductionFacilityModel ParentRazor=@(this) />
+            <SectionField TItems=ProductionFacilityModel TItemFilter=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetName() />
-            <SectionField TItem=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
+            <SectionField TItems=ProductionFacilityModel TItemFilter=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetAddress() />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=ProductionFacilityModel ParentRazor=@(this) />
+    <SectionButtons TItems=ProductionFacilityModel TItemFilter=ProductionFacilityModel ParentRazor=@(this) />
 }

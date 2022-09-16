@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<PluWeighingModel>
+﻿@inherits RazorPageSectionBase<PluWeighingModel, SqlTableBase>
 @page "/items/plu_weighings"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
+    <SectionReload TItems=PluWeighingModel TItemFilter=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem=PluWeighingModel 
@@ -18,8 +18,8 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns>
-            <SectionFieldIsMarked TItem=PluWeighingModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=PluWeighingModel ParentRazor=@(this) />
+            <SectionFieldIsMarked TItems=PluWeighingModel TItemFilter=PluWeighingModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=PluWeighingModel TItemFilter=PluWeighingModel ParentRazor=@(this) />
 
             @*<RadzenGridColumn TItem=PluWeighingModel TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.WeithingDate
@@ -59,5 +59,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=PluWeighingModel ParentRazor=@(this) />
+    <SectionButtons TItems=PluWeighingModel TItemFilter=PluWeighingModel ParentRazor=@(this) />
 }

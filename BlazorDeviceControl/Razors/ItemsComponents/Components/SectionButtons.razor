@@ -1,5 +1,6 @@
-﻿@typeparam TItem
-@inherits RazorPageSectionBase<TItem>
+﻿@typeparam TItems
+@typeparam TItemFilter
+@inherits RazorPageSectionBase<TItems, TItemFilter>
 @page "/items/buttons"
 @using BlazorCore.Razors
 @using DataCore.Sql.Core

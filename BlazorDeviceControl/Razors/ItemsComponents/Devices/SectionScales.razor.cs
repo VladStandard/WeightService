@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Devices;
 
-public partial class SectionScales : RazorPageSectionBase<ScaleModel>
+public partial class SectionScales : RazorPageSectionBase<ScaleModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

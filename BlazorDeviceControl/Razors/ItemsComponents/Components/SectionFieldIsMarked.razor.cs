@@ -5,7 +5,8 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Components;
 
-public partial class SectionFieldIsMarked<TItem> : RazorPageSectionBase<TItem> where TItem : SqlTableBase, new()
+public partial class SectionFieldIsMarked<TItems, TItemFilter> : RazorPageSectionBase<TItems, TItemFilter>
+	where TItems : SqlTableBase, new() where TItemFilter : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 

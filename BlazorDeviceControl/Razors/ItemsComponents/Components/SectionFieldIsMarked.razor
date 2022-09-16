@@ -1,11 +1,12 @@
-﻿@typeparam TItem
-@inherits RazorPageSectionBase<TItem>
+﻿@typeparam TItems
+@typeparam TItemFilter
+@inherits RazorPageSectionBase<TItems, TItemFilter>
 @page "/items/field_ismarked"
 @using BlazorCore.Razors
 
 @if (RazorPageConfig.IsShowMarked)
 {
-	<RadzenGridColumn TItem=TItem
+	<RadzenGridColumn TItem=TItems
 			TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
 			Title=@LocaleCore.Table.IsMarkedShort >
 		<Template Context="item">

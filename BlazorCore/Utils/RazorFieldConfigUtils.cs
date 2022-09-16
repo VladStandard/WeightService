@@ -55,6 +55,13 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetTareWeight() => new(nameof(PluModel.TareWeight), TextAlign.Center, LocaleCore.Table.TareWeightShort);
     }
 
+	public static class PluScale
+	{
+		public static RazorFieldConfigModel GetScaleNumber() => new(nameof(PluScaleModel.Scale.Number), TextAlign.Left, LocaleCore.Table.NumberShort);
+		public static RazorFieldConfigModel GetPluNumber() => new(nameof(PluScaleModel.Plu.Number), TextAlign.Left, LocaleCore.Table.NumberShort);
+		public static RazorFieldConfigModel GetActive() => new(nameof(PluScaleModel.IsActive), TextAlign.Left, LocaleCore.Table.ActiveShort, "bool");
+	}
+
 	public static class Printer
 	{
 		public static RazorFieldConfigModel GetIp() => new(nameof(PrinterModel.Ip), TextAlign.Left, LocaleCore.Print.Ip);

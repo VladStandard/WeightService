@@ -64,6 +64,15 @@ public static class SqlTableBaseExt
 				{
 					return host.Name;
 				}
+			case PluModel plu:
+				if (item is PluScaleModel pluScale1 && string.Equals(propertyName, nameof(pluScale1.Plu)))
+				{
+					return pluScale1.Plu.Name;
+				}
+				else
+				{
+					return plu.Name;
+				}
 			case PrinterModel printer1:
 				if (item is ScaleModel scale2)
 				{

@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<WorkShopModel>
+﻿@inherits RazorPageSectionBase<WorkShopModel, SqlTableBase>
 @page "/items/workshops"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops />
+    <SectionReload TItems=WorkShopModel TItemFilter=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem=WorkShopModel 
@@ -18,14 +18,14 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-	        <SectionFieldIsMarked TItem=WorkShopModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=WorkShopModel ParentRazor=@(this) />
-            <SectionField TItem=WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+	        <SectionFieldIsMarked TItems=WorkShopModel TItemFilter=WorkShopModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=WorkShopModel TItemFilter=WorkShopModel ParentRazor=@(this) />
+            <SectionField TItems=WorkShopModel TItemFilter=WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetName() />
-            <SectionField TItem=WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+            <SectionField TItems=WorkShopModel TItemFilter=WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetProductionFacility(GetRouteItemPathShort<ProductionFacilityModel>()) />
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=WorkShopModel ParentRazor=@(this) />
+    <SectionButtons TItems=WorkShopModel TItemFilter=WorkShopModel ParentRazor=@(this) />
 }

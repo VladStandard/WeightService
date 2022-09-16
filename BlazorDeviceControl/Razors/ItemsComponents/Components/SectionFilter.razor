@@ -1,5 +1,6 @@
-﻿@typeparam TItem
-@inherits RazorPageSectionBase<TItem>
+﻿@typeparam TItems
+@typeparam TItemFilter
+@inherits RazorPageSectionBase<TItems, TItemFilter>
 @page "/items/filter"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ShareComponents
@@ -13,10 +14,10 @@ else
 	<MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 	    Class=@BlazorCoreUtuls.GetCssName.MudSelect 
 	    Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px; "
-	    @bind-Value=@ItemFilterCast>
-		@foreach (TItem item in ItemsCast)
+	    @bind-Value=@ItemFilterCast >
+		@foreach (TItems item in ItemsCast)
 		{
-			<MudSelectItem T=@TItem Value=@item>@item.Description.ToString()</MudSelectItem>
+			<MudSelectItem Value=@item>@item.Description</MudSelectItem>
 		}
 	</MudSelect>
 }

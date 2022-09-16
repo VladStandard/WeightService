@@ -58,6 +58,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionOrganizations => "/items/organizations";
     public string RouteSectionPluLabels => "/items/plus_labels";
     public string RouteSectionPlus => "/items/plus";
+    public string RouteSectionPlusScales => "/items/plus_scales";
     public string RouteSectionPlusObsolete => "/items/plus_obsolete";
     public string RouteSectionPlusWeighings => "/items/plu_weighings";
     public string RouteSectionPlusWeighingsAggregation => "/items/plus_weighings_aggr";

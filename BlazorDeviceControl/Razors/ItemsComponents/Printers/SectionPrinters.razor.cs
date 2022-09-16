@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents.Printers;
 
-public partial class SectionPrinters : RazorPageSectionBase<PrinterModel>
+public partial class SectionPrinters : RazorPageSectionBase<PrinterModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

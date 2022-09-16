@@ -1,4 +1,4 @@
-﻿@inherits RazorPageSectionBase<ScaleModel>
+﻿@inherits RazorPageSectionBase<ScaleModel, SqlTableBase>
 @page "/items/scales"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemsComponents.Components
@@ -10,7 +10,7 @@
 }
 else
 {
-    <SectionReload TItem=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />
+    <SectionReload TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem=ScaleModel 
@@ -18,19 +18,19 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
         <Columns >
-			<SectionFieldIsMarked TItem=ScaleModel ParentRazor=@(this) />
-            <SectionFieldIdentity TItem=ScaleModel ParentRazor=@(this) />
-            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+            <SectionFieldIsMarked TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) />
+            <SectionFieldIdentity TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) />
+            <SectionField TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
-            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            <SectionField TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDescription() />
-            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            <SectionField TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetHost(GetRouteItemPathShort<HostModel>()) />
-            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
+            <SectionField TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceIp() />
-            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+            <SectionField TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
-            <SectionField TItem=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+            <SectionField TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
             @*
             <RadzenGridColumn TItem=ScaleModel Title=@LocaleCore.Print.NameMain Width="20%">
@@ -55,5 +55,5 @@ else
         </Columns>
     </RadzenGrid>
 
-    <SectionButtons TItem=ScaleModel ParentRazor=@(this) />
+    <SectionButtons TItems=ScaleModel TItemFilter=ScaleModel ParentRazor=@(this) />
 }

@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemsComponents;
 
-public partial class SectionContragents : RazorPageSectionBase<ContragentModel>
+public partial class SectionContragents : RazorPageSectionBase<ContragentModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

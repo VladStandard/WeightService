@@ -12,19 +12,7 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private PrinterModel PrinterMain { get => ItemCast.PrinterMain ?? new(); set => ItemCast.PrinterMain = value; }
-	private PrinterModel PrinterShipping { get => ItemCast.PrinterShipping ?? new(); set => ItemCast.PrinterShipping = value; }
-	private TemplateModel TemplateDefault { get => ItemCast.TemplateDefault ?? new(); set => ItemCast.TemplateDefault = value; }
-	//private TemplateModel? TemplateSeries { get => ItemCast.TemplateSeries; set => ItemCast.TemplateSeries = value; }
-	//{
-	//	get => ItemCast.TemplateSeries;
-	//	set => ItemCast.TemplateSeries = !Equals(value?.Identity.EqualsNew(), LocaleCore.Table.FieldNull) ? value : null;
-	//}
-
-	private WorkShopModel WorkShop { get => ItemCast.WorkShop ?? new(); set => ItemCast.WorkShop = value; }
-	private HostModel Host { get => ItemCast.Host ?? new(); set => ItemCast.Host = value; }
 	private List<PrinterModel> Printers { get; set; }
-	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
 	private List<TemplateModel> Templates { get; set; }
 	private List<WorkShopModel> WorkShops { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
@@ -35,10 +23,9 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 		Printers = new();
 		ComPorts = new();
 		Hosts = new();
-		ProductionFacilities = new();
 		WorkShops = new();
 		Templates = new();
-		RazorPageConfig.IsShowFilterAdditional = false;
+		RazorPageConfig.IsShowFilterAdditional = true;
 	}
 
 	#endregion
@@ -66,7 +53,6 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 			    Hosts = AppSettings.DataAccess.GetListHosts(false, false, true);
 			    Printers = AppSettings.DataAccess.GetListPrinters(false, false, true);
 			    Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
-			    ProductionFacilities = AppSettings.DataAccess.GetListProductionFacilities(false, false, true);
 			    WorkShops = AppSettings.DataAccess.GetListWorkShops(false, false, true);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
