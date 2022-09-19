@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class ItemPluScale : RazorPageItemBase<PluScaleModel>
+public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -35,12 +35,12 @@ public partial class ItemPluScale : RazorPageItemBase<PluScaleModel>
                 switch (TableAction)
                 {
                     case SqlTableActionEnum.New:
-                        ItemCast = new();
-                        ItemCast.SetDtNow();
-						ItemCast.IsMarked = false;
+                        SqlItemCast = new();
+                        SqlItemCast.SetDtNow();
+						SqlItemCast.IsMarked = false;
                         break;
                     default:
-                        ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
+                        SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
                         break;
                 }
 	            Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);

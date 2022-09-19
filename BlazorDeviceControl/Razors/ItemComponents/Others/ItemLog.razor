@@ -1,0 +1,78 @@
+﻿@inherits RazorComponentItemBase<LogModel>
+@page "/item/log"
+@page "/item/log/{IdentityUidStr}"
+@using BlazorCore.Razors
+
+@if (!IsActionsParametersSetFinished)
+{
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <RazorItemReload TItem=LogModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLog />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <RazorItemTableHead TItem=LogModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 } ) />
+        <tbody>
+			<RazorItemTableBody TItem=LogModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, false) />
+            <tr>
+                <td>@LocaleCore.Table.Host</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: left; background-color: lightgray; "
+                        ReadOnly=true @bind-Value=@SqlItemCast.Host.HostName />
+				</td>
+                <td>@LocaleCore.Table.NamePretty</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: left; background-color: lightgray; "
+                        ReadOnly=true @bind-Value=@SqlItemCast.Host.Name />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.App</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        ReadOnly=true @bind-Value=@SqlItemCast.App.Name />
+				</td>
+                <td>@LocaleCore.Table.Version</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        ReadOnly=true @bind-Value=@SqlItemCast.Version />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.File</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        ReadOnly=true @bind-Value=@SqlItemCast.File />
+				</td>
+                <td>@LocaleCore.Table.Row</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        ReadOnly=true TValue="int" @bind-Value=@SqlItemCast.Line />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocaleCore.Table.Member</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        ReadOnly=true @bind-Value=@SqlItemCast.Member />
+				</td>
+                <td>@LocaleCore.Table.LogType</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        ReadOnly=true @bind-Value=@SqlItemCast.LogType.Icon />
+				</td>
+            </tr>
+            <tr >
+                <td>@LocaleCore.Table.Message</td>
+                <td colspan=3 >
+                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 20px; background-color: lightgray; " 
+                        ReadOnly=true @bind-Value=@SqlItemCast.Message Rows=15 />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <RazorItemActions TItem=LogModel ParentRazor=@(this) />
+    <RazorItemDates TItem=LogModel ParentRazor=@(this) />
+}

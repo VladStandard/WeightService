@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace BlazorCoreTests.Models;
 
 [TestFixture]
-internal class RazorPageBaseTests
+internal class RazorComponentBaseTests
 {
 	#region Public and private fields, properties, constructor
 

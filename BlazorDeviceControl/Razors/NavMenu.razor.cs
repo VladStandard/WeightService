@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class NavMenu : RazorPageBase
+public partial class NavMenu : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,10 +26,7 @@ public partial class NavMenu : RazorPageBase
         CollapseNavMenu = !CollapseNavMenu;
     }
 
-    public NavMenu()
-    {
-        Items = new();
-    }
+    //
 
     #endregion
 }

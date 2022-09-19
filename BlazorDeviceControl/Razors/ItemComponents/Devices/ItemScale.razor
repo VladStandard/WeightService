@@ -1,34 +1,32 @@
-﻿@inherits RazorPageItemBase<ScaleModel>
+﻿@inherits RazorComponentItemBase<ScaleModel>
 @page "/item/scale"
 @page "/item/scale/{IdentityId:long}"
 @page "/item/scale/{IdentityId:long}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ItemsComponents.Plus
-@using BlazorDeviceControl.Razors.ShareComponents
+@using BlazorDeviceControl.Razors.SectionComponents.Plus
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
-    <ItemReload TItem=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
+    <RazorItemReload TItem=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead TItem=ScaleModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+		<RazorItemTableHead TItem=ScaleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 		<tbody>
-			<ItemTableBody TItem=ScaleModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<RazorItemTableBody TItem=ScaleModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Table.Description</td>
 				<td>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Description/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Description/>
 				</td>
 				<td>@LocaleCore.Table.DeviceComPort</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-		                @bind-Value=@ItemCast.DeviceComPort>
+		                @bind-Value=@SqlItemCast.DeviceComPort>
 						@foreach (TypeModel<string> item in ComPorts)
 						{
 							<MudSelectItem Value=@item.Value>@item.Name</MudSelectItem>
@@ -39,12 +37,12 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; "
-			            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, ItemCast.Host, ItemCast.Host?.Identity.Id)
+			            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, SqlItemCast.Host, SqlItemCast.Host?.Identity.Id)
 			            Text=@LocaleCore.Table.Host/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@ItemCast.Host>
+						@bind-Value=@SqlItemCast.Host>
 						@foreach (HostModel item in Hosts)
 						{
 							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
@@ -54,18 +52,18 @@ else
 				<td>@LocaleCore.Table.DeviceReceiveTimeout</td>
 				<td>
 					<RadzenNumeric Style="width: 100%; text-align: center;"
-					               Disabled=false TValue="short?" @bind-Value=@ItemCast.DeviceReceiveTimeout/>
+					               Disabled=false TValue="short?" @bind-Value=@SqlItemCast.DeviceReceiveTimeout/>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; "
-							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, ItemCast.PrinterMain, ItemCast.PrinterMain?.Identity.Id)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterMain, SqlItemCast.PrinterMain?.Identity.Id)
 					            Text=@LocaleCore.Print.NameMain/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@ItemCast.PrinterMain>
+						@bind-Value=@SqlItemCast.PrinterMain>
 						@foreach (PrinterModel item in Printers)
 						{
 							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
@@ -75,18 +73,18 @@ else
 				<td>@LocaleCore.Table.DeviceSendTimeout</td>
 				<td>
 					<RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false
-					               TValue="short?" @bind-Value=@ItemCast.DeviceSendTimeout/>
+					               TValue="short?" @bind-Value=@SqlItemCast.DeviceSendTimeout/>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; "
-					            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, ItemCast.PrinterShipping, ItemCast.PrinterShipping?.Identity.Id)
+					            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterShipping, SqlItemCast.PrinterShipping?.Identity.Id)
 					            Text=@LocaleCore.Print.NameShipping/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@ItemCast.PrinterShipping>
+						@bind-Value=@SqlItemCast.PrinterShipping>
 						@foreach (PrinterModel item in Printers)
 						{
 							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
@@ -95,46 +93,46 @@ else
 				</td>
 				<td>@LocaleCore.Table.IsShipping</td>
 				<td>
-					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsShipping/>
+					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.IsShipping/>
 				</td>
 			</tr>
 			<tr>
 				<td>@LocaleCore.Table.IsShippingLength</td>
 				<td>
 					<RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false
-					               TValue="byte" @bind-Value=@ItemCast.ShippingLength/>
+					               TValue="byte" @bind-Value=@SqlItemCast.ShippingLength/>
 				</td>
 				<td>@LocaleCore.Table.IsKneading</td>
 				<td>
 					<RadzenCheckBox Disabled=false
-					                TValue="bool" @bind-Value=@ItemCast.IsKneading/>
+					                TValue="bool" @bind-Value=@SqlItemCast.IsKneading/>
 				</td>
 			</tr>
 			<tr>
 				<td>@LocaleCore.Table.DeviceNumber</td>
 				<td>
-					<RadzenTemplateForm TItem=ScaleModel Data=@ItemCast>
+					<RadzenTemplateForm TItem=ScaleModel Data=@SqlItemCast>
 						<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 						               Name="fieldNumber"
-						               TValue="int" @bind-Value=@ItemCast.Number/>
+						               TValue="int" @bind-Value=@SqlItemCast.Number/>
 						<RadzenNumericRangeValidator Component="fieldNumber"
 						                             Text=@LocaleCore.Strings.InputControlCheck(1, 99999) Popup=true Style="position: absolute;"/>
 					</RadzenTemplateForm>
 				</td>
 				<td>@LocaleCore.Table.IsOrder</td>
 				<td>
-					<RadzenCheckBox Disabled=false @bind-Value=@ItemCast.IsOrder/>
+					<RadzenCheckBox Disabled=false @bind-Value=@SqlItemCast.IsOrder/>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; "
-					            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.Identity.Id)
+					            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateDefault, SqlItemCast.TemplateDefault?.Identity.Id)
 					            Text=@LocaleCore.Table.TemplateDefault/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-		                @bind-Value=@ItemCast.TemplateDefault>
+		                @bind-Value=@SqlItemCast.TemplateDefault>
 						@foreach (TemplateModel item in Templates)
 						{
 							<MudSelectItem Value=@item>@item.Title</MudSelectItem>
@@ -143,12 +141,12 @@ else
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; "
-					            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.Identity.Id)
+					            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateSeries, SqlItemCast.TemplateSeries?.Identity.Id)
 					            Text=@LocaleCore.Table.TemplateSeries/>
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@ItemCast.TemplateSeries>
+						@bind-Value=@SqlItemCast.TemplateSeries>
 						@foreach (TemplateModel item in Templates)
 						{
 							<MudSelectItem Value=@item>@item.Title</MudSelectItem>
@@ -159,12 +157,12 @@ else
 			<tr>
 				<td>
 					<RadzenLink Style="width: 100%; "
-						Path=@(ItemCast.WorkShop is null ? string.Empty : GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, ItemCast.WorkShop, ItemCast.WorkShop.Identity.Id))
+						Path=@(SqlItemCast.WorkShop is null ? string.Empty : GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, SqlItemCast.WorkShop, SqlItemCast.WorkShop.Identity.Id))
 					    Text=@LocaleCore.Table.WorkShopName />
 				</td>
 				<td>
 					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@ItemCast.WorkShop>
+						@bind-Value=@SqlItemCast.WorkShop>
 						@foreach (WorkShopModel item in WorkShops)
 						{
 							<MudSelectItem Value=@item>@item.Name</MudSelectItem>
@@ -173,25 +171,25 @@ else
 				</td>
 				<td>
 					<RadzenLink Style="width: 100%; "
-					    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.WorkShop?.ProductionFacility, ItemCast.WorkShop?.ProductionFacility.Identity.Id)
+					    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.WorkShop?.ProductionFacility, SqlItemCast.WorkShop?.ProductionFacility.Identity.Id)
 					    Text=@LocaleCore.Table.ProductionFacility />
 				</td>
 				<td>
 					<RadzenTextBox Style="width: 100%; background-color: lightgray;" ReadOnly=true
-					    Value=@(ItemCast.WorkShop is not null ? ItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldNull) />
+					    Value=@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : LocaleCore.Table.FieldNull) />
 				</td>
 			</tr>
 			<tr>
 				<td>@LocaleCore.Table.ScaleFactor</td>
 				<td>
 					<RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false
-					               TValue="int?" @bind-Value=@ItemCast.ScaleFactor/>
+					               TValue="int?" @bind-Value=@SqlItemCast.ScaleFactor/>
 				</td>
 				<td>@LocaleCore.Table.Counter</td>
 				<td>
-					<RadzenTemplateForm TItem=ScaleModel Data=@ItemCast>
+					<RadzenTemplateForm TItem=ScaleModel Data=@SqlItemCast>
 						<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
-						               Name="fieldCounter" TValue="int" @bind-Value=@ItemCast.Counter/>
+						               Name="fieldCounter" TValue="int" @bind-Value=@SqlItemCast.Counter/>
 						<RadzenNumericRangeValidator
 							Component="fieldCounter"
 							Text=@LocaleCore.Strings.InputControlCheck(1, 99999999) Popup=true Style="position: absolute;"/>
@@ -201,8 +199,8 @@ else
 		</tbody>
 	</MudSimpleTable>
     
-	<ItemSave TItem=ScaleModel ParentRazor=@(this) />
-    <ItemDates TItem=ScaleModel ParentRazor=@(this) />
+	<RazorItemActions TItem=ScaleModel ParentRazor=@(this) />
+    <RazorItemDates TItem=ScaleModel ParentRazor=@(this) />
 }
 
-<SectionPlusScales ParentRazor=@(this) />
+<SectionPlusScales ParentRazor=@(this)  />

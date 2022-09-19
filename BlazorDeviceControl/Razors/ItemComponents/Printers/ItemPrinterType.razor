@@ -1,32 +1,30 @@
-﻿@inherits RazorPageItemBase<PrinterTypeModel>
+﻿@inherits RazorComponentItemBase<PrinterTypeModel>
 @page "/item/printer_type"
 @page "/item/printer_type/{IdentityId:long}"
 @page "/item/printer_type/{IdentityId:long}/{TableAction}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
-	<ItemReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
+	<RazorItemReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+		<RazorItemTableHead TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 		<tbody>
-			<ItemTableBody TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<RazorItemTableBody TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Table.Name</td>
 				<td colspan=3>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Name/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
 				</td>
 			</tr>
 		</tbody>
 	</MudSimpleTable>
 
-	<ItemSave TItem=PrinterTypeModel ParentRazor=@(this) />
-	<ItemDates TItem=PrinterTypeModel ParentRazor=@(this) />
+	<RazorItemActions TItem=PrinterTypeModel ParentRazor=@(this) />
+	<RazorItemDates TItem=PrinterTypeModel ParentRazor=@(this) />
 }

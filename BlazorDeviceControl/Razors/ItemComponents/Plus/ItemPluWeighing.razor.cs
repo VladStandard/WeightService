@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class ItemPluWeighing : RazorPageItemBase<PluWeighingModel>
+public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -27,11 +27,11 @@ public partial class ItemPluWeighing : RazorPageItemBase<PluWeighingModel>
                 switch (TableAction)
                 {
                     case SqlTableActionEnum.New:
-                        ItemCast = new();
-                        ItemCast.SetDtNow();
+                        SqlItemCast = new();
+                        SqlItemCast.SetDtNow();
 						break;
                     default:
-                        ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluWeighingModel>(IdentityId);
+                        SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluWeighingModel>(IdentityId);
                         break;
                 }
 

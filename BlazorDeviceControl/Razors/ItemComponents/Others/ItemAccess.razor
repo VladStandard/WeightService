@@ -1,0 +1,47 @@
+﻿@inherits RazorComponentItemBase<AccessModel>
+@page "/item/access"
+@page "/item/access/{IdentityUidStr}"
+@page "/item/access/{IdentityUidStr}/{TableAction}"
+@using BlazorCore.Razors
+
+@if (!IsActionsParametersSetFinished)
+{
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <RazorItemReload TItem=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+	    <RazorItemTableHead TItem=AccessModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <tbody>
+			<RazorItemTableBody TItem=AccessModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+            <tr>
+                <td>@LocaleCore.Table.User</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: left; background-color: lightgray; "
+                        ReadOnly=true @bind-Value=@SqlItemCast.User />
+				</td>
+                <td>@LocaleCore.Strings.AccessRights</td>
+	            <td>
+		            <MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                        @bind-Value=@Rights>
+                        @foreach (TypeModel<AccessRightsEnum> item in TemplateAccessRights)
+			            {
+                            <MudSelectItem T=@AccessRightsEnum Value=@item.Value>@item.Name</MudSelectItem>
+			            }
+		            </MudSelect>
+		            @*<RadzenDropDown Style="width: 100 %;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+		                            Disabled=false TValue=@AccessRightsEnum
+		                            AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+		                            Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount
+		                            TextProperty="Name" Change=@(args => OnChangeItem(SqlItemCast, nameof(SqlItemCast.Rights), args))
+		                            ValueProperty="Value" @bind-Value=@Rights/>*@
+	            </td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <RazorItemActions TItem=AccessModel ParentRazor=@(this) />
+    <RazorItemDates TItem=AccessModel ParentRazor=@(this) />
+}

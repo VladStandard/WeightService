@@ -3,8 +3,6 @@
 
 using DataCore.Localizations;
 using DataCore.Models;
-using DataCore.Sql.Core;
-using DataCore.Sql.Models;
 
 namespace BlazorCore.Razors;
 
@@ -16,12 +14,8 @@ public class UserSettingsModel
 	public bool AccessRightsIsNone => (byte)AccessRights == (byte)AccessRightsEnum.None;
 	public bool AccessRightsIsRead => (byte)AccessRights >= (byte)AccessRightsEnum.Read;
 	public bool AccessRightsIsWrite => (byte)AccessRights >= (byte)AccessRightsEnum.Write;
-	public AccessRightsEnum AccessRights { get; private set; }
-	public string UserName { get; private set; }
-	public string Id { get; set; }
-	public string IpAddress { get; set; }
-	public string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {Id}";
-	public string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
+	public AccessRightsEnum AccessRights { get; }
+	public string? UserName { get; }
 	public string UserDescription => $"{LocaleCore.Strings.AuthorizingUserName}: {UserName}";
 
 	/// <summary>
@@ -31,8 +25,6 @@ public class UserSettingsModel
 	{
 		AccessRights = AccessRightsEnum.None;
 		UserName = string.Empty;
-		Id = string.Empty;
-		IpAddress = string.Empty;
 	}
 
 	/// <summary>
@@ -42,22 +34,10 @@ public class UserSettingsModel
 	/// <param name="userName"></param>
 	/// <param name="id"></param>
 	/// <param name="ipAddress"></param>
-	public UserSettingsModel(AccessRightsEnum accessRights, string userName, string id, string ipAddress)
+	public UserSettingsModel(string? userName, AccessRightsEnum accessRights)
 	{
-		AccessRights = accessRights;
 		UserName = userName;
-		Id = id;
-		IpAddress = ipAddress;
-	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="httpContext"></param>
-	public UserSettingsModel(HttpContext httpContext) : this()
-	{
-		IpAddress = httpContext.Connection.RemoteIpAddress is null ? string.Empty : httpContext.Connection.RemoteIpAddress.ToString();
-		Id = httpContext.Connection.Id;
+		AccessRights = accessRights;
 	}
 
 	#endregion
@@ -81,7 +61,7 @@ public class UserSettingsModel
 
 	public string GetColorAccessRights(byte accessRights, uint rowCounter) => GetColorAccessRights((AccessRightsEnum)accessRights, rowCounter);
 
-	public string GetColorAccessRights(AccessRightsEnum accessRights)
+	private string GetColorAccessRights(AccessRightsEnum accessRights)
 	{
 		if (accessRights == AccessRightsEnum.None)
 			accessRights = AccessRights;
@@ -95,22 +75,6 @@ public class UserSettingsModel
 	}
 
 	public string GetColorAccessRights(byte accessRights) => GetColorAccessRights((AccessRightsEnum)accessRights);
-
-	public void SetupUserName(string? value, RazorPageBase? parentRazorPage)
-	{
-		UserName = value ?? string.Empty;
-
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() { new(SqlFieldEnum.User, SqlFieldComparerEnum.Equal, UserName) },
-			null, 0, false, false);
-		AccessModel access = DataAccessHelper.Instance.GetItemNotNull<AccessModel>(sqlCrudConfig);
-		AccessRights = (AccessRightsEnum)access.Rights;
-
-		if (parentRazorPage is not null)
-		{
-			//parentRazorPage.UserSettings = this;
-			parentRazorPage.UserSettings.SetupUserName(UserName, parentRazorPage.ParentRazor);
-		}
-	}
 
 	#endregion
 }

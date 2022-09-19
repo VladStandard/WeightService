@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 /// <summary>
 /// Scale item page.
 /// </summary>
-public partial class ItemScale : RazorPageItemBase<ScaleModel>
+public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -25,7 +25,8 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 		Hosts = new();
 		WorkShops = new();
 		Templates = new();
-		RazorPageConfig.IsShowFilterAdditional = true;
+		RazorComponentConfig.IsShowFilterAdditional = true;
+		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
 
 	#endregion
@@ -38,24 +39,22 @@ public partial class ItemScale : RazorPageItemBase<ScaleModel>
 		{
 			() =>
 			{
-				ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<ScaleModel>(IdentityId);
-				ItemCast.Host ??= new() { Name = LocaleCore.Table.FieldNull };
-				ItemCast.PrinterMain ??= new() { Name = LocaleCore.Table.FieldNull };
-				ItemCast.PrinterShipping ??= new() { Name = LocaleCore.Table.FieldNull };
-				ItemCast.TemplateDefault ??= new() { Title = LocaleCore.Table.FieldNull };
-				ItemCast.TemplateSeries ??= new() { Title = LocaleCore.Table.FieldNull };
-				ItemCast.WorkShop ??= new() { Name = LocaleCore.Table.FieldNull };
+				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<ScaleModel>(IdentityId);
+				SqlItemCast.Host ??= new() { Name = LocaleCore.Table.FieldNull };
+				SqlItemCast.PrinterMain ??= new() { Name = LocaleCore.Table.FieldNull };
+				SqlItemCast.PrinterShipping ??= new() { Name = LocaleCore.Table.FieldNull };
+				SqlItemCast.TemplateDefault ??= new() { Title = LocaleCore.Table.FieldNull };
+				SqlItemCast.TemplateSeries ??= new() { Title = LocaleCore.Table.FieldNull };
+				SqlItemCast.WorkShop ??= new() { Name = LocaleCore.Table.FieldNull };
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);
 			    // ScaleFactor
-			    ItemCast.ScaleFactor ??= 1000;
-			    Hosts = AppSettings.DataAccess.GetListHosts(false, false, true);
+			    SqlItemCast.ScaleFactor ??= 1000;
+				Hosts = AppSettings.DataAccess.GetListHosts(false, false, true);
 			    Printers = AppSettings.DataAccess.GetListPrinters(false, false, true);
 			    Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
 			    WorkShops = AppSettings.DataAccess.GetListWorkShops(false, false, true);
-
-				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
 		});
 	}

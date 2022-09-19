@@ -25,69 +25,57 @@ public class DataSourceDicsHelper
 	    $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}. " +
 	    $"{nameof(GetTemplateIsDebug)}: {GetTemplateIsDebug().Count}. ";
 
-    public List<TypeModel<string>> GetTemplateCategories()
-    {
-        return new()
-        {
-            new("", ""),
-            new("NaN", "NaN"),
-            new("203 dpi", "203 dpi"),
-            new("203 dpi tsc", "203 dpi tsc"),
-            new("300 dpi", "300 dpi"),
-            new("300 dpi tsc", "300 dpi tsc"),
-            new("608 dpi", "608 dpi"),
-            new("608 dpi tsc", "608 dpi tsc"),
-            new("zpl", "zpl"),
-        };
-    }
+    public List<TypeModel<string>> GetTemplateCategories() =>
+	    new()
+	    {
+		    new("", ""),
+		    new("NaN", "NaN"),
+		    new("203 dpi", "203 dpi"),
+		    new("203 dpi tsc", "203 dpi tsc"),
+		    new("300 dpi", "300 dpi"),
+		    new("300 dpi tsc", "300 dpi tsc"),
+		    new("608 dpi", "608 dpi"),
+		    new("608 dpi tsc", "608 dpi tsc"),
+		    new("zpl", "zpl"),
+	    };
 
     public List<TypeModel<AccessRightsEnum>> GetTemplateAccessRights(byte? accessRights = null)
     {
-        List<TypeModel<AccessRightsEnum>> result = new();
-        result.Add(new($"{AccessRightsEnum.None}", AccessRightsEnum.None));
-        result.Add(new($"{AccessRightsEnum.Read}", AccessRightsEnum.Read));
-        result.Add(new($"{AccessRightsEnum.Write}", AccessRightsEnum.Write));
+        List<TypeModel<AccessRightsEnum>> result = new()
+        {
+	        new($"{AccessRightsEnum.None}", AccessRightsEnum.None),
+	        new($"{AccessRightsEnum.Read}", AccessRightsEnum.Read),
+	        new($"{AccessRightsEnum.Write}", AccessRightsEnum.Write)
+        };
         if (accessRights >= (byte)AccessRightsEnum.Admin)
             result.Add(new($"{AccessRightsEnum.Admin}", AccessRightsEnum.Admin));
         return result;
     }
 
-    public List<TypeModel<LangEnum>> GetTemplateLanguages()
+    public List<TypeModel<LangEnum>> GetTemplateLanguages() => LocaleCore.Lang switch
     {
-        return LocaleCore.Lang switch
-        {
-            LangEnum.English => GetTemplateLanguagesEng(),
-            LangEnum.Russian => GetTemplateLanguagesRus(),
-            _ => new()
-        };
-    }
+	    LangEnum.English => GetTemplateLanguagesEng(),
+	    LangEnum.Russian => GetTemplateLanguagesRus(),
+	    _ => new()
+    };
 
-    private List<TypeModel<LangEnum>> GetTemplateLanguagesEng()
+    private List<TypeModel<LangEnum>> GetTemplateLanguagesEng() => new()
     {
-        return new()
-        {
-            new($"{LangEnum.English}", LangEnum.English),
-            new($"{LangEnum.Russian}", LangEnum.Russian),
-        };
-    }
+	    new($"{LangEnum.English}", LangEnum.English),
+	    new($"{LangEnum.Russian}", LangEnum.Russian),
+    };
 
-    private List<TypeModel<LangEnum>> GetTemplateLanguagesRus()
+    private List<TypeModel<LangEnum>> GetTemplateLanguagesRus() => new()
     {
-        return new()
-        {
-            new("Английский", LangEnum.English),
-            new("Русский", LangEnum.Russian),
-        };
-    }
+	    new("Английский", LangEnum.English),
+	    new("Русский", LangEnum.Russian),
+    };
 
-    public List<TypeModel<bool>> GetTemplateIsDebug()
-    {
-        return new()
-        {
-            new("Enable", true),
-            new("Disable", false),
-        };
-    }
+	public List<TypeModel<bool>> GetTemplateIsDebug() => new()
+	{
+		new("Enable", true),
+		new("Disable", false),
+	};
 
-    #endregion
+	#endregion
 }

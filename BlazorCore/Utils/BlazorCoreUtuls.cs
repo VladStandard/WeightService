@@ -20,7 +20,7 @@ public static class BlazorCoreUtuls
         result = fieVersionInfo.FileVersion;
         if (result.EndsWith(".0"))
             result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
-        return result ?? string.Empty;
+        return result;
     }
 
     public static class GetCssName

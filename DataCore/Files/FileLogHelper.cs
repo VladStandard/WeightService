@@ -21,19 +21,12 @@ public class FileLogHelper
 	{
 		if (string.IsNullOrEmpty(FileName) || !File.Exists(FileName))
 			return;
-		else
-		{
-			File.Delete(FileName);
-		}
+		File.Delete(FileName);
 	}
 
 	public void WriteMessage(string message)
 	{
-		StreamWriter streamWriter;
-		if (!File.Exists(FileName))
-			streamWriter = File.CreateText(FileName);
-		else
-			streamWriter = File.AppendText(FileName);
+		StreamWriter streamWriter = !File.Exists(FileName) ? File.CreateText(FileName) : File.AppendText(FileName);
 		streamWriter.WriteLine(message);
 		streamWriter.Close();
 		streamWriter.Dispose();

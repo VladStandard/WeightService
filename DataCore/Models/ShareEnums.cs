@@ -93,10 +93,10 @@ public enum ActionLoadEnum
 public enum WindowResolutionEnum
 {
     Default,
-    Res_800x600,
-    Res_1024x768,
-    Res_1366х768,
-    Res_1920х1080,
+    Res800X600,
+    Res1024X768,
+    Res1366Х768,
+    Res1920Х1080,
 }
 
 public enum ResultEnum

@@ -336,7 +336,7 @@ public static class DataAccessHelperExt
 		return result;
 	}
 
-	public static string GetAccessRightsDescription(this DataAccessHelper dataAccess, AccessRightsEnum accessRights)
+	public static string GetAccessRightsDescription(this DataAccessHelper dataAccess, AccessRightsEnum? accessRights)
 	{
 		return accessRights switch
 		{

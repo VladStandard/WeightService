@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class MainLayout : RazorPageBase
+public partial class MainLayout : RazorComponentBase
 {
 	#region Public and private methods
     
@@ -16,14 +16,15 @@ public partial class MainLayout : RazorPageBase
 
 	protected override void OnInitialized()
 	{
-		base.OnInitialized();
-
 		RunActionsInitialized(new()
 		{
 			() =>
 			{
-				Items = new();
-			}
+				if (HttpContextAccess?.HttpContext is not null)
+                {
+                    HttpContext = HttpContextAccess.HttpContext;
+                }
+            }
 		});
 	}
 
@@ -35,6 +36,7 @@ public partial class MainLayout : RazorPageBase
 			{
 				AppSettings.SetupMemory();
 				AppSettings.Memory.OpenAsync().ConfigureAwait(false);
+				//
 			}
 		});
 	}

@@ -20,8 +20,8 @@ public class LocaleScale
 
     #region Public and private fields, properties, constructor
 
-    public List<string> ListLanguages => Lang == LangEnum.English ? new List<string> { "Russian", "English" } : new List<string> { "Russian", "English" };
-    public List<string> ListResolutions => Lang == LangEnum.English ? new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
+    public List<string> ListLanguages => Lang == LangEnum.English ? new() { "Russian", "English" } : new List<string> { "Russian", "English" };
+    public List<string> ListResolutions => Lang == LangEnum.English ? new() { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
     public readonly decimal MassaThresholdNegative = -1.000M;
     public readonly decimal MassaThresholdPositive = 0.050M;
     public readonly decimal MassaThresholdValue = 0.010M;
@@ -30,22 +30,22 @@ public class LocaleScale
     public string ButtonNewPallet => Lang == LangEnum.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
     public string ButtonRunScalesTerminal => Lang == LangEnum.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
     public string ButtonScaleChange(int number) => Lang == LangEnum.English ? $"Change ARM [{number}]" : $"Сменить АРМ [{number}]";
-    public string ButtonScalesInit => Lang == LangEnum.English ? $"Initialize scales" : $"Инициализировать весы";
-    public string ButtonScalesInitShort => $">0<";
-    public string ButtonSelectOrder => Lang == LangEnum.English ? $"Order" : $"Заказ";
+    public string ButtonScalesInit => Lang == LangEnum.English ? "Initialize scales" : "Инициализировать весы";
+    public string ButtonScalesInitShort => ">0<";
+    public string ButtonSelectOrder => Lang == LangEnum.English ? "Order" : "Заказ";
     public string ButtonSelectPlu(ushort count) => Lang == LangEnum.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
     public string ButtonSetKneading => Lang == LangEnum.English ? "More" : "Ещё";
     public string ButtonSettings => Lang == LangEnum.English ? "Settings" : "Настройки";
     public string CheckPluWeightCount => Lang == LangEnum.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
     public string CheckWeightBefore(decimal currentWeight) => Lang == LangEnum.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThresholdValue:0.000} {UnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {UnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThresholdValue:0.000} {UnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
-    public string CheckWeightIsEmpty() => Lang == LangEnum.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
-    public string CheckWeightThreshold(decimal weightNet) => Lang == LangEnum.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
-    public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == LangEnum.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
+    public string CheckWeightIsEmpty() => Lang == LangEnum.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + "Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + "Печать этикетки невозможна!";
+    public string CheckWeightThreshold(decimal weightNet) => Lang == LangEnum.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + "Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + "Печать этикетки невозможна!";
+    public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => Lang == LangEnum.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Nominal weight value: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + "Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Номинальное значение веса: {nominalWeight:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + "Печать этикетки невозможна!";
     public string CommunicateWithAdmin => Lang == LangEnum.English ? "Contact your system administrator." : "Свяжитесь с администратором системы.";
     public string ComPort => Lang == LangEnum.English ? "COM-port" : "COM-порт";
     public string ComPortState => Lang == LangEnum.English ? "COM-port status" : "Состояние COM-порта";
     public string Crc => "CRC";
-    public string Default => Lang == LangEnum.English ? $"Default" : $"По-умолчанию";
+    public string Default => Lang == LangEnum.English ? "Default" : "По-умолчанию";
     public string DeviceControlIsPreview => Lang == LangEnum.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
     public string Exception => Lang == LangEnum.English ? "Exception" : "Ошибка";
     public string ExceptionSqlDb => Lang == LangEnum.English ? "The database is unavailable!" : "База данных недоступна!";
@@ -84,7 +84,7 @@ public class LocaleScale
     public string MassaIsNotCalc => Lang == LangEnum.English ? "The weight has not been calculated!" : "Вес не расчитан!";
     public string MassaIsNotFound => Lang == LangEnum.English ? "The scales has not been found!" : "Весы не обнаружены!";
     public string MassaIsNotQuering => Lang == LangEnum.English ? "The scales are not respond!" : "Весы не отвечают!";
-    public string MassaIsNotRespond => Lang == LangEnum.English ? $"The scales Massa-K are not respond!" : $"Весы Масса-К не отвечают!";
+    public string MassaIsNotRespond => Lang == LangEnum.English ? "The scales Massa-K are not respond!" : "Весы Масса-К не отвечают!";
     public string MassaManager => Lang == LangEnum.English ? "Massa manager" : "Менеджер массы";
     public string MassaWaitStable => Lang == LangEnum.English ? "Wait for the weight platform to stabilize." : "Дождитесь стабилизации весовой платформы.";
     public string Memory => Lang == LangEnum.English ? "Memory" : "Память";
@@ -125,8 +125,8 @@ public class LocaleScale
     public string RegistrationWarningHostNotFound(string hostName) => Lang == LangEnum.English ? $"Host '{hostName}' not found!" : $"Хост '{hostName}' не найден!";
     public string RegistrationWarningScaleNotFound(string hostName) => Lang == LangEnum.English ? $"ARM for host '{hostName}' not found!" : $"АРМ для хоста '{hostName}' не найден!";
     public string RequestParameters => Lang == LangEnum.English ? "Request parameters" : "Запрос параметров";
-    public string Restore => Lang == LangEnum.English ? $"Restore" : $"Восстановить";
-    public string RestoreDevice => Lang == LangEnum.English ? $"Restore device" : $"Восстановить устроство";
+    public string Restore => Lang == LangEnum.English ? "Restore" : "Восстановить";
+    public string RestoreDevice => Lang == LangEnum.English ? "Restore device" : "Восстановить устроство";
     public string ScaleQueue => Lang == LangEnum.English ? "Scales message queue" : "Очередь сообщений весов";
     public string ScheduleForNextDay => Lang == LangEnum.English ? "Schedule for next day" : "Расписание на следующий день";
     public string ScreenResolution => Lang == LangEnum.English ? "Screen resolution" : "Разрешение экрана";

@@ -1,45 +1,43 @@
-﻿@inherits RazorPageItemBase<PluModel>
+﻿@inherits RazorComponentItemBase<PluModel>
 @page "/item/plu"
 @page "/item/plu/{IdentityUidStr}"
 @page "/item/plu/{IdentityUidStr}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
-	<ItemReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
+	<RazorItemReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
 	
 	<MudSimpleTable Style="overflow-x: auto; margin-top: 10px; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead TItem=PluModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<RazorItemTableHead TItem=PluModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
         <tbody>
-			<ItemTableBody TItem=PluModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+			<RazorItemTableBody TItem=PluModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
             <tr>
                 <td>@LocaleCore.Table.PluNumber</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
-                        ReadOnly=true Value=@ItemCast.Number.ToString() />
+                        ReadOnly=true Value=@SqlItemCast.Number.ToString() />
 				</td>
                 <td>@LocaleCore.Table.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; "
-                        ReadOnly=false Value=@ItemCast.Name />
+                        ReadOnly=false Value=@SqlItemCast.Name />
 				</td>
             </tr>
 			<tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, ItemCast.Template, ItemCast.Template.Identity.Id)
+                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.Template, SqlItemCast.Template.Identity.Id)
                         Text=@LocaleCore.Table.Template />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@ItemCast.Template>
+                        @bind-Value=@SqlItemCast.Template>
                         @foreach (TemplateModel item in Templates)
                         {
                             <MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
@@ -50,17 +48,17 @@ else
             <tr>
                 <td>@LocaleCore.Table.CheckWeight</td>
                 <td>
-                    <RadzenCheckBox TValue="bool" @bind-Value=@ItemCast.IsCheckWeight />
+                    <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsCheckWeight />
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Identity.Id)
+                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.Nomenclature, SqlItemCast.Nomenclature.Identity.Id)
                         Text=@LocaleCore.Table.Nomenclature />
                 </td>
                 <td>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						ReadOnly=true Disabled=true
-                        @bind-Value=@ItemCast.Nomenclature>
+                        @bind-Value=@SqlItemCast.Nomenclature>
                         @foreach (NomenclatureModel item in Nomenclatures)
                         {
                             <MudSelectItem T=@NomenclatureModel Value=@item>@item.Name</MudSelectItem>
@@ -72,26 +70,26 @@ else
                 <td>@LocaleCore.Table.UpperWeightThreshold</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " 
-                        TValue="decimal" @bind-Value=@ItemCast.UpperThreshold />
+                        TValue="decimal" @bind-Value=@SqlItemCast.UpperThreshold />
 				</td>
                 <td>@LocaleCore.Table.NominalWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " 
-                        TValue="decimal" @bind-Value=@ItemCast.NominalWeight />
+                        TValue="decimal" @bind-Value=@SqlItemCast.NominalWeight />
 				</td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.LowerWeightThreshold</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " 
-                        TValue="decimal" @bind-Value=@ItemCast.LowerThreshold />
+                        TValue="decimal" @bind-Value=@SqlItemCast.LowerThreshold />
 				</td>
                 <td>@LocaleCore.Table.ShelfLifeDays</td>
                 <td>
                     <RadzenButton Style="width: 10%; " Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlShelfLifeDays))) />
                     <RadzenNumeric Style="width: 88%; text-align: center; " 
-                        TValue="short" @bind-Value=@ItemCast.ShelfLifeDays />
+                        TValue="short" @bind-Value=@SqlItemCast.ShelfLifeDays />
 				</td>
             </tr>
             <tr>
@@ -108,7 +106,7 @@ else
                 <td>@LocaleCore.Table.TareWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 88%; text-align: center; " 
-                        TValue="decimal" @bind-Value=@ItemCast.TareWeight />
+                        TValue="decimal" @bind-Value=@SqlItemCast.TareWeight />
                     <RadzenButton Style="width: 10%; " 
                         Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsTareWeight))) />
@@ -118,7 +116,7 @@ else
                     <RadzenButton Style="width: 10%; " Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlBoxQuantly))) />
                     <RadzenNumeric Style="width: 88%; text-align: center; " 
-                        TValue="int" @bind-Value=@ItemCast.BoxQuantly />
+                        TValue="int" @bind-Value=@SqlItemCast.BoxQuantly />
                 </td>
             </tr>
             <tr>
@@ -127,18 +125,18 @@ else
                     <RadzenButton Style="width: 10%; " Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlEan13))) />
                     <RadzenTextBox Style="width: 80%; text-align: center; " 
-                        @bind-Value=@ItemCast.Ean13 />
+                        @bind-Value=@SqlItemCast.Ean13 />
                     <RadzenLabel Style="width: 6%; text-align: center; " 
-                        Text=@ItemCast.Ean13.Length.ToString() />
+                        Text=@SqlItemCast.Ean13.Length.ToString() />
                 </td>
                 <td>@LocaleCore.Table.Gtin</td>
                 <td >
                     <RadzenButton Style="width: 10%; " Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlGtin))) />
                     <RadzenTextBox Style="width: 70%; text-align: center; " 
-                        @bind-Value=@ItemCast.Gtin />
+                        @bind-Value=@SqlItemCast.Gtin />
                     <RadzenLabel Style="width: 5%; text-align: center; " 
-                        Text=@ItemCast.Gtin.Length.ToString() />
+                        Text=@SqlItemCast.Gtin.Length.ToString() />
                     <RadzenButton Style="width: 10%; " 
                         Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
                         Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtinWithCheckDigit))) />
@@ -150,8 +148,8 @@ else
                     <RadzenButton Style="width: 10%; " Icon="autorenew"
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlItf14))) />
                     <RadzenTextBox Style="width: 76%; text-align: center; " 
-                        @bind-Value=@ItemCast.Itf14 />
-                    <RadzenLabel Style="width: 10%; text-align: center; " Text=@ItemCast.Itf14.Length.ToString() />
+                        @bind-Value=@SqlItemCast.Itf14 />
+                    <RadzenLabel Style="width: 10%; text-align: center; " Text=@SqlItemCast.Itf14.Length.ToString() />
                 </td>
                 <td >
                     <RadzenButton Style="width: 100%; " Icon="autorenew"
@@ -170,7 +168,7 @@ else
                               Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlName))) />
                     </td>
                 <td colspan="3">
-                    <RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Name />
+                    <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
 				</td>
             </tr>
             <tr>
@@ -179,7 +177,7 @@ else
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlFullName))) />
                     </td>
                 <td colspan="3">
-                    <RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.FullName />
+                    <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.FullName />
 				</td>
             </tr>
             <tr>
@@ -190,7 +188,7 @@ else
                 <td colspan=3>
                     <RadzenTextArea 
                         Style="width: 100%; text-align: left; font-size: 11px; line-height: 16px; " 
-                        @bind-Value=@ItemCast.Description Rows=3 />
+                        @bind-Value=@SqlItemCast.Description Rows=3 />
 				</td>
             </tr>
             <tr >
@@ -203,13 +201,13 @@ else
 	                <RadzenTextArea
 		                Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 		                ReadOnly=@true Rows=30
-		                Value=@(ItemCast.Nomenclature.Xml != null ? XmlUtils.GetXmlpretty(ItemCast.Nomenclature.Xml) : "")/>
+		                Value=@(SqlItemCast.Nomenclature.Xml != null ? XmlUtils.GetXmlpretty(SqlItemCast.Nomenclature.Xml) : "")/>
                 </td>
             </tr>
         </tbody>
     </MudSimpleTable>
 	
-	<ItemSave TItem=PluModel ParentRazor=@(this) />
+	<RazorItemActions TItem=PluModel ParentRazor=@(this) />
 
-    <ItemDates TItem=PluModel ParentRazor=@(this) />
+    <RazorItemDates TItem=PluModel ParentRazor=@(this) />
 }

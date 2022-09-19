@@ -1,0 +1,30 @@
+﻿@typeparam TItem
+@inherits RazorComponentSectionBase<TItem>
+@page "/section/field"
+@using BlazorCore.Razors
+@using MudBlazor
+@using Radzen
+@using Radzen.Blazor
+
+<RadzenGridColumn TItem=@TItem Type=@RazorFieldConfig.Type TextAlign=@RazorFieldConfig.TextAlign
+                  Width=@(CssStyleRadzenColumn.Width) Title=@RazorFieldConfig.Title>
+	<Template Context="item">
+		@switch (RazorFieldConfig.Type)
+		{
+			case "bool":
+				<RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(RazorFieldConfig.Name)/>
+				break;
+			default:
+				@if (CssStyleRadzenColumn.IsShowLink)
+				{
+					<RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+					            Path=@GetRouteItemPathForLink(item)/>
+				}
+				else
+				{
+					<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.Name)/>
+				}
+				break;
+		}
+	</Template>
+</RadzenGridColumn>

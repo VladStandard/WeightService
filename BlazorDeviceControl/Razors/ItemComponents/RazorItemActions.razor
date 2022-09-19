@@ -1,0 +1,33 @@
+﻿@typeparam TItem
+@inherits RazorComponentItemBase<TItem>
+@page "/item/save"
+@using BlazorCore.Razors
+@using BlazorCore.Utils
+@using DataCore.Localizations
+@using MudBlazor
+@using Radzen
+@using Radzen.Blazor
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent >
+    <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
+        @if (ButtonSettings is not null && ButtonSettings.IsShowSave && UserSettings is not null && UserSettings.AccessRightsIsWrite)
+        {
+            <RadzenButton Click=@(_ => SqlItemSaveAsync())
+                class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Primary
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
+                Text=@LocaleCore.DeviceControl.TableActionSave 
+            />
+        }
+        @if (ButtonSettings is not null && ButtonSettings.IsShowCancel && UserSettings is not null && UserSettings.AccessRightsIsRead)
+        {
+            <RadzenButton Click=@(_ => SqlItemCancelAsync())
+                class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong ButtonStyle=@ButtonStyle.Secondary
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 26px; font-size: 12px; "
+                Text=@LocaleCore.DeviceControl.TableActionCancel 
+            />
+        }
+    </div>
+</MudPaper>

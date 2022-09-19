@@ -89,11 +89,11 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(Rights), Rights);
 	}
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - virtual
+    #region Public and private methods - virtual
 
-	public virtual bool Equals(AccessModel item)
+    public virtual bool Equals(AccessModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return base.Equals(item) &&

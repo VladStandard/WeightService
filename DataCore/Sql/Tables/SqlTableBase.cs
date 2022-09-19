@@ -146,7 +146,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual void ClearNullProperties()
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 	#endregion

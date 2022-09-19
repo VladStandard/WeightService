@@ -7,7 +7,7 @@ using NetBarcode;
 
 namespace BlazorDeviceControl.Razors.ExampleComponents;
 
-public partial class ExampleNetBarcode : RazorPageBase
+public partial class ExampleNetBarcode : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -38,9 +38,7 @@ public partial class ExampleNetBarcode : RazorPageBase
 
 	protected override void OnInitialized()
     {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
+        RunActionsInitialized(new()
 		{
 			() =>
 			{

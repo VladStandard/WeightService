@@ -5,7 +5,7 @@
 
 //namespace BlazorDeviceControl.Razors.Items.Plu;
 
-//public partial class ItemPluObsolete : RazorPageItemBase<PluObsoleteModel>
+//public partial class ItemPluObsolete : RazorComponentItemBase<PluObsoleteModel>
 //{
 //    #region Public and private fields, properties, constructor
 
@@ -35,12 +35,12 @@
 //                switch (TableAction)
 //                {
 //                    case SqlTableActionEnum.New:
-//                        ItemCast = new();
-//                        ItemCast.SetDtNow();
-//						ItemCast.IsMarked = false;
+//                        SqlItemCast = new();
+//                        SqlItemCast.SetDtNow();
+//						SqlItemCast.IsMarked = false;
 //                        break;
 //                    default:
-//                        ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
+//                        SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
 //                        break;
 //                }
 
@@ -93,67 +93,67 @@
 //            switch (name)
 //            {
 //                case nameof(LocaleCore.DeviceControl.TableActionClear):
-//                    ItemCast.Nomenclature = new();
-//                    ItemCast.GoodsName = string.Empty;
-//                    ItemCast.GoodsFullName = string.Empty;
-//                    ItemCast.GoodsDescription = string.Empty;
-//                    ItemCast.GoodsShelfLifeDays = 0;
-//                    ItemCast.Gtin = string.Empty;
-//                    ItemCast.Ean13 = string.Empty;
-//                    ItemCast.Itf14 = string.Empty;
-//                    ItemCast.GoodsBoxQuantly = 0;
-//                    ItemCast.GoodsTareWeight = 0;
+//                    SqlItemCast.Nomenclature = new();
+//                    SqlItemCast.GoodsName = string.Empty;
+//                    SqlItemCast.GoodsFullName = string.Empty;
+//                    SqlItemCast.GoodsDescription = string.Empty;
+//                    SqlItemCast.GoodsShelfLifeDays = 0;
+//                    SqlItemCast.Gtin = string.Empty;
+//                    SqlItemCast.Ean13 = string.Empty;
+//                    SqlItemCast.Itf14 = string.Empty;
+//                    SqlItemCast.GoodsBoxQuantly = 0;
+//                    SqlItemCast.GoodsTareWeight = 0;
 //                    break;
 //                case nameof(LocaleCore.DeviceControl.TableActionFill):
-//                    if (string.IsNullOrEmpty(ItemCast.GoodsName))
-//                        ItemCast.GoodsName = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.GoodsName);
-//                    if (string.IsNullOrEmpty(ItemCast.GoodsFullName))
-//                        ItemCast.GoodsFullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.GoodsFullName);
-//                    if (string.IsNullOrEmpty(ItemCast.GoodsDescription))
-//                        ItemCast.GoodsDescription = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.GoodsDescription);
-//                    if (ItemCast.GoodsShelfLifeDays == 0)
-//                        ItemCast.GoodsShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.GoodsShelfLifeDays);
-//                    if (string.IsNullOrEmpty(ItemCast.Gtin))
-//                        ItemCast.Gtin = ProductHelper.GetXmlGtin(ItemCast.Nomenclature, ItemCast.Gtin);
-//                    if (string.IsNullOrEmpty(ItemCast.Ean13))
-//                        ItemCast.Ean13 = ProductHelper.GetXmlEan13(ItemCast.Nomenclature, ItemCast.Ean13);
-//                    if (string.IsNullOrEmpty(ItemCast.Itf14))
-//                        ItemCast.Itf14 = ProductHelper.GetXmlItf14(ItemCast.Nomenclature, ItemCast.Itf14);
-//                    if (ItemCast.GoodsBoxQuantly == 0)
-//                        ItemCast.GoodsBoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.GoodsBoxQuantly);
-//                    if (ItemCast.GoodsTareWeight == 0)
-//                        ItemCast.GoodsTareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
+//                    if (string.IsNullOrEmpty(SqlItemCast.GoodsName))
+//                        SqlItemCast.GoodsName = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.GoodsName);
+//                    if (string.IsNullOrEmpty(SqlItemCast.GoodsFullName))
+//                        SqlItemCast.GoodsFullName = ProductHelper.GetXmlFullName(SqlItemCast.Nomenclature, SqlItemCast.GoodsFullName);
+//                    if (string.IsNullOrEmpty(SqlItemCast.GoodsDescription))
+//                        SqlItemCast.GoodsDescription = ProductHelper.GetXmlDescription(SqlItemCast.Nomenclature, SqlItemCast.GoodsDescription);
+//                    if (SqlItemCast.GoodsShelfLifeDays == 0)
+//                        SqlItemCast.GoodsShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(SqlItemCast.Nomenclature, SqlItemCast.GoodsShelfLifeDays);
+//                    if (string.IsNullOrEmpty(SqlItemCast.Gtin))
+//                        SqlItemCast.Gtin = ProductHelper.GetXmlGtin(SqlItemCast.Nomenclature, SqlItemCast.Gtin);
+//                    if (string.IsNullOrEmpty(SqlItemCast.Ean13))
+//                        SqlItemCast.Ean13 = ProductHelper.GetXmlEan13(SqlItemCast.Nomenclature, SqlItemCast.Ean13);
+//                    if (string.IsNullOrEmpty(SqlItemCast.Itf14))
+//                        SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
+//                    if (SqlItemCast.GoodsBoxQuantly == 0)
+//                        SqlItemCast.GoodsBoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.GoodsBoxQuantly);
+//                    if (SqlItemCast.GoodsTareWeight == 0)
+//                        SqlItemCast.GoodsTareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
 //                    break;
 //                case nameof(ProductHelper.GetXmlName):
-//                    ItemCast.GoodsName = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.GoodsName);
+//                    SqlItemCast.GoodsName = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.GoodsName);
 //                    break;
 //                case nameof(ProductHelper.GetXmlFullName):
-//                    ItemCast.GoodsFullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.GoodsFullName);
+//                    SqlItemCast.GoodsFullName = ProductHelper.GetXmlFullName(SqlItemCast.Nomenclature, SqlItemCast.GoodsFullName);
 //                    break;
 //                case nameof(ProductHelper.GetXmlDescription):
-//                    ItemCast.GoodsDescription = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.GoodsDescription);
+//                    SqlItemCast.GoodsDescription = ProductHelper.GetXmlDescription(SqlItemCast.Nomenclature, SqlItemCast.GoodsDescription);
 //                    break;
 //                case nameof(ProductHelper.GetXmlShelfLifeDays):
-//                    ItemCast.GoodsShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.GoodsShelfLifeDays);
+//                    SqlItemCast.GoodsShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(SqlItemCast.Nomenclature, SqlItemCast.GoodsShelfLifeDays);
 //                    break;
 //                case nameof(ProductHelper.GetXmlGtin):
-//                    ItemCast.Gtin = ProductHelper.GetXmlGtin(ItemCast.Nomenclature, ItemCast.Gtin);
+//                    SqlItemCast.Gtin = ProductHelper.GetXmlGtin(SqlItemCast.Nomenclature, SqlItemCast.Gtin);
 //                    break;
 //                case nameof(Barcode.GetGtinWithCheckDigit):
-//                    if (ItemCast.Gtin.Length > 12)
-//                        ItemCast.Gtin = Barcode.GetGtinWithCheckDigit(ItemCast.Gtin[..13]);
+//                    if (SqlItemCast.Gtin.Length > 12)
+//                        SqlItemCast.Gtin = Barcode.GetGtinWithCheckDigit(SqlItemCast.Gtin[..13]);
 //                    break;
 //                case nameof(ProductHelper.GetXmlEan13):
-//                    ItemCast.Ean13 = ProductHelper.GetXmlEan13(ItemCast.Nomenclature, ItemCast.Ean13);
+//                    SqlItemCast.Ean13 = ProductHelper.GetXmlEan13(SqlItemCast.Nomenclature, SqlItemCast.Ean13);
 //                    break;
 //                case nameof(ProductHelper.GetXmlItf14):
-//                    ItemCast.Itf14 = ProductHelper.GetXmlItf14(ItemCast.Nomenclature, ItemCast.Itf14);
+//                    SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
 //                    break;
 //                case nameof(ProductHelper.GetXmlBoxQuantly):
-//                    ItemCast.GoodsBoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.GoodsBoxQuantly);
+//                    SqlItemCast.GoodsBoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.GoodsBoxQuantly);
 //                    break;
 //                case nameof(ProductHelper.CalcGoodsTareWeight):
-//                    ItemCast.GoodsTareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
+//                    SqlItemCast.GoodsTareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
 //                    break;
 //            }
 //        }
@@ -165,10 +165,10 @@
 
 //    private string GetWeightFormula()
 //    {
-//        XmlProductModel xmlProduct = ProductHelper.GetXmlProduct(ItemCast.Nomenclature.Xml);
+//        XmlProductModel xmlProduct = ProductHelper.GetXmlProduct(SqlItemCast.Nomenclature.Xml);
 //        // Вес тары = вес коробки + (вес пакета * кол. вложений)
-//        return $"{ProductHelper.CalcGoodWeightBox(ItemCast.Nomenclature, xmlProduct)} + " +
-//               $"({ProductHelper.CalcGoodWeightPack(ItemCast.Nomenclature, xmlProduct)} * {ProductHelper.CalcGoodRateUnit(ItemCast.Nomenclature, xmlProduct)})";
+//        return $"{ProductHelper.CalcGoodWeightBox(SqlItemCast.Nomenclature, xmlProduct)} + " +
+//               $"({ProductHelper.CalcGoodWeightPack(SqlItemCast.Nomenclature, xmlProduct)} * {ProductHelper.CalcGoodRateUnit(SqlItemCast.Nomenclature, xmlProduct)})";
 //    }
 
 //    #endregion

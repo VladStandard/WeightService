@@ -86,7 +86,7 @@ internal class RazorFieldConfigUtilsTests
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			RazorPageBase razorPage = Helper.CreateNewSubstituteRazorPageBase();
+			RazorComponentBase razorPage = Helper.CreateNewSubstituteRazorComponentBase();
 			HostModel host = Helper.Helper.CreateNewSubstitute<HostModel>(true);
 			PrinterModel printer = Helper.Helper.CreateNewSubstitute<PrinterModel>(true);
 			WorkShopModel workShop = Helper.Helper.CreateNewSubstitute<WorkShopModel>(true);

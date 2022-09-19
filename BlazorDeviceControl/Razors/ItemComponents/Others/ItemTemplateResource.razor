@@ -1,0 +1,71 @@
+﻿@inherits RazorComponentItemBase<TemplateResourceModel>
+@page "/item/templateresource"
+@page "/item/templateresource/{IdentityId:long}"
+@page "/item/templateresource/{IdentityId:long}/{TableAction}"
+@using BlazorCore.Razors
+
+@if (!IsActionsParametersSetFinished)
+{
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+	<RazorItemReload TItem=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemTemplateResource />
+
+	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+		<RazorItemTableHead TItem=TemplateResourceModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+		<tbody>
+			<RazorItemTableBody TItem=TemplateResourceModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<tr>
+				<td>@LocaleCore.Table.Name</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Name/>
+				</td>
+				<td>@LocaleCore.Table.Description</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Description/>
+				</td>
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.Type</td>
+				<td>
+					<RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Type/> 
+				</td>
+			</tr>
+			<tr>
+				<td>@LocaleCore.Table.ImageData</td>
+				<td colspan=3>
+					<RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px;"
+					    @bind-Value=@SqlItemCast.ImageData.ValueUnicode Rows=25/>
+				</td>
+			</tr>
+		</tbody>
+	</MudSimpleTable>
+
+	<RazorItemActions TItem=TemplateResourceModel ParentRazor=@(this) />
+	<RazorItemDates TItem=TemplateResourceModel ParentRazor=@(this) />
+}
+@*
+<RadzenLabel Style="width: 97%;" Text=@FileInfo />
+<RadzenLabel Style="width: 97%;" Text=@FileComplete />
+<RadzenLabel Style="width: 27%; " Text=@LocaleCore.Strings.FileUpload />
+<Microsoft.AspNetCore.Components.Forms.InputFile style="width: 50%; " OnChange=@OnFileUpload />
+<RadzenLabel Style="width: 27%; " Text=@LocaleCore.Strings.FileDownload />
+<RadzenButton Style="width: 50%; height: 30px; text-align: center; "
+                Click=@OnFileDownload Text=@LocaleCore.Strings.FileDownload />
+<RadzenLabel Style="width: 27%;" Text=@LocaleCore.TableField.Type />
+@if (ResourceTypes is null)
+{
+    <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
+    <RadzenProgressBar Value=@ProgressValue Unit=@FileInfo
+                        ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+}
+else
+{
+    <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+                    AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                    Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount TextProperty="Name" 
+                    ValueProperty="Value"
+                    Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
+}
+ *@

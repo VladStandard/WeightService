@@ -21,7 +21,7 @@ public class UploadController //: Controller
 
 	#region Public and private methods
 
-	[Microsoft.AspNetCore.Mvc.HttpPost("[action]")]
+	[HttpPost("[action]")]
 	public async Task<IActionResult> MultipleAsync(IFormFile[] files, string currentDirectory)
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);

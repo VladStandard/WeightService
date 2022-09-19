@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Printers;
 
-public partial class ItemPrinter : RazorPageItemBase<PrinterModel>
+public partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -29,22 +29,22 @@ public partial class ItemPrinter : RazorPageItemBase<PrinterModel>
 				switch (TableAction)
 				{
 					case SqlTableActionEnum.New:
-						ItemCast = new();
-						ItemCast.SetDtNow();
-						ItemCast.IsMarked = false;
-						ItemCast.Name = "NEW PRINTER";
+						SqlItemCast = new();
+						SqlItemCast.SetDtNow();
+						SqlItemCast.IsMarked = false;
+						SqlItemCast.Name = "NEW PRINTER";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
+						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
 						break;
 				}
 
 				PrinterTypes = AppSettings.DataAccess.GetListPrinterTypes(false, false);
 				if (TableAction == SqlTableActionEnum.New)
 				{
-					ItemCast.Name = "NEW PRINTER";
-					ItemCast.Ip = "127.0.0.1";
-					ItemCast.MacAddress.Default();
+					SqlItemCast.Name = "NEW PRINTER";
+					SqlItemCast.Ip = "127.0.0.1";
+					SqlItemCast.MacAddress.Default();
 				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

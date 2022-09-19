@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
-public partial class ItemHost : RazorPageItemBase<HostModel>
+public partial class ItemHost : RazorComponentItemBase<HostModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -27,15 +27,15 @@ public partial class ItemHost : RazorPageItemBase<HostModel>
 				switch (TableAction)
 				{
 					case SqlTableActionEnum.New:
-						ItemCast = new();
-						ItemCast.SetDtNow();
-						ItemCast.IsMarked = false;
-						ItemCast.Name = "NEW HOST";
-						ItemCast.Ip = "127.0.0.1";
-						ItemCast.MacAddress.Default();
+						SqlItemCast = new();
+						SqlItemCast.SetDtNow();
+						SqlItemCast.IsMarked = false;
+						SqlItemCast.Name = "NEW HOST";
+						SqlItemCast.Ip = "127.0.0.1";
+						SqlItemCast.MacAddress.Default();
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
+						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
 						break;
 				}
 

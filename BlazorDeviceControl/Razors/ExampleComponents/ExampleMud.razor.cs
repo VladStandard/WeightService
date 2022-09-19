@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Razors.ExampleComponents;
 /// <summary>
 /// MUD Blazor page.
 /// </summary>
-public partial class ExampleMud : RazorPageBase
+public partial class ExampleMud : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -29,9 +29,7 @@ public partial class ExampleMud : RazorPageBase
 
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-
-		RunActionsInitialized(new()
+        RunActionsInitialized(new()
 		{
 			() =>
 			{

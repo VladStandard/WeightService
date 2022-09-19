@@ -8,7 +8,7 @@ namespace BlazorDeviceControl.Razors.ItemComponents.Printers;
 /// <summary>
 /// Item PrinterResource page.
 /// </summary>
-public partial class ItemPrinterResource : RazorPageItemBase<PrinterResourceModel>
+public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourceModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -34,12 +34,12 @@ public partial class ItemPrinterResource : RazorPageItemBase<PrinterResourceMode
 				switch (TableAction)
 				{
 					case SqlTableActionEnum.New:
-						ItemCast = new();
-						ItemCast.SetDtNow();
-						ItemCast.Description = "NEW RESOURCE";
+						SqlItemCast = new();
+						SqlItemCast.SetDtNow();
+						SqlItemCast.Description = "NEW RESOURCE";
 						break;
 					default:
-						ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
+						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
 						break;
 				}
 				Printers = AppSettings.DataAccess.GetListPrinters(false, false, false);

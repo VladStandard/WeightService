@@ -1,40 +1,38 @@
-﻿@inherits RazorPageItemBase<PluLabelModel>
+﻿@inherits RazorComponentItemBase<PluLabelModel>
 @page "/item/plu_label"
 @page "/item/plu_label/{IdentityId:long}"
 @page "/item/plu_label/{IdentityId:long}/{TableAction}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
-    <ItemReload TItem=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
+    <RazorItemReload TItem=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <ItemTableHead TItem=PluLabelModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <RazorItemTableHead TItem=PluLabelModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
         <tbody>
-            <ItemTableBody TItem=PluLabelModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+            <RazorItemTableBody TItem=PluLabelModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             @*<tr>
                 <td>@LocaleCore.Table.Scale</td>
 	            <td>
-                    @if (ItemCast.PluWeighing != null)
+                    @if (SqlItemCast.PluWeighing != null)
                     {
 			            <RadzenLink Style="width: 100%; text-align: center;"
-	                        Path=@GetPath(UriRouteItem.Scale, ItemCast.PluWeighing.PluScale.Scale, ItemCast.PluWeighing.PluScale.Scale.Identity.Id)
-	                        Text=@ItemCast.PluWeighing.PluScale.Scale.Description/>
+	                        Path=@GetPath(UriRouteItem.Scale, SqlItemCast.PluWeighing.PluScale.Scale, SqlItemCast.PluWeighing.PluScale.Scale.Identity.Id)
+	                        Text=@SqlItemCast.PluWeighing.PluScale.Scale.Description/>
                     }
 	            </td>
                 <td>@LocaleCore.Table.Plu</td>
 	            <td>
-		            @if (ItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing != null)
                     {
 			            <RadzenLink Style="width: 100%; text-align: center;"
-	                        Path=@GetPath(UriRouteItem.Plu, ItemCast.PluWeighing.PluScale.Plu, ItemCast.PluWeighing.PluScale.Plu.Identity.Uid)
-	                        Text=@ItemCast.PluWeighing.PluScale.Plu.Name/>
+	                        Path=@GetPath(UriRouteItem.Plu, SqlItemCast.PluWeighing.PluScale.Plu, SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid)
+	                        Text=@SqlItemCast.PluWeighing.PluScale.Plu.Name/>
                     }
 	            </td>
             </tr>
@@ -42,15 +40,15 @@ else
                 <td>@LocaleCore.Table.CreateDt</td>
 	            <td>
 		            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-                       Value=@ItemCast.CreateDt.ToString(CultureInfo.InvariantCulture)
+                       Value=@SqlItemCast.CreateDt.ToString(CultureInfo.InvariantCulture)
                        ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
 	            </td>
                 <td>@LocaleCore.Table.WeithingDate</td>
 	            <td>
-                    @if (ItemCast.PluWeighing != null)
+                    @if (SqlItemCast.PluWeighing != null)
                     {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-                           Value=@ItemCast.PluWeighing.ProductDt.ToString(CultureInfo.InvariantCulture)
+                           Value=@SqlItemCast.PluWeighing.ProductDt.ToString(CultureInfo.InvariantCulture)
                            ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
                     }
 	            </td>
@@ -58,47 +56,47 @@ else
             <tr>
                 <td>@LocaleCore.Table.NetWeight</td>
 	            <td>
-                    @if (ItemCast.PluWeighing != null)
+                    @if (SqlItemCast.PluWeighing != null)
                     {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-			                           ReadOnly=true Value=@ItemCast.PluWeighing.NettoWeight.ToString(CultureInfo.InvariantCulture)/>
+			                           ReadOnly=true Value=@SqlItemCast.PluWeighing.NettoWeight.ToString(CultureInfo.InvariantCulture)/>
                     }
 	            </td>
                 <td>@LocaleCore.Table.TareWeight</td>
                 <td>
-	                @if (ItemCast.PluWeighing != null)
+	                @if (SqlItemCast.PluWeighing != null)
 	                {
 	                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-	                        ReadOnly=true Value=@ItemCast.PluWeighing.TareWeight.ToString(CultureInfo.InvariantCulture) />
+	                        ReadOnly=true Value=@SqlItemCast.PluWeighing.TareWeight.ToString(CultureInfo.InvariantCulture) />
 	                }
 				</td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.RegNum</td>
 	            <td>
-		            @if (ItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing != null)
 		            {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-			                           Disabled=false ReadOnly=true Value=@ItemCast.PluWeighing.RegNum.ToString()/>
+			                           Disabled=false ReadOnly=true Value=@SqlItemCast.PluWeighing.RegNum.ToString()/>
 		            }
 	            </td>
                 <td>@LocaleCore.Table.IsKneading</td>
 	            <td>
-		            @if (ItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing != null)
 		            {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-			                           Disabled=false ReadOnly=true Value=@ItemCast.PluWeighing.Kneading.ToString()/>
+			                           Disabled=false ReadOnly=true Value=@SqlItemCast.PluWeighing.Kneading.ToString()/>
 		            }
 	            </td>
             </tr>
             <tr >
                 <td>@LocaleCore.Table.Template</td>
 	            <td>
-		            @if (ItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing != null)
 		            {
 			            <RadzenLink Style="width: 100%; text-align: center;"
-			                        Path=@GetPath(UriRouteItem.Template, ItemCast.PluWeighing.PluScale.Plu.Template, ItemCast.PluWeighing.PluScale.Plu.Template.Identity.Uid)
-			                        Text=@ItemCast.PluWeighing.PluScale.Plu.Template.Title/>
+			                        Path=@GetPath(UriRouteItem.Template, SqlItemCast.PluWeighing.PluScale.Plu.Template, SqlItemCast.PluWeighing.PluScale.Plu.Template.Identity.Uid)
+			                        Text=@SqlItemCast.PluWeighing.PluScale.Plu.Template.Title/>
 		            }
 	            </td>
                 <td>@LocaleCore.Table.Link</td>
@@ -112,12 +110,12 @@ else
                 <td>@LocaleCore.Table.Zpl</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true @bind-Value=@ItemCast.Zpl Rows=22 />
+                        Disabled=false ReadOnly=true @bind-Value=@SqlItemCast.Zpl Rows=22 />
 				</td>
             </tr>*@
         </tbody>
     </MudSimpleTable>
 
-    <ItemSave TItem=PluLabelModel ParentRazor=@(this) />
-    <ItemDates TItem=PluLabelModel ParentRazor=@(this) />
+    <RazorItemActions TItem=PluLabelModel ParentRazor=@(this) />
+    <RazorItemDates TItem=PluLabelModel ParentRazor=@(this) />
 }

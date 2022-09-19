@@ -6,7 +6,7 @@ using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class ItemPlu : RazorPageItemBase<PluModel>
+public partial class ItemPlu : RazorComponentItemBase<PluModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -38,12 +38,12 @@ public partial class ItemPlu : RazorPageItemBase<PluModel>
                 switch (TableAction)
                 {
                     case SqlTableActionEnum.New:
-                        ItemCast = new();
-                        ItemCast.SetDtNow();
-						ItemCast.IsMarked = false;
+                        SqlItemCast = new();
+                        SqlItemCast.SetDtNow();
+						SqlItemCast.IsMarked = false;
                         break;
                     default:
-	                    ItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
+	                    SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
                         break;
                 }
 
@@ -103,83 +103,83 @@ public partial class ItemPlu : RazorPageItemBase<PluModel>
             switch (name)
             {
                 case nameof(LocaleCore.DeviceControl.TableActionClear):
-                    ItemCast.Nomenclature = new();
-                    ItemCast.Name = string.Empty;
-                    ItemCast.FullName = string.Empty;
-                    ItemCast.Description = string.Empty;
-                    ItemCast.ShelfLifeDays = 0;
-                    ItemCast.Gtin = string.Empty;
-                    ItemCast.Ean13 = string.Empty;
-                    ItemCast.Itf14 = string.Empty;
-                    ItemCast.BoxQuantly = 0;
-                    ItemCast.TareWeight = 0;
+                    SqlItemCast.Nomenclature = new();
+                    SqlItemCast.Name = string.Empty;
+                    SqlItemCast.FullName = string.Empty;
+                    SqlItemCast.Description = string.Empty;
+                    SqlItemCast.ShelfLifeDays = 0;
+                    SqlItemCast.Gtin = string.Empty;
+                    SqlItemCast.Ean13 = string.Empty;
+                    SqlItemCast.Itf14 = string.Empty;
+                    SqlItemCast.BoxQuantly = 0;
+                    SqlItemCast.TareWeight = 0;
                     break;
                 case nameof(LocaleCore.DeviceControl.TableActionFill):
-                    if (string.IsNullOrEmpty(ItemCast.Name))
-                        ItemCast.Name = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.Name);
-                    if (string.IsNullOrEmpty(ItemCast.FullName))
-                        ItemCast.FullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.FullName);
-                    if (string.IsNullOrEmpty(ItemCast.Description))
-                        ItemCast.Description = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.Description);
-                    if (ItemCast.ShelfLifeDays == 0)
-                        ItemCast.ShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.ShelfLifeDays);
-                    if (string.IsNullOrEmpty(ItemCast.Gtin))
-                        ItemCast.Gtin = ProductHelper.GetXmlGtin(ItemCast.Nomenclature, ItemCast.Gtin);
-                    if (string.IsNullOrEmpty(ItemCast.Ean13))
-                        ItemCast.Ean13 = ProductHelper.GetXmlEan13(ItemCast.Nomenclature, ItemCast.Ean13);
-                    if (string.IsNullOrEmpty(ItemCast.Itf14))
-                        ItemCast.Itf14 = ProductHelper.GetXmlItf14(ItemCast.Nomenclature, ItemCast.Itf14);
-                    if (ItemCast.BoxQuantly == 0)
-                        ItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.BoxQuantly);
-                    if (ItemCast.TareWeight == 0)
-                        ItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
+                    if (string.IsNullOrEmpty(SqlItemCast.Name))
+                        SqlItemCast.Name = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.Name);
+                    if (string.IsNullOrEmpty(SqlItemCast.FullName))
+                        SqlItemCast.FullName = ProductHelper.GetXmlFullName(SqlItemCast.Nomenclature, SqlItemCast.FullName);
+                    if (string.IsNullOrEmpty(SqlItemCast.Description))
+                        SqlItemCast.Description = ProductHelper.GetXmlDescription(SqlItemCast.Nomenclature, SqlItemCast.Description);
+                    if (SqlItemCast.ShelfLifeDays == 0)
+                        SqlItemCast.ShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(SqlItemCast.Nomenclature, SqlItemCast.ShelfLifeDays);
+                    if (string.IsNullOrEmpty(SqlItemCast.Gtin))
+                        SqlItemCast.Gtin = ProductHelper.GetXmlGtin(SqlItemCast.Nomenclature, SqlItemCast.Gtin);
+                    if (string.IsNullOrEmpty(SqlItemCast.Ean13))
+                        SqlItemCast.Ean13 = ProductHelper.GetXmlEan13(SqlItemCast.Nomenclature, SqlItemCast.Ean13);
+                    if (string.IsNullOrEmpty(SqlItemCast.Itf14))
+                        SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
+                    if (SqlItemCast.BoxQuantly == 0)
+                        SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
+                    if (SqlItemCast.TareWeight == 0)
+                        SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
                     break;
                 case nameof(ProductHelper.GetXmlName):
-                    ItemCast.Name = ProductHelper.GetXmlName(ItemCast.Nomenclature, ItemCast.Name);
+                    SqlItemCast.Name = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.Name);
                     break;
                 case nameof(ProductHelper.GetXmlFullName):
-                    ItemCast.FullName = ProductHelper.GetXmlFullName(ItemCast.Nomenclature, ItemCast.FullName);
+                    SqlItemCast.FullName = ProductHelper.GetXmlFullName(SqlItemCast.Nomenclature, SqlItemCast.FullName);
                     break;
                 case nameof(ProductHelper.GetXmlDescription):
-                    ItemCast.Description = ProductHelper.GetXmlDescription(ItemCast.Nomenclature, ItemCast.Description);
+                    SqlItemCast.Description = ProductHelper.GetXmlDescription(SqlItemCast.Nomenclature, SqlItemCast.Description);
                     break;
                 case nameof(ProductHelper.GetXmlShelfLifeDays):
-                    ItemCast.ShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(ItemCast.Nomenclature, ItemCast.ShelfLifeDays);
+                    SqlItemCast.ShelfLifeDays = ProductHelper.GetXmlShelfLifeDays(SqlItemCast.Nomenclature, SqlItemCast.ShelfLifeDays);
                     break;
                 case nameof(ProductHelper.GetXmlGtin):
-                    ItemCast.Gtin = ProductHelper.GetXmlGtin(ItemCast.Nomenclature, ItemCast.Gtin);
+                    SqlItemCast.Gtin = ProductHelper.GetXmlGtin(SqlItemCast.Nomenclature, SqlItemCast.Gtin);
                     break;
                 case nameof(Barcode.GetGtinWithCheckDigit):
-                    if (ItemCast.Gtin.Length > 12)
-                        ItemCast.Gtin = Barcode.GetGtinWithCheckDigit(ItemCast.Gtin[..13]);
+                    if (SqlItemCast.Gtin.Length > 12)
+                        SqlItemCast.Gtin = Barcode.GetGtinWithCheckDigit(SqlItemCast.Gtin[..13]);
                     break;
                 case nameof(ProductHelper.GetXmlEan13):
-                    ItemCast.Ean13 = ProductHelper.GetXmlEan13(ItemCast.Nomenclature, ItemCast.Ean13);
+                    SqlItemCast.Ean13 = ProductHelper.GetXmlEan13(SqlItemCast.Nomenclature, SqlItemCast.Ean13);
                     break;
                 case nameof(ProductHelper.GetXmlItf14):
-                    ItemCast.Itf14 = ProductHelper.GetXmlItf14(ItemCast.Nomenclature, ItemCast.Itf14);
+                    SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
                     break;
                 case nameof(ProductHelper.GetXmlBoxQuantly):
-                    ItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(ItemCast.Nomenclature, ItemCast.BoxQuantly);
+                    SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
                     break;
                 case nameof(ProductHelper.CalcGoodsTareWeight):
-                    ItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(ItemCast.Nomenclature);
+                    SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
                     break;
             }
         }
         catch (Exception ex)
         {
-            CatchException(ex, GetItemTitle(Item), memberName);
+            CatchException(ex, GetItemTitle(SqlItem), memberName);
         }
     }
 
     private string GetWeightFormula()
     {
-        XmlProductModel xmlProduct = ProductHelper.GetXmlProduct(ItemCast.Nomenclature.Xml);
+        XmlProductModel xmlProduct = ProductHelper.GetXmlProduct(SqlItemCast.Nomenclature.Xml);
         // Вес тары = вес коробки + (вес пакета * кол. вложений)
-        return $"{ProductHelper.CalcGoodWeightBox(ItemCast.Nomenclature, xmlProduct)} + " +
-               $"({ProductHelper.CalcGoodWeightPack(ItemCast.Nomenclature, xmlProduct)} * " +
-               $"{ProductHelper.CalcGoodRateUnit(ItemCast.Nomenclature, xmlProduct)})";
+        return $"{ProductHelper.CalcGoodWeightBox(SqlItemCast.Nomenclature, xmlProduct)} + " +
+               $"({ProductHelper.CalcGoodWeightPack(SqlItemCast.Nomenclature, xmlProduct)} * " +
+               $"{ProductHelper.CalcGoodRateUnit(SqlItemCast.Nomenclature, xmlProduct)})";
     }
 
     #endregion

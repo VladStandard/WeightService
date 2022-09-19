@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
 
-public partial class ItemPluLabel : RazorPageItemBase<PluLabelModel>
+public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -27,11 +27,11 @@ public partial class ItemPluLabel : RazorPageItemBase<PluLabelModel>
                 switch (TableAction)
                 {
                     case SqlTableActionEnum.New:
-                        ItemCast = new();
-                        ItemCast.SetDtNow();
+                        SqlItemCast = new();
+                        SqlItemCast.SetDtNow();
 						break;
                     default:
-	                    ItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluLabelModel>(IdentityId);
+	                    SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluLabelModel>(IdentityId);
                         break;
                 }
 

@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors;
 
-public partial class Index : RazorPageBase
+public partial class Index : RazorComponentBase
 {
     //
 }

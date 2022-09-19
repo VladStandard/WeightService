@@ -243,7 +243,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ActionsLoad
 - ActionsReload
 - ActionsSave
-- ItemDates
+- RazorItemDates
 
 ## [0.6.050] - 2022-01-21
 ### Added

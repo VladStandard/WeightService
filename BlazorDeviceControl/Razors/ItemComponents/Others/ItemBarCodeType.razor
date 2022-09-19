@@ -1,0 +1,30 @@
+﻿@inherits RazorComponentItemBase<BarCodeTypeModel>
+@page "/item/barcodetype"
+@page "/item/barcodetype/{IdentityUidStr}"
+@page "/item/barcodetype/{IdentityUidStr}/{TableAction}"
+@using BlazorCore.Razors
+
+@if (!IsActionsParametersSetFinished)
+{
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <RazorItemReload TItem=BarCodeTypeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <RazorItemTableHead TItem=BarCodeTypeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+        <tbody>
+			<RazorItemTableBody TItem=BarCodeTypeModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+            <tr>
+                <td>@LocaleCore.Table.Name</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+
+    <RazorItemActions TItem=BarCodeTypeModel ParentRazor=@(this) />
+    <RazorItemDates TItem=BarCodeTypeModel ParentRazor=@(this) />
+}

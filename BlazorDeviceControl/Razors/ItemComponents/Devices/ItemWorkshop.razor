@@ -1,41 +1,39 @@
-﻿@inherits RazorPageItemBase<WorkShopModel>
+﻿@inherits RazorComponentItemBase<WorkShopModel>
 @page "/item/workshop"
 @page "/item/workshop/{IdentityId:long}"
 @page "/item/workshop/{IdentityId:long}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
-    <ItemReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
+    <RazorItemReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	    <ItemTableHead TItem=WorkShopModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
+	    <RazorItemTableHead TItem=WorkShopModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
         <tbody>
-			<ItemTableBody TItem=WorkShopModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<RazorItemTableBody TItem=WorkShopModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
             <tr>
                 <td>@LocaleCore.Table.Name</td>
                 <td colspan=3>
                     <RadzenTextBox Style="width: 100%; text-align: left;" 
                         Disabled=false ReadOnly=false
-                        TValue="string" @bind-Value=@ItemCast.Name />
+                        TValue="string" @bind-Value=@SqlItemCast.Name />
 				</td>
             </tr>
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Identity.Id)
+                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.ProductionFacility, SqlItemCast.ProductionFacility.Identity.Id)
                         Text=@LocaleCore.Table.ProductionFacility />
                 </td>
                 <td colspan=3>
                     <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						@bind-Value=@ItemCast.ProductionFacility>
+						@bind-Value=@SqlItemCast.ProductionFacility>
                         @foreach (ProductionFacilityModel item in ProductionFacilities)
                         {
                             <MudSelectItem T=@ProductionFacilityModel Value=@item>@item.Name</MudSelectItem>
@@ -46,6 +44,6 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <ItemSave TItem=WorkShopModel ParentRazor=@(this) />
-    <ItemDates TItem=WorkShopModel ParentRazor=@(this) />
+    <RazorItemActions TItem=WorkShopModel ParentRazor=@(this) />
+    <RazorItemDates TItem=WorkShopModel ParentRazor=@(this) />
 }

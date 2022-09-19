@@ -110,11 +110,11 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(MacAddress), MacAddress);
 	}
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - virtual
+    #region Public and private methods - virtual
 
-	public virtual bool Equals(HostModel item)
+    public virtual bool Equals(HostModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		if (!MacAddress.Equals(item.MacAddress))

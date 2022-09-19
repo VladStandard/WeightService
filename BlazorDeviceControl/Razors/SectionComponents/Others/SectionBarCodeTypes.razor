@@ -1,0 +1,36 @@
+﻿@inherits RazorComponentSectionBase<BarCodeTypeModel>
+@page "/section/barcodetypes"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+@if (!IsActionsParametersSetFinished)
+{
+    <RazorActionLoad ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
+}
+else
+{
+    <RazorSectionReload TItem=BarCodeTypeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+    
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@SqlItemsCast TItem=BarCodeTypeModel 
+        RowDoubleClick=@(_ => SqlItemEditAsync())
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+        <Columns >
+            <RazorSectionFieldIsMarked TItem=BarCodeTypeModel ParentRazor=@(this) />
+            <RazorSectionFieldIdentity TItem=BarCodeTypeModel ParentRazor=@(this) />
+            <RazorSectionField TItem=BarCodeTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+            <RadzenGridColumn 
+                TItem=BarCodeTypeModel Title=@LocaleCore.Table.Name Width="60%" SortProperty="Name" >
+                <Template Context="itemCast" >
+                    <RadzenLink Style="width: 100%; margin-left: 0; "
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCodeType}/{itemCast.Identity.Uid}")
+                        Text=@itemCast.Name />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+    <RazorSectionActions TItem=BarCodeTypeModel ParentRazor=@(this) />
+}

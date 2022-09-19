@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SystemComponents;
 
-public partial class SystemAppInfo : RazorPageBase
+public partial class SystemAppInfo : RazorComponentBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Razors.RazorPageBase
+﻿@inherits BlazorCore.Razors.RazorComponentBase
 @using BlazorCore
 @using BlazorDeviceControl.Razors.SystemComponents
 @using static BlazorCore.Utils.BlazorCoreUtuls
@@ -20,7 +20,7 @@
 <div class=@GetCssName.NavMenu(CollapseNavMenu) @onclick=@ToggleNavMenu>
     <ul class="nav flex-column">
         <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
-	        @if (UserSettings.AccessRightsIsRead == true)
+            @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
 	        {
                 <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionScales >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)

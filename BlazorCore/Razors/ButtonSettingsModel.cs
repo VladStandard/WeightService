@@ -9,13 +9,13 @@ public class ButtonSettingsModel
 {
 	#region Public and private fields, properties, constructor
 
+	[Parameter] public bool IsShowCancel { get; set; }
 	[Parameter] public bool IsShowCopy { get; set; }
 	[Parameter] public bool IsShowDelete { get; set; }
 	[Parameter] public bool IsShowEdit { get; set; }
 	[Parameter] public bool IsShowMark { get; set; }
 	[Parameter] public bool IsShowNew { get; set; }
 	[Parameter] public bool IsShowSave { get; set; }
-	[Parameter] public bool IsShowCancel { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -45,6 +45,19 @@ public class ButtonSettingsModel
 	{
 		//
 	}
+
+	#endregion
+
+	#region Public and private methods
+
+	public bool EqualsDefault() =>
+		Equals(IsShowCopy, false) &&
+		Equals(IsShowDelete, false) &&
+		Equals(IsShowEdit, false) &&
+		Equals(IsShowMark, false) &&
+		Equals(IsShowNew, false) &&
+		Equals(IsShowSave, false) &&
+		Equals(IsShowCancel, false);
 
 	#endregion
 }

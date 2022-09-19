@@ -48,10 +48,10 @@ public class BlazorCoreHelper
 	public void Model_GetRoutePathItem_IsNotEmpty<T>() where T : SqlTableBase, new()
 	{
 		// Arrange.
-		RazorPageBase razorPage = new();
+		RazorComponentBase razorComponent = new();
 		T item = Helper.CreateNewSubstitute<T>(true);
 		// Act.
-		string urlItem = razorPage.GetRouteItemPath(item);
+		string urlItem = razorComponent.GetRouteItemPath(item);
 		TestContext.WriteLine(urlItem);
 		// Assert.
 		Assert.IsNotEmpty(urlItem);
@@ -60,17 +60,17 @@ public class BlazorCoreHelper
 	public void Model_GetRoutePathSection_IsNotEmpty<T>() where T : SqlTableBase, new()
 	{
 		// Arrange.
-		RazorPageBase razorPage = new();
+		RazorComponentBase razorComponent = new();
 		// Act.
-		string urlSection = razorPage.GetRouteSectionPath<T>();
+		string urlSection = razorComponent.GetRouteSectionPath<T>();
 		TestContext.WriteLine(urlSection);
 		// Assert.
 		Assert.IsNotEmpty(urlSection);
 	}
 
-	public RazorPageBase CreateNewSubstituteRazorPageBase()
+	public RazorComponentBase CreateNewSubstituteRazorComponentBase()
 	{
-		RazorPageBase razorPage = Substitute.For<RazorPageBase>();
+		RazorComponentBase razorPage = Substitute.For<RazorComponentBase>();
 		razorPage.GetRouteItemPathShort<HostModel>();
 		return razorPage;
 	}

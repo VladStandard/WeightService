@@ -1,22 +1,21 @@
-﻿@inherits RazorPageBase
+﻿@inherits RazorComponentBase
 @page "/system/appinfo"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
+@using BlazorDeviceControl.Razors.ItemComponents
 
-<ItemReload TItem=SqlTableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
+<RazorItemReload TItem=SqlTableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
 <MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-	<ItemTableHead TItem=SqlTableEmptyModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTabelHeadStyleInfo() />
+	<RazorItemTableHead TItem=SqlTableEmptyModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTabelHeadStyleInfo() />
     <tbody>
         <tr>
             <td>@LocaleCore.Strings.VerApp</td>
             <td colspan=2>
                 @if (string.IsNullOrEmpty(VerApp))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -29,7 +28,7 @@
             <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -39,7 +38,7 @@
             <td>
                 @if (string.IsNullOrEmpty(VerLibDataCore))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -52,7 +51,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(Environment.MachineName))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -65,7 +64,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -80,7 +79,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -90,7 +89,7 @@
         </tr>
         <tr>
             <td>
-                @if (AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo == true)
+                @if (AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo)
                 {
                     @LocaleCore.System.SystemWindowsUser
                 }
@@ -102,7 +101,7 @@
             <td colspan=2>
                 @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId))
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -115,7 +114,7 @@
             <td >
                 @if (DbCurSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -131,7 +130,7 @@
             <td>
                 @if (DbCurSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -147,7 +146,7 @@
             <td>
                 @if (DbFillSize == 0)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
@@ -169,7 +168,7 @@
             <td>
                 @if (AppSettings.Memory.MemorySize.PhysicalTotal is null)
                 {
-                    <ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true />
+                    <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {

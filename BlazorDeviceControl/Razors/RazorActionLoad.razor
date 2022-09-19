@@ -1,0 +1,41 @@
+﻿@inherits BlazorCore.Razors.RazorComponentBase
+@page "/action/load"
+@using BlazorCore
+@using DataCore.Localizations
+@using DataCore.Models
+@using MudBlazor
+@using Radzen
+@using Radzen.Blazor
+
+<MudPaper Width="100%" Height="32px; " Square=false Color=Color.Transparent>
+    <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
+        @switch (ActionLoad)
+        {
+            case ActionLoadEnum.Loading:
+                <RadzenLabel 
+                    Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
+                    Text=@LocaleCore.Strings.DataLoading
+                />
+                break;
+            case ActionLoadEnum.Success:
+                <RadzenLabel 
+                    Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
+                    Text=@LocaleCore.Strings.DataLoadComplete 
+                />
+                break;
+            case ActionLoadEnum.Error:
+                <RadzenLabel 
+                    Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
+                    Text=@LocaleCore.Strings.DataLoadError
+                />
+                break;
+        }
+        @if (IsShowProgress)
+        {
+            <RadzenProgressBar 
+                Style="margin-top: 3px; margin-left: 2%; align-content: center; width: 70%; height: 22px; "
+                Value=100 ShowValue=false Mode=ProgressBarMode.Indeterminate
+            />
+        }
+    </div>
+</MudPaper>

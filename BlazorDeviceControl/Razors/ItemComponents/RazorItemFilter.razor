@@ -1,0 +1,15 @@
+﻿@typeparam TItem
+@inherits RazorComponentItemBase<TItem>
+@page "/item/filter"
+@using BlazorCore.Razors
+@using BlazorCore.Utils
+
+<MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+    Class=@BlazorCoreUtuls.GetCssName.MudSelect 
+    Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px; "
+    @bind-Value=@SqlItemCast >
+	@foreach (TItem sqlItem in SqlItemsCast)
+	{
+		<MudSelectItem T=@TItem Value=@sqlItem>@sqlItem.Description</MudSelectItem>
+	}
+</MudSelect>

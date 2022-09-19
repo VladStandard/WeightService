@@ -13,7 +13,7 @@ public class FileDownload : IFileDownload
 
     public async Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, TemplateResourceModel? item)
     {
-        if (item == null || item.ImageData == null || item.ImageData.Value.Length == 0)
+        if (item == null || item.ImageData.Value.Length == 0)
             return;
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 

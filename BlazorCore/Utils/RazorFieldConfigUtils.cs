@@ -3,7 +3,6 @@
 
 using BlazorCore.Razors;
 using DataCore.Localizations;
-using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
 using Radzen;
 

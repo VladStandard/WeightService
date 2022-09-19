@@ -1,5 +1,5 @@
-﻿@using BlazorDeviceControl.Razors.SystemComponents
-@inherits BlazorCore.Razors.RazorPageBase
+﻿@inherits BlazorCore.Razors.RazorComponentBase
+@using BlazorDeviceControl.Razors.SystemComponents
 
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -28,10 +28,10 @@
                         <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                             Text=@AppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
                             Click=@(_ => MemoryClear()) />
-		                @if (UserSettings.AccessRightsIsRead == true)
+                        @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
 		                {
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                Text=@($"{UserSettings.UserName} [{AppSettings.DataAccess.GetAccessRightsDescription(AccessRightsEnum.None)}]")
+                                Text=@($"{UserSettings.UserName} [{AppSettings.DataAccess.GetAccessRightsDescription(UserSettings.AccessRights)}]")
                                 Path=@LocaleCore.DeviceControl.RouteSectionAccess
                                 Click=@(_ => OnChange()) />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "
@@ -42,7 +42,7 @@
                                 Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
 						}
                         </RadzenMenuItem>
-                        @if (UserSettings.AccessRightsIsRead == true)
+                        @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
                         {
 							<RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuReports>
 		                        <RadzenMenuItem Icon="info" Style="background-color: transparent; "

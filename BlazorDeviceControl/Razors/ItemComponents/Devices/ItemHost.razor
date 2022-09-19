@@ -1,46 +1,44 @@
-﻿@inherits RazorPageItemBase<HostModel>
+﻿@inherits RazorComponentItemBase<HostModel>
 @page "/item/host"
 @page "/item/host/{IdentityId:long}"
 @page "/item/host/{IdentityId:long}/{TableAction}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
 
 @if (!IsActionsParametersSetFinished)
 {
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
+    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
 }
 else
 {
-    <ItemReload TItem=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
+    <RazorItemReload TItem=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
 
 	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead TItem=HostModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+		<RazorItemTableHead TItem=HostModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 		<tbody>
-			<ItemTableBody TItem=HostModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+			<RazorItemTableBody TItem=HostModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 			<tr>
 				<td>@LocaleCore.Table.NamePretty</td>
 				<td>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Name/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
 				</td>
 				<td>@LocaleCore.Table.Host</td>
 				<td>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.HostName/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.HostName/>
 				</td>
 			</tr>
 			<tr>
 				<td>@LocaleCore.Table.DeviceIp</td>
 				<td>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.Ip/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Ip/>
 				</td>
 				<td>@LocaleCore.Table.DeviceMac</td>
 				<td>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@ItemCast.MacAddress.Value/>
+					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.MacAddress.Value/>
 				</td>
 			</tr>
 		</tbody>
 	</MudSimpleTable>
     
-    <ItemSave TItem=HostModel ParentRazor=@(this) />
-	<ItemDates TItem=HostModel ParentRazor=@(this) />
+    <RazorItemActions TItem=HostModel ParentRazor=@(this) />
+	<RazorItemDates TItem=HostModel ParentRazor=@(this) />
 }

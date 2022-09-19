@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ExampleComponents;
 
-public partial class ExampleRadzen : RazorPageBase
+public partial class ExampleRadzen : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -17,8 +17,6 @@ public partial class ExampleRadzen : RazorPageBase
 
 	protected override void OnInitialized()
 	{
-		base.OnInitialized();
-
 		RunActionsInitialized(new()
 		{
 			() =>

@@ -1,9 +1,8 @@
-﻿@inherits RazorPageBase
+﻿@inherits RazorComponentBase
 @page "/system/identity"
 @page "/system/identity/{IsShowReloadStr}"
 @using BlazorCore.Razors
-@using BlazorDeviceControl.Razors.ItemComponents.Components
-@using BlazorDeviceControl.Razors.ShareComponents
+@using BlazorDeviceControl.Razors.ItemComponents
 
 <AuthorizeView>
 	<Authorizing>
@@ -19,44 +18,44 @@
 
 @if (IsShowReload)
 {
-	<ItemReload TItem=SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.UserInfo />
+	<RazorItemReload TItem=SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.UserInfo />
 	
 	<div>
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; "
-			Text=@(UserSettings.UserDescription) />
+			Text=@(UserSettings?.UserDescription) />
 		<br />
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; " 
-		    Text=@(UserSettings.IdDescription) />
+		    Text=@(IdDescription) />
 		<br />
 		<RadzenLabel Style="margin-left: 0; margin-top: 2%; "
-			Text=@(UserSettings.IpAddressDescription) />
+			Text=@(IpAddressDescription) />
 		<br />
 	</div>
 
 	<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.Strings.UserSettings</MudElement>
 	<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-		<ItemTableHead TItem=SqlTableBase ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 25, 25 }) />
+		<RazorItemTableHead TItem=SqlTableBase ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25 }) />
 		<tbody>
 		<tr>
 			<td>@LocaleCore.Strings.AuthorizingUserName</td>
-			@if (string.IsNullOrEmpty(UserSettings.UserName))
+			@if (string.IsNullOrEmpty(UserSettings?.UserName))
 			{
-				<td><ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true /></td>
+				<td><RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true /></td>
 			}
 			else
 			{
-				<td><MudElement Class="ma-0">@UserSettings.UserName</MudElement></td>
+				<td><MudElement Class="ma-0">@UserSettings?.UserName</MudElement></td>
 			}
 		</tr>
 		<tr>
 			<td>@LocaleCore.Strings.AccessRights</td>
-			<td><MudElement Class="ma-0">@AppSettings.DataAccess.GetAccessRightsDescription(UserSettings.AccessRights)</MudElement></td>
+			<td><MudElement Class="ma-0">@AppSettings.DataAccess.GetAccessRightsDescription(UserSettings?.AccessRights)</MudElement></td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Strings.Language</td>
 			@if (TemplateLanguages is null)
 			{
-				<td><ActionsLoad DataLoadItem=ActionLoadEnum.None IsShowProgress=true /></td>
+				<td><RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true /></td>
 			}
 			else
 			{
