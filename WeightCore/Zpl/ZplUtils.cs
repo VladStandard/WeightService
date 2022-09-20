@@ -106,7 +106,7 @@ public static class ZplUtils
 
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
 				{ new($"{nameof(TemplateResourceModel.Type)}", SqlFieldComparerEnum.Equal, "ZPL") },
-			new(SqlFieldEnum.Name), 0, false, false);
+			new(nameof(TemplateResourceModel.Name)), 0, false, false);
 		TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetItems<TemplateResourceModel>(sqlCrudConfig);
 		if (templateReources != null)
 		{
@@ -116,7 +116,6 @@ public static class ZplUtils
 				result = result.Replace($"[{resource.Name}]", resourceHex);
 			}
 		}
-
 		//result = PrintCmdReplaceArea(result);
 		return result;
 	}

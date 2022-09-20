@@ -18,15 +18,15 @@ public class ChartBase
 
 	public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);
 
-	public ChartCountModel[] GetContragentsChartEntities(SqlFieldEnum field)
+	public ChartCountModel[] GetContragentsChartEntities(string field)
 	{
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.CreateDt), 0, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(SqlTableBase.CreateDt)), 0, false, false);
 		ContragentModel[]? contragents = AppSettings.DataAccess.GetItems<ContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{
-			case SqlFieldEnum.CreateDt:
+			case nameof(SqlTableBase.CreateDt):
 				List<ChartCountModel> entitiesDateCreated = new();
 				if (contragents?.Any() == true)
 				{
@@ -45,7 +45,7 @@ public class ChartBase
 					i++;
 				}
 				break;
-			case SqlFieldEnum.ChangeDt:
+			case nameof(SqlTableBase.ChangeDt):
 				List<ChartCountModel> entitiesDateModified = new();
 				if (contragents?.Any() == true)
 				{
@@ -68,15 +68,15 @@ public class ChartBase
 		return result;
 	}
 
-	public ChartCountModel[] GetNomenclaturesChartEntities(SqlFieldEnum field)
+	public ChartCountModel[] GetNomenclaturesChartEntities(string field)
 	{
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.CreateDt), 0, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(SqlTableBase.CreateDt)), 0, false, false);
 		NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{
-			case SqlFieldEnum.CreateDt:
+			case nameof(SqlTableBase.CreateDt):
 				List<ChartCountModel> entitiesDateCreated = new();
 				if (nomenclatures?.Any() == true)
 				{
@@ -96,16 +96,17 @@ public class ChartBase
 					i++;
 				}
 				break;
-			case SqlFieldEnum.ChangeDt:
+			case nameof(SqlTableBase.ChangeDt):
 				List<ChartCountModel> entitiesDateModified = new();
-				foreach (NomenclatureModel item in nomenclatures)
-				{
-					if (item.ChangeDt != default)
-						entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
-					i++;
-				}
+                if (nomenclatures != null)
+                    foreach (NomenclatureModel item in nomenclatures)
+                    {
+                        if (item.ChangeDt != default)
+                            entitiesDateModified.Add(new(item.ChangeDt.Date, 1));
+                        i++;
+                    }
 
-				IGrouping<DateTime, ChartCountModel>[] entitiesModied = entitiesDateModified.GroupBy(item => item.Date).ToArray();
+                IGrouping<DateTime, ChartCountModel>[] entitiesModied = entitiesDateModified.GroupBy(item => item.Date).ToArray();
 				result = new ChartCountModel[entitiesModied.Length];
 				i = 0;
 				foreach (IGrouping<DateTime, ChartCountModel> item in entitiesModied)

@@ -19,6 +19,7 @@ using System.Xml.Serialization;
 using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Managers;
+using DataCore.Sql.Tables;
 
 namespace WeightCore.Helpers;
 
@@ -317,8 +318,10 @@ public class UserSessionHelper : BaseViewModel
             //template = PluScale?.LoadTemplate();
             if (PluScale != null)
             {
-	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() 
-		            { new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id) }, null, 0, false,false);
+	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
+                {
+                    new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id)
+                }, null, 0, false,false);
                 template = DataAccess.GetItem<TemplateModel>(sqlCrudConfig);
             }
         }

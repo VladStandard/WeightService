@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.TableDirectModels;
+using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
 
@@ -29,8 +30,11 @@ public static partial class SqlUtils
 	public static HostModel? GetHost(string hostName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-			{ new(SqlFieldEnum.HostName, SqlFieldComparerEnum.Equal, hostName), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
-			new(SqlFieldEnum.CreateDt, SqlFieldOrderDirectionEnum.Desc), 0);
+            {
+                new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 
+                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+            },
+			new(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
 		return DataAccess.GetItem<HostModel>(sqlCrudConfig);
 	}
 

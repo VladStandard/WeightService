@@ -3,6 +3,7 @@
 
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
 
@@ -16,7 +17,10 @@ public static class DataAccessHelperExt
 		if (!string.IsNullOrEmpty(appName) && appName is not null)
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-				{ new(SqlFieldEnum.Name, SqlFieldComparerEnum.Equal, appName), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+				{ 
+                    new(nameof(AppModel.Name), SqlFieldComparerEnum.Equal, appName), 
+                    new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+                },
 				null, 0, false, false);
 			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
 			if (app is null || app.EqualsDefault())
@@ -40,7 +44,10 @@ public static class DataAccessHelperExt
 		if (!string.IsNullOrEmpty(appName) && appName is not null)
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-				{ new(SqlFieldEnum.Name, SqlFieldComparerEnum.Equal, appName), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+                {
+                    new(nameof(AppModel.Name), SqlFieldComparerEnum.Equal, appName), 
+                    new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+                },
 				null, 0, false, false);
 			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
 		}
@@ -53,7 +60,10 @@ public static class DataAccessHelperExt
 		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-				{ new(SqlFieldEnum.HostName, SqlFieldComparerEnum.Equal, hostName), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+                {
+                    new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 
+                    new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+                },
 				null, 0, false, false);
 			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 			if (host is null || host.EqualsDefault())
@@ -85,7 +95,10 @@ public static class DataAccessHelperExt
 		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-				{ new(SqlFieldEnum.HostName, SqlFieldComparerEnum.Equal, hostName), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+                {
+                    new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 
+                    new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+                },
 				null, 0, false, false);
 			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 			if (host is not null && !host.EqualsDefault())
@@ -99,32 +112,32 @@ public static class DataAccessHelperExt
 
 	public static List<AccessModel> GetListAcesses(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.User), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(AccessModel.User)), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<AccessModel>(sqlCrudConfig);
 	}
 
 	public static List<BarCodeModel> GetListBarCodes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Value), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(BarCodeModel.Value)), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<BarCodeModel>(sqlCrudConfig);
 	}
 
 	public static List<BarCodeTypeModel> GetListBarCodeTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(BarCodeTypeModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<BarCodeTypeModel>(sqlCrudConfig);
 	}
 
 	public static List<ContragentModel> GetListContragents(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(ContragentModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<ContragentModel>(sqlCrudConfig);
 
 	}
 
 	public static List<HostModel> GetListHosts(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(HostModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		List<HostModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Name = LocaleCore.Table.FieldNull });
@@ -186,7 +199,7 @@ public static class DataAccessHelperExt
 
 	public static List<NomenclatureModel> GetListNomenclatures(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(NomenclatureModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		List<NomenclatureModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Name = LocaleCore.Table.FieldNull });
@@ -196,7 +209,7 @@ public static class DataAccessHelperExt
 
 	public static List<PluModel> GetListPlus(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(PluModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		List<PluModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Name = LocaleCore.Table.FieldNull });
@@ -210,33 +223,41 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-	//public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
-	//{
-	//	long? scaleId = null;
-	//	if (itemFilter is ScaleModel scale)
-	//		scaleId = scale.Identity.Id;
-	//	List<SqlFieldFilterModel>? filters = null;
-	//	if (scaleId is not null)
-	//		filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{SqlFieldEnum.IdentityValueId}", SqlFieldComparerEnum.Equal, scaleId) };
-	//	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.GoodsName), 0, isShowMarked, isShowOnlyTop);
-	//	return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
-	//}
+    //public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
+    //{
+    //	long? scaleId = null;
+    //	if (itemFilter is ScaleModel scale)
+    //		scaleId = scale.Identity.Id;
+    //	List<SqlFieldFilterModel>? filters = null;
+    //	if (scaleId is not null)
+    //		filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId) };
+    //	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.GoodsName), 0, isShowMarked, isShowOnlyTop);
+    //	return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
+    //}
 
-	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
+    public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
 	{
 		long? scaleId = null;
 		if (itemFilter is ScaleModel scale)
 			scaleId = scale.Identity.Id;
 		List<SqlFieldFilterModel>? filters = null;
 		if (scaleId is not null)
-			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{SqlFieldEnum.IdentityValueId}", SqlFieldComparerEnum.Equal, scaleId) };
+			filters = new()
+            {
+                new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId)
+            };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
 	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, long scaleId)
 	{
-		List<SqlFieldFilterModel> filters = new() { new($"{nameof(PluScaleModel.Scale)}.{SqlFieldEnum.IdentityValueId}", SqlFieldComparerEnum.Equal, scaleId) };
+		List<SqlFieldFilterModel> filters = new()
+        {
+            new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId),
+            new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked),
+            new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true),
+        };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, null, 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
@@ -249,14 +270,14 @@ public static class DataAccessHelperExt
 			printerId = printer.Identity.Id;
 		List<SqlFieldFilterModel>? filters = null;
 		if (printerId is not null)
-			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{SqlFieldEnum.IdentityValueId}", SqlFieldComparerEnum.Equal, printerId) };
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.Description), 0, isShowMarked, isShowOnlyTop);
+			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, printerId) };
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(nameof(SqlTableBase.Description)), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PrinterResourceModel>(sqlCrudConfig);
 	}
 
 	public static List<PrinterModel> GetListPrinters(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(PrinterModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		List<PrinterModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Name = LocaleCore.Table.FieldNull });
@@ -266,13 +287,13 @@ public static class DataAccessHelperExt
 
 	public static List<PrinterTypeModel> GetListPrinterTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(PrinterTypeModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PrinterTypeModel>(sqlCrudConfig);
 	}
 
 	public static List<ProductionFacilityModel> GetListProductionFacilities(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(ProductionFacilityModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		List<ProductionFacilityModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Name = LocaleCore.Table.FieldNull });
@@ -284,7 +305,7 @@ public static class DataAccessHelperExt
 
 	public static List<ScaleModel> GetListScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(SqlTableBase.Description)), 0, isShowMarked, isShowOnlyTop);
 		List<ScaleModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Description = LocaleCore.Table.FieldNull });
@@ -294,7 +315,7 @@ public static class DataAccessHelperExt
 
 	public static List<TemplateResourceModel> GetListTemplateResources(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Type), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(TemplateResourceModel.Type)), 0, isShowMarked, isShowOnlyTop);
 		List<TemplateResourceModel> result = dataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Name).ToList();
 		result = result.OrderBy(x => x.Type).ToList();
@@ -309,7 +330,7 @@ public static class DataAccessHelperExt
 		//string? templateCategory = templateCategories?.FirstOrDefault()?.Value;
 		//if (!string.IsNullOrEmpty(templateCategory))
 		//	filters = new() { new(DbField.CategoryId, DbComparer.Equal, templateCategory) };
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.Title), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(nameof(TemplateModel.Title)), 0, isShowMarked, isShowOnlyTop);
 		List<TemplateModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);
@@ -320,14 +341,14 @@ public static class DataAccessHelperExt
 	public static List<VersionModel> GetListVersions(this DataAccessHelper dataAccess)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			null, new(SqlFieldEnum.Version, SqlFieldOrderDirectionEnum.Desc), 0, true, false);
+			null, new(nameof(VersionModel.Version), SqlFieldOrderEnum.Desc), 0, true, false);
 		return dataAccess.GetList<VersionModel>(sqlCrudConfig);
 	}
 
 	public static List<WorkShopModel> GetListWorkShops(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		WorkShopModel item = new() { Name = LocaleCore.Table.FieldNull };
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(WorkShopModel.Name)), 0, isShowMarked, isShowOnlyTop);
 		List<WorkShopModel> result = new();
 		if (isAddFieldNull)
 			result.Add(item);

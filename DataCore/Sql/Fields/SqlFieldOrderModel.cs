@@ -14,19 +14,19 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     /// <summary>
     /// Name order.
     /// </summary>
-    public SqlFieldEnum Name { get; private set; }
+    public string Name { get; private set; }
     /// <summary>
     /// Direction order.
     /// </summary>
-    public SqlFieldOrderDirectionEnum Direction { get; private set; }
+    public SqlFieldOrderEnum Direction { get; private set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public SqlFieldOrderModel()
     {
-	    Name = SqlFieldEnum.Empty;
-	    Direction = SqlFieldOrderDirectionEnum.Asc;
+	    Name = string.Empty;
+	    Direction = SqlFieldOrderEnum.Asc;
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 	/// </summary>
 	/// <param name="name"></param>
 	/// <param name="direction"></param>
-	public SqlFieldOrderModel(SqlFieldEnum name, SqlFieldOrderDirectionEnum direction = SqlFieldOrderDirectionEnum.Asc)
+	public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction = SqlFieldOrderEnum.Asc)
     {
         Name = name;
         Direction = direction;
@@ -47,8 +47,8 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     /// <param name="context"></param>
     protected SqlFieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
     {
-        Name = (SqlFieldEnum)info.GetValue(nameof(Name), typeof(SqlFieldEnum));
-        Direction = (SqlFieldOrderDirectionEnum)info.GetValue(nameof(Direction), typeof(SqlFieldOrderDirectionEnum));
+        Name = info.GetString(nameof(Name));
+        Direction = (SqlFieldOrderEnum)info.GetValue(nameof(Direction), typeof(SqlFieldOrderEnum));
     }
 
 	#endregion
@@ -84,8 +84,8 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     }
 
 	public virtual bool EqualsDefault() =>
-		Equals(Name, SqlFieldIdentityEnum.Empty) &&
-		Equals(Direction, SqlFieldOrderDirectionEnum.Asc);
+		Equals(Name, string.Empty) &&
+		Equals(Direction, SqlFieldOrderEnum.Asc);
 
 	public virtual object Clone() => new SqlFieldOrderModel(Name, Direction);
 

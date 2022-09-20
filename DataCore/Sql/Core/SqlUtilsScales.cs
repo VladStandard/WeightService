@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.Core;
 
 public static partial class SqlUtils
@@ -35,15 +37,21 @@ public static partial class SqlUtils
 	public static ScaleModel? GetScaleFromHost(long hostId)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new($"Host.Identity.Id", SqlFieldComparerEnum.Equal, hostId), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
-			new(SqlFieldEnum.CreateDt, SqlFieldOrderDirectionEnum.Desc), 0);
+			{ 
+                new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, hostId), 
+                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+            },
+			new(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(long id)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, id), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+            {
+                new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
+                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+            },
 			null, 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
@@ -51,7 +59,10 @@ public static partial class SqlUtils
 	public static ScaleModel? GetScale(string description)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(SqlFieldEnum.Description, SqlFieldComparerEnum.Equal, description), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+            {
+                new(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, description), 
+                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+            },
 			null, 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
@@ -59,7 +70,10 @@ public static partial class SqlUtils
 	public static ProductionFacilityModel? GetArea(string name)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new()
-				{ new(SqlFieldEnum.Name, SqlFieldComparerEnum.Equal, name), new(SqlFieldEnum.IsMarked, SqlFieldComparerEnum.Equal, false) },
+            {
+                new(nameof(ProductionFacilityModel.Name), SqlFieldComparerEnum.Equal, name), 
+                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+            },
 			null, 0);
 		return DataAccess.GetItem<ProductionFacilityModel>(sqlCrudConfig);
 	}

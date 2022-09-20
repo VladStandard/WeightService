@@ -27,12 +27,12 @@ public class SqlFieldFilterModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="field"></param>
+    /// <param name="name"></param>
     /// <param name="comparer"></param>
     /// <param name="value"></param>
-    public SqlFieldFilterModel(SqlFieldEnum field, SqlFieldComparerEnum comparer, object? value)
+    public SqlFieldFilterModel(string name, SqlFieldComparerEnum comparer, object? value)
     {
-        Name = field.ToString();
+        Name = name;
         Comparer = comparer;
         Value = value;
     }
@@ -40,11 +40,11 @@ public class SqlFieldFilterModel
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="field"></param>
+    /// <param name="name"></param>
     /// <param name="value"></param>
-    public SqlFieldFilterModel(SqlFieldEnum field, object? value)
+    public SqlFieldFilterModel(string name, object? value)
     {
-        Name = field.ToString();
+        Name = name;
         Comparer = SqlFieldComparerEnum.Equal;
         Value = value;
     }

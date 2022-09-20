@@ -15,7 +15,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual PluScaleModel PluScale { get; set; }
-    [XmlElement] public virtual ProductSeriesModel Series { get; set; }
+    [XmlElement(IsNullable = true)] public virtual ProductSeriesModel? Series { get; set; }
     [XmlElement] public virtual short Kneading { get; set; }
     [XmlElement] public virtual string Sscc { get; set; }
     [XmlElement] public virtual decimal NettoWeight { get; set; }
@@ -29,7 +29,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     public PluWeighingModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 	    PluScale = new();
-	    Series = new();
+	    Series = null;
 	    Kneading = 0;
 	    Sscc = string.Empty;
 	    NettoWeight = 0;
@@ -46,7 +46,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	protected PluWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
-        Series = (ProductSeriesModel)info.GetValue(nameof(Series), typeof(ProductSeriesModel));
+        Series = (ProductSeriesModel?)info.GetValue(nameof(Series), typeof(ProductSeriesModel));
         Kneading = info.GetInt16(nameof(Kneading));
 		Sscc = info.GetString(nameof(Sscc));
         NettoWeight = info.GetDecimal(nameof(NettoWeight));
@@ -81,7 +81,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     {
         if (!PluScale.EqualsDefault())
             return false;
-        if (!Series.EqualsDefault())
+        if (Series != null && !Series.EqualsDefault())
             return false;
         return
             base.EqualsDefault() &&
@@ -96,8 +96,9 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	public override object Clone()
     {
         PluWeighingModel item = new();
-        item.Kneading = Kneading;
         item.PluScale = PluScale.CloneCast();
+        item.Series = Series?.CloneCast();
+        item.Kneading = Kneading;
         item.Sscc = Sscc;
         item.NettoWeight = NettoWeight;
         item.TareWeight = TareWeight;
@@ -119,17 +120,24 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         info.AddValue(nameof(ProductDt), ProductDt);
         info.AddValue(nameof(RegNum), RegNum);
     }
+    public override void ClearNullProperties()
+    {
+        if (Series is not null && Series.Identity.EqualsDefault())
+            Series = null;
+    }
 
-	#endregion
+    #endregion
 
-	#region Public and private methods - virtual
+    #region Public and private methods - virtual
 
-	public virtual bool Equals(PluWeighingModel item)
+    public virtual bool Equals(PluWeighingModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		if (!PluScale.Equals(item.PluScale))
 			return false;
-		return
+        if (Series != null && item.Series != null && !Series.Equals(item.Series))
+            return false;
+        return
 			base.Equals(item) &&
 			Equals(Kneading, item.Kneading) &&
 			Equals(PluScale, item.PluScale) &&

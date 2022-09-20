@@ -33,7 +33,7 @@ public class LocaleScale
     public string ButtonScalesInit => Lang == LangEnum.English ? "Initialize scales" : "Инициализировать весы";
     public string ButtonScalesInitShort => ">0<";
     public string ButtonSelectOrder => Lang == LangEnum.English ? "Order" : "Заказ";
-    public string ButtonSelectPlu(ushort count) => Lang == LangEnum.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
+    public string ButtonSelectPlu(int count) => Lang == LangEnum.English ? $"PLU{Environment.NewLine}({count} pieces)" : $"ПЛУ{Environment.NewLine}({count} шт.)";
     public string ButtonSetKneading => Lang == LangEnum.English ? "More" : "Ещё";
     public string ButtonSettings => Lang == LangEnum.English ? "Settings" : "Настройки";
     public string CheckPluWeightCount => Lang == LangEnum.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";

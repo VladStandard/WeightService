@@ -51,7 +51,7 @@ public static class SqlExtensions
 	{
 		if (order is not null)
 		{
-			Order fieldOrder = order.Direction == SqlFieldOrderDirectionEnum.Asc
+			Order fieldOrder = order.Direction == SqlFieldOrderEnum.Asc
 				? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
 			criteria.AddOrder(fieldOrder);
 		}

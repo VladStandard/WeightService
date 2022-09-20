@@ -46,21 +46,21 @@
 
 //	            // Templates.
 //                Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };
-//                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Title), 0, false, false);
+//                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(TemplateModel.Title)), 0, false, false);
 //				TemplateModel[]? templates = AppSettings.DataAccess.GetItems<TemplateModel>(sqlCrudConfig);
 //                if (templates is not null)
 //                    Templates.AddRange(templates);
 
 //	            // Nomenclatures.
 //                Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
-//                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Name), 0, false, false);
+//                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(NomenclatureModel.Name)), 0, false, false);
 //				NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
 //                if (nomenclatures is not null)
 //                    Nomenclatures.AddRange(nomenclatures);
 
 //	            // ScaleItems.
 //                Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
-//                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(SqlFieldEnum.Description), 0, false, false);
+//                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(SqlTableBase.Description)), 0, false, false);
 //				ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
 //                if (scales is not null)
 //                    Scales.AddRange(scales);

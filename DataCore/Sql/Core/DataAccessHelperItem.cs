@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
 using NHibernate;
 
 namespace DataCore.Sql.Core;
@@ -57,8 +58,9 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T? GetItemById<T>(this DataAccessHelper dataAccess, long? id) where T : Tables.SqlTableBase, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.IdentityValueId, SqlFieldComparerEnum.Equal, id) },
-			new(SqlFieldEnum.IdentityValueId, SqlFieldOrderDirectionEnum.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new()
+            { new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id) },
+			new(nameof(SqlTableBase.IdentityValueId), SqlFieldOrderEnum.Desc), 0);
 		return GetItem<T>(dataAccess, sqlCrudConfig);
 	}
 
@@ -71,8 +73,9 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T? GetItemByUid<T>(this DataAccessHelper dataAccess, Guid? uid) where T : Tables.SqlTableBase, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(SqlFieldEnum.IdentityValueUid, SqlFieldComparerEnum.Equal, uid) },
-			new(SqlFieldEnum.IdentityValueUid, SqlFieldOrderDirectionEnum.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new() 
+            { new(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid) },
+			new(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc), 0);
 		return GetItem<T>(dataAccess, sqlCrudConfig);
 	}
 

@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using DataCore.Sql.TableScaleModels;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
@@ -601,8 +602,11 @@ public partial class MainForm : Form
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(
-                SqlUtils.GetPluCount(UserSession.SqlViewModel.Scale.Identity.Id)));
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(
+            //    SqlUtils.GetPluCount(UserSession.SqlViewModel.Scale.Identity.Id)));
+            List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(false, false,
+                UserSession.SqlViewModel.Scale.Identity.Id);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
             SetComboBoxItems(fieldResolution, FieldResolution_SelectedIndexChanged, LocaleCore.Scales.ListResolutions,
