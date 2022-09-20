@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.Fields;
 using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
@@ -49,28 +50,28 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 
 	            // Templates.
 	            Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(), 0, false, false);
+                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, false, false);
                 TemplateModel[]? templates = AppSettings.DataAccess.GetItems<TemplateModel>(sqlCrudConfig);
                 if (templates is not null)
                     Templates.AddRange(templates);
 
 	            // Nomenclatures.
 	            Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(NomenclatureModel.Name)), 0, false, false);
+                sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldOrderModel(nameof(NomenclatureModel.Name)), 0, false, false);
                 NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
                 if (nomenclatures is not null)
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // Scales.
 	            Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(ScaleModel.Description)), 0, false, false);
+                sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldOrderModel(nameof(ScaleModel.Description)), 0, false, false);
                 ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
                 if (scales is not null)
                     Scales.AddRange(scales);
 
 	            // Plus.
 	            Plus = new() { new() { Description = LocaleCore.Table.FieldNull } };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(null, new(nameof(PluModel.Name)), 0, false, false);
+                sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldOrderModel(nameof(PluModel.Name)), 0, false, false);
                 PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
                 if (plus is not null)
                     Plus.AddRange(plus);

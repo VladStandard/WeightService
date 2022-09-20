@@ -90,11 +90,11 @@ public class ManagerMemory : ManagerBase
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
 				$"{LocaleCore.Scales.Memory} | " +
 				$"{LocaleCore.Scales.MemoryFree}: " +
-				(MemorySize.PhysicalFree != null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : $"- MB") +
+				(MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : $"- MB") +
 				$" | {LocaleCore.Scales.MemoryBusy}: " + 
-				(MemorySize.PhysicalCurrent != null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : $"- MB") +
+				(MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : $"- MB") +
 				$" | {LocaleCore.Scales.MemoryAll}: " +
-				(MemorySize.PhysicalTotal != null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : $"- MB")
+				(MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : $"- MB")
 			);
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTasks, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
 		}
@@ -110,7 +110,7 @@ public class ManagerMemory : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMemory, false);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, false);
 
-		if (MemorySize != null)
+		if (MemorySize is not null)
 		{
 			MemorySize.Close();
 			MemorySize.Dispose(false);

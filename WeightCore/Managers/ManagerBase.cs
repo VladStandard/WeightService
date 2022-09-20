@@ -90,7 +90,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//    {
 	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 	//        MutexReopen = new AsyncLock();
-	//        while (MutexReopen != null && CtsReopen != null)
+	//        while (MutexReopen is not null && CtsReopen is not null)
 	//        {
 	//            try
 	//            {
@@ -130,7 +130,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//    {
 	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 	//        MutexReopen = new AsyncLock();
-	//        while (MutexReopen != null && CtsReopen != null)
+	//        while (MutexReopen is not null && CtsReopen is not null)
 	//        {
 	//            try
 	//            {
@@ -186,7 +186,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 						if (CtsReopen == null || CtsReopen.IsCancellationRequested)
 							continue;
 						// It's safe to await while the lock is held
-						if (callback != null)
+						if (callback is not null)
 							callback.Invoke();
 					}
 				}
@@ -220,7 +220,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//    {
 	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 	//        MutexRequest = new AsyncLock();
-	//        while (MutexRequest != null && CtsRequest != null)
+	//        while (MutexRequest is not null && CtsRequest is not null)
 	//        {
 	//            try
 	//            {
@@ -260,7 +260,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//    {
 	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 	//        MutexRequest = new AsyncLock();
-	//        while (MutexRequest != null && CtsRequest != null)
+	//        while (MutexRequest is not null && CtsRequest is not null)
 	//        {
 	//            try
 	//            {
@@ -316,7 +316,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 						if (CtsRequest == null || CtsRequest.IsCancellationRequested)
 							continue;
 						// It's safe to await while the lock is held
-						if (callback != null)
+						if (callback is not null)
 							callback.Invoke();
 					}
 				}
@@ -350,7 +350,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//    {
 	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 	//        MutexResponse = new AsyncLock();
-	//        while (MutexResponse != null && CtsResponse != null)
+	//        while (MutexResponse is not null && CtsResponse is not null)
 	//        {
 	//            try
 	//            {
@@ -390,7 +390,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//    {
 	//        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 	//        MutexResponse = new AsyncLock();
-	//        while (MutexResponse != null && CtsResponse != null)
+	//        while (MutexResponse is not null && CtsResponse is not null)
 	//        {
 	//            try
 	//            {
@@ -446,7 +446,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 						if (CtsResponse == null || CtsResponse.IsCancellationRequested)
 							continue;
 						// It's safe to await while the lock is held
-						if (callback != null)
+						if (callback is not null)
 							callback.Invoke();
 					}
 				}
@@ -499,7 +499,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 		CtsResponse?.Cancel();
 		CtsResponse?.Dispose();
 
-		if (TaskReopen != null)
+		if (TaskReopen is not null)
 		{
 			TaskReopen.Wait(ManagerWaitConfig.WaitLowLimit);
 			if (TaskReopen.IsCompleted)
@@ -507,7 +507,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 			TaskReopen = null;
 		}
 
-		if (TaskRequest != null)
+		if (TaskRequest is not null)
 		{
 			TaskRequest.Wait(ManagerWaitConfig.WaitLowLimit);
 			if (TaskRequest.IsCompleted)
@@ -515,7 +515,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 			TaskRequest = null;
 		}
 
-		if (TaskResponse != null)
+		if (TaskResponse is not null)
 		{
 			TaskResponse.Wait(ManagerWaitConfig.WaitLowLimit);
 			if (TaskResponse.IsCompleted)

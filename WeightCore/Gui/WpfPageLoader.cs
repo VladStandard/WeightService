@@ -69,7 +69,7 @@ public partial class WpfPageLoader : Form
             // Own GUI.
             TopMost = !UserSession.Debug.IsDebug;
 
-            if (Owner != null)
+            if (Owner is not null)
             {
                 if (UseOwnerSize)
                 {

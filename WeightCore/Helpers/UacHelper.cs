@@ -80,7 +80,7 @@ public class UacHelper
 		get
 		{
 			RegistryKey uacKey = Registry.LocalMachine.OpenSubKey(UacRegistryKey, false);
-			bool result = uacKey != null && uacKey.GetValue(UacRegistryValue).Equals(1);
+			bool result = uacKey is not null && uacKey.GetValue(UacRegistryValue).Equals(1);
 			return result;
 		}
 	}

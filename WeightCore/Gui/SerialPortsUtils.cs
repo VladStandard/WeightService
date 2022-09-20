@@ -20,7 +20,7 @@ public static class SerialPortsUtils
 
             // Текущий порт из настроек.
             string curPort = string.Empty;
-            if (scale.DeviceComPort != null)
+            if (scale.DeviceComPort is not null)
             {
                 curPort = scale.DeviceComPort;
                 if (!string.IsNullOrEmpty(curPort))

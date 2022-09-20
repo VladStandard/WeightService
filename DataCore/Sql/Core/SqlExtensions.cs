@@ -47,13 +47,15 @@ public static class SqlExtensions
 		}
 	}
 
-	public static void SetCriteriaOrder(this ICriteria criteria, SqlFieldOrderModel? order)
+	public static void SetCriteriaOrder(this ICriteria criteria, List<SqlFieldOrderModel>? orders)
 	{
-		if (order is not null)
+		if (orders is not null)
 		{
-			Order fieldOrder = order.Direction == SqlFieldOrderEnum.Asc
-				? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
-			criteria.AddOrder(fieldOrder);
+            foreach (SqlFieldOrderModel order in orders)
+            {
+			    Order fieldOrder = order.Direction == SqlFieldOrderEnum.Asc ? Order.Asc(order.Name) : Order.Desc(order.Name);
+                criteria.AddOrder(fieldOrder);
+            }
 		}
 	}
     

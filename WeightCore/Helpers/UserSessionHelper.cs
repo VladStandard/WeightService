@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using DataCore.Models;
+using DataCore.Sql.Fields;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using DataCore.Sql.Tables;
@@ -42,9 +43,9 @@ public class UserSessionHelper : BaseViewModel
     public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
     public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
     public ProductSeriesDirect ProductSeries { get; private set; } = new();
-    public PrintBrand PrintBrandMain => SqlViewModel.Scale.PrinterMain != null &&
+    public PrintBrand PrintBrandMain => SqlViewModel.Scale.PrinterMain is not null &&
         SqlViewModel.Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-    public PrintBrand PrintBrandShipping => SqlViewModel.Scale.PrinterShipping != null &&
+    public PrintBrand PrintBrandShipping => SqlViewModel.Scale.PrinterShipping is not null &&
         SqlViewModel.Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
     [XmlElement(IsNullable = true)] public PluWeighingModel? PluWeighing { get; private set; }
     public WeighingSettingsEntity WeighingSettings { get; private set; } = new();
@@ -127,7 +128,7 @@ public class UserSessionHelper : BaseViewModel
 
     public void SetCurrentPlu(PluScaleModel pluScale)
     {
-        if ((PluScale = pluScale) != null)
+        if ((PluScale = pluScale) is not null)
         {
             DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.Identity.Id, PluScale.Plu.Number, PluScale.Plu.Name)}",
                 SqlViewModel.Scale.Host?.HostName);
@@ -291,7 +292,7 @@ public class UserSessionHelper : BaseViewModel
             isCheck = true;
         if (!isCheck)
         {
-            if (PluWeighing != null)
+            if (PluWeighing is not null)
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
                     PluWeighing.NettoWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold,
                     PluScale == null ? 0 : PluScale.Plu.NominalWeight,
@@ -316,18 +317,16 @@ public class UserSessionHelper : BaseViewModel
         else if (SqlViewModel.Scale.IsOrder != true)
         {
             //template = PluScale?.LoadTemplate();
-            if (PluScale != null)
+            if (PluScale is not null)
             {
-	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-                {
-                    new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id)
-                }, null, 0, false,false);
+	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+                    new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id), 0, false,false);
                 template = DataAccess.GetItem<TemplateModel>(sqlCrudConfig);
             }
         }
 
         // Template exist.
-        if (template != null)
+        if (template is not null)
         {
             switch (IsPluCheckWeight)
             {
@@ -375,7 +374,7 @@ public class UserSessionHelper : BaseViewModel
         //bool isCheck = false;
         //if (CurrentPlu.NominalWeight > 0)
         //{
-        //    if (Manager?.Massa != null)
+        //    if (Manager?.Massa is not null)
         //        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
         //    else
         //        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsTareWeight;
@@ -466,7 +465,7 @@ public class UserSessionHelper : BaseViewModel
 
             string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingModel>(true);
             string xmlArea = string.Empty;
-            if (SqlViewModel.Area != null)
+            if (SqlViewModel.Area is not null)
                 xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityModel>(true);
             xmlWeighingFact = Zpl.ZplUtils.XmlCompatibleReplace(xmlWeighingFact);
             string xml = Zpl.ZplUtils.MergeXml(xmlWeighingFact, xmlArea);

@@ -39,7 +39,7 @@ public class WinInfoHelper
 	{
 		get
 		{
-			if (_edition != null)
+			if (_edition is not null)
 				return _edition;
 
 			string edition = string.Empty;
@@ -265,7 +265,7 @@ public class WinInfoHelper
 	{
 		get
 		{
-			if (s_Name != null)
+			if (s_Name is not null)
 				return s_Name;  //***** RETURN *****//
 
 			string name = "unknown";

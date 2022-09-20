@@ -29,12 +29,13 @@ public static partial class SqlUtils
 
 	public static HostModel? GetHost(string hostName)
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new()
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new List<SqlFieldFilterModel>() 
             {
                 new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             },
-			new(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
+			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
 		return DataAccess.GetItem<HostModel>(sqlCrudConfig);
 	}
 

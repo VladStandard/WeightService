@@ -119,7 +119,7 @@ public class XamlHelper
 			// Получить PrintQueue с первого доступного принтера.
 			System.Printing.PrintQueue printQueue = (System.Printing.PrintQueue)localPrinterEnumerator.Current;
 			// Получить PrintTicket по умолчанию с принтера.
-			if (printQueue != null)
+			if (printQueue is not null)
 			{
 				System.Printing.PrintTicket printTicket = printQueue.DefaultPrintTicket;
 				System.Printing.PageMediaSize pageMediaSize = new(canvasPrint.Width, canvasPrint.Height);

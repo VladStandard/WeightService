@@ -36,45 +36,48 @@ public static partial class SqlUtils
 
 	public static ScaleModel? GetScaleFromHost(long hostId)
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new()
-			{ 
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new List<SqlFieldFilterModel>
+            { 
                 new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, hostId), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             },
-			new(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
+			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(long id)
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new()
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new List<SqlFieldFilterModel>()
             {
                 new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-            },
-			null, 0);
+            }, new SqlFieldOrderModel(), 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(string description)
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new()
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new List<SqlFieldFilterModel>()
             {
                 new(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, description), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             },
-			null, 0);
+			new SqlFieldOrderModel(), 0);
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ProductionFacilityModel? GetArea(string name)
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new()
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new List<SqlFieldFilterModel>()
             {
                 new(nameof(ProductionFacilityModel.Name), SqlFieldComparerEnum.Equal, name), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             },
-			null, 0);
+			new SqlFieldOrderModel(), 0);
 		return DataAccess.GetItem<ProductionFacilityModel>(sqlCrudConfig);
 	}
 

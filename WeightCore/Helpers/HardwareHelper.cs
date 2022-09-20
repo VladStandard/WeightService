@@ -83,13 +83,13 @@ public class HardwareHelper
 		string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
 		using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
 		{
-			if (key != null)
+			if (key is not null)
 				foreach (string subKeyName in key.GetSubKeyNames())
 				{
 					using RegistryKey subKey = key.OpenSubKey(subKeyName);
 					try
 					{
-						if (subKey != null) installed_program.Add(subKey.GetValue("DisplayName").ToString());
+						if (subKey is not null) installed_program.Add(subKey.GetValue("DisplayName").ToString());
 					}
 					catch (Exception)
 					{

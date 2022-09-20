@@ -58,7 +58,7 @@ public class ManagerMassa : ManagerBase
 			Init(TaskTypeEnum.MassaManager,
 				() =>
 				{
-					if (UserSessionHelper.Instance.SqlViewModel.Scale != null)
+					if (UserSessionHelper.Instance.SqlViewModel.Scale is not null)
 					{
 						MassaDevice = new(UserSessionHelper.Instance.SqlViewModel.Scale.DeviceComPort,
 							UserSessionHelper.Instance.SqlViewModel.Scale.DeviceReceiveTimeout,
@@ -199,7 +199,7 @@ public class ManagerMassa : ManagerBase
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsConnectWithMassa:
 			case MDSoft.SerialPorts.SerialPortController.EnumUsbAdapterStatus.IsDataExists:
 			default:
-				string massaDevice = MassaDevice != null
+				string massaDevice = MassaDevice is not null
 					? MassaDevice.IsOpenPort
 						? $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateResponsed} | "
 						: $"{LocaleCore.Scales.ComPort}: {LocaleCore.Scales.StateNotResponsed} | "
@@ -211,7 +211,7 @@ public class ManagerMassa : ManagerBase
 		}
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare,
-			UserSessionHelper.Instance.PluScale != null
+			UserSessionHelper.Instance.PluScale is not null
 				? $"{UserSessionHelper.Instance.PluScale.Plu.TareWeight:0.000} {LocaleCore.Scales.UnitKg}"
 				: $"0,000 {LocaleCore.Scales.UnitKg}");
 
@@ -363,7 +363,7 @@ public class ManagerMassa : ManagerBase
 			if (response == null || response.Length == 0)
 				return;
 
-			if (massaExchange != null)
+			if (massaExchange is not null)
 			{
 				massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
 				ParseSetResponse(massaExchange);

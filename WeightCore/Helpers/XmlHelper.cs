@@ -43,7 +43,7 @@ public class XmlHelper
 				throw new ArgumentNullException(elementName.ElementName);
 		}
 
-		if (value != null)
+		if (value is not null)
 		{
 			if (string.IsNullOrEmpty(value))
 				throw new ArgumentException(@"Value is not correct!");
@@ -105,7 +105,7 @@ public class XmlHelper
 					case XmlNodeType.None:
 						break;
 					case XmlNodeType.Element:
-						if (elementCur != null && xmlReader.Name.Equals(elementCur.ElementName, StringComparison.InvariantCultureIgnoreCase))
+						if (elementCur is not null && xmlReader.Name.Equals(elementCur.ElementName, StringComparison.InvariantCultureIgnoreCase))
 						{
 							if (xmlReader.HasAttributes)
 							{
@@ -151,7 +151,7 @@ public class XmlHelper
 				}
 			}
 			// Узел найден или нет атрибутов.
-			if (elementCur != null && (!string.IsNullOrEmpty(attr) && attr.Equals(elementCur.AttributeValue) ||
+			if (elementCur is not null && (!string.IsNullOrEmpty(attr) && attr.Equals(elementCur.AttributeValue) ||
 			                           !xmlReader.HasAttributes && string.IsNullOrEmpty(elementCur.AttributeName) && string.IsNullOrEmpty(elementCur.AttributeValue)))
 			{
 				str.Add($"- get: {xmlReader.Name} {elementCur.AttributeName}=\"{attr}\"");

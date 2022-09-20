@@ -85,7 +85,7 @@
 
 //        ~MkDeviceEntity()
 //        {
-//            if (_sharingSessionThread != null && _sharingSessionThread.IsAlive)
+//            if (_sharingSessionThread is not null && _sharingSessionThread.IsAlive)
 //            {
 //                _work = false;
 //                Thread.Sleep(200);

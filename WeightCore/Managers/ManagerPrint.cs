@@ -34,7 +34,7 @@ public class ManagerPrint : ManagerBase
 	public string ZebraPeelerStatus { get; private set; }
 	public TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
 	public WmiWin32PrinterEntity TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
-	public ZebraPrinter ZebraDriver { get { if (ZebraConnection != null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
+	public ZebraPrinter ZebraDriver { get { if (ZebraConnection is not null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
 	public ZebraPrinterStatus ZebraStatus { get; private set; }
 	public bool IsPrintBusy { get; set; }
 

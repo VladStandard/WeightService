@@ -120,7 +120,7 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 		{
 			case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new() { new(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, Scale) }, null, 0, false, false);
+					new SqlFieldFilterModel(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, Scale), 0, false, false);
 				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 				if (scale is not null)
 					return scale.Identity.Id;
@@ -135,7 +135,7 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 		{
 			case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new() { new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, Host) }, null, 0, false, false);
+					new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, Host), 0, false, false);
 				HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 				if (host is not null)
 					return host.Identity.Id;

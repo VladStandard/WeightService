@@ -35,12 +35,12 @@ public class RegHelper
 			string reg64 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
 			string reg32 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
 			RegistryKey keyPrograms = Registry.LocalMachine.OpenSubKey(Environment.Is64BitOperatingSystem ? reg64 : reg32);
-			if (keyPrograms != null)
+			if (keyPrograms is not null)
 			{
 				foreach (string guid in keyPrograms.GetSubKeyNames())
 				{
 					RegistryKey key = keyPrograms.OpenSubKey(guid);
-					if (key?.GetValue("DisplayName") != null)
+					if (key?.GetValue("DisplayName") is not null)
 					{
 						bool isFind = false;
 						string name = key.GetValue("DisplayName") as string;

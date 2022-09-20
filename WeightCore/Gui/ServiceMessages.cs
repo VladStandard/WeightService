@@ -141,7 +141,7 @@
 
 //            btnClose.Select();
 //            form.ControlBox = false;
-//            if (owner != null)
+//            if (owner is not null)
 //                form.ShowDialog(owner);
 //            else
 //                form.ShowDialog();

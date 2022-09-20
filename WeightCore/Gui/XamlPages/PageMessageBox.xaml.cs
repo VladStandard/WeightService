@@ -360,7 +360,7 @@ public partial class PageMessageBox : UserControl
         //FocusNavigationDirection focusNavigationDirection = FocusNavigationDirection.First;
         //TraversalRequest request = new(focusNavigationDirection);
         //UIElement element = Keyboard.FocusedElement as UIElement;
-        //if (element != null)
+        //if (element is not null)
         //{
         //    element.MoveFocus(request);
         //}

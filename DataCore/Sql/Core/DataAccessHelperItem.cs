@@ -58,9 +58,9 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T? GetItemById<T>(this DataAccessHelper dataAccess, long? id) where T : Tables.SqlTableBase, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new()
-            { new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id) },
-			new(nameof(SqlTableBase.IdentityValueId), SqlFieldOrderEnum.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id),
+			new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueId), SqlFieldOrderEnum.Desc), 0);
 		return GetItem<T>(dataAccess, sqlCrudConfig);
 	}
 
@@ -73,9 +73,9 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T? GetItemByUid<T>(this DataAccessHelper dataAccess, Guid? uid) where T : Tables.SqlTableBase, new()
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(new() 
-            { new(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid) },
-			new(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid),
+			new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc), 0);
 		return GetItem<T>(dataAccess, sqlCrudConfig);
 	}
 

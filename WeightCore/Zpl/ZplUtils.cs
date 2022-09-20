@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
+using DataCore.Sql.Fields;
 using WeightCore.Helpers;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 
@@ -104,11 +105,9 @@ public static class ZplUtils
 		if (string.IsNullOrEmpty(result))
 			return result;
 
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new()
-				{ new($"{nameof(TemplateResourceModel.Type)}", SqlFieldComparerEnum.Equal, "ZPL") },
-			new(nameof(TemplateResourceModel.Name)), 0, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(TemplateResourceModel.Type), SqlFieldComparerEnum.Equal, "ZPL"), new SqlFieldOrderModel(nameof(TemplateResourceModel.Name)), 0, false, false);
 		TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetItems<TemplateResourceModel>(sqlCrudConfig);
-		if (templateReources != null)
+		if (templateReources is not null)
 		{
 			foreach (TemplateResourceModel resource in templateReources.ToList())
 			{
@@ -130,7 +129,7 @@ public static class ZplUtils
 		string result = value;
 		if (string.IsNullOrEmpty(result))
 			return result;
-		if (UserSessionHelper.Instance.SqlViewModel.Area != null)
+		if (UserSessionHelper.Instance.SqlViewModel.Area is not null)
 		{
 			string area = UserSessionHelper.Instance.SqlViewModel.Area.Name;
 			if (string.IsNullOrEmpty(area))

@@ -17,7 +17,7 @@ public static class DataAccessHelperCrud
 		if (sqlCrudConfig.MaxResults > 0)
 			criteria.SetMaxResults(sqlCrudConfig.MaxResults);
 		criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
-		criteria.SetCriteriaOrder(sqlCrudConfig.Order);
+		criteria.SetCriteriaOrder(sqlCrudConfig.Orders);
 		return criteria;
 	}
 

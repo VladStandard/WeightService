@@ -7,28 +7,37 @@ public class SqlCrudConfigModel
 {
     #region Public and private fields, properties, constructor
 
-    public List<SqlFieldFilterModel>? Filters { get; set; }
-    public SqlFieldOrderModel? Order { get; set; }
+    public List<SqlFieldFilterModel> Filters { get; set; }
+    public List<SqlFieldOrderModel> Orders { get; set; }
     public int MaxResults { get; set; }
 
-
-	public SqlCrudConfigModel() : this(null, null, 0)
-    {
-        //
-    }
-
-    public SqlCrudConfigModel(List<SqlFieldFilterModel>? filters, SqlFieldOrderModel? order, int maxResults)
+    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders, int maxResults)
     {
 	    Filters = filters;
-        Order = order;
+        Orders = orders;
         MaxResults = maxResults;
     }
 
-    #endregion
+    public SqlCrudConfigModel(SqlFieldFilterModel filter, List<SqlFieldOrderModel> orders, int maxResults)
+    {
+	    Filters = new() { filter };
+        Orders = orders;
+        MaxResults = maxResults;
+    }
 
-    #region Public and private methods
+    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, SqlFieldOrderModel order, int maxResults)
+    {
+	    Filters = filters;
+        Orders = new() { order };
+        MaxResults = maxResults;
+    }
 
-
+    public SqlCrudConfigModel(SqlFieldFilterModel filter, SqlFieldOrderModel order, int maxResults)
+    {
+	    Filters = new() { filter };
+        Orders = new() { order };
+        MaxResults = maxResults;
+    }
 
     #endregion
 }

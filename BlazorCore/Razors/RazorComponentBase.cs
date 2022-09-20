@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
+using DataCore.Sql.Fields;
 
 namespace BlazorCore.Razors;
 
@@ -100,8 +101,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 	private void SetupUserSettings(string? userName)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new() { new(nameof(AccessModel.User), SqlFieldComparerEnum.Equal, userName) },
-		null, 0, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AccessModel.User), SqlFieldComparerEnum.Equal, userName), 0, false, false);
 		AccessModel access = DataAccessHelper.Instance.GetItemNotNull<AccessModel>(sqlCrudConfig);
 
 		UserSettings = new(userName, (AccessRightsEnum)access.Rights);

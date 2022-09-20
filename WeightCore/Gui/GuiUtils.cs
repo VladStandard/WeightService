@@ -50,11 +50,11 @@ public static class GuiUtils
 
         public static bool IsExistsWpfPage(IWin32Window owner, ref DialogResult resultWpf)
         {
-            if (WpfPage != null)
+            if (WpfPage is not null)
             {
                 if (!WpfPage.Visible)
                 {
-                    resultWpf = owner != null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
+                    resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
                 }
                 WpfPage.Activate();
                 return true;
@@ -64,7 +64,7 @@ public static class GuiUtils
 
         private static void CloseIfExistsWpfPage()
         {
-            if (WpfPage != null)
+            if (WpfPage is not null)
             {
                 WpfPage.Close();
                 WpfPage.Dispose();
@@ -87,7 +87,7 @@ public static class GuiUtils
             WpfPage.MessageBox.Message = message;
             WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
             WpfPage.MessageBox.VisibilitySettings.Localization();
-            DialogResult resultWpf = owner != null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
+            DialogResult resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
             WpfPage.Close();
             WpfPage.Dispose();
             return resultWpf;
@@ -279,7 +279,7 @@ public static class GuiUtils
             if (isLog)
                 DataAccess.LogError(ex, UserSessionHelper.Instance.SqlViewModel.Scale.Host.HostName, null, filePath, lineNumber, memberName);
             string message = ex.Message;
-            if (ex.InnerException != null)
+            if (ex.InnerException is not null)
                 message += ex.InnerException.Message;
             if (isShowWindow)
                 return ShowNew(owner, LocaleCore.Scales.Exception,

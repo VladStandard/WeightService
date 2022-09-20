@@ -88,7 +88,7 @@ public class DataCoreHelper
 			{
 				// Arrange.
 				//IValidator<T> validator = SqlUtils.GetSqlValidator<T>();
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(null, null, maxResults, isShowMarked, true);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(maxResults, isShowMarked, true);
 				List<T> items = DataAccess.GetList<T>(sqlCrudConfig);
 				// Act.
 				if (!items.Any())

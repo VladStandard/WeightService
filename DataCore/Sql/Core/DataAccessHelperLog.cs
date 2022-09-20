@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.Fields;
 
 namespace DataCore.Sql.Core;
 
@@ -71,7 +72,7 @@ public static class DataAccessHelperLog
 		StringUtils.SetStringValueTrim(ref memberName, 32);
 		byte logNumber = (byte)logType;
 		StringUtils.SetStringValueTrim(ref message, 1024);
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, logNumber) }, null, 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, logNumber), new SqlFieldOrderModel(), 0);
 		LogTypeModel? logTypeItem = dataAccess.GetItem<LogTypeModel>(sqlCrudConfig);
 
 		HostModel? host = Host;
@@ -116,7 +117,7 @@ public static class DataAccessHelperLog
 	public static long? GetHostId(this DataAccessHelper dataAccess, string name)
 	{
 		StringUtils.SetStringValueTrim(ref name, 150);
-		SqlCrudConfigModel sqlCrudConfig = new(new() { new(nameof(HostModel.Name), SqlFieldComparerEnum.Equal, name) }, null, 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(HostModel.Name), SqlFieldComparerEnum.Equal, name), new SqlFieldOrderModel(), 0);
 		HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 		return host?.Identity.Id;
 	}
