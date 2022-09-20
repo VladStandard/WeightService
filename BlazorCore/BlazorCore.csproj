@@ -41,7 +41,7 @@
     <PackageReference Include="MudBlazor" Version="6.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.13" />
-    <PackageReference Include="Radzen.Blazor" Version="3.20.12" />
+    <PackageReference Include="Radzen.Blazor" Version="4.0.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
   </ItemGroup>
   <ItemGroup>

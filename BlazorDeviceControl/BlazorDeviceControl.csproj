@@ -60,13 +60,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.9" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.2" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.3" />
     <PackageReference Include="MudBlazor" Version="6.0.15" />
     <PackageReference Include="NetBarcode" Version="2.0.0-beta.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.13" />
-    <PackageReference Include="Radzen.Blazor" Version="3.20.12" />
-    <PackageReference Include="RestSharp" Version="108.0.1" />
+    <PackageReference Include="Radzen.Blazor" Version="4.0.0" />
+    <PackageReference Include="RestSharp" Version="108.0.2" />
   </ItemGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />

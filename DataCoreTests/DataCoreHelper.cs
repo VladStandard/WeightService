@@ -266,6 +266,10 @@ public class DataCoreHelper
 				organization.Gln = 1;
 				organization.Xml = "Test";
 				break;
+			case PackageModel package:
+                package.Name = "Test";
+                package.Weight = 0.560M;
+				break;
 			case PluModel plu:
 				plu.Name = "Test";
 				plu.Number = 100;

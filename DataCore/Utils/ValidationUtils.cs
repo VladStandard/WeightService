@@ -38,6 +38,7 @@ public class ValidationUtils
 			var cls when cls == typeof(OrderModel) => new OrderValidator(),
 			var cls when cls == typeof(OrderWeighingModel) => new OrderWeighingValidator(),
 			var cls when cls == typeof(OrganizationModel) => new OrganizationValidator(),
+			var cls when cls == typeof(PackageModel) => new PackageValidator(),
 			var cls when cls == typeof(PluModel) => new PluValidator(),
 			var cls when cls == typeof(PluLabelModel) => new PluLabelValidator(),
 			var cls when cls == typeof(PluScaleModel) => new PluScaleValidator(),
@@ -58,48 +59,47 @@ public class ValidationUtils
 		};
 	}
 
-	public static ValidationResult GetValidationResult<T>(T? item) where T : class, new()
-	{
-		return item switch
-		{
-			// CssStyle
-			CssStyleRadzenColumnModel cssStyleRadzenColumn => new CssStyleRadzenColumnValidator().Validate(cssStyleRadzenColumn),
-			CssStyleTableBodyModel cssStyleTableBody => new CssStyleTableBodyValidator().Validate(cssStyleTableBody),
-			CssStyleTableHeadModel cssStyleTableHead => new CssStyleTableHeadValidator().Validate(cssStyleTableHead),
-			// SqlTable
-			AccessModel access => new AccessValidator().Validate(access),
-			AppModel app => new AppValidator().Validate(app),
-			BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
-			BarCodeTypeModel barCodeType => new BarCodeTypeValidator().Validate(barCodeType),
-			ContragentModel contragent => new ContragentValidator().Validate(contragent),
-			HostModel host => new HostValidator().Validate(host),
-			LogModel log => new LogValidator().Validate(log),
-			LogTypeModel logType => new LogTypeValidator().Validate(logType),
-			NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
-			OrderModel order => new OrderValidator().Validate(order),
-			OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
-			OrganizationModel organization => new OrganizationValidator().Validate(organization),
-			PluModel plu => new PluValidator().Validate(plu),
-			PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),
-			PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
-			PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
-			PrinterModel printer => new PrinterValidator().Validate(printer),
-			PrinterResourceModel printerResource => new PrinterResourceValidator().Validate(printerResource),
-			PrinterTypeModel printerType => new PrinterTypeValidator().Validate(printerType),
-			ProductionFacilityModel productionFacility => new ProductionFacilityValidator().Validate(productionFacility),
-			ProductSeriesModel productSeries => new ProductSeriesValidator().Validate(productSeries),
-			ScaleModel scale => new ScaleValidator().Validate(scale),
-			VersionModel version => new VersionValidator().Validate(version),
-			TaskModel task => new TaskValidator().Validate(task),
-			TaskTypeModel taskType => new TaskTypeValidator().Validate(taskType),
-			TemplateModel template => new TemplateValidator().Validate(template),
-			TemplateResourceModel templateResource => new TemplateResourceValidator().Validate(templateResource),
-			WorkShopModel workShop => new WorkShopValidator().Validate(workShop),
-			_ => throw new NullReferenceException(nameof(item))
-		};
-	}
+	public static ValidationResult GetValidationResult<T>(T? item) where T : class, new() =>
+        item switch
+        {
+            // CssStyle
+            CssStyleRadzenColumnModel cssStyleRadzenColumn => new CssStyleRadzenColumnValidator().Validate(cssStyleRadzenColumn),
+            CssStyleTableBodyModel cssStyleTableBody => new CssStyleTableBodyValidator().Validate(cssStyleTableBody),
+            CssStyleTableHeadModel cssStyleTableHead => new CssStyleTableHeadValidator().Validate(cssStyleTableHead),
+            // SqlTable
+            AccessModel access => new AccessValidator().Validate(access),
+            AppModel app => new AppValidator().Validate(app),
+            BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
+            BarCodeTypeModel barCodeType => new BarCodeTypeValidator().Validate(barCodeType),
+            ContragentModel contragent => new ContragentValidator().Validate(contragent),
+            HostModel host => new HostValidator().Validate(host),
+            LogModel log => new LogValidator().Validate(log),
+            LogTypeModel logType => new LogTypeValidator().Validate(logType),
+            NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
+            OrderModel order => new OrderValidator().Validate(order),
+            OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
+            OrganizationModel organization => new OrganizationValidator().Validate(organization),
+            PackageModel package => new PackageValidator().Validate(package),
+            PluModel plu => new PluValidator().Validate(plu),
+            PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),
+            PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
+            PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
+            PrinterModel printer => new PrinterValidator().Validate(printer),
+            PrinterResourceModel printerResource => new PrinterResourceValidator().Validate(printerResource),
+            PrinterTypeModel printerType => new PrinterTypeValidator().Validate(printerType),
+            ProductionFacilityModel productionFacility => new ProductionFacilityValidator().Validate(productionFacility),
+            ProductSeriesModel productSeries => new ProductSeriesValidator().Validate(productSeries),
+            ScaleModel scale => new ScaleValidator().Validate(scale),
+            VersionModel version => new VersionValidator().Validate(version),
+            TaskModel task => new TaskValidator().Validate(task),
+            TaskTypeModel taskType => new TaskTypeValidator().Validate(taskType),
+            TemplateModel template => new TemplateValidator().Validate(template),
+            TemplateResourceModel templateResource => new TemplateResourceValidator().Validate(templateResource),
+            WorkShopModel workShop => new WorkShopValidator().Validate(workShop),
+            _ => throw new NullReferenceException(nameof(item))
+        };
 
-	public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new()
+    public static bool IsValidation<T>(T? item, ref string detailAddition) where T : class, new()
 	{
 		if (item is null)
 		{

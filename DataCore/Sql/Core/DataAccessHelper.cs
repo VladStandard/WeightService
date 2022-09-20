@@ -178,8 +178,8 @@ public class DataAccessHelper
     {
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<HostMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
@@ -188,9 +188,9 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PackageMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
-        //fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluObsoleteMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());

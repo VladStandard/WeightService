@@ -69,7 +69,8 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         if (!Scale.EqualsDefault())
             return false;
         return
-            base.EqualsDefault();
+            base.EqualsDefault() &&
+            Equals(IsActive, false);
     }
 
 	public override object Clone()
