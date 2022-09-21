@@ -10,19 +10,19 @@
             </div>
             <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: -5px; margin-left: -10px; margin-right: 0px; margin-bottom: 0px; ">
                 <RadzenButton Click=@(_ => GetDataAsync(TableDwh.NomenclatureMaster))
-                              Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                              Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;" 
                               Icon="refresh"
-                              ButtonStyle="ButtonStyle.Light"
+                              ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                               Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
                 <RadzenButton Click=@(_ => ActionEditAsync(TableDwh.NomenclatureMaster, ItemMaster, true))
-                              Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                              Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                               Icon="edit"
-                              ButtonStyle="ButtonStyle.Light"
+                              ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                               Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
                 <RadzenButton Click=@(_ => ClearEntityAsync(TableDwh.NomenclatureMaster))
-                              Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                              Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                               Icon="clear"
-                              ButtonStyle="ButtonStyle.Light"
+                              ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                               Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
                 <br />
             </div>
@@ -86,34 +86,34 @@
         </div>
         <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: -10px; margin-left: -10px; margin-right: 0px; margin-bottom: 0px; ">
             <RadzenButton Click=@(_ => GetDataAsync(TableDwh.NomenclatureNonNormalize))
-                          Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                          Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                           Icon="refresh"
-                          ButtonStyle="ButtonStyle.Light"
+                          ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                           Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => ActionEditAsync(TableDwh.NomenclatureNonNormalize, ItemNonNormilize, true))
-                          Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                          Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                           Icon="edit"
-                          ButtonStyle="ButtonStyle.Light"
+                          ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                           Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => ClearEntityAsync(TableDwh.NomenclatureNonNormalize))
-                          Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                          Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                           Icon="clear"
-                          ButtonStyle="ButtonStyle.Light"
+                          ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                           Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => OnChangeIsProduct())
-                          Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                          Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                           Icon="check_circle"
-                          ButtonStyle="ButtonStyle.Light"
+                          ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                           Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => SetEntityRelevanceAsync(TableDwh.NomenclatureNonNormalize, 1))
-                          Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                          Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                           Icon="add"
-                          ButtonStyle="ButtonStyle.Light"
+                          ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                           Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <RadzenButton Click=@(_ => SetEntityRelevanceAsync(TableDwh.NomenclatureNonNormalize, 2))
-                          Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                          Style="margin-top: -5px; margin-left: 5px; width: 35px; text-align: center;"
                           Icon="remove"
-                          ButtonStyle="ButtonStyle.Light"
+                          ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                           Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
             <br />
         </div>

@@ -52,6 +52,7 @@ else
 <Microsoft.AspNetCore.Components.Forms.InputFile style="width: 50%; " OnChange=@OnFileUpload />
 <RadzenLabel Style="width: 27%; " Text=@LocaleCore.Strings.FileDownload />
 <RadzenButton Style="width: 50%; height: 30px; text-align: center; "
+Size=@ButtonSize.Small
                 Click=@OnFileDownload Text=@LocaleCore.Strings.FileDownload />
 <RadzenLabel Style="width: 27%;" Text=@LocaleCore.TableField.Type />
 @if (ResourceTypes is null)

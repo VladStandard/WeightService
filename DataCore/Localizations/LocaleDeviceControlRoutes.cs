@@ -20,6 +20,7 @@ public partial class LocaleDeviceControl
     public string RouteItemOrder => "/item/order";
     public string RouteItemOrderWeighing => "/item/order_weighing";
     public string RouteItemOrganization => "/item/organization";
+    public string RouteItemPackage => "/item/package";
     public string RouteItemPlu => "/item/plu";
     public string RouteItemPluLabel => "/item/plu_label";
     public string RouteItemPluObsolete => "/item/plu_obsolete";
@@ -56,6 +57,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionOrders => "/section/orders";
     public string RouteSectionOrdersWeighings => "/section/ordersweighings";
     public string RouteSectionOrganizations => "/section/organizations";
+    public string RouteSectionPackages => "/section/packages";
     public string RouteSectionPluLabels => "/section/plus_labels";
     public string RouteSectionPlus => "/section/plus";
     public string RouteSectionPlusScales => "/section/plus_scales";

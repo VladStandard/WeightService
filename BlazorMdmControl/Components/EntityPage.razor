@@ -21,10 +21,10 @@
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 20px;">
     <RadzenButton Click=@(args => SaveAsync(args))
                   Text=@LocalizationStrings.TableActionSave
-                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 11px;" />
+                  Style="margin-left: 30px; width: 250px; font-size: 11px;" Size=@ButtonSize.Small />
     <RadzenButton ButtonStyle="ButtonStyle.Secondary"
                   Click=@CancelAsync
                   Text=@LocalizationStrings.TableActionCancel
-                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 11px;" />
+                  Style="margin-left: 30px; width: 250px; font-size: 11px;" Size=@ButtonSize.Small />
 </div>
 *@

@@ -20,7 +20,7 @@ else
             <RazorSectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
             <RazorSectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
             <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetDescription() />
+                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
             <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
                 RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
             <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))

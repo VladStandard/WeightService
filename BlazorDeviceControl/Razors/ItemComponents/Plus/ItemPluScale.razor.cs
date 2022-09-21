@@ -49,7 +49,7 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
                 Plus = AppSettings.DataAccess.GetListPlus(false, false, true);
 
 	            //// Проверка шаблона.
-	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
+	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault is not null)
 	            //{
 	            //    PluItem.Templates = PluItem.Scale.TemplateDefault.CloneCast();
 	            //}
@@ -59,7 +59,7 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
 	            //    PluModel plu = AppSettings.DataAccess.PlusCrud.GetItem(
 	            //        new (new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.Identity.Id } }),
 	            //        new FieldOrderModel { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
-	            //    if (plu != null && !plu.EqualsDefault())
+	            //    if (plu is not null && !plu.EqualsDefault())
 	            //    {
 	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }

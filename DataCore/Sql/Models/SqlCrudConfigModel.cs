@@ -32,6 +32,20 @@ public class SqlCrudConfigModel
         MaxResults = maxResults;
     }
 
+    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters)
+    {
+	    Filters = filters;
+        Orders = new();
+        MaxResults = 0;
+    }
+
+    public SqlCrudConfigModel(SqlFieldFilterModel filter)
+    {
+        Filters = new() { filter };
+        Orders = new();
+        MaxResults = 0;
+    }
+
     public SqlCrudConfigModel(SqlFieldFilterModel filter, SqlFieldOrderModel order, int maxResults)
     {
 	    Filters = new() { filter };

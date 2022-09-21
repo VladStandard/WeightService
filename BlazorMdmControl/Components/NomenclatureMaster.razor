@@ -1,7 +1,5 @@
 ﻿@page "/nomenclaturemaster"
 @page "/nomenclaturemaster/{ItemId:long}"
-@using MdmControlBlazor.Utils
-@using MdmControlCore.Utils
 @inherits BlazorMdmControl.Data.BaseRazorModel
 
 @*
@@ -20,12 +18,12 @@
         <RadzenButton Click=@(_ => ActionEditAsync(IncludeModel, false))
                       Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                       Icon="edit"
-                      ButtonStyle="ButtonStyle.Light"
+                      ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                       Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
         <RadzenButton Click=@(_ => ExcludeModelAsync(IncludeModel))
                       Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
                       Icon="delete"
-                      ButtonStyle="ButtonStyle.Light"
+                      ButtonStyle="ButtonStyle.Light" Size=@ButtonSize.Small
                       Disabled=@BlazorSettings.SqlDataAccess.IsDisabled />
         <br />
     </div>

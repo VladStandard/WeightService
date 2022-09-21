@@ -28,8 +28,9 @@ else
             <RadzenGridColumn TItem=PrinterModel TextAlign=TextAlign.Center
                 Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="10%" >
                 <Template Context="item" >
-                    <RadzenIcon 
-                        Icon=@(item.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
+	                <RadzenIcon 
+		                IconStyle=@IconStyle.Primary
+		                Icon=@(item.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
                 </Template>
             </RadzenGridColumn>
             <RazorSectionField TItem=PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))

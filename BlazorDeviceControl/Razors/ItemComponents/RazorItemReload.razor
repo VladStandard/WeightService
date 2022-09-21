@@ -6,25 +6,35 @@
 @using Radzen
 @using Radzen.Blazor
 
-<MudPaper Width="100%" Height="32px;" Style="margin-bottom: 10px;" Square=false >
-    @if (!string.IsNullOrEmpty(Title))
-    {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@RazorFieldConfig?.Title />
-    }
-    
-    @if (ParentRazor is null)
-    {
-        <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <RadzenButton Icon="refresh" ButtonStyle=@ButtonStyle.Primary
-            Style="margin-top: 0; margin-left: 1%; margin-right: 1%; width: 60px; height: 26px; "
-            Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChange()) />
-	    @if (ParentRazor.SqlItem != null)
-	    {
-	        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Disabled=false ReadOnly=true 
-	            Icon=@(ParentRazor.SqlItem.IsMarked ? "delete" : "") />
-	    }
-    }
-</MudPaper>
+<MudSimpleTable Style="margin-top: -10px;" Dense=true Bordered=false FixedHeader=false >
+	<thead>
+	<tr>
+		<th style="color: blue; font-weight: normal; width: 5%;"></th>
+		<th style="color: blue; font-weight: normal; width: 5%;"></th>
+		<th style="color: blue; font-weight: normal; width: 90%;"></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		@if (SqlItem is not null)
+		{
+			<td>
+				<RadzenButton
+					Icon="refresh" ButtonStyle=@ButtonStyle.Primary
+					Style="margin-left: 1%; margin-right: 1%; width: 60px; " Size=@ButtonSize.Small 
+					Disabled=@(!AppSettings.DataAccess.IsConnected()) Click=@(_ => OnChange())/>
+			</td>
+			<td>
+				<RadzenIcon 
+					Style="margin-left: 1%; margin-left: 1%; height: 100%; " 
+					Icon="delete" IconStyle=@IconStyle.Primary Visible=@(SqlItem.IsMarked)/>
+			</td>
+			<td>
+				<RadzenText
+					Text=@Title
+					TextStyle=@TextStyle.Subtitle1 TextAlign=@TextAlign.Left/>
+			</td>
+		}
+	</tr>
+	</tbody>
+</MudSimpleTable>

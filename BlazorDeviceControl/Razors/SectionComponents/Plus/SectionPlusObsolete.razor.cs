@@ -33,7 +33,7 @@
 
 //    private void SetFilterItems(List<DataCore.Sql.Tables.SqlTableBase>? items, long? scaleId)
 //    {
-//        if (items != null)
+//        if (items is not null)
 //        {
 //            Items = new();
 //            foreach (DataCore.Sql.Tables.SqlTableBase item in items)

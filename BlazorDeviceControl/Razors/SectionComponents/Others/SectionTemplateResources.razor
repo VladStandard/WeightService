@@ -33,7 +33,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RazorSectionField TItem=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Version.GetDescription() />
+                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
             <RadzenGridColumn 
                 TItem=TemplateResourceModel Property="ImageData.Info"
                 Title=@LocaleCore.Table.ImageDataInfo 

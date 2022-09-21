@@ -7,89 +7,9 @@ using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
 
-public static class DataAccessHelperExt
+public static partial class DataAccessHelperExt
 {
 	#region Public and private methods
-
-	public static AppModel? GetOrCreateNewApp(this DataAccessHelper dataAccess, string? appName)
-	{
-		AppModel? app = null;
-		if (!string.IsNullOrEmpty(appName) && appName is not null)
-		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-				new SqlFieldFilterModel(nameof(AppModel.Name), SqlFieldComparerEnum.Equal, appName), 0, false, false);
-			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
-			if (app is null || app.EqualsDefault())
-			{
-				app = new()
-				{
-					Name = appName,
-					CreateDt = DateTime.Now,
-					ChangeDt = DateTime.Now,
-					IsMarked = false,
-				};
-				dataAccess.Save(app);
-			}
-		}
-		return app;
-	}
-
-	public static AppModel? GetItemApp(this DataAccessHelper dataAccess, string? appName)
-	{
-		AppModel? app = null;
-		if (!string.IsNullOrEmpty(appName) && appName is not null)
-		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AppModel.Name), SqlFieldComparerEnum.Equal, appName), 0, false, false);
-			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
-		}
-		return app;
-	}
-
-	public static HostModel? GetItemOrCreateNewHost(this DataAccessHelper dataAccess, string? hostName)
-	{
-		HostModel? host = null;
-		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
-		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-			if (host is null || host.EqualsDefault())
-			{
-				host = new()
-				{
-					Name = hostName,
-					HostName = hostName,
-					CreateDt = DateTime.Now,
-					ChangeDt = DateTime.Now,
-					IsMarked = false,
-					Ip = NetUtils.GetLocalIpAddress(),
-					AccessDt = DateTime.Now,
-				};
-				dataAccess.Save(host);
-			}
-			else
-			{
-				host.AccessDt = DateTime.Now;
-				dataAccess.Update(host);
-			}
-		}
-		return host;
-	}
-
-	public static HostModel? GetItemHost(this DataAccessHelper dataAccess, string? hostName)
-	{
-		HostModel? host = null;
-		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
-		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-			if (host is not null && !host.EqualsDefault())
-			{
-				host.AccessDt = DateTime.Now;
-				dataAccess.Update(host);
-			}
-		}
-		return host;
-	}
 
 	public static List<AccessModel> GetListAcesses(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
@@ -211,19 +131,7 @@ public static class DataAccessHelperExt
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-	//public static List<PluObsoleteModel> GetListPluObsoletes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, Tables.SqlTableBase? itemFilter)
-	//{
-	//	long? scaleId = null;
-	//	if (itemFilter is ScaleModel scale)
-	//		scaleId = scale.Identity.Id;
-	//	List<SqlFieldFilterModel> filters = null;
-	//	if (scaleId is not null)
-	//		filters = new() { new($"{nameof(PluObsoleteModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId) };
-	//	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new(SqlFieldEnum.GoodsName), 0, isShowMarked, isShowOnlyTop);
-	//	return dataAccess.GetList<PluObsoleteModel>(sqlCrudConfig);
-	//}
-
-	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
+    public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
 		SqlTableBase? itemFilter)
 	{
 		long? scaleId = null;
@@ -336,11 +244,24 @@ public static class DataAccessHelperExt
 		return result;
 	}
 
+	public static List<OrganizationModel> GetListOrganizations(this DataAccessHelper dataAccess)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+			new SqlFieldOrderModel(nameof(OrganizationModel.Name), SqlFieldOrderEnum.Asc), 0, true, false);
+		return dataAccess.GetList<OrganizationModel>(sqlCrudConfig);
+	}
+
+	public static List<PackageModel> GetListPackages(this DataAccessHelper dataAccess)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+			new SqlFieldOrderModel(nameof(PackageModel.Name), SqlFieldOrderEnum.Asc), 0, true, false);
+		return dataAccess.GetList<PackageModel>(sqlCrudConfig);
+	}
+
 	public static List<VersionModel> GetListVersions(this DataAccessHelper dataAccess)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldOrderModel(nameof(VersionModel.Version), SqlFieldOrderEnum.Desc),
-			0, true, false);
+			new SqlFieldOrderModel(nameof(VersionModel.Version), SqlFieldOrderEnum.Desc), 0, true, false);
 		return dataAccess.GetList<VersionModel>(sqlCrudConfig);
 	}
 
@@ -357,20 +278,6 @@ public static class DataAccessHelperExt
 		result = result.OrderBy(x => x.ProductionFacility.Name).ToList();
 		return result;
 	}
-
-	public static string GetAccessRightsDescription(this DataAccessHelper dataAccess, AccessRightsEnum? accessRights)
-	{
-		return accessRights switch
-		{
-			AccessRightsEnum.Read => LocaleCore.Strings.AccessRightsRead,
-			AccessRightsEnum.Write => LocaleCore.Strings.AccessRightsWrite,
-			AccessRightsEnum.Admin => LocaleCore.Strings.AccessRightsAdmin,
-			_ => LocaleCore.Strings.AccessRightsNone,
-		};
-	}
-
-	public static string GetAccessRightsDescription(this DataAccessHelper dataAccess, byte accessRights) =>
-		GetAccessRightsDescription(dataAccess, (AccessRightsEnum)accessRights);
 
 	#endregion
 }

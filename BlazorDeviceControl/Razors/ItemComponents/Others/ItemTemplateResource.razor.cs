@@ -34,7 +34,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
             () =>
             {
                 SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
-                //if (IdentityId != null && TableAction == DbTableAction.New)
+                //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.Identity.Id = (long)IdentityId;
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
@@ -58,7 +58,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
     {
         foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
         {
-            if (FileUpload != null)
+            if (FileUpload is not null)
                 FileUpload.UploadAsync(SqlItemCast, file.OpenReadStream(10_000_000));
         }
         InvokeAsync(StateHasChanged);
@@ -66,7 +66,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
 
     private void OnFileDownload()
     {
-        if (FileDownload != null)
+        if (FileDownload is not null)
             FileDownload.DownloadAsync(DownloadFileService, SqlItemCast);
 
         InvokeAsync(StateHasChanged);

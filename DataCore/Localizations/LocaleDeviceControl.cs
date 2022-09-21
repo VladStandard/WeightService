@@ -89,6 +89,7 @@ public partial class LocaleDeviceControl
 	public string SectionOrdersWeighings => Lang == LangEnum.English ? "Orders weighings" : "Взвешивание заказов";
 	public string SectionOrderTypes => Lang == LangEnum.English ? "Order types" : "Типы заказов";
 	public string SectionOrganizations => Lang == LangEnum.English ? "Organizations" : "Организации";
+	public string SectionPackages => Lang == LangEnum.English ? "Packages" : "Тара";
 	public string SectionPlus => Lang == LangEnum.English ? "PLUs" : "ПЛУ";
 	public string SectionPlusScales => Lang == LangEnum.English ? "Devices PLUs" : "ПЛУ устройств";
 	public string SectionPlusWeighings => Lang == LangEnum.English ? "Plus weighings" : "Взвешивания ПЛУ";

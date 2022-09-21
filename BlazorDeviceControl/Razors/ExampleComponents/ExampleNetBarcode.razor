@@ -31,7 +31,7 @@
                 }
             </MudSelect>
             <!-- Redraw image -->
-            <RadzenButton Text="Redraw barcode" Class="w-100" Click=@(_ => RedrawImage()) />
+            <RadzenButton Text="Redraw barcode" Class="w-100" Click=@(_ => RedrawImage()) Size=@ButtonSize.Small />
             <!-- Image -->
             @if (string.IsNullOrEmpty(BarcodeImage))
             {

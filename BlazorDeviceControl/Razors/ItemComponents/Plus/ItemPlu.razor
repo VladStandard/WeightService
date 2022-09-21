@@ -86,7 +86,7 @@ else
 				</td>
                 <td>@LocaleCore.Table.ShelfLifeDays</td>
                 <td>
-                    <RadzenButton Style="width: 10%; " Icon="autorenew"
+                    <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small 
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlShelfLifeDays))) />
                     <RadzenNumeric Style="width: 88%; text-align: center; " 
                         TValue="short" @bind-Value=@SqlItemCast.ShelfLifeDays />
@@ -107,13 +107,13 @@ else
                 <td>
                     <RadzenNumeric Style="width: 88%; text-align: center; " 
                         TValue="decimal" @bind-Value=@SqlItemCast.TareWeight />
-                    <RadzenButton Style="width: 10%; " 
-                        Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
+                    <RadzenButton Style="width: 10%; " Size=@ButtonSize.Small 
+                              Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsTareWeight))) />
                 </td>
                 <td>@LocaleCore.Table.GoodsBoxQuantly</td>
                 <td>
-                    <RadzenButton Style="width: 10%; " Icon="autorenew"
+                    <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlBoxQuantly))) />
                     <RadzenNumeric Style="width: 88%; text-align: center; " 
                         TValue="int" @bind-Value=@SqlItemCast.BoxQuantly />
@@ -122,7 +122,7 @@ else
             <tr>
                 <td>@LocaleCore.Table.Ean13</td>
                 <td >
-                    <RadzenButton Style="width: 10%; " Icon="autorenew"
+                    <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlEan13))) />
                     <RadzenTextBox Style="width: 80%; text-align: center; " 
                         @bind-Value=@SqlItemCast.Ean13 />
@@ -131,40 +131,40 @@ else
                 </td>
                 <td>@LocaleCore.Table.Gtin</td>
                 <td >
-                    <RadzenButton Style="width: 10%; " Icon="autorenew"
+                    <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlGtin))) />
                     <RadzenTextBox Style="width: 70%; text-align: center; " 
                         @bind-Value=@SqlItemCast.Gtin />
                     <RadzenLabel Style="width: 5%; text-align: center; " 
                         Text=@SqlItemCast.Gtin.Length.ToString() />
-                    <RadzenButton Style="width: 10%; " 
-                        Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
+                    <RadzenButton Style="width: 10%; " Size=@ButtonSize.Small
+                              Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
                         Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtinWithCheckDigit))) />
                 </td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Itf14</td>
                 <td >
-                    <RadzenButton Style="width: 10%; " Icon="autorenew"
+                    <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlItf14))) />
                     <RadzenTextBox Style="width: 76%; text-align: center; " 
                         @bind-Value=@SqlItemCast.Itf14 />
                     <RadzenLabel Style="width: 10%; text-align: center; " Text=@SqlItemCast.Itf14.Length.ToString() />
                 </td>
                 <td >
-                    <RadzenButton Style="width: 100%; " Icon="autorenew"
+                    <RadzenButton Style="width: 100%; " Icon="autorenew" Size=@ButtonSize.Small
                         Text=@LocaleCore.DeviceControl.TableActionFill
                         Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionFill))) />
 				</td>
                 <td >
-                    <RadzenButton Style="width: 100%; " Icon="clear" 
+                    <RadzenButton Style="width: 100%; " Icon="clear" Size=@ButtonSize.Small
                         Text=@LocaleCore.DeviceControl.TableActionClear
                         Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionClear))) />
 				</td>
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Name
-                    <RadzenButton Style="align-self: end; " Icon="autorenew"
+                    <RadzenButton Style="align-self: end; " Icon="autorenew" Size=@ButtonSize.Small
                               Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlName))) />
                     </td>
                 <td colspan="3">
@@ -173,7 +173,7 @@ else
             </tr>
             <tr>
                 <td>@LocaleCore.Table.FullName
-                    <RadzenButton Style="align-content: end; " Icon="autorenew"
+                    <RadzenButton Style="align-content: end; " Icon="autorenew" Size=@ButtonSize.Small
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlFullName))) />
                     </td>
                 <td colspan="3">
@@ -182,7 +182,7 @@ else
             </tr>
             <tr>
                 <td>@LocaleCore.Table.Description
-                    <RadzenButton Style="align-content: flex-end; " Icon="autorenew"
+                    <RadzenButton Style="align-content: flex-end; " Icon="autorenew" Size=@ButtonSize.Small
                         Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlDescription))) />
                 </td>
                 <td colspan=3>
@@ -194,14 +194,14 @@ else
             <tr >
                 <td>
                     @LocaleCore.Table.XmlPretty
-                    <RadzenButton Style="align-content: flex-end; " Icon="autorenew"
+                    <RadzenButton Style="align-content: flex-end; " Icon="autorenew" Size=@ButtonSize.Small
                               Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlDescription))) />
                 </td>
                 <td colspan=3>
 	                <RadzenTextArea
 		                Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 		                ReadOnly=@true Rows=30
-		                Value=@(SqlItemCast.Nomenclature.Xml != null ? XmlUtils.GetXmlpretty(SqlItemCast.Nomenclature.Xml) : "")/>
+		                Value=@(SqlItemCast.Nomenclature.Xml is not null ? XmlUtils.GetXmlpretty(SqlItemCast.Nomenclature.Xml) : "")/>
                 </td>
             </tr>
         </tbody>

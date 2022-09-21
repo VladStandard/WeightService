@@ -20,7 +20,7 @@
 		}
 	</td>
 	<td>
-		@if (SqlItem != null)
+		@if (SqlItem is not null)
 		{
 			@switch (CssTableStyleBody.IdentityName)
 			{
@@ -46,7 +46,7 @@
 	<td>
 		@if (CssTableStyleBody.IsShowMarked)
 		{
-			@if (SqlItem != null)
+			@if (SqlItem is not null)
 			{
 				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItem.IsMarked />
 			}

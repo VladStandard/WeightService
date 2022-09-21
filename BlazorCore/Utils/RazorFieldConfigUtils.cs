@@ -46,7 +46,19 @@ public static class RazorFieldConfigUtils
 	    public static RazorFieldConfigModel GetVersion() => new(nameof(LogQuickModel.Version), TextAlign.Left, LocaleCore.Table.Version);
 	}
 
-	public static class Plu
+    public static class Organization
+    {
+        public static RazorFieldConfigModel GetName() => new(nameof(OrganizationModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetGln() => new(nameof(OrganizationModel.Gln), TextAlign.Center, LocaleCore.Table.Gln);
+    }
+	
+    public static class Package
+    {
+        public static RazorFieldConfigModel GetName() => new(nameof(PackageModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+        public static RazorFieldConfigModel GetWeight() => new(nameof(PackageModel.Weight), TextAlign.Center, LocaleCore.Table.WeightShort);
+    }
+	
+    public static class Plu
     {
         public static RazorFieldConfigModel GetName() => new(nameof(PluModel.Name), TextAlign.Left, LocaleCore.Table.Name);
 	    public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(PluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
@@ -72,7 +84,6 @@ public static class RazorFieldConfigUtils
 
 	public static class PrinterResource
 	{
-		public static RazorFieldConfigModel GetDescription() => new(nameof(PrinterResourceModel.Description), TextAlign.Left, LocaleCore.Table.Description);
 		public static RazorFieldConfigModel GetPrinter(string link) => new (link, new PrinterModel(), nameof(PrinterResourceModel.Printer), TextAlign.Left, LocaleCore.Print.Name, "string");
 		public static RazorFieldConfigModel GetResource(string link) => new (link, new PrinterResourceModel(), nameof(PrinterResourceModel.TemplateResource), TextAlign.Left, LocaleCore.Print.TemplateResource, "string");
 	}
@@ -90,7 +101,6 @@ public static class RazorFieldConfigUtils
 
 	public static class Scale
     {
-		public static RazorFieldConfigModel GetDescription() => new(nameof(ScaleModel.Description), TextAlign.Left, LocaleCore.Table.Description);
 		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(ScaleModel.DeviceIp), TextAlign.Left, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetHost(string link) => new(link, new HostModel(), nameof(ScaleModel.Host), TextAlign.Left, LocaleCore.Table.Host, "string");
 		public static RazorFieldConfigModel GetNumber() => new(nameof(ScaleModel.Number), TextAlign.Left, LocaleCore.Table.Number);
@@ -101,7 +111,6 @@ public static class RazorFieldConfigUtils
 
 	public static class Version
 	{
-        public static RazorFieldConfigModel GetDescription() => new(nameof(VersionModel.Description), TextAlign.Left, LocaleCore.Table.Description);
 		public static RazorFieldConfigModel GetReleaseDt() => new(nameof(VersionModel.ReleaseDt), TextAlign.Center, LocaleCore.Table.ReleaseDt);
 		public static RazorFieldConfigModel GetVersion() => new(nameof(VersionModel.Version), TextAlign.Center, LocaleCore.Table.Version);
     }

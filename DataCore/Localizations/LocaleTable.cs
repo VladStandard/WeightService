@@ -76,7 +76,7 @@ public class LocaleTable
     public string File => Lang == LangEnum.English ? "File" : "Файл";
     public string FilePath => Lang == LangEnum.English ? "File path" : "Путь к файлу";
     public string FullName => Lang == LangEnum.English ? "Full name" : "Полное наименование";
-    public string Gln => "GLN";
+    public string Gln => Lang == LangEnum.English ? "GLN" : "ГЛН";
     public string GoodsBoxQuantly => Lang == LangEnum.English ? "Investments in the box" : "Вложений в короб";
     public string GoodsBoxQuantlyShort => Lang == LangEnum.English ? "Attach" : "Влож";
     public string GoodsBruttoWeight => Lang == LangEnum.English ? "Gross weight" : "Вес брутто";

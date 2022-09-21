@@ -114,6 +114,8 @@
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsStops.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsWarnings.razor" />
+    <Watch Remove="Razors\SectionComponents\Others\SectionOrganizations.razor" />
+    <Watch Remove="Razors\SectionComponents\Others\SectionPackages.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusLabels.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeighings.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeighingsAggr.razor" />

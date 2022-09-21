@@ -70,10 +70,8 @@ public static class DataAccessHelperLog
 	{
 		StringUtils.SetStringValueTrim(ref filePath, 32, true);
 		StringUtils.SetStringValueTrim(ref memberName, 32);
-		byte logNumber = (byte)logType;
 		StringUtils.SetStringValueTrim(ref message, 1024);
-		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, logNumber), new SqlFieldOrderModel(), 0);
-		LogTypeModel? logTypeItem = dataAccess.GetItem<LogTypeModel>(sqlCrudConfig);
+        LogTypeModel? logTypeItem = dataAccess.GetItemLogType(logType);
 
 		HostModel? host = Host;
 		AppModel? app = App;

@@ -67,17 +67,18 @@ else
             <tr>
                 <td>@LocaleCore.Print.StatusCode</td>
                 <td>
-                    <RadzenIcon Style="width: 16%; align-content: center; "
-                        Icon=@(SqlItemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
+	                <RadzenIcon 
+		                Style="width: 16%; align-content: center; " IconStyle=@IconStyle.Primary
+                        Icon=@(SqlItemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null") />
                     <RadzenLabel Disabled=false ReadOnly=true Style="width: 80%; text-align: left; " 
                         Text=@SqlItemCast.HttpStatusCode.ToString() />
                 </td>
-                @if (SqlItemCast.HttpStatusException != null)
+                @if (SqlItemCast.HttpStatusException is not null)
                 {
                     <td>@LocaleCore.Table.HttpStatusException</td>
                     <td>
                         <RadzenLabel Style="width: 100%; " 
-                            Text=@(SqlItemCast.HttpStatusException != null ? SqlItemCast.HttpStatusException.Message : "") />
+                            Text=@(SqlItemCast.HttpStatusException is not null ? SqlItemCast.HttpStatusException.Message : string.Empty) />
                     </td>
                 }
                 else
@@ -89,17 +90,17 @@ else
                 <td>@LocaleCore.DeviceControl.Actions</td>
                 <td>
                     <RadzenButton Click=@(args => SqlItemPrinterResourcesClear(SqlItemCast))
-                        class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                              class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
                         Text=@LocaleCore.Print.ResourcesClear Disabled=@(!AppSettings.DataAccess.IsConnected()) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
-                        class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                              class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
                         Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!AppSettings.DataAccess.IsConnected()) />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
-                        class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                              class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
                               Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!AppSettings.DataAccess.IsConnected()) />
 				</td>
             </tr>

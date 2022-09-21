@@ -19,7 +19,7 @@ else
             @*<tr>
                 <td>@LocaleCore.Table.Scale</td>
 	            <td>
-                    @if (SqlItemCast.PluWeighing != null)
+                    @if (SqlItemCast.PluWeighing is not null)
                     {
 			            <RadzenLink Style="width: 100%; text-align: center;"
 	                        Path=@GetPath(UriRouteItem.Scale, SqlItemCast.PluWeighing.PluScale.Scale, SqlItemCast.PluWeighing.PluScale.Scale.Identity.Id)
@@ -28,7 +28,7 @@ else
 	            </td>
                 <td>@LocaleCore.Table.Plu</td>
 	            <td>
-		            @if (SqlItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing is not null)
                     {
 			            <RadzenLink Style="width: 100%; text-align: center;"
 	                        Path=@GetPath(UriRouteItem.Plu, SqlItemCast.PluWeighing.PluScale.Plu, SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid)
@@ -45,7 +45,7 @@ else
 	            </td>
                 <td>@LocaleCore.Table.WeithingDate</td>
 	            <td>
-                    @if (SqlItemCast.PluWeighing != null)
+                    @if (SqlItemCast.PluWeighing is not null)
                     {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
                            Value=@SqlItemCast.PluWeighing.ProductDt.ToString(CultureInfo.InvariantCulture)
@@ -56,7 +56,7 @@ else
             <tr>
                 <td>@LocaleCore.Table.NetWeight</td>
 	            <td>
-                    @if (SqlItemCast.PluWeighing != null)
+                    @if (SqlItemCast.PluWeighing is not null)
                     {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
 			                           ReadOnly=true Value=@SqlItemCast.PluWeighing.NettoWeight.ToString(CultureInfo.InvariantCulture)/>
@@ -64,7 +64,7 @@ else
 	            </td>
                 <td>@LocaleCore.Table.TareWeight</td>
                 <td>
-	                @if (SqlItemCast.PluWeighing != null)
+	                @if (SqlItemCast.PluWeighing is not null)
 	                {
 	                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
 	                        ReadOnly=true Value=@SqlItemCast.PluWeighing.TareWeight.ToString(CultureInfo.InvariantCulture) />
@@ -74,7 +74,7 @@ else
             <tr>
                 <td>@LocaleCore.Table.RegNum</td>
 	            <td>
-		            @if (SqlItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing is not null)
 		            {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
 			                           Disabled=false ReadOnly=true Value=@SqlItemCast.PluWeighing.RegNum.ToString()/>
@@ -82,7 +82,7 @@ else
 	            </td>
                 <td>@LocaleCore.Table.IsKneading</td>
 	            <td>
-		            @if (SqlItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing is not null)
 		            {
 			            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
 			                           Disabled=false ReadOnly=true Value=@SqlItemCast.PluWeighing.Kneading.ToString()/>
@@ -92,7 +92,7 @@ else
             <tr >
                 <td>@LocaleCore.Table.Template</td>
 	            <td>
-		            @if (SqlItemCast.PluWeighing != null)
+		            @if (SqlItemCast.PluWeighing is not null)
 		            {
 			            <RadzenLink Style="width: 100%; text-align: center;"
 			                        Path=@GetPath(UriRouteItem.Template, SqlItemCast.PluWeighing.PluScale.Plu.Template, SqlItemCast.PluWeighing.PluScale.Plu.Template.Identity.Uid)

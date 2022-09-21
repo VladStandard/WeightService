@@ -7,17 +7,6 @@ public partial class RazorComponentBase
 {
 	#region Public and private methods
 
-	///// <summary>
-	///// Write code for extension.
-	///// </summary>
-	//protected override void OnInitialized()
-	//{
-	//	//
-	//}
-
-	/// <summary>
-	/// Write code for extension.
-	/// </summary>
 	protected override void OnParametersSet()
 	{
         RunActionsParametersSet(new()

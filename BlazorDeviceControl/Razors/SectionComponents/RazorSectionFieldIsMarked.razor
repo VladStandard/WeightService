@@ -13,7 +13,10 @@
 			TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
 			Title=@LocaleCore.Table.IsMarkedShort >
 		<Template Context="item">
-			<RadzenIcon Icon=@(item.IsMarked ? "delete" : "")/>
+			@if (item.IsMarked)
+			{
+				<RadzenIcon IconStyle=@IconStyle.Primary Icon="delete" />
+			}
 		</Template>
 	</RadzenGridColumn>
 }

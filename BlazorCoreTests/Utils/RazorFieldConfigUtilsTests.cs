@@ -94,7 +94,7 @@ internal class RazorFieldConfigUtilsTests
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Scale.GetDescription();
+			razorFieldConfig = RazorFieldConfigUtils.Base.GetDescription();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
 			razorFieldConfig = RazorFieldConfigUtils.Scale.GetDeviceIp();
@@ -123,7 +123,7 @@ internal class RazorFieldConfigUtilsTests
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Version.GetDescription();
+			razorFieldConfig = RazorFieldConfigUtils.Base.GetDescription();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
 			razorFieldConfig = RazorFieldConfigUtils.Version.GetReleaseDt();

@@ -9,10 +9,7 @@ public partial class ItemHost : RazorComponentItemBase<HostModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemHost()
-	{
-		//
-	}
+	//
 
 	#endregion
 
