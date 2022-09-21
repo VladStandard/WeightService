@@ -23,8 +23,10 @@ public class VersionValidator : SqlTableValidator<VersionModel>
 			.NotEmpty()
 			.NotNull()
 			.GreaterThan(default(short));
-		RuleFor(item => item.Description)
-			.NotEmpty()
-			.NotNull();
+        RuleFor(item => item.Name)
+            .NotNull();
+        RuleFor(item => item.Description)
+            .NotEmpty()
+            .NotNull();
 	}
 }

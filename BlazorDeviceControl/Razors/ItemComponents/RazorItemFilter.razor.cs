@@ -28,7 +28,8 @@ public partial class RazorItemFilter<TItem> : RazorComponentItemBase<TItem> wher
             () =>
             {
 	            SqlItemsCast = new() { new() { Description = LocaleCore.Table.FieldNull } };
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
+                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+                    new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
                 TItem[]? items = AppSettings.DataAccess.GetItems<TItem>(sqlCrudConfig);
                 if (items is not null)
                 {

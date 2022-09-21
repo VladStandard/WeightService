@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Tables;
+
 namespace DataCore.Sql.Fields;
 
 /// <summary>
@@ -11,13 +13,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Name order.
-    /// </summary>
     public string Name { get; private set; }
-    /// <summary>
-    /// Direction order.
-    /// </summary>
     public SqlFieldOrderEnum Direction { get; private set; }
 
     /// <summary>
@@ -30,11 +26,11 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     }
 
     /// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="name"></param>
-	/// <param name="direction"></param>
-	public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction = SqlFieldOrderEnum.Asc)
+    /// Constructor.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="direction"></param>
+    public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction = SqlFieldOrderEnum.Empty)
     {
         Name = name;
         Direction = direction;
@@ -97,7 +93,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return
-			Equals(Name, item.Name) &&
+            Equals(Name, item.Name) &&
 			Direction.Equals(item.Direction);
 	}
 

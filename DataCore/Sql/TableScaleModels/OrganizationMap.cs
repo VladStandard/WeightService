@@ -4,7 +4,7 @@
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table map "Organization".
+/// Table map "ORGANIZATIONS".
 /// </summary>
 public class OrganizationMap : ClassMap<OrganizationModel>
 {
@@ -14,14 +14,14 @@ public class OrganizationMap : ClassMap<OrganizationModel>
     public OrganizationMap()
     {
         Schema("db_scales");
-        Table("Organization");
+        Table("ORGANIZATIONS");
         LazyLoad();
-        Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-        Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
-        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("CategoryID").Length(150).Not.Nullable();
+        Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
+        Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(x => x.Name).CustomSqlType("NVARCHAR").Column("NAME").Length(256).Not.Nullable();
+        Map(x => x.Description).CustomSqlType("NVARCHAR").Column("DESCRIPTION").Length(256).Not.Nullable().Default("");
         Map(x => x.Gln).CustomSqlType("INT").Column("GLN").Not.Nullable();
-        Map(x => x.Xml).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
     }
 }

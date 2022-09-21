@@ -13,14 +13,16 @@ public class VersionModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
+    public virtual string Name { get; set; }
     public virtual DateTime ReleaseDt { get; set; }
     public virtual short Version { get; set; }
-    
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public VersionModel() : base(SqlFieldIdentityEnum.Uid)
-	{
+    {
+        Name = string.Empty;
 		ReleaseDt = DateTime.MinValue;
 		Version = 0;
 	}

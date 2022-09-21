@@ -9,6 +9,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Threading;
+using AssertCoreTests;
 using BlazorCore.Razors;
 using DataCore.CssStyles;
 using SqlTableBase = DataCore.Sql.Tables.SqlTableBase;

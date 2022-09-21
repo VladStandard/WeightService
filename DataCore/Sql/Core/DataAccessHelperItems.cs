@@ -10,9 +10,9 @@ public static class DataAccessHelperItems
 {
 	#region Public and private methods
 
-	private static T[] GetItemsCore<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	private static T[] GetItemsCore<T>(this ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
-		ICriteria criteria = dataAccess.GetCriteria<T>(session, sqlCrudConfig);
+		ICriteria criteria = session.GetCriteria<T>(sqlCrudConfig);
 		return criteria.List<T>().ToArray();
 	}
 
@@ -21,7 +21,7 @@ public static class DataAccessHelperItems
 		T[]? items = null;
 		dataAccess.ExecuteTransaction((session) =>
 		{
-			items = GetItemsCore<T>(dataAccess, session, sqlCrudConfig);
+			items = session.GetItemsCore<T>(sqlCrudConfig);
 			foreach (T item in items)
 			{
 				dataAccess.FillReferences(item);

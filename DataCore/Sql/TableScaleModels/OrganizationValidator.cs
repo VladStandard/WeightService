@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "Organization".
+/// Table validation "ORGANIZATIONS".
 /// </summary>
 public class OrganizationValidator : SqlTableValidator<OrganizationModel>
 {
@@ -21,8 +21,7 @@ public class OrganizationValidator : SqlTableValidator<OrganizationModel>
 		RuleFor(item => item.Gln)
 			.NotEmpty()
 			.NotNull();
-		RuleFor(item => item.Xml)
-			.NotEmpty()
+		RuleFor(item => item.Description)
 			.NotNull();
 	}
 }

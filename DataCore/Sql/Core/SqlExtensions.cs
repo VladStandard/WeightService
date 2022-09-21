@@ -31,8 +31,7 @@ public static class SqlExtensions
 
 	public static void SetCriteriaFilters(this ICriteria criteria, List<SqlFieldFilterModel>? filters)
 	{
-		if (filters is null)
-			return;
+		if (filters is null) return;
 
 		foreach (SqlFieldFilterModel filter in filters)
 		{
@@ -48,16 +47,22 @@ public static class SqlExtensions
 	}
 
 	public static void SetCriteriaOrder(this ICriteria criteria, List<SqlFieldOrderModel>? orders)
-	{
-		if (orders is not null)
-		{
-            foreach (SqlFieldOrderModel order in orders)
+    {
+        if (orders is null) return;
+
+        foreach (SqlFieldOrderModel order in orders)
+        {
+            switch (order.Direction)
             {
-			    Order fieldOrder = order.Direction == SqlFieldOrderEnum.Asc ? Order.Asc(order.Name) : Order.Desc(order.Name);
-                criteria.AddOrder(fieldOrder);
+                case SqlFieldOrderEnum.Asc:
+                    criteria.AddOrder(Order.Asc(order.Name));
+                    break;
+                case SqlFieldOrderEnum.Desc:
+                    criteria.AddOrder(Order.Desc(order.Name));
+                    break;
             }
-		}
-	}
+        }
+    }
     
 	#endregion
 }

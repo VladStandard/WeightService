@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "Organization".
+/// Table "ORGANIZATIONS".
 /// </summary>
 [Serializable]
 public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
@@ -15,16 +15,14 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual int Gln { get; set; }
-	[XmlElement] public virtual string Xml { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public OrganizationModel() : base(SqlFieldIdentityEnum.Id)
+	public OrganizationModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Name = string.Empty;
 		Gln = 0;
-		Xml = string.Empty;
 	}
 
 	/// <summary>
@@ -36,18 +34,17 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	{
 		Name = info.GetString(nameof(Name));
 		Gln = info.GetInt32(nameof(Gln));
-		Xml = info.GetString(nameof(Xml));
 	}
 
 	#endregion
 
 	#region Public and private methods - override
 
-	public override string ToString() =>
-		$"{nameof(IsMarked)}: {IsMarked}. " +
+    public override string ToString() =>
+        $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Gln)}: {Gln}. " +
-        $"{nameof(Xml)}: {Xml.Length}. ";
+        $"{nameof(Description)}: {Description}. " +
+        $"{nameof(Gln)}: {Gln}. ";
 
     public override bool Equals(object obj)
 	{
@@ -64,15 +61,13 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
 		Equals(Name, string.Empty) &&
-		Equals(Gln, 0) &&
-		Equals(Xml, string.Empty);
+		Equals(Gln, 0);
 
 	public override object Clone()
     {
         OrganizationModel item = new();
         item.Name = Name;
         item.Gln = Gln;
-        item.Xml = Xml;
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -87,7 +82,6 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Gln), Gln);
-		info.AddValue(nameof(Xml), Xml);
 	}
 
 	#endregion
@@ -97,10 +91,10 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public virtual bool Equals(OrganizationModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name) &&
-		       Equals(Gln, item.Gln) &&
-		       Equals(Xml, item.Xml);
+		return 
+            base.Equals(item) &&
+		    Equals(Name, item.Name) &&
+		    Equals(Gln, item.Gln);
 	}
 
 	public new virtual OrganizationModel CloneCast() => (OrganizationModel)Clone();

@@ -19,8 +19,8 @@ public class OrderMap : ClassMap<OrderModel>
         Table("ORDERS");
         LazyLoad();
         Id(x => x.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+        Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+        Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
         Map(x => x.Name).CustomSqlType("NVARCHAR").Length(256).Column("NAME").Not.Nullable().Default("");
         Map(x => x.BeginDt).CustomSqlType("DATETIME").Column("BEGIN_DT").Not.Nullable().Default(DateTime.Now.ToString(CultureInfo.InvariantCulture));

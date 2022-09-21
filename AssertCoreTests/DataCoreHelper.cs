@@ -1,20 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.CssStyles;
-using DataCore.Files;
-using DataCore.Localizations;
-using DataCore.Protocols;
-using DataCore.Sql.Core;
-using DataCore.Sql.Fields;
-using DataCore.Sql.Tables;
-using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
-using DataCore.Utils;
-
-namespace DataCoreTests;
+namespace AssertCoreTests;
 
 public class DataCoreHelper
 {
@@ -39,7 +26,7 @@ public class DataCoreHelper
 	private void SetupDebug()
 	{
 		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameDebug);
+			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests), JsonSettingsController.FileNameDebug);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettingsIsRemote)}: {DataAccess.JsonSettingsIsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
 	}
@@ -47,7 +34,7 @@ public class DataCoreHelper
 	private void SetupRelease()
 	{
 		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalHostName(true), nameof(DataCoreTests), JsonSettingsController.FileNameRelease);
+			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests), JsonSettingsController.FileNameRelease);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettingsIsRemote)}: {DataAccess.JsonSettingsIsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
 	}
@@ -87,7 +74,6 @@ public class DataCoreHelper
 			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
 				// Arrange.
-				//IValidator<T> validator = SqlUtils.GetSqlValidator<T>();
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(maxResults, isShowMarked, true);
 				List<T> items = DataAccess.GetList<T>(sqlCrudConfig);
 				// Act.
@@ -98,9 +84,8 @@ public class DataCoreHelper
 				else
 				{
 					TestContext.WriteLine($"Found {items.Count} items. Print top 10.");
-					List<T> itemsCast = items.Cast<T>().ToList();
 					int i = 0;
-					foreach (T item in itemsCast)
+					foreach (T item in items)
 					{
 						if (i < 10)
 							TestContext.WriteLine(item);
@@ -263,12 +248,12 @@ public class DataCoreHelper
 				break;
 			case OrganizationModel organization:
 				organization.Name = "Test";
+				organization.Description = "Test";
 				organization.Gln = 1;
-				organization.Xml = "Test";
 				break;
 			case PackageModel package:
-                package.Name = "Test";
-                package.Weight = 0.560M;
+				package.Name = "Test";
+				package.Weight = 0.560M;
 				break;
 			case PluModel plu:
 				plu.Name = "Test";

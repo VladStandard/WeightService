@@ -11,7 +11,7 @@ public static class DataAccessHelperCrud
 {
 	#region Public and private methods
 
-	public static ICriteria GetCriteria<T>(this DataAccessHelper dataAccess, ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public static ICriteria GetCriteria<T>(this ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.MaxResults > 0)
@@ -165,7 +165,7 @@ public static class DataAccessHelperCrud
 		sqlCrudConfig.MaxResults = 1;
 		ExecuteTransaction(dataAccess, session =>
 		{
-			result = GetCriteria<T>(dataAccess, session, sqlCrudConfig).List<T>().Any();
+			result = session.GetCriteria<T>(sqlCrudConfig).List<T>().Any();
 		});
 		return result;
 	}

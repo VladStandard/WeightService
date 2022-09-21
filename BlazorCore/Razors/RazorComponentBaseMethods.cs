@@ -292,7 +292,8 @@ public partial class RazorComponentBase
 			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
 			() =>
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+                    new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
 				List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
 				foreach (TemplateResourceModel templateResource in templateResources)
 				{
@@ -323,7 +324,8 @@ public partial class RazorComponentBase
 			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
 			() =>
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+                    new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
 				List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
 				foreach (TemplateResourceModel templateResource in templateResources)
 				{
