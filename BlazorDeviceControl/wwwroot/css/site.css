@@ -181,7 +181,7 @@ a, .btn-link {
 }
 
 .rz-datatable-none > td {
-    background-color: transparent;
+    background-color: red;
 }
 .rz-datatable-read > td {
     background-color: lightyellow;

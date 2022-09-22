@@ -14,7 +14,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string User { get; set; }
+	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual byte Rights { get; set; }
 	[XmlIgnore] public virtual AccessRightsEnum RightsEnum => (AccessRightsEnum)Rights;
 
@@ -23,7 +23,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
 	public AccessModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		User = string.Empty;
+		Name = string.Empty;
 		Rights = 0x00;
 	}
 
@@ -34,7 +34,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	private AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        User = info.GetString(nameof(User));
+        Name = info.GetString(nameof(Name));
         Rights = info.GetByte(nameof(Rights));
     }
 
@@ -48,7 +48,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <returns></returns>
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(User)}: {User}. " +
+        $"{nameof(Name)}: {Name}. " +
         $"{nameof(Rights)}: {RightsEnum}. ";
 
     public override bool Equals(object obj)
@@ -65,13 +65,13 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-	    Equals(User, string.Empty) &&
+	    Equals(Name, string.Empty) &&
 	    Equals(Rights, (byte)0x00);
     
     public override object Clone()
     {
         AccessModel item = new();
-        item.User = User;
+        item.Name = Name;
         item.Rights = Rights;
 		item.CloneSetup(base.CloneCast());
 		return item;
@@ -85,9 +85,16 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-		info.AddValue(nameof(User), User);
+		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Rights), Rights);
 	}
+
+    public override void FillProperties()
+    {
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Rights = (byte)AccessRightsEnum.None;
+    }
 
     #endregion
 
@@ -97,7 +104,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return base.Equals(item) &&
-		       Equals(User, item.User) &&
+		       Equals(Name, item.Name) &&
 		       Equals(Rights, item.Rights);
 	}
 

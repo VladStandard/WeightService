@@ -3,6 +3,9 @@
 @page "/item/filter"
 @using BlazorCore.Razors
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
 
 <MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
     Class=@BlazorCoreUtuls.GetCssName.MudSelect 

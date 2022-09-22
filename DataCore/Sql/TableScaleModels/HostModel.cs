@@ -110,11 +110,21 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(MacAddress), MacAddress);
 	}
 
-    #endregion
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Ip = LocaleCore.Sql.SqlItemFieldIp;
+		MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
+		HostName = LocaleCore.Sql.SqlItemFieldHostName;
+		AccessDt = DateTime.Now;
+	}
 
-    #region Public and private methods - virtual
+	#endregion
 
-    public virtual bool Equals(HostModel item)
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(HostModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		if (!MacAddress.Equals(item.MacAddress))

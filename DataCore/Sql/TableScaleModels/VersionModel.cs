@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using System;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -79,6 +80,14 @@ public class VersionModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(ReleaseDt), ReleaseDt);
         info.AddValue(nameof(Version), Version);
     }
+
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Version = 1;
+		Description = LocaleCore.Sql.SqlItemFieldDescription;
+		ReleaseDt = DateTime.Now;
+	}
 
 	#endregion
 

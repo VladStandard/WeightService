@@ -87,6 +87,13 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 		info.AddValue(nameof(TemplateResource), TemplateResource);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Printer = new();
+		TemplateResource = new();
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

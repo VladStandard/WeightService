@@ -104,5 +104,10 @@ public class XmlProductUnitModel : ISerializable, ISqlDbBase
 		throw new NotImplementedException();
 	}
 
+	public virtual void FillProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

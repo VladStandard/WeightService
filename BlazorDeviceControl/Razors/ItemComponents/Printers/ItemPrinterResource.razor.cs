@@ -31,17 +31,9 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.Description = "NEW RESOURCE";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<PrinterResourceModel>();
 				Printers = AppSettings.DataAccess.GetListPrinters(false, false, false);
 				Resources = AppSettings.DataAccess.GetListTemplateResources(false, false);
 				

@@ -3,6 +3,7 @@
 // ReSharper disable MissingXmlDoc
 
 using DataCore.Sql.Tables;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -82,6 +83,13 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Address), Address);
+	}
+
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Address = LocaleCore.Sql.SqlItemFieldAddress;
 	}
 
 	#endregion

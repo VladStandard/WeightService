@@ -24,17 +24,9 @@ public partial class ItemNomenclature : RazorComponentItemBase<NomenclatureModel
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.Name = "NEW NOMENCLATURE";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<NomenclatureModel>(IdentityId);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<NomenclatureModel>(IdentityId);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<NomenclatureModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

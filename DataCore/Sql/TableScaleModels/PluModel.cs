@@ -4,6 +4,7 @@
 
 using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -176,6 +177,19 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    info.AddValue(nameof(Template), Template);
 	    info.AddValue(nameof(Nomenclature), Nomenclature);
     }
+
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Number = 100;
+		FullName = LocaleCore.Sql.SqlItemFieldFullName;
+		Gtin = LocaleCore.Sql.SqlItemFieldGtin;
+		Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
+		Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
+		//Template = new();
+		//Nomenclature = new();
+	}
 
 	#endregion
 

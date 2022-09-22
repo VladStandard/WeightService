@@ -99,6 +99,12 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(ImageData), ImageData);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Title = LocaleCore.Sql.SqlItemFieldTitle;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

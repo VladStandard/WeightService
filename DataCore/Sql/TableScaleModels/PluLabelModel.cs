@@ -83,6 +83,13 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(Zpl), Zpl);
     }
 
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Zpl = LocaleCore.Sql.SqlItemFieldZpl;
+		//PluWeighing = new();
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

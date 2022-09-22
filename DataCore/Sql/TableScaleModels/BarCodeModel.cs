@@ -107,6 +107,12 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		    Nomenclature = null;
     }
 
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Value = LocaleCore.Sql.SqlItemFieldValue;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

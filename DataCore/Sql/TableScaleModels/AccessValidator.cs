@@ -16,7 +16,7 @@ public class AccessValidator : SqlTableValidator<AccessModel>
     /// </summary>
     public AccessValidator()
     {
-        RuleFor(item => item.User)
+        RuleFor(item => item.Name)
 	        .NotEmpty()
 	        .NotNull();
         RuleFor(item => item.Rights)

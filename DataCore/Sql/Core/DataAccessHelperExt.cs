@@ -14,7 +14,7 @@ public static partial class DataAccessHelperExt
 	public static List<AccessModel> GetListAcesses(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(AccessModel.User), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+            new SqlFieldOrderModel(nameof(AccessModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<AccessModel>(sqlCrudConfig);
 	}
 

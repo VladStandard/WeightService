@@ -135,5 +135,12 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 
 	public virtual void SetUid(Guid value) => Uid = value;
 
+	public virtual bool IsNew() => Name switch
+	{
+		SqlFieldIdentityEnum.Id => Equals(Id, default(long)),
+		SqlFieldIdentityEnum.Uid => Equals(Uid, Guid.Empty),
+		_ => default,
+	};
+
 	#endregion
 }

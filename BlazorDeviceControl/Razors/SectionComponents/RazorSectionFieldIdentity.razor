@@ -5,6 +5,9 @@
 @using MudBlazor
 @using Radzen
 @using Radzen.Blazor
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
 
 <RadzenGridColumn TItem=@TItem TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItem>())>
 	<Template Context="item">

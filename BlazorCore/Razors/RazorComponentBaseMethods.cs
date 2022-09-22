@@ -133,9 +133,18 @@ public partial class RazorComponentBase
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(LocaleCore.Table.TableCancel, SetRouteSectionNavigate);
+		RunActionsSafe(LocaleCore.Table.TableCancel, () =>
+		{
+			SetRouteSectionNavigate();
+			OnChangeAsync();
+		});
+	}
 
-		OnChangeAsync();
+	protected TItem SqlItemNew<TItem>() where TItem : SqlTableBase, new()
+	{
+		TItem item = new();
+		item.FillProperties();
+		return item;
 	}
 
 	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
@@ -143,15 +152,7 @@ public partial class RazorComponentBase
 		if (item is null) return;
 		if (!SqlItemValidate(NotificationService, item)) return;
 
-		AppSettings.DataAccess.SaveOrUpdate(item, SqlTableActionEnum.Save);
-	}
-
-	private void SqlItemNew<T>(T? item) where T : SqlTableBase, new()
-	{
-		if (item is null) return;
-		if (!SqlItemValidate(NotificationService, item)) return;
-
-		AppSettings.DataAccess.SaveOrUpdate(item, SqlTableActionEnum.Save);
+		AppSettings.DataAccess.Update(item);
 	}
 
 	private void SqlItemsSave<T>(List<T>? items) where T : SqlTableBase, new()
@@ -170,9 +171,8 @@ public partial class RazorComponentBase
 		{
 			SqlItemSave(SqlItem);
 			SetRouteSectionNavigate();
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	protected async Task SqlItemsSaveAsync()
@@ -182,23 +182,21 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
 			SqlItemsSave(SqlItems);
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
-	protected async Task SqlItemNewAsync()
+	protected async Task SqlItemNewAsync<TItem>() where TItem : SqlTableBase, new()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(LocaleCore.Table.TableNew, () =>
+		RunActionsSafe(string.Empty, () =>
 		{
-			SqlItemNew(SqlItem);
-			SetRouteSectionNavigate();
+			SqlItem = SqlItemNew<TItem>();
+			SetRouteItemNavigate(SqlItem);
+			//OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	protected async Task SqlItemCopyAsync()
@@ -206,12 +204,11 @@ public partial class RazorComponentBase
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(LocaleCore.Table.TableCopy, () =>
+		RunActionsSafe(string.Empty, () =>
 		{
-			SetRouteItemNavigate(SqlItem, SqlTableActionEnum.Copy);
+			SetRouteItemNavigate(SqlItem);
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	protected async Task SqlItemEditAsync()
@@ -219,13 +216,11 @@ public partial class RazorComponentBase
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(LocaleCore.Table.TableEdit, () =>
+		RunActionsSafe(string.Empty, () =>
 		{
-			SetRouteItemNavigate(SqlItem, SqlTableActionEnum.Edit);
-			InvokeAsync(StateHasChanged);
+			SetRouteItemNavigate(SqlItem);
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	protected void RowRender<TItem>(RowRenderEventArgs<TItem> args) where TItem : SqlTableBase, new()
@@ -244,35 +239,32 @@ public partial class RazorComponentBase
 		RunActionsSafe(string.Empty, () =>
 		{
 			SqlItem = item;
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
-    protected async Task SqlItemMarkAsync(bool isParentRazor)
+    protected async Task SqlItemMarkAsync()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
-			AppSettings.DataAccess.Mark(isParentRazor ? ParentRazor?.SqlItem : SqlItem);
+			AppSettings.DataAccess.Mark(SqlItem);
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
-	protected async Task SqlItemDeleteAsync(bool isParentRazor)
+	protected async Task SqlItemDeleteAsync()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
-			AppSettings.DataAccess.Delete(isParentRazor ? ParentRazor?.SqlItem : SqlItem);
+			AppSettings.DataAccess.Delete(SqlItem);
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	protected async Task SqlItemPrinterResourcesClear(PrinterModel printer)
@@ -299,9 +291,8 @@ public partial class RazorComponentBase
 						});
 				}
 			}
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	protected async Task SqlItemPrinterResourcesLoad(PrinterModel printer, string fileType)
@@ -328,9 +319,8 @@ public partial class RazorComponentBase
 						});
 				}
 			}
+			OnChangeAsync();
 		});
-
-		OnChangeAsync();
 	}
 
 	#endregion

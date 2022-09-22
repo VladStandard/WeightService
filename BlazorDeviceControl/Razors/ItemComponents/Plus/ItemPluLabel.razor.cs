@@ -24,18 +24,11 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
         {
             () =>
             {
-                switch (TableAction)
-                {
-                    case SqlTableActionEnum.New:
-                        SqlItemCast = new();
-                        SqlItemCast.SetDtNow();
-						break;
-                    default:
-	                    SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluLabelModel>(IdentityId);
-                        break;
-                }
+                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluLabelModel>(IdentityId);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<PluLabelModel>();
 
-                ButtonSettings = new(false, false, false, false, false, false, true);
+				ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });
     }

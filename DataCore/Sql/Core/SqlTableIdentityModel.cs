@@ -102,5 +102,10 @@ public class SqlTableIdentityModel : SerializeBase, ICloneable, ISqlDbBase, ISer
 		throw new NotImplementedException();
 	}
 
+	public virtual void FillProperties()
+	{
+		throw new NotImplementedException();
+	}
+
 	#endregion
 }

@@ -26,26 +26,10 @@ public partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.Name = "NEW PRINTER";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
-						break;
-				}
-
+                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<PrinterModel>();
 				PrinterTypes = AppSettings.DataAccess.GetListPrinterTypes(false, false);
-				if (TableAction == SqlTableActionEnum.New)
-				{
-					SqlItemCast.Name = "NEW PRINTER";
-					SqlItemCast.Ip = "127.0.0.1";
-					SqlItemCast.MacAddress.Default();
-				}
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

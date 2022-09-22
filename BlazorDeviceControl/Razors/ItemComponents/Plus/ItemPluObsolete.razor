@@ -1,227 +1,223 @@
 ﻿@*@inherits BlazorCore.Models.RazorComponentItemBase<PluObsoleteModel>
 @page "/item/plu_obsolete"
+@page "/item/plu_obsolete/new"
 @page "/item/plu_obsolete/{IdentityId:long}"
-@page "/item/plu_obsolete/{IdentityId:long}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.Components
 @using BlazorDeviceControl.Razors.Items.Components
+@using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <ActionsLoad ParentRazor=@(this) DataLoadItem=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-    <RazorItemReload TItem=PluObsoleteModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
+<SystemIdentity ParentRazor=@(this) />
 
-    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-		<RazorItemTableHead TItem=PluObsoleteModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-        <tbody>
-			<RazorItemTableBody TItem=PluObsoleteModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
-            <tr>
-                <td>@LocaleCore.Table.PluNumber</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        ReadOnly=true Value=@SqlItemCast.PluNumber.ToString() />
-				</td>
-                <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.Template, SqlItemCast.Template.Identity.Id)
-                        Text=@LocaleCore.Table.Template />
+<RazorItemReload TItem=PluObsoleteModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=PluObsoleteModel ParentRazor=@(this) CssTableStyleHead=@ComponentsUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+		<RazorItemTableBody TItem=PluObsoleteModel ParentRazor=@(this) CssTableStyleBody=@ComponentsUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+        <tr>
+            <td>@LocaleCore.Table.PluNumber</td>
+            <td>
+                <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                    ReadOnly=true Value=@SqlItemCast.PluNumber.ToString() />
+			</td>
+            <td>
+                <RadzenLink Style="width: 100%; margin-left: 0; " 
+                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.Template, SqlItemCast.Template.Identity.Id)
+                    Text=@LocaleCore.Table.Template />
+            </td>
+            <td>
+                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                    @bind-Value=@SqlItemCast.Template>
+                    @foreach (TemplateModel item in Templates)
+                    {
+                        <MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
+                    }
+                </MudSelect>
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Active</td>
+            <td>
+                <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.Active />
+            </td>
+            <td>@LocaleCore.Table.CheckWeight</td>
+            <td>
+                <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.IsCheckWeight />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <RadzenLink Style="width: 100%; margin-left: 0; " 
+                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.Nomenclature, SqlItemCast.Nomenclature.Identity.Id)
+                    Text=@LocaleCore.Table.Nomenclature />
+            </td>
+            <td>
+                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                    @bind-Value=@SqlItemCast.Nomenclature>
+                    @foreach (NomenclatureModel item in Nomenclatures)
+                    {
+                        <MudSelectItem T=@NomenclatureModel Value=@item>@item.Name</MudSelectItem>
+                    }
+                </MudSelect>
+			</td>
+            <td>
+                <RadzenLink Style="width: 100%; margin-left: 0; " 
+                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
+                    Text=@LocaleCore.Table.Scale />
+            </td>
+            <td>
+                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                    @bind-Value=@SqlItemCast.Scale>
+                    @foreach (ScaleModel item in Scales)
+                    {
+                        <MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
+                    }
+                </MudSelect>
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.UpperWeightThreshold</td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
+                    TValue="decimal" @bind-Value=@SqlItemCast.UpperWeightThreshold />
+			</td>
+            <td>@LocaleCore.Table.NominalWeight</td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
+                    TValue="decimal" @bind-Value=@SqlItemCast.NominalWeight />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.LowerWeightThreshold</td>
+            <td>
+                <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
+                    TValue="decimal" @bind-Value=@SqlItemCast.LowerWeightThreshold />
+			</td>
+            <td>@LocaleCore.Table.ShelfLifeDays</td>
+            <td>
+                <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlShelfLifeDays))) />
+                <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
+                    TValue="short" @bind-Value=@SqlItemCast.GoodsShelfLifeDays />
+			</td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <RadzenLabel Style="width: 100%; text-align: center; font-size: 11px; " 
+                    Text=@LocaleCore.Table.GoodsTareWeightDescription />
+            </td>
+            <td colspan=2>
+                <RadzenLabel Style="width: 100%; text-align: center; font-size: 11px; " 
+                    Text=@GetWeightFormula() />
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.GoodsTareWeight</td>
+            <td>
+                <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
+                    TValue="decimal" @bind-Value=@SqlItemCast.GoodsTareWeight />
+                <RadzenButton Style="width: 10%; " Disabled=false  Size=@ButtonSize.Small
+                    Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsTareWeight))) />
+            </td>
+            <td>@LocaleCore.Table.GoodsBoxQuantly</td>
+            <td>
+                <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlBoxQuantly))) />
+                <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
+                    TValue="int" @bind-Value=@SqlItemCast.GoodsBoxQuantly />
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Ean13</td>
+            <td >
+                <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlEan13))) />
+                <RadzenTextBox Style="width: 80%; text-align: center; " Disabled=false 
+                    @bind-Value=@SqlItemCast.Ean13 />
+                <RadzenLabel Style="width: 6%; text-align: center; " 
+                    Text=@SqlItemCast.Ean13.Length.ToString() />
+            </td>
+            <td>@LocaleCore.Table.Gtin</td>
+            <td >
+                <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlGtin))) />
+                <RadzenTextBox Style="width: 70%; text-align: center; " Disabled=false 
+                    @bind-Value=@SqlItemCast.Gtin />
+                <RadzenLabel Style="width: 5%; text-align: center; " 
+                    Text=@SqlItemCast.Gtin.Length.ToString() />
+                <RadzenButton Style="width: 10%; " Disabled=false Size=@ButtonSize.Small
+                    Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
+                    Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtinWithCheckDigit))) />
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Itf14</td>
+            <td >
+                <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlItf14))) />
+                <RadzenTextBox Style="width: 76%; text-align: center; " Disabled=false 
+                    @bind-Value=@SqlItemCast.Itf14 />
+                <RadzenLabel Style="width: 10%; text-align: center; " Text=@SqlItemCast.Itf14.Length.ToString() />
+            </td>
+            <td >
+                <RadzenButton Style="width: 100%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Text=@LocaleCore.DeviceControl.TableActionFill
+                    Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionFill))) />
+			</td>
+            <td >
+                <RadzenButton Style="width: 100%; " Disabled=false Icon="clear" Size=@ButtonSize.Small
+                          Text=@LocaleCore.DeviceControl.TableActionClear
+                    Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionClear))) />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Name
+                <RadzenButton Style="align-self: end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                          Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlName))) />
                 </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@SqlItemCast.Template>
-                        @foreach (TemplateModel item in Templates)
-                        {
-                            <MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
-                        }
-                    </MudSelect>
+            <td colspan="3">
+                <RadzenTextBox Style="width: 100%; " Disabled=false @bind-Value=@SqlItemCast.GoodsName />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.GoodsFullName
+                <RadzenButton Style="align-content: end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlFullName))) />
                 </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Active</td>
-                <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.Active />
-                </td>
-                <td>@LocaleCore.Table.CheckWeight</td>
-                <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.IsCheckWeight />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.Nomenclature, SqlItemCast.Nomenclature.Identity.Id)
-                        Text=@LocaleCore.Table.Nomenclature />
-                </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@SqlItemCast.Nomenclature>
-                        @foreach (NomenclatureModel item in Nomenclatures)
-                        {
-                            <MudSelectItem T=@NomenclatureModel Value=@item>@item.Name</MudSelectItem>
-                        }
-                    </MudSelect>
-				</td>
-                <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0; " 
-                        Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
-                        Text=@LocaleCore.Table.Scale />
-                </td>
-                <td>
-                    <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                        @bind-Value=@SqlItemCast.Scale>
-                        @foreach (ScaleModel item in Scales)
-                        {
-	                        <MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
-                        }
-                    </MudSelect>
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.UpperWeightThreshold</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="decimal" @bind-Value=@SqlItemCast.UpperWeightThreshold />
-				</td>
-                <td>@LocaleCore.Table.NominalWeight</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="decimal" @bind-Value=@SqlItemCast.NominalWeight />
-				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.LowerWeightThreshold</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="decimal" @bind-Value=@SqlItemCast.LowerWeightThreshold />
-				</td>
-                <td>@LocaleCore.Table.ShelfLifeDays</td>
-                <td>
-                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlShelfLifeDays))) />
-                    <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
-                        TValue="short" @bind-Value=@SqlItemCast.GoodsShelfLifeDays />
-				</td>
-            </tr>
-            <tr>
-                <td colspan=2>
-                    <RadzenLabel Style="width: 100%; text-align: center; font-size: 11px; " 
-                        Text=@LocaleCore.Table.GoodsTareWeightDescription />
-                </td>
-                <td colspan=2>
-                    <RadzenLabel Style="width: 100%; text-align: center; font-size: 11px; " 
-                        Text=@GetWeightFormula() />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.GoodsTareWeight</td>
-                <td>
-                    <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
-                        TValue="decimal" @bind-Value=@SqlItemCast.GoodsTareWeight />
-                    <RadzenButton Style="width: 10%; " Disabled=false  Size=@ButtonSize.Small
-                        Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsTareWeight))) />
-                </td>
-                <td>@LocaleCore.Table.GoodsBoxQuantly</td>
-                <td>
-                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlBoxQuantly))) />
-                    <RadzenNumeric Style="width: 88%; text-align: center; " Disabled=false 
-                        TValue="int" @bind-Value=@SqlItemCast.GoodsBoxQuantly />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Ean13</td>
-                <td >
-                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlEan13))) />
-                    <RadzenTextBox Style="width: 80%; text-align: center; " Disabled=false 
-                        @bind-Value=@SqlItemCast.Ean13 />
-                    <RadzenLabel Style="width: 6%; text-align: center; " 
-                        Text=@SqlItemCast.Ean13.Length.ToString() />
-                </td>
-                <td>@LocaleCore.Table.Gtin</td>
-                <td >
-                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlGtin))) />
-                    <RadzenTextBox Style="width: 70%; text-align: center; " Disabled=false 
-                        @bind-Value=@SqlItemCast.Gtin />
-                    <RadzenLabel Style="width: 5%; text-align: center; " 
-                        Text=@SqlItemCast.Gtin.Length.ToString() />
-                    <RadzenButton Style="width: 10%; " Disabled=false Size=@ButtonSize.Small
-                        Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
-                        Click=@(_ => OnClickFieldsFill(nameof(Barcode.GetGtinWithCheckDigit))) />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Itf14</td>
-                <td >
-                    <RadzenButton Style="width: 10%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlItf14))) />
-                    <RadzenTextBox Style="width: 76%; text-align: center; " Disabled=false 
-                        @bind-Value=@SqlItemCast.Itf14 />
-                    <RadzenLabel Style="width: 10%; text-align: center; " Text=@SqlItemCast.Itf14.Length.ToString() />
-                </td>
-                <td >
-                    <RadzenButton Style="width: 100%; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Text=@LocaleCore.DeviceControl.TableActionFill
-                        Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionFill))) />
-				</td>
-                <td >
-                    <RadzenButton Style="width: 100%; " Disabled=false Icon="clear" Size=@ButtonSize.Small
-                              Text=@LocaleCore.DeviceControl.TableActionClear
-                        Click=@(_ => OnClickFieldsFill(nameof(LocaleCore.DeviceControl.TableActionClear))) />
-				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.Name
-                    <RadzenButton Style="align-self: end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                              Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlName))) />
-                    </td>
-                <td colspan="3">
-                    <RadzenTextBox Style="width: 100%; " Disabled=false @bind-Value=@SqlItemCast.GoodsName />
-				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.GoodsFullName
-                    <RadzenButton Style="align-content: end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlFullName))) />
-                    </td>
-                <td colspan="3">
-                    <RadzenTextBox Style="width: 100%; " Disabled=false @bind-Value=@SqlItemCast.GoodsFullName />
-				</td>
-            </tr>
-            <tr>
-                <td>@LocaleCore.Table.GoodsDescription
-                    <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                        Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlDescription))) />
-                </td>
-                <td colspan=3>
-                    <RadzenTextArea 
-                        Style="width: 100%; text-align: left; font-size: 11px; line-height: 16px; " 
-                        Disabled=false @bind-Value=@SqlItemCast.GoodsDescription Rows=3 />
-				</td>
-            </tr>
-            <tr >
-                <td>
-                    @LocaleCore.Table.XmlPretty
-                    <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
-                              Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlDescription))) />
-                </td>
-                <td colspan=3>
-                    <RadzenTextArea 
-                        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true Rows=30 
-                        Value=@(XmlUtils.GetXmlpretty(SqlItemCast.Nomenclature.Xml)) />
-                </td>
-            </tr>
-        </tbody>
-    </MudSimpleTable>
-    
-    <RazorItemActions TItem=PluObsoleteModel ParentRazor=@(this) />
-    <RazorItemDates TItem=PluObsoleteModel ParentRazor=@(this) />
-}
+            <td colspan="3">
+                <RadzenTextBox Style="width: 100%; " Disabled=false @bind-Value=@SqlItemCast.GoodsFullName />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.GoodsDescription
+                <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                    Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlDescription))) />
+            </td>
+            <td colspan=3>
+                <RadzenTextArea 
+                    Style="width: 100%; text-align: left; font-size: 11px; line-height: 16px; " 
+                    Disabled=false @bind-Value=@SqlItemCast.GoodsDescription Rows=3 />
+			</td>
+        </tr>
+        <tr >
+            <td>
+                @LocaleCore.Table.XmlPretty
+                <RadzenButton Style="align-content: flex-end; " Disabled=false Icon="autorenew" Size=@ButtonSize.Small
+                          Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.GetXmlDescription))) />
+            </td>
+            <td colspan=3>
+                <RadzenTextArea 
+                    Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
+                    Disabled=false ReadOnly=true Rows=30 
+                    Value=@(XmlUtils.GetXmlpretty(SqlItemCast.Nomenclature.Xml)) />
+            </td>
+        </tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=PluObsoleteModel ParentRazor=@(this) />
+<RazorItemDates TItem=PluObsoleteModel ParentRazor=@(this) />
 *@

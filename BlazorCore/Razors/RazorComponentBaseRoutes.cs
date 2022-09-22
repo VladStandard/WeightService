@@ -145,32 +145,19 @@ public partial class RazorComponentBase
     protected string GetRouteItemPath(string uriItem, SqlTableBase? item, Guid? uid) =>
         item is null || uid is null ? string.Empty : $"{uriItem}/{uid}";
 
-    private void SetRouteItemNavigate<TItem>(TItem? item, SqlTableActionEnum tableAction) where TItem : SqlTableBase, new()
+    private void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {
+	    if (item is null) return;
         string page = GetRouteItemPathShort(SqlItem);
-        if (string.IsNullOrEmpty(page))
-            return;
+        if (string.IsNullOrEmpty(page)) return;
 
-		switch (tableAction)
-		{
-			case SqlTableActionEnum.Copy:
-			case SqlTableActionEnum.New:
-				NavigationManager?.NavigateTo($"{page}/{tableAction}");
-				break;
-			case SqlTableActionEnum.Edit:
-				if (item is null)
-					return;
-				switch (item.Identity.Name)
-				{
-					case SqlFieldIdentityEnum.Id:
-						NavigationManager?.NavigateTo($"{page}/{item.Identity.Id}");
-						break;
-					case SqlFieldIdentityEnum.Uid:
-						NavigationManager?.NavigateTo($"{page}/{item.Identity.Uid}");
-						break;
-				}
-				break;
-		}
+        page = item.Identity.Name switch
+        {
+	        SqlFieldIdentityEnum.Id => item.Identity.IsNew() ? $"{page}/new" : $"{page}/{item.Identity.Id}",
+	        SqlFieldIdentityEnum.Uid => item.Identity.IsNew() ? $"{page}/new" : $"{page}/{item.Identity.Uid}",
+	        _ => page
+        };
+        NavigationManager?.NavigateTo(page);
 	}
 
     private void SetRouteItemNavigateUsingJsRuntime(string page)

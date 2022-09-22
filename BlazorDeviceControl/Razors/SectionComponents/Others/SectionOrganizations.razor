@@ -1,28 +1,24 @@
 ﻿@inherits RazorComponentSectionBase<OrganizationModel>
 @page "/section/organizations"
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-    <RazorSectionReload TItem=OrganizationModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
+<SystemIdentity ParentRazor=@(this) />
 
-    <RadzenGrid Style="margin-top: 5px; " 
-        Data=@SqlItemsCast TItem=OrganizationModel 
-        RowDoubleClick=@(_ => SqlItemEditAsync())
-        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
-        <Columns >
-            <RazorSectionFieldIsMarked TItem=OrganizationModel ParentRazor=@(this) />
-            <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%"))
-				RazorFieldConfig=@RazorFieldConfigUtils.Organization.GetName() />
-            <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%"))
-                RazorFieldConfig=@RazorFieldConfigUtils.Organization.GetGln() />
-        </Columns>
-    </RadzenGrid>
+<RazorSectionReload TItem=OrganizationModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
 
-    <RazorSectionActions TItem=OrganizationModel ParentRazor=@(this) />
-}
+<RadzenGrid Style="margin-top: 5px; " 
+    Data=@SqlItemsCast TItem=OrganizationModel 
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=OrganizationModel ParentRazor=@(this) />
+        <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%"))
+			RazorFieldConfig=@RazorFieldConfigUtils.Organization.GetName() />
+        <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%"))
+            RazorFieldConfig=@RazorFieldConfigUtils.Organization.GetGln() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=OrganizationModel ParentRazor=@(this) />

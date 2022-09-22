@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
-
 namespace DataCore.Sql.Fields;
 
 /// <summary>
@@ -11,41 +9,41 @@ namespace DataCore.Sql.Fields;
 [Serializable]
 public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public string Name { get; private set; }
-    public SqlFieldOrderEnum Direction { get; private set; }
+	public string Name { get; private set; }
+	public SqlFieldOrderEnum Direction { get; private set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public SqlFieldOrderModel()
-    {
-	    Name = string.Empty;
-	    Direction = SqlFieldOrderEnum.Asc;
-    }
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public SqlFieldOrderModel()
+	{
+		Name = string.Empty;
+		Direction = SqlFieldOrderEnum.Asc;
+	}
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="direction"></param>
-    public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction)
-    {
-        Name = name;
-        Direction = direction;
-    }
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="name"></param>
+	/// <param name="direction"></param>
+	public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction)
+	{
+		Name = name;
+		Direction = direction;
+	}
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected SqlFieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
-    {
-        Name = info.GetString(nameof(Name));
-        Direction = (SqlFieldOrderEnum)info.GetValue(nameof(Direction), typeof(SqlFieldOrderEnum));
-    }
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	protected SqlFieldOrderModel(SerializationInfo info, StreamingContext context)// : base(info, context)
+	{
+		Name = info.GetString(nameof(Name));
+		Direction = (SqlFieldOrderEnum)info.GetValue(nameof(Direction), typeof(SqlFieldOrderEnum));
+	}
 
 	#endregion
 
@@ -53,15 +51,15 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 
 	public override string ToString() =>
 		$"{nameof(Name)}: {Name}. " +
-        $"{nameof(Direction)}: {Direction}. ";
+		$"{nameof(Direction)}: {Direction}. ";
 
-    public override bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
-	    if (ReferenceEquals(null, obj)) return false;
-	    if (ReferenceEquals(this, obj)) return true;
-	    if (obj.GetType() != GetType()) return false;
-	    return Equals((SqlFieldOrderModel)obj);
-    }
+		if (ReferenceEquals(null, obj)) return false;
+		if (ReferenceEquals(this, obj)) return true;
+		if (obj.GetType() != GetType()) return false;
+		return Equals((SqlFieldOrderModel)obj);
+	}
 
 	public override int GetHashCode() => (Name, Direction).GetHashCode();
 
@@ -73,11 +71,11 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 	/// <param name="info"></param>
 	/// <param name="context"></param>
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        //base.GetObjectData(info, context);
-        info.AddValue(nameof(Name), Name);
-        info.AddValue(nameof(Direction), Direction);
-    }
+	{
+		//base.GetObjectData(info, context);
+		info.AddValue(nameof(Name), Name);
+		info.AddValue(nameof(Direction), Direction);
+	}
 
 	public virtual bool EqualsDefault() =>
 		Equals(Name, string.Empty) &&
@@ -93,13 +91,18 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return
-            Equals(Name, item.Name) &&
+			Equals(Name, item.Name) &&
 			Direction.Equals(item.Direction);
 	}
 
 	public virtual SqlFieldOrderModel CloneCast() => (SqlFieldOrderModel)Clone();
 
 	public virtual void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
+	public virtual void FillProperties()
 	{
 		throw new NotImplementedException();
 	}

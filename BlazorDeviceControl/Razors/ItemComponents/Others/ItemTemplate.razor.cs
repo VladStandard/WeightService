@@ -26,21 +26,9 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.Title = "NEW TEMPLATE";
-						SqlItemCast.IdRRef = Guid.Empty;
-						SqlItemCast.CategoryId = "300 dpi";
-						SqlItemCast.ImageData.SetTemplateValue();
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateModel>(IdentityId);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateModel>(IdentityId);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<TemplateModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

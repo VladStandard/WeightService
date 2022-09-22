@@ -3,30 +3,25 @@
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-    <RazorSectionReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
+<SystemIdentity ParentRazor=@(this) />
 
-    <RadzenGrid Style="margin-top: 5px;"
-        Data=@SqlItemsCast TItem=PrinterResourceModel 
-        RowDoubleClick=@(_ => SqlItemEditAsync())
-        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
-        <Columns>
-            <RazorSectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
-            <RazorSectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
-            <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-            <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
-            <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetResource(GetRouteItemPathShort<TemplateResourceModel>()) />
-        </Columns>
-    </RadzenGrid>
+<RazorSectionReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
-    <RazorSectionActions TItem=PrinterResourceModel ParentRazor=@(this) />
-}
+<RadzenGrid Style="margin-top: 5px;"
+    Data=@SqlItemsCast TItem=PrinterResourceModel 
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns>
+        <RazorSectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
+        <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
+        <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
+        <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetResource(GetRouteItemPathShort<TemplateResourceModel>()) />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=PrinterResourceModel ParentRazor=@(this) />

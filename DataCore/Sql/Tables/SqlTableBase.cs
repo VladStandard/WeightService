@@ -149,5 +149,20 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		//throw new NotImplementedException();
 	}
 
+	public virtual void FillProperties()
+	{
+		switch (Identity.Name)
+		{
+			//case SqlFieldIdentityEnum.Id:
+			//	break;
+			case SqlFieldIdentityEnum.Uid:
+				Identity = new(Identity.Name);
+				//Identity.Uid = Guid.NewGuid();
+				break;
+		}
+		SetDtNow();
+		Description = LocaleCore.Sql.SqlItemFieldDescription;
+	}
+
 	#endregion
 }

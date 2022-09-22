@@ -12,4 +12,5 @@ public interface ISqlDbBase
     object Clone();
     void GetObjectData(SerializationInfo info, StreamingContext context);
     void ClearNullProperties();
+    void FillProperties();
 }

@@ -3,28 +3,23 @@
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-    <RazorSectionReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
-    
-    <RadzenGrid Style="margin-top: 5px;" 
-        Data=@SqlItemsCast TItem=BarCodeModel 
-        RowDoubleClick=@(_ => SqlItemEditAsync())
-        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
-	    <Columns >
-            <RazorSectionFieldIsMarked TItem=BarCodeModel ParentRazor=@(this) />
-            <RazorSectionFieldIdentity TItem=BarCodeModel ParentRazor=@(this) />
-            <RazorSectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-                      RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-            <RazorSectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValue() />
-	    </Columns>
-    </RadzenGrid>
+<SystemIdentity ParentRazor=@(this) />
 
-    <RazorSectionActions TItem=BarCodeModel ParentRazor=@(this) />
-}
+<RazorSectionReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+
+<RadzenGrid Style="margin-top: 5px;" 
+    Data=@SqlItemsCast TItem=BarCodeModel 
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=BarCodeModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=BarCodeModel ParentRazor=@(this) />
+        <RazorSectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+                  RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+        <RazorSectionField TItem=BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValue() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=BarCodeModel ParentRazor=@(this) />

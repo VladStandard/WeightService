@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Tables;
 using NHibernate.Event;
+using System.Drawing;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -98,6 +99,15 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 		info.AddValue(nameof(Code), Code);
 		info.AddValue(nameof(Xml), Xml);
 		info.AddValue(nameof(Weighted), Weighted);
+	}
+
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Code = LocaleCore.Sql.SqlItemFieldCode;
+		Xml = LocaleCore.Sql.SqlItemFieldProductXml;
+		Weighted = false;
 	}
 
 	#endregion

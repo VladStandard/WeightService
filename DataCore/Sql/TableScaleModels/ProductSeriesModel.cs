@@ -100,6 +100,14 @@ public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
         info.AddValue(nameof(Uid), Uid);
     }
 
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Sscc = LocaleCore.Sql.SqlItemFieldSscc;
+		IsClose = false;
+		//Scale = new();
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Models;
+
 namespace AssertCoreTests;
 
 public class DataCoreHelper
@@ -199,46 +201,47 @@ public class DataCoreHelper
 		switch (item)
 		{
 			case AccessModel access:
-				access.User = "Test";
+				access.Name = LocaleCore.Sql.SqlItemFieldName;
+				access.Rights = (byte)AccessRightsEnum.None;
 				break;
 			case AppModel app:
-				app.Name = "Test";
+				app.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
-			case BarCodeModel barCodeV2:
-				barCodeV2.Value = "Test";
+			case BarCodeModel barCode:
+				barCode.Value = LocaleCore.Sql.SqlItemFieldValue;
 				break;
-			case BarCodeTypeModel barCodeTypeV2:
-				barCodeTypeV2.Name = "Test";
+			case BarCodeTypeModel barCodeType:
+				barCodeType.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
-			case ContragentModel contragentV2:
-				contragentV2.Name = "Test";
+			case ContragentModel contragent:
+				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case HostModel host:
-				host.Name = "Test";
-				host.Ip = "127.0.0.1";
-				host.MacAddressValue = "001122334455";
-				host.HostName = "Test";
+				host.Name = LocaleCore.Sql.SqlItemFieldName;
+				host.Ip = LocaleCore.Sql.SqlItemFieldIp;
+				host.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
+				host.HostName = LocaleCore.Sql.SqlItemFieldHostName;
 				host.AccessDt = DateTime.Now;
 				break;
 			case LogModel log:
-				log.Version = "0.1.2";
-				log.File = "Test.cs";
+				log.Version = LocaleCore.Sql.SqlItemFieldVersion;
+				log.File = LocaleCore.Sql.SqlItemFieldFile;
 				log.Line = 1;
-				log.Member = "Test";
+				log.Member = LocaleCore.Sql.SqlItemFieldMember;
 				log.LogType = CreateNewSubstitute<LogTypeModel>(isNotDefault);
-				log.Message = "Test";
+				log.Message = LocaleCore.Sql.SqlItemFieldMessage;
 				break;
 			case LogTypeModel logType:
-				logType.Icon = "Test";
+				logType.Icon = LocaleCore.Sql.SqlItemFieldIcon;
 				break;
 			case NomenclatureModel nomenclature:
-				nomenclature.Name = "0.1.2";
-				nomenclature.Code = "ЦБД00012345";
-				nomenclature.Xml = "<Product Category=\"Сосиски\" > </Product>";
+				nomenclature.Name = LocaleCore.Sql.SqlItemFieldName;
+				nomenclature.Code = LocaleCore.Sql.SqlItemFieldCode;
+				nomenclature.Xml = LocaleCore.Sql.SqlItemFieldProductXml;
 				nomenclature.Weighted = false;
 				break;
 			case OrderModel order:
-				order.Name = "Test";
+				order.Name = LocaleCore.Sql.SqlItemFieldName;
 				order.BoxCount = 1;
 				order.PalletCount = 1;
 				break;
@@ -247,27 +250,27 @@ public class DataCoreHelper
 				orderWeighing.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				break;
 			case OrganizationModel organization:
-				organization.Name = "Test";
-				organization.Description = "Test";
+				organization.Name = LocaleCore.Sql.SqlItemFieldName;
+				organization.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				organization.Gln = 1;
 				break;
 			case PackageModel package:
-				package.Name = "Test";
+				package.Name = LocaleCore.Sql.SqlItemFieldName;
 				package.Weight = 0.560M;
 				break;
 			case PluModel plu:
-				plu.Name = "Test";
+				plu.Name = LocaleCore.Sql.SqlItemFieldName;
 				plu.Number = 100;
-				plu.FullName = "Test";
-				plu.Description = "Test";
-				plu.Gtin = "Test";
-				plu.Ean13 = "Test";
-				plu.Itf14 = "Test";
+				plu.FullName = LocaleCore.Sql.SqlItemFieldFullName;
+				plu.Description = LocaleCore.Sql.SqlItemFieldDescription;
+				plu.Gtin = LocaleCore.Sql.SqlItemFieldGtin;
+				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
+				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
 				plu.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
 				break;
 			case PluLabelModel pluLabel:
-				pluLabel.Zpl = "Test";
+				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;
 				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
 				break;
 			case PluScaleModel pluScale:
@@ -276,9 +279,9 @@ public class DataCoreHelper
 				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case PluWeighingModel pluWeighing:
-				pluWeighing.Sscc = "Test";
-				pluWeighing.NettoWeight = (decimal)1.1;
-				pluWeighing.TareWeight = (decimal)0.25;
+				pluWeighing.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
+				pluWeighing.NettoWeight = 1.1M;
+				pluWeighing.TareWeight = 0.25M;
 				pluWeighing.ProductDt = DateTime.Now;
 				pluWeighing.RegNum = 1;
 				pluWeighing.Kneading = 1;
@@ -290,24 +293,24 @@ public class DataCoreHelper
 				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;
 			case PrinterResourceModel printerResource:
-				printerResource.Description = "Test";
+				printerResource.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;
 			case PrinterTypeModel printerType:
-				printerType.Name = "Test";
+				printerType.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case ProductionFacilityModel productionFacility:
-				productionFacility.Name = "Test";
-				productionFacility.Address = "Test";
+				productionFacility.Name = LocaleCore.Sql.SqlItemFieldName;
+				productionFacility.Address = LocaleCore.Sql.SqlItemFieldAddress;
 				break;
 			case ProductSeriesModel productSeries:
-				productSeries.Sscc = "Test";
+				productSeries.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
 				productSeries.IsClose = false;
 				productSeries.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case ScaleModel scale:
-				scale.Description = "Test";
+				scale.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				scale.TemplateDefault = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				scale.TemplateSeries = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
@@ -320,22 +323,22 @@ public class DataCoreHelper
 				task.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case TaskTypeModel taskType:
-				taskType.Name = "Test";
+				taskType.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case TemplateModel template:
-				template.Title = "Test";
+				template.Title = LocaleCore.Sql.SqlItemFieldTitle;
 				break;
 			case TemplateResourceModel templateResource:
-				templateResource.Name = "Test";
-				templateResource.Description = "Test";
+				templateResource.Name = LocaleCore.Sql.SqlItemFieldName;
+				templateResource.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				break;
 			case VersionModel version:
 				version.Version = 1;
-				version.Description = "Test";
+				version.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				version.ReleaseDt = DateTime.Now;
 				break;
 			case WorkShopModel workShop:
-				workShop.Name = "Test";
+				workShop.Name = LocaleCore.Sql.SqlItemFieldName;
 				workShop.ProductionFacility = CreateNewSubstitute<ProductionFacilityModel>(isNotDefault);
 				break;
 		}

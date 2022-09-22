@@ -1,61 +1,57 @@
 ﻿@inherits RazorComponentItemBase<PluScaleModel>
 @page "/item/plu_scale"
+@page "/item/plu_scale/new"
 @page "/item/plu_scale/{IdentityUidStr}"
-@page "/item/plu_scale/{IdentityUidStr}/{TableAction}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-	<RazorItemReload TItem=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
-	
-	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<RazorItemTableHead TItem=PluScaleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
-		<tbody>
-			<RazorItemTableBody TItem=PluScaleModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
-			<tr>
-				<td>@LocaleCore.Table.IsActive</td>
-				<td>
-					<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<RadzenLink Style="width: 100%; margin-left: 0;"
-							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
-					    Text=@LocaleCore.Table.Scale/>
-				</td>
-				<td>
-					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-					    ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Scale >
-						@foreach (ScaleModel item in Scales)
-						{
-							<MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
-						}
-					</MudSelect>
-				</td>
-				<td>
-					<RadzenLink Style="width: 100%; margin-left: 0;"
-							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.Identity.Uid)
-					    Text=@LocaleCore.Table.Plu />
-				</td>
-				<td>
-					<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-						ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Plu >
-						@foreach (PluModel item in Plus)
-						{
-							<MudSelectItem T=@PluModel Value=@item>@item.Name</MudSelectItem>
-						}
-					</MudSelect>
-				</td>
-			</tr>
-		</tbody>
-	</MudSimpleTable>
-	
-	<RazorItemActions TItem=PluScaleModel ParentRazor=@(this) />
-	<RazorItemDates TItem=PluScaleModel ParentRazor=@(this) />
-}
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=PluScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
+
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=PluScaleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<tbody>
+		<RazorItemTableBody TItem=PluScaleModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+		<tr>
+			<td>@LocaleCore.Table.IsActive</td>
+			<td>
+				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<RadzenLink Style="width: 100%; margin-left: 0;"
+						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
+				    Text=@LocaleCore.Table.Scale/>
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				    ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Scale >
+					@foreach (ScaleModel item in Scales)
+					{
+						<MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+			<td>
+				<RadzenLink Style="width: 100%; margin-left: 0;"
+						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.Identity.Uid)
+				    Text=@LocaleCore.Table.Plu />
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+					ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Plu >
+					@foreach (PluModel item in Plus)
+					{
+						<MudSelectItem T=@PluModel Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=PluScaleModel ParentRazor=@(this) />
+<RazorItemDates TItem=PluScaleModel ParentRazor=@(this) />

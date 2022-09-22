@@ -46,31 +46,23 @@ public class UserSettingsModel
 
 	public override string ToString() => $"{nameof(UserName)}: {UserName}. " + $"{nameof(AccessRights)}: {AccessRights}. ";
 
-	private string GetColorAccessRights(AccessRightsEnum accessRights, uint rowCounter)
-	{
-		if (accessRights == AccessRightsEnum.None)
-			accessRights = AccessRights;
-		return accessRights switch
+	private string GetColorAccessRights(AccessRightsEnum accessRights, uint rowCounter) =>
+		accessRights switch
 		{
 			AccessRightsEnum.Read => rowCounter % 2 == 0 ? "rz-datatable-even-read" : "rz-datatable-odd-read",
 			AccessRightsEnum.Write => rowCounter % 2 == 0 ? "rz-datatable-even-write" : "rz-datatable-odd-write",
 			AccessRightsEnum.Admin => rowCounter % 2 == 0 ? "rz-datatable-even-admin" : "rz-datatable-odd-admin",
 			_ => rowCounter % 2 == 0 ? "rz-datatable-even-none" : "rz-datatable-odd-none",
 		};
-	}
 
-	public string GetColorAccessRights(AccessRightsEnum accessRights)
-	{
-		if (accessRights == AccessRightsEnum.None)
-			accessRights = AccessRights;
-		return accessRights switch
+	public string GetColorAccessRights(AccessRightsEnum accessRights) =>
+		accessRights switch
 		{
 			AccessRightsEnum.Read => "rz-datatable-read",
 			AccessRightsEnum.Write => "rz-datatable-write",
 			AccessRightsEnum.Admin => "rz-datatable-admin",
 			_ => ".rz-datatable-none",
 		};
-	}
 
 	#endregion
 }

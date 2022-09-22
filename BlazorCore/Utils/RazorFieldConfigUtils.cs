@@ -13,7 +13,7 @@ public static class RazorFieldConfigUtils
     public static class Access
     {
 		public static RazorFieldConfigModel GetRights() => new(nameof(AccessModel.Rights), TextAlign.Left, LocaleCore.Table.AccessLevel);
-		public static RazorFieldConfigModel GetUser() => new(nameof(AccessModel.User), TextAlign.Left, LocaleCore.Table.User);
+		public static RazorFieldConfigModel GetUser() => new(nameof(AccessModel.Name), TextAlign.Left, LocaleCore.Table.User);
 	}
 
     public static class BarCode

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using System.Threading.Tasks;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -86,6 +87,13 @@ public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(TaskType), TaskType);
 		info.AddValue(nameof(Scale), Scale);
 		info.AddValue(nameof(Enabled), Enabled);
+	}
+
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		//TaskType = new();
+		//Scale = new();
 	}
 
 	#endregion

@@ -98,35 +98,21 @@ public static class DataAccessHelperCrud
 
 	public static void Save<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
 	{
-		if (item is null)
-			return;
+		if (item is null) return;
 
-		item.CreateDt = DateTime.Now;
+        item.ClearNullProperties();
+        item.CreateDt = DateTime.Now;
 		item.ChangeDt = DateTime.Now;
 		ExecuteTransaction(dataAccess, session => { session.Save(item); });
 	}
 
 	public static void Update<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
 	{
-		if (item is null)
-			return;
-
-		item.ChangeDt = DateTime.Now;
+		if (item is null) return;
+        
+        item.ClearNullProperties();
+        item.ChangeDt = DateTime.Now;
 		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
-	}
-
-	public static void SaveOrUpdate<T>(this DataAccessHelper dataAccess, T? item, SqlTableActionEnum tableAction) where T : SqlTableBase, new()
-	{
-		item?.ClearNullProperties();
-		switch (tableAction)
-		{
-			case SqlTableActionEnum.New:
-				Save(dataAccess, item);
-				break;
-			default:
-				Update(dataAccess, item);
-				break;
-		}
 	}
 
 	public static void Delete<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
@@ -142,7 +128,7 @@ public static class DataAccessHelperCrud
 		if (item is null)
 			return;
 
-		item.IsMarked = true;
+		item.IsMarked = !item.IsMarked;
 		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
 	}
 

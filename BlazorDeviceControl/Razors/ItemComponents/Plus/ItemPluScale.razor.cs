@@ -32,18 +32,10 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
         {
             () =>
             {
-                switch (TableAction)
-                {
-                    case SqlTableActionEnum.New:
-                        SqlItemCast = new();
-                        SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-                        break;
-                    default:
-                        SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
-                        break;
-                }
-	            Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<PluScaleModel>();
+				Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
 	            Nomenclatures = AppSettings.DataAccess.GetListNomenclatures(false, false, true);
 	            Scales = AppSettings.DataAccess.GetListScales(false, false, true);
                 Plus = AppSettings.DataAccess.GetListPlus(false, false, true);

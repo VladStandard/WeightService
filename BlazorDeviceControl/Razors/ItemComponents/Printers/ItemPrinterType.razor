@@ -1,30 +1,26 @@
 ﻿@inherits RazorComponentItemBase<PrinterTypeModel>
 @page "/item/printer_type"
+@page "/item/printer_type/new"
 @page "/item/printer_type/{IdentityId:long}"
-@page "/item/printer_type/{IdentityId:long}/{TableAction}"
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-	<RazorItemReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
+<SystemIdentity ParentRazor=@(this) />
 
-	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<RazorItemTableHead TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
-		<tbody>
-			<RazorItemTableBody TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
-			<tr>
-				<td>@LocaleCore.Table.Name</td>
-				<td colspan=3>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
-				</td>
-			</tr>
-		</tbody>
-	</MudSimpleTable>
+<RazorItemReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Type />
 
-	<RazorItemActions TItem=PrinterTypeModel ParentRazor=@(this) />
-	<RazorItemDates TItem=PrinterTypeModel ParentRazor=@(this) />
-}
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<tbody>
+		<RazorItemTableBody TItem=PrinterTypeModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<tr>
+			<td>@LocaleCore.Table.Name</td>
+			<td colspan=3>
+				<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=PrinterTypeModel ParentRazor=@(this) />
+<RazorItemDates TItem=PrinterTypeModel ParentRazor=@(this) />

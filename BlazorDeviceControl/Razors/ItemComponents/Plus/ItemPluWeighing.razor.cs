@@ -24,18 +24,11 @@ public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
         {
             () =>
             {
-                switch (TableAction)
-                {
-                    case SqlTableActionEnum.New:
-                        SqlItemCast = new();
-                        SqlItemCast.SetDtNow();
-						break;
-                    default:
-                        SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluWeighingModel>(IdentityId);
-                        break;
-                }
+                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluWeighingModel>(IdentityId);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<PluWeighingModel>();
 
-                ButtonSettings = new(false, false, false, false, false, false, true);
+				ButtonSettings = new(false, false, false, false, false, false, true);
             }
         });
     }

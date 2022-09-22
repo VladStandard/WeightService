@@ -3,6 +3,9 @@
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemComponents
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
 
 <RazorItemReload TItem=SqlTableEmptyModel ParentRazor=@(this) Title=@LocaleCore.System.SystemInfo />
 
@@ -218,4 +221,3 @@
         </tr>
     </tbody>
 </MudSimpleTable>
-<br />

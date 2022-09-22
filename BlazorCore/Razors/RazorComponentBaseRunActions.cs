@@ -19,10 +19,8 @@ public partial class RazorComponentBase
 
     protected void RunActionsParametersSet(List<Action> actionsParametersSet)
     {
-        IsActionsParametersSetFinished = false;
         SetPropertiesFromParent();
         RunActionsSafe(string.Empty, actionsParametersSet);
-        IsActionsParametersSetFinished = true;
     }
 
     private void RunActionsSafe(string title, List<Action> actions, [CallerMemberName] string memberName = "")

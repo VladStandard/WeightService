@@ -120,17 +120,31 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         info.AddValue(nameof(ProductDt), ProductDt);
         info.AddValue(nameof(RegNum), RegNum);
     }
+    
     public override void ClearNullProperties()
     {
         if (Series is not null && Series.Identity.EqualsDefault())
             Series = null;
     }
 
-    #endregion
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Sscc = LocaleCore.Sql.SqlItemFieldSscc;
+		NettoWeight = 1.1M;
+		TareWeight = 0.25M;
+		ProductDt = DateTime.Now;
+		RegNum = 1;
+		Kneading = 1;
+		//PluScale = new();
+		//Series = new();
+	}
 
-    #region Public and private methods - virtual
+	#endregion
 
-    public virtual bool Equals(PluWeighingModel item)
+	#region Public and private methods - virtual
+
+	public virtual bool Equals(PluWeighingModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		if (!PluScale.Equals(item.PluScale))

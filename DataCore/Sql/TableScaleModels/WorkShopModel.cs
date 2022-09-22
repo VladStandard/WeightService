@@ -87,6 +87,13 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(Name), Name);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		//ProductionFacility = new();
+	}
+
 	#endregion
 
 	#region Public and private methods

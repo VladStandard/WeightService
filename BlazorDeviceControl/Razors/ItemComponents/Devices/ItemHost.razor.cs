@@ -21,20 +21,9 @@ public partial class ItemHost : RazorComponentItemBase<HostModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.Name = "NEW HOST";
-						SqlItemCast.Ip = "127.0.0.1";
-						SqlItemCast.MacAddress.Default();
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
-						break;
-				}
+				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
+				if (SqlItemCast.Identity.IsNew())
+					SqlItem = SqlItemNew<HostModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

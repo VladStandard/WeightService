@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -218,6 +219,18 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 			PrinterShipping = null;
 		if (Host is not null && Host.Identity.EqualsDefault())
 			Host = null;
+	}
+
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Description = LocaleCore.Sql.SqlItemFieldDescription;
+		//TemplateDefault = new();
+		//TemplateSeries = new();
+		//WorkShop = new();
+		//PrinterMain = new();
+		//PrinterShipping = new();
+		//Host = new();
 	}
 
 	#endregion

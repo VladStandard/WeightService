@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
+using DataCore.Models;
+
 namespace DataCore.Sql.Fields;
 
 /// <summary>
@@ -85,6 +87,11 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	}
 
 	public virtual void ClearNullProperties()
+	{
+		throw new NotImplementedException();
+	}
+
+	public virtual void FillProperties()
 	{
 		throw new NotImplementedException();
 	}

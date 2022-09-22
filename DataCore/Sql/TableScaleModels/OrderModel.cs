@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using NHibernate.Criterion;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -109,6 +110,14 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(ProdDt), ProdDt);
 		info.AddValue(nameof(BoxCount), BoxCount);
 		info.AddValue(nameof(PalletCount), PalletCount);
+	}
+
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		BoxCount = 1;
+		PalletCount = 1;
 	}
 
 	#endregion

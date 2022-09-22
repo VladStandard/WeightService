@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using NHibernate.Impl;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -135,6 +136,13 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    info.AddValue(nameof(MacAddress), MacAddress);
 	    info.AddValue(nameof(PeelOffSet), PeelOffSet);
 	    info.AddValue(nameof(DarknessLevel), DarknessLevel);
+	}
+
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		DarknessLevel = 1;
+		PrinterType = new();
 	}
 
 	#endregion

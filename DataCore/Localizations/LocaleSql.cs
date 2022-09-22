@@ -36,5 +36,27 @@ public class LocaleSql
     public string StatusExceptionFieldValue(Exception ex) => Lang == LangEnum.English ? $@"Error! Field value is incorrect! Message: {ex.Message}" : $"Ошибка! Значение поля некорректно! Сообщение: {ex.Message}";
     public string StatusExceptionFieldValue(Exception ex, string waitType, string ordinalType) => Lang == LangEnum.English ? $@"Error! Field value is incorrect! Expected data type: {waitType}. Received data type: {ordinalType}. Message: {ex.Message}" : $"Ошибка! Значение поля некорректно! Ожидаемый тип данных: {waitType}. Полученный тип данных: {ordinalType}. Сообщение: {ex.Message}";
 
+    public string SqlItemFieldCode => Lang == LangEnum.English ? "00012345" : "ЦБД00012345";
+    public string SqlItemFieldDescription => Lang == LangEnum.English ? "Description" : "Описание";
+    public string SqlItemFieldFile => Lang == LangEnum.English ? "Test.cs" : "Тест.cs";
+    public string SqlItemFieldFullName => Lang == LangEnum.English ? "Fullname" : "Полное наименование";
+    public string SqlItemFieldGtin => Lang == LangEnum.English ? "GTIN" : "ГТИН";
+    public string SqlItemFieldHostName => Lang == LangEnum.English ? "Hostname" : "Хост";
+    public string SqlItemFieldIcon => Lang == LangEnum.English ? "Icon" : "Иконка";
+    public string SqlItemFieldIp => Lang == LangEnum.English ? "127.0.0.1" : "127.0.0.1";
+    public string SqlItemFieldMac => Lang == LangEnum.English ? "001122334455" : "001122334455";
+    public string SqlItemFieldMember => Lang == LangEnum.English ? "Method" : "Метод";
+    public string SqlItemFieldMessage => Lang == LangEnum.English ? "Message" : "Сообщение";
+    public string SqlItemFieldName => Lang == LangEnum.English ? "Name" : "Наименование";
+    public string SqlItemFieldProductXml => Lang == LangEnum.English ? "\"<Product Category=\\\"Meat\\\" > </Product>\"" : "\"<Product Category=\\\"Сосиски\\\" > </Product>\"";
+    public string SqlItemFieldTitle => Lang == LangEnum.English ? "Title" : "Заголовок";
+    public string SqlItemFieldValue => Lang == LangEnum.English ? "Value" : "Значение";
+    public string SqlItemFieldVersion => Lang == LangEnum.English ? "0.1.2" : "0.1.2";
+	public string SqlItemFieldEan13 => Lang == LangEnum.English ? "EAN 13" : "ЕАН 13";
+	public string SqlItemFieldItf14 => Lang == LangEnum.English ? "ITF 14" : "ИТФ 14";
+	public string SqlItemFieldZpl => Lang == LangEnum.English ? "ZPL" : "ЗПЛ";
+	public string SqlItemFieldSscc => Lang == LangEnum.English ? "SSCC code" : "SSCC код";
+	public string SqlItemFieldAddress => Lang == LangEnum.English ? "Address" : "Адрес";
+    
     #endregion
 }

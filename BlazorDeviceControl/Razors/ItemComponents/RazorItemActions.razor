@@ -20,10 +20,10 @@
 	</thead>
 	<tbody>
 		<tr>
-			@if (SqlItem is not null)
+			@if (SqlItem is not null && ButtonSettings is not null && UserSettings is not null)
 			{
 				<td>
-					@if (ButtonSettings is not null && ButtonSettings.IsShowSave && UserSettings is not null && UserSettings.AccessRightsIsWrite)
+					@if (ButtonSettings.IsShowSave && UserSettings.AccessRightsIsWrite)
 					{
 						<RadzenButton 
 							class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
@@ -35,7 +35,7 @@
 					}
 				</td>
 				<td>
-					@if (ButtonSettings is not null && ButtonSettings.IsShowCancel && UserSettings is not null && UserSettings.AccessRightsIsRead)
+					@if (ButtonSettings.IsShowCancel && UserSettings.AccessRightsIsRead)
 					{
 						<RadzenButton 
 							class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 

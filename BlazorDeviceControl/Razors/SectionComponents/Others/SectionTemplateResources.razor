@@ -3,43 +3,38 @@
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-    <RazorSectionReload TItem=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
+<SystemIdentity ParentRazor=@(this) />
 
-    <RadzenGrid Style="margin-top: 5px;" 
-        Data=@SqlItemsCast TItem=TemplateResourceModel 
-        RowDoubleClick=@(_ => SqlItemEditAsync())
-        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
-        <Columns >
-            <RazorSectionFieldIsMarked TItem=TemplateResourceModel ParentRazor=@(this) />
-            <RazorSectionFieldIdentity TItem=TemplateResourceModel ParentRazor=@(this) />
+<RazorSectionReload TItem=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
 
-            <RadzenGridColumn 
-                TItem=TemplateResourceModel Property="Type" TextAlign=TextAlign.Center
-                Title=@LocaleCore.Table.Type 
-                Type="string" Width="10%" />
-            <RadzenGridColumn 
-                TItem=TemplateResourceModel Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
-                <Template Context="itemCast" >
-                    <RadzenLink Style="width: 100%; margin-left: 0; "
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.Identity.Id}")
-                        Text=@itemCast.Name />
-                </Template>
-            </RadzenGridColumn>
-            <RazorSectionField TItem=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-            <RadzenGridColumn 
-                TItem=TemplateResourceModel Property="ImageData.Info"
-                Title=@LocaleCore.Table.ImageDataInfo 
-                Type="string" Width="25%" />
-        </Columns>
-    </RadzenGrid>
+<RadzenGrid Style="margin-top: 5px;" 
+    Data=@SqlItemsCast TItem=TemplateResourceModel 
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=TemplateResourceModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=TemplateResourceModel ParentRazor=@(this) />
 
-    <RazorSectionActions TItem=TemplateResourceModel ParentRazor=@(this) />
-}
+        <RadzenGridColumn 
+            TItem=TemplateResourceModel Property="Type" TextAlign=TextAlign.Center
+            Title=@LocaleCore.Table.Type 
+            Type="string" Width="10%" />
+        <RadzenGridColumn 
+            TItem=TemplateResourceModel Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
+            <Template Context="itemCast" >
+                <RadzenLink Style="width: 100%; margin-left: 0; "
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.Identity.Id}")
+                    Text=@itemCast.Name />
+            </Template>
+        </RadzenGridColumn>
+        <RazorSectionField TItem=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
+        <RadzenGridColumn 
+            TItem=TemplateResourceModel Property="ImageData.Info"
+            Title=@LocaleCore.Table.ImageDataInfo 
+            Type="string" Width="25%" />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=TemplateResourceModel ParentRazor=@(this) />

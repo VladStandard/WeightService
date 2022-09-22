@@ -71,6 +71,12 @@ public class AppModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(Name), Name);
     }
 
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

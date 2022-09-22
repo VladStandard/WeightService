@@ -3,19 +3,6 @@
 
 namespace DataCore.Sql.Core;
 
-public enum SqlTableActionEnum
-{
-	Empty,
-	Cancel,
-	Copy,
-	Delete,
-	Edit,
-	Mark,
-	New,
-	Reload,
-	Save,
-}
-
 public enum SqlFieldIdentityEnum
 {
 	Empty,

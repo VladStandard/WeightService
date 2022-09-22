@@ -32,18 +32,9 @@ public partial class ItemAccess : RazorComponentItemBase<AccessModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.User = "NEW USER";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
-						break;
-				}
+				SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<AccessModel>();
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

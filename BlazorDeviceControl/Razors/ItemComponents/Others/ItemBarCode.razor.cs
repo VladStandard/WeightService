@@ -24,18 +24,9 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.Value = "NEW BARCODE";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeModel>(IdentityUid);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeModel>(IdentityUid);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<BarCodeModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

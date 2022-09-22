@@ -140,6 +140,17 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 			LogType = null;
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Version = LocaleCore.Sql.SqlItemFieldVersion;
+		File = LocaleCore.Sql.SqlItemFieldFile;
+		Line = 1;
+		Member = LocaleCore.Sql.SqlItemFieldMember;
+		//LogType = new();
+		Message = LocaleCore.Sql.SqlItemFieldMessage;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

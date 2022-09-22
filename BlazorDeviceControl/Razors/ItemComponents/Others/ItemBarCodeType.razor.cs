@@ -20,18 +20,9 @@ public partial class ItemBarCodeType : RazorComponentItemBase<BarCodeTypeModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.Name = "NEW BARCODE_TYPE";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeTypeModel>(IdentityUid);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeTypeModel>(IdentityUid);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<BarCodeTypeModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

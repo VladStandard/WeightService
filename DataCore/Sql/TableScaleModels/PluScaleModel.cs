@@ -91,6 +91,14 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(Scale), Scale);
     }
 
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		IsActive = true;
+		//Plu = new();
+		//Scale = new();
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

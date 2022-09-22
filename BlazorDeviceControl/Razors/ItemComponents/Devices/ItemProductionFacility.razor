@@ -1,36 +1,32 @@
 ﻿@inherits RazorComponentItemBase<ProductionFacilityModel>
 @page "/item/production_facility"
+@page "/item/production_facility/new"
 @page "/item/production_facility/{IdentityId:long}"
-@page "/item/production_facility/{IdentityId:long}/{TableAction}"
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ParentRazor=@(this) ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-	<RazorItemReload TItem=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
+<SystemIdentity ParentRazor=@(this) />
 
-	<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-		<RazorItemTableHead TItem=ProductionFacilityModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
-		<tbody>
-			<RazorItemTableBody TItem=ProductionFacilityModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
-			<tr>
-				<td>@LocaleCore.Table.Name</td>
-				<td colspan=3>
-					<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
-				</td>
-			</tr>
-			<tr>
-				<td >@LocaleCore.Table.Address</td>
-				<td colspan=3>
-					<RadzenTextArea Style="width: 100%; " Rows=3 @bind-Value=@SqlItemCast.Address/>
-				</td>
-			</tr>
-		</tbody>
-	</MudSimpleTable>
+<RazorItemReload TItem=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
 
-	<RazorItemActions TItem=ProductionFacilityModel ParentRazor=@(this) />
-	<RazorItemDates TItem=ProductionFacilityModel ParentRazor=@(this) />
-}
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=ProductionFacilityModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+	<tbody>
+		<RazorItemTableBody TItem=ProductionFacilityModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<tr>
+			<td>@LocaleCore.Table.Name</td>
+			<td colspan=3>
+				<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>
+			</td>
+		</tr>
+		<tr>
+			<td >@LocaleCore.Table.Address</td>
+			<td colspan=3>
+				<RadzenTextArea Style="width: 100%; " Rows=3 @bind-Value=@SqlItemCast.Address/>
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=ProductionFacilityModel ParentRazor=@(this) />
+<RazorItemDates TItem=ProductionFacilityModel ParentRazor=@(this) />

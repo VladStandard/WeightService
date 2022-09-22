@@ -31,7 +31,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 	[Parameter] public RazorComponentConfigModel RazorComponentConfig { get; set; }
 	[Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
 	[Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
-	[Parameter] public SqlTableActionEnum? TableAction { get; set; }
 	[Parameter] public Guid? IdentityUid { get; set; }
 	[Parameter] public string IdentityUidStr { get => IdentityUid?.ToString() ?? Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 	[Parameter] public long? IdentityId { get; set; }
@@ -40,7 +39,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 	[Parameter] public HttpContext? HttpContext { get; set; }
 	[Parameter] public string Title { get; set; }
 	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
-	protected bool IsActionsParametersSetFinished { get; set; }
 	private string Id => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
 	private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
 	protected string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {Id}";
@@ -66,8 +64,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 		AuthenticationStateBase = null;
 		UserSettings = null;
 		ButtonSettings = null;
-		TableAction = null;
-		IsActionsParametersSetFinished = false;
 		Title = string.Empty;
 
 		SqlItem = null;
@@ -99,8 +95,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlItem = ParentRazor.SqlItem;
 		if (ParentRazor.SqlItems is not null)
 			SqlItems = ParentRazor.SqlItems;
-		if (ParentRazor.TableAction is not null)
-			TableAction = ParentRazor.TableAction;
 		if (ParentRazor.ButtonSettings is not null)
 			ButtonSettings = ParentRazor.ButtonSettings;
 	}

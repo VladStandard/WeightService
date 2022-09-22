@@ -16,7 +16,7 @@ public static partial class DataAccessHelperExt
 		AccessModel? item = null;
 		if (!string.IsNullOrEmpty(userName))
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AccessModel.User), SqlFieldComparerEnum.Equal, userName), 0, false, false);
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AccessModel.Name), SqlFieldComparerEnum.Equal, userName), 0, false, false);
 			item = dataAccess.GetItem<AccessModel>(sqlCrudConfig);
 		}
 		return item;

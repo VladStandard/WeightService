@@ -84,6 +84,13 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 		info.AddValue(nameof(Gln), Gln);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Gln = 1;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

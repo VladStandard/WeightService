@@ -32,17 +32,8 @@
 //        {
 //            () =>
 //            {
-//                switch (TableAction)
-//                {
-//                    case SqlTableActionEnum.New:
-//                        SqlItemCast = new();
-//                        SqlItemCast.SetDtNow();
-//						SqlItemCast.IsMarked = false;
-//                        break;
-//                    default:
-//                        SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
-//                        break;
-//                }
+//                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
+//if (SqlItemCast.Identity.IsNew()) SqlItem = SqlItemNew<>();
 
 //	            // Templates.
 //                Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };

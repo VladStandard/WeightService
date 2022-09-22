@@ -82,6 +82,13 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(Weight), Weight);
     }
 
+    public override void FillProperties()
+    {
+	    base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Weight = 0.560M;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

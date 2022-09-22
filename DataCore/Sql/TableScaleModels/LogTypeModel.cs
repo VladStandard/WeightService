@@ -83,6 +83,12 @@ public class LogTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		info.AddValue(nameof(Icon), Icon);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Icon = LocaleCore.Sql.SqlItemFieldIcon;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

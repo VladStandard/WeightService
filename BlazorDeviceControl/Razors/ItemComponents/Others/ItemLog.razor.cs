@@ -24,16 +24,9 @@ public partial class ItemLog : RazorComponentItemBase<LogModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<LogModel>();
 
 				ButtonSettings = new(false, false, false, false, false, false, true);
 			}

@@ -3,26 +3,21 @@
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
-@if (!IsActionsParametersSetFinished)
-{
-    <RazorActionLoad ActionLoad=ActionLoadEnum.Loading IsShowProgress=true />
-}
-else
-{
-    <RazorSectionReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
+<SystemIdentity ParentRazor=@(this) />
 
-    <RadzenGrid Style="margin-top: 5px;"
-        Data=@SqlItemsCast TItem=PrinterTypeModel 
-        RowDoubleClick=@(_ => SqlItemEditAsync())
-        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
-        <Columns>
-            <RazorSectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
-            <RazorSectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
-            <RazorSectionField TItem=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
-                RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
-        </Columns>
-    </RadzenGrid>
+<RazorSectionReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
-    <RazorSectionActions TItem=PrinterTypeModel ParentRazor=@(this) />
-}
+<RadzenGrid Style="margin-top: 5px;"
+    Data=@SqlItemsCast TItem=PrinterTypeModel 
+    RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns>
+        <RazorSectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
+        <RazorSectionField TItem=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=PrinterTypeModel ParentRazor=@(this) />

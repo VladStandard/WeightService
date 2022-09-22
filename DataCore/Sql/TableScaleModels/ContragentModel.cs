@@ -102,6 +102,12 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 		info.AddValue(nameof(Xml), Xml);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

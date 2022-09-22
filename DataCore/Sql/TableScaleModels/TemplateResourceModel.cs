@@ -98,6 +98,13 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 		info.AddValue(nameof(IdRRef), IdRRef);
 	}
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		Description = LocaleCore.Sql.SqlItemFieldDescription;
+	}
+
 	#endregion
 
 	#region Public and private methods - virtual

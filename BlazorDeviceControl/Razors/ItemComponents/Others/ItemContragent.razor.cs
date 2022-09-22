@@ -24,18 +24,9 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
 		{
 			() =>
 			{
-				switch (TableAction)
-				{
-					case SqlTableActionEnum.New:
-						SqlItemCast = new();
-						SqlItemCast.SetDtNow();
-						SqlItemCast.IsMarked = false;
-						SqlItemCast.Name = "NEW CONTRAGENT";
-						break;
-					default:
-						SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<ContragentModel>(IdentityUid);
-						break;
-				}
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<ContragentModel>(IdentityUid);
+                if (SqlItemCast.Identity.IsNew())
+	                SqlItem = SqlItemNew<ContragentModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

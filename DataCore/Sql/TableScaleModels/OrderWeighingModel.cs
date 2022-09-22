@@ -87,6 +87,12 @@ public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 		info.AddValue(nameof(PluWeighing), PluWeighing);
 	}
 
+	//public override void FillProperties()
+	//{
+	//	base.FillProperties();
+	//	//
+	//}
+
 	#endregion
 
 	#region Public and private methods - virtual
