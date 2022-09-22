@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorDeviceControl.Razors.SystemComponents;
 
@@ -24,17 +25,7 @@ public partial class SystemIdentity : RazorComponentBase
 
 	#region Public and private methods
 
-	//protected override void OnParametersSet()
- //   {
- //       RunActionsParametersSet(new()
- //       {
- //           () =>
- //           {
-                
- //           }
- //       }
- //       );
- //   }
+	//
 
 	#endregion
 }

@@ -3,12 +3,11 @@
 
 using DataCore.Localizations;
 using DataCore.Models;
-using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
-using DataCore.Sql.Fields;
 
 namespace BlazorCore.Razors;
 
@@ -46,9 +45,10 @@ public partial class RazorComponentBase : LayoutComponentBase
 	private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
 	protected string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {Id}";
 	protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
-	[Parameter] public string AuthorizingText { get; set; }
 	public SqlTableBase? SqlItem { get; set; }
 	public List<SqlTableBase>? SqlItems { get; set; }
+	public AuthorizeView? AuthorizeViewBase { get; set; }
+	public AuthenticationState? AuthenticationStateBase { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -61,17 +61,19 @@ public partial class RazorComponentBase : LayoutComponentBase
 		DialogService = null;
 		TooltipService = null;
 
+		HttpContext = null;
+		AuthorizeViewBase = null;
+		AuthenticationStateBase = null;
 		UserSettings = null;
 		ButtonSettings = null;
 		TableAction = null;
 		IsActionsParametersSetFinished = false;
 		Title = string.Empty;
-		AuthorizingText = string.Empty;
 
 		SqlItem = null;
 		SqlItems = null;
-		
-        RazorFieldConfig = new();
+
+		RazorFieldConfig = new();
 		RazorComponentConfig = new();
 	}
 
@@ -79,12 +81,16 @@ public partial class RazorComponentBase : LayoutComponentBase
 	{
 		if (ParentRazor is null) return;
 
-		if (ParentRazor.UserSettings is not null)
-			UserSettings = ParentRazor.UserSettings;
 		if (ParentRazor.HttpContext is not null)
 			HttpContext = ParentRazor.HttpContext;
+		if (ParentRazor.AuthorizeViewBase is not null)
+			AuthorizeViewBase = ParentRazor.AuthorizeViewBase;
+		if (ParentRazor.AuthenticationStateBase is not null)
+			AuthenticationStateBase = ParentRazor.AuthenticationStateBase;
+		if (ParentRazor.UserSettings is not null)
+			UserSettings = ParentRazor.UserSettings;
 		//if (ParentRazor.RazorComponentConfig is not null)
-			RazorComponentConfig = ParentRazor.RazorComponentConfig;
+		RazorComponentConfig = ParentRazor.RazorComponentConfig;
 		if (ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
 		if (ParentRazor.IdentityUid is not null)
@@ -99,43 +105,44 @@ public partial class RazorComponentBase : LayoutComponentBase
 			ButtonSettings = ParentRazor.ButtonSettings;
 	}
 
-	private void SetupUserSettings(string? userName)
+	private void SetUserSettings(AuthenticationState? authenticationState)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AccessModel.User), SqlFieldComparerEnum.Equal, userName), 0, false, false);
-		AccessModel access = DataAccessHelper.Instance.GetItemNotNull<AccessModel>(sqlCrudConfig);
+		AuthenticationStateBase = authenticationState;
+		if (AuthenticationStateBase?.User.Identity is null) return;
+
+		string? userName = AuthenticationStateBase.User.Identity.Name;
+		if (string.IsNullOrEmpty(userName)) return;
+
+		AccessModel? access = DataAccessHelper.Instance.GetItemAccess(userName);
+		if (access is null) return;
 
 		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
-        if (ParentRazor is not null)
+
+		if (ParentRazor is not null)
 		{
 			bool isOnChange = ParentRazor.UserSettings is null;
-            ParentRazor.UserSettings = UserSettings;
+			ParentRazor.UserSettings = UserSettings;
 			if (isOnChange)
-                ParentRazor.OnChange();
-        }
-    }
-
-	protected string GetAuthorizingText()
-	{
-		AuthorizingText = LocaleCore.Strings.AuthorizingProcess;
-		SetupUserSettings(string.Empty);
-        //OnChange();
-		return AuthorizingText;
+				ParentRazor.OnChange();
+		}
 	}
 
-	protected string GetAuthorizedText(string? name)
+	protected string SetAuthorizing()
 	{
-		AuthorizingText = LocaleCore.Strings.AuthorizingSuccess;
-		SetupUserSettings(name);
-        //OnChange();
-        return AuthorizingText;
+		SetUserSettings(null);
+		return LocaleCore.Strings.AuthorizingProcess;
 	}
 
-	protected string GetNotAuthorizedText()
+	protected string SetAuthorized(AuthenticationState authenticationState)
 	{
-		AuthorizingText = LocaleCore.Strings.AuthorizingNot;
-		SetupUserSettings(LocaleCore.System.SystemIdentityNotAuthorized);
-        //OnChange();
-        return AuthorizingText;
+		SetUserSettings(authenticationState);
+		return LocaleCore.Strings.AuthorizingSuccess;
+	}
+
+	protected string SetNotAuthorized()
+	{
+		SetUserSettings(null);
+		return LocaleCore.System.SystemIdentityNotAuthorized;
 	}
 
 	#endregion

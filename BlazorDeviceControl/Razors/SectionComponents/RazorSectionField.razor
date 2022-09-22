@@ -17,12 +17,13 @@
 			default:
 				@if (CssStyleRadzenColumn.IsShowLink)
 				{
-					<RadzenLink Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
-					            Path=@GetRouteItemPathForLink(item)/>
+					<RadzenLink Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+					            Path=@GetRouteItemPathForLink(item) />
 				}
 				else
 				{
-					<RadzenLabel Style="width: 100%; margin-left: 0;" Text=@item.GetPropertyAsString(RazorFieldConfig.Name)/>
+					<RadzenText Text=@item.GetPropertyAsString(RazorFieldConfig.Name)
+					            TextStyle=@TextStyle.Body1 TextAlign=@TextAlign.Justify />
 				}
 				break;
 		}

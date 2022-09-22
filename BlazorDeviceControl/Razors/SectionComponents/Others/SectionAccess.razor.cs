@@ -32,11 +32,5 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel>
 		});
     }
 
-    private void RowRender(RowRenderEventArgs<AccessModel> args)
-    {
-        args.Attributes.Add("class", UserSettings?.GetColorAccessRights(args.Data.Rights));
-        //RowCounter += 1;
-    }
-
     #endregion
 }

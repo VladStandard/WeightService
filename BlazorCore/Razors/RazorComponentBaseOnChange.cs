@@ -38,31 +38,30 @@ public partial class RazorComponentBase
 
     protected void OnChangeItem(SqlTableBase? item, string filterName, object? value)
     {
-        RunActionsSafe(LocaleCore.Table.TableEdit, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-            () =>
+        RunActionsSafe(LocaleCore.Table.TableEdit, () =>
+        {
+            switch (item)
             {
-                switch (item)
-                {
-                    case AccessModel access:
-                        OnChangeItemAccess(access, filterName, value);
-                        break;
-                    case PrinterModel printer:
-                        OnChangeItemPrinter(printer, filterName, value);
-                        break;
-                    case PrinterResourceModel printerResource:
-                        OnChangeItemPrinterResource(printerResource, filterName, value);
-                        break;
-                    case ScaleModel scale:
-                        OnChangeItemScale(scale, filterName, value);
-                        break;
-                    case TemplateModel template:
-                        OnChangeItemTemplate(template, filterName, value);
-                        break;
-                    case WorkShopModel workShop:
-                        OnChangeItemWorkShop(workShop, filterName, value);
-                        break;
-                }
-            });
+                case AccessModel access:
+                    OnChangeItemAccess(access, filterName, value);
+                    break;
+                case PrinterModel printer:
+                    OnChangeItemPrinter(printer, filterName, value);
+                    break;
+                case PrinterResourceModel printerResource:
+                    OnChangeItemPrinterResource(printerResource, filterName, value);
+                    break;
+                case ScaleModel scale:
+                    OnChangeItemScale(scale, filterName, value);
+                    break;
+                case TemplateModel template:
+                    OnChangeItemTemplate(template, filterName, value);
+                    break;
+                case WorkShopModel workShop:
+                    OnChangeItemWorkShop(workShop, filterName, value);
+                    break;
+            }
+        });
         OnChange();
     }
 

@@ -33,7 +33,7 @@ public class LocaleSystem
     public string SystemErrors => Lang == LangEnum.English ? "Errors" : "Ошибки";
     public string SystemIdentityData => Lang == LangEnum.English ? "Data" : "Данные";
     public string SystemIdentityDataFull => Lang == LangEnum.English ? "Identity data" : "Идентификационные данные";
-    public string SystemIdentityNotAuthorized => Lang == LangEnum.English ? "Not authorized" : "Не авторизован";
+    public string SystemIdentityNotAuthorized => Lang == LangEnum.English ? "User is not authorized" : "Пользователь не авторизован";
     public string SystemInfo => Lang == LangEnum.English ? "System info" : "Системная информация";
     public string SystemLogin => Lang == LangEnum.English ? "Log in" : "Вход";
     public string SystemLogs => Lang == LangEnum.English ? "Logs" : "Журналы";

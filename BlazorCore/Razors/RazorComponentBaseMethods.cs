@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
+using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
@@ -132,13 +133,20 @@ public partial class RazorComponentBase
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(LocaleCore.Table.TableCancel, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-			SetRouteSectionNavigate);
+		RunActionsSafe(LocaleCore.Table.TableCancel, SetRouteSectionNavigate);
 
 		OnChangeAsync();
 	}
 
 	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
+	{
+		if (item is null) return;
+		if (!SqlItemValidate(NotificationService, item)) return;
+
+		AppSettings.DataAccess.SaveOrUpdate(item, SqlTableActionEnum.Save);
+	}
+
+	private void SqlItemNew<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
 		if (!SqlItemValidate(NotificationService, item)) return;
@@ -152,24 +160,17 @@ public partial class RazorComponentBase
 
 		foreach (T item in items)
 			SqlItemSave(item);
-		//switch (typeof(T))
-		//{
-		//	case var cls when cls == typeof(PluScaleModel):
-		//		break;
-		//}
 	}
 
 	protected async Task SqlItemSaveAsync()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
-			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
-			() =>
-			{
-				SqlItemSave(SqlItem);
-				SetRouteSectionNavigate();
-			});
+		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
+		{
+			SqlItemSave(SqlItem);
+			SetRouteSectionNavigate();
+		});
 
 		OnChangeAsync();
 	}
@@ -178,169 +179,156 @@ public partial class RazorComponentBase
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsWithQeustion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogResultSuccess,
-			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
-			() =>
-			{
-				SqlItemsSave(SqlItems);
-			});
+		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
+		{
+			SqlItemsSave(SqlItems);
+		});
 
 		OnChangeAsync();
 	}
 
 	protected async Task SqlItemNewAsync()
 	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
-
-		RunActionsSafe(LocaleCore.Table.TableNew, string.Empty, LocaleCore.Dialog.DialogResultFail,
-			() =>
-			{
-				throw new NotImplementedException("Fix here!");
-			});
+		RunActionsSafe(LocaleCore.Table.TableNew, () =>
+		{
+			SqlItemNew(SqlItem);
+			SetRouteSectionNavigate();
+		});
 
 		OnChangeAsync();
 	}
 
 	protected async Task SqlItemCopyAsync()
 	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
-
-		RunActionsSafe(LocaleCore.Table.TableCopy, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-			() =>
-			{
-				SetRouteItemNavigate(SqlItem, SqlTableActionEnum.Copy);
-			});
+		RunActionsSafe(LocaleCore.Table.TableCopy, () =>
+		{
+			SetRouteItemNavigate(SqlItem, SqlTableActionEnum.Copy);
+		});
 
 		OnChangeAsync();
 	}
 
 	protected async Task SqlItemEditAsync()
 	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
-
-		RunActionsSafe(LocaleCore.Table.TableEdit, LocaleCore.Dialog.DialogResultSuccess, LocaleCore.Dialog.DialogResultFail,
-			() =>
-			{
-				SetRouteItemNavigate(SqlItem, SqlTableActionEnum.Edit);
-				InvokeAsync(StateHasChanged);
-			});
+		RunActionsSafe(LocaleCore.Table.TableEdit, () =>
+		{
+			SetRouteItemNavigate(SqlItem, SqlTableActionEnum.Edit);
+			InvokeAsync(StateHasChanged);
+		});
 
 		OnChangeAsync();
 	}
 
-    //protected async Task SqlItemPluScalePlusClickAsync()
-    //{
-    //	await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+	protected void RowRender<TItem>(RowRenderEventArgs<TItem> args) where TItem : SqlTableBase, new()
+	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+		if (args.Data is AccessModel access)
+		{
+			args.Attributes.Add("class", UserSettings.GetColorAccessRights((AccessRightsEnum)access.Rights));
+		}
+	}
 
-    //	if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-    //		return;
-
-    //	OnChangeAsync();
-    //}
-
-    protected async Task SqlItemMarkAsync(bool isParentRazor)
+	protected async Task SqlItemSetAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
+		RunActionsSafe(string.Empty, () =>
+		{
+			SqlItem = item;
+		});
 
-		RunActionsWithQeustion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogResultSuccess,
-			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
-			() =>
-			{
-				AppSettings.DataAccess.Mark(isParentRazor ? ParentRazor?.SqlItem : SqlItem);
-			});
+		OnChangeAsync();
+	}
+
+    protected async Task SqlItemMarkAsync(bool isParentRazor)
+	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
+		{
+			AppSettings.DataAccess.Mark(isParentRazor ? ParentRazor?.SqlItem : SqlItem);
+		});
 
 		OnChangeAsync();
 	}
 
 	protected async Task SqlItemDeleteAsync(bool isParentRazor)
 	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
-
-		RunActionsWithQeustion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogResultSuccess,
-			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
-			() =>
-			{
-				AppSettings.DataAccess.Delete(isParentRazor ? ParentRazor?.SqlItem : SqlItem);
-			});
+		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
+		{
+			AppSettings.DataAccess.Delete(isParentRazor ? ParentRazor?.SqlItem : SqlItem);
+		});
 
 		OnChangeAsync();
 	}
 
 	protected async Task SqlItemPrinterResourcesClear(PrinterModel printer)
 	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
-
-		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, LocaleCore.Dialog.DialogResultSuccess,
-			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
-			() =>
+		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
+		{
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+                new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
+                0, false, false);
+			List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
+			foreach (TemplateResourceModel templateResource in templateResources)
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
-				List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
-				foreach (TemplateResourceModel templateResource in templateResources)
+				if (templateResource.Name.Contains("TTF"))
 				{
-					if (templateResource.Name.Contains("TTF"))
-					{
-						TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
-							new()
-							{
-								new($"^XA^ID"),
-								new(templateResource.Name),
-								new($"^FS^XZ")
-							});
-					}
+					TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
+						new()
+						{
+							new($"^XA^ID"),
+							new(templateResource.Name),
+							new($"^FS^XZ")
+						});
 				}
-			});
+			}
+		});
 
 		OnChangeAsync();
 	}
 
 	protected async Task SqlItemPrinterResourcesLoad(PrinterModel printer, string fileType)
 	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		if (UserSettings is null || !UserSettings.AccessRightsIsWrite)
-			return;
-
-		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, LocaleCore.Dialog.DialogResultSuccess,
-			LocaleCore.Dialog.DialogResultFail, GetQuestionAdd(),
-			() =>
+		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, GetQuestionAdd(), () =>
+		{
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+                new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
+                0, false, false);
+			List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
+			foreach (TemplateResourceModel templateResource in templateResources)
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(SqlTableBase.Description)), 0, false, false);
-				List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
-				foreach (TemplateResourceModel templateResource in templateResources)
+				if (templateResource.Name.Contains(fileType))
 				{
-					if (templateResource.Name.Contains(fileType))
-					{
-						TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
-							new()
-							{
-								new($"^XA^MNN^LL500~DYE:{templateResource.Name}.TTF,B,T,{templateResource.ImageData.Value.Length},,"),
-								new(templateResource.ImageData.Value),
-								new($"^XZ")
-							});
-					}
+					TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
+						new()
+						{
+							new($"^XA^MNN^LL500~DYE:{templateResource.Name}.TTF,B,T,{templateResource.ImageData.Value.Length},,"),
+							new(templateResource.ImageData.Value),
+							new($"^XZ")
+						});
 				}
-			});
+			}
+		});
 
 		OnChangeAsync();
 	}

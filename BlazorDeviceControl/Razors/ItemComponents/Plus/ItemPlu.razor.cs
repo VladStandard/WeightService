@@ -58,7 +58,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            // Nomenclatures.
 	            Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(NomenclatureModel.Name)), 0, false, false);
+                    new SqlFieldOrderModel(nameof(NomenclatureModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
                 NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
                 if (nomenclatures is not null)
                     Nomenclatures.AddRange(nomenclatures);
@@ -66,7 +66,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            // Scales.
 	            Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(ScaleModel.Description)), 0, false, false);
+                    new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc), 0, false, false);
                 ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
                 if (scales is not null)
                     Scales.AddRange(scales);
@@ -74,7 +74,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            // Plus.
 	            Plus = new() { new() { Description = LocaleCore.Table.FieldNull } };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(PluModel.Name)), 0, false, false);
+                    new SqlFieldOrderModel(nameof(PluModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
                 PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
                 if (plus is not null)
                     Plus.AddRange(plus);

@@ -56,7 +56,6 @@ public static class LocaleCore
 		public static string AuthorizingApAddress => Lang == LangEnum.English ? "IP address" : "IP-адрес";
 		public static string AuthorizingHostName => Lang == LangEnum.English ? "Host name" : "Имя компьютера";
 		public static string AuthorizingId => Lang == LangEnum.English ? "ID" : "ИД";
-		public static string AuthorizingNot => Lang == LangEnum.English ? "Not authorized!" : "Авторизация провалена!";
 		public static string AuthorizingProcess => Lang == LangEnum.English ? "Authorizing ..." : "Авторизация ...";
 		public static string AuthorizingSuccess => Lang == LangEnum.English ? "Success authorized" : "Успешная авторизация";
 		public static string AuthorizingUserName => Lang == LangEnum.English ? "User name" : "Имя пользователя";

@@ -15,17 +15,17 @@ public partial class RazorComponentBase
     #region Public and private methods - Run actions
 
     protected void RunActionsInitialized(List<Action> actionsInitialized) => 
-        RunActionsSafe(string.Empty, string.Empty, LocaleCore.Dialog.DialogResultFail, actionsInitialized);
+        RunActionsSafe(string.Empty, actionsInitialized);
 
     protected void RunActionsParametersSet(List<Action> actionsParametersSet)
     {
         IsActionsParametersSetFinished = false;
         SetPropertiesFromParent();
-        RunActionsSafe(string.Empty, string.Empty, LocaleCore.Dialog.DialogResultFail, actionsParametersSet);
+        RunActionsSafe(string.Empty, actionsParametersSet);
         IsActionsParametersSetFinished = true;
     }
 
-    private void RunActionsSafe(string title, string success, string fail, List<Action> actions, [CallerMemberName] string memberName = "")
+    private void RunActionsSafe(string title, List<Action> actions, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -36,18 +36,19 @@ public partial class RazorComponentBase
                     action.Invoke();
                 }
             }
-            if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(success))
+            if (!string.IsNullOrEmpty(title))
                 NotificationService?.Notify(NotificationSeverity.Success,
-                    $"{LocaleCore.Action.ActionMethod}: {title}" + Environment.NewLine, success, AppSettingsHelper.Delay);
+                    $"{LocaleCore.Action.ActionMethod}: {title}" + Environment.NewLine,
+                    LocaleCore.Dialog.DialogResultSuccess, AppSettingsHelper.Delay);
         }
         catch (Exception ex)
         {
-            CatchException(ex, memberName, fail);
+            CatchException(ex, memberName, LocaleCore.Dialog.DialogResultFail);
         }
     }
 
-    private void RunActionsSafe(string title, string success, string fail, Action action) => 
-	    RunActionsSafe(title, success, fail, new List<Action> { action });
+    private void RunActionsSafe(string title, Action action) => 
+	    RunActionsSafe(title, new List<Action> { action });
 
     protected void CatchException(Exception ex, string title, string fail)
     {
@@ -72,7 +73,7 @@ public partial class RazorComponentBase
         AppSettings.DataAccess.LogError(ex, NetUtils.GetLocalHostName(false), nameof(BlazorCore));
     }
 
-    private void RunActionsWithQeustion(string title, string success, string fail, string questionAdd, Action action)
+    private void RunActionsWithQeustion(string title, string questionAdd, Action action)
     {
         try
         {
@@ -84,12 +85,12 @@ public partial class RazorComponentBase
 			bool? result = dialog.Result;
 			if (result == true)
             {
-                RunActionsSafe(title, success, fail, action);
+                RunActionsSafe(title, action);
             }
         }
         catch (Exception ex)
         {
-            CatchException(ex, title, fail);
+            CatchException(ex, title, LocaleCore.Dialog.DialogResultFail);
         }
     }
 

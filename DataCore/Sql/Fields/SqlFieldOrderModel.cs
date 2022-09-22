@@ -30,7 +30,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
     /// </summary>
     /// <param name="name"></param>
     /// <param name="direction"></param>
-    public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction = SqlFieldOrderEnum.Empty)
+    public SqlFieldOrderModel(string name, SqlFieldOrderEnum direction)
     {
         Name = name;
         Direction = direction;

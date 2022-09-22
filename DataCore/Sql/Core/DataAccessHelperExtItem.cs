@@ -11,6 +11,17 @@ public static partial class DataAccessHelperExt
 {
 	#region Public and private methods
 
+	public static AccessModel? GetItemAccess(this DataAccessHelper dataAccess, string? userName)
+	{
+		AccessModel? item = null;
+		if (!string.IsNullOrEmpty(userName))
+		{
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AccessModel.User), SqlFieldComparerEnum.Equal, userName), 0, false, false);
+			item = dataAccess.GetItem<AccessModel>(sqlCrudConfig);
+		}
+		return item;
+	}
+
 	public static AppModel? GetOrCreateNewApp(this DataAccessHelper dataAccess, string? appName)
 	{
 		AppModel? app = null;
@@ -36,25 +47,25 @@ public static partial class DataAccessHelperExt
 
 	public static AppModel? GetItemApp(this DataAccessHelper dataAccess, string? appName)
 	{
-		AppModel? app = null;
-		if (!string.IsNullOrEmpty(appName) && appName is not null)
+		AppModel? item = null;
+		if (!string.IsNullOrEmpty(appName))
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AppModel.Name), SqlFieldComparerEnum.Equal, appName), 0, false, false);
-			app = dataAccess.GetItem<AppModel>(sqlCrudConfig);
+			item = dataAccess.GetItem<AppModel>(sqlCrudConfig);
 		}
-		return app;
+		return item;
 	}
 
-	public static HostModel? GetItemOrCreateNewHost(this DataAccessHelper dataAccess, string? hostName)
+	public static HostModel? GetItemOrCreateNewHost(this DataAccessHelper dataAccess, string hostName)
 	{
-		HostModel? host = null;
-		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
+		HostModel? item = null;
+		if (!string.IsNullOrEmpty(hostName))
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-			if (host is null || host.EqualsDefault())
+			item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+			if (item is null || item.EqualsDefault())
 			{
-				host = new()
+				item = new()
 				{
 					Name = hostName,
 					HostName = hostName,
@@ -64,31 +75,31 @@ public static partial class DataAccessHelperExt
 					Ip = NetUtils.GetLocalIpAddress(),
 					AccessDt = DateTime.Now,
 				};
-				dataAccess.Save(host);
+				dataAccess.Save(item);
 			}
 			else
 			{
-				host.AccessDt = DateTime.Now;
-				dataAccess.Update(host);
+				item.AccessDt = DateTime.Now;
+				dataAccess.Update(item);
 			}
 		}
-		return host;
+		return item;
 	}
 
 	public static HostModel? GetItemHost(this DataAccessHelper dataAccess, string? hostName)
 	{
-		HostModel? host = null;
-		if (!string.IsNullOrEmpty(hostName) && hostName is not null)
+		HostModel? item = null;
+		if (!string.IsNullOrEmpty(hostName))
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-			host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-			if (host is not null && !host.EqualsDefault())
+			item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+			if (item is not null && !item.EqualsDefault())
 			{
-				host.AccessDt = DateTime.Now;
-				dataAccess.Update(host);
+				item.AccessDt = DateTime.Now;
+				dataAccess.Update(item);
 			}
 		}
-		return host;
+		return item;
 	}
 
 	public static LogTypeModel? GetItemLogType(this DataAccessHelper dataAccess, LogTypeEnum logType)

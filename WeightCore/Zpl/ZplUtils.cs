@@ -106,7 +106,8 @@ public static class ZplUtils
 			return result;
 
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(TemplateResourceModel.Type), SqlFieldComparerEnum.Equal, "ZPL"), 
-            new SqlFieldOrderModel(nameof(TemplateResourceModel.Name)), 0, false, false);
+            new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), 
+            0, false, false);
 		TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetItems<TemplateResourceModel>(sqlCrudConfig);
 		if (templateReources is not null)
 		{

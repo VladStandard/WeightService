@@ -59,9 +59,7 @@ public class UserSettingsModel
 		};
 	}
 
-	public string GetColorAccessRights(byte accessRights, uint rowCounter) => GetColorAccessRights((AccessRightsEnum)accessRights, rowCounter);
-
-	private string GetColorAccessRights(AccessRightsEnum accessRights)
+	public string GetColorAccessRights(AccessRightsEnum accessRights)
 	{
 		if (accessRights == AccessRightsEnum.None)
 			accessRights = AccessRights;
@@ -73,8 +71,6 @@ public class UserSettingsModel
 			_ => ".rz-datatable-none",
 		};
 	}
-
-	public string GetColorAccessRights(byte accessRights) => GetColorAccessRights((AccessRightsEnum)accessRights);
 
 	#endregion
 }

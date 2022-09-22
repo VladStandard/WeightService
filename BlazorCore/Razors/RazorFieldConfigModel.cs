@@ -42,8 +42,7 @@ public class RazorFieldConfigModel
 	}
 
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title) :
-		this("", new SqlTableEmptyModel(), name, textAlign, title, "string")
-	{ }
+		this(string.Empty, new SqlTableEmptyModel(), name, textAlign, title, "string") { }
 
 	#endregion
 
