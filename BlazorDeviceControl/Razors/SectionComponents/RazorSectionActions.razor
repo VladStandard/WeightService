@@ -18,26 +18,26 @@
 		{
 	        @if (UserSettings.AccessRightsIsAdmin)
 	        {
-				@if (ButtonSettings.IsShowNew)
-				{
-			        <RadzenButton 
-		                class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
-				        Click=@(_ => SqlItemNewAsync<TItem>())
-		                ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="add_circle_outline"
-		                Text=@LocaleCore.DeviceControl.TableActionNew />
-				}
 				@if (ButtonSettings.IsShowCopy)
 				{
 			        <RadzenButton 
 				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
 				        Click=@(_ => SqlItemCopyAsync())
-				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
+				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="warning_amber"
 				        Text=@LocaleCore.DeviceControl.TableActionCopy />
 				}
 	        }
 	        @if (UserSettings.AccessRightsIsWrite)
 	        {
-				@if (ButtonSettings.IsShowSave)
+		        @if (ButtonSettings.IsShowNew)
+		        {
+			        <RadzenButton 
+				        class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 
+				        Click=@(_ => SqlItemNewAsync<TItem>())
+				        ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small Icon="add_circle_outline"
+				        Text=@LocaleCore.DeviceControl.TableActionAdd />
+		        }
+		        @if (ButtonSettings.IsShowSave)
 				{
 			        <RadzenButton 
 		                class=@BlazorCoreUtuls.GetCssName.RadzenButtonLong 

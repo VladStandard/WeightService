@@ -7,9 +7,11 @@
 
 <RazorSectionReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
 
-<RadzenGrid Style="margin-top: 5px;" 
+<RadzenGrid 
+	Style="margin-top: 5px;" 
     Data=@SqlItemsCast TItem=BarCodeModel 
-    RowDoubleClick=@(_ => SqlItemEditAsync())
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >

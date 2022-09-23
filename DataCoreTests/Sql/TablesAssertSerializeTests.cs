@@ -87,6 +87,12 @@ internal class TablesAssertSerializeTests
 	}
 
 	[Test]
+	public void Table_AssertSerialize_PackageModel()
+	{
+		Helper.TableBaseModelAssertSerialize<PackageModel>();
+	}
+
+	[Test]
 	public void Table_AssertSerialize_PluModel()
 	{
 		Helper.TableBaseModelAssertSerialize<PluModel>();
@@ -97,12 +103,6 @@ internal class TablesAssertSerializeTests
 	{
 		Helper.TableBaseModelAssertSerialize<PluLabelModel>();
 	}
-
-	//[Test]
-	//public void Table_AssertSerialize_PluObsoleteModel()
-	//{
-	//	Helper.TableBaseModelAssertSerialize<PluObsoleteModel>();
-	//}
 
 	[Test]
 	public void Table_AssertSerialize_PluScaleModel()

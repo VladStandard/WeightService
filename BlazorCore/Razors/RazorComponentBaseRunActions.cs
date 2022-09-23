@@ -1,11 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using DataCore.Localizations;
 using DataCore.Protocols;
+using Microsoft.AspNetCore.Components;
+using NHibernate.Properties;
 using Radzen;
+using static MudBlazor.CategoryTypes;
 using Environment = System.Environment;
 
 namespace BlazorCore.Razors;
@@ -90,6 +95,46 @@ public partial class RazorComponentBase
         {
             CatchException(ex, title, LocaleCore.Dialog.DialogResultFail);
         }
+    }
+
+	// https://blazor.radzen.com/dialog
+	private async Task ShowDialog(string title, string message)
+    {
+	    try
+	    {
+		    if (DialogService is null)
+			    throw new ArgumentNullException(nameof(DialogService));
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+    //        await InvokeAsync(async () =>
+    //        {
+	   //         await Task.Delay(TimeSpan.FromMilliseconds(3000)).ConfigureAwait(false);
+				//DialogService.Close();
+    //        }).ConfigureAwait(false);
+
+	        await InvokeAsync(async () =>
+	        {
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                Task<dynamic>? dialog = DialogService.OpenAsync(title,
+                    ds =>
+                    {
+                        RenderFragment renderFragment = new(builder =>
+                        {
+	                        int index = 0;
+                            builder.OpenComponent<RazorComponentBase>(index++);
+							builder.AddAttribute(index++, nameof(title), title);
+							//builder.AddComponentReferenceCapture(index++, inst => { RazorComponentBase component = new(); });
+							builder.CloseComponent();
+                        });
+                        return renderFragment;
+                    },
+                    new DialogOptions() { CloseDialogOnOverlayClick = true, ShowClose = true });
+	        }).ConfigureAwait(true);
+		}
+	    catch (Exception ex)
+	    {
+		    CatchException(ex, title, LocaleCore.Dialog.DialogResultFail);
+	    }
     }
 
     private static ConfirmOptions GetConfirmOptions() => new()

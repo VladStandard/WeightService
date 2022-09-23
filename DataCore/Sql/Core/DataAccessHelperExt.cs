@@ -229,33 +229,35 @@ public static partial class DataAccessHelperExt
 
 	public static List<TemplateModel> GetListTemplates(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		TemplateModel item = new() { Title = LocaleCore.Table.FieldNull };
-		List<SqlFieldFilterModel> filters = new();
-		//List<TypeModel<string>>? templateCategories = DataSourceDicsHelper.Instance.GetTemplateCategories();
-		//string? templateCategory = templateCategories?.FirstOrDefault()?.Value;
-		//if (!string.IsNullOrEmpty(templateCategory))
-		//	filters = new() { new(DbField.CategoryId, DbComparer.Equal, templateCategory) };
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 			new SqlFieldOrderModel(nameof(TemplateModel.Title), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<TemplateModel> result = new();
 		if (isAddFieldNull)
-			result.Add(item);
+			result.Add(new() { Title = LocaleCore.Table.FieldNull });
 		result.AddRange(dataAccess.GetList<TemplateModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<OrganizationModel> GetListOrganizations(this DataAccessHelper dataAccess)
+	public static List<OrganizationModel> GetListOrganizations(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldOrderModel(nameof(OrganizationModel.Name), SqlFieldOrderEnum.Asc), 0, true, false);
-		return dataAccess.GetList<OrganizationModel>(sqlCrudConfig);
+			new SqlFieldOrderModel(nameof(OrganizationModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+		List<OrganizationModel> result = new();
+		if (isAddFieldNull)
+			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+		result.AddRange(dataAccess.GetList<OrganizationModel>(sqlCrudConfig));
+		return result;
 	}
 
-	public static List<PackageModel> GetListPackages(this DataAccessHelper dataAccess)
+	public static List<PackageModel> GetListPackages(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldOrderModel(nameof(PackageModel.Name), SqlFieldOrderEnum.Asc), 0, true, false);
-		return dataAccess.GetList<PackageModel>(sqlCrudConfig);
+			new SqlFieldOrderModel(nameof(PackageModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+		List<PackageModel> result = new();
+		if (isAddFieldNull)
+			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+		result.AddRange(dataAccess.GetList<PackageModel>(sqlCrudConfig));
+		return result;
 	}
 
 	public static List<VersionModel> GetListVersions(this DataAccessHelper dataAccess)

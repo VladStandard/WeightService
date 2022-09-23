@@ -87,6 +87,12 @@ internal class AssertSqlDbContentValidateTests
     }
 
     [Test]
+    public void DbContent_Validate_PackageModel()
+    {
+        Helper.AssertSqlDbContentValidate<PackageModel>();
+    }
+
+    [Test]
     public void DbContent_Validate_PluModel()
     {
         Helper.AssertSqlDbContentValidate<PluModel>();
@@ -97,12 +103,6 @@ internal class AssertSqlDbContentValidateTests
     {
         Helper.AssertSqlDbContentValidate<PluLabelModel>();
     }
-
-    //[Test]
-    //public void DbContent_Validate_PluObsoleteModel()
-    //{
-    //    Helper.AssertSqlDbContentValidate<PluObsoleteModel>();
-    //}
 
     [Test]
     public void DbContent_Validate_PluScaleModel()

@@ -8,9 +8,11 @@
 
 <RazorSectionReload TItem=WeithingFactSummaryModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
 
-<RadzenGrid Style="margin-top: 5px;"
-    Data=@SqlItemsCast TItem=WeithingFactSummaryModel 
-    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+<RadzenGrid 
+	Style="margin-top: 5px;"
+	Data=@SqlItemsCast TItem=WeithingFactSummaryModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=WeithingFactSummaryModel ParentRazor=@(this) />

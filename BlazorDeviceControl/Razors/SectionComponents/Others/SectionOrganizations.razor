@@ -7,14 +7,16 @@
 
 <RazorSectionReload TItem=OrganizationModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
 
-<RadzenGrid Style="margin-top: 5px; " 
+<RadzenGrid 
+	Style="margin-top: 5px; " 
     Data=@SqlItemsCast TItem=OrganizationModel 
+    RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=OrganizationModel ParentRazor=@(this) />
-        <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%"))
+        <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("75%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Organization.GetName() />
         <RazorSectionField TItem=OrganizationModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%"))
             RazorFieldConfig=@RazorFieldConfigUtils.Organization.GetGln() />

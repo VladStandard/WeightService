@@ -93,22 +93,6 @@ public partial class RazorComponentBase
         }
     }
 
-    //private void OnChangeItemPlu(PluObsoleteModel item, string filterName, object? value)
-    //{
-    //    if (filterName == nameof(item.Nomenclature) && value is long nomenclatureId)
-    //    {
-    //        item.Nomenclature = AppSettings.DataAccess.GetItemById<NomenclatureModel>(nomenclatureId) ?? new();
-    //    }
-    //    if (filterName == nameof(item.Scale) && value is long scaleId)
-    //    {
-    //        item.Scale = AppSettings.DataAccess.GetItemById<ScaleModel>(scaleId) ?? new();
-    //    }
-    //    if (filterName == nameof(item.Template) && value is long templateId)
-    //    {
-    //        item.Template = AppSettings.DataAccess.GetItemById<TemplateModel>(templateId) ?? new();
-    //    }
-    //}
-
     private void OnChangeItemScale(ScaleModel item, string filterName, object? value)
     {
         if (filterName == nameof(ScaleModel.Identity.Id) && value is long id)

@@ -7,9 +7,11 @@
 
 <RazorSectionReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWorkShops />
 
-<RadzenGrid Style="margin-top: 5px;" 
-    Data=@SqlItemsCast TItem=WorkShopModel 
-    RowDoubleClick=@(_ => SqlItemEditAsync())
+<RadzenGrid 
+	Style="margin-top: 5px;" 
+	Data=@SqlItemsCast TItem=WorkShopModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >

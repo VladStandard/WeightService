@@ -8,8 +8,10 @@
 <RazorSectionReload TItem=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
 <RadzenGrid 
-    Data=@SqlItemsCast TItem=PluScaleModel 
-    RowDoubleClick=@(_ => SqlItemEditAsync())
+	Style="margin-top: 5px;"
+	Data=@SqlItemsCast TItem=PluScaleModel
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>

@@ -45,7 +45,7 @@ public partial class RazorComponentBase
 			NomenclatureModel => LocaleCore.DeviceControl.ItemNomenclature,
 			OrderModel => LocaleCore.DeviceControl.ItemOrder,
 			OrderWeighingModel => LocaleCore.DeviceControl.ItemOrderWeighing,
-			//PluObsoleteModel => LocaleCore.DeviceControl.ItemPlu,
+			PackageModel => LocaleCore.DeviceControl.RouteItemPackage,
 			PluModel => LocaleCore.DeviceControl.ItemPlu,
 			PluScaleModel => LocaleCore.DeviceControl.ItemPluScale,
 			PrinterModel => LocaleCore.Print.Name,
@@ -79,7 +79,7 @@ public partial class RazorComponentBase
 			NomenclatureModel => LocaleCore.DeviceControl.SectionNomenclatures,
 			OrderModel => LocaleCore.DeviceControl.SectionOrders,
 			OrderWeighingModel => LocaleCore.DeviceControl.SectionOrdersWeighings,
-			//PluObsoleteModel => LocaleCore.DeviceControl.SectionPlus,
+			PackageModel => LocaleCore.DeviceControl.SectionPackages,
 			PluModel => LocaleCore.DeviceControl.SectionPlus,
 			PluScaleModel => LocaleCore.DeviceControl.SectionPlusScales,
 			PrinterModel => LocaleCore.Print.Name,
@@ -150,9 +150,15 @@ public partial class RazorComponentBase
 	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
-		if (!SqlItemValidate(NotificationService, item)) return;
-
-		AppSettings.DataAccess.Update(item);
+		if (item.Identity.IsNew())
+		{
+			AppSettings.DataAccess.Save(item);
+		}
+		else
+		{
+			if (!SqlItemValidate(NotificationService, item)) return;
+			AppSettings.DataAccess.Update(item);
+		}
 	}
 
 	private void SqlItemsSave<T>(List<T>? items) where T : SqlTableBase, new()
@@ -167,6 +173,12 @@ public partial class RazorComponentBase
 	{
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
+		if (SqlItem is null)
+		{
+			await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+			return;
+		}
+		
 		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
 			SqlItemSave(SqlItem);
@@ -191,11 +203,10 @@ public partial class RazorComponentBase
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(string.Empty, () =>
+		RunActionsWithQeustion(LocaleCore.Table.TableNew, GetQuestionAdd(), () =>
 		{
 			SqlItem = SqlItemNew<TItem>();
 			SetRouteItemNavigate(SqlItem);
-			//OnChangeAsync();
 		});
 	}
 
@@ -204,10 +215,16 @@ public partial class RazorComponentBase
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-		RunActionsSafe(string.Empty, () =>
+		if (SqlItem is null)
 		{
+			await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+			return;
+		}
+
+		RunActionsWithQeustion(LocaleCore.Table.TableCopy, GetQuestionAdd(), () =>
+		{
+			SqlItem = SqlItem.CloneCast();
 			SetRouteItemNavigate(SqlItem);
-			OnChangeAsync();
 		});
 	}
 
@@ -248,6 +265,12 @@ public partial class RazorComponentBase
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
+		if (SqlItem is null)
+		{
+			await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+			return;
+		}
+		
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
 			AppSettings.DataAccess.Mark(SqlItem);
@@ -260,6 +283,12 @@ public partial class RazorComponentBase
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
 		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
+		if (SqlItem is null)
+		{
+			await ShowDialog(LocaleCore.Sql.SqlItemIsNotSelect, LocaleCore.Sql.SqlItemDoSelect).ConfigureAwait(true);
+			return;
+		}
+		
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
 			AppSettings.DataAccess.Delete(SqlItem);

@@ -1,0 +1,34 @@
+﻿@inherits RazorComponentItemBase<PackageModel>
+@page "/item/package"
+@page "/item/package/new"
+@page "/item/package/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=PackageModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <RazorItemTableHead TItem=PackageModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+		<RazorItemTableBody TItem=PackageModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+        <tr>
+            <td>@LocaleCore.Table.Name</td>
+            <td colspan=3>
+                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.TareWeight</td>
+            <td colspan=3>
+	            <RadzenNumeric 
+		            Style="width: 88%; text-align: center; " 
+	                TValue="decimal" @bind-Value=@SqlItemCast.Weight />
+			</td>
+        </tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=PackageModel ParentRazor=@(this) />
+<RazorItemDates TItem=PackageModel ParentRazor=@(this) />

@@ -8,10 +8,10 @@
 <RazorSectionReload TItem=AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
 
 <RadzenGrid 
-	Style="margin-top: 5px; " Data=@SqlItemsCast TItem=AccessModel 
+	Style="margin-top: 5px; " 
+    Data=@SqlItemsCast TItem=AccessModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync()) 
-	RowClick=@(SqlItemSetAsync)
-	RowRender=@(args => RowRender(args))
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >

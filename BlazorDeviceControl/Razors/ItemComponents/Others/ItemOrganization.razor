@@ -1,0 +1,39 @@
+﻿@inherits RazorComponentItemBase<OrganizationModel>
+@page "/item/organization"
+@page "/item/organization/new"
+@page "/item/organization/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=OrganizationModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemContragent />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <RazorItemTableHead TItem=OrganizationModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+		<RazorItemTableBody TItem=OrganizationModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+        <tr>
+            <td>@LocaleCore.Table.Name</td>
+            <td colspan=3>
+                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Description</td>
+            <td colspan=3>
+                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Description />
+			</td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Gln</td>
+            <td colspan=3>
+                <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+					ReadOnly=true TValue="int" @bind-Value=@SqlItemCast.Gln />
+			</td>
+        </tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=OrganizationModel ParentRazor=@(this) />
+<RazorItemDates TItem=OrganizationModel ParentRazor=@(this) />

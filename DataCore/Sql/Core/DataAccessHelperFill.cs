@@ -40,6 +40,8 @@ public static class DataAccessHelperFill
 				if (pluWeighing1 is not null)
 					orderWeighing.PluWeighing = pluWeighing1;
 				break;
+			//case PackageModel package:
+			//	break;
 			case PluModel plu:
 				TemplateModel? template = dataAccess.GetItemById<TemplateModel>(plu.Template.IdentityValueId);
 				if (template is not null)
@@ -53,17 +55,6 @@ public static class DataAccessHelperFill
 				if (pluWeighing2 is not null)
 					pluLabel.PluWeighing = pluWeighing2;
 				break;
-			//case PluObsoleteModel pluObsolete:
-			//	TemplateModel? template1 = dataAccess.GetItemById<TemplateModel>(pluObsolete.Template.IdentityValueId);
-			//	if (template1 is not null)
-			//		pluObsolete.Template = template1;
-			//	ScaleModel? scale1 = dataAccess.GetItemById<ScaleModel>(pluObsolete.Scale.IdentityValueId);
-			//	if (scale1 is not null)
-			//		pluObsolete.Scale = scale1;
-			//	TableScaleModels.NomenclatureModel? nomenclature2 = dataAccess.GetItemById<TableScaleModels.NomenclatureModel>(pluObsolete.Nomenclature.IdentityValueId);
-			//	if (nomenclature2 is not null)
-			//		pluObsolete.Nomenclature = nomenclature2;
-			//	break;
 			case PluScaleModel pluScale:
 				PluModel? plu2 = dataAccess.GetItemByUid<PluModel>(pluScale.Plu.IdentityValueUid);
 				if (plu2 is not null)

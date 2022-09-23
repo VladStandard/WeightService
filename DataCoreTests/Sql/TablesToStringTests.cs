@@ -81,6 +81,12 @@ internal class TablesToStringTests
     }
 
     [Test]
+    public void DbTable_Validate_PackageModel()
+    {
+        Helper.TableBaseModelAssertToString<PackageModel>();
+    }
+
+    [Test]
     public void DbTable_Validate_PluModel()
     {
         Helper.TableBaseModelAssertToString<PluModel>();
@@ -91,12 +97,6 @@ internal class TablesToStringTests
     {
         Helper.TableBaseModelAssertToString<PluLabelModel>();
     }
-
-    //[Test]
-    //public void DbTable_Validate_PluObsoleteModel()
-    //{
-    //    Helper.TableBaseModelAssertToString<PluObsoleteModel>();
-    //}
 
     [Test]
     public void DbTable_Validate_PluScaleModel()

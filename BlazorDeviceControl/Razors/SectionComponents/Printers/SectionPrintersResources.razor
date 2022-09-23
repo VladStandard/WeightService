@@ -7,9 +7,11 @@
 
 <RazorSectionReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
-<RadzenGrid Style="margin-top: 5px;"
-    Data=@SqlItemsCast TItem=PrinterResourceModel 
-    RowDoubleClick=@(_ => SqlItemEditAsync())
+<RadzenGrid 
+	Style="margin-top: 5px;"
+	Data=@SqlItemsCast TItem=PrinterResourceModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>

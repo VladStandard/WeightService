@@ -119,7 +119,6 @@ public partial class LocaleDeviceControl
 	public string TableActionEdit => Lang == LangEnum.English ? "Edit" : "Редактировать";
 	public string TableActionFill => Lang == LangEnum.English ? "Fill" : "Заполнить";
 	public string TableActionMark => Lang == LangEnum.English ? "Mark" : "Пометить";
-	public string TableActionNew => Lang == LangEnum.English ? "New" : "Новый";
 	public string TableActions => Lang == LangEnum.English ? "___" : "Действия";
 	public string TableActionSave => Lang == LangEnum.English ? "Save" : "Сохранить";
 	public string TableActionsIsDeny => Lang == LangEnum.English ? "___" : "Действия недоступны";

@@ -20,7 +20,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<AccessModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<AccessModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -29,7 +29,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<AppModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<AppModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -38,7 +38,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(BarCodeModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(BarCodeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -47,7 +47,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<BarCodeTypeModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<BarCodeTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -56,7 +56,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ContragentModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<ContragentModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -65,7 +65,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<HostModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<HostModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -74,7 +74,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<LogModel>(nameof(LogModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<LogModel>(nameof(LogModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<LogModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<LogModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -83,7 +83,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(LogTypeModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(LogTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<LogTypeModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<LogTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -92,7 +92,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(NomenclatureModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(NomenclatureModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<NomenclatureModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<NomenclatureModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -101,7 +101,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<OrderModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<OrderModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -110,7 +110,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -119,7 +119,16 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(OrganizationModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(OrganizationModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(SqlTableBase.IsMarked));
+	}
+
+	[Test]
+	public void PackageModel_AssertSqlFields_Check()
+	{
+		// Arrange & Act & Assert.
+		Helper.AssertSqlPropertyCheckDt<PackageModel>(nameof(PackageModel.CreateDt));
+		Helper.AssertSqlPropertyCheckDt<PackageModel>(nameof(PackageModel.ChangeDt));
+		Helper.AssertSqlPropertyCheckBool<PackageModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -128,7 +137,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluLabelModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PluLabelModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -137,16 +146,8 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PluModel>(nameof(SqlTableBase.IsMarked));
 	}
-
-	//[Test]
-	//public void PluObsoleteModel_AssertSqlFields_Check()
-	//{
-	//	// Arrange & Act & Assert.
-	//	Helper.AssertSqlFieldDtCheck<PluObsoleteModel>(nameof(PluObsoleteModel.CreateDt));
-	//	Helper.AssertSqlFieldDtCheck<PluObsoleteModel>(nameof(PluObsoleteModel.ChangeDt));
-	//}
 
 	[Test]
 	public void PluScaleModel_AssertSqlFields_Check()
@@ -154,7 +155,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluScaleModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PluScaleModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -163,7 +164,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(PluWeighingModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(PluWeighingModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluWeighingModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PluWeighingModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -172,7 +173,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PrinterModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -181,7 +182,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PrinterResourceModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PrinterResourceModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -190,7 +191,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(PrinterTypeModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(PrinterTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PrinterTypeModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<PrinterTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -199,7 +200,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(ProductionFacilityModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(ProductionFacilityModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -208,7 +209,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -217,7 +218,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<ScaleModel>(nameof(ScaleModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<ScaleModel>(nameof(ScaleModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ScaleModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
 		//Helper.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
 		Helper.AssertSqlPropertyCheckString<ScaleModel>(nameof(ScaleModel.Description));
 	}
@@ -228,7 +229,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TaskModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<TaskModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -237,7 +238,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(TaskTypeModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(TaskTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TaskTypeModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<TaskTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -246,7 +247,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TemplateModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<TemplateModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -255,7 +256,7 @@ internal class SqlTableBaseTests
 		// Arrange & Act & Assert.
 		Helper.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(TemplateResourceModel.CreateDt));
 		Helper.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(TemplateResourceModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
@@ -267,7 +268,7 @@ internal class SqlTableBaseTests
 		Helper.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
 		Helper.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Description));
 		Helper.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
-		Helper.AssertSqlPropertyCheckBool<VersionModel>(nameof(AccessModel.IsMarked));
+		Helper.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]

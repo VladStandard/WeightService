@@ -11,7 +11,7 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
 
     public SectionOrganizations()
     {
-        RazorComponentConfig.IsShowFilterMarked = false;
+        RazorComponentConfig.IsShowFilterMarked = true;
 	}
 
     #endregion
@@ -24,9 +24,9 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListOrganizations();
+	            SqlItemsCast = AppSettings.DataAccess.GetListOrganizations(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
 
-                ButtonSettings = new(false, false, false, false, false, false, false);
+                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

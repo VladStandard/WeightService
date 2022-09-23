@@ -87,6 +87,12 @@ internal class TablesAssertEqualsNewTests
     }
 
     [Test]
+    public void DbTable_Validate_PackageModel()
+    {
+        Helper.TableBaseModelAssertEqualsNew<PackageModel>();
+    }
+
+    [Test]
     public void DbTable_Validate_PluModel()
     {
         Helper.TableBaseModelAssertEqualsNew<PluModel>();
@@ -97,12 +103,6 @@ internal class TablesAssertEqualsNewTests
     {
         Helper.TableBaseModelAssertEqualsNew<PluLabelModel>();
     }
-
-    //[Test]
-    //public void DbTable_Validate_PluObsoleteModel()
-    //{
-    //    Helper.TableBaseModelAssertEqualsNew<PluObsoleteModel>();
-    //}
 
     [Test]
     public void DbTable_Validate_PluScaleModel()
