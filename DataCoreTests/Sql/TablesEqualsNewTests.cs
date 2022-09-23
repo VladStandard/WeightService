@@ -4,7 +4,7 @@
 namespace DataCoreTests.Sql;
 
 [TestFixture]
-internal class TablesAssertEqualsNewTests
+internal class TablesEqualsNewTests
 {
     #region Public and private fields, properties, constructor
 

@@ -7,37 +7,37 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "PLUS_SCALES".
+/// Table "PACKAGES_PLUS".
 /// </summary>
 [Serializable]
-public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PackagePluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual bool IsActive { get; set; }
+    [XmlElement] public virtual string Name { get; set; }
+    [XmlElement] public virtual PackageModel Package { get; set; }
     [XmlElement] public virtual PluModel Plu { get; set; }
-    [XmlElement] public virtual ScaleModel Scale { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PluScaleModel() : base(SqlFieldIdentityEnum.Uid)
+    public PackagePluModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-	    IsActive = false;
+        Name = string.Empty;
+	    Package = new();
 	    Plu = new();
-	    Scale = new();
-    }
+	}
 
 	/// <summary>
     /// Constructor for serialization.
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected PluScaleModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PackagePluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-	    IsActive = info.GetBoolean(nameof(IsActive));
-		Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
-        Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
+        Name = info.GetString(nameof(Name));
+        Package = (PackageModel)info.GetValue(nameof(Package), typeof(PackageModel));
+        Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
     }
 
 	#endregion
@@ -46,78 +46,76 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-	    $"{nameof(IsActive)}: {IsActive}. " +
-	    $"{nameof(Plu)}: {Plu.Name}. " +
-	    $"{nameof(Scale)}: {Scale.Description}. ";
+	    $"{nameof(Name)}: {Name}. " +
+	    $"{nameof(Package)}: {Package}. " + 
+	    $"{nameof(Plu)}: {Plu}. ";
 
     public override bool Equals(object obj)
 	{
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((PluScaleModel)obj);
+        return Equals((PackagePluModel)obj);
     }
 
-    public override int GetHashCode() => (IsActive, Plu, Scale).GetHashCode();
+    public override int GetHashCode() => (Name, Package, Plu).GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
 
     public override bool EqualsDefault()
     {
-        if (!Plu.EqualsDefault())
-            return false;
-        if (!Scale.EqualsDefault())
-            return false;
+	    if (!Package.EqualsDefault())
+		    return false;
+		if (!Plu.EqualsDefault())
+			return false;
         return
-            base.EqualsDefault() &&
-            Equals(IsActive, false);
+			base.EqualsDefault() &&
+            Equals(Name, string.Empty);
     }
 
 	public override object Clone()
     {
-        PluScaleModel item = new();
-        item.IsActive = IsActive;
+        PackagePluModel item = new();
+        item.Name = Name;
+        item.Package = Package.CloneCast();
         item.Plu = Plu.CloneCast();
-        item.Scale = Scale.CloneCast();
-		item.CloneSetup(base.CloneCast());
+        item.CloneSetup(base.CloneCast());
 		return item;
     }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(IsActive), IsActive);
+        info.AddValue(nameof(Name), Name);
+        info.AddValue(nameof(Package), Package);
         info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(Scale), Scale);
     }
 
     public override void FillProperties()
     {
 	    base.FillProperties();
-		IsActive = true;
+		Name = LocaleCore.Sql.SqlItemFieldName;
+		//Package = new();
 		//Plu = new();
-		//Scale = new();
-	}
+    }
 
 	#endregion
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PluScaleModel item)
+	public virtual bool Equals(PackagePluModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (!Plu.Equals(item.Plu))
+		if (!Package.Equals(item.Package))
 			return false;
-		if (!Scale.Equals(item.Scale))
+		if (!Plu.Equals(item.Plu))
 			return false;
 		return
 			base.Equals(item) &&
-			Equals(IsActive, item.IsActive) &&
-			Equals(Plu, item.Plu) &&
-			Equals(Scale, item.Scale);
+			Equals(Name, item.Name);
 	}
 
-	public new virtual PluScaleModel CloneCast() => (PluScaleModel)Clone();
+	public new virtual PackagePluModel CloneCast() => (PackagePluModel)Clone();
 
 	#endregion
 }

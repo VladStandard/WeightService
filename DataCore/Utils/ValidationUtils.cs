@@ -79,6 +79,7 @@ public class ValidationUtils
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
             OrganizationModel organization => new OrganizationValidator().Validate(organization),
+            PackagePluModel package => new PackagePluValidator().Validate(package),
             PackageModel package => new PackageValidator().Validate(package),
             PluModel plu => new PluValidator().Validate(plu),
             PluLabelModel pluLabel => new PluLabelValidator().Validate(pluLabel),

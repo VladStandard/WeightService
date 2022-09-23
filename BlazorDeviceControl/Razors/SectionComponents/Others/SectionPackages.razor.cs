@@ -11,7 +11,7 @@ public partial class SectionPackages : RazorComponentSectionBase<PackageModel>
 
     public SectionPackages()
     {
-        RazorComponentConfig.IsShowFilterMarked = false;
+        RazorComponentConfig.IsShowFilterMarked = true;
 	}
 
     #endregion

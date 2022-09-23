@@ -189,6 +189,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PackageMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PackagePluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());

@@ -254,6 +254,12 @@ public class DataCoreHelper
 				organization.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				organization.Gln = 1;
 				break;
+			case PackagePluModel packagePlu:
+				packagePlu.Name = LocaleCore.Sql.SqlItemFieldName;
+				packagePlu.Description = LocaleCore.Sql.SqlItemFieldDescription;
+				packagePlu.Package = CreateNewSubstitute<PackageModel>(isNotDefault);
+				packagePlu.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+				break;
 			case PackageModel package:
 				package.Name = LocaleCore.Sql.SqlItemFieldName;
 				package.Weight = 0.560M;

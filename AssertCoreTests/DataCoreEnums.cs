@@ -191,6 +191,44 @@ public static class DataCoreEnums
 		new OrderModel(),
 		new OrganizationModel(),
 		new PackageModel(),
+		new PackagePluModel(),
+		new PluModel(),
+		new PluLabelModel(),
+		new PluScaleModel(),
+		new PluWeighingModel(),
+		new PrinterModel(),
+		new PrinterResourceModel(),
+		new PrinterTypeModel(),
+		new ProductionFacilityModel(),
+		new ProductSeriesModel(),
+		new ScaleModel(),
+		new TaskModel(),
+		new TaskTypeModel(),
+		new TemplateModel(),
+		new TemplateResourceModel(),
+		new VersionModel(),
+		new WorkShopModel(),
+	};
+
+	/// <summary>
+	/// List of models SqlTableBase.
+	/// </summary>
+	/// <returns></returns>
+	public static List<SqlTableBase> GetSqlTableModels(bool flag) => new()
+	{
+		new AccessModel(),
+		new AppModel(),
+		new BarCodeModel(),
+		new BarCodeTypeModel(),
+		new ContragentModel(),
+		new HostModel(),
+		new LogModel(),
+		new LogTypeModel(),
+		new NomenclatureModel(),
+		new OrderModel(),
+		new OrganizationModel(),
+		new PackageModel(),
+		new PackagePluModel(),
 		new PluModel(),
 		new PluLabelModel(),
 		new PluScaleModel(),
@@ -227,6 +265,7 @@ public static class DataCoreEnums
 		typeof(OrderModel),
 		typeof(OrganizationModel),
 		typeof(PackageModel),
+		typeof(PackagePluModel),
 		typeof(PluModel),
 		typeof(PluLabelModel),
 		typeof(PluScaleModel),
