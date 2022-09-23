@@ -91,7 +91,8 @@ public partial class LocaleDeviceControl
 	public string SectionOrganizations => Lang == LangEnum.English ? "Organizations" : "Организации";
 	public string SectionPackages => Lang == LangEnum.English ? "Packages" : "Тара";
 	public string SectionPlus => Lang == LangEnum.English ? "PLUs" : "ПЛУ";
-	public string SectionPlusScales => Lang == LangEnum.English ? "Devices PLUs" : "ПЛУ устройств";
+	public string SectionPlusPackages => Lang == LangEnum.English ? "PLU & packages" : "ПЛУ и тара";
+	public string SectionPlusScales => Lang == LangEnum.English ? "PLU & devices" : "ПЛУ и устройства";
 	public string SectionPlusWeighings => Lang == LangEnum.English ? "Plus weighings" : "Взвешивания ПЛУ";
 	public string SectionProductionFacilities => Lang == LangEnum.English ? "Production facilities" : "Производственные площадки";
 	public string SectionProductionFacilitiesShort => Lang == LangEnum.English ? "Facilities" : "Площадки";

@@ -5,38 +5,38 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
+<RazorSectionReload TItem=@TemplateResourceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplateResources />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 
-	Data=@SqlItemsCast TItem=TemplateResourceModel 
+	Data=@SqlItemsCast TItem=@TemplateResourceModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=TemplateResourceModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=TemplateResourceModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@TemplateResourceModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@TemplateResourceModel ParentRazor=@(this) />
 
         <RadzenGridColumn 
-            TItem=TemplateResourceModel Property="Type" TextAlign=TextAlign.Center
+            TItem=@TemplateResourceModel Property="Type" TextAlign=TextAlign.Center
             Title=@LocaleCore.Table.Type 
             Type="string" Width="10%" />
         <RadzenGridColumn 
-            TItem=TemplateResourceModel Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
+            TItem=@TemplateResourceModel Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                     Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.Identity.Id}")
                     Text=@itemCast.Name />
             </Template>
         </RadzenGridColumn>
-        <RazorSectionField TItem=TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+        <RazorSectionField TItem=@TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
         <RadzenGridColumn 
-            TItem=TemplateResourceModel Property="ImageData.Info"
+            TItem=@TemplateResourceModel Property="ImageData.Info"
             Title=@LocaleCore.Table.ImageDataInfo 
             Type="string" Width="25%" />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=TemplateResourceModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@TemplateResourceModel ParentRazor=@(this) />

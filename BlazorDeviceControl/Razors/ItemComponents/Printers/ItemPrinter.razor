@@ -10,12 +10,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Name />
+<RazorItemReload TItem=@PrinterModel ParentRazor=@(this) Title=@LocaleCore.Print.Name />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=PrinterModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
+    <RazorItemTableHead TItem=@PrinterModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
     <tbody>
-		<RazorItemTableBody TItem=PrinterModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@PrinterModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
         <tr>
             <td>@LocaleCore.Table.Name</td>
             <td>
@@ -107,5 +107,5 @@
 <br style="margin-top: 10px; "/>
 <SectionPrintersResources ParentRazor=@(this) />
 
-<RazorItemActions TItem=PrinterModel ParentRazor=@(this) />
-<RazorItemDates TItem=PrinterModel ParentRazor=@(this) />
+<RazorItemActions TItem=@PrinterModel ParentRazor=@(this) />
+<RazorItemDates TItem=@PrinterModel ParentRazor=@(this) />

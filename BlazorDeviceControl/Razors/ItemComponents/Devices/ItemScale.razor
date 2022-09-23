@@ -9,12 +9,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
+<RazorItemReload TItem=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemScale />
 
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=ScaleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+	<RazorItemTableHead TItem=@ScaleModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 	<tbody>
-		<RazorItemTableBody TItem=ScaleModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@ScaleModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 		<tr>
 			<td>@LocaleCore.Table.Description</td>
 			<td>
@@ -108,7 +108,7 @@
 		<tr>
 			<td>@LocaleCore.Table.DeviceNumber</td>
 			<td>
-				<RadzenTemplateForm TItem=ScaleModel Data=@SqlItemCast>
+				<RadzenTemplateForm TItem=@ScaleModel Data=@SqlItemCast>
 					<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 					               Name="fieldNumber"
 					               TValue="int" @bind-Value=@SqlItemCast.Number/>
@@ -184,7 +184,7 @@
 			</td>
 			<td>@LocaleCore.Table.Counter</td>
 			<td>
-				<RadzenTemplateForm TItem=ScaleModel Data=@SqlItemCast>
+				<RadzenTemplateForm TItem=@ScaleModel Data=@SqlItemCast>
 					<RadzenNumeric Style="width: 100%; text-align: center; display: block;" Disabled=false
 					               Name="fieldCounter" TValue="int" @bind-Value=@SqlItemCast.Counter/>
 					<RadzenNumericRangeValidator
@@ -196,7 +196,7 @@
 	</tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=ScaleModel ParentRazor=@(this) />
-<RazorItemDates TItem=ScaleModel ParentRazor=@(this) />
+<RazorItemActions TItem=@ScaleModel ParentRazor=@(this) />
+<RazorItemDates TItem=@ScaleModel ParentRazor=@(this) />
 
 <SectionPlusScales ParentRazor=@(this)  />

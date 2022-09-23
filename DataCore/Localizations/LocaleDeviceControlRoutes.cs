@@ -24,6 +24,7 @@ public partial class LocaleDeviceControl
     public string RouteItemPlu => "/item/plu";
     public string RouteItemPluLabel => "/item/plu_label";
     public string RouteItemPluObsolete => "/item/plu_obsolete";
+    public string RouteItemPluPackage => "/item/plu_package";
     public string RouteItemPluScale => "/item/plu_scale";
     public string RouteItemPluWeighing => "/item/plu_weighing";
     public string RouteItemPrinter => "/item/printer";
@@ -60,8 +61,9 @@ public partial class LocaleDeviceControl
     public string RouteSectionPackages => "/section/packages";
     public string RouteSectionPluLabels => "/section/plus_labels";
     public string RouteSectionPlus => "/section/plus";
-    public string RouteSectionPlusScales => "/section/plus_scales";
     public string RouteSectionPlusObsolete => "/section/plus_obsolete";
+    public string RouteSectionPlusPackages => "/section/plus_packages";
+    public string RouteSectionPlusScales => "/section/plus_scales";
     public string RouteSectionPlusWeighings => "/section/plu_weighings";
     public string RouteSectionPlusWeighingsAggregation => "/section/plus_weighings_aggr";
     public string RouteSectionPrinterResources => "/section/printers_resources";

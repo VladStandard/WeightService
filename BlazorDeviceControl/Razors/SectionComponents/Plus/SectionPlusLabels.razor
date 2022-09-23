@@ -5,22 +5,22 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=PluLabelModel ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
+<RazorSectionReload TItem=@PluLabelModel ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
 
 <RadzenGrid 
 	Style="margin-top: 5px; "
-	Data=@SqlItemsCast TItem=PluLabelModel 
+	Data=@SqlItemsCast TItem=@PluLabelModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=PluLabelModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=PluLabelModel ParentRazor=@(this) />
+        <RazorSectionFieldIsMarked TItem=@PluLabelModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@PluLabelModel ParentRazor=@(this) />
 
         @*
         <RadzenGridColumn 
-            TItem=PluLabelModel Title=@LocaleCore.Table.Scale Type="string" Width="18%" >
+            TItem=@PluLabelModel Title=@LocaleCore.Table.Scale Type="string" Width="18%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                     Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Scale}/{itemCast.ScaleId}")
@@ -28,7 +28,7 @@
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem=PluLabelModel Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" TextAlign=TextAlign.Center >
+            TItem=@PluLabelModel Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" TextAlign=TextAlign.Center >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; " 
                     Path=@($"{LocaleCore.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
@@ -36,7 +36,7 @@
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem=PluLabelModel Title=@LocaleCore.Table.Plu Type="string" Width="27%" >
+            TItem=@PluLabelModel Title=@LocaleCore.Table.Plu Type="string" Width="27%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                     Path=@($"{LocaleCore.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
@@ -44,7 +44,7 @@
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem=PluLabelModel Title=@LocaleCore.Table.Template Type="string" Width="16%" TextAlign=TextAlign.Center >
+            TItem=@PluLabelModel Title=@LocaleCore.Table.Template Type="string" Width="16%" TextAlign=TextAlign.Center >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; " 
                     Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateId}")
@@ -52,15 +52,15 @@
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem=PluLabelModel Property="NetWeight" TextAlign=TextAlign.Center
+            TItem=@PluLabelModel Property="NetWeight" TextAlign=TextAlign.Center
             Title=@LocaleCore.Table.NetWeight Type="decimal" Width="6%" />
         <RadzenGridColumn 
-            TItem=PluLabelModel Property="TareWeight" TextAlign=TextAlign.Center
+            TItem=@PluLabelModel Property="TareWeight" TextAlign=TextAlign.Center
             Title=@LocaleCore.Table.TareWeight Type="decimal" Width="6%" />
         <RadzenGridColumn 
-            TItem=PluLabelModel Property="RegNum" TextAlign=TextAlign.Center
+            TItem=@PluLabelModel Property="RegNum" TextAlign=TextAlign.Center
             Title=@LocaleCore.Table.RegNum Type="int" Width="7%" />*@
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=PluLabelModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@PluLabelModel ParentRazor=@(this) />

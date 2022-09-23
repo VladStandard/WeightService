@@ -1,0 +1,66 @@
+﻿@inherits RazorComponentSectionBase<PluPackageModel>
+@page "/section/plus_packages"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+@*<RazorSectionReload TItem=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />*@
+
+<RadzenGrid
+	Style="margin-top: 5px;"
+	Data=@SqlItemsCast TItem=@PluPackageModel
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns>
+		<RazorSectionFieldIsMarked TItem=PluPackageModel ParentRazor=@(this) />
+	    @*<RadzenGridColumn TItem=PluPackageModel Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
+		    <Template Context="itemCast">
+			    <RadzenLink Text=@itemCast.Plu.Number.ToString() 
+			                Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
+		    </Template>
+	    </RadzenGridColumn>*@
+	    <RadzenGridColumn TItem=PluPackageModel Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.ActiveShort>
+		    <Template Context="itemCast">
+			    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.IsActive/>
+		    </Template>
+	    </RadzenGridColumn>
+		<RadzenGridColumn TItem=PluPackageModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Name>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Name 
+				    Path=@($"{LocaleCore.DeviceControl.RouteItemPluPackage}/{itemCast.Identity.Uid}") />
+			</Template>
+		</RadzenGridColumn>
+	    @*<RadzenGridColumn TItem=PluPackageModel Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.WeightShort>
+		    <Template Context="itemCast">
+			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
+		    </Template>
+	    </RadzenGridColumn>*@
+		<RadzenGridColumn TItem=PluPackageModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Plu>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Plu.Name 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
+			</Template>
+		</RadzenGridColumn>
+		@*<RadzenGridColumn TItem=PluPackageModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.PackageName>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Package.Name 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemPackage}/{itemCast.Package.Identity.Uid}") />
+			</Template>
+		</RadzenGridColumn>*@
+	    @*<RadzenGridColumn TItem=PluPackageModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.PackageWeight>
+		    <Template Context="itemCast">
+			    <RadzenText
+				    Text=@itemCast.Package.Weight.ToString(CultureInfo.InvariantCulture)
+					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Justify />
+		    </Template>
+	    </RadzenGridColumn>*@
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=PluPackageModel ParentRazor=@(this) />

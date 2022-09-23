@@ -8,12 +8,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
+<RazorItemReload TItem=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPlu />
 
 <MudSimpleTable Style="overflow-x: auto; margin-top: 10px; " Dense=true Bordered=true FixedHeader=false>
-<RazorItemTableHead TItem=PluModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+<RazorItemTableHead TItem=@PluModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
     <tbody>
-		<RazorItemTableBody TItem=PluModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+		<RazorItemTableBody TItem=@PluModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
         <tr>
             <td>@LocaleCore.Table.PluNumber</td>
             <td>
@@ -204,6 +204,6 @@
     </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=PluModel ParentRazor=@(this) />
+<RazorItemActions TItem=@PluModel ParentRazor=@(this) />
 
-<RazorItemDates TItem=PluModel ParentRazor=@(this) />
+<RazorItemDates TItem=@PluModel ParentRazor=@(this) />

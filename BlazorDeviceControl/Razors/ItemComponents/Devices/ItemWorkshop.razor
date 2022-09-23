@@ -8,12 +8,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
+<RazorItemReload TItem=@WorkShopModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemWorkshop />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=WorkShopModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
+    <RazorItemTableHead TItem=@WorkShopModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 }) />
     <tbody>
-		<RazorItemTableBody TItem=WorkShopModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@WorkShopModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
         <tr>
             <td>@LocaleCore.Table.Name</td>
             <td colspan=3>
@@ -41,5 +41,5 @@
     </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=WorkShopModel ParentRazor=@(this) />
-<RazorItemDates TItem=WorkShopModel ParentRazor=@(this) />
+<RazorItemActions TItem=@WorkShopModel ParentRazor=@(this) />
+<RazorItemDates TItem=@WorkShopModel ParentRazor=@(this) />

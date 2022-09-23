@@ -5,23 +5,23 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=VersionModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
+<RazorSectionReload TItem=@VersionModel ParentRazor=@(this) Title=@LocaleCore.Strings.VersionsDb />
 
 <RadzenGrid 
 	Style="margin-top: 5px; " 
-	Data=@SqlItemsCast TItem=VersionModel 
+	Data=@SqlItemsCast TItem=@VersionModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionField TItem=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
+        <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
             RazorFieldConfig=@RazorFieldConfigUtils.Version.GetReleaseDt() />
-        <RazorSectionField TItem=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
+        <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
             RazorFieldConfig=@RazorFieldConfigUtils.Version.GetVersion() />
-        <RazorSectionField TItem=VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("80%"))
+        <RazorSectionField TItem=@VersionModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("80%"))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=VersionModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@VersionModel ParentRazor=@(this) />

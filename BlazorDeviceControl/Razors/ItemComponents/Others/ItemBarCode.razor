@@ -7,12 +7,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
+<RazorItemReload TItem=@BarCodeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=BarCodeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <RazorItemTableHead TItem=@BarCodeModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-        <RazorItemTableBody TItem=BarCodeModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+        <RazorItemTableBody TItem=@BarCodeModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
         <tr>
             <td>@LocaleCore.Table.Value</td>
             <td>
@@ -22,5 +22,5 @@
     </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=BarCodeModel ParentRazor=@(this) />
-<RazorItemDates TItem=BarCodeModel ParentRazor=@(this) />
+<RazorItemActions TItem=@BarCodeModel ParentRazor=@(this) />
+<RazorItemDates TItem=@BarCodeModel ParentRazor=@(this) />

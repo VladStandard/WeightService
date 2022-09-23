@@ -5,21 +5,21 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
+<RazorSectionReload TItem=@PrinterTypeModel ParentRazor=@(this) Title=@LocaleCore.Print.Types />
 
 <RadzenGrid 
 	Style="margin-top: 5px;"
-	Data=@SqlItemsCast TItem=PrinterTypeModel 
+	Data=@SqlItemsCast TItem=@PrinterTypeModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
-        <RazorSectionFieldIsMarked TItem=PrinterTypeModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=PrinterTypeModel ParentRazor=@(this) />
-        <RazorSectionField TItem=PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+        <RazorSectionFieldIsMarked TItem=@PrinterTypeModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@PrinterTypeModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=PrinterTypeModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@PrinterTypeModel ParentRazor=@(this) />

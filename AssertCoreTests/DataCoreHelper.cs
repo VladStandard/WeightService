@@ -254,7 +254,7 @@ public class DataCoreHelper
 				organization.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				organization.Gln = 1;
 				break;
-			case PackagePluModel packagePlu:
+			case PluPackageModel packagePlu:
 				packagePlu.Name = LocaleCore.Sql.SqlItemFieldName;
 				packagePlu.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				packagePlu.Package = CreateNewSubstitute<PackageModel>(isNotDefault);

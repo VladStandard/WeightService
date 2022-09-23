@@ -7,12 +7,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
+<RazorItemReload TItem=@PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
 
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+	<RazorItemTableHead TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 	<tbody>
-		<RazorItemTableBody TItem=PluWeighingModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
 		@*<tr>
 			<td>@LocaleCore.Table.WeithingDate</td>
 			<td>
@@ -100,5 +100,5 @@
 	</tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=PluWeighingModel ParentRazor=@(this) />
-<RazorItemDates TItem=PluWeighingModel ParentRazor=@(this) />
+<RazorItemActions TItem=@PluWeighingModel ParentRazor=@(this) />
+<RazorItemDates TItem=@PluWeighingModel ParentRazor=@(this) />

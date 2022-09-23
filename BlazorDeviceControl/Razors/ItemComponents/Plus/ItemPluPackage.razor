@@ -1,0 +1,60 @@
+﻿@inherits RazorComponentItemBase<PluPackageModel>
+@page "/item/plu_package"
+@page "/item/plu_package/new"
+@page "/item/plu_package/{IdentityUidStr}"
+@using static BlazorCore.Utils.BlazorCoreUtuls
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@PluPackageModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
+
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=@PluPackageModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<tbody>
+		<RazorItemTableBody TItem=@PluPackageModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+		<tr>
+			<td>@LocaleCore.Table.IsActive</td>
+			<td>
+				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; margin-left: 0;"
+				    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPlu, SqlItemCast.Plu, SqlItemCast.Plu.Identity.Uid)
+				    Text=@LocaleCore.Table.Plu />
+			</td>
+			<td>
+				<MudSelect 
+					Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				    @bind-Value=@SqlItemCast.Plu >
+					@foreach (PluModel item in Plus)
+					{
+						<MudSelectItem T=@PluModel Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; margin-left: 0;"
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPackage, SqlItemCast.Package, SqlItemCast.Package.Identity.Uid)
+					Text=@LocaleCore.Table.Package />
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+					@bind-Value=@SqlItemCast.Package>
+					@foreach (PackageModel item in Packages)
+					{
+						<MudSelectItem T=@PackageModel Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@PluPackageModel ParentRazor=@(this) />
+<RazorItemDates TItem=@PluPackageModel ParentRazor=@(this) />

@@ -6,14 +6,14 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "PACKAGES_PLUS".
+/// Table validation "PLUS_PACKAGES".
 /// </summary>
-public class PackagePluValidator : SqlTableValidator<PackagePluModel>
+public class PluPackageValidator : SqlTableValidator<PluPackageModel>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public PackagePluValidator()
+	public PluPackageValidator()
 	{
 		RuleFor(item => item.Name)
 			.NotEmpty()

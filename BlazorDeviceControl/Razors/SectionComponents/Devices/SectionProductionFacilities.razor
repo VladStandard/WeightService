@@ -5,23 +5,23 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
+<RazorSectionReload TItem=@ProductionFacilityModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemProductionFacility />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 
-	Data=@SqlItemsCast TItem=ProductionFacilityModel 
+	Data=@SqlItemsCast TItem=@ProductionFacilityModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=ProductionFacilityModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=ProductionFacilityModel ParentRazor=@(this) />
-        <RazorSectionField TItem=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19%", true))
+        <RazorSectionFieldIsMarked TItem=@ProductionFacilityModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@ProductionFacilityModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetName() />
-        <RazorSectionField TItem=ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
+        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetAddress() />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=ProductionFacilityModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@ProductionFacilityModel ParentRazor=@(this) />

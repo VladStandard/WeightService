@@ -85,6 +85,8 @@ public class LocaleTable
     public string TareWeight => Lang == LangEnum.English ? "Tare weight, kg" : "Вес тары, кг";
     public string TareWeightDescription => Lang == LangEnum.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
     public string TareWeightShort => Lang == LangEnum.English ? "Weight" : "Вес";
+    public string PackageWeight => Lang == LangEnum.English ? "Package weight" : "Вес тары";
+    public string PackageName => Lang == LangEnum.English ? "Package" : "Тара";
     public string Gtin => Lang == LangEnum.English ? "BC GTIN" : "ШК ГТИН";
     public string GuidMercury => Lang == LangEnum.English ? "GUID Mercury" : "ГУИД Меркурий";
     public string Host => Lang == LangEnum.English ? "Host" : "Хост";
@@ -149,6 +151,7 @@ public class LocaleTable
     public string ReleaseDt => Lang == LangEnum.English ? "Release date" : "Дата релиза";
     public string Resource => Lang == LangEnum.English ? "Resource" : "Ресурс";
     public string Row => Lang == LangEnum.English ? "Row" : "Строка";
+    public string Package => Lang == LangEnum.English ? "Package" : "Тара";
     public string Scale => Lang == LangEnum.English ? "Device" : "Устройство";
     public string ScaleFactor => Lang == LangEnum.English ? "Scale factor" : "Коэф. масштабирования";
     public string ScaleId => Lang == LangEnum.English ? "Scale ID" : "ID весов";

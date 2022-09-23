@@ -5,27 +5,27 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
+<RazorSectionReload TItem=@HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 
-	Data=@SqlItemsCast TItem=HostModel 
+	Data=@SqlItemsCast TItem=@HostModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
-        <RazorSectionFieldIsMarked TItem=HostModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=HostModel ParentRazor=@(this) />
-        <RazorSectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+        <RazorSectionFieldIsMarked TItem=@HostModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@HostModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetName() />
-        <RazorSectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetHostName() />
-        <RazorSectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetDeviceIp() />
-        <RazorSectionField TItem=HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetMacAddressPretty() />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=HostModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@HostModel ParentRazor=@(this) />

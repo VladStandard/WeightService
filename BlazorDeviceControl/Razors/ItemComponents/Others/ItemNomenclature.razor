@@ -7,12 +7,12 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclature />
+<RazorItemReload TItem=@NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclature />
 
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-    <RazorItemTableHead TItem=NomenclatureModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <RazorItemTableHead TItem=@NomenclatureModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-		<RazorItemTableBody TItem=NomenclatureModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@NomenclatureModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
         <tr>
             <td>@LocaleCore.Table.Weighted</td>
             <td>
@@ -39,8 +39,8 @@
     </tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=NomenclatureModel ParentRazor=@(this) />
-<RazorItemDates TItem=NomenclatureModel ParentRazor=@(this) />
+<RazorItemActions TItem=@NomenclatureModel ParentRazor=@(this) />
+<RazorItemDates TItem=@NomenclatureModel ParentRazor=@(this) />
 
 @*
 <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocaleCore.DeviceControl.SectionNomenclatureUnits />

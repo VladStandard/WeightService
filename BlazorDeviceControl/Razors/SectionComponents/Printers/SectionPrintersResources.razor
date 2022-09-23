@@ -5,25 +5,25 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
+<RazorSectionReload TItem=@PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
 <RadzenGrid 
 	Style="margin-top: 5px;"
-	Data=@SqlItemsCast TItem=PrinterResourceModel 
+	Data=@SqlItemsCast TItem=@PrinterResourceModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
-        <RazorSectionFieldIsMarked TItem=PrinterResourceModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=PrinterResourceModel ParentRazor=@(this) />
-        <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+        <RazorSectionFieldIsMarked TItem=@PrinterResourceModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@PrinterResourceModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-        <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+        <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
-        <RazorSectionField TItem=PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
+        <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("30%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetResource(GetRouteItemPathShort<TemplateResourceModel>()) />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=PrinterResourceModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@PrinterResourceModel ParentRazor=@(this) />

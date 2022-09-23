@@ -40,8 +40,6 @@ public static class DataAccessHelperFill
 				if (pluWeighing1 is not null)
 					orderWeighing.PluWeighing = pluWeighing1;
 				break;
-			//case PackageModel package:
-			//	break;
 			case PluModel plu:
 				TemplateModel? template = dataAccess.GetItemById<TemplateModel>(plu.Template.IdentityValueId);
 				if (template is not null)
@@ -55,21 +53,31 @@ public static class DataAccessHelperFill
 				if (pluWeighing2 is not null)
 					pluLabel.PluWeighing = pluWeighing2;
 				break;
+			case PluPackageModel pluPackage:
+				PluModel? pluPackagePlu = dataAccess.GetItemByUid<PluModel>(pluPackage.Plu.IdentityValueUid);
+				if (pluPackagePlu is not null)
+					pluPackage.Plu = pluPackagePlu;
+				PackageModel? pluPackagePackage = dataAccess.GetItemByUid<PackageModel>(pluPackage.Package.IdentityValueUid);
+				if (pluPackagePackage is not null)
+					pluPackage.Package = pluPackagePackage;
+				break;
 			case PluScaleModel pluScale:
-				PluModel? plu2 = dataAccess.GetItemByUid<PluModel>(pluScale.Plu.IdentityValueUid);
-				if (plu2 is not null)
-					pluScale.Plu = plu2;
-				ScaleModel? scale2 = dataAccess.GetItemById<ScaleModel>(pluScale.Scale.IdentityValueId);
-				if (scale2 is not null)
-					pluScale.Scale = scale2;
+				PluModel? pluScalePlu = dataAccess.GetItemByUid<PluModel>(pluScale.Plu.IdentityValueUid);
+				if (pluScalePlu is not null)
+					pluScale.Plu = pluScalePlu;
+				ScaleModel? pluScaleScale = dataAccess.GetItemById<ScaleModel>(pluScale.Scale.IdentityValueId);
+				if (pluScaleScale is not null)
+					pluScale.Scale = pluScaleScale;
 				break;
 			case PluWeighingModel pluWeighing:
-				PluScaleModel? pluScale2 = dataAccess.GetItemByUid<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
-				if (pluScale2 is not null)
-					pluWeighing.PluScale = pluScale2;
-				ProductSeriesModel? productSeries = dataAccess.GetItemById<ProductSeriesModel>(pluWeighing.Series.IdentityValueId);
-				if (productSeries is not null)
-					pluWeighing.Series = productSeries;
+				PluScaleModel? pluWeighingPluScale = dataAccess.GetItemByUid<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
+				if (pluWeighingPluScale is not null)
+					pluWeighing.PluScale = pluWeighingPluScale;
+				ProductSeriesModel? pluWeighingProductSeries = null;
+				if (pluWeighing.Series is not null)
+					pluWeighingProductSeries = dataAccess.GetItemById<ProductSeriesModel>(pluWeighing.Series.IdentityValueId);
+				if (pluWeighingProductSeries is not null)
+					pluWeighing.Series = pluWeighingProductSeries;
 				break;
 			case PrinterModel printer:
 				PrinterTypeModel? printerType = dataAccess.GetItemById<PrinterTypeModel>(printer.PrinterType.IdentityValueId);

@@ -141,11 +141,7 @@ public static partial class DataAccessHelperExt
 		if (scaleId is not null)
 			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
-			new List<SqlFieldOrderModel>
-            {
-				new (nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc),
-				//new (typeof(PluModel), nameof(PluModel.Number)),
-			},
+			new List<SqlFieldOrderModel> { new (nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
@@ -159,6 +155,21 @@ public static partial class DataAccessHelperExt
 		};
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new SqlFieldOrderModel(), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
+	}
+
+	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
+		SqlTableBase? itemFilter)
+	{
+		Guid? pluUid = null;
+		if (itemFilter is PluModel plu)
+			pluUid = plu.Identity.Uid;
+		List<SqlFieldFilterModel> filters = new();
+		if (pluUid is not null)
+			filters = new() { new($"{nameof(PluPackageModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, pluUid) };
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
+			new List<SqlFieldOrderModel> { new (nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
+			0, isShowMarked, isShowOnlyTop);
+		return dataAccess.GetList<PluPackageModel>(sqlCrudConfig);
 	}
 
 	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked,

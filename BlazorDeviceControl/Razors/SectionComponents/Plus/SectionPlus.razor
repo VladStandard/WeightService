@@ -5,26 +5,26 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
+<RazorSectionReload TItem=@PluModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
 <RadzenGrid 
-    Data=@SqlItemsCast TItem=PluModel 
+    Data=@SqlItemsCast TItem=@PluModel 
     RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
-		<RazorSectionFieldIsMarked TItem=PluModel ParentRazor=@(this) />
-		<RazorSectionFieldIdentity TItem=PluModel ParentRazor=@(this) />
-		<RazorSectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+		<RazorSectionFieldIsMarked TItem=@PluModel ParentRazor=@(this) />
+		<RazorSectionFieldIdentity TItem=@PluModel ParentRazor=@(this) />
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetName() />
-		<RazorSectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetShelfLifeDays() />
-		<RazorSectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetTareWeight() />
-		<RazorSectionField TItem=PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
+		<RazorSectionField TItem=@PluModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("7%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Plu.GetBoxQuantly() />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=PluModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@PluModel ParentRazor=@(this) />

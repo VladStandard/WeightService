@@ -12,7 +12,7 @@ internal class PackagePluValidatorTests
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PackagePluModel item = Helper.CreateNewSubstitute<PackagePluModel>(false);
+		PluPackageModel item = Helper.CreateNewSubstitute<PluPackageModel>(false);
 		// Assert.
 		Helper.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class PackagePluValidatorTests
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PackagePluModel item = Helper.CreateNewSubstitute<PackagePluModel>(true);
+		PluPackageModel item = Helper.CreateNewSubstitute<PluPackageModel>(true);
 		// Assert.
 		Helper.AssertSqlValidate(item, true);
 	}

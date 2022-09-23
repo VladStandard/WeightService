@@ -5,22 +5,22 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
+<RazorSectionReload TItem=@ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 
-    Data=@SqlItemsCast TItem=ContragentModel 
+    Data=@SqlItemsCast TItem=@ContragentModel 
     RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
-        <RazorSectionFieldIsMarked TItem=ContragentModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=ContragentModel ParentRazor=@(this) />
-        <RazorSectionField TItem=ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+        <RazorSectionFieldIsMarked TItem=@ContragentModel ParentRazor=@(this) />
+        <RazorSectionFieldIdentity TItem=@ContragentModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
         <RadzenGridColumn 
-            TItem=ContragentModel Title=@LocaleCore.Table.Name Width="25%" >
+            TItem=@ContragentModel Title=@LocaleCore.Table.Name Width="25%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                     Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.Identity.Uid}")
@@ -28,10 +28,10 @@
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem=ContragentModel Property="FullName" TextAlign=TextAlign.Left
+            TItem=@ContragentModel Property="FullName" TextAlign=TextAlign.Left
             Title=@LocaleCore.Table.Name
             Type="string" Width="35%" />
     </Columns>
 </RadzenGrid>
 
-<RazorSectionActions TItem=ContragentModel ParentRazor=@(this) />
+<RazorSectionActions TItem=@ContragentModel ParentRazor=@(this) />
