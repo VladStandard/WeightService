@@ -32,8 +32,29 @@ internal class DataAcessExtTests
 					List<PluScaleModel> pluScales = Helper.DataAccess.GetListPluScales(false, true, scale);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
-					// Assert.
-					//Assert.IsTrue(pluScales.Count > 0);
+				}
+			}
+		});
+	}
+
+	[Test]
+	public void DataAccess_GetListPluPackages_CountExists()
+	{
+		Helper.AssertAction(() =>
+		{
+			// Arrange.
+			List<PluModel> plus = Helper.DataAccess.GetListPlus(true, false, false);
+			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
+			// Assert.
+			Assert.IsTrue(plus.Count > 0);
+			foreach (PluModel plu in plus)
+			{
+				if (plu.Number == 113)
+				{
+					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
+					List<PluPackageModel> pluPackages = Helper.DataAccess.GetListPluPackages(false, true, plu);
+					// Act.
+					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}
 			}
 		});

@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<PluWeighingModel>
+﻿@inherits RazorComponentSectionBase<PluWeighingModel, SqlTableBase>
 @page "/section/plu_weighings"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
+<RazorSectionReload TItem=@PluWeighingModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlusWeighings />
 
 <RadzenGrid 
 	Style="margin-top: 5px;"

@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<BarCodeTypeModel>
+﻿@inherits RazorComponentSectionBase<BarCodeTypeModel, SqlTableBase>
 @page "/section/barcodetypes"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@BarCodeTypeModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+<RazorSectionReload TItem=@BarCodeTypeModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 

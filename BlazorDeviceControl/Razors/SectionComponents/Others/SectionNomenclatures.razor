@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<NomenclatureModel>
+﻿@inherits RazorComponentSectionBase<NomenclatureModel, SqlTableBase>
 @page "/section/nomenclatures"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@NomenclatureModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
+<RazorSectionReload TItem=@NomenclatureModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 

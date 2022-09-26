@@ -8,23 +8,30 @@ using DataCore.CssStyles;
 
 namespace BlazorCore.Razors;
 
-public class RazorComponentSectionBase<TItem> : RazorComponentBase where TItem : SqlTableBase, new()
+public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase 
+	where TItem : SqlTableBase, new() where TItemFilter : SqlTableBase, new() 
 {
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
-	//[Parameter] public RenderFragment<TItem>? Template { get; set; }
 	protected List<TItem> SqlItemsCast
 	{
 		get => SqlItems is null ? new() : SqlItems.Select(x => (TItem)x).ToList();
 		set => SqlItems = !value.Any() ? null : new(value);
 	}
+	protected TItemFilter SqlItemFilterCast
+	{
+		get => SqlItemFilter is null ? new(): (TItemFilter)SqlItemFilter;
+		set => SqlItemFilter = value;
+	}
+	protected List<TItemFilter> SqlItemsFilterCast { get; set; }
 	protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlItemsCast.Count:### ### ###}";
 
 	public RazorComponentSectionBase()
 	{
-		SqlItemsCast = new();
 		CssStyleRadzenColumn = new("5%");
+		SqlItemFilterCast = new();
+		SqlItemsFilterCast = new();
 	}
 
 	#endregion

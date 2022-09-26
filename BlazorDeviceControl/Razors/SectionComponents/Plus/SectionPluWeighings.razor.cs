@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighingModel>
+public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighingModel, SqlTableBase>
 {
 	#region Public and private fields, properties, constructor
 

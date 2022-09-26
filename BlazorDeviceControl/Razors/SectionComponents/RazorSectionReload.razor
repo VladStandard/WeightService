@@ -1,5 +1,6 @@
 ﻿@typeparam TItem
-@inherits RazorComponentSectionBase<TItem>
+@typeparam TItemFilter
+@inherits RazorComponentSectionBase<TItem, TItemFilter>
 @page "/section/reload"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemComponents
@@ -55,7 +56,7 @@
 					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title />
 				</td>
 				<td>
-					<RazorItemFilter TItem=@TItem ParentRazor=@(this) />
+					<RazorSectionFilter TItem=@TItem TItemFilter=@TItemFilter ParentRazor=@(this) />
 				</td>
 			}
 		</tr>

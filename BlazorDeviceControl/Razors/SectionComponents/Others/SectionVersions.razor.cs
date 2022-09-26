@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Others;
 
-public partial class SectionVersions : RazorComponentSectionBase<VersionModel>
+public partial class SectionVersions : RazorComponentSectionBase<VersionModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

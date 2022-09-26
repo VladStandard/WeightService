@@ -21,7 +21,7 @@
                     @bind-Value=@SqlItemCast.Printer>
 					@foreach (PrinterModel item in Printers)
 					{
-						<MudSelectItem T=@PrinterModel Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
 				</MudSelect>
 			</td>
@@ -31,7 +31,7 @@
                     @bind-Value=@SqlItemCast.TemplateResource>
 					@foreach (TemplateResourceModel item in Resources)
 					{
-						<MudSelectItem T=@TemplateResourceModel Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
 				</MudSelect>
 			</td>

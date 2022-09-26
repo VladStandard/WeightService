@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<ScaleModel>
+﻿@inherits RazorComponentSectionBase<ScaleModel, SqlTableBase>
 @page "/section/scales"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />
+<RazorSectionReload TItem=@ScaleModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionScales />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 

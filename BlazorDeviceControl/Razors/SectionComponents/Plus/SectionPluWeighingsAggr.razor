@@ -1,4 +1,4 @@
-﻿@inherits RazorComponentSectionBase<WeithingFactSummaryModel>
+﻿@inherits RazorComponentSectionBase<WeithingFactSummaryModel, SqlTableBase>
 @page "/section/plus_weighings_aggr"
 @using BlazorCore.Razors
 @using DataCore.Sql.Xml
@@ -6,7 +6,7 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@WeithingFactSummaryModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
+<RazorSectionReload TItem=@WeithingFactSummaryModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
 
 <RadzenGrid 
 	Style="margin-top: 5px;"

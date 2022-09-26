@@ -1,0 +1,37 @@
+﻿@typeparam TItem
+@typeparam TItemFilter
+@inherits RazorComponentSectionBase<TItem, TItemFilter>
+@page "/section/filter"
+@using BlazorCore.Razors
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<MudSelect
+	Variant=@Variant.Outlined Margin=@Margin.Dense
+	Class=@BlazorCoreUtuls.GetCssName.MudSelect
+	Style="margin-top: -3px; margin-left: 2px; margin-right: 2px; margin-bottom: 2px; font-size: 10px;"
+	@bind-Value=@SqlItemFilterCast>
+	@switch (typeof(TItemFilter))
+	{
+		case var cls when cls == typeof(PluModel):
+			@foreach (TItemFilter sqlItem in SqlItemsFilterCast)
+			{
+				@if (sqlItem is PluModel plu)
+				{
+					<MudSelectItem Value=@plu>@plu.Name</MudSelectItem>
+				}
+			}
+			break;
+		case var cls when cls == typeof(ScaleModel):
+			@foreach (TItemFilter sqlItem in SqlItemsFilterCast)
+			{
+				@if (sqlItem is ScaleModel scale)
+				{
+					<MudSelectItem Value=@scale>@scale.Description</MudSelectItem>
+				}
+			}
+			break;
+	}
+</MudSelect>

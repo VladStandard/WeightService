@@ -256,7 +256,7 @@ public partial class RazorComponentBase
 		RunActionsSafe(string.Empty, () =>
 		{
 			SqlItem = item;
-			OnChangeAsync();
+			//OnChangeAsync();
 		});
 	}
 

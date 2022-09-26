@@ -33,7 +33,7 @@
 					@bind-Value=@SqlItemCast.ProductionFacility>
                     @foreach (ProductionFacilityModel item in ProductionFacilities)
                     {
-                        <MudSelectItem T=@ProductionFacilityModel Value=@item>@item.Name</MudSelectItem>
+                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }
                 </MudSelect>
             </td>

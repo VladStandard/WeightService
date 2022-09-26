@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<HostModel>
+﻿@inherits RazorComponentSectionBase<HostModel, SqlTableBase>
 @page "/section/hosts"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@HostModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
+<RazorSectionReload TItem=@HostModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 

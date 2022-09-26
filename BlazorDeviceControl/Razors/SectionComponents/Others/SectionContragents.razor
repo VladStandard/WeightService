@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<ContragentModel>
+﻿@inherits RazorComponentSectionBase<ContragentModel, SqlTableBase>
 @page "/section/contragents"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@ContragentModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
+<RazorSectionReload TItem=@ContragentModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionContragents />
 
 <RadzenGrid 
 	Style="margin-top: 5px;" 

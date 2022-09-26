@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<PluLabelModel>
+﻿@inherits RazorComponentSectionBase<PluLabelModel, SqlTableBase>
 @page "/section/plus_labels"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@PluLabelModel ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
+<RazorSectionReload TItem=@PluLabelModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
 
 <RadzenGrid 
 	Style="margin-top: 5px; "

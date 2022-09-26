@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<PrinterResourceModel>
+﻿@inherits RazorComponentSectionBase<PrinterResourceModel, SqlTableBase>
 @page "/section/printers_resources"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@PrinterResourceModel ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
+<RazorSectionReload TItem=@PrinterResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
 <RadzenGrid 
 	Style="margin-top: 5px;"

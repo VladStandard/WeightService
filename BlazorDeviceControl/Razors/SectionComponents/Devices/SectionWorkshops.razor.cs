@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Devices;
 
-public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel>
+public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 

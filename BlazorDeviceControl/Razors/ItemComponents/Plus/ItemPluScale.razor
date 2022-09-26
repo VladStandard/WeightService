@@ -22,8 +22,9 @@
 		</tr>
 		<tr>
 			<td>
-				<RadzenLink Style="width: 100%; margin-left: 0;"
-						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
+				<RadzenLink 
+					Style="width: 100%; margin-left: 0;"
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
 				    Text=@LocaleCore.Table.Scale/>
 			</td>
 			<td>
@@ -31,7 +32,7 @@
 				    ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Scale >
 					@foreach (ScaleModel item in Scales)
 					{
-						<MudSelectItem T=@ScaleModel Value=@item>@item.Description</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Description</MudSelectItem>
 					}
 				</MudSelect>
 			</td>
@@ -45,7 +46,7 @@
 					ReadOnly=true Disabled=true @bind-Value=@SqlItemCast.Plu >
 					@foreach (PluModel item in Plus)
 					{
-						<MudSelectItem T=@PluModel Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
 				</MudSelect>
 			</td>

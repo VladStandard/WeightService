@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPlus : RazorComponentSectionBase<PluModel>
+public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableBase>
 {
 	#region Public and private fields, properties, constructor
 

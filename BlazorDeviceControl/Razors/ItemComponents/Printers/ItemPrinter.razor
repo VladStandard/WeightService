@@ -46,7 +46,7 @@
                     @bind-Value=@SqlItemCast.PrinterType>
                     @foreach (PrinterTypeModel item in PrinterTypes)
                     {
-                        <MudSelectItem T=@PrinterTypeModel Value=@item>@item.Name</MudSelectItem>
+                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }
                 </MudSelect>
             </td>

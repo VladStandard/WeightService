@@ -134,12 +134,15 @@ public static partial class DataAccessHelperExt
     public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
 		SqlTableBase? itemFilter)
 	{
-		long? scaleId = null;
-		if (itemFilter is ScaleModel scale)
-			scaleId = scale.Identity.Id;
 		List<SqlFieldFilterModel> filters = new();
-		if (scaleId is not null)
-			filters = new() { new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId) };
+		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
+		{
+			long? scaleId = null;
+			if (itemFilter is ScaleModel scale)
+				scaleId = scale.Identity.Id;
+			if (scaleId is not null)
+				filters = new() { new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId) };
+		}
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
 			new List<SqlFieldOrderModel> { new (nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);
@@ -160,12 +163,15 @@ public static partial class DataAccessHelperExt
 	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
 		SqlTableBase? itemFilter)
 	{
-		Guid? pluUid = null;
-		if (itemFilter is PluModel plu)
-			pluUid = plu.Identity.Uid;
 		List<SqlFieldFilterModel> filters = new();
-		if (pluUid is not null)
-			filters = new() { new($"{nameof(PluPackageModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, pluUid) };
+		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
+		{
+			Guid? pluUid = null;
+			if (itemFilter is PluModel plu)
+				pluUid = plu.Identity.Uid;
+			if (pluUid is not null)
+				filters = new() { new($"{nameof(PluPackageModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, pluUid) };
+		}
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
 			new List<SqlFieldOrderModel> { new (nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);

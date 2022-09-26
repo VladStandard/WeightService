@@ -18,7 +18,7 @@
                 @bind-Value=@BarcodeType>
                 @foreach (BarcodeType item in BarcodeTypes)
                 {
-                    <MudSelectItem T=@BarcodeType Value=@item>@item.ToString()</MudSelectItem>
+                    <MudSelectItem Value=@item>@item.ToString()</MudSelectItem>
                 }
             </MudSelect>
             <RadzenLabel Style="width: 45%; " Text=@("Image format: ")/>
@@ -27,7 +27,7 @@
                 @bind-Value=@ImageFormat>
                 @foreach (ImageFormat item in ImageFormats)
                 {
-                    <MudSelectItem T=@ImageFormat Value=@item>@item.ToString()</MudSelectItem>
+                    <MudSelectItem Value=@item>@item.ToString()</MudSelectItem>
                 }
             </MudSelect>
             <!-- Redraw image -->

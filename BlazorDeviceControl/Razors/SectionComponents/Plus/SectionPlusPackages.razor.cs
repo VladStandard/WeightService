@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
-public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageModel>
+public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageModel, PluModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,8 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
         {
             () =>
             {
-				SqlItemsCast = AppSettings.DataAccess.GetListPluPackages(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, SqlItem);
+				SqlItemsCast = AppSettings.DataAccess.GetListPluPackages(
+					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, SqlItemFilter);
             }
         });
     }

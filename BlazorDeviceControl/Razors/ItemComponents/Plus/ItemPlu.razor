@@ -37,7 +37,7 @@
                     @bind-Value=@SqlItemCast.Template>
                     @foreach (TemplateModel item in Templates)
                     {
-                        <MudSelectItem T=@TemplateModel Value=@item>@item.Title</MudSelectItem>
+                        <MudSelectItem Value=@item>@item.Title</MudSelectItem>
                     }
                 </MudSelect>
             </td>
@@ -58,7 +58,7 @@
                     @bind-Value=@SqlItemCast.Nomenclature>
                     @foreach (NomenclatureModel item in Nomenclatures)
                     {
-                        <MudSelectItem T=@NomenclatureModel Value=@item>@item.Name</MudSelectItem>
+                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }
                 </MudSelect>
 			</td>

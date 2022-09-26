@@ -1,11 +1,11 @@
-﻿@inherits RazorComponentSectionBase<AccessModel>
+﻿@inherits RazorComponentSectionBase<AccessModel, SqlTableBase>
 @page "/section/access"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@AccessModel ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
+<RazorSectionReload TItem=@AccessModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Strings.AccessRights />
 
 <RadzenGrid 
 	Style="margin-top: 5px; " 

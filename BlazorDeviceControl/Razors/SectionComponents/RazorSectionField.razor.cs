@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents;
 
-public partial class RazorSectionField<TItem> : RazorComponentSectionBase<TItem> where TItem : SqlTableBase, new()
+public partial class RazorSectionField<TItem> : RazorComponentSectionBase<TItem, SqlTableBase> where TItem : SqlTableBase, new()
 {
 	#region Public and private fields, properties, constructor
 

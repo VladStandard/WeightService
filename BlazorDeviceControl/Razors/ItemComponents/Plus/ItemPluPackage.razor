@@ -33,7 +33,7 @@
 				    @bind-Value=@SqlItemCast.Plu >
 					@foreach (PluModel item in Plus)
 					{
-						<MudSelectItem T=@PluModel Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
 				</MudSelect>
 			</td>
@@ -48,7 +48,7 @@
 					@bind-Value=@SqlItemCast.Package>
 					@foreach (PackageModel item in Packages)
 					{
-						<MudSelectItem T=@PackageModel Value=@item>@item.Name</MudSelectItem>
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
 				</MudSelect>
 			</td>
