@@ -48,6 +48,7 @@ public partial class LocaleDeviceControl
 	public string ItemOrganization => Lang == LangEnum.English ? "Organization" : "Организация";
 	public string ItemPlu => Lang == LangEnum.English ? "PLU" : "ПЛУ";
 	public string ItemPluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
+	public string ItemPluPackage => Lang == LangEnum.English ? "PLU's package (nesting)" : "ПЛУ тары (вложенность)";
 	public string ItemPluWeighing => Lang == LangEnum.English ? "Plu weighings" : "Взвешивание ПЛУ";
 	public string ItemProductionFacilities => Lang == LangEnum.English ? "Prod. facilities" : "Производственные площадки";
 	public string ItemProductionFacility => Lang == LangEnum.English ? "Prod. facility" : "Произв. площадка";
@@ -91,7 +92,7 @@ public partial class LocaleDeviceControl
 	public string SectionOrganizations => Lang == LangEnum.English ? "Organizations" : "Организации";
 	public string SectionPackages => Lang == LangEnum.English ? "Packages" : "Тара";
 	public string SectionPlus => Lang == LangEnum.English ? "PLUs" : "ПЛУ";
-	public string SectionPlusPackages => Lang == LangEnum.English ? "PLU & packages" : "ПЛУ и тара";
+	public string SectionPlusPackages => Lang == LangEnum.English ? "PLU & packages (nesting)" : "ПЛУ и тара (вложенности)";
 	public string SectionPlusScales => Lang == LangEnum.English ? "PLU & devices" : "ПЛУ и устройства";
 	public string SectionPlusWeighings => Lang == LangEnum.English ? "Plus weighings" : "Взвешивания ПЛУ";
 	public string SectionProductionFacilities => Lang == LangEnum.English ? "Production facilities" : "Производственные площадки";

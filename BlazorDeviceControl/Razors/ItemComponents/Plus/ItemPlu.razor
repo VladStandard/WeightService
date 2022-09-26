@@ -4,6 +4,7 @@
 @page "/item/plu/{IdentityUidStr}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SectionComponents.Plus
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
@@ -207,3 +208,5 @@
 <RazorItemActions TItem=@PluModel ParentRazor=@(this) />
 
 <RazorItemDates TItem=@PluModel ParentRazor=@(this) />
+
+<SectionPlusPackages ParentRazor=@(this) />

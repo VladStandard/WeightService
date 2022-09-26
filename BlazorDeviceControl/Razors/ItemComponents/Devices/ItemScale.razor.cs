@@ -20,12 +20,13 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	
 	public ItemScale()
 	{
+		RazorComponentConfig.IsShowFilterAdditional = true;
+		RazorComponentConfig.IsShowFilterMarked = true;
 		Printers = new();
 		ComPorts = new();
 		Hosts = new();
 		WorkShops = new();
 		Templates = new();
-		RazorComponentConfig.IsShowFilterAdditional = true;
 		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
 

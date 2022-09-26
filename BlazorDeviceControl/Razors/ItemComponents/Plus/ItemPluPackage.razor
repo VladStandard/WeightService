@@ -8,7 +8,7 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=@PluPackageModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
+<RazorItemReload TItem=@PluPackageModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluPackage />
 
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 	<RazorItemTableHead TItem=@PluPackageModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
@@ -18,6 +18,10 @@
 			<td>@LocaleCore.Table.IsActive</td>
 			<td>
 				<RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsActive/>
+			</td>
+			<td>@LocaleCore.Table.Name</td>
+			<td>
+				<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name />
 			</td>
 		</tr>
 		<tr>

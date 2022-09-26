@@ -12,8 +12,8 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
     public SectionPlusPackages()
     {
 	    RazorComponentConfig.IsShowFilterAdditional = true;
-		RazorComponentConfig.IsShowFilterMarked = true;
-        ButtonSettings = new(true, true, true, true, true, true, false);
+	    RazorComponentConfig.IsShowFilterMarked = true;
+		ButtonSettings = new(true, true, true, true, true, true, false);
     }
 
     #endregion
@@ -26,8 +26,8 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
         {
             () =>
             {
-				SqlItemsCast = AppSettings.DataAccess.GetListPluPackages(
-					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, SqlItemFilter);
+	            SqlItemsCast = AppSettings.DataAccess.GetListPluPackages(
+					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, ParentRazor?.SqlItem);
             }
         });
     }

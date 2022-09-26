@@ -20,11 +20,13 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 
     public ItemPlu()
     {
+        RazorComponentConfig.IsShowFilterAdditional = true;
+        RazorComponentConfig.IsShowFilterMarked = true;
         Templates = new();
         Nomenclatures = new();
         Scales = new();
         Plus = new();
-    }
+	}
 
     #endregion
 

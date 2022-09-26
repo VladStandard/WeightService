@@ -25,8 +25,10 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
         {
             () =>
             {
-				if (ParentRazor?.SqlItem is not null && ParentRazor.SqlItem is TItemFilter)
-					SqlItemFilter = ParentRazor.SqlItem;
+	            if (ParentRazor?.SqlItem is not null && ParentRazor.SqlItem is TItemFilter)
+	            {
+		            SqlItemFilter = ParentRazor.SqlItemFilter = ParentRazor.SqlItem;
+		        }
                 
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
                     //new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 

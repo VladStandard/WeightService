@@ -152,6 +152,7 @@ public class LocaleTable
     public string Resource => Lang == LangEnum.English ? "Resource" : "Ресурс";
     public string Row => Lang == LangEnum.English ? "Row" : "Строка";
     public string Package => Lang == LangEnum.English ? "Package" : "Тара";
+    public string PluPackage => Lang == LangEnum.English ? "PLU's package" : "Тара ПЛУ";
     public string Scale => Lang == LangEnum.English ? "Device" : "Устройство";
     public string ScaleFactor => Lang == LangEnum.English ? "Scale factor" : "Коэф. масштабирования";
     public string ScaleId => Lang == LangEnum.English ? "Scale ID" : "ID весов";

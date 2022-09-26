@@ -28,21 +28,23 @@
 			    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.IsActive/>
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="7%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.WeightShort>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.WeightShort>
 		    <Template Context="itemCast">
 			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
+		    </Template>
+	    </RadzenGridColumn>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.PluScale>
+		    <Template Context="itemCast">
+			    <RadzenLink 
+				    Text=@itemCast.IdentityValueUid.ToString()
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
 		    </Template>
 	    </RadzenGridColumn>
 	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Plu>
 		    <Template Context="itemCast">
 			    <RadzenLink 
 				    Text=@itemCast.Plu.Name 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
-		    </Template>
-	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="18%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Template>
-		    <Template Context="itemCast">
-			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.Template.Title></RadzenLabel>
+				    Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
 		    </Template>
 	    </RadzenGridColumn>
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.ShelfLifeDaysShort>
@@ -53,11 +55,6 @@
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.TareWeightShort>
 		    <Template Context="itemCast">
 			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.TareWeight.ToString(CultureInfo.InvariantCulture)/>
-		    </Template>
-	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.GoodsBoxQuantlyShort>
-		    <Template Context="itemCast">
-			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.BoxQuantly.ToString()/>
 		    </Template>
 	    </RadzenGridColumn>
     </Columns>
