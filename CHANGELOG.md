@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.7.195] - 2022-08-26
+## [0.7.200] - 2022-08-26
 ### Описание обновления:
 - WS-T-440. Управление устройствами. Поле фильтрации радела ПЛУ и тара
 
