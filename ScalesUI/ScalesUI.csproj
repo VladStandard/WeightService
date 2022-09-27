@@ -32,7 +32,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.7.200.0</ApplicationVersion>
+    <ApplicationVersion>0.7.205.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -500,11 +500,11 @@
     <Compile Include="Forms\OrderListForm.Designer.cs">
       <DependentUpon>OrderListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SelectPluForm.cs">
+    <Compile Include="Forms\PlusForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SelectPluForm.Designer.cs">
-      <DependentUpon>SelectPluForm.cs</DependentUpon>
+    <Compile Include="Forms\PlusForm.Designer.cs">
+      <DependentUpon>PlusForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\KneadingForm.cs">
       <SubType>Form</SubType>
@@ -549,8 +549,8 @@
     <EmbeddedResource Include="Forms\OrderListForm.resx">
       <DependentUpon>OrderListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SelectPluForm.resx">
-      <DependentUpon>SelectPluForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PlusForm.resx">
+      <DependentUpon>PlusForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KneadingForm.resx">
       <DependentUpon>KneadingForm.cs</DependentUpon>
