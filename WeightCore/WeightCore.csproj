@@ -431,8 +431,8 @@
     <Compile Include="Gui\XamlPages\PageMessageBox.xaml.cs">
       <DependentUpon>PageMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gui\XamlPages\PageScaleChange.xaml.cs">
-      <DependentUpon>PageScaleChange.xaml</DependentUpon>
+    <Compile Include="Gui\XamlPages\PageDevice.xaml.cs">
+      <DependentUpon>PageDevice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Zpl\ZplUtils.cs" />
   </ItemGroup>
@@ -494,7 +494,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\PageScaleChange.xaml">
+    <Page Include="Gui\XamlPages\PageDevice.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
