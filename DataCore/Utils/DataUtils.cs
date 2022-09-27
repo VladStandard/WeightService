@@ -19,22 +19,35 @@ public class DataUtils
         return true;
     }
 
-    public static byte[] ByteClone(byte[] bytes)
+    public static byte[] ByteClone(byte[] value)
     {
-        byte[] result = new byte[bytes.Length];
-        bytes.CopyTo(result, 0);
+        byte[] result = new byte[value.Length];
+        value.CopyTo(result, 0);
         return result;
     }
 
-    public static string GetBytesLength(byte[]? bytes)
+    public static string GetBytesLength(byte[]? value)
     {
-        if (bytes == null)
+        if (value == null)
             return $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}";
-        if (Encoding.Default.GetString(bytes).Length > 1024 * 1024)
-            return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
-        if (Encoding.Default.GetString(bytes).Length > 1024)
-            return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
-        return $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
+        if (Encoding.Default.GetString(value).Length > 1024 * 1024)
+            return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
+        if (Encoding.Default.GetString(value).Length > 1024)
+            return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
+        return $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
+    }
+
+    public static string GetBytesLength(string value)
+    {
+        //if (string.IsNullOrEmpty(value)
+        //    return $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}";
+        byte[] bytes = value.ToArray().Cast<byte>().ToArray();
+        return GetBytesLength(bytes);
+        //if (Encoding.Default.GetString(bytes).Length > 1024 * 1024)
+        //    return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
+        //if (Encoding.Default.GetString(bytes).Length > 1024)
+        //    return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
+        //return $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
     }
 
     public static object? GetDefaultValue(Type t)

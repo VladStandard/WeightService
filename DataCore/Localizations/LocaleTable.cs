@@ -82,7 +82,8 @@ public class LocaleTable
     public string GoodsBruttoWeight => Lang == LangEnum.English ? "Gross weight" : "Вес брутто";
     public string GoodsDescription => Lang == LangEnum.English ? "Good description" : "Описание товара";
     public string GoodsName => Lang == LangEnum.English ? "Product" : "Товар";
-    public string TareWeight => Lang == LangEnum.English ? "Tare weight, kg" : "Вес тары, кг";
+    public string TareWeightKg => Lang == LangEnum.English ? "Tare weight, kg" : "Вес тары, кг";
+    public string TareWeight => Lang == LangEnum.English ? "Tare weight" : "Вес тары";
     public string TareWeightDescription => Lang == LangEnum.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
     public string TareWeightShort => Lang == LangEnum.English ? "Weight" : "Вес";
     public string PackageWeight => Lang == LangEnum.English ? "Package weight" : "Вес тары";
@@ -147,7 +148,7 @@ public class LocaleTable
     public string Product => Lang == LangEnum.English ? "Product" : "Продукт";
     public string ProductDate => Lang == LangEnum.English ? "Product date" : "Дата продукции";
     public string ProductionFacility => Lang == LangEnum.English ? "Production facility" : "Производственная площадка";
-    public string RegNum => Lang == LangEnum.English ? "#" : "№";
+    public string RegNum => Lang == LangEnum.English ? "# reg" : "№ регистрации";
     public string ReleaseDt => Lang == LangEnum.English ? "Release date" : "Дата релиза";
     public string Resource => Lang == LangEnum.English ? "Resource" : "Ресурс";
     public string Row => Lang == LangEnum.English ? "Row" : "Строка";
@@ -199,7 +200,7 @@ public class LocaleTable
     public string Version => Lang == LangEnum.English ? "Version" : "Версия";
     public string Weighted => Lang == LangEnum.English ? "Weighted" : "Весовая";
     public string WeightShort => Lang == LangEnum.English ? "Weight" : "Вес";
-    public string WeithingDate => Lang == LangEnum.English ? "Weighing date" : "Дата взвешивания";
+    public string WeithingDt => Lang == LangEnum.English ? "Weighing date" : "Дата взвешивания";
     public string WorkShop => Lang == LangEnum.English ? "Workshop" : "Цех";
     public string WorkShopId => Lang == LangEnum.English ? "Workshop ID" : "ИД цеха";
     public string WorkShopName => Lang == LangEnum.English ? "Workshop" : "Цех";

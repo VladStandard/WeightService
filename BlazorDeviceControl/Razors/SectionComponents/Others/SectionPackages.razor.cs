@@ -11,6 +11,7 @@ public partial class SectionPackages : RazorComponentSectionBase<PackageModel, S
 
     public SectionPackages()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
         RazorComponentConfig.IsShowFilterMarked = true;
 	}
 

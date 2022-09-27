@@ -9,7 +9,7 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RadzenGridColumn TItem=@TItem TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItem>())>
+<RadzenGridColumn TItem=@TItem TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) Title=@(GetColumnIdentityName<TItem>())>
 	<Template Context="item">
 		@if (CssStyleRadzenColumn.IsShowLink)
 		{

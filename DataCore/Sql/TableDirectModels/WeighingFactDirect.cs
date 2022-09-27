@@ -193,7 +193,7 @@
 //            XDocument xDoc = XDocument.Parse(reader.GetString(2));
 //            SsccDirect sscc = new();
 //            XElement? element = xDoc.Root?.Element("Item");
-//            if (element != null)
+//            if (element is not null)
 //            {
 //                if (element.Attribute("SSCC") is not null attributeSscc)
 //                    sscc.Sscc = attributeSscc.Value;

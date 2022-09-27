@@ -49,9 +49,11 @@ public static class DataAccessHelperFill
 					plu.Nomenclature = nomenclature;
 				break;
 			case PluLabelModel pluLabel:
-				PluWeighingModel? pluWeighing2 = dataAccess.GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
-				if (pluWeighing2 is not null)
-					pluLabel.PluWeighing = pluWeighing2;
+				PluWeighingModel? pluLabelPluWeighing = null;
+				if (pluLabel.PluWeighing is not null)
+					dataAccess.GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing.IdentityValueUid);
+				if (pluLabelPluWeighing is not null)
+					pluLabel.PluWeighing = pluLabelPluWeighing;
 				break;
 			case PluPackageModel pluPackage:
 				PluModel? pluPackagePlu = dataAccess.GetItemByUid<PluModel>(pluPackage.Plu.IdentityValueUid);

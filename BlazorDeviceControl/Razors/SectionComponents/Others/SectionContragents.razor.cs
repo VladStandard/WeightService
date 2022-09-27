@@ -11,6 +11,7 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
 
     public SectionContragents()
     {
+	    RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 	}
 

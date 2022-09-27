@@ -11,6 +11,7 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel,
 
     public SectionTemplates()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 

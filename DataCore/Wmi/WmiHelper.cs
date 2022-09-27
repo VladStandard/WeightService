@@ -90,7 +90,7 @@ public class WmiHelper
             if (items.Count > 0)
             {
                 ManagementBaseObject? item = items.GetEnumerator().Current;
-                if (item != null)
+                if (item is not null)
                 {
                     foreach (PropertyData prop in item.Properties)
                     {

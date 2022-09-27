@@ -11,6 +11,7 @@ public partial class SectionBarCodeTypes : RazorComponentSectionBase<BarCodeType
 
     public SectionBarCodeTypes()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 

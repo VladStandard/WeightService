@@ -29,7 +29,8 @@ internal class DataAcessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					List<PluScaleModel> pluScales = Helper.DataAccess.GetListPluScales(false, true, scale);
+					List<PluScaleModel> pluScales = Helper.DataAccess.GetListPluScales(scale, 
+						false, true, true);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
@@ -52,7 +53,7 @@ internal class DataAcessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					List<PluPackageModel> pluPackages = Helper.DataAccess.GetListPluPackages(false, true, plu);
+					List<PluPackageModel> pluPackages = Helper.DataAccess.GetListPluPackages(plu, false, true);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

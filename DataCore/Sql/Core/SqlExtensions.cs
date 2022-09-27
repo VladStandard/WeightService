@@ -41,7 +41,7 @@ public static class SqlExtensions
 				SqlFieldComparerEnum.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
 				_ => throw new ArgumentOutOfRangeException()
 			};
-			if (criterion != null)
+			if (criterion is not null)
 				criteria.Add(criterion);
 		}
 	}

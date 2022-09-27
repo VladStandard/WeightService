@@ -85,7 +85,7 @@ public class JsonSettingsController
         catch (Exception ex)
         {
             DataAccess.LogToFile(ExceptionFileName(localDir), ex.Message);
-            if (ex.InnerException != null)
+            if (ex.InnerException is not null)
                 DataAccess.LogToFile(ExceptionFileName(localDir), $"{FileName}.log", ex.InnerException.Message);
         }
     }
@@ -156,7 +156,7 @@ public class JsonSettingsController
             }
 		    DataAccess.SetupSessionFactory(isRemote);
         }
-		return jsonObject != null;
+		return jsonObject is not null;
     }
 
     private void CheckUpdates(string localDir)

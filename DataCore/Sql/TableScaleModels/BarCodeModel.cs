@@ -67,11 +67,11 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault()
     {
-        if (BarcodeType != null && !BarcodeType.EqualsDefault())
+        if (BarcodeType is not null && !BarcodeType.EqualsDefault())
             return false;
-        if (Contragent != null && !Contragent.EqualsDefault())
+        if (Contragent is not null && !Contragent.EqualsDefault())
             return false;
-        if (Nomenclature != null && !Nomenclature.EqualsDefault())
+        if (Nomenclature is not null && !Nomenclature.EqualsDefault())
             return false;
         return base.EqualsDefault() &&
             Equals(Value, string.Empty);
@@ -120,11 +120,11 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(BarCodeModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (BarcodeType != null && item.BarcodeType != null && !BarcodeType.Equals(item.BarcodeType))
+		if (BarcodeType is not null && item.BarcodeType is not null && !BarcodeType.Equals(item.BarcodeType))
 			return false;
-		if (Contragent != null && item.Contragent != null && !Contragent.Equals(item.Contragent))
+		if (Contragent is not null && item.Contragent is not null && !Contragent.Equals(item.Contragent))
 			return false;
-		if (Nomenclature != null && item.Nomenclature != null && !Nomenclature.Equals(item.Nomenclature))
+		if (Nomenclature is not null && item.Nomenclature is not null && !Nomenclature.Equals(item.Nomenclature))
 			return false;
 		return base.Equals(item) &&
 		       Equals(Value, item.Value);

@@ -16,50 +16,48 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@PluLabelModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@PluLabelModel ParentRazor=@(this) />
-
-        @*
         <RadzenGridColumn 
-            TItem=@PluLabelModel Title=@LocaleCore.Table.Scale Type="string" Width="18%" >
-            <Template Context="itemCast" >
-                <RadzenLink Style="width: 100%; margin-left: 0; "
-                    Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Scale}/{itemCast.ScaleId}")
-                    Text=@itemCast.PluWeighing.PluScale.Scale.Description />
-            </Template>
+	        TItem=@PluLabelModel Width="20%" Title=@LocaleCore.Table.ChangeDt >
+	        <Template Context="itemCast">
+		        <RadzenLink 
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.Identity.Uid}") 
+			        Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
+	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem=@PluLabelModel Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" TextAlign=TextAlign.Center >
+	        TItem=@PluLabelModel Width="20%" Title=@LocaleCore.Table.ChangeDt >
+	        <Template Context="itemCast">
+		        <RadzenText 
+			        TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
+			        Text=@($"{DataUtils.GetBytesLength(itemCast.Zpl)}") />
+	        </Template>
+        </RadzenGridColumn>
+        @*<RadzenGridColumn 
+            TItem=@PluLabelModel Width="20%" Title=@LocaleCore.Table.Scale >
+	        <Template Context="itemCast" >
+		        
+		        <RadzenLink
+			        Path=@(itemCast.PluWeighing is null ? string.Empty : 
+						$"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.PluWeighing.PluScale.Scale.Identity.Id}")
+			        Text=@(itemCast.PluWeighing is null ? string.Empty : itemCast.PluWeighing.PluScale.Scale.Description)/>
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem=@PluLabelModel Title=@LocaleCore.Table.PluNumber Type="string" Width="5%" TextAlign=@TextAlign.Center >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; " 
                     Path=@($"{LocaleCore.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
                     Text=@itemCast.PluWeighing.PluScale.Plu.Number.ToString() />
             </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
-            TItem=@PluLabelModel Title=@LocaleCore.Table.Plu Type="string" Width="27%" >
+        </RadzenGridColumn>*@
+        @*<RadzenGridColumn 
+            TItem=@PluLabelModel Width="16%" Title=@LocaleCore.Table.Template >
             <Template Context="itemCast" >
-                <RadzenLink Style="width: 100%; margin-left: 0; "
-                    Path=@($"{LocaleCore.DeviceControl.UriRouteItem.PluObsolete}/{itemCast.PluId}")
-                    Text=@itemCast.PluWeighing.PluScale.Plu.Name />
+                <RadzenLink 
+                    Path=@(itemCast.PluWeighing is null ? string.Empty : $"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.PluWeighing.PluScale.Plu.Template.Identity.Id}")
+                    Text=@(itemCast.PluWeighing is null ? string.Empty : itemCast.PluWeighing.PluScale.Plu.Template.Title) />
             </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
-            TItem=@PluLabelModel Title=@LocaleCore.Table.Template Type="string" Width="16%" TextAlign=TextAlign.Center >
-            <Template Context="itemCast" >
-                <RadzenLink Style="width: 100%; margin-left: 0; " 
-                    Path=@($"{LocaleCore.DeviceControl.UriRouteItem.Template}/{itemCast.TemplateId}")
-                    Text=@itemCast.PluWeighing.PluScale.Plu.Template.Name.ToString() />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
-            TItem=@PluLabelModel Property="NetWeight" TextAlign=TextAlign.Center
-            Title=@LocaleCore.Table.NetWeight Type="decimal" Width="6%" />
-        <RadzenGridColumn 
-            TItem=@PluLabelModel Property="TareWeight" TextAlign=TextAlign.Center
-            Title=@LocaleCore.Table.TareWeight Type="decimal" Width="6%" />
-        <RadzenGridColumn 
-            TItem=@PluLabelModel Property="RegNum" TextAlign=TextAlign.Center
-            Title=@LocaleCore.Table.RegNum Type="int" Width="7%" />*@
+        </RadzenGridColumn>*@
     </Columns>
 </RadzenGrid>
 

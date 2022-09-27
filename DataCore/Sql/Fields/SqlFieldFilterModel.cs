@@ -74,8 +74,8 @@ public class SqlFieldFilterModel
     /// <returns></returns>
     public virtual bool Equals(SqlFieldFilterModel item)
     {
-        if (Value == null && item.Value != null) return false;
-        if (Value != null && item.Value == null) return false;
+        if (Value == null && item.Value is not null) return false;
+        if (Value is not null && item.Value == null) return false;
         if (ReferenceEquals(this, item)) return true;
         return
             Equals(Name, item.Name) &&

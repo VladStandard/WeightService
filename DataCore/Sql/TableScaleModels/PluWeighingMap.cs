@@ -27,6 +27,6 @@ public class PluWeighingMap : ClassMap<PluWeighingModel>
         Map(x => x.ProductDt).CustomSqlType("DATETIME").Column("PROD_DT").Not.Nullable();
         Map(x => x.RegNum).CustomSqlType("INT)").Column("REG_NUM").Not.Nullable().Default("0");
         References(x => x.PluScale).Column("PLU_SCALE_UID").Not.Nullable();
-        References(x => x.Series).Column("SERIES_ID").Not.Nullable();
+        References(x => x.Series).Column("SERIES_ID").Nullable();
     }
 }

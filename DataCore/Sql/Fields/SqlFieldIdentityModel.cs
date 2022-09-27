@@ -72,7 +72,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 				strIdentityValue = $"{nameof(Uid)}: {Uid}. ";
 				break;
 		}
-		return $"{nameof(Name)}: {Name}. " + strIdentityValue;
+		return strIdentityValue;
 	}
 
 	public virtual string GetValueAsString()

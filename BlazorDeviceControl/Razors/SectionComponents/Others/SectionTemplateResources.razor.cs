@@ -11,6 +11,7 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
 
     public SectionTemplateResources()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
 	    CssStyleRadzenColumn.Width = "40%";
     }

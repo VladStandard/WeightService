@@ -21,7 +21,7 @@ public partial class WpfPageLoader : Form
     public MessageBoxEntity MessageBox { get; } = new();
     private PageMessageBox PageMessageBox { get; set; }
     private PagePinCode PagePinCode { get; set; }
-    public PageScaleChange PageScaleChange { get; private set; }
+    public PageDevice PageDevice { get; private set; }
     private PageSqlSettings PageSqlSettings { get; set; }
     private DataCore.Models.PageEnum Page { get; }
 
@@ -100,11 +100,11 @@ public partial class WpfPageLoader : Form
             }
             switch (Page)
             {
-                case DataCore.Models.PageEnum.ScaleChange:
-                    PageScaleChange = new();
-                    PageScaleChange.InitializeComponent();
-                    ElementHost.Child = PageScaleChange;
-                    PageScaleChange.OnClose += WpfPageLoader_OnClose;
+                case DataCore.Models.PageEnum.Device:
+                    PageDevice = new();
+                    PageDevice.InitializeComponent();
+                    ElementHost.Child = PageDevice;
+                    PageDevice.OnClose += WpfPageLoader_OnClose;
                     break;
                 case DataCore.Models.PageEnum.MessageBox:
                     PageMessageBox = new();
@@ -151,8 +151,8 @@ public partial class WpfPageLoader : Form
         {
             switch (Page)
             {
-                case DataCore.Models.PageEnum.ScaleChange:
-                    DialogResult = PageScaleChange.Result;
+                case DataCore.Models.PageEnum.Device:
+                    DialogResult = PageDevice.Result;
                     break;
                 case DataCore.Models.PageEnum.MessageBox:
                     DialogResult = MessageBox.Result;

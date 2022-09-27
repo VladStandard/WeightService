@@ -29,11 +29,11 @@ public class XmlProductHelper
         string? xmlBegin = @"<?xml version=""1.0"" encoding=""utf-8""?>";
         string? xmlRootBegin = "<root>";
         string? xmlRootEnd = "</root>";
-        if (value != null && !value.StartsWith(xmlRootBegin) && !value.EndsWith(xmlRootEnd))
+        if (value is not null && !value.StartsWith(xmlRootBegin) && !value.EndsWith(xmlRootEnd))
         {
             value = xmlRootBegin + Environment.NewLine + value + Environment.NewLine + xmlRootEnd;
         }
-        if (value != null && !value.StartsWith(xmlBegin))
+        if (value is not null && !value.StartsWith(xmlBegin))
         {
             value = xmlBegin + Environment.NewLine + value;
         }
@@ -137,7 +137,7 @@ public class XmlProductHelper
         XDocument? xmlDoc = XDocument.Parse(GetXmlWrapp(value));
         XElement? xmlRoot = xmlDoc.Element("root");
         XElement? xmlProduct = xmlRoot?.Element("Product");
-        if (xmlProduct != null)
+        if (xmlProduct is not null)
         {
             if (xmlProduct.HasAttributes)
             {
@@ -169,7 +169,7 @@ public class XmlProductHelper
     {
         if (string.IsNullOrEmpty(nameAttribute))
         {
-            if (xmlElement != null)
+            if (xmlElement is not null)
             {
                 if (typeof(T) == typeof(string))
                 {
@@ -201,7 +201,7 @@ public class XmlProductHelper
         else
         {
             XAttribute xmlAttribute = xmlElement.Attribute(nameAttribute);
-            if (xmlAttribute != null)
+            if (xmlAttribute is not null)
             {
                 if (typeof(T) == typeof(string))
                 {
@@ -242,7 +242,7 @@ public class XmlProductHelper
             foreach (XElement? xmlEntity in xmlEntities)
             {
                 T? item = GetAttribute<T>(xmlEntity, string.Empty);
-                if (item != null)
+                if (item is not null)
                     items.Add(item);
             }
         }
@@ -267,33 +267,33 @@ public class XmlProductHelper
 				case "ProductShelfLife":
 					return (T)Convert.ChangeType(xmlProduct.ProductShelfLifeShort, typeof(string));
 				case "GTIN":
-					if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
+					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
 						XmlProductBarcodeModel barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
 							x => x.Type.Equals("EAN13"));
-						if (barcodeGtin != null)
+						if (barcodeGtin is not null)
 						{
 							return (T)Convert.ChangeType(barcodeGtin.Barcode, typeof(string));
 						}
 					}
 					break;
 				case "EAN13":
-					if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
+					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
 						XmlProductBarcodeModel barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
 							x => x.Type.Equals("EAN13"));
-						if (barcodeEan13 != null)
+						if (barcodeEan13 is not null)
 						{
 							return (T)Convert.ChangeType(barcodeEan13.Barcode, typeof(string));
 						}
 					}
 					break;
 				case "ITF14":
-					if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
+					if (xmlProduct.Barcodes is not null && xmlProduct.Barcodes.Count > 0)
 					{
 						XmlProductBarcodeModel barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
 						x => x.Type.Equals("ITF14"));
-						if (barcodeItf14 != null)
+						if (barcodeItf14 is not null)
 							return (T)Convert.ChangeType(barcodeItf14.Barcode, typeof(string));
 					}
 					break;

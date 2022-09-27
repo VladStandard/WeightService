@@ -10,13 +10,16 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public SectionPluWeighingsAggr()
+    {
+		RazorComponentConfig.IsShowItemsCount = true;
+    }
 
 	#endregion
 
 	#region Public and private methods
 
-    protected override void OnParametersSet()
+	protected override void OnParametersSet()
 	{
 		RunActionsParametersSet(new()
 		{
@@ -42,7 +45,7 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
                 }
                 SqlItemsCast = items;
 
-				ButtonSettings = new(true, true, true, true, true, false, false);
+				ButtonSettings = new(false, false, false, false, false, false, false);
             }
 		});
 	}

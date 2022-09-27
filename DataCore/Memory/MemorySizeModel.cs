@@ -47,12 +47,12 @@ public class MemorySizeModel : DisposableBase, IDisposableBase
 		base.Open();
 		CheckIsDisposed();
 
-		if (PhysicalCurrent != null)
+		if (PhysicalCurrent is not null)
 			PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
-		if (VirtualCurrent != null)
+		if (VirtualCurrent is not null)
 			VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-		if (Wmi != null)
+		if (Wmi is not null)
 		{
 			WmiWin32MemoryModel getWmi = Wmi.GetWin32OperatingSystemMemory();
 			VirtualFree = new MemorySizeConvertModel { Bytes = getWmi.FreeVirtual };

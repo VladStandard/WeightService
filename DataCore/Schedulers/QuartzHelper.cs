@@ -145,7 +145,7 @@ public class QuartzHelper : IDisposable
             case QuartzEnums.Interval.TimeSpan:
                 break;
         }
-        if (jobBuilder != null)
+        if (jobBuilder is not null)
             jobDetail = jobBuilder.Build();
         return jobDetail;
     }

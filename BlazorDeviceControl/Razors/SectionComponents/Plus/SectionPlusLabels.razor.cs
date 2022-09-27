@@ -11,6 +11,7 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
 
 	public SectionPlusLabels()
 	{
+		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 	}
 
@@ -59,7 +60,7 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
                 
                 SqlItemsCast = AppSettings.DataAccess.GetListPluLabels(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
-				ButtonSettings = new(true, true, true, false, false, false, false);
+				ButtonSettings = new(false, true, true, true, false, false, false);
             }
 		});
 	}

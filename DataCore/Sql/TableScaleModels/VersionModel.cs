@@ -35,7 +35,8 @@ public class VersionModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
     protected VersionModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        ReleaseDt = info.GetDateTime(nameof(ReleaseDt));
+	    Name = info.GetString(nameof(Name));
+		ReleaseDt = info.GetDateTime(nameof(ReleaseDt));
         Version = info.GetInt16(nameof(Version));
     }
 
@@ -77,6 +78,7 @@ public class VersionModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(Name), Name);
         info.AddValue(nameof(ReleaseDt), ReleaseDt);
         info.AddValue(nameof(Version), Version);
     }
@@ -86,6 +88,7 @@ public class VersionModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    base.FillProperties();
 		Version = 1;
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
+		Name = LocaleCore.Sql.SqlItemFieldName;
 		ReleaseDt = DateTime.Now;
 	}
 

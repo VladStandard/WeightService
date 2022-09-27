@@ -11,6 +11,7 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
 
 	public SectionPrintersResources()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 
@@ -24,7 +25,8 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
         {
             () =>
             {
-				SqlItemsCast = AppSettings.DataAccess.GetListPrinterResources(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, SqlItem);
+				SqlItemsCast = AppSettings.DataAccess.GetListPrinterResources(SqlItem, 
+                    RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

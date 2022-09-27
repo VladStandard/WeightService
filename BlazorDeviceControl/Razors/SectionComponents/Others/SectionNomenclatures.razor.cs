@@ -11,6 +11,7 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
 
     public SectionNomenclatures()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
         RazorComponentConfig.IsShowFilterMarked = true;
     }
 

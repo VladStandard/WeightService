@@ -36,7 +36,7 @@ public static class DataAccessHelperItems
 		dataAccess.ExecuteTransaction((session) =>
 		{
 			ISQLQuery? sqlQuery = dataAccess.GetSqlQuery(session, query);
-			if (sqlQuery != null)
+			if (sqlQuery is not null)
 			{
 				sqlQuery.AddEntity(typeof(T));
 				result = sqlQuery.List<T>().ToArray();
@@ -59,7 +59,7 @@ public static class DataAccessHelperItems
 		dataAccess.ExecuteTransaction((session) =>
 		{
 			ISQLQuery? sqlQuery = dataAccess.GetSqlQuery(session, query);
-			if (sqlQuery != null)
+			if (sqlQuery is not null)
 			{
 				System.Collections.IList? listEntities = sqlQuery.List();
 				result = new object[listEntities.Count];

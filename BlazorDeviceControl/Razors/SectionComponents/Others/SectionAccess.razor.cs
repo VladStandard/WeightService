@@ -11,6 +11,7 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
 
     public SectionAccess()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
         RazorComponentConfig.IsShowFilterMarked = true;
 	    RazorComponentConfig.IsShowFilterOnlyTop = true;
 	}

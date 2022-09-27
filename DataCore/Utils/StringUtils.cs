@@ -83,7 +83,7 @@ public static class StringUtils
 
     public static string? GetStringNullValueTrim(string? value, int length)
     {
-        return value != null && value.Length > length ? value[..length] : value;
+        return value is not null && value.Length > length ? value[..length] : value;
     }
 
     public static void SetStringValueTrim(ref string value, int length, bool isGetFileName = false)

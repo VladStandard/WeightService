@@ -83,11 +83,11 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault()
 	{
-		if (Host != null && !Host.EqualsDefault())
+		if (Host is not null && !Host.EqualsDefault())
 			return false;
-		if (App != null && !App.EqualsDefault())
+		if (App is not null && !App.EqualsDefault())
 			return false;
-		if (LogType != null && !LogType.EqualsDefault())
+		if (LogType is not null && !LogType.EqualsDefault())
 			return false;
 		return base.EqualsDefault() &&
 			   Equals(Version, string.Empty) &&
@@ -158,11 +158,11 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(LogModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (Host != null && item.Host != null && !Host.Equals(item.Host))
+		if (Host is not null && item.Host is not null && !Host.Equals(item.Host))
 			return false;
-		if (App != null && item.App != null && !App.Equals(item.App))
+		if (App is not null && item.App is not null && !App.Equals(item.App))
 			return false;
-		if (LogType != null && item.LogType != null && !LogType.Equals(item.LogType))
+		if (LogType is not null && item.LogType is not null && !LogType.Equals(item.LogType))
 			return false;
 		return base.Equals(item) &&
 			   Equals(Version, item.Version) &&

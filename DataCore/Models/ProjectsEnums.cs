@@ -42,7 +42,7 @@ public enum PageEnum
     Default,
     MessageBox,
     PinCode,
-    ScaleChange,
+    Device,
     SqlSettings,
 }
 

@@ -62,8 +62,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 	    $"{nameof(Kneading)}: {Kneading}. " +
-	    $"{nameof(PluScale)}: {PluScale}. " + 
-	    $"{nameof(Series)}: {Series}. ";
+	    $"{nameof(PluScale)}: {PluScale}. ";
 
     public override bool Equals(object obj)
 	{
@@ -81,7 +80,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     {
         if (!PluScale.EqualsDefault())
             return false;
-        if (Series != null && !Series.EqualsDefault())
+        if (Series is not null && !Series.EqualsDefault())
             return false;
         return
             base.EqualsDefault() &&
@@ -149,7 +148,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 		if (ReferenceEquals(this, item)) return true;
 		if (!PluScale.Equals(item.PluScale))
 			return false;
-        if (Series != null && item.Series != null && !Series.Equals(item.Series))
+        if (Series is not null && item.Series is not null && !Series.Equals(item.Series))
             return false;
         return
 			base.Equals(item) &&

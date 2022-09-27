@@ -21,7 +21,7 @@
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
         @*
         <RadzenGridColumn 
-            TItem=@NomenclatureModel TextAlign=TextAlign.Center
+            TItem=@NomenclatureModel TextAlign=@TextAlign.Center
             Title=@LocaleCore.Table.ChangeDt Type="date" Width="15%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
@@ -41,7 +41,7 @@
             Title=@LocaleCore.Table.Code
             Type="string" Width="10%" />
         <RadzenGridColumn 
-            TItem=@NomenclatureModel TextAlign=TextAlign.Center Width="5%" 
+            TItem=@NomenclatureModel TextAlign=@TextAlign.Center Width="5%" 
             Title=@LocaleCore.Table.Weighted >
             <Template Context="itemCast" >
                 <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />

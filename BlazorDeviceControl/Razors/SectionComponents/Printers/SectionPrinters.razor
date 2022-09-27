@@ -23,7 +23,7 @@
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterIp() />
-        <RadzenGridColumn TItem=@PrinterModel TextAlign=TextAlign.Center
+        <RadzenGridColumn TItem=@PrinterModel TextAlign=@TextAlign.Center
             Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="10%" >
             <Template Context="item" >
                 <RadzenIcon 

@@ -11,6 +11,7 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
 
     public SectionWorkshops()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 

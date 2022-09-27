@@ -1,6 +1,6 @@
 ﻿namespace ScalesUI.Forms
 {
-    partial class SelectPluForm
+    partial class PlusForm
     {
         /// <summary>
         /// Required designer variable.

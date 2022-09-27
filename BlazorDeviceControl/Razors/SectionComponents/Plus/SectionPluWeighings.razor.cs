@@ -11,6 +11,7 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
 
 	public SectionPluWeighings()
 	{
+		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 	}
 
@@ -28,7 +29,7 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
                     0, RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 				SqlItemsCast = AppSettings.DataAccess.GetList<PluWeighingModel>(sqlCrudConfig);
 
-				ButtonSettings = new(true, true, true, true, true, false, false);
+				ButtonSettings = new(false, true, true, true, false, false, false);
 			}
 		});
 	}

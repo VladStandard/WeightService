@@ -22,11 +22,11 @@ public static class DataAccessHelperLog
 	{
 		HostModel? host = dataAccess.GetItemHost(hostName);
 
-		if (host != null && !host.EqualsDefault())
+		if (host is not null && !host.EqualsDefault())
 			Host = host;
 
 		AppModel? app = dataAccess.GetOrCreateNewApp(appName);
-		if (app != null && !app.EqualsDefault())
+		if (app is not null && !app.EqualsDefault())
 			App = app;
 	}
 
@@ -44,7 +44,7 @@ public static class DataAccessHelperLog
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		LogCore(dataAccess, ex.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
-		if (ex.InnerException != null)
+		if (ex.InnerException is not null)
 			LogCore(dataAccess, ex.InnerException.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 	}
 
@@ -115,7 +115,7 @@ public static class DataAccessHelperLog
 	public static long? GetHostId(this DataAccessHelper dataAccess, string name)
 	{
 		StringUtils.SetStringValueTrim(ref name, 150);
-		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(HostModel.Name), SqlFieldComparerEnum.Equal, name), new SqlFieldOrderModel(), 0);
+		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(HostModel.Name), SqlFieldComparerEnum.Equal, name));
 		HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 		return host?.Identity.Id;
 	}

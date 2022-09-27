@@ -11,6 +11,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
 
     public SectionScales()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
         RazorComponentConfig.IsShowFilterMarked = true;
     }
 

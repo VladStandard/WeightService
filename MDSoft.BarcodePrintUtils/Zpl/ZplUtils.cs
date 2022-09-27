@@ -169,6 +169,8 @@ public static class ZplUtils
 
 	public static string ConvertStringToHex(string zplInput)
 	{
+		if (string.IsNullOrEmpty(zplInput)) return string.Empty;
+
 		StringBuilder result = new();
 		Dictionary<char, string> unicodeCharacterList = new();
 		// Search substring [^FH^FD].

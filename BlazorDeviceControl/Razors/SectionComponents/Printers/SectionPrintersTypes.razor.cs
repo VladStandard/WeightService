@@ -11,6 +11,7 @@ public partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTyp
 
     public SectionPrintersTypes()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 

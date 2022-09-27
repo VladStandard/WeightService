@@ -17,7 +17,7 @@ namespace ScalesUI.Forms;
 /// <summary>
 /// Select PLU form.
 /// </summary>
-public partial class SelectPluForm : Form
+public partial class PlusForm : Form
 {
 	#region Private fields and properties
 
@@ -33,7 +33,7 @@ public partial class SelectPluForm : Form
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public SelectPluForm()
+	public PlusForm()
 	{
 		InitializeComponent();
 	}
@@ -46,8 +46,8 @@ public partial class SelectPluForm : Form
 	{
 		try
 		{
-			PluScales = UserSession.DataAccess.GetListPluScales(false, false, 
-				UserSession.SqlViewModel.Scale.Identity.Id);
+			PluScales = UserSession.DataAccess.GetListPluScales(UserSession.SqlViewModel.Scale, 
+				false, false, false);
 
 			LoadFormControls();
 

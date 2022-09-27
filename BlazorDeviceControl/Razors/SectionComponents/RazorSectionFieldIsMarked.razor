@@ -13,7 +13,7 @@
 @if (RazorComponentConfig.IsShowMarked)
 {
 	<RadzenGridColumn TItem=@TItem
-			TextAlign=TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
+			TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"
 			Title=@LocaleCore.Table.IsMarkedShort >
 		<Template Context="item">
 			@if (item.IsMarked)

@@ -14,6 +14,7 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
 
     public SectionProductionFacilities()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 

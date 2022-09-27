@@ -16,30 +16,43 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@WeithingFactSummaryModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@WeithingFactSummaryModel ParentRazor=@(this) />
-        
-        <RadzenGridColumn TItem=@WeithingFactSummaryModel TextAlign=TextAlign.Center
-            Title=@LocaleCore.Table.WeithingDate
-            Type="date" Width="15%">
+        <RadzenGridColumn 
+	        TItem=@WeithingFactSummaryModel Width="15%"
+	        Title=@LocaleCore.Table.WeithingDt >
+	        <Template Context="itemCast" >
+		        <RadzenText 
+			        TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
+			        Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+	        TItem=@WeithingFactSummaryModel Width="15%"
+            Title=@LocaleCore.Table.DayOfWeek >
             <Template Context="itemCast" >
-                <RadzenLabel Style="width: 100%; margin-left: 0; "
-                    Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
+	            <RadzenText 
+		            TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
+		            Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem=@WeithingFactSummaryModel TextAlign=TextAlign.Center
-            Title=@LocaleCore.Table.DayOfWeek
-            Type="string" Width="15%">
-            <Template Context="itemCast" >
-                <RadzenLabel Style="width: 100%; margin-left: 0; "
-                    Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
-            </Template>
+        <RadzenGridColumn 
+	        TItem=@WeithingFactSummaryModel Width="15%"
+	        Title=@LocaleCore.Table.Count >
+	        <Template Context="itemCast" >
+		        <RadzenText 
+			        TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
+			        Text=@itemCast.Count.ToString() />
+	        </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem=@WeithingFactSummaryModel Property="Count" TextAlign=TextAlign.Center
-                            Title=@LocaleCore.Table.Count
-                            Type="int" Width="15%" />
-        <RadzenGridColumn TItem=@WeithingFactSummaryModel Property="Scale" TextAlign=TextAlign.Left
-                            Title=@LocaleCore.Table.Scale
-                            Type="string" Width="55%" />
+        <RadzenGridColumn 
+	        TItem=@WeithingFactSummaryModel Width="55%" 
+            Title=@LocaleCore.Table.Scale >
+			<Template Context="itemCast" >
+				<RadzenText 
+					TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
+					Text=@itemCast.Scale />
+			</Template>
+        </RadzenGridColumn>
+
     </Columns>
 </RadzenGrid>
 

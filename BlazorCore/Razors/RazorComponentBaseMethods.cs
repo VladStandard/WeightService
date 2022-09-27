@@ -240,6 +240,18 @@ public partial class RazorComponentBase
 		});
 	}
 
+	protected async Task SqlItemEditAsync<TItem>(TItem item) where TItem : SqlTableBase, new()
+	{
+		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;
+		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+		RunActionsSafe(string.Empty, () =>
+		{
+			SetRouteItemNavigate(SqlItem);
+			OnChangeAsync();
+		});
+	}
+
 	protected void RowRender<TItem>(RowRenderEventArgs<TItem> args) where TItem : SqlTableBase, new()
 	{
 		if (UserSettings is null || !UserSettings.AccessRightsIsWrite) return;

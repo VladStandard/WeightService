@@ -12,9 +12,9 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual PluWeighingModel PluWeighing { get; set; }
+	[XmlElement(IsNullable = true)] public virtual PluWeighingModel? PluWeighing { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
 
     /// <summary>
@@ -22,7 +22,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-	    PluWeighing = new();
+	    PluWeighing = null;
 	    Zpl = string.Empty;
     }
 
@@ -33,7 +33,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// <param name="context"></param>
     protected PluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        PluWeighing = (PluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
+        PluWeighing = (PluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
         Zpl = info.GetString(nameof(Zpl));
     }
 
@@ -41,8 +41,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - override
 
-	public override string ToString() => base.ToString() + 
-		$"{nameof(PluWeighing)}: {PluWeighing?.ToString() ?? string.Empty}. " + 
+	public override string ToString() => 
 		$"{nameof(Zpl)}: {Zpl.Length}. ";
 
     public override bool Equals(object obj)
@@ -59,8 +58,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsDefault()
     {
-        if (!PluWeighing.EqualsDefault())
-            return false;
+	    if (PluWeighing is not null && !PluWeighing.EqualsDefault())
+		    return false;
         return
             base.EqualsDefault() &&
             Equals(Zpl, string.Empty);
@@ -70,7 +69,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         PluLabelModel item = new();
         item.IsMarked = IsMarked;
-        item.PluWeighing = PluWeighing.CloneCast();
+        item.PluWeighing = PluWeighing?.CloneCast();
         item.Zpl = Zpl;
         item.CloneSetup(base.CloneCast());
 		return item;
@@ -83,7 +82,13 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(Zpl), Zpl);
     }
 
-    public override void FillProperties()
+    public override void ClearNullProperties()
+    {
+	    if (PluWeighing is not null && PluWeighing.Identity.EqualsDefault())
+		    PluWeighing = null;
+    }
+
+	public override void FillProperties()
     {
 	    base.FillProperties();
 		Zpl = LocaleCore.Sql.SqlItemFieldZpl;
@@ -97,7 +102,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(PluLabelModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (!PluWeighing.Equals(item.PluWeighing))
+		if (PluWeighing is not null && item.PluWeighing is not null && !PluWeighing.Equals(item.PluWeighing))
 			return false;
 		return
 			base.Equals(item) &&

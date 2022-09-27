@@ -6,6 +6,7 @@ using DataCore.Models;
 using DataCore.Schedulers;
 using DataCore.Settings;
 using DataCore.Sql.Core;
+using DataCore.Sql.TableScaleModels;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using MDSoft.BarcodePrintUtils.Wmi;
@@ -20,7 +21,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using DataCore.Sql.TableScaleModels;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
@@ -307,9 +307,9 @@ public partial class MainForm : Form
         if (buttonsSettings.IsChangeDevice)
         {
             ButtonScale = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScale), 2, 0);
-            ButtonScale.Click += ActionScaleChange_Click;
+            ButtonScale.Click += ActionDeviceChange_Click;
             ButtonArea = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonArea), 2, 1);
-            ButtonArea.Click += ActionScaleChange_Click;
+            ButtonArea.Click += ActionDeviceChange_Click;
         }
 
         TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -444,10 +444,10 @@ public partial class MainForm : Form
         comboBox.Items.Clear();
         if (sourceList.Any())
         {
-	        foreach (string source in sourceList)
-	        {
-				comboBox.Items.Add(source);
-	        }
+            foreach (string source in sourceList)
+            {
+                comboBox.Items.Add(source);
+            }
         }
         comboBox.SelectedIndex = selectedIndex <= 0
             ? backupIndex <= 0 ? 0 : backupIndex
@@ -602,10 +602,8 @@ public partial class MainForm : Form
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-            //MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(
-            //    SqlUtils.GetPluCount(UserSession.SqlViewModel.Scale.Identity.Id)));
-            List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(false, false,
-                UserSession.SqlViewModel.Scale.Identity.Id);
+            List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(UserSession.SqlViewModel.Scale,
+                false, false, false);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);
@@ -631,18 +629,18 @@ public partial class MainForm : Form
         Close();
     }
 
-    private void ActionScaleChange_Click(object sender, EventArgs e)
+    private void ActionDeviceChange_Click(object sender, EventArgs e)
     {
         try
         {
             UserSession.ManagerControl.Massa.Close();
 
-            using WpfPageLoader wpfPageLoader = new(PageEnum.ScaleChange, false) { Width = 600, Height = 225 };
+            using WpfPageLoader wpfPageLoader = new(PageEnum.Device, false) { Width = 600, Height = 225 };
             DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
             {
-                UserSession.Setup(wpfPageLoader.PageScaleChange.SqlViewModel.Scale.Identity.Id, "");
+                UserSession.Setup(wpfPageLoader.PageDevice.SqlViewModel.Scale.Identity.Id, "");
             }
             FieldLang_SelectedIndexChanged(sender, e);
 
@@ -852,7 +850,7 @@ public partial class MainForm : Form
             UserSession.ManagerControl.Massa.Close();
 
             // PLU form.
-            using SelectPluForm pluListForm = new() { Owner = this };
+            using PlusForm pluListForm = new() { Owner = this };
             DialogResult result = pluListForm.ShowDialog(this);
             pluListForm.Close();
             pluListForm.Dispose();

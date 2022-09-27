@@ -9,10 +9,7 @@ public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
 {
     #region Public and private fields, properties, constructor
 
-    public ItemPluWeighing()
-    {
-	    //
-    }
+    //
 
     #endregion
 
@@ -24,7 +21,7 @@ public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
         {
             () =>
             {
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluWeighingModel>(IdentityId);
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluWeighingModel>(IdentityUid);
                 if (SqlItemCast.Identity.IsNew())
 	                SqlItem = SqlItemNew<PluWeighingModel>();
 

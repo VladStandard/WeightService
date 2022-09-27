@@ -11,6 +11,7 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
 
     public SectionOrganizations()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
         RazorComponentConfig.IsShowFilterMarked = true;
 	}
 

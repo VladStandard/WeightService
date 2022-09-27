@@ -8,17 +8,17 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerial
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual byte[] Value { get; set; }
+	[XmlElement(IsNullable=true)] public virtual byte[]? Value { get; set; }
 
 	[XmlIgnore] public virtual string ValueAscii
     {
-        get => Value.Length == 0 ? string.Empty : Encoding.Default.GetString(Value);
+        get => Value is null || Value.Length == 0 || Value.Equals(Array.Empty<byte>()) ? string.Empty : Encoding.Default.GetString(Value);
         set => Value = Encoding.Default.GetBytes(value);
     }
 
     [XmlIgnore] public virtual string ValueUnicode
     {
-        get => Value.Length == 0 ? string.Empty : Encoding.Unicode.GetString(Value);
+        get => Value is null || Value.Length == 0 || Value.Equals(Array.Empty<byte>()) ? string.Empty : Encoding.Unicode.GetString(Value);
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 

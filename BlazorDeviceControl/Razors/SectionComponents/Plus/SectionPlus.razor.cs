@@ -11,6 +11,7 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 
 	public SectionPlus()
 	{
+		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 	}
 

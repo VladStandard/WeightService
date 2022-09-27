@@ -23,13 +23,13 @@ public class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
 			.NotEmpty()
 			.NotNull()
 			.SetValidator(new PluScaleValidator());
-		RuleFor(item => item.Series)
-			.NotEmpty()
-			.NotNull()
-			.SetValidator(new ProductSeriesValidator());
-		RuleFor(item => item.Sscc)
-			.NotEmpty()
-			.NotNull();
+		//RuleFor(item => item.Series)
+		//	.NotEmpty()
+		//	.NotNull()
+		//	.SetValidator(new ProductSeriesValidator());
+		//RuleFor(item => item.Sscc)
+		//	.NotEmpty()
+		//	.NotNull();
 		RuleFor(item => item.NettoWeight)
 			.NotEmpty()
 			.NotNull()
@@ -42,9 +42,9 @@ public class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
 			.NotEmpty()
 			.NotNull()
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.RegNum)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(0);
+		//RuleFor(item => item.RegNum)
+		//	.NotEmpty()
+		//	.NotNull()
+		//	.NotEqual(0);
 	}
 }

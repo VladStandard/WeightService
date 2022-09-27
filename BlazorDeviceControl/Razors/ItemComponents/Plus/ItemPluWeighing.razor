@@ -1,102 +1,98 @@
 ﻿@inherits RazorComponentItemBase<PluWeighingModel>
-@page "/item/plu_weighings"
-@page "/item/plu_weighings/new"
-@page "/item/plu_weighings/{IdentityId:long}"
+@page "/item/plu_weighing"
+@page "/item/plu_weighing/new"
+@page "/item/plu_weighing/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=@PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemLabel />
+<RazorItemReload TItem=@PluWeighingModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluWeighing />
 
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 	<RazorItemTableHead TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 	<tbody>
 		<RazorItemTableBody TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
-		@*<tr>
-			<td>@LocaleCore.Table.WeithingDate</td>
+		<tr>
+			<td>@LocaleCore.Table.ChangeDt</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               Value=@SqlItemCast.WeithingDate.ToString(CultureInfo.InvariantCulture)
-				               ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+					DateFormat="yyyy-MM-dd HH:mm:ss"
+					ReadOnly=true Value=@SqlItemCast.ChangeDt.ToString(CultureInfo.InvariantCulture) />
 			</td>
 			<td>@LocaleCore.Table.ProductDate</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               Value=@SqlItemCast.ProductDate.ToString(CultureInfo.InvariantCulture)
-				               ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
+				<RadzenTextBox 
+					DateFormat="yyyy-MM-dd HH:mm:ss"
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+					ReadOnly=true Value=@SqlItemCast.ProductDt.ToString(CultureInfo.InvariantCulture) />
 			</td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.Scale</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				    ReadOnly=true
-				    @bind-Value=@SqlItemCast.Scale.Description/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: left; background-color: lightgray;"
+				    ReadOnly=true @bind-Value=@SqlItemCast.PluScale.Scale.Description />
 			</td>
 			<td>@LocaleCore.Table.Host</td>
 			<td>
-				@if (SqlItemCast.Scale.Host is null)
-				{
-					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-					               ReadOnly=true
-					               Value=@("")/>
-				}
-				else
-				{
-					<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-					               ReadOnly=true @bind-Value=@(SqlItemCast.Scale.Host.HostName)/>
-				}
+				<RadzenTextBox 
+					Style="width: 100%; text-align: left; background-color: lightgray;"
+				    ReadOnly=true Value=@(SqlItemCast.PluScale.Scale.Host is null ? string.Empty : SqlItemCast.PluScale.Scale.Host.HostName) />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.PluNumber</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+					ReadOnly=true Value=@SqlItemCast.PluScale.Plu.Number.ToString() />
 			</td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.Plu</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true Value=@SqlItemCast.Plu.Identity.Id.ToString()/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: left; background-color: lightgray;"
+				    ReadOnly=true Value=@SqlItemCast.PluScale.Plu.Name />
 			</td>
-			<td>@LocaleCore.Table.PluNumber</td>
-			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true Value=@SqlItemCast.Plu.PluNumber.ToString()/>
-			</td>
-		</tr>
-		<tr>
 			<td>@LocaleCore.Table.Nomenclature</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true @bind-Value=@SqlItemCast.Plu.Nomenclature.Name/>
-			</td>
-			<td>@LocaleCore.Table.GoodsName</td>
-			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true @bind-Value=@SqlItemCast.Plu.GoodsName/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: left; background-color: lightgray;"
+				    ReadOnly=true Value=@SqlItemCast.PluScale.Plu.Nomenclature.Name/>
 			</td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.NetWeight</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true Value=@SqlItemCast.NetWeight.ToString(CultureInfo.InvariantCulture)/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+				    ReadOnly=true Value=@SqlItemCast.NettoWeight.ToString(CultureInfo.InvariantCulture)/>
 			</td>
 			<td>@LocaleCore.Table.TareWeight</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true Value=@SqlItemCast.TareWeight.ToString(CultureInfo.InvariantCulture)/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+				    ReadOnly=true Value=@SqlItemCast.TareWeight.ToString(CultureInfo.InvariantCulture)/>
 			</td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.RegNum</td>
 			<td >
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true Value=@SqlItemCast.RegNum.ToString()/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+				    ReadOnly=true Value=@SqlItemCast.RegNum.ToString()/>
 			</td>
 			<td>@LocaleCore.Table.IsKneading</td>
 			<td>
-				<RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-				               ReadOnly=true Value=@SqlItemCast.Kneading.ToString()/>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray;"
+				    ReadOnly=true Value=@SqlItemCast.Kneading.ToString()/>
 			</td>
-		</tr>*@
+		</tr>
 	</tbody>
 </MudSimpleTable>
 

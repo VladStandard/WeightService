@@ -20,7 +20,7 @@
 //            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Server)}"];
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"Sql:{nameof(Server)}"] = value;
 //            }
 //        }
@@ -29,16 +29,16 @@
 //            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Db)}"];
 //            set
 //            {
-//                if (Configuration != null) 
+//                if (Configuration is not null) 
 //                    Configuration[$"Sql:{nameof(Db)}"] = value;
 //            }
 //        }
 //        public bool Trusted
 //        {
-//            get => Configuration != null && Convert.ToBoolean(Configuration[$"Sql:{nameof(Trusted)}"]);
+//            get => Configuration is not null && Convert.ToBoolean(Configuration[$"Sql:{nameof(Trusted)}"]);
 //            set
 //            {
-//                if (Configuration != null) 
+//                if (Configuration is not null) 
 //                    Configuration[$"Sql:{nameof(Trusted)}"] = value.ToString();
 //            }
 //        }
@@ -47,7 +47,7 @@
 //            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Username)}"];
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"Sql:{nameof(Username)}"] = value;
 //            }
 //        }
@@ -56,7 +56,7 @@
 //            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Password)}"];
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"Sql:{nameof(Password)}"] = value;
 //            }
 //        }
@@ -65,25 +65,25 @@
 //            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Schema)}"];
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"Sql:{nameof(Schema)}"] = value;
 //            }
 //        }
 //        public bool TrustServerCertificate
 //        {
-//            get => Configuration != null && Convert.ToBoolean(Configuration[$"Sql:{nameof(TrustServerCertificate)}"]);
+//            get => Configuration is not null && Convert.ToBoolean(Configuration[$"Sql:{nameof(TrustServerCertificate)}"]);
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"Sql:{nameof(TrustServerCertificate)}"] = value.ToString();
 //            }
 //        }
 //        public bool IsDebug
 //        {
-//            get => Configuration != null && Convert.ToBoolean(Configuration[$"{nameof(IsDebug)}"]);
+//            get => Configuration is not null && Convert.ToBoolean(Configuration[$"{nameof(IsDebug)}"]);
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"{nameof(IsDebug)}"] = value.ToString();
 //            }
 //        }
@@ -92,7 +92,7 @@
 //            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(SectionRowsCount)}"]);
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"{nameof(SectionRowsCount)}"] = value.ToString();
 //            }
 //        }
@@ -101,7 +101,7 @@
 //            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(ItemRowsCount)}"]);
 //            set
 //            {
-//                if (Configuration != null)
+//                if (Configuration is not null)
 //                    Configuration[$"{nameof(ItemRowsCount)}"] = value.ToString();
 //            }
 //        }

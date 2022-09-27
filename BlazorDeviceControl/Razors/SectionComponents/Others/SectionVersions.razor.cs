@@ -11,6 +11,7 @@ public partial class SectionVersions : RazorComponentSectionBase<VersionModel, S
 
     public SectionVersions()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
         RazorComponentConfig.IsShowFilterMarked = false;
 	}
 

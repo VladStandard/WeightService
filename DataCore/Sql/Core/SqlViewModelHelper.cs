@@ -101,9 +101,9 @@ public class SqlViewModelHelper : BaseViewModel
     {
         get
         {
-            if (_area != null)
+            if (_area is not null)
                 return _area;
-            if (Scale.WorkShop != null)
+            if (Scale.WorkShop is not null)
                 return Scale.WorkShop.ProductionFacility;
             return _area;
         }
@@ -111,7 +111,7 @@ public class SqlViewModelHelper : BaseViewModel
         {
             if (value == null)
             {
-                if (Scale.WorkShop != null)
+                if (Scale.WorkShop is not null)
                     _area = Scale.WorkShop.ProductionFacility;
                 return;
             }
@@ -273,7 +273,7 @@ public class SqlViewModelHelper : BaseViewModel
     //            SqlUtils.SaveNullTask(taskType, (long)scaleId, true);
     //            task = SqlUtils.GetTask(taskType.Uid, (long)scaleId);
     //        }
-    //        if (task != null)
+    //        if (task is not null)
     //            Tasks.Add(task);
     //    }
     //}

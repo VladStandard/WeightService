@@ -114,7 +114,7 @@
 //        //    //vsSSCCServiceRefer.vsSSCCBarcode[] ssccList = client.GetSSCCBarcodeList(request, ref msg);
 //        //    var ssccList = client.GetSSCCBarcodeList(request, ref msg);
 
-//        //    if (ssccList != null)
+//        //    if (ssccList is not null)
 //        //    {
 //        //        for (int i = 0; i < ssccList.Length; i++)
 //        //        {

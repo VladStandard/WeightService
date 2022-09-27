@@ -53,7 +53,7 @@ public static partial class SqlUtils
             {
                 new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-            }, new SqlFieldOrderModel(), 0);
+            });
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
@@ -64,8 +64,7 @@ public static partial class SqlUtils
             {
                 new(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, description), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-            },
-			new SqlFieldOrderModel(), 0);
+            });
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
@@ -76,8 +75,7 @@ public static partial class SqlUtils
             {
                 new(nameof(ProductionFacilityModel.Name), SqlFieldComparerEnum.Equal, name), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-            },
-			new SqlFieldOrderModel(), 0);
+            });
 		return DataAccess.GetItem<ProductionFacilityModel>(sqlCrudConfig);
 	}
 

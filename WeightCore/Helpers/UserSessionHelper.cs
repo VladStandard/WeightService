@@ -439,14 +439,14 @@ public class UserSessionHelper : BaseViewModel
         if (PluScale == null)
             return;
 
-        PluWeighing = new();
-        PluWeighing.PluScale = PluScale;
-        PluWeighing.PluScale.Scale = SqlViewModel.Scale;
-        PluWeighing.PluScale.Scale.ScaleFactor = PluScale.Scale.ScaleFactor;
-        PluWeighing.ProductDt = SqlViewModel.ProductDate;
-        PluWeighing.Kneading = WeighingSettings.Kneading;
-        PluWeighing.NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight;
-        PluWeighing.TareWeight = PluScale.Plu.TareWeight;
+        PluWeighing = new()
+        {
+	        PluScale = PluScale,
+	        ProductDt = SqlViewModel.ProductDate,
+	        Kneading = WeighingSettings.Kneading,
+	        NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight,
+	        TareWeight = PluScale.Plu.TareWeight
+        };
     }
 
     /// <summary>

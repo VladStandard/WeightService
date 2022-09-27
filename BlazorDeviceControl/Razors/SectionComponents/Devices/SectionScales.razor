@@ -37,14 +37,14 @@
                     Text=@(item.PrinterMain is null ? LocaleCore.Table.FieldNull : item.PrinterMain.Name) />
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem=@ScaleModel Title=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=TextAlign.Left >
+        <RadzenGridColumn TItem=@ScaleModel Title=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=@TextAlign.Left >
             <Template Context="item">
 	            <RadzenLink Style="width: 100%; "
 	                Path=@(item.WorkShop is null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{item.WorkShop.Identity.Id}")
                     Text=@(item.WorkShop is null ? LocaleCore.Table.FieldNull : item.WorkShop.Name) />
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem=@ScaleModel TextAlign=TextAlign.Center Title=@LocaleCore.Table.IsKneading Width="5%">
+        <RadzenGridColumn TItem=@ScaleModel TextAlign=@TextAlign.Center Title=@LocaleCore.Table.IsKneading Width="5%">
             <Template Context="item" >
                 <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@item.IsKneading />
             </Template>

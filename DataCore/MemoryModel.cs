@@ -40,18 +40,18 @@ public class MemoryModel
         Process? proc = Process.GetCurrentProcess();
         while (IsExecute)
         {
-            if (proc != null)
+            if (proc is not null)
             {
-                if (MemorySize.PhysicalCurrent != null)
+                if (MemorySize.PhysicalCurrent is not null)
                     MemorySize.PhysicalCurrent.Bytes = (ulong)proc.WorkingSet64;
-                if (MemorySize.VirtualCurrent != null)
+                if (MemorySize.VirtualCurrent is not null)
                     MemorySize.VirtualCurrent.Bytes = (ulong)proc.PrivateMemorySize64;
             }
             else
             {
-                if (MemorySize.PhysicalCurrent != null)
+                if (MemorySize.PhysicalCurrent is not null)
                     MemorySize.PhysicalCurrent.Bytes = 0;
-                if (MemorySize.VirtualCurrent != null)
+                if (MemorySize.VirtualCurrent is not null)
                     MemorySize.VirtualCurrent.Bytes = 0;
             }
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);

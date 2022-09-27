@@ -11,7 +11,7 @@ namespace WeightCore.Gui.XamlPages;
 /// <summary>
 /// Interaction logic for PageSqlSettings.xaml
 /// </summary>
-public partial class PageScaleChange
+public partial class PageDevice
 {
     #region Public and private fields, properties, constructor
 
@@ -23,11 +23,11 @@ public partial class PageScaleChange
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PageScaleChange()
+    public PageDevice()
     {
         InitializeComponent();
 
-        object context = FindResource("SqlViewModel");
+        object context = FindResource(nameof(SqlViewModel));
         if (context is SqlViewModelHelper sqlViewModel)
         {
             SqlViewModel = sqlViewModel;

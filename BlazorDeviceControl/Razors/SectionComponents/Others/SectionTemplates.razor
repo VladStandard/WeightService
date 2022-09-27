@@ -19,7 +19,7 @@
         <RazorSectionFieldIdentity TItem=@TemplateModel ParentRazor=@(this) />
 
         <RadzenGridColumn 
-            TItem=@TemplateModel Property="CategoryId" TextAlign=TextAlign.Center
+            TItem=@TemplateModel Property="CategoryId" TextAlign=@TextAlign.Center
             Title=@LocaleCore.Table.CategoryName Width="15%" />
         <RadzenGridColumn 
             TItem=@TemplateModel Title=@LocaleCore.Table.Title Width="60%" SortProperty="Title" >

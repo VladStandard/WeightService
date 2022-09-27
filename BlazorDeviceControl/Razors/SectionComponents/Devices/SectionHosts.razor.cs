@@ -11,6 +11,7 @@ public partial class SectionHosts : RazorComponentSectionBase<HostModel, SqlTabl
 
     public SectionHosts()
     {
+		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
     }
 

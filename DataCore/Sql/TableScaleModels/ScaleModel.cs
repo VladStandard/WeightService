@@ -115,17 +115,17 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault()
     {
-        if (TemplateDefault != null && !TemplateDefault.EqualsDefault())
+        if (TemplateDefault is not null && !TemplateDefault.EqualsDefault())
             return false;
-        if (TemplateSeries != null && !TemplateSeries.EqualsDefault())
+        if (TemplateSeries is not null && !TemplateSeries.EqualsDefault())
             return false;
-        if (WorkShop != null && !WorkShop.EqualsDefault())
+        if (WorkShop is not null && !WorkShop.EqualsDefault())
             return false;
-        if (PrinterMain != null && !PrinterMain.EqualsDefault())
+        if (PrinterMain is not null && !PrinterMain.EqualsDefault())
             return false;
-        if (PrinterShipping != null && !PrinterShipping.EqualsDefault())
+        if (PrinterShipping is not null && !PrinterShipping.EqualsDefault())
 	        return false;
-		if (Host != null && !Host.EqualsDefault())
+		if (Host is not null && !Host.EqualsDefault())
 			return false;
         return 
 	        base.EqualsDefault() &&
@@ -240,17 +240,17 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(ScaleModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (TemplateDefault != null && item.TemplateDefault != null && !TemplateDefault.Equals(item.TemplateDefault))
+		if (TemplateDefault is not null && item.TemplateDefault is not null && !TemplateDefault.Equals(item.TemplateDefault))
 			return false;
-		if (TemplateSeries != null && item.TemplateSeries != null && !TemplateSeries.Equals(item.TemplateSeries))
+		if (TemplateSeries is not null && item.TemplateSeries is not null && !TemplateSeries.Equals(item.TemplateSeries))
 			return false;
-		if (WorkShop != null && item.WorkShop != null && !WorkShop.Equals(item.WorkShop))
+		if (WorkShop is not null && item.WorkShop is not null && !WorkShop.Equals(item.WorkShop))
 			return false;
-		if (PrinterMain != null && item.PrinterMain != null && !PrinterMain.Equals(item.PrinterMain))
+		if (PrinterMain is not null && item.PrinterMain is not null && !PrinterMain.Equals(item.PrinterMain))
 			return false;
-		if (PrinterShipping != null && item.PrinterShipping != null && !PrinterShipping.Equals(item.PrinterShipping))
+		if (PrinterShipping is not null && item.PrinterShipping is not null && !PrinterShipping.Equals(item.PrinterShipping))
 			return false;
-		if (Host != null && item.Host != null && !Host.Equals(item.Host))
+		if (Host is not null && item.Host is not null && !Host.Equals(item.Host))
 			return false;
 		return base.Equals(item) &&
 			   Equals(DeviceIp, item.DeviceIp) &&

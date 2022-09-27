@@ -19,7 +19,7 @@
         <RazorSectionFieldIdentity TItem=@TemplateResourceModel ParentRazor=@(this) />
 
         <RadzenGridColumn 
-            TItem=@TemplateResourceModel Property="Type" TextAlign=TextAlign.Center
+            TItem=@TemplateResourceModel Property="Type" TextAlign=@TextAlign.Center
             Title=@LocaleCore.Table.Type 
             Type="string" Width="10%" />
         <RadzenGridColumn 
@@ -30,7 +30,8 @@
                     Text=@itemCast.Name />
             </Template>
         </RadzenGridColumn>
-        <RazorSectionField TItem=@TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
+        <RazorSectionField 
+	        TItem=@TemplateResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
         <RadzenGridColumn 
             TItem=@TemplateResourceModel Property="ImageData.Info"

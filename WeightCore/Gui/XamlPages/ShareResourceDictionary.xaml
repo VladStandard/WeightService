@@ -19,4 +19,5 @@
     <locale:LocaleSql x:Key="LocaleSql" />
     <locale:LocaleSystem x:Key="LocaleSystem" />
     <locale:LocaleTable x:Key="LocaleTable" />
+	<sql:SqlViewModelHelper x:Key="SqlViewModel" />
 </ResourceDictionary>

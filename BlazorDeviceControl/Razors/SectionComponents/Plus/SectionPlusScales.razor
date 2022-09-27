@@ -16,43 +16,43 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@PluScaleModel ParentRazor=@(this) />
-	    <RadzenGridColumn TItem=@PluScaleModel Width="5%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.NumberShort>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 		    <Template Context="itemCast">
 			    <RadzenLink 
 				    Text=@itemCast.Plu.Number.ToString() 
 			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.Active>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.Active>
 		    <Template Context="itemCast">
 			    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.IsActive/>
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.WeightShort>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.WeightShort>
 		    <Template Context="itemCast">
 			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.PluScale>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.PluScale>
 		    <Template Context="itemCast">
 			    <RadzenLink 
 				    Text=@itemCast.IdentityValueUid.ToString()
 			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=TextAlign.Left Title=@LocaleCore.Table.Plu>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 		    <Template Context="itemCast">
 			    <RadzenLink 
 				    Text=@itemCast.Plu.Name 
 				    Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.ShelfLifeDaysShort>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.ShelfLifeDaysShort>
 		    <Template Context="itemCast">
 			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.ShelfLifeDays.ToString()/>
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=TextAlign.Center Title=@LocaleCore.Table.TareWeightShort>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.TareWeightShort>
 		    <Template Context="itemCast">
 			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.TareWeight.ToString(CultureInfo.InvariantCulture)/>
 		    </Template>

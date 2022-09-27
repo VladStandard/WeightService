@@ -11,6 +11,7 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 
 	public SectionPlusScales()
 	{
+		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterAdditional = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 		ButtonSettings = new(true, true, true, true, true, true, false);
@@ -26,8 +27,8 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 		{
 			() =>
 			{
-				SqlItemsCast = AppSettings.DataAccess.GetListPluScales(
-					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, ParentRazor?.SqlItem);
+				SqlItemsCast = AppSettings.DataAccess.GetListPluScales(ParentRazor?.SqlItem,
+					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, true);
 			}
 		});
 	}

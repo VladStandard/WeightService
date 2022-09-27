@@ -131,17 +131,20 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
-    public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
-		SqlTableBase? itemFilter)
+    public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, SqlTableBase? itemFilter, 
+	    bool isShowMarked, bool isShowOnlyTop, bool isShowAll)
 	{
 		List<SqlFieldFilterModel> filters = new();
 		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
 		{
-			long? scaleId = null;
 			if (itemFilter is ScaleModel scale)
-				scaleId = scale.Identity.Id;
-			if (scaleId is not null)
-				filters = new() { new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId) };
+				filters = new()
+				{
+					new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", 
+						SqlFieldComparerEnum.Equal, scale.Identity.Id)
+				};
+			if (!isShowAll)
+				filters.Add(new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
 		}
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
 			new List<SqlFieldOrderModel> { new (nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc), },
@@ -149,19 +152,8 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
 	}
 
-	public static List<PluScaleModel> GetListPluScales(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, long scaleId)
-	{
-		List<SqlFieldFilterModel> filters = new()
-		{
-			new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, scaleId),
-			new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true),
-		};
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, new SqlFieldOrderModel(), 0, isShowMarked, isShowOnlyTop);
-		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
-	}
-
-	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop,
-		SqlTableBase? itemFilter)
+	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, SqlTableBase? itemFilter, 
+		bool isShowMarked, bool isShowOnlyTop)
 	{
 		List<SqlFieldFilterModel> filters = new();
 		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
@@ -178,8 +170,8 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<PluPackageModel>(sqlCrudConfig);
 	}
 
-	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, bool isShowMarked,
-		bool isShowOnlyTop, SqlTableBase? itemFilter)
+	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, SqlTableBase? itemFilter,
+		bool isShowMarked, bool isShowOnlyTop)
 	{
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)
