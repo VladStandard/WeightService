@@ -194,6 +194,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E04
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v1.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v2.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт.xml
 	EndProjectSection
@@ -257,9 +258,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zebra", "Zebra", "{3183F5C1
 		Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ.zpl = Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ.zpl
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssertCoreTests", "AssertCoreTests\AssertCoreTests.csproj", "{B17D45C6-F53D-4904-BDF3-4C8F3346BE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssertCoreTests", "AssertCoreTests\AssertCoreTests.csproj", "{B17D45C6-F53D-4904-BDF3-4C8F3346BE33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeightCoreTests", "WeightCoreTests\WeightCoreTests.csproj", "{1DC10BF1-27A2-4302-A1D5-954192FE24C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightCoreTests", "WeightCoreTests\WeightCoreTests.csproj", "{1DC10BF1-27A2-4302-A1D5-954192FE24C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -940,7 +941,7 @@ Global
 		{1DC10BF1-27A2-4302-A1D5-954192FE24C1} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
 	EndGlobalSection
 EndGlobal

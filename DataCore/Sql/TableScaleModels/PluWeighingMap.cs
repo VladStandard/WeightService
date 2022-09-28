@@ -25,6 +25,7 @@ public class PluWeighingMap : ClassMap<PluWeighingModel>
         Map(x => x.NettoWeight).CustomSqlType("DECIMAL(10,3)").Column("NETTO_WEIGHT").Not.Nullable().Default("0");
         Map(x => x.TareWeight).CustomSqlType("DECIMAL(10,3)").Column("TARE_WEIGHT").Not.Nullable().Default("0");
         Map(x => x.ProductDt).CustomSqlType("DATETIME").Column("PROD_DT").Not.Nullable();
+        Map(x => x.ExpirationDt).CustomSqlType("DATETIME").Column("EXPIRATION_DT").Not.Nullable();
         Map(x => x.RegNum).CustomSqlType("INT)").Column("REG_NUM").Not.Nullable().Default("0");
         References(x => x.PluScale).Column("PLU_SCALE_UID").Not.Nullable();
         References(x => x.Series).Column("SERIES_ID").Nullable();
