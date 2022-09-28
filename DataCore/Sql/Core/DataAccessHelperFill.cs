@@ -13,18 +13,15 @@ public static class DataAccessHelperFill
 
 	public static void FillReferences<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
 	{
-		InformationSystemModel? informationSystem;
 		switch (item)
 		{
 			case DeviceModel device:
-				ScaleModel? scaleDevice = dataAccess.GetItemById<ScaleModel>(device.Scale.IdentityValueId);
-				if (scaleDevice is not null)
-					device.Scale = scaleDevice;
+                device.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(device.Scale.IdentityValueId);
 				break;
 			case LogModel log:
-				log.App = log.App?.IdentityValueUid == null ? new() : dataAccess.GetItemByUid<AppModel>(log.App.IdentityValueUid);
-				log.Host = log.Host?.IdentityValueId == null ? new() : dataAccess.GetItemById<HostModel>(log.Host.IdentityValueId);
-				log.LogType = log.LogType?.IdentityValueUid == null ? new() : dataAccess.GetItemByUid<LogTypeModel>(log.LogType.IdentityValueUid);
+				log.App = dataAccess.GetItemByUidNotNull<AppModel>(log.App?.IdentityValueUid);
+				log.Host = dataAccess.GetItemByIdNotNull<HostModel>(log.Host?.IdentityValueId);
+				log.LogType = dataAccess.GetItemByUidNotNull<LogTypeModel>(log.LogType?.IdentityValueUid);
 				break;
 			// Scales.
 			case BarCodeModel barcode:
@@ -33,73 +30,39 @@ public static class DataAccessHelperFill
 				barcode.Nomenclature = dataAccess.GetItemById<TableScaleModels.NomenclatureModel>(barcode.Nomenclature?.IdentityValueId);
 				break;
 			case OrderWeighingModel orderWeighing:
-				OrderModel? order = dataAccess.GetItemByUid<OrderModel>(orderWeighing.Order.IdentityValueUid);
-				if (order is not null)
-					orderWeighing.Order = order;
-				PluWeighingModel? pluWeighing1 = dataAccess.GetItemByUid<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
-				if (pluWeighing1 is not null)
-					orderWeighing.PluWeighing = pluWeighing1;
+                orderWeighing.Order = dataAccess.GetItemByUidNotNull<OrderModel>(orderWeighing.Order.IdentityValueUid);
+                orderWeighing.PluWeighing = dataAccess.GetItemByUidNotNull<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
 				break;
 			case PluModel plu:
-				TemplateModel? template = dataAccess.GetItemById<TemplateModel>(plu.Template.IdentityValueId);
-				if (template is not null)
-					plu.Template = template;
-				TableScaleModels.NomenclatureModel? nomenclature = dataAccess.GetItemById<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
-				if (nomenclature is not null)
-					plu.Nomenclature = nomenclature;
+                plu.Template = dataAccess.GetItemByIdNotNull<TemplateModel>(plu.Template.IdentityValueId);
+                plu.Nomenclature = dataAccess.GetItemByIdNotNull<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
 			case PluLabelModel pluLabel:
-				PluWeighingModel? pluLabelPluWeighing = null;
-				if (pluLabel.PluWeighing is not null)
-					dataAccess.GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing.IdentityValueUid);
-				if (pluLabelPluWeighing is not null)
-					pluLabel.PluWeighing = pluLabelPluWeighing;
+				pluLabel.PluWeighing = dataAccess.GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
 				break;
 			case PluPackageModel pluPackage:
-				PluModel? pluPackagePlu = dataAccess.GetItemByUid<PluModel>(pluPackage.Plu.IdentityValueUid);
-				if (pluPackagePlu is not null)
-					pluPackage.Plu = pluPackagePlu;
-				PackageModel? pluPackagePackage = dataAccess.GetItemByUid<PackageModel>(pluPackage.Package.IdentityValueUid);
-				if (pluPackagePackage is not null)
-					pluPackage.Package = pluPackagePackage;
+				pluPackage.Plu = dataAccess.GetItemByUidNotNull<PluModel>(pluPackage.Plu.IdentityValueUid);
+                pluPackage.Package = dataAccess.GetItemByUidNotNull<PackageModel>(pluPackage.Package.IdentityValueUid);
 				break;
 			case PluScaleModel pluScale:
-				PluModel? pluScalePlu = dataAccess.GetItemByUid<PluModel>(pluScale.Plu.IdentityValueUid);
-				if (pluScalePlu is not null)
-					pluScale.Plu = pluScalePlu;
-				ScaleModel? pluScaleScale = dataAccess.GetItemById<ScaleModel>(pluScale.Scale.IdentityValueId);
-				if (pluScaleScale is not null)
-					pluScale.Scale = pluScaleScale;
+                pluScale.Plu = dataAccess.GetItemByUidNotNull<PluModel>(pluScale.Plu.IdentityValueUid);
+                pluScale.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(pluScale.Scale.IdentityValueId);
 				break;
 			case PluWeighingModel pluWeighing:
-				PluScaleModel? pluWeighingPluScale = dataAccess.GetItemByUid<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
-				if (pluWeighingPluScale is not null)
-					pluWeighing.PluScale = pluWeighingPluScale;
-				ProductSeriesModel? pluWeighingProductSeries = null;
-				if (pluWeighing.Series is not null)
-					pluWeighingProductSeries = dataAccess.GetItemById<ProductSeriesModel>(pluWeighing.Series.IdentityValueId);
-				if (pluWeighingProductSeries is not null)
-					pluWeighing.Series = pluWeighingProductSeries;
+                pluWeighing.PluScale = dataAccess.GetItemByUidNotNull<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
+				pluWeighing.Series = dataAccess.GetItemById<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
 				break;
 			case PrinterModel printer:
-				PrinterTypeModel? printerType = dataAccess.GetItemById<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
-				if (printerType is not null)
-					printer.PrinterType = printerType;
+                printer.PrinterType = dataAccess.GetItemByIdNotNull<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
 				break;
 			case PrinterResourceModel printerResource:
-				PrinterModel? printer2 = dataAccess.GetItemById<PrinterModel>(printerResource.Printer.IdentityValueId);
-				if (printer2 is not null)
-					printerResource.Printer = printer2;
-				TemplateResourceModel? templateResource2 = dataAccess.GetItemById<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueId);
-				if (templateResource2 is not null)
-					printerResource.TemplateResource = templateResource2;
+                printerResource.Printer = dataAccess.GetItemByIdNotNull<PrinterModel>(printerResource.Printer.IdentityValueId);
+                printerResource.TemplateResource = dataAccess.GetItemByIdNotNull<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueId);
 				if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
 					printerResource.TemplateResource.Description = printerResource.TemplateResource.Name;
 				break;
 			case ProductSeriesModel product:
-				ScaleModel? scale3 = dataAccess.GetItemById<ScaleModel>(product.Scale.IdentityValueId);
-				if (scale3 is not null)
-					product.Scale = scale3;
+                product.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(product.Scale.IdentityValueId);
 				break;
 			case ScaleModel scale:
 				scale.TemplateDefault = dataAccess.GetItemById<TemplateModel>(scale.TemplateDefault?.IdentityValueId);
@@ -110,43 +73,27 @@ public static class DataAccessHelperFill
 				scale.WorkShop = dataAccess.GetItemById<WorkShopModel>(scale.WorkShop?.IdentityValueId);
 				break;
 			case TaskModel task:
-				TaskTypeModel? taskType = dataAccess.GetItemByUid<TaskTypeModel>(task.TaskType.IdentityValueUid);
-				if (taskType is not null)
-					task.TaskType = taskType;
-				ScaleModel? scale4 = dataAccess.GetItemById<ScaleModel>(task.Scale.IdentityValueId);
-				if (scale4 is not null)
-					task.Scale = scale4;
+                task.TaskType = dataAccess.GetItemByUidNotNull<TaskTypeModel>(task.TaskType.IdentityValueUid);
+                task.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(task.Scale.IdentityValueId);
 				break;
 			case WorkShopModel workshop:
-				ProductionFacilityModel? productionFacility = dataAccess.GetItemById<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
-				if (productionFacility is not null)
-					workshop.ProductionFacility = productionFacility;
+                workshop.ProductionFacility = dataAccess.GetItemByIdNotNull<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
 				break;
 			// Dwh.
 			case BrandModel brand:
-				informationSystem = dataAccess.GetItemById<InformationSystemModel>(brand.InformationSystem.IdentityValueId);
-				if (informationSystem is not null)
-					brand.InformationSystem = informationSystem;
+                brand.InformationSystem = dataAccess.GetItemByIdNotNull<InformationSystemModel>(brand.InformationSystem.IdentityValueId);
 				break;
 			case TableDwhModels.NomenclatureModel nomenclatureDwh:
-				StatusModel? status = dataAccess.GetItemById<StatusModel>(nomenclatureDwh.Status.IdentityValueId);
-				if (status is not null)
-					nomenclatureDwh.Status = status;
+                nomenclatureDwh.Status = dataAccess.GetItemByIdNotNull<StatusModel>(nomenclatureDwh.Status.IdentityValueId);
 				break;
 			case NomenclatureGroupModel nomenclatureGroup:
-				informationSystem = dataAccess.GetItemById<InformationSystemModel>(nomenclatureGroup.InformationSystem.IdentityValueId);
-				if (informationSystem is not null)
-					nomenclatureGroup.InformationSystem = informationSystem;
+                nomenclatureGroup.InformationSystem = dataAccess.GetItemByIdNotNull<InformationSystemModel>(nomenclatureGroup.InformationSystem.IdentityValueId);
 				break;
 			case NomenclatureLightModel nomenclatureLight:
-				informationSystem = dataAccess.GetItemById<InformationSystemModel>(nomenclatureLight.InformationSystem.IdentityValueId);
-				if (informationSystem is not null)
-					nomenclatureLight.InformationSystem = informationSystem;
+                nomenclatureLight.InformationSystem = dataAccess.GetItemByIdNotNull<InformationSystemModel>(nomenclatureLight.InformationSystem.IdentityValueId);
 				break;
 			case NomenclatureTypeModel nomenclatureType:
-				informationSystem = dataAccess.GetItemById<InformationSystemModel>(nomenclatureType.InformationSystem.IdentityValueId);
-				if (informationSystem is not null)
-					nomenclatureType.InformationSystem = informationSystem;
+                nomenclatureType.InformationSystem = dataAccess.GetItemByIdNotNull<InformationSystemModel>(nomenclatureType.InformationSystem.IdentityValueId);
 				break;
 		}
 	}

@@ -8,6 +8,7 @@
 <RazorSectionReload TItem=@BarCodeModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
 
 <RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;" 
     Data=@SqlItemsCast TItem=@BarCodeModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))

@@ -13,7 +13,7 @@
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 	<RazorItemTableHead TItem=@PrinterResourceModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 	<tbody>
-		<RazorItemTableBody TItem=@PrinterResourceModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@PrinterResourceModel ParentRazor=@(this) />
 		<tr>
 			<td>@LocaleCore.Print.Name</td>
 			<td>

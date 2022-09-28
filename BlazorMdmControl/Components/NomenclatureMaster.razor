@@ -38,7 +38,9 @@
     }
     else
     {
-        <RadzenGrid Style="font-size: 10px; margin-top: 35px; margin-left: 0px; margin-right: -5px; margin-bottom: 0px; position: absolute; "
+        <RadzenGrid 
+            PagerHorizontalAlign=@HorizontalAlign.Justify
+			Style="margin-top: 5px;"
                     Data=@IncludeEntities TItem=@NomenclatureModel 
                     RowDoubleClick=@(args => RowDoubleClickAsync(args, false))
                     AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"

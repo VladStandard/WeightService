@@ -9,10 +9,7 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
-    public ItemPluLabel()
-    {
-		//
-    }
+    //
 
     #endregion
 
@@ -24,7 +21,7 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
         {
             () =>
             {
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluLabelModel>(IdentityId);
+                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluLabelModel>(IdentityUid);
                 if (SqlItemCast.Identity.IsNew())
 	                SqlItem = SqlItemNew<PluLabelModel>();
 

@@ -39,15 +39,13 @@ public class DataUtils
 
     public static string GetBytesLength(string value)
     {
-        //if (string.IsNullOrEmpty(value)
-        //    return $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}";
-        byte[] bytes = value.ToArray().Cast<byte>().ToArray();
+        List<byte> listBytes = new();
+        foreach (char ch in value.ToArray())
+        {
+            listBytes.Add((byte)ch);
+        }
+        byte[] bytes = listBytes.ToArray();
         return GetBytesLength(bytes);
-        //if (Encoding.Default.GetString(bytes).Length > 1024 * 1024)
-        //    return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
-        //if (Encoding.Default.GetString(bytes).Length > 1024)
-        //    return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
-        //return $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
     }
 
     public static object? GetDefaultValue(Type t)

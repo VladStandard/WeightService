@@ -8,7 +8,8 @@
 <RazorSectionReload TItem=@PrinterResourceModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.Print.Resources />
 
 <RadzenGrid 
-	Style="margin-top: 5px;"
+	PagerHorizontalAlign=@HorizontalAlign.Justify
+    Style="margin-top: 5px;"
 	Data=@SqlItemsCast TItem=@PrinterResourceModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())

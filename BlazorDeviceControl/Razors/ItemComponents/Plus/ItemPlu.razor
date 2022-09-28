@@ -14,7 +14,7 @@
 <MudSimpleTable Style="overflow-x: auto; margin-top: 10px; " Dense=true Bordered=true FixedHeader=false>
 <RazorItemTableHead TItem=@PluModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
     <tbody>
-		<RazorItemTableBody TItem=@PluModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Uid, true) />
+		<RazorItemTableBody TItem=@PluModel ParentRazor=@(this) />
         <tr>
             <td>@LocaleCore.Table.PluNumber</td>
             <td>

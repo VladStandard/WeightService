@@ -12,104 +12,73 @@
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <RazorItemTableHead TItem=@PluLabelModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-        <RazorItemTableBody TItem=@PluLabelModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
-        @*<tr>
+        <RazorItemTableBody TItem=@PluLabelModel ParentRazor=@(this) />
+        <tr>
+	        <td>@LocaleCore.Table.WeithingDt</td>
+	        <td>
+		        @if (SqlItemCast.PluWeighing is not null)
+		        {
+			        <RadzenText 
+				        TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
+				        Text=@(StringUtils.FormatDtRus(SqlItemCast.PluWeighing.ProductDt, false)) />
+		        }
+	        </td>
+	        <td>@LocaleCore.Table.TemplateLabelary</td>
+	        <td>
+		        <RadzenLink 
+			        Path=@(LocaleCore.DeviceControl.LinkLabelary)
+			        Text=@(LocaleCore.Table.TemplateLabelary) />
+	        </td>
+        </tr>
+        <tr>
             <td>@LocaleCore.Table.Scale</td>
             <td>
                 @if (SqlItemCast.PluWeighing is not null)
                 {
-		            <RadzenLink Style="width: 100%; text-align: center;"
-                        Path=@GetPath(UriRouteItem.Scale, SqlItemCast.PluWeighing.PluScale.Scale, SqlItemCast.PluWeighing.PluScale.Scale.Identity.Id)
-                        Text=@SqlItemCast.PluWeighing.PluScale.Scale.Description/>
+	                <RadzenLink 
+		                Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluWeighing.PluScale.Scale.Identity.Id}")
+                        Text=@(SqlItemCast.PluWeighing.PluScale.Scale.Description) />
                 }
             </td>
-            <td>@LocaleCore.Table.Plu</td>
-            <td>
-	            @if (SqlItemCast.PluWeighing is not null)
-                {
-		            <RadzenLink Style="width: 100%; text-align: center;"
-                        Path=@GetPath(UriRouteItem.Plu, SqlItemCast.PluWeighing.PluScale.Plu, SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid)
-                        Text=@SqlItemCast.PluWeighing.PluScale.Plu.Name/>
-                }
-            </td>
+	        <td>@LocaleCore.Table.PluNumber</td>
+	        <td>
+		        @if (SqlItemCast.PluWeighing is not null)
+		        {
+			        <RadzenLink 
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid}")
+				        Text=@(SqlItemCast.PluWeighing.PluScale.Plu.Number.ToString()) />
+		        }
+	        </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Table.CreateDt</td>
-            <td>
-	            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-                   Value=@SqlItemCast.CreateDt.ToString(CultureInfo.InvariantCulture)
-                   ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
-            </td>
-            <td>@LocaleCore.Table.WeithingDate</td>
-            <td>
-                @if (SqlItemCast.PluWeighing is not null)
-                {
-		            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-                       Value=@SqlItemCast.PluWeighing.ProductDt.ToString(CultureInfo.InvariantCulture)
-                       ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss"/>
-                }
-            </td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Table.NetWeight</td>
-            <td>
-                @if (SqlItemCast.PluWeighing is not null)
-                {
-		            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-		                           ReadOnly=true Value=@SqlItemCast.PluWeighing.NettoWeight.ToString(CultureInfo.InvariantCulture)/>
-                }
-            </td>
-            <td>@LocaleCore.Table.TareWeight</td>
-            <td>
-                @if (SqlItemCast.PluWeighing is not null)
-                {
-                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        ReadOnly=true Value=@SqlItemCast.PluWeighing.TareWeight.ToString(CultureInfo.InvariantCulture) />
-                }
-			</td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Table.RegNum</td>
-            <td>
-	            @if (SqlItemCast.PluWeighing is not null)
-	            {
-		            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-		                           Disabled=false ReadOnly=true Value=@SqlItemCast.PluWeighing.RegNum.ToString()/>
-	            }
-            </td>
-            <td>@LocaleCore.Table.IsKneading</td>
-            <td>
-	            @if (SqlItemCast.PluWeighing is not null)
-	            {
-		            <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray;"
-		                           Disabled=false ReadOnly=true Value=@SqlItemCast.PluWeighing.Kneading.ToString()/>
-	            }
-            </td>
-        </tr>
-        <tr >
+	        <td>@LocaleCore.Table.Plu</td>
+	        <td>
+		        @if (SqlItemCast.PluWeighing is not null)
+		        {
+			        <RadzenLink 
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid}")
+				        Text=@(SqlItemCast.PluWeighing.PluScale.Plu.Name) />
+		        }
+	        </td>
             <td>@LocaleCore.Table.Template</td>
             <td>
 	            @if (SqlItemCast.PluWeighing is not null)
-	            {
-		            <RadzenLink Style="width: 100%; text-align: center;"
-		                        Path=@GetPath(UriRouteItem.Template, SqlItemCast.PluWeighing.PluScale.Plu.Template, SqlItemCast.PluWeighing.PluScale.Plu.Template.Identity.Uid)
-		                        Text=@SqlItemCast.PluWeighing.PluScale.Plu.Template.Title/>
-	            }
-            </td>
-            <td>@LocaleCore.Table.Link</td>
-            <td>
-                <RadzenLink Style="width: 100%; text-align: center; " 
-                    Path=@LinkLabelary
-                    Text=@LocaleCore.Table.TemplateLabelary />
+                {
+	                <RadzenLink 
+		                Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{SqlItemCast.PluWeighing.PluScale.Plu.Template.Identity.Id}")
+		                Text=@(SqlItemCast.PluWeighing.PluScale.Plu.Template.Title) />
+                }
             </td>
         </tr>
         <tr >
             <td>@LocaleCore.Table.Zpl</td>
             <td colspan=3>
-                <RadzenTextArea Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
-                    Disabled=false ReadOnly=true @bind-Value=@SqlItemCast.Zpl Rows=22 />
+	            <RadzenTextArea 
+		            Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
+		            Disabled=false ReadOnly=true 
+		            @bind-Value=@SqlItemCast.Zpl Rows=20 />
 			</td>
-        </tr>*@
+        </tr>
     </tbody>
 </MudSimpleTable>
 

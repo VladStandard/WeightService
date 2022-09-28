@@ -8,6 +8,7 @@
 <RazorSectionReload TItem=@TemplateModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionTemplates />
 
 <RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
 	Style="margin-top: 5px;"
 	Data=@SqlItemsCast TItem=@TemplateModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))

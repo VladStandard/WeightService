@@ -12,21 +12,19 @@
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
 	<RazorItemTableHead TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
 	<tbody>
-		<RazorItemTableBody TItem=@PluWeighingModel ParentRazor=@(this) CssTableStyleBody=@RazorComponentUtils.GetTableBodyStyle(SqlFieldIdentityEnum.Id, true) />
+		<RazorItemTableBody TItem=@PluWeighingModel ParentRazor=@(this) />
 		<tr>
 			<td>@LocaleCore.Table.ChangeDt</td>
 			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-					DateFormat="yyyy-MM-dd HH:mm:ss"
-					ReadOnly=true Value=@SqlItemCast.ChangeDt.ToString(CultureInfo.InvariantCulture) />
+				<RadzenText
+					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
+					Text=@(StringUtils.FormatDtRus(SqlItemCast.ChangeDt, false)) />
 			</td>
 			<td>@LocaleCore.Table.ProductDate</td>
 			<td>
-				<RadzenTextBox 
-					DateFormat="yyyy-MM-dd HH:mm:ss"
-					Style="width: 100%; text-align: center; background-color: lightgray;"
-					ReadOnly=true Value=@SqlItemCast.ProductDt.ToString(CultureInfo.InvariantCulture) />
+				<RadzenText
+					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
+					Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false)) />
 			</td>
 		</tr>
 		<tr>

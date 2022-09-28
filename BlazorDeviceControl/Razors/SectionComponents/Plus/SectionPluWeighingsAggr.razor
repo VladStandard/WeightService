@@ -8,8 +8,8 @@
 
 <RazorSectionReload TItem=@WeithingFactSummaryModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionWeithingFactsAggregation />
 
-<RadzenGrid 
-	Style="margin-top: 5px;"
+<RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
+			Style="margin-top: 5px;"
 	Data=@SqlItemsCast TItem=@WeithingFactSummaryModel 
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"

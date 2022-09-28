@@ -9,7 +9,8 @@
 <RazorSectionReload TItem=PluObsoleteModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionPlus />
 
 <RadzenGrid 
-    Style="margin-top: 5px;"
+    PagerHorizontalAlign=@HorizontalAlign.Justify
+	Style="margin-top: 5px;"
     Data=@ItemsCast TItem=PluObsoleteModel 
     RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
     RowDoubleClick=@(_ => ActionEditAsync(UserSettings))

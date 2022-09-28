@@ -29,7 +29,10 @@
     }
     else
     {
-        <RadzenGrid Data=@LocalSites TItem=WebSiteEntity Value=@WebSite 
+        <RadzenGrid 
+			PagerHorizontalAlign=@HorizontalAlign.Justify
+			Style="margin-top: 5px;"
+			Data=@LocalSites TItem=WebSiteEntity Value=@WebSite 
                     AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
                     AllowPaging=true PageSize="20" AllowSorting="true" >
             <Columns>
