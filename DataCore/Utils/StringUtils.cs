@@ -177,4 +177,22 @@ public static class StringUtils
             return result;
         return 0M;
     }
+
+	public static int NextInt32(Random random)
+	{
+		int firstBits = random.Next(0, 1 << 4) << 28;
+		int lastBits = random.Next(0, 1 << 28);
+		return firstBits | lastBits;
+	}
+
+	public static decimal NextDecimal(Random random, decimal min, decimal max)
+	{
+		byte scale = (byte)random.Next(29);
+		bool sign = random.Next(2) == 1;
+		decimal result = new(NextInt32(random), NextInt32(random), NextInt32(random), sign, scale);
+		if (result < min || result > max)
+			result = NextDecimal(random, min, max);
+		return result;
+	}
+
 }

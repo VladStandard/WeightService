@@ -30,7 +30,7 @@ public partial class SettingsForm : Form
         //{
         //    TopMost = !Debug.IsDebug;
 
-        //    if (UserSession?.WeighingFact != null)
+        //    if (UserSession?.WeighingFact is not null)
         //        fieldCurrentWeightFact.Text = UserSession.WeighingFact.SerializeAsXml<WeighingFactDirect>(true);
         //}
         //catch (Exception ex)
@@ -80,7 +80,7 @@ public partial class SettingsForm : Form
         //try
         //{
         //    ZplConverterHelper zplConverter = new();
-        //    if (UserSession.SqlViewModel.Scale.PrinterMain != null)
+        //    if (UserSession.SqlViewModel.Scale.PrinterMain is not null)
         //    {
         //        zplConverter.LogoClear(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port);
         //        zplConverter.FontsClear(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port);
@@ -126,7 +126,7 @@ public partial class SettingsForm : Form
         //    wpfPageLoader.ShowDialog(this);
         //    DialogResult result = wpfPageLoader.MessageBox.Result;
         //    wpfPageLoader.Close();
-        //    if (result == DialogResult.Retry && UserSession.SqlViewModel.Scale.PrinterMain != null)
+        //    if (result == DialogResult.Retry && UserSession.SqlViewModel.Scale.PrinterMain is not null)
         //    {
         //        ZplConverterHelper zplConverter = new();
         //        zplConverter.Сalibration(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port);

@@ -137,7 +137,7 @@ namespace ScalesUI.Forms
 
         private void CheckWeightCount()
         {
-            if (UserSession.PluScale != null && UserSession.PluScale.Plu.IsCheckWeight && UserSession.WeighingSettings.LabelsCountMain > 1)
+            if (UserSession.PluScale is not null && UserSession.PluScale.Plu.IsCheckWeight && UserSession.WeighingSettings.LabelsCountMain > 1)
             {
                 //GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
                 //    UserSession.Scale.Host.HostName, nameof(ScalesUI));
@@ -290,7 +290,7 @@ namespace ScalesUI.Forms
 			// Pallet size.
 			labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible = 
             buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible = 
-	            UserSession.PluScale != null && !UserSession.PluScale.Plu.IsCheckWeight;
+	            UserSession.PluScale is not null && !UserSession.PluScale.Plu.IsCheckWeight;
 		}
 
         private void SetGuiLocalize()

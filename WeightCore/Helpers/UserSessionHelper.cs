@@ -21,6 +21,7 @@ using DataCore.Sql.Fields;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using DataCore.Sql.Tables;
+using DataCore.Utils;
 
 namespace WeightCore.Helpers;
 
@@ -435,11 +436,28 @@ public class UserSessionHelper : BaseViewModel
     /// <summary>
     /// Вывести серию этикеток по заданному размеру паллеты.
     /// </summary>
-    public void SetWeighingFact()
+    public void SetWeighingFact(IWin32Window owner)
     {
         if (PluScale is null)
             return;
 
+        // Debug check.
+        if (IsPluCheckWeight && Debug.IsDebug)
+        {
+	        DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
+		        LocaleCore.Print.QuestionUseFakeData,
+		        true, LogTypeEnum.Question,
+		        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+		        SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName,
+		        nameof(WeightCore));
+	        if (dialogResult is DialogResult.Yes)
+	        {
+                Random random = new();
+				ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(random, 0.25M, 5.00M);
+                ManagerControl.Massa.IsWeightNetFake = true;
+	        }
+        }
+        
         PluWeighing = new()
         {
 	        PluScale = PluScale,
@@ -447,14 +465,14 @@ public class UserSessionHelper : BaseViewModel
 	        NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight,
 	        TareWeight = PluScale.Plu.TareWeight
         };
-    }
+	}
 
-    /// <summary>
-    /// Weight label printing.
-    /// </summary>
-    /// <param name="template"></param>
-    /// <param name="isClearBuffer"></param>
-    private void PrintLabelCore(TemplateModel template, bool isClearBuffer)
+	/// <summary>
+	/// Weight label printing.
+	/// </summary>
+	/// <param name="template"></param>
+	/// <param name="isClearBuffer"></param>
+	private void PrintLabelCore(TemplateModel template, bool isClearBuffer)
     {
         try
         {
@@ -463,12 +481,10 @@ public class UserSessionHelper : BaseViewModel
 
             DataAccess.Save(PluWeighing);
 
-            string xmlWeighingFact = PluWeighing.SerializeAsXml<PluWeighingModel>(true);
-            string xmlArea = string.Empty;
-            if (SqlViewModel.Area is not null)
-                xmlArea = SqlViewModel.Area.SerializeAsXml<ProductionFacilityModel>(true);
-            xmlWeighingFact = Zpl.ZplUtils.XmlCompatibleReplace(xmlWeighingFact);
-            string xml = Zpl.ZplUtils.MergeXml(xmlWeighingFact, xmlArea);
+            string xmlPluWeighing = PluWeighing.SerializeAsXml<PluWeighingModel>(true);
+			string xmlProductionFacility = SqlViewModel.Area is null ? string.Empty : SqlViewModel.Area.SerializeAsXml<ProductionFacilityModel>(true);
+            xmlPluWeighing = Zpl.ZplUtils.XmlCompatibleReplace(xmlPluWeighing);
+            string xml = Zpl.ZplUtils.MergeXml(xmlPluWeighing, xmlProductionFacility);
             // XSLT transform.
             string printCmd = Zpl.ZplUtils.XsltTransformation(template.ImageData.ValueUnicode, xml);
             printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);

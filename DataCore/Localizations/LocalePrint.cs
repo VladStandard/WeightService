@@ -76,6 +76,7 @@ public class LocalePrint
     public string PortShort => Lang == LangEnum.English ? "Port" : "Порт";
     public string PrinterStatus => Lang == LangEnum.English ? "Printer status" : "Состояние принтера";
     public string PrintManager => Lang == LangEnum.English ? "Print manager" : "Менеджер принтера";
+    public string QuestionUseFakeData => Lang == LangEnum.English ? "Use fake data?" : "Использовать фейк данные?";
     public string QuestionPrint => Lang == LangEnum.English ? "Continue printing?" : "Продолжить печать?";
     public string QuestionPrintSendCmd => Lang == LangEnum.English ? "Send cmd to the print?" : "Отправить команду на печать?";
     public string Resource => Lang == LangEnum.English ? "Printer resource" : "Ресурс принтера";

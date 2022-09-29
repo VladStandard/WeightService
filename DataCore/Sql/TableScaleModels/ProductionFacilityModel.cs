@@ -3,7 +3,6 @@
 // ReSharper disable MissingXmlDoc
 
 using DataCore.Sql.Tables;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -44,16 +43,16 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Address)}: {Address}. ";
+		$"{nameof(Name)}: {Name}. " +
+		$"{nameof(Address)}: {Address}. ";
 
-    public override bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((ProductionFacilityModel)obj);
-    }
+		return Equals((ProductionFacilityModel)obj);
+	}
 
 	public override int GetHashCode() => base.GetHashCode();
 
@@ -65,13 +64,13 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 		Equals(Address, string.Empty);
 
 	public override object Clone()
-    {
-        ProductionFacilityModel item = new();
-        item.Name = Name;
-        item.Address = Address;
+	{
+		ProductionFacilityModel item = new();
+		item.Name = Name;
+		item.Address = Address;
 		item.CloneSetup(base.CloneCast());
 		return item;
-    }
+	}
 
 	/// <summary>
 	/// Get object data for serialization info.

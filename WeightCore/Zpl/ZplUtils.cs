@@ -46,7 +46,7 @@ public static class ZplUtils
 		//result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
 		//result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
 		//result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
-		result = result.Replace(nameof(PluWeighingModel), "WeighingFactEntity");
+		//result = result.Replace(nameof(PluWeighingModel), "WeighingFactEntity");
 		//result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
 		//result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
 		//result = result.Replace(nameof(PluLabelModel), "PluLabelModel");
@@ -55,7 +55,7 @@ public static class ZplUtils
 		result = result.Replace(nameof(ScaleModel), "ScaleEntity");
 		result = result.Replace(nameof(TemplateModel), "TemplateEntity");
 		// SqlViewModelHelper.
-		result = result.Replace(nameof(SqlViewModelHelper.Instance.Area), "Area");
+		//result = result.Replace(nameof(SqlViewModelHelper.Instance.Area), "address");
 		// Result.
 		return result;
 	}

@@ -17,7 +17,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual PluWeighingModel? PluWeighing { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlIgnore] public string ProductDtRus
+    [XmlIgnore] public virtual string ProductDtRus
 	{
 		get => $"{ProductDt:dd.MM.yyyy}";
 		// This code need for print labels.

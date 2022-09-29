@@ -30,12 +30,23 @@ public class ManagerMassa : ManagerBase
 	public MassaStableEntity MassaStable { get; } = new();
 	public MassaStableEntity MassaStableEmpty { get; } = new();
 	public decimal WeightGross { get; private set; }
-	public decimal WeightNet { get; private set; }
+	private decimal _weightNet;
+
+	public decimal WeightNet
+	{
+		get => _weightNet;
+		set
+		{
+			if (!IsWeightNetFake)
+				_weightNet = value;
+		}
+	}
 	public int ScaleFactor { get; set; } = 1_000;
 	public MassaDeviceEntity MassaDevice { get; private set; }
 	public ResponseParseEntity ResponseParseGet { get; private set; }
 	public ResponseParseEntity ResponseParseScalePar { get; private set; }
 	public ResponseParseEntity ResponseParseSet { get; private set; }
+	public bool IsWeightNetFake { get; set; }
 
 	#endregion
 

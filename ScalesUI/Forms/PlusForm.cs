@@ -385,14 +385,14 @@ public partial class PlusForm : Form
 			for (ushort row = 0; row <= controls.GetUpperBound(1); row++)
 			{
 				ControlPluEntity control = controls[column, row];
-				if (control != null)
+				if (control is not null)
 				{
 					panelPlu.Controls.Add(control.ButtonPlu, column, row);
 				}
 			}
 		}
 
-		if (tableLayoutPanelActions != null)
+		if (tableLayoutPanelActions is not null)
 		{
 			AddRows(panelPlu, 1);
 			tableLayoutPanelActions.Parent = panelPlu;

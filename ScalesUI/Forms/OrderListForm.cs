@@ -124,7 +124,7 @@ namespace ScalesUI.Forms
             //    btn.Click += delegate
             //    {
             //        UserSession.SqlViewModel.Order = OrdList[btn.TabIndex];
-            //        if (UserSession.SqlViewModel.Order != null)
+            //        if (UserSession.SqlViewModel.Order is not null)
             //        {
             //            UserSession.SqlViewModel.Order.LoadTemplate();
             //            UserSession.SetCurrentPlu(UserSession.SqlViewModel.Order.PLU);

@@ -51,8 +51,7 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(CategoryId)}: {CategoryId}. " +
-        $"{nameof(IdRRef)}: {IdRRef}. " +
-        $"{nameof(Title)}: {Title}. " +
+		$"{nameof(Title)}: {Title}. " +
         $"{nameof(ImageData)}: {ImageData}. ";
 
     public override bool Equals(object obj)
