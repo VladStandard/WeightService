@@ -139,8 +139,7 @@ public static class GuiUtils
         /// <param name="hostName"></param>
         /// <param name="appName"></param>
         /// <returns></returns>
-        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogTypeEnum logType,
-            VisibilitySettingsEntity? visibility = null, string hostName = "", string appName = "")
+        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogTypeEnum logType, VisibilitySettingsEntity? visibility = null, string hostName = "", string appName = "")
         {
             if (isLog)
             {

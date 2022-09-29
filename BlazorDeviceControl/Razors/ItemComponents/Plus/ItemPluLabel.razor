@@ -13,6 +13,20 @@
     <RazorItemTableHead TItem=@PluLabelModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
         <RazorItemTableBody TItem=@PluLabelModel ParentRazor=@(this) />
+	    <tr>
+			<td>@LocaleCore.Table.ProductDt</td>
+		    <td>
+			    <RadzenText
+				    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
+				    Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false)) />
+		    </td>
+			<td>@LocaleCore.Table.ExpirationDt</td>
+		    <td>
+			    <RadzenText
+				    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
+				    Text=@(StringUtils.FormatDtRus(SqlItemCast.ExpirationDt, false)) />
+		    </td>
+	    </tr>
         <tr>
 	        <td>@LocaleCore.Table.WeithingDt</td>
 	        <td>
@@ -20,7 +34,7 @@
 		        {
 			        <RadzenText 
 				        TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
-				        Text=@(StringUtils.FormatDtRus(SqlItemCast.PluWeighing.ProductDt, false)) />
+				        Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false)) />
 		        }
 	        </td>
 	        <td>@LocaleCore.Table.TemplateLabelary</td>

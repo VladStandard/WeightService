@@ -278,6 +278,8 @@ public class DataCoreHelper
 			case PluLabelModel pluLabel:
 				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;
 				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
+				pluLabel.ProductDt = DateTime.Now;
+				pluLabel.ExpirationDt = DateTime.Now;
 				break;
 			case PluScaleModel pluScale:
 				pluScale.IsActive = true;
@@ -288,8 +290,6 @@ public class DataCoreHelper
 				pluWeighing.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
 				pluWeighing.NettoWeight = 1.1M;
 				pluWeighing.TareWeight = 0.25M;
-				pluWeighing.ProductDt = DateTime.Now;
-				pluWeighing.ExpirationDt = DateTime.Now;
 				pluWeighing.RegNum = 1;
 				pluWeighing.Kneading = 1;
 				pluWeighing.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);

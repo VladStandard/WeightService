@@ -25,42 +25,9 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
 		{
             () =>
             {
-                //object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
-                //    SqlQueries.DbScales.Tables.Labels.GetLabels(
-                //        IsSelectTopRows ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
-                //Items = new List<LabelQuickModel>().ToList<TableModel>();
-                //foreach (object obj in objects)
-                //{
-                //    if (obj is object[] { Length: 16 } item)
-                //    {
-                //        if (long.TryParse(Convert.ToString(item[0]), out long id))
-                //        {
-                //            Items.Add(new LabelQuickModel()
-                //            {
-                //                Identity.Id = id, // item[1]
-                //                CreateDt = Convert.ToDateTime(item[1]),
-                //                ScaleId = Convert.ToInt64(item[2]),
-                //                ScaleDescription = item[3] is string scaleDescr ? scaleDescr : string.Empty,
-                //                PluId = Convert.ToInt32(item[4]),
-                //                PluNumber = Convert.ToInt32(item[5]),
-                //                PluGoodName = item[6] is string goodName ? goodName : string.Empty,
-                //                WeithingDate = Convert.ToDateTime(item[7]),
-                //                NetWeight = Convert.ToDecimal(item[8]),
-                //                TareWeight = Convert.ToDecimal(item[9]),
-                //                ProductDate = Convert.ToDateTime(item[10]),
-                //                RegNum = Convert.ToInt32(item[11]),
-                //                Kneading = Convert.ToInt32(item[12]),
-                //                Zpl = item[13] is string zpl ? zpl : string.Empty,
-                //                TemplateId = Convert.ToInt64(item[14]),
-                //                TemplateName = item[15] is string template ? template : string.Empty,
-                //            });
-                //        }
-                //    }
-                //}
-                
                 SqlItemsCast = AppSettings.DataAccess.GetListPluLabels(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
-				ButtonSettings = new(false, true, true, true, false, false, false);
+				ButtonSettings = new(false, true, false, true, false, false, false);
             }
 		});
 	}

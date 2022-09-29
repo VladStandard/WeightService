@@ -75,7 +75,7 @@
 //        {
 //            _work = true;
 //            DeviceSocket = deviceSocket;
-//            if (_sharingSessionThread == null)
+//            if (_sharingSessionThread is null)
 //            {
 //                _sharingSessionThread = new Thread(SharingSession) { IsBackground = true };
 //            }
@@ -110,7 +110,7 @@
 //                        //var state = EnumControlState.Up;
 //                        response = DeviceSocket.SharingSession(request.BuildCmd());
 //                        Ask ask = AskFactory.GetAsk(response);
-//                        if (ask == null)
+//                        if (ask is null)
 //                        {
 //                            //state = EnumControlState.Down;
 //                            _log.Error("Нет ответа");
@@ -444,7 +444,7 @@
 //        /// <returns></returns>
 //        public static bool IsValidData(byte[] data)
 //        {
-//            if (data == null || data.Length < 5)
+//            if (data is null || data.Length < 5)
 //                return false;
 
 //            var header0 = data[0];

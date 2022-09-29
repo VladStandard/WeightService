@@ -15,7 +15,7 @@ public static class SerialPortsUtils
     {
         try
         {
-            if (scale == null)
+            if (scale is null)
                 throw new ArgumentNullException(nameof(scale));
 
             // Текущий порт из настроек.

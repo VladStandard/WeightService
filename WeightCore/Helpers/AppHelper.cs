@@ -49,13 +49,13 @@ public sealed class AppHelper : BaseViewModel
 
 	public string GetCurrentVersion(AppVerCountDigitsEnum countDigits, List<AppVerStringFormatEnum> stringFormats = null, Version version = null)
 	{
-		if (version == null)
+		if (version is null)
 			version = Assembly.GetExecutingAssembly().GetName().Version;
 		string version1;
 		string version2;
 		string version3;
 		string version4;
-		if (stringFormats == null || stringFormats.Count == 0)
+		if (stringFormats is null || stringFormats.Count == 0)
 			stringFormats = new List<AppVerStringFormatEnum>() { AppVerStringFormatEnum.Use1, AppVerStringFormatEnum.Use2, AppVerStringFormatEnum.Use2 };
 
 		AppVerStringFormatEnum formatMajor = stringFormats[0];

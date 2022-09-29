@@ -16,25 +16,43 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	[XmlElement(IsNullable = true)] public virtual PluWeighingModel? PluWeighing { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
+    [XmlElement] public virtual DateTime ProductDt { get; set; }
+    [XmlIgnore] public string ProductDtRus
+	{
+		get => $"{ProductDt:dd.MM.yyyy}";
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlElement]
+    public virtual DateTime ExpirationDt
+    {
+	    get => PluWeighing is null ? DateTime.MinValue : ProductDt.AddDays(PluWeighing.PluScale.Plu.ShelfLifeDays);
+	    // This code need for print labels.
+	    set => _ = value;
+    }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 	    PluWeighing = null;
 	    Zpl = string.Empty;
+	    ProductDt = DateTime.MinValue;
+	    ExpirationDt = DateTime.MinValue;
     }
 
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected PluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	protected PluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluWeighing = (PluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
         Zpl = info.GetString(nameof(Zpl));
+        ProductDt = info.GetDateTime(nameof(ProductDt));
+        ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
     }
 
 	#endregion
@@ -60,10 +78,12 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    if (PluWeighing is not null && !PluWeighing.EqualsDefault())
 		    return false;
-        return
-            base.EqualsDefault() &&
-            Equals(Zpl, string.Empty);
-    }
+	    return
+		    base.EqualsDefault() &&
+		    Equals(Zpl, string.Empty) &&
+		    Equals(ProductDt, DateTime.MinValue);
+            //Equals(ExpirationDt, DateTime.MinValue) &&
+	}
 
 	public override object Clone()
     {
@@ -71,6 +91,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
         item.Zpl = Zpl;
+        item.ProductDt = ProductDt;
+        item.ExpirationDt = ExpirationDt;
         item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -80,9 +102,11 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         base.GetObjectData(info, context);
         info.AddValue(nameof(PluWeighing), PluWeighing);
         info.AddValue(nameof(Zpl), Zpl);
+        info.AddValue(nameof(ProductDt), ProductDt);
+        info.AddValue(nameof(ExpirationDt), ExpirationDt);
     }
 
-    public override void ClearNullProperties()
+	public override void ClearNullProperties()
     {
 	    if (PluWeighing is not null && PluWeighing.Identity.EqualsDefault())
 		    PluWeighing = null;
@@ -93,6 +117,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    base.FillProperties();
 		Zpl = LocaleCore.Sql.SqlItemFieldZpl;
 		//PluWeighing = new();
+		ProductDt = DateTime.Now;
+		//ExpirationDt = DateTime.Now;
 	}
 
 	#endregion
@@ -107,7 +133,9 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		return
 			base.Equals(item) &&
 			Equals(PluWeighing, item.PluWeighing) &&
-			Equals(Zpl, item.Zpl);
+			Equals(Zpl, item.Zpl) &&
+			Equals(ProductDt, item.ProductDt) &&
+			Equals(ExpirationDt, item.ExpirationDt);
 	}
 
 	public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();

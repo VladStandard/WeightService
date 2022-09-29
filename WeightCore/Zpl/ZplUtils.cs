@@ -49,7 +49,7 @@ public static class ZplUtils
 		result = result.Replace(nameof(PluWeighingModel), "WeighingFactEntity");
 		//result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
 		//result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
-		result = result.Replace(nameof(PluLabelModel), "ZplLabelEntity");
+		//result = result.Replace(nameof(PluLabelModel), "PluLabelModel");
 		// TableScaleModels.
 		result = result.Replace(nameof(PrinterModel), "PrinterEntity");
 		result = result.Replace(nameof(ScaleModel), "ScaleEntity");

@@ -14,20 +14,6 @@
 	<tbody>
 		<RazorItemTableBody TItem=@PluWeighingModel ParentRazor=@(this) />
 		<tr>
-			<td>@LocaleCore.Table.ChangeDt</td>
-			<td>
-				<RadzenText
-					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
-					Text=@(StringUtils.FormatDtRus(SqlItemCast.ChangeDt, false)) />
-			</td>
-			<td>@LocaleCore.Table.ProductDate</td>
-			<td>
-				<RadzenText
-					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
-					Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false)) />
-			</td>
-		</tr>
-		<tr>
 			<td>@LocaleCore.Table.Scale</td>
 			<td>
 				<RadzenTextBox 

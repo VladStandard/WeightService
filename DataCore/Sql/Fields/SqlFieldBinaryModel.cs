@@ -22,7 +22,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerial
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
-    [XmlIgnore] public virtual string Info { get => DataUtils.GetBytesLength(Value); set => _ = value; }
+    [XmlIgnore] public virtual string Info { get => DataUtils.GetBytesLength(Value, true); set => _ = value; }
 
     /// <summary>
     /// Constructor.

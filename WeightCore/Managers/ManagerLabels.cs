@@ -152,7 +152,7 @@ public class ManagerLabels : ManagerBase
 
 	private void RequestPlu()
 	{
-		if (UserSessionHelper.Instance.PluScale == null)
+		if (UserSessionHelper.Instance.PluScale is null)
 		{
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
 		}

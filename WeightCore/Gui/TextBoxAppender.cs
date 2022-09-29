@@ -14,7 +14,7 @@
 //        public TextBoxAppender(TextBox textBox)
 //        {
 //            Form frm = textBox.FindForm();
-//            if (frm == null)
+//            if (frm is null)
 //                return;
 
 //            frm.FormClosing += delegate { Close(); };
@@ -56,7 +56,7 @@
 //            {
 //                try
 //                {
-//                    if (TextBox == null)
+//                    if (TextBox is null)
 //                        return;
 
 //                    if (loggingEvent.LoggerName.Contains("NHibernate"))
@@ -64,7 +64,7 @@
 
 //                    string msg = string.Concat(loggingEvent.RenderedMessage, "\r\n");
 
-//                        if (TextBox == null)
+//                        if (TextBox is null)
 //                            return;
 
 //                        Action<string> del = new(s => TextBox.AppendText(s));

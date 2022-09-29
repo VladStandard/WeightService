@@ -27,7 +27,7 @@ public class ResponseParseEntity
 	{
 		get
 		{
-			if (Body == null || Body.Length < 6)
+			if (Body is null || Body.Length < 6)
 				return 0x00;
 			switch (CmdType)
 			{

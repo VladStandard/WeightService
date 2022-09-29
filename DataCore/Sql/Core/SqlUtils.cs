@@ -43,6 +43,10 @@ public static partial class SqlUtils
         bool isShowMarked, bool isShowOnlyTop) =>
         GetCrudConfig(filters, new List<SqlFieldOrderModel> { order }, maxResults, isShowMarked, isShowOnlyTop);
 
+    public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel> filters, int maxResults,
+        bool isShowMarked, bool isShowOnlyTop) =>
+        GetCrudConfig(filters, new List<SqlFieldOrderModel>(), maxResults, isShowMarked, isShowOnlyTop);
+
     public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders, 
         int maxResults, bool isShowMarked, bool isShowOnlyTop)
     {

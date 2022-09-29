@@ -92,7 +92,7 @@ public class XmlHelper
 		{
 			foreach (XmlTag element in elements)
 			{
-				if (elementCur == null)
+				if (elementCur is null)
 					elementCur = element;
 				else
 					elementsTrim.Add(element);

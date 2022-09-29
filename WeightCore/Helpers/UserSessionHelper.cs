@@ -100,7 +100,7 @@ public class UserSessionHelper : BaseViewModel
     {
         ManagerControl.PrintMain.LabelsCount = 1;
         ProductSeries.Load();
-        //if (Manager == null || Manager.Print == null)
+        //if (Manager is null || Manager.Print is null)
         //    return;
         //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
     }
@@ -142,7 +142,7 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckPluIsEmpty(IWin32Window owner)
     {
-        if (PluScale == null)
+        if (PluScale is null)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
                 true, LogTypeEnum.Warning,
@@ -160,7 +160,7 @@ public class UserSessionHelper : BaseViewModel
     /// <returns></returns>
     public bool CheckWeightMassaDeviceExists(IWin32Window owner)
     {
-        if (ManagerControl == null || ManagerControl.Massa == null)
+        if (ManagerControl is null || ManagerControl.Massa is null)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
                 true, LogTypeEnum.Warning,
@@ -240,13 +240,13 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!IsPluCheckWeight)
             return true;
-        decimal weight = ManagerControl.Massa.WeightNet - (PluScale == null ? 0 : PluScale.Plu.TareWeight);
+        decimal weight = ManagerControl.Massa.WeightNet - (PluScale is null ? 0 : PluScale.Plu.TareWeight);
         if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
         {
             GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
                 true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
         }
         return true;
@@ -261,13 +261,13 @@ public class UserSessionHelper : BaseViewModel
     {
         if (!IsPluCheckWeight)
             return true;
-        decimal weight = ManagerControl.Massa.WeightNet - (PluScale == null ? 0 : PluScale.Plu.TareWeight);
+        decimal weight = ManagerControl.Massa.WeightNet - (PluScale is null ? 0 : PluScale.Plu.TareWeight);
         if (weight > LocaleCore.Scales.MassaThresholdValue)
         {
             DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
                 true, LogTypeEnum.Warning,
                 new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return result == DialogResult.Cancel;
         }
         return true;
@@ -294,12 +294,12 @@ public class UserSessionHelper : BaseViewModel
         {
             if (PluWeighing is not null)
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    PluWeighing.NettoWeight, PluScale == null ? 0 : PluScale.Plu.UpperThreshold,
-                    PluScale == null ? 0 : PluScale.Plu.NominalWeight,
-                    PluScale == null ? 0 : PluScale.Plu.LowerThreshold),
+                    PluWeighing.NettoWeight, PluScale is null ? 0 : PluScale.Plu.UpperThreshold,
+                    PluScale is null ? 0 : PluScale.Plu.NominalWeight,
+                    PluScale is null ? 0 : PluScale.Plu.LowerThreshold),
                     true, LogTypeEnum.Warning,
                     new() { ButtonCancelVisibility = Visibility.Visible },
-                    SqlViewModel.Scale.Host == null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+                    SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
             return false;
         }
         return true;
@@ -359,7 +359,8 @@ public class UserSessionHelper : BaseViewModel
         {
             PluWeighing = pluWeighing,
             Zpl = printCmd,
-        };
+            ProductDt = SqlViewModel.ProductDate,
+		};
         DataAccess.Save(pluLabel);
     }
 
@@ -436,13 +437,12 @@ public class UserSessionHelper : BaseViewModel
     /// </summary>
     public void SetWeighingFact()
     {
-        if (PluScale == null)
+        if (PluScale is null)
             return;
 
         PluWeighing = new()
         {
 	        PluScale = PluScale,
-	        ProductDt = SqlViewModel.ProductDate,
 	        Kneading = WeighingSettings.Kneading,
 	        NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight,
 	        TareWeight = PluScale.Plu.TareWeight
@@ -458,7 +458,7 @@ public class UserSessionHelper : BaseViewModel
     {
         try
         {
-            if (PluWeighing == null)
+            if (PluWeighing is null)
                 return;
 
             DataAccess.Save(PluWeighing);
@@ -476,7 +476,7 @@ public class UserSessionHelper : BaseViewModel
             printCmd = Zpl.ZplUtils.PrintCmdReplaceZplResources(printCmd);
             // DB save ZPL query to Labels.
             PrintSaveLabel(printCmd, PluWeighing);
-            //if (ManagerControl == null || ManagerControl.PrintMain == null)
+            //if (ManagerControl is null || ManagerControl.PrintMain is null)
             //    return;
 
             // Print.
@@ -486,7 +486,21 @@ public class UserSessionHelper : BaseViewModel
                 if (SqlViewModel.Scale.IsShipping)
                     ManagerControl.PrintShipping.ClearPrintBuffer();
             }
-            ManagerControl.PrintMain.SendCmd(printCmd);
+
+			// Debug check.
+			if (Debug.IsDebug)
+			{
+				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(null, LocaleCore.Print.QuestionPrintSendCmd,
+					true, LogTypeEnum.Question,
+					new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+					SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName,
+					nameof(WeightCore));
+				if (dialogResult != DialogResult.Yes)
+					return;
+			}
+
+			// Send cmd to the print.
+			ManagerControl.PrintMain.SendCmd(printCmd);
         }
         catch (Exception ex)
         {

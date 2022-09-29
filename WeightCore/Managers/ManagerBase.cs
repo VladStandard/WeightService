@@ -71,7 +71,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	private void OpenTaskBase(Task task, CancellationTokenSource cts)
 	{
 		CheckIsDisposed();
-		if (task == null) return;
+		if (task is null) return;
 
 		cts?.Cancel();
 		task.Wait(WaitConfig.WaitClose);
@@ -171,9 +171,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 			while (IsOpen)
 			{
 				ReopenCount++;
-				if (MutexReopen == null)
+				if (MutexReopen is null)
 					MutexReopen = new AsyncLock();
-				if (CtsReopen == null)
+				if (CtsReopen is null)
 					CtsReopen = new CancellationTokenSource();
 				try
 				{
@@ -183,7 +183,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 					{
 						WaitConfig.WaitSync(WaitConfig.StopwatchReopen, WaitConfig.WaitReopen);
 
-						if (CtsReopen == null || CtsReopen.IsCancellationRequested)
+						if (CtsReopen is null || CtsReopen.IsCancellationRequested)
 							continue;
 						// It's safe to await while the lock is held
 						if (callback is not null)
@@ -227,7 +227,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//                // AsyncLock can be locked asynchronously
 	//                using (await MutexRequest.LockAsync(CtsRequest.Token))
 	//                {
-	//                    if (CtsRequest == null || CtsRequest.IsCancellationRequested)
+	//                    if (CtsRequest is null || CtsRequest.IsCancellationRequested)
 	//                        break;
 	//                    // It's safe to await while the lock is held
 	//                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
@@ -301,9 +301,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 			while (IsOpen)
 			{
 				RequestCount++;
-				if (MutexRequest == null)
+				if (MutexRequest is null)
 					MutexRequest = new AsyncLock();
-				if (CtsRequest == null)
+				if (CtsRequest is null)
 					CtsRequest = new CancellationTokenSource();
 				try
 				{
@@ -313,7 +313,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 					{
 						WaitConfig.WaitSync(WaitConfig.StopwatchRequest, WaitConfig.WaitRequest);
 
-						if (CtsRequest == null || CtsRequest.IsCancellationRequested)
+						if (CtsRequest is null || CtsRequest.IsCancellationRequested)
 							continue;
 						// It's safe to await while the lock is held
 						if (callback is not null)
@@ -357,7 +357,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 	//                // AsyncLock can be locked asynchronously
 	//                using (await MutexResponse.LockAsync(CtsResponse.Token))
 	//                {
-	//                    if (CtsResponse == null || CtsResponse.IsCancellationRequested)
+	//                    if (CtsResponse is null || CtsResponse.IsCancellationRequested)
 	//                        break;
 	//                    // It's safe to await while the lock is held
 	//                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
@@ -431,9 +431,9 @@ public class ManagerBase : DisposableBase, IDisposableBase
 			while (IsOpen)
 			{
 				ResponseCount++;
-				if (MutexResponse == null)
+				if (MutexResponse is null)
 					MutexResponse = new AsyncLock();
-				if (CtsResponse == null)
+				if (CtsResponse is null)
 					CtsResponse = new CancellationTokenSource();
 				try
 				{
@@ -443,7 +443,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 					{
 						WaitConfig.WaitSync(WaitConfig.StopwatchResponse, WaitConfig.WaitResponse);
 
-						if (CtsResponse == null || CtsResponse.IsCancellationRequested)
+						if (CtsResponse is null || CtsResponse.IsCancellationRequested)
 							continue;
 						// It's safe to await while the lock is held
 						if (callback is not null)

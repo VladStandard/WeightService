@@ -20,13 +20,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     [XmlElement] public virtual string Sscc { get; set; }
     [XmlElement] public virtual decimal NettoWeight { get; set; }
     [XmlElement] public virtual decimal TareWeight { get; set; }
-    [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlElement] public virtual DateTime ExpirationDt
-    {
-        get => ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
-        // This code need for print labels.
-        set => _ = value;
-    }
     [XmlElement] public virtual int RegNum { get; set; }
 
     /// <summary>
@@ -40,8 +33,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	    Sscc = string.Empty;
 	    NettoWeight = 0;
 	    TareWeight = 0;
-	    ProductDt = DateTime.MinValue;
-	    ExpirationDt = DateTime.MinValue;
 	    RegNum = 0;
     }
 
@@ -58,8 +49,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 		Sscc = info.GetString(nameof(Sscc));
         NettoWeight = info.GetDecimal(nameof(NettoWeight));
         TareWeight = info.GetDecimal(nameof(TareWeight));
-        ProductDt = info.GetDateTime(nameof(ProductDt));
-        ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
 		RegNum = info.GetInt32(nameof(RegNum));
     }
 
@@ -96,8 +85,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
             Equals(Sscc, string.Empty) &&
             Equals(NettoWeight, default(decimal)) &&
             Equals(TareWeight, default(decimal)) &&
-            Equals(ProductDt, DateTime.MinValue) &&
-            //Equals(ExpirationDt, DateTime.MinValue) &&
             Equals(RegNum, default(int));
     }
 
@@ -110,8 +97,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         item.Sscc = Sscc;
         item.NettoWeight = NettoWeight;
         item.TareWeight = TareWeight;
-        item.ProductDt = ProductDt;
-        item.ExpirationDt = ExpirationDt;
         item.RegNum = RegNum;
         item.CloneSetup(base.CloneCast());
 		return item;
@@ -126,8 +111,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         info.AddValue(nameof(Sscc), Sscc);
         info.AddValue(nameof(NettoWeight), NettoWeight);
         info.AddValue(nameof(TareWeight), TareWeight);
-        info.AddValue(nameof(ProductDt), ProductDt);
-        info.AddValue(nameof(ExpirationDt), ExpirationDt);
         info.AddValue(nameof(RegNum), RegNum);
     }
     
@@ -143,8 +126,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 		Sscc = LocaleCore.Sql.SqlItemFieldSscc;
 		NettoWeight = 1.1M;
 		TareWeight = 0.25M;
-		ProductDt = DateTime.Now;
-		//ExpirationDt = DateTime.Now;
 		RegNum = 1;
 		Kneading = 1;
 		//PluScale = new();
@@ -169,8 +150,6 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 			Equals(Sscc, item.Sscc) &&
 			Equals(NettoWeight, item.NettoWeight) &&
 			Equals(TareWeight, item.TareWeight) &&
-			Equals(ProductDt, item.ProductDt) &&
-			Equals(ExpirationDt, item.ExpirationDt) &&
 			Equals(RegNum, item.RegNum);
 	}
 

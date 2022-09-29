@@ -38,14 +38,6 @@ public class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
 			.NotEmpty()
 			.NotNull()
 			.NotEqual(0);
-		RuleFor(item => item.ProductDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
-		RuleFor(item => item.ExpirationDt)
-			.NotEmpty()
-			.NotNull()
-			.GreaterThanOrEqualTo(item => item.ProductDt);
 		//RuleFor(item => item.RegNum)
 		//	.NotEmpty()
 		//	.NotNull()

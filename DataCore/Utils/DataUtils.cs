@@ -26,18 +26,26 @@ public class DataUtils
         return result;
     }
 
-    public static string GetBytesLength(byte[]? value)
+    public static string GetBytesLength(byte[]? value, bool isShowLabel)
     {
         if (value == null)
-            return $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}";
+            return isShowLabel 
+					? $"{LocaleCore.Strings.DataSizeVolume}: 0 {LocaleCore.Strings.DataSizeBytes}"
+		            : $"0 {LocaleCore.Strings.DataSizeBytes}";
         if (Encoding.Default.GetString(value).Length > 1024 * 1024)
-            return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
+            return isShowLabel 
+				? $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}"
+				: $"{(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {LocaleCore.Strings.DataSizeMBytes}";
         if (Encoding.Default.GetString(value).Length > 1024)
-            return $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
-        return $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
+            return isShowLabel
+				? $"{LocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}"
+				: $"{(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {LocaleCore.Strings.DataSizeKBytes}";
+        return isShowLabel 
+	        ? $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}"
+	        : $"{Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
     }
 
-    public static string GetBytesLength(string value)
+    public static string GetBytesLength(string value, bool isShowLabel)
     {
         List<byte> listBytes = new();
         foreach (char ch in value.ToArray())
@@ -45,7 +53,7 @@ public class DataUtils
             listBytes.Add((byte)ch);
         }
         byte[] bytes = listBytes.ToArray();
-        return GetBytesLength(bytes);
+        return GetBytesLength(bytes, isShowLabel);
     }
 
     public static object? GetDefaultValue(Type t)

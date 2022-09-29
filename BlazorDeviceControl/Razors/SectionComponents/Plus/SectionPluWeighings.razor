@@ -17,21 +17,14 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PluWeighingModel ParentRazor=@(this) />
-		<RadzenGridColumn TItem=@PluWeighingModel Width="14%" Title=@LocaleCore.Table.WeithingDt TextAlign=@TextAlign.Center >
+        <RadzenGridColumn TItem=@PluWeighingModel Width="12%" Title=@LocaleCore.Table.ChangeDt TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast">
 		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.Identity.Uid}")
-					Text=@(StringUtils.FormatDtRus(itemCast.ProductDt, false)) />
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.Identity.Uid}") 
+			        Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
 	        </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem=@PluWeighingModel Width="10%" Title=@LocaleCore.Table.DayOfWeek TextAlign=@TextAlign.Center >
-            <Template Context="itemCast" >
-	            <RadzenText 
-		            TextStyle=@TextStyle.Body2
-		            Text=@EnumUtils.GetDayOfWeekRu(itemCast.ProductDt.DayOfWeek) />
-            </Template>
-        </RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluWeighingModel Width="20%" Title=@LocaleCore.Table.Scale TextAlign=@TextAlign.Left >
+		<RadzenGridColumn TItem=@PluWeighingModel Width="22%" Title=@LocaleCore.Table.Scale TextAlign=@TextAlign.Left >
 			<Template Context="itemCast">
 				<RadzenLink
 					Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.PluScale.Scale.Identity.Id}")

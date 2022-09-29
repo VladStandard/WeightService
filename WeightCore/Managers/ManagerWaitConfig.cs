@@ -61,7 +61,7 @@ public class ManagerWaitConfig
 
 	public void WaitSync(Stopwatch stopwatch, ushort wait)
 	{
-		if (stopwatch == null)
+		if (stopwatch is null)
 			return;
 
 		stopwatch.Restart();

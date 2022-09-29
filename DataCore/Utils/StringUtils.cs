@@ -5,86 +5,83 @@ namespace DataCore.Utils;
 
 public static class StringUtils
 {
-    public static string FormatDtRus(DateTime dt, bool useSeconds)
+    public static string FormatDtRus(DateTime dt, bool isShowSeconds) =>
+	    isShowSeconds
+		    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
+		    : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}";
+
+    public static string FormatDtRus(DateTime dt, bool isShowSeconds, bool isShowHours) =>
+	    isShowSeconds
+		    ? isShowHours 
+			    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
+				: $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4}"
+		    : isShowHours
+				? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}"
+				: $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4}";
+
+    public static string FormatDtEng(DateTime dt, bool isShowSeconds) =>
+	    isShowSeconds
+		    ? $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
+		    : $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}";
+
+    public static string FormatCurDtRus(bool isShowSeconds)
     {
-        return useSeconds
+        DateTime dt = DateTime.Now;
+        return isShowSeconds
             ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
             : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}";
     }
 
-    public static string FormatDtEng(DateTime dt, bool useSeconds)
+    public static string FormatCurDtEng(bool isShowSeconds)
     {
-        return useSeconds
+        DateTime dt = DateTime.Now;
+        return isShowSeconds
             ? $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
             : $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}";
     }
 
-    public static string FormatCurDtRus(bool useSeconds)
+    public static string FormatCurTimeRus(bool isShowSeconds)
     {
         DateTime dt = DateTime.Now;
-        return useSeconds
-            ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
-            : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}";
-    }
-
-    public static string FormatCurDtEng(bool useSeconds)
-    {
-        DateTime dt = DateTime.Now;
-        return useSeconds
-            ? $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
-            : $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}";
-    }
-
-    public static string FormatCurTimeRus(bool useSeconds)
-    {
-        DateTime dt = DateTime.Now;
-        return useSeconds
+        return isShowSeconds
             ? $"{dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
             : $"{dt.Hour:D2}:{dt.Minute:D2}";
     }
 
-    public static string FormatCurTimeEng(bool useSeconds)
+    public static string FormatCurTimeEng(bool isShowSeconds)
     {
         DateTime dt = DateTime.Now;
-        return useSeconds
+        return isShowSeconds
             ? $"{dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
             : $"{dt.Hour:D2}:{dt.Minute:D2}";
     }
 
-    public static char GetProgressChar(char ch)
-    {
-        return ch switch
-        {
-            '*' => '/',
-            '/' => '|',
-            '|' => '\\',
-            '\\' => '-',
-            '-' => '/',
-            _ => '*',
-        };
-    }
+    public static char GetProgressChar(char ch) =>
+	    ch switch
+	    {
+		    '*' => '/',
+		    '/' => '|',
+		    '|' => '\\',
+		    '\\' => '-',
+		    '-' => '/',
+		    _ => '*',
+	    };
 
-    public static string GetProgressString(string s)
-    {
-        return s switch
-        {
-            "" => ".",
-            "." => "..",
-            ".." => "...",
-            "..." => "",
-            _ => "",
-        };
-    }
+    public static string GetProgressString(string s) =>
+	    s switch
+	    {
+		    "" => ".",
+		    "." => "..",
+		    ".." => "...",
+		    "..." => "",
+		    _ => "",
+	    };
 
-    public static string GetStringValueTrim(string value, int length)
-    {
-        return value.Length > length ? value[..length] : value;
-    }
+    public static string GetStringValueTrim(string value, int length) => 
+	    value.Length > length ? value[..length] : value;
 
-    public static string? GetStringNullValueTrim(string? value, int length)
-    {
-        return value is not null && value.Length > length ? value[..length] : value;
-    }
+    public static string? GetStringNullValueTrim(string? value, int length) => 
+	    value is not null && value.Length > length ? value[..length] : value;
 
     public static void SetStringValueTrim(ref string value, int length, bool isGetFileName = false)
     {

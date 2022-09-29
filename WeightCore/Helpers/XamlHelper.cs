@@ -95,7 +95,7 @@ public class XamlHelper
 	/// <param name="description"></param>
 	public void Print(Canvas canvas, string description)
 	{
-		if (canvas == null)
+		if (canvas is null)
 		{
 			MessageBox.Show("Не заполнена область печати!");
 			return;

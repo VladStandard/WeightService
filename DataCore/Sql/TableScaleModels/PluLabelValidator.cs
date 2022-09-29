@@ -19,9 +19,17 @@ public class PluLabelValidator : SqlTableValidator<PluLabelModel>
 		RuleFor(item => item.Zpl)
 			.NotEmpty()
 			.NotNull();
+		RuleFor(item => item.ProductDt)
+			.NotEmpty()
+			.NotNull()
+			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
+		RuleFor(item => item.ExpirationDt)
+			.NotEmpty()
+			.NotNull()
+			.GreaterThanOrEqualTo(item => item.ProductDt);
 	}
 
-    protected override bool PreValidate(ValidationContext<PluLabelModel> context, ValidationResult result)
+	protected override bool PreValidate(ValidationContext<PluLabelModel> context, ValidationResult result)
     {
 	    switch (context.InstanceToValidate)
 	    {

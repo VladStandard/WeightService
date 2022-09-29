@@ -128,6 +128,7 @@ public static partial class DataAccessHelperExt
 	public static List<PluLabelModel> GetListPluLabels(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		sqlCrudConfig.Orders.Add(new SqlFieldOrderModel(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
@@ -147,9 +148,10 @@ public static partial class DataAccessHelperExt
 				filters.Add(new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
 		}
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
-			new List<SqlFieldOrderModel> { new (nameof(PluScaleModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);
-		return dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
+		List<PluScaleModel> result = dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.Plu.Number).ToList();
+		return result;
 	}
 
 	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, SqlTableBase? itemFilter, 
@@ -168,6 +170,13 @@ public static partial class DataAccessHelperExt
 			new List<SqlFieldOrderModel> { new (nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<PluPackageModel>(sqlCrudConfig);
+	}
+
+	public static List<PluWeighingModel> GetListPluWeighings(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		sqlCrudConfig.Orders.Add(new SqlFieldOrderModel(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
+		return dataAccess.GetList<PluWeighingModel>(sqlCrudConfig);
 	}
 
 	public static List<PrinterResourceModel> GetListPrinterResources(this DataAccessHelper dataAccess, SqlTableBase? itemFilter,

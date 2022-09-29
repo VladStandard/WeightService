@@ -34,7 +34,7 @@ public class ManagerPrint : ManagerBase
 	public string ZebraPeelerStatus { get; private set; }
 	public TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
 	public WmiWin32PrinterEntity TscWmiPrinter => GetWin32Printer(TscDriver.Properties.PrintName);
-	public ZebraPrinter ZebraDriver { get { if (ZebraConnection is not null && _zebraDriver == null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
+	public ZebraPrinter ZebraDriver { get { if (ZebraConnection is not null && _zebraDriver is null) _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection); return _zebraDriver; } }
 	public ZebraPrinterStatus ZebraStatus { get; private set; }
 	public bool IsPrintBusy { get; set; }
 
@@ -124,11 +124,11 @@ public class ManagerPrint : ManagerBase
 			switch (PrintBrand)
 			{
 				case PrintBrand.Zebra:
-					if (ZebraConnection == null)
+					if (ZebraConnection is null)
 						ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
 					if (!ZebraConnection.Connected)
 						ZebraConnection.Open();
-					if (Printer == null || ZebraDriver == null || ZebraConnection == null || !ZebraConnection.Connected)
+					if (Printer is null || ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
 						ZebraStatus = null;
 					else
 					{
@@ -196,7 +196,7 @@ public class ManagerPrint : ManagerBase
 		switch (PrintBrand)
 		{
 			case PrintBrand.Zebra:
-				if (ZebraStatus == null)
+				if (ZebraStatus is null)
 					return LocaleCore.Print.StatusIsUnavailable;
 				lock (ZebraStatus)
 				{
@@ -234,7 +234,7 @@ public class ManagerPrint : ManagerBase
 		switch (PrintBrand)
 		{
 			case PrintBrand.Zebra:
-				if (ZebraStatus == null)
+				if (ZebraStatus is null)
 					return false;
 				return status == LocaleCore.Print.StatusIsReadyToPrint;
 			case PrintBrand.TSC:
@@ -245,7 +245,7 @@ public class ManagerPrint : ManagerBase
 
 	public string GetZebraPrintMode()
 	{
-		if (ZebraStatus == null)
+		if (ZebraStatus is null)
 			return LocaleCore.Print.ModeUnknown;
 		lock (ZebraStatus)
 		{
@@ -321,11 +321,11 @@ public class ManagerPrint : ManagerBase
 
 	private void SendCmdToZebra(string printCmd)
 	{
-		if (ZebraDriver == null || GetDeviceStatus() != LocaleCore.Print.StatusIsReadyToPrint)
+		if (ZebraDriver is null || GetDeviceStatus() != LocaleCore.Print.StatusIsReadyToPrint)
 			return;
 		try
 		{
-			if (ZebraStatus == null) return;
+			if (ZebraStatus is null) return;
 			lock (ZebraStatus)
 			{
 				if (ZebraStatus.isReadyToPrint)

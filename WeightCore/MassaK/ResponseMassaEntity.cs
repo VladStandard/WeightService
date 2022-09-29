@@ -35,7 +35,7 @@ public class ResponseMassaEntity
 
 	public ResponseMassaEntity(byte[] response)
 	{
-		if (response == null || response.Length < 10)
+		if (response is null || response.Length < 10)
 			return;
 		Weight = BitConverter.ToInt32(response.Skip(6).Take(4).ToArray(), 0);
 		Division = response[10];
