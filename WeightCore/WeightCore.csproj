@@ -434,7 +434,6 @@
     <Compile Include="Gui\XamlPages\PageDevice.xaml.cs">
       <DependentUpon>PageDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Zpl\ZplUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

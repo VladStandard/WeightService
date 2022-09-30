@@ -3,8 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <AssemblyVersion>0.7.225.0</AssemblyVersion>
-    <FileVersion>0.7.225.0</FileVersion>
+    <AssemblyVersion>0.7.230.0</AssemblyVersion>
+    <FileVersion>0.7.230.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
@@ -24,6 +24,9 @@
     <PackageReference Include="System.Management" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="appsettings.Debug.json">
       <DependentUpon>appsettings.json</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -40,7 +43,7 @@
     </None>
   </ItemGroup>
   <PropertyGroup>
-    <Version>0.7.225.0</Version>
+    <Version>0.7.230.0</Version>
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -153,6 +153,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataCore\DataCore.csproj">
+      <Project>{2a3af48b-dc5b-4359-b056-3605631440f5}</Project>
+      <Name>DataCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
       <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
       <Name>MDSoft.BarcodePrintUtils</Name>
