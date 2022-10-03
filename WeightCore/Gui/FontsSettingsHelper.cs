@@ -20,6 +20,7 @@ public class FontsSettingsHelper
     #region Public and private fields and properties
 
     public Font FontButtons { get; private set; }
+    public Font FontButtonsSmall { get; private set; }
     public Font FontMinimum { get; private set; }
     public Font FontLabelsBlack { get; private set; }
     public Font FontLabelsGray { get; private set; }
@@ -67,6 +68,7 @@ public class FontsSettingsHelper
         FontMinimum = new("Microsoft Sans Serif", baseSize, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsGray = new("Microsoft Sans Serif", baseSize + 1.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontButtons = new("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
+        FontButtonsSmall = new("Microsoft Sans Serif", baseSize + 2.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsBlack = new("Microsoft Sans Serif", baseSize + 4.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsTitle = new("Microsoft Sans Serif", baseSize + 7.00f, FontStyle.Regular, GraphicsUnit.Point, 204);
         FontLabelsMaximum = new("Microsoft Sans Serif", baseSize + 16.00f, FontStyle.Bold, GraphicsUnit.Point, 204);

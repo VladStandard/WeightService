@@ -46,7 +46,30 @@ public static partial class SqlUtils
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
-	public static ScaleModel? GetScale(long id)
+	public static ScaleModel GetScaleFromHostNotNull(long hostId)
+	{
+		SqlCrudConfigModel sqlCrudConfig = new(
+            new List<SqlFieldFilterModel>
+            { 
+                new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, hostId), 
+                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+            },
+			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
+		return DataAccess.GetItemNotNull<ScaleModel>(sqlCrudConfig);
+	}
+
+	//public static ScaleModel? GetScale(long id)
+	//{
+	//	SqlCrudConfigModel sqlCrudConfig = new(
+	//		new List<SqlFieldFilterModel>()
+	//		{
+	//			new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id),
+	//			new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+	//		});
+	//	return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
+	//}
+
+	public static ScaleModel GetScaleNotNull(long id)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
             new List<SqlFieldFilterModel>()
@@ -54,7 +77,7 @@ public static partial class SqlUtils
                 new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             });
-		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
+		return DataAccess.GetItemNotNull<ScaleModel>(sqlCrudConfig);
 	}
 
 	public static ScaleModel? GetScale(string description)

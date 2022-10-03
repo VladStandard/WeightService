@@ -72,6 +72,10 @@ public class LocaleTable
     public string FieldModified => Lang == LangEnum.English ? "Modified" : "Изменено";
     public string FieldName => Lang == LangEnum.English ? "Name" : "Наименование";
     public string FieldNull => Lang == LangEnum.English ? "Null" : "Пусто";
+    public string FieldPluIsNotSelected => Lang == LangEnum.English ? "PLU is not selected" : "ПЛУ не выбрана";
+    public string FieldPluMustBeSelected => Lang == LangEnum.English ? "Select the PLU" : "Выберите ПЛУ";
+    public string FieldPackageIsNotSelected => Lang == LangEnum.English ? "Nesting of the PLU is not selected" : "Вложенность ПЛУ не выбрана";
+    public string FieldPackageMustBeSelected => Lang == LangEnum.English ? "Select the Nesting of the PLU" : "Выберите вложенность ПЛУ";
     public string FieldTitle => Lang == LangEnum.English ? "Title" : "Заголовок";
     public string FieldUser => Lang == LangEnum.English ? "User" : "Пользователь";
     public string File => Lang == LangEnum.English ? "File" : "Файл";

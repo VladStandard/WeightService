@@ -355,6 +355,9 @@
     <Compile Include="Gui\ControlPluEntity.cs" />
     <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
+    <Compile Include="Gui\XamlPages\PagePackage.xaml.cs">
+      <DependentUpon>PagePackage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\XamlPages\PagePinCode.xaml.cs">
       <DependentUpon>PagePinCode.xaml</DependentUpon>
     </Compile>
@@ -484,6 +487,10 @@
     <Page Include="Gui\ResourceDictionarySql.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\XamlPages\PagePackage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Gui\XamlPages\PagePinCode.xaml">
       <Generator>MSBuild:Compile</Generator>

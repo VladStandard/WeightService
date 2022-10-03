@@ -29,14 +29,14 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual string ZebraIp { get; set; }
     [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
     [XmlElement] public virtual int Number { get; set; }
-    [XmlIgnore] public virtual string NumberFormat
+    [XmlElement] public virtual string NumberFormat
 	{
 		get => $"{Number:00000}";
 		// This code need for print labels.
 		set => _ = value;
 	}
 	[XmlElement] public virtual int Counter { get; set; }
-    [XmlIgnore] public virtual string CounterFormat
+    [XmlElement] public virtual string CounterFormat
 	{
 	    get => $"{Counter:00000000}";
 	    // This code need for print labels.

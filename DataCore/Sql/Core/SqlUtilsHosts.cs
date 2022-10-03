@@ -27,16 +27,28 @@ public static partial class SqlUtils
 		return result;
 	}
 
-	public static HostModel? GetHost(string hostName)
+	//public static HostModel? GetHost(string hostName)
+	//{
+	//	SqlCrudConfigModel sqlCrudConfig = new(
+	//		new List<SqlFieldFilterModel>()
+	//		{
+	//			new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName),
+	//			new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+	//		},
+	//		new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
+	//	return DataAccess.GetItem<HostModel>(sqlCrudConfig);
+	//}
+
+	public static HostModel GetHostNotNull(string hostName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
-            new List<SqlFieldFilterModel>() 
-            {
-                new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 
-                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-            },
+			new List<SqlFieldFilterModel>()
+			{
+				new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName),
+				new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+			},
 			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
-		return DataAccess.GetItem<HostModel>(sqlCrudConfig);
+		return DataAccess.GetItemNotNull<HostModel>(sqlCrudConfig);
 	}
 
 	public static HostDirect Load(Guid uid) =>

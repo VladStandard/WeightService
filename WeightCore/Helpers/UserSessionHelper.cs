@@ -28,439 +28,442 @@ namespace WeightCore.Helpers;
 
 public class UserSessionHelper : BaseViewModel
 {
-    #region Design pattern "Lazy Singleton"
+	#region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618
-    private static UserSessionHelper _instance;
+	private static UserSessionHelper _instance;
 #pragma warning restore CS8618
-    public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+	public static UserSessionHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-    #endregion
+	#endregion
 
-    #region Public and private fields and properties
+	#region Public and private fields and properties
 
-    private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-    public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-    public DebugHelper Debug { get; } = DebugHelper.Instance;
-    public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
-    public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
-    public ProductSeriesDirect ProductSeries { get; private set; } = new();
-    public PrintBrand PrintBrandMain => SqlViewModel.Scale.PrinterMain is not null &&
-        SqlViewModel.Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-    public PrintBrand PrintBrandShipping => SqlViewModel.Scale.PrinterShipping is not null &&
-        SqlViewModel.Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-    [XmlElement(IsNullable = true)] public PluWeighingModel? PluWeighing { get; private set; }
-    public WeighingSettingsEntity WeighingSettings { get; private set; } = new();
-    public Stopwatch StopwatchMain { get; set; } = new();
-    public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
+	private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	public DebugHelper Debug { get; } = DebugHelper.Instance;
+	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
+	public SqlViewModelHelper SqlViewModel { get; } = SqlViewModelHelper.Instance;
+	public ProductSeriesDirect ProductSeries { get; private set; } = new();
+	public PrintBrand PrintBrandMain => SqlViewModel.Scale.PrinterMain is not null &&
+		SqlViewModel.Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+	public PrintBrand PrintBrandShipping => SqlViewModel.Scale.PrinterShipping is not null &&
+		SqlViewModel.Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+	[XmlElement(IsNullable = true)] public PluWeighingModel? PluWeighing { get; private set; }
+	public WeighingSettingsEntity WeighingSettings { get; private set; } = new();
+	public Stopwatch StopwatchMain { get; set; } = new();
+	public bool IsPluCheckWeight => PluScale is { Plu.IsCheckWeight: true };
 
-    private PluScaleModel? _pluScale;
-    [XmlElement] public PluScaleModel? PluScale
-    {
-        get => _pluScale;
-        private set
-        {
-            _pluScale = value;
-            ManagerControl.PrintMain.LabelsCount = 1;
-            ManagerControl.PrintShipping.LabelsCount = 1;
-        }
-    }
-    private readonly object _locker = new();
+	private PluScaleModel? _pluScale;
+	[XmlElement]
+	public PluScaleModel? PluScale
+	{
+		get => _pluScale;
+		private set
+		{
+			_pluScale = value;
+			ManagerControl.PrintMain.LabelsCount = 1;
+			ManagerControl.PrintShipping.LabelsCount = 1;
+		}
+	}
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public UserSessionHelper()
-    {
-        Setup(-1, "");
-    }
+	[XmlElement] public PluPackageModel? PluPackage { get; private set; }
 
-    #endregion
+	private readonly object _locker = new();
 
-    #region Public and private methods
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public UserSessionHelper()
+	{
+		Setup(-1);
+	}
 
-    public void Setup(long scaleId, string hostName)
-    {
-        lock (_locker)
-        {
-            if (string.IsNullOrEmpty(hostName))
-                hostName = NetUtils.GetLocalHostName(false);
-            HostModel host = SqlUtils.GetHost(hostName);
-            SqlViewModel.Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHost(host.Identity.Id) : SqlUtils.GetScale(scaleId);
+	#endregion
 
-            AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {SqlViewModel.Scale.Description}.";
-            //AppVersion.AppDescription = $"{AppVersion.AppTitle}. ";
-            SqlViewModel.ProductDate = DateTime.Now;
-            // начинается новыя серия, упаковки продукции, новая паллета
-            ProductSeries = new(SqlViewModel.Scale);
-            //ProductSeries.Load();
-            WeighingSettings = new();
-        }
-    }
+	#region Public and private methods
 
-    public void NewPallet()
-    {
-        ManagerControl.PrintMain.LabelsCount = 1;
-        ProductSeries.Load();
-        //if (Manager is null || Manager.Print is null)
-        //    return;
-        //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
-    }
+	public void Setup(long scaleId)
+	{
+		lock (_locker)
+		{
+			string hostName = NetUtils.GetLocalHostName(false);
+			HostModel host = SqlUtils.GetHostNotNull(hostName);
+			SqlViewModel.Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHostNotNull(host.Identity.Id) : SqlUtils.GetScaleNotNull(scaleId);
 
-    public void RotateProductDate(DirectionEnum direction)
-    {
-        switch (direction)
-        {
-            case DirectionEnum.Left:
-                {
-                    SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(-1);
-                    if (SqlViewModel.ProductDate < SqlViewModel.ProductDateMinValue)
-                        SqlViewModel.ProductDate = SqlViewModel.ProductDateMinValue;
-                    break;
-                }
-            case DirectionEnum.Right:
-                {
-                    SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(1);
-                    if (SqlViewModel.ProductDate > SqlViewModel.ProductDateMaxValue)
-                        SqlViewModel.ProductDate = SqlViewModel.ProductDateMaxValue;
-                    break;
-                }
-        }
-    }
+			AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {SqlViewModel.Scale.Description}.";
+			//AppVersion.AppDescription = $"{AppVersion.AppTitle}. ";
+			SqlViewModel.ProductDate = DateTime.Now;
+			// начинается новыя серия, упаковки продукции, новая паллета
+			ProductSeries = new(SqlViewModel.Scale);
+			//ProductSeries.Load();
+			WeighingSettings = new();
+		}
+	}
 
-    public void SetCurrentPlu(PluScaleModel pluScale)
-    {
-        if ((PluScale = pluScale) is not null)
-        {
-            DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.Identity.Id, PluScale.Plu.Number, PluScale.Plu.Name)}",
-                SqlViewModel.Scale.Host?.HostName);
-        }
-    }
+	public void NewPallet()
+	{
+		ManagerControl.PrintMain.LabelsCount = 1;
+		ProductSeries.Load();
+		//if (Manager is null || Manager.Print is null)
+		//    return;
+		//Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
+	}
 
-    /// <summary>
-    /// Check PLU is empty.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckPluIsEmpty(IWin32Window owner)
-    {
-        if (PluScale is null)
-        {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	public void RotateProductDate(DirectionEnum direction)
+	{
+		switch (direction)
+		{
+			case DirectionEnum.Left:
+				{
+					SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(-1);
+					if (SqlViewModel.ProductDate < SqlViewModel.ProductDateMinValue)
+						SqlViewModel.ProductDate = SqlViewModel.ProductDateMinValue;
+					break;
+				}
+			case DirectionEnum.Right:
+				{
+					SqlViewModel.ProductDate = SqlViewModel.ProductDate.AddDays(1);
+					if (SqlViewModel.ProductDate > SqlViewModel.ProductDateMaxValue)
+						SqlViewModel.ProductDate = SqlViewModel.ProductDateMaxValue;
+					break;
+				}
+		}
+	}
 
-    /// <summary>
-    /// Check Massa-K device exists.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckWeightMassaDeviceExists(IWin32Window owner)
-    {
-        if (ManagerControl is null || ManagerControl.Massa is null)
-        {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	public void SetCurrentPlu(PluScaleModel pluScale)
+	{
+		if ((PluScale = pluScale) is not null)
+		{
+			DataAccess.LogInformation($"{LocaleCore.Scales.PluSet(PluScale.Plu.Identity.Id, PluScale.Plu.Number, PluScale.Plu.Name)}",
+				SqlViewModel.Scale.Host?.HostName);
+		}
+	}
 
-    /// <summary>
-    /// Check Massa-K is stable.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckWeightMassaIsStable(IWin32Window owner)
-    {
-        if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
-        {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	/// <summary>
+	/// Check PLU is empty.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckPluIsEmpty(IWin32Window owner)
+	{
+		if (PluScale is null)
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    /// <summary>
-    /// Check printer connection.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckPrintIsConnect(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
-    {
-        if (!managerPrint.Printer.IsPing)
-        {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
-                ? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
-                : LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	/// <summary>
+	/// Check Massa-K device exists.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckWeightMassaDeviceExists(IWin32Window owner)
+	{
+		if (ManagerControl is null || ManagerControl.Massa is null)
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    /// <summary>
-    /// Check printer status on ready.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <param name="managerPrint"></param>
-    /// <param name="isMain"></param>
-    /// <returns></returns>
-    public bool CheckPrintStatusReady(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
-    {
-        if (!managerPrint.CheckDeviceStatus())
-        {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
-                ? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
-                : LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	/// <summary>
+	/// Check Massa-K is stable.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckWeightMassaIsStable(IWin32Window owner)
+	{
+		if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    /// <summary>
-    /// Check weight is negative.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckWeightIsNegative(IWin32Window owner)
-    {
-        if (!IsPluCheckWeight)
-            return true;
-        decimal weight = ManagerControl.Massa.WeightNet - (PluScale is null ? 0 : PluScale.Plu.TareWeight);
-        if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
-        {
-            GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	/// <summary>
+	/// Check printer connection.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckPrintIsConnect(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+	{
+		if (!managerPrint.Printer.IsPing)
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
+				? LocaleCore.Print.DeviceMainIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect
+				: LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    /// <summary>
-    /// Check weight is positive.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckWeightIsPositive(IWin32Window owner)
-    {
-        if (!IsPluCheckWeight)
-            return true;
-        decimal weight = ManagerControl.Massa.WeightNet - (PluScale is null ? 0 : PluScale.Plu.TareWeight);
-        if (weight > LocaleCore.Scales.MassaThresholdValue)
-        {
-            DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-                true, LogTypeEnum.Warning,
-                new() { ButtonCancelVisibility = Visibility.Visible },
-                SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return result == DialogResult.Cancel;
-        }
-        return true;
-    }
+	/// <summary>
+	/// Check printer status on ready.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <param name="managerPrint"></param>
+	/// <param name="isMain"></param>
+	/// <returns></returns>
+	public bool CheckPrintStatusReady(IWin32Window owner, ManagerPrint managerPrint, bool isMain)
+	{
+		if (!managerPrint.CheckDeviceStatus())
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, isMain
+				? LocaleCore.Print.DeviceMainCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus()
+				: LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    /// <summary>
-    /// Check weight thresholds.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <returns></returns>
-    public bool CheckWeightThresholds(IWin32Window owner)
-    {
-        if (!IsPluCheckWeight)
-            return true;
-        bool isCheck = false;
-        if (PluScale?.Plu.NominalWeight > 0)
-        {
-            if (PluWeighing?.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing?.NettoWeight <= PluScale.Plu.UpperThreshold)
-                isCheck = true;
-        }
-        else
-            isCheck = true;
-        if (!isCheck)
-        {
-            if (PluWeighing is not null)
-                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-                    PluWeighing.NettoWeight, PluScale is null ? 0 : PluScale.Plu.UpperThreshold,
-                    PluScale is null ? 0 : PluScale.Plu.NominalWeight,
-                    PluScale is null ? 0 : PluScale.Plu.LowerThreshold),
-                    true, LogTypeEnum.Warning,
-                    new() { ButtonCancelVisibility = Visibility.Visible },
-                    SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
-            return false;
-        }
-        return true;
-    }
+	/// <summary>
+	/// Check weight is negative.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckWeightIsNegative(IWin32Window owner)
+	{
+		if (!IsPluCheckWeight)
+			return true;
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale is null ? 0 : PluScale.Plu.TareWeight);
+		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    public void PrintLabel(bool isClearBuffer)
-    {
-        TemplateModel? template = null;
-        if (SqlViewModel.Scale is { IsOrder: true })
-        {
-            throw new Exception("Order under construct!");
-            //template = SqlViewModel.Order.Template;
-            //SqlViewModel.Order.FactBoxCount = SqlViewModel.Order.FactBoxCount >= 100 ? 1 : SqlViewModel.Order.FactBoxCount + 1;
-        }
-        else if (SqlViewModel.Scale.IsOrder != true)
-        {
-            //template = PluScale?.LoadTemplate();
-            if (PluScale is not null)
-            {
-	            SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id), 0, false,false);
-                template = DataAccess.GetItem<TemplateModel>(sqlCrudConfig);
-            }
-        }
+	/// <summary>
+	/// Check weight is positive.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckWeightIsPositive(IWin32Window owner)
+	{
+		if (!IsPluCheckWeight)
+			return true;
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale is null ? 0 : PluScale.Plu.TareWeight);
+		if (weight > LocaleCore.Scales.MassaThresholdValue)
+		{
+			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return result == DialogResult.Cancel;
+		}
+		return true;
+	}
 
-        // Template exist.
-        if (template is not null)
-        {
-            switch (IsPluCheckWeight)
-            {
-                case true:
-                    PrintLabelCore(template, isClearBuffer);
-                    break;
-                default:
-                    PrintLabelCount(template, isClearBuffer);
-                    break;
-            }
-        }
-        PluWeighing = null;
-        SetNewScaleCounter();
-    }
+	/// <summary>
+	/// Check weight thresholds.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckWeightThresholds(IWin32Window owner)
+	{
+		if (!IsPluCheckWeight)
+			return true;
+		bool isCheck = false;
+		if (PluScale?.Plu.NominalWeight > 0)
+		{
+			if (PluWeighing?.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing?.NettoWeight <= PluScale.Plu.UpperThreshold)
+				isCheck = true;
+		}
+		else
+			isCheck = true;
+		if (!isCheck)
+		{
+			if (PluWeighing is not null)
+				GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
+					PluWeighing.NettoWeight, PluScale is null ? 0 : PluScale.Plu.UpperThreshold,
+					PluScale is null ? 0 : PluScale.Plu.NominalWeight,
+					PluScale is null ? 0 : PluScale.Plu.LowerThreshold),
+					true, LogTypeEnum.Warning,
+					new() { ButtonCancelVisibility = Visibility.Visible },
+					SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
 
-    private void SetNewScaleCounter()
-    {
-        SqlViewModel.Scale.Counter++;
-        DataAccess.Update(SqlViewModel.Scale);
-    }
+	public void PrintLabel(bool isClearBuffer)
+	{
+		TemplateModel? template = null;
+		if (SqlViewModel.Scale is { IsOrder: true })
+		{
+			throw new Exception("Order under construct!");
+			//template = SqlViewModel.Order.Template;
+			//SqlViewModel.Order.FactBoxCount = SqlViewModel.Order.FactBoxCount >= 100 ? 1 : SqlViewModel.Order.FactBoxCount + 1;
+		}
+		else if (SqlViewModel.Scale.IsOrder != true)
+		{
+			//template = PluScale?.LoadTemplate();
+			if (PluScale is not null)
+			{
+				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+					new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id), 0, false, false);
+				template = DataAccess.GetItem<TemplateModel>(sqlCrudConfig);
+			}
+		}
 
-    /// <summary>
-    /// Save item.
-    /// </summary>
-    /// <param name="pluLabel"></param>
-    /// <param name="printCmd"></param>
-    private void PrintSaveLabel(PluLabelModel pluLabel, string printCmd)
-    {
-        pluLabel.Zpl = printCmd;
-        DataAccess.Save(pluLabel);
-    }
+		// Template exist.
+		if (template is not null)
+		{
+			switch (IsPluCheckWeight)
+			{
+				case true:
+					PrintLabelCore(template, isClearBuffer);
+					break;
+				default:
+					PrintLabelCount(template, isClearBuffer);
+					break;
+			}
+		}
+		PluWeighing = null;
+		SetNewScaleCounter();
+	}
 
-    /// <summary>
-    /// Count label printing.
-    /// </summary>
-    /// <param name="template"></param>
-    /// <param name="isClearBuffer"></param>
-    private void PrintLabelCount(TemplateModel template, bool isClearBuffer)
-    {
-        //// Указан номинальный вес.
-        //bool isCheck = false;
-        //if (CurrentPlu.NominalWeight > 0)
-        //{
-        //    if (Manager?.Massa is not null)
-        //        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
-        //    else
-        //        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsTareWeight;
-        //    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
-        //        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
-        //    {
-        //        isCheck = true;
-        //    }
-        //}
-        //else
-        //    isCheck = true;
-        //if (!isCheck)
-        //{
-        //    // WPF MessageBox.
-        //    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
-        //    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
-        //    wpfPageLoader.MessageBox.Message =
-        //        LocaleCore.Scales.WeightingControl + Environment.NewLine +
-        //        $"Вес нетто: {CurrentWeighingFact.NettoWeight} кг" + Environment.NewLine +
-        //        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
-        //        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
-        //        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
-        //        "Для продолжения печати нажмите Ignore.";
-        //    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
-        //    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
-        //    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
-        //    wpfPageLoader.MessageBox.VisibilitySettings.Localization();
-        //    wpfPageLoader.ShowDialog(owner);
-        //    DialogResult result = wpfPageLoader.MessageBox.Result;
-        //    wpfPageLoader.Close();
-        //    wpfPageLoader.Dispose();
-        //    if (result != DialogResult.Ignore)
-        //        return;
-        //}
+	private void SetNewScaleCounter()
+	{
+		SqlViewModel.Scale.Counter++;
+		DataAccess.Update(SqlViewModel.Scale);
+	}
 
-        // Шаблон с указанием кол-ва и не весовой продукт.
-        if (template.ImageData.ValueUnicode.Contains("^PQ1") && !IsPluCheckWeight)
-        {
-            // Изменить кол-во этикеток.
-            if (WeighingSettings.LabelsCountMain > 1)
-                template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
-                    "^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
-            // Печать этикетки.
-            PrintLabelCore(template, isClearBuffer);
-        }
-        // Шаблон без указания кол-ва.
-        else
-        {
-            for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
-            {
-                // Печать этикетки.
-                PrintLabelCore(template, isClearBuffer);
-            }
-        }
-    }
+	/// <summary>
+	/// Save item.
+	/// </summary>
+	/// <param name="pluLabel"></param>
+	/// <param name="printCmd"></param>
+	private void PrintSaveLabel(PluLabelModel pluLabel, string printCmd)
+	{
+		pluLabel.Zpl = printCmd;
+		DataAccess.Save(pluLabel);
+	}
 
-    /// <summary>
-    /// Вывести серию этикеток по заданному размеру паллеты.
-    /// </summary>
-    public void SetWeighingFact(IWin32Window owner)
-    {
-        if (PluScale is null)
-            return;
+	/// <summary>
+	/// Count label printing.
+	/// </summary>
+	/// <param name="template"></param>
+	/// <param name="isClearBuffer"></param>
+	private void PrintLabelCount(TemplateModel template, bool isClearBuffer)
+	{
+		//// Указан номинальный вес.
+		//bool isCheck = false;
+		//if (CurrentPlu.NominalWeight > 0)
+		//{
+		//    if (Manager?.Massa is not null)
+		//        CurrentWeighingFact.NettoWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+		//    else
+		//        CurrentWeighingFact.NettoWeight -= CurrentPlu.GoodsTareWeight;
+		//    if (CurrentWeighingFact.NettoWeight >= CurrentPlu.LowerWeightThreshold &&
+		//        CurrentWeighingFact.NettoWeight <= CurrentPlu.UpperWeightThreshold)
+		//    {
+		//        isCheck = true;
+		//    }
+		//}
+		//else
+		//    isCheck = true;
+		//if (!isCheck)
+		//{
+		//    // WPF MessageBox.
+		//    using WpfPageLoader wpfPageLoader = new(Page.MessageBox, false) { Width = 700, Height = 400 };
+		//    wpfPageLoader.MessageBox.Caption = LocaleCore.Scales.OperationControl;
+		//    wpfPageLoader.MessageBox.Message =
+		//        LocaleCore.Scales.WeightingControl + Environment.NewLine +
+		//        $"Вес нетто: {CurrentWeighingFact.NettoWeight} кг" + Environment.NewLine +
+		//        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
+		//        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
+		//        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
+		//        "Для продолжения печати нажмите Ignore.";
+		//    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
+		//    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
+		//    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
+		//    wpfPageLoader.MessageBox.VisibilitySettings.Localization();
+		//    wpfPageLoader.ShowDialog(owner);
+		//    DialogResult result = wpfPageLoader.MessageBox.Result;
+		//    wpfPageLoader.Close();
+		//    wpfPageLoader.Dispose();
+		//    if (result != DialogResult.Ignore)
+		//        return;
+		//}
 
-        // Debug check.
-        if (IsPluCheckWeight && ManagerControl.Massa.WeightNet <= 0 && Debug.IsDebug)
-        {
-	        DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
-		        LocaleCore.Print.QuestionUseFakeData,
-		        true, LogTypeEnum.Question,
-		        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-		        SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName,
-		        nameof(WeightCore));
-	        if (dialogResult is DialogResult.Yes)
-	        {
-                Random random = new();
+		// Шаблон с указанием кол-ва и не весовой продукт.
+		if (template.ImageData.ValueUnicode.Contains("^PQ1") && !IsPluCheckWeight)
+		{
+			// Изменить кол-во этикеток.
+			if (WeighingSettings.LabelsCountMain > 1)
+				template.ImageData.ValueUnicode = template.ImageData.ValueUnicode.Replace(
+					"^PQ1", $"^PQ{WeighingSettings.LabelsCountMain}");
+			// Печать этикетки.
+			PrintLabelCore(template, isClearBuffer);
+		}
+		// Шаблон без указания кол-ва.
+		else
+		{
+			for (int i = ManagerControl.PrintMain.LabelsCount; i <= WeighingSettings.LabelsCountMain; i++)
+			{
+				// Печать этикетки.
+				PrintLabelCore(template, isClearBuffer);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Вывести серию этикеток по заданному размеру паллеты.
+	/// </summary>
+	public void SetWeighingFact(IWin32Window owner)
+	{
+		if (PluScale is null)
+			return;
+
+		// Debug check.
+		if (IsPluCheckWeight && ManagerControl.Massa.WeightNet <= 0 && Debug.IsDebug)
+		{
+			DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
+				LocaleCore.Print.QuestionUseFakeData,
+				true, LogTypeEnum.Question,
+				new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+				SqlViewModel.Scale.Host is null ? string.Empty : SqlViewModel.Scale.Host.HostName,
+				nameof(WeightCore));
+			if (dialogResult is DialogResult.Yes)
+			{
+				Random random = new();
 				ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(random, 0.25M, 5.00M);
-                ManagerControl.Massa.IsWeightNetFake = true;
-	        }
-        }
-        
-        PluWeighing = new()
-        {
-	        PluScale = PluScale,
-	        Kneading = WeighingSettings.Kneading,
-	        NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight,
-	        TareWeight = PluScale.Plu.TareWeight
-        };
+				ManagerControl.Massa.IsWeightNetFake = true;
+			}
+		}
+
+		PluWeighing = new()
+		{
+			PluScale = PluScale,
+			Kneading = WeighingSettings.Kneading,
+			NettoWeight = IsPluCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight,
+			TareWeight = PluScale.Plu.TareWeight
+		};
 	}
 
 	/// <summary>
@@ -469,11 +472,11 @@ public class UserSessionHelper : BaseViewModel
 	/// <param name="template"></param>
 	/// <param name="isClearBuffer"></param>
 	private void PrintLabelCore(TemplateModel template, bool isClearBuffer)
-    {
-        try
-        {
-            if (PluWeighing is null) return;
-            DataAccess.Save(PluWeighing);
+	{
+		try
+		{
+			if (PluWeighing is null) return;
+			DataAccess.Save(PluWeighing);
 
 			//string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
 			//string xmlStringProductionFacility = SqlViewModel.Area is null ? string.Empty : SqlViewModel.Area.SerializeAsXmlString<ProductionFacilityModel>(true);
@@ -487,23 +490,23 @@ public class UserSessionHelper : BaseViewModel
 
 			PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = SqlViewModel.ProductDate };
 			pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
-            // XSLT transform.
+			// XSLT transform.
 			string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
-            printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
-            // Replace ZPL resources.
-            printCmd = XmlUtils.PrintCmdReplaceZplResources(printCmd);
-            // PLU label.
-            PrintSaveLabel(pluLabel, printCmd);
-            //if (ManagerControl is null || ManagerControl.PrintMain is null)
-            //    return;
+			printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
+			// Replace ZPL resources.
+			printCmd = XmlUtils.PrintCmdReplaceZplResources(printCmd);
+			// PLU label.
+			PrintSaveLabel(pluLabel, printCmd);
+			//if (ManagerControl is null || ManagerControl.PrintMain is null)
+			//    return;
 
-            // Print.
-            if (isClearBuffer)
-            {
-                ManagerControl.PrintMain.ClearPrintBuffer();
-                if (SqlViewModel.Scale.IsShipping)
-                    ManagerControl.PrintShipping.ClearPrintBuffer();
-            }
+			// Print.
+			if (isClearBuffer)
+			{
+				ManagerControl.PrintMain.ClearPrintBuffer();
+				if (SqlViewModel.Scale.IsShipping)
+					ManagerControl.PrintShipping.ClearPrintBuffer();
+			}
 
 			// Debug check.
 			if (Debug.IsDebug)
@@ -519,12 +522,12 @@ public class UserSessionHelper : BaseViewModel
 
 			// Send cmd to the print.
 			ManagerControl.PrintMain.SendCmd(printCmd);
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(ex);
-        }
-    }
+		}
+		catch (Exception ex)
+		{
+			GuiUtils.WpfForm.CatchException(ex);
+		}
+	}
 
-    #endregion
+	#endregion
 }

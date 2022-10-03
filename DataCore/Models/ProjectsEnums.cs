@@ -44,6 +44,7 @@ public enum PageEnum
     PinCode,
     Device,
     SqlSettings,
+    Package,
 }
 
 public enum OrderStatusEnum

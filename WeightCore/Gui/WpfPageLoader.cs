@@ -22,7 +22,8 @@ public partial class WpfPageLoader : Form
     private PageMessageBox PageMessageBox { get; set; }
     private PagePinCode PagePinCode { get; set; }
     public PageDevice PageDevice { get; private set; }
-    private PageSqlSettings PageSqlSettings { get; set; }
+    public PagePackage PagePackage { get; private set; }
+	private PageSqlSettings PageSqlSettings { get; set; }
     private DataCore.Models.PageEnum Page { get; }
 
     #endregion
@@ -100,18 +101,24 @@ public partial class WpfPageLoader : Form
             }
             switch (Page)
             {
-                case DataCore.Models.PageEnum.Device:
-                    PageDevice = new();
-                    PageDevice.InitializeComponent();
-                    ElementHost.Child = PageDevice;
-                    PageDevice.OnClose += WpfPageLoader_OnClose;
-                    break;
                 case DataCore.Models.PageEnum.MessageBox:
                     PageMessageBox = new();
                     PageMessageBox.InitializeComponent();
                     ElementHost.Child = PageMessageBox;
                     PageMessageBox.MessageBox = MessageBox;
                     PageMessageBox.OnClose += WpfPageLoader_OnClose;
+                    break;
+                case DataCore.Models.PageEnum.Device:
+                    PageDevice = new();
+                    PageDevice.InitializeComponent();
+                    ElementHost.Child = PageDevice;
+                    PageDevice.OnClose += WpfPageLoader_OnClose;
+                    break;
+                case DataCore.Models.PageEnum.Package:
+                    PagePackage = new();
+                    PagePackage.InitializeComponent();
+                    ElementHost.Child = PagePackage;
+                    PagePackage.OnClose += WpfPageLoader_OnClose;
                     break;
                 case DataCore.Models.PageEnum.PinCode:
                     PagePinCode = new();
@@ -149,21 +156,15 @@ public partial class WpfPageLoader : Form
     {
         try
         {
-            switch (Page)
-            {
-                case DataCore.Models.PageEnum.Device:
-                    DialogResult = PageDevice.Result;
-                    break;
-                case DataCore.Models.PageEnum.MessageBox:
-                    DialogResult = MessageBox.Result;
-                    break;
-                case DataCore.Models.PageEnum.PinCode:
-                    DialogResult = PagePinCode.Result;
-                    break;
-                case DataCore.Models.PageEnum.SqlSettings:
-                    DialogResult = PageSqlSettings.Result;
-                    break;
-            }
+	        DialogResult = Page switch
+	        {
+		        DataCore.Models.PageEnum.MessageBox => MessageBox.Result,
+		        DataCore.Models.PageEnum.Device => PageDevice.Result,
+		        DataCore.Models.PageEnum.Package => PagePackage.Result,
+				DataCore.Models.PageEnum.PinCode => PagePinCode.Result,
+		        DataCore.Models.PageEnum.SqlSettings => PageSqlSettings.Result,
+		        _ => DialogResult
+	        };
         }
         catch (Exception ex)
         {

@@ -17,7 +17,7 @@ public class ManagerLabels : ManagerBase
 	#region Public and private fields and properties
 
 	private Button ButtonScale { get; set; }
-	private Button ButtonArea { get; set; }
+	private Button ButtonPackage { get; set; }
 	private Button ButtonKneading { get; set; }
 	private Button ButtonMore { get; set; }
 	private Button ButtonNewPallet { get; set; }
@@ -56,7 +56,7 @@ public class ManagerLabels : ManagerBase
 
 	public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate, 
 		Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
-		Button buttonScale, Button buttonArea, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
+		Button buttonScale, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
 		Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose,
 		Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
 	{
@@ -75,7 +75,7 @@ public class ManagerLabels : ManagerBase
 					FieldResolution = fieldResolution;
 					FieldLang = fieldLang;
 					ButtonScale = buttonScale;
-					ButtonArea = buttonArea;
+					ButtonPackage = buttonPackage;
 					ButtonKneading = buttonKneading;
 					ButtonMore = buttonMore;
 					ButtonNewPallet = buttonNewPallet;
@@ -241,7 +241,7 @@ public class ManagerLabels : ManagerBase
 		}
 
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScale, true);
-		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonArea, true);
+		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonPackage, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonKneading, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonMore, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonNewPallet, true);
@@ -252,7 +252,7 @@ public class ManagerLabels : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesTerminal, true);
             
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScale, true);
-		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonArea, true);
+		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonPackage, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonKneading, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonMore, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonNewPallet, true);

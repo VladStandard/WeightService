@@ -16,7 +16,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private fields, properties, constructor
 
     [XmlElement] public virtual int Number { get; set; }
-    [XmlIgnore] public virtual string NumberFormat
+    [XmlElement] public virtual string NumberFormat
     {
 	    get => $"{Number:000}";
 	    // This code need for print labels.
@@ -28,7 +28,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
-    [XmlIgnore] public virtual string Gtin14Format
+    [XmlElement] public virtual string Gtin14Format
     {
 	    get
 	    {

@@ -24,19 +24,19 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		// This code need for print labels.
 		set => _ = value;
 	}
-    [XmlIgnore] public virtual string LotNumberFormat
+    [XmlElement] public virtual string LotNumberFormat
     {
 	    get => $"{ProductDt:yyMM}";
 	    // This code need for print labels.
 	    set => _ = value;
     }
-    [XmlIgnore] public virtual string ProductDateBarCodeFormat
+    [XmlElement] public virtual string ProductDateBarCodeFormat
 	{
 		get => $"{ProductDt:yyMMdd}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string ProductTimeBarCodeFormat
+	[XmlElement] public virtual string ProductTimeBarCodeFormat
 	{
 		get => $"{ProductDt:HHmmss}";
 		// This code need for print labels.
@@ -48,7 +48,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    // This code need for print labels.
 	    set => _ = value;
     }
-    [XmlIgnore] public virtual string ExpirationDtFormat
+    [XmlElement] public virtual string ExpirationDtFormat
 	{
 	    get => $"{ProductDt:dd.MM.yyyy}";
 	    // This code need for print labels.

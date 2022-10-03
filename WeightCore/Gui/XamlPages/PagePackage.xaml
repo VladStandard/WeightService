@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="WeightCore.Gui.XamlPages.PagePackage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignWidth="600" d:DesignHeight="300" FontSize="20"
+    Loaded="UserControl_Loaded"
+    DataContext="{DynamicResource SqlViewModel}" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ShareResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Grid.ColumnSpan="2"
+            BorderBrush="Blue" BorderThickness="1" Margin="2" >
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Margin="2" Grid.Column="0" Grid.Row="0" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Plu, Mode=OneTime, IsAsync=True}"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+            <Label Margin="2" Grid.Column="1" Grid.Row="0" 
+                Content="{Binding Path=Host.Name, Mode=OneWay, IsAsync=True}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+            <Label Margin="2" Grid.Column="0" Grid.Row="1" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Arm, Mode=OneWay, IsAsync=True}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+            <ComboBox Margin="2" Grid.Column="1" Grid.Row="1" x:Name="comboBoxDevice"
+                SelectedItem="{Binding Path=Scale.Description, Mode=TwoWay, IsAsync=True}" 
+                ItemsSource="{Binding Path=Scales, Mode=OneWay, IsAsync=True}" 
+                HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+            <Label Margin="2" Grid.Column="0" Grid.Row="2" 
+                Content="{Binding Source={StaticResource LocaleTable}, Path=Area, Mode=OneWay, IsAsync=True}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+            <ComboBox Margin="2" Grid.Column="1" Grid.Row="2" x:Name="comboBoxArea"
+                SelectedItem="{Binding Path=Area, Mode=TwoWay, IsAsync=True}" 
+                ItemsSource="{Binding Path=Areas, Mode=OneWay, IsAsync=True}" 
+                HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                
+            <Button Margin="2" Grid.Column="0" Grid.Row="3"
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Apply, Mode=OneWay, IsAsync=True}"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                Click="ButtonApply_OnClick" />
+            <Button Margin="2" Grid.Column="1" Grid.Row="3" 
+                Content="{Binding Source={StaticResource LocaleButtons}, Path=Cancel, Mode=OneWay, IsAsync=True}" 
+                Click="ButtonClose_OnClick" />
+        </Grid>
+    </Border>
+            
+</UserControl>

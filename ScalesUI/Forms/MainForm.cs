@@ -10,7 +10,6 @@ using DataCore.Sql.TableScaleModels;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using MDSoft.BarcodePrintUtils.Wmi;
-using NHibernate.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,7 +44,7 @@ public partial class MainForm : Form
     #region Public and private fields, properties, constructor
 
     private Button ButtonScale { get; set; }
-    private Button ButtonArea { get; set; }
+    private Button ButtonPackage { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
     private Button ButtonNewPallet { get; set; }
@@ -161,7 +160,7 @@ public partial class MainForm : Form
             // Labels.
             UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                 labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                ButtonScale, ButtonArea, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                ButtonScale, ButtonPackage, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                 ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                 fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
             UserSession.ManagerControl.Labels.Open();
@@ -266,9 +265,9 @@ public partial class MainForm : Form
         labelProductDate.Font = FontsSettings.FontLabelsBlack;
 
         if (ButtonScale is not null)
-            ButtonScale.Font = FontsSettings.FontButtons;
-        if (ButtonArea is not null)
-            ButtonArea.Font = FontsSettings.FontButtons;
+            ButtonScale.Font = FontsSettings.FontButtonsSmall;
+        if (ButtonPackage is not null)
+	        ButtonPackage.Font = FontsSettings.FontButtonsSmall;
         if (ButtonScalesTerminal is not null)
             ButtonScalesTerminal.Font = FontsSettings.FontButtons;
         if (ButtonScalesInit is not null)
@@ -308,8 +307,8 @@ public partial class MainForm : Form
         {
             ButtonScale = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScale), 2, 0);
             ButtonScale.Click += ActionDeviceChange_Click;
-            ButtonArea = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonArea), 2, 1);
-            ButtonArea.Click += ActionDeviceChange_Click;
+			ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonPackage), 2, 1);
+            ButtonPackage.Click += ActionPackage_Click;
         }
 
         TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
@@ -459,8 +458,7 @@ public partial class MainForm : Form
 
     private void FieldPrintManager_Click(object sender, EventArgs e)
     {
-        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
-        { Width = 700, Height = 450 };
+        using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16) { Width = 700, Height = 450 };
         wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.ManagerControl.PrintMain, true);
@@ -595,8 +593,12 @@ public partial class MainForm : Form
         try
         {
             LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => LangEnum.English, _ => LangEnum.Russian, };
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, UserSession.SqlViewModel.Scale.Description);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonArea, UserSession.SqlViewModel.Area?.Name);
+            string area = UserSession.SqlViewModel.Scale.WorkShop is null 
+	            ? LocaleCore.Table.FieldNull : UserSession.SqlViewModel.Scale.WorkShop.ProductionFacility.Name;
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, 
+	            UserSession.SqlViewModel.Scale.Description + Environment.NewLine + area);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage is null 
+	            ? LocaleCore.Table.FieldPackageIsNotSelected : UserSession.PluPackage.Name);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -640,7 +642,7 @@ public partial class MainForm : Form
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
             {
-                UserSession.Setup(wpfPageLoader.PageDevice.SqlViewModel.Scale.Identity.Id, "");
+                UserSession.Setup(wpfPageLoader.PageDevice.SqlViewModel.Scale.Identity.Id);
             }
             FieldLang_SelectedIndexChanged(sender, e);
 
@@ -654,6 +656,64 @@ public partial class MainForm : Form
         {
             MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
         }
+    }
+
+    private void ActionPackage_Click(object sender, EventArgs e)
+    {
+        try
+        {
+	        if (!ActionPackageCheckPlu()) return;
+            
+	        UserSession.ManagerControl.Massa.Close();
+
+	        //using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
+		       // { Width = 700, Height = 450 };
+	        //wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
+	        //wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPackageIsNotSelected;
+	        //wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPackageMustBeSelected;
+	        //wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
+	        //_ = wpfPageLoader.ShowDialog(this);
+	        //wpfPageLoader.Close();
+			using WpfPageLoader wpfPageLoader = new(PageEnum.Package, false) { Width = 600, Height = 225 };
+            DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
+            wpfPageLoader.Close();
+            if (dialogResult == DialogResult.OK)
+            {
+                //UserSession.Setup(wpfPageLoader.PageDevice.SqlViewModel.Scale.Identity.Id);
+            }
+            FieldLang_SelectedIndexChanged(sender, e);
+
+            UserSession.ManagerControl.Massa.Open();
+        }
+        catch (Exception ex)
+        {
+            GuiUtils.WpfForm.CatchException(this, ex);
+        }
+        finally
+        {
+            MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+        }
+    }
+
+    private bool ActionPackageCheckPlu()
+    {
+	    switch (UserSession.PluScale?.Plu)
+	    {
+		    case null:
+		    {
+			    using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
+				    { Width = 700, Height = 450 };
+			    wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
+			    wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPluIsNotSelected;
+			    wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPluMustBeSelected;
+			    wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
+			    _ = wpfPageLoader.ShowDialog(this);
+			    wpfPageLoader.Close();
+			    return false;
+		    }
+		    default:
+			    return true;
+	    }
     }
 
     private void ActionScalesTerminal_Click(object sender, EventArgs e)

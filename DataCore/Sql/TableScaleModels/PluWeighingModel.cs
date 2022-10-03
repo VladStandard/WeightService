@@ -17,7 +17,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     [XmlElement] public virtual PluScaleModel PluScale { get; set; }
     [XmlElement(IsNullable = true)] public virtual ProductSeriesModel? Series { get; set; }
     [XmlElement] public virtual short Kneading { get; set; }
-	[XmlIgnore] public virtual string KneadingFormat
+	[XmlElement] public virtual string KneadingFormat
 	{
 		get => $"{Kneading:000}";
 		// This code need for print labels.
@@ -25,49 +25,49 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	}
     [XmlElement] public virtual string Sscc { get; set; }
     [XmlElement] public virtual decimal NettoWeight { get; set; }
-    [XmlIgnore] public virtual string NettoWeightKgFormat2
+    [XmlElement] public virtual string NettoWeightKgFormat2
 	{
 		get => $"{NettoWeight:00.000}".Replace(',', '.').Split('.')[0];
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightKgFormat3
+	[XmlElement] public virtual string NettoWeightKgFormat3
 	{
 		get => $"{NettoWeight:000.000}".Replace(',', '.').Split('.')[0];
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightKgFormat1Dot3Eng
+	[XmlElement] public virtual string NettoWeightKgFormat1Dot3Eng
 	{
 		get => $"{NettoWeight:0.000}".Replace(',', '.');
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightKgFormat2Dot3Eng
+	[XmlElement] public virtual string NettoWeightKgFormat2Dot3Eng
 	{
 		get => $"{NettoWeight:#0.000}".Replace(',', '.');
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightKgFormat1Dot3Rus
+	[XmlElement] public virtual string NettoWeightKgFormat1Dot3Rus
 	{
 		get => $"{NettoWeight:0.000}".Replace('.', ',');
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightKgFormat2Dot3Rus
+	[XmlElement] public virtual string NettoWeightKgFormat2Dot3Rus
 	{
 		get => $"{NettoWeight:#0.000}".Replace('.', ',');
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightGrFormat2
+	[XmlElement] public virtual string NettoWeightGrFormat2
 	{
 		get => $"{NettoWeight:#.00}".Replace(',', '.').Split('.')[1];
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlIgnore] public virtual string NettoWeightGrFormat3
+	[XmlElement] public virtual string NettoWeightGrFormat3
 	{
 		get => $"{NettoWeight:#.000}".Replace(',', '.').Split('.')[1];
 		// This code need for print labels.
