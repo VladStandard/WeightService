@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using NHibernate.Event;
-using System.Drawing;
 
 namespace DataCore.Sql.TableScaleModels;
 

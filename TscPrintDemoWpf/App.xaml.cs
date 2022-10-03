@@ -3,12 +3,11 @@
 
 using System.Windows;
 
-namespace TscPrintDemoWpf
+namespace TscPrintDemoWpf;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-    }
 }

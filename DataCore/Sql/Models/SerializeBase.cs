@@ -49,13 +49,14 @@ public class SerializeBase : ISerializable
         ConformanceLevel = ConformanceLevel.Document,
         OmitXmlDeclaration = false, // не подавлять xml заголовок
         Encoding = Encoding.UTF8,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
+        //Encoding = Encoding.Unicode,
         Indent = true,              // добавлять отступы
         IndentChars = "\t"          // сиволы отступа
     };
 
     public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
 
-    public virtual string SerializeAsXml<T>(bool isAddEmptyNamespace) where T : new()
+    public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace) where T : new()
     {
         // Don't use it.
         // XmlSerializer xmlSerializer = new(typeof(T));
@@ -80,6 +81,18 @@ public class SerializeBase : ISerializable
                 break;
         }
         return stringWriter.ToString();
+    }
+
+    public virtual XmlDocument SerializeAsXmlDocument<T>(bool isAddEmptyNamespace) where T : new()
+    {
+        XmlDocument xmlDocument = new();
+	    string xmlString = SerializeAsXmlString<T>(isAddEmptyNamespace);
+        byte[] bytes = Encoding.Unicode.GetBytes(xmlString);
+	    using MemoryStream memoryStream = new(bytes);
+		memoryStream.Flush();
+        memoryStream.Seek(0, SeekOrigin.Begin);
+        xmlDocument.Load(memoryStream);
+	    return xmlDocument;
     }
 
     public virtual string SerializeByMemoryStream<T>() where T : new()
@@ -159,7 +172,7 @@ public class SerializeBase : ISerializable
         return format switch
         {
             FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
-            FormatTypeEnum.Xml => GetResult(format, SerializeAsXml<T>(false), statusCode),
+            FormatTypeEnum.Xml => GetResult(format, SerializeAsXmlString<T>(false), statusCode),
             FormatTypeEnum.Html => GetResult(format, SerializeAsHtml(), statusCode),
             FormatTypeEnum.Text or FormatTypeEnum.Raw => GetResult(format, SerializeAsText(), statusCode),
             _ => throw GetArgumentException(nameof(format)),

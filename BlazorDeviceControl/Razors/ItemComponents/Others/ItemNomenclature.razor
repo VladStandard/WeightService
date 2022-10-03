@@ -32,8 +32,10 @@
         <tr >
             <td>@LocaleCore.Table.Xml</td>
             <td colspan=3>
-                <RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 20px; " 
-                    @bind-Value=@SqlItemCast.Xml Rows=20 />
+	            <RadzenTextArea
+		            Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+		            Rows=20 
+		            @bind-Value=@(SqlItemCast.Xml) />
 			</td>
         </tr>
     </tbody>

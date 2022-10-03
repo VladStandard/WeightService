@@ -10,7 +10,7 @@ public static class StringUtils
 		    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
 		    : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}";
 
-    public static string FormatDtRus(DateTime dt, bool isShowSeconds, bool isShowHours) =>
+    public static string FormatDtRus(DateTime dt, bool isShowHours, bool isShowSeconds) =>
 	    isShowSeconds
 		    ? isShowHours 
 			    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"

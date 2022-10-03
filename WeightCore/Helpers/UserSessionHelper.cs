@@ -22,6 +22,7 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using DataCore.Sql.Tables;
 using DataCore.Utils;
+using System.Xml;
 
 namespace WeightCore.Helpers;
 
@@ -352,16 +353,11 @@ public class UserSessionHelper : BaseViewModel
     /// <summary>
     /// Save item.
     /// </summary>
+    /// <param name="pluLabel"></param>
     /// <param name="printCmd"></param>
-    /// <param name="pluWeighing"></param>
-    private void PrintSaveLabel(string printCmd, PluWeighingModel pluWeighing)
+    private void PrintSaveLabel(PluLabelModel pluLabel, string printCmd)
     {
-        PluLabelModel pluLabel = new()
-        {
-            PluWeighing = pluWeighing,
-            Zpl = printCmd,
-            ProductDt = SqlViewModel.ProductDate,
-		};
+        pluLabel.Zpl = printCmd;
         DataAccess.Save(pluLabel);
     }
 
@@ -442,7 +438,7 @@ public class UserSessionHelper : BaseViewModel
             return;
 
         // Debug check.
-        if (IsPluCheckWeight && Debug.IsDebug)
+        if (IsPluCheckWeight && ManagerControl.Massa.WeightNet <= 0 && Debug.IsDebug)
         {
 	        DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
 		        LocaleCore.Print.QuestionUseFakeData,
@@ -476,22 +472,28 @@ public class UserSessionHelper : BaseViewModel
     {
         try
         {
-            if (PluWeighing is null)
-                return;
-
+            if (PluWeighing is null) return;
             DataAccess.Save(PluWeighing);
 
-            string xmlPluWeighing = PluWeighing.SerializeAsXml<PluWeighingModel>(true);
-			string xmlProductionFacility = SqlViewModel.Area is null ? string.Empty : SqlViewModel.Area.SerializeAsXml<ProductionFacilityModel>(true);
-            xmlPluWeighing = Zpl.ZplUtils.XmlCompatibleReplace(xmlPluWeighing);
-            string xml = Zpl.ZplUtils.MergeXml(xmlPluWeighing, xmlProductionFacility);
+			//string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
+			//string xmlStringProductionFacility = SqlViewModel.Area is null ? string.Empty : SqlViewModel.Area.SerializeAsXmlString<ProductionFacilityModel>(true);
+			//string xmlString = XmlUtils.MergeXml(xmlStringPluWeighing, xmlStringProductionFacility);
+			//PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = SqlViewModel.ProductDate };
+			//string xmlStringPluLabel = pluLabel.SerializeAsXmlString<PluLabelModel>(true);
+			//xmlString = XmlUtils.XmlCompatibleReplace(xmlString);
+			//xmlString = XmlUtils.MergeXml(xmlString, xmlStringPluLabel);
+			//// XSLT transform.
+			//string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlString);
+
+			PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = SqlViewModel.ProductDate };
+			pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
             // XSLT transform.
-            string printCmd = Zpl.ZplUtils.XsltTransformation(template.ImageData.ValueUnicode, xml);
+			string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
             printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
             // Replace ZPL resources.
-            printCmd = Zpl.ZplUtils.PrintCmdReplaceZplResources(printCmd);
-            // DB save ZPL query to Labels.
-            PrintSaveLabel(printCmd, PluWeighing);
+            printCmd = XmlUtils.PrintCmdReplaceZplResources(printCmd);
+            // PLU label.
+            PrintSaveLabel(pluLabel, printCmd);
             //if (ManagerControl is null || ManagerControl.PrintMain is null)
             //    return;
 

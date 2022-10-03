@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -28,10 +27,21 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual short? DeviceReceiveTimeout { get; set; }
 	[XmlElement] public virtual string DeviceComPort { get; set; }
 	[XmlElement] public virtual string ZebraIp { get; set; }
-    [XmlIgnore] public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
     [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
     [XmlElement] public virtual int Number { get; set; }
-    [XmlElement] public virtual int Counter { get; set; }
+    [XmlIgnore] public virtual string NumberFormat
+	{
+		get => $"{Number:00000}";
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlElement] public virtual int Counter { get; set; }
+    [XmlIgnore] public virtual string CounterFormat
+	{
+	    get => $"{Counter:00000000}";
+	    // This code need for print labels.
+	    set => _ = value;
+    }
     [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
     [XmlElement] public virtual bool IsShipping { get; set; }
     [XmlElement] public virtual bool IsOrder { get; set; }

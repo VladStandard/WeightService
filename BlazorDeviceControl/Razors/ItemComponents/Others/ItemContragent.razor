@@ -40,9 +40,10 @@
         <tr>
             <td>@LocaleCore.Table.Xml</td>
             <td colspan=3>
-                <RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 20px; background-color: lightgray; " 
-                    Disabled=false ReadOnly=true
-                    TValue="string" @bind-Value=@SqlItemCast.Xml Rows=6 />
+	            <RadzenTextArea 
+		            Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; " 
+		            Rows=6 ReadOnly=true 
+		            @bind-Value=@(SqlItemCast.Xml) />
 			</td>
         </tr>
     </tbody>

@@ -37,7 +37,7 @@ public partial class LocaleDeviceControl
     public string RouteItemTaskModule => "/item/taskmodule";
     public string RouteItemTaskTypeModule => "/item/tasktypemodule";
     public string RouteItemTemplate => "/item/template";
-    public string RouteItemTemplateResource => "/item/templateresource";
+    public string RouteItemTemplateResource => "/item/template_resource";
     public string RouteItemVersion => "/item/version";
     public string RouteItemWorkShop => "/item/workshop";
     public string RouteSectionAccess => "/section/access";

@@ -18,32 +18,15 @@
 		    <td>
 			    <RadzenText
 				    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
-				    Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false)) />
+				    Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false, false)) />
 		    </td>
 			<td>@LocaleCore.Table.ExpirationDt</td>
 		    <td>
 			    <RadzenText
 				    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
-				    Text=@(StringUtils.FormatDtRus(SqlItemCast.ExpirationDt, false)) />
+				    Text=@(StringUtils.FormatDtRus(SqlItemCast.ExpirationDt, false, false)) />
 		    </td>
 	    </tr>
-        <tr>
-	        <td>@LocaleCore.Table.WeithingDt</td>
-	        <td>
-		        @if (SqlItemCast.PluWeighing is not null)
-		        {
-			        <RadzenText 
-				        TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center
-				        Text=@(StringUtils.FormatDtRus(SqlItemCast.ProductDt, false)) />
-		        }
-	        </td>
-	        <td>@LocaleCore.Table.TemplateLabelary</td>
-	        <td>
-		        <RadzenLink 
-			        Path=@(LocaleCore.DeviceControl.LinkLabelary)
-			        Text=@(LocaleCore.Table.TemplateLabelary) />
-	        </td>
-        </tr>
         <tr>
             <td>@LocaleCore.Table.Scale</td>
             <td>
@@ -85,13 +68,29 @@
             </td>
         </tr>
         <tr >
-            <td>@LocaleCore.Table.Zpl</td>
+            <td>
+	            <RadzenLink 
+		            Path=@(LocaleCore.DeviceControl.LinkLabelary)
+		            Text=@(LocaleCore.Table.TemplateLabelary) />
+	        </td>
             <td colspan=3>
 	            <RadzenTextArea 
 		            Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
 		            Disabled=false ReadOnly=true 
-		            @bind-Value=@SqlItemCast.Zpl Rows=20 />
+		            Value=@SqlItemCast.Zpl Rows=20 />
 			</td>
+        </tr>
+        <tr >
+            <td>@LocaleCore.Table.Xml</td>
+	        <td colspan=3>
+				@if (SqlItemCast.Xml is not null)
+				{
+			        <RadzenTextArea
+				        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
+				        Disabled=false ReadOnly=true
+				        Value=@(XmlUtils.GetXmlpretty(SqlItemCast.Xml.OuterXml)) Rows=20/>
+				}
+	        </td>
         </tr>
     </tbody>
 </MudSimpleTable>

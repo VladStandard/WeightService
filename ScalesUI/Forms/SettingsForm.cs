@@ -154,7 +154,7 @@ public partial class SettingsForm : Form
     {
         //try
         //{
-        //    UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplPowerOnReset());
+        //    UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.XmlUtils.ZplPowerOnReset());
         //}
         //catch (Exception ex)
         //{
@@ -172,7 +172,7 @@ public partial class SettingsForm : Form
         //        case PrintBrand.Default:
         //            break;
         //        case PrintBrand.Zebra:
-        //            UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplCalibration());
+        //            UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.XmlUtils.ZplCalibration());
         //            break;
         //        case PrintBrand.TSC:
         //            break;
@@ -188,7 +188,7 @@ public partial class SettingsForm : Form
     {
         //try
         //{
-        //    UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplPrintConfigurationLabel());
+        //    UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.XmlUtils.ZplPrintConfigurationLabel());
         //}
         //catch (Exception ex)
         //{
@@ -218,7 +218,7 @@ public partial class SettingsForm : Form
     {
         //try
         //{
-        //    UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ZplClearPrintBuffer);
+        //    UserSession.ManagerControl.PrintMain.SendCmd(MDSoft.BarcodePrintUtils.XmlUtils.ZplClearPrintBuffer);
         //}
         //catch (Exception ex)
         //{

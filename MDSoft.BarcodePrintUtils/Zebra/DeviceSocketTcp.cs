@@ -16,7 +16,7 @@ public class DeviceSocketTcp : IDeviceSocket
 
 	public string SendStringToPrinter(string szString)
 	{
-		string info = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.InterplayToPrinter(DeviceIp, DevicePort, szString.Split('\n'), out string _errorMessage);
+		string info = Zpl.ZplUtils.InterplayToPrinter(DeviceIp, DevicePort, szString.Split('\n'), out string _errorMessage);
 		if (_errorMessage.Length > 0)
 		{
 			throw new(_errorMessage);

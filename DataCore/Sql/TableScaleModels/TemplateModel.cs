@@ -16,8 +16,10 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual string CategoryId { get; set; }
 	[XmlElement] public virtual Guid IdRRef { get; set; }
 	[XmlElement] public virtual string Title { get; set; }
-    [XmlElement] public virtual SqlFieldBinaryModel ImageData { get; set; }
-    [XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
+    [XmlIgnore] public virtual SqlFieldBinaryModel ImageData { get; set; }
+    [XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value ?? Array.Empty<byte>(); set => ImageData.Value = value; }
+    [XmlElement] public virtual string ImageDataValueUnicode
+		{ get => Encoding.Unicode.GetString(ImageDataValue); set => ImageDataValue = Encoding.Unicode.GetBytes(value); }
 
 	/// <summary>
 	/// Constructor.
@@ -28,7 +30,8 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		IdRRef = Guid.Empty;
 		Title = string.Empty;
 		ImageData = new();
-		ImageDataValue = Array.Empty<byte>();
+		//ImageDataValue = Array.Empty<byte>();
+		ImageDataValueUnicode = string.Empty;
 	}
 
 	/// <summary>

@@ -1,7 +1,7 @@
 ﻿@inherits RazorComponentItemBase<TemplateResourceModel>
-@page "/item/templateresource"
-@page "/item/templateresource/new"
-@page "/item/templateresource/{IdentityId:long}"
+@page "/item/template_resource"
+@page "/item/template_resource/new"
+@page "/item/template_resource/{IdentityId:long}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
@@ -32,8 +32,10 @@
 		<tr>
 			<td>@LocaleCore.Table.ImageData</td>
 			<td colspan=3>
-				<RadzenTextArea Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px;"
-				    @bind-Value=@SqlItemCast.ImageData.ValueUnicode Rows=25/>
+				<RadzenTextArea 
+					Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+					Rows=25
+					@bind-Value=@(SqlItemCast.ImageData.ValueUnicode) />
 			</td>
 		</tr>
 	</tbody>

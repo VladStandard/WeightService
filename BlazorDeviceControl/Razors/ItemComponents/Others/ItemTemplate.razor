@@ -40,8 +40,9 @@
 			<td>@LocaleCore.Table.ImageData</td>
 			<td colspan=3>
 				<RadzenTextArea 
-					Style="width: 100%; text-align: left; font-size: 11px; line-height: 20px;"
-				    Disabled=false ReadOnly=false @bind-Value=@SqlItemCast.ImageData.ValueUnicode Rows=20/>
+					Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+					Rows=20
+					@bind-Value=@(SqlItemCast.ImageDataValueUnicode) />
 			</td>
 		</tr>
 	</tbody>

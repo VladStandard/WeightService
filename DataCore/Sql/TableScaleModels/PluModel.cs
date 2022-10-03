@@ -4,7 +4,6 @@
 
 using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -17,13 +16,19 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private fields, properties, constructor
 
     [XmlElement] public virtual int Number { get; set; }
-    [XmlElement] public virtual string Name { get; set; }
+    [XmlIgnore] public virtual string NumberFormat
+    {
+	    get => $"{Number:000}";
+	    // This code need for print labels.
+	    set => _ = value;
+    }
+	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string FullName { get; set; }
 	[XmlElement] public virtual short ShelfLifeDays { get; set; }
     [XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
-    [XmlIgnore] public virtual string PrettyGtin14
+    [XmlIgnore] public virtual string Gtin14Format
     {
 	    get
 	    {

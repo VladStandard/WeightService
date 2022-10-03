@@ -16,17 +16,41 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	[XmlElement(IsNullable = true)] public virtual PluWeighingModel? PluWeighing { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
+	[XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlIgnore] public virtual string ProductDtRus
+    [XmlElement] public virtual string ProductDtFormat
 	{
 		get => $"{ProductDt:dd.MM.yyyy}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlElement]
-    public virtual DateTime ExpirationDt
+    [XmlIgnore] public virtual string LotNumberFormat
+    {
+	    get => $"{ProductDt:yyMM}";
+	    // This code need for print labels.
+	    set => _ = value;
+    }
+    [XmlIgnore] public virtual string ProductDateBarCodeFormat
+	{
+		get => $"{ProductDt:yyMMdd}";
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlIgnore] public virtual string ProductTimeBarCodeFormat
+	{
+		get => $"{ProductDt:HHmmss}";
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlElement] public virtual DateTime ExpirationDt
     {
 	    get => PluWeighing is null ? DateTime.MinValue : ProductDt.AddDays(PluWeighing.PluScale.Plu.ShelfLifeDays);
+	    // This code need for print labels.
+	    set => _ = value;
+    }
+    [XmlIgnore] public virtual string ExpirationDtFormat
+	{
+	    get => $"{ProductDt:dd.MM.yyyy}";
 	    // This code need for print labels.
 	    set => _ = value;
     }
@@ -38,7 +62,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 	    PluWeighing = null;
 	    Zpl = string.Empty;
-	    ProductDt = DateTime.MinValue;
+		Xml = null;
+		ProductDt = DateTime.MinValue;
 	    ExpirationDt = DateTime.MinValue;
     }
 
@@ -51,6 +76,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         PluWeighing = (PluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
         Zpl = info.GetString(nameof(Zpl));
+		Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
         ProductDt = info.GetDateTime(nameof(ProductDt));
         ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
     }
@@ -60,7 +86,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - override
 
 	public override string ToString() => 
-		$"{nameof(Zpl)}: {Zpl.Length}. ";
+		$"{nameof(Zpl)}: {Zpl.Length}. " + $"{nameof(Xml)}: {(Xml is null ? 0 : Xml.OuterXml.Length)}. ";
 
     public override bool Equals(object obj)
 	{
@@ -81,6 +107,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    return
 		    base.EqualsDefault() &&
 		    Equals(Zpl, string.Empty) &&
+		    Equals(Xml, null) &&
 		    Equals(ProductDt, DateTime.MinValue);
             //Equals(ExpirationDt, DateTime.MinValue) &&
 	}
@@ -91,6 +118,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
         item.Zpl = Zpl;
+		item.Xml = Xml;
         item.ProductDt = ProductDt;
         item.ExpirationDt = ExpirationDt;
         item.CloneSetup(base.CloneCast());
@@ -102,6 +130,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         base.GetObjectData(info, context);
         info.AddValue(nameof(PluWeighing), PluWeighing);
         info.AddValue(nameof(Zpl), Zpl);
+		info.AddValue(nameof(Xml), Xml);
         info.AddValue(nameof(ProductDt), ProductDt);
         info.AddValue(nameof(ExpirationDt), ExpirationDt);
     }
@@ -129,6 +158,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		if (ReferenceEquals(this, item)) return true;
 		if (PluWeighing is not null && item.PluWeighing is not null && !PluWeighing.Equals(item.PluWeighing))
+			return false;
+		if (Xml is not null && item.Xml is not null && !Xml.Equals(item.Xml))
 			return false;
 		return
 			base.Equals(item) &&

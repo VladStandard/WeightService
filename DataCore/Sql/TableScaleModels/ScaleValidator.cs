@@ -3,7 +3,6 @@
 
 using DataCore.Sql.Tables;
 using FluentValidation.Results;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 

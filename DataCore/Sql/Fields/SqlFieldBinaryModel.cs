@@ -16,7 +16,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerial
         set => Value = Encoding.Default.GetBytes(value);
     }
 
-    [XmlIgnore] public virtual string ValueUnicode
+    [XmlElement] public virtual string ValueUnicode
     {
         get => Value is null || Value.Length == 0 || Value.Equals(Array.Empty<byte>()) ? string.Empty : Encoding.Unicode.GetString(Value);
         set => Value = Encoding.Unicode.GetBytes(value);
