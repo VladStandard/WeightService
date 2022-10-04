@@ -144,6 +144,7 @@ public class LocaleTable
     public string PluId => Lang == LangEnum.English ? "ID PLU" : "ИД ПЛУ";
     public string PluNumber => Lang == LangEnum.English ? "# PLU" : "№ ПЛУ";
     public string PluPackage => Lang == LangEnum.English ? "PLU's package" : "Тара ПЛУ";
+    public string PluNesting => Lang == LangEnum.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string PluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
     public string Printer => Lang == LangEnum.English ? "Printer" : "Принтер";
     public string PrinterResource => Lang == LangEnum.English ? "Printer resource" : "Ресурс принтера";

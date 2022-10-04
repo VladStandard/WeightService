@@ -355,6 +355,7 @@
     <Compile Include="Gui\ControlPluEntity.cs" />
     <Compile Include="Gui\FontsSettingsHelper.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
+    <Compile Include="Gui\XamlPages\XamlPageBase.cs" />
     <Compile Include="Gui\XamlPages\PagePackage.xaml.cs">
       <DependentUpon>PagePackage.xaml</DependentUpon>
     </Compile>
@@ -508,7 +509,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\ShareResourceDictionary.xaml">
+    <Page Include="Gui\XamlPages\XamlResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,13 +10,11 @@ namespace WeightCore.Gui.XamlPages;
 /// <summary>
 /// Interaction logic for PageMessageBox.xaml
 /// </summary>
-public partial class PageMessageBox : UserControl
+public partial class PageMessageBox
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    public MessageBoxEntity MessageBox { get; set; } = new();
-    public RoutedEventHandler OnClose { get; set; }
-    public Grid GridMain { get; private set; }
+	public MessageBoxEntity MessageBox { get; set; } = new();
 
     #endregion
 
@@ -25,7 +23,8 @@ public partial class PageMessageBox : UserControl
     public PageMessageBox()
     {
         InitializeComponent();
-    }
+        Setup();
+	}
 
     #endregion
 
@@ -35,67 +34,67 @@ public partial class PageMessageBox : UserControl
     {
         ushort colCount = GetGridColCount();
         ushort rowCount = GetGridRowCount();
-        GridMain = GetGridMain(colCount, rowCount);
+        Grid grid = GetGrid(colCount, rowCount);
 
         ushort row = 0;
-        GetFieldCaption(GridMain, colCount, ref row);
-        GetFieldMessage(GridMain, colCount, ref row);
+        GetFieldCaption(grid, colCount, ref row);
+        GetFieldMessage(grid, colCount, ref row);
 
         ushort col = 0;
-        GetButtonCustom(GridMain, ref col, row);
-        GetButtonYes(GridMain, ref col, row);
-        GetButtonRetry(GridMain, ref col, row);
-        GetButtonNo(GridMain, ref col, row);
-        GetButtonIgnore(GridMain, ref col, row);
-        GetButtonCancel(GridMain, ref col, row);
-        GetButtonAbort(GridMain, ref col, row);
-        GetButtonOk(GridMain, ref col, row);
+        GetButtonCustom(grid, ref col, row);
+        GetButtonYes(grid, ref col, row);
+        GetButtonRetry(grid, ref col, row);
+        GetButtonNo(grid, ref col, row);
+        GetButtonIgnore(grid, ref col, row);
+        GetButtonCancel(grid, ref col, row);
+        GetButtonAbort(grid, ref col, row);
+        GetButtonOk(grid, ref col, row);
 
-        borderMain.Child = GridMain;
-        SetButtonFocus();
+        borderMain.Child = grid;
+        SetButtonFocus(grid);
     }
 
-    private Grid GetGridMain(ushort colCount, ushort rowCount)
+    private Grid GetGrid(ushort colCount, ushort rowCount)
     {
-        Grid GridMain = new()
+        Grid grid = new()
         {
             DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
             Margin = new(2),
         };
-        GridMain.KeyUp += Button_KeyUp;
+        grid.KeyUp += Button_KeyUp;
 
-        Grid.SetColumn(GridMain, 0);
+        Grid.SetColumn(grid, 0);
         for (ushort col = 0; col < colCount; col++)
         {
             ColumnDefinition column = new() { Width = new(1, GridUnitType.Star) };
-            GridMain.ColumnDefinitions.Add(column);
+            grid.ColumnDefinitions.Add(column);
         }
 
-        Grid.SetRow(GridMain, 0);
+        Grid.SetRow(grid, 0);
         if (rowCount <= 1)
         {
             RowDefinition row = new() { Height = new(MessageBox.SizeCaption, GridUnitType.Star) };
-            GridMain.RowDefinitions.Add(row);
+            grid.RowDefinitions.Add(row);
         }
         else if (rowCount == 2)
         {
             RowDefinition row = new() { Height = new(MessageBox.SizeMessage, GridUnitType.Star) };
-            GridMain.RowDefinitions.Add(row);
+            grid.RowDefinitions.Add(row);
             RowDefinition row2 = new() { Height = new(MessageBox.SizeButton, GridUnitType.Star) };
-            GridMain.RowDefinitions.Add(row2);
+            grid.RowDefinitions.Add(row2);
         }
         else if (rowCount == 3)
         {
             RowDefinition row = new() { Height = new(MessageBox.SizeCaption, GridUnitType.Star) };
-            GridMain.RowDefinitions.Add(row);
+            grid.RowDefinitions.Add(row);
             RowDefinition row2 = new() { Height = new(MessageBox.SizeMessage, GridUnitType.Star) };
-            GridMain.RowDefinitions.Add(row2);
+            grid.RowDefinitions.Add(row2);
             RowDefinition row3 = new() { Height = new(MessageBox.SizeButton, GridUnitType.Star) };
-            GridMain.RowDefinitions.Add(row3);
+            grid.RowDefinitions.Add(row3);
         }
 
-        FocusManager.SetIsFocusScope(GridMain, true);
-        return GridMain;
+        FocusManager.SetIsFocusScope(grid, true);
+        return grid;
     }
 
     private ushort GetGridColCount()
@@ -130,7 +129,7 @@ public partial class PageMessageBox : UserControl
         return count;
     }
 
-    private void GetFieldCaption(Grid GridMain, ushort colCount, ref ushort row)
+    private void GetFieldCaption(Grid grid, ushort colCount, ref ushort row)
     {
         if (!string.IsNullOrEmpty(MessageBox.Caption))
         {
@@ -154,12 +153,12 @@ public partial class PageMessageBox : UserControl
             Grid.SetColumn(field, 0);
             Grid.SetColumnSpan(field, colCount);
             Grid.SetRow(field, row);
-            GridMain.Children.Add(field);
+            grid.Children.Add(field);
             row++;
         }
     }
 
-    private void GetFieldMessage(Grid GridMain, ushort colCount, ref ushort row)
+    private void GetFieldMessage(Grid grid, ushort colCount, ref ushort row)
     {
         if (!string.IsNullOrEmpty(MessageBox.Message))
         {
@@ -185,12 +184,12 @@ public partial class PageMessageBox : UserControl
             Grid.SetColumn(scrollViewer, 0);
             Grid.SetColumnSpan(scrollViewer, colCount);
             Grid.SetRow(scrollViewer, row);
-            GridMain.Children.Add(scrollViewer);
+            grid.Children.Add(scrollViewer);
             row++;
         }
     }
 
-    private void GetButtonCustom(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonCustom(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonCustomVisibility == Visibility.Visible)
         {
@@ -203,13 +202,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonCustom_OnClick;
             col++;
         }
     }
 
-    private void GetButtonYes(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonYes(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonYesVisibility == Visibility.Visible)
         {
@@ -222,13 +221,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonYes_OnClick;
             col++;
         }
     }
 
-    private void GetButtonRetry(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonRetry(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonRetryVisibility == Visibility.Visible)
         {
@@ -241,13 +240,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonRetry_OnClick;
             col++;
         }
     }
 
-    private void GetButtonNo(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonNo(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonNoVisibility == Visibility.Visible)
         {
@@ -260,13 +259,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonNo_OnClick;
             col++;
         }
     }
 
-    private void GetButtonIgnore(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonIgnore(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == Visibility.Visible)
         {
@@ -279,13 +278,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonIgnore_OnClick;
             col++;
         }
     }
 
-    private void GetButtonCancel(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonCancel(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonCancelVisibility == Visibility.Visible)
         {
@@ -298,13 +297,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonCancel_OnClick;
             col++;
         }
     }
 
-    private void GetButtonAbort(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonAbort(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonAbortVisibility == Visibility.Visible)
         {
@@ -317,13 +316,13 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonAbort_OnClick;
             col++;
         }
     }
 
-    private void GetButtonOk(Grid GridMain, ref ushort col, ushort row)
+    private void GetButtonOk(Grid grid, ref ushort col, ushort row)
     {
         if (MessageBox.VisibilitySettings.ButtonOkVisibility == Visibility.Visible)
         {
@@ -336,15 +335,15 @@ public partial class PageMessageBox : UserControl
             };
             Grid.SetColumn(button, col);
             Grid.SetRow(button, row);
-            GridMain.Children.Add(button);
+            grid.Children.Add(button);
             button.Click += ButtonOk_OnClick;
             col++;
         }
     }
 
-    private void SetButtonFocus()
+    private void SetButtonFocus(Grid grid)
     {
-        foreach (object child in GridMain.Children)
+        foreach (object child in grid.Children)
         {
             if (child is Button button)
             {
@@ -353,7 +352,7 @@ public partial class PageMessageBox : UserControl
                 button.KeyUp += Button_KeyUp;
                 button.Focusable = true;
                 Keyboard.Focus(button);
-                FocusManager.SetFocusedElement(GridMain, button);
+                FocusManager.SetFocusedElement(grid, button);
             }
         }
 

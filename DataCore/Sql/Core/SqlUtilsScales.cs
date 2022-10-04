@@ -46,7 +46,7 @@ public static partial class SqlUtils
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
-	public static ScaleModel GetScaleFromHostNotNull(long hostId)
+	public static ScaleModel GetScaleFromHostNotNull(long? hostId)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
             new List<SqlFieldFilterModel>
@@ -80,7 +80,7 @@ public static partial class SqlUtils
 		return DataAccess.GetItemNotNull<ScaleModel>(sqlCrudConfig);
 	}
 
-	public static ScaleModel? GetScale(string description)
+	public static ScaleModel GetScaleNotNull(string description)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
             new List<SqlFieldFilterModel>()
@@ -88,10 +88,10 @@ public static partial class SqlUtils
                 new(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, description), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             });
-		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
+		return DataAccess.GetItemNotNull<ScaleModel>(sqlCrudConfig);
 	}
 
-	public static ProductionFacilityModel? GetArea(string name)
+	public static ProductionFacilityModel GetAreaNotNull(string name)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
             new List<SqlFieldFilterModel>()
@@ -99,7 +99,7 @@ public static partial class SqlUtils
                 new(nameof(ProductionFacilityModel.Name), SqlFieldComparerEnum.Equal, name), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             });
-		return DataAccess.GetItem<ProductionFacilityModel>(sqlCrudConfig);
+		return DataAccess.GetItemNotNull<ProductionFacilityModel>(sqlCrudConfig);
 	}
 
 	#endregion

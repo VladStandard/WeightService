@@ -77,8 +77,8 @@ public partial class MainForm : Form
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
-            if (UserSession.SqlViewModel.Scale.Host is not null)
-                UserSession.DataAccess.SetupLog(UserSession.SqlViewModel.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
+            if (UserSession.Scale.Host is not null)
+                UserSession.DataAccess.SetupLog(UserSession.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
             FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !Debug.IsDebug;
             MainForm_ButtonsCreate();
@@ -113,14 +113,14 @@ public partial class MainForm : Form
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                if (UserSession.SqlViewModel.Scale.Host is not null)
+                if (UserSession.Scale.Host is not null)
                 {
                     UserSession.DataAccess.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
-                        UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                     UserSession.DataAccess.LogInformation(
                         LocaleData.Program.IsLoaded +
                         $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                        UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 }
 
                 UserSession.StopwatchMain.Stop();
@@ -172,17 +172,17 @@ public partial class MainForm : Form
                 fieldMassaThreshold, fieldMassaGet, fieldMassaPluDescription);
             UserSession.ManagerControl.Massa.Open();
             // PrintMain.
-            if (UserSession.SqlViewModel.Scale.PrinterMain is not null)
-                UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.SqlViewModel.Scale.PrinterMain,
+            if (UserSession.Scale.PrinterMain is not null)
+                UserSession.ManagerControl.PrintMain.Init(UserSession.PrintBrandMain, UserSession.Scale.PrinterMain,
                     fieldPrintMain, true);
             UserSession.ManagerControl.PrintMain.Open(true);
             UserSession.ManagerControl.PrintMain.SetOdometorUserLabel(1);
             // PrintShipping.
-            if (UserSession.SqlViewModel.Scale.IsShipping)
+            if (UserSession.Scale.IsShipping)
             {
-                if (UserSession.SqlViewModel.Scale.PrinterShipping is not null)
+                if (UserSession.Scale.PrinterShipping is not null)
                     UserSession.ManagerControl.PrintShipping.Init(UserSession.PrintBrandShipping,
-                        UserSession.SqlViewModel.Scale.PrinterShipping,
+                        UserSession.Scale.PrinterShipping,
                         fieldPrintShipping, false);
                 UserSession.ManagerControl.PrintShipping.Open(false);
                 UserSession.ManagerControl.PrintShipping.SetOdometorUserLabel(1);
@@ -226,10 +226,10 @@ public partial class MainForm : Form
         }
         finally
         {
-            if (UserSession.SqlViewModel.Scale.Host is not null)
+            if (UserSession.Scale.Host is not null)
                 UserSession.DataAccess.LogInformation(LocaleData.Program.IsClosed +
                     $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                    UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
             UserSession.StopwatchMain.Stop();
         }
     }
@@ -294,7 +294,7 @@ public partial class MainForm : Form
             IsKneading = false,
             IsMore = true,
             IsNewPallet = true,
-            IsOrder = UserSession.SqlViewModel.Scale.IsOrder,
+            IsOrder = UserSession.Scale.IsOrder,
             IsPlu = true,
             IsPrint = true,
             IsScalesInit = false,
@@ -306,7 +306,7 @@ public partial class MainForm : Form
         if (buttonsSettings.IsChangeDevice)
         {
             ButtonScale = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScale), 2, 0);
-            ButtonScale.Click += ActionDeviceChange_Click;
+            ButtonScale.Click += ActionScale_Click;
 			ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonPackage), 2, 1);
             ButtonPackage.Click += ActionPackage_Click;
         }
@@ -376,10 +376,10 @@ public partial class MainForm : Form
         {
             if (Quartz == null)
                 return;
-            UserSession.SqlViewModel.ProductDate = DateTime.Now;
-            if (UserSession.SqlViewModel.Scale.Host is not null)
+            UserSession.ProductDate = DateTime.Now;
+            if (UserSession.Scale.Host is not null)
                 UserSession.DataAccess.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
-                    UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
         }
     }
 
@@ -462,7 +462,7 @@ public partial class MainForm : Form
         wpfPageLoader.Text = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Caption = LocaleCore.Print.InfoCaption;
         wpfPageLoader.MessageBox.Message = GetPrintInfo(UserSession.ManagerControl.PrintMain, true);
-        if (UserSession.SqlViewModel.Scale.IsShipping)
+        if (UserSession.Scale.IsShipping)
         {
             wpfPageLoader.MessageBox.Message += Environment.NewLine + Environment.NewLine +
                 GetPrintInfo(UserSession.ManagerControl.PrintShipping, false);
@@ -476,7 +476,7 @@ public partial class MainForm : Form
         if (result == DialogResult.Retry)
         {
             UserSession.ManagerControl.PrintMain.ClearPrintBuffer(1);
-            if (UserSession.SqlViewModel.Scale.IsShipping)
+            if (UserSession.Scale.IsShipping)
                 UserSession.ManagerControl.PrintShipping.ClearPrintBuffer(1);
         }
     }
@@ -593,18 +593,18 @@ public partial class MainForm : Form
         try
         {
             LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => LangEnum.English, _ => LangEnum.Russian, };
-            string area = UserSession.SqlViewModel.Scale.WorkShop is null 
-	            ? LocaleCore.Table.FieldNull : UserSession.SqlViewModel.Scale.WorkShop.ProductionFacility.Name;
+            string area = UserSession.Scale.WorkShop is null 
+	            ? LocaleCore.Table.FieldNull : UserSession.Area.Name;
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, 
-	            UserSession.SqlViewModel.Scale.Description + Environment.NewLine + area);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage is null 
+	            UserSession.Scale.Description + Environment.NewLine + area);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.Identity.IsNew() 
 	            ? LocaleCore.Table.FieldPackageIsNotSelected : UserSession.PluPackage.Name);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-            List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(UserSession.SqlViewModel.Scale,
+            List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(UserSession.Scale,
                 false, false, false);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
@@ -631,7 +631,7 @@ public partial class MainForm : Form
         Close();
     }
 
-    private void ActionDeviceChange_Click(object sender, EventArgs e)
+    private void ActionScale_Click(object sender, EventArgs e)
     {
         try
         {
@@ -642,7 +642,7 @@ public partial class MainForm : Form
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
             {
-                UserSession.Setup(wpfPageLoader.PageDevice.SqlViewModel.Scale.Identity.Id);
+                UserSession.Setup(wpfPageLoader.PageDevice.UserSession.Scale.Identity.Id, UserSession.Area.Name);
             }
             FieldLang_SelectedIndexChanged(sender, e);
 
@@ -666,20 +666,12 @@ public partial class MainForm : Form
             
 	        UserSession.ManagerControl.Massa.Close();
 
-	        //using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
-		       // { Width = 700, Height = 450 };
-	        //wpfPageLoader.Text = LocaleCore.Action.ActionAccessDeny;
-	        //wpfPageLoader.MessageBox.Caption = LocaleCore.Table.FieldPackageIsNotSelected;
-	        //wpfPageLoader.MessageBox.Message = LocaleCore.Table.FieldPackageMustBeSelected;
-	        //wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = Visibility.Visible;
-	        //_ = wpfPageLoader.ShowDialog(this);
-	        //wpfPageLoader.Close();
 			using WpfPageLoader wpfPageLoader = new(PageEnum.Package, false) { Width = 600, Height = 225 };
             DialogResult dialogResult = wpfPageLoader.ShowDialog(this);
             wpfPageLoader.Close();
             if (dialogResult == DialogResult.OK)
             {
-                //UserSession.Setup(wpfPageLoader.PageDevice.SqlViewModel.Scale.Identity.Id);
+                //UserSession.Setup(wpfPageLoader.PageDevice.Scale.Identity.Id);
             }
             FieldLang_SelectedIndexChanged(sender, e);
 
@@ -697,9 +689,9 @@ public partial class MainForm : Form
 
     private bool ActionPackageCheckPlu()
     {
-	    switch (UserSession.PluScale?.Plu)
+	    switch (UserSession.PluScale.Plu.Identity.IsNew())
 	    {
-		    case null:
+		    case true:
 		    {
 			    using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog, 22, 16, 16)
 				    { Width = 700, Height = 450 };
@@ -720,11 +712,11 @@ public partial class MainForm : Form
     {
         try
         {
-            if (UserSession.SqlViewModel.Scale.Host is not null)
+            if (UserSession.Scale.Host is not null)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                     true, LogTypeEnum.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 if (result is not DialogResult.Yes)
                     return;
             }
@@ -739,7 +731,7 @@ public partial class MainForm : Form
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this,
                     LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
-                    null, UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    null, UserSession.Scale.Host.HostName, nameof(ScalesUI));
             }
             UserSession.ManagerControl.Open();
         }
@@ -757,28 +749,28 @@ public partial class MainForm : Form
     {
         try
         {
-            if (!UserSession.IsPluCheckWeight)
+            if (!UserSession.PluScale.Plu.IsCheckWeight)
             {
-                if (UserSession.SqlViewModel.Scale.Host is not null)
+                if (UserSession.Scale.Host is not null)
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true,
                         LogTypeEnum.Warning, null,
-                        UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 return;
             }
             if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
             {
-                if (UserSession.SqlViewModel.Scale.Host is not null)
+                if (UserSession.Scale.Host is not null)
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true,
                         LogTypeEnum.Warning, null,
-                        UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 return;
             }
 
-            if (UserSession.SqlViewModel.Scale.Host is not null)
+            if (UserSession.Scale.Host is not null)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 if (result is not DialogResult.Yes)
                     return;
             }
@@ -792,7 +784,7 @@ public partial class MainForm : Form
             }
 
             UserSession.CheckWeightMassaDeviceExists(this);
-            UserSession.SetCurrentPlu(null);
+            UserSession.PluScale = new();
 
             UserSession.ManagerControl.Massa.Open();
             UserSession.ManagerControl.Massa.GetInit();
@@ -814,7 +806,7 @@ public partial class MainForm : Form
         //{
         //    UserSession.ManagerControl.Massa.Close();
 
-        //    if (UserSession.SqlViewModel.Order == null)
+        //    if (UserSession.Order == null)
         //    {
         //        using OrderListForm settingsForm = new();
         //        settingsForm.ShowDialog(this);
@@ -829,7 +821,7 @@ public partial class MainForm : Form
         //        settingsForm.Dispose();
         //        if (result == DialogResult.Retry)
         //        {
-        //            UserSession.SqlViewModel.Order = null;
+        //            UserSession.Order = null;
         //        }
         //        if (result == DialogResult.OK)
         //        {
@@ -840,11 +832,11 @@ public partial class MainForm : Form
         //            //ws.Kneading = (int)settingsForm.currentKneading;
         //        }
         //    }
-        //    //if (UserSession.SqlViewModel.Order is not null)
+        //    //if (UserSession.Order is not null)
         //    //{
-        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.SqlViewModel.Order.PlaneBoxCount);
+        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, UserSession.Order.PlaneBoxCount);
         //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
-        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.SqlViewModel.Order.FactBoxCount);
+        //    //    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, UserSession.Order.FactBoxCount);
         //    //}
 
         //    UserSession.ManagerControl.Massa.Open();
@@ -901,7 +893,7 @@ public partial class MainForm : Form
         try
         {
             KeyboardMouseUnsuscribe();
-            UserSession.SetCurrentPlu(null);
+            UserSession.PluScale = new();
             if (UserSession.CheckWeightMassaDeviceExists(this))
             {
                 if (!UserSession.CheckWeightIsNegative(this) || !UserSession.CheckWeightIsPositive(this))
@@ -917,7 +909,7 @@ public partial class MainForm : Form
             if (result == DialogResult.OK)
             {
                 UserSession.WeighingSettings.Kneading = 1;
-                UserSession.SqlViewModel.ProductDate = DateTime.Now;
+                UserSession.ProductDate = DateTime.Now;
                 UserSession.NewPallet();
                 //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
@@ -926,7 +918,7 @@ public partial class MainForm : Form
             }
             else
             {
-                UserSession.SetCurrentPlu(null);
+                UserSession.PluScale = new();
             }
 
             UserSession.ManagerControl.Massa.Open();
@@ -947,10 +939,10 @@ public partial class MainForm : Form
     {
         try
         {
-            if (UserSession.PluScale == null)
+            if (UserSession.PluScale.Identity.IsNew())
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, null,
-                    UserSession.SqlViewModel.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
                 return;
             }
 
@@ -1001,13 +993,13 @@ public partial class MainForm : Form
             // Check printers connections.
             if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintMain, true))
                 return;
-            if (UserSession.SqlViewModel.Scale.IsShipping)
+            if (UserSession.Scale.IsShipping)
                 if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintShipping, false))
                     return;
             // Check printers statuses.
             if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintMain, true))
                 return;
-            if (UserSession.SqlViewModel.Scale.IsShipping)
+            if (UserSession.Scale.IsShipping)
                 if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintShipping, false))
                     return;
             // Debug check.
@@ -1016,7 +1008,7 @@ public partial class MainForm : Form
                 DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
                     true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.SqlViewModel.Scale.Host == null ? string.Empty : UserSession.SqlViewModel.Scale.Host.HostName,
+                    UserSession.Scale.Host == null ? string.Empty : UserSession.Scale.Host.HostName,
                     nameof(WeightCore));
                 if (dialogResult is not DialogResult.Yes)
                     return;
@@ -1027,10 +1019,10 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            if (UserSession.PluScale is not null && UserSession.SqlViewModel.Scale.Host is not null)
+            if (UserSession.PluScale.Identity.IsNotNew() && UserSession.Scale.Host is not null)
                 UserSession.DataAccess.LogError(new Exception(
                     $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
-                    UserSession.SqlViewModel.Scale.Host.HostName);
+                    UserSession.Scale.Host.HostName);
             GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
@@ -1039,7 +1031,7 @@ public partial class MainForm : Form
 			UserSession.ManagerControl.PrintMain.IsPrintBusy = false;
             UserSession.ManagerControl.PrintShipping.IsPrintBusy = false;
             MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-            //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel,
+            //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState,
             //_sessionState.PrintBrand, _sessionState.CurrentScale);
         }
     }

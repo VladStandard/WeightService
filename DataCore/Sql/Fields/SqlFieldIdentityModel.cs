@@ -142,5 +142,12 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 		_ => default,
 	};
 
+	public virtual bool IsNotNew() => Name switch
+	{
+		SqlFieldIdentityEnum.Id => !Equals(Id, default(long)),
+		SqlFieldIdentityEnum.Uid => !Equals(Uid, Guid.Empty),
+		_ => default,
+	};
+
 	#endregion
 }

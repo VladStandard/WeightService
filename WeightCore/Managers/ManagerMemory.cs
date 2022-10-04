@@ -85,7 +85,7 @@ public class ManagerMemory : ManagerBase
 
 	private void Response()
 	{
-		//if (UserSessionHelper.Instance.SqlViewModel.IsTaskEnabled(TaskType.MemoryManager))
+		//if (UserSessionHelper.Instance.IsTaskEnabled(TaskType.MemoryManager))
 		{
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMemory,
 				$"{LocaleCore.Scales.Memory} | " +

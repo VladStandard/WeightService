@@ -18,6 +18,20 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<AccessModel>(sqlCrudConfig);
 	}
 
+	public static List<ProductionFacilityModel> GetListAreas(this DataAccessHelper dataAccess,
+		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		List<SqlFieldFilterModel> filters = new();
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
+			new List<SqlFieldOrderModel> { new(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc), },
+			0, isShowMarked, isShowOnlyTop);
+		List<ProductionFacilityModel> result = new();
+		if (isAddFieldNull)
+			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+		result.AddRange(dataAccess.GetList<ProductionFacilityModel>(sqlCrudConfig));
+		return result;
+	}
+	
 	public static List<BarCodeModel> GetListBarCodes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
@@ -154,8 +168,8 @@ public static partial class DataAccessHelperExt
 		return result;
 	}
 
-	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, SqlTableBase? itemFilter, 
-		bool isShowMarked, bool isShowOnlyTop)
+	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, 
+		SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		List<SqlFieldFilterModel> filters = new();
 		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
@@ -169,7 +183,12 @@ public static partial class DataAccessHelperExt
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
 			new List<SqlFieldOrderModel> { new (nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);
-		return dataAccess.GetList<PluPackageModel>(sqlCrudConfig);
+
+		List<PluPackageModel> result = new();
+		if (isAddFieldNull)
+			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+		result.AddRange(dataAccess.GetList<PluPackageModel>(sqlCrudConfig));
+		return result;
 	}
 
 	public static List<PluWeighingModel> GetListPluWeighings(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)

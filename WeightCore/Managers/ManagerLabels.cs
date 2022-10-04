@@ -134,11 +134,11 @@ public class ManagerLabels : ManagerBase
 
 	private void OpenTitle()
 	{
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldTitle, AppVersionHelper.Instance.AppTitle +
-		                                                       //$". {UserSessionHelper.Instance.Scale.Description}" +
-		                                                       $". {UserSessionHelper.Instance.SqlViewModel.PublishDescription}.");
+		MDSoft.WinFormsUtils.InvokeControl.SetText(
+			FieldTitle, AppVersionHelper.Instance.AppTitle + //$". {UserSessionHelper.Instance.Scale.Description}" +
+			$". {UserSessionHelper.Instance.PublishDescription}.");
 		MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, 
-			UserSessionHelper.Instance.SqlViewModel.PublishType == PublishTypeEnum.Default ? Color.IndianRed : Color.Transparent);
+			UserSessionHelper.Instance.PublishType == PublishTypeEnum.Default ? Color.IndianRed : Color.Transparent);
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
 	}
 
@@ -147,12 +147,12 @@ public class ManagerLabels : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelProductDate,
 			$"{LocaleCore.Scales.FieldTime}: {DateTime.Now:HH:mm:ss}");
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldProductDate,
-			$"{LocaleCore.Scales.FieldDate}: {UserSessionHelper.Instance.SqlViewModel.ProductDate:dd.MM.yyyy}");
+			$"{LocaleCore.Scales.FieldDate}: {UserSessionHelper.Instance.ProductDate:dd.MM.yyyy}");
 	}
 
 	private void RequestPlu()
 	{
-		if (UserSessionHelper.Instance.PluScale is null)
+		if (UserSessionHelper.Instance.PluScale.Identity.IsNew())
 		{
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
 		}
@@ -187,7 +187,7 @@ public class ManagerLabels : ManagerBase
 			$"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
 			$"{ManagerControllerHelper.Instance.PrintMain.ResponseCount}"
 		);
-		if (UserSessionHelper.Instance.SqlViewModel.Scale.IsShipping)
+		if (UserSessionHelper.Instance.Scale.IsShipping)
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintMainManager,
 				$"{ManagerControllerHelper.Instance.PrintMain.ReopenCount} | " +
 				$"{ManagerControllerHelper.Instance.PrintMain.RequestCount} | " +
@@ -230,11 +230,11 @@ public class ManagerLabels : ManagerBase
 	{
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-		if (UserSessionHelper.Instance.SqlViewModel.Scale.IsShipping && !FieldSscc.Visible)
+		if (UserSessionHelper.Instance.Scale.IsShipping && !FieldSscc.Visible)
 			MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);
-		if (UserSessionHelper.Instance.SqlViewModel.Scale.IsKneading)
+		if (UserSessionHelper.Instance.Scale.IsKneading)
 		{
 			MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelKneading, true);
 			MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, true);
@@ -272,7 +272,7 @@ public class ManagerLabels : ManagerBase
 
 		if (Debug.IsDebug && !FieldPrintMainManager.Visible)
 			MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintMainManager, true);
-		if (UserSessionHelper.Instance.SqlViewModel.Scale.IsShipping)
+		if (UserSessionHelper.Instance.Scale.IsShipping)
 			if (Debug.IsDebug && !FieldPrintShippingManager.Visible)
 				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPrintShippingManager, true);
 		if (Debug.IsDebug && !FieldMassaManager.Visible)

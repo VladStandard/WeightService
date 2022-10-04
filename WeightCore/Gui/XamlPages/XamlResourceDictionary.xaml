@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:locale="clr-namespace:DataCore.Localizations;assembly=DataCore"
     xmlns:sql="clr-namespace:DataCore.Sql.Core;assembly=DataCore"
-    >
+    xmlns:helpers="clr-namespace:WeightCore.Helpers">
     
     <SolidColorBrush x:Key="brush" Color="Red"/>
     <locale:LocaleAction x:Key="LocaleAction" />
@@ -19,5 +19,5 @@
     <locale:LocaleSql x:Key="LocaleSql" />
     <locale:LocaleSystem x:Key="LocaleSystem" />
     <locale:LocaleTable x:Key="LocaleTable" />
-	<sql:SqlViewModelHelper x:Key="SqlViewModel" />
+    <helpers:UserSessionHelper x:Key="UserSession" />
 </ResourceDictionary>

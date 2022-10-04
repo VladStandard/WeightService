@@ -82,7 +82,7 @@ public static class GuiUtils
         {
             CloseIfExistsWpfPage();
 
-            WpfPage = new(DataCore.Models.PageEnum.MessageBox, false) { Width = 700, Height = 400 };
+            WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = caption;
             WpfPage.MessageBox.Message = message;
             WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
@@ -97,7 +97,7 @@ public static class GuiUtils
         {
             CloseIfExistsWpfPage();
 
-            WpfPage = new(DataCore.Models.PageEnum.MessageBox, false) { Width = 700, Height = 400 };
+            WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
             WpfPage.MessageBox.Message = message;
             WpfPage.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
@@ -276,7 +276,7 @@ public static class GuiUtils
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (isLog)
-                DataAccess.LogError(ex, UserSessionHelper.Instance.SqlViewModel.Scale.Host.HostName, null, filePath, lineNumber, memberName);
+                DataAccess.LogError(ex, UserSessionHelper.Instance.Scale.Host?.HostName, null, filePath, lineNumber, memberName);
             string message = ex.Message;
             if (ex.InnerException is not null)
                 message += ex.InnerException.Message;

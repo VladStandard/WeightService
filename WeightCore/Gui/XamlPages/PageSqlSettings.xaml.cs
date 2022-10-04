@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,27 +10,14 @@ namespace WeightCore.Gui.XamlPages;
 /// <summary>
 /// Interaction logic for PageSettings.xaml
 /// </summary>
-public partial class PageSqlSettings : UserControl
+public partial class PageSqlSettings
 {
-    #region Public/Private fields and properties
-
-    private SqlViewModelHelper SqlViewModel { get; }
-    public RoutedEventHandler OnClose { get; set; }
-    public System.Windows.Forms.DialogResult Result { get; internal set; }
-
-    #endregion
-
-    #region Constructor
+    #region Public and private fields, properties, constructor
 
     public PageSqlSettings()
     {
         InitializeComponent();
-
-        object context = FindResource("SqlViewModel");
-        if (context is SqlViewModelHelper sqlViewModel)
-        {
-            SqlViewModel = sqlViewModel;
-        }
+        Setup();
     }
 
     #endregion

@@ -153,7 +153,7 @@ public class ManagerPrint : ManagerBase
 	{
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrint,
 			$"{GetDeviceNameShort(isMain)} | {Printer.Ip}: {Printer.PingStatus} | " +
-			$"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.SqlViewModel.Scale.Counter} | " +
+			$"{LocaleCore.Table.Counter}: {UserSessionHelper.Instance.Scale.Counter} | " +
 			$"{GetDeviceStatus()} | {value}");
 	}
 

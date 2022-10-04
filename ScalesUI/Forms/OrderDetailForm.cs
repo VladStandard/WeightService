@@ -31,7 +31,7 @@ public partial class OrderDetailForm : Form
         //{
         //    TopMost = !UserSession.Debug.IsDebug;
         //    listBox1.Items.Clear();
-        //    foreach (string prop in UserSession.SqlViewModel.Order.ToString().Split('\n'))
+        //    foreach (string prop in UserSession.Order.ToString().Split('\n'))
         //    {
         //        listBox1.Items.Add(prop);
         //    }
@@ -59,8 +59,8 @@ public partial class OrderDetailForm : Form
     {
         //try
         //{
-        //    UserSession.SqlViewModel.Order?.SetStatus(OrderStatus.Paused);
-        //    UserSession.SqlViewModel.Order = null;
+        //    UserSession.Order?.SetStatus(OrderStatus.Paused);
+        //    UserSession.Order = null;
         //    DialogResult = DialogResult.Retry;
         //    Close();
         //}
@@ -74,8 +74,8 @@ public partial class OrderDetailForm : Form
     {
         //try
         //{
-        //    UserSession.SqlViewModel.Order?.SetStatus(OrderStatus.Performed);
-        //    UserSession.SqlViewModel.Order = null;
+        //    UserSession.Order?.SetStatus(OrderStatus.Performed);
+        //    UserSession.Order = null;
         //    DialogResult = DialogResult.Retry;
         //    Close();
         //}
@@ -89,8 +89,8 @@ public partial class OrderDetailForm : Form
     {
         //try
         //{
-        //    UserSession.SqlViewModel.Order?.SetStatus(OrderStatus.InProgress);
-        //    UserSession.SqlViewModel.Order = null;
+        //    UserSession.Order?.SetStatus(OrderStatus.InProgress);
+        //    UserSession.Order = null;
         //    DialogResult = DialogResult.OK;
         //    Close();
         //}

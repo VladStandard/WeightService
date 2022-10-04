@@ -46,8 +46,7 @@ public partial class PlusForm : Form
 	{
 		try
 		{
-			PluScales = UserSession.DataAccess.GetListPluScales(UserSession.SqlViewModel.Scale, 
-				false, false, false);
+			PluScales = UserSession.DataAccess.GetListPluScales(UserSession.Scale, false, false, false);
 
 			LoadFormControls();
 
@@ -265,7 +264,7 @@ public partial class PlusForm : Form
 				tabIndex = (ushort)control.TabIndex;
 			if (PluScales?.Count >= tabIndex)
 			{
-				UserSession.SetCurrentPlu(PluScales[tabIndex]);
+				UserSession.PluScale = PluScales[tabIndex];
 				//UserSession.Plu.LoadTemplate();
 				DialogResult = DialogResult.OK;
 			}

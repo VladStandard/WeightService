@@ -62,7 +62,7 @@ public partial class SettingsForm : Form
         //try
         //{
         //    // Data.
-        //    UserSession.DataAccess.UpdateEntity(UserSession.SqlViewModel.Scale);
+        //    UserSession.DataAccess.UpdateEntity(UserSession.Scale);
         //}
         //catch (Exception ex)
         //{
@@ -80,13 +80,13 @@ public partial class SettingsForm : Form
         //try
         //{
         //    ZplConverterHelper zplConverter = new();
-        //    if (UserSession.SqlViewModel.Scale.PrinterMain is not null)
+        //    if (UserSession.Scale.PrinterMain is not null)
         //    {
-        //        zplConverter.LogoClear(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port);
-        //        zplConverter.FontsClear(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port);
-        //        if (UserSession.SqlViewModel.Scale.IsOrder)
+        //        zplConverter.LogoClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+        //        zplConverter.FontsClear(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
+        //        if (UserSession.Scale.IsOrder)
         //        {
-        //            if (UserSession.SqlViewModel.Order == null)
+        //            if (UserSession.Order == null)
         //            {
         //                const string message = "Не определен PLU";
         //                const string caption = "Операция недоступна!";
@@ -94,16 +94,16 @@ public partial class SettingsForm : Form
         //                return;
         //            }
 
-        //            zplConverter.LogoUpload(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port,
-        //                UserSession.SqlViewModel.Order.Template.Logos);
-        //            zplConverter.FontsUpload(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port,
-        //                UserSession.SqlViewModel.Order.Template.Fonts);
+        //            zplConverter.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+        //                UserSession.Order.Template.Logos);
+        //            zplConverter.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port,
+        //                UserSession.Order.Template.Fonts);
         //        }
         //        else
         //        {
         //            TemplateDirect template = UserSession.Plu.LoadTemplate();
-        //            zplConverter.LogoUpload(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port, template.Logos);
-        //            zplConverter.FontsUpload(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port, template.Fonts);
+        //            zplConverter.LogoUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Logos);
+        //            zplConverter.FontsUpload(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port, template.Fonts);
         //        }
         //    }
         //}
@@ -126,10 +126,10 @@ public partial class SettingsForm : Form
         //    wpfPageLoader.ShowDialog(this);
         //    DialogResult result = wpfPageLoader.MessageBox.Result;
         //    wpfPageLoader.Close();
-        //    if (result == DialogResult.Retry && UserSession.SqlViewModel.Scale.PrinterMain is not null)
+        //    if (result == DialogResult.Retry && UserSession.Scale.PrinterMain is not null)
         //    {
         //        ZplConverterHelper zplConverter = new();
-        //        zplConverter.Сalibration(UserSession.SqlViewModel.Scale.PrinterMain.Ip, UserSession.SqlViewModel.Scale.PrinterMain.Port);
+        //        zplConverter.Сalibration(UserSession.Scale.PrinterMain.Ip, UserSession.Scale.PrinterMain.Port);
         //    }
         //}
         //catch (Exception ex)
