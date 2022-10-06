@@ -352,22 +352,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gui\ControlPluEntity.cs" />
+    <Compile Include="Gui\ControlPluModel.cs" />
     <Compile Include="Gui\FontsSettingsHelper.cs" />
+    <Compile Include="Gui\MessageBoxModel.cs" />
     <Compile Include="Gui\SerialPortsUtils.cs" />
-    <Compile Include="Gui\XamlPages\XamlPageBase.cs" />
-    <Compile Include="Gui\XamlPages\PagePackage.xaml.cs">
-      <DependentUpon>PagePackage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\XamlPages\PagePinCode.xaml.cs">
-      <DependentUpon>PagePinCode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\XamlPages\PageSqlSettings.xaml.cs">
-      <DependentUpon>PageSqlSettings.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Gui\VisibilitySettingsModel.cs" />
+    <Compile Include="Helpers\DebugHelper.cs" />
+    <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="Managers\ManagerLabels.cs" />
-    <Compile Include="Gui\XamlPages\VisibilitySettingsEntity.cs" />
     <Compile Include="Gui\GuiUtils.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
       <SubType>Form</SubType>
@@ -391,7 +384,6 @@
     </Compile>
     <Compile Include="Helpers\AppHelper.cs" />
     <Compile Include="Helpers\CollectionsHelper.cs" />
-    <Compile Include="Helpers\DebugHelper.cs" />
     <Compile Include="Helpers\HardwareHelper.cs" />
     <Compile Include="Helpers\ProcHelper.cs" />
     <Compile Include="Helpers\RegHelper.cs" />
@@ -413,7 +405,6 @@
     <Compile Include="MassaK\MassaRequestHelper.cs" />
     <Compile Include="MassaK\MassaStableEntity.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
-    <Compile Include="Helpers\UserSessionHelper.cs" />
     <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />
     <Compile Include="MassaK\ResponseScaleParEntity.cs" />
@@ -431,13 +422,22 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Gui\XamlPages\MessageBoxEntity.cs" />
-    <Compile Include="Gui\XamlPages\PageMessageBox.xaml.cs">
-      <DependentUpon>PageMessageBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\XamlPages\PageDevice.xaml.cs">
+    <Compile Include="XamlPages\PageDevice.xaml.cs">
       <DependentUpon>PageDevice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XamlPages\PageMessageBox.xaml.cs">
+      <DependentUpon>PageMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlPages\PagePackage.xaml.cs">
+      <DependentUpon>PagePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlPages\PagePinCode.xaml.cs">
+      <DependentUpon>PagePinCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlPages\PageSqlSettings.xaml.cs">
+      <DependentUpon>PageSqlSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlPages\XamlPageBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -489,29 +489,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gui\XamlPages\PagePackage.xaml">
+    <Page Include="XamlPages\PageDevice.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\PagePinCode.xaml">
+    <Page Include="XamlPages\PageMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\PageMessageBox.xaml">
+    <Page Include="XamlPages\PagePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\PageDevice.xaml">
+    <Page Include="XamlPages\PagePinCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\PageSqlSettings.xaml">
+    <Page Include="XamlPages\PageSqlSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\XamlPages\XamlResourceDictionary.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="XamlPages\XamlResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup />
