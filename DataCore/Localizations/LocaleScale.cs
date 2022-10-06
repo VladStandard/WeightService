@@ -108,6 +108,7 @@ public class LocaleScale
     public string PluGtinNotSet => Lang == LangEnum.English ? "GTIN is not set" : "ГТИН не задан";
     public string PluIsPiece => Lang == LangEnum.English ? "pcs." : "шт";
     public string PluIsWeight => Lang == LangEnum.English ? "weight" : "вес";
+    public string PluPackageNotSelect => Lang == LangEnum.English ? "PLU nesting is not selected!" : "Тара ПЛУ не выбрана!";
     public string PluNotSelect => Lang == LangEnum.English ? "PLU is not selected!" : "ПЛУ не выбрана!";
     public string PluNotSelectWeight => Lang == LangEnum.English ? "Weight PLU is not selected!" : "Весовая ПЛУ не выбрана!";
     public string PluPage => Lang == LangEnum.English ? "Page" : "Страница";

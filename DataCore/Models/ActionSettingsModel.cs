@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace ScalesUI.Forms;
+namespace DataCore.Models;
 
-internal class ButtonsSettingsEntity
+public class ActionSettingsModel
 {
 	#region Public and private fields and properties
 
-	public bool IsChangeScale { get; set; }
-	public bool IsChangePackage { get; set; }
+	public bool IsDevice { get; set; }
+	public bool IsPackage { get; set; }
 	public bool IsKneading { get; set; }
 	public bool IsMore { get; set; }
 	public bool IsNewPallet { get; set; }
@@ -22,10 +22,10 @@ internal class ButtonsSettingsEntity
 
 	#region Constructor and destructor
 
-	public ButtonsSettingsEntity()
+	public ActionSettingsModel()
 	{
-		IsChangeScale = false;
-		IsChangePackage = false;
+		IsDevice = false;
+		IsPackage = false;
 		IsKneading = false;
 		IsMore = false;
 		IsNewPallet = false;

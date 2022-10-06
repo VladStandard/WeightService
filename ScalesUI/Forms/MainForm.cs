@@ -24,7 +24,6 @@ using DataCore.Helpers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
-using System.Globalization;
 
 namespace ScalesUI.Forms;
 
@@ -45,7 +44,7 @@ public partial class MainForm : Form
 
     #region Public and private fields, properties, constructor
 
-    private Button ButtonScale { get; set; }
+    private Button ButtonDevice { get; set; }
     private Button ButtonPackage { get; set; }
     private Button ButtonKneading { get; set; }
     private Button ButtonMore { get; set; }
@@ -57,7 +56,6 @@ public partial class MainForm : Form
     private Button ButtonScalesTerminal { get; set; }
     private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
     private readonly object _lockerDays = new();
-    private TableLayoutPanel TableLayoutPanelButtons { get; set; }
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private bool IsKeyboardMouseEventsSubscribe { get; set; }
 
@@ -162,7 +160,7 @@ public partial class MainForm : Form
             // Labels.
             UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
                 labelProductDate, fieldProductDate, labelKneading, fieldKneading, fieldResolution, fieldLang,
-                ButtonScale, ButtonPackage, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
+                ButtonDevice, ButtonPackage, ButtonKneading, ButtonMore, ButtonNewPallet, ButtonOrder, ButtonPlu, ButtonPrint,
                 ButtonScalesInit, ButtonScalesTerminal, pictureBoxClose,
                 fieldPrintMainManager, fieldPrintShippingManager, fieldMassaManager);
             UserSession.ManagerControl.Labels.Open();
@@ -266,10 +264,13 @@ public partial class MainForm : Form
         fieldKneading.Font = FontsSettings.FontLabelsBlack;
         labelProductDate.Font = FontsSettings.FontLabelsBlack;
 
-        if (ButtonScale is not null)
-            ButtonScale.Font = FontsSettings.FontButtonsSmall;
+        if (ButtonDevice is not null)
+            ButtonDevice.Font = FontsSettings.FontButtonsSmall;
+		if (ButtonPlu is not null)
+			ButtonPlu.Font = FontsSettings.FontButtonsSmall;
         if (ButtonPackage is not null)
 	        ButtonPackage.Font = FontsSettings.FontButtonsSmall;
+
         if (ButtonScalesTerminal is not null)
             ButtonScalesTerminal.Font = FontsSettings.FontButtons;
         if (ButtonScalesInit is not null)
@@ -280,8 +281,6 @@ public partial class MainForm : Form
             ButtonNewPallet.Font = FontsSettings.FontButtons;
         if (ButtonKneading is not null)
             ButtonKneading.Font = FontsSettings.FontButtons;
-        if (ButtonPlu is not null)
-            ButtonPlu.Font = FontsSettings.FontButtons;
         if (ButtonMore is not null)
             ButtonMore.Font = FontsSettings.FontButtons;
         if (ButtonPrint is not null)
@@ -290,88 +289,116 @@ public partial class MainForm : Form
 
     private void MainForm_ButtonsCreate()
     {
-        ButtonsSettingsEntity buttonsSettings = new()
+        ActionSettingsModel buttonsSettings = new()
         {
-            IsChangeScale = true,
-            IsChangePackage = true,
+            // Device.
+            IsDevice = true,
+            IsPlu = true,
+            IsPackage = true,
+            // Actions.
             IsKneading = false,
             IsMore = true,
             IsNewPallet = true,
             IsOrder = UserSession.Scale.IsOrder,
-            IsPlu = true,
             IsPrint = true,
             IsScalesInit = false,
             IsScalesTerminal = true,
         };
 
-        int column = 0;
-
-        if (buttonsSettings.IsChangeScale)
-        {
-            ButtonScale = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScale), 2, 0);
-            ButtonScale.Click += ActionScale_Click;
-        }
-
-        if (buttonsSettings.IsChangePackage)
-        {
-			ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonPackage), 2, 1);
-            ButtonPackage.Click += ActionPackage_Click;
-        }
-
-        TableLayoutPanelButtons = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
-            0, tableLayoutPanelMain.RowCount - 1, tableLayoutPanelMain.ColumnCount);
-
-        if (buttonsSettings.IsScalesTerminal)
-        {
-            ButtonScalesTerminal = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesTerminal), column++);
-            ButtonScalesTerminal.Click += ActionScalesTerminal_Click;
-        }
-
-        if (buttonsSettings.IsScalesInit)
-        {
-            ButtonScalesInit = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesInit), column++);
-            ButtonScalesInit.Click += ActionScalesInit_Click;
-        }
-
-        if (buttonsSettings.IsOrder)
-        {
-            ButtonOrder = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonOrder), column++);
-            ButtonOrder.Click += ActionOrder_Click;
-        }
-
-        if (buttonsSettings.IsNewPallet)
-        {
-            ButtonNewPallet = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonNewPallet), column++);
-            ButtonNewPallet.Click += ActionNewPallet_Click;
-        }
-
-        if (buttonsSettings.IsKneading)
-        {
-            ButtonKneading = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonKneading), column++);
-            ButtonKneading.Click += ActionKneading_Click;
-        }
-
-        if (buttonsSettings.IsPlu)
-        {
-            ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPlu), column++);
-            ButtonPlu.Click += ActionPlu_Click;
-        }
-
-        if (buttonsSettings.IsMore)
-        {
-            ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonMore), column++);
-            ButtonMore.Click += ActionMore_Click;
-        }
-
-        if (buttonsSettings.IsPrint)
-        {
-            ButtonPrint = GuiUtils.WinForm.NewTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPrint), column++);
-            ButtonPrint.Click += ActionPrint_Click;
-            ButtonPrint.Focus();
-        }
-
-        GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(TableLayoutPanelButtons, column);
+        MainForm_ButtonsCreate_TableDevice(buttonsSettings);
+        MainForm_ButtonsCreate_TableActions(buttonsSettings);
     }
+
+    private void MainForm_ButtonsCreate_TableDevice(ActionSettingsModel buttonsSettings)
+    {
+	    TableLayoutPanel tableLayoutPanelDevice = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(tableLayoutPanelDevice),
+		    1, 14, 1, 98);
+	    int rowCount = 0;
+
+		if (buttonsSettings.IsDevice)
+	    {
+		    ButtonDevice = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonDevice), 1, rowCount++);
+		    ButtonDevice.Click += ActionDevice_Click;
+	    }
+
+		if (buttonsSettings.IsPlu)
+		{
+			ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
+			ButtonPlu.Click += ActionPlu_Click;
+		}
+
+	    if (buttonsSettings.IsPackage)
+	    {
+		    ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPackage), 1, rowCount++);
+		    ButtonPackage.Click += ActionPackage_Click;
+	    }
+
+	    tableLayoutPanelDevice.ColumnCount = 1;
+		GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(tableLayoutPanelDevice);
+		tableLayoutPanelDevice.RowCount = rowCount;
+		GuiUtils.WinForm.SetTableLayoutPanelRowStyles(tableLayoutPanelDevice);
+	}
+
+    private void MainForm_ButtonsCreate_TableActions(ActionSettingsModel buttonsSettings)
+    {
+	    TableLayoutPanel tableLayoutPanelActions = GuiUtils.WinForm.NewTableLayoutPanel(tableLayoutPanelMain, nameof(tableLayoutPanelActions),
+		    2, 14, tableLayoutPanelMain.ColumnCount - 2, 99);
+	    int columnCount = 0;
+
+	    if (buttonsSettings.IsScalesTerminal)
+	    {
+		    ButtonScalesTerminal =
+			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
+		    ButtonScalesTerminal.Click += ActionScalesTerminal_Click;
+	    }
+
+	    if (buttonsSettings.IsScalesInit)
+	    {
+		    ButtonScalesInit =
+			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
+		    ButtonScalesInit.Click += ActionScalesInit_Click;
+	    }
+
+	    if (buttonsSettings.IsOrder)
+	    {
+		    ButtonOrder =
+			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonOrder), columnCount++, 0);
+			ButtonOrder.Click += ActionOrder_Click;
+	    }
+
+	    if (buttonsSettings.IsNewPallet)
+	    {
+		    ButtonNewPallet =
+			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
+			ButtonNewPallet.Click += ActionNewPallet_Click;
+	    }
+
+	    if (buttonsSettings.IsKneading)
+	    {
+		    ButtonKneading =
+			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
+			ButtonKneading.Click += ActionKneading_Click;
+	    }
+
+	    if (buttonsSettings.IsMore)
+	    {
+		    ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonMore), columnCount++, 0);
+			ButtonMore.Click += ActionMore_Click;
+	    }
+
+	    if (buttonsSettings.IsPrint)
+	    {
+		    ButtonPrint =
+			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
+			ButtonPrint.Click += ActionPrint_Click;
+		    ButtonPrint.Focus();
+	    }
+
+	    tableLayoutPanelActions.ColumnCount = columnCount;
+		GuiUtils.WinForm.SetTableLayoutPanelColumnStyles(tableLayoutPanelActions);
+		tableLayoutPanelActions.RowCount = 1;
+		GuiUtils.WinForm.SetTableLayoutPanelRowStyles(tableLayoutPanelActions);
+	}
 
     #endregion
 
@@ -602,7 +629,7 @@ public partial class MainForm : Form
             LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => LangEnum.English, _ => LangEnum.Russian, };
             string area = UserSession.Scale.WorkShop is null 
 	            ? LocaleCore.Table.FieldNull : UserSession.Area.Name;
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, 
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice, 
 	            UserSession.Scale.Description + Environment.NewLine + area);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.Identity.IsNew() 
 	            ? LocaleCore.Table.FieldPackageIsNotSelected 
@@ -640,7 +667,7 @@ public partial class MainForm : Form
         Close();
     }
 
-    private void ActionScale_Click(object sender, EventArgs e)
+    private void ActionDevice_Click(object sender, EventArgs e)
     {
         try
         {
@@ -988,12 +1015,16 @@ public partial class MainForm : Form
 
 			if (!UserSession.CheckPluIsEmpty(this))
                 return;
+            if (UserSession.PluPackage.Identity.IsNew())
+	            ActionPackage_Click(sender, e);
+			if (!UserSession.CheckPluPackageIsEmpty(this))
+                return;
             if (!UserSession.CheckWeightMassaDeviceExists(this))
                 return;
             if (!UserSession.CheckWeightMassaIsStable(this))
                 return;
             
-            UserSession.SetWeighingFact(this);
+            UserSession.SetPluWeighing(this);
 
             if (!UserSession.CheckWeightIsNegative(this))
 	            return;

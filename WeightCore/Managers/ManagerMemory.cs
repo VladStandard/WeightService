@@ -6,10 +6,10 @@ using DataCore.Memory;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using DataCore.Helpers;
 using DataCore.Managers;
 using DataCore.Models;
 using WeightCore.Gui;
-using DebugHelper = DataCore.Helpers.DebugHelper;
 
 namespace WeightCore.Managers;
 

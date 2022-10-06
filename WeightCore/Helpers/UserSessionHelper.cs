@@ -145,6 +145,7 @@ public class UserSessionHelper : BaseViewModel
 		{
 			_scale = value;
 			_ = Area;
+			PluScale = new();
 			OnPropertyChanged();
 		}
 	}
@@ -327,6 +328,23 @@ public class UserSessionHelper : BaseViewModel
 	}
 
 	/// <summary>
+	/// Check PLU package is empty.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckPluPackageIsEmpty(IWin32Window owner)
+	{
+		if (PluPackage.Identity.IsNew())
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluPackageNotSelect,
+				true, LogTypeEnum.Warning, new() { ButtonCancelVisibility = Visibility.Visible },
+				Scale.Host is null ? NetUtils.GetLocalHostName(false) : Scale.Host.HostName, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
+
+	/// <summary>
 	/// Check PLU is empty.
 	/// </summary>
 	/// <param name="owner"></param>
@@ -337,7 +355,7 @@ public class UserSessionHelper : BaseViewModel
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
 				true, LogTypeEnum.Warning, new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host.HostName, nameof(WeightCore));
+				Scale.Host is null ? NetUtils.GetLocalHostName(false) : Scale.Host.HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -617,10 +635,7 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 
-	/// <summary>
-	/// Вывести серию этикеток по заданному размеру паллеты.
-	/// </summary>
-	public void SetWeighingFact(IWin32Window owner)
+	public void SetPluWeighing(IWin32Window owner)
 	{
 		if (PluScale.Identity.IsNew())
 			return;
@@ -660,8 +675,8 @@ public class UserSessionHelper : BaseViewModel
 	{
 		try
 		{
-			if (PluWeighing.Identity.IsNew()) return;
-			DataAccess.Save(PluWeighing);
+			if (PluWeighing.Identity.IsNew())
+				DataAccess.Save(PluWeighing);
 
 			//string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
 			//string xmlStringProductionFacility = Area.Identity.IsNew() ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
