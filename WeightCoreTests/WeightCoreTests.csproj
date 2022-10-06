@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.7.255.0</Version>
+    <Version>0.7.260.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="MassaK\" />
-    <Folder Include="Models\" />
     <Folder Include="Zpl\" />
     <Folder Include="Tsc\" />
   </ItemGroup>
