@@ -8,7 +8,7 @@ internal class DataAcessTests
 {
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -17,13 +17,13 @@ internal class DataAcessTests
 	[Test]
 	public void GetFreeHosts_Exec_DoesNotThrow()
 	{
-		Helper.AssertAction(() =>
+		DataCore.AssertAction(() =>
 		{
 			foreach (long? id in DataCoreEnums.GetLongNullable())
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostModel> hosts = Helper.DataAccess.GetListHostsFree(id, isMarked);
+					List<HostModel> hosts = DataCore.DataAccess.GetListHostsFree(id, isMarked);
 				}
 			}
 		});
@@ -32,13 +32,13 @@ internal class DataAcessTests
 	[Test]
 	public void GetBusyHosts_Exec_DoesNotThrow()
 	{
-		Helper.AssertAction(() =>
+		DataCore.AssertAction(() =>
 		{
 			foreach (int? id in DataCoreEnums.GetIntNullable())
 			{
 				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
 				{
-					List<HostModel> hosts = Helper.DataAccess.GetListHostsBusy(id, isMarked);
+					List<HostModel> hosts = DataCore.DataAccess.GetListHostsBusy(id, isMarked);
 				}
 			}
 		});

@@ -6,8 +6,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using WeightCore.Gui.XamlPages;
 using WeightCore.Helpers;
+using WeightCore.XamlPages;
 
 namespace WeightCore.Gui;
 
@@ -18,7 +18,7 @@ public partial class WpfPageLoader : Form
     public UserSessionHelper UserSession { get; } = UserSessionHelper.Instance;
     private ElementHost ElementHost { get; set; }
     private bool UseOwnerSize { get; }
-    public MessageBoxEntity MessageBox { get; } = new();
+    public MessageBoxModel MessageBox { get; } = new();
     private PageMessageBox PageMessageBox { get; set; }
     private PagePinCode PagePinCode { get; set; }
     public PageDevice PageDevice { get; private set; }

@@ -13,7 +13,7 @@ internal class RazorFieldConfigUtilsTests
 {
 	#region Public and private fields, properties, constructor
 
-	private BlazorCoreHelper Helper { get; } = BlazorCoreHelper.Instance;
+	private BlazorCoreHelper BlazorCore { get; } = BlazorCoreHelper.Instance;
 
 	#endregion
 
@@ -86,10 +86,10 @@ internal class RazorFieldConfigUtilsTests
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			RazorComponentBase razorPage = Helper.CreateNewSubstituteRazorComponentBase();
-			HostModel host = Helper.Helper.CreateNewSubstitute<HostModel>(true);
-			PrinterModel printer = Helper.Helper.CreateNewSubstitute<PrinterModel>(true);
-			WorkShopModel workShop = Helper.Helper.CreateNewSubstitute<WorkShopModel>(true);
+			RazorComponentBase razorPage = BlazorCore.CreateNewSubstituteRazorComponentBase();
+			HostModel host = BlazorCore.DataCore.CreateNewSubstitute<HostModel>(true);
+			PrinterModel printer = BlazorCore.DataCore.CreateNewSubstitute<PrinterModel>(true);
+			WorkShopModel workShop = BlazorCore.DataCore.CreateNewSubstitute<WorkShopModel>(true);
 			// Arrange & Act & Assert.
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Scale.GetNumber();
 			TestContext.WriteLine(razorFieldConfig);

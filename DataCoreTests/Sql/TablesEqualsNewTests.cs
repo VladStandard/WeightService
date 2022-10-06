@@ -8,7 +8,7 @@ internal class TablesEqualsNewTests
 {
     #region Public and private fields, properties, constructor
 
-    private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
     #endregion
 
@@ -17,175 +17,175 @@ internal class TablesEqualsNewTests
     [Test]
     public void DbTable_Validate_AccessModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<AccessModel>();
+        DataCore.TableBaseModelAssertEqualsNew<AccessModel>();
     }
 
     [Test]
     public void DbTable_Validate_AppModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<AppModel>();
+        DataCore.TableBaseModelAssertEqualsNew<AppModel>();
     }
 
     [Test]
     public void DbTable_Validate_BarCodeModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<BarCodeModel>();
+        DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
     }
 
     [Test]
     public void DbTable_Validate_BarCodeTypeModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<BarCodeTypeModel>();
+        DataCore.TableBaseModelAssertEqualsNew<BarCodeTypeModel>();
     }
 
     [Test]
     public void DbTable_Validate_ContragentModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<ContragentModel>();
+        DataCore.TableBaseModelAssertEqualsNew<ContragentModel>();
     }
 
     [Test]
     public void DbTable_Validate_HostModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<HostModel>();
+        DataCore.TableBaseModelAssertEqualsNew<HostModel>();
     }
 
     [Test]
     public void DbTable_Validate_LogModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<LogModel>();
+        DataCore.TableBaseModelAssertEqualsNew<LogModel>();
     }
 
     [Test]
     public void DbTable_Validate_LogTypeModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<LogTypeModel>();
+        DataCore.TableBaseModelAssertEqualsNew<LogTypeModel>();
     }
 
     [Test]
     public void DbTable_Validate_NomenclatureModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<NomenclatureModel>();
+        DataCore.TableBaseModelAssertEqualsNew<NomenclatureModel>();
     }
 
     [Test]
     public void DbTable_Validate_OrderModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<OrderModel>();
+        DataCore.TableBaseModelAssertEqualsNew<OrderModel>();
     }
 
     [Test]
     public void DbTable_Validate_OrderWeighingModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
+        DataCore.TableBaseModelAssertEqualsNew<OrderWeighingModel>();
     }
 
     [Test]
     public void DbTable_Validate_OrganizationModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<OrganizationModel>();
+        DataCore.TableBaseModelAssertEqualsNew<OrganizationModel>();
     }
 
     [Test]
     public void DbTable_Validate_PackageModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PackageModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PackageModel>();
     }
 
     [Test]
     public void DbTable_Validate_PluModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PluModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PluModel>();
     }
 
     [Test]
     public void DbTable_Validate_PluLabelModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PluLabelModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PluLabelModel>();
     }
 
     [Test]
     public void DbTable_Validate_PluScaleModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PluScaleModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PluScaleModel>();
     }
 
     [Test]
     public void DbTable_Validate_PluWeighingModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PluWeighingModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PluWeighingModel>();
     }
 
     [Test]
     public void DbTable_Validate_PrinterModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PrinterModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PrinterModel>();
     }
 
     [Test]
     public void DbTable_Validate_PrinterResourceModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PrinterResourceModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PrinterResourceModel>();
     }
 
     [Test]
     public void DbTable_Validate_PrinterTypeModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<PrinterTypeModel>();
+        DataCore.TableBaseModelAssertEqualsNew<PrinterTypeModel>();
     }
 
     [Test]
     public void DbTable_Validate_ProductionFacilityModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
+        DataCore.TableBaseModelAssertEqualsNew<ProductionFacilityModel>();
     }
 
     [Test]
     public void DbTable_Validate_ProductSeriesModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
+        DataCore.TableBaseModelAssertEqualsNew<ProductSeriesModel>();
     }
 
     [Test]
     public void DbTable_Validate_ScaleModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<ScaleModel>();
+        DataCore.TableBaseModelAssertEqualsNew<ScaleModel>();
     }
 
     [Test]
     public void DbTable_Validate_TaskModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<TaskModel>();
+        DataCore.TableBaseModelAssertEqualsNew<TaskModel>();
     }
 
     [Test]
     public void DbTable_Validate_TaskTypeModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<TaskTypeModel>();
+        DataCore.TableBaseModelAssertEqualsNew<TaskTypeModel>();
     }
 
     [Test]
     public void DbTable_Validate_TemplateModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<TemplateModel>();
+        DataCore.TableBaseModelAssertEqualsNew<TemplateModel>();
     }
 
     [Test]
     public void DbTable_Validate_TemplateResourceModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<TemplateResourceModel>();
+        DataCore.TableBaseModelAssertEqualsNew<TemplateResourceModel>();
     }
 
     [Test]
     public void DbTable_Validate_VersionModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<VersionModel>();
+        DataCore.TableBaseModelAssertEqualsNew<VersionModel>();
     }
 
     [Test]
     public void DbTable_Validate_WorkShopModel()
     {
-        Helper.TableBaseModelAssertEqualsNew<WorkShopModel>();
+        DataCore.TableBaseModelAssertEqualsNew<WorkShopModel>();
     }
 
     #endregion

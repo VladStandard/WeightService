@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class PackagePluValidatorTests
 {
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PluPackageModel item = Helper.CreateNewSubstitute<PluPackageModel>(false);
+		PluPackageModel item = DataCore.CreateNewSubstitute<PluPackageModel>(false);
 		// Assert.
-		Helper.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PluPackageModel item = Helper.CreateNewSubstitute<PluPackageModel>(true);
+		PluPackageModel item = DataCore.CreateNewSubstitute<PluPackageModel>(true);
 		// Assert.
-		Helper.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 }

@@ -4,11 +4,12 @@
 using DataCore.Localizations;
 using System;
 using System.Windows.Forms;
+using DataCore.Managers;
 using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
-using static WeightCore.MassaK.MassaEnums;
+using WeightCore.MassaK.Enums;
 
 namespace WeightCore.Managers;
 
@@ -26,9 +27,9 @@ public class ManagerMassa : ManagerBase
 	private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 	private readonly object _locker = new();
 	//private BlockingCollection<MassaExchangeEntity> Requests { get; set; } = new();
-	private MassaExchangeEntity MassaExchange { get; set; }
-	public MassaStableEntity MassaStable { get; } = new();
-	public MassaStableEntity MassaStableEmpty { get; } = new();
+	private MassaExchangeModel MassaExchange { get; set; }
+	public MassaStableModel MassaStable { get; } = new();
+	public MassaStableModel MassaStableEmpty { get; } = new();
 	public decimal WeightGross { get; private set; }
 	private decimal _weightNet;
 
@@ -42,10 +43,10 @@ public class ManagerMassa : ManagerBase
 		}
 	}
 	public int ScaleFactor { get; set; } = 1_000;
-	public MassaDeviceEntity MassaDevice { get; private set; }
-	public ResponseParseEntity ResponseParseGet { get; private set; }
-	public ResponseParseEntity ResponseParseScalePar { get; private set; }
-	public ResponseParseEntity ResponseParseSet { get; private set; }
+	public MassaDeviceModel MassaDevice { get; private set; }
+	public ResponseParseModel ResponseParseGet { get; private set; }
+	public ResponseParseModel ResponseParseScalePar { get; private set; }
+	public ResponseParseModel ResponseParseSet { get; private set; }
 	public bool IsWeightNetFake { get; set; }
 
 	#endregion
@@ -85,7 +86,8 @@ public class ManagerMassa : ManagerBase
 
 					SetControlsTextDefault();
 				},
-				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
+				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500,
+					true, Application.DoEvents));
 		}
 		catch (Exception ex)
 		{
@@ -324,7 +326,7 @@ public class ManagerMassa : ManagerBase
 	//    }
 	//}
 
-	private void SendData(MassaExchangeEntity massaExchange)
+	private void SendData(MassaExchangeModel massaExchange)
 	{
 		switch (massaExchange.CmdType)
 		{
@@ -367,7 +369,7 @@ public class ManagerMassa : ManagerBase
 		MassaDevice?.SendData(massaExchange);
 	}
 
-	private void GetData(MassaExchangeEntity massaExchange, byte[] response)
+	private void GetData(MassaExchangeModel massaExchange, byte[] response)
 	{
 		lock (_locker)
 		{
@@ -376,14 +378,14 @@ public class ManagerMassa : ManagerBase
 
 			if (massaExchange is not null)
 			{
-				massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
+				massaExchange.ResponseParse = new ResponseParseModel(massaExchange.CmdType, response);
 				ParseSetResponse(massaExchange);
 				ParseSetMassa(massaExchange);
 			}
 		}
 	}
 
-	private void ParseSetResponse(MassaExchangeEntity massaExchange)
+	private void ParseSetResponse(MassaExchangeModel massaExchange)
 	{
 		switch (massaExchange.CmdType)
 		{
@@ -414,7 +416,7 @@ public class ManagerMassa : ManagerBase
 		}
 	}
 
-	private void ParseSetMassa(MassaExchangeEntity massaExchange)
+	private void ParseSetMassa(MassaExchangeModel massaExchange)
 	{
 		switch (massaExchange.CmdType)
 		{

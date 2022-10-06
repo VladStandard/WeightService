@@ -1,6 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows;
+using System.Windows.Forms;
+using System.Xml.Serialization;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
@@ -14,15 +21,10 @@ using DataCore.Sql.TableScaleModels;
 using DataCore.Utils;
 using MDSoft.BarcodePrintUtils;
 using MvvmHelpers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
-using System.Xml.Serialization;
 using WeightCore.Gui;
 using WeightCore.Managers;
+using System.Linq;
+using DataCore.Helpers;
 
 namespace WeightCore.Helpers;
 
@@ -46,7 +48,8 @@ public class UserSessionHelper : BaseViewModel
 	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
 
 	private ProductSeriesDirect _productSeries;
-	[XmlElement] public ProductSeriesDirect ProductSeries
+	[XmlElement]
+	public ProductSeriesDirect ProductSeries
 	{
 		get => _productSeries;
 		set
@@ -55,12 +58,13 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	public PrintBrand PrintBrandMain => 
+	public PrintBrand PrintBrandMain =>
 		Scale.PrinterMain is not null && Scale.PrinterMain.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
-	public PrintBrand PrintBrandShipping => 
+	public PrintBrand PrintBrandShipping =>
 		Scale.PrinterShipping is not null && Scale.PrinterShipping.PrinterType.Name.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
 	private PluWeighingModel _pluWeighing;
-	[XmlElement] public PluWeighingModel PluWeighing
+	[XmlElement]
+	public PluWeighingModel PluWeighing
 	{
 		get => _pluWeighing;
 		set
@@ -69,8 +73,9 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	private WeighingSettingsEntity _weighingSettings;
-	[XmlElement] public WeighingSettingsEntity WeighingSettings
+	private WeighingSettingsModel _weighingSettings;
+	[XmlElement]
+	public WeighingSettingsModel WeighingSettings
 	{
 		get => _weighingSettings;
 		set
@@ -81,7 +86,8 @@ public class UserSessionHelper : BaseViewModel
 	}
 	public Stopwatch StopwatchMain { get; set; } = new();
 	private PluScaleModel _pluScale;
-	[XmlElement] public PluScaleModel PluScale
+	[XmlElement]
+	public PluScaleModel PluScale
 	{
 		get => _pluScale;
 		set
@@ -93,11 +99,13 @@ public class UserSessionHelper : BaseViewModel
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			PluPackages = SqlUtils.DataAccess.GetListPluPackages(value.Plu, false, false, true);
+			PluPackage = PluPackages.First();
 			OnPropertyChanged();
 		}
 	}
 	private PluPackageModel _pluPackage;
-	[XmlElement] public PluPackageModel PluPackage
+	[XmlElement]
+	public PluPackageModel PluPackage
 	{
 		get => _pluPackage;
 		set
@@ -107,7 +115,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private List<PluPackageModel> _pluPackages;
-	[XmlElement] public List<PluPackageModel> PluPackages
+	[XmlElement]
+	public List<PluPackageModel> PluPackages
 	{
 		get => _pluPackages;
 		set
@@ -117,7 +126,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private HostModel _host;
-	[XmlElement] public HostModel Host
+	[XmlElement]
+	public HostModel Host
 	{
 		get => _host;
 		set
@@ -127,7 +137,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private ScaleModel _scale;
-	[XmlElement] public ScaleModel Scale
+	[XmlElement]
+	public ScaleModel Scale
 	{
 		get => _scale;
 		set
@@ -138,7 +149,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private List<ScaleModel> _scales;
-	[XmlElement] public List<ScaleModel> Scales
+	[XmlElement]
+	public List<ScaleModel> Scales
 	{
 		get => _scales;
 		set
@@ -148,7 +160,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private ProductionFacilityModel _area;
-	[XmlElement] public ProductionFacilityModel Area
+	[XmlElement]
+	public ProductionFacilityModel Area
 	{
 		get
 		{
@@ -166,7 +179,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private List<ProductionFacilityModel> _areas;
-	[XmlElement] public List<ProductionFacilityModel> Areas
+	[XmlElement]
+	public List<ProductionFacilityModel> Areas
 	{
 		get => _areas;
 		set
@@ -176,7 +190,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private PublishTypeEnum _publishType = PublishTypeEnum.Default;
-	[XmlElement] public PublishTypeEnum PublishType
+	[XmlElement]
+	public PublishTypeEnum PublishType
 	{
 		get => _publishType;
 		set
@@ -186,7 +201,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private string _publishDescription;
-	[XmlElement] public string PublishDescription
+	[XmlElement]
+	public string PublishDescription
 	{
 		get => _publishDescription;
 		set
@@ -196,7 +212,8 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private string _sqlInstance;
-	[XmlElement] private string SqlInstance
+	[XmlElement]
+	private string SqlInstance
 	{
 		get => _sqlInstance;
 		set

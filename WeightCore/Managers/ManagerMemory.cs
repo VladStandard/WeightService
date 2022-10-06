@@ -6,9 +6,10 @@ using DataCore.Memory;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using DataCore.Managers;
 using DataCore.Models;
 using WeightCore.Gui;
-using WeightCore.Helpers;
+using DebugHelper = DataCore.Helpers.DebugHelper;
 
 namespace WeightCore.Managers;
 
@@ -53,7 +54,8 @@ public class ManagerMemory : ManagerBase
 					if (Debug.IsDebug && !fieldTasks.Visible)
 						MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTasks, true);
 				},
-				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
+				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500,
+					true, Application.DoEvents));
 		}
 		catch (Exception ex)
 		{

@@ -4,6 +4,7 @@
 using DataCore.Localizations;
 using System;
 using System.Windows.Forms;
+using DataCore.Helpers;
 using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;

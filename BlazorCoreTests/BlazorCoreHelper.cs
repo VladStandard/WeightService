@@ -29,7 +29,7 @@ public class BlazorCoreHelper
 
 	#region Public and private fields, properties, constructor
 
-	public DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	public DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -50,7 +50,7 @@ public class BlazorCoreHelper
 	{
 		// Arrange.
 		RazorComponentBase razorComponent = new();
-		T item = Helper.CreateNewSubstitute<T>(true);
+		T item = DataCore.CreateNewSubstitute<T>(true);
 		// Act.
 		string urlItem = razorComponent.GetRouteItemPath(item);
 		TestContext.WriteLine(urlItem);

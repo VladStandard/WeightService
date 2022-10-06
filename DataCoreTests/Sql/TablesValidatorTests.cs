@@ -8,7 +8,7 @@
 //{
 //	#region Public and private fields, properties, constructor
 
-//	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+//	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 //	#endregion
 
@@ -24,9 +24,9 @@
 //			{
 //				//TestContext.WriteLine(item.GetType());
 //				// Arrange & Act.
-//				typeof(type) item = Helper.CreateNewSubstitute< typeof(type) > (false);
+//				typeof(type) item = DataCore.CreateNewSubstitute< typeof(type) > (false);
 //				// Assert.
-//				Helper.AssertSqlValidate(item, false);
+//				DataCore.AssertSqlValidate(item, false);
 //			}
 //		});
 //	}
@@ -41,7 +41,7 @@
 //			{
 //				TestContext.WriteLine(item.GetType());
 //				// Assert.
-//				Helper.AssertSqlValidate(item, true);
+//				DataCore.AssertSqlValidate(item, true);
 //			}
 //		});
 //	}

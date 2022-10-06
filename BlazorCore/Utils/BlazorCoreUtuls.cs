@@ -43,26 +43,23 @@ public static class BlazorCoreUtuls
         {
             if (appSettings.IsSqlServerRelease)
                 return "RadzenPanelMenuRelease";
-            else if (appSettings.IsSqlServerDebug)
-                return "RadzenPanelMenuDebug";
-            return "RadzenPanelMenuDefault";
+            return appSettings.IsSqlServerDebug 
+	            ? "RadzenPanelMenuDebug" : "RadzenPanelMenuDefault";
         }
 
         public static string RadzenPanelMenuItem(AppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
                 return "RadzenPanelMenuItemRelease";
-            else if (appSettings.IsSqlServerDebug)
-                return "RadzenPanelMenuItemDebug";
-            return "RadzenPanelMenuItemDefault";
+            return appSettings.IsSqlServerDebug 
+	            ? "RadzenPanelMenuItemDebug" : "RadzenPanelMenuItemDefault";
         }
         public static string RadzenPanelMenuSubItem(AppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
                 return "RadzenPanelMenuSubItemRelease";
-            else if (appSettings.IsSqlServerDebug)
-                return "RadzenPanelMenuSubItemDebug";
-            return "RadzenPanelMenuSubItemDefault";
+            return appSettings.IsSqlServerDebug 
+	            ? "RadzenPanelMenuSubItemDebug" : "RadzenPanelMenuSubItemDefault";
         }
         public static string RadzenProgressBar => "RadzenProgressBar";
     }

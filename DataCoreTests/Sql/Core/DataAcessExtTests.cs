@@ -8,7 +8,7 @@ internal class DataAcessExtTests
 {
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -17,10 +17,10 @@ internal class DataAcessExtTests
 	[Test]
 	public void DataAccess_GetListPluScales_CountExists()
 	{
-		Helper.AssertAction(() =>
+		DataCore.AssertAction(() =>
 		{
 			// Arrange.
-			List<ScaleModel> scales = Helper.DataAccess.GetListScales(true, false, false);
+			List<ScaleModel> scales = DataCore.DataAccess.GetListScales(true, false, false);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
@@ -29,7 +29,7 @@ internal class DataAcessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					List<PluScaleModel> pluScales = Helper.DataAccess.GetListPluScales(scale, 
+					List<PluScaleModel> pluScales = DataCore.DataAccess.GetListPluScales(scale, 
 						false, true, true);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
@@ -41,10 +41,10 @@ internal class DataAcessExtTests
 	[Test]
 	public void DataAccess_GetListPluPackages_CountExists()
 	{
-		Helper.AssertAction(() =>
+		DataCore.AssertAction(() =>
 		{
 			// Arrange.
-			List<PluModel> plus = Helper.DataAccess.GetListPlus(true, false, false);
+			List<PluModel> plus = DataCore.DataAccess.GetListPlus(true, false, false);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);
@@ -53,7 +53,7 @@ internal class DataAcessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					List<PluPackageModel> pluPackages = Helper.DataAccess.GetListPluPackages(
+					List<PluPackageModel> pluPackages = DataCore.DataAccess.GetListPluPackages(
 						plu, false, false, false);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");

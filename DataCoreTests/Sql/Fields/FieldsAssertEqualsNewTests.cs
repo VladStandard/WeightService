@@ -8,7 +8,7 @@ internal class FieldsAssertEqualsNewTests
 {
     #region Public and private fields, properties, constructor
 
-    private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
     #endregion
 
@@ -17,19 +17,19 @@ internal class FieldsAssertEqualsNewTests
     [Test]
     public void FieldBinaryModel_Assert_EqualsNew()
     {
-        Helper.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
+        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldBinaryModel>();
     }
 
     [Test]
     public void FieldIdentityModel_Assert_EqualsNew()
     {
-        Helper.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
+        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldIdentityModel>();
     }
 
     [Test]
     public void FieldMacAddressModel_Assert_EqualsNew()
     {
-        Helper.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
+        DataCore.FieldBaseModelAssertEqualsNew<SqlFieldMacAddressModel>();
     }
 
     #endregion

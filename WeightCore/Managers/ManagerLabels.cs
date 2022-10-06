@@ -2,13 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Localizations;
+using DataCore.Models;
 using DataCore.Settings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using DataCore.Models;
+using DataCore.Managers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using DebugHelper = DataCore.Helpers.DebugHelper;
 
 namespace WeightCore.Managers;
 
@@ -54,9 +56,9 @@ public class ManagerLabels : ManagerBase
 
 	#region Public and private methods
 
-	public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate, 
+	public void Init(Label fieldTitle, Label fieldPlu, Label fieldSscc, Label labelProductDate, Label fieldProductDate,
 		Label labelKneading, Label fieldKneading, ComboBox fieldResolution, ComboBox fieldLang,
-		Button buttonScale, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu, 
+		Button buttonScale, Button buttonPackage, Button buttonKneading, Button buttonMore, Button buttonNewPallet, Button buttonOrder, Button buttonPlu,
 		Button buttonPrint, Button buttonScalesInit, Button buttonScalesTerminal, PictureBox pictureBoxClose,
 		Label fieldPrintMainManager, Label fieldPrintShippingManager, Label fieldMassaManager)
 	{
@@ -100,7 +102,8 @@ public class ManagerLabels : ManagerBase
 					MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPrintShippingManager, LocaleCore.Print.PrintManager);
 					MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaManager, LocaleCore.Scales.MassaManager);
 				},
-				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
+				new(waitReopen: 1_000, waitRequest: 0_250, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500, 
+					true, Application.DoEvents));
 		}
 		catch (Exception ex)
 		{
@@ -137,7 +140,7 @@ public class ManagerLabels : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetText(
 			FieldTitle, AppVersionHelper.Instance.AppTitle + //$". {UserSessionHelper.Instance.Scale.Description}" +
 			$". {UserSessionHelper.Instance.PublishDescription}.");
-		MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle, 
+		MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle,
 			UserSessionHelper.Instance.PublishType == PublishTypeEnum.Default ? Color.IndianRed : Color.Transparent);
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
 	}
@@ -217,7 +220,7 @@ public class ManagerLabels : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldKneading, false);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, false);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(PictureBoxClose, false);
-            
+
 		base.ReleaseManaged();
 	}
 
@@ -250,7 +253,7 @@ public class ManagerLabels : ManagerBase
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonPrint, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesInit, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesTerminal, true);
-            
+
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonScale, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonPackage, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(ButtonKneading, true);

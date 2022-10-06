@@ -8,7 +8,7 @@ internal class TablesSerializeTests
 {
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -23,7 +23,7 @@ internal class TablesSerializeTests
 			foreach (SqlTableBase item in items)
 			{
 				TestContext.WriteLine(item.GetType());
-				Helper.TableBaseModelAssertSerialize<AccessModel>();
+				DataCore.TableBaseModelAssertSerialize<AccessModel>();
 			}
 		});
 

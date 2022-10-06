@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCoreTests.Sql.Core;
+namespace DataCoreTests.Sql.Tables;
 
 [TestFixture]
 internal class SqlTableBaseTests
 {
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -18,266 +18,266 @@ internal class SqlTableBaseTests
 	public void AccessModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<AccessModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<AccessModel>(nameof(AccessModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<AccessModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void AppModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<AppModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<AppModel>(nameof(AppModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<AppModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void BarCodeModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(BarCodeModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(BarCodeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(BarCodeModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<BarCodeModel>(nameof(BarCodeModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void BarCodeTypeModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<BarCodeTypeModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<BarCodeTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void ContragentModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ContragentModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<ContragentModel>(nameof(ContragentModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<ContragentModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void HostModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<HostModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<HostModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void LogModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<LogModel>(nameof(LogModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<LogModel>(nameof(LogModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<LogModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<LogModel>(nameof(LogModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<LogModel>(nameof(LogModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<LogModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void LogTypeModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(LogTypeModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(LogTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<LogTypeModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(LogTypeModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<LogTypeModel>(nameof(LogTypeModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<LogTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void NomenclatureModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(NomenclatureModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(NomenclatureModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<NomenclatureModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(NomenclatureModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<NomenclatureModel>(nameof(NomenclatureModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<NomenclatureModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void OrderModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<OrderModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<OrderModel>(nameof(OrderModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<OrderModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void OrderWeighingModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<OrderWeighingModel>(nameof(OrderWeighingModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<OrderWeighingModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void OrganizationModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(OrganizationModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(OrganizationModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(OrganizationModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<OrganizationModel>(nameof(OrganizationModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<OrganizationModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PackageModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PackageModel>(nameof(PackageModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PackageModel>(nameof(PackageModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PackageModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PackageModel>(nameof(PackageModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PackageModel>(nameof(PackageModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PackageModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PluLabelModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluLabelModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PluLabelModel>(nameof(PluLabelModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PluLabelModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PluModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PluModel>(nameof(PluModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PluModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PluScaleModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluScaleModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PluScaleModel>(nameof(PluScaleModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PluScaleModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PluWeighingModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(PluWeighingModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(PluWeighingModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PluWeighingModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(PluWeighingModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PluWeighingModel>(nameof(PluWeighingModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PluWeighingModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PrinterModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PrinterModel>(nameof(PrinterModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PrinterModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PrinterResourceModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PrinterResourceModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PrinterResourceModel>(nameof(PrinterResourceModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PrinterResourceModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void PrinterTypeModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(PrinterTypeModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(PrinterTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<PrinterTypeModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(PrinterTypeModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<PrinterTypeModel>(nameof(PrinterTypeModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<PrinterTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void ProductionFacilityModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(ProductionFacilityModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(ProductionFacilityModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(ProductionFacilityModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<ProductionFacilityModel>(nameof(ProductionFacilityModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<ProductionFacilityModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void ProductSeriesModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<ProductSeriesModel>(nameof(ProductSeriesModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<ProductSeriesModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void ScaleModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<ScaleModel>(nameof(ScaleModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<ScaleModel>(nameof(ScaleModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
-		//Helper.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
-		Helper.AssertSqlPropertyCheckString<ScaleModel>(nameof(ScaleModel.Description));
+		DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(ScaleModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<ScaleModel>(nameof(ScaleModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<ScaleModel>(nameof(SqlTableBase.IsMarked));
+		//DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
+		DataCore.AssertSqlPropertyCheckString<ScaleModel>(nameof(ScaleModel.Description));
 	}
 
 	[Test]
 	public void TaskModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TaskModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<TaskModel>(nameof(TaskModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<TaskModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void TaskTypeModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(TaskTypeModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(TaskTypeModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TaskTypeModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(TaskTypeModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<TaskTypeModel>(nameof(TaskTypeModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<TaskTypeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void TemplateModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TemplateModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<TemplateModel>(nameof(TemplateModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<TemplateModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void TemplateResourceModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(TemplateResourceModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(TemplateResourceModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(TemplateResourceModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<TemplateResourceModel>(nameof(TemplateResourceModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<TemplateResourceModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void VersionModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
-		Helper.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Description));
-		Helper.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
-		Helper.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckDt<VersionModel>(nameof(VersionModel.ReleaseDt));
+		DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Description));
+		DataCore.AssertSqlPropertyCheckString<VersionModel>(nameof(VersionModel.Version));
+		DataCore.AssertSqlPropertyCheckBool<VersionModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]
 	public void WorkShopModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		Helper.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(WorkShopModel.CreateDt));
-		Helper.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(WorkShopModel.ChangeDt));
-		Helper.AssertSqlPropertyCheckBool<WorkShopModel>(nameof(WorkShopModel.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(WorkShopModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<WorkShopModel>(nameof(WorkShopModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<WorkShopModel>(nameof(WorkShopModel.IsMarked));
 	}
 
 	#endregion

@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class PrinterValidatorTests
 {
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		PrinterModel item = Helper.CreateNewSubstitute<PrinterModel>(false);
+		PrinterModel item = DataCore.CreateNewSubstitute<PrinterModel>(false);
 		// Assert.
-		Helper.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		PrinterModel item = Helper.CreateNewSubstitute<PrinterModel>(true);
+		PrinterModel item = DataCore.CreateNewSubstitute<PrinterModel>(true);
 		// Assert.
-		Helper.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 }

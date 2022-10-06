@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class NomenclatureValidatorTests
 {
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		NomenclatureModel item = Helper.CreateNewSubstitute<NomenclatureModel>(false);
+		NomenclatureModel item = DataCore.CreateNewSubstitute<NomenclatureModel>(false);
 		// Assert.
-		Helper.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		NomenclatureModel item = Helper.CreateNewSubstitute<NomenclatureModel>(true);
+		NomenclatureModel item = DataCore.CreateNewSubstitute<NomenclatureModel>(true);
 		// Assert.
-		Helper.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 }

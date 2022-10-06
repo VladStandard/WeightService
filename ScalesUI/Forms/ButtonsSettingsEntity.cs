@@ -7,7 +7,8 @@ internal class ButtonsSettingsEntity
 {
 	#region Public and private fields and properties
 
-	public bool IsChangeDevice { get; set; }
+	public bool IsChangeScale { get; set; }
+	public bool IsChangePackage { get; set; }
 	public bool IsKneading { get; set; }
 	public bool IsMore { get; set; }
 	public bool IsNewPallet { get; set; }
@@ -23,7 +24,8 @@ internal class ButtonsSettingsEntity
 
 	public ButtonsSettingsEntity()
 	{
-		IsChangeDevice = false;
+		IsChangeScale = false;
+		IsChangePackage = false;
 		IsKneading = false;
 		IsMore = false;
 		IsNewPallet = false;

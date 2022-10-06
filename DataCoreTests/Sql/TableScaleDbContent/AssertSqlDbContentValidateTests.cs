@@ -8,7 +8,7 @@ internal class AssertSqlDbContentValidateTests
 {
     #region Public and private fields, properties, constructor
 
-    private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
     #endregion
 
@@ -17,175 +17,175 @@ internal class AssertSqlDbContentValidateTests
     [Test]
     public void DbContent_Validate_AccessModel()
     {
-        Helper.AssertSqlDbContentValidate<AccessModel>();
+        DataCore.AssertSqlDbContentValidate<AccessModel>();
     }
 
     [Test]
     public void DbContent_Validate_AppModel()
     {
-        Helper.AssertSqlDbContentValidate<AppModel>();
+        DataCore.AssertSqlDbContentValidate<AppModel>();
     }
 
     [Test]
     public void DbContent_Validate_BarCodeModel()
     {
-        Helper.AssertSqlDbContentValidate<BarCodeModel>();
+        DataCore.AssertSqlDbContentValidate<BarCodeModel>();
     }
 
     [Test]
     public void DbContent_Validate_BarCodeTypeModel()
     {
-        Helper.AssertSqlDbContentValidate<BarCodeTypeModel>();
+        DataCore.AssertSqlDbContentValidate<BarCodeTypeModel>();
     }
 
     [Test]
     public void DbContent_Validate_ContragentModel()
     {
-        Helper.AssertSqlDbContentValidate<ContragentModel>();
+        DataCore.AssertSqlDbContentValidate<ContragentModel>();
     }
 
     [Test]
     public void DbContent_Validate_HostModel()
     {
-        Helper.AssertSqlDbContentValidate<HostModel>();
+        DataCore.AssertSqlDbContentValidate<HostModel>();
     }
 
     [Test]
     public void DbContent_Validate_LogModel()
     {
-        Helper.AssertSqlDbContentValidate<LogModel>();
+        DataCore.AssertSqlDbContentValidate<LogModel>();
     }
 
     [Test]
     public void DbContent_Validate_LogTypeModel()
     {
-        Helper.AssertSqlDbContentValidate<LogTypeModel>();
+        DataCore.AssertSqlDbContentValidate<LogTypeModel>();
     }
 
     [Test]
     public void DbContent_Validate_NomenclatureModel()
     {
-        Helper.AssertSqlDbContentValidate<NomenclatureModel>();
+        DataCore.AssertSqlDbContentValidate<NomenclatureModel>();
     }
 
     [Test]
     public void DbContent_Validate_OrderModel()
     {
-        Helper.AssertSqlDbContentValidate<OrderModel>();
+        DataCore.AssertSqlDbContentValidate<OrderModel>();
     }
 
     [Test]
     public void DbContent_Validate_OrderWeighingModel()
     {
-        Helper.AssertSqlDbContentValidate<OrderWeighingModel>();
+        DataCore.AssertSqlDbContentValidate<OrderWeighingModel>();
     }
 
     [Test]
     public void DbContent_Validate_OrganizationModel()
     {
-        Helper.AssertSqlDbContentValidate<OrganizationModel>();
+        DataCore.AssertSqlDbContentValidate<OrganizationModel>();
     }
 
     [Test]
     public void DbContent_Validate_PackageModel()
     {
-        Helper.AssertSqlDbContentValidate<PackageModel>();
+        DataCore.AssertSqlDbContentValidate<PackageModel>();
     }
 
     [Test]
     public void DbContent_Validate_PluModel()
     {
-        Helper.AssertSqlDbContentValidate<PluModel>();
+        DataCore.AssertSqlDbContentValidate<PluModel>();
     }
 
     [Test]
     public void DbContent_Validate_PluLabelModel()
     {
-        Helper.AssertSqlDbContentValidate<PluLabelModel>();
+        DataCore.AssertSqlDbContentValidate<PluLabelModel>();
     }
 
     [Test]
     public void DbContent_Validate_PluScaleModel()
     {
-        Helper.AssertSqlDbContentValidate<PluScaleModel>();
+        DataCore.AssertSqlDbContentValidate<PluScaleModel>();
     }
 
     [Test]
     public void DbContent_Validate_PluWeighingModel()
     {
-        Helper.AssertSqlDbContentValidate<PluWeighingModel>();
+        DataCore.AssertSqlDbContentValidate<PluWeighingModel>();
     }
 
     [Test]
     public void DbContent_Validate_PrinterModel()
     {
-        Helper.AssertSqlDbContentValidate<PrinterModel>();
+        DataCore.AssertSqlDbContentValidate<PrinterModel>();
     }
 
     [Test]
     public void DbContent_Validate_PrinterResourceModel()
     {
-        Helper.AssertSqlDbContentValidate<PrinterResourceModel>();
+        DataCore.AssertSqlDbContentValidate<PrinterResourceModel>();
     }
 
     [Test]
     public void DbContent_Validate_PrinterTypeModel()
     {
-        Helper.AssertSqlDbContentValidate<PrinterTypeModel>();
+        DataCore.AssertSqlDbContentValidate<PrinterTypeModel>();
     }
 
     [Test]
     public void DbContent_Validate_ProductionFacilityModel()
     {
-        Helper.AssertSqlDbContentValidate<ProductionFacilityModel>();
+        DataCore.AssertSqlDbContentValidate<ProductionFacilityModel>();
     }
 
     [Test]
     public void DbContent_Validate_ProductSeriesModel()
     {
-        Helper.AssertSqlDbContentValidate<ProductSeriesModel>();
+        DataCore.AssertSqlDbContentValidate<ProductSeriesModel>();
     }
 
     [Test]
     public void DbContent_Validate_ScaleModel()
     {
-        Helper.AssertSqlDbContentValidate<ScaleModel>();
+        DataCore.AssertSqlDbContentValidate<ScaleModel>();
     }
 
     [Test]
     public void DbContent_Validate_TaskModel()
     {
-        Helper.AssertSqlDbContentValidate<TaskModel>();
+        DataCore.AssertSqlDbContentValidate<TaskModel>();
     }
 
     [Test]
     public void DbContent_Validate_TaskTypeModel()
     {
-        Helper.AssertSqlDbContentValidate<TaskTypeModel>();
+        DataCore.AssertSqlDbContentValidate<TaskTypeModel>();
     }
 
     [Test]
     public void DbContent_Validate_TemplateModel()
     {
-        Helper.AssertSqlDbContentValidate<TemplateModel>();
+        DataCore.AssertSqlDbContentValidate<TemplateModel>();
     }
 
     [Test]
     public void DbContent_Validate_TemplateResourceModel()
     {
-        Helper.AssertSqlDbContentValidate<TemplateResourceModel>();
+        DataCore.AssertSqlDbContentValidate<TemplateResourceModel>();
     }
 
     [Test]
     public void DbContent_Validate_VersionModel()
     {
-        Helper.AssertSqlDbContentValidate<VersionModel>();
+        DataCore.AssertSqlDbContentValidate<VersionModel>();
     }
 
     [Test]
     public void DbContent_Validate_WorkShopModel()
     {
-        Helper.AssertSqlDbContentValidate<WorkShopModel>();
+        DataCore.AssertSqlDbContentValidate<WorkShopModel>();
     }
 
     #endregion

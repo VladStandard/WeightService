@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using DataCore.Helpers;
 using DataCore.Sql.Core;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -50,7 +51,7 @@ public partial class PlusForm : Form
 
 			LoadFormControls();
 
-			ControlPluEntity[,] controls = CreateControls();
+			ControlPluModel[,] controls = CreateControls();
 			Setup(tableLayoutPanelPlu, controls);
 			SetupSizes(controls);
 		}
@@ -74,10 +75,10 @@ public partial class PlusForm : Form
 		Top = Owner.Top;
 	}
 
-	private ControlPluEntity[,] CreateControls()
+	private ControlPluModel[,] CreateControls()
 	{
 		List<PluScaleModel> plus = GetCurrentPlus();
-		ControlPluEntity[,] controls = new ControlPluEntity[ColumnCount, RowCount];
+		ControlPluModel[,] controls = new ControlPluModel[ColumnCount, RowCount];
 		try
 		{
 			for (ushort rowNumber = 0, buttonNumber = 0; rowNumber < RowCount; ++rowNumber)
@@ -85,7 +86,7 @@ public partial class PlusForm : Form
 				for (ushort columnNumber = 0; columnNumber < ColumnCount; ++columnNumber)
 				{
 					if (buttonNumber >= plus.Count) break;
-					ControlPluEntity control = NewControlGroup(plus[buttonNumber], PageNumber, buttonNumber);
+					ControlPluModel control = NewControlGroup(plus[buttonNumber], PageNumber, buttonNumber);
 					controls[columnNumber, rowNumber] = control;
 					buttonNumber++;
 				}
@@ -105,7 +106,7 @@ public partial class PlusForm : Form
 		return plusTake.ToList();
 	}
 
-	private ControlPluEntity NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
+	private ControlPluModel NewControlGroup(PluScaleModel pluScale, int pageNumber, ushort buttonNumber)
 	{
 		int tabIndex = buttonNumber + pageNumber * PageSize;
 		Button buttonPlu = NewButtonPlu(pluScale.Plu, tabIndex);
@@ -286,7 +287,7 @@ public partial class PlusForm : Form
 		{
 			tableLayoutPanelPlu.Visible = false;
 			labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-			ControlPluEntity[,] controls = CreateControls();
+			ControlPluModel[,] controls = CreateControls();
 			Setup(tableLayoutPanelPlu, controls);
 			SetupSizes(controls);
 		}
@@ -314,7 +315,7 @@ public partial class PlusForm : Form
 		{
 			tableLayoutPanelPlu.Visible = false;
 			labelCurrentPage.Text = $@"{LocaleCore.Scales.PluPage} {PageNumber}";
-			ControlPluEntity[,] controls = CreateControls();
+			ControlPluModel[,] controls = CreateControls();
 			Setup(tableLayoutPanelPlu, controls);
 			SetupSizes(controls);
 		}
@@ -373,7 +374,7 @@ public partial class PlusForm : Form
 		panel.Controls.Clear();
 	}
 
-	private void Setup(TableLayoutPanel panelPlu, ControlPluEntity[,] controls)
+	private void Setup(TableLayoutPanel panelPlu, ControlPluModel[,] controls)
 	{
 		panelPlu.Visible = false;
 		ClearPanel(panelPlu);
@@ -383,7 +384,7 @@ public partial class PlusForm : Form
 		{
 			for (ushort row = 0; row <= controls.GetUpperBound(1); row++)
 			{
-				ControlPluEntity control = controls[column, row];
+				ControlPluModel control = controls[column, row];
 				if (control is not null)
 				{
 					panelPlu.Controls.Add(control.ButtonPlu, column, row);
@@ -405,9 +406,9 @@ public partial class PlusForm : Form
 		panelPlu.Visible = true;
 	}
 
-	private void SetupSizes(ControlPluEntity[,] controls)
+	private void SetupSizes(ControlPluModel[,] controls)
 	{
-		foreach (ControlPluEntity control in controls)
+		foreach (ControlPluModel control in controls)
 		{
 			control?.SetupSizes();
 		}

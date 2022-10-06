@@ -8,7 +8,7 @@ internal class SqlConnectFactoryTests
 {
     #region Public and private fields, properties, constructor
 
-    private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
     #endregion
 
@@ -19,16 +19,16 @@ internal class SqlConnectFactoryTests
     {
         Assert.DoesNotThrow(() =>
         {
-            Helper.SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Tasks.GetTasks, (reader) =>
+            DataCore.SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Tasks.GetTasks, (reader) =>
             {
                 while (reader.Read())
                 {
-                    TestContext.WriteLine($"TASK_UID: {Helper.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID")}");
-                    TestContext.WriteLine($"SCALE_ID: {Helper.SqlConnect.GetValueAsNotNullable<long>(reader, "SCALE_ID")}");
-                    TestContext.WriteLine($"SCALE: {Helper.SqlConnect.GetValueAsNullable<string>(reader, "SCALE")}");
-                    TestContext.WriteLine($"TASK_TYPE_UID: {Helper.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")}");
-                    TestContext.WriteLine($"TASK: {Helper.SqlConnect.GetValueAsNullable<string>(reader, "TASK")}");
-                    TestContext.WriteLine($"ENABLED: {Helper.SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")}");
+                    TestContext.WriteLine($"TASK_UID: {DataCore.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID")}");
+                    TestContext.WriteLine($"SCALE_ID: {DataCore.SqlConnect.GetValueAsNotNullable<long>(reader, "SCALE_ID")}");
+                    TestContext.WriteLine($"SCALE: {DataCore.SqlConnect.GetValueAsNullable<string>(reader, "SCALE")}");
+                    TestContext.WriteLine($"TASK_TYPE_UID: {DataCore.SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")}");
+                    TestContext.WriteLine($"TASK: {DataCore.SqlConnect.GetValueAsNullable<string>(reader, "TASK")}");
+                    TestContext.WriteLine($"ENABLED: {DataCore.SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")}");
                     TestContext.WriteLine();
                 }
             });

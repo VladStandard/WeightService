@@ -10,7 +10,7 @@ internal class TablesScaleModelsTests
 {
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -43,15 +43,15 @@ internal class TablesScaleModelsTests
 				{
 					case var cls when cls == typeof(AccessModel):
 						// Arrange & Act.
-						AccessModel access = Helper.CreateNewSubstitute<AccessModel>(false);
+						AccessModel access = DataCore.CreateNewSubstitute<AccessModel>(false);
 						// Assert.
-						Helper.AssertSqlValidate(access, false);
+						DataCore.AssertSqlValidate(access, false);
 						break;
 					case var cls when cls == typeof(AppModel):
 						// Arrange & Act.
-						AppModel app = Helper.CreateNewSubstitute<AppModel>(false);
+						AppModel app = DataCore.CreateNewSubstitute<AppModel>(false);
 						// Assert.
-						Helper.AssertSqlValidate(app, false);
+						DataCore.AssertSqlValidate(app, false);
 						break;
 				}
 			}
@@ -70,20 +70,20 @@ internal class TablesScaleModelsTests
 				{
 					case var cls when cls == typeof(AccessModel):
 						// Arrange.
-						AccessModel access = Helper.CreateNewSubstitute<AccessModel>(true);
+						AccessModel access = DataCore.CreateNewSubstitute<AccessModel>(true);
 						// Act.
 						foreach (AccessRightsEnum rights in Enum.GetValues(typeof(AccessRightsEnum)))
 						{
 							access.Rights = (byte)rights;
 							// Assert.
-							Helper.AssertSqlValidate(access, true);
+							DataCore.AssertSqlValidate(access, true);
 						}
 						break;
 					case var cls when cls == typeof(AppModel):
 						// Arrange & Act.
-						AppModel app = Helper.CreateNewSubstitute<AppModel>(true);
+						AppModel app = DataCore.CreateNewSubstitute<AppModel>(true);
 						// Assert.
-						Helper.AssertSqlValidate(app, true);
+						DataCore.AssertSqlValidate(app, true);
 						break;
 				}
 			}

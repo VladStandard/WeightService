@@ -8,7 +8,7 @@ internal class BarCodeTypeValidatorTests
 {
 	#region Public and private fields, properties, constructor
 
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	#endregion
 
@@ -18,18 +18,18 @@ internal class BarCodeTypeValidatorTests
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		BarCodeTypeModel item = Helper.CreateNewSubstitute<BarCodeTypeModel>(false);
+		BarCodeTypeModel item = DataCore.CreateNewSubstitute<BarCodeTypeModel>(false);
 		// Assert.
-		Helper.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		BarCodeTypeModel item = Helper.CreateNewSubstitute<BarCodeTypeModel>(true);
+		BarCodeTypeModel item = DataCore.CreateNewSubstitute<BarCodeTypeModel>(true);
 		// Assert.
-		Helper.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 
 	#endregion

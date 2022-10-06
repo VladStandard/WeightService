@@ -5,8 +5,9 @@ using NUnit.Framework;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using DataCore.Helpers;
+using DataCore.Models;
 using WeightCore.Helpers;
-using WeightCore.Models;
 
 namespace WeightCoreTests.Helpers;
 

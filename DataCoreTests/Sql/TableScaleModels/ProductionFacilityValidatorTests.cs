@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class ProductionFacilityValidatorTests
 {
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		ProductionFacilityModel item = Helper.CreateNewSubstitute<ProductionFacilityModel>(false);
+		ProductionFacilityModel item = DataCore.CreateNewSubstitute<ProductionFacilityModel>(false);
 		// Assert.
-		Helper.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		ProductionFacilityModel item = Helper.CreateNewSubstitute<ProductionFacilityModel>(true);
+		ProductionFacilityModel item = DataCore.CreateNewSubstitute<ProductionFacilityModel>(true);
 		// Assert.
-		Helper.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 }

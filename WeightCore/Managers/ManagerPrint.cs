@@ -11,6 +11,7 @@ using System;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using DataCore.Managers;
 using DataCore.Models;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -78,7 +79,8 @@ public class ManagerPrint : ManagerBase
 							break;
 					}
 				},
-				new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500));
+				new(waitReopen: 1_000, waitRequest: 1_000, waitResponse: 0_250, waitClose: 0_500, waitException: 0_500,
+					true, Application.DoEvents));
 		}
 		catch (Exception ex)
 		{

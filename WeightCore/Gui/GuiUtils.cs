@@ -15,7 +15,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DataCore.Models;
-using WeightCore.Gui.XamlPages;
 using WeightCore.Helpers;
 
 namespace WeightCore.Gui;
@@ -78,7 +77,7 @@ public static class GuiUtils
         /// <param name="caption"></param>
         /// <param name="message"></param>
         /// <param name="visibilitySettings"></param>
-        private static DialogResult ShowNew(IWin32Window owner, string caption, string message, VisibilitySettingsEntity visibilitySettings)
+        private static DialogResult ShowNew(IWin32Window owner, string caption, string message, VisibilitySettingsModel visibilitySettings)
         {
             CloseIfExistsWpfPage();
 
@@ -139,7 +138,8 @@ public static class GuiUtils
         /// <param name="hostName"></param>
         /// <param name="appName"></param>
         /// <returns></returns>
-        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogTypeEnum logType, VisibilitySettingsEntity? visibility = null, string hostName = "", string appName = "")
+        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogTypeEnum logType, 
+	        VisibilitySettingsModel? visibility = null, string hostName = "", string appName = "")
         {
             if (isLog)
             {

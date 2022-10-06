@@ -27,14 +27,14 @@ public class SerialPortController
 
 	public delegate void PortCallback(object sender, SerialPortEventArgs e);
 	public delegate void PortExceptionCallback(Exception ex, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "");
-	public SerialPort SerialPort { get; private set; } = new();
-	public PortCallback OpenCallback;
-	public PortCallback CloseCallback;
-	public PortCallback ResponseCallback;
-	public PortExceptionCallback ExceptionCallback;
+	public SerialPort SerialPort { get; private set; }
+	public PortCallback OpenCallback { get; private set; }
+	public PortCallback CloseCallback { get; private set; }
+	public PortCallback ResponseCallback { get; private set; }
+	public PortExceptionCallback ExceptionCallback { get; private set; }
 	private readonly object _locker = new();
-	public EnumUsbAdapterStatus AdapterStatus { get; set; } = EnumUsbAdapterStatus.Default;
-	public Exception? CatchException { get; set; } = null;
+	public EnumUsbAdapterStatus AdapterStatus { get; set; }
+	public Exception? CatchException { get; set; }
 
 	#endregion
 
@@ -42,6 +42,9 @@ public class SerialPortController
 
 	public SerialPortController(PortCallback openCallback, PortCallback closeCallback, PortCallback responseCallback, PortExceptionCallback exceptionCallback)
 	{
+		SerialPort = new();
+		AdapterStatus = EnumUsbAdapterStatus.Default;
+
 		OpenCallback = openCallback;
 		CloseCallback = closeCallback;
 		ResponseCallback = responseCallback;

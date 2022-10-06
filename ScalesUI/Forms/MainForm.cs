@@ -20,9 +20,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using DataCore.Helpers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
+using System.Globalization;
 
 namespace ScalesUI.Forms;
 
@@ -204,7 +206,7 @@ public partial class MainForm : Form
     {
         try
         {
-            KeyboardMouseUnsuscribe();
+            KeyboardMouseUnsubscribe();
             GuiUtils.Dispose();
             UserSession.StopwatchMain.Restart();
             if (Quartz is not null)
@@ -290,7 +292,8 @@ public partial class MainForm : Form
     {
         ButtonsSettingsEntity buttonsSettings = new()
         {
-            IsChangeDevice = true,
+            IsChangeScale = true,
+            IsChangePackage = true,
             IsKneading = false,
             IsMore = true,
             IsNewPallet = true,
@@ -303,10 +306,14 @@ public partial class MainForm : Form
 
         int column = 0;
 
-        if (buttonsSettings.IsChangeDevice)
+        if (buttonsSettings.IsChangeScale)
         {
             ButtonScale = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonScale), 2, 0);
             ButtonScale.Click += ActionScale_Click;
+        }
+
+        if (buttonsSettings.IsChangePackage)
+        {
 			ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelMain, nameof(ButtonPackage), 2, 1);
             ButtonPackage.Click += ActionPackage_Click;
         }
@@ -398,7 +405,7 @@ public partial class MainForm : Form
         IsKeyboardMouseEventsSubscribe = true;
     }
 
-    private void KeyboardMouseUnsuscribe()
+    private void KeyboardMouseUnsubscribe()
     {
         if (IsKeyboardMouseEventsSubscribe)
         {
@@ -598,7 +605,9 @@ public partial class MainForm : Form
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScale, 
 	            UserSession.Scale.Description + Environment.NewLine + area);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.Identity.IsNew() 
-	            ? LocaleCore.Table.FieldPackageIsNotSelected : UserSession.PluPackage.Name);
+	            ? LocaleCore.Table.FieldPackageIsNotSelected 
+	            : UserSession.PluPackage.Name + Environment.NewLine + 
+	              $"{LocaleCore.Table.PackageWeightKg}: {UserSession.PluPackage.Package.Weight}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocaleCore.Scales.ButtonScalesInitShort);
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
@@ -892,7 +901,7 @@ public partial class MainForm : Form
     {
         try
         {
-            KeyboardMouseUnsuscribe();
+            KeyboardMouseUnsubscribe();
             UserSession.PluScale = new();
             if (UserSession.CheckWeightMassaDeviceExists(this))
             {

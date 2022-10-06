@@ -6,23 +6,23 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class TaskTypeValidatorTests
 {
-	private DataCoreHelper Helper { get; } = DataCoreHelper.Instance;
+	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		TaskTypeModel item = Helper.CreateNewSubstitute<TaskTypeModel>(false);
+		TaskTypeModel item = DataCore.CreateNewSubstitute<TaskTypeModel>(false);
 		// Assert.
-		Helper.AssertSqlValidate(item, false);
+		DataCore.AssertSqlValidate(item, false);
 	}
 
 	[Test]
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		TaskTypeModel item = Helper.CreateNewSubstitute<TaskTypeModel>(true);
+		TaskTypeModel item = DataCore.CreateNewSubstitute<TaskTypeModel>(true);
 		// Assert.
-		Helper.AssertSqlValidate(item, true);
+		DataCore.AssertSqlValidate(item, true);
 	}
 }

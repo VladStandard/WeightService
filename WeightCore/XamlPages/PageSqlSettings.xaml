@@ -1,0 +1,107 @@
+﻿<xamlPages:XamlPageBase 
+	x:Class="WeightCore.XamlPages.PageSqlSettings"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:xamlPages="clr-namespace:WeightCore.XamlPages"
+	mc:Ignorable="d" 
+	d:DesignWidth="700" d:DesignHeight="700" FontSize="20"
+	Loaded="PageSettings_OnLoaded"
+	Background="Transparent" 
+	DataContext="{DynamicResource UserSession}" >
+
+	<xamlPages:XamlPageBase.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="XamlResourceDictionary.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</xamlPages:XamlPageBase.Resources>
+
+	<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Button Margin="8" Grid.Row="0" Grid.Column="0" TabIndex="1" 
+                BorderBrush="Transparent" Background="Transparent" 
+                Click="ButtonDefault_Click" />
+
+        <!-- SQL -->
+        <GroupBox Header="SQL-настройки" 
+                  Grid.Row="1" Grid.Column="0" 
+                  Grid.RowSpan="2" Grid.ColumnSpan="4" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Name="LabeldSqlStatus" Grid.Row="0" Grid.ColumnSpan="4" IsReadOnly="True" Margin="5"
+                         Text="{Binding SqlHelp.Status, Mode=OneWay}" 
+                         BorderBrush="Transparent" Background="Transparent" />
+
+                <Label Name="LabeldSqlConnectionString"  Grid.Row="1" 
+                       Content="Строка подключения" HorizontalAlignment="Center" VerticalAlignment="Center" ></Label>
+                <TextBox Name="fieldSqlConnectionString" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="True"
+                    Text="{Binding SqlHelp.ConnectionString, Mode=OneWay}" 
+                    BorderBrush="Transparent" Background="Transparent" />
+
+                <Label Name="LabeldSqlServer" Grid.Row="2" Content="Сервер" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Name="fieldSqlServer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                         Text="{Binding SqlHelp.Authentication.Server, Mode=TwoWay}" BorderBrush="Transparent" Background="Transparent" />
+
+                <Label Name="LabeldSqlDb" Grid.Row="3" Content="БД" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Name="fieldSqlDb" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                         Text="{Binding SqlHelp.Authentication.Database, Mode=TwoWay}" BorderBrush="Transparent" Background="Transparent" />
+
+                <Label Name="LabeldSqlUser" Grid.Row="4" Content="Пользователь" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Name="fieldSqlUser" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                         Text="{Binding SqlHelp.Authentication.UserId, Mode=TwoWay}" BorderBrush="Transparent" Background="Transparent" />
+
+                <Label Name="LabeldSqlPassword" Grid.Row="5" 
+                    Content="Пароль" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Name="fieldSqlPassword" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" IsReadOnly="False" 
+                    Text="{Binding SqlHelp.Authentication.Password, Mode=TwoWay}" 
+                    BorderBrush="Transparent" Background="Transparent"></TextBox>
+
+                <CheckBox Name="fieldSqlIntegratedSecurity" Grid.Row="6" Grid.ColumnSpan="4" Margin="10 0 10 0" 
+                    Background="Transparent" VerticalAlignment="Center"
+                    IsChecked="{Binding SqlHelp.Authentication.IntegratedSecurity, Mode=TwoWay}"
+                    Content="Аутентификация Windows" 
+                    Checked="fieldSqlIntegratedSecurity_Checked" />
+
+                <Button x:Name="ButtonSqlLoadConfig" Grid.Row="7" Grid.ColumnSpan="2" BorderBrush="Transparent" Background="Transparent" 
+                    Content="Загрузить из конфига" 
+                    Click="ButtonSqlLoadConfig_Click" />
+                <Button x:Name="ButtonSqlCheckConnect" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Transparent" Background="Transparent" 
+                    Content="Проверить подключение к серверу" 
+                    Click="ButtonSqlCheckConnect_Click" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</xamlPages:XamlPageBase>
