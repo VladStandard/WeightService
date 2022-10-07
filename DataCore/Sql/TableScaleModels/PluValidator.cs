@@ -27,7 +27,7 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Description)
-            .NotEmpty()
+            //.NotEmpty()
             .NotNull();
         RuleFor(item => item.ShelfLifeDays)
 	        .NotNull()

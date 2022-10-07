@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using MDSoft.BarcodePrintUtils.Tsc;
+using Newtonsoft.Json.Linq;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
@@ -22,22 +23,36 @@ public static class XmlUtils
 	#region Public and private methods
 
 	/// <summary>
+	/// Get pretty formatted XML or JSON string.
+	/// </summary>
+	/// <param name="value"></param>
+	public static string GetPrettyXmlOrJson(string value)
+	{
+		if (value.StartsWith("<") && value.EndsWith(">"))
+			return GetPrettyXml(value);
+		if (value.StartsWith("{") && value.EndsWith("}"))
+			return GetPrettyJson(value);
+		return value;
+	}
+
+	/// <summary>
 	/// Get pretty formatted XML string.
 	/// </summary>
 	/// <param name="xml"></param>
-	public static string GetXmlpretty(string xml)
-	{
-		if (string.IsNullOrEmpty(xml))
-			return string.Empty;
-		XDocument document = XDocument.Parse(xml);
-		return document.ToString();
-	}
+	public static string GetPrettyXml(string xml) => 
+		string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
+
+	/// <summary>
+	/// Get pretty formatted JSON string.
+	/// </summary>
+	/// <param name="json"></param>
+	public static string GetPrettyJson(string json) => 
+		string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
 
 	public static XmlDocument XmlCompatibleReplace(XmlDocument xmlDocument)
 	{
-		XmlDocument result = new();
-		string xml = xmlDocument.OuterXml;
-		result.LoadXml(XmlCompatibleReplace(xml));
+		XmlDocument result = new XmlDocument();
+		result.LoadXml(XmlCompatibleReplace(xmlDocument.OuterXml));
 		return result;
 	}
 

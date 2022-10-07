@@ -334,7 +334,8 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckPluPackageIsEmpty(IWin32Window owner)
 	{
-		if (PluPackage.Identity.IsNew())
+		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.Identity.IsNew())
+		if (PluPackages.Count > 1 && PluPackage.Identity.IsNew())
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluPackageNotSelect,
 				true, LogTypeEnum.Warning, new() { ButtonCancelVisibility = Visibility.Visible },
@@ -651,8 +652,10 @@ public class UserSessionHelper : BaseViewModel
 				nameof(WeightCore));
 			if (dialogResult is DialogResult.Yes)
 			{
+				// Fake data.
 				Random random = new();
-				ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(random, 0.25M, 5.00M);
+				ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(
+					random, PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
 				ManagerControl.Massa.IsWeightNetFake = true;
 			}
 		}

@@ -199,7 +199,7 @@
                 <RadzenTextArea
 	                Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 	                ReadOnly=@true Rows=30
-	                Value=@(SqlItemCast.Nomenclature.Xml is not null ? XmlUtils.GetXmlpretty(SqlItemCast.Nomenclature.Xml) : "")/>
+	                Value=@(SqlItemCast.Nomenclature.Xml is not null ? XmlUtils.GetPrettyXmlOrJson(SqlItemCast.Nomenclature.Xml) : "")/>
             </td>
         </tr>
     </tbody>

@@ -23,6 +23,13 @@
 					Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
 			</Template>
 		</RadzenGridColumn>
+		<RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Plu.Name 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
+			</Template>
+		</RadzenGridColumn>
 	    <RadzenGridColumn TItem=@PluScaleModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 		    <Template Context="itemCast">
 			    <RadzenLink 
@@ -38,13 +45,6 @@
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.WeightShort>
 		    <Template Context="itemCast">
 			    <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@itemCast.Plu.IsCheckWeight/>
-		    </Template>
-	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
-		    <Template Context="itemCast">
-			    <RadzenLink 
-				    Text=@itemCast.Plu.Name 
-				    Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
 		    </Template>
 	    </RadzenGridColumn>
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.ShelfLifeDaysShort>

@@ -47,8 +47,8 @@ public partial class LocaleDeviceControl
 	public string ItemOrderWeighing => Lang == LangEnum.English ? "Order weighing" : "Взвешивание заказа";
 	public string ItemOrganization => Lang == LangEnum.English ? "Organization" : "Организация";
 	public string ItemPlu => Lang == LangEnum.English ? "PLU" : "ПЛУ";
-	public string ItemPluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
 	public string ItemPluPackage => Lang == LangEnum.English ? "PLU's package (nesting)" : "ПЛУ тары (вложенность)";
+	public string ItemPluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
 	public string ItemPluWeighing => Lang == LangEnum.English ? "Plu weighings" : "Взвешивание ПЛУ";
 	public string ItemProductionFacilities => Lang == LangEnum.English ? "Prod. facilities" : "Производственные площадки";
 	public string ItemProductionFacility => Lang == LangEnum.English ? "Prod. facility" : "Произв. площадка";
@@ -65,6 +65,7 @@ public partial class LocaleDeviceControl
 	public string LinkEmail => "morozov_dv@kolbasa-vs.ru";
 	public string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
 	public string LinkLabelary => "http://labelary.com/viewer.html";
+	public string Section1C => Lang == LangEnum.English ? "1C" : "1С";
 	public string SectionAutomatedWorkplace => Lang == LangEnum.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
 	public string SectionAutomatedWorkplaceShort => Lang == LangEnum.English ? "AWs" : "АРМы";
 	public string SectionBarCodes => Lang == LangEnum.English ? "Barcodes" : "Штрихкоды";

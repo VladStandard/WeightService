@@ -88,7 +88,7 @@
 			        <RadzenTextArea
 				        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 				        Disabled=false ReadOnly=true
-				        Value=@(XmlUtils.GetXmlpretty(SqlItemCast.Xml.OuterXml)) Rows=20/>
+				        Value=@(XmlUtils.GetPrettyXmlOrJson(SqlItemCast.Xml.OuterXml)) Rows=20/>
 				}
 	        </td>
         </tr>

@@ -1015,7 +1015,8 @@ public partial class MainForm : Form
 
 			if (!UserSession.CheckPluIsEmpty(this))
                 return;
-            if (UserSession.PluPackage.Identity.IsNew())
+			//if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.Identity.IsNew())
+			if (UserSession.PluPackages.Count > 1 && UserSession.PluPackage.Identity.IsNew())
 	            ActionPackage_Click(sender, e);
 			if (!UserSession.CheckPluPackageIsEmpty(this))
                 return;

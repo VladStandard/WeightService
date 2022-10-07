@@ -20,6 +20,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	
 	public ItemScale()
 	{
+		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterAdditional = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 		Printers = new();

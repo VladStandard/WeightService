@@ -164,7 +164,7 @@ public static partial class DataAccessHelperExt
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
 			0, isShowMarked, isShowOnlyTop);
 		List<PluScaleModel> result = dataAccess.GetList<PluScaleModel>(sqlCrudConfig);
-		result = result.OrderBy(x => x.Plu.Number).ToList();
+		result = result.OrderBy(x => x.Plu.Name).ToList();
 		return result;
 	}
 

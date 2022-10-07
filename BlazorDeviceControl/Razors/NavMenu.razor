@@ -17,7 +17,7 @@
     </button>
 </div>
 
-<div class=@GetCssName.NavMenu(CollapseNavMenu) @onclick=@ToggleNavMenu>
+<div class=@GetCssName.NavMenu(CollapseNavMenu) @onclick=@ToggleNavMenu >
     <ul class="nav flex-column">
         <RadzenPanelMenu class=@GetCssName.RadzenPanelMenu(AppSettings) >
             @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
@@ -72,7 +72,7 @@
                         Text=@LocaleCore.DeviceControl.SectionBarCodeTypesShort Path=@LocaleCore.DeviceControl.RouteSectionBarCodeTypes />
                 </RadzenPanelMenuItem>
                 
-		        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionDwh >
+		        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.Section1C >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
                         Text=@LocaleCore.DeviceControl.SectionContragents Path=@LocaleCore.DeviceControl.RouteSectionContragents />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
