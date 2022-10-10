@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.7.275.0</Version>
+    <Version>0.7.280.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -13,8 +13,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.7.275.0</FileVersion>
-    <AssemblyVersion>0.7.275.0</AssemblyVersion>
+	<FileVersion>0.7.280.0</FileVersion>
+    <AssemblyVersion>0.7.280.0</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
     <LangVersion>10.0</LangVersion>
@@ -102,6 +102,7 @@
     <Watch Remove="Razors\ItemComponents\ItemWorkshop.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemOrganization.razor" />
     <Watch Remove="Razors\ItemComponents\Others\ItemPackage.razor" />
+    <Watch Remove="Razors\ItemComponents\Others\ItemScaleScreenShot.razor" />
     <Watch Remove="Razors\ItemComponents\Plus\ItemPluLabel.razor" />
     <Watch Remove="Razors\ItemComponents\Plus\ItemPluPackage.razor" />
     <Watch Remove="Razors\ItemComponents\Plus\ItemPluWeighing.razor" />
@@ -120,6 +121,7 @@
     <Watch Remove="Razors\SectionComponents\Others\SectionOrganizations.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionPackages.razor" />
     <Watch Remove="Razors\SectionComponents\Others\SectionPackagesPlus.razor" />
+    <Watch Remove="Razors\SectionComponents\Others\SectionScalesScreenShots.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusLabels.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPlusPackages.razor" />
     <Watch Remove="Razors\SectionComponents\Plus\SectionPluWeighings.razor" />
