@@ -492,7 +492,7 @@
 			this.fieldPlu.Text = "PLU";
 			this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.fieldPlu.Visible = false;
-			this.fieldPlu.Click += new System.EventHandler(this.ActionPlu_Click);
+			this.fieldPlu.Click += new System.EventHandler(this.ActionPlu);
 			// 
 			// tableLayoutPanelRight
 			// 

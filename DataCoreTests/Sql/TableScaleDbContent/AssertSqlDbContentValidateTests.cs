@@ -153,6 +153,12 @@ internal class AssertSqlDbContentValidateTests
     }
 
     [Test]
+    public void DbContent_Validate_ScaleScreenShotModel()
+    {
+        DataCore.AssertSqlDbContentValidate<ScaleScreenShotModel>();
+    }
+
+    [Test]
     public void DbContent_Validate_TaskModel()
     {
         DataCore.AssertSqlDbContentValidate<TaskModel>();

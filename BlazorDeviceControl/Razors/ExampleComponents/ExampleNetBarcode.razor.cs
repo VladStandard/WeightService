@@ -72,7 +72,6 @@ public partial class ExampleNetBarcode : RazorComponentBase
         try
         {
             Exception = null;
-            BarcodeImage = string.Empty;
 
             Barcode.Configure(new BarcodeSettings { BarcodeType = BarcodeType });
             byte[]? barcodeByteArray = Barcode.GetByteArray(BarcodeValue, ImageFormat);

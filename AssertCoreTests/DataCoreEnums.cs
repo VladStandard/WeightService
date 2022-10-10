@@ -202,6 +202,7 @@ public static class DataCoreEnums
 		new ProductionFacilityModel(),
 		new ProductSeriesModel(),
 		new ScaleModel(),
+		new ScaleScreenShotModel(),
 		new TaskModel(),
 		new TaskTypeModel(),
 		new TemplateModel(),

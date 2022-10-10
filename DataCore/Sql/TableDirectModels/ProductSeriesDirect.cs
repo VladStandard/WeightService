@@ -53,7 +53,7 @@ public class ProductSeriesDirect : SqlSerializeBase, ISerializable
         }
 
         SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
-            new SqlParameter("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.Identity.Id }, (SqlDataReader reader) =>
+            new("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.Identity.Id }, (SqlDataReader reader) =>
             {
                 byte count = 0;
                 while (reader.Read())

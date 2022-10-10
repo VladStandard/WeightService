@@ -72,6 +72,9 @@ public static class DataAccessHelperFill
 				scale.Host = dataAccess.GetItemById<HostModel>(scale.Host?.IdentityValueId);
 				scale.WorkShop = dataAccess.GetItemById<WorkShopModel>(scale.WorkShop?.IdentityValueId);
 				break;
+			case ScaleScreenShotModel scaleScreenShot:
+				scaleScreenShot.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(scaleScreenShot.Scale.IdentityValueId);
+				break;
 			case TaskModel task:
                 task.TaskType = dataAccess.GetItemByUidNotNull<TaskTypeModel>(task.TaskType.IdentityValueUid);
                 task.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(task.Scale.IdentityValueId);

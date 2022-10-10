@@ -91,6 +91,7 @@ public class ValidationUtils
             ProductionFacilityModel productionFacility => new ProductionFacilityValidator().Validate(productionFacility),
             ProductSeriesModel productSeries => new ProductSeriesValidator().Validate(productSeries),
             ScaleModel scale => new ScaleValidator().Validate(scale),
+            ScaleScreenShotModel scaleScreenShot => new ScaleScreenShotValidator().Validate(scaleScreenShot),
             VersionModel version => new VersionValidator().Validate(version),
             TaskModel task => new TaskValidator().Validate(task),
             TaskTypeModel taskType => new TaskTypeValidator().Validate(taskType),

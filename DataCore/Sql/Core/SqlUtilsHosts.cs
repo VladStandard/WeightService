@@ -10,7 +10,7 @@ public static partial class SqlUtils
 {
 	#region Public and private methods
 
-	public static HostDirect LoadReader(SqlDataReader reader)
+	private static HostDirect LoadReader(SqlDataReader reader)
 	{
 		HostDirect result = new();
 		if (reader.Read())
@@ -52,7 +52,7 @@ public static partial class SqlUtils
 	}
 
 	public static HostDirect Load(Guid uid) =>
-		SqlConnect.ExecuteReaderForItem(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
+		SqlConnect.ExecuteReaderForItem<HostDirect>(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
 			new SqlParameter("@idrref", SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
 
 	public static HostDirect Load(string hostName) =>

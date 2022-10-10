@@ -129,7 +129,8 @@ public class LocaleScale
     public string Restore => Lang == LangEnum.English ? "Restore" : "Восстановить";
     public string RestoreDevice => Lang == LangEnum.English ? "Restore device" : "Восстановить устроство";
     public string ScaleQueue => Lang == LangEnum.English ? "Scales message queue" : "Очередь сообщений весов";
-    public string ScheduleForNextDay => Lang == LangEnum.English ? "Schedule for next day" : "Расписание на следующий день";
+    public string ScheduleForNextHour => Lang == LangEnum.English ? "Schedule for the next hour" : "Расписание на следующий час";
+    public string ScheduleForNextDay => Lang == LangEnum.English ? "Schedule for the next day" : "Расписание на следующий день";
     public string ScreenResolution => Lang == LangEnum.English ? "Screen resolution" : "Разрешение экрана";
     public string ShippingLabels => Lang == LangEnum.English ? "Shipping labels" : "Транспортные этикетки";
     public string StateCorrect => Lang == LangEnum.English ? "correct" : "верна";

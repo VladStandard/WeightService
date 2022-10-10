@@ -79,16 +79,23 @@
                         Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionNomenclatures />
                 </RadzenPanelMenuItem>
 			}
-            @if (IsDebug)
+            @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin)
             {
-				<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev >
-					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Mud" 
-					    Path=@LocaleCore.DeviceControl.RouteExampleMud />
-					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Radzen"
-                        Path=@LocaleCore.DeviceControl.RouteExampleRadzen />
-					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="NetBarcode" 
-					    Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
-                </RadzenPanelMenuItem>
+	            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionAdministering >
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings)
+		                Text=@LocaleCore.DeviceControl.SectionScreenShots Path=@LocaleCore.DeviceControl.RouteSectionScalesScreenShots />
+	            </RadzenPanelMenuItem>
+	            @if (IsDebug)
+	            {
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(AppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev >
+						<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Mud" 
+						    Path=@LocaleCore.DeviceControl.RouteExampleMud />
+						<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="Radzen"
+	                        Path=@LocaleCore.DeviceControl.RouteExampleRadzen />
+						<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(AppSettings) Text="NetBarcode" 
+						    Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
+	                </RadzenPanelMenuItem>
+	            }
             }
         </RadzenPanelMenu>
     </ul>

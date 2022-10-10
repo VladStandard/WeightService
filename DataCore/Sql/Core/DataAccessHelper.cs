@@ -189,9 +189,9 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PackageMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluPackageMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluLabelMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluPackageMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());
@@ -200,6 +200,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ProductSeriesMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<ScaleScreenShotMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TaskTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateMap>());

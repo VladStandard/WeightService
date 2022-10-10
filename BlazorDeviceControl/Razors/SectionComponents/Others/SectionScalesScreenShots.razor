@@ -1,0 +1,43 @@
+﻿@inherits RazorComponentSectionBase<ScaleScreenShotModel, ScaleModel>
+@page "/section/scales_screenshots"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@ScaleScreenShotModel TItemFilter=@ScaleModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.RouteSectionScalesScreenShots />
+
+<RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
+			Style="margin-top: 5px;"
+	Data=@SqlItemsCast TItem=@ScaleScreenShotModel
+	RowClick=@(SqlItemSetAsync) 
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns>
+		<RazorSectionFieldIsMarked TItem=@ScaleScreenShotModel ParentRazor=@(this) />
+		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="12%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.ChangeDt>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true, true)) 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.Identity.Uid}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="40%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Scale>
+			<Template Context="itemCast">
+				<RadzenLink 
+					Text=@itemCast.Scale.Description
+					Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.Scale.Identity.Id}") />
+			</Template>
+		</RadzenGridColumn>
+		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="43%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.ScreenShot>
+			<Template Context="itemCast">
+				<RadzenText 
+					TextStyle=@TextStyle.Body2
+					Text=@($"{DataUtils.GetBytesLength(itemCast.ScreenShot, false)}") />
+			</Template>
+		</RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@ScaleScreenShotModel ParentRazor=@(this) />

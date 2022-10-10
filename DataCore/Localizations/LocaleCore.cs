@@ -65,10 +65,10 @@ public static class LocaleCore
 		public static string DataLoadComplete => Lang == LangEnum.English ? "Data downloaded successfully." : "Данные загружены успешно.";
 		public static string DataLoadError => Lang == LangEnum.English ? "Error loading data!" : "Ошибка загрузки данных!";
 		public static string DataLoading => Lang == LangEnum.English ? "Loading data..." : "Загрузка данных...";
-		public static string DataSizeBytes => Lang == LangEnum.English ? "Bytes" : "Байтов";
+		public static string DataSizeBytes => Lang == LangEnum.English ? "Bytes" : "Байт(ов)";
 		public static string DataSizeChars => Lang == LangEnum.English ? "chars" : "символов";
-		public static string DataSizeGBytes => Lang == LangEnum.English ? "Gbytes" : "ГБайтов";
-		public static string DataSizeKBytes => Lang == LangEnum.English ? "Kbytes" : "КБайтов";
+		public static string DataSizeGBytes => Lang == LangEnum.English ? "Gbytes" : "ГБайт(ов)";
+		public static string DataSizeKBytes => Lang == LangEnum.English ? "Kbytes" : "КБайт(ов)";
 		public static string DataSizeLength => Lang == LangEnum.English ? "Length" : "Длина";
 		public static string DataSizeMBytes => Lang == LangEnum.English ? "Mbytes" : "МБайтов";
 		public static string DataSizeVolume => Lang == LangEnum.English ? "Data volume" : "Объём данных";

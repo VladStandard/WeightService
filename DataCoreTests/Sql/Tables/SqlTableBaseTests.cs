@@ -224,6 +224,15 @@ internal class SqlTableBaseTests
 	}
 
 	[Test]
+	public void ScaleScreenShotModel_AssertSqlFields_Check()
+	{
+		// Arrange & Act & Assert.
+		DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(ScaleScreenShotModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<ScaleScreenShotModel>(nameof(ScaleScreenShotModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<ScaleScreenShotModel>(nameof(ScaleScreenShotModel.IsMarked));
+	}
+	
+	[Test]
 	public void TaskModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.

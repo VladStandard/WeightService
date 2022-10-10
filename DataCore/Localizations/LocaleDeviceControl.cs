@@ -66,6 +66,7 @@ public partial class LocaleDeviceControl
 	public string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
 	public string LinkLabelary => "http://labelary.com/viewer.html";
 	public string Section1C => Lang == LangEnum.English ? "1C" : "1С";
+	public string SectionAdministering => Lang == LangEnum.English ? "Administering" : "Администрирование";
 	public string SectionAutomatedWorkplace => Lang == LangEnum.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
 	public string SectionAutomatedWorkplaceShort => Lang == LangEnum.English ? "AWs" : "АРМы";
 	public string SectionBarCodes => Lang == LangEnum.English ? "Barcodes" : "Штрихкоды";
@@ -104,6 +105,7 @@ public partial class LocaleDeviceControl
 	public string SectionReferencesDev => Lang == LangEnum.English ? "Development" : "Разработка";
 	public string SectionResources => Lang == LangEnum.English ? "Resources" : "Ресурсы";
 	public string SectionScales => Lang == LangEnum.English ? "Devices" : "Устройства";
+	public string SectionScreenShots => Lang == LangEnum.English ? "Screenshots" : "Скриншоты";
 	public string SectionTaskModules => Lang == LangEnum.English ? "Task Modules" : "Модули задач";
 	public string SectionTasks => Lang == LangEnum.English ? "Tasks" : "Задачи";
 	public string SectionTemplateResources => Lang == LangEnum.English ? "Template resources" : "Ресурсы шаблонов";
@@ -122,9 +124,9 @@ public partial class LocaleDeviceControl
 	public string TableActionEdit => Lang == LangEnum.English ? "Edit" : "Редактировать";
 	public string TableActionFill => Lang == LangEnum.English ? "Fill" : "Заполнить";
 	public string TableActionMark => Lang == LangEnum.English ? "Mark" : "Пометить";
-	public string TableActions => Lang == LangEnum.English ? "___" : "Действия";
+	public string TableActions => Lang == LangEnum.English ? "Actions" : "Действия";
 	public string TableActionSave => Lang == LangEnum.English ? "Save" : "Сохранить";
-	public string TableActionsIsDeny => Lang == LangEnum.English ? "___" : "Действия недоступны";
+	public string TableActionsIsDeny => Lang == LangEnum.English ? "Actions is deny" : "Действия недоступны";
 
 	#endregion
 }

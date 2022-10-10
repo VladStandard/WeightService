@@ -349,6 +349,24 @@ ELSE
 					".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 			}
 
+			public static class ScalesScreenshots
+			{
+				public static string InsertSscreenshot => @"
+EXECUTE [db_scales].[UpdateScale]
+@ID,
+@Description,
+@IP,
+@Port,
+@MAC,
+@SendTimeout,
+@ReceiveTimeout,
+@ComPort,
+@UseOrder,
+@VerScalesUI,
+@ScaleFactor;
+		".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+			}
+
 			public static class Tasks
 			{
 				public static string GetTaskUid => @"

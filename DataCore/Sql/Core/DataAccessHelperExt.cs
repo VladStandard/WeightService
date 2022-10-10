@@ -168,6 +168,28 @@ public static partial class DataAccessHelperExt
 		return result;
 	}
 
+    public static List<ScaleScreenShotModel> GetListScalesScreenShots(this DataAccessHelper dataAccess, SqlTableBase? itemFilter, 
+	    bool isShowMarked, bool isShowOnlyTop, bool isShowAll)
+	{
+		List<SqlFieldFilterModel> filters = new();
+		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
+		{
+			if (itemFilter is ScaleModel scale)
+				filters = new()
+				{
+					new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", 
+						SqlFieldComparerEnum.Equal, scale.Identity.Id)
+				};
+			if (!isShowAll)
+				filters.Add(new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
+		}
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
+			0, isShowMarked, isShowOnlyTop);
+		List<ScaleScreenShotModel> result = dataAccess.GetList<ScaleScreenShotModel>(sqlCrudConfig);
+		result = result.OrderByDescending(x => x.CreateDt).ToList();
+		return result;
+	}
+
 	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, 
 		SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{

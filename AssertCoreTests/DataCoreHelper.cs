@@ -325,6 +325,11 @@ public class DataCoreHelper
 				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				scale.Host = CreateNewSubstitute<HostModel>(isNotDefault);
 				break;
+			case ScaleScreenShotModel scaleScreenShot:
+				scaleScreenShot.Description = LocaleCore.Sql.SqlItemFieldDescription;
+				scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+				scaleScreenShot.ScreenShot = new byte[] { 0x00 };
+				break;
 			case TaskModel task:
 				task.TaskType = CreateNewSubstitute<TaskTypeModel>(isNotDefault);
 				task.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);

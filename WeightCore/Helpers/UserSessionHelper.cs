@@ -25,6 +25,13 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using System.Linq;
 using DataCore.Helpers;
+using Microsoft.Data.SqlClient;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.IO;
+using System.Windows.Shapes;
+using MvvmHelpers.Commands;
+using System.Data;
 
 namespace WeightCore.Helpers;
 
@@ -245,6 +252,7 @@ public class UserSessionHelper : BaseViewModel
 		_pluScale = new();
 		_pluPackage = new();
 		_pluPackages = new();
+		_pluWeighing = new();
 		_host = new();
 		_scale = new();
 		_scales = new();
@@ -519,7 +527,7 @@ public class UserSessionHelper : BaseViewModel
 		TemplateModel template = new();
 		if (Scale is { IsOrder: true })
 		{
-			throw new Exception("Order under construct!");
+			throw new("Order under construct!");
 			//template = Order.Template;
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
@@ -770,6 +778,32 @@ public class UserSessionHelper : BaseViewModel
 			}
 		});
 		return result;
+	}
+
+	public void MakeScreenShot(Form? owner)
+	{
+		using MemoryStream stream = new();
+		
+		if (owner is null)
+		{
+			System.Drawing.Rectangle bounds = Screen.GetBounds(System.Drawing.Point.Empty);
+			using Bitmap bitmap = new(bounds.Width, bounds.Height);
+			using Graphics graphics = Graphics.FromImage(bitmap);
+			graphics.CopyFromScreen(System.Drawing.Point.Empty, System.Drawing.Point.Empty, bounds.Size);
+			Image img = (Image)bitmap;
+			img.Save(stream, ImageFormat.Png);
+		}
+		else
+		{
+			using Bitmap bitmap = new(owner.Width, owner.Height);
+			using Graphics graphics = Graphics.FromImage(bitmap);
+			graphics.CopyFromScreen(owner.Location.X, owner.Location.Y, 0, 0, owner.Size);
+			using Image img = (Image)bitmap;
+			img.Save(stream, ImageFormat.Png);
+		}
+
+		ScaleScreenShotModel scaleScreenShot = new() { Scale = Scale, ScreenShot = stream.ToArray() };
+		DataAccess.Save(scaleScreenShot);
 	}
 
 	#endregion

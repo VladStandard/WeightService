@@ -17,8 +17,6 @@ public class SqlConnectFactory
     #region Public and private fields, properties, constructor
 
     private readonly object _locker = new();
-    public delegate void ExecuteReaderCallback(SqlDataReader reader);
-    public delegate T? ExecuteReaderCallback<T>(SqlDataReader reader);
     private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
     #endregion
@@ -42,7 +40,7 @@ public class SqlConnectFactory
         return _instance.GetSqlConnection();
     }
 
-    public T GetValueAsNotNullable<T>(IDataReader reader, string fieldName) where T : struct
+    public T GetValueAsNotNullable<T>(SqlDataReader reader, string fieldName) where T : struct
     {
         object value = reader[fieldName];
         Type t = typeof(T);
@@ -51,7 +49,7 @@ public class SqlConnectFactory
         return result == null ? default : (T)result;
     }
 
-    public T? GetValueAsNullable<T>(IDataReader reader, string fieldName)
+    public T? GetValueAsNullable<T>(SqlDataReader reader, string fieldName)
     {
         object value = reader[fieldName];
         Type t = typeof(T);
@@ -59,7 +57,7 @@ public class SqlConnectFactory
         return value == null || DBNull.Value.Equals(value) ? default : (T)Convert.ChangeType(value, t);
     }
 
-    public string GetValueAsString(IDataReader reader, string fieldName)
+    public string GetValueAsString(SqlDataReader reader, string fieldName)
     {
         object value = reader[fieldName];
         Type t = typeof(string);
@@ -69,35 +67,35 @@ public class SqlConnectFactory
 
     #region Public and private methods - Wrappers execute
 
-    public void ExecuteReader(string query, ExecuteReaderCallback callback) => 
-	    ExecuteReader(query, new SqlParameter[] { }, callback);
+    public void ExecuteReader(string query, Action<SqlDataReader> action) => 
+	    ExecuteReader(query, new SqlParameter[] { }, action);
 
-    public void ExecuteReader(string query, SqlParameter parameter, ExecuteReaderCallback callback) => 
-	    ExecuteReader(query, new[] { parameter }, callback);
+	public void ExecuteReader(string query, SqlParameter parameter, Action<SqlDataReader> action) =>
+		ExecuteReader(query, new[] { parameter }, action);
 
-    public void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderCallback callback)
+	private void ExecuteReader(string query, SqlParameter[] parameters, Action<SqlDataReader> action)
     {
         using SqlConnection con = GetConnection();
         con.Open();
         using SqlCommand cmd = new(query);
         cmd.Connection = con;
         cmd.Parameters.Clear();
-        if (parameters?.Length > 0)
+        if (parameters.Length > 0)
             cmd.Parameters.AddRange(parameters);
         //cmd.CommandType = CommandType.TableDirect;
         using SqlDataReader reader = cmd.ExecuteReader();
         if (reader.HasRows)
         {
-            callback?.Invoke(reader);
+            action.Invoke(reader);
         }
         reader.Close();
         con.Close();
     }
 
-    public T? ExecuteReader<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) => 
-	    ExecuteReader(query, new[] { parameter }, callback);
+    public T? ExecuteReader<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) => 
+	    ExecuteReader(query, new[] { parameter }, func);
 
-    public T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback)
+    private T? ExecuteReader<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func)
     {
         T? result = default;
         using SqlConnection con = GetConnection();
@@ -106,24 +104,24 @@ public class SqlConnectFactory
         {
             cmd.Connection = con;
             cmd.Parameters.Clear();
-            if (parameters?.Length > 0)
+            if (parameters.Length > 0)
                 cmd.Parameters.AddRange(parameters);
             //cmd.CommandType = CommandType.TableDirect;
             using SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
-                result = callback.Invoke(reader);
-            }
+				result = func.Invoke(reader);
+			}
             reader.Close();
         }
         con.Close();
         return result;
     }
 
-    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) where T : new() => 
-	    ExecuteReaderForItem(query, new[] { parameter }, callback);
+    public T ExecuteReaderForItem<T>(string query, SqlParameter parameter, Func<SqlDataReader, T> func) where T : new() => 
+	    ExecuteReaderForItem(query, new[] { parameter }, func);
 
-    public T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback) where T : new()
+    private T ExecuteReaderForItem<T>(string query, SqlParameter[] parameters, Func<SqlDataReader, T> func) where T : new()
     {
         lock (_locker)
         {
@@ -134,13 +132,13 @@ public class SqlConnectFactory
             {
                 cmd.Connection = con;
                 cmd.Parameters.Clear();
-                if (parameters?.Length > 0)
+                if (parameters.Length > 0)
                     cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.TableDirect;
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    result = callback(reader) ?? new T();
+                    result = func(reader) ?? new T();
                 }
                 reader.Close();
             }
@@ -165,7 +163,7 @@ public class SqlConnectFactory
             {
                 cmd.Connection = con;
                 cmd.Parameters.Clear();
-                if (parameters?.Length > 0)
+                if (parameters.Length > 0)
                     cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.StoredProcedure;
                 result = cmd.ExecuteNonQuery();

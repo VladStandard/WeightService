@@ -31,11 +31,11 @@ public static class SqlTableBaseExt
 			case DateTime dtValue:
 				if (item is VersionModel version && string.Equals(propertyName, nameof(version.ReleaseDt)))
 				{
-					return StringUtils.FormatDtRus(version.ReleaseDt, false);
+					return StringUtils.FormatDtRus(version.ReleaseDt, false, false);
 				}
 				else
 				{
-					return StringUtils.FormatDtRus(dtValue, true);
+					return StringUtils.FormatDtRus(dtValue, true, true);
 				}
 			case byte byteValue:
 				if (item is AccessModel access && string.Equals(propertyName, nameof(access.Rights)))

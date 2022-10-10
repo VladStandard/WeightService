@@ -34,6 +34,7 @@ public partial class LocaleDeviceControl
     public string RouteItemProductSerie => "/item/product_serie";
     public string RouteItemScale => "/item/scale";
     public string RouteItemScaleObsolete => "/item/scale_obsolete";
+    public string RouteItemScaleScreenShot => "/item/scale_screenshot";
     public string RouteItemTaskModule => "/item/taskmodule";
     public string RouteItemTaskTypeModule => "/item/tasktypemodule";
     public string RouteItemTemplate => "/item/template";
@@ -72,6 +73,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionProductionFacilities => "/section/production_facilities";
     public string RouteSectionProductSeries => "/section/productseries";
     public string RouteSectionScales => "/section/scales";
+    public string RouteSectionScalesScreenShots => "/section/scales_screenshots";
     public string RouteSectionTaskModules => "/section/taskmodules";
     public string RouteSectionTaskTypeModules => "/section/tasktypemodules";
     public string RouteSectionTemplateResources => "/section/templates_resources";

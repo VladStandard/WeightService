@@ -128,6 +128,7 @@ public partial class RazorComponentBase
 		    ProductionFacilityModel => LocaleCore.DeviceControl.RouteSectionProductionFacilities,
 		    ProductSeriesModel => LocaleCore.DeviceControl.RouteSectionProductSeries,
 		    ScaleModel => LocaleCore.DeviceControl.RouteSectionScales,
+		    ScaleScreenShotModel => LocaleCore.DeviceControl.RouteSectionScalesScreenShots,
 		    TaskModel => LocaleCore.DeviceControl.RouteSectionTaskModules,
 		    TaskTypeModel => LocaleCore.DeviceControl.RouteSectionTaskTypeModules,
 		    TemplateModel => LocaleCore.DeviceControl.RouteSectionTemplates,

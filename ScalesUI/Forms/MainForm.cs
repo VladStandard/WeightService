@@ -55,6 +55,7 @@ public partial class MainForm : Form
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
     private FontsSettingsHelper FontsSettings { get; } = FontsSettingsHelper.Instance;
+    private readonly object _lockerHours = new();
     private readonly object _lockerDays = new();
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private bool IsKeyboardMouseEventsSubscribe { get; set; }
@@ -87,8 +88,9 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
+            ActionMakeScreenShot();
             GuiUtils.WpfForm.CatchException(this, ex);
-        }
+		}
         finally
         {
             MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
@@ -101,13 +103,18 @@ public partial class MainForm : Form
             try
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
-                    "jobScheduleEveryDays", "triggerScheduleEveryDays", "triggerGroupScheduleEveryDays");
+                Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
+                    $"job{nameof(ScheduleEveryHours)}", $"trigger{nameof(ScheduleEveryHours)}",
+                    $"triggerGroup{nameof(ScheduleEveryHours)}");
+				Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), ScheduleEveryDays,
+	                $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}", 
+	                $"triggerGroup{nameof(ScheduleEveryDays)}");
                 LoadManagerControl();
             }
             catch (Exception ex)
             {
-                GuiUtils.WpfForm.CatchException(this, ex);
+	            ActionMakeScreenShot();
+				GuiUtils.WpfForm.CatchException(this, ex);
             }
             finally
             {
@@ -124,6 +131,7 @@ public partial class MainForm : Form
                 }
 
                 UserSession.StopwatchMain.Stop();
+                ActionMakeScreenShot();
             }
         }).ConfigureAwait(false);
     }
@@ -145,7 +153,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex);
+	        ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(ex);
         }
         finally
         {
@@ -192,7 +201,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(ex);
+	        ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(ex);
         }
         finally
         {
@@ -222,7 +232,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+	        ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -231,6 +242,7 @@ public partial class MainForm : Form
                     $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
                     UserSession.Scale.Host.HostName, nameof(ScalesUI));
             UserSession.StopwatchMain.Stop();
+            ActionMakeScreenShot();
         }
     }
 
@@ -324,7 +336,7 @@ public partial class MainForm : Form
 		if (buttonsSettings.IsPlu)
 		{
 			ButtonPlu = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
-			ButtonPlu.Click += ActionPlu_Click;
+			ButtonPlu.Click += ActionPlu;
 		}
 
 	    if (buttonsSettings.IsPackage)
@@ -349,48 +361,48 @@ public partial class MainForm : Form
 	    {
 		    ButtonScalesTerminal =
 			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
-		    ButtonScalesTerminal.Click += ActionScalesTerminal_Click;
+		    ButtonScalesTerminal.Click += ActionScalesTerminal;
 	    }
 
 	    if (buttonsSettings.IsScalesInit)
 	    {
 		    ButtonScalesInit =
 			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
-		    ButtonScalesInit.Click += ActionScalesInit_Click;
+		    ButtonScalesInit.Click += ActionScalesInit;
 	    }
 
 	    if (buttonsSettings.IsOrder)
 	    {
 		    ButtonOrder =
 			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonOrder), columnCount++, 0);
-			ButtonOrder.Click += ActionOrder_Click;
+			ButtonOrder.Click += ActionOrder;
 	    }
 
 	    if (buttonsSettings.IsNewPallet)
 	    {
 		    ButtonNewPallet =
 			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
-			ButtonNewPallet.Click += ActionNewPallet_Click;
+			ButtonNewPallet.Click += ActionNewPallet;
 	    }
 
 	    if (buttonsSettings.IsKneading)
 	    {
 		    ButtonKneading =
 			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
-			ButtonKneading.Click += ActionKneading_Click;
+			ButtonKneading.Click += ActionKneading;
 	    }
 
 	    if (buttonsSettings.IsMore)
 	    {
 		    ButtonMore = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonMore), columnCount++, 0);
-			ButtonMore.Click += ActionMore_Click;
+			ButtonMore.Click += ActionMore;
 	    }
 
 	    if (buttonsSettings.IsPrint)
 	    {
 		    ButtonPrint =
 			    GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
-			ButtonPrint.Click += ActionPrint_Click;
+			ButtonPrint.Click += ActionPrint;
 		    ButtonPrint.Focus();
 	    }
 
@@ -404,16 +416,34 @@ public partial class MainForm : Form
 
     #region Public and private methods - Schedulers
 
+    private void ScheduleEveryHours()
+    {
+        lock (_lockerHours)
+        {
+            if (Quartz is null)
+                return;
+	        ActionMakeScreenShot();
+            if (UserSession.Scale.Host is not null)
+            {
+				UserSession.DataAccess.LogInformation(
+	                LocaleCore.Scales.ScheduleForNextHour, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+            }
+        }
+    }
+
     private void ScheduleEveryDays()
     {
         lock (_lockerDays)
         {
-            if (Quartz == null)
+            if (Quartz is null)
                 return;
-            UserSession.ProductDate = DateTime.Now;
+            ActionMakeScreenShot();
+			UserSession.ProductDate = DateTime.Now;
             if (UserSession.Scale.Host is not null)
-                UserSession.DataAccess.LogInformation(LocaleCore.Scales.ScheduleForNextDay,
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+            {
+                UserSession.DataAccess.LogInformation(
+	                LocaleCore.Scales.ScheduleForNextDay, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+            }
         }
     }
 
@@ -446,7 +476,7 @@ public partial class MainForm : Form
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
         if (e.Button == MouseButtons.Middle)
-            ActionPrint_Click(sender, e);
+            ActionPrint(sender, e);
     }
 
     #endregion
@@ -455,7 +485,7 @@ public partial class MainForm : Form
 
     private void SetComboBoxItems(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {
-        if (comboBox == null || sourceList == null || sourceList.Count == 0 || selectedIndex < 0)
+        if (comboBox is null || sourceList is null || sourceList.Count == 0 || selectedIndex < 0)
             return;
 
         if (comboBox.InvokeRequired)
@@ -614,7 +644,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+	        ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -650,7 +681,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+	        ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -686,7 +718,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+	        ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -715,7 +748,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+			ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -744,7 +778,7 @@ public partial class MainForm : Form
 	    }
     }
 
-    private void ActionScalesTerminal_Click(object sender, EventArgs e)
+    private void ActionScalesTerminal(object sender, EventArgs e)
     {
         try
         {
@@ -773,7 +807,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+			ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -781,7 +816,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionScalesInit_Click(object sender, EventArgs e)
+    private void ActionScalesInit(object sender, EventArgs e)
     {
         try
         {
@@ -827,7 +862,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+			ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -835,14 +871,14 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionOrder_Click(object sender, EventArgs e)
+    private void ActionOrder(object sender, EventArgs e)
     {
         throw new("Order is under construct!");
         //try
         //{
         //    UserSession.ManagerControl.Massa.Close();
 
-        //    if (UserSession.Order == null)
+        //    if (UserSession.Order is null)
         //    {
         //        using OrderListForm settingsForm = new();
         //        settingsForm.ShowDialog(this);
@@ -887,7 +923,7 @@ public partial class MainForm : Form
         //}
     }
 
-    private void ActionNewPallet_Click(object sender, EventArgs e)
+    private void ActionNewPallet(object sender, EventArgs e)
     {
         try
         {
@@ -895,7 +931,8 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+			ActionMakeScreenShot();
+			GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
         {
@@ -903,7 +940,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionKneading_Click(object sender, EventArgs e)
+    private void ActionKneading(object sender, EventArgs e)
     {
         try
         {
@@ -924,7 +961,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionPlu_Click(object sender, EventArgs e)
+    private void ActionPlu(object sender, EventArgs e)
     {
         try
         {
@@ -950,7 +987,7 @@ public partial class MainForm : Form
                 //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
                 // форма с замесами, размерами паллет и прочее
-                ActionMore_Click(null, null);
+                ActionMore(null, null);
             }
             else
             {
@@ -963,6 +1000,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
+	        ActionMakeScreenShot();
             GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
@@ -971,7 +1009,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionMore_Click(object sender, EventArgs e)
+    private void ActionMore(object sender, EventArgs e)
     {
         try
         {
@@ -998,6 +1036,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
+	        ActionMakeScreenShot();
             GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally
@@ -1006,7 +1045,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionPrint_Click(object sender, EventArgs e)
+    private void ActionPrint(object sender, EventArgs e)
     {
         try
         {
@@ -1049,7 +1088,7 @@ public partial class MainForm : Form
                 DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
                     true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Scale.Host == null ? string.Empty : UserSession.Scale.Host.HostName,
+                    UserSession.Scale.Host is null ? string.Empty : UserSession.Scale.Host.HostName,
                     nameof(WeightCore));
                 if (dialogResult is not DialogResult.Yes)
                     return;
@@ -1060,6 +1099,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
+	        ActionMakeScreenShot();
             if (UserSession.PluScale.Identity.IsNotNew() && UserSession.Scale.Host is not null)
                 UserSession.DataAccess.LogError(new Exception(
                     $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
@@ -1077,5 +1117,21 @@ public partial class MainForm : Form
         }
     }
 
+    private void ActionMakeScreenShot()
+    {
+	    try
+	    {
+		    UserSession.MakeScreenShot(this);
+	    }
+	    catch (Exception ex)
+	    {
+		    GuiUtils.WpfForm.CatchException(this, ex);
+	    }
+	    finally
+	    {
+		    MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
+	    }
+    }
+    
     #endregion
 }

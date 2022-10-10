@@ -159,6 +159,7 @@ public class LocaleTable
     public string Resource => Lang == LangEnum.English ? "Resource" : "Ресурс";
     public string Row => Lang == LangEnum.English ? "Row" : "Строка";
     public string Scale => Lang == LangEnum.English ? "Device" : "Устройство";
+    public string ScreenShot => Lang == LangEnum.English ? "Screenshot" : "Скриншот";
     public string ScaleFactor => Lang == LangEnum.English ? "Scale factor" : "Коэф. масштабирования";
     public string ScaleId => Lang == LangEnum.English ? "Scale ID" : "ID весов";
     public string ShelfLifeDays => Lang == LangEnum.English ? "Shelf life, days" : "Срок годности, суток";

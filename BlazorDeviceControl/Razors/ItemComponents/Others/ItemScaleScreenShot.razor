@@ -1,0 +1,53 @@
+﻿@inherits RazorComponentItemBase<ScaleScreenShotModel>
+@page "/item/scale_screenshot"
+@page "/item/scale_screenshot/new"
+@page "/item/scale_screenshot/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@ScaleScreenShotModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemPluScale />
+
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=@ScaleScreenShotModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<tbody>
+		<RazorItemTableBody TItem=@ScaleScreenShotModel ParentRazor=@(this) />
+		<tr>
+			<td>
+				<RadzenLabel 
+					Style="width: 100%; margin-left: 0;"
+					Text=@LocaleCore.Table.Scale/>
+			</td>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; margin-left: 0;"
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemScale, SqlItemCast.Scale, SqlItemCast.Scale.Identity.Id)
+					Text=@SqlItemCast.Scale.Description />
+			</td>
+			<td>
+				<RadzenLabel 
+					Style="width: 100%; margin-left: 0;"
+					Text=@LocaleCore.Table.ScreenShot />
+			</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: left; background-color: lightgray;"
+					ReadOnly=true Value=@(DataUtils.GetBytesLength(SqlItemCast.ScreenShot, false)) />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=4>
+				@if (!string.IsNullOrEmpty(ImagePath))
+				{
+					<RadzenImage 
+						Style="width: 100%; height: 100%;"
+						Path=@ImagePath/>
+				}
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@ScaleScreenShotModel ParentRazor=@(this) />
+<RazorItemDates TItem=@ScaleScreenShotModel ParentRazor=@(this) />

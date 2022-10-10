@@ -35,12 +35,12 @@ public class PluWeighingValidator : SqlTableValidator<PluWeighingModel>
 			.NotNull()
 			.NotEqual(0);
 		RuleFor(item => item.TareWeight)
-			.NotEmpty()
-			.NotNull()
-			.NotEqual(0);
+			//.NotEmpty()
+			.NotNull();
+		//.NotEqual(0);
 		//RuleFor(item => item.RegNum)
 		//	.NotEmpty()
 		//	.NotNull()
 		//	.NotEqual(0);
-	}
+    }
 }
