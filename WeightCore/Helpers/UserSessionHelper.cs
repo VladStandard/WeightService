@@ -156,6 +156,8 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
+	public string HostName => Scale.Host is null ? NetUtils.GetLocalHostName(false) : Scale.Host.HostName;
+
 	private List<ScaleModel> _scales;
 	[XmlElement]
 	public List<ScaleModel> Scales
@@ -345,9 +347,10 @@ public class UserSessionHelper : BaseViewModel
 		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.Identity.IsNew())
 		if (PluPackages.Count > 1 && PluPackage.Identity.IsNew())
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluPackageNotSelect,
-				true, LogTypeEnum.Warning, new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host is null ? NetUtils.GetLocalHostName(false) : Scale.Host.HostName, nameof(WeightCore));
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning, 
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -362,9 +365,10 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (PluScale.Identity.IsNew())
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.PluNotSelect,
-				true, LogTypeEnum.Warning, new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host is null ? NetUtils.GetLocalHostName(false) : Scale.Host.HostName, nameof(WeightCore));
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, 
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -379,10 +383,10 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (ManagerControl.Massa is null)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotFound,
-				true, LogTypeEnum.Warning,
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host.HostName, nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -397,10 +401,11 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host.HostName, nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -420,7 +425,7 @@ public class UserSessionHelper : BaseViewModel
 				: LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host.HostName, nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -442,7 +447,7 @@ public class UserSessionHelper : BaseViewModel
 				: LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host.HostName, nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -460,10 +465,10 @@ public class UserSessionHelper : BaseViewModel
 		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluScale.Plu.TareWeight);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
-				true, LogTypeEnum.Warning,
+			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+				LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host is null ? string.Empty : Scale.Host.HostName, nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -484,7 +489,7 @@ public class UserSessionHelper : BaseViewModel
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Scale.Host is null ? string.Empty : Scale.Host.HostName, nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			return result == DialogResult.Cancel;
 		}
 		return true;
@@ -510,13 +515,13 @@ public class UserSessionHelper : BaseViewModel
 		if (!isCheck)
 		{
 			if (PluWeighing.Identity.IsNotNew())
-				GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThresholds(
-					PluWeighing.NettoWeight, PluScale.Identity.IsNew() ? 0 : PluScale.Plu.UpperThreshold,
+				GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+					LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.Identity.IsNew() ? 0 : PluScale.Plu.UpperThreshold,
 					PluScale.Identity.IsNew() ? 0 : PluScale.Plu.NominalWeight,
 					PluScale.Identity.IsNew() ? 0 : PluScale.Plu.LowerThreshold),
 					true, LogTypeEnum.Warning,
 					new() { ButtonCancelVisibility = Visibility.Visible },
-					Scale.Host is null ? string.Empty : Scale.Host.HostName, nameof(WeightCore));
+					HostName, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -652,12 +657,11 @@ public class UserSessionHelper : BaseViewModel
 		// Debug check.
 		if (PluScale.Plu.IsCheckWeight && ManagerControl.Massa.WeightNet <= 0 && Debug.IsDebug)
 		{
-			DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,  
 				LocaleCore.Print.QuestionUseFakeData,
 				true, LogTypeEnum.Question,
 				new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-				Scale.Host is null ? string.Empty : Scale.Host.HostName,
-				nameof(WeightCore));
+				HostName, nameof(WeightCore));
 			if (dialogResult is DialogResult.Yes)
 			{
 				// Fake data.
@@ -722,11 +726,10 @@ public class UserSessionHelper : BaseViewModel
 			// Debug check.
 			if (Debug.IsDebug)
 			{
-				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(null, LocaleCore.Print.QuestionPrintSendCmd,
-					true, LogTypeEnum.Question,
+				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(
+					LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
 					new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-					Scale.Host is null ? string.Empty : Scale.Host.HostName,
-					nameof(WeightCore));
+					HostName, nameof(WeightCore));
 				if (dialogResult != DialogResult.Yes)
 					return;
 			}

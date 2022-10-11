@@ -201,25 +201,25 @@ public partial class PlusForm : Form
 		return labelPluCode;
 	}
 
-	private Label NewLabelPluDescription(PluModel plu, int tabIndex, Control buttonPlu)
-	{
-		Label labelPluDescription = new()
-		{
-			Name = $@"{nameof(labelPluDescription)}{tabIndex}",
-			Font = FontsSettings.FontMinimum,
-			AutoSize = false,
-			Text = !string.IsNullOrEmpty(plu.Description) ? LocaleCore.Scales.PluDescriptionSet : LocaleCore.Scales.PluDescriptionNotSet,
-			TextAlign = ContentAlignment.MiddleCenter,
-			Parent = buttonPlu,
-			Dock = DockStyle.None,
-			BackColor = !string.IsNullOrEmpty(plu.Description) ? Color.Transparent : Color.LightGray,
-			Visible = string.IsNullOrEmpty(plu.Description),
-			BorderStyle = BorderStyle.FixedSingle,
-			TabIndex = tabIndex,
-		};
-		labelPluDescription.MouseClick += ButtonPlu_Click;
-		return labelPluDescription;
-	}
+	//private Label NewLabelPluDescription(PluModel plu, int tabIndex, Control buttonPlu)
+	//{
+	//	Label labelPluDescription = new()
+	//	{
+	//		Name = $@"{nameof(labelPluDescription)}{tabIndex}",
+	//		Font = FontsSettings.FontMinimum,
+	//		AutoSize = false,
+	//		Text = !string.IsNullOrEmpty(plu.Description) ? LocaleCore.Scales.PluDescriptionSet : LocaleCore.Scales.PluDescriptionNotSet,
+	//		TextAlign = ContentAlignment.MiddleCenter,
+	//		Parent = buttonPlu,
+	//		Dock = DockStyle.None,
+	//		BackColor = !string.IsNullOrEmpty(plu.Description) ? Color.Transparent : Color.LightGray,
+	//		Visible = string.IsNullOrEmpty(plu.Description),
+	//		BorderStyle = BorderStyle.FixedSingle,
+	//		TabIndex = tabIndex,
+	//	};
+	//	labelPluDescription.MouseClick += ButtonPlu_Click;
+	//	return labelPluDescription;
+	//}
 
 	private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
 	{

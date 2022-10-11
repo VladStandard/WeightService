@@ -11,7 +11,6 @@ using ScalesUI.Forms;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
@@ -32,70 +31,65 @@ internal static class Program
     [STAThread]
     internal static void Main()
     {
-        MainInside();
-    }
+		try
+		{
+			// Setup.
+			AppVersion.Setup(Assembly.GetExecutingAssembly());
+			FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
+			DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
 
-    private static void MainInside([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-    {
-        try
-        {
-            // Setup.
-            AppVersion.Setup(Assembly.GetExecutingAssembly());
-            FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
-            DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
+			// Host.
+			string hostName = NetUtils.GetLocalHostName(false);
+			HostModel host = SqlUtils.GetHostNotNull(hostName);
+			if (host.Identity.IsNew())
+			{
+				GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
+				host = SqlUtils.GetHostNotNull(hostName);
+			}
+			if (host.Identity.IsNew())
+			{
+				string message = LocaleCore.Scales.RegistrationWarningHostNotFound(hostName);
+				GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+				//DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
+				Application.Exit();
+				return;
+			}
 
-            // Host.
-            string hostName = NetUtils.GetLocalHostName(false);
-            HostModel host = SqlUtils.GetHostNotNull(hostName);
-            if (host.Identity.IsNew())
-            {
-                GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
-                host = SqlUtils.GetHostNotNull(hostName);
-            }
-            if (host.Identity.IsNew())
-            {
-                string message = LocaleCore.Scales.RegistrationWarningHostNotFound(hostName);
-                GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                //DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
-                Application.Exit();
-                return;
-            }
+			// Scale.
+			ScaleModel scale = SqlUtils.GetScaleFromHostNotNull(host.Identity.Id);
+			if (scale.Identity.IsNew())
+			{
+				string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);
+				GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+				DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
+				Application.Exit();
+				return;
+			}
 
-            // Scale.
-            ScaleModel scale = SqlUtils.GetScaleFromHostNotNull(host.Identity.Id);
-            if (scale.Identity.IsNew())
-            {
-                string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);
-                GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-                DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
-                Application.Exit();
-                return;
-            }
-
-            // Mutex.
-            _ = new Mutex(true, Application.ProductName, out bool createdNew);
-            if (!createdNew)
-            {
-                string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-                GuiUtils.WpfForm.ShowNewRegistration(message);
-                DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
-                Application.Exit();
-            }
-            else
-            {
-                DataAccess.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description), 
-                    hostName, nameof(ScalesUI));
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
-            }
-        }
-        catch (Exception ex)
-        {
-            GuiUtils.WpfForm.CatchException(null!, ex, false, true, filePath, lineNumber, memberName);
-            throw new(ex.Message);
-        }
-    }
+			// Mutex.
+			_ = new Mutex(true, Application.ProductName, out bool createdNew);
+			if (!createdNew)
+			{
+				string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
+				GuiUtils.WpfForm.ShowNewRegistration(message);
+				DataAccess.LogError(new Exception(message), hostName, nameof(ScalesUI));
+				Application.Exit();
+			}
+			else
+			{
+				DataAccess.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description),
+					hostName, nameof(ScalesUI));
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				Application.Run(new MainForm());
+			}
+		}
+		catch (Exception ex)
+		{
+			GuiUtils.WpfForm.CatchException(null!, ex, false);
+			throw new(ex.Message);
+		}
+	}
 
     #endregion
 }

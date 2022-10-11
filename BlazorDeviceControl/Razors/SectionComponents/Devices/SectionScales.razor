@@ -17,39 +17,18 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ScaleModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@ScaleModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetHost(GetRouteItemPathShort<HostModel>()) />
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceIp() />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
-        @*
-        <RadzenGridColumn TItem=@ScaleModel Title=@LocaleCore.Print.NameMain Width="20%">
-            <Template Context="item" >
-                <RadzenLink Style="width: 100%; "
-                    Path=@(item.PrinterMain is null ? "" : $"{LocaleCore.DeviceControl.RouteItemPrinter}/{item.PrinterMain.Identity.Id}")
-                    Text=@(item.PrinterMain is null ? LocaleCore.Table.FieldNull : item.PrinterMain.Name) />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@ScaleModel Title=@LocaleCore.Table.WorkShopName Width="20%" TextAlign=@TextAlign.Left >
-            <Template Context="item">
-	            <RadzenLink Style="width: 100%; "
-	                Path=@(item.WorkShop is null ? "" : $"{LocaleCore.DeviceControl.RouteItemWorkShop}/{item.WorkShop.Identity.Id}")
-                    Text=@(item.WorkShop is null ? LocaleCore.Table.FieldNull : item.WorkShop.Name) />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem=@ScaleModel TextAlign=@TextAlign.Center Title=@LocaleCore.Table.IsKneading Width="5%">
-            <Template Context="item" >
-                <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@item.IsKneading />
-            </Template>
-        </RadzenGridColumn>*@
     </Columns>
 </RadzenGrid>
 

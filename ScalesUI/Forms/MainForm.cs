@@ -78,8 +78,7 @@ public partial class MainForm : Form
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
             UserSession.StopwatchMain.Restart();
-            if (UserSession.Scale.Host is not null)
-                UserSession.DataAccess.SetupLog(UserSession.Scale.Host.Name, typeof(Program).Assembly.GetName().Name);
+            UserSession.DataAccess.SetupLog(UserSession.HostName, typeof(Program).Assembly.GetName().Name);
             FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !Debug.IsDebug;
             MainForm_ButtonsCreate();
@@ -120,15 +119,12 @@ public partial class MainForm : Form
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
-                if (UserSession.Scale.Host is not null)
-                {
-                    UserSession.DataAccess.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                    UserSession.DataAccess.LogInformation(
-                        LocaleData.Program.IsLoaded +
-                        $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                }
+                UserSession.DataAccess.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
+                    UserSession.HostName, nameof(ScalesUI));
+                UserSession.DataAccess.LogInformation(
+                    LocaleData.Program.IsLoaded +
+                    $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
+                    UserSession.HostName, nameof(ScalesUI));
 
                 UserSession.StopwatchMain.Stop();
                 ActionMakeScreenShot();
@@ -215,7 +211,7 @@ public partial class MainForm : Form
         try
         {
             KeyboardMouseUnsubscribe();
-            GuiUtils.Dispose();
+            GuiUtils.WpfForm.Dispose();
             UserSession.StopwatchMain.Restart();
             if (Quartz is not null)
             {
@@ -237,10 +233,9 @@ public partial class MainForm : Form
         }
         finally
         {
-            if (UserSession.Scale.Host is not null)
-                UserSession.DataAccess.LogInformation(LocaleData.Program.IsClosed +
+            UserSession.DataAccess.LogInformation(LocaleData.Program.IsClosed +
                     $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    UserSession.HostName, nameof(ScalesUI));
             UserSession.StopwatchMain.Stop();
             ActionMakeScreenShot();
         }
@@ -423,11 +418,8 @@ public partial class MainForm : Form
             if (Quartz is null)
                 return;
 	        ActionMakeScreenShot();
-            if (UserSession.Scale.Host is not null)
-            {
-				UserSession.DataAccess.LogInformation(
-	                LocaleCore.Scales.ScheduleForNextHour, UserSession.Scale.Host.HostName, nameof(ScalesUI));
-            }
+	        UserSession.DataAccess.LogInformation(
+		        LocaleCore.Scales.ScheduleForNextHour, UserSession.HostName, nameof(ScalesUI));
         }
     }
 
@@ -439,11 +431,8 @@ public partial class MainForm : Form
                 return;
             ActionMakeScreenShot();
 			UserSession.ProductDate = DateTime.Now;
-            if (UserSession.Scale.Host is not null)
-            {
-                UserSession.DataAccess.LogInformation(
-	                LocaleCore.Scales.ScheduleForNextDay, UserSession.Scale.Host.HostName, nameof(ScalesUI));
-            }
+			UserSession.DataAccess.LogInformation(
+				LocaleCore.Scales.ScheduleForNextDay, UserSession.HostName, nameof(ScalesUI));
         }
     }
 
@@ -598,9 +587,8 @@ public partial class MainForm : Form
                 $"{LocaleCore.Scales.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
         }
         using WpfPageLoader wpfPageLoader = new(PageEnum.MessageBox, false, FormBorderStyle.FixedDialog,
-            20, 14, 18, 0, 12, 1)
-        { Width = Width - 50, Height = Height - 50 };
-        wpfPageLoader.Text = $"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
+            20, 14, 18, 0, 12) { Width = Width - 50, Height = Height - 50 };
+        wpfPageLoader.Text = $@"{LocaleCore.Scales.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
         wpfPageLoader.MessageBox.Message = message;
         wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
         wpfPageLoader.MessageBox.VisibilitySettings.Localization();
@@ -782,16 +770,15 @@ public partial class MainForm : Form
     {
         try
         {
-            if (UserSession.Scale.Host is not null)
-            {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
-                    true, LogTypeEnum.Question, new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                if (result is not DialogResult.Yes)
-                    return;
-            }
+	        DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
+		        $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
+		        true, LogTypeEnum.Question,
+		        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+		        UserSession.HostName, nameof(ScalesUI));
+	        if (result is not DialogResult.Yes)
+		        return;
 
-            // Run app.
+	        // Run app.
             if (File.Exists(LocaleData.Paths.ScalesTerminal))
             {
                 UserSession.ManagerControl.Massa.Close();
@@ -800,8 +787,10 @@ public partial class MainForm : Form
             else
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this,
-                    LocaleCore.Scales.ProgramNotFound(LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
-                    null, UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                    LocaleCore.Scales.ProgramNotFound(
+	                    LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
+						new() { ButtonOkVisibility = Visibility.Visible },
+						UserSession.HostName, nameof(ScalesUI));
             }
             UserSession.ManagerControl.Open();
         }
@@ -822,29 +811,26 @@ public partial class MainForm : Form
         {
             if (!UserSession.PluScale.Plu.IsCheckWeight)
             {
-                if (UserSession.Scale.Host is not null)
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelectWeight, true,
-                        LogTypeEnum.Warning, null,
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                GuiUtils.WpfForm.ShowNewOperationControl(this, 
+                    LocaleCore.Scales.PluNotSelectWeight, true, LogTypeEnum.Warning,
+                    new() { ButtonOkVisibility = Visibility.Visible },
+                    UserSession.HostName, nameof(ScalesUI));
                 return;
             }
             if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
             {
-                if (UserSession.Scale.Host is not null)
-                    GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true,
-                        LogTypeEnum.Warning, null,
-                        UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogTypeEnum.Warning,
+                    new() { ButtonOkVisibility = Visibility.Visible },
+                    UserSession.HostName, nameof(ScalesUI));
                 return;
             }
 
-            if (UserSession.Scale.Host is not null)
-            {
-                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
-                if (result is not DialogResult.Yes)
-                    return;
-            }
+            DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
+	            LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
+	            new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+	            UserSession.HostName, nameof(ScalesUI));
+            if (result is not DialogResult.Yes)
+	            return;
 
             UserSession.ManagerControl.Massa.Close();
 
@@ -1015,8 +1001,10 @@ public partial class MainForm : Form
         {
             if (UserSession.PluScale.Identity.IsNew())
             {
-                GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, null,
-                    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+                GuiUtils.WpfForm.ShowNewOperationControl(this, 
+	                LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
+	                new() { ButtonOkVisibility = Visibility.Visible },
+                    UserSession.HostName, nameof(ScalesUI));
                 return;
             }
 
@@ -1088,8 +1076,7 @@ public partial class MainForm : Form
                 DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
                     true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Scale.Host is null ? string.Empty : UserSession.Scale.Host.HostName,
-                    nameof(WeightCore));
+                    UserSession.HostName, nameof(WeightCore));
                 if (dialogResult is not DialogResult.Yes)
                     return;
             }
@@ -1100,10 +1087,10 @@ public partial class MainForm : Form
         catch (Exception ex)
         {
 	        ActionMakeScreenShot();
-            if (UserSession.PluScale.Identity.IsNotNew() && UserSession.Scale.Host is not null)
+            if (UserSession.PluScale.Identity.IsNotNew())
                 UserSession.DataAccess.LogError(new Exception(
                     $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
-                    UserSession.Scale.Host.HostName);
+                    UserSession.HostName);
             GuiUtils.WpfForm.CatchException(this, ex);
         }
         finally

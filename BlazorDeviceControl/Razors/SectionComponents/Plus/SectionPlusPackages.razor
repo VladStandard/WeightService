@@ -47,7 +47,7 @@
 					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
 			</Template>
 		</RadzenGridColumn>
-		<RadzenGridColumn TItem=PluPackageModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.PackageName>
+		<RadzenGridColumn TItem=PluPackageModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Package>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Package.Name 
@@ -58,7 +58,7 @@
 		    <Template Context="itemCast">
 			    <RadzenText
 				    Text=@itemCast.Package.Weight.ToString(CultureInfo.InvariantCulture)
-					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Justify />
+					TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Center />
 		    </Template>
 	    </RadzenGridColumn>
     </Columns>

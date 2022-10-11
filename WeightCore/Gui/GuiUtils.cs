@@ -61,9 +61,9 @@ public static class GuiUtils
             return false;
         }
 
-        private static void CloseIfExistsWpfPage()
+        public static void Dispose()
         {
-            if (WpfPage is not null)
+	        if (WpfPage is not null)
             {
                 WpfPage.Close();
                 WpfPage.Dispose();
@@ -77,9 +77,10 @@ public static class GuiUtils
         /// <param name="caption"></param>
         /// <param name="message"></param>
         /// <param name="visibilitySettings"></param>
-        private static DialogResult ShowNew(IWin32Window owner, string caption, string message, VisibilitySettingsModel visibilitySettings)
+        private static DialogResult ShowNew(IWin32Window owner, string caption, string message, 
+	        VisibilitySettingsModel visibilitySettings)
         {
-            CloseIfExistsWpfPage();
+            Dispose();
 
             WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = caption;
@@ -87,14 +88,14 @@ public static class GuiUtils
             WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
             WpfPage.MessageBox.VisibilitySettings.Localization();
             DialogResult resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
-            WpfPage.Close();
+			WpfPage.Close();
             WpfPage.Dispose();
             return resultWpf;
         }
 
         public static DialogResult ShowNewRegistration(string message)
         {
-            CloseIfExistsWpfPage();
+            Dispose();
 
             WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
@@ -138,39 +139,50 @@ public static class GuiUtils
         /// <param name="hostName"></param>
         /// <param name="appName"></param>
         /// <returns></returns>
-        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, LogTypeEnum logType, 
-	        VisibilitySettingsModel? visibility = null, string hostName = "", string appName = "")
+        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, 
+	        LogTypeEnum logType, VisibilitySettingsModel visibility, string hostName, string appName)
+        {
+			if (isLog)
+				ShowNewOperationControlLogType(message, logType, hostName, appName);
+			return ShowNew(owner, LocaleCore.Scales.OperationControl, message, visibility);
+        }
+
+        public static DialogResult ShowNewOperationControl(string message, bool isLog, 
+	        LogTypeEnum logType, VisibilitySettingsModel visibility, string hostName, string appName)
         {
             if (isLog)
-            {
-	            switch (logType)
-	            {
-		            case LogTypeEnum.None:
-			            DataAccess.LogInformation(message, hostName, appName);
-			            break;
-		            case LogTypeEnum.Error:
-			            DataAccess.LogError(message, hostName, appName);
-			            break;
-		            case LogTypeEnum.Question:
-			            DataAccess.LogQuestion(message, hostName, appName);
-			            break;
-		            case LogTypeEnum.Warning:
-			            DataAccess.LogWarning(message, hostName, appName);
-			            break;
-		            case LogTypeEnum.Information:
-						DataAccess.LogInformation(message, hostName, appName);
-			            break;
-		            default:
-			            throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
-	            }
-            }
-            return ShowNew(owner, LocaleCore.Scales.OperationControl, message,
-                visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
+                ShowNewOperationControlLogType(message, logType, hostName, appName);
+	        return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
+        }
+
+        private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType, string hostName,
+	        string appName)
+        {
+	        switch (logType)
+	        {
+		        case LogTypeEnum.None:
+			        DataAccess.LogInformation(message, hostName, appName);
+			        break;
+		        case LogTypeEnum.Error:
+			        DataAccess.LogError(message, hostName, appName);
+			        break;
+		        case LogTypeEnum.Question:
+			        DataAccess.LogQuestion(message, hostName, appName);
+			        break;
+		        case LogTypeEnum.Warning:
+			        DataAccess.LogWarning(message, hostName, appName);
+			        break;
+		        case LogTypeEnum.Information:
+			        DataAccess.LogInformation(message, hostName, appName);
+			        break;
+		        default:
+			        throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
+	        }
         }
 
         public static Guid ShowNewHostSaveInFile()
         {
-            CloseIfExistsWpfPage();
+            Dispose();
 
             Guid uid = Guid.NewGuid();
             XDocument doc = new();
@@ -198,10 +210,11 @@ public static class GuiUtils
 
         public static DialogResult ShowNewHostSaveInDb(Guid uid)
         {
-            DialogResult result = ShowNewOperationControl(null,
+            DialogResult result = ShowNewOperationControl(
                 LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
                 false, LogTypeEnum.Information,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                UserSessionHelper.Instance.HostName, nameof(WeightCore));
             if (result == DialogResult.Yes)
             {
                 SqlUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
@@ -219,10 +232,11 @@ public static class GuiUtils
 
         public static DialogResult ShowNewHostSaveInDb(string hostName, string ip, string mac)
         {
-            DialogResult result = ShowNewOperationControl(null,
+            DialogResult result = ShowNewOperationControl(
                 LocaleCore.Scales.HostNotFound(hostName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, LogTypeEnum.Information,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
+                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                UserSessionHelper.Instance.HostName, nameof(WeightCore));
             if (result == DialogResult.Yes)
             {
                 HostModel host = new()
@@ -248,7 +262,7 @@ public static class GuiUtils
         /// <returns></returns>
         public static DialogResult ShowNewHostNotFound(Guid uid)
         {
-            CloseIfExistsWpfPage();
+            Dispose();
 
             WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
             WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
@@ -268,15 +282,17 @@ public static class GuiUtils
         /// <param name="owner"></param>
         /// <param name="ex"></param>
         /// <param name="isLog"></param>
+        /// <param name="isShowWindow"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <param name="memberName"></param>
         /// <returns></returns>
-        public static DialogResult CatchException(IWin32Window owner, Exception ex, bool isLog = true, bool isShowWindow = true,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public static DialogResult CatchException(IWin32Window owner, Exception ex, bool isLog = true, 
+	        bool isShowWindow = true, [CallerFilePath] string filePath = "", 
+	        [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (isLog)
-                DataAccess.LogError(ex, UserSessionHelper.Instance.Scale.Host?.HostName, null, filePath, lineNumber, memberName);
+                DataAccess.LogError(ex, UserSessionHelper.Instance.HostName, null, filePath, lineNumber, memberName);
             string message = ex.Message;
             if (ex.InnerException is not null)
                 message += ex.InnerException.Message;
@@ -303,12 +319,6 @@ public static class GuiUtils
         {
             return CatchException(null, ex, true, true, filePath, lineNumber, memberName);
         }
-    }
-
-    public static void Dispose()
-    {
-        WpfForm.WpfPage?.Close();
-        WpfForm.WpfPage?.Dispose();
     }
 
     public static class WinForm

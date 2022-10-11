@@ -16,21 +16,21 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@PluScaleModel ParentRazor=@(this) />
-		<RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluScale>
+@*		<RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluScale>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.IdentityValueUid.ToString()
 					Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
 			</Template>
-		</RadzenGridColumn>
-		<RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
+		</RadzenGridColumn>*@
+		<RadzenGridColumn TItem=@PluScaleModel Width="35%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Plu.Name 
 					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
 			</Template>
 		</RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="5%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.NumberShort>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.NumberShort>
 		    <Template Context="itemCast">
 			    <RadzenLink 
 				    Text=@itemCast.Plu.Number.ToString() 
@@ -55,6 +55,13 @@
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PackageWeightShort>
 		    <Template Context="itemCast">
 			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.TareWeight.ToString(CultureInfo.InvariantCulture)/>
+		    </Template>
+	    </RadzenGridColumn>
+	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluPackage>
+		    <Template Context="itemCast">
+			    <RadzenLabel 
+				    Style="white-space: pre-wrap;" 
+			        Text=@(AppSettings.DataAccess.GetListPluPackages(itemCast.Plu, false, false, false).Count.ToString()) />
 		    </Template>
 	    </RadzenGridColumn>
     </Columns>

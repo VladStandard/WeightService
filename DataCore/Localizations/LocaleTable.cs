@@ -134,7 +134,6 @@ public class LocaleTable
     public string NumberShort => Lang == LangEnum.English ? "#" : "№";
     public string Order => Lang == LangEnum.English ? "Order" : "Заказ";
     public string Package => Lang == LangEnum.English ? "Package" : "Тара";
-    public string PackageName => Lang == LangEnum.English ? "Package" : "Тара";
     public string PackageWeight => Lang == LangEnum.English ? "Package weight" : "Вес тары";
     public string PackageWeightDescription => Lang == LangEnum.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
     public string PackageWeightKg => Lang == LangEnum.English ? "Tare weight, kg" : "Вес тары, кг";

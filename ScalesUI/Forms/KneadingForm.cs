@@ -142,7 +142,7 @@ public partial class KneadingForm : Form
 		    UserSession.WeighingSettings.LabelsCountMain > 1)
 		{
 			//GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
-			//    UserSession.Scale.Host.HostName, nameof(ScalesUI));
+			//    UserSession.HostName, nameof(ScalesUI));
 			UserSession.WeighingSettings.LabelsCountMain = 1;
 		}
 		fieldPalletSize.Text = $@"{UserSession.WeighingSettings.LabelsCountMain}";

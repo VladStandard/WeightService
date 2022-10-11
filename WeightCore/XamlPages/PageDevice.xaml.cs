@@ -123,10 +123,7 @@ public partial class PageDevice
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
-		if (UserSession.Scale.Host is not null)
-		{
-			UserSession.Setup(UserSession.Scale.Identity.Id, string.Empty);
-		}
+		UserSession.Setup(UserSession.Scale.Identity.Id, string.Empty);
 		Result = System.Windows.Forms.DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}

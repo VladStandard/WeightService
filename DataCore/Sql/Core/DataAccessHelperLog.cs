@@ -18,7 +18,7 @@ public static class DataAccessHelperLog
 
 	#region Public and private methods
 
-	public static void SetupLog(this DataAccessHelper dataAccess, string? hostName, string? appName)
+	public static void SetupLog(this DataAccessHelper dataAccess, string hostName, string appName)
 	{
 		HostModel? host = dataAccess.GetItemHost(hostName);
 
@@ -40,8 +40,9 @@ public static class DataAccessHelperLog
 		streamWriter.Dispose();
 	}
 
-	public static void LogError(this DataAccessHelper dataAccess, Exception ex, string? hostName = null, string? appName = null,
-		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+	public static void LogError(this DataAccessHelper dataAccess, Exception ex, string? hostName = null, 
+		string? appName = null, [CallerFilePath] string filePath = "", 
+		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		LogCore(dataAccess, ex.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 		if (ex.InnerException is not null)

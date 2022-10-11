@@ -25,7 +25,7 @@ public static class RazorFieldConfigUtils
     {
 		public static RazorFieldConfigModel GetChangeDt() => new(nameof(SqlTableBase.ChangeDt), TextAlign.Center, LocaleCore.Table.ChangeDt);
 		public static RazorFieldConfigModel GetCreateDt() => new(nameof(SqlTableBase.CreateDt), TextAlign.Center, LocaleCore.Table.CreateDt);
-		public static RazorFieldConfigModel GetDescription() => new(nameof(SqlTableBase.Description), TextAlign.Left, LocaleCore.Table.Description);
+		public static RazorFieldConfigModel GetDescription() => new(nameof(SqlTableBase.Description), TextAlign.Left, LocaleCore.Table.Scale);
 	}
 
 	public static class Host
@@ -102,7 +102,7 @@ public static class RazorFieldConfigUtils
 
 	public static class Scale
     {
-		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(ScaleModel.DeviceIp), TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(ScaleModel.DeviceIp), TextAlign.Center, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetHost(string link) => new(link, new HostModel(), nameof(ScaleModel.Host), TextAlign.Left, LocaleCore.Table.Host, "string");
 		public static RazorFieldConfigModel GetNumber() => new(nameof(ScaleModel.Number), TextAlign.Left, LocaleCore.Table.Number);
 		public static RazorFieldConfigModel GetPrinterMain(string link) => new(link, new PrinterModel(), nameof(ScaleModel.PrinterMain), TextAlign.Left, LocaleCore.Print.NameMain, "string");
