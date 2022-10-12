@@ -25,7 +25,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string FullName { get; set; }
 	[XmlElement] public virtual short ShelfLifeDays { get; set; }
-    [XmlElement] public virtual decimal TareWeight { get; set; }
+    //[XmlElement] public virtual decimal TareWeight { get; set; }
     [XmlElement] public virtual int BoxQuantly { get; set; }
     [XmlElement] public virtual string Gtin { get; set; }
     [XmlElement] public virtual string Gtin14Format
@@ -60,7 +60,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Name = string.Empty;
 		FullName = string.Empty;
 		ShelfLifeDays = 0;
-		TareWeight = 0;
+		//TareWeight = 0;
 		BoxQuantly = 0;
 		Gtin = string.Empty;
 		Ean13 = string.Empty;
@@ -84,7 +84,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    Name = info.GetString(nameof(Name));
 	    FullName = info.GetString(nameof(FullName));
 	    ShelfLifeDays = info.GetInt16(nameof(ShelfLifeDays));
-		TareWeight = info.GetDecimal(nameof(TareWeight));
+		//TareWeight = info.GetDecimal(nameof(TareWeight));
 	    BoxQuantly = info.GetInt32(nameof(BoxQuantly));
 	    Gtin = info.GetString(nameof(Gtin));
 	    Ean13 = info.GetString(nameof(Ean13));
@@ -130,7 +130,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 			Equals(Name, string.Empty) &&
 			Equals(FullName, string.Empty) &&
 			Equals(ShelfLifeDays, default(short)) &&
-			Equals(TareWeight, default(decimal)) &&
+			//Equals(TareWeight, default(decimal)) &&
 			Equals(BoxQuantly, default(int)) &&
 			Equals(Gtin, string.Empty) &&
 			Equals(Ean13, string.Empty) &&
@@ -148,7 +148,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         item.Name = Name;
         item.FullName = FullName;
         item.ShelfLifeDays = ShelfLifeDays;
-        item.TareWeight = TareWeight;
+        //item.TareWeight = TareWeight;
         item.BoxQuantly = BoxQuantly;
         item.Gtin = Gtin;
         item.Ean13 = Ean13;
@@ -170,7 +170,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    info.AddValue(nameof(Name), Name);
 	    info.AddValue(nameof(FullName), FullName);
 	    info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
-	    info.AddValue(nameof(TareWeight), TareWeight);
+	    //info.AddValue(nameof(TareWeight), TareWeight);
 	    info.AddValue(nameof(BoxQuantly), BoxQuantly);
 	    info.AddValue(nameof(Gtin), Gtin);
 	    info.AddValue(nameof(Ean13), Ean13);
@@ -213,7 +213,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 			Equals(Name, item.Name) &&
 			Equals(FullName, item.FullName) &&
 			Equals(ShelfLifeDays, item.ShelfLifeDays) &&
-			Equals(TareWeight, item.TareWeight) &&
+			//Equals(TareWeight, item.TareWeight) &&
 			Equals(BoxQuantly, item.BoxQuantly) &&
 			Equals(Gtin, item.Gtin) &&
 			Equals(Ean13, item.Ean13) &&

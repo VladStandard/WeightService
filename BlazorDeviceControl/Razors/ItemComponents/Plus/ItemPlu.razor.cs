@@ -43,14 +43,14 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	                SqlItem = SqlItemNew<PluModel>();
 
 	            // Templates.
-	            Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };
+	            Templates = new() { AppSettings.DataAccess.GetNewTemplate() };
                 SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, false, false);
                 TemplateModel[]? templates = AppSettings.DataAccess.GetItems<TemplateModel>(sqlCrudConfig);
                 if (templates is not null)
                     Templates.AddRange(templates);
 
 	            // Nomenclatures.
-	            Nomenclatures = new() { new() { Name = LocaleCore.Table.FieldNull } };
+	            Nomenclatures = new() { AppSettings.DataAccess.GetNewNomenclature() };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(
                     new SqlFieldOrderModel(nameof(NomenclatureModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
                 NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
@@ -58,7 +58,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // Scales.
-	            Scales = new() { new() { Description = LocaleCore.Table.FieldNull } };
+	            Scales = new() { AppSettings.DataAccess.GetNewScale() };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(
                     new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc), 0, false, false);
                 ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
@@ -66,7 +66,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     Scales.AddRange(scales);
 
 	            // Plus.
-	            Plus = new() { new() { Description = LocaleCore.Table.FieldNull } };
+	            Plus = new() { AppSettings.DataAccess.GetNewPlu() };
                 sqlCrudConfig = SqlUtils.GetCrudConfig(
                     new SqlFieldOrderModel(nameof(PluModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
                 PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
@@ -110,7 +110,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     SqlItemCast.Ean13 = string.Empty;
                     SqlItemCast.Itf14 = string.Empty;
                     SqlItemCast.BoxQuantly = 0;
-                    SqlItemCast.TareWeight = 0;
+                    //SqlItemCast.TareWeight = 0;
                     break;
                 case nameof(LocaleCore.DeviceControl.TableActionFill):
                     if (string.IsNullOrEmpty(SqlItemCast.Name))
@@ -129,8 +129,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                         SqlItemCast.Itf14 = ProductHelper.GetXmlItf14(SqlItemCast.Nomenclature, SqlItemCast.Itf14);
                     if (SqlItemCast.BoxQuantly == 0)
                         SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
-                    if (SqlItemCast.TareWeight == 0)
-                        SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
+                    //if (SqlItemCast.TareWeight == 0)
+                    //    SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
                     break;
                 case nameof(ProductHelper.GetXmlName):
                     SqlItemCast.Name = ProductHelper.GetXmlName(SqlItemCast.Nomenclature, SqlItemCast.Name);
@@ -161,7 +161,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     SqlItemCast.BoxQuantly = ProductHelper.GetXmlBoxQuantly(SqlItemCast.Nomenclature, SqlItemCast.BoxQuantly);
                     break;
                 case nameof(ProductHelper.CalcGoodsTareWeight):
-                    SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
+                    //SqlItemCast.TareWeight = ProductHelper.CalcGoodsTareWeight(SqlItemCast.Nomenclature);
                     break;
             }
         }
@@ -169,15 +169,6 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
         {
             CatchException(ex, GetItemTitle(SqlItem), memberName);
         }
-    }
-
-    private string GetWeightFormula()
-    {
-        XmlProductModel xmlProduct = ProductHelper.GetXmlProduct(SqlItemCast.Nomenclature.Xml);
-        // Вес тары = вес коробки + (вес пакета * кол. вложений)
-        return $"{ProductHelper.CalcGoodWeightBox(SqlItemCast.Nomenclature, xmlProduct)} + " +
-               $"({ProductHelper.CalcGoodWeightPack(SqlItemCast.Nomenclature, xmlProduct)} * " +
-               $"{ProductHelper.CalcGoodRateUnit(SqlItemCast.Nomenclature, xmlProduct)})";
     }
 
     #endregion

@@ -3,7 +3,6 @@
 
 using DataCore.Models;
 using DataCore.Protocols;
-using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
 

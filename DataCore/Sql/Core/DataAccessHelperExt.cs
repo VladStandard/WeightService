@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
-using DataCore.Protocols;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
@@ -18,20 +16,6 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<AccessModel>(sqlCrudConfig);
 	}
 
-	public static List<ProductionFacilityModel> GetListAreas(this DataAccessHelper dataAccess,
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
-	{
-		List<SqlFieldFilterModel> filters = new();
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
-			new List<SqlFieldOrderModel> { new(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc), },
-			0, isShowMarked, isShowOnlyTop);
-		List<ProductionFacilityModel> result = new();
-		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
-		result.AddRange(dataAccess.GetList<ProductionFacilityModel>(sqlCrudConfig));
-		return result;
-	}
-	
 	public static List<BarCodeModel> GetListBarCodes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
@@ -60,7 +44,7 @@ public static partial class DataAccessHelperExt
             new SqlFieldOrderModel(nameof(HostModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<HostModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewHost());
 		result.AddRange(dataAccess.GetList<HostModel>(sqlCrudConfig));
 		return result;
 	}
@@ -123,7 +107,7 @@ public static partial class DataAccessHelperExt
             new SqlFieldOrderModel(nameof(NomenclatureModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<NomenclatureModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewNomenclature());
 		result.AddRange(dataAccess.GetList<NomenclatureModel>(sqlCrudConfig));
 		return result;
 	}
@@ -134,7 +118,7 @@ public static partial class DataAccessHelperExt
             new SqlFieldOrderModel(nameof(PluModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<PluModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewPlu());
 		result.AddRange(dataAccess.GetList<PluModel>(sqlCrudConfig));
 		return result;
 	}
@@ -208,7 +192,7 @@ public static partial class DataAccessHelperExt
 
 		List<PluPackageModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewPluPackage());
 		result.AddRange(dataAccess.GetList<PluPackageModel>(sqlCrudConfig));
 		return result;
 	}
@@ -234,13 +218,14 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<PrinterResourceModel>(sqlCrudConfig);
 	}
 
-	public static List<PrinterModel> GetListPrinters(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<PrinterModel> GetListPrinters(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, 
+		bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
             new SqlFieldOrderModel(nameof(PrinterModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<PrinterModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewPrinter());
 		result.AddRange(dataAccess.GetList<PrinterModel>(sqlCrudConfig));
 		return result;
 	}
@@ -252,16 +237,30 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<PrinterTypeModel>(sqlCrudConfig);
 	}
 
+	//public static List<ProductionFacilityModel> GetListAreas(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, 
+	//	bool isAddFieldNull)
+	//{
+	//	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+	//		new SqlFieldOrderModel(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc), 
+	//		0, isShowMarked, isShowOnlyTop);
+	//	List<ProductionFacilityModel> result = new();
+	//	if (isAddFieldNull)
+	//		result.Add(dataAccess.GetNewProductionFacility());
+	//	result.AddRange(dataAccess.GetList<ProductionFacilityModel>(sqlCrudConfig));
+	//	return result;
+	//}
+
 	public static List<ProductionFacilityModel> GetListProductionFacilities(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldOrderModel(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+			new SqlFieldOrderModel(nameof(ProductionFacilityModel.Name), SqlFieldOrderEnum.Asc), 
+			0, isShowMarked, isShowOnlyTop);
 		List<ProductionFacilityModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewProductionFacility());
 		result.AddRange(dataAccess.GetList<ProductionFacilityModel>(sqlCrudConfig));
-		if (!isAddFieldNull)
-			result = result.Where(x => x.Identity.Id > 0).ToList();
+		//if (!isAddFieldNull)
+		//	result = result.Where(x => x.Identity.Id > 0).ToList();
 		return result;
 	}
 
@@ -271,7 +270,7 @@ public static partial class DataAccessHelperExt
 			new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<ScaleModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Description = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewScale());
 		result.AddRange(dataAccess.GetList<ScaleModel>(sqlCrudConfig));
 		return result;
 	}
@@ -292,29 +291,31 @@ public static partial class DataAccessHelperExt
 			new SqlFieldOrderModel(nameof(TemplateModel.Title), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<TemplateModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Title = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewTemplate());
 		result.AddRange(dataAccess.GetList<TemplateModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<OrganizationModel> GetListOrganizations(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<OrganizationModel> GetListOrganizations(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, 
+		bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 			new SqlFieldOrderModel(nameof(OrganizationModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<OrganizationModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewOrganization());
 		result.AddRange(dataAccess.GetList<OrganizationModel>(sqlCrudConfig));
 		return result;
 	}
 
-	public static List<PackageModel> GetListPackages(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<PackageModel> GetListPackages(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, 
+		bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 			new SqlFieldOrderModel(nameof(PackageModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		List<PackageModel> result = new();
 		if (isAddFieldNull)
-			result.Add(new() { Name = LocaleCore.Table.FieldNull });
+			result.Add(dataAccess.GetNewPackage());
 		result.AddRange(dataAccess.GetList<PackageModel>(sqlCrudConfig));
 		return result;
 	}
@@ -326,15 +327,15 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetList<VersionModel>(sqlCrudConfig);
 	}
 
-	public static List<WorkShopModel> GetListWorkShops(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<WorkShopModel> GetListWorkShops(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, 
+		bool isAddFieldNull)
 	{
-		WorkShopModel item = new() { Name = LocaleCore.Table.FieldNull };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 			new SqlFieldOrderModel(nameof(WorkShopModel.Name), SqlFieldOrderEnum.Asc),
 			0, isShowMarked, isShowOnlyTop);
 		List<WorkShopModel> result = new();
 		if (isAddFieldNull)
-			result.Add(item);
+			result.Add(dataAccess.GetNewWorkShop());
 		result.AddRange(dataAccess.GetList<WorkShopModel>(sqlCrudConfig));
 		result = result.OrderBy(x => x.ProductionFacility.Name).ToList();
 		return result;

@@ -509,16 +509,27 @@ public class XmlProductHelper
 		return 0M;
 	}
 
-	public bool GtinCheck(string Gtin)
+	public bool GtinCheck(string gtin)
 	{
-		if (Gtin?.Length > 12)
+		if (gtin.Length > 12)
 		{
-			string gtin = Barcode.GetGtinWithCheckDigit(Gtin[..13]);
-			return Equals(Gtin, gtin);
+			string gtin2 = Barcode.GetGtinWithCheckDigit(gtin[..13]);
+			return Equals(gtin, gtin2);
 		}
 		return false;
 	}
 
+    public string GetWeightFormula(PluModel plu, PluPackageModel pluPackage)
+    {
+        XmlProductModel xmlProduct = GetXmlProduct(plu.Nomenclature.Xml);
+        // Вес тары = вес коробки + (вес пакета * кол. вложений)
+        //return $"{CalcGoodWeightBox(plu.Nomenclature, xmlProduct)} + " +
+        //       $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
+        //       $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
+        return $"{pluPackage.Package.Weight} + " +
+               $"({CalcGoodWeightPack(plu.Nomenclature, xmlProduct)} * " +
+               $"{CalcGoodRateUnit(plu.Nomenclature, xmlProduct)})";
+    }
 
-	#endregion
+    #endregion
 }

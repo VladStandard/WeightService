@@ -91,17 +91,8 @@
 			</td>
         </tr>
         <tr>
-            <td colspan=2>
-                <RadzenLabel Style="width: 100%; text-align: center; font-size: 11px; " 
-                    Text=@LocaleCore.Table.PackageWeightDescription />
-            </td>
-            <td colspan=2>
-                <RadzenLabel Style="width: 100%; text-align: center; font-size: 11px; " 
-                    Text=@GetWeightFormula() />
-            </td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Table.PackageWeightKg</td>
+@*
+	        <td>@LocaleCore.Table.PackageWeightKg</td>
             <td>
                 <RadzenNumeric Style="width: 88%; text-align: center; " 
                     TValue="decimal" @bind-Value=@SqlItemCast.TareWeight />
@@ -109,6 +100,7 @@
                           Icon="aspect_ratio" ButtonStyle=@ButtonStyle.Secondary 
                     Click=@(_ => OnClickFieldsFill(nameof(ProductHelper.CalcGoodsTareWeight))) />
             </td>
+*@
             <td>@LocaleCore.Table.GoodsBoxQuantly</td>
             <td>
                 <RadzenButton Style="width: 10%; " Icon="autorenew" Size=@ButtonSize.Small
@@ -116,7 +108,15 @@
                 <RadzenNumeric Style="width: 88%; text-align: center; " 
                     TValue="int" @bind-Value=@SqlItemCast.BoxQuantly />
             </td>
-        </tr>
+		    @*<td>
+			    <RadzenLabel 
+				    Text=@ProductHelper.GetWeightFormula(SqlItemCast) />
+		    </td>*@
+		    <td colspan=2>
+			    <RadzenLabel 
+				    Text=@LocaleCore.Table.PackageWeightDescription />
+		    </td>
+	    </tr>
         <tr>
             <td>@LocaleCore.Table.Ean13</td>
             <td >
@@ -199,7 +199,7 @@
                 <RadzenTextArea
 	                Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 	                ReadOnly=@true Rows=30
-	                Value=@(SqlItemCast.Nomenclature.Xml is not null ? XmlUtils.GetPrettyXmlOrJson(SqlItemCast.Nomenclature.Xml) : "")/>
+	                Value=@(SqlItemCast.Nomenclature.Xml is not null ? XmlUtils.GetPrettyXmlOrJson(SqlItemCast.Nomenclature.Xml) : string.Empty)/>
             </td>
         </tr>
     </tbody>

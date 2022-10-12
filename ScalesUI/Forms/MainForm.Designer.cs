@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.labelWeightNetto = new System.Windows.Forms.Label();
-			this.fieldWeightTare = new System.Windows.Forms.Label();
-			this.fieldWeightNetto = new System.Windows.Forms.Label();
+			this.labelNettoWeight = new System.Windows.Forms.Label();
+			this.fieldPackageWeight = new System.Windows.Forms.Label();
+			this.fieldNettoWeight = new System.Windows.Forms.Label();
 			this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
 			this.fieldPrintShippingManager = new System.Windows.Forms.Label();
 			this.fieldPrintProgressShipping = new System.Windows.Forms.ProgressBar();
@@ -44,7 +44,7 @@
 			this.fieldMassaPluDescription = new System.Windows.Forms.Label();
 			this.fieldMassaGet = new System.Windows.Forms.Label();
 			this.pictureBoxClose = new System.Windows.Forms.PictureBox();
-			this.labelWeightTare = new System.Windows.Forms.Label();
+			this.labelPackageWeight = new System.Windows.Forms.Label();
 			this.labelKneading = new System.Windows.Forms.Label();
 			this.labelProductDate = new System.Windows.Forms.Label();
 			this.fieldProductDate = new System.Windows.Forms.Label();
@@ -60,54 +60,54 @@
 			this.tableLayoutPanelRight.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// labelWeightNetto
+			// labelNettoWeight
 			// 
-			this.labelWeightNetto.AutoSize = true;
-			this.labelWeightNetto.BackColor = System.Drawing.Color.Transparent;
-			this.labelWeightNetto.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelWeightNetto.Enabled = false;
-			this.labelWeightNetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.labelWeightNetto.ForeColor = System.Drawing.Color.Black;
-			this.labelWeightNetto.Location = new System.Drawing.Point(8, 109);
-			this.labelWeightNetto.Margin = new System.Windows.Forms.Padding(3);
-			this.labelWeightNetto.Name = "labelWeightNetto";
-			this.labelWeightNetto.Size = new System.Drawing.Size(247, 47);
-			this.labelWeightNetto.TabIndex = 12;
-			this.labelWeightNetto.Text = "labelWeightNetto";
-			this.labelWeightNetto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.labelWeightNetto.Visible = false;
+			this.labelNettoWeight.AutoSize = true;
+			this.labelNettoWeight.BackColor = System.Drawing.Color.Transparent;
+			this.labelNettoWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelNettoWeight.Enabled = false;
+			this.labelNettoWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.labelNettoWeight.ForeColor = System.Drawing.Color.Black;
+			this.labelNettoWeight.Location = new System.Drawing.Point(8, 109);
+			this.labelNettoWeight.Margin = new System.Windows.Forms.Padding(3);
+			this.labelNettoWeight.Name = "labelNettoWeight";
+			this.labelNettoWeight.Size = new System.Drawing.Size(247, 47);
+			this.labelNettoWeight.TabIndex = 12;
+			this.labelNettoWeight.Text = "labelNettoWeight";
+			this.labelNettoWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.labelNettoWeight.Visible = false;
 			// 
-			// fieldWeightTare
+			// fieldPackageWeight
 			// 
-			this.fieldWeightTare.AutoSize = true;
-			this.fieldWeightTare.BackColor = System.Drawing.Color.Transparent;
-			this.fieldWeightTare.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.fieldWeightTare.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.fieldWeightTare.ForeColor = System.Drawing.Color.Black;
-			this.fieldWeightTare.Location = new System.Drawing.Point(261, 162);
-			this.fieldWeightTare.Margin = new System.Windows.Forms.Padding(3);
-			this.fieldWeightTare.Name = "fieldWeightTare";
-			this.fieldWeightTare.Size = new System.Drawing.Size(648, 47);
-			this.fieldWeightTare.TabIndex = 11;
-			this.fieldWeightTare.Text = "0,000";
-			this.fieldWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.fieldWeightTare.Visible = false;
+			this.fieldPackageWeight.AutoSize = true;
+			this.fieldPackageWeight.BackColor = System.Drawing.Color.Transparent;
+			this.fieldPackageWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.fieldPackageWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.fieldPackageWeight.ForeColor = System.Drawing.Color.Black;
+			this.fieldPackageWeight.Location = new System.Drawing.Point(261, 162);
+			this.fieldPackageWeight.Margin = new System.Windows.Forms.Padding(3);
+			this.fieldPackageWeight.Name = "fieldPackageWeight";
+			this.fieldPackageWeight.Size = new System.Drawing.Size(648, 47);
+			this.fieldPackageWeight.TabIndex = 11;
+			this.fieldPackageWeight.Text = "0,000";
+			this.fieldPackageWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.fieldPackageWeight.Visible = false;
 			// 
-			// fieldWeightNetto
+			// fieldNettoWeight
 			// 
-			this.fieldWeightNetto.AutoSize = true;
-			this.fieldWeightNetto.BackColor = System.Drawing.Color.Transparent;
-			this.fieldWeightNetto.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.fieldWeightNetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.fieldWeightNetto.ForeColor = System.Drawing.Color.Black;
-			this.fieldWeightNetto.Location = new System.Drawing.Point(261, 109);
-			this.fieldWeightNetto.Margin = new System.Windows.Forms.Padding(3);
-			this.fieldWeightNetto.Name = "fieldWeightNetto";
-			this.fieldWeightNetto.Size = new System.Drawing.Size(648, 47);
-			this.fieldWeightNetto.TabIndex = 10;
-			this.fieldWeightNetto.Text = "0,000";
-			this.fieldWeightNetto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.fieldWeightNetto.Visible = false;
+			this.fieldNettoWeight.AutoSize = true;
+			this.fieldNettoWeight.BackColor = System.Drawing.Color.Transparent;
+			this.fieldNettoWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.fieldNettoWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.fieldNettoWeight.ForeColor = System.Drawing.Color.Black;
+			this.fieldNettoWeight.Location = new System.Drawing.Point(261, 109);
+			this.fieldNettoWeight.Margin = new System.Windows.Forms.Padding(3);
+			this.fieldNettoWeight.Name = "fieldNettoWeight";
+			this.fieldNettoWeight.Size = new System.Drawing.Size(648, 47);
+			this.fieldNettoWeight.TabIndex = 10;
+			this.fieldNettoWeight.Text = "0,000";
+			this.fieldNettoWeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.fieldNettoWeight.Visible = false;
 			// 
 			// tableLayoutPanelMain
 			// 
@@ -129,10 +129,10 @@
 			this.tableLayoutPanelMain.Controls.Add(this.fieldMassaPluDescription, 1, 10);
 			this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGet, 1, 11);
 			this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 0);
-			this.tableLayoutPanelMain.Controls.Add(this.labelWeightTare, 1, 3);
-			this.tableLayoutPanelMain.Controls.Add(this.labelWeightNetto, 1, 2);
-			this.tableLayoutPanelMain.Controls.Add(this.fieldWeightNetto, 2, 2);
-			this.tableLayoutPanelMain.Controls.Add(this.fieldWeightTare, 2, 3);
+			this.tableLayoutPanelMain.Controls.Add(this.labelPackageWeight, 1, 3);
+			this.tableLayoutPanelMain.Controls.Add(this.labelNettoWeight, 1, 2);
+			this.tableLayoutPanelMain.Controls.Add(this.fieldNettoWeight, 2, 2);
+			this.tableLayoutPanelMain.Controls.Add(this.fieldPackageWeight, 2, 3);
 			this.tableLayoutPanelMain.Controls.Add(this.labelKneading, 1, 5);
 			this.tableLayoutPanelMain.Controls.Add(this.labelProductDate, 1, 4);
 			this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 4);
@@ -360,22 +360,22 @@
 			this.pictureBoxClose.Visible = false;
 			this.pictureBoxClose.Click += new System.EventHandler(this.ActionClose_Click);
 			// 
-			// labelWeightTare
+			// labelPackageWeight
 			// 
-			this.labelWeightTare.AutoSize = true;
-			this.labelWeightTare.BackColor = System.Drawing.Color.Transparent;
-			this.labelWeightTare.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelWeightTare.Enabled = false;
-			this.labelWeightTare.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.labelWeightTare.ForeColor = System.Drawing.Color.Black;
-			this.labelWeightTare.Location = new System.Drawing.Point(8, 162);
-			this.labelWeightTare.Margin = new System.Windows.Forms.Padding(3);
-			this.labelWeightTare.Name = "labelWeightTare";
-			this.labelWeightTare.Size = new System.Drawing.Size(247, 47);
-			this.labelWeightTare.TabIndex = 17;
-			this.labelWeightTare.Text = "labelWeightTare";
-			this.labelWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.labelWeightTare.Visible = false;
+			this.labelPackageWeight.AutoSize = true;
+			this.labelPackageWeight.BackColor = System.Drawing.Color.Transparent;
+			this.labelPackageWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelPackageWeight.Enabled = false;
+			this.labelPackageWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.labelPackageWeight.ForeColor = System.Drawing.Color.Black;
+			this.labelPackageWeight.Location = new System.Drawing.Point(8, 162);
+			this.labelPackageWeight.Margin = new System.Windows.Forms.Padding(3);
+			this.labelPackageWeight.Name = "labelPackageWeight";
+			this.labelPackageWeight.Size = new System.Drawing.Size(247, 47);
+			this.labelPackageWeight.TabIndex = 17;
+			this.labelPackageWeight.Text = "labelPackageWeight";
+			this.labelPackageWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.labelPackageWeight.Visible = false;
 			// 
 			// labelKneading
 			// 
@@ -560,12 +560,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label labelWeightNetto;
-        private System.Windows.Forms.Label fieldWeightTare;
-        private System.Windows.Forms.Label fieldWeightNetto;
+        private System.Windows.Forms.Label labelNettoWeight;
+        private System.Windows.Forms.Label fieldPackageWeight;
+        private System.Windows.Forms.Label fieldNettoWeight;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.Label fieldPlu;
-        private System.Windows.Forms.Label labelWeightTare;
+        private System.Windows.Forms.Label labelPackageWeight;
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Label fieldTitle;
         private System.Windows.Forms.Label labelKneading;

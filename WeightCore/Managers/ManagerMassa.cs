@@ -20,10 +20,10 @@ public class ManagerMassa : ManagerBase
 	private Label FieldMassaGet { get; set; }
 	private Label FieldMassaPluDescription { get; set; }
 	private Label FieldMassaThreshold { get; set; }
-	private Label FieldWeightNetto { get; set; }
-	private Label FieldWeightTare { get; set; }
-	private Label LabelWeightNetto { get; set; }
-	private Label LabelWeightTare { get; set; }
+	private Label FieldNettoWeight { get; set; }
+	private Label FieldPackageWeight { get; set; }
+	private Label LabelNettoWeight { get; set; }
+	private Label LabelPackageWeight { get; set; }
 	private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 	private readonly object _locker = new();
 	//private BlockingCollection<MassaExchangeEntity> Requests { get; set; } = new();
@@ -62,7 +62,8 @@ public class ManagerMassa : ManagerBase
 
 	#region Public and private methods
 
-	public void Init(Label labelWeightNetto, Label fieldWeightNetto, Label labelWeightTare, Label fieldWeightTare,
+	public void Init(Label labelNettoWeight, Label fieldNettoWeight, 
+		Label labelPackageWeight, Label fieldPackageWeight,
 		Label fieldMassaThreshold, Label fieldMassaGet, Label fieldMassaPluDescription)
 	{
 		try
@@ -76,13 +77,13 @@ public class ManagerMassa : ManagerBase
 							UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
 							UserSessionHelper.Instance.Scale.DeviceSendTimeout, GetData);
 					}
-					LabelWeightNetto = labelWeightNetto;
-					FieldWeightNetto = fieldWeightNetto;
-					LabelWeightTare = labelWeightTare;
-					FieldWeightTare = fieldWeightTare;
-					FieldMassaThreshold = fieldMassaThreshold;
 					FieldMassaGet = fieldMassaGet;
 					FieldMassaPluDescription = fieldMassaPluDescription;
+					FieldMassaThreshold = fieldMassaThreshold;
+					FieldNettoWeight = fieldNettoWeight;
+					FieldPackageWeight = fieldPackageWeight;
+					LabelNettoWeight = labelNettoWeight;
+					LabelPackageWeight = labelPackageWeight;
 
 					SetControlsTextDefault();
 				},
@@ -183,10 +184,10 @@ public class ManagerMassa : ManagerBase
 
 	private void SetControlsTextDefault()
 	{
-		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightNetto, LocaleCore.Scales.FieldWeightNetto);
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
-		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelWeightTare, LocaleCore.Scales.FieldWeightTare);
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
+		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelNettoWeight, LocaleCore.Scales.FieldWeightNetto);
+		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
+		MDSoft.WinFormsUtils.InvokeControl.SetText(LabelPackageWeight, LocaleCore.Scales.FieldWeightTare);
+		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight, $"{0:0.000} {LocaleCore.Scales.UnitKg}");
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, LocaleCore.Scales.FieldThresholds);
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaGet, LocaleCore.Scales.ComPort);
@@ -223,13 +224,13 @@ public class ManagerMassa : ManagerBase
 				break;
 		}
 
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightTare,
+		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight,
 			UserSessionHelper.Instance.PluScale.Identity.IsNotNew()
-				? $"{UserSessionHelper.Instance.PluScale.Plu.TareWeight:0.000} {LocaleCore.Scales.UnitKg}"
+				? $"{UserSessionHelper.Instance.PluPackage.Package.Weight:0.000} {LocaleCore.Scales.UnitKg}"
 				: $"0,000 {LocaleCore.Scales.UnitKg}");
 
-		decimal weight = UserSessionHelper.Instance.PluScale.Identity.IsNew() ? 0 : WeightNet - UserSessionHelper.Instance.PluScale.Plu.TareWeight;
-		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldWeightNetto, MassaStable.IsStable
+		decimal weight = UserSessionHelper.Instance.PluScale.Identity.IsNew() ? 0 : WeightNet - UserSessionHelper.Instance.PluPackage.Package.Weight;
+		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
 			? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
 			:
 #if DEBUG
@@ -250,14 +251,14 @@ public class ManagerMassa : ManagerBase
 	{
 		if (isTopControls)
 		{
-			if (LabelWeightNetto.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightNetto, isVisible);
-			if (FieldWeightNetto.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightNetto, isVisible);
-			if (LabelWeightTare.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelWeightTare, isVisible);
-			if (FieldWeightTare.Visible != isVisible)
-				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldWeightTare, isVisible);
+			if (LabelNettoWeight.Visible != isVisible)
+				MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelNettoWeight, isVisible);
+			if (FieldNettoWeight.Visible != isVisible)
+				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldNettoWeight, isVisible);
+			if (LabelPackageWeight.Visible != isVisible)
+				MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelPackageWeight, isVisible);
+			if (FieldPackageWeight.Visible != isVisible)
+				MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPackageWeight, isVisible);
 		}
 		else
 		{

@@ -23,7 +23,7 @@
 					Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
 			</Template>
 		</RadzenGridColumn>*@
-		<RadzenGridColumn TItem=@PluScaleModel Width="35%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
+		<RadzenGridColumn TItem=@PluScaleModel Width="45%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Plu.Name 
@@ -52,11 +52,11 @@
 			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.ShelfLifeDays.ToString()/>
 		    </Template>
 	    </RadzenGridColumn>
-	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PackageWeightShort>
+	    @*<RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PackageWeightShort>
 		    <Template Context="itemCast">
 			    <RadzenLabel Style="white-space: pre-wrap;" Text=@itemCast.Plu.TareWeight.ToString(CultureInfo.InvariantCulture)/>
 		    </Template>
-	    </RadzenGridColumn>
+	    </RadzenGridColumn>*@
 	    <RadzenGridColumn TItem=@PluScaleModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluPackage>
 		    <Template Context="itemCast">
 			    <RadzenLabel 

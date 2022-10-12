@@ -110,17 +110,25 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	private PluPackageModel _pluPackage;
+#nullable enable
+	private PluPackageModel? _pluPackage;
+#nullable disable
 	[XmlElement]
 	public PluPackageModel PluPackage
 	{
-		get => _pluPackage;
+		get
+		{
+			if (_pluPackage is null)
+				return _pluPackage = DataAccess.GetNewPluPackage();
+			return _pluPackage;
+		}
 		set
 		{
 			_pluPackage = value;
 			OnPropertyChanged();
 		}
 	}
+
 	private List<PluPackageModel> _pluPackages;
 	[XmlElement]
 	public List<PluPackageModel> PluPackages
@@ -277,7 +285,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		SetScale(scaleId, areaName);
 		Scales = SqlUtils.DataAccess.GetListScales(false, false, false);
-		Areas = SqlUtils.DataAccess.GetListAreas(false, false, false);
+		Areas = SqlUtils.DataAccess.GetListProductionFacilities(false, false, false);
 	}
 
 	private void SetScale(long scaleId, string areaName)
@@ -462,7 +470,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluScale.Plu.TareWeight);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluPackage.Package.Weight);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
@@ -483,7 +491,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluScale.Plu.TareWeight);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluPackage.Package.Weight);
 		if (weight > LocaleCore.Scales.MassaThresholdValue)
 		{
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
@@ -676,8 +684,8 @@ public class UserSessionHelper : BaseViewModel
 		{
 			PluScale = PluScale,
 			Kneading = WeighingSettings.Kneading,
-			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluScale.Plu.TareWeight : PluScale.Plu.NominalWeight,
-			TareWeight = PluScale.Plu.TareWeight
+			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluPackage.Package.Weight : PluScale.Plu.NominalWeight,
+			TareWeight = PluPackage.Package.Weight,
 		};
 	}
 
@@ -783,7 +791,9 @@ public class UserSessionHelper : BaseViewModel
 		return result;
 	}
 
+#nullable enable
 	public void MakeScreenShot(Form? owner)
+#nullable disable
 	{
 		using MemoryStream stream = new();
 		

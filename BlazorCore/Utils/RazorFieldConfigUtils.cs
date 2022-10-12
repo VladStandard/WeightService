@@ -64,7 +64,7 @@ public static class RazorFieldConfigUtils
         public static RazorFieldConfigModel GetNumber() => new(nameof(PluModel.Number), TextAlign.Center, LocaleCore.Table.Number);
 	    public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(PluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
 		public static RazorFieldConfigModel GetBoxQuantly() => new(nameof(PluModel.BoxQuantly), TextAlign.Center, LocaleCore.Table.GoodsBoxQuantlyShort);
-		public static RazorFieldConfigModel GetTareWeight() => new(nameof(PluModel.TareWeight), TextAlign.Center, LocaleCore.Table.PackageWeightShort);
+		//public static RazorFieldConfigModel GetTareWeight() => new(nameof(PluModel.TareWeight), TextAlign.Center, LocaleCore.Table.PackageWeightShort);
     }
 
 	public static class PluScale

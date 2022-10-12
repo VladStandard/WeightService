@@ -33,10 +33,10 @@ public class PluValidator : SqlTableValidator<PluModel>
 	        .NotNull()
 	        .GreaterThanOrEqualTo((short)0)
 	        .LessThanOrEqualTo((short)365);
-		RuleFor(item => item.TareWeight)
-			.NotNull()
-			.GreaterThanOrEqualTo(0)
-			.LessThanOrEqualTo(100);
+		//RuleFor(item => item.TareWeight)
+		//	.NotNull()
+		//	.GreaterThanOrEqualTo(0)
+		//	.LessThanOrEqualTo(100);
 		RuleFor(item => item.BoxQuantly)
 			.NotNull()
 			.GreaterThanOrEqualTo(0)

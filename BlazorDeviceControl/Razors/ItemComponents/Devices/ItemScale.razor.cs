@@ -42,12 +42,12 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 			() =>
 			{
 				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<ScaleModel>(IdentityId);
-				SqlItemCast.Host ??= new() { Name = LocaleCore.Table.FieldNull };
-				SqlItemCast.PrinterMain ??= new() { Name = LocaleCore.Table.FieldNull };
-				SqlItemCast.PrinterShipping ??= new() { Name = LocaleCore.Table.FieldNull };
-				SqlItemCast.TemplateDefault ??= new() { Title = LocaleCore.Table.FieldNull };
-				SqlItemCast.TemplateSeries ??= new() { Title = LocaleCore.Table.FieldNull };
-				SqlItemCast.WorkShop ??= new() { Name = LocaleCore.Table.FieldNull };
+				SqlItemCast.Host ??= AppSettings.DataAccess.GetNewHost();
+				SqlItemCast.PrinterMain ??= AppSettings.DataAccess.GetNewPrinter();
+				SqlItemCast.PrinterShipping ??= AppSettings.DataAccess.GetNewPrinter();
+				SqlItemCast.TemplateDefault ??= AppSettings.DataAccess.GetNewTemplate();
+				SqlItemCast.TemplateSeries ??= AppSettings.DataAccess.GetNewTemplate();
+				SqlItemCast.WorkShop ??= AppSettings.DataAccess.GetNewWorkShop();
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);

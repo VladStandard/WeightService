@@ -173,7 +173,8 @@ public partial class MainForm : Form
             UserSession.ManagerControl.Memory.Init(fieldMemory, fieldTasks);
             UserSession.ManagerControl.Memory.Open();
             // Massa.
-            UserSession.ManagerControl.Massa.Init(labelWeightNetto, fieldWeightNetto, labelWeightTare, fieldWeightTare,
+            UserSession.ManagerControl.Massa.Init(labelNettoWeight, fieldNettoWeight, 
+	            labelPackageWeight, fieldPackageWeight,
                 fieldMassaThreshold, fieldMassaGet, fieldMassaPluDescription);
             UserSession.ManagerControl.Massa.Open();
             // PrintMain.
@@ -248,8 +249,8 @@ public partial class MainForm : Form
 
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
 
-        fieldWeightNetto.Font = FontsSettings.FontLabelsMaximum;
-        fieldWeightTare.Font = FontsSettings.FontLabelsMaximum;
+        fieldNettoWeight.Font = FontsSettings.FontLabelsMaximum;
+        fieldPackageWeight.Font = FontsSettings.FontLabelsMaximum;
         fieldPlu.Font = FontsSettings.FontLabelsMaximum;
         fieldProductDate.Font = FontsSettings.FontLabelsMaximum;
 
@@ -265,8 +266,8 @@ public partial class MainForm : Form
         fieldPrintShippingManager.Font = FontsSettings.FontLabelsGray;
         fieldMemory.Font = FontsSettings.FontLabelsGray;
 
-        labelWeightNetto.Font = FontsSettings.FontLabelsBlack;
-        labelWeightTare.Font = FontsSettings.FontLabelsBlack;
+        labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
+        labelPackageWeight.Font = FontsSettings.FontLabelsBlack;
         labelKneading.Font = FontsSettings.FontLabelsBlack;
         fieldKneading.Font = FontsSettings.FontLabelsBlack;
         labelProductDate.Font = FontsSettings.FontLabelsBlack;
