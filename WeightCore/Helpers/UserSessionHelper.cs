@@ -106,7 +106,7 @@ public class UserSessionHelper : BaseViewModel
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			PluPackages = SqlUtils.DataAccess.GetListPluPackages(value.Plu, false, false, true);
-			PluPackage = PluPackages.First();
+			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.First();
 			OnPropertyChanged();
 		}
 	}

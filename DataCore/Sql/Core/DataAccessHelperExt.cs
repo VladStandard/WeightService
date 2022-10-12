@@ -177,22 +177,32 @@ public static partial class DataAccessHelperExt
 	public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess, 
 		SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
+		List<PluPackageModel> result = new();
+        if (isAddFieldNull)
+            result.Add(dataAccess.GetNewPluPackage());
 		List<SqlFieldFilterModel> filters = new();
-		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
-		{
-			Guid? pluUid = null;
-			if (itemFilter is PluModel plu)
-				pluUid = plu.Identity.Uid;
-			if (pluUid is not null)
-				filters = new() { new($"{nameof(PluPackageModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, pluUid) };
-		}
+		if (itemFilter is null) return result;
+        if (itemFilter.EqualsDefault())
+            return result;
+        if (itemFilter is PluModel plu)
+        {
+            if (plu.EqualsDefault())
+                return result;
+            if (plu.Identity.IsNew())
+                return result;
+            if (plu.Equals(dataAccess.GetNewPlu()))
+                return result;
+        }
+
+		Guid? pluUid = null;
+		if (itemFilter is PluModel plu2)
+			pluUid = plu2.Identity.Uid;
+		if (pluUid is not null)
+			filters = new() { new($"{nameof(PluPackageModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, pluUid) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
 			new List<SqlFieldOrderModel> { new (nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
 			0, isShowMarked, isShowOnlyTop);
 
-		List<PluPackageModel> result = new();
-		if (isAddFieldNull)
-			result.Add(dataAccess.GetNewPluPackage());
 		result.AddRange(dataAccess.GetList<PluPackageModel>(sqlCrudConfig));
 		return result;
 	}

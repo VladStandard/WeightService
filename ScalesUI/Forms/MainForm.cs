@@ -326,7 +326,7 @@ public partial class MainForm : Form
 		if (buttonsSettings.IsDevice)
 	    {
 		    ButtonDevice = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonDevice), 1, rowCount++);
-		    ButtonDevice.Click += ActionDevice_Click;
+		    ButtonDevice.Click += ActionDevice;
 	    }
 
 		if (buttonsSettings.IsPlu)
@@ -338,7 +338,7 @@ public partial class MainForm : Form
 	    if (buttonsSettings.IsPackage)
 	    {
 		    ButtonPackage = GuiUtils.WinForm.NewTableLayoutPanelButton(tableLayoutPanelDevice, nameof(ButtonPackage), 1, rowCount++);
-		    ButtonPackage.Click += ActionPackage_Click;
+		    ButtonPackage.Click += ActionPackage;
 	    }
 
 	    tableLayoutPanelDevice.ColumnCount = 1;
@@ -683,12 +683,12 @@ public partial class MainForm : Form
 
     #region Public and private methods - Actions
 
-    private void ActionClose_Click(object sender, EventArgs e)
+    private void ActionClose(object sender, EventArgs e)
     {
         Close();
     }
 
-    private void ActionDevice_Click(object sender, EventArgs e)
+    private void ActionDevice(object sender, EventArgs e)
     {
         try
         {
@@ -716,7 +716,7 @@ public partial class MainForm : Form
         }
     }
 
-    private void ActionPackage_Click(object sender, EventArgs e)
+    private void ActionPackage(object sender, EventArgs e)
     {
         try
         {
@@ -980,6 +980,7 @@ public partial class MainForm : Form
             {
                 UserSession.PluScale = new();
             }
+            FieldLang_SelectedIndexChanged(sender, e);
 
             UserSession.ManagerControl.Massa.Open();
             KeyboardMouseSubscribe();
@@ -1045,7 +1046,7 @@ public partial class MainForm : Form
                 return;
 			//if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.Identity.IsNew())
 			if (UserSession.PluPackages.Count > 1 && UserSession.PluPackage.Identity.IsNew())
-	            ActionPackage_Click(sender, e);
+	            ActionPackage(sender, e);
 			if (!UserSession.CheckPluPackageIsEmpty(this))
                 return;
             if (!UserSession.CheckWeightMassaDeviceExists(this))
