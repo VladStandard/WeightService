@@ -419,8 +419,7 @@ public partial class MainForm : Form
             if (Quartz is null)
                 return;
 	        ActionMakeScreenShot();
-	        UserSession.DataAccess.LogInformation(
-		        LocaleCore.Scales.ScheduleForNextHour, UserSession.HostName, nameof(ScalesUI));
+	        //UserSession.DataAccess.LogInformation(LocaleCore.Scales.ScheduleForNextHour, UserSession.HostName, nameof(ScalesUI));
         }
     }
 
@@ -432,8 +431,7 @@ public partial class MainForm : Form
                 return;
             ActionMakeScreenShot();
 			UserSession.ProductDate = DateTime.Now;
-			UserSession.DataAccess.LogInformation(
-				LocaleCore.Scales.ScheduleForNextDay, UserSession.HostName, nameof(ScalesUI));
+			//UserSession.DataAccess.LogInformation(LocaleCore.Scales.ScheduleForNextDay, UserSession.HostName, nameof(ScalesUI));
         }
     }
 

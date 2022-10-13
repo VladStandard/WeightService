@@ -21,7 +21,7 @@ public static class DataAccessHelperCrud
 		return criteria;
 	}
 
-	public static void ExecuteTransaction(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback)
+	public static void ExecuteCore(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback, bool isTransaction)
 	{
 		ISession? session = null;
 		Exception? exception = null;
@@ -32,35 +32,48 @@ public static class DataAccessHelperCrud
 			if (dataAccess.SessionFactory is not null)
 			{
 				session = dataAccess.SessionFactory.OpenSession();
-				transaction = session.BeginTransaction();
+				if (isTransaction)
+				    transaction = session.BeginTransaction();
 				callback.Invoke(session);
 				session.Flush();
-				transaction.Commit();
+                if (isTransaction)
+                    transaction?.Commit();
 			}
 		}
 		catch (Exception ex)
 		{
-			transaction?.Rollback();
+            if (isTransaction)
+                transaction?.Rollback();
 			exception = ex;
 			//throw;
 		}
 		finally
 		{
-			transaction?.Dispose();
-			session?.Disconnect();
-			session?.Close();
-			session?.Dispose();
-		}
+            if (isTransaction)
+                transaction?.Dispose();
+            if (session is not null)
+            {
+                session.Disconnect();
+                session.Close();
+                session.Dispose();
+            }
+        }
 		if (exception is not null)
 		{
 			dataAccess.LogError(exception);
 		}
 	}
 
-	public static bool IsConnected(this DataAccessHelper dataAccess)
+    private static void ExecuteTransaction(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback) => 
+        ExecuteCore(dataAccess, callback, true);
+
+    public static void ExecuteSelect(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback) => 
+        ExecuteCore(dataAccess, callback, false);
+
+    public static bool IsConnected(this DataAccessHelper dataAccess)
 	{
 		bool result = false;
-		ExecuteTransaction(dataAccess, session =>
+		ExecuteSelect(dataAccess, session =>
 		{
 			result = session.IsConnected;
 		});
@@ -138,7 +151,7 @@ public static class DataAccessHelperCrud
 			return false;
 
 		bool result = false;
-		ExecuteTransaction(dataAccess, session =>
+        ExecuteSelect(dataAccess, session =>
 		{
 			result = session.Query<T>().Any(x => x.IsAny(item));
 		});
@@ -149,7 +162,7 @@ public static class DataAccessHelperCrud
 	{
 		bool result = false;
 		sqlCrudConfig.MaxResults = 1;
-		ExecuteTransaction(dataAccess, session =>
+        ExecuteSelect(dataAccess, session =>
 		{
 			result = session.GetCriteria<T>(sqlCrudConfig).List<T>().Any();
 		});

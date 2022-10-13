@@ -23,7 +23,7 @@ public static class DataAccessHelperItem
 	public static T? GetItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T? item = null;
-		dataAccess.ExecuteTransaction((session) =>
+		dataAccess.ExecuteSelect(session =>
 		{
 			item = dataAccess.GetItemCore<T>(session, sqlCrudConfig);
 		});

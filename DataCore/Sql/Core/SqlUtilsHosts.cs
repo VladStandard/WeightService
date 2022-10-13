@@ -83,7 +83,7 @@ public static partial class SqlUtils
 		Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
 		bool result = default;
 		SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef,
-			new SqlParameter("@idrref", SqlDbType.UniqueIdentifier) { Value = idrref }, (reader) =>
+			new SqlParameter("@idrref", SqlDbType.UniqueIdentifier) { Value = idrref }, reader =>
 			{
 				result = reader.Read();
 			});

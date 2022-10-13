@@ -19,7 +19,7 @@ public static class DataAccessHelperItems
 	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = null;
-		dataAccess.ExecuteTransaction((session) =>
+		dataAccess.ExecuteSelect(session =>
 		{
 			items = session.GetItemsCore<T>(sqlCrudConfig);
 			foreach (T item in items)
@@ -33,7 +33,7 @@ public static class DataAccessHelperItems
 	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, string query) where T : SqlTableBase, new()
 	{
 		T[]? result = null;
-		dataAccess.ExecuteTransaction((session) =>
+		dataAccess.ExecuteSelect(session =>
 		{
 			ISQLQuery? sqlQuery = dataAccess.GetSqlQuery(session, query);
 			if (sqlQuery is not null)
@@ -56,7 +56,7 @@ public static class DataAccessHelperItems
 	public static object[] GetObjects(this DataAccessHelper dataAccess, string query)
 	{
 		object[] result = Array.Empty<object>();
-		dataAccess.ExecuteTransaction((session) =>
+		dataAccess.ExecuteSelect(session =>
 		{
 			ISQLQuery? sqlQuery = dataAccess.GetSqlQuery(session, query);
 			if (sqlQuery is not null)
