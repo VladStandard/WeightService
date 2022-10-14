@@ -89,7 +89,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }
 
-	            ButtonSettings = new(false, false, false, false, false, true, true);
+	            ButtonSettings = new(true, true, true, true, true, true, false);
             }
         });
     }

@@ -21,7 +21,7 @@ public class NomenclatureController : BaseController
 {
     #region Constructor and destructor
 
-    public NomenclatureController(ILogger<NomenclatureController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public NomenclatureController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

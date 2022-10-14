@@ -4,16 +4,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApiExample.Common
+namespace WebApiExample.Common;
+
+public interface IMapperSession
 {
-    public interface IMapperSession
-    {
-        void BeginTransaction();
-        Task Commit();
-        Task Rollback();
-        void CloseTransaction();
-        Task Save(object item);
-        Task Delete(object item);
-        IQueryable<object> Books { get; }
-    }
+	void BeginTransaction();
+	Task Commit();
+	Task Rollback();
+	void CloseTransaction();
+	Task Save(object item);
+	Task Delete(object item);
+	IQueryable<object> Books { get; }
 }

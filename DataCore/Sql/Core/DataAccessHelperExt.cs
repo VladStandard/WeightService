@@ -204,10 +204,30 @@ public static partial class DataAccessHelperExt
 			0, isShowMarked, isShowOnlyTop);
 
 		result.AddRange(dataAccess.GetList<PluPackageModel>(sqlCrudConfig));
+		result = result.OrderBy(x => x.Package.Name).ToList();
+		result = result.OrderBy(x => x.Plu.Number).ToList();
 		return result;
 	}
 
-	public static List<PluWeighingModel> GetListPluWeighings(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
+    public static List<PluPackageModel> GetListPluPackages(this DataAccessHelper dataAccess,
+        bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    {
+        List<PluPackageModel> result = new();
+        if (isAddFieldNull)
+            result.Add(dataAccess.GetNewPluPackage());
+        List<SqlFieldFilterModel> filters = new();
+
+        SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
+            new List<SqlFieldOrderModel> { new(nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
+            0, isShowMarked, isShowOnlyTop);
+
+        result.AddRange(dataAccess.GetList<PluPackageModel>(sqlCrudConfig));
+        result = result.OrderBy(x => x.Package.Name).ToList();
+        result = result.OrderBy(x => x.Plu.Number).ToList();
+		return result;
+    }
+    
+    public static List<PluWeighingModel> GetListPluWeighings(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
 		sqlCrudConfig.Orders.Add(new SqlFieldOrderModel(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));

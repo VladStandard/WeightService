@@ -20,7 +20,7 @@ public class DeliveryPlaceControllerV2 : BaseController
 {
     #region Constructor and destructor
 
-    public DeliveryPlaceControllerV2(ILogger<DeliveryPlaceControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public DeliveryPlaceControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

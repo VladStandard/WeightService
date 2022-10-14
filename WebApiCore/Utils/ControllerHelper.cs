@@ -13,14 +13,10 @@ public class ControllerHelper
 {
     #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private static ControllerHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static ControllerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
-    #region Public and private fields and properties
-
-    //
 
     #endregion
 
@@ -32,13 +28,13 @@ public class ControllerHelper
 
     #region Public and private methods
 
-    public ContentResult RunTask(Task<ContentResult> task, FormatTypeEnum format,
+    public ContentResult RunTask(Task<ContentResult>? task, FormatTypeEnum format,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
             task?.Start();
-            ContentResult result = task?.GetAwaiter().GetResult();
+            ContentResult result = task is not null ? task.GetAwaiter().GetResult() : new();
             return result;
         }
         catch (Exception ex)

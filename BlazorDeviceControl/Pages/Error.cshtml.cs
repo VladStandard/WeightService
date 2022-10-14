@@ -13,18 +13,11 @@ public class ErrorModel : PageModel
     #region Public and private fields, properties, constructor
 
     public string RequestId { get; set; }
-    private readonly ILogger<ErrorModel> _logger;
-    public ErrorModel(ILogger<ErrorModel> logger)
+    public ErrorModel()
     {
         RequestId = string.Empty;
-        _logger = logger;
     }
 
 
     #endregion
-
-    //public void OnGet()
-    //{
-    //    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-    //}
 }

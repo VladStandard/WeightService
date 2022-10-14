@@ -8,7 +8,6 @@ using System.Reflection;
 using DataCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using WebApiCore.Common;
 using WebApiCore.Utils;
@@ -25,9 +24,8 @@ public class TestControllerV2 : BaseController
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="logger"></param>
     /// <param name="sessionFactory"></param>
-    public TestControllerV2(ILogger<TestControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public TestControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -39,15 +37,16 @@ public class TestControllerV2 : BaseController
     /// <summary>
     /// Get info.
     /// </summary>
+    /// <param name="assembly"></param>
     /// <param name="format"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/info/")]
-    public ContentResult GetInfo(FormatTypeEnum format = FormatTypeEnum.Xml) =>
-        ControllerHelp.RunTask(new Task<ContentResult>(() =>
+    public ContentResult GetInfo(Assembly? assembly, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+        ControllerHelp.RunTask(new(() =>
         {
-            AppVersion.Setup(Assembly.GetExecutingAssembly());
+            AppVersion.Setup(assembly ?? Assembly.GetExecutingAssembly());
 
             using ISession session = SessionFactory.OpenSession();
             using ITransaction transaction = session.BeginTransaction();
@@ -56,8 +55,10 @@ public class TestControllerV2 : BaseController
             string response = sqlQuery.UniqueResult<string>();
             transaction.Commit();
 
-            return new ServiceInfoEntity(AppVersion.App, AppVersion.Version,
-                DateTime.Now.ToString(CultureInfo.InvariantCulture),
+            return new ServiceInfoEntity(
+                AppVersion.App, 
+                AppVersion.Version,
+                DateTime.Now.ToString("YYYY-MM-dd HH:mm:ss.fff"),
                 response.ToString(CultureInfo.InvariantCulture),
                 session.Connection.ConnectionString.ToString(),
                 session.Connection.ConnectionTimeout,
@@ -78,7 +79,7 @@ public class TestControllerV2 : BaseController
     [HttpGet()]
     [Route("api/v2/exception/")]
     public ContentResult GetException(FormatTypeEnum format = FormatTypeEnum.Xml) =>
-        ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        ControllerHelp.RunTask(new(() =>
         {
             string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetException);
 
@@ -96,7 +97,7 @@ public class TestControllerV2 : BaseController
     [Route("api/v2/simple/")]
     public ContentResult GetSimple(FormatTypeEnum format = FormatTypeEnum.Xml, int version = 0)
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.RunTask(new(() =>
         {
             switch (version)
             {

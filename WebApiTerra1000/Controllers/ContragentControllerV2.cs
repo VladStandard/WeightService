@@ -21,7 +21,6 @@ public class ContragentControllerV2 : BaseController
 {
     #region Constructor and destructor
 
-    //public ContragentControllerV2(ILogger<ContragentControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
     public ContragentControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //

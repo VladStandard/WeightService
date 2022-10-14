@@ -3,7 +3,6 @@
 
 using DataCore.Settings;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using WebApiCore.Utils;
 
@@ -27,24 +26,9 @@ public class BaseController : ControllerBase
     /// </summary>
     protected AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
     /// <summary>
-    /// Microsoft Logger.
-    /// </summary>
-    public ILogger<BaseController> Logger { get; }
-    /// <summary>
     /// NHibernate session.
     /// </summary>
     protected ISessionFactory SessionFactory { get; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="logger"></param>
-    /// <param name="sessionFactory"></param>
-    public BaseController(ILogger<BaseController> logger, ISessionFactory sessionFactory)
-    {
-        Logger = logger;
-        SessionFactory = sessionFactory;
-    }
 
     /// <summary>
     /// Constructor.

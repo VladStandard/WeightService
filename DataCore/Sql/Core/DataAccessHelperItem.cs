@@ -61,7 +61,7 @@ public static class DataAccessHelperItem
 		SqlCrudConfigModel sqlCrudConfig = new(
             new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id),
 			new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueId), SqlFieldOrderEnum.Desc), 0);
-		return GetItem<T>(dataAccess, sqlCrudConfig);
+		return dataAccess.GetItem<T>(sqlCrudConfig);
 	}
 
 	/// <summary>
@@ -76,7 +76,7 @@ public static class DataAccessHelperItem
 		SqlCrudConfigModel sqlCrudConfig = new(
             new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid),
 			new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc), 0);
-		return GetItem<T>(dataAccess, sqlCrudConfig);
+		return dataAccess.GetItem<T>(sqlCrudConfig);
 	}
 
 	/// <summary>
@@ -88,10 +88,8 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T GetItemNotNull<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
-		T? item = GetItem<T>(dataAccess, sqlCrudConfig);
-		if (item is not null)
-			return item;
-		return new();
+		T? item = dataAccess.GetItem<T>(sqlCrudConfig);
+		return item ?? new();
 	}
 
 	/// <summary>
@@ -103,11 +101,9 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T GetItemByIdNotNull<T>(this DataAccessHelper dataAccess, long? id) where T : SqlTableBase, new()
 	{
-		T? item = GetItemById<T>(dataAccess, id);
-		if (item is not null)
-			return item;
-		return new();
-	}
+		T? item = dataAccess.GetItemById<T>(id);
+		return item ?? new();
+    }
 
 	/// <summary>
 	/// Get table not null item by UID.
@@ -118,11 +114,9 @@ public static class DataAccessHelperItem
 	/// <returns></returns>
 	public static T GetItemByUidNotNull<T>(this DataAccessHelper dataAccess, Guid? uid) where T : SqlTableBase, new()
 	{
-		T? item = GetItemByUid<T>(dataAccess, uid);
-		if (item is not null)
-			return item;
-		return new();
-	}
+		T? item = dataAccess.GetItemByUid<T>(uid);
+        return item ?? new();
+    }
 
 	#endregion
 }

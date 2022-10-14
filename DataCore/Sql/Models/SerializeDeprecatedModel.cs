@@ -108,16 +108,18 @@ public class SerializeDeprecatedModel<T> where T : new()
     {
         ContentType = GetContentType(format),
         StatusCode = (int)statusCode,
-        Content = content is string ? content as string : content?.ToString()
+        Content = content is string ? content as string : content.ToString()
     };
 
-    public static ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
+    public static ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => 
+        GetResultInside(format, content, statusCode);
 
     public ContentResult GetResult(FormatTypeEnum format, HttpStatusCode statusCode)
     {
         return format switch
         {
-            FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
+            //FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
+            FormatTypeEnum.Json => GetResult(format, XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()), statusCode),
             FormatTypeEnum.Xml => GetResult(format, SerializeAsXml(), statusCode),
             FormatTypeEnum.Html => GetResult(format, SerializeAsHtml(), statusCode),
             FormatTypeEnum.Text or FormatTypeEnum.Raw => GetResult(format, SerializeAsText(), statusCode),

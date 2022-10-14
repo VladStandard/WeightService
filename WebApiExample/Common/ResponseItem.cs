@@ -3,20 +3,19 @@
 
 using System;
 
-namespace WebApiExample.Common
+namespace WebApiExample.Common;
+
+public class ResponseItem
 {
-    public class ResponseItem
-    {
-        public Guid Id { get; set; }
-        public StateRequest Status { get; set; }
-        public string Message { get; set; }
+	public Guid Id { get; set; }
+	public StateRequest Status { get; set; }
+	public string Message { get; set; }
 
-    }
+}
 
-    public enum StateRequest
-    {
-        Error,
-        ProcessCompleted,
-        InQueue
-    }
+public enum StateRequest
+{
+	Error,
+	ProcessCompleted,
+	InQueue
 }

@@ -1,20 +1,19 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace BlazorResourcesVs.Shared
+namespace BlazorResourcesVs.Shared;
+
+public partial class Zabbix
 {
-    public partial class Zabbix
-    {
-        #region Public and private fields and properties
+	#region Public and private fields and properties
 
-        //
+	//
 
-        #endregion
+	#endregion
 
-        #region Public and private methods
+	#region Public and private methods
 
-        //
+	//
 
-        #endregion
-    }
+	#endregion
 }

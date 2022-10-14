@@ -93,51 +93,51 @@ public static class TerraUtils
 
         public static List<SqlParameter> GetParameters(DateTime startDate, DateTime endDate, int offset, int rowCount) => new()
         {
-            new SqlParameter("StartDate", startDate),
-            new SqlParameter("EndDate", endDate),
-            new SqlParameter("Offset", offset),
-            new SqlParameter("RowCount", rowCount),
+            new("StartDate", startDate),
+            new("EndDate", endDate),
+            new("Offset", offset),
+            new("RowCount", rowCount),
         };
 
         public static List<SqlParameter> GetParameters(DateTime startDate, DateTime endDate) => new()
         {
-            new SqlParameter("StartDate", startDate),
-            new SqlParameter("EndDate", endDate),
+            new("StartDate", startDate),
+            new("EndDate", endDate),
         };
 
         public static List<SqlParameter> GetParameters(int offset, int rowCount) => new()
         {
-            new SqlParameter("Offset", offset),
-            new SqlParameter("RowCount", rowCount),
+            new("Offset", offset),
+            new("RowCount", rowCount),
         };
 
         public static List<SqlParameter> GetParametersV2(DateTime? startDate, DateTime? endDate, int? offset, int? rowCount) => new()
         {
-            new SqlParameter("start_date", startDate == null ? DBNull.Value : startDate),
-            new SqlParameter("end_date", endDate == null ? DBNull.Value : endDate),
-            new SqlParameter("offset", offset == null ? DBNull.Value : offset),
-            new SqlParameter("row_count", rowCount == null ? DBNull.Value : rowCount),
+            new("start_date", startDate == null ? DBNull.Value : startDate),
+            new("end_date", endDate == null ? DBNull.Value : endDate),
+            new("offset", offset == null ? DBNull.Value : offset),
+            new("row_count", rowCount == null ? DBNull.Value : rowCount),
         };
 
         public static List<SqlParameter> GetParametersV2(DateTime? startDate) => new()
         {
-            new SqlParameter("start_date", startDate == null ? DBNull.Value : startDate),
+            new("start_date", startDate == null ? DBNull.Value : startDate),
         };
 
         public static List<SqlParameter> GetParametersV2(DateTime? startDate, DateTime? endDate) => new()
         {
-            new SqlParameter("start_date", startDate == null ? DBNull.Value : startDate),
-            new SqlParameter("end_date", endDate == null ? DBNull.Value : endDate),
+            new("start_date", startDate == null ? DBNull.Value : startDate),
+            new("end_date", endDate == null ? DBNull.Value : endDate),
         };
 
         public static List<SqlParameter> GetParametersV2(string code) => new()
             {
-                new SqlParameter("code", code == null ? DBNull.Value : code),
+                new("code", code == null ? DBNull.Value : code),
             };
         
         public static List<SqlParameter> GetParametersV2(long? id) => new()
             {
-                new SqlParameter("id", id == null ? DBNull.Value : id),
+                new("id", id == null ? DBNull.Value : id),
             };
     }
 }

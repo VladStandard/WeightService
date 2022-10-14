@@ -61,7 +61,8 @@
 		    <Template Context="itemCast">
 			    <RadzenLabel 
 				    Style="white-space: pre-wrap;" 
-			        Text=@(AppSettings.DataAccess.GetListPluPackages(itemCast.Plu, false, false, false).Count.ToString()) />
+			        Text=@(AppSettings.DataAccess.GetListPluPackages(
+						itemCast.Plu, false, false, false).Count.ToString()) />
 		    </Template>
 	    </RadzenGridColumn>
     </Columns>

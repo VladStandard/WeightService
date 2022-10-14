@@ -13,7 +13,7 @@ public class SqlSimpleV2Entity : SerializeDeprecatedModel<SqlSimpleV2Entity>
     #region Public and private fields and properties
 
     [XmlElement(TerraConsts.Simple)]
-    public SqlSimpleV1Entity Item { get; set; } = new SqlSimpleV1Entity();
+    public SqlSimpleV1Entity Item { get; set; } = new();
 
     /// <summary>
     /// Constructor.
@@ -21,7 +21,7 @@ public class SqlSimpleV2Entity : SerializeDeprecatedModel<SqlSimpleV2Entity>
     /// <param name="description"></param>
     public SqlSimpleV2Entity(string description)
     {
-        Item = new SqlSimpleV1Entity(description);
+        Item = new(description);
     }
 
     /// <summary>

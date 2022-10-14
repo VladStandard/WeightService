@@ -22,7 +22,7 @@ public class ShipmentControllerV2 : BaseController
 {
     #region Constructor and destructor
 
-    public ShipmentControllerV2(ILogger<ShipmentControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public ShipmentControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

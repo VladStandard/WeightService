@@ -12,8 +12,7 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// WeatherForecast controller.
 /// </summary>
-[ApiController]
-[Route("[controller]")]
+//[Route("[controller]")]
 public class WeatherForecastController : BaseController
 {
     private static readonly string[] Summaries = new[]
@@ -21,21 +20,18 @@ public class WeatherForecastController : BaseController
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
-
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="logger"></param>
     /// <param name="sessionFactory"></param>
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public WeatherForecastController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
-        _logger = logger;
+	    //
     }
-
+    
     [AllowAnonymous]
-    [HttpGet(Name = "GetWeatherForecast")]
-    [Route("api/v1/WeatherForecast/")]
+    [HttpGet()]
+    [Route("api/v3/WeatherForecast/")]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -43,7 +39,7 @@ public class WeatherForecastController : BaseController
             Date = DateTime.Now.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        });
+        //.ToArray();
     }
 }

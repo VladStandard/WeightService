@@ -14,16 +14,15 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// Barcode controller v1.
 /// </summary>
-public class BarcodeControllerV1 : BaseController
+public class BarcodeController : BaseController
 {
     #region Public and private fields and properties
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="logger"></param>
     /// <param name="sessionFactory"></param>
-    public BarcodeControllerV1(ILogger<BarcodeControllerV1> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public BarcodeController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -41,7 +40,7 @@ public class BarcodeControllerV1 : BaseController
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
-    [Route("api/v1/barcode/top/")]
+    [Route("api/v3/barcode/top/")]
     public ContentResult GetBarcodeTop(string barcode, bool useCrc = false, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
@@ -60,7 +59,7 @@ public class BarcodeControllerV1 : BaseController
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
-    [Route("api/v1/barcode/down/")]
+    [Route("api/v3/barcode/down/")]
     public ContentResult GetBarcodeDown(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
@@ -77,7 +76,7 @@ public class BarcodeControllerV1 : BaseController
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
-    [Route("api/v1/barcode/right/")]
+    [Route("api/v3/barcode/right/")]
     public ContentResult GetBarcodeRight(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>

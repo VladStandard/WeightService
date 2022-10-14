@@ -4,7 +4,6 @@
 using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Net;
@@ -20,7 +19,7 @@ public class DeliveryPlaceController : BaseController
 {
     #region Constructor and destructor
 
-    public DeliveryPlaceController(ILogger<DeliveryPlaceController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public DeliveryPlaceController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

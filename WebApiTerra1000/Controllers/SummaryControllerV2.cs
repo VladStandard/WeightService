@@ -20,7 +20,7 @@ public class SummaryControllerV2 : BaseController
 {
     #region Constructor and destructor
 
-    public SummaryControllerV2(ILogger<SummaryControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+    public SummaryControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }

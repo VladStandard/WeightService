@@ -76,7 +76,7 @@ public static class DataAccessHelperCrud
 		ExecuteSelect(dataAccess, session =>
 		{
 			result = session.IsConnected;
-		});
+        });
 		return result;
 	}
 
