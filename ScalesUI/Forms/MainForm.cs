@@ -485,8 +485,8 @@ public partial class MainForm : Form
         }
         else
             SetComboBoxItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
-
     }
+
     private void SetComboBoxItemsWork(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {
         comboBox.SelectedIndexChanged -= eventHandler;

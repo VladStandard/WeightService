@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.325] - 2022-10-17
+### Описание обновления:
+- 
+
 ## [0.7.320] - 2022-10-14
 ### Описание обновления:
 - WS-T-474. Доступ к данным. Рефакторинг SQL-запросов
