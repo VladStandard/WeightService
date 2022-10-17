@@ -58,7 +58,7 @@ public class TestControllerV2 : BaseController
             return new ServiceInfoEntity(
                 AppVersion.App, 
                 AppVersion.Version,
-                DateTime.Now.ToString("YYYY-MM-dd HH:mm:ss.fff"),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                 response.ToString(CultureInfo.InvariantCulture),
                 session.Connection.ConnectionString.ToString(),
                 session.Connection.ConnectionTimeout,

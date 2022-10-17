@@ -2,31 +2,66 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using Microsoft.AspNetCore.Mvc;
+using NHibernate.SqlCommand;
+using System.Xml.Serialization;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
+public enum BarcodeTypeEnum
+{
+	Default,
+	Codabar,
+	Code11,
+	Code128,
+	Code128A,
+	Code128B,
+	Code128C,
+	Code39,
+	Code39E,
+	Code93,
+	EAN13,
+	EAN8
+}
+
 /// <summary>
-/// Table "BARCODES_V2".
+/// Table "BARCODES".
 /// </summary>
 [Serializable]
 public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Value { get; set; }
-    [XmlElement(IsNullable = true)] public virtual BarCodeTypeModel? BarcodeType { get; set; }
-	[XmlElement(IsNullable = true)] public virtual ContragentModel? Contragent { get; set; }
-	[XmlElement(IsNullable = true)] public virtual NomenclatureModel? Nomenclature { get; set; }
+    [XmlElement] public virtual string TypeTop { get; set; }
+	[XmlElement] public virtual string ValueTop { get; set; }
+    [XmlElement] public virtual string TypeRight { get; set; }
+	[XmlElement] public virtual string ValueRight { get; set; }
+    [XmlElement] public virtual string TypeBottom { get; set; }
+	[XmlElement] public virtual string ValueBottom { get; set; }
+	[XmlElement] public virtual PluLabelModel PluLabel { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+	[XmlIgnore] public virtual string TemplateBarCodeTop => "^BY3  ^B2R,120,Y,N,Y";
+	[XmlIgnore] public virtual string TemplateFd => "^FD";
+	[XmlIgnore] public virtual string TemplateFs => "^FS";
+    [XmlIgnore] public virtual string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
+    [XmlIgnore] public virtual string TemplateBarCodeRight => "^BY4  ^BCN,90,Y,Y,N";
+    [XmlIgnore] public virtual string TypeBarCodeRight => "Code 128 Bar Code";
+    [XmlIgnore] public virtual string TemplateBarCodeBottom => "^BY4  ^BCR,120,N,N,D";
+    [XmlIgnore] public virtual string TypeBarCodeBottom => "Code 128 Bar Code";
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public BarCodeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		Value = string.Empty;
-		BarcodeType = new();
-		Contragent = new();
-		Nomenclature = new();
+		TypeTop = string.Empty;
+		ValueTop = string.Empty;
+		TypeRight = string.Empty;
+		ValueRight = string.Empty;
+		TypeBottom = string.Empty;
+		ValueBottom = string.Empty;
+		PluLabel = new();
 	}
 
 	/// <summary>
@@ -36,10 +71,13 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
     protected BarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Value = info.GetString(nameof(Value));
-        BarcodeType = (BarCodeTypeModel?)info.GetValue(nameof(BarcodeType), typeof(BarCodeTypeModel));
-        Contragent = (ContragentModel?)info.GetValue(nameof(Contragent), typeof(ContragentModel));
-        Nomenclature = (NomenclatureModel?)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
+        TypeTop = info.GetString(nameof(TypeTop));
+        ValueTop = info.GetString(nameof(ValueTop));
+        TypeRight = info.GetString(nameof(TypeRight));
+        ValueRight = info.GetString(nameof(ValueRight));
+        TypeBottom = info.GetString(nameof(TypeBottom));
+        ValueBottom = info.GetString(nameof(ValueBottom));
+        PluLabel = (PluLabelModel)info.GetValue(nameof(PluLabel), typeof(PluLabelModel));
     }
 
 	#endregion
@@ -48,10 +86,13 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-	    $"{nameof(Value)}: {Value}. " +
-	    $"{nameof(BarcodeType)}: {BarcodeType?.ToString() ?? "null"}. " +
-	    $"{nameof(Contragent)}: {Contragent?.ToString() ?? "null"}. " +
-	    $"{nameof(Nomenclature)}: {Nomenclature?.ToString() ?? "null"}. ";
+	    $"{nameof(TypeTop)}: {TypeTop}. " +
+	    $"{nameof(ValueTop)}: {ValueTop}. " +
+	    $"{nameof(TypeRight)}: {TypeRight}. " +
+	    $"{nameof(ValueRight)}: {ValueRight}. " +
+	    $"{nameof(TypeBottom)}: {TypeBottom}. " +
+	    $"{nameof(ValueBottom)}: {ValueBottom}. " +
+	    $"{nameof(PluLabel)}: {PluLabel.ToString() ?? "null"}. ";
 
     public override bool Equals(object obj)
 	{
@@ -67,23 +108,27 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault()
     {
-        if (BarcodeType is not null && !BarcodeType.EqualsDefault())
-            return false;
-        if (Contragent is not null && !Contragent.EqualsDefault())
-            return false;
-        if (Nomenclature is not null && !Nomenclature.EqualsDefault())
+        if (PluLabel is not null && !PluLabel.EqualsDefault())
             return false;
         return base.EqualsDefault() &&
-            Equals(Value, string.Empty);
+            Equals(TypeTop, string.Empty) &&
+            Equals(ValueTop, string.Empty) &&
+            Equals(TypeRight, string.Empty) &&
+            Equals(ValueRight, string.Empty) &&
+            Equals(TypeBottom, string.Empty) &&
+            Equals(ValueBottom, string.Empty);
     }
 
 	public override object Clone()
     {
         BarCodeModel item = new();
-        item.Value = Value;
-        item.BarcodeType = BarcodeType?.CloneCast();
-        item.Contragent = Contragent?.CloneCast();
-        item.Nomenclature = Nomenclature?.CloneCast();
+		item.TypeTop = TypeTop;
+        item.ValueTop = ValueTop;
+		item.TypeRight = TypeRight;
+        item.ValueRight = ValueRight;
+		item.TypeBottom = TypeBottom;
+        item.ValueBottom = ValueBottom;
+        item.PluLabel = PluLabel.CloneCast();
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -91,26 +136,30 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
 	    base.GetObjectData(info, context);
-	    info.AddValue(nameof(Value), Value);
-	    info.AddValue(nameof(BarcodeType), BarcodeType);
-	    info.AddValue(nameof(Contragent), Contragent);
-	    info.AddValue(nameof(Nomenclature), Nomenclature);
+		info.AddValue(nameof(TypeTop), TypeTop);
+	    info.AddValue(nameof(ValueTop), ValueTop);
+		info.AddValue(nameof(TypeRight), TypeRight);
+	    info.AddValue(nameof(ValueRight), ValueRight);
+		info.AddValue(nameof(TypeBottom), TypeBottom);
+	    info.AddValue(nameof(ValueBottom), ValueBottom);
+	    info.AddValue(nameof(PluLabel), PluLabel);
     }
 
     public override void ClearNullProperties()
     {
-	    if (BarcodeType is not null && BarcodeType.Identity.EqualsDefault())
-		    BarcodeType = null;
-	    if (Contragent is not null && Contragent.Identity.EqualsDefault())
-		    Contragent = null;
-	    if (Nomenclature is not null && Nomenclature.Identity.EqualsDefault())
-		    Nomenclature = null;
+	    //if (PluLabel is not null && PluLabel.Identity.EqualsDefault())
+		   // PluLabel = null;
     }
 
     public override void FillProperties()
     {
 	    base.FillProperties();
-		Value = LocaleCore.Sql.SqlItemFieldValue;
+		TypeTop = BarcodeTypeEnum.Default.ToString();
+        ValueTop = LocaleCore.Sql.SqlItemFieldValue;
+		TypeRight = BarcodeTypeEnum.Default.ToString();
+        ValueRight = LocaleCore.Sql.SqlItemFieldValue;
+		TypeBottom = BarcodeTypeEnum.Default.ToString();
+        ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
 	}
 
 	#endregion
@@ -120,17 +169,87 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(BarCodeModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		if (BarcodeType is not null && item.BarcodeType is not null && !BarcodeType.Equals(item.BarcodeType))
+		if (PluLabel is not null && item.PluLabel is not null && !PluLabel.Equals(item.PluLabel))
 			return false;
-		if (Contragent is not null && item.Contragent is not null && !Contragent.Equals(item.Contragent))
-			return false;
-		if (Nomenclature is not null && item.Nomenclature is not null && !Nomenclature.Equals(item.Nomenclature))
-			return false;
-		return base.Equals(item) &&
-		       Equals(Value, item.Value);
+		return 
+			base.Equals(item) &&
+		    Equals(TypeTop, item.TypeTop) &&
+		    Equals(ValueTop, item.ValueTop) &&
+		    Equals(TypeRight, item.TypeRight) &&
+		    Equals(ValueRight, item.ValueRight) &&
+		    Equals(TypeBottom, item.TypeBottom) &&
+		    Equals(ValueBottom, item.ValueBottom);
 	}
 
 	public new virtual BarCodeModel CloneCast() => (BarCodeModel)Clone();
+
+    public virtual void SetBarCodeTop(PluLabelModel pluLabel)
+    {
+        /*
+        ^FO745,20  ^BY3  ^B2R,120,Y,N,Y  ^FD  298987650000006722101713525011300335001
+        ^FS
+        */
+        string value = SetBarCodeInside(pluLabel, TemplateBarCodeTop);
+        if (!string.IsNullOrEmpty(value))
+        {
+            TypeTop = TypeBarCodeTop;
+            ValueTop = value;
+        }
+    }
+
+    public virtual void SetBarCodeRight(PluLabelModel pluLabel)
+    {
+        /*
+        ^FO225,1060  ^BY4  ^BCN,90,Y,Y,N  ^FD>;2999876500000067
+        ^FS 
+        */
+        string value = SetBarCodeInside(pluLabel, TemplateBarCodeRight);
+        if (!string.IsNullOrEmpty(value))
+        {
+            TypeRight = TypeBarCodeRight;
+            ValueRight = value;
+        }
+    }
+
+    public virtual void SetBarCodeBottom(PluLabelModel pluLabel)
+    {
+        /*
+        ^FO70,20  ^BY4  ^BCR,120,N,N,D  ^FD>;0112600076000000310300033511221017102210
+        ^FS
+        */
+        string value = SetBarCodeInside(pluLabel, TemplateBarCodeBottom);
+        if (!string.IsNullOrEmpty(value))
+        {
+            TypeBottom = TypeBarCodeBottom;
+            ValueBottom = value;
+        }
+    }
+
+    public virtual string SetBarCodeInside(PluLabelModel pluLabel, string template)
+    {
+        string value = string.Empty;
+        if (pluLabel.Zpl.Contains(template))
+        {
+            if (string.IsNullOrEmpty(pluLabel.Zpl)) return value;
+            if (string.IsNullOrEmpty(template)) return value;
+            if (string.IsNullOrEmpty(TemplateFd)) return value;
+            if (!pluLabel.Zpl.Contains(TemplateFd)) return value;
+            string zpl = pluLabel.Zpl;
+
+            int start = zpl.IndexOf(template) + template.Length;
+            zpl = zpl.Substring(start, pluLabel.Zpl.Length - start);
+            zpl = zpl.Split('\n')[0];
+            start = zpl.IndexOf(TemplateFd) + TemplateFd.Length;
+            zpl = zpl.Substring(start, zpl.Length - start);
+            zpl = zpl.
+                TrimStart('\r', ' ', '\n', '\t').
+                TrimEnd('\r', ' ', '\n', '\t');
+
+            TypeTop = TypeBarCodeTop;
+            value = zpl;
+        }
+        return value;
+    }
 
     #endregion
 }

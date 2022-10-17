@@ -32,11 +32,11 @@ internal class TablesEqualsNewTests
         DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
     }
 
-    [Test]
-    public void DbTable_Validate_BarCodeTypeModel()
-    {
-        DataCore.TableBaseModelAssertEqualsNew<BarCodeTypeModel>();
-    }
+    //[Test]
+    //public void DbTable_Validate_BarCodeTypeModel()
+    //{
+    //    DataCore.TableBaseModelAssertEqualsNew<BarCodeTypeModel>();
+    //}
 
     [Test]
     public void DbTable_Validate_ContragentModel()

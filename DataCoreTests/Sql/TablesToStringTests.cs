@@ -26,11 +26,11 @@ internal class TablesToStringTests
         DataCore.TableBaseModelAssertToString<BarCodeModel>();
     }
 
-    [Test]
-    public void DbTable_Validate_BarCodeTypeModel()
-    {
-        DataCore.TableBaseModelAssertToString<BarCodeTypeModel>();
-    }
+    //[Test]
+    //public void DbTable_Validate_BarCodeTypeModel()
+    //{
+    //    DataCore.TableBaseModelAssertToString<BarCodeTypeModel>();
+    //}
 
     [Test]
     public void DbTable_Validate_ContragentModel()

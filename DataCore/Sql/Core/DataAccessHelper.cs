@@ -179,7 +179,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMap>());
+        //fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<HostMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());

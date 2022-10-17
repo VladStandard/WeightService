@@ -41,14 +41,14 @@ internal class SqlTableBaseTests
 		DataCore.AssertSqlPropertyCheckBool<BarCodeModel>(nameof(SqlTableBase.IsMarked));
 	}
 
-	[Test]
-	public void BarCodeTypeModel_AssertSqlFields_Check()
-	{
-		// Arrange & Act & Assert.
-		DataCore.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.CreateDt));
-		DataCore.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.ChangeDt));
-		DataCore.AssertSqlPropertyCheckBool<BarCodeTypeModel>(nameof(SqlTableBase.IsMarked));
-	}
+	//[Test]
+	//public void BarCodeTypeModel_AssertSqlFields_Check()
+	//{
+	//	// Arrange & Act & Assert.
+	//	DataCore.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.CreateDt));
+	//	DataCore.AssertSqlPropertyCheckDt<BarCodeTypeModel>(nameof(BarCodeTypeModel.ChangeDt));
+	//	DataCore.AssertSqlPropertyCheckBool<BarCodeTypeModel>(nameof(SqlTableBase.IsMarked));
+	//}
 
 	[Test]
 	public void ContragentModel_AssertSqlFields_Check()

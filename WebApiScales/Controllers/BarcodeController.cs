@@ -59,8 +59,8 @@ public class BarcodeController : BaseController
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
-    [Route("api/v3/barcode/down/")]
-    public ContentResult GetBarcodeDown(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
+    [Route("api/v3/barcode/bottom/")]
+    public ContentResult GetBarcodeBottom(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
         return ControllerHelp.RunTask(new(() =>
         {

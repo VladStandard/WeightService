@@ -17,11 +17,21 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@BarCodeModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@BarCodeModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-                  RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-        <RazorSectionField TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValue() />
+        <RazorSectionField 
+            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+        <RazorSectionField 
+            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("36%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValueTop() />
+        <RazorSectionField 
+            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("36%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValueRight() />
+        <RazorSectionField 
+            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("36%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValueBottom() />
+        <RazorSectionField 
+            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetPluLabelChangeDt() />
     </Columns>
 </RadzenGrid>
 

@@ -32,11 +32,11 @@ internal class AssertSqlDbContentValidateTests
         DataCore.AssertSqlDbContentValidate<BarCodeModel>();
     }
 
-    [Test]
-    public void DbContent_Validate_BarCodeTypeModel()
-    {
-        DataCore.AssertSqlDbContentValidate<BarCodeTypeModel>();
-    }
+    //[Test]
+    //public void DbContent_Validate_BarCodeTypeModel()
+    //{
+    //    DataCore.AssertSqlDbContentValidate<BarCodeTypeModel>();
+    //}
 
     [Test]
     public void DbContent_Validate_ContragentModel()

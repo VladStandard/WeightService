@@ -182,7 +182,7 @@ public static class DataCoreEnums
 		new AccessModel(),
 		new AppModel(),
 		new BarCodeModel(),
-		new BarCodeTypeModel(),
+		//new BarCodeTypeModel(),
 		new ContragentModel(),
 		new HostModel(),
 		new LogModel(),
@@ -211,42 +211,42 @@ public static class DataCoreEnums
 		new WorkShopModel(),
 	};
 
-	/// <summary>
-	/// List of models SqlTableBase.
-	/// </summary>
-	/// <returns></returns>
-	public static List<SqlTableBase> GetSqlTableModels(bool flag) => new()
-	{
-		new AccessModel(),
-		new AppModel(),
-		new BarCodeModel(),
-		new BarCodeTypeModel(),
-		new ContragentModel(),
-		new HostModel(),
-		new LogModel(),
-		new LogTypeModel(),
-		new NomenclatureModel(),
-		new OrderModel(),
-		new OrganizationModel(),
-		new PackageModel(),
-		new PluPackageModel(),
-		new PluModel(),
-		new PluLabelModel(),
-		new PluScaleModel(),
-		new PluWeighingModel(),
-		new PrinterModel(),
-		new PrinterResourceModel(),
-		new PrinterTypeModel(),
-		new ProductionFacilityModel(),
-		new ProductSeriesModel(),
-		new ScaleModel(),
-		new TaskModel(),
-		new TaskTypeModel(),
-		new TemplateModel(),
-		new TemplateResourceModel(),
-		new VersionModel(),
-		new WorkShopModel(),
-	};
+	///// <summary>
+	///// List of models SqlTableBase.
+	///// </summary>
+	///// <returns></returns>
+	//public static List<SqlTableBase> GetSqlTableModels(bool flag) => new()
+	//{
+	//	new AccessModel(),
+	//	new AppModel(),
+	//	new BarCodeModel(),
+	//	//new BarCodeTypeModel(),
+	//	new ContragentModel(),
+	//	new HostModel(),
+	//	new LogModel(),
+	//	new LogTypeModel(),
+	//	new NomenclatureModel(),
+	//	new OrderModel(),
+	//	new OrganizationModel(),
+	//	new PackageModel(),
+	//	new PluPackageModel(),
+	//	new PluModel(),
+	//	new PluLabelModel(),
+	//	new PluScaleModel(),
+	//	new PluWeighingModel(),
+	//	new PrinterModel(),
+	//	new PrinterResourceModel(),
+	//	new PrinterTypeModel(),
+	//	new ProductionFacilityModel(),
+	//	new ProductSeriesModel(),
+	//	new ScaleModel(),
+	//	new TaskModel(),
+	//	new TaskTypeModel(),
+	//	new TemplateModel(),
+	//	new TemplateResourceModel(),
+	//	new VersionModel(),
+	//	new WorkShopModel(),
+	//};
 
 	/// <summary>
 	/// List of types SqlTableBase.
@@ -257,7 +257,7 @@ public static class DataCoreEnums
 		typeof(AccessModel),
 		typeof(AppModel),
 		typeof(BarCodeModel),
-		typeof(BarCodeTypeModel),
+		//typeof(BarCodeTypeModel),
 		typeof(ContragentModel),
 		typeof(HostModel),
 		typeof(LogModel),

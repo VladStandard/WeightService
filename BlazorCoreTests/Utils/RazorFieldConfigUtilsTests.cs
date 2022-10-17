@@ -56,7 +56,7 @@ internal class RazorFieldConfigUtilsTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange & Act & Assert.
-			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.BarCode.GetValue();
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.BarCode.GetValueTop();
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}

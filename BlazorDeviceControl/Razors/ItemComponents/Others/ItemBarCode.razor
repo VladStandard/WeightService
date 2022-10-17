@@ -14,10 +14,94 @@
     <tbody>
         <RazorItemTableBody TItem=@BarCodeModel ParentRazor=@(this) />
         <tr>
-            <td>@LocaleCore.Table.Value</td>
+            <td>@LocaleCore.Table.TypeTop</td>
             <td>
-                <RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Value />
-			</td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: lightgray; "
+                    ReadOnly=true @bind-Value=@SqlItemCast.TypeTop />
+            </td>
+            <td>@LocaleCore.Table.ValueTop</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: lightgray; "
+                    ReadOnly=true @bind-Value=@SqlItemCast.ValueTop />
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.TypeRight</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: lightgray; "
+                    ReadOnly=true @bind-Value=@SqlItemCast.TypeRight />
+            </td>
+            <td>@LocaleCore.Table.ValueRight</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: lightgray; "
+                    ReadOnly=true @bind-Value=@SqlItemCast.ValueRight />
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.TypeBottom</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: lightgray; "
+                    ReadOnly=true @bind-Value=@SqlItemCast.TypeBottom />
+            </td>
+            <td>@LocaleCore.Table.ValueBottom</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: lightgray; "
+                    ReadOnly=true @bind-Value=@SqlItemCast.ValueBottom />
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Label</td>
+            <td>
+                <RadzenLink 
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{SqlItemCast.PluLabel.Identity.Uid}")
+                    Text=@(SqlItemCast.PluLabel.Identity.Uid.ToString()) />
+            </td>
+            <td>@LocaleCore.Table.Weighing</td>
+            <td>
+                @if (SqlItemCast.PluLabel.PluWeighing is not null)
+                {
+                    <RadzenLink 
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.Identity.Uid}")
+                        Text=@(SqlItemCast.PluLabel.PluWeighing.Identity.Uid.ToString()) />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Plu</td>
+            <td>
+                @if (SqlItemCast.PluLabel.PluWeighing is not null)
+                {
+                    <RadzenLink 
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Identity.Uid}")
+                        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Name) />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>@LocaleCore.Table.Scale</td>
+            <td>
+                @if (SqlItemCast.PluLabel.PluWeighing is not null)
+                {
+                    <RadzenLink 
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Identity.Id}")
+                        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Description) />
+                }
+            </td>
+            <td>@LocaleCore.Table.ProductSeries</td>
+            <td>
+                @if (SqlItemCast.PluLabel.PluWeighing?.Series is not null)
+                {
+                    <RadzenLink 
+                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.Series.Identity.Uid}")
+                        Text=@(SqlItemCast.PluLabel.PluWeighing.Series.Sscc) />
+                }
+            </td>
         </tr>
     </tbody>
 </MudSimpleTable>

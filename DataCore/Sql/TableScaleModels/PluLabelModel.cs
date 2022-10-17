@@ -171,5 +171,5 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();
 
-	#endregion
+    #endregion
 }

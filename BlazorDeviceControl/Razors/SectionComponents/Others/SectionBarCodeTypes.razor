@@ -1,4 +1,4 @@
-﻿@inherits RazorComponentSectionBase<BarCodeTypeModel, SqlTableBase>
+﻿@*@inherits RazorComponentSectionBase<BarCodeTypeModel, SqlTableBase>
 @page "/section/barcodetypes"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
@@ -32,3 +32,4 @@
 </RadzenGrid>
 
 <RazorSectionActions TItem=@BarCodeTypeModel ParentRazor=@(this) />
+*@

@@ -25,9 +25,7 @@ public static class DataAccessHelperFill
 				break;
 			// Scales.
 			case BarCodeModel barcode:
-				barcode.BarcodeType = dataAccess.GetItemByUid<BarCodeTypeModel>(barcode.BarcodeType?.IdentityValueUid);
-				barcode.Contragent = dataAccess.GetItemByUid<ContragentModel>(barcode.Contragent?.IdentityValueUid);
-				barcode.Nomenclature = dataAccess.GetItemById<TableScaleModels.NomenclatureModel>(barcode.Nomenclature?.IdentityValueId);
+				barcode.PluLabel = dataAccess.GetItemByUidNotNull<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;
 			case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = dataAccess.GetItemByUidNotNull<OrderModel>(orderWeighing.Order.IdentityValueUid);

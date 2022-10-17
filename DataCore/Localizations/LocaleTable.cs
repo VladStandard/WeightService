@@ -113,6 +113,8 @@ public class LocaleTable
     public string IsShippingLength => Lang == LangEnum.English ? "Count of labels in a box" : "Количество этикеток в коробе";
     public string IsShippingShort => Lang == LangEnum.English ? "Shipping" : "Трансп.";
     public string Itf14 => "ITF14";
+    public string Label => Lang == LangEnum.English ? "Label" : "Этикетка";
+    public string Weighing => Lang == LangEnum.English ? "Weighing" : "Взвешивание";
     public string LabelTemplate => Lang == LangEnum.English ? "Label template" : "Шаблон этикетки";
     public string Level => Lang == LangEnum.English ? "Level" : "Уровень";
     public string Line => Lang == LangEnum.English ? "Line" : "Линия";
@@ -194,12 +196,19 @@ public class LocaleTable
     public string TemplateLabelary => Lang == LangEnum.English ? "Web-site Labelary" : "Веб-сайт Labelary";
     public string TemplateResource => Lang == LangEnum.English ? "Template resource" : "Ресурс шаблона";
     public string TemplateSeries => Lang == LangEnum.English ? "Summary label template" : "Шаблон суммарной этикетки";
+    public string ProductSeries => Lang == LangEnum.English ? "Product series" : "Серия продукта";
     public string Title => Lang == LangEnum.English ? "Title" : "Заголовок";
     public string Type => Lang == LangEnum.English ? "Type" : "Тип";
+    public string TypeTop => Lang == LangEnum.English ? "Top's type" : "Верхний тип";
+    public string TypeRight => Lang == LangEnum.English ? "Right's type" : "Правый тип";
+    public string TypeBottom => Lang == LangEnum.English ? "Bottom's type" : "Нижний тип";
     public string Uid => Lang == LangEnum.English ? "UID" : "УИД";
     public string UpperWeightThreshold => Lang == LangEnum.English ? "Upper value of the box weight, kg" : "Верхнее значение веса короба, кг";
     public string User => Lang == LangEnum.English ? "User" : "Пользователь";
     public string Value => Lang == LangEnum.English ? "Value" : "Значение";
+    public string ValueTop => Lang == LangEnum.English ? "Top's value" : "Верхнее значение";
+    public string ValueRight => Lang == LangEnum.English ? "Right's value" : "Правое значение";
+    public string ValueBottom => Lang == LangEnum.English ? "Bottom's value" : "Нижнее значение";
     public string VatRate => Lang == LangEnum.English ? "VAT rate" : "Ставка НДС";
     public string Version => Lang == LangEnum.English ? "Version" : "Версия";
     public string Weighted => Lang == LangEnum.English ? "Weighted" : "Весовая";

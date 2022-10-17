@@ -18,7 +18,11 @@ public static class RazorFieldConfigUtils
 
     public static class BarCode
 	{
-		public static RazorFieldConfigModel GetValue() => new(nameof(BarCodeModel.Value), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetTypeTop() => new(nameof(BarCodeModel.TypeTop), TextAlign.Left, LocaleCore.Table.Type);
+        public static RazorFieldConfigModel GetValueTop() => new(nameof(BarCodeModel.ValueTop), TextAlign.Left, LocaleCore.Table.Value);
+        public static RazorFieldConfigModel GetValueRight() => new(nameof(BarCodeModel.ValueRight), TextAlign.Left, LocaleCore.Table.Value);
+        public static RazorFieldConfigModel GetValueBottom() => new(nameof(BarCodeModel.ValueBottom), TextAlign.Left, LocaleCore.Table.Value);
+        public static RazorFieldConfigModel GetPluLabelChangeDt() => new(nameof(BarCodeModel.PluLabel.ChangeDt), TextAlign.Left, LocaleCore.Table.Label);
 	}
 
     public static class Base

@@ -110,6 +110,7 @@ public partial class LocaleDeviceControl
 	public string SectionTasks => Lang == LangEnum.English ? "Tasks" : "Задачи";
 	public string SectionTemplateResources => Lang == LangEnum.English ? "Template resources" : "Ресурсы шаблонов";
 	public string SectionTemplates => Lang == LangEnum.English ? "Templates" : "Шаблоны";
+	public string SectionWeighings => Lang == LangEnum.English ? "Weighings" : "Взвешивания";
 	public string SectionWeithingFactsAggregation => Lang == LangEnum.English ? "Aggregation weithings" : "Взвешивания";
 	public string SectionWeithingFactsAggregationShort => Lang == LangEnum.English ? "Aggr. weithings" : "Агр. взвешивания";
 	public string SectionWorkShops => Lang == LangEnum.English ? "Workshops" : "Цеха";

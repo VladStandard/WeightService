@@ -208,11 +208,16 @@ public class DataCoreHelper
 				app.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case BarCodeModel barCode:
-				barCode.Value = LocaleCore.Sql.SqlItemFieldValue;
+				barCode.TypeTop = BarcodeTypeEnum.Default.ToString();
+				barCode.ValueTop = LocaleCore.Sql.SqlItemFieldValue;
+				barCode.TypeRight = BarcodeTypeEnum.Default.ToString();
+				barCode.ValueRight = LocaleCore.Sql.SqlItemFieldValue;
+				barCode.TypeBottom = BarcodeTypeEnum.Default.ToString();
+				barCode.ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
 				break;
-			case BarCodeTypeModel barCodeType:
-				barCodeType.Name = LocaleCore.Sql.SqlItemFieldName;
-				break;
+			//case BarCodeTypeModel barCodeType:
+			//	barCodeType.Name = LocaleCore.Sql.SqlItemFieldName;
+			//	break;
 			case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;

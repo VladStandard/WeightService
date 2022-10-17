@@ -1,4 +1,4 @@
-﻿@inherits RazorComponentItemBase<BarCodeTypeModel>
+﻿@*@inherits RazorComponentItemBase<BarCodeTypeModel>
 @page "/item/barcodetype"
 @page "/item/barcodetype/new"
 @page "/item/barcodetype/{IdentityUidStr}"
@@ -24,3 +24,4 @@
 
 <RazorItemActions TItem=@BarCodeTypeModel ParentRazor=@(this) />
 <RazorItemDates TItem=@BarCodeTypeModel ParentRazor=@(this) />
+*@

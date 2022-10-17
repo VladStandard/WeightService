@@ -32,6 +32,7 @@ using System.IO;
 using System.Windows.Shapes;
 using MvvmHelpers.Commands;
 using System.Data;
+using NHibernate.SqlCommand;
 
 namespace WeightCore.Helpers;
 
@@ -701,27 +702,7 @@ public class UserSessionHelper : BaseViewModel
 			if (PluWeighing.Identity.IsNew())
 				DataAccess.Save(PluWeighing);
 
-			//string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
-			//string xmlStringProductionFacility = Area.Identity.IsNew() ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
-			//string xmlString = XmlUtils.MergeXml(xmlStringPluWeighing, xmlStringProductionFacility);
-			//PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
-			//string xmlStringPluLabel = pluLabel.SerializeAsXmlString<PluLabelModel>(true);
-			//xmlString = XmlUtils.XmlCompatibleReplace(xmlString);
-			//xmlString = XmlUtils.MergeXml(xmlString, xmlStringPluLabel);
-			//// XSLT transform.
-			//string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlString);
-
-			PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
-			pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
-			// XSLT transform.
-			string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
-			printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
-			// Replace ZPL resources.
-			printCmd = XmlUtils.PrintCmdReplaceZplResources(printCmd);
-			// PLU label.
-			PrintSaveLabel(pluLabel, printCmd);
-			//if (ManagerControl is null || ManagerControl.PrintMain is null)
-			//    return;
+            string printCmd = CreateAndSaveLabel(template);
 
 			// Print.
 			if (isClearBuffer)
@@ -751,7 +732,45 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 
-	private void SetupPublish()
+    private string CreateAndSaveLabel(TemplateModel template)
+    {
+        //string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
+        //string xmlStringProductionFacility = Area.Identity.IsNew() ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
+        //string xmlString = XmlUtils.MergeXml(xmlStringPluWeighing, xmlStringProductionFacility);
+        //PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
+        //string xmlStringPluLabel = pluLabel.SerializeAsXmlString<PluLabelModel>(true);
+        //xmlString = XmlUtils.XmlCompatibleReplace(xmlString);
+        //xmlString = XmlUtils.MergeXml(xmlString, xmlStringPluLabel);
+        //// XSLT transform.
+        //string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlString);
+
+        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
+        pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
+		// XSLT transform.
+        string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
+        printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
+        // Replace ZPL resources.
+        printCmd = XmlUtils.PrintCmdReplaceZplResources(printCmd);
+        // PLU label.
+        PrintSaveLabel(pluLabel, printCmd);
+		//if (ManagerControl is null || ManagerControl.PrintMain is null)
+		//    return;
+
+		CreateAndSaveBarCodes(pluLabel);
+
+		return printCmd;
+    }
+
+    private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
+    {
+        BarCodeModel barCode = new() { PluLabel = pluLabel };
+        barCode.SetBarCodeTop(pluLabel);
+        barCode.SetBarCodeRight(pluLabel);
+        barCode.SetBarCodeBottom(pluLabel);
+        DataAccess.Save(barCode);
+    }
+
+    private void SetupPublish()
 	{
 		PublishType = PublishTypeEnum.Default;
 		PublishDescription = "Неизвестный сервер";

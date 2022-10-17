@@ -19,16 +19,16 @@ public static partial class DataAccessHelperExt
 	public static List<BarCodeModel> GetListBarCodes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(BarCodeModel.Value), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+            new SqlFieldOrderModel(nameof(BarCodeModel.ChangeDt), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<BarCodeModel>(sqlCrudConfig);
 	}
 
-	public static List<BarCodeTypeModel> GetListBarCodeTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
-	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(BarCodeTypeModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
-		return dataAccess.GetList<BarCodeTypeModel>(sqlCrudConfig);
-	}
+	//public static List<BarCodeTypeModel> GetListBarCodeTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
+	//{
+	//	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+ //           new SqlFieldOrderModel(nameof(BarCodeTypeModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+	//	return dataAccess.GetList<BarCodeTypeModel>(sqlCrudConfig);
+	//}
 
 	public static List<ContragentModel> GetListContragents(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
