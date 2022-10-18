@@ -65,7 +65,6 @@ public partial class LocaleDeviceControl
 	public string LinkEmail => "morozov_dv@kolbasa-vs.ru";
 	public string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
 	public string LinkLabelary => "http://labelary.com/viewer.html";
-	public string Section1C => Lang == LangEnum.English ? "1C" : "1С";
 	public string SectionAdministering => Lang == LangEnum.English ? "Administering" : "Администрирование";
 	public string SectionAutomatedWorkplace => Lang == LangEnum.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
 	public string SectionAutomatedWorkplaceShort => Lang == LangEnum.English ? "AWs" : "АРМы";
@@ -79,6 +78,7 @@ public partial class LocaleDeviceControl
 	public string SectionDwhReferences => Lang == LangEnum.English ? "DWH References" : "DWH справочники";
 	public string SectionFonts => Lang == LangEnum.English ? "Fonts" : "Шрифты";
 	public string SectionHosts => Lang == LangEnum.English ? "Hosts" : "Хосты";
+	public string SectionImport1C => Lang == LangEnum.English ? "Import from 1C" : "Импорт из 1С";
 	public string SectionLabels => Lang == LangEnum.English ? "Labels" : "Этикетки";
 	public string SectionLogos => Lang == LangEnum.English ? "Logos" : "Логотипы";
 	public string SectionLogs => Lang == LangEnum.English ? "Logs" : "Логи";
@@ -87,6 +87,7 @@ public partial class LocaleDeviceControl
 	public string SectionNomenclatures => Lang == LangEnum.English ? "Nomenclatures" : "Номенклатура";
 	public string SectionNomenclatureUnits => Lang == LangEnum.English ? "Packages" : "Упаковки";
 	public string SectionObsoletes => Lang == LangEnum.English ? "Obsoletes" : "Устаревшие";
+	public string SectionOperations => Lang == LangEnum.English ? "Operations" : "Операции";
 	public string SectionOrders => Lang == LangEnum.English ? "Orders" : "Заказы";
 	public string SectionOrderStatuses => Lang == LangEnum.English ? "Order statuses" : "Статусы заказов";
 	public string SectionOrdersWeighings => Lang == LangEnum.English ? "Orders weighings" : "Взвешивание заказов";

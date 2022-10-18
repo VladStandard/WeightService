@@ -580,17 +580,6 @@ public class UserSessionHelper : BaseViewModel
 	}
 
 	/// <summary>
-	/// Save item.
-	/// </summary>
-	/// <param name="pluLabel"></param>
-	/// <param name="printCmd"></param>
-	private void PrintSaveLabel(PluLabelModel pluLabel, string printCmd)
-	{
-		pluLabel.Zpl = printCmd;
-		DataAccess.Save(pluLabel);
-	}
-
-	/// <summary>
 	/// Count label printing.
 	/// </summary>
 	/// <param name="template"></param>
@@ -681,12 +670,18 @@ public class UserSessionHelper : BaseViewModel
 			}
 		}
 
-		PluWeighing = new()
+        //SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+        //    new SqlFieldFilterModel(nameof(ProductSeriesModel.Name), SqlFieldComparerEnum.Equal, userName), 0, false, false);
+        //ProductSeriesModel productSeries = DataAccess.GetItem<ProductSeriesModel>(sqlCrudConfig);
+        ProductSeriesModel productSeries = new();
+
+        PluWeighing = new()
 		{
 			PluScale = PluScale,
 			Kneading = WeighingSettings.Kneading,
 			NettoWeight = PluScale.Plu.IsCheckWeight ? ManagerControl.Massa.WeightNet - PluPackage.Package.Weight : PluScale.Plu.NominalWeight,
 			TareWeight = PluPackage.Package.Weight,
+			Series = productSeries,
 		};
 	}
 
@@ -702,10 +697,11 @@ public class UserSessionHelper : BaseViewModel
 			if (PluWeighing.Identity.IsNew())
 				DataAccess.Save(PluWeighing);
 
-            string printCmd = CreateAndSaveLabel(template);
+            PluLabelModel pluLabel = CreateAndSavePluLabel(template);
+            CreateAndSaveBarCodes(pluLabel);
 
-			// Print.
-			if (isClearBuffer)
+            // Print.
+            if (isClearBuffer)
 			{
 				ManagerControl.PrintMain.ClearPrintBuffer();
 				if (Scale.IsShipping)
@@ -724,7 +720,7 @@ public class UserSessionHelper : BaseViewModel
 			}
 
 			// Send cmd to the print.
-			ManagerControl.PrintMain.SendCmd(printCmd);
+			ManagerControl.PrintMain.SendCmd(pluLabel);
 		}
 		catch (Exception ex)
 		{
@@ -732,7 +728,12 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 
-    private string CreateAndSaveLabel(TemplateModel template)
+	/// <summary>
+	/// Create and save PLU label.
+	/// </summary>
+	/// <param name="template"></param>
+	/// <returns></returns>
+    private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
     {
         //string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
         //string xmlStringProductionFacility = Area.Identity.IsNew() ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
@@ -743,22 +744,18 @@ public class UserSessionHelper : BaseViewModel
         //xmlString = XmlUtils.MergeXml(xmlString, xmlStringPluLabel);
         //// XSLT transform.
         //string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlString);
-
-        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
+        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
         pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
-		// XSLT transform.
-        string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
-        printCmd = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(printCmd);
+        
+        // XSLT transform.
+        pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
+        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         // Replace ZPL resources.
-        printCmd = XmlUtils.PrintCmdReplaceZplResources(printCmd);
-        // PLU label.
-        PrintSaveLabel(pluLabel, printCmd);
-		//if (ManagerControl is null || ManagerControl.PrintMain is null)
-		//    return;
+        pluLabel.Zpl = XmlUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
+        // Save.
+        DataAccess.Save(pluLabel);
 
-		CreateAndSaveBarCodes(pluLabel);
-
-		return printCmd;
+        return pluLabel;
     }
 
     private void CreateAndSaveBarCodes(PluLabelModel pluLabel)

@@ -37,7 +37,8 @@ public static class DataAccessHelperFill
 				break;
 			case PluLabelModel pluLabel:
 				pluLabel.PluWeighing = dataAccess.GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
-				break;
+                pluLabel.PluScale = dataAccess.GetItemByUid<PluScaleModel>(pluLabel.PluScale?.IdentityValueUid);
+                break;
 			case PluPackageModel pluPackage:
 				pluPackage.Plu = dataAccess.GetItemByUidNotNull<PluModel>(pluPackage.Plu.IdentityValueUid);
                 pluPackage.Package = dataAccess.GetItemByUidNotNull<PackageModel>(pluPackage.Package.IdentityValueUid);

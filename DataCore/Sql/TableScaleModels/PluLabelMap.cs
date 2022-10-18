@@ -25,5 +25,6 @@ public class PluLabelMap : ClassMap<PluLabelModel>
         Map(x => x.ProductDt).CustomSqlType("DATETIME").Column("PROD_DT").Not.Nullable();
         Map(x => x.ExpirationDt).CustomSqlType("DATETIME").Column("EXPIRATION_DT").Not.Nullable();
         References(x => x.PluWeighing).Column("PLU_WEIGHING_UID").Nullable();
+        References(x => x.PluScale).Column("PLU_SCALE_UID").Nullable();
     }
 }

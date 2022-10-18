@@ -196,7 +196,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TSC", "TSC", "{5CA80E2F-E04
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v3.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi вес v4.xml
 		Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml = Resources\Templates\TSC\TSC 80x100 300dpi шт (резерв).xml
-		Resources\Templates\TSC\TSC 80x100 300dpi шт.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт.xml
+		Resources\Templates\TSC\TSC 80x100 300dpi шт v4.xml = Resources\Templates\TSC\TSC 80x100 300dpi шт v4.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TscPrintDemoWinForm", "TscPrintDemoWinForm\TscPrintDemoWinForm.csproj", "{5973F987-103A-455D-A5E3-C7429906657A}"
@@ -255,8 +255,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zebra", "Zebra", "{3183F5C1
 		Resources\Templates\Zebra\SCALES-PRN-429.zpl = Resources\Templates\Zebra\SCALES-PRN-429.zpl
 		Resources\Templates\Zebra\SCALES-PRN-430.zpl = Resources\Templates\Zebra\SCALES-PRN-430.zpl
 		Resources\Templates\Zebra\ЧудоПечка 30x50 вес АРМ v1.xml = Resources\Templates\Zebra\ЧудоПечка 30x50 вес АРМ v1.xml
-		Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ v1.xml = Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ v1.xml
 		Resources\Templates\Zebra\ЧудоПечка 30x50 вес АРМ v2.xml = Resources\Templates\Zebra\ЧудоПечка 30x50 вес АРМ v2.xml
+		Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ v1.xml = Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ v1.xml
 		Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ v2.xml = Resources\Templates\Zebra\ЧудоПечка 30x50 шт АРМ v2.xml
 	EndProjectSection
 EndProject
@@ -964,7 +964,7 @@ Global
 		{C3D727DF-B6DC-4106-9116-9569A6BB587B} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

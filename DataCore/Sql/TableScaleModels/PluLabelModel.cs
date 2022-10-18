@@ -15,6 +15,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private fields, properties, constructor
 
 	[XmlElement(IsNullable = true)] public virtual PluWeighingModel? PluWeighing { get; set; }
+    [XmlElement] public virtual PluScaleModel PluScale { get; set; }
     [XmlElement] public virtual string Zpl { get; set; }
 	[XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
     [XmlElement] public virtual DateTime ProductDt { get; set; }
@@ -44,7 +45,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	}
 	[XmlElement] public virtual DateTime ExpirationDt
     {
-	    get => PluWeighing is null ? DateTime.MinValue : ProductDt.AddDays(PluWeighing.PluScale.Plu.ShelfLifeDays);
+	    get => PluScale.Identity.IsNew() ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
 	    // This code need for print labels.
 	    set => _ = value;
     }
@@ -61,7 +62,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 	    PluWeighing = null;
-	    Zpl = string.Empty;
+        PluScale = new();
+        Zpl = string.Empty;
 		Xml = null;
 		ProductDt = DateTime.MinValue;
 	    ExpirationDt = DateTime.MinValue;
@@ -75,6 +77,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	protected PluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluWeighing = (PluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
+        PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
         Zpl = info.GetString(nameof(Zpl));
 		Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
         ProductDt = info.GetDateTime(nameof(ProductDt));
@@ -104,6 +107,8 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    if (PluWeighing is not null && !PluWeighing.EqualsDefault())
 		    return false;
+	    if (!PluScale.EqualsDefault())
+		    return false;
 	    return
 		    base.EqualsDefault() &&
 		    Equals(Zpl, string.Empty) &&
@@ -117,6 +122,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         PluLabelModel item = new();
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
+        item.PluScale = PluScale.CloneCast();
         item.Zpl = Zpl;
 		item.Xml = Xml;
         item.ProductDt = ProductDt;
@@ -129,6 +135,7 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(PluWeighing), PluWeighing);
+        info.AddValue(nameof(PluScale), PluScale);
         info.AddValue(nameof(Zpl), Zpl);
 		info.AddValue(nameof(Xml), Xml);
         info.AddValue(nameof(ProductDt), ProductDt);
@@ -139,14 +146,17 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    if (PluWeighing is not null && PluWeighing.Identity.EqualsDefault())
 		    PluWeighing = null;
+	    //if (PluScale.Identity.EqualsDefault())
+     //       PluScale = new();
     }
 
 	public override void FillProperties()
     {
 	    base.FillProperties();
 		Zpl = LocaleCore.Sql.SqlItemFieldZpl;
-		//PluWeighing = new();
-		ProductDt = DateTime.Now;
+        //PluWeighing = new();
+        //PluScale = new();
+        ProductDt = DateTime.Now;
 		//ExpirationDt = DateTime.Now;
 	}
 
@@ -159,11 +169,12 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		if (ReferenceEquals(this, item)) return true;
 		if (PluWeighing is not null && item.PluWeighing is not null && !PluWeighing.Equals(item.PluWeighing))
 			return false;
+		if (!PluScale.Equals(item.PluScale))
+			return false;
 		if (Xml is not null && item.Xml is not null && !Xml.Equals(item.Xml))
 			return false;
 		return
 			base.Equals(item) &&
-			Equals(PluWeighing, item.PluWeighing) &&
 			Equals(Zpl, item.Zpl) &&
 			Equals(ProductDt, item.ProductDt) &&
 			Equals(ExpirationDt, item.ExpirationDt);

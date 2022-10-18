@@ -230,23 +230,20 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         string value = string.Empty;
         if (pluLabel.Zpl.Contains(template))
         {
-            if (string.IsNullOrEmpty(pluLabel.Zpl)) return value;
+            string zpl = pluLabel.Zpl;
+            if (string.IsNullOrEmpty(zpl)) return value;
             if (string.IsNullOrEmpty(template)) return value;
             if (string.IsNullOrEmpty(TemplateFd)) return value;
-            if (!pluLabel.Zpl.Contains(TemplateFd)) return value;
-            string zpl = pluLabel.Zpl;
+            if (!zpl.Contains(TemplateFd)) return value;
 
-            int start = zpl.IndexOf(template) + template.Length;
+            int start = zpl.IndexOf(template, StringComparison.Ordinal) + template.Length;
             zpl = zpl.Substring(start, pluLabel.Zpl.Length - start);
             zpl = zpl.Split('\n')[0];
-            start = zpl.IndexOf(TemplateFd) + TemplateFd.Length;
+            start = zpl.IndexOf(TemplateFd, StringComparison.Ordinal) + TemplateFd.Length;
             zpl = zpl.Substring(start, zpl.Length - start);
-            zpl = zpl.
-                TrimStart('\r', ' ', '\n', '\t').
-                TrimEnd('\r', ' ', '\n', '\t');
-
-            TypeTop = TypeBarCodeTop;
-            value = zpl;
+            value = zpl
+                .TrimStart('\r', ' ', '\n', '\t', '>', ';')
+                .TrimEnd('\r', ' ', '\n', '\t', '>', ';');
         }
         return value;
     }

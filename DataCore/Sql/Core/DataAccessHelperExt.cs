@@ -19,7 +19,7 @@ public static partial class DataAccessHelperExt
 	public static List<BarCodeModel> GetListBarCodes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(BarCodeModel.ChangeDt), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+            new SqlFieldOrderModel(nameof(BarCodeModel.ChangeDt), SqlFieldOrderEnum.Desc), 0, isShowMarked, isShowOnlyTop);
 		return dataAccess.GetList<BarCodeModel>(sqlCrudConfig);
 	}
 

@@ -30,40 +30,40 @@
         <tr>
             <td>@LocaleCore.Table.Scale</td>
             <td>
-                @if (SqlItemCast.PluWeighing is not null)
+				@if (SqlItemCast.PluScale is not null)
                 {
 	                <RadzenLink 
-		                Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluWeighing.PluScale.Scale.Identity.Id}")
-                        Text=@(SqlItemCast.PluWeighing.PluScale.Scale.Description) />
+		                Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluScale.Scale.Identity.Id}")
+                        Text=@(SqlItemCast.PluScale.Scale.Description) />
                 }
             </td>
 	        <td>@LocaleCore.Table.PluNumber</td>
 	        <td>
-		        @if (SqlItemCast.PluWeighing is not null)
+				@if (SqlItemCast.PluScale is not null)
 		        {
 			        <RadzenLink 
-				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid}")
-				        Text=@(SqlItemCast.PluWeighing.PluScale.Plu.Number.ToString()) />
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluScale.Plu.Identity.Uid}")
+				        Text=@(SqlItemCast.PluScale.Plu.Number.ToString()) />
 		        }
 	        </td>
         </tr>
         <tr>
 	        <td>@LocaleCore.Table.Plu</td>
 	        <td>
-		        @if (SqlItemCast.PluWeighing is not null)
+				@if (SqlItemCast.PluScale is not null)
 		        {
 			        <RadzenLink 
-				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluWeighing.PluScale.Plu.Identity.Uid}")
-				        Text=@(SqlItemCast.PluWeighing.PluScale.Plu.Name) />
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluScale.Plu.Identity.Uid}")
+				        Text=@(SqlItemCast.PluScale.Plu.Name) />
 		        }
 	        </td>
             <td>@LocaleCore.Table.Template</td>
             <td>
-	            @if (SqlItemCast.PluWeighing is not null)
+				@if (SqlItemCast.PluScale.Identity.IsNotNew())
                 {
 	                <RadzenLink 
-		                Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{SqlItemCast.PluWeighing.PluScale.Plu.Template.Identity.Id}")
-		                Text=@(SqlItemCast.PluWeighing.PluScale.Plu.Template.Title) />
+		                Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{SqlItemCast.PluScale.Plu.Template.Identity.Id}")
+		                Text=@(SqlItemCast.PluScale.Plu.Template.Title) />
                 }
             </td>
         </tr>

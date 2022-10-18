@@ -283,6 +283,7 @@ public class DataCoreHelper
 			case PluLabelModel pluLabel:
 				pluLabel.Zpl = LocaleCore.Sql.SqlItemFieldZpl;
 				pluLabel.PluWeighing = CreateNewSubstitute<PluWeighingModel>(isNotDefault);
+				pluLabel.PluScale = CreateNewSubstitute<PluScaleModel>(isNotDefault);
 				pluLabel.ProductDt = DateTime.Now;
 				pluLabel.ExpirationDt = DateTime.Now;
 				break;

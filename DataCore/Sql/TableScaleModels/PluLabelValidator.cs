@@ -16,6 +16,9 @@ public class PluLabelValidator : SqlTableValidator<PluLabelModel>
     /// </summary>
     public PluLabelValidator()
     {
+		RuleFor(item => item.PluScale)
+			.NotEmpty()
+			.NotNull();
 		RuleFor(item => item.Zpl)
 			.NotEmpty()
 			.NotNull();

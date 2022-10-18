@@ -233,7 +233,7 @@ public class ManagerLabels : ManagerBase
 	{
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldTitle, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldPlu, true);
-		if (UserSessionHelper.Instance.Scale.IsShipping && !FieldSscc.Visible)
+		//if (UserSessionHelper.Instance.Scale.IsShipping && !FieldSscc.Visible)
 			MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldSscc, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(LabelProductDate, true);
 		MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldProductDate, true);

@@ -1070,11 +1070,12 @@ public partial class MainForm : Form
             if (UserSession.Scale.IsShipping)
                 if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintShipping, false))
                     return;
+            
             // Debug check.
             if (Debug.IsDebug)
             {
-                DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Print.QuestionPrint,
-                    true, LogTypeEnum.Question,
+                DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, 
+	                LocaleCore.Print.QuestionPrint, true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                     UserSession.HostName, nameof(WeightCore));
                 if (dialogResult is not DialogResult.Yes)

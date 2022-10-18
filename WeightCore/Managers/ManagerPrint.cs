@@ -121,7 +121,7 @@ public class ManagerPrint : ManagerBase
 
 	private void Request()
 	{
-		if (Printer?.PingStatus == IPStatus.Success)
+		if (Printer.PingStatus == IPStatus.Success)
 		{
 			switch (PrintBrand)
 			{
@@ -302,10 +302,10 @@ public class ManagerPrint : ManagerBase
 		base.ReleaseUnmanaged();
 	}
 
-	public void SendCmd(string printCmd)
+	public void SendCmd(PluLabelModel pluLabel)
 	{
 		CheckIsDisposed();
-		if (string.IsNullOrEmpty(printCmd))
+		if (string.IsNullOrEmpty(pluLabel.Zpl))
 			return;
 		if (Printer.PingStatus != IPStatus.Success)
 			return;
@@ -313,10 +313,10 @@ public class ManagerPrint : ManagerBase
 		switch (PrintBrand)
 		{
 			case PrintBrand.Zebra:
-				SendCmdToZebra(printCmd);
+				SendCmdToZebra(pluLabel.Zpl);
 				break;
 			case PrintBrand.TSC:
-				SendCmdToTsc(printCmd);
+				SendCmdToTsc(pluLabel.Zpl);
 				break;
 		}
 	}

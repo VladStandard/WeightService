@@ -56,50 +56,59 @@
             </td>
         </tr>
         <tr>
+	        <td>@LocaleCore.Table.Plu</td>
+	        <td>
+		        @if (SqlItemCast.PluLabel.PluWeighing is not null)
+		        {
+			        <RadzenLink 
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Identity.Uid}")
+				        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Name) />
+		        }
+	        </td>
             <td>@LocaleCore.Table.Label</td>
             <td>
                 <RadzenLink 
                     Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{SqlItemCast.PluLabel.Identity.Uid}")
                     Text=@(SqlItemCast.PluLabel.Identity.Uid.ToString()) />
             </td>
-            <td>@LocaleCore.Table.Weighing</td>
+        </tr>
+        <tr>
+	        <td>@LocaleCore.Table.Scale</td>
+	        <td>
+		        @if (SqlItemCast.PluLabel.PluWeighing is not null)
+		        {
+			        <RadzenLink 
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Identity.Id}")
+				        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Description) />
+		        }
+	        </td>
+            <td>@LocaleCore.Table.Host</td>
             <td>
-                @if (SqlItemCast.PluLabel.PluWeighing is not null)
+                @if (SqlItemCast.PluLabel.PluWeighing?.PluScale.Scale.Host is not null)
                 {
-                    <RadzenLink 
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.Identity.Uid}")
-                        Text=@(SqlItemCast.PluLabel.PluWeighing.Identity.Uid.ToString()) />
+	                <RadzenLink 
+		                Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Identity.Id}")
+                        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Host.Name) />
                 }
             </td>
         </tr>
         <tr>
-            <td>@LocaleCore.Table.Plu</td>
-            <td>
-                @if (SqlItemCast.PluLabel.PluWeighing is not null)
-                {
-                    <RadzenLink 
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Identity.Uid}")
-                        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Name) />
-                }
-            </td>
-        </tr>
-        <tr>
-            <td>@LocaleCore.Table.Scale</td>
-            <td>
-                @if (SqlItemCast.PluLabel.PluWeighing is not null)
-                {
-                    <RadzenLink 
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Identity.Id}")
-                        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Description) />
-                }
-            </td>
+	        <td>@LocaleCore.Table.Weighing</td>
+	        <td>
+		        @if (SqlItemCast.PluLabel.PluWeighing is not null)
+		        {
+			        <RadzenLink 
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.Identity.Uid}")
+				        Text=@(SqlItemCast.PluLabel.PluWeighing.Identity.Uid.ToString()) />
+		        }
+	        </td>
             <td>@LocaleCore.Table.ProductSeries</td>
             <td>
                 @if (SqlItemCast.PluLabel.PluWeighing?.Series is not null)
                 {
-                    <RadzenLink 
-                        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.Series.Identity.Uid}")
-                        Text=@(SqlItemCast.PluLabel.PluWeighing.Series.Sscc) />
+	                <RadzenTextBox 
+		                Style="width: 100%; text-align: left; background-color: lightgray; "
+		                ReadOnly=true @bind-Value=@(SqlItemCast.PluLabel.PluWeighing.Series.Sscc) />
                 }
             </td>
         </tr>
