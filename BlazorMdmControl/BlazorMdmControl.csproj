@@ -3,7 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.7.345.0</Version>
+    <Version>0.7.350.0</Version>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
     <UserSecretsId>3563a665-3c2d-469d-ba4c-f85bb5c0c1af</UserSecretsId>
@@ -14,8 +14,8 @@
 	<AssemblyName>BlazorMdmControl</AssemblyName>
     <RootNamespace>BlazorMdmControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<AssemblyVersion>0.7.345.0</AssemblyVersion>
-    <FileVersion>0.7.345.0</FileVersion>
+	<AssemblyVersion>0.7.350.0</AssemblyVersion>
+    <FileVersion>0.7.350.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
   </PropertyGroup>
