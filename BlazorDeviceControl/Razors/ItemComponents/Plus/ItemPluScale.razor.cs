@@ -12,7 +12,7 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
     private List<ScaleModel> Scales { get; set; }
     private List<PluModel> Plus { get; set; }
 
-    public ItemPluScale() : base()
+    public ItemPluScale()
     {
         Scales = new();
         Plus = new();
@@ -29,7 +29,7 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
             () =>
             {
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluScaleModel>();
                 Plus = AppSettings.DataAccess.GetListPlus(false, false, true);
 	            Scales = AppSettings.DataAccess.GetListScales(false, false, true);

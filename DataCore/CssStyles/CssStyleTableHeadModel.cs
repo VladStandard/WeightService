@@ -73,8 +73,7 @@ public class CssStyleTableHeadModel : CssStyleBase
 		if (!ColumnsWidths.Any())
 			return columnsTitles;
 
-		if (ColumnsWidths.Count > 0)
-			columnsTitles.Add(LocaleCore.Strings.SettingName);
+		columnsTitles.Add(LocaleCore.Strings.SettingName);
 		if (ColumnsWidths.Count > 1)
 			columnsTitles.Add(LocaleCore.Strings.SettingValue);
 		if (ColumnsWidths.Count > 2)

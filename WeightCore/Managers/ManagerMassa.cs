@@ -71,7 +71,7 @@ public class ManagerMassa : ManagerBase
 			Init(TaskTypeEnum.MassaManager,
 				() =>
 				{
-					if (UserSessionHelper.Instance.Scale.Identity.IsNotNew())
+					if (UserSessionHelper.Instance.Scale.IdentityIsNotNew)
 					{
 						MassaDevice = new(UserSessionHelper.Instance.Scale.DeviceComPort,
 							UserSessionHelper.Instance.Scale.DeviceReceiveTimeout,
@@ -127,7 +127,7 @@ public class ManagerMassa : ManagerBase
 	{
 		if (UserSessionHelper.Instance.PluScale.Plu.IsCheckWeight)
 			MassaDevice?.Open();
-		if (UserSessionHelper.Instance.PluScale.Identity.IsNew())
+		if (UserSessionHelper.Instance.PluScale.IdentityIsNew)
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: {LocaleCore.Scales.StateDisable}");
 		else
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaThreshold, $"{LocaleCore.Scales.FieldThresholds}: " +
@@ -176,7 +176,7 @@ public class ManagerMassa : ManagerBase
 		}
 		else
 		{
-			if (UserSessionHelper.Instance.PluScale.Identity.IsNew())
+			if (UserSessionHelper.Instance.PluScale.IdentityIsNew)
 				SetControlsTextDefault();
 			SetControlsVisible(false, false);
 		}
@@ -225,11 +225,11 @@ public class ManagerMassa : ManagerBase
 		}
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPackageWeight,
-			UserSessionHelper.Instance.PluScale.Identity.IsNotNew()
+			UserSessionHelper.Instance.PluScale.IdentityIsNotNew
 				? $"{UserSessionHelper.Instance.PluPackage.Package.Weight:0.000} {LocaleCore.Scales.UnitKg}"
 				: $"0,000 {LocaleCore.Scales.UnitKg}");
 
-		decimal weight = UserSessionHelper.Instance.PluScale.Identity.IsNew() ? 0 : WeightNet - UserSessionHelper.Instance.PluPackage.Package.Weight;
+		decimal weight = UserSessionHelper.Instance.PluScale.IdentityIsNew ? 0 : WeightNet - UserSessionHelper.Instance.PluPackage.Package.Weight;
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldNettoWeight, MassaStable.IsStable
 			? $"{weight:0.000} {LocaleCore.Scales.UnitKg}"
 			:
@@ -242,7 +242,7 @@ public class ManagerMassa : ManagerBase
 
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldMassaPluDescription,
 			$"{LocaleCore.Scales.WeightingProcess}: " +
-			(UserSessionHelper.Instance.PluScale.Identity.IsNew() ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
+			(UserSessionHelper.Instance.PluScale.IdentityIsNew ? $"{0:0.000} " : $"{WeightNet:0.000} ") +
 			$"{LocaleCore.Scales.UnitKg} | {LocaleCore.Scales.RequestParameters}" +
 			(ResponseParseScalePar is null ? string.Empty : $" | {ResponseParseScalePar.Message}"));
 	}
@@ -262,7 +262,7 @@ public class ManagerMassa : ManagerBase
 		}
 		else
 		{
-			if (UserSessionHelper.Instance.PluScale.Identity.IsNew())
+			if (UserSessionHelper.Instance.PluScale.IdentityIsNew)
 			{
 				if (FieldMassaThreshold.Visible != isVisible)
 					MDSoft.WinFormsUtils.InvokeControl.SetVisible(FieldMassaThreshold, isVisible);

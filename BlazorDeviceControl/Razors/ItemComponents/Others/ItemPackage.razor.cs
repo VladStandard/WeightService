@@ -9,10 +9,7 @@ public partial class ItemPackage : RazorComponentItemBase<PackageModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemPackage()
-	{
-		//
-	}
+	//
 
 	#endregion
 
@@ -25,7 +22,7 @@ public partial class ItemPackage : RazorComponentItemBase<PackageModel>
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PackageModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PackageModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

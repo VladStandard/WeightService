@@ -36,7 +36,7 @@ public partial class PageDevice
 			comboBoxScale.SelectedIndex = 0;
 
 		i = 0;
-		if (UserSession.Area.Identity.IsNew())
+		if (UserSession.Area.IdentityIsNew)
 		{
 			comboBoxArea.SelectedIndex = 0;
 		}

@@ -9,10 +9,7 @@ public partial class ItemLog : RazorComponentItemBase<LogModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemLog()
-	{
-		//
-	}
+	//
 
 	#endregion
 
@@ -25,7 +22,7 @@ public partial class ItemLog : RazorComponentItemBase<LogModel>
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<LogModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<LogModel>();
 
 				ButtonSettings = new(false, false, false, false, false, false, true);

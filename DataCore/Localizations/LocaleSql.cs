@@ -43,8 +43,8 @@ public class LocaleSql
     public string SqlItemFieldGtin => Lang == LangEnum.English ? "GTIN" : "ГТИН";
     public string SqlItemFieldHostName => Lang == LangEnum.English ? "Hostname" : "Хост";
     public string SqlItemFieldIcon => Lang == LangEnum.English ? "Icon" : "Иконка";
-    public string SqlItemFieldIp => Lang == LangEnum.English ? "127.0.0.1" : "127.0.0.1";
-    public string SqlItemFieldMac => Lang == LangEnum.English ? "001122334455" : "001122334455";
+    public string SqlItemFieldIp => "127.0.0.1";
+    public string SqlItemFieldMac => "001122334455";
     public string SqlItemFieldMember => Lang == LangEnum.English ? "Method" : "Метод";
     public string SqlItemFieldMessage => Lang == LangEnum.English ? "Message" : "Сообщение";
     public string SqlItemFieldName => Lang == LangEnum.English ? "Name" : "Наименование";
@@ -52,7 +52,7 @@ public class LocaleSql
     public string SqlItemFieldProductXml => Lang == LangEnum.English ? "\"<Product Category=\\\"Meat\\\" > </Product>\"" : "\"<Product Category=\\\"Сосиски\\\" > </Product>\"";
     public string SqlItemFieldTitle => Lang == LangEnum.English ? "Title" : "Заголовок";
     public string SqlItemFieldValue => Lang == LangEnum.English ? "Value" : "Значение";
-    public string SqlItemFieldVersion => Lang == LangEnum.English ? "0.1.2" : "0.1.2";
+    public string SqlItemFieldVersion => "0.1.2";
 	public string SqlItemDoSelect => Lang == LangEnum.English ? "Select the record" : "Выберите запись";
 	public string SqlItemFieldAddress => Lang == LangEnum.English ? "Address" : "Адрес";
 	public string SqlItemFieldEan13 => Lang == LangEnum.English ? "EAN 13" : "ЕАН 13";

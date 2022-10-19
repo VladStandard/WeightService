@@ -9,10 +9,7 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemBarCode()
-	{
-		//
-	}
+	//
 
 	#endregion
 	
@@ -25,7 +22,7 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<BarCodeModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<BarCodeModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

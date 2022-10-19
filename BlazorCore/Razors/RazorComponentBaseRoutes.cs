@@ -156,8 +156,8 @@ public partial class RazorComponentBase
 
         page = item.Identity.Name switch
         {
-	        SqlFieldIdentityEnum.Id => item.Identity.IsNew() ? $"{page}/new" : $"{page}/{item.Identity.Id}",
-	        SqlFieldIdentityEnum.Uid => item.Identity.IsNew() ? $"{page}/new" : $"{page}/{item.Identity.Uid}",
+	        SqlFieldIdentityEnum.Id => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.Identity.Id}",
+	        SqlFieldIdentityEnum.Uid => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.Identity.Uid}",
 	        _ => page
         };
         NavigationManager?.NavigateTo(page);

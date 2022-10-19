@@ -649,8 +649,8 @@ public partial class MainForm : Form
 	            ? LocaleCore.Table.FieldNull : UserSession.Area.Name;
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice, 
 	            UserSession.Scale.Description + Environment.NewLine + area);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.Identity.IsNew() 
-	            ? LocaleCore.Table.FieldPackageIsNotSelected 
+            MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.IdentityIsNew
+				? LocaleCore.Table.FieldPackageIsNotSelected 
 	            : UserSession.PluPackage.Name + Environment.NewLine + 
 	              $"{LocaleCore.Table.PackageWeightKg}: {UserSession.PluPackage.Package.Weight}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocaleCore.Scales.ButtonRunScalesTerminal);
@@ -746,7 +746,7 @@ public partial class MainForm : Form
 
     private bool ActionPackageCheckPlu()
     {
-	    switch (UserSession.PluScale.Plu.Identity.IsNew())
+	    switch (UserSession.PluScale.Plu.IdentityIsNew)
 	    {
 		    case true:
 		    {
@@ -999,7 +999,7 @@ public partial class MainForm : Form
     {
         try
         {
-            if (UserSession.PluScale.Identity.IsNew())
+            if (UserSession.PluScale.IdentityIsNew)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(this, 
 	                LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
@@ -1040,47 +1040,38 @@ public partial class MainForm : Form
             UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
             UserSession.ManagerControl.PrintShipping.IsPrintBusy = true;
 
-			if (!UserSession.CheckPluIsEmpty(this))
-                return;
-			//if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.Identity.IsNew())
-			if (UserSession.PluPackages.Count > 1 && UserSession.PluPackage.Identity.IsNew())
+			if (!UserSession.CheckPluIsEmpty(this)) return;
+			//if (UserSession.PluScale.Plu.IsCheckWeight && UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
+			if (UserSession.PluPackages.Count > 1 && UserSession.PluPackage.IdentityIsNew)
 	            ActionPackage(sender, e);
-			if (!UserSession.CheckPluPackageIsEmpty(this))
-                return;
-            if (!UserSession.CheckWeightMassaDeviceExists(this))
-                return;
-            if (!UserSession.CheckWeightMassaIsStable(this))
-                return;
-            
-            UserSession.SetPluWeighing(this);
+			if (!UserSession.CheckPluPackageIsEmpty(this)) return;
+            if (!UserSession.CheckWeightMassaDeviceExists(this)) return;
+            if (!UserSession.CheckWeightMassaIsStable(this)) return;
 
-            if (!UserSession.CheckWeightIsNegative(this))
-	            return;
-			if (!UserSession.CheckWeightThresholds(this))
-				return;
+			// Set fake data for PLU weighing.
+			UserSession.SetPluWeighingFake(this);
+            if (!UserSession.CheckWeightIsNegative(this)) return;
+			if (!UserSession.CheckWeightThresholds(this)) return;
+            UserSession.NewPluWeighing();
+
             // Check printers connections.
-            if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintMain, true))
-                return;
+            if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintMain, true)) return;
             if (UserSession.Scale.IsShipping)
-                if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintShipping, false))
-                    return;
+                if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintShipping, false)) return;
             // Check printers statuses.
-            if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintMain, true))
-                return;
+            if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintMain, true)) return;
             if (UserSession.Scale.IsShipping)
-                if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintShipping, false))
-                    return;
+                if (!UserSession.CheckPrintStatusReady(this, UserSession.ManagerControl.PrintShipping, false)) return;
             
             // Debug check.
-            if (Debug.IsDebug)
-            {
-                DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, 
-	                LocaleCore.Print.QuestionPrint, true, LogTypeEnum.Question,
-                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.HostName, nameof(WeightCore));
-                if (dialogResult is not DialogResult.Yes)
-                    return;
-            }
+            //if (Debug.IsDebug)
+            //{
+            //    DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(this, 
+	           //     LocaleCore.Print.QuestionPrint, true, LogTypeEnum.Question,
+            //        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+            //        UserSession.HostName, nameof(WeightCore));
+            //    if (dialogResult is not DialogResult.Yes) return;
+            //}
 
             UserSession.PrintLabel(false);
             //UserSession.Manager.Massa.Open();
@@ -1088,7 +1079,7 @@ public partial class MainForm : Form
         catch (Exception ex)
         {
 	        ActionMakeScreenShot();
-            if (UserSession.PluScale.Identity.IsNotNew())
+            if (UserSession.PluScale.IdentityIsNotNew)
                 UserSession.DataAccess.LogError(new Exception(
                     $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
                     UserSession.HostName);

@@ -15,7 +15,9 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual SqlFieldIdentityModel Identity { get; }
 	[XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
 	[XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-    [XmlElement] public virtual DateTime CreateDt { get; set; }
+	[XmlElement] public virtual bool IdentityIsNew => Identity.IsNew();
+	[XmlElement] public virtual bool IdentityIsNotNew => Identity.IsNotNew();
+	[XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }
     [XmlElement] public virtual string Description { get; set; }

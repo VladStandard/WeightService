@@ -9,10 +9,7 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemContragent()
-	{
-		//
-	}
+	//
 
 	#endregion
 
@@ -25,7 +22,7 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<ContragentModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<ContragentModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

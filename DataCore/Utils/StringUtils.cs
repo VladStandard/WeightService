@@ -178,21 +178,44 @@ public static class StringUtils
         return 0M;
     }
 
-	public static int NextInt32(Random random)
+    private static int NextInt32(Random random)
 	{
-		int firstBits = random.Next(0, 1 << 4) << 28;
-		int lastBits = random.Next(0, 1 << 28);
-		return firstBits | lastBits;
+        try
+        {
+            int firstBits = random.Next(0, 1 << 4) << 28;
+            int lastBits = random.Next(0, 1 << 28);
+            return firstBits | lastBits;
+        }
+        catch (Exception)
+        {
+	        return 0;
+        }
 	}
 
-	public static decimal NextDecimal(Random random, decimal min, decimal max)
-	{
-		byte scale = (byte)random.Next(29);
-		bool sign = random.Next(2) == 1;
-		decimal result = new(NextInt32(random), NextInt32(random), NextInt32(random), sign, scale);
-		if (result < min || result > max)
-			result = NextDecimal(random, min, max);
+	public static decimal NextDecimal(decimal min, decimal max)
+    {
+        Random random = new();
+        decimal result = min;
+        if (max == min && min == 0)
+        {
+            return random.Next(0, 10);
+        }
+
+        try
+        {
+            byte scale = (byte)random.Next(29);
+            bool sign = random.Next(2) == 1;
+			result = new(NextInt32(random), NextInt32(random), NextInt32(random), sign, scale);
+        }
+        catch (Exception)
+        {
+	        //
+        }
+		
+        if (result < min)
+			result = min;
+		if (result > max)
+			result = max;
 		return result;
 	}
-
 }

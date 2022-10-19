@@ -27,7 +27,7 @@ public partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PrinterModel>();
 				PrinterTypes = AppSettings.DataAccess.GetListPrinterTypes(false, false);
 

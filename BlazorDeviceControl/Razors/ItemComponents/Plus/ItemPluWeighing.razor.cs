@@ -22,7 +22,7 @@ public partial class ItemPluWeighing : RazorComponentItemBase<PluWeighingModel>
             () =>
             {
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluWeighingModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluWeighingModel>();
 
 				ButtonSettings = new(false, false, false, false, false, false, true);

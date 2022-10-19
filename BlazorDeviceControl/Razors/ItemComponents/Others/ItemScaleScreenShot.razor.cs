@@ -29,7 +29,7 @@ public partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenSho
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<ScaleScreenShotModel>(IdentityUid);
                 if (SqlItemCast.ScreenShot.Length > 1)
 					ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
-				if (SqlItemCast.Identity.IsNew())
+				if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<ScaleScreenShotModel>();
 
 	            ButtonSettings = new(false, false, false, false, false, false, true);

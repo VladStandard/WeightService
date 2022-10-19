@@ -119,7 +119,7 @@ var module;
                 return append(span("string"), themetext(null, my_indent, "string", JSON.stringify(json)));
             });
 
-        if (typeof(json) != "object") // Strings, numbers and bools
+        if (typeof(json) is not "object") // Strings, numbers and bools
             return themetext(null, my_indent, typeof(json), JSON.stringify(json));
 
         if (json.constructor == Array) {
@@ -130,7 +130,7 @@ var module;
                 for (var i=0; i<json.length; i++)
                     append(as,
                            _renderjson(json[i], indent+"    ", false, show_level-1, max_string, sort_objects),
-                           i != json.length-1 ? themetext("syntax", ",") : [],
+                           i is not json.length-1 ? themetext("syntax", ",") : [],
                            text("\n"));
                 append(as, themetext(null, indent, "array syntax", "]"));
                 return as;
@@ -151,7 +151,7 @@ var module;
                 var k = keys[i];
                 append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
                        _renderjson(json[k], indent+"    ", true, show_level-1, max_string, sort_objects),
-                       k != last ? themetext("syntax", ",") : [],
+                       k is not last ? themetext("syntax", ",") : [],
                        text("\n"));
             }
             append(os, themetext(null, indent, "object syntax", "}"));

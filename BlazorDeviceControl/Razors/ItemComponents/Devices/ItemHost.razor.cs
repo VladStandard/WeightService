@@ -22,7 +22,7 @@ public partial class ItemHost : RazorComponentItemBase<HostModel>
 			() =>
 			{
 				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<HostModel>(IdentityId);
-				if (SqlItemCast.Identity.IsNew())
+				if (SqlItemCast.IdentityIsNew)
 					SqlItem = SqlItemNew<HostModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

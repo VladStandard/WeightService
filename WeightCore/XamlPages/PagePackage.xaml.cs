@@ -23,7 +23,7 @@ public partial class PagePackage
 		Setup();
         
 		int i = 0;
-		if (UserSession.PluPackage.Identity.IsNew())
+		if (UserSession.PluPackage.IdentityIsNew)
 		{
 			comboBoxPluPackage.SelectedIndex = 0;
 		}

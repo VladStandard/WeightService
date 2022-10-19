@@ -150,7 +150,7 @@ public partial class RazorComponentBase
 	private void SqlItemSave<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
-		if (item.Identity.IsNew())
+		if (item.IdentityIsNew)
 		{
 			AppSettings.DataAccess.Save(item);
 		}

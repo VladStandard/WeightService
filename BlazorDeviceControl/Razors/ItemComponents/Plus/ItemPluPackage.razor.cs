@@ -32,7 +32,7 @@ public partial class ItemPluPackage : RazorComponentItemBase<PluPackageModel>
                 Plus = AppSettings.DataAccess.GetListPlus(false, false, false);
 				Packages = AppSettings.DataAccess.GetListPackages(false, false, false);
                 
-				if (SqlItemCast.Identity.IsNew())
+				if (SqlItemCast.IdentityIsNew)
                 {
 	                SqlItem = SqlItemNew<PluPackageModel>();
                     if (Plus.Any())

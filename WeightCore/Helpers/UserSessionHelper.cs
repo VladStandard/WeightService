@@ -32,7 +32,9 @@ using System.IO;
 using System.Windows.Shapes;
 using MvvmHelpers.Commands;
 using System.Data;
+using System.Xml;
 using NHibernate.SqlCommand;
+using System.Xml.Linq;
 
 namespace WeightCore.Helpers;
 
@@ -75,7 +77,7 @@ public class UserSessionHelper : BaseViewModel
 	public PluWeighingModel PluWeighing
 	{
 		get => _pluWeighing;
-		set
+		private set
 		{
 			_pluWeighing = value;
 			OnPropertyChanged();
@@ -101,13 +103,13 @@ public class UserSessionHelper : BaseViewModel
 		set
 		{
 			_pluScale = value;
-			if (value.Identity.IsNotNew())
+			if (value.IdentityIsNotNew)
 				DataAccess.LogInformation(
 					$"{LocaleCore.Scales.PluSet(value.Plu.Identity.Id, value.Plu.Number, value.Plu.Name)}", _scale.Host?.HostName);
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			PluPackages = SqlUtils.DataAccess.GetListPluPackages(value.Plu, false, false, true);
-			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.First();
+			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.FirstOrDefault();
 			OnPropertyChanged();
 		}
 	}
@@ -184,7 +186,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		get
 		{
-			if (_area.Identity.IsNotNew())
+			if (_area.IdentityIsNotNew)
 				return _area;
 			if (Scale.WorkShop is not null)
 				return Scale.WorkShop.ProductionFacility;
@@ -192,7 +194,7 @@ public class UserSessionHelper : BaseViewModel
 		}
 		set
 		{
-			if (value.Identity.IsNotNew())
+			if (value.IdentityIsNotNew)
 				_area = value;
 			OnPropertyChanged();
 		}
@@ -353,8 +355,8 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckPluPackageIsEmpty(IWin32Window owner)
 	{
-		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.Identity.IsNew())
-		if (PluPackages.Count > 1 && PluPackage.Identity.IsNew())
+		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IdentityIsNew)
+		if (PluPackage.IdentityIsNew && PluPackages.Count > 1)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
 				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning, 
@@ -372,7 +374,7 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckPluIsEmpty(IWin32Window owner)
 	{
-		if (PluScale.Identity.IsNew())
+		if (PluScale.IdentityIsNew)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
 				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, 
@@ -390,6 +392,7 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckWeightMassaDeviceExists(IWin32Window owner)
 	{
+		if (!PluScale.IdentityIsNew && !PluScale.Plu.IsCheckWeight) return true;
 		if (ManagerControl.Massa is null)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
@@ -471,7 +474,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluPackage.Package.Weight);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluPackage.Package.Weight);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
@@ -492,7 +495,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.Identity.IsNew() ? 0 : PluPackage.Package.Weight);
+		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluPackage.Package.Weight);
 		if (weight > LocaleCore.Scales.MassaThresholdValue)
 		{
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
@@ -523,11 +526,11 @@ public class UserSessionHelper : BaseViewModel
 			isCheck = true;
 		if (!isCheck)
 		{
-			if (PluWeighing.Identity.IsNotNew())
+			if (PluWeighing.IdentityIsNotNew)
 				GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-					LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.Identity.IsNew() ? 0 : PluScale.Plu.UpperThreshold,
-					PluScale.Identity.IsNew() ? 0 : PluScale.Plu.NominalWeight,
-					PluScale.Identity.IsNew() ? 0 : PluScale.Plu.LowerThreshold),
+					LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluScale.Plu.UpperThreshold,
+					PluScale.IdentityIsNew ? 0 : PluScale.Plu.NominalWeight,
+					PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
 					true, LogTypeEnum.Warning,
 					new() { ButtonCancelVisibility = Visibility.Visible },
 					HostName, nameof(WeightCore));
@@ -536,28 +539,25 @@ public class UserSessionHelper : BaseViewModel
 		return true;
 	}
 
+#nullable enable
 	public void PrintLabel(bool isClearBuffer)
 	{
-		TemplateModel template = new();
+		TemplateModel? template = new();
 		if (Scale is { IsOrder: true })
 		{
 			throw new("Order under construct!");
-			//template = Order.Template;
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
-		else if (Scale.IsOrder != true)
+		else //else if (Scale.IsOrder != true)
 		{
-			//template = PluScale.LoadTemplate();
-			if (PluScale.Identity.IsNotNew())
+			if (PluScale.IdentityIsNotNew && PluScale.Plu.IdentityIsNotNew)
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, PluScale.Plu.Template.Identity.Id), 0, false, false);
-				template = DataAccess.GetItemNotNull<TemplateModel>(sqlCrudConfig);
+				template = DataAccess.GetItemTemplate(PluScale.Plu.Template.Identity.Id);
 			}
 		}
 
 		// Template exist.
-		if (template.Identity.IsNotNew())
+		if (template is not null && template.IdentityIsNotNew)
 		{
 			switch (PluScale.Plu.IsCheckWeight)
 			{
@@ -569,9 +569,11 @@ public class UserSessionHelper : BaseViewModel
 					break;
 			}
 		}
+		
 		PluWeighing = new();
 		SetNewScaleCounter();
 	}
+#nullable disable
 
 	private void SetNewScaleCounter()
 	{
@@ -647,33 +649,10 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 
-	public void SetPluWeighing(IWin32Window owner)
+#nullable enable
+	public void NewPluWeighing()
 	{
-		if (PluScale.Identity.IsNew())
-			return;
-
-		// Debug check.
-		if (PluScale.Plu.IsCheckWeight && ManagerControl.Massa.WeightNet <= 0 && Debug.IsDebug)
-		{
-			DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,  
-				LocaleCore.Print.QuestionUseFakeData,
-				true, LogTypeEnum.Question,
-				new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
-			if (dialogResult is DialogResult.Yes)
-			{
-				// Fake data.
-				Random random = new();
-				ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(
-					random, PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
-				ManagerControl.Massa.IsWeightNetFake = true;
-			}
-		}
-
-        //SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-        //    new SqlFieldFilterModel(nameof(ProductSeriesModel.Name), SqlFieldComparerEnum.Equal, userName), 0, false, false);
-        //ProductSeriesModel productSeries = DataAccess.GetItem<ProductSeriesModel>(sqlCrudConfig);
-        ProductSeriesModel productSeries = new();
+        ProductSeriesModel? productSeries = DataAccess.GetItemProductSeries(PluScale.Scale.IdentityValueId);
 
         PluWeighing = new()
 		{
@@ -683,6 +662,32 @@ public class UserSessionHelper : BaseViewModel
 			TareWeight = PluPackage.Package.Weight,
 			Series = productSeries,
 		};
+        
+        // Save or update weighing products.
+        SaveOrUpdatePluWeighing();
+	}
+#nullable disable
+
+	/// <summary>
+	/// Set fake data for PLU weighing.
+	/// </summary>
+	/// <param name="owner"></param>
+	public void SetPluWeighingFake(IWin32Window owner)
+	{
+		if (!Debug.IsDebug) return;
+		if (!PluScale.Plu.IsCheckWeight) return;
+		if (ManagerControl.Massa.WeightNet > 0) return;
+
+		DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(owner,
+			LocaleCore.Print.QuestionUseFakeData,
+			true, LogTypeEnum.Question,
+			new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+			HostName, nameof(WeightCore));
+		if (dialogResult is DialogResult.Yes)
+		{
+			ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
+			ManagerControl.Massa.IsWeightNetFake = true;
+		}
 	}
 
 	/// <summary>
@@ -694,9 +699,6 @@ public class UserSessionHelper : BaseViewModel
 	{
 		try
 		{
-			if (PluWeighing.Identity.IsNew())
-				DataAccess.Save(PluWeighing);
-
             PluLabelModel pluLabel = CreateAndSavePluLabel(template);
             CreateAndSaveBarCodes(pluLabel);
 
@@ -708,7 +710,7 @@ public class UserSessionHelper : BaseViewModel
 					ManagerControl.PrintShipping.ClearPrintBuffer();
 			}
 
-			// Debug check.
+			// Send cmd to the print.
 			if (Debug.IsDebug)
 			{
 				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(
@@ -729,6 +731,19 @@ public class UserSessionHelper : BaseViewModel
 	}
 
 	/// <summary>
+	/// Save or update weighing products.
+	/// </summary>
+	private void SaveOrUpdatePluWeighing()
+	{
+		if (!PluWeighing.PluScale.Plu.IsCheckWeight) return;
+
+		if (PluWeighing.IdentityIsNew)
+			DataAccess.Save(PluWeighing);
+		else
+			DataAccess.Update(PluWeighing);
+	}
+
+	/// <summary>
 	/// Create and save PLU label.
 	/// </summary>
 	/// <param name="template"></param>
@@ -736,7 +751,7 @@ public class UserSessionHelper : BaseViewModel
     private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
     {
         //string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
-        //string xmlStringProductionFacility = Area.Identity.IsNew() ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
+        //string xmlStringProductionFacility = Area.IdentityIsNew ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
         //string xmlString = XmlUtils.MergeXml(xmlStringPluWeighing, xmlStringProductionFacility);
         //PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
         //string xmlStringPluLabel = pluLabel.SerializeAsXmlString<PluLabelModel>(true);
@@ -744,16 +759,31 @@ public class UserSessionHelper : BaseViewModel
         //xmlString = XmlUtils.MergeXml(xmlString, xmlStringPluLabel);
         //// XSLT transform.
         //string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlString);
-        PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, PluScale = PluScale, ProductDt = ProductDate };
-        pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
-        
-        // XSLT transform.
-        pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml?.OuterXml);
+        PluLabelModel pluLabel = new()
+        {
+	        PluWeighing = PluWeighing, 
+	        PluScale = PluScale, 
+	        ProductDt = ProductDate,
+        };
+
+		// XSLT transform.
+		XmlDocument xmlArea = Area.SerializeAsXmlDocument<ProductionFacilityModel>(true);
+        //string zplArea = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlArea.OuterXml);
+        //zplArea = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(zplArea);
+        //zplArea = XmlUtils.PrintCmdReplaceZplResources(zplArea);
+
+		// XSLT transform.
+		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
+		pluLabel.Xml = XmlUtils.XmlMerge(pluLabel.Xml, xmlArea);
+        pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
         pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
-        // Replace ZPL resources.
         pluLabel.Zpl = XmlUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
-        // Save.
-        DataAccess.Save(pluLabel);
+
+		// Merge.
+		//pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
+
+		// Save.
+		DataAccess.Save(pluLabel);
 
         return pluLabel;
     }

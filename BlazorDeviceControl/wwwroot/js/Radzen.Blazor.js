@@ -266,7 +266,7 @@ window.Radzen = {
         slider.canChange &&
         newValue >= min &&
         newValue <= max &&
-        newValue != oldValue
+        newValue is not oldValue
       ) {
         slider.invokeMethodAsync(
           'RadzenSlider.OnValueChange',
@@ -289,7 +289,7 @@ window.Radzen = {
         var percent = offsetX / parent.offsetWidth;
         var newValue = percent * max;
         var oldValue = range ? value[slider.isMin ? 0 : 1] : value;
-        if (newValue >= min && newValue <= max && newValue != oldValue) {
+        if (newValue >= min && newValue <= max && newValue is not oldValue) {
           slider.invokeMethodAsync(
             'RadzenSlider.OnValueChange',
             newValue,
@@ -460,7 +460,7 @@ window.Radzen = {
     var file = uploadComponent.files.find(function (f) { return f.name == name; })
     if (!file) return;
     var index = uploadComponent.files.indexOf(file)
-    if (index != -1) {
+    if (index is not -1) {
         uploadComponent.files.splice(index, 1);
     }
     fileInput.value = '';
@@ -747,7 +747,7 @@ window.Radzen = {
     document.addEventListener('click', Radzen[id]);
 
     var p = parent;
-    while (p && p != document.body) {
+    while (p && p is not document.body) {
         if (p.scrollWidth > p.clientWidth || p.scrollHeight > p.clientHeight) {
             p.removeEventListener('scroll', Radzen.closePopupsOnScroll);
             p.addEventListener('scroll', Radzen.closePopupsOnScroll);
@@ -1019,14 +1019,14 @@ window.Radzen = {
     return {width: rect.width, height: rect.height};
   },
   innerHTML: function (ref, value) {
-    if (value != undefined) {
+    if (value is not undefined) {
       ref.innerHTML = value;
     } else {
       return ref.innerHTML;
     }
   },
   execCommand: function (ref, name, value) {
-    if (document.activeElement != ref) {
+    if (document.activeElement is not ref) {
       ref.focus();
     }
     document.execCommand(name, false, value);

@@ -3,6 +3,7 @@
 
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Core;
 
@@ -19,6 +20,27 @@ public static partial class DataAccessHelperExt
 			item = dataAccess.GetItem<AccessModel>(sqlCrudConfig);
 		}
 		return item;
+	}
+
+	public static ProductSeriesModel? GetItemProductSeries(this DataAccessHelper dataAccess, long scaleId)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+			new List<SqlFieldFilterModel>
+			{
+				new(nameof(ProductSeriesModel.IsClose), SqlFieldComparerEnum.Equal, false),
+				new($"{nameof(ProductSeriesModel.Scale)}.{nameof(ScaleModel.IdentityValueId)}",
+					SqlFieldComparerEnum.Equal, scaleId),
+			},
+			0, false, false);
+		return dataAccess.GetItem<ProductSeriesModel>(sqlCrudConfig);
+	}
+
+	public static TemplateModel? GetItemTemplate(this DataAccessHelper dataAccess, long id)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+			new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
+			0, false, false);
+		return dataAccess.GetItem<TemplateModel>(sqlCrudConfig);
 	}
 
 	public static AppModel? GetOrCreateNewApp(this DataAccessHelper dataAccess, string? appName)

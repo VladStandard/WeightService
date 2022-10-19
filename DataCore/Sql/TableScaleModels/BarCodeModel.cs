@@ -46,7 +46,7 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlIgnore] public virtual string TemplateFs => "^FS";
     [XmlIgnore] public virtual string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
     [XmlIgnore] public virtual string TemplateBarCodeRight => "^BY4  ^BCN,90,Y,Y,N";
-    [XmlIgnore] public virtual string TypeBarCodeRight => "Code 128 Bar Code";
+    [XmlIgnore] public virtual string TypeBarCodeRight => "GS1-128"; // ""Code 128 Bar Code";
     [XmlIgnore] public virtual string TemplateBarCodeBottom => "^BY4  ^BCR,120,N,N,D";
     [XmlIgnore] public virtual string TypeBarCodeBottom => "Code 128 Bar Code";
 

@@ -9,10 +9,7 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemOrganization()
-	{
-		//
-	}
+	//
 
 	#endregion
 
@@ -25,7 +22,7 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<OrganizationModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<OrganizationModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

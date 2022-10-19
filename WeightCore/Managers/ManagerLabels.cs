@@ -155,7 +155,7 @@ public class ManagerLabels : ManagerBase
 
 	private void RequestPlu()
 	{
-		if (UserSessionHelper.Instance.PluScale.Identity.IsNew())
+		if (UserSessionHelper.Instance.PluScale.IdentityIsNew)
 		{
 			MDSoft.WinFormsUtils.InvokeControl.SetText(FieldPlu, LocaleCore.Scales.Plu);
 		}

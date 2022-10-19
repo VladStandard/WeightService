@@ -12,16 +12,8 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
     [Inject] private IFileUpload? FileUpload { get; set; }
     [Inject] private IFileDownload? FileDownload { get; set; }
     [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
-    //public string FileInfo { get; set; } = string.Empty;
-    //public double FileProgress { get; set; } = default;
-    //public string FileComplete { get; set; } = string.Empty;
-    //private int ProgressValue { get; set; } = default;
-    //public IFileListEntry? File { get; private set; }
 
-    public ItemTemplateResource()
-    {
-		//
-    }
+    //
 
     #endregion
 

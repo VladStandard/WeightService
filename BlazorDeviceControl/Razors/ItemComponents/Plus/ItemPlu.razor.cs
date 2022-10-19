@@ -14,8 +14,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
     private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
     private List<NomenclatureModel> Nomenclatures { get; set; }
     private List<TemplateModel> Templates { get; set; }
-    private List<ScaleModel> Scales { get; set; }
-    private List<PluModel> Plus { get; set; }
+    //private List<ScaleModel> Scales { get; set; }
+    //private List<PluModel> Plus { get; set; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
     public ItemPlu()
@@ -24,8 +24,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
         RazorComponentConfig.IsShowFilterMarked = true;
         Templates = new();
         Nomenclatures = new();
-        Scales = new();
-        Plus = new();
+        //Scales = new();
+        //Plus = new();
 	}
 
     #endregion
@@ -39,7 +39,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
             () =>
             {
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluModel>();
 
 	            // Templates.
@@ -58,20 +58,20 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                     Nomenclatures.AddRange(nomenclatures);
 
 	            // Scales.
-	            Scales = new() { AppSettings.DataAccess.GetNewScale() };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc), 0, false, false);
-                ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
-                if (scales is not null)
-                    Scales.AddRange(scales);
+	            //Scales = new() { AppSettings.DataAccess.GetNewScale() };
+             //   sqlCrudConfig = SqlUtils.GetCrudConfig(
+             //       new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc), 0, false, false);
+             //   ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
+             //   if (scales is not null)
+             //       Scales.AddRange(scales);
 
 	            // Plus.
-	            Plus = new() { AppSettings.DataAccess.GetNewPlu() };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(PluModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
-                PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
-                if (plus is not null)
-                    Plus.AddRange(plus);
+	            //Plus = new() { AppSettings.DataAccess.GetNewPlu() };
+             //   sqlCrudConfig = SqlUtils.GetCrudConfig(
+             //       new SqlFieldOrderModel(nameof(PluModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
+             //   PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
+             //   if (plus is not null)
+             //       Plus.AddRange(plus);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault is not null)

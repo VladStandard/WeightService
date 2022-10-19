@@ -9,10 +9,7 @@ public partial class ItemNomenclature : RazorComponentItemBase<NomenclatureModel
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemNomenclature()
-	{
-		//
-	}
+	//
 
 	#endregion
 
@@ -25,7 +22,7 @@ public partial class ItemNomenclature : RazorComponentItemBase<NomenclatureModel
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<NomenclatureModel>(IdentityId);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<NomenclatureModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

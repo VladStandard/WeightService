@@ -33,7 +33,7 @@ public partial class ItemAccess : RazorComponentItemBase<AccessModel>
 			() =>
 			{
 				SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<AccessModel>();
 				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
 

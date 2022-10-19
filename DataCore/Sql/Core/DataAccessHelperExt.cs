@@ -134,7 +134,7 @@ public static partial class DataAccessHelperExt
 	    bool isShowMarked, bool isShowOnlyTop, bool isShowAll)
 	{
 		List<SqlFieldFilterModel> filters = new();
-		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
+		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.IdentityIsNew)
 		{
 			if (itemFilter is ScaleModel scale)
 				filters = new()
@@ -156,7 +156,7 @@ public static partial class DataAccessHelperExt
 	    bool isShowMarked, bool isShowOnlyTop, bool isShowAll)
 	{
 		List<SqlFieldFilterModel> filters = new();
-		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.Identity.IsNew())
+		if (itemFilter is not null && !itemFilter.EqualsDefault() && !itemFilter.IdentityIsNew)
 		{
 			if (itemFilter is ScaleModel scale)
 				filters = new()
@@ -188,7 +188,7 @@ public static partial class DataAccessHelperExt
         {
             if (plu.EqualsDefault())
                 return result;
-            if (plu.Identity.IsNew())
+            if (plu.IdentityIsNew)
                 return result;
             if (plu.Equals(dataAccess.GetNewPlu()))
                 return result;

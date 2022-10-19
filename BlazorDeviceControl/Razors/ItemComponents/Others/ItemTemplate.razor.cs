@@ -9,7 +9,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<TypeModel<string>>? TemplateCategories { get; set; }
+	private List<TypeModel<string>>? TemplateCategories { get; }
 
 	public ItemTemplate()
 	{
@@ -27,7 +27,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 			() =>
 			{
                 SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateModel>(IdentityId);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<TemplateModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

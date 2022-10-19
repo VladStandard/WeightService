@@ -9,10 +9,7 @@ public partial class ItemProductionFacility : RazorComponentItemBase<ProductionF
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemProductionFacility()
-	{
-		//
-	}
+	//
 
 	#endregion
 

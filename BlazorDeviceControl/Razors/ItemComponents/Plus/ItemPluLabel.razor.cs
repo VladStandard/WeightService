@@ -22,7 +22,7 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
             () =>
             {
                 SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluLabelModel>(IdentityUid);
-                if (SqlItemCast.Identity.IsNew())
+                if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluLabelModel>();
 
 				ButtonSettings = new(false, false, false, false, false, false, true);

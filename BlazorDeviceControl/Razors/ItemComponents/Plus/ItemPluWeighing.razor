@@ -77,6 +77,17 @@
 				    ReadOnly=true Value=@SqlItemCast.Kneading.ToString()/>
 			</td>
 		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Sscc</td>
+			<td >
+				@if (SqlItemCast.Series is not null)
+				{
+					<RadzenTextBox
+						Style="width: 100%; text-align: center; background-color: lightgray;"
+						ReadOnly=true Value=@SqlItemCast.Series.Sscc/>
+				}
+			</td>
+		</tr>
 	</tbody>
 </MudSimpleTable>
 

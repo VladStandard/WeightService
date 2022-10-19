@@ -33,7 +33,7 @@
 //            () =>
 //            {
 //                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PluObsoleteModel>(IdentityId);
-//if (SqlItemCast.Identity.IsNew()) SqlItem = SqlItemNew<>();
+//if (SqlItemCast.IdentityIsNew) SqlItem = SqlItemNew<>();
 
 //	            // Templates.
 //                Templates = new() { new() { Title = LocaleCore.Table.FieldNull } };

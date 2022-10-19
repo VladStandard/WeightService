@@ -59,7 +59,7 @@ public class LocaleTable
     public string Ean13 => Lang == LangEnum.English ? "EAN13" : "ШК ЕАН13";
     public string Enabled => Lang == LangEnum.English ? "Enabled" : "Активно";
     public string Exception => Lang == LangEnum.English ? "Exception" : "Исключение";
-    public string ExpirationDt => Lang == LangEnum.English ? "Expiration date" : "Срок действия";
+    public string ExpirationDt => Lang == LangEnum.English ? "Expiration date" : "Срок годности";
     public string FieldCategory => Lang == LangEnum.English ? "Category" : "Категория";
     public string FieldCount => Lang == LangEnum.English ? "Count" : "Количество";
     public string FieldCreated => Lang == LangEnum.English ? "Created" : "Создано";

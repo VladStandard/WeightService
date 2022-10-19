@@ -321,7 +321,7 @@ public class ManagerPrint : ManagerBase
 		}
 	}
 
-	private void SendCmdToZebra(string printCmd)
+	private void SendCmdToZebra(string zpl)
 	{
 		if (ZebraDriver is null || GetDeviceStatus() != LocaleCore.Print.StatusIsReadyToPrint)
 			return;
@@ -335,7 +335,7 @@ public class ManagerPrint : ManagerBase
 					ZebraPeelerStatus = SGD.GET("sensor.peeler", ZebraDriver.Connection);
 					if (ZebraPeelerStatus == "clear")
 					{
-						ZebraDriver.SendCommand(printCmd.Replace("|", "\\&"));
+						ZebraDriver.SendCommand(zpl.Replace("|", "\\&"));
 					}
 					else
 					{

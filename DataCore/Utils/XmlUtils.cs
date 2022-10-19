@@ -4,7 +4,6 @@
 using MDSoft.BarcodePrintUtils.Tsc;
 using Newtonsoft.Json.Linq;
 using System.Text.Unicode;
-using System.Xml;
 using System.Xml.Xsl;
 using TableDirectModels = DataCore.Sql.TableDirectModels;
 
@@ -39,14 +38,14 @@ public static class XmlUtils
 	/// Get pretty formatted XML string.
 	/// </summary>
 	/// <param name="xml"></param>
-	public static string GetPrettyXml(string xml) => 
+	private static string GetPrettyXml(string xml) => 
 		string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
 
 	/// <summary>
 	/// Get pretty formatted JSON string.
 	/// </summary>
 	/// <param name="json"></param>
-	public static string GetPrettyJson(string json) => 
+	private static string GetPrettyJson(string json) => 
 		string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
 
 	public static XmlDocument XmlCompatibleReplace(XmlDocument xmlDocument)
@@ -56,35 +55,19 @@ public static class XmlUtils
 		return result;
 	}
 
-	public static string XmlCompatibleReplace(string xmlInput)
+	private static string XmlCompatibleReplace(string xml)
 	{
-		string result = xmlInput;
-		if (string.IsNullOrEmpty(result))
-			return result;
-		// TableDirectModels.
-		result = result.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
-		result = result.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
-		//result = result.Replace(nameof(TableDirectModels.OrderDirect), "OrderEntity");
-		//result = result.Replace(nameof(TableDirectModels.PluDirect), "PluEntity");
-		result = result.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
-		//result = result.Replace(nameof(TableDirectModels.ProductionFacilityDirect), "ProductionFacilityEntity");
-		result = result.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
-		result = result.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
-		//result = result.Replace(nameof(TableDirectModels.TaskDirect), "TaskEntity");
-		//result = result.Replace(nameof(TableDirectModels.TemplateDirect), "TemplateEntity");
-		//result = result.Replace(nameof(TableDirectModels.WeighingFactDirect), "WeighingFactEntity");
-		//result = result.Replace(nameof(PluWeighingModel), "WeighingFactEntity");
-		//result = result.Replace(nameof(TableDirectModels.WorkShopDirect), "WorkShopEntity");
-		//result = result.Replace(nameof(TableDirectModels.ZplLabelDirect), "ZplLabelEntity");
-		//result = result.Replace(nameof(PluLabelModel), "PluLabelModel");
-		// TableScaleModels.
-		//result = result.Replace(nameof(PrinterModel), "PrinterEntity");
-		//result = result.Replace(nameof(ScaleModel), "ScaleEntity");
-		//result = result.Replace(nameof(TemplateModel), "TemplateEntity");
-		// SqlViewModelHelper.
+		//string result = xml;
+		if (string.IsNullOrEmpty(xml)) return xml;
+
+		xml = xml.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
+		xml = xml.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
+		xml = xml.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
+		xml = xml.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
+		xml = xml.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
 		//result = result.Replace(nameof(SqlViewModelHelper.Instance.Area), "address");
-		// Result.
-		return result;
+
+		return xml;
 	}
 
 	public static string XsltTransformation(string xslInput, string? xmlInput)
@@ -184,13 +167,13 @@ public static class XmlUtils
 		}
 	}
 
-	public static string MergeXml(string xmlParent, string xmlChild)
+	public static string XmlMerge(string xmlParent, string xmlChild)
 	{
 		string result = string.Empty;
-		bool isInsert = false;
+		bool isSkipHeader = false;
 		foreach (string lineParent in xmlParent.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
 		{
-			if (isInsert && !string.IsNullOrEmpty(xmlChild))
+			if (isSkipHeader && !string.IsNullOrEmpty(xmlChild))
 			{
 				foreach (string lineChild in xmlChild.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
 				{
@@ -200,13 +183,13 @@ public static class XmlUtils
 				xmlChild = string.Empty;
 			}
 			if (lineParent.StartsWith("<") && !lineParent.StartsWith("<?xml "))
-				isInsert = true;
+				isSkipHeader = true;
 			result += lineParent + Environment.NewLine;
 		}
 		return result;
 	}
 
-	public static XmlDocument MergeXml(XmlDocument documentA, XmlDocument documentB)
+	public static XmlDocument XmlMerge(XmlDocument documentA, XmlDocument documentB)
 	{
 		if (documentA.DocumentElement is not null && documentB.DocumentElement is not null)
 		{

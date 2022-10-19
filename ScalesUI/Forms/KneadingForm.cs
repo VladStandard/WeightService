@@ -138,7 +138,7 @@ public partial class KneadingForm : Form
 
 	private void CheckWeightCount()
 	{
-		if (UserSession.PluScale.Identity.IsNotNew() && UserSession.PluScale.Plu.IsCheckWeight && 
+		if (UserSession.PluScale.IdentityIsNotNew && UserSession.PluScale.Plu.IsCheckWeight && 
 		    UserSession.WeighingSettings.LabelsCountMain > 1)
 		{
 			//GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
@@ -292,7 +292,7 @@ public partial class KneadingForm : Form
 		// Pallet size.
 		labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible = 
 			buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible = 
-				UserSession.PluScale.Identity.IsNotNew() && !UserSession.PluScale.Plu.IsCheckWeight;
+				UserSession.PluScale.IdentityIsNotNew && !UserSession.PluScale.Plu.IsCheckWeight;
 	}
 
 	private void SetGuiLocalize()

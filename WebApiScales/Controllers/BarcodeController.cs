@@ -14,7 +14,7 @@ namespace WebApiScales.Controllers;
 /// <summary>
 /// Barcode controller v1.
 /// </summary>
-public class BarcodeController : BaseController
+public class BarCodeController : BaseController
 {
     #region Public and private fields and properties
 
@@ -22,7 +22,7 @@ public class BarcodeController : BaseController
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public BarcodeController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public BarCodeController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
