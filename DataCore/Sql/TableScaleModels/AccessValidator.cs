@@ -16,6 +16,10 @@ public class AccessValidator : SqlTableValidator<AccessModel>
     /// </summary>
     public AccessValidator()
     {
+        RuleFor(item => item.LoginDt)
+            .NotEmpty()
+            .NotNull()
+            .GreaterThanOrEqualTo(new DateTime(2000, 01, 01));
         RuleFor(item => item.Name)
 	        .NotEmpty()
 	        .NotNull();

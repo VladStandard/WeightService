@@ -11,7 +11,7 @@ namespace WebApiCore.Common;
 /// Barcode down entity.
 /// </summary>
 [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class BarcodeRightEntity : SerializeDeprecatedModel<BarcodeRightEntity>
+public class BarcodeRightModel : SerializeDeprecatedModel<BarcodeRightModel>
 {
     #region Public and private fields and properties
 
@@ -22,7 +22,7 @@ public class BarcodeRightEntity : SerializeDeprecatedModel<BarcodeRightEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeRightEntity(string const1, string armNumber, string counter)
+    public BarcodeRightModel(string const1, string armNumber, string counter)
     {
         Const1 = const1;
         ArmNumber = armNumber;
@@ -32,11 +32,11 @@ public class BarcodeRightEntity : SerializeDeprecatedModel<BarcodeRightEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeRightEntity(string barcode)
+    public BarcodeRightModel(string barcode)
     {
         // 0  -3    -8
         // 299-00011-00000019
-        if (barcode.Length != 16)
+        if (barcode.Length is not 16)
             return;
         Const1 = barcode.Substring(0, 3);
         ArmNumber = barcode.Substring(3, 5);
@@ -46,7 +46,7 @@ public class BarcodeRightEntity : SerializeDeprecatedModel<BarcodeRightEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeRightEntity()
+    public BarcodeRightModel()
     {
         //
     }

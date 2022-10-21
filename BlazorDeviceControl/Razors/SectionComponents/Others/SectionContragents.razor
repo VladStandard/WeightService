@@ -17,11 +17,11 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ContragentModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@ContragentModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
+        @*<RazorSectionFieldIdentity TItem=@ContragentModel ParentRazor=@(this) />*@
+        @*<RazorSectionField TItem=@ContragentModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />*@
         <RadzenGridColumn 
-            TItem=@ContragentModel Title=@LocaleCore.Table.Name Width="25%" >
+            TItem=@ContragentModel Title=@LocaleCore.Table.Name Width="50%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
                     Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.Identity.Uid}")
@@ -30,8 +30,8 @@
         </RadzenGridColumn>
         <RadzenGridColumn 
             TItem=@ContragentModel Property="FullName" TextAlign=@TextAlign.Left
-            Title=@LocaleCore.Table.Name
-            Type="string" Width="35%" />
+            Title=@LocaleCore.Table.FullName
+            Type="string" Width="50%" />
     </Columns>
 </RadzenGrid>
 

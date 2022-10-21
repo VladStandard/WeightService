@@ -28,6 +28,15 @@
             </td>
         </tr>
         <tr>
+            <td>@LocaleCore.Table.Description</td>
+	        <td colspan=3>
+		        <RadzenTextArea 
+			        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
+			        Disabled=false ReadOnly=true
+                    Value=@GetBarcodeTop(FormatTypeEnum.Xml) Rows=11 />
+	        </td>
+        </tr>
+        <tr>
             <td>@LocaleCore.Table.TypeRight</td>
             <td>
                 <RadzenTextBox 
@@ -41,6 +50,15 @@
                     ReadOnly=true @bind-Value=@SqlItemCast.ValueRight />
             </td>
         </tr>
+	    <tr>
+		    <td>@LocaleCore.Table.Description</td>
+		    <td colspan=3>
+			    <RadzenTextArea 
+				    Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
+				    Disabled=false ReadOnly=true
+				    Value=@GetBarcodeRight(FormatTypeEnum.Xml) Rows=5 />
+		    </td>
+	    </tr>
         <tr>
             <td>@LocaleCore.Table.TypeBottom</td>
             <td>
@@ -55,6 +73,15 @@
                     ReadOnly=true @bind-Value=@SqlItemCast.ValueBottom />
             </td>
         </tr>
+	    <tr>
+		    <td>@LocaleCore.Table.Description</td>
+		    <td colspan=3>
+			    <RadzenTextArea 
+				    Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; " 
+				    Disabled=false ReadOnly=true
+				    Value=@GetBarcodeBottom(FormatTypeEnum.Xml) Rows=10 />
+		    </td>
+	    </tr>
         <tr>
 	        <td>@LocaleCore.Table.Plu</td>
 	        <td>

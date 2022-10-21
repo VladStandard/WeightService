@@ -18,13 +18,15 @@
     <Columns>
         <RazorSectionFieldIsMarked TItem=@HostModel ParentRazor=@(this) />
         <RazorSectionFieldIdentity TItem=@HostModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Hosts.GetLoginDt() />
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetName() />
-        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetHostName() />
-        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19.5%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetDeviceIp() />
-        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("22.5%", true))
+        <RazorSectionField TItem=@HostModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19.5%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Host.GetMacAddressPretty() />
     </Columns>
 </RadzenGrid>

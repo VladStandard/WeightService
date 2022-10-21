@@ -13,10 +13,7 @@ using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql.Core;
-using DataCore.Sql.Fields;
-using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
-using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleModels;
 using DataCore.Utils;
 using MDSoft.BarcodePrintUtils;
@@ -25,16 +22,10 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using System.Linq;
 using DataCore.Helpers;
-using Microsoft.Data.SqlClient;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
-using System.Windows.Shapes;
-using MvvmHelpers.Commands;
-using System.Data;
 using System.Xml;
-using NHibernate.SqlCommand;
-using System.Xml.Linq;
 
 namespace WeightCore.Helpers;
 
@@ -303,7 +294,7 @@ public class UserSessionHelper : BaseViewModel
 			}
 
 			// Scale.
-			Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHostNotNull(Host.Identity.Id) : SqlUtils.GetScaleNotNull(scaleId);
+			Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHostNotNull(Host) : SqlUtils.GetScaleNotNull(scaleId);
 
 			// Area.
 			Area = SqlUtils.GetAreaNotNull(areaName);
@@ -542,20 +533,13 @@ public class UserSessionHelper : BaseViewModel
 #nullable enable
 	public void PrintLabel(bool isClearBuffer)
 	{
-		TemplateModel? template = new();
 		if (Scale is { IsOrder: true })
 		{
 			throw new("Order under construct!");
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
-		else //else if (Scale.IsOrder != true)
-		{
-			if (PluScale.IdentityIsNotNew && PluScale.Plu.IdentityIsNotNew)
-			{
-				template = DataAccess.GetItemTemplate(PluScale.Plu.Template.Identity.Id);
-			}
-		}
-
+		
+		TemplateModel? template = DataAccess.GetItemTemplate(PluScale);
 		// Template exist.
 		if (template is not null && template.IdentityIsNotNew)
 		{
@@ -571,11 +555,10 @@ public class UserSessionHelper : BaseViewModel
 		}
 		
 		PluWeighing = new();
-		SetNewScaleCounter();
 	}
 #nullable disable
 
-	private void SetNewScaleCounter()
+	public void SetNewScaleCounter()
 	{
 		Scale.Counter++;
 		DataAccess.Update(Scale);
@@ -750,15 +733,6 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
     private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
     {
-        //string xmlStringPluWeighing = PluWeighing.SerializeAsXmlString<PluWeighingModel>(true);
-        //string xmlStringProductionFacility = Area.IdentityIsNew ? string.Empty : Area.SerializeAsXmlString<ProductionFacilityModel>(true);
-        //string xmlString = XmlUtils.MergeXml(xmlStringPluWeighing, xmlStringProductionFacility);
-        //PluLabelModel pluLabel = new() { PluWeighing = PluWeighing, ProductDt = ProductDate };
-        //string xmlStringPluLabel = pluLabel.SerializeAsXmlString<PluLabelModel>(true);
-        //xmlString = XmlUtils.XmlCompatibleReplace(xmlString);
-        //xmlString = XmlUtils.MergeXml(xmlString, xmlStringPluLabel);
-        //// XSLT transform.
-        //string printCmd = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlString);
         PluLabelModel pluLabel = new()
         {
 	        PluWeighing = PluWeighing, 
@@ -766,16 +740,11 @@ public class UserSessionHelper : BaseViewModel
 	        ProductDt = ProductDate,
         };
 
-		// XSLT transform.
 		XmlDocument xmlArea = Area.SerializeAsXmlDocument<ProductionFacilityModel>(true);
-        //string zplArea = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, xmlArea.OuterXml);
-        //zplArea = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(zplArea);
-        //zplArea = XmlUtils.PrintCmdReplaceZplResources(zplArea);
-
-		// XSLT transform.
 		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
 		pluLabel.Xml = XmlUtils.XmlMerge(pluLabel.Xml, xmlArea);
-        pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
+		pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
+        pluLabel.Zpl = XmlUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         pluLabel.Zpl = XmlUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
 

@@ -13,7 +13,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual DateTime AccessDt { get; set; }
+	[XmlElement] public virtual DateTime LoginDt { get; set; }
 	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string HostName { get; set; }
 	[XmlElement] public virtual string Ip { get; set; }
@@ -30,7 +30,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
 	public HostModel() : base(SqlFieldIdentityEnum.Id)
 	{
-		AccessDt = DateTime.MinValue;
+		LoginDt = DateTime.MinValue;
 		Name = string.Empty;
 		HostName = string.Empty;
 		Ip = string.Empty;
@@ -44,7 +44,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	private HostModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		AccessDt = info.GetDateTime(nameof(AccessDt));
+		LoginDt = info.GetDateTime(nameof(LoginDt));
 		Name = info.GetString(nameof(Name));
 		HostName = info.GetString(nameof(HostName));
 		Ip = info.GetString(nameof(Ip));
@@ -77,7 +77,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
             return false;
         return 
 	        base.EqualsDefault() &&
-            Equals(AccessDt, DateTime.MinValue) &&
+            Equals(LoginDt, DateTime.MinValue) &&
             Equals(Name, string.Empty) &&
             Equals(HostName, string.Empty) &&
             Equals(Ip, string.Empty);
@@ -86,7 +86,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override object Clone()
     {
         HostModel item = new();
-        item.AccessDt = AccessDt;
+        item.LoginDt = LoginDt;
         item.Name = Name;
         item.HostName = HostName;
         item.Ip = Ip;
@@ -103,7 +103,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(AccessDt), AccessDt);
+		info.AddValue(nameof(LoginDt), LoginDt);
 		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(HostName), HostName);
 		info.AddValue(nameof(Ip), Ip);
@@ -117,7 +117,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Ip = LocaleCore.Sql.SqlItemFieldIp;
 		MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
 		HostName = LocaleCore.Sql.SqlItemFieldHostName;
-		AccessDt = DateTime.Now;
+		LoginDt = DateTime.Now;
 	}
 
 	#endregion
@@ -130,7 +130,7 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		if (!MacAddress.Equals(item.MacAddress))
 			return false;
 		return base.Equals(item) &&
-		       Equals(AccessDt, item.AccessDt) &&
+		       Equals(LoginDt, item.LoginDt) &&
 		       Equals(Name, item.Name) &&
 		       Equals(HostName, item.HostName) &&
 		       Equals(Ip, item.Ip);

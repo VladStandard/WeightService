@@ -15,7 +15,7 @@ public class HostValidator : SqlTableValidator<HostModel>
 	/// </summary>
 	public HostValidator()
 	{
-		RuleFor(item => item.AccessDt)
+		RuleFor(item => item.LoginDt)
 			.NotEmpty()
 			.NotNull()
 			.LessThanOrEqualTo(DateTime.Now.Date.AddDays(1));

@@ -33,6 +33,7 @@ public class LocaleTable
     public string CategoryId => Lang == LangEnum.English ? "Category ID" : "ИД категории";
     public string CategoryName => Lang == LangEnum.English ? "Category" : "Категория";
     public string ChangeDt => Lang == LangEnum.English ? "Edited" : "Изменено";
+    public string LoginDt => Lang == LangEnum.English ? "Logged" : "Залогирован";
     public string CheckGtin => Lang == LangEnum.English ? "GTIN" : "ГТИН";
     public string CheckWeight => Lang == LangEnum.English ? "Weighing products" : "Весовая продукция";
     public string Code => Lang == LangEnum.English ? "Code" : "Код";

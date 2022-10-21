@@ -80,7 +80,7 @@ internal class TestControllerTests
         Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
         if (!string.IsNullOrEmpty(response.Content))
         {
-            ServiceInfoEntity? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoEntity>(response.Content);
+            ServiceInfoModel? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoModel>(response.Content);
             Assert.IsTrue(serviceInfo != null);
             Assert.IsTrue(serviceInfo?.App.StartsWith("WebApi", System.StringComparison.InvariantCultureIgnoreCase));
         }

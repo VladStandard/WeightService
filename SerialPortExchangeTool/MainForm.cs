@@ -7,6 +7,7 @@ using System.IO.Ports;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
+using DataCore.Utils;
 
 namespace SerialPortExchangeTool;
 
@@ -29,9 +30,9 @@ public partial class MainForm : Form
 
         Initialize();
         PortController = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
-        statusTimeLabel.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-        toolStripStatusTx.Text = "Sent: 0";
-        toolStripStatusRx.Text = "Received: 0";
+        statusTimeLabel.Text = StringUtils.FormatDtRus(DateTime.Now, true);
+        toolStripStatusTx.Text = @"Sent: 0";
+        toolStripStatusRx.Text = @"Received: 0";
         MaximizeBox = false;
         MinimizeBox = false;
     }

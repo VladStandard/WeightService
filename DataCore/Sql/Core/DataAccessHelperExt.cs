@@ -61,7 +61,7 @@ public static partial class DataAccessHelperExt
 				{
 					CreateDt = Convert.ToDateTime(obj[1]),
 					ChangeDt = Convert.ToDateTime(obj[2]),
-					AccessDt = Convert.ToDateTime(obj[3]),
+					LoginDt = Convert.ToDateTime(obj[3]),
 					Name = Convert.ToString(obj[4]),
 					Ip = Convert.ToString(obj[5]),
 					MacAddress = new(Convert.ToString(obj[6])),
@@ -87,7 +87,7 @@ public static partial class DataAccessHelperExt
 				{
 					CreateDt = Convert.ToDateTime(obj[1]),
 					ChangeDt = Convert.ToDateTime(obj[2]),
-					AccessDt = Convert.ToDateTime(obj[3]),
+					LoginDt = Convert.ToDateTime(obj[3]),
 					Name = Convert.ToString(obj[4]),
 					Ip = Convert.ToString(obj[7]),
 					MacAddress = new(Convert.ToString(obj[8])),

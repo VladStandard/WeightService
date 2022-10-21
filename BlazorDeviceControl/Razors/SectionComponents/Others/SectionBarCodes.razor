@@ -17,21 +17,41 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@BarCodeModel ParentRazor=@(this) />
-        <RazorSectionField 
-            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
-        <RazorSectionField 
-            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("28%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValueTop() />
-        <RazorSectionField 
-            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValueRight() />
-        <RazorSectionField 
-            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("28%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetValueBottom() />
-        <RazorSectionField 
-            TItem=@BarCodeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.BarCode.GetPluLabelChangeDt() />
+        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ChangeDt Width="12%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueTop Width="28%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+			        Text=@itemCast.ValueTop />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueRight Width="15%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+			        Text=@itemCast.ValueRight />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueBottom Width="28%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+			        Text=@itemCast.ValueBottom />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.Label Width="12%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.PluLabel.Identity.Uid}")
+					Text=@(StringUtils.FormatDtRus(itemCast.PluLabel.ChangeDt, true)) />
+	        </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 

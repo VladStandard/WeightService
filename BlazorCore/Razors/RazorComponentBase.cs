@@ -137,8 +137,10 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		AccessModel? access = DataAccessHelper.Instance.GetItemAccess(userName);
 		if (access is null) return;
+        access.LoginDt = DateTime.Now;
+        DataAccessHelper.Instance.Update(access);
 
-		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
+        UserSettings = new(userName, (AccessRightsEnum)access.Rights);
 
 		if (ParentRazor is not null)
 		{

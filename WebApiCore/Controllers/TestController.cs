@@ -49,7 +49,7 @@ public class TestController : BaseController
 			string response = sqlQuery.UniqueResult<string>();
 			transaction.Commit();
 
-			return new ServiceInfoEntity(AppVersion.App, AppVersion.Version,
+			return new ServiceInfoModel(AppVersion.App, AppVersion.Version,
 				DateTime.Now.ToString(CultureInfo.InvariantCulture),
 				response.ToString(CultureInfo.InvariantCulture),
 				session.Connection.ConnectionString.ToString(),
@@ -70,7 +70,7 @@ public class TestController : BaseController
 		{
 			string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
 
-			return new SqlSimpleV1Entity(response).GetResult(format, HttpStatusCode.OK);
+			return new SqlSimpleV1Model(response).GetResult(format, HttpStatusCode.OK);
 		}), format);
 
 	[AllowAnonymous]
@@ -84,19 +84,19 @@ public class TestController : BaseController
 			{
 				case 1:
 					string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
-					return SqlSimpleV1Entity.DeserializeFromXml(response1).GetResult(format, HttpStatusCode.OK);
+					return SqlSimpleV1Model.DeserializeFromXml(response1).GetResult(format, HttpStatusCode.OK);
 				case 2:
 					string response2 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
-					return SqlSimpleV2Entity.DeserializeFromXml(response2).GetResult(format, HttpStatusCode.OK);
+					return SqlSimpleV2Model.DeserializeFromXml(response2).GetResult(format, HttpStatusCode.OK);
 				case 3:
 					string response3 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
-					return SqlSimpleV3Entity.DeserializeFromXml(response3).GetResult(format, HttpStatusCode.OK);
+					return SqlSimpleV3Model.DeserializeFromXml(response3).GetResult(format, HttpStatusCode.OK);
 				case 4:
 					string response4 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
-					return SqlSimpleV4Entity.DeserializeFromXml(response4).GetResult(format, HttpStatusCode.OK);
+					return SqlSimpleV4Model.DeserializeFromXml(response4).GetResult(format, HttpStatusCode.OK);
 			}
 
-			return new SqlSimpleV1Entity("Simple method from C Sharp").GetResult(format, HttpStatusCode.OK);
+			return new SqlSimpleV1Model("Simple method from C Sharp").GetResult(format, HttpStatusCode.OK);
 		}), format);
 	}
 

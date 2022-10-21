@@ -17,7 +17,9 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
 		<RazorSectionFieldIsMarked TItem=@AccessModel ParentRazor=@(this) />
-		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("70%", true))
+		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetLoginDt() />
+		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
 			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetUser() />
 		<RazorSectionField TItem=@AccessModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", false))
 			RazorFieldConfig=@RazorFieldConfigUtils.Access.GetRights() />

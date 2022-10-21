@@ -7,27 +7,29 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Common;
 
-[XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlResponseContragentsEntity : SerializeDeprecatedModel<SqlResponseContragentsEntity>
+[XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
+public class ServiceReplyModel : SerializeDeprecatedModel<ServiceReplyModel>
 {
     #region Public and private fields and properties
 
-    [XmlElement(TerraConsts.Simple)]
-    public SqlSimpleV1Entity Item { get; set; } = new();
+    /// <summary>
+    /// Message.
+    /// </summary>
+    public string Message { get; set; } = string.Empty;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="description"></param>
-    public SqlResponseContragentsEntity(string description)
+    /// <param name="message"></param>
+    public ServiceReplyModel(string message)
     {
-        Item = new(description);
+        Message = message;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlResponseContragentsEntity()
+    public ServiceReplyModel()
     {
         //
     }
@@ -38,7 +40,8 @@ public class SqlResponseContragentsEntity : SerializeDeprecatedModel<SqlResponse
 
     public override string ToString()
     {
-        return @$"{nameof(Item)}: {Item}";
+        return
+            @$"{nameof(Message)}: {Message}. ";
     }
 
     #endregion

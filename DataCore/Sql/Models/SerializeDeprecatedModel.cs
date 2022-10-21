@@ -118,11 +118,22 @@ public class SerializeDeprecatedModel<T> where T : new()
     {
         return format switch
         {
-            //FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
             FormatTypeEnum.Json => GetResult(format, XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()), statusCode),
             FormatTypeEnum.Xml => GetResult(format, SerializeAsXml(), statusCode),
             FormatTypeEnum.Html => GetResult(format, SerializeAsHtml(), statusCode),
             FormatTypeEnum.Text or FormatTypeEnum.Raw => GetResult(format, SerializeAsText(), statusCode),
+            _ => throw GetArgumentException(nameof(format)),
+        };
+    }
+
+    public string GetContent(FormatTypeEnum format)
+    {
+        return format switch
+        {
+            FormatTypeEnum.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
+            FormatTypeEnum.Xml => XmlUtils.GetPrettyXml(SerializeAsXml()),
+            FormatTypeEnum.Html => SerializeAsHtml(),
+            FormatTypeEnum.Text or FormatTypeEnum.Raw => SerializeAsText(),
             _ => throw GetArgumentException(nameof(format)),
         };
     }

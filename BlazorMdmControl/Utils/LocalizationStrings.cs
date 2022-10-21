@@ -177,7 +177,7 @@ public static class LocalizationStrings
 	public const string TableFieldArticle = @"Артикуль";
 	public const string TableFieldWeighted = @"Взвешено";
 	public const string TableFieldLine = @"Линия";
-	public const string TableFieldPluDescription = @"Для переноса строки используйте символ `|`";
+	//public const string TableFieldPluDescription = @"Для переноса строки используйте символ `|`";
 	public const string TableFieldType = @"Тип";
 	public const string TableFieldTitle = @"Заголовок";
 	public const string TableFieldCategoryId = @"ID категории";

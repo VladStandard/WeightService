@@ -8,7 +8,7 @@ using WebApiCore.Utils;
 namespace WebApiCore.Common;
 
 [XmlRoot(TerraConsts.Exception, Namespace = "", IsNullable = false)]
-public class ServiceExceptionEntity : SerializeDeprecatedModel<ServiceExceptionEntity>
+public class ServiceExceptionModel : SerializeDeprecatedModel<ServiceExceptionModel>
 {
     #region Public and private fields and properties
 
@@ -25,19 +25,19 @@ public class ServiceExceptionEntity : SerializeDeprecatedModel<ServiceExceptionE
     /// <param name="lineNumber"></param>
     /// <param name="memberName"></param>
     /// <param name="ex"></param>
-    public ServiceExceptionEntity(string filePath, int lineNumber, string memberName, Exception ex)
+    public ServiceExceptionModel(string filePath, int lineNumber, string memberName, Exception ex)
     {
         FilePath = filePath;
         LineNumber = lineNumber;
         MemberName = memberName;
         Exception = ex.Message;
-        InnerException = ex.InnerException != null ? ex.InnerException.Message : string.Empty;
+        InnerException = ex.InnerException is not null ? ex.InnerException.Message : string.Empty;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ServiceExceptionEntity()
+    public ServiceExceptionModel()
     {
         //
     }

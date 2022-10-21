@@ -247,7 +247,7 @@ public static class GuiUtils
                     MacAddress = new(mac),
                     CreateDt = DateTime.Now,
                     ChangeDt = DateTime.Now,
-                    AccessDt = DateTime.Now,
+                    LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
                 DataAccess.Save(host);

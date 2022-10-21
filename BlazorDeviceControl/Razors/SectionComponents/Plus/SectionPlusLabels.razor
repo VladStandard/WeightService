@@ -5,7 +5,7 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorSectionReload TItem=@PluLabelModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.System.SystemLogs />
+<RazorSectionReload TItem=@PluLabelModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionLabels />
 
 <RadzenGrid 
 	PagerHorizontalAlign=@HorizontalAlign.Justify
@@ -17,7 +17,7 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@PluLabelModel ParentRazor=@(this) />
-        <RadzenGridColumn TItem=@PluLabelModel Width="10%" Title=@LocaleCore.Table.ChangeDt TextAlign=@TextAlign.Center >
+        <RadzenGridColumn TItem=@PluLabelModel Width="12%" Title=@LocaleCore.Table.ChangeDt TextAlign=@TextAlign.Center >
 	        <Template Context="itemCast">
 		        <RadzenLink 
 			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.Identity.Uid}")
@@ -38,7 +38,7 @@
 			        Text=@(StringUtils.FormatDtRus(itemCast.ExpirationDt, false, false)) />
 	        </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Scale Width="18%" TextAlign=@TextAlign.Left >
+        <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Scale Width="16%" TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
 				<RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.PluScale.Scale.Identity.Id}")
 			        Text=@(itemCast.PluScale.Scale.Description)/>
@@ -70,7 +70,7 @@
 				{
 					<RadzenLink 
 						Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{itemCast.PluWeighing.IdentityValueUid}")
-				        Text=@(itemCast.PluWeighing.ChangeDt.ToString("dd.MM.yyyy HH:mm.ss"))/>
+				        Text=@(StringUtils.FormatDtRus(itemCast.PluWeighing.ChangeDt, true)) />
 				}
 	        </Template>
         </RadzenGridColumn>

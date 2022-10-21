@@ -31,7 +31,7 @@ public static class TerraUtils
             XDocument doc = null;
             if (response.Contains("<Error "))
             {
-                SqlSimpleV1Entity error = JsonConvert.DeserializeObject<SqlSimpleV1Entity>(response);
+                SqlSimpleV1Model error = JsonConvert.DeserializeObject<SqlSimpleV1Model>(response);
                 doc = new(
                     new XElement(TerraConsts.Response,
                         new XElement(TerraConsts.Error, new XAttribute(TerraConsts.Description, error.Description))
@@ -82,7 +82,7 @@ public static class TerraUtils
             using ITransaction transaction = session.BeginTransaction();
             ISQLQuery sqlQuery = session.CreateSQLQuery(query);
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
-            if (parameter != null)
+            if (parameter is not null)
             {
                 sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
             }

@@ -8,7 +8,7 @@
 //namespace WebApiTerra1000.Common
 //{
 //    [XmlRoot(TerraConsts.Items, Namespace = "", IsNullable = false)]
-//    public class SqlItemsEntity : BaseSerializeEntity<SqlItemsEntity>
+//    public class SqlItemsModel : BaseSerializeEntity<SqlItemsEntity>
 //    {
 //        #region Public and private fields and properties
 

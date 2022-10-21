@@ -40,7 +40,7 @@ public class ControllerHelper
         catch (Exception ex)
         {
             filePath = Path.GetFileName(filePath);
-            ServiceExceptionEntity serviceException = new(filePath, lineNumber, memberName, ex);
+            ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
             return serviceException.GetResult(format, HttpStatusCode.OK);
         }
         finally

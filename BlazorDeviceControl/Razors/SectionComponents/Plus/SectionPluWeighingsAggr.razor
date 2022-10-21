@@ -22,7 +22,7 @@
 	        <Template Context="itemCast" >
 		        <RadzenText 
 			        TextAlign=@TextAlign.Center TextStyle=@TextStyle.Body2
-			        Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
+			        Text=@(StringUtils.FormatDtRus(itemCast.WeithingDate, true)) />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 

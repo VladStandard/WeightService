@@ -11,7 +11,7 @@ namespace WebApiCore.Common;
 /// Barcode down entity.
 /// </summary>
 [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class BarcodeDownEntity : SerializeDeprecatedModel<BarcodeDownEntity>
+public class BarcodeBottomModel : SerializeDeprecatedModel<BarcodeBottomModel>
 {
     #region Public and private fields and properties
 
@@ -27,7 +27,7 @@ public class BarcodeDownEntity : SerializeDeprecatedModel<BarcodeDownEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeDownEntity(string const1, string gtin, string const2, string weight, string const3, string date, string const4, string partNumber)
+    public BarcodeBottomModel(string const1, string gtin, string const2, string weight, string const3, string date, string const4, string partNumber)
     {
         Const1 = const1;
         Gtin = gtin;
@@ -42,11 +42,11 @@ public class BarcodeDownEntity : SerializeDeprecatedModel<BarcodeDownEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeDownEntity(string barcode)
+    public BarcodeBottomModel(string barcode)
     {
         // 0 -2             -16  -20    -26-28    -34-36
-        // 01-12600771000008-3103-000400-11-220714-10-2207
-        if (barcode.Length != 40)
+        // 01-12600076000000-3103-007440-11-221021-10-2210
+        if (barcode.Length is not 40)
             return;
         Const1 = barcode.Substring(0, 2);
         Gtin = barcode.Substring(2, 14);
@@ -61,7 +61,7 @@ public class BarcodeDownEntity : SerializeDeprecatedModel<BarcodeDownEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeDownEntity()
+    public BarcodeBottomModel()
     {
         //
     }

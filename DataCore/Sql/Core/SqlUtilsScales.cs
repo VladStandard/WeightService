@@ -46,12 +46,12 @@ public static partial class SqlUtils
 		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	}
 
-	public static ScaleModel GetScaleFromHostNotNull(long? hostId)
+	public static ScaleModel GetScaleFromHostNotNull(HostModel host)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
             new List<SqlFieldFilterModel>
             { 
-                new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, hostId), 
+                new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, host.IdentityValueId), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             },
 			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);

@@ -11,7 +11,7 @@ namespace WebApiCore.Common;
 /// Barcode top entity.
 /// </summary>
 [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class BarcodeTopEntity : SerializeDeprecatedModel<BarcodeTopEntity>
+public class BarcodeTopModel : SerializeDeprecatedModel<BarcodeTopModel>
 {
     #region Public and private fields and properties
 
@@ -28,7 +28,7 @@ public class BarcodeTopEntity : SerializeDeprecatedModel<BarcodeTopEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopEntity(string const1, string armNumber, string counter, string date, string time, string plu, string weight, 
+    public BarcodeTopModel(string const1, string armNumber, string counter, string date, string time, string plu, string weight, 
         string zames, string crc)
     {
         Const1 = const1;
@@ -45,7 +45,7 @@ public class BarcodeTopEntity : SerializeDeprecatedModel<BarcodeTopEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopEntity(string barcode, bool useCrc)
+    public BarcodeTopModel(string barcode, bool useCrc)
     {
         // 0  -3    -8       -16    -22    -28 -31   -36 -39
         // 298-00428-00000018-220722-164810-106-01475-001-0
@@ -67,7 +67,7 @@ public class BarcodeTopEntity : SerializeDeprecatedModel<BarcodeTopEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopEntity()
+    public BarcodeTopModel()
     {
         //
     }

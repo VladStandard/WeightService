@@ -8,18 +8,18 @@ using WebApiCore.Utils;
 namespace WebApiCore.Common;
 
 [XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlSimpleV2Entity : SerializeDeprecatedModel<SqlSimpleV2Entity>
+public class SqlResponseContragentsModel : SerializeDeprecatedModel<SqlResponseContragentsModel>
 {
     #region Public and private fields and properties
 
     [XmlElement(TerraConsts.Simple)]
-    public SqlSimpleV1Entity Item { get; set; } = new();
+    public SqlSimpleV1Model Item { get; set; } = new();
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="description"></param>
-    public SqlSimpleV2Entity(string description)
+    public SqlResponseContragentsModel(string description)
     {
         Item = new(description);
     }
@@ -27,7 +27,7 @@ public class SqlSimpleV2Entity : SerializeDeprecatedModel<SqlSimpleV2Entity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlSimpleV2Entity()
+    public SqlResponseContragentsModel()
     {
         //
     }

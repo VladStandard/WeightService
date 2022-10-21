@@ -10,13 +10,18 @@ namespace BlazorCore.Utils;
 
 public static class RazorFieldConfigUtils
 {
-    public static class Access
-    {
+	public static class Access
+	{
 		public static RazorFieldConfigModel GetRights() => new(nameof(AccessModel.Rights), TextAlign.Left, LocaleCore.Table.AccessLevel);
 		public static RazorFieldConfigModel GetUser() => new(nameof(AccessModel.Name), TextAlign.Left, LocaleCore.Table.User);
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(AccessModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
+	}
+	public static class Hosts
+	{
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(HostModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
 	}
 
-    public static class BarCode
+	public static class BarCode
 	{
 		public static RazorFieldConfigModel GetTypeTop() => new(nameof(BarCodeModel.TypeTop), TextAlign.Left, LocaleCore.Table.Type);
         public static RazorFieldConfigModel GetValueTop() => new(nameof(BarCodeModel.ValueTop), TextAlign.Left, LocaleCore.Table.Value);

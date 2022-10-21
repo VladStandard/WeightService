@@ -19,7 +19,7 @@ public class HostMap : ClassMap<HostModel>
         Id(x => x.IdentityValueId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-        Map(x => x.AccessDt).CustomSqlType("DATETIME").Column("ACCESS_DT").Not.Nullable();
+        Map(x => x.LoginDt).CustomSqlType("DATETIME").Column("LOGIN_DT").Not.Nullable();
         Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(150).Nullable();
         Map(x => x.HostName).CustomSqlType("NVARCHAR").Column("HOSTNAME").Length(255).Nullable();
         Map(x => x.Ip).CustomSqlType("VARCHAR").Column("IP").Length(15).Nullable();

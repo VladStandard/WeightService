@@ -12,9 +12,10 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
+    [XmlElement] public virtual DateTime LoginDt { get; set; }
+    [XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual byte Rights { get; set; }
 	[XmlIgnore] public virtual AccessRightsEnum RightsEnum => (AccessRightsEnum)Rights;
 
@@ -23,7 +24,8 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
 	public AccessModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		Name = string.Empty;
+        LoginDt = DateTime.MinValue;
+        Name = string.Empty;
 		Rights = 0x00;
 	}
 
@@ -34,6 +36,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	private AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        LoginDt = info.GetDateTime(nameof(LoginDt));
         Name = info.GetString(nameof(Name));
         Rights = info.GetByte(nameof(Rights));
     }
@@ -85,6 +88,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+		info.AddValue(nameof(LoginDt), LoginDt);
 		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Rights), Rights);
 	}
@@ -92,6 +96,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void FillProperties()
     {
 		base.FillProperties();
+        LoginDt = DateTime.Now;
 		Name = LocaleCore.Sql.SqlItemFieldName;
 		Rights = (byte)AccessRightsEnum.None;
     }
@@ -103,9 +108,11 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public virtual bool Equals(AccessModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name) &&
-		       Equals(Rights, item.Rights);
+		return 
+            base.Equals(item) &&
+		    Equals(LoginDt, item.LoginDt) &&
+		    Equals(Name, item.Name) &&
+		    Equals(Rights, item.Rights);
 	}
 
 	public new virtual AccessModel CloneCast() => (AccessModel)Clone();

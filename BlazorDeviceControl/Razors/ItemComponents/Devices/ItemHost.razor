@@ -14,6 +14,14 @@
 	<tbody>
 		<RazorItemTableBody TItem=@HostModel ParentRazor=@(this) />
 		<tr>
+			<td>@LocaleCore.Table.LoginDt</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.LoginDt, true)) />
+			</td>
+		</tr>
+		<tr>
 			<td>@LocaleCore.Table.NamePretty</td>
 			<td>
 				<RadzenTextBox Style="width: 100%; " @bind-Value=@SqlItemCast.Name/>

@@ -43,12 +43,8 @@ public class BarCodeController : BaseController
     [Route("api/v3/barcode/top/")]
     public ContentResult GetBarcodeTop(string barcode, bool useCrc = false, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
-        return ControllerHelp.RunTask(new(() =>
-        {
-            //string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV1);
-            //return SqlSimpleV1Entity.DeserializeFromXml(response1).GetResult(format, HttpStatusCode.OK);
-            return new BarcodeTopEntity(barcode, useCrc).GetResult(format, HttpStatusCode.OK);
-        }), format);
+        return ControllerHelp.RunTask(new(() => 
+            new BarcodeTopModel(barcode, useCrc).GetResult(format, HttpStatusCode.OK)), format);
     }
 
     /// <summary>
@@ -62,10 +58,8 @@ public class BarCodeController : BaseController
     [Route("api/v3/barcode/bottom/")]
     public ContentResult GetBarcodeBottom(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
-        return ControllerHelp.RunTask(new(() =>
-        {
-            return new BarcodeDownEntity(barcode).GetResult(format, HttpStatusCode.OK);
-        }), format);
+        return ControllerHelp.RunTask(new(() => 
+            new BarcodeBottomModel(barcode).GetResult(format, HttpStatusCode.OK)), format);
     }
 
     /// <summary>
@@ -79,10 +73,8 @@ public class BarCodeController : BaseController
     [Route("api/v3/barcode/right/")]
     public ContentResult GetBarcodeRight(string barcode, FormatTypeEnum format = FormatTypeEnum.Xml)
     {
-        return ControllerHelp.RunTask(new(() =>
-        {
-            return new BarcodeRightEntity(barcode).GetResult(format, HttpStatusCode.OK);
-        }), format);
+        return ControllerHelp.RunTask(new(() => 
+            new BarcodeRightModel(barcode).GetResult(format, HttpStatusCode.OK)), format);
     }
 
     #endregion

@@ -47,13 +47,13 @@ public class ProductSeriesDirect : SqlSerializeBase, ISerializable
 
     public void Load()
     {
-        if (Scale == null || Scale.Identity.Id == default) 
+        if (Scale is null || Scale.IdentityIsNew) 
         {
             throw new("Equipment instance not identified. Set [Scale].");
         }
 
         SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
-            new("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.Identity.Id }, (SqlDataReader reader) =>
+            new("@SCALE_ID", SqlDbType.VarChar, 38) { Value = Scale.IdentityValueId }, reader =>
             {
                 byte count = 0;
                 while (reader.Read())

@@ -38,14 +38,14 @@ public static class XmlUtils
 	/// Get pretty formatted XML string.
 	/// </summary>
 	/// <param name="xml"></param>
-	private static string GetPrettyXml(string xml) => 
+	public static string GetPrettyXml(string xml) => 
 		string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
 
-	/// <summary>
-	/// Get pretty formatted JSON string.
-	/// </summary>
-	/// <param name="json"></param>
-	private static string GetPrettyJson(string json) => 
+    /// <summary>
+    /// Get pretty formatted JSON string.
+    /// </summary>
+    /// <param name="json"></param>
+    public static string GetPrettyJson(string json) => 
 		string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
 
 	public static XmlDocument XmlCompatibleReplace(XmlDocument xmlDocument)
@@ -57,7 +57,6 @@ public static class XmlUtils
 
 	private static string XmlCompatibleReplace(string xml)
 	{
-		//string result = xml;
 		if (string.IsNullOrEmpty(xml)) return xml;
 
 		xml = xml.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
@@ -65,8 +64,13 @@ public static class XmlUtils
 		xml = xml.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
 		xml = xml.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
 		xml = xml.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
-		//result = result.Replace(nameof(SqlViewModelHelper.Instance.Area), "address");
 
+		return xml;
+	}
+
+	public static string XmlReplaceNextLine(string xml)
+	{
+		xml = xml.Replace("|", "\\&");
 		return xml;
 	}
 

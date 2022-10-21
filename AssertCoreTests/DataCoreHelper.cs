@@ -203,6 +203,7 @@ public class DataCoreHelper
 			case AccessModel access:
 				access.Name = LocaleCore.Sql.SqlItemFieldName;
 				access.Rights = (byte)AccessRightsEnum.None;
+				access.LoginDt = DateTime.Now;
 				break;
 			case AppModel app:
 				app.Name = LocaleCore.Sql.SqlItemFieldName;
@@ -226,7 +227,7 @@ public class DataCoreHelper
 				host.Ip = LocaleCore.Sql.SqlItemFieldIp;
 				host.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
 				host.HostName = LocaleCore.Sql.SqlItemFieldHostName;
-				host.AccessDt = DateTime.Now;
+				host.LoginDt = DateTime.Now;
 				break;
 			case LogModel log:
 				log.Version = LocaleCore.Sql.SqlItemFieldVersion;

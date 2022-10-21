@@ -8,7 +8,7 @@ using WebApiCore.Utils;
 namespace WebApiCore.Common;
 
 [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class ServiceInfoEntity : SerializeDeprecatedModel<ServiceInfoEntity>
+public class ServiceInfoModel : SerializeDeprecatedModel<ServiceInfoModel>
 {
     #region Public and private fields and properties
 
@@ -38,7 +38,7 @@ public class ServiceInfoEntity : SerializeDeprecatedModel<ServiceInfoEntity>
     /// <param name="database"></param>
     /// <param name="physicalMegaBytes"></param>
     /// <param name="virtualMegaBytes"></param>
-    public ServiceInfoEntity(string description, string version, string winCurrentDate, string sqlCurrentDate, string connectionString,
+    public ServiceInfoModel(string description, string version, string winCurrentDate, string sqlCurrentDate, string connectionString,
         int connectTimeout, string dataSource, string serverVersion, string database, ulong physicalMegaBytes, ulong virtualMegaBytes)
     {
         App = description;
@@ -57,7 +57,7 @@ public class ServiceInfoEntity : SerializeDeprecatedModel<ServiceInfoEntity>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ServiceInfoEntity()
+    public ServiceInfoModel()
     {
         //
     }

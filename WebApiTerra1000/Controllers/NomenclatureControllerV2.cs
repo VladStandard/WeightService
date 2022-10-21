@@ -80,7 +80,7 @@ public class NomenclatureControllerV2 : BaseController
     public ContentResult GetNomenclaturesProdDeprecated(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            return new ServiceReplyEntity("Deprecated method. Use: api/nomenclatures/")
+            return new ServiceReplyModel("Deprecated method. Use: api/nomenclatures/")
             .GetResult(format, HttpStatusCode.OK);
         }), format);
 
@@ -105,7 +105,7 @@ public class NomenclatureControllerV2 : BaseController
     public ContentResult GetNomenclaturesPreviewDeprecated(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            return new ServiceReplyEntity("Deprecated method. Use: api/nomenclatures_preview/")
+            return new ServiceReplyModel("Deprecated method. Use: api/nomenclatures_preview/")
             .GetResult(format, HttpStatusCode.OK);
         }), format);
 

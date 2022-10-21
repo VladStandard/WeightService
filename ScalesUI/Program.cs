@@ -56,7 +56,7 @@ internal static class Program
 			}
 
 			// Scale.
-			ScaleModel scale = SqlUtils.GetScaleFromHostNotNull(host.Identity.Id);
+			ScaleModel scale = SqlUtils.GetScaleFromHostNotNull(host);
 			if (scale.IdentityIsNew)
 			{
 				string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);

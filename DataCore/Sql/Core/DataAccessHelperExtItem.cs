@@ -35,10 +35,13 @@ public static partial class DataAccessHelperExt
 		return dataAccess.GetItem<ProductSeriesModel>(sqlCrudConfig);
 	}
 
-	public static TemplateModel? GetItemTemplate(this DataAccessHelper dataAccess, long id)
+	public static TemplateModel? GetItemTemplate(this DataAccessHelper dataAccess, PluScaleModel pluScale)
 	{
+		if (!pluScale.IdentityIsNotNew || !pluScale.Plu.IdentityIsNotNew) return null;
+
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
+			new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, 
+				pluScale.Plu.Template.IdentityValueId), 
 			0, false, false);
 		return dataAccess.GetItem<TemplateModel>(sqlCrudConfig);
 	}
@@ -94,13 +97,13 @@ public static partial class DataAccessHelperExt
 					ChangeDt = DateTime.Now,
 					IsMarked = false,
 					Ip = NetUtils.GetLocalIpAddress(),
-					AccessDt = DateTime.Now,
+					LoginDt = DateTime.Now,
 				};
 				dataAccess.Save(item);
 			}
 			else
 			{
-				item.AccessDt = DateTime.Now;
+				item.LoginDt = DateTime.Now;
 				dataAccess.Update(item);
 			}
 		}
@@ -116,7 +119,7 @@ public static partial class DataAccessHelperExt
 			item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 			if (item is not null && !item.EqualsDefault())
 			{
-				item.AccessDt = DateTime.Now;
+				item.LoginDt = DateTime.Now;
 				dataAccess.Update(item);
 			}
 		}
