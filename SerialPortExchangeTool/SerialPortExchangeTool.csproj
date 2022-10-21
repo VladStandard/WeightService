@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.7.360.0</ApplicationVersion>
+    <ApplicationVersion>0.7.370.0</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -147,6 +147,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\DataCore\DataCore.csproj">
+      <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
+      <Name>DataCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MDSoft.SerialPorts\MDSoft.SerialPorts.csproj">
       <Project>{889e1126-2da8-4196-a083-5a163cc41864}</Project>
       <Name>MDSoft.SerialPorts</Name>
