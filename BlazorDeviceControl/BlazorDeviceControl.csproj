@@ -114,6 +114,7 @@
     <Watch Remove="Razors\ItemComponents\RazorItemTableBody.razor" />
     <Watch Remove="Razors\ItemComponents\RazorItemTableHead.razor" />
     <Watch Remove="Razors\RazorActionLoad.razor" />
+    <Watch Remove="Razors\SectionComponents\Devices\SectionDevices.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsNones.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsStops.razor" />

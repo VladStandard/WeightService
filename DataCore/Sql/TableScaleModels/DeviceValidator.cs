@@ -30,13 +30,10 @@ public class DeviceValidator : SqlTableValidator<DeviceModel>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Description)
-            .NotEmpty()
             .NotNull();
-        //RuleFor(item => item.Ipv4)
-	       // .NotEmpty()
-	       // .NotNull();
-        // RuleFor(item => (item).MacAddressValue)
-        // 	.NotEmpty()
-        // 	.NotNull();
+        RuleFor(item => item.Ipv4)
+	       .NotNull();
+        RuleFor(item => (item).MacAddressValue)
+			.NotNull();
     }
 }

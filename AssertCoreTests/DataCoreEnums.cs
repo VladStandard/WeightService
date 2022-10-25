@@ -185,6 +185,7 @@ public static class DataCoreEnums
 		new ContragentModel(),
 		new DeviceModel(),
 		new DeviceTypeModel(),
+		new DeviceTypeFkModel(),
 		new HostModel(),
 		new LogModel(),
 		new LogTypeModel(),
@@ -212,43 +213,6 @@ public static class DataCoreEnums
 		new WorkShopModel(),
 	};
 
-	///// <summary>
-	///// List of models SqlTableBase.
-	///// </summary>
-	///// <returns></returns>
-	//public static List<SqlTableBase> GetSqlTableModels(bool flag) => new()
-	//{
-	//	new AccessModel(),
-	//	new AppModel(),
-	//	new BarCodeModel(),
-	//	//new BarCodeTypeModel(),
-	//	new ContragentModel(),
-	//	new HostModel(),
-	//	new LogModel(),
-	//	new LogTypeModel(),
-	//	new NomenclatureModel(),
-	//	new OrderModel(),
-	//	new OrganizationModel(),
-	//	new PackageModel(),
-	//	new PluPackageModel(),
-	//	new PluModel(),
-	//	new PluLabelModel(),
-	//	new PluScaleModel(),
-	//	new PluWeighingModel(),
-	//	new PrinterModel(),
-	//	new PrinterResourceModel(),
-	//	new PrinterTypeModel(),
-	//	new ProductionFacilityModel(),
-	//	new ProductSeriesModel(),
-	//	new ScaleModel(),
-	//	new TaskModel(),
-	//	new TaskTypeModel(),
-	//	new TemplateModel(),
-	//	new TemplateResourceModel(),
-	//	new VersionModel(),
-	//	new WorkShopModel(),
-	//};
-
 	/// <summary>
 	/// List of types SqlTableBase.
 	/// </summary>
@@ -261,6 +225,7 @@ public static class DataCoreEnums
 		typeof(ContragentModel),
 		typeof(DeviceModel),
 		typeof(DeviceTypeModel),
+		typeof(DeviceTypeFkModel),
 		typeof(HostModel),
 		typeof(LogModel),
 		typeof(LogTypeModel),

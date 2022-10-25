@@ -41,6 +41,12 @@ public class RazorFieldConfigModel
 		SqlTable = sqlTable;
 	}
 
+	public RazorFieldConfigModel(SqlTableBase sqlTable, string name, TextAlign textAlign, string title, string type) :
+		this(name, textAlign, title, type)
+	{
+		SqlTable = sqlTable;
+	}
+
 	public RazorFieldConfigModel(string name, TextAlign textAlign, string title) :
 		this(string.Empty, new SqlTableEmptyModel(), name, textAlign, title, "string") { }
 

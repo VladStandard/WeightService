@@ -24,6 +24,10 @@ public static class DataAccessHelperFill
 				log.LogType = dataAccess.GetItemByUidNotNull<LogTypeModel>(log.LogType?.IdentityValueUid);
 				break;
 			// Scales.
+			case DeviceTypeFkModel deviceTypeFk:
+				deviceTypeFk.Device = dataAccess.GetItemByUidNotNull<TableScaleModels.DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
+				deviceTypeFk.DeviceType = dataAccess.GetItemByUidNotNull<DeviceTypeModel>(deviceTypeFk.DeviceType.IdentityValueUid);
+				break;
 			case BarCodeModel barcode:
 				barcode.PluLabel = dataAccess.GetItemByUidNotNull<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;

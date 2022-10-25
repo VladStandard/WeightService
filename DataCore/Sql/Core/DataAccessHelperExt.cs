@@ -38,6 +38,19 @@ public static partial class DataAccessHelperExt
 
 	}
 
+	public static List<DeviceTypeFkModel> GetListDevicesTypesFk(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		List<DeviceTypeFkModel> result = new();
+		if (isAddFieldNull)
+			result.Add(dataAccess.GetNewDeviceTypeFk());
+		List<DeviceTypeFkModel> list = dataAccess.GetList<DeviceTypeFkModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.DeviceType.Name).ToList();
+		result = result.OrderBy(x => x.Device.Name).ToList();
+		result.AddRange(list);
+		return result; 
+	}
+
 	public static List<HostModel> GetListHosts(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(

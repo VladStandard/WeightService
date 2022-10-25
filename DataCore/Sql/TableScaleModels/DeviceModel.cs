@@ -126,13 +126,13 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
 		Ipv4 = LocaleCore.Sql.SqlItemFieldIp;
 		MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
-	}
+    }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods - virtual
+	#region Public and private methods - virtual
 
-    public virtual bool Equals(DeviceModel item)
+	public virtual bool Equals(DeviceModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return 

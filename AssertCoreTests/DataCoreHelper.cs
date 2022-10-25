@@ -197,6 +197,7 @@ public class DataCoreHelper
 		item.CreateDt.Returns(DateTime.Now);
 		item.ChangeDt.Returns(DateTime.Now);
 		item.IsMarked.Returns(false);
+		item.Description.Returns(LocaleCore.Sql.SqlItemFieldDescription);
 
 		switch (item)
 		{
@@ -220,16 +221,23 @@ public class DataCoreHelper
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;
 			case DeviceModel device:
+				//device.FillProperties();
+				device.LoginDt = DateTime.Now;
+				device.LogoutDt = DateTime.Now;
 				device.Name = LocaleCore.Sql.SqlItemFieldName;
 				device.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
-				device.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				device.Ipv4 = LocaleCore.Sql.SqlItemFieldIp;
 				device.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
 				break;
 			case DeviceTypeModel deviceType:
+				//deviceType.FillProperties();
 				deviceType.Name = LocaleCore.Sql.SqlItemFieldName;
 				deviceType.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
-				deviceType.Description = LocaleCore.Sql.SqlItemFieldDescription;
+				break;
+			case DeviceTypeFkModel deviceTypeFk:
+				//deviceTypeFk.FillProperties();
+				deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+				deviceTypeFk.DeviceType = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
 			case HostModel host:
 				host.Name = LocaleCore.Sql.SqlItemFieldName;
@@ -266,12 +274,10 @@ public class DataCoreHelper
 				break;
 			case OrganizationModel organization:
 				organization.Name = LocaleCore.Sql.SqlItemFieldName;
-				organization.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				organization.Gln = 1;
 				break;
 			case PluPackageModel packagePlu:
 				packagePlu.Name = LocaleCore.Sql.SqlItemFieldName;
-				packagePlu.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				packagePlu.Package = CreateNewSubstitute<PackageModel>(isNotDefault);
 				packagePlu.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
 				break;
@@ -283,7 +289,6 @@ public class DataCoreHelper
 				plu.Name = LocaleCore.Sql.SqlItemFieldName;
 				plu.Number = 100;
 				plu.FullName = LocaleCore.Sql.SqlItemFieldFullName;
-				plu.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				plu.Gtin = LocaleCore.Sql.SqlItemFieldGtin;
 				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
@@ -316,7 +321,6 @@ public class DataCoreHelper
 				printer.PrinterType = CreateNewSubstitute<PrinterTypeModel>(isNotDefault);
 				break;
 			case PrinterResourceModel printerResource:
-				printerResource.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				printerResource.Printer = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				printerResource.TemplateResource = CreateNewSubstitute<TemplateResourceModel>(isNotDefault);
 				break;
@@ -333,7 +337,6 @@ public class DataCoreHelper
 				productSeries.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case ScaleModel scale:
-				scale.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				scale.TemplateDefault = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				scale.TemplateSeries = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
@@ -342,7 +345,6 @@ public class DataCoreHelper
 				scale.Host = CreateNewSubstitute<HostModel>(isNotDefault);
 				break;
 			case ScaleScreenShotModel scaleScreenShot:
-				scaleScreenShot.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				scaleScreenShot.ScreenShot = new byte[] { 0x00 };
 				break;
@@ -358,11 +360,9 @@ public class DataCoreHelper
 				break;
 			case TemplateResourceModel templateResource:
 				templateResource.Name = LocaleCore.Sql.SqlItemFieldName;
-				templateResource.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				break;
 			case VersionModel version:
 				version.Version = 1;
-				version.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				version.ReleaseDt = DateTime.Now;
 				break;
 			case WorkShopModel workShop:

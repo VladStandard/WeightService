@@ -207,6 +207,7 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
 	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
 		fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
+		fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
 		fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
     }
 

@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-using DataCore.Sql.TableScaleModels;
-using DataCore.Sql.Xml;
 using System.Globalization;
 
 namespace DataCore.Sql.Tables;
@@ -17,6 +15,28 @@ public static class SqlTableBaseExt
 
 	public static string GetPropertyAsString<T>(this T? item, string propertyName) where T : SqlTableBase, new()
 	{
+		switch (item)
+		{
+			case DeviceTypeFkModel deviceTypeFk:
+				switch (propertyName)
+				{
+					case nameof(deviceTypeFk.Device.LoginDt):
+						return StringUtils.FormatDtRus(deviceTypeFk.Device.LoginDt, true);
+					case nameof(deviceTypeFk.Device.LogoutDt):
+						return StringUtils.FormatDtRus(deviceTypeFk.Device.LogoutDt, true);
+					case nameof(deviceTypeFk.Device.Name):
+						return deviceTypeFk.Device.Name;
+					case nameof(deviceTypeFk.Device.PrettyName):
+						return deviceTypeFk.Device.PrettyName;
+					case nameof(deviceTypeFk.Device.Ipv4):
+						return deviceTypeFk.Device.Ipv4;
+					case nameof(deviceTypeFk.Device.MacAddress):
+						return deviceTypeFk.Device.MacAddress.ValuePrettyLookMinus;
+				}
+				return string.Empty;
+			default:
+				break;
+		}
 		object? value = GetPropertyValue(item, propertyName);
 		switch (value)
 		{
@@ -47,7 +67,15 @@ public static class SqlTableBaseExt
 					return byteValue.ToString(CultureInfo.InvariantCulture);
 				}
 			case SqlFieldMacAddressModel macAddress:
-				if (item is HostModel host1 && string.Equals(propertyName, nameof(host1.MacAddress)))
+				if (item is DeviceTypeFkModel deviceTypeFk1 && string.Equals(propertyName, nameof(deviceTypeFk1.Device.MacAddress)))
+				{
+					return deviceTypeFk1.Device.MacAddress.ValuePrettyLookMinus;
+				}
+				else if (item is TableScaleModels.DeviceModel device && string.Equals(propertyName, nameof(device.MacAddress)))
+				{
+					return device.MacAddress.ValuePrettyLookMinus;
+				}
+				else if (item is HostModel host1 && string.Equals(propertyName, nameof(host1.MacAddress)))
 				{
 					return host1.MacAddress.ValuePrettyLookMinus;
 				}
@@ -131,10 +159,25 @@ public static class SqlTableBaseExt
 	{
 		if (item is not null && !string.IsNullOrEmpty(propertyName))
 		{
-			foreach (PropertyInfo property in typeof(T).GetProperties())
+			if (propertyName.Contains('.'))
 			{
-				if (string.Equals(property.Name, propertyName))
-					return property.GetValue(item);
+				foreach (PropertyInfo property in typeof(T).GetProperties())
+				{
+					if (string.Equals(property.Name, propertyName.Substring(0, propertyName.IndexOf('.'))))
+					{
+						T prop = (T)property.GetValue(item);
+						string subPropertyName = propertyName.Substring(propertyName.IndexOf('.'), propertyName.Length - propertyName.IndexOf('.') - 1);
+						return GetPropertyValue(prop, subPropertyName);
+					}
+				}
+			}
+			else
+			{
+				foreach (PropertyInfo property in typeof(T).GetProperties())
+				{
+					if (string.Equals(property.Name, propertyName))
+						return property.GetValue(item);
+				}
 			}
 		}
 		return null;

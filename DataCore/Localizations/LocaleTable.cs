@@ -33,7 +33,8 @@ public class LocaleTable
     public string CategoryId => Lang == LangEnum.English ? "Category ID" : "ИД категории";
     public string CategoryName => Lang == LangEnum.English ? "Category" : "Категория";
     public string ChangeDt => Lang == LangEnum.English ? "Edited" : "Изменено";
-    public string LoginDt => Lang == LangEnum.English ? "Logged" : "Залогирован";
+    public string LoginDt => Lang == LangEnum.English ? "Login" : "Залогирован";
+    public string LogoutDt => Lang == LangEnum.English ? "Logout" : "Разлогирован";
     public string CheckGtin => Lang == LangEnum.English ? "GTIN" : "ГТИН";
     public string CheckWeight => Lang == LangEnum.English ? "Weighing products" : "Весовая продукция";
     public string Code => Lang == LangEnum.English ? "Code" : "Код";
@@ -126,7 +127,7 @@ public class LocaleTable
     public string Message => Lang == LangEnum.English ? "Message" : "Сообщение";
     public string Name => Lang == LangEnum.English ? "Name" : "Наименование";
     public string NameFull => Lang == LangEnum.English ? "Full name" : "Полное наименование";
-    public string NamePretty => Lang == LangEnum.English ? "Pretty name" : "Красивое наименование";
+    public string PrettyName => Lang == LangEnum.English ? "Pretty name" : "Красивое наименование";
     public string NetWeight => Lang == LangEnum.English ? "Net weight" : "Вес нетто";
     public string Nomenclature => Lang == LangEnum.English ? "Nomenclature" : "Номенклатура";
     public string NomenclatureId => Lang == LangEnum.English ? "Nomenclature ID" : "ID номенклатуры";

@@ -3,6 +3,7 @@
 
 using DataCore.CssStyles;
 using DataCore.Sql.Tables;
+using FluentValidation;
 using FluentValidation.Results;
 
 namespace DataCore.Utils;
@@ -70,8 +71,10 @@ public class ValidationUtils
             AccessModel access => new AccessValidator().Validate(access),
             AppModel app => new AppValidator().Validate(app),
             BarCodeModel barCode => new BarCodeValidator().Validate(barCode),
-            //BarCodeTypeModel barCodeType => new BarCodeTypeValidator().Validate(barCodeType),
             ContragentModel contragent => new ContragentValidator().Validate(contragent),
+			DeviceModel device => new DeviceValidator().Validate(device),
+			DeviceTypeModel deviceType => new DeviceTypeValidator().Validate(deviceType),
+			DeviceTypeFkModel deviceTypeFk => new DeviceTypeFkValidator().Validate(deviceTypeFk),
             HostModel host => new HostValidator().Validate(host),
             LogModel log => new LogValidator().Validate(log),
             LogTypeModel logType => new LogTypeValidator().Validate(logType),

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Generic;
 using BlazorCore.Razors;
 using DataCore.Localizations;
 using DataCore.Sql.Xml;
@@ -16,22 +17,44 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetUser() => new(nameof(AccessModel.Name), TextAlign.Left, LocaleCore.Table.User);
 		public static RazorFieldConfigModel GetLoginDt() => new(nameof(AccessModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
 	}
-	public static class Hosts
+	
+	public static class Device
 	{
-		public static RazorFieldConfigModel GetLoginDt() => new(nameof(HostModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.LoginDt), TextAlign.Left, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetLogoutDt() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.LogoutDt), TextAlign.Left, LocaleCore.Table.LogoutDt);
+		public static RazorFieldConfigModel GetName() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetPrettyName() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
+		public static RazorFieldConfigModel GetIpv4() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.Ipv4), TextAlign.Center, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetMacAddress() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
 	}
 
+	public static class DeviceTypeFk
+	{
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt, nameof(DateTime));
+		public static RazorFieldConfigModel GetLogoutDt() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.LogoutDt), TextAlign.Center, LocaleCore.Table.LogoutDt);
+		public static RazorFieldConfigModel GetName() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetPrettyName() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
+		public static RazorFieldConfigModel GetIpv4() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.Ipv4), TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetMacAddress() => new(nameof(DataCore.Sql.TableScaleModels.DeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
+	}
+
+	public static class DeviceType
+	{
+		public static RazorFieldConfigModel GetName() => new(nameof(DataCore.Sql.TableScaleModels.DeviceTypeModel.Name), TextAlign.Left, LocaleCore.Table.Name);
+		public static RazorFieldConfigModel GetPrettyName() => new(nameof(DataCore.Sql.TableScaleModels.DeviceTypeModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
+	}
+	
 	public static class BarCode
 	{
 		public static RazorFieldConfigModel GetTypeTop() => new(nameof(BarCodeModel.TypeTop), TextAlign.Left, LocaleCore.Table.Type);
-        public static RazorFieldConfigModel GetValueTop() => new(nameof(BarCodeModel.ValueTop), TextAlign.Left, LocaleCore.Table.Value);
-        public static RazorFieldConfigModel GetValueRight() => new(nameof(BarCodeModel.ValueRight), TextAlign.Left, LocaleCore.Table.Value);
-        public static RazorFieldConfigModel GetValueBottom() => new(nameof(BarCodeModel.ValueBottom), TextAlign.Left, LocaleCore.Table.Value);
-        public static RazorFieldConfigModel GetPluLabelChangeDt() => new(nameof(BarCodeModel.PluLabel.ChangeDt), TextAlign.Center, LocaleCore.Table.Label);
+		public static RazorFieldConfigModel GetValueTop() => new(nameof(BarCodeModel.ValueTop), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetValueRight() => new(nameof(BarCodeModel.ValueRight), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetValueBottom() => new(nameof(BarCodeModel.ValueBottom), TextAlign.Left, LocaleCore.Table.Value);
+		public static RazorFieldConfigModel GetPluLabelChangeDt() => new(nameof(BarCodeModel.PluLabel.ChangeDt), TextAlign.Center, LocaleCore.Table.Label);
 	}
 
-    public static class Base
-    {
+	public static class Base
+	{
 		public static RazorFieldConfigModel GetChangeDt() => new(nameof(SqlTableBase.ChangeDt), TextAlign.Center, LocaleCore.Table.ChangeDt);
 		public static RazorFieldConfigModel GetCreateDt() => new(nameof(SqlTableBase.CreateDt), TextAlign.Center, LocaleCore.Table.CreateDt);
 		public static RazorFieldConfigModel GetDescription() => new(nameof(SqlTableBase.Description), TextAlign.Left, LocaleCore.Table.Scale);
@@ -39,10 +62,11 @@ public static class RazorFieldConfigUtils
 
 	public static class Host
 	{
-		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(HostModel.Ip), TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(HostModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(HostModel.Ip), TextAlign.Center, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetHostName() => new(nameof(HostModel.HostName), TextAlign.Left, LocaleCore.Table.Host);
-		public static RazorFieldConfigModel GetMacAddressPretty() => new(nameof(HostModel.MacAddress), TextAlign.Left, LocaleCore.Table.DeviceMac);
-		public static RazorFieldConfigModel GetName() => new(nameof(HostModel.Name), TextAlign.Left, LocaleCore.Table.NamePretty);
+		public static RazorFieldConfigModel GetMacAddress() => new(nameof(HostModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
+		public static RazorFieldConfigModel GetName() => new(nameof(HostModel.Name), TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
 	public static class LogQuick
@@ -73,7 +97,6 @@ public static class RazorFieldConfigUtils
         public static RazorFieldConfigModel GetNumber() => new(nameof(PluModel.Number), TextAlign.Center, LocaleCore.Table.Number);
 	    public static RazorFieldConfigModel GetShelfLifeDays() => new(nameof(PluModel.ShelfLifeDays), TextAlign.Center, LocaleCore.Table.ShelfLifeDaysShort);
 		public static RazorFieldConfigModel GetBoxQuantly() => new(nameof(PluModel.BoxQuantly), TextAlign.Center, LocaleCore.Table.GoodsBoxQuantlyShort);
-		//public static RazorFieldConfigModel GetTareWeight() => new(nameof(PluModel.TareWeight), TextAlign.Center, LocaleCore.Table.PackageWeightShort);
     }
 
 	public static class PluScale

@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "DEVICES".
+/// Table "DEVICES_TYPES_FK".
 /// </summary>
 [Serializable]
 public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable

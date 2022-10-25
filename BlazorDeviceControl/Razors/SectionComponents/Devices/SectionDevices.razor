@@ -1,0 +1,33 @@
+﻿@inherits RazorComponentSectionBase<DeviceTypeFkModel, SqlTableBase>
+@page "/section/devices"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@DeviceTypeFkModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionHosts />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px;" 
+	Data=@SqlItemsCast TItem=@DeviceTypeFkModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    <Columns>
+        <RazorSectionFieldIsMarked TItem=@DeviceTypeFkModel ParentRazor=@(this) />
+        <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetLoginDt() />
+        <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetName() />
+        <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetPrettyName() />
+        <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetIpv4() />
+        <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetMacAddress() />
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@DeviceTypeFkModel ParentRazor=@(this) />

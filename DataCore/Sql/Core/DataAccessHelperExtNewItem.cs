@@ -12,6 +12,15 @@ public static partial class DataAccessHelperExt
 	public static AccessModel GetNewAccess(this DataAccessHelper dataAccess) =>
 		new() { Name = LocaleCore.Table.FieldNull };
 
+	public static DeviceModel GetNewDevice(this DataAccessHelper dataAccess) =>
+		new() { Name = LocaleCore.Table.FieldNull };
+
+	public static DeviceTypeModel GetNewDeviceType(this DataAccessHelper dataAccess) =>
+		new() { Name = LocaleCore.Table.FieldNull };
+
+	public static DeviceTypeFkModel GetNewDeviceTypeFk(this DataAccessHelper dataAccess) =>
+		new() { Device = dataAccess.GetNewDevice(), DeviceType = dataAccess.GetNewDeviceType() };
+
 	public static HostModel GetNewHost(this DataAccessHelper dataAccess) =>
 		new() { Name = LocaleCore.Table.FieldNull };
 
