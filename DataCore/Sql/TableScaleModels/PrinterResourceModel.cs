@@ -90,8 +90,8 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Printer = new();
-		TemplateResource = new();
+		Printer.FillProperties();
+		TemplateResource.FillProperties();
 	}
 
 	#endregion

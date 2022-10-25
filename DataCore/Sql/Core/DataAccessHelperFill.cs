@@ -15,8 +15,8 @@ public static class DataAccessHelperFill
 	{
 		switch (item)
 		{
-			case DeviceModel device:
-                device.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(device.Scale.IdentityValueId);
+			case Xml.DeviceModel xmlDevice:
+                xmlDevice.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(xmlDevice.Scale.IdentityValueId);
 				break;
 			case LogModel log:
 				log.App = dataAccess.GetItemByUidNotNull<AppModel>(log.App?.IdentityValueUid);
@@ -37,7 +37,7 @@ public static class DataAccessHelperFill
 				break;
 			case PluLabelModel pluLabel:
 				pluLabel.PluWeighing = dataAccess.GetItemByUid<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
-                pluLabel.PluScale = dataAccess.GetItemByUid<PluScaleModel>(pluLabel.PluScale?.IdentityValueUid);
+                pluLabel.PluScale = dataAccess.GetItemByUidNotNull<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
 			case PluPackageModel pluPackage:
 				pluPackage.Plu = dataAccess.GetItemByUidNotNull<PluModel>(pluPackage.Plu.IdentityValueUid);

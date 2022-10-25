@@ -137,6 +137,13 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
         info.AddValue(nameof(Value), Value);
     }
 
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Value = LocaleCore.Sql.SqlItemFieldMac;
+	}
+
+
 	#endregion
 
 	#region Public and private methods - virtual

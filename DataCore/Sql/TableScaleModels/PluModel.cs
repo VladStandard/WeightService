@@ -192,8 +192,8 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Gtin = LocaleCore.Sql.SqlItemFieldGtin;
 		Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 		Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-		//Template = new();
-		//Nomenclature = new();
+		Template.FillProperties();
+		Nomenclature.FillProperties();
 	}
 
 	#endregion

@@ -105,6 +105,7 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		base.FillProperties();
 		Title = LocaleCore.Sql.SqlItemFieldTitle;
+		ImageData.FillProperties();
 	}
 
 	#endregion

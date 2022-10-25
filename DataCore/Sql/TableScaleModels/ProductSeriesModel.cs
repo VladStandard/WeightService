@@ -105,8 +105,8 @@ public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 	    base.FillProperties();
 		Sscc = LocaleCore.Sql.SqlItemFieldSscc;
 		IsClose = false;
-		//Scale = new();
-	}
+		Scale.FillProperties();
+    }
 
 	#endregion
 

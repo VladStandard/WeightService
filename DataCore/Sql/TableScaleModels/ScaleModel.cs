@@ -235,12 +235,12 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    base.FillProperties();
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
-		//TemplateDefault = new();
-		//TemplateSeries = new();
-		//WorkShop = new();
-		//PrinterMain = new();
-		//PrinterShipping = new();
-		//Host = new();
+		TemplateDefault?.FillProperties();
+		TemplateSeries?.FillProperties();
+		WorkShop?.FillProperties();
+		PrinterMain?.FillProperties();
+		PrinterShipping?.FillProperties();
+		Host?.FillProperties();
 	}
 
 	#endregion

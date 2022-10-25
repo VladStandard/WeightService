@@ -48,6 +48,7 @@ public class LocaleSql
     public string SqlItemFieldMember => Lang == LangEnum.English ? "Method" : "Метод";
     public string SqlItemFieldMessage => Lang == LangEnum.English ? "Message" : "Сообщение";
     public string SqlItemFieldName => Lang == LangEnum.English ? "Name" : "Наименование";
+    public string SqlItemFieldPrettyName => Lang == LangEnum.English ? "pretty name" : "Красивое наименование";
     public string SqlItemFieldNesting => Lang == LangEnum.English ? "Nesting" : "Вложенность";
     public string SqlItemFieldProductXml => Lang == LangEnum.English ? "\"<Product Category=\\\"Meat\\\" > </Product>\"" : "\"<Product Category=\\\"Сосиски\\\" > </Product>\"";
     public string SqlItemFieldTitle => Lang == LangEnum.English ? "Title" : "Заголовок";

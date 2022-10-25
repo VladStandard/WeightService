@@ -141,7 +141,8 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    base.FillProperties();
 		DarknessLevel = 1;
-		PrinterType = new();
+		PrinterType.FillProperties();
+		MacAddress.FillProperties();
 	}
 
 	#endregion

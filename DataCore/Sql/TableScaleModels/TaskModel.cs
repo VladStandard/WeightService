@@ -91,8 +91,8 @@ public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		//TaskType = new();
-		//Scale = new();
+		TaskType.FillProperties();
+		Scale.FillProperties();
 	}
 
 	#endregion

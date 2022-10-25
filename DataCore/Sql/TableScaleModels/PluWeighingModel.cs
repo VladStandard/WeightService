@@ -182,9 +182,9 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 		TareWeight = 0.25M;
 		RegNum = 1;
 		Kneading = 1;
-		//PluScale = new();
-		//Series = new();
-	}
+		PluScale.FillProperties();
+		Series?.FillProperties();
+    }
 
 	#endregion
 

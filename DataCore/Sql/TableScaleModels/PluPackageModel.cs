@@ -103,8 +103,8 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	    base.FillProperties();
         IsActive = false;
 		Name = LocaleCore.Sql.SqlItemFieldNesting;
-		//Package = new();
-		//Plu = new();
+		Package.FillProperties();
+		Plu.FillProperties();
     }
 
 	#endregion

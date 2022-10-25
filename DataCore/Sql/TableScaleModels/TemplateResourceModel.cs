@@ -103,6 +103,7 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 		base.FillProperties();
 		Name = LocaleCore.Sql.SqlItemFieldName;
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
+		ImageData.FillProperties();
 	}
 
 	#endregion

@@ -95,8 +95,8 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    base.FillProperties();
 		IsActive = true;
-		//Plu = new();
-		//Scale = new();
+		Plu.FillProperties();
+		Scale.FillProperties();
 	}
 
 	#endregion

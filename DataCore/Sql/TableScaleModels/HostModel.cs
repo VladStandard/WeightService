@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using System.Net.Mail;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -115,9 +116,9 @@ public class HostModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		base.FillProperties();
 		Name = LocaleCore.Sql.SqlItemFieldName;
 		Ip = LocaleCore.Sql.SqlItemFieldIp;
-		MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
 		HostName = LocaleCore.Sql.SqlItemFieldHostName;
 		LoginDt = DateTime.Now;
+		MacAddress.FillProperties();
 	}
 
 	#endregion

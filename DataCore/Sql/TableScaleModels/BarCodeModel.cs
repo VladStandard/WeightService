@@ -2,10 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using Microsoft.AspNetCore.Mvc;
-using NHibernate.SqlCommand;
-using System.Xml.Serialization;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -160,6 +156,7 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         ValueRight = LocaleCore.Sql.SqlItemFieldValue;
 		TypeBottom = BarcodeTypeEnum.Default.ToString();
         ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
+        PluLabel.FillProperties();
 	}
 
 	#endregion

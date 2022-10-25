@@ -154,10 +154,9 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 	    base.FillProperties();
 		Zpl = LocaleCore.Sql.SqlItemFieldZpl;
-        //PluWeighing = new();
-        //PluScale = new();
         ProductDt = DateTime.Now;
-		//ExpirationDt = DateTime.Now;
+        PluWeighing?.FillProperties();
+        PluScale.FillProperties();
 	}
 
 	#endregion

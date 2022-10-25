@@ -176,10 +176,8 @@ public class DataAccessHelper
 
     private void AddConfigurationMappingsForScale(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
     {
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
-        //fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<HostMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
@@ -207,6 +205,9 @@ public class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
+	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
+		fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
+		fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
     }
 
     private void AddConfigurationMappingsForDwh(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)

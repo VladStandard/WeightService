@@ -1,32 +1,28 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "ACCESS".
+/// Table "DEVICES_TYPES".
 /// </summary>
 [Serializable]
-public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DateTime LoginDt { get; set; }
     [XmlElement] public virtual string Name { get; set; }
-	[XmlElement] public virtual byte Rights { get; set; }
-	[XmlIgnore] public virtual AccessRightsEnum RightsEnum => (AccessRightsEnum)Rights;
+    [XmlElement] public virtual string PrettyName { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public AccessModel() : base(SqlFieldIdentityEnum.Uid)
+	public DeviceTypeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-        LoginDt = DateTime.MinValue;
         Name = string.Empty;
-		Rights = 0x00;
+        PrettyName = string.Empty;
 	}
 
     /// <summary>
@@ -34,11 +30,10 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
 	/// <param name="context"></param>
-	private AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	private DeviceTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        LoginDt = info.GetDateTime(nameof(LoginDt));
         Name = info.GetString(nameof(Name));
-        Rights = info.GetByte(nameof(Rights));
+        PrettyName = info.GetString(nameof(PrettyName));
     }
 
 	#endregion
@@ -51,15 +46,14 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <returns></returns>
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Rights)}: {RightsEnum}. ";
+        $"{nameof(Name)}: {Name}. ";
 
     public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((AccessModel)obj);
+        return Equals((DeviceTypeModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -68,16 +62,14 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-	    Equals(LoginDt, DateTime.MinValue) &&
-	    Equals(Name, string.Empty) &&
-	    Equals(Rights, (byte)0x00);
+		Equals(Name, string.Empty) &&
+		Equals(PrettyName, string.Empty);
     
     public override object Clone()
     {
-        AccessModel item = new();
-        item.LoginDt = LoginDt;
+        DeviceTypeModel item = new();
         item.Name = Name;
-        item.Rights = Rights;
+        item.PrettyName = PrettyName;
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -90,34 +82,31 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-		info.AddValue(nameof(LoginDt), LoginDt);
 		info.AddValue(nameof(Name), Name);
-		info.AddValue(nameof(Rights), Rights);
+		info.AddValue(nameof(PrettyName), PrettyName);
 	}
 
     public override void FillProperties()
     {
 		base.FillProperties();
-        LoginDt = DateTime.Now;
 		Name = LocaleCore.Sql.SqlItemFieldName;
-		Rights = (byte)AccessRightsEnum.None;
+		PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(AccessModel item)
+    public virtual bool Equals(DeviceTypeModel item)
 	{
 		if (ReferenceEquals(this, item)) return true;
 		return 
             base.Equals(item) &&
-		    Equals(LoginDt, item.LoginDt) &&
 		    Equals(Name, item.Name) &&
-		    Equals(Rights, item.Rights);
+		    Equals(PrettyName, item.PrettyName);
 	}
 
-	public new virtual AccessModel CloneCast() => (AccessModel)Clone();
+	public new virtual DeviceTypeModel CloneCast() => (DeviceTypeModel)Clone();
 
 	#endregion
 }

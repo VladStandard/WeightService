@@ -149,6 +149,9 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Member = LocaleCore.Sql.SqlItemFieldMember;
 		//LogType = new();
 		Message = LocaleCore.Sql.SqlItemFieldMessage;
+		Host?.FillProperties();
+		App?.FillProperties();
+		LogType?.FillProperties();
 	}
 
 	#endregion

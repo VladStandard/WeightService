@@ -86,7 +86,7 @@ public class ScaleScreenShotModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
     public override void FillProperties()
     {
 	    base.FillProperties();
-		Scale = new();
+		Scale.FillProperties();
 	}
 
 	#endregion

@@ -87,11 +87,12 @@ public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 		info.AddValue(nameof(PluWeighing), PluWeighing);
 	}
 
-	//public override void FillProperties()
-	//{
-	//	base.FillProperties();
-	//	//
-	//}
+	public override void FillProperties()
+	{
+		base.FillProperties();
+		Order.FillProperties();
+		PluWeighing.FillProperties();
+	}
 
 	#endregion
 

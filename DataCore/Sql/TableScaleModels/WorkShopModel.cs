@@ -91,7 +91,7 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		base.FillProperties();
 		Name = LocaleCore.Sql.SqlItemFieldName;
-		//ProductionFacility = new();
+		ProductionFacility.FillProperties();
 	}
 
 	#endregion

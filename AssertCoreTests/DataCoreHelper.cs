@@ -216,11 +216,20 @@ public class DataCoreHelper
 				barCode.TypeBottom = BarcodeTypeEnum.Default.ToString();
 				barCode.ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
 				break;
-			//case BarCodeTypeModel barCodeType:
-			//	barCodeType.Name = LocaleCore.Sql.SqlItemFieldName;
-			//	break;
 			case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
+				break;
+			case DeviceModel device:
+				device.Name = LocaleCore.Sql.SqlItemFieldName;
+				device.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
+				device.Description = LocaleCore.Sql.SqlItemFieldDescription;
+				device.Ipv4 = LocaleCore.Sql.SqlItemFieldIp;
+				device.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
+				break;
+			case DeviceTypeModel deviceType:
+				deviceType.Name = LocaleCore.Sql.SqlItemFieldName;
+				deviceType.PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
+				deviceType.Description = LocaleCore.Sql.SqlItemFieldDescription;
 				break;
 			case HostModel host:
 				host.Name = LocaleCore.Sql.SqlItemFieldName;
