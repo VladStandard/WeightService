@@ -5,7 +5,7 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
-public partial class ItemProductionFacility : RazorComponentItemBase<ProductionFacilityModel>
+public partial class ItemDeviceTypeFk : RazorComponentItemBase<DeviceTypeFkModel>
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,10 +21,10 @@ public partial class ItemProductionFacility : RazorComponentItemBase<ProductionF
 		{
 			() =>
 			{
-				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<ProductionFacilityModel>(IdentityId);
-				//if (TableAction == DbTableAction.New)
-				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				
+				SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<DeviceTypeFkModel>(IdentityUid);
+				if (SqlItemCast.IdentityIsNew)
+					SqlItem = SqlItemNew<DeviceTypeFkModel>();
+
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
 		});

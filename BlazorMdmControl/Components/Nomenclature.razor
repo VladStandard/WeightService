@@ -98,7 +98,7 @@
                                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                             Data=@NomenclatureGroupCostEntities PageSize="5"
                                             TextProperty="Name" Change=@(args => OnChange(args, "NomenclatureGroupsCost"))
-                                            ValueProperty="Identity.Id" Value=@Item.NomenclatureGroupCost.Identity.Id
+                                            ValueProperty="IdentityValueId" Value=@Item.NomenclatureGroupCost.IdentityValueId
                                             >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
@@ -124,7 +124,7 @@
                                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                             Data=@NomenclatureGroupEntities PageSize="5"
                                             TextProperty="Name" Change=@(args => OnChange(args, "NomenclatureGroups"))
-                                            ValueProperty="Identity.Id" Value=@Item.NomenclatureGroup.Identity.Id
+                                            ValueProperty="IdentityValueId" Value=@Item.NomenclatureGroup.IdentityValueId
                                             >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
@@ -154,7 +154,7 @@
                                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                             Data=@BrandEntities PageSize="5"
                                             TextProperty="Name" Change=@(args => OnChange(args, "Brands"))
-                                            ValueProperty="Identity.Id" Value=@Item.Brand.Identity.Id
+                                            ValueProperty="IdentityValueId" Value=@Item.Brand.IdentityValueId
                                             >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
@@ -181,7 +181,7 @@
                                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                             Data=@NomenclatureTypeEntities PageSize="5"
                                             TextProperty="Name" Change=@(args => OnChange(args, "NomenclatureTypes"))
-                                            ValueProperty="Identity.Id" Value=@Item.NomenclatureType.Identity.Id
+                                            ValueProperty="IdentityValueId" Value=@Item.NomenclatureType.IdentityValueId
                                             >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
@@ -217,7 +217,7 @@
                                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                             Data=@StatusEntities PageSize="5"
                                             TextProperty="Name" Change=@(args => OnChange(args, "Statuses"))
-                                            ValueProperty="Identity.Id" Value=@Item.Status.Identity.Id
+                                            ValueProperty="IdentityValueId" Value=@Item.Status.IdentityValueId
                                             >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
@@ -244,7 +244,7 @@
                                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                             Data=@InformationSystemEntities PageSize="5"
                                             TextProperty="Name" Change=@(args => OnChange(args, "InformationSystems"))
-                                            ValueProperty="Identity.Id" Value=@Item.InformationSystem.Identity.Id
+                                            ValueProperty="IdentityValueId" Value=@Item.InformationSystem.IdentityValueId
                                             Disabled=false ReadOnly=true >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />

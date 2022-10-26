@@ -49,6 +49,7 @@ public class LocaleTable
     public string DeactiveShort => Lang == LangEnum.English ? "Deact" : "Деакт";
     public string Description => Lang == LangEnum.English ? "Description" : "Описание";
     public string Device => Lang == LangEnum.English ? "Device" : "Устройство";
+    public string DeviceType => Lang == LangEnum.English ? "Device type" : "Тип устройства";
     public string DeviceComPort => Lang == LangEnum.English ? "COM-port" : "COM-порт";
     public string DeviceIp => Lang == LangEnum.English ? "IP-address" : "IP-адрес";
     public string DeviceMac => Lang == LangEnum.English ? "MAC-address" : "MAC-адрес";

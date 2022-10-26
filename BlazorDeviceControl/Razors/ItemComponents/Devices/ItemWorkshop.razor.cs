@@ -28,7 +28,7 @@ public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 			{
 				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
-				//	SqlItemCast.Identity.Id = (long)IdentityId;
+				//	SqlItemCast.IdentityValueId = (long)IdentityId;
 				ProductionFacilities = AppSettings.DataAccess.GetListProductionFacilities(false, false, false);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);

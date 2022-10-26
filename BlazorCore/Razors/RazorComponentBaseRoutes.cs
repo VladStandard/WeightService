@@ -55,8 +55,8 @@ public partial class RazorComponentBase
             if (!string.IsNullOrEmpty(page))
                 return item.Identity.Name switch
                 {
-                    SqlFieldIdentityEnum.Id => $"{page}/{item.Identity.Id}",
-                    SqlFieldIdentityEnum.Uid => $"{page}/{item.Identity.Uid}",
+                    SqlFieldIdentityEnum.Id => $"{page}/{item.IdentityValueId}",
+                    SqlFieldIdentityEnum.Uid => $"{page}/{item.IdentityValueUid}",
                     SqlFieldIdentityEnum.Test => $"{page}/{nameof(SqlFieldIdentityEnum.Test)}",
                     _ => string.Empty
                 };
@@ -160,8 +160,8 @@ public partial class RazorComponentBase
 
         page = item.Identity.Name switch
         {
-	        SqlFieldIdentityEnum.Id => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.Identity.Id}",
-	        SqlFieldIdentityEnum.Uid => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.Identity.Uid}",
+	        SqlFieldIdentityEnum.Id => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+	        SqlFieldIdentityEnum.Uid => item.IdentityIsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
 	        _ => page
         };
         NavigationManager?.NavigateTo(page);

@@ -80,7 +80,7 @@ public static partial class DataAccessHelperExt
 					MacAddress = new(Convert.ToString(obj[6])),
 					IsMarked = Convert.ToBoolean(obj[7]),
 				};
-				if ((id == null || Equals(host.Identity.Id, id)) &&
+				if ((id == null || Equals(host.IdentityValueId, id)) &&
 					(isMarked == null || Equals(host.IsMarked, isMarked)))
 					items.Add(host);
 			}
@@ -106,7 +106,7 @@ public static partial class DataAccessHelperExt
 					MacAddress = new(Convert.ToString(obj[8])),
 					IsMarked = Convert.ToBoolean(obj[9]),
 				};
-				if ((id == null || Equals(host.Identity.Id, id)) &&
+				if ((id == null || Equals(host.IdentityValueId, id)) &&
 					(isMarked == null || Equals(host.IsMarked, isMarked)))
 					items.Add(host);
 			}
@@ -153,7 +153,7 @@ public static partial class DataAccessHelperExt
 				filters = new()
 				{
 					new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", 
-						SqlFieldComparerEnum.Equal, scale.Identity.Id)
+						SqlFieldComparerEnum.Equal, scale.IdentityValueId)
 				};
 			if (!isShowAll)
 				filters.Add(new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
@@ -175,7 +175,7 @@ public static partial class DataAccessHelperExt
 				filters = new()
 				{
 					new($"{nameof(PluScaleModel.Scale)}.{nameof(SqlTableBase.IdentityValueId)}", 
-						SqlFieldComparerEnum.Equal, scale.Identity.Id)
+						SqlFieldComparerEnum.Equal, scale.IdentityValueId)
 				};
 			if (!isShowAll)
 				filters.Add(new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
@@ -209,7 +209,7 @@ public static partial class DataAccessHelperExt
 
 		Guid? pluUid = null;
 		if (itemFilter is PluModel plu2)
-			pluUid = plu2.Identity.Uid;
+			pluUid = plu2.IdentityValueUid;
 		if (pluUid is not null)
 			filters = new() { new($"{nameof(PluPackageModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, pluUid) };
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
@@ -252,7 +252,7 @@ public static partial class DataAccessHelperExt
 	{
 		long? printerId = null;
 		if (itemFilter is PrinterModel printer)
-			printerId = printer.Identity.Id;
+			printerId = printer.IdentityValueId;
 		List<SqlFieldFilterModel> filters = new();
 		if (printerId is not null)
 			filters = new() { new($"{nameof(PrinterResourceModel.Printer)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, printerId) };
@@ -303,7 +303,7 @@ public static partial class DataAccessHelperExt
 			result.Add(dataAccess.GetNewProductionFacility());
 		result.AddRange(dataAccess.GetList<ProductionFacilityModel>(sqlCrudConfig));
 		//if (!isAddFieldNull)
-		//	result = result.Where(x => x.Identity.Id > 0).ToList();
+		//	result = result.Where(x => x.IdentityValueId > 0).ToList();
 		return result;
 	}
 

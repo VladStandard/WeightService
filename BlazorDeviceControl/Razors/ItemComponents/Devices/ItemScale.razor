@@ -34,7 +34,7 @@
 		<tr>
 			<td>
 				<RadzenLink Style="width: 100%; "
-		            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, SqlItemCast.Host, SqlItemCast.Host?.Identity.Id)
+		            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, SqlItemCast.Host, SqlItemCast.Host?.IdentityValueId)
 		            Text=@LocaleCore.Table.Host/>
 			</td>
 			<td>
@@ -55,7 +55,7 @@
 		<tr>
 			<td>
 				<RadzenLink Style="width: 100%; "
-						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterMain, SqlItemCast.PrinterMain?.Identity.Id)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterMain, SqlItemCast.PrinterMain?.IdentityValueId)
 				            Text=@LocaleCore.Print.NameMain/>
 			</td>
 			<td>
@@ -76,7 +76,7 @@
 		<tr>
 			<td>
 				<RadzenLink Style="width: 100%; "
-				            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterShipping, SqlItemCast.PrinterShipping?.Identity.Id)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPrinter, SqlItemCast.PrinterShipping, SqlItemCast.PrinterShipping?.IdentityValueId)
 				            Text=@LocaleCore.Print.NameShipping/>
 			</td>
 			<td>
@@ -124,7 +124,7 @@
 		<tr>
 			<td>
 				<RadzenLink Style="width: 100%; "
-				            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateDefault, SqlItemCast.TemplateDefault?.Identity.Id)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateDefault, SqlItemCast.TemplateDefault?.IdentityValueId)
 				            Text=@LocaleCore.Table.TemplateDefault/>
 			</td>
 			<td>
@@ -138,7 +138,7 @@
 			</td>
 			<td>
 				<RadzenLink Style="width: 100%; "
-				            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateSeries, SqlItemCast.TemplateSeries?.Identity.Id)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.TemplateSeries, SqlItemCast.TemplateSeries?.IdentityValueId)
 				            Text=@LocaleCore.Table.TemplateSeries/>
 			</td>
 			<td>
@@ -154,7 +154,7 @@
 		<tr>
 			<td>
 				<RadzenLink Style="width: 100%; "
-					Path=@(SqlItemCast.WorkShop is null ? string.Empty : GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, SqlItemCast.WorkShop, SqlItemCast.WorkShop.Identity.Id))
+							Path=@(SqlItemCast.WorkShop is null ? string.Empty : GetRouteItemPath(LocaleCore.DeviceControl.RouteItemWorkShop, SqlItemCast.WorkShop, SqlItemCast.WorkShop.IdentityValueId))
 				    Text=@LocaleCore.Table.WorkShopName />
 			</td>
 			<td>
@@ -168,7 +168,7 @@
 			</td>
 			<td>
 				<RadzenLink Style="width: 100%; "
-				    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.WorkShop?.ProductionFacility, SqlItemCast.WorkShop?.ProductionFacility.Identity.Id)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemProductionFacility, SqlItemCast.WorkShop?.ProductionFacility, SqlItemCast.WorkShop?.ProductionFacility.IdentityValueId)
 				    Text=@LocaleCore.Table.ProductionFacility />
 			</td>
 			<td>

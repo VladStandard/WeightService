@@ -95,7 +95,7 @@ public partial class RazorComponentBase
 
     private void OnChangeItemScale(ScaleModel item, string filterName, object? value)
     {
-        if (filterName == nameof(ScaleModel.Identity.Id) && value is long id)
+        if (filterName == nameof(ScaleModel.IdentityValueId) && value is long id)
         {
             item = AppSettings.DataAccess.GetItemById<ScaleModel>(id) ?? new();
         }

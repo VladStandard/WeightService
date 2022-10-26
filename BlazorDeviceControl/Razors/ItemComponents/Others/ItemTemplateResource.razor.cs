@@ -27,7 +27,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
             {
                 SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
-                //    SqlItemCast.Identity.Id = (long)IdentityId;
+                //    SqlItemCast.IdentityValueId = (long)IdentityId;
 
                 ButtonSettings = new(false, false, false, false, false, true, true);
             }

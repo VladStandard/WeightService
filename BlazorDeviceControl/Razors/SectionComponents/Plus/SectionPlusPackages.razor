@@ -29,29 +29,29 @@
 		<RadzenGridColumn TItem=PluPackageModel Width="23%" TextAlign=@TextAlign.Left Title=@LocaleCore.DeviceControl.ItemPluPackage>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.Name 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemPluPackage}/{itemCast.Identity.Uid}") />
+					Text=@itemCast.Name
+							Path=@($"{LocaleCore.DeviceControl.RouteItemPluPackage}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluPackageModel Width="7%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluNumber>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.Plu.Number.ToString() 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.Identity.Uid}") />
+					Text=@itemCast.Plu.Number.ToString()
+							Path=@($"{LocaleCore.DeviceControl.RouteItemPluScale}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluPackageModel Width="23%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Plu>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.Plu.Name 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.Identity.Uid}") />
+					Text=@itemCast.Plu.Name
+							Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{itemCast.Plu.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=PluPackageModel Width="15%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Package>
 			<Template Context="itemCast">
 				<RadzenLink 
-					Text=@itemCast.Package.Name 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemPackage}/{itemCast.Package.Identity.Uid}") />
+					Text=@itemCast.Package.Name
+							Path=@($"{LocaleCore.DeviceControl.RouteItemPackage}/{itemCast.Package.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 	    <RadzenGridColumn TItem=PluPackageModel Width="10%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PackageWeight>

@@ -31,13 +31,12 @@
 	        <td>@LocaleCore.Table.Plu</td>
 	        <td>
 		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluScale.Plu.Identity.Uid}")
+			        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluScale.Plu.IdentityValueUid}")
 			        Text=@(SqlItemCast.PluScale.Plu.Name) />
 	        </td>
             <td>@LocaleCore.Table.Template</td>
             <td>
-                <RadzenLink 
-	                Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{SqlItemCast.PluScale.Plu.Template.Identity.Id}")
+                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{SqlItemCast.PluScale.Plu.Template.IdentityValueId}")
 	                Text=@(SqlItemCast.PluScale.Plu.Template.Title) />
             </td>
         </tr>
@@ -45,13 +44,12 @@
 		    <td>@LocaleCore.Table.PluNumber</td>
 		    <td>
 			    <RadzenLink 
-				    Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluScale.Plu.Identity.Uid}")
+				    Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluScale.Plu.IdentityValueUid}")
 				    Text=@(SqlItemCast.PluScale.Plu.Number.ToString()) />
 		    </td>
 		    <td>@LocaleCore.Table.Scale</td>
 		    <td>
-			    <RadzenLink 
-				    Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluScale.Scale.Identity.Id}")
+			    <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluScale.Scale.IdentityValueId}")
 				    Text=@(SqlItemCast.PluScale.Scale.Description) />
 		    </td>
 	    </tr>
@@ -69,8 +67,7 @@
 	        <td>
 		        @if (SqlItemCast.PluWeighing is not null)
 		        {
-			        <RadzenLink
-				        Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluWeighing.PluScale.Scale.Identity.Id}")
+			        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluWeighing.PluScale.Scale.IdentityValueId}")
 				        Text=@(SqlItemCast.PluWeighing.PluScale.Scale.Description)/>
 		        }
 	        </td>

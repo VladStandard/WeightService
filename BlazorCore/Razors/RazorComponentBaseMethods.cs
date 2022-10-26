@@ -22,10 +22,10 @@ public partial class RazorComponentBase
 		{
 			SqlFieldIdentityEnum.Id =>
 				LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
-				$"{nameof(ParentRazor.SqlItem.Identity.Id)}: {ParentRazor.SqlItem.Identity.Id}",
+				$"{nameof(ParentRazor.SqlItem.IdentityValueId)}: {ParentRazor.SqlItem.IdentityValueId}",
 			SqlFieldIdentityEnum.Uid =>
 				LocaleCore.Dialog.DialogQuestion + Environment.NewLine +
-				$"{nameof(ParentRazor.SqlItem.Identity.Uid)}: {ParentRazor.SqlItem.Identity.Uid}",
+				$"{nameof(ParentRazor.SqlItem.IdentityValueUid)}: {ParentRazor.SqlItem.IdentityValueUid}",
 			_ => string.Empty
 		};
 	}

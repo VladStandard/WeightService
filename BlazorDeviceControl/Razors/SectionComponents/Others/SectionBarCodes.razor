@@ -19,36 +19,31 @@
         <RazorSectionFieldIsMarked TItem=@BarCodeModel ParentRazor=@(this) />
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ChangeDt Width="12%">
 	        <Template Context="itemCast" >
-		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueTop Width="28%">
 	        <Template Context="itemCast" >
-		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.ValueTop />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueRight Width="15%">
 	        <Template Context="itemCast" >
-		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.ValueRight />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.ValueBottom Width="28%">
 	        <Template Context="itemCast" >
-		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.Identity.Uid}")
+		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
 			        Text=@itemCast.ValueBottom />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@BarCodeModel Title=@LocaleCore.Table.Label Width="12%">
 	        <Template Context="itemCast" >
-		        <RadzenLink 
-			        Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.PluLabel.Identity.Uid}")
+		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{itemCast.PluLabel.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.PluLabel.ChangeDt, true)) />
 	        </Template>
         </RadzenGridColumn>

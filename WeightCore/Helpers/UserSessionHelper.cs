@@ -96,7 +96,7 @@ public class UserSessionHelper : BaseViewModel
 			_pluScale = value;
 			if (value.IdentityIsNotNew)
 				DataAccess.LogInformation(
-					$"{LocaleCore.Scales.PluSet(value.Plu.Identity.Id, value.Plu.Number, value.Plu.Name)}", _scale.Host?.HostName);
+					$"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}", _scale.Host?.HostName);
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			PluPackages = SqlUtils.DataAccess.GetListPluPackages(value.Plu, false, false, true);

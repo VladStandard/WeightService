@@ -47,7 +47,7 @@ public partial class LocaleDeviceControl
 	public string ItemOrderWeighing => Lang == LangEnum.English ? "Order weighing" : "Взвешивание заказа";
 	public string ItemOrganization => Lang == LangEnum.English ? "Organization" : "Организация";
 	public string ItemPlu => Lang == LangEnum.English ? "PLU" : "ПЛУ";
-	public string ItemPluPackage => Lang == LangEnum.English ? "PLU's package (nesting)" : "ПЛУ тары (вложенность)";
+	public string ItemPluPackage => Lang == LangEnum.English ? "PLU's nesting" : "Вложенность ПЛУ";
 	public string ItemPluScale => Lang == LangEnum.English ? "Device PLU" : "ПЛУ устройства";
 	public string ItemPluWeighing => Lang == LangEnum.English ? "Plu weighings" : "Взвешивание ПЛУ";
 	public string ItemProductionFacilities => Lang == LangEnum.English ? "Prod. facilities" : "Производственные площадки";

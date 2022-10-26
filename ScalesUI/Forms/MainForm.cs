@@ -655,7 +655,7 @@ public partial class MainForm : Form
 			    wpfPageLoader.Close();
 			    if (dialogResult == DialogResult.OK)
 			    {
-				    UserSession.Setup(wpfPageLoader.PageDevice.UserSession.Scale.Identity.Id, UserSession.Area.Name);
+				    UserSession.Setup(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.Area.Name);
 			    }
 			    FieldLang_SelectedIndexChanged(sender, e);
 
@@ -678,9 +678,9 @@ public partial class MainForm : Form
 			    wpfPageLoader.Close();
 			    if (dialogResult == DialogResult.OK)
 			    {
-				    //UserSession.Setup(wpfPageLoader.PageDevice.Scale.Identity.Id);
-			    }
-			    FieldLang_SelectedIndexChanged(sender, e);
+					//UserSession.Setup(wpfPageLoader.PageDevice.Scale.IdentityValueId);
+				}
+				FieldLang_SelectedIndexChanged(sender, e);
 
 			    UserSession.ManagerControl.Massa.Open();
 		    },

@@ -83,6 +83,7 @@
     <Watch Remove="Razors\ExampleComponents\ExampleNetBarcode.razor" />
     <Watch Remove="Razors\ExampleComponents\ExampleRadzen.razor" />
     <Watch Remove="Razors\IdentityFetchData.razor" />
+    <Watch Remove="Razors\ItemComponents\Devices\ItemDeviceTypeFk.razor" />
     <Watch Remove="Razors\ItemComponents\ItemAccess.razor" />
     <Watch Remove="Razors\ItemComponents\ItemBarCode.razor" />
     <Watch Remove="Razors\ItemComponents\ItemBarCodeType.razor" />
@@ -114,7 +115,7 @@
     <Watch Remove="Razors\ItemComponents\RazorItemTableBody.razor" />
     <Watch Remove="Razors\ItemComponents\RazorItemTableHead.razor" />
     <Watch Remove="Razors\RazorActionLoad.razor" />
-    <Watch Remove="Razors\SectionComponents\Devices\SectionDevices.razor" />
+    <Watch Remove="Razors\SectionComponents\Devices\SectionDevicesTypesFk.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsNones.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsQuestions.razor" />
     <Watch Remove="Razors\SectionComponents\Logs\SectionLogsStops.razor" />

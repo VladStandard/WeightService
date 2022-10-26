@@ -109,7 +109,7 @@ public static class DataAccessHelperLog
 		StringUtils.SetStringValueTrim(ref name, 32);
 		AppModel app = new() { Name = name };
 		dataAccess.Save(app);
-		return app.Identity.Uid;
+		return app.IdentityValueUid;
 	}
 
 	public static long? GetHostId(this DataAccessHelper dataAccess, string name)
@@ -117,7 +117,7 @@ public static class DataAccessHelperLog
 		StringUtils.SetStringValueTrim(ref name, 150);
 		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(HostModel.Name), SqlFieldComparerEnum.Equal, name));
 		HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-		return host?.Identity.Id;
+		return host?.IdentityValueId;
 	}
 
 	#endregion

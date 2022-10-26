@@ -27,7 +27,7 @@
             TItem=@TemplateResourceModel Title=@LocaleCore.Table.Name Width="25%" SortProperty="Name" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.Identity.Id}")
+                            Path=@($"{LocaleCore.DeviceControl.RouteItemTemplateResource}/{itemCast.IdentityValueId}")
                     Text=@itemCast.Name />
             </Template>
         </RadzenGridColumn>

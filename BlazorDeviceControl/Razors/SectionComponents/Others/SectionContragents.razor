@@ -21,7 +21,7 @@
             TItem=@ContragentModel Title=@LocaleCore.Table.Name Width="50%" >
             <Template Context="itemCast" >
                 <RadzenLink Style="width: 100%; margin-left: 0; "
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.Identity.Uid}")
+                            Path=@($"{LocaleCore.DeviceControl.RouteItemContragent}/{itemCast.IdentityValueUid}")
                     Text=@itemCast.Name />
             </Template>
         </RadzenGridColumn>

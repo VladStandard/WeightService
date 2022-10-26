@@ -60,7 +60,7 @@ else
                 AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
                 AllowSorting=true >
         <Columns>
-            <RadzenGridColumn TItem=NomenclatureUnitsModel Property="Identity.Id" Title=@LocaleCore.TableField.Id
+            <RadzenGridColumn TItem=NomenclatureUnitsModel Property="IdentityValueId" Title=@LocaleCore.TableField.Id
                                 Type="int" Width="10%" />
             <RadzenGridColumn TItem=NomenclatureUnitsModel Property="CreateDate" Title=@LocaleCore.TableField.CreateDt
                                 Type="DateTime" Width="10%" />
@@ -97,7 +97,7 @@ else
                 AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowsCount
                 AllowSorting=true >
         <Columns>
-            <RadzenGridColumn TItem=BarCodesModel Property="Identity.Id" Title=@LocaleCore.TableField.Id
+            <RadzenGridColumn TItem=BarCodesModel Property="IdentityValueId" Title=@LocaleCore.TableField.Id
                                 Type="int" Width="10%" />
             <RadzenGridColumn TItem=BarCodesModel Property="CreateDate" Title=@LocaleCore.TableField.CreateDt
                                 Type="DateTime" Width="10%" />

@@ -5,11 +5,11 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Devices;
 
-public partial class SectionDevices : RazorComponentSectionBase<DeviceTypeFkModel, SqlTableBase>
+public partial class SectionDevicesTypesFk : RazorComponentSectionBase<DeviceTypeFkModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionDevices()
+    public SectionDevicesTypesFk()
     {
 		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;

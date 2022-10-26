@@ -223,7 +223,7 @@ public partial class PlusForm : Form
 
 	private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
 	{
-		TemplateModel template = UserSession.DataAccess.GetItemByIdNotNull<TemplateModel>(pluScale.Plu.Template.Identity.Id);
+		TemplateModel template = UserSession.DataAccess.GetItemByIdNotNull<TemplateModel>(pluScale.Plu.Template.IdentityValueId);
 		Label labelPluTemplate = new()
 		{
 			Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

@@ -123,7 +123,7 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 					new SqlFieldFilterModel(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, Scale), 0, false, false);
 				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 				if (scale is not null)
-					return scale.Identity.Id;
+					return scale.IdentityValueId;
 				break;
 		}
 		return 0;
@@ -138,7 +138,7 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 					new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, Host), 0, false, false);
 				HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
 				if (host is not null)
-					return host.Identity.Id;
+					return host.IdentityValueId;
 				break;
 		}
 		return 0;

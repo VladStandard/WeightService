@@ -24,10 +24,10 @@ public partial class RazorComponentBase
 	//    //AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
 	//    //AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
 
-	//    //if (Identity.Id is null && ParentRazor?.Identity.Id is not null)
-	//    //    Identity.Id = ParentRazor.Identity.Id;
-	//    //if (IdentityUid is null && ParentRazor?.Identity.Uid is not null)
-	//    //    IdentityUid = ParentRazor.Identity.Uid;
+	//    //if (IdentityValueId is null && ParentRazor?.IdentityValueId is not null)
+	//    //    IdentityValueId = ParentRazor.IdentityValueId;
+	//    //if (IdentityUid is null && ParentRazor?.IdentityUid is not null)
+	//    //    IdentityUid = ParentRazor.IdentityUid;
 	//    //if (string.IsNullOrEmpty(Table.Name))
 	//    //{
 	//    //    if (ParentRazor is not null)

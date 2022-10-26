@@ -88,15 +88,15 @@
 		        @if (SqlItemCast.PluLabel.PluWeighing is not null)
 		        {
 			        <RadzenLink 
-				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Identity.Uid}")
+				        Path=@($"{LocaleCore.DeviceControl.RouteItemPlu}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.IdentityValueUid}")
 				        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Plu.Name) />
 		        }
 	        </td>
             <td>@LocaleCore.Table.Label</td>
             <td>
                 <RadzenLink 
-                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{SqlItemCast.PluLabel.Identity.Uid}")
-                    Text=@(SqlItemCast.PluLabel.Identity.Uid.ToString()) />
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemPluLabel}/{SqlItemCast.PluLabel.IdentityValueUid}")
+                    Text=@(SqlItemCast.PluLabel.IdentityValueUid.ToString()) />
             </td>
         </tr>
         <tr>
@@ -104,8 +104,7 @@
 	        <td>
 		        @if (SqlItemCast.PluLabel.PluWeighing is not null)
 		        {
-			        <RadzenLink 
-				        Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Identity.Id}")
+			        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.IdentityValueId}")
 				        Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Description) />
 		        }
 	        </td>
@@ -114,7 +113,7 @@
                 @if (SqlItemCast.PluLabel.PluWeighing?.PluScale.Scale.Host is not null)
                 {
 	                <RadzenLink 
-		                Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Identity.Id}")
+		                Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.IdentityValueId}")
                         Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Host.Name) />
                 }
             </td>
@@ -124,9 +123,8 @@
 	        <td>
 		        @if (SqlItemCast.PluLabel.PluWeighing is not null)
 		        {
-			        <RadzenLink 
-				        Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.Identity.Uid}")
-				        Text=@(SqlItemCast.PluLabel.PluWeighing.Identity.Uid.ToString()) />
+			        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemPluWeighing}/{SqlItemCast.PluLabel.PluWeighing.IdentityValueUid}")
+                    Text=@(SqlItemCast.PluLabel.PluWeighing.IdentityValueUid.ToString()) />
 		        }
 	        </td>
             <td>@LocaleCore.Table.ProductSeries</td>

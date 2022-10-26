@@ -30,12 +30,12 @@
 				case SqlFieldIdentityEnum.Id:
 					<RadzenTextBox 
 						Style="width: 100%; text-align: center; background-color: lightgray;"
-						ReadOnly=true Value=@SqlItem.Identity.Id.ToString() />
+					   ReadOnly=true Value=@SqlItem.IdentityValueId.ToString() />
 					break;
 				case SqlFieldIdentityEnum.Uid:
 					<RadzenTextBox 
 						Style="width: 100%; text-align: center; background-color: lightgray;"
-						ReadOnly=true Value=@SqlItem.Identity.Uid.ToString() />
+						ReadOnly=true Value=@SqlItem.IdentityValueUid.ToString() />
 					break;
 			}
 		</td>

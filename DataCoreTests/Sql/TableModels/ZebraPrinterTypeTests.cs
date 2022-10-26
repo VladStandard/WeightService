@@ -26,7 +26,7 @@
 //                    {
 //                        Name = s,
 //                    };
-//                    item.Identity.Id = i;
+//                    item.IdentityValueId = i;
 //                    _ = item.ToString();
 //                    Assert.AreEqual(false, entityNew.Equals(item));
 //                }
@@ -48,7 +48,7 @@
 //                {
 //                    Name = name,
 //                };
-//                zebraPrinterType.Identity.Id = -1;
+//                zebraPrinterType.IdentityValueId = -1;
 //                DataAccessUtilsTests.DataAccess.SaveEntity(zebraPrinterType);
 //            });
 

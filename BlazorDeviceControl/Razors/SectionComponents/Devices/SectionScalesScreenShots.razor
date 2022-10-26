@@ -20,14 +20,14 @@
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true, true)) 
-					Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.Identity.Uid}") />
+					Path=@($"{LocaleCore.DeviceControl.RouteItemScaleScreenShot}/{itemCast.IdentityValueUid}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="40%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.Scale>
 			<Template Context="itemCast">
 				<RadzenLink 
 					Text=@itemCast.Scale.Description
-					Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.Scale.Identity.Id}") />
+					Path=@($"{LocaleCore.DeviceControl.RouteItemScale}/{itemCast.Scale.IdentityValueId}") />
 			</Template>
 		</RadzenGridColumn>
 		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="43%" TextAlign=@TextAlign.Left Title=@LocaleCore.Table.ScreenShot>

@@ -20,7 +20,7 @@
         <RadzenGridColumn TItem=@NomenclatureModel Title=@LocaleCore.Table.Name Width="45%" >
             <Template Context="itemCast" >
 	            <RadzenLink Style="width: 100%; margin-left: 0; "
-	                        Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclature}/{itemCast.Identity.Id}")
+                            Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclature}/{itemCast.IdentityValueId}")
 	                        Text=@itemCast.Name />
             </Template>
         </RadzenGridColumn>

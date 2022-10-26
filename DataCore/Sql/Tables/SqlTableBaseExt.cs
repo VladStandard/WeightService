@@ -2,10 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
-using DataCore.Sql.TableScaleModels;
 using System.Globalization;
 using Zebra.Sdk.Device;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.Tables;
 
@@ -23,6 +21,10 @@ public static class SqlTableBaseExt
 			case AccessModel access:
 				switch (propertyName)
 				{
+					case $"{nameof(AccessModel.LoginDt)}":
+						return StringUtils.FormatDtRus(access.LoginDt, true);
+					case $"{nameof(AccessModel.Name)}":
+						return access.Name;
 					case $"{nameof(AccessModel.Rights)}":
 						return DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights);
 				}
@@ -73,6 +75,23 @@ public static class SqlTableBaseExt
 					case $"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}":
 						return deviceTypeFk.DeviceType.PrettyName;
 				};
+				break;
+			case DataCore.Sql.Xml.LogQuickModel logQuick:
+				switch (propertyName)
+				{
+					case $"{nameof(Xml.LogQuickModel.App)}":
+						return logQuick.App;
+					case $"{nameof(Xml.LogQuickModel.Host)}":
+						return logQuick.Host;
+					case $"{nameof(Xml.LogQuickModel.Icon)}":
+						return logQuick.Icon;
+					case $"{nameof(Xml.LogQuickModel.Message)}":
+						return logQuick.Message;
+					case $"{nameof(Xml.LogQuickModel.Scale)}":
+						return logQuick.Scale;
+					case $"{nameof(Xml.LogQuickModel.Version)}":
+						return logQuick.Version;
+				}
 				break;
 			case OrganizationModel organization:
 				switch (propertyName)

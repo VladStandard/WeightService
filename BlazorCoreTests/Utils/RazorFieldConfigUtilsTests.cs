@@ -45,7 +45,7 @@ internal class RazorFieldConfigUtilsTests
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Access.GetRights();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Access.GetUser();
+			razorFieldConfig = RazorFieldConfigUtils.Access.GetName();
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}

@@ -1,0 +1,122 @@
+﻿@inherits RazorComponentItemBase<DeviceTypeFkModel>
+@page "/item/device_type_fk"
+@page "/item/device_type_fk/new"
+@page "/item/device_type_fk/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@DeviceTypeFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
+
+<MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
+	<RazorItemTableHead TItem=@DeviceTypeFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<tbody>
+		<RazorItemTableBody TItem=@DeviceTypeFkModel ParentRazor=@(this) />
+		<tr>
+			<td>@LocaleCore.Table.LoginDt</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.Device.LoginDt, true)) />
+			</td>
+			<td>@LocaleCore.Table.LogoutDt</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.Device.LogoutDt, true)) />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Device</td>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; "
+					Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.Device.IdentityValueUid}")
+				    Text=@SqlItemCast.Device.Name />
+			</td>
+			<td colspan=2>
+				<RadzenLink 
+					Style="width: 100%; "
+					Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.Device.IdentityValueUid}")
+				    Text=@SqlItemCast.Device.IdentityValueUid.ToString() />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Name</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@SqlItemCast.Device.Name />
+			</td>
+			<td>@LocaleCore.Table.PrettyName</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@SqlItemCast.Device.PrettyName />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.DeviceIp</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@SqlItemCast.Device.Ipv4 />
+			</td>
+			<td>@LocaleCore.Table.DeviceMac</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@SqlItemCast.Device.MacAddress.ValuePrettyLookMinus />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Description</td>
+			<td colspan=3>
+				<RadzenTextArea 
+					Style="width: 100%; text-align: left; background-color: lightgray; " 
+					ReadOnly=true Value=@SqlItemCast.Device.Description Rows=4 />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.DeviceType</td>
+			<td>
+				<RadzenLink 
+					Style="width: 100%; "
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, SqlItemCast.DeviceType, SqlItemCast.DeviceType.IdentityValueUid)
+					Text=@SqlItemCast.DeviceType.Name />
+			</td>
+			<td colspan=2>
+				<RadzenLink 
+					Style="width: 100%; "
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, SqlItemCast.DeviceType, SqlItemCast.DeviceType.IdentityValueUid)
+					Text=@SqlItemCast.DeviceType.IdentityValueUid.ToString() />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.DeviceType</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@SqlItemCast.DeviceType.Name />
+			</td>
+			<td>@LocaleCore.Table.PrettyName</td>
+			<td>
+				<RadzenTextBox 
+					Style="width: 100%; text-align: center; background-color: lightgray; "
+					ReadOnly=true Value=@SqlItemCast.DeviceType.PrettyName />
+			</td>
+		</tr>
+		<tr>
+			<td>@LocaleCore.Table.Description</td>
+			<td colspan=3>
+				<RadzenTextArea 
+					Style="width: 100%; text-align: left; background-color: lightgray; " 
+					ReadOnly=true Value=@SqlItemCast.DeviceType.Description Rows=4 />
+			</td>
+		</tr>
+	</tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@DeviceTypeFkModel ParentRazor=@(this) />
+<RazorItemDates TItem=@DeviceTypeFkModel ParentRazor=@(this) />

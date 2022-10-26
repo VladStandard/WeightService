@@ -82,7 +82,7 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            //if (PluItem.Plu == 0)
 	            //{
 	            //    PluModel plu = AppSettings.DataAccess.PlusCrud.GetItem(
-	            //        new (new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.Identity.Id } }),
+	            //        new (new Dictionary<string, object,> { { $"Scale.{DbField.IdentityId}", PluItem.Scale.IdentityValueId } }),
 	            //        new FieldOrderModel { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
 	            //    if (plu is not null && !plu.EqualsDefault())
 	            //    {

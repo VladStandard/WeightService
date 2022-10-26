@@ -116,14 +116,14 @@ public partial class PageDevice
 
 	private void ButtonApply_OnClick(object sender, RoutedEventArgs e)
 	{
-		UserSession.Setup(UserSession.Scale.Identity.Id, UserSession.Area.Name);
+		UserSession.Setup(UserSession.Scale.IdentityValueId, UserSession.Area.Name);
 		Result = System.Windows.Forms.DialogResult.OK;
 		OnClose?.Invoke(sender, e);
 	}
 
 	private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
 	{
-		UserSession.Setup(UserSession.Scale.Identity.Id, string.Empty);
+		UserSession.Setup(UserSession.Scale.IdentityValueId, string.Empty);
 		Result = System.Windows.Forms.DialogResult.Cancel;
 		OnClose?.Invoke(sender, e);
 	}
