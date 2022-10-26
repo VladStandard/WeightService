@@ -18,15 +18,15 @@
     <Columns>
         <RazorSectionFieldIsMarked TItem=@DeviceTypeFkModel ParentRazor=@(this) />
         <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetLoginDt() />
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetDeviceLoginDt() />
         <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetName() />
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetDeviceName() />
         <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetPrettyName() />
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetDeviceTypePrettyName() />
         <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetIpv4() />
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetDeviceIpv4() />
         <RazorSectionField TItem=@DeviceTypeFkModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Device.GetMacAddress() />
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceTypeFk.GetDeviceMacAddress() />
     </Columns>
 </RadzenGrid>
 

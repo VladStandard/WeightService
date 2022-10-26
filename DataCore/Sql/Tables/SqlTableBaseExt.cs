@@ -2,7 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
+using DataCore.Sql.TableScaleModels;
 using System.Globalization;
+using Zebra.Sdk.Device;
+using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.Tables;
 
@@ -17,134 +20,185 @@ public static class SqlTableBaseExt
 	{
 		switch (item)
 		{
+			case AccessModel access:
+				switch (propertyName)
+				{
+					case $"{nameof(AccessModel.Rights)}":
+						return DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights);
+				}
+				break;
+			case DeviceModel device:
+				switch (propertyName)
+				{
+					case nameof(DeviceModel.LoginDt):
+						return StringUtils.FormatDtRus(device.LoginDt, true);
+					case nameof(DeviceModel.LogoutDt):
+						return StringUtils.FormatDtRus(device.LogoutDt, true);
+					case nameof(DeviceModel.Name):
+						return device.Name;
+					case nameof(DeviceModel.PrettyName):
+						return device.PrettyName;
+					case nameof(DeviceModel.Ipv4):
+						return device.Ipv4;
+					case nameof(DeviceModel.MacAddress):
+						return device.MacAddress.ValuePrettyLookMinus;
+				};
+				break;
+			case DeviceTypeModel deviceType:
+				switch (propertyName)
+				{
+					case nameof(DeviceTypeModel.Name):
+						return deviceType.Name;
+					case nameof(DeviceTypeModel.PrettyName):
+						return deviceType.PrettyName;
+				};
+				break;
 			case DeviceTypeFkModel deviceTypeFk:
 				switch (propertyName)
 				{
-					case nameof(deviceTypeFk.Device.LoginDt):
-						return StringUtils.FormatDtRus(deviceTypeFk.Device.LoginDt, true);
-					case nameof(deviceTypeFk.Device.LogoutDt):
-						return StringUtils.FormatDtRus(deviceTypeFk.Device.LogoutDt, true);
-					case nameof(deviceTypeFk.Device.Name):
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.LoginDt)}":
+						return StringUtils.FormatDtRus(deviceTypeFk.Device.LoginDt, true, true);
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.LogoutDt)}":
+						return StringUtils.FormatDtRus(deviceTypeFk.Device.LogoutDt, true, true);
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Name)}":
 						return deviceTypeFk.Device.Name;
-					case nameof(deviceTypeFk.Device.PrettyName):
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.PrettyName)}":
 						return deviceTypeFk.Device.PrettyName;
-					case nameof(deviceTypeFk.Device.Ipv4):
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Ipv4)}":
 						return deviceTypeFk.Device.Ipv4;
-					case nameof(deviceTypeFk.Device.MacAddress):
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.MacAddress)}":
 						return deviceTypeFk.Device.MacAddress.ValuePrettyLookMinus;
+					case $"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.Name)}":
+						return deviceTypeFk.DeviceType.Name;
+					case $"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}":
+						return deviceTypeFk.DeviceType.PrettyName;
+				};
+				break;
+			case OrganizationModel organization:
+				switch (propertyName)
+				{
+					case $"{nameof(OrganizationModel.Name)}":
+						return organization.Name;
+					case $"{nameof(OrganizationModel.Gln)}":
+						return organization.Gln.ToString();
 				}
-				return string.Empty;
-			default:
+				break;
+			case PackageModel package:
+				switch (propertyName)
+				{
+					case $"{nameof(PackageModel.Name)}":
+						return package.Name;
+					case $"{nameof(PackageModel.Weight)}":
+						return package.Weight.ToString(CultureInfo.InvariantCulture);
+				}
+				break;
+			case PluModel plu:
+				switch (propertyName)
+				{
+					case $"{nameof(PluModel.Name)}":
+						return plu.Name;
+					case $"{nameof(PluModel.Number)}":
+						return plu.Number.ToString();
+					case $"{nameof(PluModel.ShelfLifeDays)}":
+						return plu.ShelfLifeDays.ToString();
+					case $"{nameof(PluModel.BoxQuantly)}":
+						return plu.BoxQuantly.ToString();
+				}
+				break;
+			case PluScaleModel pluScale:
+				switch (propertyName)
+				{
+					case $"{nameof(PluModel)}.{nameof(PluModel.Name)}":
+						return pluScale.Plu.Name;
+					case $"{nameof(PluModel)}.{nameof(PluModel.FullName)}":
+						return pluScale.Plu.FullName;
+				}
+				break;
+			case PrinterModel printer:
+				switch (propertyName)
+				{
+					case $"{nameof(PrinterModel.Ip)}":
+						return printer.Ip;
+					case $"{nameof(PrinterModel.Name)}":
+						return printer.Name;
+					case $"{nameof(PrinterModel.MacAddress)}":
+						return printer.MacAddress.ValuePrettyLookMinus;
+					case $"{nameof(PrinterTypeModel)}.{nameof(PrinterTypeModel.Name)}":
+						return printer.PrinterType.Name;
+				};
+				break;
+			case PrinterResourceModel printerResource:
+				switch (propertyName)
+				{
+					case $"{nameof(PrinterModel)}.{nameof(PrinterModel.Name)}":
+						return printerResource.Printer.Name;
+					case $"{nameof(TemplateResourceModel)}.{nameof(TemplateResourceModel.Name)}":
+						return printerResource.TemplateResource.Name;
+				};
+				break;
+			case PrinterTypeModel printerType:
+				switch (propertyName)
+				{
+					case $"{nameof(PrinterTypeModel.Name)}":
+						return printerType.Name;
+				};
+				break;
+			case ProductionFacilityModel productionFacility:
+				switch (propertyName)
+				{
+					case $"{nameof(ProductionFacilityModel.Address)}":
+						return productionFacility.Address;
+					case $"{nameof(ProductionFacilityModel.Name)}":
+						return productionFacility.Name;
+				};
+				break;
+			case ScaleModel scale:
+				switch (propertyName)
+				{
+					case $"{nameof(HostModel)}.{nameof(HostModel.Name)}":
+						return scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull;
+					case $"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}":
+						return scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldNull;
+					case $"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}":
+						return scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull;
+					case $"{nameof(WorkShopModel)}.{nameof(WorkShopModel.Name)}":
+						return scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldNull;
+					case $"{nameof(ScaleModel.DeviceIp)}":
+						return scale.DeviceIp;
+				}
+				break;
+			case VersionModel version:
+				switch (propertyName)
+				{
+					case nameof(version.ReleaseDt):
+						return StringUtils.FormatDtRus(version.ReleaseDt, false, false);
+					case nameof(version.Version):
+						return version.Version.ToString();
+				};
+				break;
+			case WorkShopModel workShop:
+				switch (propertyName)
+				{
+					case $"{nameof(WorkShopModel.Name)}":
+						return workShop.Name;
+					case $"{nameof(ProductionFacilityModel)}.{nameof(ProductionFacilityModel.Name)}":
+						return workShop.ProductionFacility.Name;
+				};
 				break;
 		}
-		object? value = GetPropertyValue(item, propertyName);
-		switch (value)
+		if (item is SqlTableBase sqlTable)
 		{
-			case string strValue:
-				return strValue;
-			case int intValue:
-				return intValue.ToString(CultureInfo.InvariantCulture);
-			case short shortValue:
-				return shortValue.ToString(CultureInfo.InvariantCulture);
-			case decimal decValue:
-				return decValue.ToString(CultureInfo.InvariantCulture);
-			case DateTime dtValue:
-				if (item is VersionModel version && string.Equals(propertyName, nameof(version.ReleaseDt)))
-				{
-					return StringUtils.FormatDtRus(version.ReleaseDt, false, false);
-				}
-				else
-				{
-					return StringUtils.FormatDtRus(dtValue, true, true);
-				}
-			case byte byteValue:
-				if (item is AccessModel access && string.Equals(propertyName, nameof(access.Rights)))
-				{
-					return DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights);
-				}
-				else
-				{
-					return byteValue.ToString(CultureInfo.InvariantCulture);
-				}
-			case SqlFieldMacAddressModel macAddress:
-				if (item is DeviceTypeFkModel deviceTypeFk1 && string.Equals(propertyName, nameof(deviceTypeFk1.Device.MacAddress)))
-				{
-					return deviceTypeFk1.Device.MacAddress.ValuePrettyLookMinus;
-				}
-				else if (item is TableScaleModels.DeviceModel device && string.Equals(propertyName, nameof(device.MacAddress)))
-				{
-					return device.MacAddress.ValuePrettyLookMinus;
-				}
-				else if (item is HostModel host1 && string.Equals(propertyName, nameof(host1.MacAddress)))
-				{
-					return host1.MacAddress.ValuePrettyLookMinus;
-				}
-				else
-				{
-					return macAddress.ValuePrettyLookMinus;
-				}
-			case HostModel host:
-				if (item is ScaleModel scale && string.Equals(propertyName, nameof(scale.Host)))
-				{
-					return scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull;
-				}
-				else
-				{
-					return host.Name;
-				}
-			case PluModel plu:
-				if (item is PluScaleModel pluScale1 && string.Equals(propertyName, nameof(pluScale1.Plu)))
-				{
-					return pluScale1.Plu.Name;
-				}
-				else
-				{
-					return plu.Name;
-				}
-			case PrinterModel printer1:
-				if (item is ScaleModel scale2)
-				{
-					if (string.Equals(propertyName, nameof(scale.PrinterMain)))
-						return scale2.PrinterMain is not null ? scale2.PrinterMain.Name : LocaleCore.Table.FieldNull;
-					if (string.Equals(propertyName, nameof(scale.PrinterShipping)))
-						return scale2.PrinterShipping is not null ? scale2.PrinterShipping.Name : LocaleCore.Table.FieldNull;
-				}
-				if (item is PrinterResourceModel printerResource)
-				{
-					if (string.Equals(propertyName, nameof(printerResource.Printer)))
-						return printerResource.Printer.Name;
-				}
-				return printer1.Name;
-			case PrinterTypeModel printerType:
-				if (item is PrinterModel printer)
-				{
-					if (string.Equals(propertyName, nameof(printer.PrinterType)))
-						return printer.PrinterType.Name;
-				}
-				return printerType.Name;
-			case ProductionFacilityModel productionFacility:
-				if (item is WorkShopModel workShop1)
-				{
-					if (string.Equals(propertyName, nameof(workShop1.ProductionFacility)))
-						return workShop1.ProductionFacility.Name;
-				}
-				return productionFacility.Name;
-			case TemplateResourceModel templateResource:
-				if (item is PrinterResourceModel printerResource1)
-				{
-					if (string.Equals(propertyName, nameof(printerResource1.TemplateResource)))
-						return printerResource1.TemplateResource.Name;
-				}
-				return templateResource.Name;
-			case WorkShopModel workShop:
-				if (item is ScaleModel scale3)
-				{
-					if (string.Equals(propertyName, nameof(scale.WorkShop)))
-						return scale3.WorkShop is not null ? scale3.WorkShop.Name : LocaleCore.Table.FieldNull;
-				}
-				return workShop.Name;
+			switch (propertyName)
+			{
+				case nameof(SqlTableBase.CreateDt):
+					return StringUtils.FormatDtRus(sqlTable.CreateDt, true, true);
+				case nameof(SqlTableBase.ChangeDt):
+					return StringUtils.FormatDtRus(sqlTable.ChangeDt, true, true);
+				case nameof(SqlTableBase.Description):
+					return sqlTable.Description;
+			};
 		}
-		return string.Empty;
+		return LocaleCore.Table.FieldNotFound;
 	}
 
 	public static bool GetPropertyAsBool<T>(this T? item, string propertyName) where T : SqlTableBase, new()
@@ -159,19 +213,19 @@ public static class SqlTableBaseExt
 	{
 		if (item is not null && !string.IsNullOrEmpty(propertyName))
 		{
-			if (propertyName.Contains('.'))
-			{
-				foreach (PropertyInfo property in typeof(T).GetProperties())
-				{
-					if (string.Equals(property.Name, propertyName.Substring(0, propertyName.IndexOf('.'))))
-					{
-						T prop = (T)property.GetValue(item);
-						string subPropertyName = propertyName.Substring(propertyName.IndexOf('.'), propertyName.Length - propertyName.IndexOf('.') - 1);
-						return GetPropertyValue(prop, subPropertyName);
-					}
-				}
-			}
-			else
+			//if (propertyName.Contains('.'))
+			//{
+			//	foreach (PropertyInfo property in typeof(T).GetProperties())
+			//	{
+			//		if (string.Equals(property.Name, propertyName.Substring(0, propertyName.IndexOf('.'))))
+			//		{
+			//			T prop = (T)property.GetValue(item);
+			//			string subPropertyName = propertyName.Substring(propertyName.IndexOf('.'), propertyName.Length - propertyName.IndexOf('.') - 1);
+			//			return GetPropertyValue(prop, subPropertyName);
+			//		}
+			//	}
+			//}
+			//else
 			{
 				foreach (PropertyInfo property in typeof(T).GetProperties())
 				{

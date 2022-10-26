@@ -17,7 +17,6 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@WorkShopModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@WorkShopModel ParentRazor=@(this) />
         <RazorSectionField TItem=@WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetName() />
         <RazorSectionField TItem=@WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))

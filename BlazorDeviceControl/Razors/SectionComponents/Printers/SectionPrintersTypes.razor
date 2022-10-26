@@ -17,8 +17,7 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PrinterTypeModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@PrinterTypeModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("50%", true))
+        <RazorSectionField TItem=@PrinterTypeModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("95%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.PrinterType.GetName() />
     </Columns>
 </RadzenGrid>

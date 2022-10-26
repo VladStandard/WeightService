@@ -3,7 +3,7 @@
 
 using BlazorCore.Razors;
 
-namespace BlazorDeviceControl.Razors.ItemComponents.Others;
+namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
 public partial class ItemScaleScreenShot : RazorComponentItemBase<ScaleScreenShotModel>
 {

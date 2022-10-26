@@ -11,8 +11,10 @@ public partial class LocaleDeviceControl
     public string RouteItemAccess => "/item/access";
     public string RouteItemApps => "/item/app";
     public string RouteItemBarCode => "/item/barcode";
-    //public string RouteItemBarCodeType => "/item/barcodetype";
-    public string RouteItemContragent => "/item/contragent";
+	public string RouteItemContragent => "/item/contragent";
+	public string RouteItemDevice => "/item/device";
+	public string RouteItemDeviceType => "/item/device_type";
+	public string RouteItemDeviceTypeFk => "/item/device_type_fk";
     public string RouteItemHost => "/item/host";
     public string RouteItemLog => "/item/log";
     public string RouteItemLogType => "/item/logtype";
@@ -45,7 +47,9 @@ public partial class LocaleDeviceControl
     public string RouteSectionApps => "/section/apps";
     public string RouteSectionBarCodes => "/section/barcodes";
     public string RouteSectionContragents => "/section/contragents";
-    public string RouteSectionDevices => "/section/devices";
+	public string RouteSectionDevices => "/section/devices";
+	public string RouteSectionDevicesTypes => "/section/devices_types";
+	public string RouteSectionDevicesTypesFk => "/section/devices_types_fk";
     public string RouteSectionHosts => "/section/hosts";
     public string RouteSectionLogs => "/section/logs";
     public string RouteSectionLogsErrors => "/section/logs_errors";

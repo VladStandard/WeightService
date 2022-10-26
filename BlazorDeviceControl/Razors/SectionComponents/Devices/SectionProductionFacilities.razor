@@ -17,10 +17,9 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ProductionFacilityModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@ProductionFacilityModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("19%", true))
+        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetName() />
-        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("55%", true))
+        <RazorSectionField TItem=@ProductionFacilityModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("70%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.ProductionFacility.GetAddress() />
     </Columns>
 </RadzenGrid>

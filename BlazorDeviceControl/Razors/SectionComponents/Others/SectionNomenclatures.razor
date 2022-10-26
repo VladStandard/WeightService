@@ -17,9 +17,6 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@NomenclatureModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@NomenclatureModel ParentRazor=@(this) />
-        <RazorSectionField TItem=@NomenclatureModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("12%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetChangeDt() />
         <RadzenGridColumn TItem=@NomenclatureModel Title=@LocaleCore.Table.Name Width="45%" >
             <Template Context="itemCast" >
 	            <RadzenLink Style="width: 100%; margin-left: 0; "
@@ -30,7 +27,7 @@
         <RadzenGridColumn 
             TItem=@NomenclatureModel Property="Code" 
             Title=@LocaleCore.Table.Code
-            Type="string" Width="10%" />
+            Type="string" Width="20%" />
         <RadzenGridColumn 
             TItem=@NomenclatureModel TextAlign=@TextAlign.Center Width="5%" 
             Title=@LocaleCore.Table.Weighted >

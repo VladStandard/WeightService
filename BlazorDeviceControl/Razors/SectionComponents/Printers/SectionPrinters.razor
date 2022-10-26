@@ -17,13 +17,12 @@
     AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PrinterModel ParentRazor=@(this) />
-        <RazorSectionFieldIdentity TItem=@PrinterModel ParentRazor=@(this) />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetName() />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterIp() />
+            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetIp() />
         <RadzenGridColumn TItem=@PrinterModel TextAlign=@TextAlign.Center
             Title=@LocaleCore.Table.HttpStatusCode Type="string" Width="10%" >
             <Template Context="item" >
