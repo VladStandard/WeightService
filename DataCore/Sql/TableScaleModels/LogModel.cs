@@ -13,7 +13,7 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement(IsNullable = true)] public virtual HostModel? Host { get; set; }
+	[XmlElement(IsNullable = true)] public virtual DeviceModel? Device { get; set; }
 	[XmlElement(IsNullable = true)] public virtual AppModel? App { get; set; }
 	[XmlElement(IsNullable = true)] public virtual LogTypeModel? LogType { get; set; }
 	[XmlElement] public virtual string Version { get; set; }
@@ -27,7 +27,7 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
 	public LogModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		Host = null;
+		Device = null;
 		App = null;
 		LogType = null;
 		Version = string.Empty;
@@ -44,7 +44,7 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	private LogModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Host = (HostModel?)info.GetValue(nameof(Host), typeof(HostModel));
+		Device = (DeviceModel?)info.GetValue(nameof(Device), typeof(DeviceModel));
 		App = (AppModel?)info.GetValue(nameof(App), typeof(AppModel));
 		LogType = (LogTypeModel?)info.GetValue(nameof(LogType), typeof(LogTypeModel));
 		Version = info.GetString(nameof(Version));
@@ -60,7 +60,7 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-		$"{nameof(Host)}: {Host?.Name ?? "null"}. " +
+		$"{nameof(Device)}: {Device?.Name ?? "null"}. " +
 		$"{nameof(App)}: {App?.Name ?? "null"}. " +
 		$"{nameof(LogType)}: {LogType?.Icon ?? "null"}. " +
 		$"{nameof(Version)}: {Version}. " +
@@ -81,26 +81,21 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-	{
-		if (Host is not null && !Host.EqualsDefault())
-			return false;
-		if (App is not null && !App.EqualsDefault())
-			return false;
-		if (LogType is not null && !LogType.EqualsDefault())
-			return false;
-		return base.EqualsDefault() &&
-			   Equals(Version, string.Empty) &&
-			   Equals(File, string.Empty) &&
-			   Equals(Line, 0) &&
-			   Equals(Member, string.Empty) &&
-			   Equals(Message, string.Empty);
-	}
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Version, string.Empty) &&
+		Equals(File, string.Empty) &&
+		Equals(Line, 0) &&
+		Equals(Member, string.Empty) &&
+		Equals(Message, string.Empty) &&
+		(Device is null || Device.EqualsDefault()) &&
+		(App is null || App.EqualsDefault()) &&
+		(LogType is null || LogType.EqualsDefault());
 
 	public override object Clone()
 	{
 		LogModel item = new();
-		item.Host = Host?.CloneCast();
+		item.Device = Device?.CloneCast();
 		item.App = App?.CloneCast();
 		item.LogType = LogType?.CloneCast();
 		item.Version = Version;
@@ -120,20 +115,18 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Host), Host);
-		info.AddValue(nameof(App), App);
-		info.AddValue(nameof(LogType), LogType);
 		info.AddValue(nameof(Version), Version);
 		info.AddValue(nameof(File), File);
 		info.AddValue(nameof(Line), Line);
 		info.AddValue(nameof(Member), Member);
 		info.AddValue(nameof(Message), Message);
+		info.AddValue(nameof(Device), Device);
+		info.AddValue(nameof(App), App);
+		info.AddValue(nameof(LogType), LogType);
 	}
 
 	public override void ClearNullProperties()
 	{
-		if (Host is not null && Host.Identity.EqualsDefault())
-			Host = null;
 		if (App is not null && App.Identity.EqualsDefault())
 			App = null;
 		if (LogType is not null && LogType.Identity.EqualsDefault())
@@ -143,13 +136,15 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void FillProperties()
 	{
 		base.FillProperties();
+		
 		Version = LocaleCore.Sql.SqlItemFieldVersion;
 		File = LocaleCore.Sql.SqlItemFieldFile;
 		Line = 1;
 		Member = LocaleCore.Sql.SqlItemFieldMember;
 		//LogType = new();
 		Message = LocaleCore.Sql.SqlItemFieldMessage;
-		Host?.FillProperties();
+		
+		Device?.FillProperties();
 		App?.FillProperties();
 		LogType?.FillProperties();
 	}
@@ -158,22 +153,17 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(LogModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (Host is not null && item.Host is not null && !Host.Equals(item.Host))
-			return false;
-		if (App is not null && item.App is not null && !App.Equals(item.App))
-			return false;
-		if (LogType is not null && item.LogType is not null && !LogType.Equals(item.LogType))
-			return false;
-		return base.Equals(item) &&
-			   Equals(Version, item.Version) &&
-			   Equals(File, item.File) &&
-			   Equals(Line, item.Line) &&
-			   Equals(Member, item.Member) &&
-			   Equals(Message, item.Message);
-	}
+	public virtual bool Equals(LogModel item) =>
+		ReferenceEquals(this, item) || 
+		base.Equals(item) &&
+		Equals(Version, item.Version) &&
+		Equals(File, item.File) &&
+		Equals(Line, item.Line) &&
+		Equals(Member, item.Member) &&
+		Equals(Message, item.Message) &&
+		(Device is null && item.Device is null || Device is not null && item.Device is not null && Device.Equals(item.Device)) &&
+		(App is null && item.App is null || App is not null && item.App is not null && App.Equals(item.App)) &&
+		(LogType is null && item.LogType is null || LogType is not null && item.LogType is not null && LogType.Equals(item.LogType));
 
 	public new virtual LogModel CloneCast() => (LogModel)Clone();
 

@@ -108,52 +108,43 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        if (!Brand.EqualsDefault())
-            return false;
-        if (!InformationSystem.EqualsDefault())
-            return false;
-        if (!NomenclatureGroupCost.EqualsDefault())
-            return false;
-        if (!NomenclatureGroup.EqualsDefault())
-            return false;
-        if (!NomenclatureType.EqualsDefault())
-            return false;
-        if (!Status.EqualsDefault())
-            return false;
-        return
-            base.EqualsDefault() &&
-            Equals(Code, string.Empty) &&
-            Equals(Name, string.Empty) &&
-            Equals(Parents, string.Empty) &&
-            Equals(Article, string.Empty) &&
-            Equals(Weighted, false) &&
-            Equals(GuidMercury, string.Empty) &&
-            Equals(KeepTrackOfCharacteristics, false) &&
-            Equals(NameFull, string.Empty) &&
-            Equals(Comment, string.Empty) &&
-            Equals(IsService, false) &&
-            Equals(IsProduct, false) &&
-            Equals(AdditionalDescriptionOfNomenclature, string.Empty) &&
-            Equals(NomenclatureGroupCostBytes, new byte[0]) &&
-            Equals(NomenclatureGroupBytes, new byte[0]) &&
-            Equals(ArticleCost, new byte[0]) &&
-            Equals(BrandBytes, new byte[0]) &&
-            Equals(NomenclatureTypeBytes, new byte[0]) &&
-            Equals(VatRate, string.Empty) &&
-            Equals(Unit, string.Empty) &&
-            Equals(Weight, default(decimal)) &&
-            Equals(BoxTypeId, new byte[0]) &&
-            Equals(BoxTypeName, string.Empty) &&
-            Equals(PackTypeId, new byte[0]) &&
-            Equals(PackTypeName, string.Empty) &&
-            Equals(SerializedRepresentationObject, string.Empty) &&
-            Equals(CodeInIs, new byte[0]) &&
-            Equals(RelevanceStatus, null) &&
-            Equals(NormalizationStatus, null) &&
-            Equals(MasterId, null);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Code, string.Empty) &&
+	    Equals(Name, string.Empty) &&
+	    Equals(Parents, string.Empty) &&
+	    Equals(Article, string.Empty) &&
+	    Equals(Weighted, false) &&
+	    Equals(GuidMercury, string.Empty) &&
+	    Equals(KeepTrackOfCharacteristics, false) &&
+	    Equals(NameFull, string.Empty) &&
+	    Equals(Comment, string.Empty) &&
+	    Equals(IsService, false) &&
+	    Equals(IsProduct, false) &&
+	    Equals(AdditionalDescriptionOfNomenclature, string.Empty) &&
+	    Equals(NomenclatureGroupCostBytes, new byte[0]) &&
+	    Equals(NomenclatureGroupBytes, new byte[0]) &&
+	    Equals(ArticleCost, new byte[0]) &&
+	    Equals(BrandBytes, new byte[0]) &&
+	    Equals(NomenclatureTypeBytes, new byte[0]) &&
+	    Equals(VatRate, string.Empty) &&
+	    Equals(Unit, string.Empty) &&
+	    Equals(Weight, default(decimal)) &&
+	    Equals(BoxTypeId, new byte[0]) &&
+	    Equals(BoxTypeName, string.Empty) &&
+	    Equals(PackTypeId, new byte[0]) &&
+	    Equals(PackTypeName, string.Empty) &&
+	    Equals(SerializedRepresentationObject, string.Empty) &&
+	    Equals(CodeInIs, new byte[0]) &&
+	    Equals(RelevanceStatus, null) &&
+	    Equals(NormalizationStatus, null) &&
+	    Equals(MasterId, null) &&
+	    Brand.EqualsDefault() &&
+	    InformationSystem.EqualsDefault() &&
+	    NomenclatureGroupCost.EqualsDefault() &&
+	    NomenclatureGroup.EqualsDefault() &&
+	    NomenclatureType.EqualsDefault() &&
+	    Status.EqualsDefault();
 
     public override object Clone()
     {
@@ -201,52 +192,43 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(NomenclatureModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        if (!NomenclatureGroupCost.Equals(item.NomenclatureGroupCost))
-            return false;
-        if (!NomenclatureGroup.Equals(item.NomenclatureGroup))
-            return false;
-        if (!Brand.Equals(item.Brand))
-            return false;
-        if (!NomenclatureType.Equals(item.NomenclatureType))
-            return false;
-        if (!Status.Equals(item.Status))
-            return false;
-        if (!InformationSystem.Equals(item.InformationSystem))
-            return false;
-        return base.Equals(item) &&
-               Equals(Code, item.Code) &&
-               Equals(Name, item.Name) &&
-               Equals(Parents, item.Parents) &&
-               Equals(Article, item.Article) &&
-               Equals(Weighted, item.Weighted) &&
-               Equals(GuidMercury, item.GuidMercury) &&
-               Equals(KeepTrackOfCharacteristics, item.KeepTrackOfCharacteristics) &&
-               Equals(NameFull, item.NameFull) &&
-               Equals(Comment, item.Comment) &&
-               Equals(IsService, item.IsService) &&
-               Equals(IsProduct, item.IsProduct) &&
-               Equals(AdditionalDescriptionOfNomenclature, item.AdditionalDescriptionOfNomenclature) &&
-               Equals(NomenclatureGroupCostBytes, item.NomenclatureGroupCostBytes) &&
-               Equals(NomenclatureGroupBytes, item.NomenclatureGroupBytes) &&
-               Equals(ArticleCost, item.ArticleCost) &&
-               Equals(BrandBytes, item.BrandBytes) &&
-               Equals(NomenclatureTypeBytes, item.NomenclatureTypeBytes) &&
-               Equals(VatRate, item.VatRate) &&
-               Equals(Unit, item.Unit) &&
-               Equals(Weight, item.Weight) &&
-               Equals(BoxTypeId, item.BoxTypeId) &&
-               Equals(BoxTypeName, item.BoxTypeName) &&
-               Equals(PackTypeId, item.PackTypeId) &&
-               Equals(PackTypeName, item.PackTypeName) &&
-               Equals(SerializedRepresentationObject, item.SerializedRepresentationObject) &&
-               Equals(CodeInIs, item.CodeInIs) &&
-               Equals(RelevanceStatus, item.RelevanceStatus) &&
-               Equals(NormalizationStatus, item.NormalizationStatus) &&
-               Equals(MasterId, item.MasterId);
-    }
+    public virtual bool Equals(NomenclatureModel item) =>
+	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    Equals(Code, item.Code) &&
+	    Equals(Name, item.Name) &&
+	    Equals(Parents, item.Parents) &&
+	    Equals(Article, item.Article) &&
+	    Equals(Weighted, item.Weighted) &&
+	    Equals(GuidMercury, item.GuidMercury) &&
+	    Equals(KeepTrackOfCharacteristics, item.KeepTrackOfCharacteristics) &&
+	    Equals(NameFull, item.NameFull) &&
+	    Equals(Comment, item.Comment) &&
+	    Equals(IsService, item.IsService) &&
+	    Equals(IsProduct, item.IsProduct) &&
+	    Equals(AdditionalDescriptionOfNomenclature, item.AdditionalDescriptionOfNomenclature) &&
+	    Equals(NomenclatureGroupCostBytes, item.NomenclatureGroupCostBytes) &&
+	    Equals(NomenclatureGroupBytes, item.NomenclatureGroupBytes) &&
+	    Equals(ArticleCost, item.ArticleCost) &&
+	    Equals(BrandBytes, item.BrandBytes) &&
+	    Equals(NomenclatureTypeBytes, item.NomenclatureTypeBytes) &&
+	    Equals(VatRate, item.VatRate) &&
+	    Equals(Unit, item.Unit) &&
+	    Equals(Weight, item.Weight) &&
+	    Equals(BoxTypeId, item.BoxTypeId) &&
+	    Equals(BoxTypeName, item.BoxTypeName) &&
+	    Equals(PackTypeId, item.PackTypeId) &&
+	    Equals(PackTypeName, item.PackTypeName) &&
+	    Equals(SerializedRepresentationObject, item.SerializedRepresentationObject) &&
+	    Equals(CodeInIs, item.CodeInIs) &&
+	    Equals(RelevanceStatus, item.RelevanceStatus) &&
+	    Equals(NormalizationStatus, item.NormalizationStatus) &&
+	    Equals(MasterId, item.MasterId) &&
+	    InformationSystem.Equals(item.InformationSystem) &&
+	    NomenclatureGroupCost.Equals(item.NomenclatureGroupCost) &&
+	    NomenclatureGroup.Equals(item.NomenclatureGroup) &&
+	    Brand.Equals(item.Brand) &&
+	    NomenclatureType.Equals(item.NomenclatureType) &&
+	    Status.Equals(item.Status);
 
     public new virtual NomenclatureModel CloneCast() => (NomenclatureModel)Clone();
 

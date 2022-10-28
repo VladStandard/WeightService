@@ -110,17 +110,12 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(TemplateResourceModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!ImageData.Equals(item.ImageData))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Name, item.Name) &&
-			Equals(Type, item.Type) &&
-			Equals(IdRRef, item.IdRRef);
-	}
+	public virtual bool Equals(TemplateResourceModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(Type, item.Type) &&
+		Equals(IdRRef, item.IdRRef) &&
+		ImageData.Equals(item.ImageData);
 
 	public new virtual TemplateResourceModel CloneCast() => (TemplateResourceModel)Clone();
 

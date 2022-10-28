@@ -39,17 +39,17 @@ public static partial class SqlUtils
 	//	return DataAccess.GetItem<HostModel>(sqlCrudConfig);
 	//}
 
-	public static HostModel GetHostNotNull(string hostName)
-	{
-		SqlCrudConfigModel sqlCrudConfig = new(
-			new List<SqlFieldFilterModel>()
-			{
-				new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName),
-				new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-			},
-			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
-		return DataAccess.GetItemNotNull<HostModel>(sqlCrudConfig);
-	}
+	//public static HostModel GetHostNotNull(string hostName)
+	//{
+	//	SqlCrudConfigModel sqlCrudConfig = new(
+	//		new List<SqlFieldFilterModel>()
+	//		{
+	//			new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName),
+	//			new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+	//		},
+	//		new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
+	//	return DataAccess.GetItemNotNull<HostModel>(sqlCrudConfig);
+	//}
 
 	public static HostDirect Load(Guid uid) =>
 		SqlConnect.ExecuteReaderForItem<HostDirect>(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,

@@ -84,12 +84,8 @@ public class SqlTableIdentityModel : SerializeBase, ICloneable, ISqlDbBase, ISer
 
 	public virtual bool EqualsNew() => Equals(new());
 
-	public virtual bool Equals(SqlTableIdentityModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Name, item.Name);
-	}
+	public virtual bool Equals(SqlTableIdentityModel item) => 
+		ReferenceEquals(this, item) || Equals(Name, item.Name);
 
 	public virtual bool EqualsDefault() => Equals(Name, SqlFieldIdentityEnum.Empty);
 

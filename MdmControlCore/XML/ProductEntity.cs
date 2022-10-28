@@ -101,7 +101,6 @@ public class ProductEntity
 
 	public virtual bool Equals(ProductEntity item)
 	{
-		if (item is null) return false;
 		if (ReferenceEquals(this, item)) return true;
 		if (Units != null && item.Units != null)
 		{
@@ -157,19 +156,14 @@ public class ProductUnitEntity
 			$"{nameof(Description)}: {Description}. ";
 	}
 
-	public virtual bool Equals(ProductUnitEntity item)
-	{
-		if (item is null) return false;
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Heft, item.Heft) &&
-			Equals(Capacity, item.Capacity) &&
-			Equals(Rate, item.Rate) &&
-			Equals(Threshold, item.Threshold) &&
-			Equals(Okei, item.Okei) &&
-			Equals(Description, item.Description);
-	}
-        
+	public virtual bool Equals(ProductUnitEntity item) =>
+		ReferenceEquals(this, item) || Equals(Heft, item.Heft) &&
+		Equals(Capacity, item.Capacity) &&
+		Equals(Rate, item.Rate) &&
+		Equals(Threshold, item.Threshold) &&
+		Equals(Okei, item.Okei) &&
+		Equals(Description, item.Description);
+
 	public virtual bool EqualsNew()
 	{
 		return Equals(new ProductUnitEntity());
@@ -191,15 +185,10 @@ public class ProductBarcodeEntity
 			$"{nameof(Barcode)}: {Barcode}. ";
 	}
 
-	public virtual bool Equals(ProductBarcodeEntity item)
-	{
-		if (item is null) return false;
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Type, item.Type) &&
-			Equals(Barcode, item.Barcode);
-	}
-        
+	public virtual bool Equals(ProductBarcodeEntity item) =>
+		ReferenceEquals(this, item) || Equals(Type, item.Type) &&
+		Equals(Barcode, item.Barcode);
+
 	public virtual bool EqualsNew()
 	{
 		return Equals(new ProductBarcodeEntity());
@@ -231,19 +220,14 @@ public class ProductBoxEntity
 			$"{nameof(Unit)}: {Unit}. ";
 	}
 
-	public virtual bool Equals(ProductBoxEntity item)
-	{
-		if (item is null) return false;
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Description, item.Description) &&
-			Equals(Heft, item.Heft) &&
-			Equals(Capacity, item.Capacity) &&
-			Equals(Rate, item.Rate) &&
-			Equals(Threshold, item.Threshold) &&
-			Equals(Okei, item.Okei) &&
-			Equals(Unit, item.Unit);
-	}
+	public virtual bool Equals(ProductBoxEntity item) =>
+		ReferenceEquals(this, item) || Equals(Description, item.Description) &&
+		Equals(Heft, item.Heft) &&
+		Equals(Capacity, item.Capacity) &&
+		Equals(Rate, item.Rate) &&
+		Equals(Threshold, item.Threshold) &&
+		Equals(Okei, item.Okei) &&
+		Equals(Unit, item.Unit);
 
 	public virtual bool EqualsNew()
 	{

@@ -110,12 +110,12 @@
 	        </td>
             <td>@LocaleCore.Table.Host</td>
             <td>
-                @if (SqlItemCast.PluLabel.PluWeighing?.PluScale.Scale.Host is not null)
+                @*@if (SqlItemCast.PluLabel.PluWeighing?.PluScale.Scale.Host is not null)
                 {
 	                <RadzenLink 
 		                Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.IdentityValueId}")
                         Text=@(SqlItemCast.PluLabel.PluWeighing.PluScale.Scale.Host.Name) />
-                }
+                }*@
             </td>
         </tr>
         <tr>

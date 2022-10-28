@@ -51,17 +51,13 @@ public class XmlProductUnitModel : ISerializable, ISqlDbBase
 		$"{nameof(Okei)}: {Okei}. " +
 		$"{nameof(Description)}: {Description}. ";
 
-	public bool Equals(XmlProductUnitModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Heft, item.Heft) &&
-			Equals(Capacity, item.Capacity) &&
-			Equals(Rate, item.Rate) &&
-			Equals(Threshold, item.Threshold) &&
-			Equals(Okei, item.Okei) &&
-			Equals(Description, item.Description);
-	}
+	public bool Equals(XmlProductUnitModel item) =>
+		ReferenceEquals(this, item) || Equals(Heft, item.Heft) &&
+		Equals(Capacity, item.Capacity) &&
+		Equals(Rate, item.Rate) &&
+		Equals(Threshold, item.Threshold) &&
+		Equals(Okei, item.Okei) &&
+		Equals(Description, item.Description);
 
 	public bool EqualsNew()
 	{

@@ -24,9 +24,11 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AccessModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<AppModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BarCodeModel>();
-		//BlazorCore.Model_GetRoutePathItem_IsNotEmpty<BarCodeTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<ContragentModel>();
-		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<HostModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceTypeModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceTypeFkModel>();
+		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<DeviceScaleFkModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogTypeModel>();
 		BlazorCore.Model_GetRoutePathItem_IsNotEmpty<LogQuickModel>();
@@ -59,9 +61,11 @@ internal class RazorComponentBaseTests
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<AccessModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<AppModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BarCodeModel>();
-		//BlazorCore.Model_GetRoutePathSection_IsNotEmpty<BarCodeTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<ContragentModel>();
-		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<HostModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceTypeModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceTypeFkModel>();
+		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<DeviceScaleFkModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogTypeModel>();
 		BlazorCore.Model_GetRoutePathSection_IsNotEmpty<LogQuickModel>();

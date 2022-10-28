@@ -32,11 +32,11 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluWeighingModel Width="13%" Title=@LocaleCore.Table.Host TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-				@if (itemCast.PluScale.Scale.Host is not null)
+				@*@if (itemCast.PluScale.Scale.Host is not null)
 				{
 					<RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemHost}/{itemCast.PluScale.Scale.Host.IdentityValueId}")
 						Text=@(itemCast.PluScale.Scale.Host.HostName)/>
-				}
+				}*@
 	        </Template>
         </RadzenGridColumn>
 		<RadzenGridColumn TItem=@PluWeighingModel Width="18%" Title=@LocaleCore.Table.Plu TextAlign=@TextAlign.Left >

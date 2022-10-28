@@ -6,56 +6,56 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table "TASKS".
+/// Table "DEVICES_SCALES_FK".
 /// </summary>
 [Serializable]
-public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class DeviceScaleFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual TaskTypeModel TaskType { get; set; }
+	[XmlElement] public virtual DeviceModel Device { get; set; }
 	[XmlElement] public virtual ScaleModel Scale { get; set; }
-	[XmlElement] public virtual bool Enabled { get; set; }
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-    public TaskModel() : base(SqlFieldIdentityEnum.Uid)
+	public DeviceScaleFkModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		TaskType = new();
+		Device = new();
 		Scale = new();
-		Enabled = false;
 	}
 
 	/// <summary>
-	/// Constructor.
+	/// Constructor for serialization.
 	/// </summary>
 	/// <param name="info"></param>
 	/// <param name="context"></param>
-	private TaskModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	private DeviceScaleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		TaskType = (TaskTypeModel)info.GetValue(nameof(TaskType), typeof(TaskTypeModel));
+		Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
 		Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
-		Enabled = info.GetBoolean(nameof(Enabled));
 	}
 
 	#endregion
 
 	#region Public and private methods - override
 
+	/// <summary>
+	/// To string.
+	/// </summary>
+	/// <returns></returns>
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-		$"{nameof(TaskType)}: {TaskType}. " +
-		$"{nameof(Scale)}: {Scale}. " +
-		$"{nameof(Enabled)}: {Enabled}. ";
+		$"{nameof(Device)}: {Device}. " +
+		$"{nameof(Scale)}: {Scale}. ";
 
 	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((TaskModel)obj);
-    }
+		return Equals((DeviceScaleFkModel)obj);
+	}
 
 	public override int GetHashCode() => base.GetHashCode();
 
@@ -63,17 +63,17 @@ public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Enabled, false);
+		Device.EqualsDefault() &&
+		Scale.EqualsDefault();
 
 	public override object Clone()
-    {
-        TaskModel item = new();
-        item.TaskType = TaskType.CloneCast();
-        item.Scale = Scale.CloneCast();
-        item.Enabled = Enabled;
+	{
+		DeviceScaleFkModel item = new();
+		item.Device = Device.CloneCast();
+		item.Scale = Scale.CloneCast();
 		item.CloneSetup(base.CloneCast());
 		return item;
-    }
+	}
 
 	/// <summary>
 	/// Get object data for serialization info.
@@ -83,30 +83,27 @@ public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(TaskType), TaskType);
+		info.AddValue(nameof(Device), Device);
 		info.AddValue(nameof(Scale), Scale);
-		info.AddValue(nameof(Enabled), Enabled);
 	}
 
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		TaskType.FillProperties();
+		Device.FillProperties();
 		Scale.FillProperties();
 	}
 
 	#endregion
 
-	#region Public and private methods
+	#region Public and private methods - virtual
 
-	public virtual bool Equals(TaskModel item) =>
+	public virtual bool Equals(DeviceScaleFkModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Enabled, item.Enabled) &&
-		TaskType.Equals(item.TaskType) &&
+		Device.Equals(item.Device) &&
 		Scale.Equals(item.Scale);
 
-	public new virtual TaskModel CloneCast() => (TaskModel)Clone();
-
+	public new virtual DeviceScaleFkModel CloneCast() => (DeviceScaleFkModel)Clone();
 
 	#endregion
 }

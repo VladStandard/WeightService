@@ -32,12 +32,6 @@ internal class TablesEqualsNewTests
         DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
     }
 
-    //[Test]
-    //public void DbTable_Validate_BarCodeTypeModel()
-    //{
-    //    DataCore.TableBaseModelAssertEqualsNew<BarCodeTypeModel>();
-    //}
-
     [Test]
     public void DbTable_Validate_ContragentModel()
     {
@@ -45,9 +39,27 @@ internal class TablesEqualsNewTests
     }
 
     [Test]
-    public void DbTable_Validate_HostModel()
+    public void DbTable_Validate_DeviceModel()
     {
-        DataCore.TableBaseModelAssertEqualsNew<HostModel>();
+        DataCore.TableBaseModelAssertEqualsNew<DeviceModel>();
+    }
+
+    [Test]
+    public void DbTable_Validate_DeviceTypeModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<DeviceTypeModel>();
+    }
+
+    [Test]
+    public void DbTable_Validate_DeviceTypeFkModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<DeviceTypeFkModel>();
+    }
+
+    [Test]
+    public void DbTable_Validate_DeviceScaleFkModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<DeviceScaleFkModel>();
     }
 
     [Test]

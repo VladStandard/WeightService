@@ -66,19 +66,14 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-	    if (!Package.EqualsDefault())
-		    return false;
-		if (!Plu.EqualsDefault())
-			return false;
-        return
-			base.EqualsDefault() &&
-            Equals(IsActive, false) &&
-            Equals(Name, string.Empty);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(IsActive, false) &&
+	    Equals(Name, string.Empty) &&
+	    Package.EqualsDefault() &&
+	    Plu.EqualsDefault();
 
-	public override object Clone()
+    public override object Clone()
     {
         PluPackageModel item = new();
         item.IsActive = IsActive;
@@ -111,18 +106,12 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PluPackageModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!Package.Equals(item.Package))
-			return false;
-		if (!Plu.Equals(item.Plu))
-			return false;
-		return
-			base.Equals(item) &&
-            Equals(IsActive, item.IsActive) &&
-			Equals(Name, item.Name);
-	}
+	public virtual bool Equals(PluPackageModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(IsActive, item.IsActive) &&
+		Equals(Name, item.Name) &&
+		Package.Equals(item.Package) &&
+		Plu.Equals(item.Plu);
 
 	public new virtual PluPackageModel CloneCast() => (PluPackageModel)Clone();
 

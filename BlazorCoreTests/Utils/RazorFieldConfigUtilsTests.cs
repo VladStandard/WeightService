@@ -87,7 +87,7 @@ internal class RazorFieldConfigUtilsTests
 		Assert.DoesNotThrow(() =>
 		{
 			RazorComponentBase razorPage = BlazorCore.CreateNewSubstituteRazorComponentBase();
-			HostModel host = BlazorCore.DataCore.CreateNewSubstitute<HostModel>(true);
+			//DeviceScaleFkModel host = BlazorCore.DataCore.CreateNewSubstitute<HostModel>(true);
 			PrinterModel printer = BlazorCore.DataCore.CreateNewSubstitute<PrinterModel>(true);
 			WorkShopModel workShop = BlazorCore.DataCore.CreateNewSubstitute<WorkShopModel>(true);
 			// Arrange & Act & Assert.
@@ -97,10 +97,10 @@ internal class RazorFieldConfigUtilsTests
 			razorFieldConfig = RazorFieldConfigUtils.Base.GetDescription();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Scale.GetDeviceIp();
+			//razorFieldConfig = RazorFieldConfigUtils.Scale.GetDeviceIp();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Scale.GetHost(razorPage.GetRouteItemPath(host));
+			//razorFieldConfig = RazorFieldConfigUtils.Scale.GetHost(razorPage.GetRouteItemPath(host));
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
 			razorFieldConfig = RazorFieldConfigUtils.Scale.GetPrinterMain(razorPage.GetRouteItemPath(printer));

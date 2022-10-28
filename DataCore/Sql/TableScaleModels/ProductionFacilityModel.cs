@@ -95,14 +95,10 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(ProductionFacilityModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(Name, item.Name) &&
-			Equals(Address, item.Address);
-	}
+	public virtual bool Equals(ProductionFacilityModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(Address, item.Address);
 
 	public new virtual ProductionFacilityModel CloneCast() => (ProductionFacilityModel)Clone();
 

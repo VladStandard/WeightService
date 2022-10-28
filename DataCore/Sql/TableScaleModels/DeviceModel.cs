@@ -131,18 +131,14 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(DeviceModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(LoginDt, item.LoginDt) &&
-			Equals(LogoutDt, item.LogoutDt) &&
-			Equals(Name, item.Name) &&
-			Equals(PrettyName, item.PrettyName) &&
-			Equals(Ipv4, item.Ipv4) &&
-			MacAddress.Equals(item.MacAddress);
-	}
+	public virtual bool Equals(DeviceModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(LoginDt, item.LoginDt) &&
+		Equals(LogoutDt, item.LogoutDt) &&
+		Equals(Name, item.Name) &&
+		Equals(PrettyName, item.PrettyName) &&
+		Equals(Ipv4, item.Ipv4) &&
+		MacAddress.Equals(item.MacAddress);
 
 	public new virtual DeviceModel CloneCast() => (DeviceModel)Clone();
 

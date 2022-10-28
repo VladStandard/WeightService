@@ -68,18 +68,14 @@ public class XmlProductBoxModel : ISerializable, ISqlDbBase
 		$"{nameof(Okei)}: {Okei}. " +
 		$"{nameof(Unit)}: {Unit}. ";
 
-	public virtual bool Equals(XmlProductBoxModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Description, item.Description) &&
-			Equals(Heft, item.Heft) &&
-			Equals(Capacity, item.Capacity) &&
-			Equals(Rate, item.Rate) &&
-			Equals(Threshold, item.Threshold) &&
-			Equals(Okei, item.Okei) &&
-			Equals(Unit, item.Unit);
-	}
+	public virtual bool Equals(XmlProductBoxModel item) =>
+		ReferenceEquals(this, item) || Equals(Description, item.Description) &&
+		Equals(Heft, item.Heft) &&
+		Equals(Capacity, item.Capacity) &&
+		Equals(Rate, item.Rate) &&
+		Equals(Threshold, item.Threshold) &&
+		Equals(Okei, item.Okei) &&
+		Equals(Unit, item.Unit);
 
 	public virtual bool EqualsNew()
 	{

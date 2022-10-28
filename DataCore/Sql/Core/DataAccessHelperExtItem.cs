@@ -16,7 +16,8 @@ public static partial class DataAccessHelperExt
 		AccessModel? item = null;
 		if (!string.IsNullOrEmpty(userName))
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(AccessModel.Name), SqlFieldComparerEnum.Equal, userName), 0, false, false);
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
+				nameof(AccessModel.Name), SqlFieldComparerEnum.Equal, userName), 0, false, false);
 			item = dataAccess.GetItem<AccessModel>(sqlCrudConfig);
 		}
 		return item;
@@ -80,23 +81,23 @@ public static partial class DataAccessHelperExt
 		return item;
 	}
 
-	public static HostModel? GetItemOrCreateNewHost(this DataAccessHelper dataAccess, string hostName)
+	public static DeviceModel? GetItemOrCreateNewDevice(this DataAccessHelper dataAccess, string hostName)
 	{
-		HostModel? item = null;
+		DeviceModel? item = null;
 		if (!string.IsNullOrEmpty(hostName))
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-			item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(DeviceModel.Name), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
+			item = dataAccess.GetItem<DeviceModel>(sqlCrudConfig);
 			if (item is null || item.EqualsDefault())
 			{
 				item = new()
 				{
 					Name = hostName,
-					HostName = hostName,
+					PrettyName = hostName,
 					CreateDt = DateTime.Now,
 					ChangeDt = DateTime.Now,
 					IsMarked = false,
-					Ip = NetUtils.GetLocalIpAddress(),
+					Ipv4 = NetUtils.GetLocalIpAddress(),
 					LoginDt = DateTime.Now,
 				};
 				dataAccess.Save(item);
@@ -110,13 +111,63 @@ public static partial class DataAccessHelperExt
 		return item;
 	}
 
-	public static HostModel? GetItemHost(this DataAccessHelper dataAccess, string? hostName)
+	//public static HostModel? GetItemOrCreateNewHost(this DataAccessHelper dataAccess, string hostName)
+	//{
+	//	HostModel? item = null;
+	//	if (!string.IsNullOrEmpty(hostName))
+	//	{
+	//		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
+	//		item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+	//		if (item is null || item.EqualsDefault())
+	//		{
+	//			item = new()
+	//			{
+	//				Name = hostName,
+	//				HostName = hostName,
+	//				CreateDt = DateTime.Now,
+	//				ChangeDt = DateTime.Now,
+	//				IsMarked = false,
+	//				Ip = NetUtils.GetLocalIpAddress(),
+	//				LoginDt = DateTime.Now,
+	//			};
+	//			dataAccess.Save(item);
+	//		}
+	//		else
+	//		{
+	//			item.LoginDt = DateTime.Now;
+	//			dataAccess.Update(item);
+	//		}
+	//	}
+	//	return item;
+	//}
+
+	public static ScaleModel? GetItemScale(this DataAccessHelper dataAccess, DeviceModel device)
 	{
-		HostModel? item = null;
-		if (!string.IsNullOrEmpty(hostName))
+		DeviceScaleFkModel? item = null;
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
+			$"{nameof(DeviceModel)}.{nameof(DeviceModel.Name)}", SqlFieldComparerEnum.Equal, device.Name),
+			0, false, false);
+		item = dataAccess.GetItemNotNull<DeviceScaleFkModel>(sqlCrudConfig);
+		if (!item.IdentityIsNew)
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-			item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+			item.Device.LoginDt = DateTime.Now;
+			dataAccess.Update(item.Device);
+		}
+		return item.Scale;
+	}
+
+	public static ScaleModel GetItemScaleNotNull(this DataAccessHelper dataAccess, DeviceModel device) =>
+		dataAccess.GetItemScale(device) ?? new();
+
+	public static DeviceModel? GetItemDevice(this DataAccessHelper dataAccess, string? deviceName)
+	{
+		DeviceModel? item = null;
+		if (!string.IsNullOrEmpty(deviceName))
+		{
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
+				$"{nameof(DeviceModel.Name)}", SqlFieldComparerEnum.Equal, deviceName), 
+				0, false, false);
+			item = dataAccess.GetItem<DeviceModel>(sqlCrudConfig);
 			if (item is not null && !item.EqualsDefault())
 			{
 				item.LoginDt = DateTime.Now;
@@ -125,6 +176,89 @@ public static partial class DataAccessHelperExt
 		}
 		return item;
 	}
+
+	public static DeviceModel GetItemDeviceNotNull(this DataAccessHelper dataAccess, string? deviceName) => 
+		dataAccess.GetItemDevice(deviceName) ?? new();
+
+	public static DeviceModel? GetItemDevice(this DataAccessHelper dataAccess, ScaleModel scale)
+	{
+		DeviceScaleFkModel? deviceScaleFk = null;
+		{
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
+					$"{nameof(ScaleModel)}.{nameof(ScaleModel.IdentityValueUid)}", SqlFieldComparerEnum.Equal, scale.IdentityValueUid),
+				0, false, false);
+			deviceScaleFk = dataAccess.GetItem<DeviceScaleFkModel>(sqlCrudConfig);
+			if (deviceScaleFk is not null && !deviceScaleFk.IdentityIsNotNew)
+			{
+				deviceScaleFk.Device.LoginDt = DateTime.Now;
+				dataAccess.Update(deviceScaleFk.Device);
+			}
+		}
+		return deviceScaleFk?.Device;
+	}
+
+	public static DeviceModel GetItemDeviceNotNull(this DataAccessHelper dataAccess, ScaleModel scale) => 
+		dataAccess.GetItemDevice(scale) ?? new();
+
+	public static DeviceTypeFkModel? GetItemDeviceTypeFk(this DataAccessHelper dataAccess, string? deviceName)
+	{
+		DeviceTypeFkModel? item = null;
+		if (deviceName is not null && !string.IsNullOrEmpty(deviceName))
+		{
+			StringUtils.SetStringValueTrim(ref deviceName, 128);
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
+				nameof(DeviceTypeFkModel.Device.Name), SqlFieldComparerEnum.Equal, deviceName), 
+				0, false, false);
+			item = dataAccess.GetItem<DeviceTypeFkModel>(sqlCrudConfig);
+			if (item is not null && !item.EqualsDefault())
+			{
+				item.Device.LoginDt = DateTime.Now;
+				dataAccess.Update(item);
+			}
+		}
+		return item;
+	}
+
+	public static DeviceTypeFkModel GetItemDeviceTypeFkNotNull(this DataAccessHelper dataAccess, string? deviceName) => 
+		dataAccess.GetItemDeviceTypeFk(deviceName) ?? new();
+
+	public static DeviceScaleFkModel? GetItemDeviceScaleFk(this DataAccessHelper dataAccess, string? deviceName)
+	{
+		DeviceScaleFkModel? item = null;
+		if (deviceName is not null && !string.IsNullOrEmpty(deviceName))
+		{
+			StringUtils.SetStringValueTrim(ref deviceName, 128);
+			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
+				nameof(DeviceScaleFkModel.Device.Name), SqlFieldComparerEnum.Equal, deviceName),
+				0, false, false);
+			item = dataAccess.GetItem<DeviceScaleFkModel>(sqlCrudConfig);
+			if (item is not null && !item.EqualsDefault())
+			{
+				item.Device.LoginDt = DateTime.Now;
+				dataAccess.Update(item);
+			}
+		}
+		return item;
+	}
+
+	public static DeviceScaleFkModel GetItemDeviceScaleFkNotNull(this DataAccessHelper dataAccess, string? deviceName) =>
+		dataAccess.GetItemDeviceScaleFk(deviceName) ?? new();
+
+	//public static HostModel? GetItemHost(this DataAccessHelper dataAccess, string? hostName)
+	//{
+	//	HostModel? item = null;
+	//	if (!string.IsNullOrEmpty(hostName))
+	//	{
+	//		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
+	//		item = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+	//		if (item is not null && !item.EqualsDefault())
+	//		{
+	//			item.LoginDt = DateTime.Now;
+	//			dataAccess.Update(item);
+	//		}
+	//	}
+	//	return item;
+	//}
 
 	public static LogTypeModel? GetItemLogType(this DataAccessHelper dataAccess, LogTypeEnum logType)
 	{

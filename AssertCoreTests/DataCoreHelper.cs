@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.TableScaleModels;
 
 namespace AssertCoreTests;
 
@@ -239,12 +240,10 @@ public class DataCoreHelper
 				deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
 				deviceTypeFk.DeviceType = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
-			case HostModel host:
-				host.Name = LocaleCore.Sql.SqlItemFieldName;
-				host.Ip = LocaleCore.Sql.SqlItemFieldIp;
-				host.MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
-				host.HostName = LocaleCore.Sql.SqlItemFieldHostName;
-				host.LoginDt = DateTime.Now;
+			case DeviceScaleFkModel deviceScaleFk:
+				//deviceScaleFk.FillProperties();
+				deviceScaleFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
+				deviceScaleFk.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
 				break;
 			case LogModel log:
 				log.Version = LocaleCore.Sql.SqlItemFieldVersion;
@@ -342,7 +341,6 @@ public class DataCoreHelper
 				scale.WorkShop = CreateNewSubstitute<WorkShopModel>(isNotDefault);
 				scale.PrinterMain = CreateNewSubstitute<PrinterModel>(isNotDefault);
 				scale.PrinterShipping = CreateNewSubstitute<PrinterModel>(isNotDefault);
-				scale.Host = CreateNewSubstitute<HostModel>(isNotDefault);
 				break;
 			case ScaleScreenShotModel scaleScreenShot:
 				scaleScreenShot.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);

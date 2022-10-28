@@ -95,14 +95,10 @@ public class VersionModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(VersionModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(ReleaseDt, item.ReleaseDt) &&
-			Equals(Version, item.Version);
-	}
+	public virtual bool Equals(VersionModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(ReleaseDt, item.ReleaseDt) &&
+		Equals(Version, item.Version);
 
 	public new virtual VersionModel CloneCast() => (VersionModel)Clone();
 

@@ -81,12 +81,9 @@ public class AppModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(AppModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name);
-	}
+	public virtual bool Equals(AppModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name);
 
 	public new virtual AppModel CloneCast() => (AppModel)Clone();
 

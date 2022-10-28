@@ -62,18 +62,13 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        if (!Plu.EqualsDefault())
-            return false;
-        if (!Scale.EqualsDefault())
-            return false;
-        return
-            base.EqualsDefault() &&
-            Equals(IsActive, false);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(IsActive, false) &&
+	    Plu.EqualsDefault() &&
+	    Scale.EqualsDefault();
 
-	public override object Clone()
+    public override object Clone()
     {
         PluScaleModel item = new();
         item.IsActive = IsActive;
@@ -103,19 +98,13 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PluScaleModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!Plu.Equals(item.Plu))
-			return false;
-		if (!Scale.Equals(item.Scale))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(IsActive, item.IsActive) &&
-			Equals(Plu, item.Plu) &&
-			Equals(Scale, item.Scale);
-	}
+	public virtual bool Equals(PluScaleModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(IsActive, item.IsActive) &&
+		Equals(Plu, item.Plu) &&
+		Equals(Scale, item.Scale) &&
+		Plu.Equals(item.Plu) &&
+		Scale.Equals(item.Scale);
 
 	public new virtual PluScaleModel CloneCast() => (PluScaleModel)Clone();
 

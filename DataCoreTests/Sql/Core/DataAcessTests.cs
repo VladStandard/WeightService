@@ -19,12 +19,9 @@ internal class DataAcessTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			foreach (long? id in DataCoreEnums.GetLongNullable())
+			foreach (bool isMarked in DataCoreEnums.GetBool())
 			{
-				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
-				{
-					List<HostModel> hosts = DataCore.DataAccess.GetListHostsFree(id, isMarked);
-				}
+				List<DeviceTypeFkModel> deviceTypeFks = DataCore.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
 		});
 	}
@@ -34,12 +31,9 @@ internal class DataAcessTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			foreach (int? id in DataCoreEnums.GetIntNullable())
+			foreach (bool isMarked in DataCoreEnums.GetBool())
 			{
-				foreach (bool? isMarked in DataCoreEnums.GetBoolNullable())
-				{
-					List<HostModel> hosts = DataCore.DataAccess.GetListHostsBusy(id, isMarked);
-				}
+				List<DeviceTypeFkModel> deviceTypeFks = DataCore.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
 		});
 	}

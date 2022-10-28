@@ -103,10 +103,10 @@ public partial class RazorComponentBase
         {
             item.DeviceComPort = deviceComPort;
         }
-        if (filterName == nameof(ScaleModel.Host) && value is long hostId)
-        {
-            item.Host = AppSettings.DataAccess.GetItemById<HostModel>(hostId);
-        }
+        //if (filterName == nameof(ScaleModel.Host) && value is long hostId)
+        //{
+        //    item.Host = AppSettings.DataAccess.GetItemById<HostModel>(hostId);
+        //}
         if (filterName == nameof(ScaleModel.TemplateDefault) && value is long templateDefaultId)
         {
             item.TemplateDefault = AppSettings.DataAccess.GetItemById<TemplateModel>(templateDefaultId);

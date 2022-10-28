@@ -69,19 +69,28 @@ public static class RazorFieldConfigUtils
 			nameof(SqlTableBase.Description), TextAlign.Left, LocaleCore.Table.Name);
 	}
 
+	//public static class Host
+	//{
+	//	public static RazorFieldConfigModel GetLoginDt() => new(nameof(HostModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
+	//	public static RazorFieldConfigModel GetDeviceIp() => new(nameof(HostModel.Ip), TextAlign.Center, LocaleCore.Table.DeviceIp);
+	//	public static RazorFieldConfigModel GetHostName() => new(nameof(HostModel.HostName), TextAlign.Left, LocaleCore.Table.Host);
+	//	public static RazorFieldConfigModel GetMacAddress() => new(nameof(HostModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
+	//	public static RazorFieldConfigModel GetName() => new(nameof(HostModel.Name), TextAlign.Left, LocaleCore.Table.PrettyName);
+	//}
+
 	public static class Host
 	{
-		public static RazorFieldConfigModel GetLoginDt() => new(nameof(HostModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
-		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(HostModel.Ip), TextAlign.Center, LocaleCore.Table.DeviceIp);
-		public static RazorFieldConfigModel GetHostName() => new(nameof(HostModel.HostName), TextAlign.Left, LocaleCore.Table.Host);
-		public static RazorFieldConfigModel GetMacAddress() => new(nameof(HostModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
-		public static RazorFieldConfigModel GetName() => new(nameof(HostModel.Name), TextAlign.Left, LocaleCore.Table.PrettyName);
+		public static RazorFieldConfigModel GetLoginDt() => new(nameof(DeviceModel.LoginDt), TextAlign.Center, LocaleCore.Table.LoginDt);
+		public static RazorFieldConfigModel GetDeviceIp() => new(nameof(DeviceModel.Ipv4), TextAlign.Center, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetHostName() => new(nameof(DeviceModel.Name), TextAlign.Left, LocaleCore.Table.Host);
+		public static RazorFieldConfigModel GetMacAddress() => new(nameof(DeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
+		public static RazorFieldConfigModel GetName() => new(nameof(DeviceModel.Name), TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
 	public static class LogQuick
 	{
 		public static RazorFieldConfigModel GetApp() => new($"{nameof(DataCore.Sql.Xml.LogQuickModel.App)}", TextAlign.Left, LocaleCore.Table.App);
-		public static RazorFieldConfigModel GetHost(string link) => new(link, new HostModel(), 
+		public static RazorFieldConfigModel GetHost(string link) => new(link, new DeviceModel(), 
 			$"{nameof(DataCore.Sql.Xml.LogQuickModel.Host)}", TextAlign.Left, LocaleCore.Table.Host, "string");
 		public static RazorFieldConfigModel GetIcon() => new($"{nameof(DataCore.Sql.Xml.LogQuickModel.Icon)}", TextAlign.Left, LocaleCore.Table.Icon);
 		public static RazorFieldConfigModel GetMessage() => new($"{nameof(DataCore.Sql.Xml.LogQuickModel.Message)}", TextAlign.Left, LocaleCore.Table.Message);
@@ -147,13 +156,16 @@ public static class RazorFieldConfigUtils
 			$"{nameof(ProductionFacilityModel.Name)}", TextAlign.Left, LocaleCore.Table.Name);
 	}
 
+	public static class DeviceScaleFk
+	{
+		public static RazorFieldConfigModel GetDeviceIp() => new($"{nameof(DeviceModel)}.{nameof(DeviceModel.Ipv4)}", TextAlign.Left, LocaleCore.Table.DeviceIp);
+		public static RazorFieldConfigModel GetHost(string link) => new(link, new DeviceModel(),
+			$"{nameof(DeviceModel)}.{nameof(DeviceModel.Name)}", TextAlign.Left, LocaleCore.Table.Host, "string");
+	}
+
 	public static class Scale
 	{
-		public static RazorFieldConfigModel GetDeviceIp() => new(
-			$"{nameof(ScaleModel.DeviceIp)}", TextAlign.Center, LocaleCore.Table.DeviceIp);
-		public static RazorFieldConfigModel GetHost(string link) => new(link, new HostModel(),
-			$"{nameof(HostModel)}.{nameof(HostModel.Name)}", TextAlign.Left, LocaleCore.Table.Host, "string");
-		public static RazorFieldConfigModel GetNumber() => new(nameof(ScaleModel.Number), TextAlign.Left, LocaleCore.Table.Number);
+		public static RazorFieldConfigModel GetNumber() => new($"{nameof(ScaleModel.Number)}", TextAlign.Left, LocaleCore.Table.Number);
 		public static RazorFieldConfigModel GetPrinterMain(string link) => new(link, new PrinterModel(),
 			$"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}", 
 			TextAlign.Left, LocaleCore.Print.NameMain, "string");

@@ -96,7 +96,9 @@ public class UserSessionHelper : BaseViewModel
 			_pluScale = value;
 			if (value.IdentityIsNotNew)
 				DataAccess.LogInformation(
-					$"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}", _scale.Host?.HostName);
+					$"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}",
+					//_scale.DeviceTypeFk.Device.Name);
+					Host.Device.Name);
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			PluPackages = SqlUtils.DataAccess.GetListPluPackages(value.Plu, false, false, true);
@@ -134,9 +136,9 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	private HostModel _host;
+	private DeviceScaleFkModel _host;
 	[XmlElement]
-	public HostModel Host
+	public DeviceScaleFkModel Host
 	{
 		get => _host;
 		set
@@ -158,7 +160,7 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	public string HostName => Scale.Host is null ? NetUtils.GetLocalHostName(false) : Scale.Host.HostName;
+	//public string HostName => Scale.DeviceTypeFk.Device.Name;
 
 	private List<ScaleModel> _scales;
 	[XmlElement]
@@ -288,13 +290,15 @@ public class UserSessionHelper : BaseViewModel
 		{
 			// Host.
 			string hostName = NetUtils.GetLocalHostName(false);
-			if (string.IsNullOrEmpty(Host.HostName))
+			if (string.IsNullOrEmpty(Host.Device.Name))
 			{
-				Host = SqlUtils.GetHostNotNull(hostName);
+				//Host = SqlUtils.GetHostNotNull(hostName);
+				Host = DataAccess.GetItemDeviceScaleFkNotNull(hostName);
 			}
 
 			// Scale.
-			Scale = scaleId <= 0 ? SqlUtils.GetScaleFromHostNotNull(Host) : SqlUtils.GetScaleNotNull(scaleId);
+			//Scale = scaleId <= 0 ? SqlUtils.GetScaleFromDeviceTypeFkNotNull(Host) : SqlUtils.GetScaleNotNull(scaleId);
+			Scale = scaleId <= 0 ? Host.Scale : SqlUtils.GetScaleNotNull(scaleId);
 
 			// Area.
 			Area = SqlUtils.GetAreaNotNull(areaName);
@@ -352,7 +356,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
 				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning, 
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -370,7 +374,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
 				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, 
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -389,7 +393,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
 				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -408,7 +412,7 @@ public class UserSessionHelper : BaseViewModel
 				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -428,7 +432,7 @@ public class UserSessionHelper : BaseViewModel
 				: LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -450,7 +454,7 @@ public class UserSessionHelper : BaseViewModel
 				: LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -471,7 +475,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
 				LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -492,7 +496,7 @@ public class UserSessionHelper : BaseViewModel
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				HostName, nameof(WeightCore));
+				Host.Device.Name, nameof(WeightCore));
 			return result == DialogResult.Cancel;
 		}
 		return true;
@@ -524,7 +528,7 @@ public class UserSessionHelper : BaseViewModel
 					PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
 					true, LogTypeEnum.Warning,
 					new() { ButtonCancelVisibility = Visibility.Visible },
-					HostName, nameof(WeightCore));
+					Host.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -665,7 +669,7 @@ public class UserSessionHelper : BaseViewModel
 			LocaleCore.Print.QuestionUseFakeData,
 			true, LogTypeEnum.Question,
 			new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-			HostName, nameof(WeightCore));
+			Host.Device.Name, nameof(WeightCore));
 		if (dialogResult is DialogResult.Yes)
 		{
 			ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
@@ -699,7 +703,7 @@ public class UserSessionHelper : BaseViewModel
 				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(
 					LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
 					new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-					HostName, nameof(WeightCore));
+					Host.Device.Name, nameof(WeightCore));
 				if (dialogResult != DialogResult.Yes)
 					return;
 			}

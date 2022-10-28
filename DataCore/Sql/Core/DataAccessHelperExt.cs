@@ -38,6 +38,30 @@ public static partial class DataAccessHelperExt
 
 	}
 
+	public static List<DeviceModel> GetListDevices(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		List<DeviceModel> result = new();
+		if (isAddFieldNull)
+			result.Add(dataAccess.GetNewDevice());
+		List<DeviceModel> list = dataAccess.GetList<DeviceModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.Name).ToList();
+		result.AddRange(list);
+		return result; 
+	}
+
+	public static List<DeviceTypeModel> GetListDevicesTypes(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		List<DeviceTypeModel> result = new();
+		if (isAddFieldNull)
+			result.Add(dataAccess.GetNewDeviceType());
+		List<DeviceTypeModel> list = dataAccess.GetList<DeviceTypeModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.Name).ToList();
+		result.AddRange(list);
+		return result; 
+	}
+
 	public static List<DeviceTypeFkModel> GetListDevicesTypesFk(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
@@ -51,68 +75,95 @@ public static partial class DataAccessHelperExt
 		return result; 
 	}
 
-	public static List<HostModel> GetListHosts(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public static List<DeviceScaleFkModel> GetListDevicesScalesFk(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(HostModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
-		List<HostModel> result = new();
+		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		List<DeviceScaleFkModel> result = new();
 		if (isAddFieldNull)
-			result.Add(dataAccess.GetNewHost());
-		result.AddRange(dataAccess.GetList<HostModel>(sqlCrudConfig));
-		return result;
+			result.Add(dataAccess.GetNewDeviceScaleFk());
+		List<DeviceScaleFkModel> list = dataAccess.GetList<DeviceScaleFkModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.Scale.Description).ToList();
+		result = result.OrderBy(x => x.Device.Name).ToList();
+		result.AddRange(list);
+		return result; 
 	}
 
-	public static List<HostModel> GetListHostsFree(this DataAccessHelper dataAccess, long? id, bool? isMarked)
-	{
-		object[] entities = dataAccess.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
-		List<HostModel> items = new();
-		foreach (object? item in entities)
-		{
-			if (item is object[] { Length: 10 } obj)
-			{
-				HostModel host = new()
-				{
-					CreateDt = Convert.ToDateTime(obj[1]),
-					ChangeDt = Convert.ToDateTime(obj[2]),
-					LoginDt = Convert.ToDateTime(obj[3]),
-					Name = Convert.ToString(obj[4]),
-					Ip = Convert.ToString(obj[5]),
-					MacAddress = new(Convert.ToString(obj[6])),
-					IsMarked = Convert.ToBoolean(obj[7]),
-				};
-				if ((id == null || Equals(host.IdentityValueId, id)) &&
-					(isMarked == null || Equals(host.IsMarked, isMarked)))
-					items.Add(host);
-			}
-		}
-		return items;
-	}
+	//public static List<HostModel> GetListHosts(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	//{
+	//	SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+	//           new SqlFieldOrderModel(nameof(HostModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
+	//	List<HostModel> result = new();
+	//	if (isAddFieldNull)
+	//		result.Add(dataAccess.GetNewHost());
+	//	result.AddRange(dataAccess.GetList<HostModel>(sqlCrudConfig));
+	//	return result;
+	//}
 
-	public static List<HostModel> GetListHostsBusy(this DataAccessHelper dataAccess, long? id, bool? isMarked)
+	public static List<DeviceTypeFkModel> GetListDevicesTypesFkFree(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		object[] entities = dataAccess.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
-		List<HostModel> items = new();
-		foreach (object? item in entities)
-		{
-			if (item is object[] { Length: 12 } obj)
-			{
-				HostModel host = new()
-				{
-					CreateDt = Convert.ToDateTime(obj[1]),
-					ChangeDt = Convert.ToDateTime(obj[2]),
-					LoginDt = Convert.ToDateTime(obj[3]),
-					Name = Convert.ToString(obj[4]),
-					Ip = Convert.ToString(obj[7]),
-					MacAddress = new(Convert.ToString(obj[8])),
-					IsMarked = Convert.ToBoolean(obj[9]),
-				};
-				if ((id == null || Equals(host.IdentityValueId, id)) &&
-					(isMarked == null || Equals(host.IsMarked, isMarked)))
-					items.Add(host);
-			}
-		}
-		return items;
+		List<DeviceTypeFkModel> deviceTypeFks = dataAccess.GetListDevicesTypesFk(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<DeviceModel> devices = dataAccess.GetListDevices(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		deviceTypeFks = deviceTypeFks.Where(x => !devices.Contains(x.Device)).ToList();
+		return deviceTypeFks;
 	}
+	//public static List<HostModel> GetListHostsFree(this DataAccessHelper dataAccess, long? id, bool? isMarked)
+	//{
+	//	object[] entities = dataAccess.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
+	//	List<HostModel> items = new();
+	//	foreach (object? item in entities)
+	//	{
+	//		if (item is object[] { Length: 10 } obj)
+	//		{
+	//			HostModel host = new()
+	//			{
+	//				CreateDt = Convert.ToDateTime(obj[1]),
+	//				ChangeDt = Convert.ToDateTime(obj[2]),
+	//				LoginDt = Convert.ToDateTime(obj[3]),
+	//				Name = Convert.ToString(obj[4]),
+	//				Ip = Convert.ToString(obj[5]),
+	//				MacAddress = new(Convert.ToString(obj[6])),
+	//				IsMarked = Convert.ToBoolean(obj[7]),
+	//			};
+	//			if ((id == null || Equals(host.IdentityValueId, id)) &&
+	//				(isMarked == null || Equals(host.IsMarked, isMarked)))
+	//				items.Add(host);
+	//		}
+	//	}
+	//	return items;
+	//}
+
+	public static List<DeviceTypeFkModel> GetListDevicesTypesFkBusy(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		List<DeviceTypeFkModel> deviceTypeFks = dataAccess.GetListDevicesTypesFk(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<DeviceModel> devices = dataAccess.GetListDevices(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		deviceTypeFks = deviceTypeFks.Where(x => devices.Contains(x.Device)).ToList();
+		return deviceTypeFks;
+	}
+	//public static List<HostModel> GetListHostsBusy(this DataAccessHelper dataAccess, long? id, bool? isMarked)
+	//{
+	//	object[] entities = dataAccess.GetObjects(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
+	//	List<HostModel> items = new();
+	//	foreach (object? item in entities)
+	//	{
+	//		if (item is object[] { Length: 12 } obj)
+	//		{
+	//			HostModel host = new()
+	//			{
+	//				CreateDt = Convert.ToDateTime(obj[1]),
+	//				ChangeDt = Convert.ToDateTime(obj[2]),
+	//				LoginDt = Convert.ToDateTime(obj[3]),
+	//				Name = Convert.ToString(obj[4]),
+	//				Ip = Convert.ToString(obj[7]),
+	//				MacAddress = new(Convert.ToString(obj[8])),
+	//				IsMarked = Convert.ToBoolean(obj[9]),
+	//			};
+	//			if ((id == null || Equals(host.IdentityValueId, id)) &&
+	//				(isMarked == null || Equals(host.IsMarked, isMarked)))
+	//				items.Add(host);
+	//		}
+	//	}
+	//	return items;
+	//}
 
 	public static List<NomenclatureModel> GetListNomenclatures(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{

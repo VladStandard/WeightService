@@ -49,11 +49,8 @@ public class SqlTableEmptyModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(SqlTableEmptyModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item);
-	}
+	public virtual bool Equals(SqlTableEmptyModel item) => 
+		ReferenceEquals(this, item) || base.Equals(item);
 
 	public new virtual SqlTableEmptyModel CloneCast() => (SqlTableEmptyModel)Clone();
 

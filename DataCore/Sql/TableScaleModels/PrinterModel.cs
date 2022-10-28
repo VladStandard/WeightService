@@ -89,23 +89,18 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (!PrinterType.EqualsDefault())
-            return false;
-        if (!MacAddress.EqualsDefault())
-            return false;
-        return 
-	        base.EqualsDefault() &&
-            Equals(Name, string.Empty) &&
-            Equals(Ip, string.Empty) &&
-            Equals(Port, (short)0) &&
-            Equals(Password, string.Empty) &&
-            Equals(PeelOffSet, false) &&
-            Equals(DarknessLevel, (short)0) &&
-            Equals(HttpStatusCode, HttpStatusCode.BadRequest) &&
-            Equals(HttpStatusException, null);
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Name, string.Empty) &&
+		Equals(Ip, string.Empty) &&
+		Equals(Port, (short)0) &&
+		Equals(Password, string.Empty) &&
+		Equals(PeelOffSet, false) &&
+		Equals(DarknessLevel, (short)0) &&
+		Equals(HttpStatusCode, HttpStatusCode.BadRequest) &&
+		Equals(HttpStatusException, null) &&
+		PrinterType.EqualsDefault() &&
+		MacAddress.EqualsDefault();
 
 	public override object Clone()
     {
@@ -149,23 +144,18 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PrinterModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!PrinterType.Equals(item.PrinterType))
-			return false;
-		if (!MacAddress.Equals(item.MacAddress))
-			return false;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name) &&
-		       Equals(Ip, item.Ip) &&
-		       Equals(Port, item.Port) &&
-		       Equals(Password, item.Password) &&
-		       Equals(PeelOffSet, item.PeelOffSet) &&
-		       Equals(DarknessLevel, item.DarknessLevel) &&
-		       Equals(HttpStatusCode, item.HttpStatusCode) &&
-		       Equals(HttpStatusException, item.HttpStatusException);
-	}
+	public virtual bool Equals(PrinterModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(Ip, item.Ip) &&
+		Equals(Port, item.Port) &&
+		Equals(Password, item.Password) &&
+		Equals(PeelOffSet, item.PeelOffSet) &&
+		Equals(DarknessLevel, item.DarknessLevel) &&
+		Equals(HttpStatusCode, item.HttpStatusCode) &&
+		Equals(HttpStatusException, item.HttpStatusException) &&
+		PrinterType.Equals(item.PrinterType) &&
+		MacAddress.Equals(item.MacAddress);
 
 	public new virtual PrinterModel CloneCast() => (PrinterModel)Clone();
 

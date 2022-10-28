@@ -29,7 +29,8 @@ internal static class Program
     #region Public and private methods
 
     [STAThread]
-    internal static void Main()
+#nullable enable
+	internal static void Main()
     {
 		try
 		{
@@ -40,13 +41,13 @@ internal static class Program
 
 			// Host.
 			string hostName = NetUtils.GetLocalHostName(false);
-			HostModel host = SqlUtils.GetHostNotNull(hostName);
-			if (host.IdentityIsNew)
+			DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFk(hostName);
+			if (deviceTypeFk is null )
 			{
 				GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
-				host = SqlUtils.GetHostNotNull(hostName);
+				deviceTypeFk = new() { Device = { Name = hostName } };
 			}
-			if (host.IdentityIsNew)
+			if (deviceTypeFk.IdentityIsNew)
 			{
 				string message = LocaleCore.Scales.RegistrationWarningHostNotFound(hostName);
 				GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
@@ -56,7 +57,7 @@ internal static class Program
 			}
 
 			// Scale.
-			ScaleModel scale = SqlUtils.GetScaleFromHostNotNull(host);
+			ScaleModel scale = DataAccess.GetItemScaleNotNull(deviceTypeFk.Device);
 			if (scale.IdentityIsNew)
 			{
 				string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(hostName);
@@ -77,7 +78,7 @@ internal static class Program
 			}
 			else
 			{
-				DataAccess.LogInformation(LocaleCore.Scales.RegistrationSuccess(host.Name, scale.Description),
+				DataAccess.LogInformation(LocaleCore.Scales.RegistrationSuccess(deviceTypeFk.Device.Name, scale.Description),
 					hostName, nameof(ScalesUI));
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
@@ -90,6 +91,7 @@ internal static class Program
 			throw new(ex.Message);
 		}
 	}
+#nullable disable
 
-    #endregion
+	#endregion
 }

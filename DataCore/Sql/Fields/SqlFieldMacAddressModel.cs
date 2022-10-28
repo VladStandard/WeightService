@@ -87,15 +87,9 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
 
 	public override int GetHashCode() => Value.GetHashCode();
 
-    public override bool EqualsNew()
-    {
-        return Equals(new SqlFieldMacAddressModel());
-    }
+    public override bool EqualsNew() => Equals(new SqlFieldMacAddressModel());
 
-    public override bool EqualsDefault()
-    {
-        return Equals(Value, string.Empty);
-    }
+    public override bool EqualsDefault() => Equals(Value, string.Empty);
 
     public override object Clone()
     {
@@ -148,11 +142,8 @@ public class SqlFieldMacAddressModel : SqlFieldBase, ICloneable, ISqlDbBase, ISe
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(SqlFieldMacAddressModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return Equals(Value, item.Value);
-	}
+	public virtual bool Equals(SqlFieldMacAddressModel item) => 
+		ReferenceEquals(this, item) || Equals(Value, item.Value);
 
 	public new virtual SqlFieldMacAddressModel CloneCast() => (SqlFieldMacAddressModel)Clone();
 

@@ -120,14 +120,10 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(SqlFieldIdentityModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Name, item.Name) &&
-			Id.Equals(item.Id) &&
-			Uid.Equals(item.Uid);
-	}
+	public virtual bool Equals(SqlFieldIdentityModel item) =>
+		ReferenceEquals(this, item) || Equals(Name, item.Name) &&
+		Id.Equals(item.Id) &&
+		Uid.Equals(item.Uid);
 
 	public new virtual SqlFieldIdentityModel CloneCast() => (SqlFieldIdentityModel)Clone();
 

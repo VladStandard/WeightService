@@ -214,7 +214,7 @@ public static class GuiUtils
                 LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
                 false, LogTypeEnum.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                UserSessionHelper.Instance.HostName, nameof(WeightCore));
+                UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
             if (result == DialogResult.Yes)
             {
                 SqlUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
@@ -236,14 +236,14 @@ public static class GuiUtils
                 LocaleCore.Scales.HostNotFound(hostName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, LogTypeEnum.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                UserSessionHelper.Instance.HostName, nameof(WeightCore));
+                UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
             if (result == DialogResult.Yes)
             {
-                HostModel host = new()
+                DeviceModel host = new()
                 {
                     Name = hostName,
-                    HostName = hostName,
-                    Ip = ip,
+                    PrettyName = hostName,
+                    Ipv4 = ip,
                     MacAddress = new(mac),
                     CreateDt = DateTime.Now,
                     ChangeDt = DateTime.Now,
@@ -292,7 +292,7 @@ public static class GuiUtils
 	        [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (isLog)
-                DataAccess.LogError(ex, UserSessionHelper.Instance.HostName, null, filePath, lineNumber, memberName);
+                DataAccess.LogError(ex, UserSessionHelper.Instance.Host.Device.Name, null, filePath, lineNumber, memberName);
             string message = ex.Message;
             if (ex.InnerException is not null)
                 message += ex.InnerException.Message;

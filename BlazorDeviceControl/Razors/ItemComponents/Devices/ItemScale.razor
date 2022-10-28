@@ -33,18 +33,18 @@
 		</tr>
 		<tr>
 			<td>
-				<RadzenLink Style="width: 100%; "
+				@*<RadzenLink Style="width: 100%; "
 		            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, SqlItemCast.Host, SqlItemCast.Host?.IdentityValueId)
-		            Text=@LocaleCore.Table.Host/>
+		            Text=@LocaleCore.Table.Host/>*@
 			</td>
 			<td>
-				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				@*<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.Host>
 					@foreach (HostModel item in Hosts)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
-				</MudSelect>
+				</MudSelect>*@
 			</td>
 			<td>@LocaleCore.Table.DeviceReceiveTimeout</td>
 			<td>

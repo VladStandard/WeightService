@@ -39,10 +39,28 @@ internal class TablesToStringTests
     }
 
     [Test]
-    public void DbTable_Validate_HostModel()
+    public void DbTable_Validate_DeviceModel()
     {
-        DataCore.TableBaseModelAssertToString<HostModel>();
+	    DataCore.TableBaseModelAssertToString<DeviceModel>();
     }
+
+	[Test]
+	public void DbTable_Validate_DeviceTypeModel()
+	{
+		DataCore.TableBaseModelAssertToString<DeviceTypeModel>();
+	}
+
+	[Test]
+	public void DbTable_Validate_DeviceTypeFkModel()
+	{
+		DataCore.TableBaseModelAssertToString<DeviceTypeFkModel>();
+	}
+
+	[Test]
+	public void DbTable_Validate_DeviceScaleFkModel()
+	{
+		DataCore.TableBaseModelAssertToString<DeviceScaleFkModel>();
+	}
 
     [Test]
     public void DbTable_Validate_LogModel()

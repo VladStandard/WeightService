@@ -1,17 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Core;
+using AssertCoreTests;
+using BlazorCore.Razors;
+using DataCore.CssStyles;
 using DataCore.Sql.TableScaleModels;
-using DataCoreTests;
 using FluentValidation;
 using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Threading;
-using AssertCoreTests;
-using BlazorCore.Razors;
-using DataCore.CssStyles;
 using SqlTableBase = DataCore.Sql.Tables.SqlTableBase;
 
 namespace BlazorCoreTests;
@@ -72,7 +70,7 @@ public class BlazorCoreHelper
 	public RazorComponentBase CreateNewSubstituteRazorComponentBase()
 	{
 		RazorComponentBase razorPage = Substitute.For<RazorComponentBase>();
-		razorPage.GetRouteItemPathShort<HostModel>();
+		razorPage.GetRouteItemPathShort<DeviceScaleFkModel>();
 		return razorPage;
 	}
 

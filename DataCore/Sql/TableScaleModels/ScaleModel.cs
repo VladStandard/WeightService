@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -18,11 +19,8 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual WorkShopModel? WorkShop { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterMain { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterShipping { get; set; }
-	[XmlElement(IsNullable = true)] public virtual HostModel? Host { get; set; }
+	//[XmlIgnore] public virtual DeviceModel Device { get; set; }
 	[XmlElement] public virtual byte ShippingLength { get; set; }
-	[XmlElement] public virtual string DeviceIp { get; set; }
-	[XmlElement] public virtual short DevicePort { get; set; }
-	[XmlElement] public virtual string DeviceMac { get; set; }
 	[XmlElement(IsNullable = true)] public virtual short? DeviceSendTimeout { get; set; }
 	[XmlElement(IsNullable = true)] public virtual short? DeviceReceiveTimeout { get; set; }
 	[XmlElement] public virtual string DeviceComPort { get; set; }
@@ -55,13 +53,10 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    TemplateDefault = null;
 	    TemplateSeries = null;
 	    WorkShop = null;
-	    Host = null;
+	    //Device = new();
 	    PrinterMain = null;
 	    PrinterShipping = null;
 	    ShippingLength = 0;
-	    DeviceIp = string.Empty;
-	    DevicePort = 0;
-	    DeviceMac = string.Empty;
 	    DeviceSendTimeout = default;
 	    DeviceReceiveTimeout = default;
 	    DeviceComPort = string.Empty;
@@ -85,13 +80,10 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         TemplateDefault = (TemplateModel?)info.GetValue(nameof(TemplateDefault), typeof(TemplateModel));
 		TemplateSeries = (TemplateModel?)info.GetValue(nameof(TemplateSeries), typeof(TemplateModel));
 		WorkShop = (WorkShopModel?)info.GetValue(nameof(WorkShop), typeof(WorkShopModel));
-		Host = (HostModel?)info.GetValue(nameof(Host), typeof(HostModel));
+		//Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
 		PrinterMain = (PrinterModel?)info.GetValue(nameof(PrinterMain), typeof(PrinterModel));
 		PrinterShipping = (PrinterModel?)info.GetValue(nameof(PrinterShipping), typeof(PrinterModel));
 		ShippingLength = info.GetByte(nameof(ShippingLength));
-		DeviceIp = info.GetString(nameof(DeviceIp));
-		DevicePort = info.GetInt16(nameof(DevicePort));
-		DeviceMac = info.GetString(nameof(DeviceMac));
 		DeviceSendTimeout = (short?)info.GetValue(nameof(DeviceSendTimeout), typeof(short));
 		DeviceReceiveTimeout = (short?)info.GetValue(nameof(DeviceReceiveTimeout), typeof(short));
 		DeviceComPort = info.GetString(nameof(DeviceComPort));
@@ -109,7 +101,7 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - override
 
-	public override string ToString() => base.ToString() + $"{nameof(DeviceIp)}: {DeviceIp}. ";
+	public override string ToString() => base.ToString() + $"{nameof(Description)}: {Description}. ";
 
     public override bool Equals(object obj)
 	{
@@ -123,38 +115,25 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (TemplateDefault is not null && !TemplateDefault.EqualsDefault())
-            return false;
-        if (TemplateSeries is not null && !TemplateSeries.EqualsDefault())
-            return false;
-        if (WorkShop is not null && !WorkShop.EqualsDefault())
-            return false;
-        if (PrinterMain is not null && !PrinterMain.EqualsDefault())
-            return false;
-        if (PrinterShipping is not null && !PrinterShipping.EqualsDefault())
-	        return false;
-		if (Host is not null && !Host.EqualsDefault())
-			return false;
-        return 
-	        base.EqualsDefault() &&
-            Equals(DeviceIp, string.Empty) &&
-            Equals(DevicePort, (short)0) &&
-            Equals(DeviceMac, string.Empty) &&
-            Equals(DeviceSendTimeout, null) &&
-            Equals(DeviceReceiveTimeout, null) &&
-            Equals(DeviceComPort, string.Empty) &&
-            Equals(ZebraIp, string.Empty) &&
-            Equals(ZebraPort, null) &&
-            Equals(IsOrder, false) &&
-            Equals(Number, 0) &&
-            Equals(Counter, 0) &&
-            Equals(ScaleFactor, null) &&
-            Equals(IsShipping, false) &&
-            Equals(IsKneading, false) &&
-            Equals(ShippingLength, (byte)0);
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(DeviceSendTimeout, null) &&
+		Equals(DeviceReceiveTimeout, null) &&
+		Equals(DeviceComPort, string.Empty) &&
+		Equals(ZebraIp, string.Empty) &&
+		Equals(ZebraPort, null) &&
+		Equals(IsOrder, false) &&
+		Equals(Number, 0) &&
+		Equals(Counter, 0) &&
+		Equals(ScaleFactor, null) &&
+		Equals(IsShipping, false) &&
+		Equals(IsKneading, false) &&
+		Equals(ShippingLength, (byte)0) &&
+		(TemplateDefault is null || TemplateDefault.EqualsDefault()) &&
+		(TemplateSeries is null || TemplateSeries.EqualsDefault()) &&
+		(WorkShop is null || WorkShop.EqualsDefault()) &&
+		(PrinterMain is null || PrinterMain.EqualsDefault()) &&
+		(PrinterShipping is null || PrinterShipping.EqualsDefault());
 
 	public override object Clone()
     {
@@ -167,10 +146,7 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         item.IsShipping = IsShipping;
         item.IsKneading = IsKneading;
         item.ShippingLength = ShippingLength;
-        item.Host = Host?.CloneCast();
-        item.DeviceIp = DeviceIp;
-        item.DevicePort = DevicePort;
-        item.DeviceMac = DeviceMac;
+        //item.Device = Device.CloneCast();
         item.DeviceSendTimeout = DeviceSendTimeout;
         item.DeviceReceiveTimeout = DeviceReceiveTimeout;
         item.DeviceComPort = DeviceComPort;
@@ -195,13 +171,10 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(TemplateDefault), TemplateDefault);
         info.AddValue(nameof(TemplateSeries), TemplateSeries);
         info.AddValue(nameof(WorkShop), WorkShop);
-        info.AddValue(nameof(Host), Host);
+        //info.AddValue(nameof(Device), Device);
         info.AddValue(nameof(PrinterMain), PrinterMain);
         info.AddValue(nameof(PrinterShipping), PrinterShipping);
         info.AddValue(nameof(ShippingLength), ShippingLength);
-        info.AddValue(nameof(DeviceIp), DeviceIp);
-        info.AddValue(nameof(DevicePort), DevicePort);
-        info.AddValue(nameof(DeviceMac), DeviceMac);
         info.AddValue(nameof(DeviceSendTimeout), DeviceSendTimeout);
         info.AddValue(nameof(DeviceReceiveTimeout), DeviceReceiveTimeout);
         info.AddValue(nameof(DeviceComPort), DeviceComPort);
@@ -227,8 +200,6 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 			PrinterMain = null;
 		if (PrinterShipping is not null && PrinterShipping.Identity.EqualsDefault())
 			PrinterShipping = null;
-		if (Host is not null && Host.Identity.EqualsDefault())
-			Host = null;
 	}
 
     public override void FillProperties()
@@ -240,45 +211,37 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		WorkShop?.FillProperties();
 		PrinterMain?.FillProperties();
 		PrinterShipping?.FillProperties();
-		Host?.FillProperties();
+		//Device.FillProperties();
 	}
 
 	#endregion
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(ScaleModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (TemplateDefault is not null && item.TemplateDefault is not null && !TemplateDefault.Equals(item.TemplateDefault))
-			return false;
-		if (TemplateSeries is not null && item.TemplateSeries is not null && !TemplateSeries.Equals(item.TemplateSeries))
-			return false;
-		if (WorkShop is not null && item.WorkShop is not null && !WorkShop.Equals(item.WorkShop))
-			return false;
-		if (PrinterMain is not null && item.PrinterMain is not null && !PrinterMain.Equals(item.PrinterMain))
-			return false;
-		if (PrinterShipping is not null && item.PrinterShipping is not null && !PrinterShipping.Equals(item.PrinterShipping))
-			return false;
-		if (Host is not null && item.Host is not null && !Host.Equals(item.Host))
-			return false;
-		return base.Equals(item) &&
-			   Equals(DeviceIp, item.DeviceIp) &&
-			   Equals(DevicePort, item.DevicePort) &&
-			   Equals(DeviceMac, item.DeviceMac) &&
-			   Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
-			   Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
-			   Equals(DeviceComPort, item.DeviceComPort) &&
-			   Equals(ZebraIp, item.ZebraIp) &&
-			   Equals(ZebraPort, item.ZebraPort) &&
-			   Equals(IsOrder, item.IsOrder) &&
-			   Equals(Number, item.Number) &&
-			   Equals(Counter, item.Counter) &&
-			   Equals(ScaleFactor, item.ScaleFactor) &&
-			   Equals(IsShipping, item.IsShipping) &&
-			   Equals(IsKneading, item.IsKneading) &&
-			   ShippingLength.Equals(item.ShippingLength);
-	}
+	public virtual bool Equals(ScaleModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
+		Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
+		Equals(DeviceComPort, item.DeviceComPort) &&
+		Equals(ZebraIp, item.ZebraIp) &&
+		Equals(ZebraPort, item.ZebraPort) &&
+		Equals(IsOrder, item.IsOrder) &&
+		Equals(Number, item.Number) &&
+		Equals(Counter, item.Counter) &&
+		Equals(ScaleFactor, item.ScaleFactor) &&
+		Equals(IsShipping, item.IsShipping) &&
+		Equals(IsKneading, item.IsKneading) &&
+		ShippingLength.Equals(item.ShippingLength) &&
+		(TemplateDefault is null && item.TemplateDefault is null || TemplateDefault is not null &&
+			item.TemplateDefault is not null && TemplateDefault.Equals(item.TemplateDefault)) &&
+		(TemplateSeries is null && item.TemplateSeries is null || TemplateSeries is not null &&
+			item.TemplateSeries is not null && TemplateSeries.Equals(item.TemplateSeries)) &&
+		(WorkShop is null && item.WorkShop is null ||
+		 WorkShop is not null && item.WorkShop is not null && WorkShop.Equals(item.WorkShop)) &&
+		(PrinterMain is null && item.PrinterMain is null || PrinterMain is not null &&
+			item.PrinterMain is not null && PrinterMain.Equals(item.PrinterMain)) &&
+		(PrinterShipping is null && item.PrinterShipping is null || PrinterShipping is not null &&
+			item.PrinterShipping is not null && PrinterShipping.Equals(item.PrinterShipping));
 
 	public new virtual ScaleModel CloneCast() => (ScaleModel)Clone();
 

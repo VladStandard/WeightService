@@ -62,10 +62,7 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerial
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        return DataUtils.ByteEquals(Value, new byte[0]);
-    }
+    public override bool EqualsDefault() => DataUtils.ByteEquals(Value, new byte[0]);
 
     public override object Clone()
     {
@@ -91,12 +88,8 @@ public class SqlFieldBinaryModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerial
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(SqlFieldBinaryModel item)
-	{
-		//if (item is null) return false;
-		if (ReferenceEquals(this, item)) return true;
-		return DataUtils.ByteEquals(Value, item.Value);
-	}
+	public virtual bool Equals(SqlFieldBinaryModel item) => 
+		ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value);
 
 	public new virtual SqlFieldBinaryModel CloneCast() => (SqlFieldBinaryModel)Clone();
 

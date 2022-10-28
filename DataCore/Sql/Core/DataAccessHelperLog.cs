@@ -11,18 +11,18 @@ public static class DataAccessHelperLog
 
 	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
 	private static AppModel? App { get; set; }
-	private static HostModel? Host { get; set; }
+	private static DeviceModel Device { get; set; }
 
 	#endregion
 
 	#region Public and private methods
 
-	public static void SetupLog(this DataAccessHelper dataAccess, string hostName, string appName)
+	public static void SetupLog(this DataAccessHelper dataAccess, string deviceName, string appName)
 	{
-		HostModel? host = dataAccess.GetItemHost(hostName);
+		DeviceModel? device = dataAccess.GetItemDevice(deviceName);
 
-		if (host is not null && !host.EqualsDefault())
-			Host = host;
+		if (device?.IdentityIsNotNew == true)
+			Device = device;
 
 		AppModel? app = dataAccess.GetOrCreateNewApp(appName);
 		if (app is not null && !app.EqualsDefault())
@@ -66,18 +66,18 @@ public static class DataAccessHelperLog
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
 		LogCore(dataAccess, message, LogTypeEnum.Warning, hostName, appName, filePath, lineNumber, memberName);
 
-	private static void LogCore(this DataAccessHelper dataAccess, string message, LogTypeEnum logType, string? hostName, string? appName, string filePath, int lineNumber, string memberName)
+	private static void LogCore(this DataAccessHelper dataAccess, string message, LogTypeEnum logType, string? deviceName, string? appName, string filePath, int lineNumber, string memberName)
 	{
 		StringUtils.SetStringValueTrim(ref filePath, 32, true);
 		StringUtils.SetStringValueTrim(ref memberName, 32);
 		StringUtils.SetStringValueTrim(ref message, 1024);
         LogTypeModel? logTypeItem = dataAccess.GetItemLogType(logType);
 
-		HostModel? host = Host;
+        DeviceModel device = Device;
 		AppModel? app = App;
 
-		if (!string.IsNullOrEmpty(hostName))
-			host = dataAccess.GetItemHost(hostName);
+		if (!string.IsNullOrEmpty(deviceName))
+			device = dataAccess.GetItemDeviceNotNull(deviceName);
 		if (!string.IsNullOrEmpty(appName))
 			app = dataAccess.GetOrCreateNewApp(appName);
 
@@ -86,7 +86,7 @@ public static class DataAccessHelperLog
 			CreateDt = DateTime.Now,
 			ChangeDt = DateTime.Now,
 			IsMarked = false,
-			Host = host,
+			Device = device,
 			App = app,
 			LogType = logTypeItem,
 			Version = AppVersion.Version,
@@ -110,14 +110,6 @@ public static class DataAccessHelperLog
 		AppModel app = new() { Name = name };
 		dataAccess.Save(app);
 		return app.IdentityValueUid;
-	}
-
-	public static long? GetHostId(this DataAccessHelper dataAccess, string name)
-	{
-		StringUtils.SetStringValueTrim(ref name, 150);
-		SqlCrudConfigModel sqlCrudConfig = new(new SqlFieldFilterModel(nameof(HostModel.Name), SqlFieldComparerEnum.Equal, name));
-		HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-		return host?.IdentityValueId;
 	}
 
 	#endregion

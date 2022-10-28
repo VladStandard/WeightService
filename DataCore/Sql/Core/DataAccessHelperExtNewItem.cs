@@ -21,8 +21,8 @@ public static partial class DataAccessHelperExt
 	public static DeviceTypeFkModel GetNewDeviceTypeFk(this DataAccessHelper dataAccess) =>
 		new() { Device = dataAccess.GetNewDevice(), DeviceType = dataAccess.GetNewDeviceType() };
 
-	public static HostModel GetNewHost(this DataAccessHelper dataAccess) =>
-		new() { Name = LocaleCore.Table.FieldNull };
+	public static DeviceScaleFkModel GetNewDeviceScaleFk(this DataAccessHelper dataAccess) =>
+		new() { Device = dataAccess.GetNewDevice(), Scale = dataAccess.GetNewScale() };
 
 	public static NomenclatureModel GetNewNomenclature(this DataAccessHelper dataAccess) =>
 		new() { Name = LocaleCore.Table.FieldNull };

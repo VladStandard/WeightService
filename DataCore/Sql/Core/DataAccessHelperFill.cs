@@ -15,21 +15,25 @@ public static class DataAccessHelperFill
 	{
 		switch (item)
 		{
-			case Xml.DeviceModel xmlDevice:
+			case XmlDeviceModel xmlDevice:
                 xmlDevice.Scale = dataAccess.GetItemByIdNotNull<ScaleModel>(xmlDevice.Scale.IdentityValueId);
 				break;
 			case LogModel log:
 				log.App = dataAccess.GetItemByUidNotNull<AppModel>(log.App?.IdentityValueUid);
-				log.Host = dataAccess.GetItemByIdNotNull<HostModel>(log.Host?.IdentityValueId);
+				log.Device = dataAccess.GetItemByUid<DeviceModel>(log.Device?.IdentityValueUid);
 				log.LogType = dataAccess.GetItemByUidNotNull<LogTypeModel>(log.LogType?.IdentityValueUid);
 				break;
 			// Scales.
-			case DeviceTypeFkModel deviceTypeFk:
-				deviceTypeFk.Device = dataAccess.GetItemByUidNotNull<TableScaleModels.DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
-				deviceTypeFk.DeviceType = dataAccess.GetItemByUidNotNull<DeviceTypeModel>(deviceTypeFk.DeviceType.IdentityValueUid);
-				break;
 			case BarCodeModel barcode:
 				barcode.PluLabel = dataAccess.GetItemByUidNotNull<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
+				break;
+			case DeviceTypeFkModel deviceTypeFk:
+				deviceTypeFk.Device = dataAccess.GetItemByUidNotNull<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
+				deviceTypeFk.DeviceType = dataAccess.GetItemByUidNotNull<DeviceTypeModel>(deviceTypeFk.DeviceType.IdentityValueUid);
+				break;
+			case DeviceScaleFkModel deviceScaleFk:
+				deviceScaleFk.Device = dataAccess.GetItemByUidNotNull<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
+				deviceScaleFk.Scale = dataAccess.GetItemByUidNotNull<ScaleModel>(deviceScaleFk.Scale.IdentityValueUid);
 				break;
 			case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = dataAccess.GetItemByUidNotNull<OrderModel>(orderWeighing.Order.IdentityValueUid);
@@ -72,7 +76,6 @@ public static class DataAccessHelperFill
 				scale.TemplateSeries = dataAccess.GetItemById<TemplateModel>(scale.TemplateSeries?.IdentityValueId);
 				scale.PrinterMain = dataAccess.GetItemById<PrinterModel>(scale.PrinterMain?.IdentityValueId);
 				scale.PrinterShipping = dataAccess.GetItemById<PrinterModel>(scale.PrinterShipping?.IdentityValueId);
-				scale.Host = dataAccess.GetItemById<HostModel>(scale.Host?.IdentityValueId);
 				scale.WorkShop = dataAccess.GetItemById<WorkShopModel>(scale.WorkShop?.IdentityValueId);
 				break;
 			case ScaleScreenShotModel scaleScreenShot:

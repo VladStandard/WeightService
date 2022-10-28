@@ -42,11 +42,9 @@ public class StatusModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         return Equals(new());
     }
 
-    public override bool EqualsDefault()
-    {
-        return base.EqualsDefault() &&
-               Equals(Name, string.Empty);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Name, string.Empty);
 
     public override object Clone()
     {
@@ -60,12 +58,9 @@ public class StatusModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(StatusModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name);
-	}
+	public virtual bool Equals(StatusModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name);
 
 	public new virtual StatusModel CloneCast() => (StatusModel)Clone();
 

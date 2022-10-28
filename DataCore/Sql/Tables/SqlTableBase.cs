@@ -74,16 +74,12 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		return strCreateDt + strChangeDt + strIsMarked + strDescription;
     }
 
-    public virtual bool Equals(SqlTableBase item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return
-            Identity.Equals(item.Identity) &&
-            Equals(CreateDt, item.CreateDt) &&
-            Equals(ChangeDt, item.ChangeDt) &&
-            Equals(IsMarked, item.IsMarked) && 
-            Equals(Description, item.Description);
-    }
+    public virtual bool Equals(SqlTableBase item) =>
+	    ReferenceEquals(this, item) || Identity.Equals(item.Identity) &&
+	    Equals(CreateDt, item.CreateDt) &&
+	    Equals(ChangeDt, item.ChangeDt) &&
+	    Equals(IsMarked, item.IsMarked) &&
+	    Equals(Description, item.Description);
 
     public override bool Equals(object obj)
     {

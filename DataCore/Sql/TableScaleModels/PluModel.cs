@@ -118,28 +118,23 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (!Template.EqualsDefault())
-            return false;
-        if (!Nomenclature.EqualsDefault())
-            return false;
-        return 
-			base.EqualsDefault() &&
-			Equals(Number, default(int)) &&
-			Equals(Name, string.Empty) &&
-			Equals(FullName, string.Empty) &&
-			Equals(ShelfLifeDays, default(short)) &&
-			//Equals(TareWeight, default(decimal)) &&
-			Equals(BoxQuantly, default(int)) &&
-			Equals(Gtin, string.Empty) &&
-			Equals(Ean13, string.Empty) &&
-			Equals(Itf14, string.Empty) &&
-			Equals(UpperThreshold, default(decimal)) &&
-			Equals(NominalWeight, default(decimal)) &&
-			Equals(LowerThreshold, default(decimal)) &&
-			Equals(IsCheckWeight, false);
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Number, default(int)) &&
+		Equals(Name, string.Empty) &&
+		Equals(FullName, string.Empty) &&
+		Equals(ShelfLifeDays, default(short)) &&
+		//Equals(TareWeight, default(decimal)) &&
+		Equals(BoxQuantly, default(int)) &&
+		Equals(Gtin, string.Empty) &&
+		Equals(Ean13, string.Empty) &&
+		Equals(Itf14, string.Empty) &&
+		Equals(UpperThreshold, default(decimal)) &&
+		Equals(NominalWeight, default(decimal)) &&
+		Equals(LowerThreshold, default(decimal)) &&
+		Equals(IsCheckWeight, false) &&
+		Template.EqualsDefault() &&
+		Nomenclature.EqualsDefault();
 
 	public override object Clone()
     {
@@ -200,29 +195,23 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PluModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!Template.Equals(item.Template))
-			return false;
-		if (!Nomenclature.Equals(item.Nomenclature))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Number, item.Number) &&
-			Equals(Name, item.Name) &&
-			Equals(FullName, item.FullName) &&
-			Equals(ShelfLifeDays, item.ShelfLifeDays) &&
-			//Equals(TareWeight, item.TareWeight) &&
-			Equals(BoxQuantly, item.BoxQuantly) &&
-			Equals(Gtin, item.Gtin) &&
-			Equals(Ean13, item.Ean13) &&
-			Equals(Itf14, item.Itf14) &&
-			Equals(UpperThreshold, item.UpperThreshold) &&
-			Equals(NominalWeight, item.NominalWeight) &&
-			Equals(LowerThreshold, item.LowerThreshold) &&
-			Equals(IsCheckWeight, item.IsCheckWeight);
-	}
+	public virtual bool Equals(PluModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Number, item.Number) &&
+		Equals(Name, item.Name) &&
+		Equals(FullName, item.FullName) &&
+		Equals(ShelfLifeDays, item.ShelfLifeDays) &&
+		//Equals(TareWeight, item.TareWeight) &&
+		Equals(BoxQuantly, item.BoxQuantly) &&
+		Equals(Gtin, item.Gtin) &&
+		Equals(Ean13, item.Ean13) &&
+		Equals(Itf14, item.Itf14) &&
+		Equals(UpperThreshold, item.UpperThreshold) &&
+		Equals(NominalWeight, item.NominalWeight) &&
+		Equals(LowerThreshold, item.LowerThreshold) &&
+		Equals(IsCheckWeight, item.IsCheckWeight) &&
+		Template.Equals(item.Template) &&
+		Nomenclature.Equals(item.Nomenclature);
 
 	public new virtual PluModel CloneCast() => (PluModel)Clone();
 

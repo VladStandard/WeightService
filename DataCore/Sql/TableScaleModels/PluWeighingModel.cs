@@ -3,6 +3,7 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Tables;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -127,22 +128,17 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        if (!PluScale.EqualsDefault())
-            return false;
-        if (Series is not null && !Series.EqualsDefault())
-            return false;
-        return
-            base.EqualsDefault() &&
-            Equals(Kneading, default(short)) &&
-            Equals(Sscc, string.Empty) &&
-            Equals(NettoWeight, default(decimal)) &&
-            Equals(TareWeight, default(decimal)) &&
-            Equals(RegNum, default(int));
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Kneading, default(short)) &&
+	    Equals(Sscc, string.Empty) &&
+	    Equals(NettoWeight, default(decimal)) &&
+	    Equals(TareWeight, default(decimal)) &&
+	    Equals(RegNum, default(int)) &&
+	    PluScale.EqualsDefault() &&
+	    (Series is null || Series.EqualsDefault());
 
-	public override object Clone()
+    public override object Clone()
     {
         PluWeighingModel item = new();
         item.PluScale = PluScale.CloneCast();
@@ -190,22 +186,17 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PluWeighingModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!PluScale.Equals(item.PluScale))
-			return false;
-        if (Series is not null && item.Series is not null && !Series.Equals(item.Series))
-            return false;
-        return
-			base.Equals(item) &&
-			Equals(Kneading, item.Kneading) &&
-			Equals(PluScale, item.PluScale) &&
-			Equals(Sscc, item.Sscc) &&
-			Equals(NettoWeight, item.NettoWeight) &&
-			Equals(TareWeight, item.TareWeight) &&
-			Equals(RegNum, item.RegNum);
-	}
+	public virtual bool Equals(PluWeighingModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Kneading, item.Kneading) &&
+		Equals(PluScale, item.PluScale) &&
+		Equals(Sscc, item.Sscc) &&
+		Equals(NettoWeight, item.NettoWeight) &&
+		Equals(TareWeight, item.TareWeight) &&
+		Equals(RegNum, item.RegNum) &&
+		PluScale.Equals(item.PluScale) &&
+		(Series is null && item.Series is null ||
+		 Series is not null && item.Series is not null && Series.Equals(item.Series));
 
 	public new virtual PluWeighingModel CloneCast() => (PluWeighingModel)Clone();
 

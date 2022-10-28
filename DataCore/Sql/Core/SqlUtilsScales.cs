@@ -34,28 +34,24 @@ public static partial class SqlUtils
 		return result;
 	}
 
-	public static ScaleModel? GetScaleFromHost(long hostId)
+	public static ScaleModel? GetScaleFromDevice(DeviceModel deviceModel)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(
             new List<SqlFieldFilterModel>
             { 
-                new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, hostId), 
+                new($"{nameof(DeviceModel)}.{nameof(SqlTableBase.IdentityValueUid)}", 
+	                SqlFieldComparerEnum.Equal, deviceModel.IdentityValueUid), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             },
 			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
-		return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
+		DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItem<DeviceScaleFkModel>(sqlCrudConfig);
+		return deviceScaleFk?.Scale;
 	}
 
-	public static ScaleModel GetScaleFromHostNotNull(HostModel host)
+	public static ScaleModel GetScaleFromDeviceNotNull(DeviceModel device)
 	{
-		SqlCrudConfigModel sqlCrudConfig = new(
-            new List<SqlFieldFilterModel>
-            { 
-                new($"{nameof(ScaleModel.Host)}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, host.IdentityValueId), 
-                new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
-            },
-			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
-		return DataAccess.GetItemNotNull<ScaleModel>(sqlCrudConfig);
+		ScaleModel? scale = GetScaleFromDevice(device);
+		return scale ?? new();
 	}
 
 	//public static ScaleModel? GetScale(long id)

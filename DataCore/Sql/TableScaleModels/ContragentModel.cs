@@ -112,16 +112,13 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(ContragentModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name) &&
-		       Equals(FullName, item.FullName) &&
-		       Equals(IdRRef, item.IdRRef) &&
-		       Equals(DwhId, item.DwhId) &&
-		       Equals(Xml, item.Xml);
-	}
+	public virtual bool Equals(ContragentModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(FullName, item.FullName) &&
+		Equals(IdRRef, item.IdRRef) &&
+		Equals(DwhId, item.DwhId) &&
+		Equals(Xml, item.Xml);
 
 	public new virtual ContragentModel CloneCast() => (ContragentModel)Clone();
 

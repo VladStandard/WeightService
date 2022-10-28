@@ -112,17 +112,12 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(TemplateModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!ImageData.Equals(item.ImageData))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(CategoryId, item.CategoryId) &&
-			Equals(IdRRef, item.IdRRef) &&
-			Equals(Title, item.Title);
-	}
+	public virtual bool Equals(TemplateModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(CategoryId, item.CategoryId) &&
+		Equals(IdRRef, item.IdRRef) &&
+		Equals(Title, item.Title) &&
+		ImageData.Equals(item.ImageData);
 
 	public new virtual TemplateModel CloneCast() => (TemplateModel)Clone();
 

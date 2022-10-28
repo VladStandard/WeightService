@@ -57,9 +57,9 @@ internal class AssertSqlDbContentValidateTests
 	}
 
     [Test]
-    public void DbContent_Validate_HostModel()
+    public void DbContent_Validate_DeviceScaleFkModel()
     {
-        DataCore.AssertSqlDbContentValidate<HostModel>();
+        DataCore.AssertSqlDbContentValidate<DeviceScaleFkModel>();
     }
 
     [Test]

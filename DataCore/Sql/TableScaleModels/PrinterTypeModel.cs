@@ -86,12 +86,9 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PrinterTypeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name);
-	}
+	public virtual bool Equals(PrinterTypeModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name);
 
 	public new virtual PrinterTypeModel CloneCast() => (PrinterTypeModel)Clone();
 

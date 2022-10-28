@@ -107,17 +107,13 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(AccessModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return 
-            base.Equals(item) &&
-		    Equals(LoginDt, item.LoginDt) &&
-		    Equals(Name, item.Name) &&
-		    Equals(Rights, item.Rights);
-	}
+    public virtual bool Equals(AccessModel item) =>
+	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    Equals(LoginDt, item.LoginDt) &&
+	    Equals(Name, item.Name) &&
+	    Equals(Rights, item.Rights);
 
-	public new virtual AccessModel CloneCast() => (AccessModel)Clone();
+    public new virtual AccessModel CloneCast() => (AccessModel)Clone();
 
 	#endregion
 }

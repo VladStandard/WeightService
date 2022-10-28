@@ -57,14 +57,10 @@ public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-		if (!Order.EqualsDefault())
-			return false;
-		if (!PluWeighing.EqualsDefault())
-			return false;
-        return base.EqualsDefault();
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Order.EqualsDefault() &&
+		PluWeighing.EqualsDefault();
 
 	public override object Clone()
     {
@@ -98,15 +94,10 @@ public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(OrderWeighingModel item)
-	{
-		if (!Order.Equals(item.Order))
-			return false;
-		if (!PluWeighing.Equals(item.PluWeighing))
-			return false;
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item);
-	}
+	public virtual bool Equals(OrderWeighingModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Order.Equals(item.Order) &&
+		PluWeighing.Equals(item.PluWeighing);
 
 	public new virtual OrderWeighingModel CloneCast() => (OrderWeighingModel)Clone();
 	

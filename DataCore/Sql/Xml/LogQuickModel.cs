@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
@@ -95,22 +95,18 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(LogQuickModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(CreateDt, item.CreateDt) &&
-			Equals(Scale, item.Scale) &&
-			Equals(Host, item.Host) &&
-			Equals(App, item.App) &&
-			Equals(Version, item.Version) &&
-			Equals(File, item.File) &&
-			Equals(Line, item.Line) &&
-			Equals(Member, item.Member) &&
-			Equals(Icon, item.Icon) &&
-			Equals(Message, item.Message);
-	}
+	public virtual bool Equals(LogQuickModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(CreateDt, item.CreateDt) &&
+		Equals(Scale, item.Scale) &&
+		Equals(Host, item.Host) &&
+		Equals(App, item.App) &&
+		Equals(Version, item.Version) &&
+		Equals(File, item.File) &&
+		Equals(Line, item.Line) &&
+		Equals(Member, item.Member) &&
+		Equals(Icon, item.Icon) &&
+		Equals(Message, item.Message);
 
 	public new virtual LogQuickModel CloneCast() => (LogQuickModel)Clone();
 
@@ -120,7 +116,7 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 		{
 			case false:
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new SqlFieldFilterModel(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, Scale), 0, false, false);
+					new SqlFieldFilterModel(nameof(Description), SqlFieldComparerEnum.Equal, Scale), 0, false, false);
 				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 				if (scale is not null)
 					return scale.IdentityValueId;
@@ -129,20 +125,20 @@ public class LogQuickModel : Tables.SqlTableBase, ICloneable, ISqlDbBase, ISeria
 		return 0;
 	}
 
-	public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
-	{
-		switch (string.IsNullOrEmpty(Host))
-		{
-			case false:
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, Host), 0, false, false);
-				HostModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-				if (host is not null)
-					return host.IdentityValueId;
-				break;
-		}
-		return 0;
-	}
+	//public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
+	//{
+	//	switch (string.IsNullOrEmpty(Host))
+	//	{
+	//		case false:
+	//			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+	//				new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, Host), 0, false, false);
+	//			DeviceTypeFkModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
+	//			if (host is not null)
+	//				return host.IdentityValueId;
+	//			break;
+	//	}
+	//	return 0;
+	//}
 
 	#endregion
 }

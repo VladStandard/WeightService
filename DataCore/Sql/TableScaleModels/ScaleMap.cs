@@ -21,9 +21,6 @@ public class ScaleMap : ClassMap<ScaleModel>
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150);
-        Map(x => x.DeviceIp).CustomSqlType("VARCHAR").Column("DeviceIP").Length(15);
-        Map(x => x.DevicePort).CustomSqlType("SMALLINT").Column("DevicePort");
-        Map(x => x.DeviceMac).CustomSqlType("VARCHAR").Column("DeviceMAC").Length(35);
         Map(x => x.DeviceSendTimeout).CustomSqlType("SMALLINT").Column("DeviceSendTimeout");
         Map(x => x.DeviceReceiveTimeout).CustomSqlType("SMALLINT").Column("DeviceReceiveTimeout");
         Map(x => x.DeviceComPort).CustomSqlType("VARCHAR").Column("DeviceComPort").Length(5);
@@ -40,7 +37,7 @@ public class ScaleMap : ClassMap<ScaleModel>
         References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
         References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
         References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
-        References(x => x.Host).Column("HostId").Nullable();
-        References(x => x.WorkShop).Column("WorkShopId").Nullable();
+		//References(x => x.Host).Column("HostId").Nullable();
+		References(x => x.WorkShop).Column("WorkShopId").Nullable();
     }
 }

@@ -57,14 +57,10 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (!ProductionFacility.EqualsDefault())
-            return false;
-        return 
-	        base.EqualsDefault() &&
-            Equals(Name, string.Empty);
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Name, string.Empty) &&
+		ProductionFacility.EqualsDefault();
 
 	public override object Clone()
     {
@@ -98,15 +94,10 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods
 
-	public virtual bool Equals(WorkShopModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!ProductionFacility.Equals(item.ProductionFacility))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Name, item.Name);
-	}
+	public virtual bool Equals(WorkShopModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		ProductionFacility.Equals(item.ProductionFacility);
 
 	public new virtual WorkShopModel CloneCast() => (WorkShopModel)Clone();
 

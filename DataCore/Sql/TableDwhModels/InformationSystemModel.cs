@@ -48,16 +48,13 @@ public class InformationSystemModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-	{
-        return 
-	        base.EqualsDefault() &&
-            Equals(Name, string.Empty) &&
-            Equals(ConnectString1, string.Empty) &&
-            Equals(ConnectString2, string.Empty) &&
-            Equals(ConnectString3, string.Empty) &&
-            Equals(StatusId, 0);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Name, string.Empty) &&
+	    Equals(ConnectString1, string.Empty) &&
+	    Equals(ConnectString2, string.Empty) &&
+	    Equals(ConnectString3, string.Empty) &&
+	    Equals(StatusId, 0);
 
     public override object Clone()
     {

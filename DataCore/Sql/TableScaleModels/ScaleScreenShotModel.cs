@@ -58,16 +58,12 @@ public class ScaleScreenShotModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        if (!Scale.EqualsDefault())
-            return false;
-        return
-            base.EqualsDefault() &&
-            Equals(ScreenShot, Array.Empty<byte>());
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(ScreenShot, Array.Empty<byte>()) &&
+	    Scale.EqualsDefault();
 
-	public override object Clone()
+    public override object Clone()
     {
         ScaleScreenShotModel item = new();
         item.Scale = Scale.CloneCast();
@@ -93,16 +89,11 @@ public class ScaleScreenShotModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(ScaleScreenShotModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!Scale.Equals(item.Scale))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Scale, item.Scale) &&
-			Equals(ScreenShot, item.ScreenShot);
-	}
+	public virtual bool Equals(ScaleScreenShotModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Scale, item.Scale) &&
+		Equals(ScreenShot, item.ScreenShot) &&
+		Scale.Equals(item.Scale);
 
 	public new virtual ScaleScreenShotModel CloneCast() => (ScaleScreenShotModel)Clone();
 

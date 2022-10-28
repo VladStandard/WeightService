@@ -58,15 +58,12 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        return
-            base.EqualsDefault() &&
-            Equals(Name, string.Empty) &&
-            Equals(Weight, default(decimal));
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Name, string.Empty) &&
+	    Equals(Weight, default(decimal));
 
-	public override object Clone()
+    public override object Clone()
     {
         PackageModel item = new();
         item.Name = Name;
@@ -93,14 +90,10 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PackageModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(Name, item.Name) &&
-			Equals(Weight, item.Weight);
-	}
+	public virtual bool Equals(PackageModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(Weight, item.Weight);
 
 	public new virtual PackageModel CloneCast() => (PackageModel)Clone();
 

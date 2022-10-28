@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.Xml;
 
 [Serializable]
-public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -15,7 +15,7 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceModel() : base(SqlFieldIdentityEnum.Id)
+    public XmlDeviceModel() : base(SqlFieldIdentityEnum.Id)
     {
         Scale = new();
     }
@@ -25,7 +25,7 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private DeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private XmlDeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
     }
@@ -41,7 +41,7 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj is DeviceModel item)
+        if (obj is XmlDeviceModel item)
         {
             return
                Scale.Equals(item.Scale);
@@ -51,18 +51,15 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override int GetHashCode() => Scale.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new DeviceModel());
+    public override bool EqualsNew() => Equals(new XmlDeviceModel());
 
-    public override bool EqualsDefault()
-    {
-        if (!Scale.EqualsDefault())
-            return false;
-        return base.EqualsDefault();
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Scale.EqualsDefault();
 
     public override object Clone()
     {
-        DeviceModel item = new()
+        XmlDeviceModel item = new()
         {
             Scale = Scale.CloneCast(),
         };
@@ -85,15 +82,11 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(DeviceModel item)
-    {
-        if (ReferenceEquals(this, item)) return true;
-        return
-            base.Equals(item) &&
-            Equals(Scale, item.Scale);
-    }
+    public virtual bool Equals(XmlDeviceModel item) =>
+	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    Equals(Scale, item.Scale);
 
-    public new virtual DeviceModel CloneCast() => (DeviceModel)Clone();
+    public new virtual XmlDeviceModel CloneCast() => (XmlDeviceModel)Clone();
 
     #endregion
 }

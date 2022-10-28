@@ -49,17 +49,13 @@ public class NomenclatureTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        if (!InformationSystem.EqualsDefault())
-            return false;
-        return 
-	        base.EqualsDefault() &&
-            Equals(Name, string.Empty) &&
-            Equals(GoodsForSale, false) &&
-            Equals(StatusId, 0) &&
-            Equals(CodeInIs, new byte[0]);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Name, string.Empty) &&
+	    Equals(GoodsForSale, false) &&
+	    Equals(StatusId, 0) &&
+	    Equals(CodeInIs, new byte[0]) &&
+	    InformationSystem.EqualsDefault();
 
     public override object Clone()
     {
@@ -77,18 +73,13 @@ public class NomenclatureTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(NomenclatureTypeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!InformationSystem.Equals(item.InformationSystem))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Name, item.Name) &&
-			Equals(GoodsForSale, item.GoodsForSale) &&
-			Equals(StatusId, item.StatusId) &&
-			Equals(CodeInIs, item.CodeInIs);
-	}
+	public virtual bool Equals(NomenclatureTypeModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(GoodsForSale, item.GoodsForSale) &&
+		Equals(StatusId, item.StatusId) &&
+		Equals(CodeInIs, item.CodeInIs) &&
+		InformationSystem.Equals(item.InformationSystem);
 
 	public new virtual NomenclatureTypeModel CloneCast() => (NomenclatureTypeModel)Clone();
 

@@ -76,7 +76,7 @@ public static class SqlTableBaseExt
 						return deviceTypeFk.DeviceType.PrettyName;
 				};
 				break;
-			case DataCore.Sql.Xml.LogQuickModel logQuick:
+			case Xml.LogQuickModel logQuick:
 				switch (propertyName)
 				{
 					case $"{nameof(Xml.LogQuickModel.App)}":
@@ -174,16 +174,19 @@ public static class SqlTableBaseExt
 			case ScaleModel scale:
 				switch (propertyName)
 				{
-					case $"{nameof(HostModel)}.{nameof(HostModel.Name)}":
-						return scale.Host is not null ? scale.Host.Name : LocaleCore.Table.FieldNull;
+					//case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Name)}":
+					//	return scale.DeviceTypeFk.Device.Name;
 					case $"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}":
 						return scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldNull;
 					case $"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}":
 						return scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull;
 					case $"{nameof(WorkShopModel)}.{nameof(WorkShopModel.Name)}":
 						return scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldNull;
-					case $"{nameof(ScaleModel.DeviceIp)}":
-						return scale.DeviceIp;
+					case $"{nameof(ScaleModel.Number)}":
+						return scale.Number.ToString();
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Ipv4)}":
+						DeviceModel device = DataAccessHelper.Instance.GetItemDeviceNotNull(scale);
+						return device.Ipv4;
 				}
 				break;
 			case VersionModel version:

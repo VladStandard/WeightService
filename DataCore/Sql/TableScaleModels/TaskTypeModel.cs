@@ -86,14 +86,11 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(TaskTypeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Name, item.Name);
-	}
+	public virtual bool Equals(TaskTypeModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name);
 
-    public new virtual TaskTypeModel CloneCast() => (TaskTypeModel)Clone();
+	public new virtual TaskTypeModel CloneCast() => (TaskTypeModel)Clone();
 
 	#endregion
 }

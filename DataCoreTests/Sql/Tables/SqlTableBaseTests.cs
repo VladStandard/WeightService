@@ -60,12 +60,39 @@ internal class SqlTableBaseTests
 	}
 
 	[Test]
-	public void HostModel_AssertSqlFields_Check()
+	public void DeviceModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.
-		DataCore.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.CreateDt));
-		DataCore.AssertSqlPropertyCheckDt<HostModel>(nameof(HostModel.ChangeDt));
-		DataCore.AssertSqlPropertyCheckBool<HostModel>(nameof(SqlTableBase.IsMarked));
+		DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(DeviceModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<DeviceModel>(nameof(DeviceModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<DeviceModel>(nameof(SqlTableBase.IsMarked));
+	}
+
+	[Test]
+	public void DeviceTypeModel_AssertSqlFields_Check()
+	{
+		// Arrange & Act & Assert.
+		DataCore.AssertSqlPropertyCheckDt<DeviceTypeModel>(nameof(DeviceTypeModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<DeviceTypeModel>(nameof(DeviceTypeModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<DeviceTypeModel>(nameof(SqlTableBase.IsMarked));
+	}
+
+	[Test]
+	public void DeviceTypeFkModel_AssertSqlFields_Check()
+	{
+		// Arrange & Act & Assert.
+		DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(DeviceTypeFkModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<DeviceTypeFkModel>(nameof(DeviceTypeFkModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<DeviceTypeFkModel>(nameof(SqlTableBase.IsMarked));
+	}
+
+	[Test]
+	public void DeviceScaleFkModel_AssertSqlFields_Check()
+	{
+		// Arrange & Act & Assert.
+		DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(DeviceScaleFkModel.CreateDt));
+		DataCore.AssertSqlPropertyCheckDt<DeviceScaleFkModel>(nameof(DeviceScaleFkModel.ChangeDt));
+		DataCore.AssertSqlPropertyCheckBool<DeviceScaleFkModel>(nameof(SqlTableBase.IsMarked));
 	}
 
 	[Test]

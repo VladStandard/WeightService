@@ -57,14 +57,10 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (!Printer.EqualsDefault())
-            return false;
-        if (!TemplateResource.EqualsDefault())
-            return false;
-        return base.EqualsDefault();
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Printer.EqualsDefault() &&
+		TemplateResource.EqualsDefault();
 
 	public override object Clone()
     {
@@ -98,15 +94,10 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PrinterResourceModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!Printer.Equals(item.Printer))
-			return false;
-		if (!TemplateResource.Equals(item.TemplateResource))
-			return false;
-		return base.Equals(item);
-	}
+	public virtual bool Equals(PrinterResourceModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Printer.Equals(item.Printer) &&
+		TemplateResource.Equals(item.TemplateResource);
 
 	public new virtual PrinterResourceModel CloneCast() => (PrinterResourceModel)Clone();
 

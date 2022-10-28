@@ -97,16 +97,12 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(DeviceTypeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return 
-            base.Equals(item) &&
-		    Equals(Name, item.Name) &&
-		    Equals(PrettyName, item.PrettyName);
-	}
+    public virtual bool Equals(DeviceTypeModel item) =>
+	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    Equals(Name, item.Name) &&
+	    Equals(PrettyName, item.PrettyName);
 
-	public new virtual DeviceTypeModel CloneCast() => (DeviceTypeModel)Clone();
+    public new virtual DeviceTypeModel CloneCast() => (DeviceTypeModel)Clone();
 
 	#endregion
 }

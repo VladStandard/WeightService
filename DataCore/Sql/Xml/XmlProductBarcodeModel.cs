@@ -39,13 +39,9 @@ public class XmlProductBarcodeModel : ISerializable, ISqlDbBase
 		$"{nameof(Type)}: {Type}. " +
 		$"{nameof(Barcode)}: {Barcode}. ";
 
-	public virtual bool Equals(XmlProductBarcodeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(Type, item.Type) &&
-			Equals(Barcode, item.Barcode);
-	}
+	public virtual bool Equals(XmlProductBarcodeModel item) =>
+		ReferenceEquals(this, item) || Equals(Type, item.Type) &&
+		Equals(Barcode, item.Barcode);
 
 	public virtual bool EqualsNew()
 	{

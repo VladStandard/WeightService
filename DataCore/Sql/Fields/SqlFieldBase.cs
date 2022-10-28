@@ -63,12 +63,8 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual bool EqualsNew() => Equals(new());
 
-	public virtual bool Equals(SqlFieldBase item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			Equals(FieldName, item.FieldName);
-	}
+	public virtual bool Equals(SqlFieldBase item) => 
+		ReferenceEquals(this, item) || Equals(FieldName, item.FieldName);
 
 	public virtual bool EqualsDefault() => Equals(FieldName, string.Empty);
 

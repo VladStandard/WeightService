@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -102,18 +103,15 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (PluLabel is not null && !PluLabel.EqualsDefault())
-            return false;
-        return base.EqualsDefault() &&
-            Equals(TypeTop, string.Empty) &&
-            Equals(ValueTop, string.Empty) &&
-            Equals(TypeRight, string.Empty) &&
-            Equals(ValueRight, string.Empty) &&
-            Equals(TypeBottom, string.Empty) &&
-            Equals(ValueBottom, string.Empty);
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(TypeTop, string.Empty) &&
+		Equals(ValueTop, string.Empty) &&
+		Equals(TypeRight, string.Empty) &&
+		Equals(ValueRight, string.Empty) &&
+		Equals(TypeBottom, string.Empty) &&
+		Equals(ValueBottom, string.Empty) &&
+		PluLabel.EqualsDefault();
 
 	public override object Clone()
     {
@@ -163,20 +161,15 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(BarCodeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (PluLabel is not null && item.PluLabel is not null && !PluLabel.Equals(item.PluLabel))
-			return false;
-		return 
-			base.Equals(item) &&
-		    Equals(TypeTop, item.TypeTop) &&
-		    Equals(ValueTop, item.ValueTop) &&
-		    Equals(TypeRight, item.TypeRight) &&
-		    Equals(ValueRight, item.ValueRight) &&
-		    Equals(TypeBottom, item.TypeBottom) &&
-		    Equals(ValueBottom, item.ValueBottom);
-	}
+	public virtual bool Equals(BarCodeModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(TypeTop, item.TypeTop) &&
+		Equals(ValueTop, item.ValueTop) &&
+		Equals(TypeRight, item.TypeRight) &&
+		Equals(ValueRight, item.ValueRight) &&
+		Equals(TypeBottom, item.TypeBottom) &&
+		Equals(ValueBottom, item.ValueBottom) &&
+		PluLabel.Equals(item.PluLabel);
 
 	public new virtual BarCodeModel CloneCast() => (BarCodeModel)Clone();
 

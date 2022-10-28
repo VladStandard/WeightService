@@ -93,13 +93,10 @@ public class LogTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(LogTypeModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return base.Equals(item) &&
-		       Equals(Number, item.Number) &&
-		       Equals(Icon, item.Icon);
-	}
+	public virtual bool Equals(LogTypeModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Number, item.Number) &&
+		Equals(Icon, item.Icon);
 
 	public new virtual LogTypeModel CloneCast() => (LogTypeModel)Clone();
 

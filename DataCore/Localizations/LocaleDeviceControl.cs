@@ -32,6 +32,9 @@ public partial class LocaleDeviceControl
 	public string ItemBarCodeType => Lang == LangEnum.English ? "Barcodes type" : "Тип штрихкода";
 	public string ItemContragent => Lang == LangEnum.English ? "Counterparty" : "Контрагент";
 	public string ItemDevice => Lang == LangEnum.English ? "Device" : "Устройство";
+	public string ItemDeviceType => Lang == LangEnum.English ? "Device type" : "Тип устройства";
+	public string ItemDeviceTypeFk => Lang == LangEnum.English ? "Device with type" : "Устройство с типом";
+	public string ItemDeviceScaleFk => Lang == LangEnum.English ? "Device with scale" : "Устройство с постом";
 	public string ItemError => Lang == LangEnum.English ? "Error" : "Ошибка";
 	public string ItemFont => Lang == LangEnum.English ? "Font" : "Шрифт";
 	public string ItemHost => Lang == LangEnum.English ? "Host" : "Хост";
@@ -74,6 +77,9 @@ public partial class LocaleDeviceControl
 	public string SectionBarCodeTypesShort => Lang == LangEnum.English ? "BC types" : "Типы ШК";
 	public string SectionContragents => Lang == LangEnum.English ? "Counterparties" : "Контрагенты";
 	public string SectionDevices => Lang == LangEnum.English ? "Devices" : "Устройства";
+	public string SectionDevicesTypes => Lang == LangEnum.English ? "Device types " : "Типы устройств";
+	public string SectionDevicesTypesFk => Lang == LangEnum.English ? "Devices with types" : "Устройства с типами";
+	public string SectionDevicesScalesFk => Lang == LangEnum.English ? "Devices with scales" : "Устройства с постами";
 	public string SectionDwh => Lang == LangEnum.English ? "DWH" : "МДМ";
 	public string SectionDwhReferences => Lang == LangEnum.English ? "DWH References" : "DWH справочники";
 	public string SectionFonts => Lang == LangEnum.English ? "Fonts" : "Шрифты";

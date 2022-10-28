@@ -112,16 +112,12 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(NomenclatureModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(Code, item.Code) &&
-			Equals(Name, item.Name) &&
-			Equals(Xml, item.Xml) &&
-			Equals(Weighted, item.Weighted);
-	}
+	public virtual bool Equals(NomenclatureModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Code, item.Code) &&
+		Equals(Name, item.Name) &&
+		Equals(Xml, item.Xml) &&
+		Equals(Weighted, item.Weighted);
 
 	public new virtual NomenclatureModel CloneCast() => (NomenclatureModel)Clone();
 

@@ -64,18 +64,14 @@ public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 
 	public override bool EqualsNew() => Equals(new());
 
-	public override bool EqualsDefault()
-    {
-        if (!Scale.EqualsDefault())
-            return false;
-        return 
-	        base.EqualsDefault() &&
-            Equals(IsClose, false) &&
-            Equals(Sscc, string.Empty) &&
-	        Equals(Uid, Guid.Empty);
-    }
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(IsClose, false) &&
+		Equals(Sscc, string.Empty) &&
+		Equals(Uid, Guid.Empty) &&
+		Scale.EqualsDefault();
 
-    public override object Clone()
+	public override object Clone()
     {
         ProductSeriesModel item = new();
         item.Scale = Scale.CloneCast();
@@ -112,19 +108,14 @@ public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(ProductSeriesModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!Scale.Equals(item.Scale))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(CreateDt, item.CreateDt) &&
-			Equals(IsClose, item.IsClose) &&
-			Equals(Sscc, item.Sscc);
-	}
+	public virtual bool Equals(ProductSeriesModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(CreateDt, item.CreateDt) &&
+		Equals(IsClose, item.IsClose) &&
+		Equals(Sscc, item.Sscc) &&
+		Scale.Equals(item.Scale);
 
-    public new virtual ProductSeriesModel CloneCast() => (ProductSeriesModel)Clone();
+	public new virtual ProductSeriesModel CloneCast() => (ProductSeriesModel)Clone();
 
 	#endregion
 }

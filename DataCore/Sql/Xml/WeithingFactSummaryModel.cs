@@ -75,17 +75,13 @@ public class WeithingFactSummaryModel : SqlTableBase, ICloneable, ISqlDbBase, IS
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(WeithingFactSummaryModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(WeithingDate, item.WeithingDate) &&
-			Equals(Count, item.Count) &&
-			Equals(Scale, item.Scale) &&
-			Equals(Host, item.Host) &&
-			Equals(Printer, item.Printer);
-	}
+	public virtual bool Equals(WeithingFactSummaryModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(WeithingDate, item.WeithingDate) &&
+		Equals(Count, item.Count) &&
+		Equals(Scale, item.Scale) &&
+		Equals(Host, item.Host) &&
+		Equals(Printer, item.Printer);
 
 	public new virtual WeithingFactSummaryModel CloneCast() => (WeithingFactSummaryModel)Clone();
 

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableDwhModels;
 
@@ -49,17 +50,13 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        if (!InformationSystem.EqualsDefault())
-            return false;
-        return 
-	        base.EqualsDefault() &&
-            Equals(Code, string.Empty) &&
-            Equals(Name, string.Empty) &&
-            Equals(StatusId, 0) &&
-            Equals(CodeInIs, new byte[0]);
-    }
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Code, string.Empty) &&
+	    Equals(Name, string.Empty) &&
+	    Equals(StatusId, 0) &&
+	    Equals(CodeInIs, new byte[0]) &&
+	    InformationSystem.EqualsDefault();
 
     public override object Clone()
     {
@@ -77,18 +74,13 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(BrandModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (!InformationSystem.Equals(item.InformationSystem))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Code, item.Code) &&
-			Equals(Name, item.Name) &&
-			Equals(StatusId, item.StatusId) &&
-			Equals(CodeInIs, item.CodeInIs);
-	}
+	public virtual bool Equals(BrandModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Code, item.Code) &&
+		Equals(Name, item.Name) &&
+		Equals(StatusId, item.StatusId) &&
+		Equals(CodeInIs, item.CodeInIs) &&
+		InformationSystem.Equals(item.InformationSystem);
 
 	public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 

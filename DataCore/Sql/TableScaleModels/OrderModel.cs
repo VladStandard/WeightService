@@ -123,18 +123,14 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(OrderModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		return
-			base.Equals(item) &&
-			Equals(Name, item.Name) &&
-			Equals(BeginDt, item.BeginDt) &&
-			Equals(EndDt, item.EndDt) &&
-			Equals(ProdDt, item.ProdDt) &&
-			Equals(BoxCount, item.BoxCount) &&
-			Equals(PalletCount, item.PalletCount);
-	}
+	public virtual bool Equals(OrderModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Name, item.Name) &&
+		Equals(BeginDt, item.BeginDt) &&
+		Equals(EndDt, item.EndDt) &&
+		Equals(ProdDt, item.ProdDt) &&
+		Equals(BoxCount, item.BoxCount) &&
+		Equals(PalletCount, item.PalletCount);
 
 	public new virtual OrderModel CloneCast() => (OrderModel)Clone();
 

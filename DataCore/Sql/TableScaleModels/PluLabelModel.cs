@@ -3,6 +3,7 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Tables;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -103,21 +104,15 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-	    if (PluWeighing is not null && !PluWeighing.EqualsDefault())
-		    return false;
-	    if (!PluScale.EqualsDefault())
-		    return false;
-	    return
-		    base.EqualsDefault() &&
-		    Equals(Zpl, string.Empty) &&
-		    Equals(Xml, null) &&
-		    Equals(ProductDt, DateTime.MinValue);
-            //Equals(ExpirationDt, DateTime.MinValue) &&
-	}
+    public override bool EqualsDefault() =>
+	    base.EqualsDefault() &&
+	    Equals(Zpl, string.Empty) &&
+	    Equals(Xml, null) &&
+	    Equals(ProductDt, DateTime.MinValue) &&
+	    (PluWeighing is null || PluWeighing.EqualsDefault()) &&
+	    PluScale.EqualsDefault();
 
-	public override object Clone()
+    public override object Clone()
     {
         PluLabelModel item = new();
         item.IsMarked = IsMarked;
@@ -163,21 +158,15 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(PluLabelModel item)
-	{
-		if (ReferenceEquals(this, item)) return true;
-		if (PluWeighing is not null && item.PluWeighing is not null && !PluWeighing.Equals(item.PluWeighing))
-			return false;
-		if (!PluScale.Equals(item.PluScale))
-			return false;
-		if (Xml is not null && item.Xml is not null && !Xml.Equals(item.Xml))
-			return false;
-		return
-			base.Equals(item) &&
-			Equals(Zpl, item.Zpl) &&
-			Equals(ProductDt, item.ProductDt) &&
-			Equals(ExpirationDt, item.ExpirationDt);
-	}
+	public virtual bool Equals(PluLabelModel item) =>
+		ReferenceEquals(this, item) || base.Equals(item) &&
+		Equals(Zpl, item.Zpl) &&
+		Equals(ProductDt, item.ProductDt) &&
+		Equals(ExpirationDt, item.ExpirationDt) &&
+		(PluWeighing is null && item.PluWeighing is null || PluWeighing is not null &&
+			item.PluWeighing is not null && PluWeighing.Equals(item.PluWeighing)) &&
+		(Xml is null && item.Xml is null || Xml is not null && item.Xml is not null && Xml.Equals(item.Xml)) &&
+		PluScale.Equals(item.PluScale);
 
 	public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();
 

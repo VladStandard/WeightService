@@ -4,7 +4,7 @@
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class HostValidatorTests
+internal class DeviceScaleFkValidatorTests
 {
 	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
 
@@ -12,7 +12,7 @@ internal class HostValidatorTests
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		HostModel item = DataCore.CreateNewSubstitute<HostModel>(false);
+		DeviceScaleFkModel item = DataCore.CreateNewSubstitute<DeviceScaleFkModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class HostValidatorTests
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		HostModel item = DataCore.CreateNewSubstitute<HostModel>(true);
+		DeviceScaleFkModel item = DataCore.CreateNewSubstitute<DeviceScaleFkModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}
