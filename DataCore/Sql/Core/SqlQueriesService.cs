@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 namespace DataCore.Sql.Core;
 
 public static partial class SqlQueries
@@ -90,10 +91,11 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-				public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
+				[Obsolete(@"Deprecated method")]
+				public static string GetLogsDeprecated(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
 -- Table LOGS diagram summary
 select {GetTopRecords(topRecords)}
-	[l].[UID]
+	 [l].[UID]
 	,[l].[CREATE_DT]
 	,[s].[Description] [SCALE]
 	,[h].[Name] [HOST_PRETTY_NAME]
@@ -111,6 +113,30 @@ left join [db_scales].[Scales] [s] on [s].[HostId] = [h].[ID]
 left join [db_scales].[APPS] [a] on [a].[UID] = [l].[APP_UID]
 left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
 {GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
+order by [l].[CREATE_DT] desc
+	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				public static string GetLogs(int topRecords, bool isShowMarkedItems, Guid logTypeUid) => $@"
+-- Table LOGS diagram summary
+select {GetTopRecords(topRecords)}
+	 [l].[UID]
+	,[l].[CREATE_DT]
+	,[s].[Description] [SCALE]
+	,[d].[NAME] [HOSTNAME]
+	,[d].[PRETTY_NAME] [HOST_PRETTY_NAME]
+	,[a].[NAME] [APP]
+	,[l].[VERSION]
+	,[l].[FILE]
+	,[l].[LINE]
+	,[l].[MEMBER]
+	,[lt].[ICON]
+	,[l].[MESSAGE]
+from [db_scales].[LOGS] [l]
+left join [db_scales].[DEVICES] [d] on [d].[UID] = [l].[DEVICE_UID]
+left join [db_scales].[DEVICES_SCALES_FK] [ds] on [ds].[DEVICE_UID] = [d].[UID]
+left join [db_scales].[Scales] [s] on [s].[Id] = [ds].[SCALE_ID]
+left join [db_scales].[APPS] [a] on [a].[UID] = [l].[APP_UID]
+left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID] = [l].[LOG_TYPE_UID]
+--{GetWhereIsMarkedAndNumber(isShowMarkedItems, "[l]", "[lt]", logTypeUid)}
 order by [l].[CREATE_DT] desc
 	    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 			}

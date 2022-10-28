@@ -66,7 +66,7 @@ public static class DataAccessHelperLog
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
 		LogCore(dataAccess, message, LogTypeEnum.Warning, hostName, appName, filePath, lineNumber, memberName);
 
-	private static void LogCore(this DataAccessHelper dataAccess, string message, LogTypeEnum logType, string? deviceName, string? appName, string filePath, int lineNumber, string memberName)
+	private static void LogCore(this DataAccessHelper dataAccess, string message, LogTypeEnum logType, string deviceName, string appName, string filePath, int lineNumber, string memberName)
 	{
 		StringUtils.SetStringValueTrim(ref filePath, 32, true);
 		StringUtils.SetStringValueTrim(ref memberName, 32);

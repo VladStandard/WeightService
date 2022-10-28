@@ -17,6 +17,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	private List<WorkShopModel> WorkShops { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
 	private List<DeviceScaleFkModel> DeviceScaleFks { get; set; }
+	private DeviceModel Device { get; set; }
 	
 	public ItemScale()
 	{
@@ -26,6 +27,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		Printers = new();
 		ComPorts = new();
 		DeviceScaleFks = new();
+		Device = new();
 		WorkShops = new();
 		Templates = new();
 		ButtonSettings = new(false, false, false, false, false, true, true);
@@ -54,7 +56,8 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 			    // ScaleFactor
 			    SqlItemCast.ScaleFactor ??= 1000;
 				DeviceScaleFks = AppSettings.DataAccess.GetListDevicesScalesFk(false, false, true);
-			    Printers = AppSettings.DataAccess.GetListPrinters(false, false, true);
+				Device = AppSettings.DataAccess.GetItemDeviceNotNull(SqlItemCast);
+				Printers = AppSettings.DataAccess.GetListPrinters(false, false, true);
 			    Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
 			    WorkShops = AppSettings.DataAccess.GetListWorkShops(false, false, true);
 			}

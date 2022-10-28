@@ -65,8 +65,6 @@ public class ScaleValidator : SqlTableValidator<ScaleModel>
 					return result.IsValid;
 				if (!PreValidateSubEntity(context.InstanceToValidate.PrinterShipping, ref result))
 					return result.IsValid;
-				//if (!PreValidateSubEntity(context.InstanceToValidate.Host, ref result))
-				//	return result.IsValid;
 				return result.IsValid;
 		}
 	}

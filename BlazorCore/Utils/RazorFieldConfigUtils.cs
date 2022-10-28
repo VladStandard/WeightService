@@ -24,6 +24,8 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetPrettyName() => new(nameof(DeviceModel.PrettyName), TextAlign.Left, LocaleCore.Table.PrettyName);
 		public static RazorFieldConfigModel GetIpv4() => new(nameof(DeviceModel.Ipv4), TextAlign.Left, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetMacAddress() => new(nameof(DeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
+		public static RazorFieldConfigModel GetTypePrettyName() => new(
+			$"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
 	}
 
 	public static class DeviceTypeFk
@@ -90,7 +92,7 @@ public static class RazorFieldConfigUtils
 	public static class LogQuick
 	{
 		public static RazorFieldConfigModel GetApp() => new($"{nameof(DataCore.Sql.Xml.LogQuickModel.App)}", TextAlign.Left, LocaleCore.Table.App);
-		public static RazorFieldConfigModel GetHost(string link) => new(link, new DeviceModel(), 
+		public static RazorFieldConfigModel GetDevice(string link) => new(link, new DeviceModel(), 
 			$"{nameof(DataCore.Sql.Xml.LogQuickModel.Host)}", TextAlign.Left, LocaleCore.Table.Host, "string");
 		public static RazorFieldConfigModel GetIcon() => new($"{nameof(DataCore.Sql.Xml.LogQuickModel.Icon)}", TextAlign.Left, LocaleCore.Table.Icon);
 		public static RazorFieldConfigModel GetMessage() => new($"{nameof(DataCore.Sql.Xml.LogQuickModel.Message)}", TextAlign.Left, LocaleCore.Table.Message);

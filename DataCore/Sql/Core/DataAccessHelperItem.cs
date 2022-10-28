@@ -43,10 +43,11 @@ public static class DataAccessHelperItem
 	{
 		sqlCrudConfig.MaxResults = 1;
 		ICriteria criteria = session.GetCriteria<T>(sqlCrudConfig);
-		IList<T>? list = criteria.List<T>();
-		if (list is not null && list.Count > 0)
-			return list.FirstOrDefault();
-		return null;
+		//IList<T>? list = criteria.List<T>();
+		//if (list is not null && list.Count > 0)
+		//	return list.FirstOrDefault();
+		//return null;
+		return criteria.UniqueResult<T>();
 	}
 
 	/// <summary>

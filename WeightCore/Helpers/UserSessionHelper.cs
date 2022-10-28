@@ -290,11 +290,9 @@ public class UserSessionHelper : BaseViewModel
 		{
 			// Host.
 			string hostName = NetUtils.GetLocalHostName(false);
-			if (string.IsNullOrEmpty(Host.Device.Name))
-			{
-				//Host = SqlUtils.GetHostNotNull(hostName);
-				Host = DataAccess.GetItemDeviceScaleFkNotNull(hostName);
-			}
+			Host.Device = DataAccess.GetItemDeviceNotNull(hostName);
+			//Host = SqlUtils.GetHostNotNull(hostName);
+			Host = DataAccess.GetItemDeviceScaleFkNotNull(Host.Device);
 
 			// Scale.
 			//Scale = scaleId <= 0 ? SqlUtils.GetScaleFromDeviceTypeFkNotNull(Host) : SqlUtils.GetScaleNotNull(scaleId);
@@ -639,7 +637,7 @@ public class UserSessionHelper : BaseViewModel
 #nullable enable
 	public void NewPluWeighing()
 	{
-        ProductSeriesModel? productSeries = DataAccess.GetItemProductSeries(PluScale.Scale.IdentityValueId);
+        ProductSeriesModel? productSeries = DataAccess.GetItemProductSeries(PluScale.Scale);
 
         PluWeighing = new()
 		{

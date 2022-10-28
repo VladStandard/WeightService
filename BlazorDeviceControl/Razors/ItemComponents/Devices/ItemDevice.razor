@@ -1,30 +1,30 @@
-﻿@inherits RazorComponentItemBase<DeviceTypeFkModel>
-@page "/item/device_type_fk"
-@page "/item/device_type_fk/new"
-@page "/item/device_type_fk/{IdentityUidStr}"
+﻿@inherits RazorComponentItemBase<DeviceModel>
+@page "/item/device"
+@page "/item/device/new"
+@page "/item/device/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
-<RazorItemReload TItem=@DeviceTypeFkModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
+<RazorItemReload TItem=@DeviceModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemHost />
 
 <MudSimpleTable Style="overflow-x: auto;" Dense=true Bordered=true FixedHeader=false>
-	<RazorItemTableHead TItem=@DeviceTypeFkModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
+	<RazorItemTableHead TItem=@DeviceModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 }) />
 	<tbody>
-		<RazorItemTableBody TItem=@DeviceTypeFkModel ParentRazor=@(this) />
+		<RazorItemTableBody TItem=@DeviceModel ParentRazor=@(this) />
 		<tr>
 			<td>@LocaleCore.Table.LoginDt</td>
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.Device.LoginDt, true)) />
+					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.LoginDt, true)) />
 			</td>
 			<td>@LocaleCore.Table.LogoutDt</td>
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.Device.LogoutDt, true)) />
+					ReadOnly=true Value=@(StringUtils.FormatDtRus(SqlItemCast.LogoutDt, true)) />
 			</td>
 		</tr>
 		<tr>
@@ -32,14 +32,14 @@
 			<td>
 				<RadzenLink 
 					Style="width: 100%; "
-					Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.Device.IdentityValueUid}")
-				    Text=@SqlItemCast.Device.Name />
+					Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.IdentityValueUid}")
+				    Text=@SqlItemCast.Name />
 			</td>
 			<td colspan=2>
 				<RadzenLink 
 					Style="width: 100%; "
-					Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.Device.IdentityValueUid}")
-				    Text=@SqlItemCast.Device.IdentityValueUid.ToString() />
+					Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{SqlItemCast.IdentityValueUid}")
+				    Text=@SqlItemCast.IdentityValueUid.ToString() />
 			</td>
 		</tr>
 		<tr>
@@ -47,13 +47,13 @@
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.Device.Name />
+					ReadOnly=true Value=@SqlItemCast.Name />
 			</td>
 			<td>@LocaleCore.Table.PrettyName</td>
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.Device.PrettyName />
+					ReadOnly=true Value=@SqlItemCast.PrettyName />
 			</td>
 		</tr>
 		<tr>
@@ -61,13 +61,13 @@
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.Device.Ipv4 />
+					ReadOnly=true Value=@SqlItemCast.Ipv4 />
 			</td>
 			<td>@LocaleCore.Table.DeviceMac</td>
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.Device.MacAddress.ValuePrettyLookMinus />
+					ReadOnly=true Value=@SqlItemCast.MacAddress.ValuePrettyLookMinus />
 			</td>
 		</tr>
 		<tr>
@@ -75,7 +75,7 @@
 			<td colspan=3>
 				<RadzenTextArea 
 					Style="width: 100%; text-align: left; background-color: lightgray; " 
-					ReadOnly=true Value=@SqlItemCast.Device.Description Rows=4 />
+					ReadOnly=true Value=@SqlItemCast.Description Rows=4 />
 			</td>
 		</tr>
 		<tr>
@@ -83,14 +83,14 @@
 			<td>
 				<RadzenLink 
 					Style="width: 100%; "
-					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, SqlItemCast.DeviceType, SqlItemCast.DeviceType.IdentityValueUid)
-					Text=@SqlItemCast.DeviceType.Name />
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.IdentityValueUid)
+					Text=@DeviceTypeFk.DeviceType.Name />
 			</td>
 			<td colspan=2>
 				<RadzenLink 
 					Style="width: 100%; "
-					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, SqlItemCast.DeviceType, SqlItemCast.DeviceType.IdentityValueUid)
-					Text=@SqlItemCast.DeviceType.IdentityValueUid.ToString() />
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.DeviceType.IdentityValueUid)
+					Text=@DeviceTypeFk.DeviceType.IdentityValueUid.ToString() />
 			</td>
 		</tr>
 		<tr>
@@ -98,25 +98,25 @@
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.DeviceType.Name />
+					ReadOnly=true Value=@DeviceTypeFk.DeviceType.Name />
 			</td>
 			<td>@LocaleCore.Table.PrettyName</td>
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.DeviceType.PrettyName />
+					ReadOnly=true Value=@DeviceTypeFk.DeviceType.PrettyName />
 			</td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.Description</td>
 			<td colspan=3>
 				<RadzenTextArea 
-					Style="width: 100%; text-align: left; background-color: lightgray; " 
-					ReadOnly=true Value=@SqlItemCast.DeviceType.Description Rows=4 />
+					Style="width: 100%; text-align: left; background-color: lightgray; "
+					ReadOnly=true Value=@DeviceTypeFk.DeviceType.Description Rows=4 />
 			</td>
 		</tr>
 	</tbody>
 </MudSimpleTable>
 
-<RazorItemActions TItem=@DeviceTypeFkModel ParentRazor=@(this) />
-<RazorItemDates TItem=@DeviceTypeFkModel ParentRazor=@(this) />
+<RazorItemActions TItem=@DeviceModel ParentRazor=@(this) />
+<RazorItemDates TItem=@DeviceModel ParentRazor=@(this) />

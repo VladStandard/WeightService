@@ -125,20 +125,5 @@ public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		return 0;
 	}
 
-	//public virtual long GetHostIdentityId(DataAccessHelper dataAccess)
-	//{
-	//	switch (string.IsNullOrEmpty(Host))
-	//	{
-	//		case false:
-	//			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-	//				new SqlFieldFilterModel(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, Host), 0, false, false);
-	//			DeviceTypeFkModel? host = dataAccess.GetItem<HostModel>(sqlCrudConfig);
-	//			if (host is not null)
-	//				return host.IdentityValueId;
-	//			break;
-	//	}
-	//	return 0;
-	//}
-
 	#endregion
 }

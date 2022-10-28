@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -19,56 +18,56 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement(IsNullable = true)] public virtual WorkShopModel? WorkShop { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterMain { get; set; }
 	[XmlElement(IsNullable = true)] public virtual PrinterModel? PrinterShipping { get; set; }
-	//[XmlIgnore] public virtual DeviceModel Device { get; set; }
 	[XmlElement] public virtual byte ShippingLength { get; set; }
 	[XmlElement(IsNullable = true)] public virtual short? DeviceSendTimeout { get; set; }
 	[XmlElement(IsNullable = true)] public virtual short? DeviceReceiveTimeout { get; set; }
 	[XmlElement] public virtual string DeviceComPort { get; set; }
 	[XmlElement] public virtual string ZebraIp { get; set; }
-    [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
-    [XmlElement] public virtual int Number { get; set; }
-    [XmlElement] public virtual string NumberFormat
+	[XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
+	[XmlElement] public virtual int Number { get; set; }
+	[XmlElement]
+	public virtual string NumberFormat
 	{
 		get => $"{Number:00000}";
 		// This code need for print labels.
 		set => _ = value;
 	}
 	[XmlElement] public virtual int Counter { get; set; }
-    [XmlElement] public virtual string CounterFormat
+	[XmlElement]
+	public virtual string CounterFormat
 	{
-	    get => $"{Counter:00000000}";
-	    // This code need for print labels.
-	    set => _ = value;
-    }
-    [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
-    [XmlElement] public virtual bool IsShipping { get; set; }
-    [XmlElement] public virtual bool IsOrder { get; set; }
-    [XmlElement] public virtual bool IsKneading { get; set; }
+		get => $"{Counter:00000000}";
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
+	[XmlElement] public virtual bool IsShipping { get; set; }
+	[XmlElement] public virtual bool IsOrder { get; set; }
+	[XmlElement] public virtual bool IsKneading { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ScaleModel() : base(SqlFieldIdentityEnum.Id)
-    {
-	    TemplateDefault = null;
-	    TemplateSeries = null;
-	    WorkShop = null;
-	    //Device = new();
-	    PrinterMain = null;
-	    PrinterShipping = null;
-	    ShippingLength = 0;
-	    DeviceSendTimeout = default;
-	    DeviceReceiveTimeout = default;
-	    DeviceComPort = string.Empty;
-	    ZebraIp = string.Empty;
-	    ZebraPort = default;
-	    Number = 0;
-	    Counter = 0;
-	    ScaleFactor = default;
-	    IsShipping = false;
-	    IsOrder = false;
-	    IsKneading = false;
-    }
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public ScaleModel() : base(SqlFieldIdentityEnum.Id)
+	{
+		TemplateDefault = null;
+		TemplateSeries = null;
+		WorkShop = null;
+		PrinterMain = null;
+		PrinterShipping = null;
+		ShippingLength = 0;
+		DeviceSendTimeout = default;
+		DeviceReceiveTimeout = default;
+		DeviceComPort = string.Empty;
+		ZebraIp = string.Empty;
+		ZebraPort = default;
+		Number = 0;
+		Counter = 0;
+		ScaleFactor = default;
+		IsShipping = false;
+		IsOrder = false;
+		IsKneading = false;
+	}
 
 	/// <summary>
 	/// Constructor.
@@ -76,11 +75,10 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="info"></param>
 	/// <param name="context"></param>
 	public ScaleModel(SerializationInfo info, StreamingContext context) : this()
-    {
-        TemplateDefault = (TemplateModel?)info.GetValue(nameof(TemplateDefault), typeof(TemplateModel));
+	{
+		TemplateDefault = (TemplateModel?)info.GetValue(nameof(TemplateDefault), typeof(TemplateModel));
 		TemplateSeries = (TemplateModel?)info.GetValue(nameof(TemplateSeries), typeof(TemplateModel));
 		WorkShop = (WorkShopModel?)info.GetValue(nameof(WorkShop), typeof(WorkShopModel));
-		//Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
 		PrinterMain = (PrinterModel?)info.GetValue(nameof(PrinterMain), typeof(PrinterModel));
 		PrinterShipping = (PrinterModel?)info.GetValue(nameof(PrinterShipping), typeof(PrinterModel));
 		ShippingLength = info.GetByte(nameof(ShippingLength));
@@ -103,15 +101,15 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override string ToString() => base.ToString() + $"{nameof(Description)}: {Description}. ";
 
-    public override bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((ScaleModel)obj);
-    }
+		return Equals((ScaleModel)obj);
+	}
 
-    public override int GetHashCode() => base.GetHashCode();
+	public override int GetHashCode() => base.GetHashCode();
 
 	public override bool EqualsNew() => Equals(new());
 
@@ -136,60 +134,58 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		(PrinterShipping is null || PrinterShipping.EqualsDefault());
 
 	public override object Clone()
-    {
-        ScaleModel item = new();
-        item.TemplateDefault = TemplateDefault?.CloneCast();
-        item.TemplateSeries = TemplateSeries?.CloneCast();
-        item.WorkShop = WorkShop?.CloneCast();
-        item.PrinterMain = PrinterMain?.CloneCast();
-        item.PrinterShipping = PrinterShipping?.CloneCast();
-        item.IsShipping = IsShipping;
-        item.IsKneading = IsKneading;
-        item.ShippingLength = ShippingLength;
-        //item.Device = Device.CloneCast();
-        item.DeviceSendTimeout = DeviceSendTimeout;
-        item.DeviceReceiveTimeout = DeviceReceiveTimeout;
-        item.DeviceComPort = DeviceComPort;
-        item.ZebraIp = ZebraIp;
-        item.ZebraPort = ZebraPort;
-        item.IsOrder = IsOrder;
-        item.Number = Number;
-        item.Counter = Counter;
-        item.ScaleFactor = ScaleFactor;
+	{
+		ScaleModel item = new();
+		item.TemplateDefault = TemplateDefault?.CloneCast();
+		item.TemplateSeries = TemplateSeries?.CloneCast();
+		item.WorkShop = WorkShop?.CloneCast();
+		item.PrinterMain = PrinterMain?.CloneCast();
+		item.PrinterShipping = PrinterShipping?.CloneCast();
+		item.IsShipping = IsShipping;
+		item.IsKneading = IsKneading;
+		item.ShippingLength = ShippingLength;
+		item.DeviceSendTimeout = DeviceSendTimeout;
+		item.DeviceReceiveTimeout = DeviceReceiveTimeout;
+		item.DeviceComPort = DeviceComPort;
+		item.ZebraIp = ZebraIp;
+		item.ZebraPort = ZebraPort;
+		item.IsOrder = IsOrder;
+		item.Number = Number;
+		item.Counter = Counter;
+		item.ScaleFactor = ScaleFactor;
 		item.CloneSetup(base.CloneCast());
 		return item;
-    }
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(TemplateDefault), TemplateDefault);
-        info.AddValue(nameof(TemplateSeries), TemplateSeries);
-        info.AddValue(nameof(WorkShop), WorkShop);
-        //info.AddValue(nameof(Device), Device);
-        info.AddValue(nameof(PrinterMain), PrinterMain);
-        info.AddValue(nameof(PrinterShipping), PrinterShipping);
-        info.AddValue(nameof(ShippingLength), ShippingLength);
-        info.AddValue(nameof(DeviceSendTimeout), DeviceSendTimeout);
-        info.AddValue(nameof(DeviceReceiveTimeout), DeviceReceiveTimeout);
-        info.AddValue(nameof(DeviceComPort), DeviceComPort);
-        info.AddValue(nameof(ZebraIp), ZebraIp);
-        info.AddValue(nameof(ZebraPort), ZebraPort);
-        info.AddValue(nameof(Number), Number);
-        info.AddValue(nameof(Counter), Counter);
-        info.AddValue(nameof(ScaleFactor), ScaleFactor);
-        info.AddValue(nameof(IsShipping), IsShipping);
-        info.AddValue(nameof(IsOrder), IsOrder);
-        info.AddValue(nameof(IsKneading), IsKneading);
 	}
 
-    public override void ClearNullProperties()
-    {
+	/// <summary>
+	/// Get object data for serialization info.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(TemplateDefault), TemplateDefault);
+		info.AddValue(nameof(TemplateSeries), TemplateSeries);
+		info.AddValue(nameof(WorkShop), WorkShop);
+		info.AddValue(nameof(PrinterMain), PrinterMain);
+		info.AddValue(nameof(PrinterShipping), PrinterShipping);
+		info.AddValue(nameof(ShippingLength), ShippingLength);
+		info.AddValue(nameof(DeviceSendTimeout), DeviceSendTimeout);
+		info.AddValue(nameof(DeviceReceiveTimeout), DeviceReceiveTimeout);
+		info.AddValue(nameof(DeviceComPort), DeviceComPort);
+		info.AddValue(nameof(ZebraIp), ZebraIp);
+		info.AddValue(nameof(ZebraPort), ZebraPort);
+		info.AddValue(nameof(Number), Number);
+		info.AddValue(nameof(Counter), Counter);
+		info.AddValue(nameof(ScaleFactor), ScaleFactor);
+		info.AddValue(nameof(IsShipping), IsShipping);
+		info.AddValue(nameof(IsOrder), IsOrder);
+		info.AddValue(nameof(IsKneading), IsKneading);
+	}
+
+	public override void ClearNullProperties()
+	{
 		if (TemplateSeries is not null && TemplateSeries.Identity.EqualsDefault())
 			TemplateSeries = null;
 		if (TemplateDefault is not null && TemplateDefault.Identity.EqualsDefault())
@@ -202,16 +198,15 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 			PrinterShipping = null;
 	}
 
-    public override void FillProperties()
-    {
-	    base.FillProperties();
+	public override void FillProperties()
+	{
+		base.FillProperties();
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
 		TemplateDefault?.FillProperties();
 		TemplateSeries?.FillProperties();
 		WorkShop?.FillProperties();
 		PrinterMain?.FillProperties();
 		PrinterShipping?.FillProperties();
-		//Device.FillProperties();
 	}
 
 	#endregion

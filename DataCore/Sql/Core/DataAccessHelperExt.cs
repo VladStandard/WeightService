@@ -190,7 +190,7 @@ public static partial class DataAccessHelperExt
 	public static List<PluLabelModel> GetListPluLabels(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
-		sqlCrudConfig.Orders.Add(new SqlFieldOrderModel(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
+		sqlCrudConfig.Orders.Add(new(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
 		return dataAccess.GetList<PluLabelModel>(sqlCrudConfig);
 	}
 
@@ -294,7 +294,7 @@ public static partial class DataAccessHelperExt
     public static List<PluWeighingModel> GetListPluWeighings(this DataAccessHelper dataAccess, bool isShowMarked, bool isShowOnlyTop)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
-		sqlCrudConfig.Orders.Add(new SqlFieldOrderModel(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
+		sqlCrudConfig.Orders.Add(new(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
 		return dataAccess.GetList<PluWeighingModel>(sqlCrudConfig);
 	}
 

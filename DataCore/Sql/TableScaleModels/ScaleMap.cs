@@ -37,7 +37,6 @@ public class ScaleMap : ClassMap<ScaleModel>
         References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
         References(x => x.PrinterMain).Column("ZebraPrinterId").Nullable();
         References(x => x.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
-		//References(x => x.Host).Column("HostId").Nullable();
 		References(x => x.WorkShop).Column("WorkShopId").Nullable();
     }
 }

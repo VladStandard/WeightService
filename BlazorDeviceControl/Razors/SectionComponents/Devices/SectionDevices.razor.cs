@@ -5,11 +5,11 @@ using BlazorCore.Razors;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Devices;
 
-public partial class SectionDevicesTypesFk : RazorComponentSectionBase<DeviceTypeFkModel, SqlTableBase>
+public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionDevicesTypesFk()
+    public SectionDevices()
     {
 		RazorComponentConfig.IsShowItemsCount = true;
 	    RazorComponentConfig.IsShowFilterMarked = true;
@@ -25,7 +25,7 @@ public partial class SectionDevicesTypesFk : RazorComponentSectionBase<DeviceTyp
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListDevicesTypesFk(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = AppSettings.DataAccess.GetListDevices(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

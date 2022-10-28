@@ -41,7 +41,8 @@ internal static class Program
 
 			// Host.
 			string hostName = NetUtils.GetLocalHostName(false);
-			DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFk(hostName);
+			DeviceModel device = DataAccess.GetItemDeviceNotNull(hostName);
+			DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFk(device);
 			if (deviceTypeFk is null )
 			{
 				GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());

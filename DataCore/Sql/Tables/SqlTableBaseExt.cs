@@ -32,18 +32,21 @@ public static class SqlTableBaseExt
 			case DeviceModel device:
 				switch (propertyName)
 				{
-					case nameof(DeviceModel.LoginDt):
+					case $"{nameof(DeviceModel.LoginDt)}":
 						return StringUtils.FormatDtRus(device.LoginDt, true);
-					case nameof(DeviceModel.LogoutDt):
+					case $"{nameof(DeviceModel.LogoutDt)}":
 						return StringUtils.FormatDtRus(device.LogoutDt, true);
-					case nameof(DeviceModel.Name):
+					case $"{nameof(DeviceModel.Name)}":
 						return device.Name;
-					case nameof(DeviceModel.PrettyName):
+					case $"{nameof(DeviceModel.PrettyName)}":
 						return device.PrettyName;
-					case nameof(DeviceModel.Ipv4):
+					case $"{nameof(DeviceModel.Ipv4)}":
 						return device.Ipv4;
-					case nameof(DeviceModel.MacAddress):
+					case $"{nameof(DeviceModel.MacAddress)}":
 						return device.MacAddress.ValuePrettyLookMinus;
+					case $"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}":
+						DeviceTypeFkModel deviceTypeFk = DataAccessHelper.Instance.GetItemDeviceTypeFkNotNull(device);
+						return deviceTypeFk.DeviceType.PrettyName;
 				};
 				break;
 			case DeviceTypeModel deviceType:
