@@ -10,7 +10,6 @@ public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 {
     #region Public and private fields, properties, constructor
 
-    public virtual string Name { get; set; }
     public virtual int StatusId { get; set; }
     public virtual InformationSystemModel InformationSystem { get; set; }
     public virtual byte[] CodeInIs { get; set; }
@@ -20,7 +19,6 @@ public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 	/// </summary>
 	public NomenclatureGroupModel() : base(SqlFieldIdentityEnum.Id)
     {
-	    Name = string.Empty;
 	    StatusId = 0;
 	    InformationSystem = new();
 	    CodeInIs = new byte[0];
@@ -48,7 +46,6 @@ public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Name, string.Empty) &&
 		Equals(StatusId, 0) &&
 		Equals(CodeInIs, new byte[0]) &&
 		InformationSystem.EqualsDefault();
@@ -56,7 +53,6 @@ public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 	public override object Clone()
     {
         NomenclatureGroupModel item = new();
-        item.Name = Name;
         item.StatusId = StatusId;
         item.InformationSystem = InformationSystem.CloneCast();
         item.CodeInIs = DataUtils.ByteClone(CodeInIs);
@@ -70,7 +66,6 @@ public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 
 	public virtual bool Equals(NomenclatureGroupModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(StatusId, item.StatusId) &&
 		Equals(CodeInIs, item.CodeInIs) &&
 		InformationSystem.Equals(item.InformationSystem);

@@ -13,7 +13,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Type { get; set; }
 	[XmlElement] public virtual SqlFieldBinaryModel ImageData { get; set; }
 	[XmlIgnore] public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
@@ -24,7 +23,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	/// </summary>
     public TemplateResourceModel() : base(SqlFieldIdentityEnum.Id)
 	{
-		Name = string.Empty;
 		Type = string.Empty;
 		ImageData = new();
 		IdRRef = Guid.Empty;
@@ -37,7 +35,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	/// <param name="context"></param>
 	private TemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
 		Type = info.GetString(nameof(Type));
 		ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));
 		IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));
@@ -68,7 +65,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Name, string.Empty) &&
 		Equals(Type, string.Empty) && 
 		ImageData.Equals(new())  &&
 		Equals(IdRRef, Guid.Empty);
@@ -76,7 +72,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	public override object Clone()
     {
         TemplateResourceModel item = new();
-        item.Name = Name;
         item.Type = Type;
         item.IdRRef = IdRRef;
         item.ImageData = ImageData.CloneCast();
@@ -92,7 +87,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Type), Type);
 		info.AddValue(nameof(ImageData), ImageData);
 		info.AddValue(nameof(IdRRef), IdRRef);
@@ -101,7 +95,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
 		ImageData.FillProperties();
 	}
@@ -112,7 +105,6 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 
 	public virtual bool Equals(TemplateResourceModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(Type, item.Type) &&
 		Equals(IdRRef, item.IdRRef) &&
 		ImageData.Equals(item.ImageData);

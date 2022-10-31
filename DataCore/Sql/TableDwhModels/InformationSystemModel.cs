@@ -10,7 +10,6 @@ public class InformationSystemModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 {
     #region Public and private fields, properties, constructor
 
-    public virtual string Name { get; set; }
     public virtual string ConnectString1 { get; set; }
     public virtual string ConnectString2 { get; set; }
     public virtual string ConnectString3 { get; set; }
@@ -21,7 +20,6 @@ public class InformationSystemModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 	/// </summary>
 	public InformationSystemModel() : base(SqlFieldIdentityEnum.Id)
     {
-	    Name = string.Empty;
 	    ConnectString1 = string.Empty;
 	    ConnectString2 = string.Empty;
 	    ConnectString3 = string.Empty;
@@ -50,7 +48,6 @@ public class InformationSystemModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-	    Equals(Name, string.Empty) &&
 	    Equals(ConnectString1, string.Empty) &&
 	    Equals(ConnectString2, string.Empty) &&
 	    Equals(ConnectString3, string.Empty) &&
@@ -59,7 +56,6 @@ public class InformationSystemModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
     public override object Clone()
     {
         InformationSystemModel item = new();
-        item.Name = Name;
         item.ConnectString1 = ConnectString1;
         item.ConnectString2 = ConnectString2;
         item.ConnectString3 = ConnectString3;
@@ -77,7 +73,6 @@ public class InformationSystemModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 		if (ReferenceEquals(this, item)) return true;
 		return
 			base.Equals(item) &&
-			Equals(Name, item.Name) &&
 			Equals(ConnectString1, item.ConnectString1) &&
 			Equals(ConnectString2, item.ConnectString2) &&
 			Equals(ConnectString3, item.ConnectString3) &&

@@ -9,12 +9,7 @@ public partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PrinterTypeModel> PrinterTypes { get; set; }
-
-	public ItemPrinter()
-	{
-		PrinterTypes = new();
-	}
+	//
 
 	#endregion
 
@@ -26,10 +21,10 @@ public partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 		{
 			() =>
 			{
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNull<PrinterModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PrinterModel>();
-				PrinterTypes = AppSettings.DataAccess.GetListPrinterTypes(false, false);
+				DataContext.GetListNotNull<PrinterTypeModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

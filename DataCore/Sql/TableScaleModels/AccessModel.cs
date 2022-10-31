@@ -15,7 +15,6 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual DateTime LoginDt { get; set; }
-    [XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual byte Rights { get; set; }
 	[XmlIgnore] public virtual AccessRightsEnum RightsEnum => (AccessRightsEnum)Rights;
 
@@ -25,8 +24,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public AccessModel() : base(SqlFieldIdentityEnum.Uid)
 	{
         LoginDt = DateTime.MinValue;
-        Name = string.Empty;
-		Rights = 0x00;
+        Rights = 0x00;
 	}
 
     /// <summary>
@@ -37,7 +35,6 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	private AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         LoginDt = info.GetDateTime(nameof(LoginDt));
-        Name = info.GetString(nameof(Name));
         Rights = info.GetByte(nameof(Rights));
     }
 
@@ -69,14 +66,12 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
 	    Equals(LoginDt, DateTime.MinValue) &&
-	    Equals(Name, string.Empty) &&
 	    Equals(Rights, (byte)0x00);
     
     public override object Clone()
     {
         AccessModel item = new();
         item.LoginDt = LoginDt;
-        item.Name = Name;
         item.Rights = Rights;
 		item.CloneSetup(base.CloneCast());
 		return item;
@@ -91,7 +86,6 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         base.GetObjectData(info, context);
 		info.AddValue(nameof(LoginDt), LoginDt);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Rights), Rights);
 	}
 
@@ -99,7 +93,6 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 		base.FillProperties();
         LoginDt = DateTime.Now;
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		Rights = (byte)AccessRightsEnum.None;
     }
 
@@ -110,7 +103,6 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public virtual bool Equals(AccessModel item) =>
 	    ReferenceEquals(this, item) || base.Equals(item) &&
 	    Equals(LoginDt, item.LoginDt) &&
-	    Equals(Name, item.Name) &&
 	    Equals(Rights, item.Rights);
 
     public new virtual AccessModel CloneCast() => (AccessModel)Clone();

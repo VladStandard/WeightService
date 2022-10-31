@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
+using BlazorCore.Settings;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
@@ -42,7 +43,7 @@ public partial class RazorComponentBase
             if (!string.IsNullOrEmpty(title))
                 NotificationService?.Notify(NotificationSeverity.Success,
                     $"{LocaleCore.Action.ActionMethod}: {title}" + Environment.NewLine,
-                    LocaleCore.Dialog.DialogResultSuccess, AppSettingsHelper.Delay);
+                    LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.Delay);
         }
         catch (Exception ex)
         {
@@ -62,18 +63,18 @@ public partial class RazorComponentBase
         if (!string.IsNullOrEmpty(fail))
         {
             if (!string.IsNullOrEmpty(msg))
-                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail + Environment.NewLine + msg, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail + Environment.NewLine + msg, BlazorAppSettingsHelper.Delay);
             else
-                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, fail, BlazorAppSettingsHelper.Delay);
         }
         else
         {
             if (!string.IsNullOrEmpty(msg))
-                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, BlazorAppSettingsHelper.Delay);
         }
 
         // SQL log.
-        AppSettings.DataAccess.LogError(ex, NetUtils.GetLocalHostName(false), nameof(BlazorCore));
+        BlazorAppSettings.DataAccess.LogError(ex, NetUtils.GetLocalHostName(false), nameof(BlazorCore));
     }
 
     private void RunActionsWithQeustion(string title, string questionAdd, Action action)

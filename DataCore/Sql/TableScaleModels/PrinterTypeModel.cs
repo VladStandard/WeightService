@@ -13,14 +13,12 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
-
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public PrinterTypeModel() : base(SqlFieldIdentityEnum.Id)
 	{
-		Name = string.Empty;
+		//
 	}
 
 	/// <summary>
@@ -30,7 +28,7 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	/// <param name="context"></param>
 	private PrinterTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
+		//
 	}
 
 	#endregion
@@ -54,13 +52,11 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	public override bool EqualsNew() => Equals(new());
 
 	public override bool EqualsDefault() =>
-		base.EqualsDefault() &&
-		Equals(Name, string.Empty);
+		base.EqualsDefault();
 
 	public override object Clone()
 	{
 		PrinterTypeModel item = new();
-		item.Name = Name;
 		item.CloneSetup(base.CloneCast());
 		return item;
 	}
@@ -73,13 +69,11 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 	}
 
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 	}
 
 	#endregion
@@ -87,8 +81,7 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PrinterTypeModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name);
+		ReferenceEquals(this, item) || base.Equals(item);
 
 	public new virtual PrinterTypeModel CloneCast() => (PrinterTypeModel)Clone();
 

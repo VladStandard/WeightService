@@ -12,7 +12,7 @@
 <SystemIdentity ParentRazor=@(this) />
 
 <div class="page">
-    <div class=@BlazorCoreUtuls.GetCssName.Sidebar(AppSettings)>
+    <div class=@BlazorCoreUtuls.GetCssName.Sidebar(BlazorAppSettings)>
         <NavMenu ParentRazor=@(this) />
     </div>
 
@@ -26,12 +26,12 @@
                         <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                             Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleCore.DeviceControl.RouteSystemRoot />
                         <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                            Text=@AppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
+                            Text=@BlazorAppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
                             Click=@(_ => MemoryClear()) />
                         @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
 		                {
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
-                                Text=@($"{UserSettings.UserName} [{AppSettings.DataAccess.GetAccessRightsDescription(UserSettings.AccessRights)}]")
+                                Text=@($"{UserSettings.UserName} [{BlazorAppSettings.DataAccess.GetAccessRightsDescription(UserSettings.AccessRights)}]")
                                 Path=@LocaleCore.DeviceControl.RouteSectionAccess
                                 Click=@(_ => OnChange()) />
                             <RadzenMenuItem Icon="info" Style="background-color: transparent; "

@@ -10,14 +10,12 @@ public class StatusModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    public virtual string Name { get; set; }
-
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public StatusModel() : base(SqlFieldIdentityEnum.Id)
     {
-	    Name = string.Empty;
+	    //
     }
 
 	#endregion
@@ -42,14 +40,11 @@ public class StatusModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         return Equals(new());
     }
 
-    public override bool EqualsDefault() =>
-	    base.EqualsDefault() &&
-	    Equals(Name, string.Empty);
+    public override bool EqualsDefault() => base.EqualsDefault();
 
     public override object Clone()
     {
         StatusModel item = new();
-        item.Name = Name;
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -58,9 +53,7 @@ public class StatusModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	#region Public and private methods - virtual
 
-	public virtual bool Equals(StatusModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name);
+	public virtual bool Equals(StatusModel item) => ReferenceEquals(this, item) || base.Equals(item);
 
 	public new virtual StatusModel CloneCast() => (StatusModel)Clone();
 

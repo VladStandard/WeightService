@@ -11,7 +11,6 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
     #region Public and private fields, properties, constructor
 
     public virtual string Code { get; set; }
-    public virtual string Name { get; set; }
     public virtual string Parents { get; set; }
     public virtual NomenclatureParentModel ParentConvert => 
         string.IsNullOrEmpty(Parents) ? null : JsonConvert.DeserializeObject<NomenclatureParentModel>(Parents);
@@ -29,7 +28,6 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 	public NomenclatureLightModel() : base(SqlFieldIdentityEnum.Id)
     {
 	    Code = string.Empty;
-	    Name = string.Empty;
 	    Parents = string.Empty;
 	    NameFull = string.Empty;
 	    IsService = false;
@@ -46,7 +44,6 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 
 	public override string ToString() =>
 		$"{nameof(Code)}: {Code}. " +
-	    $"{nameof(Name)}: {Name}. " +
 	    $"{nameof(Parents)}: {Parents}. " +
 	    $"{nameof(NameFull)}: {NameFull}. " +
 	    $"{nameof(IsService)}: {IsService}. " +
@@ -71,7 +68,6 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
 	    Equals(Code, string.Empty) &&
-	    Equals(Name, string.Empty) &&
 	    Equals(Parents, string.Empty) &&
 	    Equals(NameFull, string.Empty) &&
 	    Equals(IsService, false) &&
@@ -85,7 +81,6 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
     {
         NomenclatureLightModel item = new();
         item.Code = Code;
-        item.Name = Name;
         item.Parents = Parents;
         item.NameFull = NameFull;
         item.IsService = IsService;
@@ -105,7 +100,6 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 	public virtual bool Equals(NomenclatureLightModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
 		Equals(Code, item.Code) &&
-		Equals(Name, item.Name) &&
 		Equals(Parents, item.Parents) &&
 		Equals(NameFull, item.NameFull) &&
 		Equals(IsService, item.IsService) &&

@@ -13,14 +13,12 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
-
 	/// <summary>
 	/// Constructor.
 	/// </summary>
     public TaskTypeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		Name = string.Empty;
+		//
 	}
 
 	/// <summary>
@@ -30,7 +28,7 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	private TaskTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
+		//
 	}
 
 	#endregion
@@ -54,13 +52,11 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override bool EqualsNew() => Equals(new());
 
 	public override bool EqualsDefault() =>
-		base.EqualsDefault() &&
-		Equals(Name, string.Empty);
+		base.EqualsDefault();
 
 	public override object Clone()
     {
         TaskTypeModel item = new();
-        item.Name = Name;
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -73,13 +69,11 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 	}
 
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 	}
 
 	#endregion
@@ -87,8 +81,7 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(TaskTypeModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name);
+		ReferenceEquals(this, item) || base.Equals(item);
 
 	public new virtual TaskTypeModel CloneCast() => (TaskTypeModel)Clone();
 

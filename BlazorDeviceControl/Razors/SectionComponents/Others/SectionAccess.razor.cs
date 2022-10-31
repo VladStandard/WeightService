@@ -26,7 +26,7 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
         {
             () =>
             {
-                SqlItemsCast = AppSettings.DataAccess.GetListAcesses(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+                SqlItemsCast = DataContext.GetListNotNull<AccessModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
             }

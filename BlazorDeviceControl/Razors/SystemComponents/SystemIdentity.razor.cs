@@ -18,7 +18,7 @@ public partial class SystemIdentity : RazorComponentBase
 		Langs = new();
 		foreach (LangEnum lang in Enum.GetValues(typeof(LangEnum)))
 			Langs.Add(lang);
-		TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+		TemplateLanguages = BlazorAppSettings.DataSourceDics.GetTemplateLanguages();
 	}
 
 	#endregion

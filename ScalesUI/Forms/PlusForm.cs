@@ -47,7 +47,7 @@ public partial class PlusForm : Form
 	{
 		try
 		{
-			PluScales = UserSession.DataAccess.GetListPluScales(UserSession.Scale, false, false, false);
+			PluScales = UserSession.DataContext.GetListNotNull<PluScaleModel>(UserSession.Scale);
 
 			LoadFormControls();
 
@@ -223,7 +223,7 @@ public partial class PlusForm : Form
 
 	private Label NewLabelPluTemplate(PluScaleModel pluScale, int tabIndex, Control buttonPlu)
 	{
-		TemplateModel template = UserSession.DataAccess.GetItemByIdNotNull<TemplateModel>(pluScale.Plu.Template.IdentityValueId);
+		TemplateModel template = UserSession.DataAccess.GetItemNotNull<TemplateModel>(pluScale.Plu.Template.IdentityValueId);
 		Label labelPluTemplate = new()
 		{
 			Name = $@"{nameof(labelPluTemplate)}{tabIndex}",

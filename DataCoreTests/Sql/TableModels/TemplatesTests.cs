@@ -86,18 +86,6 @@
 //        }
 //    }
 
-//    public class GetTemplateResourcesEntity
-//    {
-//        public virtual int Id { get; set; }
-//        public virtual string Name { get; set; }
-//        public virtual string ImageData { get; set; }
-
-//        //public override string ToString()
-//        //{
-//        //    return $"{nameof(Id)}: {Id}. {nameof(Name)}: {Name}. {nameof(ImageData)}: {ImageData}.";
-//        //}
-//    }
-
 //    public class GetTemplateResourcesMap : ClassMap<GetTemplateResourcesEntity>
 //    {
 //        public GetTemplateResourcesMap()

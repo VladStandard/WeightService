@@ -12,14 +12,7 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PrinterModel> Printers { get; set; }
-	private List<TemplateResourceModel> Resources { get; set; }
-
-	public ItemPrinterResource()
-	{
-		Printers = new();
-		Resources = new();
-	}
+	//
 
 	#endregion
 
@@ -31,11 +24,11 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
 		{
 			() =>
 			{
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterResourceModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNull<PrinterResourceModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PrinterResourceModel>();
-				Printers = AppSettings.DataAccess.GetListPrinters(false, false, false);
-				Resources = AppSettings.DataAccess.GetListTemplateResources(false, false);
+				DataContext.GetListNotNull<PrinterModel>();
+				DataContext.GetListNotNull<TemplateResourceModel>();
 				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

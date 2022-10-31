@@ -13,7 +13,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Code { get; set; }
 	[XmlElement(IsNullable = true)] public virtual string? Xml { get; set; }
 	/// <summary>
@@ -26,7 +25,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	/// </summary>
     public NomenclatureModel() : base(SqlFieldIdentityEnum.Id)
 	{
-		Name = string.Empty;
 		Code = string.Empty;
 		Xml = string.Empty;
 		Weighted = false;
@@ -39,7 +37,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	/// <param name="context"></param>
 	private NomenclatureModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
 		Code = info.GetString(nameof(Code));
 		Xml = (string?)info.GetValue(nameof(Xml), typeof(string));
 		Weighted = info.GetBoolean(nameof(Weighted));
@@ -70,7 +67,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public new virtual bool EqualsDefault() =>
 	    base.EqualsDefault() &&
 	    Equals(Code, string.Empty) &&
-	    Equals(Name, string.Empty) &&
 	    Equals(Xml, string.Empty) &&
 	    Equals(Weighted, false);
 
@@ -78,7 +74,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     {
         NomenclatureModel item = new();
         item.Code = Code;
-        item.Name = Name;
         item.Xml = Xml;
         item.Weighted = Weighted;
 		item.CloneSetup(base.CloneCast());
@@ -93,7 +88,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Code), Code);
 		info.AddValue(nameof(Xml), Xml);
 		info.AddValue(nameof(Weighted), Weighted);
@@ -102,7 +96,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		Code = LocaleCore.Sql.SqlItemFieldCode;
 		Xml = LocaleCore.Sql.SqlItemFieldProductXml;
 		Weighted = false;
@@ -115,7 +108,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public virtual bool Equals(NomenclatureModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
 		Equals(Code, item.Code) &&
-		Equals(Name, item.Name) &&
 		Equals(Xml, item.Xml) &&
 		Equals(Weighted, item.Weighted);
 

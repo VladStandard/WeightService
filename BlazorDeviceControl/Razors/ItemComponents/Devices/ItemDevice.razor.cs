@@ -26,10 +26,10 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
 		{
 			() =>
 			{
-				SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<DeviceModel>(IdentityUid);
+				SqlItemCast = DataContext.GetItemNotNull<DeviceModel>(IdentityUid);
 				if (SqlItemCast.IdentityIsNew)
 					SqlItem = SqlItemNew<DeviceModel>();
-				DeviceTypeFk = AppSettings.DataAccess.GetItemDeviceTypeFkNotNull(SqlItemCast);
+				DeviceTypeFk = BlazorAppSettings.DataAccess.GetItemDeviceTypeFkNotNull(SqlItemCast);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

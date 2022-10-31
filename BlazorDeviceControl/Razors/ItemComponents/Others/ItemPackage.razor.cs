@@ -21,7 +21,7 @@ public partial class ItemPackage : RazorComponentItemBase<PackageModel>
 		{
 			() =>
 			{
-                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PackageModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNull<PackageModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PackageModel>();
 

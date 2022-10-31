@@ -9,10 +9,7 @@ public partial class ItemPrinterType : RazorComponentItemBase<PrinterTypeModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public ItemPrinterType()
-	{
-		//
-	}
+	//
 
 	#endregion
 
@@ -24,7 +21,7 @@ public partial class ItemPrinterType : RazorComponentItemBase<PrinterTypeModel>
 		{
 			() =>
 			{
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<PrinterTypeModel>(IdentityId);
+                SqlItemCast = BlazorAppSettings.DataAccess.GetItemNotNull<PrinterTypeModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PrinterTypeModel>();
 

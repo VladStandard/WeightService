@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
+using BlazorCore.Settings;
 using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
 
@@ -11,7 +12,7 @@ public class ChartBase
 {
 	#region Public and private fields, properties, constructor
 
-	public AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
+	public BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
 
 	#endregion
 
@@ -24,7 +25,7 @@ public class ChartBase
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
             new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Asc), 0, false, false);
-		ContragentModel[]? contragents = AppSettings.DataAccess.GetItems<ContragentModel>(sqlCrudConfig);
+		ContragentModel[]? contragents = BlazorAppSettings.DataAccess.GetItems<ContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{
@@ -76,7 +77,7 @@ public class ChartBase
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
             new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Asc), 
             0, false, false);
-		NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
+		NomenclatureModel[]? nomenclatures = BlazorAppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
 		{

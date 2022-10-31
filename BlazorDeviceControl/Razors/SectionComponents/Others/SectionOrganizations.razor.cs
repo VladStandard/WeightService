@@ -25,7 +25,7 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListOrganizations(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = DataContext.GetListNotNull<OrganizationModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

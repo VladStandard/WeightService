@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Settings;
 using DataCore.Localizations;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
@@ -38,7 +39,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 	[Parameter] public UserSettingsModel? UserSettings { get; set; }
 	[Parameter] public HttpContext? HttpContext { get; set; }
 	[Parameter] public string Title { get; set; }
-	protected AppSettingsHelper AppSettings { get; } = AppSettingsHelper.Instance;
+	protected BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
 	private string Id => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
 	private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
 	protected string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {Id}";
@@ -48,6 +49,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 	public List<SqlTableBase>? SqlItems { get; set; }
 	public AuthorizeView? AuthorizeViewBase { get; set; }
 	public AuthenticationState? AuthenticationStateBase { get; set; }
+	public DataContextModel DataContext { get; } = new();
 
 	/// <summary>
 	/// Constructor.

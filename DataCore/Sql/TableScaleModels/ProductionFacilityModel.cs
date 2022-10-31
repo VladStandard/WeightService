@@ -14,7 +14,6 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Address { get; set; }
 
 	/// <summary>
@@ -22,7 +21,6 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 	/// </summary>
 	public ProductionFacilityModel() : base(SqlFieldIdentityEnum.Id)
 	{
-		Name = string.Empty;
 		Address = string.Empty;
 	}
 
@@ -33,7 +31,6 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 	/// <param name="context"></param>
 	private ProductionFacilityModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
 		Address = info.GetString(nameof(Address));
 	}
 
@@ -43,7 +40,6 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-		$"{nameof(Name)}: {Name}. " +
 		$"{nameof(Address)}: {Address}. ";
 
 	public override bool Equals(object obj)
@@ -60,13 +56,11 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Name, string.Empty) &&
 		Equals(Address, string.Empty);
 
 	public override object Clone()
 	{
 		ProductionFacilityModel item = new();
-		item.Name = Name;
 		item.Address = Address;
 		item.CloneSetup(base.CloneCast());
 		return item;
@@ -80,14 +74,12 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(Address), Address);
 	}
 
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		Address = LocaleCore.Sql.SqlItemFieldAddress;
 	}
 
@@ -97,7 +89,6 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
 
 	public virtual bool Equals(ProductionFacilityModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(Address, item.Address);
 
 	public new virtual ProductionFacilityModel CloneCast() => (ProductionFacilityModel)Clone();

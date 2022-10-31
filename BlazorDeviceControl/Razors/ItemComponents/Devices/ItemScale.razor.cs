@@ -12,11 +12,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<PrinterModel> Printers { get; set; }
-	private List<TemplateModel> Templates { get; set; }
-	private List<WorkShopModel> WorkShops { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
-	private List<DeviceScaleFkModel> DeviceScaleFks { get; set; }
 	private DeviceModel Device { get; set; }
 	
 	public ItemScale()
@@ -24,12 +20,8 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterAdditional = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
-		Printers = new();
 		ComPorts = new();
-		DeviceScaleFks = new();
 		Device = new();
-		WorkShops = new();
-		Templates = new();
 		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
 
@@ -43,23 +35,24 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<ScaleModel>(IdentityId);
-				//SqlItemCast.Host ??= AppSettings.DataAccess.GetNewHost();
-				SqlItemCast.PrinterMain ??= AppSettings.DataAccess.GetNewPrinter();
-				SqlItemCast.PrinterShipping ??= AppSettings.DataAccess.GetNewPrinter();
-				SqlItemCast.TemplateDefault ??= AppSettings.DataAccess.GetNewTemplate();
-				SqlItemCast.TemplateSeries ??= AppSettings.DataAccess.GetNewTemplate();
-				SqlItemCast.WorkShop ??= AppSettings.DataAccess.GetNewWorkShop();
+				DataContext.GetListNotNull<DeviceModel>(false, false, true);
+				DataContext.GetListNotNull<DeviceTypeModel>(false, false, true);
+				DataContext.GetListNotNull<PrinterModel>(false, false, true);
+				DataContext.GetListNotNull<TemplateModel>(false, false, true);
+				DataContext.GetListNotNull<WorkShopModel>(false, false, true);
+
+				SqlItemCast = DataContext.GetItemNotNull<ScaleModel>(IdentityId);
+				SqlItemCast.PrinterMain ??= BlazorAppSettings.DataAccess.GetNewItem<PrinterModel>();
+				SqlItemCast.PrinterShipping ??= BlazorAppSettings.DataAccess.GetNewItem<PrinterModel>();
+				SqlItemCast.TemplateDefault ??= BlazorAppSettings.DataAccess.GetNewItem<TemplateModel>();
+				SqlItemCast.TemplateSeries ??= BlazorAppSettings.DataAccess.GetNewItem<TemplateModel>();
+				SqlItemCast.WorkShop ??= BlazorAppSettings.DataAccess.GetNewItem<WorkShopModel>();
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);
 			    // ScaleFactor
 			    SqlItemCast.ScaleFactor ??= 1000;
-				DeviceScaleFks = AppSettings.DataAccess.GetListDevicesScalesFk(false, false, true);
-				Device = AppSettings.DataAccess.GetItemDeviceNotNull(SqlItemCast);
-				Printers = AppSettings.DataAccess.GetListPrinters(false, false, true);
-			    Templates = AppSettings.DataAccess.GetListTemplates(false, false, true);
-			    WorkShops = AppSettings.DataAccess.GetListWorkShops(false, false, true);
+				Device = BlazorAppSettings.DataAccess.GetItemDeviceNotNull(SqlItemCast);
 			}
 		});
 	}

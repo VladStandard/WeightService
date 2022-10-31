@@ -25,7 +25,7 @@ public partial class SectionPackages : RazorComponentSectionBase<PackageModel, S
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListPackages(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = DataContext.GetListNotNull<PackageModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

@@ -14,7 +14,6 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual decimal Weight { get; set; }
 
     /// <summary>
@@ -22,7 +21,6 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     public PackageModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-        Name = string.Empty;
 	    Weight = default;
     }
 
@@ -33,7 +31,6 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// <param name="context"></param>
     protected PackageModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Name = info.GetString(nameof(Name));
 		Weight = info.GetDecimal(nameof(Weight));
     }
 
@@ -60,13 +57,11 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-	    Equals(Name, string.Empty) &&
 	    Equals(Weight, default(decimal));
 
     public override object Clone()
     {
         PackageModel item = new();
-        item.Name = Name;
         item.Weight = Weight;
         item.CloneSetup(base.CloneCast());
 		return item;
@@ -75,14 +70,12 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Name), Name);
         info.AddValue(nameof(Weight), Weight);
     }
 
     public override void FillProperties()
     {
 	    base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		Weight = 0.560M;
 	}
 
@@ -92,7 +85,6 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual bool Equals(PackageModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(Weight, item.Weight);
 
 	public new virtual PackageModel CloneCast() => (PackageModel)Clone();

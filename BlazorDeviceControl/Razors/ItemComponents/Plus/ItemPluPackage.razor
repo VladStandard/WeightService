@@ -35,7 +35,7 @@
 				<MudSelect 
 					Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 				    @bind-Value=@SqlItemCast.Plu >
-					@foreach (PluModel item in Plus)
+					@foreach (PluModel item in DataContext.Plus)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
@@ -44,13 +44,13 @@
 			<td>
 				<RadzenLink 
 					Style="width: 100%; margin-left: 0;"
-							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPackage, SqlItemCast.Package, SqlItemCast.Package.IdentityValueUid)
+					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemPackage, SqlItemCast.Package, SqlItemCast.Package.IdentityValueUid)
 					Text=@LocaleCore.Table.Package />
 			</td>
 			<td>
 				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.Package>
-					@foreach (PackageModel item in Packages)
+					@foreach (PackageModel item in DataContext.Packages)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}

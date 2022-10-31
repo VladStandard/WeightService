@@ -11,7 +11,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     #region Public and private fields, properties, constructor
 
     public virtual string Code { get; set; }
-    public virtual string Name { get; set; }
     public virtual string Parents { get; set; }
     public virtual string? Article { get; set; }
     public virtual bool Weighted { get; set; }
@@ -52,7 +51,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     public NomenclatureModel() : base(SqlFieldIdentityEnum.Id)
     {
         Code = string.Empty;
-        Name = string.Empty;
         Parents = string.Empty;
         Article = string.Empty;
         Weighted = false;
@@ -111,7 +109,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
 	    Equals(Code, string.Empty) &&
-	    Equals(Name, string.Empty) &&
 	    Equals(Parents, string.Empty) &&
 	    Equals(Article, string.Empty) &&
 	    Equals(Weighted, false) &&
@@ -150,7 +147,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     {
         NomenclatureModel item = new();
         item.Code = Code;
-        item.Name = Name;
         item.Parents = Parents;
         item.Article = Article;
         item.Weighted = Weighted;
@@ -195,7 +191,6 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     public virtual bool Equals(NomenclatureModel item) =>
 	    ReferenceEquals(this, item) || base.Equals(item) &&
 	    Equals(Code, item.Code) &&
-	    Equals(Name, item.Name) &&
 	    Equals(Parents, item.Parents) &&
 	    Equals(Article, item.Article) &&
 	    Equals(Weighted, item.Weighted) &&

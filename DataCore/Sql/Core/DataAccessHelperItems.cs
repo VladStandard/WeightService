@@ -6,36 +6,36 @@ using NHibernate;
 
 namespace DataCore.Sql.Core;
 
-public static class DataAccessHelperItems
+public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	private static T[] GetItemsCore<T>(this ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	private T[] GetItemsCore<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
-		ICriteria criteria = session.GetCriteria<T>(sqlCrudConfig);
+		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
 		return criteria.List<T>().ToArray();
 	}
 
-	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public T[]? GetItems<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T[]? items = null;
-		dataAccess.ExecuteSelect(session =>
+		ExecuteSelect(session =>
 		{
-			items = session.GetItemsCore<T>(sqlCrudConfig);
+			items = GetItemsCore<T>(session, sqlCrudConfig);
 			foreach (T item in items)
 			{
-				dataAccess.FillReferences(item);
+				FillReferences(item);
 			}
 		});
 		return items;
 	}
 
-	public static T[]? GetItems<T>(this DataAccessHelper dataAccess, string query) where T : SqlTableBase, new()
+	public T[]? GetItems<T>(string query) where T : SqlTableBase, new()
 	{
 		T[]? result = null;
-		dataAccess.ExecuteSelect(session =>
+		ExecuteSelect(session =>
 		{
-			ISQLQuery? sqlQuery = dataAccess.GetSqlQuery(session, query);
+			ISQLQuery? sqlQuery = GetSqlQuery(session, query);
 			if (sqlQuery is not null)
 			{
 				sqlQuery.AddEntity(typeof(T));
@@ -45,20 +45,20 @@ public static class DataAccessHelperItems
 		return result;
 	}
 
-	public static List<T> GetList<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public List<T> GetList<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
-		T[]? items = GetItems<T>(dataAccess, sqlCrudConfig);
+		T[]? items = GetItems<T>(sqlCrudConfig);
 		if (items is not null && items.Length > 0)
 			return items.ToList();
 		return new();
 	}
 
-	public static object[] GetObjects(this DataAccessHelper dataAccess, string query)
+	public object[] GetObjects(string query)
 	{
 		object[] result = Array.Empty<object>();
-		dataAccess.ExecuteSelect(session =>
+		ExecuteSelect(session =>
 		{
-			ISQLQuery? sqlQuery = dataAccess.GetSqlQuery(session, query);
+			ISQLQuery? sqlQuery = GetSqlQuery(session, query);
 			if (sqlQuery is not null)
 			{
 				System.Collections.IList? listEntities = sqlQuery.List();

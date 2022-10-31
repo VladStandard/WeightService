@@ -36,7 +36,7 @@
             <td>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@SqlItemCast.Template>
-                    @foreach (TemplateModel item in Templates)
+                    @foreach (TemplateModel item in DataContext.Templates)
                     {
                         <MudSelectItem Value=@item>@item.Title</MudSelectItem>
                     }
@@ -57,7 +57,7 @@
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 					ReadOnly=true Disabled=true
                     @bind-Value=@SqlItemCast.Nomenclature>
-                    @foreach (NomenclatureModel item in Nomenclatures)
+                    @foreach (NomenclatureModel item in DataContext.Nomenclatures)
                     {
                         <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }

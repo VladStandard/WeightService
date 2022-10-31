@@ -28,7 +28,7 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListProductionFacilities(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = DataContext.GetListNotNull<ProductionFacilityModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

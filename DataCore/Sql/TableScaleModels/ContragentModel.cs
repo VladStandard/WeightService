@@ -13,7 +13,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual string FullName { get; set; }
     [XmlElement] public virtual Guid IdRRef { get; set; }
     public virtual string IdRRefAsString { get => IdRRef.ToString(); set => IdRRef = Guid.Parse(value); }
@@ -25,7 +24,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	/// </summary>
     public ContragentModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		Name = string.Empty;
 		FullName = string.Empty;
 		IdRRef = Guid.Empty;
 		DwhId = 0;
@@ -39,7 +37,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	/// <param name="context"></param>
 	private ContragentModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
 		FullName = info.GetString(nameof(FullName));
 		IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));
 		DwhId = info.GetInt32(nameof(DwhId));
@@ -69,7 +66,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
 	public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-	    Equals(Name, string.Empty) &&
 	    Equals(FullName, string.Empty) &&
 	    Equals(IdRRef, Guid.Empty) &&
 	    Equals(DwhId, 0) &&
@@ -78,7 +74,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     public override object Clone()
     {
         ContragentModel item = new();
-        item.Name = Name;
         item.FullName = FullName;
         item.IdRRef = IdRRef;
         item.DwhId = DwhId;
@@ -95,7 +90,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(FullName), FullName);
 		info.AddValue(nameof(IdRRef), IdRRef);
 		info.AddValue(nameof(DwhId), DwhId);
@@ -105,7 +99,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 	}
 
 	#endregion
@@ -114,7 +107,6 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
 	public virtual bool Equals(ContragentModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(FullName, item.FullName) &&
 		Equals(IdRRef, item.IdRRef) &&
 		Equals(DwhId, item.DwhId) &&

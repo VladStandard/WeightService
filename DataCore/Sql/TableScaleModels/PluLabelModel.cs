@@ -3,7 +3,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Tables;
-using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -16,59 +15,65 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private fields, properties, constructor
 
 	[XmlElement(IsNullable = true)] public virtual PluWeighingModel? PluWeighing { get; set; }
-    [XmlElement] public virtual PluScaleModel PluScale { get; set; }
-    [XmlElement] public virtual string Zpl { get; set; }
+	[XmlElement] public virtual PluScaleModel PluScale { get; set; }
+	[XmlElement] public virtual string Zpl { get; set; }
 	[XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
-    [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlElement] public virtual string ProductDtFormat
+	[XmlElement] public virtual DateTime ProductDt { get; set; }
+	[XmlElement]
+	public virtual string ProductDtFormat
 	{
 		get => $"{ProductDt:dd.MM.yyyy}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-    [XmlElement] public virtual string LotNumberFormat
-    {
-	    get => $"{ProductDt:yyMM}";
-	    // This code need for print labels.
-	    set => _ = value;
-    }
-    [XmlElement] public virtual string ProductDateBarCodeFormat
+	[XmlElement]
+	public virtual string LotNumberFormat
+	{
+		get => $"{ProductDt:yyMM}";
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlElement]
+	public virtual string ProductDateBarCodeFormat
 	{
 		get => $"{ProductDt:yyMMdd}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlElement] public virtual string ProductTimeBarCodeFormat
+	[XmlElement]
+	public virtual string ProductTimeBarCodeFormat
 	{
 		get => $"{ProductDt:HHmmss}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlElement] public virtual DateTime ExpirationDt
-    {
-	    get => PluScale.IdentityIsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
-	    // This code need for print labels.
-	    set => _ = value;
-    }
-    [XmlElement] public virtual string ExpirationDtFormat
+	[XmlElement]
+	public virtual DateTime ExpirationDt
 	{
-	    get => $"{ExpirationDt:dd.MM.yyyy}";
-	    // This code need for print labels.
-	    set => _ = value;
-    }
+		get => PluScale.IdentityIsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
+		// This code need for print labels.
+		set => _ = value;
+	}
+	[XmlElement]
+	public virtual string ExpirationDtFormat
+	{
+		get => $"{ExpirationDt:dd.MM.yyyy}";
+		// This code need for print labels.
+		set => _ = value;
+	}
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public PluLabelModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-	    PluWeighing = null;
-        PluScale = new();
-        Zpl = string.Empty;
+		PluWeighing = null;
+		PluScale = new();
+		Zpl = string.Empty;
 		Xml = null;
 		ProductDt = DateTime.MinValue;
-	    ExpirationDt = DateTime.MinValue;
-    }
+		ExpirationDt = DateTime.MinValue;
+	}
 
 	/// <summary>
 	/// Constructor for serialization.
@@ -76,82 +81,82 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="info"></param>
 	/// <param name="context"></param>
 	protected PluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        PluWeighing = (PluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
-        PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
-        Zpl = info.GetString(nameof(Zpl));
+	{
+		PluWeighing = (PluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));
+		PluScale = (PluScaleModel)info.GetValue(nameof(PluScale), typeof(PluScaleModel));
+		Zpl = info.GetString(nameof(Zpl));
 		Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
-        ProductDt = info.GetDateTime(nameof(ProductDt));
-        ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
-    }
+		ProductDt = info.GetDateTime(nameof(ProductDt));
+		ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
+	}
 
 	#endregion
 
 	#region Public and private methods - override
 
-	public override string ToString() => 
+	public override string ToString() =>
 		$"{nameof(Zpl)}: {Zpl.Length}. " + $"{nameof(Xml)}: {(Xml is null ? 0 : Xml.OuterXml.Length)}. ";
 
-    public override bool Equals(object obj)
+	public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
 		if (obj.GetType() != GetType()) return false;
-        return Equals((PluLabelModel)obj);
-    }
-    
-    public override int GetHashCode() => base.GetHashCode();
+		return Equals((PluLabelModel)obj);
+	}
 
-    public override bool EqualsNew() => Equals(new());
+	public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsDefault() =>
-	    base.EqualsDefault() &&
-	    Equals(Zpl, string.Empty) &&
-	    Equals(Xml, null) &&
-	    Equals(ProductDt, DateTime.MinValue) &&
-	    (PluWeighing is null || PluWeighing.EqualsDefault()) &&
-	    PluScale.EqualsDefault();
+	public override bool EqualsNew() => Equals(new());
 
-    public override object Clone()
-    {
-        PluLabelModel item = new();
-        item.IsMarked = IsMarked;
-        item.PluWeighing = PluWeighing?.CloneCast();
-        item.PluScale = PluScale.CloneCast();
-        item.Zpl = Zpl;
+	public override bool EqualsDefault() =>
+		base.EqualsDefault() &&
+		Equals(Zpl, string.Empty) &&
+		Equals(Xml, null) &&
+		Equals(ProductDt, DateTime.MinValue) &&
+		(PluWeighing is null || PluWeighing.EqualsDefault()) &&
+		PluScale.EqualsDefault();
+
+	public override object Clone()
+	{
+		PluLabelModel item = new();
+		item.IsMarked = IsMarked;
+		item.PluWeighing = PluWeighing?.CloneCast();
+		item.PluScale = PluScale.CloneCast();
+		item.Zpl = Zpl;
 		item.Xml = Xml;
-        item.ProductDt = ProductDt;
-        item.ExpirationDt = ExpirationDt;
-        item.CloneSetup(base.CloneCast());
+		item.ProductDt = ProductDt;
+		item.ExpirationDt = ExpirationDt;
+		item.CloneSetup(base.CloneCast());
 		return item;
-    }
+	}
 
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(PluWeighing), PluWeighing);
-        info.AddValue(nameof(PluScale), PluScale);
-        info.AddValue(nameof(Zpl), Zpl);
+	public override void GetObjectData(SerializationInfo info, StreamingContext context)
+	{
+		base.GetObjectData(info, context);
+		info.AddValue(nameof(PluWeighing), PluWeighing);
+		info.AddValue(nameof(PluScale), PluScale);
+		info.AddValue(nameof(Zpl), Zpl);
 		info.AddValue(nameof(Xml), Xml);
-        info.AddValue(nameof(ProductDt), ProductDt);
-        info.AddValue(nameof(ExpirationDt), ExpirationDt);
-    }
+		info.AddValue(nameof(ProductDt), ProductDt);
+		info.AddValue(nameof(ExpirationDt), ExpirationDt);
+	}
 
 	public override void ClearNullProperties()
-    {
-	    if (PluWeighing is not null && PluWeighing.Identity.EqualsDefault())
-		    PluWeighing = null;
-	    //if (PluScale.Identity.EqualsDefault())
-     //       PluScale = new();
-    }
+	{
+		if (PluWeighing is not null && PluWeighing.Identity.EqualsDefault())
+			PluWeighing = null;
+		//if (PluScale.Identity.EqualsDefault())
+		//       PluScale = new();
+	}
 
 	public override void FillProperties()
-    {
-	    base.FillProperties();
+	{
+		base.FillProperties();
 		Zpl = LocaleCore.Sql.SqlItemFieldZpl;
-        ProductDt = DateTime.Now;
-        PluWeighing?.FillProperties();
-        PluScale.FillProperties();
+		ProductDt = DateTime.Now;
+		PluWeighing?.FillProperties();
+		PluScale.FillProperties();
 	}
 
 	#endregion
@@ -170,5 +175,5 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public new virtual PluLabelModel CloneCast() => (PluLabelModel)Clone();
 
-    #endregion
+	#endregion
 }

@@ -44,7 +44,7 @@
             <td>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@SqlItemCast.PrinterType>
-                    @foreach (PrinterTypeModel item in PrinterTypes)
+                    @foreach (PrinterTypeModel item in DataContext.PrinterTypes)
                     {
                         <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }
@@ -88,17 +88,17 @@
             <td>
                 <RadzenButton Click=@(args => SqlItemPrinterResourcesClear(SqlItemCast))
                           class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-                    Text=@LocaleCore.Print.ResourcesClear Disabled=@(!AppSettings.DataAccess.IsConnected()) />
+                    Text=@LocaleCore.Print.ResourcesClear Disabled=@(!BlazorAppSettings.DataAccess.IsConnected()) />
 			</td>
             <td>
                 <RadzenButton Click=@(args => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF"))
                           class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-                    Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!AppSettings.DataAccess.IsConnected()) />
+                    Text=@LocaleCore.Print.ResourcesLoadTtf Disabled=@(!BlazorAppSettings.DataAccess.IsConnected()) />
 			</td>
             <td>
                 <RadzenButton Click=@(args => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF"))
                           class="RadzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary Size=@ButtonSize.Small
-                          Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!AppSettings.DataAccess.IsConnected()) />
+                          Text=@LocaleCore.Print.ResourcesLoadGrf Disabled=@(!BlazorAppSettings.DataAccess.IsConnected()) />
 			</td>
         </tr>
     </tbody>

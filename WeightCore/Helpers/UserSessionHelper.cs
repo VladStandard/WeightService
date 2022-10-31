@@ -45,6 +45,7 @@ public class UserSessionHelper : BaseViewModel
 	private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
 	private SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	public DataContextModel DataContext { get; } = new();
 	public DebugHelper Debug { get; } = DebugHelper.Instance;
 	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
 
@@ -115,7 +116,7 @@ public class UserSessionHelper : BaseViewModel
 		get
 		{
 			if (_pluPackage is null)
-				return _pluPackage = DataAccess.GetNewPluPackage();
+				return _pluPackage = DataAccess.GetNewItem<PluPackageModel>();
 			return _pluPackage;
 		}
 		set
@@ -280,8 +281,8 @@ public class UserSessionHelper : BaseViewModel
 	public void Setup(long scaleId, string areaName)
 	{
 		SetScale(scaleId, areaName);
-		Scales = SqlUtils.DataAccess.GetListScales(false, false, false);
-		Areas = SqlUtils.DataAccess.GetListProductionFacilities(false, false, false);
+		Scales = DataContext.GetListNotNull<ScaleModel>();
+		Areas = DataContext.GetListNotNull<ProductionFacilityModel>();
 	}
 
 	private void SetScale(long scaleId, string areaName)

@@ -14,7 +14,6 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual ProductionFacilityModel ProductionFacility { get; set; }
-	[XmlElement] public virtual string Name { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -22,7 +21,6 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public WorkShopModel() : base(SqlFieldIdentityEnum.Id)
 	{
 		ProductionFacility = new();
-		Name = string.Empty;
 	}
 
 	/// <summary>
@@ -33,7 +31,6 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	private WorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		ProductionFacility = (ProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(ProductionFacilityModel));
-		Name = info.GetString(nameof(Name));
 	}
 
 	#endregion
@@ -59,14 +56,12 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Name, string.Empty) &&
 		ProductionFacility.EqualsDefault();
 
 	public override object Clone()
     {
         WorkShopModel item = new();
         item.ProductionFacility = ProductionFacility.CloneCast();
-        item.Name = Name;
 		item.CloneSetup(base.CloneCast());
 		return item;
     }
@@ -80,13 +75,11 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(ProductionFacility), ProductionFacility);
-		info.AddValue(nameof(Name), Name);
 	}
 
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		ProductionFacility.FillProperties();
 	}
 
@@ -96,7 +89,6 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual bool Equals(WorkShopModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		ProductionFacility.Equals(item.ProductionFacility);
 
 	public new virtual WorkShopModel CloneCast() => (WorkShopModel)Clone();

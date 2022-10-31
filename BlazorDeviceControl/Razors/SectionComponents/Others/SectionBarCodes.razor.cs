@@ -25,7 +25,7 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, S
 		{
 			() =>
 			{
-				SqlItemsCast = AppSettings.DataAccess.GetListBarCodes(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+				SqlItemsCast = DataContext.GetListNotNull<BarCodeModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(false, true, true, true, false, false, false);
 			}

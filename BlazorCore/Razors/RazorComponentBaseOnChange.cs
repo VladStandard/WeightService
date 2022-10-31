@@ -77,7 +77,7 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(item.PrinterType) && value is long printerTypeId)
         {
-            item.PrinterType = AppSettings.DataAccess.GetItemById<PrinterTypeModel>(printerTypeId) ?? new();
+            item.PrinterType = DataContext.GetItemNotNull<PrinterTypeModel>(printerTypeId);
         }
     }
 
@@ -85,11 +85,11 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(item.Printer) && value is long printerId)
         {
-            item.Printer = AppSettings.DataAccess.GetItemById<PrinterModel>(printerId) ?? new();
+            item.Printer = DataContext.GetItemNotNull<PrinterModel>(printerId);
         }
         if (filterName == nameof(item.TemplateResource) && value is long resourceId)
         {
-            item.TemplateResource = AppSettings.DataAccess.GetItemById<TemplateResourceModel>(resourceId) ?? new();
+            item.TemplateResource = DataContext.GetItemNotNull<TemplateResourceModel>(resourceId);
         }
     }
 
@@ -97,7 +97,7 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(ScaleModel.IdentityValueId) && value is long id)
         {
-            item = AppSettings.DataAccess.GetItemById<ScaleModel>(id) ?? new();
+            item = DataContext.GetItemNotNull<ScaleModel>(id);
         }
         if (filterName == nameof(ScaleModel.DeviceComPort) && value is string deviceComPort)
         {
@@ -109,19 +109,19 @@ public partial class RazorComponentBase
         //}
         if (filterName == nameof(ScaleModel.TemplateDefault) && value is long templateDefaultId)
         {
-            item.TemplateDefault = AppSettings.DataAccess.GetItemById<TemplateModel>(templateDefaultId);
+            item.TemplateDefault = DataContext.GetItem<TemplateModel>(templateDefaultId);
         }
         if (filterName == nameof(ScaleModel.TemplateSeries) && value is long templateSeriesId)
         {
-            item.TemplateSeries = AppSettings.DataAccess.GetItemById<TemplateModel>(templateSeriesId);
+            item.TemplateSeries = DataContext.GetItem<TemplateModel>(templateSeriesId);
         }
         if (filterName == nameof(ScaleModel.PrinterMain) && value is long printerId)
         {
-            item.PrinterMain = AppSettings.DataAccess.GetItemById<PrinterModel>(printerId);
+            item.PrinterMain = DataContext.GetItem<PrinterModel>(printerId);
         }
         if (filterName == nameof(ScaleModel.WorkShop) && value is long workShopId)
         {
-            item.WorkShop = AppSettings.DataAccess.GetItemById<WorkShopModel>(workShopId);
+            item.WorkShop = DataContext.GetItem<WorkShopModel>(workShopId);
         }
     }
 
@@ -137,7 +137,7 @@ public partial class RazorComponentBase
     {
         if (filterName == nameof(item.ProductionFacility) && value is int productionFacilityId)
         {
-            item.ProductionFacility = AppSettings.DataAccess.GetItemById<ProductionFacilityModel>(productionFacilityId) ?? new();
+            item.ProductionFacility = DataContext.GetItemNotNull<ProductionFacilityModel>(productionFacilityId);
         }
     }
 

@@ -25,7 +25,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
         {
             () =>
             {
-                SqlItemsCast = AppSettings.DataAccess.GetListScales(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+                SqlItemsCast = DataContext.GetListNotNull<ScaleModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

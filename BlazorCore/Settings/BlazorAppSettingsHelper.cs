@@ -3,20 +3,20 @@
 
 using DataCore;
 using DataCore.Localizations;
-using Microsoft.AspNetCore.Components;
+//using Microsoft.AspNetCore.Components;
 using System.Threading;
 using DataCore.Models;
 
-namespace BlazorCore.Razors;
+namespace BlazorCore.Settings;
 
-public class AppSettingsHelper : LayoutComponentBase
+public class BlazorAppSettingsHelper //: LayoutComponentBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static AppSettingsHelper _instance;
+    private static BlazorAppSettingsHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static AppSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static BlazorAppSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

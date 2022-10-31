@@ -27,11 +27,7 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
         {
             () =>
             {
-                SqlItemsCast = ParentRazor?.SqlItem is not null
-                    ? AppSettings.DataAccess.GetListPluPackages(ParentRazor?.SqlItem,
-                        RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false)
-                    : AppSettings.DataAccess.GetListPluPackages(
-                        RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+                SqlItemsCast = BlazorAppSettings.DataAccess.GetListPluPackages(ParentRazor?.SqlItem,                         RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
             }
         });
     }

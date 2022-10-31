@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using BlazorCore.Settings;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
@@ -25,7 +26,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
         {
             () =>
             {
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateResourceModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNull<TemplateResourceModel>(IdentityId);
                 //if (IdentityId is not null && TableAction == DbTableAction.New)
                 //    SqlItemCast.IdentityValueId = (long)IdentityId;
 
@@ -41,7 +42,7 @@ public partial class ItemTemplateResource : RazorComponentItemBase<TemplateResou
             Severity = NotificationSeverity.Error,
             Summary = $"{LocaleCore.Strings.MethodError} [{name}]!",
             Detail = args.Message,
-            Duration = AppSettingsHelper.Delay
+            Duration = BlazorAppSettingsHelper.Delay
         };
         NotificationService?.Notify(msg);
     }

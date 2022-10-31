@@ -1,10 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Razors;
 using BlazorCore.Services;
+using BlazorCore.Settings;
 using BlazorDownloadFile;
 using DataCore.Protocols;
+using DataCore.Sql.Core;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using MudBlazor.Services;
 using Radzen;
@@ -64,6 +65,6 @@ app.UseAuthorization();
 // Last step.
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-AppSettingsHelper.Instance.DataAccess.JsonControl.SetupForBlazorApp(app.Environment.ContentRootPath,
+DataAccessHelper.Instance.JsonControl.SetupForBlazorApp(app.Environment.ContentRootPath,
 	NetUtils.GetLocalHostName(false), nameof(BlazorMdmControl));
 app.Run();

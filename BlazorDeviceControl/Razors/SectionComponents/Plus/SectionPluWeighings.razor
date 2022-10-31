@@ -14,7 +14,7 @@
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    AllowPaging=true PageSize=@BlazorAppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PluWeighingModel ParentRazor=@(this) />
         <RadzenGridColumn TItem=@PluWeighingModel Width="12%" Title=@LocaleCore.Table.ChangeDt TextAlign=@TextAlign.Center >
@@ -32,7 +32,7 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluWeighingModel Width="13%" Title=@LocaleCore.Table.Host TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-				@if (AppSettings.DataAccess.GetItemDevice(itemCast.PluScale.Scale) is { } device)
+				@if (BlazorAppSettings.DataAccess.GetItemDevice(itemCast.PluScale.Scale) is { } device)
 		        {
 			        <RadzenLink
 				        Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{device.IdentityValueUid}")

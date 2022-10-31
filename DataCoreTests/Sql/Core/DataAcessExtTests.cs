@@ -20,7 +20,7 @@ internal class DataAcessExtTests
 		DataCore.AssertAction(() =>
 		{
 			// Arrange.
-			List<ScaleModel> scales = DataCore.DataAccess.GetListScales(true, false, false);
+			List<ScaleModel> scales = DataCore.DataContext.GetListNotNull<ScaleModel>(true);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
@@ -29,8 +29,7 @@ internal class DataAcessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					List<PluScaleModel> pluScales = DataCore.DataAccess.GetListPluScales(scale, 
-						false, true, true);
+					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNull<PluScaleModel>(scale, false, true, true);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
@@ -44,7 +43,7 @@ internal class DataAcessExtTests
 		DataCore.AssertAction(() =>
 		{
 			// Arrange.
-			List<PluModel> plus = DataCore.DataAccess.GetListPlus(true, false, false);
+			List<PluModel> plus = DataCore.DataContext.GetListNotNull<PluModel>(true);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);

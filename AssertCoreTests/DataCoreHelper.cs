@@ -20,6 +20,7 @@ public class DataCoreHelper
 	#region Public and private fields, properties, constructor
 
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	public DataContextModel DataContext { get; } = new();
 	public SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
 
 	#endregion
@@ -70,15 +71,14 @@ public class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlDbContentValidate<T>(int maxResults = 0) where T : SqlTableBase, new()
+	public void AssertSqlDbContentValidate<T>() where T : SqlTableBase, new()
 	{
 		AssertAction(() =>
 		{
 			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
 				// Arrange.
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(maxResults, isShowMarked, true);
-				List<T> items = DataAccess.GetList<T>(sqlCrudConfig);
+				List<T> items = DataContext.GetListNotNull<T>(isShowMarked, true);
 				// Act.
 				if (!items.Any())
 				{

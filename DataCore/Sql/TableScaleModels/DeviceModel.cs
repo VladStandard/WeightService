@@ -15,7 +15,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	[XmlElement] public virtual DateTime LoginDt { get; set; }
 	[XmlElement] public virtual DateTime LogoutDt { get; set; }
-	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string PrettyName { get; set; }
 	[XmlElement] public virtual string Ipv4 { get; set; }
 	[XmlElement] public virtual SqlFieldMacAddressModel MacAddress { get; set; }
@@ -33,7 +32,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		LoginDt = DateTime.MinValue;
 		LogoutDt = DateTime.MinValue;
-		Name = string.Empty;
 		PrettyName = string.Empty;
 		Ipv4 = string.Empty;
 		MacAddress = new();
@@ -48,7 +46,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		LoginDt = info.GetDateTime(nameof(LoginDt));
 		LogoutDt = info.GetDateTime(nameof(LogoutDt));
-		Name = info.GetString(nameof(Name));
 		PrettyName = info.GetString(nameof(PrettyName));
 		Ipv4 = info.GetString(nameof(Ipv4));
 		MacAddress = (SqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(SqlFieldMacAddressModel));
@@ -82,7 +79,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		base.EqualsDefault() &&
 		Equals(LoginDt, DateTime.MinValue) &&
 		Equals(LogoutDt, DateTime.MinValue) &&
-		Equals(Name, string.Empty) &&
 		Equals(PrettyName, string.Empty) &&
 		Equals(Ipv4, string.Empty) &&
 		MacAddress.EqualsDefault();
@@ -92,7 +88,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		DeviceModel item = new();
 		item.LoginDt = LoginDt;
 		item.LogoutDt = LogoutDt;
-		item.Name = Name;
 		item.PrettyName = PrettyName;
 		item.Ipv4 = Ipv4;
 		item.MacAddress = MacAddress.CloneCast();
@@ -110,7 +105,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(LoginDt), LoginDt);
 		info.AddValue(nameof(LogoutDt), LogoutDt);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(PrettyName), PrettyName);
 		info.AddValue(nameof(Ipv4), Ipv4);
 		info.AddValue(nameof(MacAddress), MacAddress);
@@ -121,7 +115,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		base.FillProperties();
 		LoginDt = DateTime.Now;
 		LogoutDt = DateTime.Now;
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
 		Ipv4 = LocaleCore.Sql.SqlItemFieldIp;
 		MacAddressValue = LocaleCore.Sql.SqlItemFieldMac;
@@ -135,7 +128,6 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		ReferenceEquals(this, item) || base.Equals(item) &&
 		Equals(LoginDt, item.LoginDt) &&
 		Equals(LogoutDt, item.LogoutDt) &&
-		Equals(Name, item.Name) &&
 		Equals(PrettyName, item.PrettyName) &&
 		Equals(Ipv4, item.Ipv4) &&
 		MacAddress.Equals(item.MacAddress);

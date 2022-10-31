@@ -26,7 +26,7 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListTemplateResources(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<TemplateResourceModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

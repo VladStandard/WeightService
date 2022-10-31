@@ -25,7 +25,7 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListContragents(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<ContragentModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

@@ -25,9 +25,9 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
 		{
             () =>
             {
-                object[] objects = AppSettings.DataAccess.GetObjects(
+                object[] objects = BlazorAppSettings.DataAccess.GetObjects(
                     SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
-                        RazorComponentConfig.IsShowOnlyTop ? AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
+                        RazorComponentConfig.IsShowOnlyTop ? BlazorAppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount : 0));
                 List<WeithingFactSummaryModel> items = new();
                 foreach (object obj in objects)
                 {

@@ -47,7 +47,7 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 	    $"{nameof(IsActive)}: {IsActive}. " +
-	    $"{nameof(Plu)}: {Plu.Name}. " +
+	    $"{nameof(Plu)}: {Plu}. " +
 	    $"{nameof(Scale)}: {Scale.Description}. ";
 
     public override bool Equals(object obj)

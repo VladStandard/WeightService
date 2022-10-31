@@ -34,8 +34,8 @@ public partial class MainLayout : RazorComponentBase
 		{
 			() =>
 			{
-				AppSettings.SetupMemory();
-				AppSettings.Memory.OpenAsync().ConfigureAwait(false);
+				BlazorAppSettings.SetupMemory();
+				BlazorAppSettings.Memory.OpenAsync().ConfigureAwait(false);
 				//
 			}
 		});

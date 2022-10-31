@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Diagnostics;
-using BlazorCore.Razors;
+using BlazorCore.Settings;
 
 namespace BlazorCore.Utils;
 
@@ -25,7 +25,7 @@ public static class BlazorCoreUtuls
 
     public static class GetCssName
     {
-        public static string Sidebar(AppSettingsHelper appSettings)
+        public static string Sidebar(BlazorAppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
                 return "SidebarRelease";
@@ -39,7 +39,7 @@ public static class BlazorCoreUtuls
         public static string MudSelectEdge => "MudSelectEdge";
         public static string MudSelectFlexible => "MudSelectFlexible";
         public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
-        public static string RadzenPanelMenu(AppSettingsHelper appSettings)
+        public static string RadzenPanelMenu(BlazorAppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
                 return "RadzenPanelMenuRelease";
@@ -47,14 +47,14 @@ public static class BlazorCoreUtuls
 	            ? "RadzenPanelMenuDebug" : "RadzenPanelMenuDefault";
         }
 
-        public static string RadzenPanelMenuItem(AppSettingsHelper appSettings)
+        public static string RadzenPanelMenuItem(BlazorAppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
                 return "RadzenPanelMenuItemRelease";
             return appSettings.IsSqlServerDebug 
 	            ? "RadzenPanelMenuItemDebug" : "RadzenPanelMenuItemDefault";
         }
-        public static string RadzenPanelMenuSubItem(AppSettingsHelper appSettings)
+        public static string RadzenPanelMenuSubItem(BlazorAppSettingsHelper appSettings)
         {
             if (appSettings.IsSqlServerRelease)
                 return "RadzenPanelMenuSubItemRelease";

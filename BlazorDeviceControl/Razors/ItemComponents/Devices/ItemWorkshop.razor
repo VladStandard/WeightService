@@ -31,7 +31,7 @@
             <td colspan=3>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 					@bind-Value=@SqlItemCast.ProductionFacility>
-                    @foreach (ProductionFacilityModel item in ProductionFacilities)
+                    @foreach (ProductionFacilityModel item in DataContext.ProductionFacilities)
                     {
                         <MudSelectItem Value=@item>@item.Name</MudSelectItem>
                     }

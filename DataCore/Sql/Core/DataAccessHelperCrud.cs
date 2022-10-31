@@ -7,11 +7,11 @@ using NHibernate;
 
 namespace DataCore.Sql.Core;
 
-public static class DataAccessHelperCrud
+public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	public static ICriteria GetCriteria<T>(this ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.MaxResults > 0)
@@ -21,7 +21,7 @@ public static class DataAccessHelperCrud
 		return criteria;
 	}
 
-	public static void ExecuteCore(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback, bool isTransaction)
+	public void ExecuteCore(ExecCallback callback, bool isTransaction)
 	{
 		ISession? session = null;
 		Exception? exception = null;
@@ -29,9 +29,9 @@ public static class DataAccessHelperCrud
 
 		try
 		{
-			if (dataAccess.SessionFactory is not null)
+			if (SessionFactory is not null)
 			{
-				session = dataAccess.SessionFactory.OpenSession();
+				session = SessionFactory.OpenSession();
 				if (isTransaction)
 				    transaction = session.BeginTransaction();
 				callback.Invoke(session);
@@ -60,27 +60,27 @@ public static class DataAccessHelperCrud
         }
 		if (exception is not null)
 		{
-			dataAccess.LogError(exception);
+			LogError(exception);
 		}
 	}
 
-    private static void ExecuteTransaction(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback) => 
-        ExecuteCore(dataAccess, callback, true);
+    private void ExecuteTransaction(DataAccessHelper.ExecCallback callback) => 
+        ExecuteCore(callback, true);
 
-    public static void ExecuteSelect(this DataAccessHelper dataAccess, DataAccessHelper.ExecCallback callback) => 
-        ExecuteCore(dataAccess, callback, false);
+    public void ExecuteSelect(DataAccessHelper.ExecCallback callback) => 
+        ExecuteCore(callback, false);
 
-    public static bool IsConnected(this DataAccessHelper dataAccess)
+    public bool IsConnected()
 	{
 		bool result = false;
-		ExecuteSelect(dataAccess, session =>
+		ExecuteSelect(session =>
 		{
 			result = session.IsConnected;
         });
 		return result;
 	}
 
-	public static ISQLQuery? GetSqlQuery(this DataAccessHelper dataAccess, ISession session, string query)
+	public ISQLQuery? GetSqlQuery(ISession session, string query)
 	{
 		if (string.IsNullOrEmpty(query))
 			return null;
@@ -88,12 +88,12 @@ public static class DataAccessHelperCrud
 		return session.CreateSQLQuery(query);
 	}
 
-	public static int ExecQueryNative(this DataAccessHelper dataAccess, string query, Dictionary<string, object>? parameters)
+	public int ExecQueryNative(string query, Dictionary<string, object>? parameters)
 	{
 		int result = 0;
-		ExecuteTransaction(dataAccess, session =>
+		ExecuteTransaction(session =>
 		{
-			ISQLQuery? sqlQuery = GetSqlQuery(dataAccess, session, query);
+			ISQLQuery? sqlQuery = GetSqlQuery(session, query);
 			if (sqlQuery is not null && parameters is not null)
 			{
 				foreach (KeyValuePair<string, object> parameter in parameters)
@@ -109,62 +109,62 @@ public static class DataAccessHelperCrud
 		return result;
 	}
 
-	public static void Save<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
+	public void Save<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
 		item.ChangeDt = DateTime.Now;
-		ExecuteTransaction(dataAccess, session => { session.Save(item); });
+		ExecuteTransaction(session => { session.Save(item); });
 	}
 
-	public static void Update<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
+	public void Update<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return;
         
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
+		ExecuteTransaction(session => { session.SaveOrUpdate(item); });
 	}
 
-	public static void Delete<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
+	public void Delete<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null)
 			return;
 
-		ExecuteTransaction(dataAccess, session => { session.Delete(item); });
+		ExecuteTransaction(session => { session.Delete(item); });
 	}
 
-	public static void Mark<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
+	public void Mark<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null)
 			return;
 
 		item.IsMarked = !item.IsMarked;
-		ExecuteTransaction(dataAccess, session => { session.SaveOrUpdate(item); });
+		ExecuteTransaction(session => { session.SaveOrUpdate(item); });
 	}
 
-	public static bool IsExistsItem<T>(this DataAccessHelper dataAccess, T? item) where T : SqlTableBase, new()
+	public bool IsExistsItem<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null)
 			return false;
 
 		bool result = false;
-        ExecuteSelect(dataAccess, session =>
+        ExecuteSelect(session =>
 		{
 			result = session.Query<T>().Any(x => x.IsAny(item));
 		});
 		return result;
 	}
 
-	public static bool IsExistsItem<T>(this DataAccessHelper dataAccess, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public bool IsExistsItem<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		bool result = false;
 		sqlCrudConfig.MaxResults = 1;
-        ExecuteSelect(dataAccess, session =>
+        ExecuteSelect(session =>
 		{
-			result = session.GetCriteria<T>(sqlCrudConfig).List<T>().Any();
+			result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
 		});
 		return result;
 	}

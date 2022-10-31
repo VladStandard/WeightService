@@ -9,14 +9,7 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<ScaleModel> Scales { get; set; }
-    private List<PluModel> Plus { get; set; }
-
-    public ItemPluScale()
-    {
-        Scales = new();
-        Plus = new();
-    }
+    //
 
     #endregion
 
@@ -28,11 +21,11 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
         {
             () =>
             {
-                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluScaleModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNull<PluScaleModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluScaleModel>();
-                Plus = AppSettings.DataAccess.GetListPlus(false, false, true);
-	            Scales = AppSettings.DataAccess.GetListScales(false, false, true);
+                DataContext.GetListNotNull<PluModel>(false, false, true);
+	            DataContext.GetListNotNull<ScaleModel>(false, false, true);
 
 	            ButtonSettings = new(false, false, false, false, false, true, true);
             }

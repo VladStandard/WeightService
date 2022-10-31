@@ -2,15 +2,18 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using NHibernate;
 
 namespace DataCore.Sql.Core;
 
+/// <summary>
+/// 
+/// </summary>
 public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	public T GetNewItem<T>() where T : SqlTableBase, new() =>
-		new() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
+	
 
 	#endregion
 }

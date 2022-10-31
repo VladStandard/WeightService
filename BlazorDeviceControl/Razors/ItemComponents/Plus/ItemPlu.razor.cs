@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using DataCore.Sql.Fields;
 using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
@@ -12,21 +11,13 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
     #region Public and private fields, properties, constructor
 
     private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
-    private List<NomenclatureModel> Nomenclatures { get; set; }
-    private List<TemplateModel> Templates { get; set; }
-    //private List<ScaleModel> Scales { get; set; }
-    //private List<PluModel> Plus { get; set; }
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
 
     public ItemPlu()
     {
         RazorComponentConfig.IsShowFilterAdditional = true;
         RazorComponentConfig.IsShowFilterMarked = true;
-        Templates = new();
-        Nomenclatures = new();
-        //Scales = new();
-        //Plus = new();
-	}
+    }
 
     #endregion
 
@@ -38,40 +29,12 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
         {
             () =>
             {
-                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNull<PluModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
-	                SqlItem = SqlItemNew<PluModel>();
+                    SqlItem = SqlItemNew<PluModel>();
 
-	            // Templates.
-	            Templates = new() { AppSettings.DataAccess.GetNewTemplate() };
-                SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, false, false);
-                TemplateModel[]? templates = AppSettings.DataAccess.GetItems<TemplateModel>(sqlCrudConfig);
-                if (templates is not null)
-                    Templates.AddRange(templates);
-
-	            // Nomenclatures.
-	            Nomenclatures = new() { AppSettings.DataAccess.GetNewNomenclature() };
-                sqlCrudConfig = SqlUtils.GetCrudConfig(
-                    new SqlFieldOrderModel(nameof(NomenclatureModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
-                NomenclatureModel[]? nomenclatures = AppSettings.DataAccess.GetItems<NomenclatureModel>(sqlCrudConfig);
-                if (nomenclatures is not null)
-                    Nomenclatures.AddRange(nomenclatures);
-
-	            // Scales.
-	            //Scales = new() { AppSettings.DataAccess.GetNewScale() };
-             //   sqlCrudConfig = SqlUtils.GetCrudConfig(
-             //       new SqlFieldOrderModel(nameof(ScaleModel.Description), SqlFieldOrderEnum.Asc), 0, false, false);
-             //   ScaleModel[]? scales = AppSettings.DataAccess.GetItems<ScaleModel>(sqlCrudConfig);
-             //   if (scales is not null)
-             //       Scales.AddRange(scales);
-
-	            // Plus.
-	            //Plus = new() { AppSettings.DataAccess.GetNewPlu() };
-             //   sqlCrudConfig = SqlUtils.GetCrudConfig(
-             //       new SqlFieldOrderModel(nameof(PluModel.Name), SqlFieldOrderEnum.Asc), 0, false, false);
-             //   PluModel[]? plus = AppSettings.DataAccess.GetItems<PluModel>(sqlCrudConfig);
-             //   if (plus is not null)
-             //       Plus.AddRange(plus);
+                DataContext.GetListNotNull<TemplateModel>(false, false, true);
+                DataContext.GetListNotNull<NomenclatureModel>(false, false, true);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault is not null)

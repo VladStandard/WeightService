@@ -13,7 +13,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 
 	public ItemTemplate()
 	{
-		TemplateCategories = AppSettings.DataSourceDics.GetTemplateCategories();
+		TemplateCategories = BlazorAppSettings.DataSourceDics.GetTemplateCategories();
 	}
 
 	#endregion
@@ -26,7 +26,7 @@ public partial class ItemTemplate : RazorComponentItemBase<TemplateModel>
 		{
 			() =>
 			{
-                SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<TemplateModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNull<TemplateModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<TemplateModel>();
 

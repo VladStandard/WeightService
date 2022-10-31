@@ -7,7 +7,7 @@ using DataCore.Files;
 
 namespace DataCore.Sql.Core;
 
-public class DataAccessHelper
+public partial class DataAccessHelper
 {
     #region Design pattern "Lazy Singleton"
 

@@ -13,7 +13,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual string Ip { get; set; }
 	[XmlElement] public virtual short Port { get; set; }
 	[XmlElement] public virtual string Password { get; set; }
@@ -34,7 +33,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
     public PrinterModel() : base(SqlFieldIdentityEnum.Id)
     {
-	    Name = string.Empty;
 	    Ip = string.Empty;
 	    Port = 0;
 	    Password = string.Empty;
@@ -53,7 +51,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	public PrinterModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
 		Ip = info.GetString(nameof(Ip));
 		Port = info.GetInt16(nameof(Port));
 		Password = info.GetString(nameof(Password));
@@ -69,7 +66,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
         $"{nameof(PrinterType)}: {PrinterType}. " +
         $"{nameof(MacAddress)}: {MacAddress}. " +
         $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
@@ -91,7 +87,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Name, string.Empty) &&
 		Equals(Ip, string.Empty) &&
 		Equals(Port, (short)0) &&
 		Equals(Password, string.Empty) &&
@@ -105,7 +100,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override object Clone()
     {
         PrinterModel item = new();
-        item.Name = Name;
         item.Ip = Ip;
         item.Port = Port;
         item.Password = Password;
@@ -122,7 +116,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
 	    base.GetObjectData(info, context);
-	    info.AddValue(nameof(Name), Name);
 	    info.AddValue(nameof(Ip), Ip);
 	    info.AddValue(nameof(Port), Port);
 	    info.AddValue(nameof(Password), Password);
@@ -146,7 +139,6 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual bool Equals(PrinterModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(Ip, item.Ip) &&
 		Equals(Port, item.Port) &&
 		Equals(Password, item.Password) &&

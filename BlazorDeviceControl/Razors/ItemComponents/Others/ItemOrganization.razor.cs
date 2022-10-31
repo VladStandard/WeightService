@@ -21,7 +21,7 @@ public partial class ItemOrganization : RazorComponentItemBase<OrganizationModel
 		{
 			() =>
 			{
-                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<OrganizationModel>(IdentityUid);
+                SqlItemCast = BlazorAppSettings.DataAccess.GetItemNotNull<OrganizationModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<OrganizationModel>();
 

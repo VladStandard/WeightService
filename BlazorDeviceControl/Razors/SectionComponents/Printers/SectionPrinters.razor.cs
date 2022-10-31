@@ -25,7 +25,7 @@ public partial class SectionPrinters : RazorComponentSectionBase<PrinterModel, S
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListPrinters(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = DataContext.GetListNotNull<PrinterModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

@@ -19,7 +19,7 @@
 			<td>
 				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@SqlItemCast.Printer>
-					@foreach (PrinterModel item in Printers)
+					@foreach (PrinterModel item in DataContext.Printers)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}
@@ -29,7 +29,7 @@
 			<td>
 				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@SqlItemCast.TemplateResource>
-					@foreach (TemplateResourceModel item in Resources)
+					@foreach (TemplateResourceModel item in DataContext.TemplateResources)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
 					}

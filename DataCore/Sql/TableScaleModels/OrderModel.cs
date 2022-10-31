@@ -13,7 +13,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
 	#region Public and private fields, properties, constructor
 
-	[XmlElement] public virtual string Name { get; set; }
 	[XmlElement] public virtual DateTime BeginDt { get; set; }
 	[XmlElement] public virtual DateTime EndDt { get; set; }
 	[XmlElement] public virtual DateTime ProdDt { get; set; }
@@ -25,7 +24,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
     public OrderModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-		Name = string.Empty;
 		BeginDt = DateTime.MinValue;
 		ProdDt = DateTime.MinValue;
 		EndDt = DateTime.MinValue;
@@ -40,7 +38,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// <param name="context"></param>
 	private OrderModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
-		Name = info.GetString(nameof(Name));
 		BeginDt = info.GetDateTime(nameof(BeginDt));
 		EndDt = info.GetDateTime(nameof(EndDt));
 		ProdDt = info.GetDateTime(nameof(ProdDt));
@@ -54,7 +51,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
-		$"{nameof(Name)}: {Name}. " + 
 		$"{nameof(BeginDt)}: {BeginDt}. " +
 		$"{nameof(EndDt)}: {EndDt}. " + 
 		$"{nameof(ProdDt)}: {ProdDt}. " +
@@ -75,7 +71,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-	    Equals(Name, string.Empty) &&
 	    Equals(BeginDt, DateTime.MinValue) &&
 	    Equals(EndDt, DateTime.MinValue) &&
 	    Equals(ProdDt, DateTime.MinValue) &&
@@ -85,7 +80,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override object Clone()
     {
         OrderModel item = new();
-        item.Name = Name;
         item.BeginDt = BeginDt;
         item.EndDt = EndDt;
         item.ProdDt = ProdDt;
@@ -103,7 +97,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void GetObjectData(SerializationInfo info, StreamingContext context)
 	{
 		base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(BeginDt), BeginDt);
 		info.AddValue(nameof(EndDt), EndDt);
 		info.AddValue(nameof(ProdDt), ProdDt);
@@ -114,7 +107,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public override void FillProperties()
 	{
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		BoxCount = 1;
 		PalletCount = 1;
 	}
@@ -125,7 +117,6 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual bool Equals(OrderModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
-		Equals(Name, item.Name) &&
 		Equals(BeginDt, item.BeginDt) &&
 		Equals(EndDt, item.EndDt) &&
 		Equals(ProdDt, item.ProdDt) &&

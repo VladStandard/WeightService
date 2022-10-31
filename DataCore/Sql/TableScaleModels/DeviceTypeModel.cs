@@ -13,7 +13,6 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual string PrettyName { get; set; }
 
 	/// <summary>
@@ -21,7 +20,6 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	/// </summary>
 	public DeviceTypeModel() : base(SqlFieldIdentityEnum.Uid)
 	{
-        Name = string.Empty;
         PrettyName = string.Empty;
 	}
 
@@ -32,7 +30,6 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	/// <param name="context"></param>
 	private DeviceTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Name = info.GetString(nameof(Name));
         PrettyName = info.GetString(nameof(PrettyName));
     }
 
@@ -62,13 +59,11 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
-		Equals(Name, string.Empty) &&
 		Equals(PrettyName, string.Empty);
     
     public override object Clone()
     {
         DeviceTypeModel item = new();
-        item.Name = Name;
         item.PrettyName = PrettyName;
 		item.CloneSetup(base.CloneCast());
 		return item;
@@ -82,14 +77,12 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-		info.AddValue(nameof(Name), Name);
 		info.AddValue(nameof(PrettyName), PrettyName);
 	}
 
     public override void FillProperties()
     {
 		base.FillProperties();
-		Name = LocaleCore.Sql.SqlItemFieldName;
 		PrettyName = LocaleCore.Sql.SqlItemFieldPrettyName;
     }
 
@@ -99,7 +92,6 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 
     public virtual bool Equals(DeviceTypeModel item) =>
 	    ReferenceEquals(this, item) || base.Equals(item) &&
-	    Equals(Name, item.Name) &&
 	    Equals(PrettyName, item.PrettyName);
 
     public new virtual DeviceTypeModel CloneCast() => (DeviceTypeModel)Clone();

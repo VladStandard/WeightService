@@ -25,7 +25,7 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
 		{
             () =>
             {
-                SqlItemsCast = AppSettings.DataAccess.GetListPluLabels(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+                SqlItemsCast = DataContext.GetListNotNull<PluLabelModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(false, true, false, true, false, false, false);
             }

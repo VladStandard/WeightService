@@ -27,8 +27,8 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 		{
 			() =>
 			{
-				SqlItemsCast = AppSettings.DataAccess.GetListPluScales(ParentRazor?.SqlItem,
-					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, true);
+				SqlItemsCast = BlazorAppSettings.DataAccess.GetListPluScales(ParentRazor?.SqlItem,
+					RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
 			}
 		});
 	}

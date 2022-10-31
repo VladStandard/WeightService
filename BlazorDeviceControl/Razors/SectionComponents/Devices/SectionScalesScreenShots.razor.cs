@@ -27,7 +27,7 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
         {
             () =>
             {
-                SqlItemsCast = AppSettings.DataAccess.GetListScalesScreenShots(ParentRazor?.SqlItem,
+                SqlItemsCast = DataContext.GetListNotNull<ScaleScreenShotModel>(ParentRazor?.SqlItem,
                     RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, true);
             }
         });

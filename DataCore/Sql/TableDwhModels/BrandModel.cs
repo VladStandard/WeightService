@@ -11,7 +11,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    public virtual string Name { get; set; }
     public virtual string Code { get; set; }
     public virtual int StatusId { get; set; }
     public virtual InformationSystemModel InformationSystem { get; set; }
@@ -22,7 +21,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	/// </summary>
 	public BrandModel() : base(SqlFieldIdentityEnum.Id)
 	{
-		Name = string.Empty;
 		Code = string.Empty;
 		StatusId = 0;
 		InformationSystem = new();
@@ -53,7 +51,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
 	    Equals(Code, string.Empty) &&
-	    Equals(Name, string.Empty) &&
 	    Equals(StatusId, 0) &&
 	    Equals(CodeInIs, new byte[0]) &&
 	    InformationSystem.EqualsDefault();
@@ -62,7 +59,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
         BrandModel item = new();
         item.Code = Code;
-        item.Name = Name;
         item.StatusId = StatusId;
         item.InformationSystem = InformationSystem.CloneCast();
         item.CodeInIs = DataUtils.ByteClone(CodeInIs);
@@ -77,7 +73,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual bool Equals(BrandModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
 		Equals(Code, item.Code) &&
-		Equals(Name, item.Name) &&
 		Equals(StatusId, item.StatusId) &&
 		Equals(CodeInIs, item.CodeInIs) &&
 		InformationSystem.Equals(item.InformationSystem);

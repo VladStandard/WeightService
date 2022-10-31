@@ -9,14 +9,7 @@ public partial class ItemPluPackage : RazorComponentItemBase<PluPackageModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<PluModel> Plus { get; set; }
-    private List<PackageModel> Packages { get; set; }
-
-    public ItemPluPackage()
-    {
-        Plus = new();
-        Packages = new();
-    }
+    //
 
     #endregion
 
@@ -28,17 +21,17 @@ public partial class ItemPluPackage : RazorComponentItemBase<PluPackageModel>
         {
             () =>
             {
-                SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<PluPackageModel>(IdentityUid);
-                Plus = AppSettings.DataAccess.GetListPlus(false, false, false);
-				Packages = AppSettings.DataAccess.GetListPackages(false, false, false);
+                SqlItemCast = DataContext.GetItemNotNull<PluPackageModel>(IdentityUid);
+                DataContext.GetListNotNull<PluModel>();
+				DataContext.GetListNotNull<PackageModel>();
                 
 				if (SqlItemCast.IdentityIsNew)
                 {
 	                SqlItem = SqlItemNew<PluPackageModel>();
-                    if (Plus.Any())
-						SqlItemCast.Plu = Plus.First();
-                    if (Packages.Any())
-						SqlItemCast.Package = Packages.First();
+                    if (DataContext.Plus.Any())
+						SqlItemCast.Plu = DataContext.Plus.First();
+                    if (DataContext.Packages.Any())
+						SqlItemCast.Package = DataContext.Packages.First();
                 }
 
 	            ButtonSettings = new(false, false, false, false, false, true, true);

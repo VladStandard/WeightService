@@ -28,8 +28,8 @@ public partial class SystemAppInfo : RazorComponentBase
 		{
 			() =>
 			{
-				TemplateIsDebug = AppSettings.DataSourceDics.GetTemplateIsDebug();
-				object[] objects = AppSettings.DataAccess.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
+				TemplateIsDebug = BlazorAppSettings.DataSourceDics.GetTemplateIsDebug();
+				object[] objects = BlazorAppSettings.DataAccess.GetObjects(SqlQueries.DbSystem.Properties.GetDbSpace);
 				DbCurSize = 0;
 				foreach (object obj in objects)
 				{

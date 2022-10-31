@@ -25,7 +25,7 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
 		{
 			() =>
 			{
-				SqlItemsCast = AppSettings.DataAccess.GetListPluWeighings(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowFilterOnlyTop);
+				SqlItemsCast = BlazorAppSettings.DataAccess.GetListPluWeighings(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowFilterOnlyTop);
 
 				ButtonSettings = new(false, true, false, true, false, false, false);
 			}

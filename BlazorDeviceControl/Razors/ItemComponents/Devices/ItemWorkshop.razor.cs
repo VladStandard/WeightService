@@ -9,12 +9,7 @@ public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 {
 	#region Public and private fields, properties, constructor
 
-	private List<ProductionFacilityModel> ProductionFacilities { get; set; }
-
-	public ItemWorkshop()
-	{
-		ProductionFacilities = new();
-	}
+	//
 
 	#endregion
 
@@ -26,10 +21,10 @@ public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 		{
 			() =>
 			{
-				SqlItemCast = AppSettings.DataAccess.GetItemByIdNotNull<WorkShopModel>(IdentityId);
+				SqlItemCast = DataContext.GetItemNotNull<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				ProductionFacilities = AppSettings.DataAccess.GetListProductionFacilities(false, false, false);
+				DataContext.GetListNotNull<ProductionFacilityModel>();
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

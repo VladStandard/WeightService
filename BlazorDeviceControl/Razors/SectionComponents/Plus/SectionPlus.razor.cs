@@ -25,7 +25,7 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 		{
 			() =>
 			{
-				SqlItemsCast = AppSettings.DataAccess.GetListPlus(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+				SqlItemsCast = DataContext.GetListNotNull<PluModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
 				ButtonSettings = new(false, false, true, true, false, false, false);
 			}

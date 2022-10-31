@@ -13,7 +13,7 @@
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-    AllowPaging=true PageSize=@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    AllowPaging=true PageSize=@BlazorAppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@PluScaleModel ParentRazor=@(this) />
 @*		<RadzenGridColumn TItem=@PluScaleModel Width="25%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.PluScale>
@@ -61,8 +61,7 @@
 		    <Template Context="itemCast">
 			    <RadzenLabel 
 				    Style="white-space: pre-wrap;" 
-			        Text=@(AppSettings.DataAccess.GetListPluPackages(
-						itemCast.Plu, false, false, false).Count.ToString()) />
+			        Text=@(DataContext.GetListNotNull<PluPackageModel>(itemCast.Plu).Count.ToString()) />
 		    </Template>
 	    </RadzenGridColumn>
     </Columns>

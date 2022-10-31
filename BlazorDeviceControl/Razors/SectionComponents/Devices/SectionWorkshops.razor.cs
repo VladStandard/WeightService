@@ -25,7 +25,7 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListWorkShops(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = DataContext.GetListNotNull<WorkShopModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

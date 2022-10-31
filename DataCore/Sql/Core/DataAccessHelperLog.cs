@@ -5,7 +5,7 @@ using DataCore.Models;
 
 namespace DataCore.Sql.Core;
 
-public static class DataAccessHelperLog
+public partial class DataAccessHelper
 {
 	#region Public and private fields, properties, constructor
 
@@ -17,19 +17,19 @@ public static class DataAccessHelperLog
 
 	#region Public and private methods
 
-	public static void SetupLog(this DataAccessHelper dataAccess, string deviceName, string appName)
+	public void SetupLog(string deviceName, string appName)
 	{
-		DeviceModel? device = dataAccess.GetItemDevice(deviceName);
+		DeviceModel? device = GetItemDevice(deviceName);
 
 		if (device?.IdentityIsNotNew == true)
 			Device = device;
 
-		AppModel? app = dataAccess.GetOrCreateNewApp(appName);
+		AppModel? app = GetOrCreateNewApp(appName);
 		if (app is not null && !app.EqualsDefault())
 			App = app;
 	}
 
-	public static void LogToFile(this DataAccessHelper dataAccess, string localFileLog, string message,
+	public void LogToFile(string localFileLog, string message,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		StreamWriter streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
@@ -39,47 +39,47 @@ public static class DataAccessHelperLog
 		streamWriter.Dispose();
 	}
 
-	public static void LogError(this DataAccessHelper dataAccess, Exception ex, string? hostName = null, 
+	public void LogError(Exception ex, string? hostName = null, 
 		string? appName = null, [CallerFilePath] string filePath = "", 
 		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(dataAccess, ex.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(ex.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 		if (ex.InnerException is not null)
-			LogCore(dataAccess, ex.InnerException.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
+			LogCore(ex.InnerException.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 	}
 
-	public static void LogError(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
+	public void LogError(string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(dataAccess, message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
 	}
 
-	public static void LogStop(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
+	public void LogStop(string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(dataAccess, message, LogTypeEnum.Stop, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Stop, hostName, appName, filePath, lineNumber, memberName);
 
-	public static void LogInformation(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
+	public void LogInformation(string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(dataAccess, message, LogTypeEnum.Information, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Information, hostName, appName, filePath, lineNumber, memberName);
 
-	public static void LogWarning(this DataAccessHelper dataAccess, string message, string? hostName = null, string? appName = null,
+	public void LogWarning(string message, string? hostName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(dataAccess, message, LogTypeEnum.Warning, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Warning, hostName, appName, filePath, lineNumber, memberName);
 
-	private static void LogCore(this DataAccessHelper dataAccess, string message, LogTypeEnum logType, string deviceName, string appName, string filePath, int lineNumber, string memberName)
+	private void LogCore(string message, LogTypeEnum logType, string deviceName, string appName, string filePath, int lineNumber, string memberName)
 	{
 		StringUtils.SetStringValueTrim(ref filePath, 32, true);
 		StringUtils.SetStringValueTrim(ref memberName, 32);
 		StringUtils.SetStringValueTrim(ref message, 1024);
-        LogTypeModel? logTypeItem = dataAccess.GetItemLogType(logType);
+        LogTypeModel? logTypeItem = GetItemLogType(logType);
 
         DeviceModel device = Device;
 		AppModel? app = App;
 
 		if (!string.IsNullOrEmpty(deviceName))
-			device = dataAccess.GetItemDeviceNotNull(deviceName);
+			device = GetItemDeviceNotNull(deviceName);
 		if (!string.IsNullOrEmpty(appName))
-			app = dataAccess.GetOrCreateNewApp(appName);
+			app = GetOrCreateNewApp(appName);
 
 		LogModel log = new()
 		{
@@ -95,20 +95,20 @@ public static class DataAccessHelperLog
 			Member = memberName,
 			Message = message,
 		};
-		dataAccess.Save(log);
+		Save(log);
 	}
 
-	public static void LogQuestion(this DataAccessHelper dataAccess, string message, string? hostName, string? appName,
+	public void LogQuestion(string message, string? hostName, string? appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(dataAccess, message, LogTypeEnum.Question, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Question, hostName, appName, filePath, lineNumber, memberName);
 	}
 
-	public static Guid SaveApp(this DataAccessHelper dataAccess, string name)
+	public Guid SaveApp(string name)
 	{
 		StringUtils.SetStringValueTrim(ref name, 32);
 		AppModel app = new() { Name = name };
-		dataAccess.Save(app);
+		Save(app);
 		return app.IdentityValueUid;
 	}
 

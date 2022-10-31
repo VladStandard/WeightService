@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Settings;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
@@ -123,7 +124,7 @@ public partial class RazorComponentBase
 						Severity = NotificationSeverity.Warning,
 						Summary = LocaleCore.Action.ActionDataControl,
 						Detail = $"{LocaleCore.Action.ActionDataControlField}!" + Environment.NewLine + detailAddition,
-						Duration = AppSettingsHelper.Delay
+						Duration = BlazorAppSettingsHelper.Delay
 					};
 					notificationService?.Notify(msg);
 					return false;
@@ -156,12 +157,12 @@ public partial class RazorComponentBase
 		if (item is null) return;
 		if (item.IdentityIsNew)
 		{
-			AppSettings.DataAccess.Save(item);
+			BlazorAppSettings.DataAccess.Save(item);
 		}
 		else
 		{
 			if (!SqlItemValidate(NotificationService, item)) return;
-			AppSettings.DataAccess.Update(item);
+			BlazorAppSettings.DataAccess.Update(item);
 		}
 	}
 
@@ -289,7 +290,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableMark, GetQuestionAdd(), () =>
 		{
-			AppSettings.DataAccess.Mark(SqlItem);
+			BlazorAppSettings.DataAccess.Mark(SqlItem);
 			OnChangeAsync();
 		});
 	}
@@ -307,7 +308,7 @@ public partial class RazorComponentBase
 		
 		RunActionsWithQeustion(LocaleCore.Table.TableDelete, GetQuestionAdd(), () =>
 		{
-			AppSettings.DataAccess.Delete(SqlItem);
+			BlazorAppSettings.DataAccess.Delete(SqlItem);
 			OnChangeAsync();
 		});
 	}
@@ -319,10 +320,7 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-                new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
-                0, false, false);
-			List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = DataContext.GetListNotNull<TemplateResourceModel>();
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))
@@ -350,7 +348,7 @@ public partial class RazorComponentBase
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
                 new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
                 0, false, false);
-			List<TemplateResourceModel> templateResources = AppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = BlazorAppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))

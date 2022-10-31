@@ -25,7 +25,7 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
         {
             () =>
             {
-	            SqlItemsCast = AppSettings.DataAccess.GetListNomenclatures(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop, false);
+	            SqlItemsCast = DataContext.GetListNotNull<NomenclatureModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

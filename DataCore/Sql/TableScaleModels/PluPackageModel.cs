@@ -15,7 +15,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual bool IsActive { get; set; }
-    [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual PackageModel Package { get; set; }
     [XmlElement] public virtual PluModel Plu { get; set; }
 
@@ -25,7 +24,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     public PluPackageModel() : base(SqlFieldIdentityEnum.Uid)
 	{
         IsActive = false;
-		Name = string.Empty;
 	    Package = new();
 	    Plu = new();
 	}
@@ -38,7 +36,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     protected PluPackageModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
 	    IsActive = info.GetBoolean(nameof(IsActive));
-        Name = info.GetString(nameof(Name));
         Package = (PackageModel)info.GetValue(nameof(Package), typeof(PackageModel));
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
     }
@@ -69,7 +66,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     public override bool EqualsDefault() =>
 	    base.EqualsDefault() &&
 	    Equals(IsActive, false) &&
-	    Equals(Name, string.Empty) &&
 	    Package.EqualsDefault() &&
 	    Plu.EqualsDefault();
 
@@ -77,7 +73,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     {
         PluPackageModel item = new();
         item.IsActive = IsActive;
-		item.Name = Name;
         item.Package = Package.CloneCast();
         item.Plu = Plu.CloneCast();
         item.CloneSetup(base.CloneCast());
@@ -88,7 +83,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(IsActive), IsActive);
-        info.AddValue(nameof(Name), Name);
         info.AddValue(nameof(Package), Package);
         info.AddValue(nameof(Plu), Plu);
     }
@@ -97,7 +91,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     {
 	    base.FillProperties();
         IsActive = false;
-		Name = LocaleCore.Sql.SqlItemFieldNesting;
 		Package.FillProperties();
 		Plu.FillProperties();
     }
@@ -109,7 +102,6 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	public virtual bool Equals(PluPackageModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) &&
 		Equals(IsActive, item.IsActive) &&
-		Equals(Name, item.Name) &&
 		Package.Equals(item.Package) &&
 		Plu.Equals(item.Plu);
 

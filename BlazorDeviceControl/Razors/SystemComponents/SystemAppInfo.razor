@@ -65,13 +65,13 @@
         <tr>
             <td>@LocaleCore.Sql.SqlServer</td>
             <td colspan=2>
-                @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource))
+                @if (string.IsNullOrEmpty(BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource))
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
-                    <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource</MudElement>
+                    <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.DataSource</MudElement>
                 }
             </td>
         </tr>
@@ -80,19 +80,19 @@
                 @LocaleCore.Sql.SqlDb
             </td>
             <td colspan=2>
-                @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
+                @if (string.IsNullOrEmpty(BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
-                    <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog</MudElement>
+                    <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.InitialCatalog</MudElement>
                 }
             </td>
         </tr>
         <tr>
             <td>
-                @if (AppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo)
+                @if (BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo)
                 {
                     @LocaleCore.System.SystemWindowsUser
                 }
@@ -102,13 +102,13 @@
                 }
             </td>
             <td colspan=2>
-                @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId))
+                @if (string.IsNullOrEmpty(BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.UserId))
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
-                    <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Sql.UserId</MudElement>
+                    <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.Sql.UserId</MudElement>
                 }
             </td>
         </tr>
@@ -125,7 +125,7 @@
                 }
             </td>
             <td>
-                <MudElement Class="ma-0">@AppSettings.MemoryInfo</MudElement>
+                <MudElement Class="ma-0">@BlazorAppSettings.MemoryInfo</MudElement>
             </td>
         </tr>
         <tr>
@@ -141,7 +141,7 @@
                 }
             </td>
             <td>
-                <RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@AppSettings.MemoryFillSize ShowValue="true" />   
+                <RadzenProgressBar class=@GetCssName.RadzenProgressBar Value=@BlazorAppSettings.MemoryFillSize ShowValue="true" />   
             </td>
         </tr>
         <tr style="height: 200px; ">
@@ -169,7 +169,7 @@
                 }
             </td>
             <td>
-                @if (AppSettings.Memory.MemorySize.PhysicalTotal is null)
+                @if (BlazorAppSettings.Memory.MemorySize.PhysicalTotal is null)
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
@@ -177,10 +177,10 @@
                 {
                     <RadzenRadialGauge Style="width: 250px; height: 250px; ">
                         <RadzenRadialGaugeScale StartAngle="-150" EndAngle="150" Step=1024 Min=0
-                            Max=@AppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes
+                            Max=@BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes
                             TickPosition=@GaugeTickPosition.Inside >
                             <RadzenRadialGaugeScalePointer Length=0.7 ShowValue=true
-                                Value=@AppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes>
+                                Value=@BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes>
                                 <Template Context="pointer">
                                     <h4>@pointer.Value<sup>MB</sup></h4>
                                 </Template>
@@ -195,28 +195,28 @@
         <tr>
             <td>@LocaleCore.Settings.SectionAndItemRowsCount</td>
             <td>
-                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement>
+                <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement>
             </td>
             <td>
-                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement>
+                <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement>
             </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SelectTopRowsCount</td>
             <td colspan=2>
-                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement>
+                <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement>
             </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.Version</td>
             <td colspan=2>
-                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.Version</MudElement>
+                <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.Version</MudElement>
             </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.AllowedHosts</td>
             <td colspan=2>
-                <MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement>
+                <MudElement Class="ma-0">@BlazorAppSettings.DataAccess.JsonSettingsLocal.AllowedHosts</MudElement>
             </td>
         </tr>
     </tbody>

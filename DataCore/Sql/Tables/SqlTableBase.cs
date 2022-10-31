@@ -20,6 +20,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual DateTime CreateDt { get; set; }
     [XmlElement] public virtual DateTime ChangeDt { get; set; }
     [XmlElement] public virtual bool IsMarked { get; set; }
+    [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual string Description { get; set; }
 
 	/// <summary>
@@ -30,7 +31,8 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	    Identity = new(SqlFieldIdentityEnum.Empty);
 	    ChangeDt = CreateDt = DateTime.MinValue;
 	    IsMarked = false;
-	    Description = string.Empty;
+	    Name = string.Empty;
+		Description = string.Empty;
     }
 
 	/// <summary>
@@ -58,6 +60,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
         CreateDt = info.GetDateTime(nameof(CreateDt));
         ChangeDt = info.GetDateTime(nameof(ChangeDt));
         IsMarked = info.GetBoolean(nameof(IsMarked));
+		Name = info.GetString(nameof(Name));
         Description = info.GetString(nameof(Description));
     }
 
@@ -70,8 +73,9 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
         string strCreateDt = CreateDt != DateTime.MinValue ? $"{nameof(CreateDt)}: {CreateDt:yyyy-MM-dd}. " : string.Empty;
         string strChangeDt = ChangeDt != DateTime.MinValue ? $"{nameof(ChangeDt)}: {ChangeDt:yyyy-MM-dd}. " : string.Empty;
         string strIsMarked = $"{nameof(IsMarked)}: {IsMarked}. ";
+        string strName = string.IsNullOrEmpty(Name) ? string.Empty : $"{nameof(Name)}: {Name}. ";
         string strDescription = string.IsNullOrEmpty(Description) ? string.Empty : $"{nameof(Description)}: {Description}. ";
-		return strCreateDt + strChangeDt + strIsMarked + strDescription;
+		return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
     }
 
     public virtual bool Equals(SqlTableBase item) =>
@@ -79,6 +83,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	    Equals(CreateDt, item.CreateDt) &&
 	    Equals(ChangeDt, item.ChangeDt) &&
 	    Equals(IsMarked, item.IsMarked) &&
+	    Equals(Name, item.Name) &&
 	    Equals(Description, item.Description);
 
     public override bool Equals(object obj)
@@ -103,6 +108,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(ChangeDt), ChangeDt);
         info.AddValue(nameof(CreateDt), CreateDt);
         info.AddValue(nameof(IsMarked), IsMarked);
+        info.AddValue(nameof(Name), Name);
         info.AddValue(nameof(Description), Description);
     }
 
@@ -117,6 +123,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		Equals(CreateDt, DateTime.MinValue) &&
 		Equals(ChangeDt, DateTime.MinValue) &&
 		Equals(IsMarked, false) &&
+		Equals(Name, string.Empty) &&
 		Equals(Description, string.Empty);
 
 	public virtual object Clone() => new SqlTableBase(Identity)
@@ -124,6 +131,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		CreateDt = CreateDt,
 		ChangeDt = ChangeDt,
 		IsMarked = IsMarked,
+		Name = Name,
 		Description = Description,
 	};
 
@@ -134,6 +142,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		CreateDt = item.CreateDt;
 		ChangeDt = item.ChangeDt;
 		IsMarked = item.IsMarked;
+		Name = item.Name;
 		Description = item.Description;
 	}
 
@@ -150,6 +159,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual void FillProperties()
 	{
 		SetDtNow();
+		Name = LocaleCore.Sql.SqlItemFieldName;
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
 	}
 

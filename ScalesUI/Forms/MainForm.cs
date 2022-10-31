@@ -623,8 +623,7 @@ public partial class MainForm : Form
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-			    List<PluScaleModel> pluScales = UserSession.DataAccess.GetListPluScales(UserSession.Scale,
-				    false, false, false);
+			    List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNull<PluScaleModel>(UserSession.Scale);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);

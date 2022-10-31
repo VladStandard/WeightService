@@ -19,7 +19,7 @@ public partial class ItemAccess : RazorComponentItemBase<AccessModel>
 
 	public ItemAccess()
 	{
-		TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
+		TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights();
 	}
 
 	#endregion
@@ -32,10 +32,10 @@ public partial class ItemAccess : RazorComponentItemBase<AccessModel>
 		{
 			() =>
 			{
-				SqlItemCast = AppSettings.DataAccess.GetItemByUidNotNull<AccessModel>(IdentityUid);
+				SqlItemCast = DataContext.GetItemNotNull<AccessModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<AccessModel>();
-				TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
+				TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}
