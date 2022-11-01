@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using FluentNHibernate.Conventions;
 using NHibernate;
 
 namespace DataCore.Sql.Core;
@@ -11,7 +10,7 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	public ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.MaxResults > 0)
@@ -21,7 +20,7 @@ public partial class DataAccessHelper
 		return criteria;
 	}
 
-	public void ExecuteCore(ExecCallback callback, bool isTransaction)
+	private void ExecuteCore(ExecCallback callback, bool isTransaction)
 	{
 		ISession? session = null;
 		Exception? exception = null;
@@ -67,7 +66,7 @@ public partial class DataAccessHelper
     private void ExecuteTransaction(DataAccessHelper.ExecCallback callback) => 
         ExecuteCore(callback, true);
 
-    public void ExecuteSelect(DataAccessHelper.ExecCallback callback) => 
+    private void ExecuteSelect(DataAccessHelper.ExecCallback callback) => 
         ExecuteCore(callback, false);
 
     public bool IsConnected()
@@ -80,7 +79,7 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public ISQLQuery? GetSqlQuery(ISession session, string query)
+    private ISQLQuery? GetSqlQuery(ISession session, string query)
 	{
 		if (string.IsNullOrEmpty(query))
 			return null;
@@ -143,30 +142,6 @@ public partial class DataAccessHelper
 
 		item.IsMarked = !item.IsMarked;
 		ExecuteTransaction(session => { session.SaveOrUpdate(item); });
-	}
-
-	public bool IsExistsItem<T>(T? item) where T : SqlTableBase, new()
-	{
-		if (item is null)
-			return false;
-
-		bool result = false;
-        ExecuteSelect(session =>
-		{
-			result = session.Query<T>().Any(x => x.IsAny(item));
-		});
-		return result;
-	}
-
-	public bool IsExistsItem<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-	{
-		bool result = false;
-		sqlCrudConfig.MaxResults = 1;
-        ExecuteSelect(session =>
-		{
-			result = GetCriteria<T>(session, sqlCrudConfig).List<T>().Any();
-		});
-		return result;
 	}
 
 	#endregion

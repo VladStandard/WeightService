@@ -189,7 +189,7 @@ public class NomenclatureModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     #region Public and private methods - virtual
 
     public virtual bool Equals(NomenclatureModel item) =>
-	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 	    Equals(Code, item.Code) &&
 	    Equals(Parents, item.Parents) &&
 	    Equals(Article, item.Article) &&

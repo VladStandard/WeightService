@@ -161,7 +161,7 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(BarCodeModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(TypeTop, item.TypeTop) &&
 		Equals(ValueTop, item.ValueTop) &&
 		Equals(TypeRight, item.TypeRight) &&
@@ -217,7 +217,7 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	public virtual string SetBarCodeInside(PluLabelModel pluLabel, string template)
 	{
 		string value = string.Empty;
-		if (pluLabel.Zpl.Contains(template))
+		if (pluLabel.Zpl.Contains(template)) //-V3095
 		{
 			string zpl = pluLabel.Zpl;
 			if (string.IsNullOrEmpty(zpl)) return value;

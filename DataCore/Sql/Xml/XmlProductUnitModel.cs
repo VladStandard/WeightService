@@ -52,7 +52,7 @@ public class XmlProductUnitModel : ISerializable, ISqlDbBase
 		$"{nameof(Description)}: {Description}. ";
 
 	public bool Equals(XmlProductUnitModel item) =>
-		ReferenceEquals(this, item) || Equals(Heft, item.Heft) &&
+		ReferenceEquals(this, item) || Equals(Heft, item.Heft) && //-V3130
 		Equals(Capacity, item.Capacity) &&
 		Equals(Rate, item.Rate) &&
 		Equals(Threshold, item.Threshold) &&

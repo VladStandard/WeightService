@@ -17,7 +17,7 @@
 //	[Test]
 //	public void Model_Validate_IsFalse()
 //	{
-//		Assert.DoesNotThrow(() =>
+//		DataCore.AssertAction(() =>
 //		{
 //			List<SqlTableBase> items = DataCoreEnums.GetSqlTableModels(false);
 //			foreach (Type type in types)
@@ -34,7 +34,7 @@
 //	[Test]
 //	public void Model_Validate_IsTrue()
 //	{
-//		Assert.DoesNotThrow(() =>
+//		DataCore.AssertAction(() =>
 //		{
 //			List<SqlTableBase> items = DataCoreEnums.GetSqlTableModels();
 //			foreach (SqlTableBase item in items)

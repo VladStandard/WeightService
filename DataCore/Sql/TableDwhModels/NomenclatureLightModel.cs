@@ -98,7 +98,7 @@ public class NomenclatureLightModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(NomenclatureLightModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Code, item.Code) &&
 		Equals(Parents, item.Parents) &&
 		Equals(NameFull, item.NameFull) &&

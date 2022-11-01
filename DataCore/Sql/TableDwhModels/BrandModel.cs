@@ -71,7 +71,7 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(BrandModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Code, item.Code) &&
 		Equals(StatusId, item.StatusId) &&
 		Equals(CodeInIs, item.CodeInIs) &&

@@ -101,7 +101,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     #region Public and private methods - virtual
 
     public virtual bool Equals(AccessModel item) =>
-	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 	    Equals(LoginDt, item.LoginDt) &&
 	    Equals(Rights, item.Rights);
 

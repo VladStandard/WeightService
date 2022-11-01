@@ -70,7 +70,7 @@ public class NomenclatureTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(NomenclatureTypeModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(GoodsForSale, item.GoodsForSale) &&
 		Equals(StatusId, item.StatusId) &&
 		Equals(CodeInIs, item.CodeInIs) &&

@@ -169,10 +169,10 @@ public static class RazorFieldConfigUtils
 	{
 		public static RazorFieldConfigModel GetNumber() => new($"{nameof(ScaleModel.Number)}", TextAlign.Left, LocaleCore.Table.Number);
 		public static RazorFieldConfigModel GetPrinterMain(string link) => new(link, new PrinterModel(),
-			$"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}", 
+			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}", 
 			TextAlign.Left, LocaleCore.Print.NameMain, "string");
 		public static RazorFieldConfigModel GetPrinterShipping(string link) => new(link, new PrinterModel(),
-			$"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}", 
+			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}", 
 			TextAlign.Left, LocaleCore.Print.NameShipping, "string");
 		public static RazorFieldConfigModel GetWorkShop(string link) => new(link, new WorkShopModel(),
 			$"{nameof(WorkShopModel)}.{nameof(WorkShopModel.Name)}", 

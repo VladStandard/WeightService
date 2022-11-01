@@ -34,12 +34,12 @@
 		<tr>
 			<td>
 				<RadzenLink Style="width: 100%; "
-		            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, Device, Device.IdentityValueUid)
+							Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemHost, SqlItemCast.Device, SqlItemCast.Device?.IdentityValueUid)
 		            Text=@LocaleCore.Table.Host/>
 			</td>
 			<td>
 				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-					@bind-Value=@Device>
+					@bind-Value=@SqlItemCast.Device>
 					@foreach (DeviceModel item in DataContext.Devices)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>

@@ -87,7 +87,7 @@ public class SqlFieldBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual void FillProperties()
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 	#endregion

@@ -76,7 +76,7 @@ public class WeithingFactSummaryModel : SqlTableBase, ICloneable, ISqlDbBase, IS
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(WeithingFactSummaryModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(WeithingDate, item.WeithingDate) &&
 		Equals(Count, item.Count) &&
 		Equals(Scale, item.Scale) &&

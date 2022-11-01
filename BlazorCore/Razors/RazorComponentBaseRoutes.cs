@@ -151,11 +151,13 @@ public partial class RazorComponentBase
 
     public string GetRouteSectionPath<TItem>() where TItem : SqlTableBase, new() => GetRouteSectionPath(new TItem());
 
-    protected string GetRouteItemPath(string uriItem, SqlTableBase? item, long? id) =>
-        item is null || id is null ? string.Empty : $"{uriItem}/{id}";
-
-    protected string GetRouteItemPath(string uriItem, SqlTableBase? item, Guid? uid) =>
-        item is null || uid is null ? string.Empty : $"{uriItem}/{uid}";
+    protected string GetRouteItemPath(string uriItem, SqlTableBase? item, object? value) =>
+	    value switch
+	    {
+			Guid uid => item is null ? $"{uriItem}/" : $"{uriItem}/{uid}",
+			long id => item is null ? $"{uriItem}/" : $"{uriItem}/{id}",
+			_ => $"{uriItem}/",
+		};
 
     private void SetRouteItemNavigate<TItem>(TItem? item) where TItem : SqlTableBase, new()
     {

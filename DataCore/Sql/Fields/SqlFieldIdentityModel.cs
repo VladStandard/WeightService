@@ -121,7 +121,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(SqlFieldIdentityModel item) =>
-		ReferenceEquals(this, item) || Equals(Name, item.Name) &&
+		ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
 		Id.Equals(item.Id) &&
 		Uid.Equals(item.Uid);
 

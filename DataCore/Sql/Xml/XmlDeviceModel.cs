@@ -83,7 +83,7 @@ public class XmlDeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializabl
     #region Public and private methods - virtual
 
     public virtual bool Equals(XmlDeviceModel item) =>
-	    ReferenceEquals(this, item) || base.Equals(item) &&
+	    ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 	    Equals(Scale, item.Scale);
 
     public new virtual XmlDeviceModel CloneCast() => (XmlDeviceModel)Clone();

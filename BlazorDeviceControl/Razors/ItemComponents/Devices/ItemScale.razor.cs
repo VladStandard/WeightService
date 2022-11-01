@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using NHibernate.Cfg;
+using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
@@ -13,7 +15,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	#region Public and private fields, properties, constructor
 
 	private List<TypeModel<string>> ComPorts { get; set; }
-	private DeviceModel Device { get; set; }
+	//private DeviceModel Device { get; set; }
 	
 	public ItemScale()
 	{
@@ -21,7 +23,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		RazorComponentConfig.IsShowFilterAdditional = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 		ComPorts = new();
-		Device = new();
+		//Device = DataAccess.GetItemNew<DeviceModel>();
 		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
 
@@ -42,17 +44,19 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				DataContext.GetListNotNull<WorkShopModel>(false, false, true);
 
 				SqlItemCast = DataContext.GetItemNotNull<ScaleModel>(IdentityId);
-				SqlItemCast.PrinterMain ??= BlazorAppSettings.DataAccess.GetNewItem<PrinterModel>();
-				SqlItemCast.PrinterShipping ??= BlazorAppSettings.DataAccess.GetNewItem<PrinterModel>();
-				SqlItemCast.TemplateDefault ??= BlazorAppSettings.DataAccess.GetNewItem<TemplateModel>();
-				SqlItemCast.TemplateSeries ??= BlazorAppSettings.DataAccess.GetNewItem<TemplateModel>();
-				SqlItemCast.WorkShop ??= BlazorAppSettings.DataAccess.GetNewItem<WorkShopModel>();
+				SqlItemCast.PrinterMain ??= DataAccess.GetItemNew<PrinterModel>();
+				SqlItemCast.PrinterShipping ??= DataAccess.GetItemNew<PrinterModel>();
+				SqlItemCast.TemplateDefault ??= DataAccess.GetItemNew<TemplateModel>();
+				SqlItemCast.TemplateSeries ??= DataAccess.GetItemNew<TemplateModel>();
+				SqlItemCast.WorkShop ??= DataAccess.GetItemNew<WorkShopModel>();
+
+				DeviceModel device = DataAccess.GetItemDeviceNotNull(SqlItemCast);
+				SqlItemCast.DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNull(device);
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);
 			    // ScaleFactor
 			    SqlItemCast.ScaleFactor ??= 1000;
-				Device = BlazorAppSettings.DataAccess.GetItemDeviceNotNull(SqlItemCast);
 			}
 		});
 	}

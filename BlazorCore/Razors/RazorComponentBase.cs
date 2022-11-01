@@ -50,6 +50,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 	public AuthorizeView? AuthorizeViewBase { get; set; }
 	public AuthenticationState? AuthenticationStateBase { get; set; }
 	public DataContextModel DataContext { get; } = new();
+	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
 	/// <summary>
 	/// Constructor.

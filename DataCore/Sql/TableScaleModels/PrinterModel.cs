@@ -138,7 +138,7 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PrinterModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Ip, item.Ip) &&
 		Equals(Port, item.Port) &&
 		Equals(Password, item.Password) &&

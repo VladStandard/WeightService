@@ -10,8 +10,8 @@ public partial class DataAccessHelper
 	#region Public and private fields, properties, constructor
 
 	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-	private static AppModel? App { get; set; }
-	private static DeviceModel Device { get; set; }
+	private static AppModel App { get; set; } = new();
+	private static DeviceModel Device { get; set; } = new();
 
 	#endregion
 
@@ -19,13 +19,13 @@ public partial class DataAccessHelper
 
 	public void SetupLog(string deviceName, string appName)
 	{
-		DeviceModel? device = GetItemDevice(deviceName);
+		DeviceModel device = GetItemDeviceNotNull(deviceName);
 
-		if (device?.IdentityIsNotNew == true)
+		if (device.IdentityIsNotNew)
 			Device = device;
 
-		AppModel? app = GetOrCreateNewApp(appName);
-		if (app is not null && !app.EqualsDefault())
+		AppModel app = GetItemAppOrCreateNew(appName);
+		if (app.IdentityIsNotNew)
 			App = app;
 	}
 
@@ -39,32 +39,32 @@ public partial class DataAccessHelper
 		streamWriter.Dispose();
 	}
 
-	public void LogError(Exception ex, string? hostName = null, 
+	public void LogError(Exception ex, string? deviceName = null, 
 		string? appName = null, [CallerFilePath] string filePath = "", 
 		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(ex.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(ex.Message, LogTypeEnum.Error, deviceName, appName, filePath, lineNumber, memberName);
 		if (ex.InnerException is not null)
-			LogCore(ex.InnerException.Message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
+			LogCore(ex.InnerException.Message, LogTypeEnum.Error, deviceName, appName, filePath, lineNumber, memberName);
 	}
 
-	public void LogError(string message, string? hostName = null, string? appName = null,
+	public void LogError(string message, string? deviceName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(message, LogTypeEnum.Error, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Error, deviceName, appName, filePath, lineNumber, memberName);
 	}
 
-	public void LogStop(string message, string? hostName = null, string? appName = null,
+	public void LogStop(string message, string? deviceName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(message, LogTypeEnum.Stop, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Stop, deviceName, appName, filePath, lineNumber, memberName);
 
-	public void LogInformation(string message, string? hostName = null, string? appName = null,
+	public void LogInformation(string message, string? deviceName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(message, LogTypeEnum.Information, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Information, deviceName, appName, filePath, lineNumber, memberName);
 
-	public void LogWarning(string message, string? hostName = null, string? appName = null,
+	public void LogWarning(string message, string? deviceName = null, string? appName = null,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-		LogCore(message, LogTypeEnum.Warning, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Warning, deviceName, appName, filePath, lineNumber, memberName);
 
 	private void LogCore(string message, LogTypeEnum logType, string deviceName, string appName, string filePath, int lineNumber, string memberName)
 	{
@@ -74,12 +74,12 @@ public partial class DataAccessHelper
         LogTypeModel? logTypeItem = GetItemLogType(logType);
 
         DeviceModel device = Device;
-		AppModel? app = App;
+		AppModel app = App;
 
 		if (!string.IsNullOrEmpty(deviceName))
 			device = GetItemDeviceNotNull(deviceName);
 		if (!string.IsNullOrEmpty(appName))
-			app = GetOrCreateNewApp(appName);
+			app = GetItemAppOrCreateNew(appName);
 
 		LogModel log = new()
 		{
@@ -98,10 +98,10 @@ public partial class DataAccessHelper
 		Save(log);
 	}
 
-	public void LogQuestion(string message, string? hostName, string? appName,
+	public void LogQuestion(string message, string? deviceName, string? appName,
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
-		LogCore(message, LogTypeEnum.Question, hostName, appName, filePath, lineNumber, memberName);
+		LogCore(message, LogTypeEnum.Question, deviceName, appName, filePath, lineNumber, memberName);
 	}
 
 	public Guid SaveApp(string name)

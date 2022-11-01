@@ -17,7 +17,7 @@ internal class TablesSerializeTests
 	[Test]
 	public void Table_AssertSerialize_Model()
 	{
-		Assert.DoesNotThrow(() =>
+		DataCore.AssertAction(() =>
 		{
 			List<SqlTableBase> items = DataCoreEnums.GetSqlTableModels();
 			foreach (SqlTableBase item in items)

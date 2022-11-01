@@ -2,9 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels;
-using System;
-using static DataCore.Sql.Core.SqlQueries.DbScales.Tables;
 
 namespace DataCore.Sql.Core;
 

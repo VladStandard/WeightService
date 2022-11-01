@@ -19,7 +19,7 @@ internal class TablesScaleModelsTests
 	[Test]
 	public void SqlTableModel_New_EqualsDefault()
 	{
-		Assert.DoesNotThrow(() =>
+		DataCore.AssertAction(() =>
 		{
 			List<SqlTableBase> items = DataCoreEnums.GetSqlTableModels();
 			foreach (SqlTableBase item in items)
@@ -34,7 +34,7 @@ internal class TablesScaleModelsTests
 	[Test]
 	public void SqlTableType_Validate_IsFalse()
 	{
-		Assert.DoesNotThrow(() =>
+		DataCore.AssertAction(() =>
 		{
 			List<Type> sqlTableTypes = DataCoreEnums.GetSqlTableTypes();
 			foreach (Type sqlTableType in sqlTableTypes)
@@ -61,7 +61,7 @@ internal class TablesScaleModelsTests
 	[Test]
 	public void SqlTableType_Validate_IsTrue()
 	{
-		Assert.DoesNotThrow(() =>
+		DataCore.AssertAction(() =>
 		{
 			List<Type> sqlTableTypes = DataCoreEnums.GetSqlTableTypes();
 			foreach (Type sqlTableType in sqlTableTypes)

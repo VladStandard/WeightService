@@ -69,7 +69,7 @@ public class XmlProductBoxModel : ISerializable, ISqlDbBase
 		$"{nameof(Unit)}: {Unit}. ";
 
 	public virtual bool Equals(XmlProductBoxModel item) =>
-		ReferenceEquals(this, item) || Equals(Description, item.Description) &&
+		ReferenceEquals(this, item) || Equals(Description, item.Description) && //-V3130
 		Equals(Heft, item.Heft) &&
 		Equals(Capacity, item.Capacity) &&
 		Equals(Rate, item.Rate) &&

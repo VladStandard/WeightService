@@ -90,7 +90,7 @@ public class ScaleScreenShotModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(ScaleScreenShotModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Scale, item.Scale) &&
 		Equals(ScreenShot, item.ScreenShot) &&
 		Scale.Equals(item.Scale);

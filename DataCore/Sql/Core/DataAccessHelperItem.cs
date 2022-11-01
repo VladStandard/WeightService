@@ -9,7 +9,7 @@ namespace DataCore.Sql.Core;
 
 public partial class DataAccessHelper
 {
-	#region Public and private methods
+	#region Public and public methods
 
 	public AccessModel? GetItemAccess(string? userName)
 	{
@@ -41,12 +41,12 @@ public partial class DataAccessHelper
 		return GetItem<TemplateModel>(sqlCrudConfig);
 	}
 
-	public AppModel? GetOrCreateNewApp(string appName)
+	public AppModel GetItemAppOrCreateNew(string appName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
 			new SqlFieldFilterModel(nameof(AppModel.Name), SqlFieldComparerEnum.Equal, appName), 0, false, false);
-		AppModel? app = GetItem<AppModel>(sqlCrudConfig);
-		if (app is null || app.EqualsDefault())
+		AppModel app = GetItemNotNull<AppModel>(sqlCrudConfig);
+		if (app.IdentityIsNew)
 		{
 			app = new()
 			{
@@ -67,17 +67,17 @@ public partial class DataAccessHelper
 		return GetItem<AppModel>(sqlCrudConfig);
 	}
 
-	public DeviceModel? GetItemOrCreateNewDevice(string hostName)
+	public DeviceModel GetItemDeviceOrCreateNew(string deviceName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldFilterModel(nameof(DeviceModel.Name), SqlFieldComparerEnum.Equal, hostName), 0, false, false);
-		DeviceModel? device = GetItem<DeviceModel>(sqlCrudConfig);
-		if (device is null || device.EqualsDefault())
+			new SqlFieldFilterModel(nameof(DeviceModel.Name), SqlFieldComparerEnum.Equal, deviceName), 0, false, false);
+		DeviceModel device = GetItemNotNull<DeviceModel>(sqlCrudConfig);
+		if (device.IdentityIsNew)
 		{
 			device = new()
 			{
-				Name = hostName,
-				PrettyName = hostName,
+				Name = deviceName,
+				PrettyName = deviceName,
 				CreateDt = DateTime.Now,
 				ChangeDt = DateTime.Now,
 				IsMarked = false,
@@ -113,8 +113,7 @@ public partial class DataAccessHelper
 		return GetItem<DeviceModel>(sqlCrudConfig);
 	}
 
-	public DeviceModel GetItemDeviceNotNull(string deviceName) => 
-		GetItemDevice(deviceName) ?? new();
+	public DeviceModel GetItemDeviceNotNull(string deviceName) => GetItemDevice(deviceName) ?? new();
 
 	public DeviceModel? GetItemDevice(ScaleModel scale)
 	{
@@ -124,8 +123,7 @@ public partial class DataAccessHelper
 		return GetItem<DeviceScaleFkModel>(sqlCrudConfig)?.Device;
 	}
 
-	public DeviceModel GetItemDeviceNotNull(ScaleModel scale) => 
-		GetItemDevice(scale) ?? new();
+	public DeviceModel GetItemDeviceNotNull(ScaleModel scale) => GetItemDevice(scale) ?? new();
 
 	public DeviceTypeFkModel? GetItemDeviceTypeFk(DeviceModel device)
 	{
@@ -141,12 +139,12 @@ public partial class DataAccessHelper
 	public DeviceScaleFkModel? GetItemDeviceScaleFk(DeviceModel device)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(new SqlFieldFilterModel(
-				nameof(DeviceScaleFkModel.Device.Name), SqlFieldComparerEnum.Equal, device.Name),
+				$"{nameof(DeviceScaleFkModel.Device)}.{nameof(DeviceModel.IdentityValueUid)}", SqlFieldComparerEnum.Equal, device.IdentityValueUid),
 			0, false, false);
 		return GetItem<DeviceScaleFkModel>(sqlCrudConfig);
 	}
 
-	public DeviceScaleFkModel GetItemDeviceScaleFkNotNull(DeviceModel device) =>
+	public DeviceScaleFkModel GetItemDeviceScaleFkNotNull(DeviceModel device) => 
 		GetItemDeviceScaleFk(device) ?? new();
 
 	public LogTypeModel? GetItemLogType(LogTypeEnum logType)

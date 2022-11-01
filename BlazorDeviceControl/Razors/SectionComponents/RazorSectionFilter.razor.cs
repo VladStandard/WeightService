@@ -33,7 +33,7 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
 				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
                     //new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
                     0, false, false);
-                TItemFilter[]? items = BlazorAppSettings.DataAccess.GetItems<TItemFilter>(sqlCrudConfig);
+                TItemFilter[]? items = DataAccess.GetArray<TItemFilter>(sqlCrudConfig);
                 if (items is not null)
                 {
 	                // Sort items.
@@ -41,18 +41,18 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
                     {
                         case var cls when cls == typeof(PluModel):
                             List<PluModel> plus = items.Cast<PluModel>().OrderBy(x => x.Name).ToList();
-                            List<PluModel> plusNull = new() { BlazorAppSettings.DataAccess.GetNewItem<PluModel>() };
+                            List<PluModel> plusNull = new() { DataAccess.GetItemNew<PluModel>() };
                             plusNull.AddRange(plus);
                             items = plusNull.Cast<TItemFilter>().ToArray();
 							// Add null item first.
 							break;
                         case var cls when cls == typeof(ScaleModel):
                             List<ScaleModel> scales = items.Cast<ScaleModel>().OrderBy(x => x.Description).ToList();
-                            List<ScaleModel> scalesNull = new() { BlazorAppSettings.DataAccess.GetNewItem<ScaleModel>() };
+                            List<ScaleModel> scalesNull = new() { DataAccess.GetItemNew<ScaleModel>() };
                             scalesNull.AddRange(scales);
                             items = scalesNull.Cast<TItemFilter>().ToArray();
 							// Add null item first.
-							SqlItemsFilterCast = new() { BlazorAppSettings.DataAccess.GetNewItem<TItemFilter>() };
+							SqlItemsFilterCast = new() { DataAccess.GetItemNew<TItemFilter>() };
                             break;
                     }
 					// Add sorted items second.

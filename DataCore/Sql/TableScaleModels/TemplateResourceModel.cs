@@ -104,7 +104,7 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(TemplateResourceModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Type, item.Type) &&
 		Equals(IdRRef, item.IdRRef) &&
 		ImageData.Equals(item.ImageData);

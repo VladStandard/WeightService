@@ -88,7 +88,7 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(OrganizationModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Gln, item.Gln);
 
 	public new virtual OrganizationModel CloneCast() => (OrganizationModel)Clone();

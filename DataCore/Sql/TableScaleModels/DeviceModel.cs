@@ -125,7 +125,7 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(DeviceModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(LoginDt, item.LoginDt) &&
 		Equals(LogoutDt, item.LogoutDt) &&
 		Equals(PrettyName, item.PrettyName) &&

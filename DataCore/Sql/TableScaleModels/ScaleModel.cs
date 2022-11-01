@@ -44,6 +44,8 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual bool IsShipping { get; set; }
 	[XmlElement] public virtual bool IsOrder { get; set; }
 	[XmlElement] public virtual bool IsKneading { get; set; }
+	[XmlIgnore] public virtual DeviceScaleFkModel? DeviceScaleFk { get; set; }
+	[XmlIgnore] public virtual DeviceModel? Device { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -214,7 +216,7 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(ScaleModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
 		Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
 		Equals(DeviceComPort, item.DeviceComPort) &&

@@ -106,7 +106,7 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(ContragentModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(FullName, item.FullName) &&
 		Equals(IdRRef, item.IdRRef) &&
 		Equals(DwhId, item.DwhId) &&

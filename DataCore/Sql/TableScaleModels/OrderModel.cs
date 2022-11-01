@@ -116,7 +116,7 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(OrderModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(BeginDt, item.BeginDt) &&
 		Equals(EndDt, item.EndDt) &&
 		Equals(ProdDt, item.ProdDt) &&

@@ -21,7 +21,7 @@ public partial class ItemPluLabel : RazorComponentItemBase<PluLabelModel>
         {
             () =>
             {
-                SqlItemCast = BlazorAppSettings.DataAccess.GetItemNotNull<PluLabelModel>(IdentityUid);
+                SqlItemCast = DataAccess.GetItemNotNull<PluLabelModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluLabelModel>();
 

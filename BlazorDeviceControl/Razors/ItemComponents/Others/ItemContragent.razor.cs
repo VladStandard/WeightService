@@ -21,7 +21,7 @@ public partial class ItemContragent : RazorComponentItemBase<ContragentModel>
 		{
 			() =>
 			{
-                SqlItemCast = BlazorAppSettings.DataAccess.GetItemNotNull<ContragentModel>(IdentityUid);
+                SqlItemCast = DataAccess.GetItemNotNull<ContragentModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<ContragentModel>();
 

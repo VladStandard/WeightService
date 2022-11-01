@@ -3,7 +3,6 @@
 // ReSharper disable MissingXmlDoc
 
 using System.Globalization;
-using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.Tables;
 
@@ -177,19 +176,18 @@ public static class SqlTableBaseExt
 			case ScaleModel scale:
 				switch (propertyName)
 				{
-					//case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Name)}":
-					//	return scale.DeviceTypeFk.Device.Name;
-					case $"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}":
+					case $"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}":
 						return scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldNull;
-					case $"{nameof(ScaleModel)}.{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}":
+					case $"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}":
 						return scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull;
 					case $"{nameof(WorkShopModel)}.{nameof(WorkShopModel.Name)}":
 						return scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldNull;
 					case $"{nameof(ScaleModel.Number)}":
 						return scale.Number.ToString();
+					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Name)}":
+						return DataAccessHelper.Instance.GetItemDeviceNotNull(scale).Name;
 					case $"{nameof(DeviceModel)}.{nameof(DeviceModel.Ipv4)}":
-						DeviceModel device = DataAccessHelper.Instance.GetItemDeviceNotNull(scale);
-						return device.Ipv4;
+						return DataAccessHelper.Instance.GetItemDeviceNotNull(scale).Ipv4;
 				}
 				break;
 			case VersionModel version:

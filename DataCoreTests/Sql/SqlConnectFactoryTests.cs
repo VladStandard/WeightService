@@ -17,8 +17,8 @@ internal class SqlConnectFactoryTests
     [Test]
     public void SqlConnectFactory_ExecuteReader_DoesNotThrow()
     {
-        Assert.DoesNotThrow(() =>
-        {
+		DataCore.AssertAction(() =>
+		{
             DataCore.SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Tasks.GetTasks, (reader) =>
             {
                 while (reader.Read())

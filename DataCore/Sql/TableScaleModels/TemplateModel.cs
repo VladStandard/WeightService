@@ -113,7 +113,7 @@ public class TemplateModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(TemplateModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(CategoryId, item.CategoryId) &&
 		Equals(IdRRef, item.IdRRef) &&
 		Equals(Title, item.Title) &&

@@ -95,7 +95,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PrinterResourceModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Printer.Equals(item.Printer) &&
 		TemplateResource.Equals(item.TemplateResource);
 

@@ -109,7 +109,7 @@ public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(ProductSeriesModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(CreateDt, item.CreateDt) &&
 		Equals(IsClose, item.IsClose) &&
 		Equals(Sscc, item.Sscc) &&

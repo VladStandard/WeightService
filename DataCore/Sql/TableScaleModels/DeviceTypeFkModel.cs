@@ -99,7 +99,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(DeviceTypeFkModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Device.Equals(item.Device) &&
 		DeviceType.Equals(item.DeviceType);
 

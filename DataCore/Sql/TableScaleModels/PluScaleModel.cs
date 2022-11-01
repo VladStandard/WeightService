@@ -99,7 +99,7 @@ public class PluScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PluScaleModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(IsActive, item.IsActive) &&
 		Equals(Plu, item.Plu) &&
 		Equals(Scale, item.Scale) &&

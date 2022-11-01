@@ -32,7 +32,7 @@
 						Change=@(_=> OnChangeAsync())
 					    Style="margin-top: -3px; margin-left: 20px; " />
 					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
-					    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(BlazorAppSettings.DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
+					    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettingsLocal.SelectTopRowsCount) />
 				}
 				@if (RazorComponentConfig.IsShowFilterMarked)
 				{
@@ -44,7 +44,7 @@
 				<RadzenButton 
 					Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 					Style="margin-top: -3px; margin-left: 20px; width: 60px; " Size=@ButtonSize.Small
-				    Disabled=@(!BlazorAppSettings.DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
+				    Disabled=@(!DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
 				@if (RazorComponentConfig.IsShowItemsCount)
 				{
 					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />

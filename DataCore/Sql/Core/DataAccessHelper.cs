@@ -117,35 +117,26 @@ public partial class DataAccessHelper
         set => _jsonControl = value;
     }
 
-    #endregion
-
-    #region Constructor and destructor
-
-    public DataAccessHelper()
-    {
-        //
-    }
-
     ~DataAccessHelper()
     {
-        SessionFactory?.Close();
-        SessionFactory?.Dispose();
+	    SessionFactory?.Close();
+	    SessionFactory?.Dispose();
     }
-
+    
     #endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    // This code have exception: 
-    // SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
-    // (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
-    //private MsSqlConfiguration GetConnection() => CoreSettings.Trusted
-    //    ? MsSqlConfiguration.MsSql2012.ConnectionString(c => c
-    //        .Server(CoreSettings.Server).Database(CoreSettings.Db).TrustedConnection())
-    //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
-    //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
+	// This code have exception: 
+	// SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
+	// (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
+	//private MsSqlConfiguration GetConnection() => CoreSettings.Trusted
+	//    ? MsSqlConfiguration.MsSql2012.ConnectionString(c => c
+	//        .Server(CoreSettings.Server).Database(CoreSettings.Db).TrustedConnection())
+	//    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
+	//        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
-    private string GetConnectionString() =>
+	private string GetConnectionString() =>
         JsonSettingsIsRemote
         ? $"Data Source={JsonSettingsRemote.Sql.DataSource}; " +
           $"Initial Catalog={JsonSettingsRemote.Sql.InitialCatalog}; " +

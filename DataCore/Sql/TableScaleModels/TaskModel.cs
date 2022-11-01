@@ -100,7 +100,7 @@ public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods
 
 	public virtual bool Equals(TaskModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Enabled, item.Enabled) &&
 		TaskType.Equals(item.TaskType) &&
 		Scale.Equals(item.Scale);

@@ -95,7 +95,7 @@ public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(OrderWeighingModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Order.Equals(item.Order) &&
 		PluWeighing.Equals(item.PluWeighing);
 

@@ -183,7 +183,7 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PluModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Number, item.Number) &&
 		Equals(FullName, item.FullName) &&
 		Equals(ShelfLifeDays, item.ShelfLifeDays) &&

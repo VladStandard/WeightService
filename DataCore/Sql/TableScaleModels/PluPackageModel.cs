@@ -100,7 +100,7 @@ public class PluPackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PluPackageModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(IsActive, item.IsActive) &&
 		Package.Equals(item.Package) &&
 		Plu.Equals(item.Plu);

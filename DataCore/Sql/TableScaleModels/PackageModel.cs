@@ -84,7 +84,7 @@ public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PackageModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Weight, item.Weight);
 
 	public new virtual PackageModel CloneCast() => (PackageModel)Clone();

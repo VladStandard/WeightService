@@ -88,7 +88,7 @@ public class SqlFieldOrderModel : SerializeBase, ICloneable, ISqlDbBase, ISerial
 	#region Public and private methods - virtual
 
 	protected virtual bool Equals(SqlFieldOrderModel item) =>
-		ReferenceEquals(this, item) || Equals(Name, item.Name) &&
+		ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
 		Direction.Equals(item.Direction);
 
 	public virtual SqlFieldOrderModel CloneCast() => (SqlFieldOrderModel)Clone();

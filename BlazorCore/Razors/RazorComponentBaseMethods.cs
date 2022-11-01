@@ -10,6 +10,7 @@ using DataCore.Sql.Models;
 using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using static MudBlazor.CategoryTypes;
 
 namespace BlazorCore.Razors;
 
@@ -187,6 +188,10 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
 			SqlItemSave(SqlItem);
+			if (SqlItem is ScaleModel scale)
+			{
+				SqlItemSave(scale.DeviceScaleFk);
+			}
 			SetRouteSectionNavigate();
 			OnChangeAsync();
 		});
@@ -348,7 +353,7 @@ public partial class RazorComponentBase
 			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
                 new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
                 0, false, false);
-			List<TemplateResourceModel> templateResources = BlazorAppSettings.DataAccess.GetList<TemplateResourceModel>(sqlCrudConfig);
+			List<TemplateResourceModel> templateResources = BlazorAppSettings.DataAccess.GetListNotNull<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))

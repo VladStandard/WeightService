@@ -25,7 +25,7 @@
 				<RadzenButton
 					Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 					Style="margin-left: 1%; margin-right: 1%; width: 60px; " Size=@ButtonSize.Small 
-					Disabled=@(!BlazorAppSettings.DataAccess.IsConnected()) Click=@(_ => OnChange())/>
+					Disabled=@(!DataAccess.IsConnected()) Click=@(_ => OnChange())/>
 			</td>
 			<td>
 				<RadzenIcon 

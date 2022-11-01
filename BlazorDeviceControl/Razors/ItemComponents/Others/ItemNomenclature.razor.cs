@@ -21,7 +21,7 @@ public partial class ItemNomenclature : RazorComponentItemBase<NomenclatureModel
 		{
 			() =>
 			{
-                SqlItemCast = BlazorAppSettings.DataAccess.GetItemNotNull<NomenclatureModel>(IdentityId);
+                SqlItemCast = DataAccess.GetItemNotNull<NomenclatureModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<NomenclatureModel>();
 

@@ -14,21 +14,19 @@
 	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-    AllowPaging=true PageSize=@BlazorAppSettings.DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    AllowPaging=true PageSize=@DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ScaleModel ParentRazor=@(this) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
-        @*<RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetHost(GetRouteItemPathShort<HostModel>()) />*@
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
-        @*<RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%"))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceIp() />*@
+        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
+            RazorFieldConfig=@RazorFieldConfigUtils.DeviceScaleFk.GetHost(GetRouteItemPathShort<DeviceModel>()) />
     </Columns>
 </RadzenGrid>
 

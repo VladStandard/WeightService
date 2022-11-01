@@ -116,7 +116,7 @@ public class UserSessionHelper : BaseViewModel
 		get
 		{
 			if (_pluPackage is null)
-				return _pluPackage = DataAccess.GetNewItem<PluPackageModel>();
+				return _pluPackage = DataAccess.GetItemNew<PluPackageModel>();
 			return _pluPackage;
 		}
 		set

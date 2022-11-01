@@ -40,7 +40,7 @@ public class XmlProductBarcodeModel : ISerializable, ISqlDbBase
 		$"{nameof(Barcode)}: {Barcode}. ";
 
 	public virtual bool Equals(XmlProductBarcodeModel item) =>
-		ReferenceEquals(this, item) || Equals(Type, item.Type) &&
+		ReferenceEquals(this, item) || Equals(Type, item.Type) && //-V3130
 		Equals(Barcode, item.Barcode);
 
 	public virtual bool EqualsNew()

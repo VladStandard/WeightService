@@ -99,7 +99,7 @@ public class DeviceScaleFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(DeviceScaleFkModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Device.Equals(item.Device) &&
 		Scale.Equals(item.Scale);
 

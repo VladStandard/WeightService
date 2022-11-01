@@ -187,7 +187,7 @@ public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 	#region Public and private methods - virtual
 
 	public virtual bool Equals(PluWeighingModel item) =>
-		ReferenceEquals(this, item) || base.Equals(item) &&
+		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Equals(Kneading, item.Kneading) &&
 		Equals(PluScale, item.PluScale) &&
 		Equals(Sscc, item.Sscc) &&
