@@ -18,7 +18,7 @@
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ScaleModel ParentRazor=@(this) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription() />
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetName() />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
@@ -26,7 +26,7 @@
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.DeviceScaleFk.GetHost(GetRouteItemPathShort<DeviceModel>()) />
+            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceName(GetRouteItemPathShort<DeviceModel>()) />
     </Columns>
 </RadzenGrid>
 

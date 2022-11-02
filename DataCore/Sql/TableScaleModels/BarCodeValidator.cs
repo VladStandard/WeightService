@@ -16,22 +16,22 @@ public class BarCodeValidator : SqlTableValidator<BarCodeModel>
 	public BarCodeValidator()
 	{
 		RuleFor(item => (item).TypeTop)
-			.NotEmpty()
+			//.NotEmpty()
 			.NotNull();
 		RuleFor(item => (item).ValueTop)
-			.NotEmpty()
+			//.NotEmpty()
 			.NotNull();
 		RuleFor(item => (item).TypeRight)
-			.NotEmpty()
+			//.NotEmpty()
 			.NotNull();
 		RuleFor(item => (item).ValueRight)
-			.NotEmpty()
+			//.NotEmpty()
 			.NotNull();
 		RuleFor(item => (item).TypeBottom)
-			.NotEmpty()
+			//.NotEmpty()
 			.NotNull();
 		RuleFor(item => (item).ValueBottom)
-			.NotEmpty()
+			//.NotEmpty()
 			.NotNull();
 	}
 }

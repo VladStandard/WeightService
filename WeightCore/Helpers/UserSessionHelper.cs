@@ -102,7 +102,7 @@ public class UserSessionHelper : BaseViewModel
 					Host.Device.Name);
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
-			PluPackages = SqlUtils.DataAccess.GetListPluPackages(value.Plu, false, false, true);
+			PluPackages = DataContext.GetListNotNull<PluPackageModel>(value.Plu, false, false, true);
 			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.FirstOrDefault();
 			OnPropertyChanged();
 		}

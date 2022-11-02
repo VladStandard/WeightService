@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Tables;
-
 namespace AssertCoreTests;
 
 /// <summary>
@@ -173,82 +171,5 @@ public static class DataCoreEnums
 		return new() { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, };
 	}
 
-	/// <summary>
-	/// List of models SqlTableBase.
-	/// </summary>
-	/// <returns></returns>
-	public static List<SqlTableBase> GetSqlTableModels() => new()
-	{
-		new AccessModel(),
-		new AppModel(),
-		new BarCodeModel(),
-		new ContragentModel(),
-		new DeviceModel(),
-		new DeviceTypeModel(),
-		new DeviceTypeFkModel(),
-		new DeviceScaleFkModel(),
-		new LogModel(),
-		new LogTypeModel(),
-		new NomenclatureModel(),
-		new OrderModel(),
-		new OrganizationModel(),
-		new PackageModel(),
-		new PluLabelModel(),
-		new PluModel(),
-		new PluPackageModel(),
-		new PluScaleModel(),
-		new PluWeighingModel(),
-		new PrinterModel(),
-		new PrinterResourceModel(),
-		new PrinterTypeModel(),
-		new ProductionFacilityModel(),
-		new ProductSeriesModel(),
-		new ScaleModel(),
-		new ScaleScreenShotModel(),
-		new TaskModel(),
-		new TaskTypeModel(),
-		new TemplateModel(),
-		new TemplateResourceModel(),
-		new VersionModel(),
-		new WorkShopModel(),
-	};
-
-	/// <summary>
-	/// List of types SqlTableBase.
-	/// </summary>
-	/// <returns></returns>
-	public static List<Type> GetSqlTableTypes() => new()
-	{
-		typeof(AccessModel),
-		typeof(AppModel),
-		typeof(BarCodeModel),
-		typeof(ContragentModel),
-		typeof(DeviceModel),
-		typeof(DeviceTypeModel),
-		typeof(DeviceTypeFkModel),
-		typeof(DeviceScaleFkModel),
-		typeof(LogModel),
-		typeof(LogTypeModel),
-		typeof(NomenclatureModel),
-		typeof(OrderModel),
-		typeof(OrganizationModel),
-		typeof(PackageModel),
-		typeof(PluLabelModel),
-		typeof(PluModel),
-		typeof(PluPackageModel),
-		typeof(PluScaleModel),
-		typeof(PluWeighingModel),
-		typeof(PrinterModel),
-		typeof(PrinterResourceModel),
-		typeof(PrinterTypeModel),
-		typeof(ProductionFacilityModel),
-		typeof(ProductSeriesModel),
-		typeof(ScaleModel),
-		typeof(TaskModel),
-		typeof(TaskTypeModel),
-		typeof(TemplateModel),
-		typeof(TemplateResourceModel),
-		typeof(VersionModel),
-		typeof(WorkShopModel),
-	};
+	
 }

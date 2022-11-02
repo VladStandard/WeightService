@@ -33,7 +33,7 @@ public partial class DataAccessHelper
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
 				deviceScaleFk.Device = GetItemNotNull<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
-				deviceScaleFk.Scale = GetItemNotNull<ScaleModel>(deviceScaleFk.Scale.IdentityValueUid);
+				deviceScaleFk.Scale = GetItemNotNull<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
 			case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNull<OrderModel>(orderWeighing.Order.IdentityValueUid);

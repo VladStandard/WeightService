@@ -15,8 +15,14 @@ public partial class DataAccessHelper
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.MaxResults > 0)
 			criteria.SetMaxResults(sqlCrudConfig.MaxResults);
-		criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
-		criteria.SetCriteriaOrder(sqlCrudConfig.Orders);
+		if (sqlCrudConfig.Filters.Any())
+			criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
+		if (sqlCrudConfig.Orders.Any())
+		{
+			List<SqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(x => !string.IsNullOrEmpty(x.Name)).ToList();
+			if (orders.Any())
+				criteria.SetCriteriaOrder(orders);
+		}
 		return criteria;
 	}
 

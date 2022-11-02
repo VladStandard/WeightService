@@ -139,7 +139,7 @@ public class DataCoreHelper
 		// Arrange
 		T item = CreateNewSubstitute<T>(isNotDefault);
 		// Act.
-		object? value = item.GetPropertyValue(propertyName);
+		object? value = item.GetPropertyAsObject(propertyName);
 		TestContext.WriteLine($"{typeof(T)}. {propertyName}: {value}");
 		return value;
 	}

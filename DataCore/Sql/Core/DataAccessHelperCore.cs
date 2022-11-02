@@ -203,35 +203,32 @@ public partial class DataAccessHelper
 
 	#region Public and private methods - GetList
 
-	public List<T> GetListNotNull<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
-	{
-		T[]? items = GetArray<T>(sqlCrudConfig);
-		if (items is not null && items.Length > 0)
-			return items.ToList();
-		return new();
-	}
-
 	public List<T> GetListNotNull<T>(SqlCrudConfigModel sqlCrudConfig, bool isAddFieldNull) where T : SqlTableBase, new()
 	{
 		List<T> result = new();
 		if (isAddFieldNull)
 			result.Add(GetItemNew<T>());
-		List<T> list = GetListNotNull<T>(sqlCrudConfig);
-		//if (sqlFieldOrder.Name.Equals(nameof(SqlTableBase.Name)))
-		//	result = result.OrderBy(x => x.Name).ToList();
+		
+		List<T> list = new();
+		T[]? items = GetArray<T>(sqlCrudConfig);
+		if (items is not null && items.Length > 0)
+			list = items.ToList();
+		
 		result.AddRange(list);
 		return result;
 	}
 
-	public List<T> GetListNotNull<T>(SqlFieldOrderModel sqlFieldOrder,
+	public List<T> GetListNotNull<T>(List<SqlFieldFilterModel> filters, SqlFieldOrderModel sqlFieldOrder,
 		int maxResults, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
-		GetListNotNull<T>(SqlUtils.GetCrudConfig(sqlFieldOrder, maxResults, isShowMarked, isShowOnlyTop), isAddFieldNull);
+		GetListNotNull<T>(SqlUtils.GetCrudConfig(filters, sqlFieldOrder, maxResults, isShowMarked, isShowOnlyTop), isAddFieldNull);
 
-	public List<T> GetListNotNull<T>(SqlFieldOrderModel sqlFieldOrder, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
-		GetListNotNull<T>(sqlFieldOrder, 0, isShowMarked, isShowOnlyTop, isAddFieldNull);
+	public List<T> GetListNotNull<T>(List<SqlFieldFilterModel> filters, SqlFieldOrderModel sqlFieldOrder, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
+		GetListNotNull<T>(filters, sqlFieldOrder, 0, isShowMarked, isShowOnlyTop, isAddFieldNull);
 
-	public List<T> GetListNotNull<T>(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
-		GetListNotNull<T>(new(nameof(AccessModel.Name), SqlFieldOrderEnum.Asc), 
+	public List<T> GetListNotNull<T>(List<SqlFieldFilterModel> filters, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() => GetListNotNull<T>(filters, new(), 0, isShowMarked, isShowOnlyTop, isAddFieldNull);
+
+	public List<T> GetListOrderNotNull<T>(List<SqlFieldFilterModel> filters, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
+		GetListNotNull<T>(filters, new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc),
 			0, isShowMarked, isShowOnlyTop, isAddFieldNull);
 
 	#endregion

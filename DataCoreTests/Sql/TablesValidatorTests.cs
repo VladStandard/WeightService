@@ -19,7 +19,7 @@
 //	{
 //		DataCore.AssertAction(() =>
 //		{
-//			List<SqlTableBase> items = DataCoreEnums.GetSqlTableModels(false);
+//			List<SqlTableBase> sqlTables = DataCore.DataContext.GetSqlTableModels(false);
 //			foreach (Type type in types)
 //			{
 //				//TestContext.WriteLine(item.GetType());
@@ -36,7 +36,7 @@
 //	{
 //		DataCore.AssertAction(() =>
 //		{
-//			List<SqlTableBase> items = DataCoreEnums.GetSqlTableModels();
+//			List<SqlTableBase> sqlTables = DataCore.DataContext.GetSqlTableModels();
 //			foreach (SqlTableBase item in items)
 //			{
 //				TestContext.WriteLine(item.GetType());

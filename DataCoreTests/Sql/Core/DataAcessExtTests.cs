@@ -52,8 +52,8 @@ internal class DataAcessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					List<PluPackageModel> pluPackages = DataCore.DataAccess.GetListPluPackages(
-						plu, false, false, false);
+					List<PluPackageModel> pluPackages = DataCore.DataContext.GetListNotNull<PluPackageModel>(
+						plu);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

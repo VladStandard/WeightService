@@ -22,7 +22,7 @@
         <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("32%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetPrinter(GetRouteItemPathShort<PrinterModel>()) />
         <RazorSectionField TItem=@PrinterResourceModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("31%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetResource(GetRouteItemPathShort<TemplateResourceModel>()) />
+            RazorFieldConfig=@RazorFieldConfigUtils.PrinterResource.GetName(GetRouteItemPathShort<TemplateResourceModel>()) />
     </Columns>
 </RadzenGrid>
 

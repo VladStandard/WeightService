@@ -1,17 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using BlazorCore.Settings;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
-using NHibernate.Properties;
 using Radzen;
-using static MudBlazor.CategoryTypes;
 using Environment = System.Environment;
 
 namespace BlazorCore.Razors;

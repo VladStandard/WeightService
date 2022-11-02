@@ -15,7 +15,7 @@
 		@switch (RazorFieldConfig.Type)
 		{
 			case "bool":
-				<RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(RazorFieldConfig.Name)/>
+				<RadzenCheckBox Disabled=true TValue="bool" Value=@item.GetPropertyAsBool(nameof(RazorFieldConfig.Name)) />
 				break;
 			default:
 				@if (CssStyleRadzenColumn.IsShowLink)

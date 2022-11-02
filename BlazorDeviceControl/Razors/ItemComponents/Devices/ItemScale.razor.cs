@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using NHibernate.Cfg;
-using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
@@ -15,15 +13,13 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 	#region Public and private fields, properties, constructor
 
 	private List<TypeModel<string>> ComPorts { get; set; }
-	//private DeviceModel Device { get; set; }
-	
+
 	public ItemScale()
 	{
 		RazorComponentConfig.IsShowItemsCount = true;
 		RazorComponentConfig.IsShowFilterAdditional = true;
 		RazorComponentConfig.IsShowFilterMarked = true;
 		ComPorts = new();
-		//Device = DataAccess.GetItemNew<DeviceModel>();
 		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
 
@@ -50,8 +46,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				SqlItemCast.TemplateSeries ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.WorkShop ??= DataAccess.GetItemNew<WorkShopModel>();
 
-				DeviceModel device = DataAccess.GetItemDeviceNotNull(SqlItemCast);
-				SqlItemCast.DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNull(device);
+				SqlItemCast.Device = DataAccess.GetItemDeviceNotNull(SqlItemCast);
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);
