@@ -7,51 +7,33 @@ public class SqlCrudConfigModel
 {
     #region Public and private fields, properties, constructor
 
-    public List<SqlFieldFilterModel> Filters { get; set; }
-    public List<SqlFieldOrderModel> Orders { get; set; }
-    public int MaxResults { get; set; }
+    public List<SqlFieldFilterModel> Filters { get; set; } = new();
+	public List<SqlFieldOrderModel> Orders { get; set; } = new();
+	public bool IsShowFilterAdditional { get; set; }
+	public bool IsShowFilterMarked { get; set; }
+	public bool IsShowFilterOnlyTop { get; set; }
+	public bool IsShowMarked { get; set; }
+	public bool IsShowOnlyTop { get; set; }
+	public bool IsAddFieldNull { get; set; }
+	public bool IsOrder { get; set; }
+	public bool IsShowItemsCount { get; set; }
+	public int MaxResults { get; set; }
 
-    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders, int maxResults)
+    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders, 
+	    bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull, bool isOrder, int maxResults)
     {
-	    Filters = filters;
+        Filters = filters;
         Orders = orders;
-        MaxResults = maxResults;
-    }
+        IsShowMarked = isShowMarked;
+        IsShowOnlyTop = isShowOnlyTop;
+        IsAddFieldNull = isAddFieldNull;
+        IsOrder = isOrder;
+		MaxResults = maxResults;
 
-    public SqlCrudConfigModel(SqlFieldFilterModel filter, List<SqlFieldOrderModel> orders, int maxResults)
-    {
-	    Filters = new() { filter };
-        Orders = orders;
-        MaxResults = maxResults;
-    }
-
-    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, SqlFieldOrderModel order, int maxResults)
-    {
-	    Filters = filters;
-        Orders = new() { order };
-        MaxResults = maxResults;
-    }
-
-    public SqlCrudConfigModel(List<SqlFieldFilterModel> filters)
-    {
-	    Filters = filters;
-        Orders = new();
-        MaxResults = 0;
-    }
-
-    public SqlCrudConfigModel(SqlFieldFilterModel filter)
-    {
-        Filters = new() { filter };
-        Orders = new();
-        MaxResults = 0;
-    }
-
-    public SqlCrudConfigModel(SqlFieldFilterModel filter, SqlFieldOrderModel order, int maxResults)
-    {
-	    Filters = new() { filter };
-        Orders = new() { order };
-        MaxResults = maxResults;
-    }
+		IsShowFilterOnlyTop = true;
+		IsShowOnlyTop = true;
+		IsShowItemsCount = false;
+	}
 
     #endregion
 }

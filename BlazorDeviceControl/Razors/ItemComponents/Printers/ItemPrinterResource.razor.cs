@@ -27,8 +27,8 @@ public partial class ItemPrinterResource : RazorComponentItemBase<PrinterResourc
                 SqlItemCast = DataContext.GetItemNotNull<PrinterResourceModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PrinterResourceModel>();
-				DataContext.GetListNotNull<PrinterModel>();
-				DataContext.GetListNotNull<TemplateResourceModel>();
+				DataContext.GetListNotNull<PrinterModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<TemplateResourceModel>(SqlCrudConfigSection);
 				
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

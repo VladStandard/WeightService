@@ -180,55 +180,55 @@ public static class GuiUtils
 	        }
         }
 
-        public static Guid ShowNewHostSaveInFile()
-        {
-            Dispose();
+        //public static Guid ShowNewHostSaveInFile()
+        //{
+        //    Dispose();
 
-            Guid uid = Guid.NewGuid();
-            XDocument doc = new();
-            XElement root = new("root");
-            root.Add(new XElement("ID", uid));
-            // new XElement("EncryptConnectionString", new XCData(EncryptDecryptUtils.Encrypt(connectionString)))
-            doc.Add(root);
+        //    Guid uid = Guid.NewGuid();
+        //    XDocument doc = new();
+        //    XElement root = new("root");
+        //    root.Add(new XElement("ID", uid));
+        //    // new XElement("EncryptConnectionString", new XCData(EncryptDecryptUtils.Encrypt(connectionString)))
+        //    doc.Add(root);
 
-            DialogResult resultWpf = new();
-            WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
-            WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
-            WpfPage.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
-            WpfPage.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
-            WpfPage.MessageBox.VisibilitySettings.ButtonNoVisibility = Visibility.Visible;
-            WpfPage.MessageBox.VisibilitySettings.Localization();
-            WpfPage.ShowDialog();
-            if (resultWpf == DialogResult.Yes)
-            {
-                doc.Save(SqlUtils.FilePathToken);
-            }
-            WpfPage.Close();
-            WpfPage.Dispose();
-            return uid;
-        }
+        //    DialogResult resultWpf = new();
+        //    WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
+        //    WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
+        //    WpfPage.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
+        //    WpfPage.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
+        //    WpfPage.MessageBox.VisibilitySettings.ButtonNoVisibility = Visibility.Visible;
+        //    WpfPage.MessageBox.VisibilitySettings.Localization();
+        //    WpfPage.ShowDialog();
+        //    if (resultWpf == DialogResult.Yes)
+        //    {
+        //        doc.Save(SqlUtils.FilePathToken);
+        //    }
+        //    WpfPage.Close();
+        //    WpfPage.Dispose();
+        //    return uid;
+        //}
 
-        public static DialogResult ShowNewHostSaveInDb(Guid uid)
-        {
-            DialogResult result = ShowNewOperationControl(
-                LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
-                false, LogTypeEnum.Information,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
-            if (result == DialogResult.Yes)
-            {
-                SqlUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
-                   new SqlParameter[]
-                   {
-                    new("@uid", System.Data.SqlDbType.UniqueIdentifier) { Value = uid.ToString() },
-                    new("@name", System.Data.SqlDbType.NVarChar, 150) { Value = Environment.MachineName },
-                    new("@ip", System.Data.SqlDbType.VarChar, 15) { Value = NetUtils.GetLocalIpAddress() },
-                    new("@mac", System.Data.SqlDbType.VarChar, 35) { Value = NetUtils.GetLocalMacAddress() },
-                   }
-               );
-            }
-            return result;
-        }
+        //public static DialogResult ShowNewHostSaveInDb(Guid uid)
+        //{
+        //    DialogResult result = ShowNewOperationControl(
+        //        LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
+        //        false, LogTypeEnum.Information,
+        //        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+        //        UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        SqlUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
+        //           new SqlParameter[]
+        //           {
+        //            new("@uid", System.Data.SqlDbType.UniqueIdentifier) { Value = uid.ToString() },
+        //            new("@name", System.Data.SqlDbType.NVarChar, 150) { Value = Environment.MachineName },
+        //            new("@ip", System.Data.SqlDbType.VarChar, 15) { Value = NetUtils.GetLocalIpAddress() },
+        //            new("@mac", System.Data.SqlDbType.VarChar, 35) { Value = NetUtils.GetLocalMacAddress() },
+        //           }
+        //       );
+        //    }
+        //    return result;
+        //}
 
         public static DialogResult ShowNewHostSaveInDb(string hostName, string ip, string mac)
         {

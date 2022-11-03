@@ -11,8 +11,8 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
 
     public SectionScales()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-        RazorComponentConfig.IsShowFilterMarked = true;
+	    SqlCrudConfigSection.IsShowItemsCount = true;
+	    SqlCrudConfigSection.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
         {
             () =>
             {
-                SqlItemsCast = DataContext.GetListNotNull<ScaleModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+                SqlItemsCast = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

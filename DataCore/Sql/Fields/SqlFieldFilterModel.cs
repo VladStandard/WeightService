@@ -37,29 +37,15 @@ public class SqlFieldFilterModel
         Value = value;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="value"></param>
-    public SqlFieldFilterModel(string name, object? value)
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <param name="name"></param>
+	/// <param name="value"></param>
+	public SqlFieldFilterModel(string name, object? value)
     {
         Name = name;
         Comparer = SqlFieldComparerEnum.Equal;
-        Value = value;
-    }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="comparer"></param>
-    /// <param name="value"></param>
-    /// <param name="valueType"></param>
-    public SqlFieldFilterModel(string name, SqlFieldComparerEnum comparer, object? value, Type? valueType = null)
-    {
-        Name = name;
-        Comparer = comparer;
         Value = value;
     }
 

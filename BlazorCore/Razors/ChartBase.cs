@@ -23,8 +23,8 @@ public class ChartBase
 	public ChartCountModel[] GetContragentsChartEntities(string field)
 	{
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-            new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Asc), 0, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Asc), false, false);
 		ContragentModel[]? contragents = BlazorAppSettings.DataAccess.GetArray<ContragentModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)
@@ -74,9 +74,9 @@ public class ChartBase
 	public ChartCountModel[] GetNomenclaturesChartEntities(string field)
 	{
 		ChartCountModel[] result = Array.Empty<ChartCountModel>();
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
             new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Asc), 
-            0, false, false);
+            false, false);
 		NomenclatureModel[]? nomenclatures = BlazorAppSettings.DataAccess.GetArray<NomenclatureModel>(sqlCrudConfig);
 		int i = 0;
 		switch (field)

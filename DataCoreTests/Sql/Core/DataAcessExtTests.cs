@@ -19,8 +19,9 @@ internal class DataAcessExtTests
 	{
 		DataCore.AssertAction(() =>
 		{
+			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<ScaleModel> scales = DataCore.DataContext.GetListNotNull<ScaleModel>(true);
+			List<ScaleModel> scales = DataCore.DataContext.GetListNotNull<ScaleModel>(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
@@ -29,7 +30,9 @@ internal class DataAcessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNull<PluScaleModel>(scale, false, true, true);
+					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale), 
+						new(), false, true, true, false, 0);
+					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNull<PluScaleModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}

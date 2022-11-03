@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Models;
 using NUnit.Framework.Interfaces;
 
 namespace DataCoreTests.Sql.Core;
@@ -21,7 +22,7 @@ internal class DataContextTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			List<Type> sqlTableTypes = DataCore.DataContext.GetSqlTableTypes();
+			List<Type> sqlTableTypes = DataCore.DataContext.GetTableTypes();
 			foreach (Type sqlTableType in sqlTableTypes)
 			{
 				switch (sqlTableType)
@@ -140,8 +141,9 @@ internal class DataContextTests
 
 	private void GetListNotNull<T>() where T : SqlTableBase, new()
 	{
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 		// Arrange & Act.
-		List<T> items = DataCore.DataContext.GetListNotNull<T>(true, true);
+		List<T> items = DataCore.DataContext.GetListNotNull<T>(sqlCrudConfig);
 		TestContext.WriteLine($"Get {DataCore.DataContext.GetTableModelName<T>()} list: {items.Count}");
 		foreach (T item in items)
 		{

@@ -56,28 +56,16 @@ public partial class DataAccessHelper
 	{
 		SqlCrudConfigModel? sqlCrudConfig = value switch
 		{
-			Guid uid => new(new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid),
-				new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc), 0),
-			long id => new(new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id),
-				new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueId), SqlFieldOrderEnum.Desc), 0),
+			Guid uid => new(new() { new(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid) }, 
+			new() { new(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc) }, 
+				true, false, false,  false, 0),
+			long id => new(new() { new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id) }, 
+			new() { new(nameof(SqlTableBase.IdentityValueId), SqlFieldOrderEnum.Desc) }, 
+				true, false, false,  false, 0),
 			_ => null,
 		};
 		return sqlCrudConfig is not null ? GetItem<T>(sqlCrudConfig) : null;
 	}
-
-	///// <summary>
-	///// Get table item by UID.
-	///// </summary>
-	///// <param name="uid"></param>
-	///// <typeparam name="T"></typeparam>
-	///// <returns></returns>
-	//public T? GetItem<T>(Guid? uid) where T : SqlTableBase, new()
-	//{
-	//	SqlCrudConfigModel sqlCrudConfig = new(
-	//		new SqlFieldFilterModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldComparerEnum.Equal, uid),
-	//		new SqlFieldOrderModel(nameof(SqlTableBase.IdentityValueUid), SqlFieldOrderEnum.Desc), 0);
-	//	return GetItem<T>(sqlCrudConfig);
-	//}
 
 	/// <summary>
 	/// Get table not null item.
@@ -92,7 +80,7 @@ public partial class DataAccessHelper
 	}
 
 	/// <summary>
-	/// Get table not null item by ID.
+	/// Get table not null item.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="value"></param>
@@ -203,10 +191,10 @@ public partial class DataAccessHelper
 
 	#region Public and private methods - GetList
 
-	public List<T> GetListNotNull<T>(SqlCrudConfigModel sqlCrudConfig, bool isAddFieldNull) where T : SqlTableBase, new()
+	public List<T> GetListNotNull<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		List<T> result = new();
-		if (isAddFieldNull)
+		if (sqlCrudConfig.IsAddFieldNull)
 			result.Add(GetItemNew<T>());
 		
 		List<T> list = new();
@@ -217,19 +205,6 @@ public partial class DataAccessHelper
 		result.AddRange(list);
 		return result;
 	}
-
-	public List<T> GetListNotNull<T>(List<SqlFieldFilterModel> filters, SqlFieldOrderModel sqlFieldOrder,
-		int maxResults, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
-		GetListNotNull<T>(SqlUtils.GetCrudConfig(filters, sqlFieldOrder, maxResults, isShowMarked, isShowOnlyTop), isAddFieldNull);
-
-	public List<T> GetListNotNull<T>(List<SqlFieldFilterModel> filters, SqlFieldOrderModel sqlFieldOrder, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
-		GetListNotNull<T>(filters, sqlFieldOrder, 0, isShowMarked, isShowOnlyTop, isAddFieldNull);
-
-	public List<T> GetListNotNull<T>(List<SqlFieldFilterModel> filters, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() => GetListNotNull<T>(filters, new(), 0, isShowMarked, isShowOnlyTop, isAddFieldNull);
-
-	public List<T> GetListOrderNotNull<T>(List<SqlFieldFilterModel> filters, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull) where T : SqlTableBase, new() =>
-		GetListNotNull<T>(filters, new(nameof(SqlTableBase.Name), SqlFieldOrderEnum.Asc),
-			0, isShowMarked, isShowOnlyTop, isAddFieldNull);
 
 	#endregion
 }

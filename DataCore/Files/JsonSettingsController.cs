@@ -51,7 +51,7 @@ public class JsonSettingsController
 	public JsonSettingsController()
     {
         _remoteDir = string.Empty;
-        FileLogHelper.Instance.Recreate();
+        //FileLogHelper.Instance.Recreate();
     }
 
     #endregion

@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
@@ -19,31 +18,31 @@ namespace ScalesUI;
 
 internal static class Program
 {
-    #region Public and private fields and properties
+	#region Public and private fields and properties
 
-    private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-    private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+	private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 
-    #endregion
+	#endregion
 
-    #region Public and private methods
+	#region Public and private methods
 
-    [STAThread]
+	[STAThread]
 #nullable enable
 	internal static void Main()
-    {
+	{
 		try
 		{
 			// Setup.
 			AppVersion.Setup(Assembly.GetExecutingAssembly());
-			FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
+			//FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
 			DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
 
 			// Host.
 			string hostName = NetUtils.GetLocalHostName(false);
 			DeviceModel device = DataAccess.GetItemDeviceNotNull(hostName);
 			DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFk(device);
-			if (deviceTypeFk is null )
+			if (deviceTypeFk is null)
 			{
 				GuiUtils.WpfForm.ShowNewHostSaveInDb(hostName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
 				deviceTypeFk = new() { Device = { Name = hostName } };

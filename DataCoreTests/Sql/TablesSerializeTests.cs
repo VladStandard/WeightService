@@ -19,7 +19,7 @@ internal class TablesSerializeTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			List<SqlTableBase> sqlTables = DataCore.DataContext.GetSqlTableModels();
+			List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
 			foreach (SqlTableBase sqlTable in sqlTables)
 			{
 				TestContext.WriteLine(sqlTable.GetType());

@@ -226,19 +226,13 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
+			nameof(ScaleModel.Description) => scale.Description,
 			nameof(ScaleModel.Number) => scale.Number.ToString(),
-			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null
-				? scale.PrinterMain.Name
-				: LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" =>
-				scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null
-				? scale.WorkShop.Name
-				: LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.Device)}.{nameof(DeviceModel.Name)}" => DataAccessHelper.Instance.GetItemDeviceNotNull(scale)
-				.Name,
-			$"{nameof(ScaleModel.Device)}.{nameof(DeviceModel.Ipv4)}" => DataAccessHelper.Instance.GetItemDeviceNotNull(scale)
-				.Ipv4,
+			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldNull,
+			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" => scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull,
+			$"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldNull,
+			$"{nameof(ScaleModel.Device)}.{nameof(DeviceModel.Name)}" => DataAccessHelper.Instance.GetItemDeviceNotNull(scale).Name,
+			$"{nameof(ScaleModel.Device)}.{nameof(DeviceModel.Ipv4)}" => DataAccessHelper.Instance.GetItemDeviceNotNull(scale).Ipv4,
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}

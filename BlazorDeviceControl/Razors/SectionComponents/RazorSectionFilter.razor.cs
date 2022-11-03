@@ -30,9 +30,9 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
 		            SqlItemFilter = ParentRazor.SqlItemFilter = ParentRazor.SqlItem;
 		        }
                 
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
+				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
                     //new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
-                    0, false, false);
+                    false, false);
                 TItemFilter[]? items = DataAccess.GetArray<TItemFilter>(sqlCrudConfig);
                 if (items is not null)
                 {

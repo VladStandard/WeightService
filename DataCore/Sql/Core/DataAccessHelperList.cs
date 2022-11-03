@@ -9,13 +9,12 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	public List<DeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	public List<DeviceTypeFkModel> GetListDevicesTypesFks(SqlCrudConfigModel sqlCrudConfig)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
 		List<DeviceTypeFkModel> result = new();
-		if (isAddFieldNull)
+		if (sqlCrudConfig.IsAddFieldNull)
 			result.Add(new() { Device = GetItemNew<DeviceModel>(), DeviceType = GetItemNew<DeviceTypeModel>() });
-		List<DeviceTypeFkModel> list = GetListNotNull<DeviceTypeFkModel>(sqlCrudConfig, false);
+		List<DeviceTypeFkModel> list = GetListNotNull<DeviceTypeFkModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.DeviceType.Name).ToList();
 		result = result.OrderBy(x => x.Device.Name).ToList();
 		result.AddRange(list);
@@ -24,11 +23,11 @@ public partial class DataAccessHelper
 
 	public List<DeviceScaleFkModel> GetListDevicesScalesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
 		List<DeviceScaleFkModel> result = new();
 		if (isAddFieldNull)
 			result.Add(new() { Device = GetItemNew<DeviceModel>(), Scale = GetItemNew<ScaleModel>() });
-		List<DeviceScaleFkModel> list = GetListNotNull<DeviceScaleFkModel>(sqlCrudConfig, false);
+		List<DeviceScaleFkModel> list = GetListNotNull<DeviceScaleFkModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Scale.Description).ToList();
 		result = result.OrderBy(x => x.Device.Name).ToList();
 		result.AddRange(list);
@@ -37,45 +36,46 @@ public partial class DataAccessHelper
 
 	public List<DeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(isShowMarked, isShowOnlyTop, isAddFieldNull);
-		List<DeviceModel> devices = GetListNotNull<DeviceModel>(new(), isShowMarked, isShowOnlyTop, isAddFieldNull);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
+		List<DeviceModel> devices = GetListNotNull<DeviceModel>(sqlCrudConfig);
 		deviceTypeFks = deviceTypeFks.Where(x => !devices.Contains(x.Device)).ToList();
 		return deviceTypeFks;
 	}
 
 	public List<DeviceTypeFkModel> GetListDevicesTypesFkBusy(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(isShowMarked, isShowOnlyTop, isAddFieldNull);
-		List<DeviceModel> devices = GetListNotNull<DeviceModel>(new(), isShowMarked, isShowOnlyTop, isAddFieldNull);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<DeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
+		List<DeviceModel> devices = GetListNotNull<DeviceModel>(sqlCrudConfig);
 		deviceTypeFks = deviceTypeFks.Where(x => devices.Contains(x.Device)).ToList();
 		return deviceTypeFks;
 	}
 
 	public List<PluLabelModel> GetListPluLabels(bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
 		sqlCrudConfig.Orders.Add(new(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
-		return GetListNotNull<PluLabelModel>(sqlCrudConfig, false);
+		return GetListNotNull<PluLabelModel>(sqlCrudConfig);
 	}
 
     public List<PluScaleModel> GetListPluScales(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		List<SqlFieldFilterModel> filters = GetSqlFieldFilterList<ScaleModel>(itemFilter, nameof(PluScaleModel.Scale), itemFilter?.IdentityValueId);
+		List<SqlFieldFilterModel> filters = GetFiltersIdentity(nameof(PluScaleModel.Scale), itemFilter?.IdentityValueId);
 		//if (!isShowNoActive)
 		//	filters.Add(new(nameof(PluScaleModel.IsActive), SqlFieldComparerEnum.Equal, true));
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
-			0, isShowMarked, isShowOnlyTop);
-		List<PluScaleModel> result = GetListNotNull<PluScaleModel>(sqlCrudConfig, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters, isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<PluScaleModel> result = GetListNotNull<PluScaleModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Plu.Name).ToList();
 		return result;
 	}
 
     public List<ScaleScreenShotModel> GetListScalesScreenShots(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
-		List<SqlFieldFilterModel> filters = GetSqlFieldFilterList<ScaleModel>(itemFilter, nameof(ScaleScreenShotModel.Scale), itemFilter?.IdentityValueId);
+		List<SqlFieldFilterModel> filters = GetFiltersIdentity(nameof(ScaleScreenShotModel.Scale), itemFilter?.IdentityValueId);
 
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters, 0, isShowMarked, isShowOnlyTop);
-		List<ScaleScreenShotModel> result = GetListNotNull<ScaleScreenShotModel>(sqlCrudConfig, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters, isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<ScaleScreenShotModel> result = GetListNotNull<ScaleScreenShotModel>(sqlCrudConfig);
 		result = result.OrderByDescending(x => x.CreateDt).ToList();
 		return result;
 	}
@@ -85,18 +85,24 @@ public partial class DataAccessHelper
 		List<PluPackageModel> result = new();
         if (isAddFieldNull)
             result.Add(GetItemNew<PluPackageModel>());
-		List<SqlFieldFilterModel> filters = GetSqlFieldFilterList<PluPackageModel>(itemFilter, nameof(PluPackageModel.Plu), itemFilter?.IdentityValueUid);
+		List<SqlFieldFilterModel> filters = GetFiltersIdentity(nameof(PluPackageModel.Plu), itemFilter?.IdentityValueUid);
 
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
-			new List<SqlFieldOrderModel> { new (nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc), },
-			0, isShowMarked, isShowOnlyTop);
-		result.AddRange(GetListNotNull<PluPackageModel>(sqlCrudConfig, false));
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
+			new SqlFieldOrderModel(nameof(PluPackageModel.Plu), SqlFieldOrderEnum.Asc),
+			isShowMarked, isShowOnlyTop);
+		result.AddRange(GetListNotNull<PluPackageModel>(sqlCrudConfig));
 		result = result.OrderBy(x => x.Package.Name).ToList();
 		result = result.OrderBy(x => x.Plu.Number).ToList();
 		return result;
 	}
 
-	public List<SqlFieldFilterModel> GetSqlFieldFilterList<T>(SqlTableBase? itemFilter, string className, object? value) where T :SqlTableBase, new()
+	public List<SqlFieldFilterModel> GetFilters(bool isShowMarked) =>
+		new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked) };
+	
+	public List<SqlFieldFilterModel> GetFilters(string className, object? value) =>
+		new() { new(className, SqlFieldComparerEnum.Equal, value) };
+	
+	public List<SqlFieldFilterModel> GetFilters<T>(SqlTableBase? itemFilter, string className, object? value) where T : SqlTableBase, new()
 	{
 		List<SqlFieldFilterModel> filters = new();
 		if (itemFilter is T)
@@ -111,33 +117,48 @@ public partial class DataAccessHelper
 		return filters;
 	}
 
+	public List<SqlFieldFilterModel> GetFiltersIdentity(string className, object? value)
+	{
+		List<SqlFieldFilterModel> filters = new();
+		filters = value switch
+		{
+			Guid uid => new()
+				{ new($"{className}.{nameof(SqlTableBase.IdentityValueUid)}", SqlFieldComparerEnum.Equal, uid) },
+			long id => new()
+				{ new($"{className}.{nameof(SqlTableBase.IdentityValueId)}", SqlFieldComparerEnum.Equal, id) },
+			_ => filters
+		};
+		return filters;
+	}
+
 	public List<PluWeighingModel> GetListPluWeighings(bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(0, isShowMarked, isShowOnlyTop);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop);
 		sqlCrudConfig.Orders.Add(new(nameof(PluWeighingModel.ChangeDt), SqlFieldOrderEnum.Desc));
-		return GetListNotNull<PluWeighingModel>(sqlCrudConfig, false);
+		return GetListNotNull<PluWeighingModel>(sqlCrudConfig);
 	}
 
 	public List<PrinterResourceModel> GetListPrinterResources(SqlTableBase? itemFilter, bool isShowMarked, bool isShowOnlyTop)
 	{
-		List<SqlFieldFilterModel> filters = GetSqlFieldFilterList<ScaleModel>(itemFilter, nameof(PrinterResourceModel.Printer), itemFilter?.IdentityValueId);
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(filters,
-			new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
-		return GetListNotNull<PrinterResourceModel>(sqlCrudConfig, false);
+		List<SqlFieldFilterModel> filters = GetFiltersIdentity(nameof(PrinterResourceModel.Printer), itemFilter?.IdentityValueId);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters,
+			new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
+			isShowMarked, isShowOnlyTop);
+		return GetListNotNull<PrinterResourceModel>(sqlCrudConfig);
 	}
 
 	public List<PrinterTypeModel> GetListPrinterTypes(bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldOrderModel(nameof(PrinterTypeModel.Name), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
-		return GetListNotNull<PrinterTypeModel>(sqlCrudConfig, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+			new SqlFieldOrderModel(nameof(PrinterTypeModel.Name), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
+		return GetListNotNull<PrinterTypeModel>(sqlCrudConfig);
 	}
 
 	public List<TemplateResourceModel> GetListTemplateResources(bool isShowMarked, bool isShowOnlyTop)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-			new SqlFieldOrderModel(nameof(TemplateResourceModel.Type), SqlFieldOrderEnum.Asc), 0, isShowMarked, isShowOnlyTop);
-		List<TemplateResourceModel> result = GetListNotNull<TemplateResourceModel>(sqlCrudConfig, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+			new SqlFieldOrderModel(nameof(TemplateResourceModel.Type), SqlFieldOrderEnum.Asc), isShowMarked, isShowOnlyTop);
+		List<TemplateResourceModel> result = GetListNotNull<TemplateResourceModel>(sqlCrudConfig);
 		result = result.OrderBy(x => x.Name).ToList();
 		result = result.OrderBy(x => x.Type).ToList();
 		return result;

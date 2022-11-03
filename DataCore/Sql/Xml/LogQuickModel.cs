@@ -115,8 +115,8 @@ public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		switch (string.IsNullOrEmpty(Scale))
 		{
 			case false:
-				SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-					new SqlFieldFilterModel(nameof(Description), SqlFieldComparerEnum.Equal, Scale), 0, false, false);
+				List<SqlFieldFilterModel> filters = dataAccess.GetFilters(nameof(Description), Scale);
+				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters, false, false);
 				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 				if (scale is not null)
 					return scale.IdentityValueId;

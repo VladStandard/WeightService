@@ -33,8 +33,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                 if (SqlItemCast.IdentityIsNew)
                     SqlItem = SqlItemNew<PluModel>();
 
-                DataContext.GetListNotNull<TemplateModel>(false, false, true);
-                DataContext.GetListNotNull<NomenclatureModel>(false, false, true);
+                DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigSection);
+                DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigSection);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault is not null)

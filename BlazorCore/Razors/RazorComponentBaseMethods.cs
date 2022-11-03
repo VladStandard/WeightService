@@ -196,6 +196,12 @@ public partial class RazorComponentBase
 						deviceScaleFk = new() { Device = scale.Device, Scale = scale };
 					SqlItemSave(deviceScaleFk);
 				}
+				else
+				{
+					DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFk(scale);
+					if (deviceScaleFk is not null)
+						DataAccess.Delete(deviceScaleFk);
+				}
 			}
 			SetRouteSectionNavigate();
 			OnChangeAsync();
@@ -330,7 +336,8 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesClear, GetQuestionAdd(), () =>
 		{
-			List<TemplateResourceModel> templateResources = DataContext.GetListNotNull<TemplateResourceModel>();
+			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(false, false);
+			List<TemplateResourceModel> templateResources = DataContext.GetListNotNull<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains("TTF"))
@@ -355,10 +362,9 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Print.ResourcesLoadTtf, GetQuestionAdd(), () =>
 		{
-			SqlCrudConfigModel sqlCrudConfig = SqlUtils.GetCrudConfig(
-                new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
-                0, false, false);
-			List<TemplateResourceModel> templateResources = BlazorAppSettings.DataAccess.GetListNotNull<TemplateResourceModel>(sqlCrudConfig, false);
+			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+                new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), false, false);
+			List<TemplateResourceModel> templateResources = BlazorAppSettings.DataAccess.GetListNotNull<TemplateResourceModel>(sqlCrudConfig);
 			foreach (TemplateResourceModel templateResource in templateResources)
 			{
 				if (templateResource.Name.Contains(fileType))

@@ -87,8 +87,7 @@ public partial class DataAccessHelper
 
     private ISQLQuery? GetSqlQuery(ISession session, string query)
 	{
-		if (string.IsNullOrEmpty(query))
-			return null;
+		if (string.IsNullOrEmpty(query)) return null;
 
 		return session.CreateSQLQuery(query);
 	}
@@ -135,16 +134,14 @@ public partial class DataAccessHelper
 
 	public void Delete<T>(T? item) where T : SqlTableBase, new()
 	{
-		if (item is null)
-			return;
+		if (item is null) return;
 
 		ExecuteTransaction(session => { session.Delete(item); });
 	}
 
 	public void Mark<T>(T? item) where T : SqlTableBase, new()
 	{
-		if (item is null)
-			return;
+		if (item is null) return;
 
 		item.IsMarked = !item.IsMarked;
 		ExecuteTransaction(session => { session.SaveOrUpdate(item); });

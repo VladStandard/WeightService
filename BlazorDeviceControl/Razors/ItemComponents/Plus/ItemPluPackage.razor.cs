@@ -22,8 +22,8 @@ public partial class ItemPluPackage : RazorComponentItemBase<PluPackageModel>
             () =>
             {
                 SqlItemCast = DataContext.GetItemNotNull<PluPackageModel>(IdentityUid);
-                DataContext.GetListNotNull<PluModel>();
-				DataContext.GetListNotNull<PackageModel>();
+                DataContext.GetListNotNull<PluModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<PackageModel>(SqlCrudConfigSection);
                 
 				if (SqlItemCast.IdentityIsNew)
                 {

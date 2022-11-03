@@ -33,11 +33,11 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-				DataContext.GetListNotNull<DeviceModel>(false, false, true);
-				DataContext.GetListNotNull<DeviceTypeModel>(false, false, true);
-				DataContext.GetListNotNull<PrinterModel>(false, false, true);
-				DataContext.GetListNotNull<TemplateModel>(false, false, true);
-				DataContext.GetListNotNull<WorkShopModel>(false, false, true);
+				DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<DeviceTypeModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<PrinterModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<WorkShopModel>(SqlCrudConfigSection);
 
 				SqlItemCast = DataContext.GetItemNotNull<ScaleModel>(IdentityId);
 				SqlItemCast.PrinterMain ??= DataAccess.GetItemNew<PrinterModel>();

@@ -21,7 +21,7 @@ internal class TablesScaleModelsTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			List<SqlTableBase> sqlTables = DataCore.DataContext.GetSqlTableModels();
+			List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
 			foreach (SqlTableBase sqlTable in sqlTables)
 			{
 				TestContext.WriteLine(sqlTable.GetType());
@@ -36,7 +36,7 @@ internal class TablesScaleModelsTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			List<Type> sqlTableTypes = DataCore.DataContext.GetSqlTableTypes();
+			List<Type> sqlTableTypes = DataCore.DataContext.GetTableTypes();
 			foreach (Type sqlTableType in sqlTableTypes)
 			{
 				switch (sqlTableType)
@@ -156,7 +156,7 @@ internal class TablesScaleModelsTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			List<Type> sqlTableTypes = DataCore.DataContext.GetSqlTableTypes();
+			List<Type> sqlTableTypes = DataCore.DataContext.GetTableTypes();
 			foreach (Type sqlTableType in sqlTableTypes)
 			{
 				switch (sqlTableType)

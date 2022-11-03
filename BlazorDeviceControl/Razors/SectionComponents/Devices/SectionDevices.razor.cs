@@ -11,8 +11,8 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
 
     public SectionDevices()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-	    RazorComponentConfig.IsShowFilterMarked = true;
+	    SqlCrudConfigSection.IsShowItemsCount = true;
+		SqlCrudConfigSection.IsShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<DeviceModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigSection);
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

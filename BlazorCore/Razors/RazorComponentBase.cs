@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
+using DataCore.Sql.Models;
 
 namespace BlazorCore.Razors;
 
@@ -29,7 +30,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 		get => IsShowReload ? "true" : "false";
 		set => IsShowReload = value.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
 	}
-	[Parameter] public RazorComponentConfigModel RazorComponentConfig { get; set; }
 	[Parameter] public RazorFieldConfigModel RazorFieldConfig { get; set; }
 	[Parameter] public ButtonSettingsModel? ButtonSettings { get; set; }
 	[Parameter] public Guid? IdentityUid { get; set; }
@@ -51,6 +51,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 	public AuthenticationState? AuthenticationStateBase { get; set; }
 	public DataContextModel DataContext { get; } = new();
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	//[Parameter] public RazorComponentConfigModel RazorComponentConfig { get; set; }
+	[Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
+	[Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -75,7 +78,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 		SqlItems = null;
 
 		RazorFieldConfig = new();
-		RazorComponentConfig = new();
+		//RazorComponentConfig = new();
+		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem();
+		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigList();
 	}
 
 	private void SetPropertiesFromParent()
@@ -91,7 +96,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 		if (ParentRazor.UserSettings is not null)
 			UserSettings = ParentRazor.UserSettings;
 		//if (ParentRazor.RazorComponentConfig is not null)
-		RazorComponentConfig = ParentRazor.RazorComponentConfig;
 		if (ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
 		if (ParentRazor.IdentityUid is not null)
@@ -102,6 +106,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlItems = ParentRazor.SqlItems;
 		if (ParentRazor.ButtonSettings is not null)
 			ButtonSettings = ParentRazor.ButtonSettings;
+		//RazorComponentConfig = ParentRazor.RazorComponentConfig;
+		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
+		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
 	}
 
 	private void SetPropertiesToParent()
@@ -117,7 +124,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 		if (UserSettings is not null)
 			ParentRazor.UserSettings = UserSettings;
 		//if (ParentRazor.RazorComponentConfig is not null)
-		ParentRazor.RazorComponentConfig = RazorComponentConfig;
 		if (IdentityId is not null)
 			ParentRazor.IdentityId = IdentityId;
 		if (IdentityUid is not null)
@@ -128,6 +134,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 			ParentRazor.SqlItems = SqlItems;
 		if (ButtonSettings is not null)
 			ParentRazor.ButtonSettings = ButtonSettings;
+		//ParentRazor.RazorComponentConfig = RazorComponentConfig;
+		ParentRazor.SqlCrudConfigItem = SqlCrudConfigItem;
+		ParentRazor.SqlCrudConfigSection = SqlCrudConfigSection;
 	}
 
 	private void SetUserSettings(AuthenticationState? authenticationState)

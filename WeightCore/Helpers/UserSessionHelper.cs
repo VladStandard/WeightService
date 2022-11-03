@@ -26,6 +26,8 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.IO;
 using System.Xml;
+using DataCore.Sql.Models;
+using DataCore.Sql.Fields;
 
 namespace WeightCore.Helpers;
 
@@ -102,7 +104,9 @@ public class UserSessionHelper : BaseViewModel
 					Host.Device.Name);
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
-			PluPackages = DataContext.GetListNotNull<PluPackageModel>(value.Plu, false, false, true);
+			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu),
+				new(), false, false, true, true, 0);
+			PluPackages = DataContext.GetListNotNull<PluPackageModel>(sqlCrudConfig);
 			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.FirstOrDefault();
 			OnPropertyChanged();
 		}
@@ -281,8 +285,8 @@ public class UserSessionHelper : BaseViewModel
 	public void Setup(long scaleId, string areaName)
 	{
 		SetScale(scaleId, areaName);
-		Scales = DataContext.GetListNotNull<ScaleModel>();
-		Areas = DataContext.GetListNotNull<ProductionFacilityModel>();
+		Scales = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigList());
+		Areas = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigList());
 	}
 
 	private void SetScale(long scaleId, string areaName)
