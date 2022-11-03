@@ -124,7 +124,7 @@ public class DataContextModel
 				return LogTypes.Cast<T>().ToList();
 			case var cls when cls == typeof(NomenclatureModel):
 				Nomenclatures = DataAccess.GetListNotNull<NomenclatureModel>(filters, isShowMarked, isShowOnlyTop, isAddFieldNull);
-				return DeviceScaleFks.Cast<T>().ToList();
+				return Nomenclatures.Cast<T>().ToList();
 			case var cls when cls == typeof(OrderModel):
 				Orders = DataAccess.GetListNotNull<OrderModel>(filters, isShowMarked, isShowOnlyTop, isAddFieldNull);
 				return Orders.Cast<T>().ToList();

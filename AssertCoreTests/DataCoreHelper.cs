@@ -42,13 +42,16 @@ public class DataCoreHelper
 		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
 	}
 
-	public void AssertAction(Action action)
+	public void AssertAction(Action action, bool isSkipDbRelease = false)
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			SetupRelease();
-			action.Invoke();
-			TestContext.WriteLine();
+			if (!isSkipDbRelease)
+			{
+				SetupRelease();
+				action.Invoke();
+				TestContext.WriteLine();
+			}
 
 			SetupDebug();
 			action.Invoke();
