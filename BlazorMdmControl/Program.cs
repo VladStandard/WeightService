@@ -4,6 +4,7 @@
 using BlazorCore.Services;
 using BlazorCore.Settings;
 using BlazorDownloadFile;
+using DataCore.Files;
 using DataCore.Protocols;
 using DataCore.Sql.Core;
 using Microsoft.AspNetCore.Authentication.Negotiate;
@@ -65,6 +66,6 @@ app.UseAuthorization();
 // Last step.
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-DataAccessHelper.Instance.JsonControl.SetupForBlazorApp(app.Environment.ContentRootPath,
+JsonSettingsHelper.Instance.SetupForBlazorApp(app.Environment.ContentRootPath,
 	NetUtils.GetLocalHostName(false), nameof(BlazorMdmControl));
 app.Run();

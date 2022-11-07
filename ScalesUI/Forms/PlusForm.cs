@@ -12,6 +12,7 @@ using DataCore.Helpers;
 using DataCore.Sql.Core;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using DataCore.Sql.Models;
 
 namespace ScalesUI.Forms;
 
@@ -47,7 +48,8 @@ public partial class PlusForm : Form
 	{
 		try
 		{
-			PluScales = UserSession.DataContext.GetListNotNull<PluScaleModel>(UserSession.Scale);
+			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale));
+			PluScales = UserSession.DataContext.GetListNotNull<PluScaleModel>(sqlCrudConfig);
 
 			LoadFormControls();
 

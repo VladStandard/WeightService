@@ -110,20 +110,5 @@ public class LogQuickModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public new virtual LogQuickModel CloneCast() => (LogQuickModel)Clone();
 
-	public virtual long GetScaleIdentityId(DataAccessHelper dataAccess)
-	{
-		switch (string.IsNullOrEmpty(Scale))
-		{
-			case false:
-				List<SqlFieldFilterModel> filters = dataAccess.GetFilters(nameof(Description), Scale);
-				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters, false, false);
-				ScaleModel? scale = dataAccess.GetItem<ScaleModel>(sqlCrudConfig);
-				if (scale is not null)
-					return scale.IdentityValueId;
-				break;
-		}
-		return 0;
-	}
-
 	#endregion
 }

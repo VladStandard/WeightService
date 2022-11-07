@@ -20,7 +20,7 @@ public partial class DataAccessHelper
 				break;
 			case LogModel log:
 				log.App = GetItemNotNull<AppModel>(log.App?.IdentityValueUid);
-				log.Device = GetItem<DeviceModel>(log.Device?.IdentityValueUid);
+				log.Device = GetItemNullable<DeviceModel>(log.Device?.IdentityValueUid);
 				log.LogType = GetItemNotNull<LogTypeModel>(log.LogType?.IdentityValueUid);
 				break;
 			// Scales.
@@ -44,7 +44,7 @@ public partial class DataAccessHelper
                 plu.Nomenclature = GetItemNotNull<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
 			case PluLabelModel pluLabel:
-				pluLabel.PluWeighing = GetItem<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
+				pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
                 pluLabel.PluScale = GetItemNotNull<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
 			case PluPackageModel pluPackage:
@@ -57,7 +57,7 @@ public partial class DataAccessHelper
 				break;
 			case PluWeighingModel pluWeighing:
                 pluWeighing.PluScale = GetItemNotNull<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
-				pluWeighing.Series = GetItem<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
+				pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
 				break;
 			case PrinterModel printer:
                 printer.PrinterType = GetItemNotNull<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
@@ -72,11 +72,11 @@ public partial class DataAccessHelper
                 product.Scale = GetItemNotNull<ScaleModel>(product.Scale.IdentityValueId);
 				break;
 			case ScaleModel scale:
-				scale.TemplateDefault = GetItem<TemplateModel>(scale.TemplateDefault?.IdentityValueId);
-				scale.TemplateSeries = GetItem<TemplateModel>(scale.TemplateSeries?.IdentityValueId);
-				scale.PrinterMain = GetItem<PrinterModel>(scale.PrinterMain?.IdentityValueId);
-				scale.PrinterShipping = GetItem<PrinterModel>(scale.PrinterShipping?.IdentityValueId);
-				scale.WorkShop = GetItem<WorkShopModel>(scale.WorkShop?.IdentityValueId);
+				scale.TemplateDefault = GetItemNullable<TemplateModel>(scale.TemplateDefault?.IdentityValueId);
+				scale.TemplateSeries = GetItemNullable<TemplateModel>(scale.TemplateSeries?.IdentityValueId);
+				scale.PrinterMain = GetItemNullable<PrinterModel>(scale.PrinterMain?.IdentityValueId);
+				scale.PrinterShipping = GetItemNullable<PrinterModel>(scale.PrinterShipping?.IdentityValueId);
+				scale.WorkShop = GetItemNullable<WorkShopModel>(scale.WorkShop?.IdentityValueId);
 				break;
 			case ScaleScreenShotModel scaleScreenShot:
 				scaleScreenShot.Scale = GetItemNotNull<ScaleModel>(scaleScreenShot.Scale.IdentityValueId);

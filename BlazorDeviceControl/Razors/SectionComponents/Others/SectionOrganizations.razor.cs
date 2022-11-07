@@ -11,8 +11,8 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
 
     public SectionOrganizations()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-        RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+        SqlCrudConfigList.IsGuiShowFilterMarked = true;
 	}
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<OrganizationModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<OrganizationModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

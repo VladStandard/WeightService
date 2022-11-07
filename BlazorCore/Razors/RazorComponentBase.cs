@@ -51,9 +51,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 	public AuthenticationState? AuthenticationStateBase { get; set; }
 	public DataContextModel DataContext { get; } = new();
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-	//[Parameter] public RazorComponentConfigModel RazorComponentConfig { get; set; }
 	[Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
-	[Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
+	[Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -78,9 +77,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 		SqlItems = null;
 
 		RazorFieldConfig = new();
-		//RazorComponentConfig = new();
-		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem();
-		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigList();
+		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
+		SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigList(false);
 	}
 
 	private void SetPropertiesFromParent()
@@ -95,7 +93,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 			AuthenticationStateBase = ParentRazor.AuthenticationStateBase;
 		if (ParentRazor.UserSettings is not null)
 			UserSettings = ParentRazor.UserSettings;
-		//if (ParentRazor.RazorComponentConfig is not null)
 		if (ParentRazor.IdentityId is not null)
 			IdentityId = ParentRazor.IdentityId;
 		if (ParentRazor.IdentityUid is not null)
@@ -106,9 +103,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlItems = ParentRazor.SqlItems;
 		if (ParentRazor.ButtonSettings is not null)
 			ButtonSettings = ParentRazor.ButtonSettings;
-		//RazorComponentConfig = ParentRazor.RazorComponentConfig;
 		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
-		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
+		SqlCrudConfigList = ParentRazor.SqlCrudConfigList;
 	}
 
 	private void SetPropertiesToParent()
@@ -123,7 +119,6 @@ public partial class RazorComponentBase : LayoutComponentBase
 			ParentRazor.AuthenticationStateBase = AuthenticationStateBase;
 		if (UserSettings is not null)
 			ParentRazor.UserSettings = UserSettings;
-		//if (ParentRazor.RazorComponentConfig is not null)
 		if (IdentityId is not null)
 			ParentRazor.IdentityId = IdentityId;
 		if (IdentityUid is not null)
@@ -134,9 +129,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 			ParentRazor.SqlItems = SqlItems;
 		if (ButtonSettings is not null)
 			ParentRazor.ButtonSettings = ButtonSettings;
-		//ParentRazor.RazorComponentConfig = RazorComponentConfig;
 		ParentRazor.SqlCrudConfigItem = SqlCrudConfigItem;
-		ParentRazor.SqlCrudConfigSection = SqlCrudConfigSection;
+		ParentRazor.SqlCrudConfigList = SqlCrudConfigList;
 	}
 
 	private void SetUserSettings(AuthenticationState? authenticationState)

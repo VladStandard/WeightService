@@ -30,8 +30,7 @@ internal class DataAcessExtTests
 				if (scale.IdentityValueId == 5)
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
-					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale), 
-						new(), false, true, true, false, 0);
+					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale));
 					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNull<PluScaleModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
@@ -45,8 +44,9 @@ internal class DataAcessExtTests
 	{
 		DataCore.AssertAction(() =>
 		{
+			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<PluModel> plus = DataCore.DataContext.GetListNotNull<PluModel>(true);
+			List<PluModel> plus = DataCore.DataContext.GetListNotNull<PluModel>(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);
@@ -55,8 +55,8 @@ internal class DataAcessExtTests
 				if (plu.Number == 113)
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
-					List<PluPackageModel> pluPackages = DataCore.DataContext.GetListNotNull<PluPackageModel>(
-						plu);
+					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluPackageModel.Plu));
+					List<PluPackageModel> pluPackages = DataCore.DataContext.GetListNotNull<PluPackageModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

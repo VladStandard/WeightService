@@ -11,8 +11,8 @@ public partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTyp
 
     public SectionPrintersTypes()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-	    RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTyp
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<PrinterTypeModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<PrinterTypeModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

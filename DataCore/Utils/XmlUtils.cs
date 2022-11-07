@@ -121,10 +121,9 @@ public static class XmlUtils
 		if (string.IsNullOrEmpty(result))
 			return result;
 
-		List<SqlFieldFilterModel> filters = DataAccessHelper.Instance.GetFilters(nameof(TemplateResourceModel.Type), "ZPL");
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(filters, 
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(nameof(TemplateResourceModel.Type), "ZPL"), 
 			new SqlFieldOrderModel(nameof(TemplateResourceModel.Name), SqlFieldOrderEnum.Asc), false, false);
-		TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetArray<TemplateResourceModel>(sqlCrudConfig);
+		TemplateResourceModel[]? templateReources = DataAccessHelper.Instance.GetArrayNullable<TemplateResourceModel>(sqlCrudConfig);
 		if (templateReources is not null)
 		{
 			foreach (TemplateResourceModel resource in templateReources.ToList())

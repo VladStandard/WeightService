@@ -4,6 +4,8 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
+using Microsoft.AspNetCore.Http;
+using NHibernate;
 
 namespace DataCore.Sql.Core;
 
@@ -23,35 +25,7 @@ public partial class DataAccessHelper
     private readonly object _locker = new();
 
     public delegate void ExecCallback(NHibernate.ISession session);
-    public bool JsonSettingsIsRemote { get; private set; }
-
-    private JsonSettingsModel? _jsonSettingsLocal;
-    public JsonSettingsModel JsonSettingsLocal
-    {
-        get
-        {
-            if (_jsonSettingsLocal is null)
-                throw new ArgumentNullException(nameof(DataAccessHelper));
-
-            _jsonSettingsLocal.CheckProperties(true);
-            return _jsonSettingsLocal;
-        }
-        set => _jsonSettingsLocal = value;
-    }
-
-    private JsonSettingsModel? _jsonSettingsRemote;
-    public JsonSettingsModel JsonSettingsRemote
-    {
-        get
-        {
-            if (_jsonSettingsRemote is null)
-                throw new ArgumentNullException(nameof(DataAccessHelper));
-
-            _jsonSettingsRemote.CheckProperties(true);
-            return _jsonSettingsRemote;
-        }
-        set => _jsonSettingsRemote = value;
-    }
+    public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
     private FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; set; }
 
@@ -67,28 +41,46 @@ public partial class DataAccessHelper
         //_sqlConfiguration.DefaultSchema(JsonSettings.Sql.Schema);
     }
 
-    private FluentNHibernate.Cfg.FluentConfiguration? FluentConfiguration { get; set; }
+    private FluentNHibernate.Cfg.FluentConfiguration? _fluentConfiguration;
+    private FluentNHibernate.Cfg.FluentConfiguration FluentConfiguration
+    {
+	    get
+	    {
+			if (_fluentConfiguration is null)
+				throw new ArgumentNullException(nameof(FluentConfiguration));
+            return _fluentConfiguration;
+		}
+	    set => _fluentConfiguration = value;
+    }
+    private ISessionFactory? _sessionFactory;
+    private ISessionFactory SessionFactory
+    {
+	    get
+	    {
+		    if (_sessionFactory is null)
+			    throw new ArgumentNullException(nameof(SessionFactory));
+		    return _sessionFactory;
+	    }
+	    set => _sessionFactory = value;
+    }
 
-    // Be careful. If there are errors in the mapping, this line will make an Exception!
-    private void SetupFluentConfiguration()
+	// Be careful. If there are errors in the mapping, this line will make an Exception!
+	private void SetupFluentConfiguration()
     {
         if (SqlConfiguration is null)
             throw new ArgumentNullException(nameof(SqlConfiguration));
 
         FluentConfiguration = FluentNHibernate.Cfg.Fluently.Configure().Database(SqlConfiguration);
-        AddConfigurationMappings(FluentConfiguration, JsonSettingsIsRemote ? JsonSettingsRemote : JsonSettingsLocal);
+        AddConfigurationMappings(FluentConfiguration, JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
-    public NHibernate.ISessionFactory? SessionFactory { get; private set; }
-
-    public void SetupSessionFactory(bool isRemote)
+    public void SetupSessionFactory()
     {
-        lock (_locker)
-        {
-            JsonSettingsIsRemote = isRemote;
+	    lock (_locker)
+	    {
             SetupSqlConfiguration();
             SetupFluentConfiguration();
             if (FluentConfiguration is null)
@@ -105,22 +97,22 @@ public partial class DataAccessHelper
     //    session.Dispose();
     //}
 
-    private JsonSettingsController? _jsonControl;
-    public JsonSettingsController JsonControl
-    {
-        get
-        {
-            if (_jsonControl is not null)
-                return _jsonControl;
-            return _jsonControl = new();
-        }
-        set => _jsonControl = value;
-    }
+    //private JsonSettingsController? _jsonControl;
+    //public JsonSettingsController JsonControl
+    //{
+    //    get
+    //    {
+    //        if (_jsonControl is not null)
+    //            return _jsonControl;
+    //        return _jsonControl = new();
+    //    }
+    //    set => _jsonControl = value;
+    //}
 
     ~DataAccessHelper()
     {
-	    SessionFactory?.Close();
-	    SessionFactory?.Dispose();
+	    SessionFactory.Close();
+	    SessionFactory.Dispose();
     }
     
     #endregion
@@ -137,19 +129,19 @@ public partial class DataAccessHelper
 	//        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
 	private string GetConnectionString() =>
-        JsonSettingsIsRemote
-        ? $"Data Source={JsonSettingsRemote.Sql.DataSource}; " +
-          $"Initial Catalog={JsonSettingsRemote.Sql.InitialCatalog}; " +
-          $"Persist Security Info={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
-          $"Integrated Security={JsonSettingsRemote.Sql.PersistSecurityInfo}; " +
-          (JsonSettingsRemote.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsRemote.Sql.UserId}; Password={JsonSettingsRemote.Sql.Password}; ") +
-          $"TrustServerCertificate={JsonSettingsRemote.Sql.TrustServerCertificate}; "
-        : $"Data Source={JsonSettingsLocal.Sql.DataSource}; " +
-          $"Initial Catalog={JsonSettingsLocal.Sql.InitialCatalog}; " +
-          $"Persist Security Info={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
-          $"Integrated Security={JsonSettingsLocal.Sql.PersistSecurityInfo}; " +
-          (JsonSettingsLocal.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettingsLocal.Sql.UserId}; Password={JsonSettingsLocal.Sql.Password}; ") +
-          $"TrustServerCertificate={JsonSettingsLocal.Sql.TrustServerCertificate}; ";
+		JsonSettings.IsRemote
+        ? $"Data Source={JsonSettings.Remote.Sql.DataSource}; " +
+          $"Initial Catalog={JsonSettings.Remote.Sql.InitialCatalog}; " +
+          $"Persist Security Info={JsonSettings.Remote.Sql.PersistSecurityInfo}; " +
+          $"Integrated Security={JsonSettings.Remote.Sql.PersistSecurityInfo}; " +
+          (JsonSettings.Remote.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Remote.Sql.UserId}; Password={JsonSettings.Remote.Sql.Password}; ") +
+          $"TrustServerCertificate={JsonSettings.Remote.Sql.TrustServerCertificate}; "
+        : $"Data Source={JsonSettings.Local.Sql.DataSource}; " +
+          $"Initial Catalog={JsonSettings.Local.Sql.InitialCatalog}; " +
+          $"Persist Security Info={JsonSettings.Local.Sql.PersistSecurityInfo}; " +
+          $"Integrated Security={JsonSettings.Local.Sql.PersistSecurityInfo}; " +
+          (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
+          $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
 
     private void AddConfigurationMappings(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration, JsonSettingsModel jsonSettings)
     {

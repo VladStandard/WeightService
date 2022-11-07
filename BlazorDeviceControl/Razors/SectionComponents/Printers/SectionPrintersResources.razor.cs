@@ -11,8 +11,8 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
 
 	public SectionPrintersResources()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-	    RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -25,8 +25,8 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
         {
             () =>
             {
-				SqlItemsCast = DataContext.GetListNotNull<PrinterResourceModel>(SqlItem, 
-                    RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlCrudConfigList.SetFilters(nameof(PrinterResourceModel.Printer), ParentRazor ?.SqlItem, EnumFilterAction.Add);
+				SqlItemsCast = DataContext.GetListNotNull<PrinterResourceModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

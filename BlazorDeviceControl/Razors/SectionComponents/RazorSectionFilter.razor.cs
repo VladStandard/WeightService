@@ -33,7 +33,7 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
 				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
                     //new SqlFieldOrderModel(nameof(SqlTableBase.Description), SqlFieldOrderEnum.Asc), 
                     false, false);
-                TItemFilter[]? items = DataAccess.GetArray<TItemFilter>(sqlCrudConfig);
+                TItemFilter[]? items = DataAccess.GetArrayNullable<TItemFilter>(sqlCrudConfig);
                 if (items is not null)
                 {
 	                // Sort items.

@@ -11,8 +11,8 @@ public partial class SectionPackages : RazorComponentSectionBase<PackageModel, S
 
     public SectionPackages()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-        RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+        SqlCrudConfigList.IsGuiShowFilterMarked = true;
 	}
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionPackages : RazorComponentSectionBase<PackageModel, S
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<PackageModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<PackageModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

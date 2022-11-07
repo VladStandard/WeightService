@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Helpers;
 using DataCore.Models;
 
 namespace AssertCoreTests;
@@ -21,25 +22,26 @@ public class DataCoreHelper
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	public DataContextModel DataContext { get; } = new();
 	public SqlConnectFactory SqlConnect { get; } = SqlConnectFactory.Instance;
+	public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
 	#endregion
 
 	#region Public and private methods
 
-	private void SetupDebug()
+	public void SetupDebug()
 	{
-		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests), JsonSettingsController.FileNameDebug);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettingsIsRemote)}: {DataAccess.JsonSettingsIsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
+		JsonSettings.SetupForTestsDebug(Directory.GetCurrentDirectory(),
+			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests));
+		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
 	private void SetupRelease()
 	{
-		DataAccess.JsonControl.SetupForTests(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests), JsonSettingsController.FileNameRelease);
-		TestContext.WriteLine($"{nameof(DataAccess.JsonSettingsIsRemote)}: {DataAccess.JsonSettingsIsRemote}");
-		TestContext.WriteLine(DataAccess.JsonSettingsIsRemote ? DataAccess.JsonSettingsRemote : DataAccess.JsonSettingsLocal);
+		DataAccess.JsonSettings.SetupForTestsRelease(Directory.GetCurrentDirectory(),
+			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests));
+		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
+		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
 	public void AssertAction(Action action, bool isSkipDbRelease = false)

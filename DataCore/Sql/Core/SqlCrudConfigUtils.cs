@@ -7,75 +7,57 @@ namespace DataCore.Sql.Core;
 
 public static class SqlCrudConfigUtils
 {
-	#region Public and private fields, properties, constructor
-
-	public static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-
-	#endregion
-
 	#region Public and private methods
 
-	public static SqlCrudConfigModel GetCrudConfigItem()
+	public static SqlCrudConfigModel GetCrudConfigItem(bool isResultShowMarked)
 	{
-		return new(new(), new(), true, false, false, false, 0);
+		return new(new List<SqlFieldFilterModel>(), isResultShowMarked, true, false, false, 1);
 	}
 
-	public static SqlCrudConfigModel GetCrudConfigList(bool isShowMarked = false)
+	public static SqlCrudConfigModel GetCrudConfigList(bool isResultShowMarked)
 	{
-		return new(new(), new(), isShowMarked, true, true, true, 0);
+		return new(new List<SqlFieldFilterModel>(), isResultShowMarked, 
+			true, false, true);
 	}
 
 	public static SqlCrudConfigModel GetCrudConfig(SqlTableBase? itemFilter, string className, List<SqlFieldOrderModel> orders,
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull, bool isOrder, int maxResults)
-	{
-		List<SqlFieldFilterModel> filters = itemFilter is null 
-			? new()
-			: DataAccess.GetFiltersIdentity(className, itemFilter.Identity.Name == SqlFieldIdentityEnum.Uid 
-				? itemFilter.IdentityValueUid : itemFilter.IdentityValueId);
-		return GetCrudConfig(filters, orders, isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
-	}
+		bool isResultShowMarked = false, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		GetCrudConfig(SqlCrudConfigModel.GetFilters(className, itemFilter), orders, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
+
+	public static SqlCrudConfigModel GetCrudConfig(string className, object? value, List<SqlFieldOrderModel> orders,
+		bool isResultShowMarked = false, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		GetCrudConfig(SqlCrudConfigModel.GetFilters(className, value), orders, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
+
+	public static SqlCrudConfigModel GetCrudConfig(SqlTableBase? itemFilter, string className, 
+		bool isResultShowMarked = false, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		GetCrudConfig(itemFilter, className, new(), isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
 	public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull, bool isOrder, int maxResults)
-	{
-		maxResults = isShowOnlyTop ? DataAccess.JsonSettingsLocal.SelectTopRowsCount : maxResults;
+		bool isResultShowMarked, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		new(filters, orders, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
-		switch (isShowMarked)
-		{
-			case false:
-				switch (filters.Any())
-				{
-					case false:
-						filters = DataAccess.GetFilters(false);
-						break;
-					default:
-						filters.AddRange(DataAccess.GetFilters(false));
-						break;
-				}
-				break;
-		}
-
-		return new(filters, orders, isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
-	}
+	public static SqlCrudConfigModel GetCrudConfig(string className, object? value,
+		bool isResultShowMarked, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		GetCrudConfig(className, value, new(), isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
 	public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel> filters,
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull = false, bool isOrder = false, int maxResults = 0) =>
-		GetCrudConfig(filters, new List<SqlFieldOrderModel>(), isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
+		bool isResultShowMarked, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		GetCrudConfig(filters, new List<SqlFieldOrderModel>(), isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
 	public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldFilterModel> filters, SqlFieldOrderModel order,
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull = false, bool isOrder = false, int maxResults = 0) =>
-		GetCrudConfig(filters, new List<SqlFieldOrderModel>() { order }, isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
+		bool isResultShowMarked, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+		GetCrudConfig(filters, new List<SqlFieldOrderModel>() { order }, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
-	public static SqlCrudConfigModel GetCrudConfig(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull = false, bool isOrder = false, int maxResults = 0) =>
-	    GetCrudConfig(new(), new List<SqlFieldOrderModel>(), isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
+	public static SqlCrudConfigModel GetCrudConfig(bool isResultShowMarked, bool isResultShowOnlyTop, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+	    GetCrudConfig(new(), new List<SqlFieldOrderModel>(), isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
 	public static SqlCrudConfigModel GetCrudConfig(List<SqlFieldOrderModel> orders, 
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull = false, bool isOrder = false, int maxResults = 0) =>
-	    GetCrudConfig(new(), orders, isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
+		bool isResultShowMarked, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+	    GetCrudConfig(new(), orders, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
 	public static SqlCrudConfigModel GetCrudConfig(SqlFieldOrderModel order, 
-		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull = false, bool isOrder = false, int maxResults = 0) =>
-	    GetCrudConfig(new(), new List<SqlFieldOrderModel>() { order }, isShowMarked, isShowOnlyTop, isAddFieldNull, isOrder, maxResults);
+		bool isResultShowMarked, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>
+	    GetCrudConfig(new(), new List<SqlFieldOrderModel>() { order }, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isOrder, resultMaxCount);
 
 	#endregion
 }

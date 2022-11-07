@@ -25,16 +25,16 @@ public class SqlConnectFactory
 
     private SqlConnection GetSqlConnection()
     {
-        return new(DataAccess.JsonSettingsLocal.ConnectionString);
+        return new(DataAccess.JsonSettings.Local.ConnectionString);
     }
 
     public SqlConnection GetConnection()
     {
         lock (_locker)
         {
-            if (string.IsNullOrEmpty(DataAccess.JsonSettingsLocal.ConnectionString))
+            if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.ConnectionString))
             {
-                throw new($"Factory not initialized. Call this method with param {nameof(DataAccess.JsonSettingsLocal.ConnectionString)}");
+                throw new($"Factory not initialized. Call this method with param {nameof(DataAccess.JsonSettings.Local.ConnectionString)}");
             }
         }
         return _instance.GetSqlConnection();

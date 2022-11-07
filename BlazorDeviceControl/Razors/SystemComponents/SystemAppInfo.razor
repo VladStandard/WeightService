@@ -3,7 +3,6 @@
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemComponents
-@using BlazorDeviceControl.Razors.SystemComponents
 
 <SystemIdentity ParentRazor=@(this) />
 
@@ -65,13 +64,13 @@
         <tr>
             <td>@LocaleCore.Sql.SqlServer</td>
             <td colspan=2>
-                @if (string.IsNullOrEmpty(DataAccess.JsonSettingsLocal.Sql.DataSource))
+                @if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.Sql.DataSource))
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
-                    <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.Sql.DataSource</MudElement>
+                    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Sql.DataSource</MudElement>
                 }
             </td>
         </tr>
@@ -80,19 +79,19 @@
                 @LocaleCore.Sql.SqlDb
             </td>
             <td colspan=2>
-                @if (string.IsNullOrEmpty(DataAccess.JsonSettingsLocal.Sql.InitialCatalog))
+                @if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.Sql.InitialCatalog))
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
-                    <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.Sql.InitialCatalog</MudElement>
+                    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Sql.InitialCatalog</MudElement>
                 }
             </td>
         </tr>
         <tr>
             <td>
-                @if (DataAccess.JsonSettingsLocal.Sql.PersistSecurityInfo)
+                @if (DataAccess.JsonSettings.Local.Sql.PersistSecurityInfo)
                 {
                     @LocaleCore.System.SystemWindowsUser
                 }
@@ -102,13 +101,13 @@
                 }
             </td>
             <td colspan=2>
-                @if (string.IsNullOrEmpty(DataAccess.JsonSettingsLocal.Sql.UserId))
+                @if (string.IsNullOrEmpty(DataAccess.JsonSettings.Local.Sql.UserId))
                 {
                     <RazorActionLoad ActionLoad=ActionLoadEnum.None IsShowProgress=true />
                 }
                 else
                 {
-                    <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.Sql.UserId</MudElement>
+                    <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Sql.UserId</MudElement>
                 }
             </td>
         </tr>
@@ -195,28 +194,28 @@
         <tr>
             <td>@LocaleCore.Settings.SectionAndItemRowsCount</td>
             <td>
-                <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.SectionRowsCount</MudElement>
+                <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.SectionRowsCount</MudElement>
             </td>
             <td>
-                <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.ItemRowsCount</MudElement>
+                <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.ItemRowsCount</MudElement>
             </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.SelectTopRowsCount</td>
             <td colspan=2>
-                <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.SelectTopRowsCount</MudElement>
+                <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.SelectTopRowsCount</MudElement>
             </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.Version</td>
             <td colspan=2>
-                <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.Version</MudElement>
+                <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.Version</MudElement>
             </td>
         </tr>
         <tr>
             <td>@LocaleCore.Settings.AllowedHosts</td>
             <td colspan=2>
-                <MudElement Class="ma-0">@DataAccess.JsonSettingsLocal.AllowedHosts</MudElement>
+                <MudElement Class="ma-0">@DataAccess.JsonSettings.Local.AllowedHosts</MudElement>
             </td>
         </tr>
     </tbody>

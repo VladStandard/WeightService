@@ -11,8 +11,8 @@ public partial class SectionVersions : RazorComponentSectionBase<VersionModel, S
 
     public SectionVersions()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-        RazorComponentConfig.IsShowFilterMarked = false;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+        SqlCrudConfigList.IsGuiShowFilterMarked = false;
 	}
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionVersions : RazorComponentSectionBase<VersionModel, S
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<VersionModel>();
+	            SqlItemsCast = DataContext.GetListNotNull<VersionModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(false, false, false, false, false, false, false);
             }

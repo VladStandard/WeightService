@@ -13,7 +13,7 @@
 	RowClick=@(SqlItemSetAsync) 
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-    AllowPaging=true PageSize=@DataAccess.JsonSettingsLocal.SectionRowsCount AllowSorting=true >
+    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
     <Columns>
 		<RazorSectionFieldIsMarked TItem=@ScaleScreenShotModel ParentRazor=@(this) />
 		<RadzenGridColumn TItem=@ScaleScreenShotModel Width="12%" TextAlign=@TextAlign.Center Title=@LocaleCore.Table.ChangeDt>

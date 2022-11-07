@@ -11,9 +11,9 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
 
     public SectionAccess()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-        RazorComponentConfig.IsShowFilterMarked = true;
-	    RazorComponentConfig.IsShowFilterOnlyTop = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+        SqlCrudConfigList.IsGuiShowFilterMarked = true;
+	    SqlCrudConfigList.IsGuiShowFilterOnlyTop = true;
 	}
 
     #endregion
@@ -26,7 +26,7 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
         {
             () =>
             {
-                SqlItemsCast = DataContext.GetListNotNull<AccessModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+                SqlItemsCast = DataContext.GetListNotNull<AccessModel>(SqlCrudConfigList);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
             }

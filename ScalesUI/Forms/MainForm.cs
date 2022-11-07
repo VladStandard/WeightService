@@ -24,6 +24,7 @@ using DataCore.Helpers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Managers;
+using DataCore.Sql.Models;
 
 namespace ScalesUI.Forms;
 
@@ -623,7 +624,8 @@ public partial class MainForm : Form
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocaleCore.Scales.ButtonSelectOrder);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocaleCore.Scales.ButtonNewPallet);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading, LocaleCore.Scales.ButtonAddKneading);
-			    List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNull<PluScaleModel>(UserSession.Scale);
+			    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(UserSession.Scale, nameof(PluScaleModel.Scale));
+			    List<PluScaleModel> pluScales = UserSession.DataContext.GetListNotNull<PluScaleModel>(sqlCrudConfig);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocaleCore.Scales.ButtonSelectPlu(pluScales.Count));
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocaleCore.Scales.ButtonSetKneading);
 			    MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocaleCore.Print.ActionPrint);

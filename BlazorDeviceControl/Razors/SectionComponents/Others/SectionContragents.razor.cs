@@ -11,8 +11,8 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
 
     public SectionContragents()
     {
-	    RazorComponentConfig.IsShowItemsCount = true;
-		RazorComponentConfig.IsShowFilterMarked = true;
+	    SqlCrudConfigList.IsGuiShowItemsCount = true;
+		SqlCrudConfigList.IsGuiShowFilterMarked = true;
 	}
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<ContragentModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<ContragentModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

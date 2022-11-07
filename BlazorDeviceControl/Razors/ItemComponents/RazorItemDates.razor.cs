@@ -2,15 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using BlazorDeviceControl.Razors.ItemComponents.Devices;
 
 namespace BlazorDeviceControl.Razors.ItemComponents;
 
-public partial class RazorItemDates<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new ()
+public partial class RazorItemDates<TItem> : RazorComponentItemBase<TItem> where TItem : SqlTableBase, new()
 {
-    #region Public and private fields, properties, constructor
+	#region Public and private fields, properties, constructor
 
-    private string CreateDt { get; set; }
+	private string CreateDt { get; set; }
 	private string ChangeDt { get; set; }
 
 	public RazorItemDates()
@@ -24,19 +23,19 @@ public partial class RazorItemDates<TItem> : RazorComponentItemBase<TItem> where
 	#region Public and private methods
 
 	protected override void OnParametersSet()
-    {
-        RunActionsParametersSet(new()
-        {
-            () =>
-            {
-                if (SqlItem is not null)
-                {
-                    CreateDt = StringUtils.FormatDtRus(SqlItem.CreateDt, true);
-                    ChangeDt = StringUtils.FormatDtRus(SqlItem.ChangeDt, true);
-                }
-            }
-        });
-    }
+	{
+		RunActionsParametersSet(new()
+		{
+			() =>
+			{
+				if (SqlItem is not null)
+				{
+					CreateDt = StringUtils.FormatDtRus(SqlItem.CreateDt, true);
+					ChangeDt = StringUtils.FormatDtRus(SqlItem.ChangeDt, true);
+				}
+			}
+		});
+	}
 
-    #endregion
+	#endregion
 }

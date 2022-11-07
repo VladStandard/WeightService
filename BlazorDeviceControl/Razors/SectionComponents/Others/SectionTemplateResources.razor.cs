@@ -11,8 +11,8 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
 
     public SectionTemplateResources()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-	    RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
 	    CssStyleRadzenColumn.Width = "40%";
     }
 
@@ -26,7 +26,7 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<TemplateResourceModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<TemplateResourceModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

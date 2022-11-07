@@ -30,7 +30,7 @@
 					<RadzenDropDown 
 						Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
 					    AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-					    Data=@TemplateCategories PageSize=@BlazorAppSettings.DataAccess.JsonSettingsLocal.ItemRowsCount TextProperty="Name"
+					    Data=@TemplateCategories PageSize=@BlazorAppSettings.DataAccess.JsonSettings.Local.ItemRowsCount TextProperty="Name"
 					    ValueProperty="Value" Value=@SqlItemCast.CategoryId
 					    Change=@(args => OnChangeItem(SqlItemCast, nameof(SqlItemCast.CategoryId), args))/>
 				}

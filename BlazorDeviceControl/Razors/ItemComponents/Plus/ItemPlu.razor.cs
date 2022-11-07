@@ -15,8 +15,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 
     public ItemPlu()
     {
-        RazorComponentConfig.IsShowFilterAdditional = true;
-        RazorComponentConfig.IsShowFilterMarked = true;
+	    SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
+	    SqlCrudConfigItem.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -33,8 +33,8 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
                 if (SqlItemCast.IdentityIsNew)
                     SqlItem = SqlItemNew<PluModel>();
 
-                DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigSection);
-                DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigSection);
+                DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigList);
+                DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigList);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault is not null)

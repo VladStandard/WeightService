@@ -1,33 +1,32 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
-using System.Xml.Serialization;
+using DataCore.Helpers;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql.Core;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
 using DataCore.Sql.TableScaleModels;
 using DataCore.Utils;
 using MDSoft.BarcodePrintUtils;
 using MvvmHelpers;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Windows;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using WeightCore.Gui;
 using WeightCore.Managers;
-using System.Linq;
-using DataCore.Helpers;
-using System.Drawing.Imaging;
-using System.Drawing;
-using System.IO;
-using System.Xml;
-using DataCore.Sql.Models;
-using DataCore.Sql.Fields;
 
 namespace WeightCore.Helpers;
 
@@ -285,8 +284,8 @@ public class UserSessionHelper : BaseViewModel
 	public void Setup(long scaleId, string areaName)
 	{
 		SetScale(scaleId, areaName);
-		Scales = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigList());
-		Areas = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigList());
+		Scales = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigList(false));
+		Areas = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigList(false));
 	}
 
 	private void SetScale(long scaleId, string areaName)
@@ -356,8 +355,8 @@ public class UserSessionHelper : BaseViewModel
 		//if (PluScale.Plu.IsCheckWeight && PluPackages.Count > 0 && PluPackage.IdentityIsNew)
 		if (PluPackage.IdentityIsNew && PluPackages.Count > 1)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning, 
+			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				Host.Device.Name, nameof(WeightCore));
 			return false;
@@ -374,8 +373,8 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (PluScale.IdentityIsNew)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning, 
+			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				Host.Device.Name, nameof(WeightCore));
 			return false;
@@ -393,7 +392,7 @@ public class UserSessionHelper : BaseViewModel
 		if (!PluScale.IdentityIsNew && !PluScale.Plu.IsCheckWeight) return true;
 		if (ManagerControl.Massa is null)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				Host.Device.Name, nameof(WeightCore));
@@ -411,7 +410,7 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
@@ -475,7 +474,7 @@ public class UserSessionHelper : BaseViewModel
 		decimal weight = ManagerControl.Massa.WeightNet - (PluScale.IdentityIsNew ? 0 : PluPackage.Package.Weight);
 		if (weight < LocaleCore.Scales.MassaThresholdValue || weight < LocaleCore.Scales.MassaThresholdPositive)
 		{
-			GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
 				Host.Device.Name, nameof(WeightCore));
@@ -525,7 +524,7 @@ public class UserSessionHelper : BaseViewModel
 		if (!isCheck)
 		{
 			if (PluWeighing.IdentityIsNotNew)
-				GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+				GuiUtils.WpfForm.ShowNewOperationControl(owner,
 					LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluScale.Plu.UpperThreshold,
 					PluScale.IdentityIsNew ? 0 : PluScale.Plu.NominalWeight,
 					PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
@@ -545,7 +544,7 @@ public class UserSessionHelper : BaseViewModel
 			throw new("Order under construct!");
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
-		
+
 		TemplateModel? template = DataAccess.GetItemTemplate(PluScale);
 		// Template exist.
 		if (template is not null && template.IdentityIsNotNew)
@@ -560,7 +559,7 @@ public class UserSessionHelper : BaseViewModel
 					break;
 			}
 		}
-		
+
 		PluWeighing = new();
 	}
 #nullable disable
@@ -642,9 +641,9 @@ public class UserSessionHelper : BaseViewModel
 #nullable enable
 	public void NewPluWeighing()
 	{
-        ProductSeriesModel? productSeries = DataAccess.GetItemProductSeries(PluScale.Scale);
+		ProductSeriesModel? productSeries = DataAccess.GetItemProductSeries(PluScale.Scale);
 
-        PluWeighing = new()
+		PluWeighing = new()
 		{
 			PluScale = PluScale,
 			Kneading = WeighingSettings.Kneading,
@@ -652,9 +651,9 @@ public class UserSessionHelper : BaseViewModel
 			TareWeight = PluPackage.Package.Weight,
 			Series = productSeries,
 		};
-        
-        // Save or update weighing products.
-        SaveOrUpdatePluWeighing();
+
+		// Save or update weighing products.
+		SaveOrUpdatePluWeighing();
 	}
 #nullable disable
 
@@ -689,11 +688,11 @@ public class UserSessionHelper : BaseViewModel
 	{
 		try
 		{
-            PluLabelModel pluLabel = CreateAndSavePluLabel(template);
-            CreateAndSaveBarCodes(pluLabel);
+			PluLabelModel pluLabel = CreateAndSavePluLabel(template);
+			CreateAndSaveBarCodes(pluLabel);
 
-            // Print.
-            if (isClearBuffer)
+			// Print.
+			if (isClearBuffer)
 			{
 				ManagerControl.PrintMain.ClearPrintBuffer();
 				if (Scale.IsShipping)
@@ -738,22 +737,22 @@ public class UserSessionHelper : BaseViewModel
 	/// </summary>
 	/// <param name="template"></param>
 	/// <returns></returns>
-    private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
-    {
-        PluLabelModel pluLabel = new()
-        {
-	        PluWeighing = PluWeighing, 
-	        PluScale = PluScale, 
-	        ProductDt = ProductDate,
-        };
+	private PluLabelModel CreateAndSavePluLabel(TemplateModel template)
+	{
+		PluLabelModel pluLabel = new()
+		{
+			PluWeighing = PluWeighing,
+			PluScale = PluScale,
+			ProductDt = ProductDate,
+		};
 
 		XmlDocument xmlArea = Area.SerializeAsXmlDocument<ProductionFacilityModel>(true);
 		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
 		pluLabel.Xml = XmlUtils.XmlMerge(pluLabel.Xml, xmlArea);
 		pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
-        pluLabel.Zpl = XmlUtils.XmlReplaceNextLine(pluLabel.Zpl);
-        pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
-        pluLabel.Zpl = XmlUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
+		pluLabel.Zpl = XmlUtils.XmlReplaceNextLine(pluLabel.Zpl);
+		pluLabel.Zpl = MDSoft.BarcodePrintUtils.Zpl.ZplUtils.ConvertStringToHex(pluLabel.Zpl);
+		pluLabel.Zpl = XmlUtils.PrintCmdReplaceZplResources(pluLabel.Zpl);
 
 		// Merge.
 		//pluLabel.Zpl = zplArea + Environment.NewLine + pluLabel.Zpl;
@@ -761,19 +760,19 @@ public class UserSessionHelper : BaseViewModel
 		// Save.
 		DataAccess.Save(pluLabel);
 
-        return pluLabel;
-    }
+		return pluLabel;
+	}
 
-    private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
-    {
-        BarCodeModel barCode = new() { PluLabel = pluLabel };
-        barCode.SetBarCodeTop(pluLabel);
-        barCode.SetBarCodeRight(pluLabel);
-        barCode.SetBarCodeBottom(pluLabel);
-        DataAccess.Save(barCode);
-    }
+	private void CreateAndSaveBarCodes(PluLabelModel pluLabel)
+	{
+		BarCodeModel barCode = new() { PluLabel = pluLabel };
+		barCode.SetBarCodeTop(pluLabel);
+		barCode.SetBarCodeRight(pluLabel);
+		barCode.SetBarCodeBottom(pluLabel);
+		DataAccess.Save(barCode);
+	}
 
-    private void SetupPublish()
+	private void SetupPublish()
 	{
 		PublishType = PublishTypeEnum.Default;
 		PublishDescription = "Неизвестный сервер";
@@ -818,7 +817,7 @@ public class UserSessionHelper : BaseViewModel
 #nullable disable
 	{
 		using MemoryStream stream = new();
-		
+
 		if (owner is null)
 		{
 			System.Drawing.Rectangle bounds = Screen.GetBounds(System.Drawing.Point.Empty);

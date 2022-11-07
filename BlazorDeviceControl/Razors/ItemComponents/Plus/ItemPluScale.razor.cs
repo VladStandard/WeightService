@@ -24,8 +24,8 @@ public partial class ItemPluScale : RazorComponentItemBase<PluScaleModel>
                 SqlItemCast = DataContext.GetItemNotNull<PluScaleModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PluScaleModel>();
-                DataContext.GetListNotNull<PluModel>(SqlCrudConfigSection);
-	            DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigSection);
+                DataContext.GetListNotNull<PluModel>(SqlCrudConfigList);
+	            DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigList);
 
 	            ButtonSettings = new(false, false, false, false, false, true, true);
             }

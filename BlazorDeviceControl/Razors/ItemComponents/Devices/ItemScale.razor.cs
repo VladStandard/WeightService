@@ -16,9 +16,9 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 
 	public ItemScale()
 	{
-		RazorComponentConfig.IsShowItemsCount = true;
-		RazorComponentConfig.IsShowFilterAdditional = true;
-		RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigItem.IsGuiShowItemsCount = true;
+		SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
+		SqlCrudConfigItem.IsGuiShowFilterMarked = true;
 		ComPorts = new();
 		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
@@ -33,11 +33,11 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-				DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigSection);
-				DataContext.GetListNotNull<DeviceTypeModel>(SqlCrudConfigSection);
-				DataContext.GetListNotNull<PrinterModel>(SqlCrudConfigSection);
-				DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigSection);
-				DataContext.GetListNotNull<WorkShopModel>(SqlCrudConfigSection);
+				DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigList);
+				DataContext.GetListNotNull<DeviceTypeModel>(SqlCrudConfigList);
+				DataContext.GetListNotNull<PrinterModel>(SqlCrudConfigList);
+				DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigList);
+				DataContext.GetListNotNull<WorkShopModel>(SqlCrudConfigList);
 
 				SqlItemCast = DataContext.GetItemNotNull<ScaleModel>(IdentityId);
 				SqlItemCast.PrinterMain ??= DataAccess.GetItemNew<PrinterModel>();

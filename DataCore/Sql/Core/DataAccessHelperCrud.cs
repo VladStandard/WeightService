@@ -13,8 +13,8 @@ public partial class DataAccessHelper
 	private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
-		if (sqlCrudConfig.MaxResults > 0)
-			criteria.SetMaxResults(sqlCrudConfig.MaxResults);
+		if (sqlCrudConfig.ResultMaxCount > 0)
+			criteria.SetMaxResults(sqlCrudConfig.ResultMaxCount);
 		if (sqlCrudConfig.Filters.Any())
 			criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
 		if (sqlCrudConfig.Orders.Any())
@@ -34,7 +34,7 @@ public partial class DataAccessHelper
 
 		try
 		{
-			if (SessionFactory is not null)
+			//if (SessionFactory is not null)
 			{
 				session = SessionFactory.OpenSession();
 				if (isTransaction)
@@ -69,11 +69,9 @@ public partial class DataAccessHelper
 		}
 	}
 
-    private void ExecuteTransaction(DataAccessHelper.ExecCallback callback) => 
-        ExecuteCore(callback, true);
+    private void ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);
 
-    private void ExecuteSelect(DataAccessHelper.ExecCallback callback) => 
-        ExecuteCore(callback, false);
+    private void ExecuteSelect(ExecCallback callback) => ExecuteCore(callback, false);
 
     public bool IsConnected()
 	{

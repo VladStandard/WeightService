@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Protocols;
 using DataCore.Settings;
@@ -36,7 +37,7 @@ internal static class Program
 			// Setup.
 			AppVersion.Setup(Assembly.GetExecutingAssembly());
 			//FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
-			DataAccess.JsonControl.SetupForScales(Directory.GetCurrentDirectory());
+			JsonSettingsHelper.Instance.SetupForScales(Directory.GetCurrentDirectory());
 
 			// Host.
 			string hostName = NetUtils.GetLocalHostName(false);

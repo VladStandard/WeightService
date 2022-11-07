@@ -11,8 +11,8 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
 
     public SectionWorkshops()
     {
-		RazorComponentConfig.IsShowItemsCount = true;
-	    RazorComponentConfig.IsShowFilterMarked = true;
+		SqlCrudConfigList.IsGuiShowItemsCount = true;
+	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<WorkShopModel>(RazorComponentConfig.IsShowMarked, RazorComponentConfig.IsShowOnlyTop);
+	            SqlItemsCast = DataContext.GetListNotNull<WorkShopModel>(SqlCrudConfigList);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
