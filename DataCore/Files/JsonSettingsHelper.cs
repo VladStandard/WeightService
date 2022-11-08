@@ -113,7 +113,7 @@ public class JsonSettingsHelper
 					throw new(LocaleCore.System.JsonSettingsLocalFileException);
 			}
 
-			DataAccessHelper.Instance.SetupSessionFactory();
+			DataAccessHelper.Instance.SetSessionFactory();
 			DataAccessHelper.Instance.SetupLog(deviceName, appName);
 			DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
 		}
@@ -132,7 +132,7 @@ public class JsonSettingsHelper
 		if (!Setup(localDir, false, fileName))
 			throw new(LocaleCore.System.JsonSettingsLocalFileException);
 		
-		DataAccessHelper.Instance.SetupSessionFactory();
+		DataAccessHelper.Instance.SetSessionFactory();
 		DataAccessHelper.Instance.SetupLog(deviceName, appName);
 	}
 
@@ -153,7 +153,7 @@ public class JsonSettingsHelper
 			throw new(LocaleCore.System.JsonSettingsLocalFileException);
 		}
 		
-		DataAccessHelper.Instance.SetupSessionFactory();
+		DataAccessHelper.Instance.SetSessionFactory();
 	}
 
 	private bool Setup(string dir, bool isRemote, string fileName)

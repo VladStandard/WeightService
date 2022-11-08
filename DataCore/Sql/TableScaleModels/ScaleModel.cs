@@ -241,6 +241,5 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public new virtual ScaleModel CloneCast() => (ScaleModel)Clone();
 
-
 	#endregion
 }

@@ -196,7 +196,7 @@ public partial class DataAccessHelper
 		List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
 			result.Add(GetItemNew<T>());
-		
+
 		List<T> list = new();
 		T[]? items = GetArrayNullable<T>(sqlCrudConfig);
 		if (items is not null && items.Length > 0)

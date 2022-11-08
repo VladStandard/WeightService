@@ -59,9 +59,9 @@ public static class XmlUtils
 	{
 		if (string.IsNullOrEmpty(xml)) return xml;
 
-		xml = xml.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
+		//xml = xml.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
 		xml = xml.Replace(nameof(TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
-		xml = xml.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
+		//xml = xml.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
 		xml = xml.Replace(nameof(TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
 		xml = xml.Replace(nameof(TableDirectModels.SsccDirect), "SsccEntity");
 

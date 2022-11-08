@@ -22,10 +22,7 @@ public partial class RazorSectionReload<TItem, TItemFilter> : RazorComponentSect
 		{
 			() =>
 			{
-				//if (ParentRazor is not null && ParentRazor is SectionPlusPackages sectionPlusPackages)
-				//{
-				//	//sectionPlusPackages.SqlItemFilter = (PluModel)SqlItemFilter;
-				//}
+				//
 			}
 		});
 	}

@@ -40,9 +40,9 @@ public partial class RazorComponentBase : LayoutComponentBase
 	[Parameter] public HttpContext? HttpContext { get; set; }
 	[Parameter] public string Title { get; set; }
 	protected BlazorAppSettingsHelper BlazorAppSettings { get; } = BlazorAppSettingsHelper.Instance;
-	private string Id => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
+	private string HttpId => HttpContext is null ? string.Empty : HttpContext.Connection.Id;
 	private string IpAddress => HttpContext?.Connection.RemoteIpAddress is null ? string.Empty : HttpContext.Connection.RemoteIpAddress.ToString();
-	protected string IdDescription => $"{LocaleCore.Strings.AuthorizingId}: {Id}";
+	protected string HttpIdDescription => $"{LocaleCore.Strings.AuthorizingId}: {HttpId}";
 	protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
 	public SqlTableBase? SqlItem { get; set; }
 	public SqlTableBase? SqlItemFilter { get; set; }
@@ -106,13 +106,11 @@ public partial class RazorComponentBase : LayoutComponentBase
 		if (ParentRazor.ButtonSettings is not null)
 			ButtonSettings = ParentRazor.ButtonSettings;
 		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
-		//SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
+		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
 	}
 
 	//private void SetPropertiesToParent()
 	//{
-	//	if (ParentRazor is null) return;
-
 	//	if (HttpContext is not null)
 	//		ParentRazor.HttpContext = HttpContext;
 	//	if (AuthorizeViewBase is not null)
@@ -150,13 +148,11 @@ public partial class RazorComponentBase : LayoutComponentBase
 
         UserSettings = new(userName, (AccessRightsEnum)access.Rights);
 
-		if (ParentRazor is not null)
-		{
-			bool isOnChange = ParentRazor.UserSettings is null;
-			ParentRazor.UserSettings = UserSettings;
-			if (isOnChange)
-				ParentRazor.OnChange();
-		}
+        if (ParentRazor is null) return;
+		bool isOnChange = ParentRazor.UserSettings is null;
+        ParentRazor.UserSettings = UserSettings;
+        if (isOnChange)
+	        ParentRazor.OnChange();
 	}
 
 	protected string SetAuthorizing()

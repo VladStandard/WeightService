@@ -45,8 +45,8 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				SqlItemCast.TemplateDefault ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.TemplateSeries ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.WorkShop ??= DataAccess.GetItemNew<WorkShopModel>();
-
-				SqlItemCast.Device = DataAccess.GetItemDeviceNotNull(SqlItemCast);
+				//SqlItemCast.Device = DataAccess.GetItemDeviceNotNull(SqlItemCast);
+				SqlItemCast.Device = DataAccess.GetItemNew<DeviceModel>();
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);

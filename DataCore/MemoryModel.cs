@@ -25,7 +25,7 @@ public class MemoryModel
 
     ~MemoryModel()
     {
-        MemorySize.Dispose(false);
+        MemorySize.Dispose();
     }
 
     #endregion

@@ -37,7 +37,7 @@ public class LocalePrint
     public string DeviceShippingCheckStatus => Lang == LangEnum.English ? "Check the shipping printer status!" : "Проверьте состояние транспортного принтера!";
     public string DeviceShippingIsUnavailable => Lang == LangEnum.English ? "Shipping printer is unavailable!" : "Транспортный принтер не доступен!";
     public string Driver => Lang == LangEnum.English ? "Driver" : "Драйвер";
-    public string ErrorPlu(int pluNumber, string goodName) => Lang == LangEnum.English ? $"Print error for PLU: {pluNumber} ({goodName})!" : "Ошибка печати для ПЛУ: {pluNumber} ({goodName})";
+    public string ErrorPlu(int pluNumber, string goodName) => Lang == LangEnum.English ? $"Print error for PLU: {pluNumber} ({goodName})!" : $"Ошибка печати для ПЛУ: {pluNumber} ({goodName})";
     public string HttpStatusCode => Lang == LangEnum.English ? "Http status code" : "Код состояния Http";
     public string InfoCaption => Lang == LangEnum.English ? "Printer info" : "Информация о принтере";
     public string Ip => Lang == LangEnum.English ? "IP-address" : "IP-адрес";

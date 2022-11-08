@@ -16,6 +16,10 @@ public static class SqlTableBaseExt
 
 	public static string GetPropertyAsString<T>(this T? item, string propertyName) where T : SqlTableBase, new()
 	{
+		if (IsPropertyBase(propertyName))
+		{
+			return GetPropertySqlTable<T>(propertyName, item);
+		}
 		return item switch
 		{
 			AccessModel access => GetPropertyAccess(propertyName, access),
@@ -40,13 +44,37 @@ public static class SqlTableBaseExt
 		};
 	}
 
+	private static bool IsPropertyBase(string propertyName)
+	{
+		if (string.IsNullOrEmpty(propertyName)) return false;
+		return propertyName switch
+		{
+			nameof(SqlTableBase.IdentityValueId) => true,
+			nameof(SqlTableBase.IdentityValueUid) => true,
+			nameof(SqlTableBase.IdentityIsNew) => true,
+			nameof(SqlTableBase.IdentityIsNotNew) => true,
+			nameof(SqlTableBase.CreateDt) => true,
+			nameof(SqlTableBase.ChangeDt) => true,
+			nameof(SqlTableBase.IsMarked) => true,
+			nameof(SqlTableBase.Name) => true,
+			nameof(SqlTableBase.Description) => true,
+			_ => false,
+		};
+	}
+
 	private static string GetPropertySqlTable<T>(string propertyName, T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return LocaleCore.Table.FieldNotFound;
 		return propertyName switch
 		{
+			nameof(SqlTableBase.IdentityValueId) => $"{item.IdentityValueId}",
+			nameof(SqlTableBase.IdentityValueUid) => $"{item.IdentityValueUid}",
+			nameof(SqlTableBase.IdentityIsNew) => $"{item.IdentityIsNew}",
+			nameof(SqlTableBase.IdentityIsNotNew) => $"{item.IdentityIsNotNew}",
 			nameof(SqlTableBase.CreateDt) => StringUtils.FormatDtRus(item.CreateDt, true, true),
 			nameof(SqlTableBase.ChangeDt) => StringUtils.FormatDtRus(item.ChangeDt, true, true),
+			nameof(SqlTableBase.IsMarked) => $"{item.IsMarked}",
+			nameof(SqlTableBase.Name) => item.Name,
 			nameof(SqlTableBase.Description) => item.Description,
 			_ => LocaleCore.Table.FieldNotFound
 		};
@@ -57,7 +85,6 @@ public static class SqlTableBaseExt
 		return propertyName switch
 		{
 			nameof(AccessModel.LoginDt) => StringUtils.FormatDtRus(access.LoginDt, true),
-			nameof(AccessModel.Name) => access.Name,
 			nameof(AccessModel.Rights) => DataAccessHelper.Instance.GetAccessRightsDescription(access.Rights),
 			_ => LocaleCore.Table.FieldNotFound
 		};
@@ -69,7 +96,6 @@ public static class SqlTableBaseExt
 		{
 			nameof(DeviceModel.LoginDt) => StringUtils.FormatDtRus(device.LoginDt, true),
 			nameof(DeviceModel.LogoutDt) => StringUtils.FormatDtRus(device.LogoutDt, true),
-			nameof(DeviceModel.Name) => device.Name,
 			nameof(DeviceModel.PrettyName) => device.PrettyName,
 			nameof(DeviceModel.Ipv4) => device.Ipv4,
 			nameof(DeviceModel.MacAddress) => device.MacAddress.ValuePrettyLookMinus,
@@ -82,7 +108,6 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(DeviceTypeModel.Name) => deviceType.Name,
 			nameof(DeviceTypeModel.PrettyName) => deviceType.PrettyName,
 			_ => LocaleCore.Table.FieldNotFound
 		};
@@ -142,7 +167,6 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(OrganizationModel.Name) => organization.Name,
 			nameof(OrganizationModel.Gln) => organization.Gln.ToString(),
 			_ => LocaleCore.Table.FieldNotFound
 		};
@@ -152,7 +176,6 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(PackageModel.Name) => package.Name,
 			nameof(PackageModel.Weight) => package.Weight.ToString(CultureInfo.InvariantCulture),
 			_ => LocaleCore.Table.FieldNotFound
 		};
@@ -162,7 +185,6 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(PluModel.Name) => plu.Name,
 			nameof(PluModel.Number) => plu.Number.ToString(),
 			nameof(PluModel.ShelfLifeDays) => plu.ShelfLifeDays.ToString(),
 			nameof(PluModel.BoxQuantly) => plu.BoxQuantly.ToString(),
@@ -185,7 +207,6 @@ public static class SqlTableBaseExt
 		return propertyName switch
 		{
 			nameof(PrinterModel.Ip) => printer.Ip,
-			nameof(PrinterModel.Name) => printer.Name,
 			nameof(PrinterModel.MacAddress) => printer.MacAddress.ValuePrettyLookMinus,
 			$"{nameof(PrinterModel.PrinterType)}.{nameof(PrinterTypeModel.Name)}" => printer.PrinterType.Name,
 			_ => LocaleCore.Table.FieldNotFound
@@ -207,7 +228,6 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(PrinterTypeModel.Name) => printerType.Name,
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}
@@ -217,7 +237,6 @@ public static class SqlTableBaseExt
 		return propertyName switch
 		{
 			nameof(ProductionFacilityModel.Address) => productionFacility.Address,
-			nameof(ProductionFacilityModel.Name) => productionFacility.Name,
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}
@@ -251,7 +270,6 @@ public static class SqlTableBaseExt
 	{
 		return propertyName switch
 		{
-			nameof(WorkShopModel.Name) => workShop.Name,
 			$"{nameof(WorkShopModel.ProductionFacility)}.{nameof(ProductionFacilityModel.Name)}" => workShop.ProductionFacility.Name,
 			_ => LocaleCore.Table.FieldNotFound
 		};

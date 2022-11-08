@@ -46,7 +46,7 @@ public class SqlTableIdentityModel : SerializeBase, ICloneable, ISqlDbBase, ISer
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private SqlTableIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    public SqlTableIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Name = (SqlFieldIdentityEnum)info.GetValue(nameof(Name), typeof(SqlFieldIdentityEnum));
     }

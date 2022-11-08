@@ -4,7 +4,6 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
-using Microsoft.AspNetCore.Http;
 using NHibernate;
 
 namespace DataCore.Sql.Core;
@@ -29,8 +28,8 @@ public partial class DataAccessHelper
 
     private FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; set; }
 
-    // Be careful. If setup _sqlConfiguration.DefaultSchema, this line will make an Exception!
-    private void SetupSqlConfiguration()
+	// Be careful. If setup SqlConfiguration.DefaultSchema, this line will make an Exception!
+	private void SetSqlConfiguration()
     {
         string connectionString = GetConnectionString();
         if (string.IsNullOrEmpty(connectionString))
@@ -65,7 +64,7 @@ public partial class DataAccessHelper
     }
 
 	// Be careful. If there are errors in the mapping, this line will make an Exception!
-	private void SetupFluentConfiguration()
+	private void SetFluentConfiguration()
     {
         if (SqlConfiguration is null)
             throw new ArgumentNullException(nameof(SqlConfiguration));
@@ -77,15 +76,12 @@ public partial class DataAccessHelper
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
-    public void SetupSessionFactory()
+    public void SetSessionFactory()
     {
 	    lock (_locker)
 	    {
-            SetupSqlConfiguration();
-            SetupFluentConfiguration();
-            if (FluentConfiguration is null)
-                throw new ArgumentNullException(nameof(FluentConfiguration));
-
+            SetSqlConfiguration();
+            SetFluentConfiguration();
             SessionFactory = FluentConfiguration.BuildSessionFactory();
         }
     }
@@ -95,18 +91,6 @@ public partial class DataAccessHelper
     //    using NHibernate.ISessionFactory session = SessionFactory;
     //    session.Close();
     //    session.Dispose();
-    //}
-
-    //private JsonSettingsController? _jsonControl;
-    //public JsonSettingsController JsonControl
-    //{
-    //    get
-    //    {
-    //        if (_jsonControl is not null)
-    //            return _jsonControl;
-    //        return _jsonControl = new();
-    //    }
-    //    set => _jsonControl = value;
     //}
 
     ~DataAccessHelper()
@@ -151,9 +135,6 @@ public partial class DataAccessHelper
             case "SCALES":
                 AddConfigurationMappingsForScale(fluentConfiguration);
                 break;
-            case "VSDWH":
-                AddConfigurationMappingsForDwh(fluentConfiguration);
-                break;
         }
     }
 
@@ -192,17 +173,6 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
-    }
-
-    private void AddConfigurationMappingsForDwh(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
-    {
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.BrandMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.InformationSystemMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureGroupMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureLightMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
     }
 
     #endregion

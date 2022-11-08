@@ -4,7 +4,6 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
-using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.Core;
 
@@ -61,16 +60,16 @@ public partial class DataAccessHelper
 		return GetItemNullable<AppModel>(sqlCrudConfig);
 	}
 
-	public DeviceModel GetItemDeviceOrCreateNew(string deviceName)
+	public DeviceModel GetItemDeviceOrCreateNew(string name)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), deviceName, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), name, false, false);
 		DeviceModel device = GetItemNotNull<DeviceModel>(sqlCrudConfig);
 		if (device.IdentityIsNew)
 		{
 			device = new()
 			{
-				Name = deviceName,
-				PrettyName = deviceName,
+				Name = name,
+				PrettyName = name,
 				CreateDt = DateTime.Now,
 				ChangeDt = DateTime.Now,
 				IsMarked = false,
@@ -87,7 +86,7 @@ public partial class DataAccessHelper
 		return device;
 	}
 
-	public ScaleModel? GetItemScale(DeviceModel device)
+	private ScaleModel? GetItemScale(DeviceModel device)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceModel), device.IdentityValueUid), false, false);
@@ -97,13 +96,11 @@ public partial class DataAccessHelper
 	public ScaleModel GetItemScaleNotNull(DeviceModel device) =>
 		GetItemScale(device) ?? new();
 
-	public DeviceModel? GetItemDevice(string deviceName)
+	private DeviceModel? GetItemDevice(string name)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), deviceName, false, false);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), name, false, false);
 		return GetItemNullable<DeviceModel>(sqlCrudConfig);
 	}
-
-	public DeviceModel GetItemDeviceNotNull(string deviceName) => GetItemDevice(deviceName) ?? new();
 
 	public DeviceModel? GetItemDevice(ScaleModel scale)
 	{
@@ -111,6 +108,8 @@ public partial class DataAccessHelper
 			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
 		return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig)?.Device;
 	}
+
+	public DeviceModel GetItemDeviceNotNull(string name) => GetItemDevice(name) ?? new();
 
 	public DeviceModel GetItemDeviceNotNull(ScaleModel scale) => GetItemDevice(scale) ?? new();
 

@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableDwhModels;
 using DataCore.Sql.Tables;
 using DataCore.Sql.Xml;
 
@@ -87,22 +86,6 @@ public partial class DataAccessHelper
 				break;
 			case WorkShopModel workshop:
                 workshop.ProductionFacility = GetItemNotNull<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
-				break;
-			// Dwh.
-			case BrandModel brand:
-                brand.InformationSystem = GetItemNotNull<InformationSystemModel>(brand.InformationSystem.IdentityValueId);
-				break;
-			case TableDwhModels.NomenclatureModel nomenclatureDwh:
-                nomenclatureDwh.Status = GetItemNotNull<StatusModel>(nomenclatureDwh.Status.IdentityValueId);
-				break;
-			case NomenclatureGroupModel nomenclatureGroup:
-                nomenclatureGroup.InformationSystem = GetItemNotNull<InformationSystemModel>(nomenclatureGroup.InformationSystem.IdentityValueId);
-				break;
-			case NomenclatureLightModel nomenclatureLight:
-                nomenclatureLight.InformationSystem = GetItemNotNull<InformationSystemModel>(nomenclatureLight.InformationSystem.IdentityValueId);
-				break;
-			case NomenclatureTypeModel nomenclatureType:
-                nomenclatureType.InformationSystem = GetItemNotNull<InformationSystemModel>(nomenclatureType.InformationSystem.IdentityValueId);
 				break;
 		}
 	}
