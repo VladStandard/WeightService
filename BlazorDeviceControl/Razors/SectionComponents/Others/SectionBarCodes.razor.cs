@@ -11,8 +11,8 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, S
 
 	public SectionBarCodes()
 	{
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
-		SqlCrudConfigList.IsGuiShowFilterMarked = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
 	}
 
 	#endregion
@@ -25,7 +25,7 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, S
 		{
 			() =>
 			{
-				SqlItemsCast = DataContext.GetListNotNull<BarCodeModel>(SqlCrudConfigList);
+				SqlSectionCast = DataContext.GetListNotNull<BarCodeModel>(SqlCrudConfigSection);
 
 				ButtonSettings = new(false, true, true, true, false, false, false);
 			}

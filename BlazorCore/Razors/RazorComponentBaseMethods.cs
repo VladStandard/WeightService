@@ -214,7 +214,7 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
-			SqlItemsSave(SqlItems);
+			SqlItemsSave(SqlSection);
 			OnChangeAsync();
 		});
 	}

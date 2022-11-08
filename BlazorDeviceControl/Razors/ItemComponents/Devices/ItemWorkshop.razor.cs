@@ -24,7 +24,7 @@ public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 				SqlItemCast = DataContext.GetItemNotNull<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigItem);
+				DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigList);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

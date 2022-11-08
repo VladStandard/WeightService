@@ -46,7 +46,7 @@ public class SqlCrudConfigModel
 	}
 
 	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
-		bool isResultShowMarked, bool isResultShowOnlyTop, bool isResultAddFieldEmpty, bool isResultOrder, int resultMaxCount = 0)
+		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0)
 	{
 		Filters = filters;
 		Orders = orders;
@@ -56,26 +56,26 @@ public class SqlCrudConfigModel
 		IsGuiShowFilterOnlyTop = true;
 		IsGuiShowItemsCount = false;
 
-		IsResultShowMarked = isResultShowMarked;
-		IsResultShowOnlyTop = isResultShowOnlyTop;
-		IsResultAddFieldEmpty = isResultAddFieldEmpty;
-		IsResultOrder = isResultOrder;
+		IsResultShowMarked = isShowMarked;
+		IsResultShowOnlyTop = isShowOnlyTop;
+		IsResultAddFieldEmpty = isAddFieldEmpty;
+		IsResultOrder = isOrder;
 
-		ResultMaxCount = resultMaxCount;
+		ResultMaxCount = maxCount;
 	}
 
 	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters,
-		bool isResultShowMarked, bool isResultShowOnlyTop, bool isResultAddFieldEmpty, bool isResultOrder, int resultMaxCount = 0) :
-		this(filters, new(), isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isResultOrder, resultMaxCount)
+		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) :
+		this(filters, new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount)
 	{ }
 
 	public SqlCrudConfigModel(List<SqlFieldOrderModel> orders,
-		bool isResultShowMarked, bool isResultShowOnlyTop, bool isResultAddFieldEmpty, bool isResultOrder, int resultMaxCount = 0) :
-		this(new(), orders, isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isResultOrder, resultMaxCount)
+		bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) :
+		this(new(), orders, isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount)
 	{ }
 
-	public SqlCrudConfigModel(bool isResultShowMarked, bool isResultShowOnlyTop, bool isResultAddFieldEmpty, bool isResultOrder, int resultMaxCount = 0) :
-		this(new(), new(), isResultShowMarked, isResultShowOnlyTop, isResultAddFieldEmpty, isResultOrder, resultMaxCount)
+	public SqlCrudConfigModel(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, int maxCount = 0) :
+		this(new(), new(), isShowMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, maxCount)
 	{ }
 
 	#endregion
@@ -97,8 +97,8 @@ public class SqlCrudConfigModel
 			_ => new()
 		};
 
-	private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isResultShowMarked) =>
-		new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isResultShowMarked) };
+	private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
+		new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked) };
 
 	//private void SetFilters(List<SqlFieldFilterModel> filters)
 	//{

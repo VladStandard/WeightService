@@ -26,14 +26,19 @@ public class SettingsHelper
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 	public static SettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-	private SettingsHelper()
+	public SettingsHelper()
 	{
 		CurrentLanguage = LangEnum.Russian;
+		DirMain = string.Empty;
+		DirDocs = string.Empty;
+		DirDrivers = string.Empty;
+		DirFonts = string.Empty;
+		DirManuals = string.Empty;
 	}
 
 	#endregion
 
-	#region Private helpers
+	#region Public and private fields, properties, constructor
 
 	public AppHelper App { get; } = AppHelper.Instance;
 	private CollectionsHelper Collections { get; } = CollectionsHelper.Instance;
@@ -41,35 +46,34 @@ public class SettingsHelper
 	private RegHelper Reg { get; } = RegHelper.Instance;
 	private WinInfoHelper WinInfo { get; } = WinInfoHelper.Instance;
 
-	#endregion
-
-	#region Public fields and properties
-
 	/// <summary>
-	/// Главный каталог
+	/// Main directory.
 	/// </summary>
 	public string DirMain { get; private set; }
 
 	/// <summary>
-	/// Каталог документации.
+	/// Documentations directory.
 	/// </summary>
 	public string DirDocs { get; private set; }
 
 	/// <summary>
-	/// Каталог драйверов.
+	/// Drivers directory.
 	/// </summary>
 	public string DirDrivers { get; private set; }
 
 	/// <summary>
-	/// Каталог шрифтов.
+	/// Fonts directory.
 	/// </summary>
 	public string DirFonts { get; private set; }
 
 	/// <summary>
-	/// Каталог руководств.
+	/// Manuals directory.
 	/// </summary>
 	public string DirManuals { get; private set; }
 
+	/// <summary>
+	/// Current language.
+	/// </summary>
 	private LangEnum CurrentLanguage { get; }
 
 	/// <summary>
@@ -96,7 +100,7 @@ public class SettingsHelper
 		{
 #if DEBUG
 			return @"..\ScalesUI2\bin\Debug\";
-#else 
+#else
                 return @"..\ScalesUI2\bin\Release\";
 #endif
 		}
@@ -109,22 +113,14 @@ public class SettingsHelper
 	public string ScalesCoreDll =>
 #if DEBUG
 		@"..\ScalesCore\bin\Debug\ScalesCore.dll";
-#else 
+#else
             @"..\ScalesCore\bin\Release\ScalesCore.dll";
 #endif
 
 	/// <summary>
-	/// Меню Windows.
+	/// Windows menu.
 	/// </summary>
 	public string MenuScalesUI { get; } = @"%ProgramMenu%\VladimirStandardCorp\ScalesUI";
-
-	/// <summary>
-	/// Админ-права.
-	/// </summary>
-	public bool IsAdmin =>
-		System.Net.Dns.GetHostName().Equals("DEV-MAIN") ||  // Домашний ПК Морозов Д.В.
-		System.Net.Dns.GetHostName().Equals("PC208") ||     // Рабочий ПК Морозов Д.В.
-		System.Net.Dns.GetHostName().Equals("PC0147");      // Рабочий ПК Ивакин Д.В.
 
 	#endregion
 

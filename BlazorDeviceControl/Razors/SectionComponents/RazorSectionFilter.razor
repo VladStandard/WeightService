@@ -16,7 +16,7 @@
 	@switch (typeof(TItemFilter))
 	{
 		case var cls when cls == typeof(PluModel):
-			@foreach (TItemFilter sqlItem in SqlItemsFilterCast)
+			@foreach (TItemFilter sqlItem in SqlSectionFilterCast)
 			{
 				@if (sqlItem is PluModel plu)
 				{
@@ -25,7 +25,7 @@
 			}
 			break;
 		case var cls when cls == typeof(ScaleModel):
-			@foreach (TItemFilter sqlItem in SqlItemsFilterCast)
+			@foreach (TItemFilter sqlItem in SqlSectionFilterCast)
 			{
 				@if (sqlItem is ScaleModel scale)
 				{

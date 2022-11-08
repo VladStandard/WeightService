@@ -10,7 +10,7 @@
 
 <SystemIdentity ParentRazor=@(this) />
 
-@if (SqlCrudConfigList.IsResultShowMarked)
+@if (SqlCrudConfigSection.IsResultShowMarked)
 {
 	<RadzenGridColumn TItem=@TItem
 			TextAlign=@TextAlign.Center Width=@(CssStyleRadzenColumn.Width) SortProperty="IsMarked"

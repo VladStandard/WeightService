@@ -9,16 +9,14 @@ public static class SqlCrudConfigUtils
 {
 	#region Public and private methods
 
-	public static SqlCrudConfigModel GetCrudConfigItem(bool isResultShowMarked)
-	{
-		return new(new List<SqlFieldFilterModel>(), isResultShowMarked, true, false, false, 1);
-	}
+	public static SqlCrudConfigModel GetCrudConfigItem(bool isResultShowMarked) => 
+		new(new List<SqlFieldFilterModel>(), isResultShowMarked, false, false, false, 1);
 
-	public static SqlCrudConfigModel GetCrudConfigList(bool isResultShowMarked)
-	{
-		return new(new List<SqlFieldFilterModel>(), isResultShowMarked, 
-			true, false, true);
-	}
+	public static SqlCrudConfigModel GetCrudConfigSection(bool isResultShowMarked) =>
+		new(new List<SqlFieldFilterModel>(), isResultShowMarked, true, false, true);
+
+	public static SqlCrudConfigModel GetCrudConfigComboBox() =>
+		new(new List<SqlFieldFilterModel>(), false, false, true, true);
 
 	public static SqlCrudConfigModel GetCrudConfig(SqlTableBase? itemFilter, string className, List<SqlFieldOrderModel> orders,
 		bool isResultShowMarked = false, bool isResultShowOnlyTop = true, bool isResultAddFieldEmpty = false, bool isOrder = false, int resultMaxCount = 0) =>

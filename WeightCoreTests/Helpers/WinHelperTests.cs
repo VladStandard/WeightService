@@ -4,7 +4,6 @@
 using DataCore.Models;
 using DataCore.Wmi;
 using NUnit.Framework;
-using System;
 using WeightCore.Helpers;
 
 namespace WeightCoreTests.Helpers;

@@ -24,19 +24,19 @@
 		</thead>
 		<tbody>
 		<tr>
-			<td colspan=@(SqlCrudConfigList.IsGuiShowFilterAdditional ? 1 : 3) >
+			<td colspan=@(SqlCrudConfigSection.IsGuiShowFilterAdditional ? 1 : 3) >
 				<RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 12px; " Text=@Title />
-					@if (SqlCrudConfigList.IsGuiShowFilterOnlyTop)
+					@if (SqlCrudConfigSection.IsGuiShowFilterOnlyTop)
 				{
-						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigList.IsResultShowOnlyTop
+						<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowOnlyTop
 						Change=@(_=> OnChangeAsync())
 					    Style="margin-top: -3px; margin-left: 20px; " />
 					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " 
 					    Text=@LocaleCore.Action.ActionIsSelectTopRowsCount(DataAccess.JsonSettings.Local.SelectTopRowsCount) />
 				}
-					@if (SqlCrudConfigList.IsGuiShowFilterMarked)
+					@if (SqlCrudConfigSection.IsGuiShowFilterMarked)
 				{
-					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigList.IsResultShowMarked
+					<RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlCrudConfigSection.IsResultShowMarked
 						Change=@(_ => OnChangeAsync())
 						Style="margin-top: -3px; margin-left: 20px; " />
 					<RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text=@LocaleCore.Action.ActionIsShowMarked />
@@ -45,12 +45,12 @@
 					Icon="refresh" ButtonStyle=@ButtonStyle.Primary
 					Style="margin-top: -3px; margin-left: 20px; width: 60px; " Size=@ButtonSize.Small
 				    Disabled=@(!DataAccess.IsConnected()) Click=@(_ => OnChangeAsync()) />
-				@if (SqlCrudConfigList.IsGuiShowItemsCount)
+				@if (SqlCrudConfigSection.IsGuiShowItemsCount)
 				{
-					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@ItemsCountResult />
+					<RadzenLabel Style="margin-top: 3px; margin-left: 20px; font-size: 11px; " Text=@SqlListCountResult />
 				}
 			</td>
-			@if (SqlCrudConfigList.IsGuiShowFilterAdditional)
+			@if (SqlCrudConfigSection.IsGuiShowFilterAdditional)
 			{
 				<td>
 					<RadzenLabel Style="margin-top: 1px; font-size: 11px; text-align: center; height: 100%; " Text=@RazorFieldConfig.Title />

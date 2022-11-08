@@ -12,7 +12,7 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
 
     public SectionPluWeighingsAggr()
     {
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
     }
 
 	#endregion
@@ -27,7 +27,7 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
             {
                 object[] objects = DataAccess.GetArrayObjectsNotNull(
                     SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts(
-                        SqlCrudConfigList.IsResultShowOnlyTop ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0));
+                        SqlCrudConfigSection.IsResultShowOnlyTop ? DataAccess.JsonSettings.Local.SelectTopRowsCount : 0));
                 List<WeithingFactSummaryModel> items = new();
                 foreach (object obj in objects)
                 {
@@ -43,7 +43,7 @@ public partial class SectionPluWeighingsAggr : RazorComponentSectionBase<Weithin
                         });
                     }
                 }
-                SqlItemsCast = items;
+                SqlSectionCast = items;
 
 				ButtonSettings = new(false, false, false, false, false, false, false);
             }

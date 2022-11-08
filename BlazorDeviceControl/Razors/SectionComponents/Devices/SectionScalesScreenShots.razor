@@ -9,7 +9,7 @@
 
 <RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
 			Style="margin-top: 5px;"
-	Data=@SqlItemsCast TItem=@ScaleScreenShotModel
+	Data=@SqlSectionCast TItem=@ScaleScreenShotModel
 	RowClick=@(SqlItemSetAsync) 
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"

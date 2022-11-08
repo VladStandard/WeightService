@@ -2,9 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using NUnit.Framework;
-using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using DataCore.Helpers;
 using DataCore.Models;
 using WeightCore.Helpers;

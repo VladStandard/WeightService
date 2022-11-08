@@ -81,7 +81,7 @@ public class DataCoreHelper
 		{
 			foreach (bool isShowMarked in DataCoreEnums.GetBool())
 			{
-				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigList(isShowMarked);
+				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
 				// Arrange.
 				List<T> items = DataContext.GetListNotNull<T>(sqlCrudConfig);
 				// Act.

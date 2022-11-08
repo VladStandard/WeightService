@@ -12,7 +12,7 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
 
     public RazorSectionFilter()
     {
-        SqlItemsFilterCast = new();
+        SqlSectionFilterCast = new();
     }
 
     #endregion
@@ -52,15 +52,15 @@ public partial class RazorSectionFilter<TItem, TItemFilter> : RazorComponentSect
                             scalesNull.AddRange(scales);
                             items = scalesNull.Cast<TItemFilter>().ToArray();
 							// Add null item first.
-							SqlItemsFilterCast = new() { DataAccess.GetItemNew<TItemFilter>() };
+							SqlSectionFilterCast = new() { DataAccess.GetItemNew<TItemFilter>() };
                             break;
                     }
 					// Add sorted items second.
-					SqlItemsFilterCast = new();
-                    SqlItemsFilterCast.AddRange(items);
+					SqlSectionFilterCast = new();
+                    SqlSectionFilterCast.AddRange(items);
 					// Select filter item.
 					if (SqlItemFilterCast.EqualsDefault())
-						SqlItemFilterCast = SqlItemsFilterCast.First();
+						SqlItemFilterCast = SqlSectionFilterCast.First();
                 }
             }
         });

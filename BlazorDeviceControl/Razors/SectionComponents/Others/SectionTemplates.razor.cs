@@ -11,8 +11,8 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel,
 
     public SectionTemplates()
     {
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
-	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionTemplates : RazorComponentSectionBase<TemplateModel,
         {
             () =>
             {
-                SqlItemsCast = DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigList);
+                SqlSectionCast = DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

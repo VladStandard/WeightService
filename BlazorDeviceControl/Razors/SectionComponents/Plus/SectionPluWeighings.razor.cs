@@ -11,8 +11,8 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
 
 	public SectionPluWeighings()
 	{
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
-		SqlCrudConfigList.IsGuiShowFilterMarked = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
 	}
 
 	#endregion
@@ -25,7 +25,7 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
 		{
 			() =>
 			{
-				SqlItemsCast = DataAccess.GetListPluWeighings(SqlCrudConfigList);
+				SqlSectionCast = DataAccess.GetListPluWeighings(SqlCrudConfigSection);
 
 				ButtonSettings = new(false, true, false, true, false, false, false);
 			}

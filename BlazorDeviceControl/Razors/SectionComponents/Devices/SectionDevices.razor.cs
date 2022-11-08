@@ -11,8 +11,8 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
 
     public SectionDevices()
     {
-	    SqlCrudConfigList.IsGuiShowItemsCount = true;
-		SqlCrudConfigList.IsGuiShowFilterMarked = true;
+	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
+		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,8 @@ public partial class SectionDevices : RazorComponentSectionBase<DeviceModel, Sql
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigList);
+	            SqlSectionCast = DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigSection);
+
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });

@@ -12,9 +12,9 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 
 	public SectionPlusScales()
 	{
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
-		SqlCrudConfigList.IsGuiShowFilterAdditional = true;
-		SqlCrudConfigList.IsGuiShowFilterMarked = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+		SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
+		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
 		ButtonSettings = new(true, true, true, true, true, true, false);
 	}
 
@@ -28,8 +28,8 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 		{
 			() =>
 			{
-				SqlCrudConfigList.SetFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem, EnumFilterAction.Add);
-				SqlItemsCast = DataContext.GetListNotNull<PluScaleModel>(SqlCrudConfigList);
+				SqlCrudConfigSection.SetFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem, EnumFilterAction.Add);
+				SqlSectionCast = DataContext.GetListNotNull<PluScaleModel>(SqlCrudConfigSection);
 			}
 		});
 	}

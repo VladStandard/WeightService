@@ -11,9 +11,9 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
 
     public SectionPlusPackages()
     {
-	    SqlCrudConfigList.IsGuiShowItemsCount = true;
-	    SqlCrudConfigList.IsGuiShowFilterAdditional = true;
-	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
+	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
+	    SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
+	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
 		ButtonSettings = new(true, true, true, true, true, true, false);
     }
 
@@ -27,8 +27,8 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
         {
             () =>
             {
-	            SqlCrudConfigList.SetFilters(nameof(PluPackageModel.Plu), ParentRazor?.SqlItem, EnumFilterAction.Add);
-				SqlItemsCast = DataContext.GetListNotNull<PluPackageModel>(SqlCrudConfigList);
+	            SqlCrudConfigSection.SetFilters(nameof(PluPackageModel.Plu), ParentRazor?.SqlItem, EnumFilterAction.Add);
+				SqlSectionCast = DataContext.GetListNotNull<PluPackageModel>(SqlCrudConfigSection);
             }
         });
     }

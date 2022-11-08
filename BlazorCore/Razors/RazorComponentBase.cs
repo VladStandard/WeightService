@@ -46,12 +46,13 @@ public partial class RazorComponentBase : LayoutComponentBase
 	protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
 	public SqlTableBase? SqlItem { get; set; }
 	public SqlTableBase? SqlItemFilter { get; set; }
-	public List<SqlTableBase>? SqlItems { get; set; }
+	public List<SqlTableBase>? SqlSection { get; set; }
 	public AuthorizeView? AuthorizeViewBase { get; set; }
 	public AuthenticationState? AuthenticationStateBase { get; set; }
 	public DataContextModel DataContext { get; } = new();
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	[Parameter] public SqlCrudConfigModel SqlCrudConfigItem { get; set; }
+	[Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
 	[Parameter] public SqlCrudConfigModel SqlCrudConfigList { get; set; }
 
 	/// <summary>
@@ -74,11 +75,12 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		SqlItem = null;
 		SqlItemFilter = null;
-		SqlItems = null;
+		SqlSection = null;
 
 		RazorFieldConfig = new();
 		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
-		SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigList(false);
+		SqlCrudConfigSection = SqlCrudConfigUtils.GetCrudConfigSection(false);
+		SqlCrudConfigList = SqlCrudConfigUtils.GetCrudConfigComboBox();
 	}
 
 	private void SetPropertiesFromParent()
@@ -99,39 +101,39 @@ public partial class RazorComponentBase : LayoutComponentBase
 			IdentityUid = ParentRazor.IdentityUid;
 		if (ParentRazor.SqlItem is not null)
 			SqlItem = ParentRazor.SqlItem;
-		if (ParentRazor.SqlItems is not null)
-			SqlItems = ParentRazor.SqlItems;
+		if (ParentRazor.SqlSection is not null)
+			SqlSection = ParentRazor.SqlSection;
 		if (ParentRazor.ButtonSettings is not null)
 			ButtonSettings = ParentRazor.ButtonSettings;
 		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
-		SqlCrudConfigList = ParentRazor.SqlCrudConfigList;
+		//SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
 	}
 
-	private void SetPropertiesToParent()
-	{
-		if (ParentRazor is null) return;
+	//private void SetPropertiesToParent()
+	//{
+	//	if (ParentRazor is null) return;
 
-		if (HttpContext is not null)
-			ParentRazor.HttpContext = HttpContext;
-		if (AuthorizeViewBase is not null)
-			ParentRazor.AuthorizeViewBase = AuthorizeViewBase;
-		if (AuthenticationStateBase is not null)
-			ParentRazor.AuthenticationStateBase = AuthenticationStateBase;
-		if (UserSettings is not null)
-			ParentRazor.UserSettings = UserSettings;
-		if (IdentityId is not null)
-			ParentRazor.IdentityId = IdentityId;
-		if (IdentityUid is not null)
-			ParentRazor.IdentityUid = IdentityUid;
-		if (SqlItem is not null)
-			ParentRazor.SqlItem = SqlItem;
-		if (SqlItems is not null)
-			ParentRazor.SqlItems = SqlItems;
-		if (ButtonSettings is not null)
-			ParentRazor.ButtonSettings = ButtonSettings;
-		ParentRazor.SqlCrudConfigItem = SqlCrudConfigItem;
-		ParentRazor.SqlCrudConfigList = SqlCrudConfigList;
-	}
+	//	if (HttpContext is not null)
+	//		ParentRazor.HttpContext = HttpContext;
+	//	if (AuthorizeViewBase is not null)
+	//		ParentRazor.AuthorizeViewBase = AuthorizeViewBase;
+	//	if (AuthenticationStateBase is not null)
+	//		ParentRazor.AuthenticationStateBase = AuthenticationStateBase;
+	//	if (UserSettings is not null)
+	//		ParentRazor.UserSettings = UserSettings;
+	//	if (IdentityId is not null)
+	//		ParentRazor.IdentityId = IdentityId;
+	//	if (IdentityUid is not null)
+	//		ParentRazor.IdentityUid = IdentityUid;
+	//	if (SqlItem is not null)
+	//		ParentRazor.SqlItem = SqlItem;
+	//	if (SqlItems is not null)
+	//		ParentRazor.SqlItems = SqlItems;
+	//	if (ButtonSettings is not null)
+	//		ParentRazor.ButtonSettings = ButtonSettings;
+	//	ParentRazor.SqlCrudConfigItem = SqlCrudConfigItem;
+	//	//ParentRazor.SqlCrudConfigSection = SqlCrudConfigSection;
+	//}
 
 	private void SetUserSettings(AuthenticationState? authenticationState)
 	{

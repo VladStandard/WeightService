@@ -11,9 +11,9 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
 
     public SectionScalesScreenShots()
     {
-	    SqlCrudConfigList.IsGuiShowItemsCount = true;
-	    SqlCrudConfigList.IsGuiShowFilterAdditional = true;
-	    SqlCrudConfigList.IsGuiShowFilterMarked = true;
+	    SqlCrudConfigSection.IsGuiShowItemsCount = true;
+	    SqlCrudConfigSection.IsGuiShowFilterAdditional = true;
+	    SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         ButtonSettings = new(true, true, true, true, true, true, false);
     }
 
@@ -27,9 +27,8 @@ public partial class SectionScalesScreenShots : RazorComponentSectionBase<ScaleS
         {
             () =>
             {
-	            SqlCrudConfigList.SetFilters(nameof(ScaleScreenShotModel.Scale), ParentRazor?.SqlItem, EnumFilterAction.Add);
-
-				SqlItemsCast = DataContext.GetListNotNull<ScaleScreenShotModel>(SqlCrudConfigList);
+	            SqlCrudConfigSection.SetFilters(nameof(ScaleScreenShotModel.Scale), ParentRazor?.SqlItem, EnumFilterAction.Add);
+				SqlSectionCast = DataContext.GetListNotNull<ScaleScreenShotModel>(SqlCrudConfigSection);
             }
         });
     }

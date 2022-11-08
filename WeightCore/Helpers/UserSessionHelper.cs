@@ -284,8 +284,8 @@ public class UserSessionHelper : BaseViewModel
 	public void Setup(long scaleId, string areaName)
 	{
 		SetScale(scaleId, areaName);
-		Scales = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigList(false));
-		Areas = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigList(false));
+		Scales = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
+		Areas = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
 	}
 
 	private void SetScale(long scaleId, string areaName)

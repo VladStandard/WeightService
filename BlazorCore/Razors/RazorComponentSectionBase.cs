@@ -14,24 +14,24 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	#region Public and private fields, properties, constructor
 
 	[Parameter] public CssStyleRadzenColumnModel CssStyleRadzenColumn { get; set; }
-	protected List<TItem> SqlItemsCast
+	protected List<TItem> SqlSectionCast
 	{
-		get => SqlItems is null ? new() : SqlItems.Select(x => (TItem)x).ToList();
-		set => SqlItems = !value.Any() ? null : new(value);
+		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
+		set => SqlSection = !value.Any() ? null : new(value);
 	}
 	protected TItemFilter SqlItemFilterCast
 	{
 		get => SqlItemFilter is null ? new(): (TItemFilter)SqlItemFilter;
 		set => SqlItemFilter = value;
 	}
-	protected List<TItemFilter> SqlItemsFilterCast { get; set; }
-	protected string ItemsCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlItemsCast.Count:### ### ###}";
+	protected List<TItemFilter> SqlSectionFilterCast { get; set; }
+	protected string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SqlSectionCast.Count:### ### ###}";
 
 	public RazorComponentSectionBase()
 	{
 		CssStyleRadzenColumn = new("5%");
 		SqlItemFilterCast = new();
-		SqlItemsFilterCast = new();
+		SqlSectionFilterCast = new();
 	}
 
 	#endregion

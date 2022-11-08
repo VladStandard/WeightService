@@ -11,8 +11,8 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
 
     public SectionNomenclatures()
     {
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
-        SqlCrudConfigList.IsGuiShowFilterMarked = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
     }
 
     #endregion
@@ -25,7 +25,7 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
         {
             () =>
             {
-	            SqlItemsCast = DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigList);
+	            SqlSectionCast = DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

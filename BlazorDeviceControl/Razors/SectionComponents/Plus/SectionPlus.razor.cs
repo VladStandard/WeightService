@@ -11,8 +11,8 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 
 	public SectionPlus()
 	{
-		SqlCrudConfigList.IsGuiShowItemsCount = true;
-		SqlCrudConfigList.IsGuiShowFilterMarked = true;
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+		SqlCrudConfigSection.IsGuiShowFilterMarked = true;
 	}
 
 	#endregion
@@ -25,7 +25,7 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 		{
 			() =>
 			{
-				SqlItemsCast = DataContext.GetListNotNull<PluModel>(SqlCrudConfigList);
+				SqlSectionCast = DataContext.GetListNotNull<PluModel>(SqlCrudConfigSection);
 
 				ButtonSettings = new(false, false, true, true, false, false, false);
 			}
