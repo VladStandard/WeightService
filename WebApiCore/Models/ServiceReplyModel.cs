@@ -5,29 +5,31 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Common;
+namespace WebApiCore.Models;
 
-[XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlSimpleV2Model : SerializeDeprecatedModel<SqlSimpleV2Model>
+[XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
+public class ServiceReplyModel : SerializeDeprecatedModel<ServiceReplyModel>
 {
     #region Public and private fields and properties
 
-    [XmlElement(TerraConsts.Simple)]
-    public SqlSimpleV1Model Item { get; set; } = new();
+    /// <summary>
+    /// Message.
+    /// </summary>
+    public string Message { get; set; } = string.Empty;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="description"></param>
-    public SqlSimpleV2Model(string description)
+    /// <param name="message"></param>
+    public ServiceReplyModel(string message)
     {
-        Item = new(description);
+        Message = message;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlSimpleV2Model()
+    public ServiceReplyModel()
     {
         //
     }
@@ -38,7 +40,8 @@ public class SqlSimpleV2Model : SerializeDeprecatedModel<SqlSimpleV2Model>
 
     public override string ToString()
     {
-        return @$"{nameof(Item)}: {Item}";
+        return
+            @$"{nameof(Message)}: {Message}. ";
     }
 
     #endregion

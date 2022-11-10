@@ -10,7 +10,7 @@ using DataCore.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
-using WebApiCore.Common;
+using WebApiCore.Models;
 using WebApiCore.Utils;
 
 namespace WebApiCore.Controllers;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
-using WebApiCore.Common;
+using WebApiCore.Models;
 
 namespace WebApiTerra1000Tests.Controllers;
 

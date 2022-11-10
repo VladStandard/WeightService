@@ -48,8 +48,8 @@ public class SerializeBase : ISerializable
     {
         ConformanceLevel = ConformanceLevel.Document,
         OmitXmlDeclaration = false, // не подавлять xml заголовок
-        Encoding = Encoding.UTF8,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
-        //Encoding = Encoding.Unicode,
+        //Encoding = Encoding.UTF32,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
+        Encoding = Encoding.Unicode,
         Indent = true,              // добавлять отступы
         IndentChars = "\t"          // сиволы отступа
     };
@@ -220,4 +220,16 @@ public class SerializeBase : ISerializable
     }
 
     #endregion
+
+    public virtual string GetContent<T>(FormatTypeEnum format) where T : new()
+    {
+        return format switch
+        {
+            FormatTypeEnum.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
+            FormatTypeEnum.Xml => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true)),
+            FormatTypeEnum.Html => SerializeAsHtml(),
+            FormatTypeEnum.Text or FormatTypeEnum.Raw => SerializeAsText(),
+            _ => throw GetArgumentException(nameof(format)),
+        };
+    }
 }

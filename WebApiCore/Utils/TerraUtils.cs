@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using NHibernate;
-using WebApiCore.Common;
+using WebApiCore.Models;
 
 namespace WebApiCore.Utils;
 

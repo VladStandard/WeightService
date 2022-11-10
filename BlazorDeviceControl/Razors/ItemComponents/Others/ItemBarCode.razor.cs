@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using WebApiCore.Common;
+using WebApiCore.Models;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 
@@ -32,13 +32,13 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 	}
 
 	private string GetBarcodeTop(FormatTypeEnum format) =>
-		new BarcodeTopModel(SqlItemCast.ValueTop, false).GetContent(format);
+		new BarcodeTopModel(SqlItemCast.ValueTop, false).GetContent<BarcodeTopModel>(format);
 
 	private string GetBarcodeRight(FormatTypeEnum format) =>
-		new BarcodeRightModel(SqlItemCast.ValueRight).GetContent(format);
+		new BarcodeRightModel(SqlItemCast.ValueRight).GetContent<BarcodeRightModel>(format);
 
 	private string GetBarcodeBottom(FormatTypeEnum format) =>
-		new BarcodeBottomModel(SqlItemCast.ValueBottom).GetContent(format);
+		new BarcodeBottomModel(SqlItemCast.ValueBottom).GetContent<BarcodeBottomModel>(format);
 
 	#endregion
 }

@@ -1,29 +1,48 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using DataCore.Models;
 using DataCore.Sql.Models;
-using WebApiCore.Utils;
+using DataCore.Utils;
 
-namespace WebApiCore.Common;
+namespace WebApiCore.Models;
 
 /// <summary>
-/// Barcode top entity.
+/// Barcode down entity.
 /// </summary>
-[XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class BarcodeTopModel : SerializeDeprecatedModel<BarcodeTopModel>
+[XmlRoot("BarcodeTop", Namespace = "", IsNullable = false)]
+public class BarcodeTopModel : SerializeBase
 {
     #region Public and private fields and properties
 
+    [XmlElement(nameof(Const1))]
     public string Const1 { get; set; } = string.Empty;
+    [XmlElement(nameof(ArmNumber))] 
     public string ArmNumber { get; set; } = string.Empty;
+    [XmlElement(nameof(Counter))]
     public string Counter { get; set; } = string.Empty;
+    [XmlElement(nameof(Date))]
     public string Date { get; set; } = string.Empty;
+    [XmlElement(nameof(Time))]
     public string Time { get; set; } = string.Empty;
+    [XmlElement(nameof(Plu))]
     public string Plu { get; set; } = string.Empty;
+    [XmlElement(nameof(Weight))]
     public string Weight { get; set; } = string.Empty;
+    [XmlElement(nameof(Zames))]
     public string Zames { get; set; } = string.Empty;
+    [XmlElement(nameof(Crc))]
     public string Crc { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public BarcodeTopModel()
+    {
+        //
+    }
 
     /// <summary>
     /// Constructor.
@@ -67,9 +86,19 @@ public class BarcodeTopModel : SerializeDeprecatedModel<BarcodeTopModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public BarcodeTopModel()
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    private BarcodeTopModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        //
+        Const1 = info.GetString(nameof(Const1)) ?? string.Empty;
+        ArmNumber = info.GetString(nameof(ArmNumber)) ?? string.Empty;
+        Counter = info.GetString(nameof(Counter)) ?? string.Empty;
+        Date = info.GetString(nameof(Date)) ?? string.Empty;
+        Time = info.GetString(nameof(Time)) ?? string.Empty;
+        Plu = info.GetString(nameof(Plu)) ?? string.Empty;
+        Weight = info.GetString(nameof(Weight)) ?? string.Empty;
+        Zames = info.GetString(nameof(Zames)) ?? string.Empty;
+        Crc = info.GetString(nameof(Crc)) ?? string.Empty;
     }
 
     #endregion
@@ -95,6 +124,25 @@ public class BarcodeTopModel : SerializeDeprecatedModel<BarcodeTopModel>
     public string GetValue() => string.IsNullOrEmpty(Crc) 
         ? @$"{Const1}{ArmNumber}{Counter}{Date}{Time}{Plu}{Weight}{Zames}"
         : @$"{Const1}{ArmNumber}{Counter}{Date}{Time}{Plu}{Weight}{Zames}{Crc}";
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(Const1), Const1);
+        info.AddValue(nameof(ArmNumber), ArmNumber);
+        info.AddValue(nameof(Counter), Counter);
+        info.AddValue(nameof(Date), Date);
+        info.AddValue(nameof(Time), Time);
+        info.AddValue(nameof(Plu), Plu);
+        info.AddValue(nameof(Weight), Weight);
+        info.AddValue(nameof(Zames), Zames);
+        info.AddValue(nameof(Crc), Crc);
+    }
 
     #endregion
 }

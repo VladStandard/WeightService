@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections;
 using System.Net;
 using System.Runtime.CompilerServices;
 using Azure;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using NHibernate;
 using NHibernate.Hql.Util;
-using WebApiCore.Common;
+using WebApiCore.Models;
 
 namespace WebApiCore.Utils;
 
@@ -38,8 +39,7 @@ public class ControllerHelper
         try
         {
             task?.Start();
-            ContentResult result = task is not null ? task.GetAwaiter().GetResult() : new();
-            return result;
+            return task is not null ? task.GetAwaiter().GetResult() : new();
         }
         catch (Exception ex)
         {
@@ -54,27 +54,48 @@ public class ControllerHelper
     }
 
     public ContentResult GetResponse1C(ISessionFactory sessionFactory, string query, 
-        SqlParameter? sqlParameter, FormatTypeEnum format, bool isTransaction)
+        SqlParameter? sqlParameter, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
     {
         using ISession session = sessionFactory.OpenSession();
         using ITransaction transaction = session.BeginTransaction();
         List<Response1CRecordModel> success = new();
         List<Response1CRecordModel> errors = new();
-        ResponseQueryModel responseQuery = new();
+        ResponseQueryModel? responseQuery = isShowQuery ? new() : null;
         
         try
         {
             if (!string.IsNullOrEmpty(query))
             {
-                responseQuery.Query = query;
+                if (responseQuery is not null)
+                    responseQuery.Query = query;
                 ISQLQuery sqlQuery = session.CreateSQLQuery(query);
                 sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
                 if (sqlParameter is not null)
                 {
-                    responseQuery.Parameters.Add(new(sqlParameter));
+                    if (responseQuery is not null)
+                        responseQuery.Parameters.Add(new(sqlParameter));
                     sqlQuery.SetParameter(sqlParameter.ParameterName, sqlParameter.Value);
                 }
-                string response = sqlQuery.UniqueResult<string>();
+                //string response = sqlQuery.UniqueResult<string>();
+                //var list = sqlQuery.List<object>();
+                IList? list = sqlQuery.List();
+                object?[] result = new object?[list.Count];
+                if (list.Count == 1 && list[0] is object[] records)
+                {
+                    result = records;
+                }
+                else
+                {
+                    for (int i = 0; i < result.Length; i++)
+                    {
+                        if (list[i] is object[] records2)
+                            result[i] = records2;
+                        else
+                            result[i] = list[i];
+                    }
+                }
+                string response = result[^1] as string ?? string.Empty;
+                //string response = result[result.Count() - 1] is not null ? result[result.Count() - 1].ToString() : string.Empty;
                 success.Add(new(Guid.NewGuid(), response));
             }
             else
@@ -91,7 +112,7 @@ public class ControllerHelper
                 transaction.Rollback();
         }
         return new Response1CModel(success, errors, responseQuery)
-            .GetResult(format, HttpStatusCode.OK);
+            .GetResult<Response1CModel>(format, HttpStatusCode.OK);
     }
 
     #endregion

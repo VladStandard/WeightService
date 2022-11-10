@@ -5,29 +5,29 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Common;
+namespace WebApiCore.Models;
 
-[XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlResponseContragentsModel : SerializeDeprecatedModel<SqlResponseContragentsModel>
+[XmlRoot(TerraConsts.Simple, Namespace = "", IsNullable = false)]
+public class SqlSimpleV1Model : SerializeDeprecatedModel<SqlSimpleV1Model>
 {
     #region Public and private fields and properties
 
-    [XmlElement(TerraConsts.Simple)]
-    public SqlSimpleV1Model Item { get; set; } = new();
+    [XmlAttribute("Description")]
+    public string Description { get; set; } = string.Empty;
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="description"></param>
-    public SqlResponseContragentsModel(string description)
+    public SqlSimpleV1Model(string description)
     {
-        Item = new(description);
+        Description = description;
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public SqlResponseContragentsModel()
+    public SqlSimpleV1Model()
     {
         //
     }
@@ -38,7 +38,7 @@ public class SqlResponseContragentsModel : SerializeDeprecatedModel<SqlResponseC
 
     public override string ToString()
     {
-        return @$"{nameof(Item)}: {Item}";
+        return @$"{nameof(Description)}: {Description}. ";
     }
 
     #endregion

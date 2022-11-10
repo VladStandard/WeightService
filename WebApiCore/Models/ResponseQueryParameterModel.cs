@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using Microsoft.Data.SqlClient;
-using System.Xml.Serialization;
 
-namespace WebApiCore.Common;
+namespace WebApiCore.Models;
 
-[XmlRoot(Namespace = "", IsNullable = true)]
-public class ResponseQueryParameterModel : SerializeDeprecatedModel<ResponseQueryParameterModel>
+[XmlRoot("QueryParameter", Namespace = "", IsNullable = false)]
+public class ResponseQueryParameterModel : SerializeBase
 {
     #region Public and private fields and properties
 

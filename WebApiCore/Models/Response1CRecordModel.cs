@@ -1,17 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.Models;
 using System.Xml.Serialization;
+using DataCore.Sql.Models;
 
-namespace WebApiCore.Common;
+namespace WebApiCore.Models;
 
-[XmlRoot(Namespace = "", IsNullable = true)]
+[XmlRoot("Record", Namespace = "", IsNullable = false)]
 public class Response1CRecordModel : SerializeDeprecatedModel<Response1CRecordModel>
 {
     #region Public and private fields and properties
 
-    [XmlElement("Guid", IsNullable = true)]
+    [XmlElement("Guid", IsNullable = false)]
     public Guid Uid { get; set; }
     [XmlElement("Message", IsNullable = false)]
     public string Message { get; set; }

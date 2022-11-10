@@ -162,7 +162,7 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public object[]? GetArrayObjectsNullable(string query)
+    private object[]? GetArrayObjectsNullable(string query)
 	{
 		object[]? result = null;
 		ExecuteSelect(session =>

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Common;
+namespace WebApiCore.Models;
 
 [XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
 public class ServiceInfoModel : SerializeDeprecatedModel<ServiceInfoModel>
