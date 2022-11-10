@@ -21,6 +21,8 @@ public static class WebConstants
     public const string LineNumber = @"LineNumber";
     public const string MemberName = @"MemberName";
     public const string Message = @"Message";
+    public const string Query = @"Query";
+    public const string QueryParameter = @"QueryParameter";
     public const string Record = @"Record";
     public const string Response = @"Response";
     public const string Shipments = @"Shipments";

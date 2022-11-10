@@ -4,10 +4,11 @@
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using Microsoft.Data.SqlClient;
+using WebApiCore.Utils;
 
-namespace WebApiCore.Models;
+namespace WebApiCore.Models.Responses;
 
-[XmlRoot("QueryParameter", Namespace = "", IsNullable = false)]
+[XmlRoot(WebConstants.QueryParameter, Namespace = "", IsNullable = false)]
 public class ResponseQueryParameterModel : SerializeBase
 {
     #region Public and private fields and properties
@@ -42,7 +43,7 @@ public class ResponseQueryParameterModel : SerializeBase
     public override string ToString()
     {
         return
-            $"{nameof(Name)}: {Name}. " + 
+            $"{nameof(Name)}: {Name}. " +
             $"{nameof(Value)}: {Value}. ";
     }
 

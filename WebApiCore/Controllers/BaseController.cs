@@ -12,7 +12,7 @@ namespace WebApiCore.Controllers;
 /// Base controller.
 /// </summary>
 [ApiController]
-public class BaseController : ControllerBase
+public class BaseController : ControllerBase // ApiController
 {
     #region Public and private fields and properties
 

@@ -44,6 +44,16 @@ public class SerializeBase : ISerializable
         //
     }
 
+    public virtual XmlReaderSettings GetXmlReaderSettings() => new()
+    {
+        ConformanceLevel = ConformanceLevel.Document,
+        //OmitXmlDeclaration = false, // не подавлять xml заголовок
+        //Encoding = Encoding.UTF32,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
+        //Encoding = Encoding.Unicode,
+        //Indent = true,              // добавлять отступы
+        //IndentChars = "\t"          // сиволы отступа
+    };
+
     public virtual XmlWriterSettings GetXmlWriterSettings() => new()
     {
         ConformanceLevel = ConformanceLevel.Document,
@@ -122,7 +132,8 @@ public class SerializeBase : ISerializable
         // XmlSerializer xmlSerializer = new(typeof(T));
         // Use it.
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-        return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
+        //return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
+        return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml)));
     }
 
     public virtual T DeserializeFromXmlVersion2<T>(string xml) where T : new()
@@ -158,14 +169,15 @@ public class SerializeBase : ISerializable
         _ => throw GetArgumentException(nameof(format)),
     };
 
-    public virtual ContentResult GetResultInside(FormatTypeEnum format, object content, HttpStatusCode statusCode) => new()
+    public virtual ContentResult GetResultCore(FormatTypeEnum format, object content, HttpStatusCode statusCode) => new()
     {
         ContentType = GetContentType(format),
         StatusCode = (int)statusCode,
-        Content = content is string ? content as string : content?.ToString()
+        Content = content as string ?? content.ToString()
     };
 
-    public virtual ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => GetResultInside(format, content, statusCode);
+    public virtual ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => 
+        GetResultCore(format, content, statusCode);
 
     public virtual ContentResult GetResult<T>(FormatTypeEnum format, HttpStatusCode statusCode) where T : new()
     {

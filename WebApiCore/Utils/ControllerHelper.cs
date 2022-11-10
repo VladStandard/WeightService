@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using NHibernate;
 using WebApiCore.Models;
-using WebApiCore.Models.Exchange1C;
+using WebApiCore.Models.Responses;
 
 namespace WebApiCore.Utils;
 
@@ -75,8 +75,7 @@ public class ControllerHelper
                         responseQuery.Parameters.Add(new(sqlParameter));
                     sqlQuery.SetParameter(sqlParameter.ParameterName, sqlParameter.Value);
                 }
-                //string response = sqlQuery.UniqueResult<string>();
-                //var list = sqlQuery.List<object>();
+                
                 IList? list = sqlQuery.List();
                 object?[] result = new object?[list.Count];
                 if (list.Count == 1 && list[0] is object[] records)

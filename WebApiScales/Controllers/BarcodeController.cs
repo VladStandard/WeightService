@@ -2,20 +2,29 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using System.Net;
+using System.Text;
+using System.Xml.Linq;
 using WebApiCore.Controllers;
 using WebApiCore.Models;
 using WebApiCore.Utils;
+
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Xml;
+using DataCore.Sql.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiScales.Controllers;
 
 /// <summary>
 /// Barcode controller.
 /// </summary>
-public class BarCodeController : BaseController
+public class BarCodeController : BaseController //ApiController
 {
     #region Public and private fields and properties
 
@@ -93,6 +102,7 @@ public class BarCodeController : BaseController
             null, format, showQuery, false)), format);
 
     [AllowAnonymous]
+    [Produces("application/xml")]
     [HttpPost()]
     [Route("api/v3/send_barcode/bottom/")]
     public ContentResult SendBarcodeBottom([FromBody] BarcodeBottomModel barcodeBottom, FormatTypeEnum format = FormatTypeEnum.Xml,
@@ -102,6 +112,7 @@ public class BarCodeController : BaseController
             new("VALUE_BOTTOM", barcodeBottom.GetValue()), format, showQuery, false)), format);
 
     [AllowAnonymous]
+    [Produces("application/xml")]
     [HttpPost()]
     [Route("api/v3/send_barcode/right/")]
     public ContentResult SendBarcodeRight([FromBody] BarcodeRightModel barcodeRight, FormatTypeEnum format = FormatTypeEnum.Xml,
@@ -113,11 +124,28 @@ public class BarCodeController : BaseController
     [AllowAnonymous]
     [HttpPost()]
     [Route("api/v3/send_barcode/top/")]
-    public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop, FormatTypeEnum format = FormatTypeEnum.Xml,
-        bool showQuery = false) =>
+    public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop, FormatTypeEnum format = FormatTypeEnum.Xml, bool showQuery = false) =>
         ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
             SessionFactory, SqlQueriesBarcodes.FindTop,
             new("VALUE_TOP", barcodeTop.GetValue()), format, showQuery, false)), format);
+
+    [AllowAnonymous]
+    [HttpPost()]
+    [Route("api/v3/send_barcode/top_v2/")]
+    public ContentResult SendBarcodeTopV2([FromBody] string barcodeTop, FormatTypeEnum format = FormatTypeEnum.Xml, bool showQuery = false)
+    {
+        //Encoding = Encoding.Unicode;
+        BarcodeTopModel barcodeTop1 = new BarcodeTopModel().DeserializeFromXml<BarcodeTopModel>(barcodeTop);
+        //barcodeTop.GetResult<BarcodeTopModel>(format, HttpStatusCode.OK);
+        //XDocument xdoc = XDocument.Parse(barcodeTop.ToString());
+        ////HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+        //StringContent content = new StringContent(xdoc.ToString(), Encoding.Unicode, "application/xml");
+        //string xml = content.ToString() ?? string.Empty;
+        //BarcodeTopModel barcodeTop1 = new BarcodeTopModel().DeserializeFromXml<BarcodeTopModel>(xml);
+        return ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+            SessionFactory, SqlQueriesBarcodes.FindTop,
+            new("VALUE_TOP", barcodeTop1.GetValue()), format, showQuery, false)), format);
+    }
 
     #endregion
 }

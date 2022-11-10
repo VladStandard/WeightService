@@ -16,7 +16,7 @@ SELECT
 	,[B].[TYPE_BOTTOM]
 	,[B].[VALUE_BOTTOM]
 	,[PL].[ZPL]
-	,[PL].[XML]
+	--,[PL].[XML]
 FROM [db_scales].[BARCODES] [B]
 INNER JOIN [db_scales].[PLUS_LABELS] [PL] ON [B].[PLU_LABEL_UID] = [PL].[UID]
 WHERE [VALUE_BOTTOM] = :VALUE_BOTTOM;
@@ -33,7 +33,7 @@ SELECT
 	,[B].[TYPE_BOTTOM]
 	,[B].[VALUE_BOTTOM]
 	,[PL].[ZPL]
-	,[PL].[XML]
+	--,[PL].[XML]
 FROM [db_scales].[BARCODES] [B]
 INNER JOIN [db_scales].[PLUS_LABELS] [PL] ON [B].[PLU_LABEL_UID] = [PL].[UID]
 WHERE [VALUE_RIGHT] = :VALUE_RIGHT;
@@ -50,7 +50,7 @@ SELECT
 	,[B].[TYPE_BOTTOM]
 	,[B].[VALUE_BOTTOM]
 	,[PL].[ZPL]
-	,[PL].[XML]
+	--,[PL].[XML]
 FROM [db_scales].[BARCODES] [B]
 INNER JOIN [db_scales].[PLUS_LABELS] [PL] ON [B].[PLU_LABEL_UID] = [PL].[UID]
 WHERE [VALUE_TOP] = :VALUE_TOP;

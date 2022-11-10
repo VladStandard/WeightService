@@ -3,32 +3,36 @@
 
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
+using WebApiCore.Utils;
 
-namespace WebApiCore.Models;
+namespace WebApiCore.Models.Responses;
 
-[XmlRoot("Query", Namespace = "", IsNullable = false)]
+[XmlRoot(WebConstants.Query, Namespace = "", IsNullable = false)]
 public class ResponseQueryModel : SerializeBase
 {
     #region Public and private fields and properties
 
     private string _query;
     [XmlElement(nameof(Query), IsNullable = false)]
-    public string Query { get => _query; set => _query = value
+    public string Query
+    {
+        get => _query; set => _query = value
         .Replace("\r", " ")
         .Replace("\n", " ")
-        .Replace("\t", " "); }
+        .Replace("\t", " ");
+    }
     [XmlArray(nameof(Parameters)), XmlArrayItem("Parameter")]
     public List<ResponseQueryParameterModel> Parameters { get; set; }
 
     public ResponseQueryModel(string query, List<ResponseQueryParameterModel> parameters)
     {
-        Query = query;
+        _query = query;
         Parameters = parameters;
     }
 
     public ResponseQueryModel()
     {
-        Query = string.Empty;
+        _query = string.Empty;
         Parameters = new();
     }
 
