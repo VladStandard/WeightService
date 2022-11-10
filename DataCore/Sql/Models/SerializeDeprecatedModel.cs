@@ -9,12 +9,6 @@ namespace DataCore.Sql.Models;
 [Serializable]
 public class SerializeDeprecatedModel<T> where T : new()
 {
-    #region Public and private fields, properties, constructor
-
-    //[XmlIgnore] public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     public XmlWriterSettings GetXmlWriterSettings() => new()

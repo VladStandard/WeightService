@@ -7,13 +7,13 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Models;
 
-[XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlSimpleV4Model : SerializeDeprecatedModel<SqlSimpleV4Model>
+[XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
+public class SqlSimpleV4Model : SerializeBase
 {
     #region Public and private fields and properties
 
-    [XmlArray(TerraConsts.Items)]
-    [XmlArrayItem(TerraConsts.Simple, typeof(SqlSimpleV1Model))]
+    [XmlArray(WebConstants.Items)]
+    [XmlArrayItem(WebConstants.Simple, typeof(SqlSimpleV1Model))]
     public List<SqlSimpleV1Model> Simples { get; set; }
 
     /// <summary>

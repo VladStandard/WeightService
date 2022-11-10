@@ -50,10 +50,10 @@ public class ContragentControllerV2 : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url,
-                code != null ? TerraUtils.Sql.GetParametersV2(code) : TerraUtils.Sql.GetParametersV2(id));
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
+                code != null ? WebUtils.Sql.GetParametersV2(code) : WebUtils.Sql.GetParametersV2(id));
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
@@ -92,9 +92,9 @@ public class ContragentControllerV2 : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url);
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url);
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
@@ -106,14 +106,14 @@ public class ContragentControllerV2 : BaseController
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)
-                parameters = TerraUtils.Sql.GetParametersV2(startDate, endDate, offset, rowCount);
+                parameters = WebUtils.Sql.GetParametersV2(startDate, endDate, offset, rowCount);
             else if (startDate != null && endDate != null)
-                parameters = TerraUtils.Sql.GetParametersV2(startDate, endDate);
+                parameters = WebUtils.Sql.GetParametersV2(startDate, endDate);
             else if (startDate != null && endDate == null)
-                parameters = TerraUtils.Sql.GetParametersV2(startDate);
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+                parameters = WebUtils.Sql.GetParametersV2(startDate);
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }

@@ -9,7 +9,7 @@ using WebApiCore.Models;
 
 namespace WebApiCore.Utils;
 
-public static class TerraUtils
+public static class WebUtils
 {
     public static class Xml
     {
@@ -19,8 +19,8 @@ public static class TerraUtils
             if (string.IsNullOrEmpty(response))
             {
                 doc = new(
-                    new XElement(TerraConsts.Response,
-                        new XElement(TerraConsts.Error, new XAttribute(TerraConsts.Description, "Result is null or empty!"))
+                    new XElement(WebConstants.Response,
+                        new XElement(WebConstants.Error, new XAttribute(WebConstants.Description, "Result is null or empty!"))
                     ));
             }
             return doc;
@@ -33,16 +33,16 @@ public static class TerraUtils
             {
                 SqlSimpleV1Model error = JsonConvert.DeserializeObject<SqlSimpleV1Model>(response);
                 doc = new(
-                    new XElement(TerraConsts.Response,
-                        new XElement(TerraConsts.Error, new XAttribute(TerraConsts.Description, error.Description))
+                    new XElement(WebConstants.Response,
+                        new XElement(WebConstants.Error, new XAttribute(WebConstants.Description, error.Description))
                     ));
             }
             return doc;
         }
 
         public static XDocument GetErrorUnknown() => new(
-            new XElement(TerraConsts.Response,
-                new XElement(TerraConsts.Error, new XAttribute(TerraConsts.Description, "Unknown error!"))));
+            new XElement(WebConstants.Response,
+                new XElement(WebConstants.Error, new XAttribute(WebConstants.Description, "Unknown error!"))));
     }
 
     public static class Sql

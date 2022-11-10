@@ -68,7 +68,7 @@ public class TestControllerV2 : BaseController
                 session.Connection.Database,
                 (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
                 (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
-            .GetResult(format, HttpStatusCode.OK);
+            .GetResult<ServiceInfoModel>(format, HttpStatusCode.OK);
         }), format);
 
     /// <summary>
@@ -82,9 +82,9 @@ public class TestControllerV2 : BaseController
     public ContentResult GetException(FormatTypeEnum format = FormatTypeEnum.Xml) =>
         ControllerHelp.RunTask(new(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetException);
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetException);
 
-            return new SqlSimpleV1Model(response).GetResult(format, HttpStatusCode.OK);
+            return new SqlSimpleV1Model(response).GetResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
         }), format);
 
     /// <summary>
@@ -103,20 +103,25 @@ public class TestControllerV2 : BaseController
             switch (version)
             {
                 case 1:
-                    string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV1);
-                    return SqlSimpleV1Model.DeserializeFromXml(response1).GetResult(format, HttpStatusCode.OK);
+                    string response1 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV1);
+                    return new SqlSimpleV1Model().DeserializeFromXml<SqlSimpleV1Model>(response1)
+                        .GetResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
                 case 2:
-                    string response2 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV2);
-                    return SqlSimpleV2Model.DeserializeFromXml(response2).GetResult(format, HttpStatusCode.OK);
+                    string response2 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV2);
+                    return new SqlSimpleV2Model().DeserializeFromXml<SqlSimpleV2Model>(response2)
+                        .GetResult<SqlSimpleV2Model>(format, HttpStatusCode.OK);
                 case 3:
-                    string response3 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV3);
-                    return SqlSimpleV3Model.DeserializeFromXml(response3).GetResult(format, HttpStatusCode.OK);
+                    string response3 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV3);
+                    return new SqlSimpleV3Model().DeserializeFromXml<SqlSimpleV3Model>(response3)
+                        .GetResult<SqlSimpleV3Model>(format, HttpStatusCode.OK);
                 case 4:
-                    string response4 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV4);
-                    return SqlSimpleV4Model.DeserializeFromXml(response4).GetResult(format, HttpStatusCode.OK);
+                    string response4 = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV4);
+                    return new SqlSimpleV4Model().DeserializeFromXml<SqlSimpleV4Model>(response4)
+                        .GetResult<SqlSimpleV4Model>(format, HttpStatusCode.OK);
             }
             
-            return new SqlSimpleV1Model("Simple method from C Sharp").GetResult(format, HttpStatusCode.OK);
+            return new SqlSimpleV1Model("Simple method from C Sharp")
+                .GetResult<SqlSimpleV1Model>(format, HttpStatusCode.OK);
         }), format);
     }
 

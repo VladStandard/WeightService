@@ -4,13 +4,14 @@
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
+using WebApiCore.Utils;
 
 namespace WebApiCore.Models;
 
 /// <summary>
 /// Barcode down entity.
 /// </summary>
-[XmlRoot("BarcodeBottom", Namespace = "", IsNullable = false)]
+[XmlRoot(WebConstants.BarcodeBottom, Namespace = "", IsNullable = false)]
 public class BarcodeBottomModel : SerializeBase
 {
     #region Public and private fields and properties

@@ -47,8 +47,8 @@ public class ShipmentControllerV2 : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
-            XDocument xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
+            XDocument xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
                 using ISession session = SessionFactory.OpenSession();
@@ -70,10 +70,10 @@ public class ShipmentControllerV2 : BaseController
                 command.ExecuteNonQuery();
                 if (xmlOutput.Value != DBNull.Value)
                 {
-                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{TerraConsts.Shipments} />", LoadOptions.None);
+                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{WebConstants.Shipments} />", LoadOptions.None);
                 }
             }
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
@@ -97,9 +97,9 @@ public class ShipmentControllerV2 : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, 
-                TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url, 
+                WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            XDocument xml = xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
                 using ISession session = SessionFactory.OpenSession();
@@ -121,10 +121,10 @@ public class ShipmentControllerV2 : BaseController
                 command.ExecuteNonQuery();
                 if (xmlOutput.Value != DBNull.Value)
                 {
-                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{TerraConsts.Shipments} />", LoadOptions.None);
+                    xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{WebConstants.Shipments} />", LoadOptions.None);
                 }
             }
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
         }), format);
     }

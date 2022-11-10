@@ -4,13 +4,12 @@
 using System.Collections;
 using System.Net;
 using System.Runtime.CompilerServices;
-using Azure;
 using DataCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using NHibernate;
-using NHibernate.Hql.Util;
 using WebApiCore.Models;
+using WebApiCore.Models.Exchange1C;
 
 namespace WebApiCore.Utils;
 
@@ -45,7 +44,7 @@ public class ControllerHelper
         {
             filePath = Path.GetFileName(filePath);
             ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return serviceException.GetResult(format, HttpStatusCode.OK);
+            return serviceException.GetResult<ServiceExceptionModel>(format, HttpStatusCode.OK);
         }
         finally
         {

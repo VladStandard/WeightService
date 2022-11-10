@@ -7,8 +7,8 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Models;
 
-[XmlRoot(TerraConsts.Info, Namespace = "", IsNullable = false)]
-public class ServiceInfoModel : SerializeDeprecatedModel<ServiceInfoModel>
+[XmlRoot(WebConstants.Info, Namespace = "", IsNullable = false)]
+public class ServiceInfoModel : SerializeBase
 {
     #region Public and private fields and properties
 

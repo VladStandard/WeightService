@@ -4,10 +4,11 @@
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
+using WebApiCore.Utils;
 
-namespace WebApiCore.Models;
+namespace WebApiCore.Models.Exchange1C;
 
-[XmlRoot("Response", Namespace = "", IsNullable = false)]
+[XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
 public class Response1CModel : SerializeBase
 {
     #region Public and private fields and properties
@@ -23,7 +24,7 @@ public class Response1CModel : SerializeBase
     [XmlArray(nameof(Errors)), XmlArrayItem("Record")]
     public List<Response1CRecordModel> Errors { get; set; }
 
-    public Response1CModel(List<Response1CRecordModel> successes, List<Response1CRecordModel> errors, 
+    public Response1CModel(List<Response1CRecordModel> successes, List<Response1CRecordModel> errors,
         ResponseQueryModel? responseQuery)
     {
         Successes = successes;

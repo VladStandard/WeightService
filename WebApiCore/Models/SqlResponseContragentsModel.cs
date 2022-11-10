@@ -7,12 +7,12 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Models;
 
-[XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-public class SqlResponseContragentsModel : SerializeDeprecatedModel<SqlResponseContragentsModel>
+[XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
+public class SqlResponseContragentsModel : SerializeBase
 {
     #region Public and private fields and properties
 
-    [XmlElement(TerraConsts.Simple)]
+    [XmlElement(WebConstants.Simple)]
     public SqlSimpleV1Model Item { get; set; } = new();
 
     /// <summary>

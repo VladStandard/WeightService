@@ -36,10 +36,11 @@ public class ContragentController : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            //return SerializeBase.GetResult<XDocument>(format, doc, HttpStatusCode.OK);
         }), format);
     }
 
@@ -51,10 +52,10 @@ public class ContragentController : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
-                TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
+                WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }

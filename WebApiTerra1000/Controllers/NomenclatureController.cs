@@ -38,10 +38,10 @@ public class NomenclatureController : BaseController
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
             string response = string.IsNullOrEmpty(code)
-                ? TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
-                : TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+                ? WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
+                : WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
@@ -54,10 +54,10 @@ public class NomenclatureController : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatures,
-                TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatures,
+                WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }
@@ -69,10 +69,10 @@ public class NomenclatureController : BaseController
     {
         return ControllerHelp.RunTask(new Task<ContentResult>(() =>
         {
-            string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclaturesCosts,
-                TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
-            XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Goods} />", LoadOptions.None);
-            XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+            string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclaturesCosts,
+                WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+            XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
+            XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
         }), format);
     }

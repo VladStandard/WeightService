@@ -3,11 +3,12 @@
 
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
+using WebApiCore.Utils;
 
-namespace WebApiCore.Models;
+namespace WebApiCore.Models.Exchange1C;
 
-[XmlRoot("Record", Namespace = "", IsNullable = false)]
-public class Response1CRecordModel : SerializeDeprecatedModel<Response1CRecordModel>
+[XmlRoot(WebConstants.Record, Namespace = "", IsNullable = false)]
+public class Response1CRecordModel : SerializeBase
 {
     #region Public and private fields and properties
 
