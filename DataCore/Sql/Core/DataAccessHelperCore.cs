@@ -73,7 +73,7 @@ public partial class DataAccessHelper
 	/// <typeparam name="T"></typeparam>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	public T GetItemNotNull<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		T? item = GetItemNullable<T>(sqlCrudConfig);
 		return item ?? new();
@@ -85,7 +85,7 @@ public partial class DataAccessHelper
 	/// <typeparam name="T"></typeparam>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public T GetItemNotNull<T>(object? value) where T : SqlTableBase, new()
+	public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new()
 	{
 		T? item = value switch
 		{
@@ -184,14 +184,14 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public object[] GetArrayObjectsNotNull(string query) => 
+	public object[] GetArrayObjectsNotNullable(string query) => 
 		GetArrayObjectsNullable(query) ?? Array.Empty<object>();
 
 	#endregion
 
 	#region Public and private methods - GetList
 
-	public List<T> GetListNotNull<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)

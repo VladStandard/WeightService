@@ -28,7 +28,7 @@ public partial class SectionProductionFacilities : RazorComponentSectionBase<Pro
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

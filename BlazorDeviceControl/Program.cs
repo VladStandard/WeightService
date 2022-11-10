@@ -57,5 +57,5 @@ app.UseAuthorization();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 JsonSettingsHelper.Instance.SetupForBlazorApp(app.Environment.ContentRootPath,
-    NetUtils.GetLocalHostName(false), nameof(BlazorDeviceControl));
+    NetUtils.GetLocalDeviceName(false), nameof(BlazorDeviceControl));
 app.Run();

@@ -14,6 +14,15 @@
     <tbody>
 		<RazorItemTableBody TItem=LogModel ParentRazor=@(this) />
         <tr>
+            <td>@LocaleCore.Table.Arm</td>
+	        <td>
+				@if (SqlItemCast.Device is not null)
+                {
+	                <RadzenTextBox 
+		                Style="width: 100%; text-align: left; background-color: lightgray;"
+						ReadOnly=true @bind-Value=@DataAccess.GetItemScaleNotNullable(SqlItemCast.Device).Description />
+                }
+	        </td>
             <td>@LocaleCore.Table.Host</td>
 	        <td>
 				@if (SqlItemCast.Device is not null)
@@ -22,15 +31,6 @@
 		                Style="width: 100%; text-align: left; background-color: lightgray;"
 						ReadOnly=true @bind-Value=@SqlItemCast.Device.Name />
                 }
-	        </td>
-            <td>@LocaleCore.Table.PrettyName</td>
-	        <td>
-				@if (SqlItemCast.Device is not null)
-		        {
-			        <RadzenTextBox 
-				        Style="width: 100%; text-align: left; background-color: lightgray;"
-						ReadOnly=true @bind-Value=@SqlItemCast.Device.PrettyName />
-		        }
 	        </td>
         </tr>
         <tr>

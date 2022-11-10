@@ -25,7 +25,7 @@ public partial class SectionPlus : RazorComponentSectionBase<PluModel, SqlTableB
 		{
 			() =>
 			{
-				SqlSectionCast = DataContext.GetListNotNull<PluModel>(SqlCrudConfigSection);
+				SqlSectionCast = DataContext.GetListNotNullable<PluModel>(SqlCrudConfigSection);
 
 				ButtonSettings = new(false, false, true, true, false, false, false);
 			}

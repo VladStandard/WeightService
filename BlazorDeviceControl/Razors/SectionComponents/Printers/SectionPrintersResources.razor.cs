@@ -25,8 +25,8 @@ public partial class SectionPrintersResources : RazorComponentSectionBase<Printe
         {
             () =>
             {
-	            SqlCrudConfigSection.SetFilters(nameof(PrinterResourceModel.Printer), ParentRazor ?.SqlItem, EnumFilterAction.Add);
-				SqlSectionCast = DataContext.GetListNotNull<PrinterResourceModel>(SqlCrudConfigSection);
+	            SqlCrudConfigSection.SetFilters(nameof(PrinterResourceModel.Printer), ParentRazor ?.SqlItem);
+				SqlSectionCast = DataContext.GetListNotNullable<PrinterResourceModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

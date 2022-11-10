@@ -6,7 +6,7 @@ using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.Models;
 
-public enum EnumFilterAction
+public enum EnumCrudAction
 {
 	Add,
 	Remove
@@ -18,7 +18,7 @@ public class SqlCrudConfigModel
 
 	public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 	public List<SqlFieldFilterModel> Filters { get; private set; }
-	public List<SqlFieldOrderModel> Orders { get; }
+	public List<SqlFieldOrderModel> Orders { get; private set; }
 	public bool IsGuiShowFilterAdditional { get; set; }
 	public bool IsGuiShowFilterMarked { get; set; }
 	public bool IsGuiShowFilterOnlyTop { get; set; }
@@ -80,7 +80,7 @@ public class SqlCrudConfigModel
 
 	#endregion
 
-	#region Public and private methods - Change filters
+	#region Public and private methods - Filters
 
 	public static List<SqlFieldFilterModel> GetFilters(string className, SqlTableBase? item) =>
 		item is null || string.IsNullOrEmpty(className) ? new()
@@ -100,39 +100,23 @@ public class SqlCrudConfigModel
 	private List<SqlFieldFilterModel> GetFiltersIsResultShowMarked(bool isShowMarked) =>
 		new() { new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, isShowMarked) };
 
-	//private void SetFilters(List<SqlFieldFilterModel> filters)
-	//{
-	//	if (!filters.Any()) return;
-	//	bool isFilterExists = false;
-	//	foreach (SqlFieldFilterModel filter in filters)
-	//	{
-	//		if (Filters.Contains(filter))
-	//		{
-	//			isFilterExists = true;
-	//			break;
-	//		}
-	//	}
-	//	if (!isFilterExists)
-	//		Filters.AddRange(filters);
-	//}
-
-	public void SetFilters(List<SqlFieldFilterModel> filters, EnumFilterAction filterAction)
+	public void SetFilters(List<SqlFieldFilterModel> filters, EnumCrudAction crudAction  = EnumCrudAction.Add)
 	{
-		switch (filterAction)
+		switch (crudAction)
 		{
-			case EnumFilterAction.Remove:
+			case EnumCrudAction.Remove:
 				switch (Filters.Any())
 				{
 					case true:
-						bool isFilterExists = true;
-						while (isFilterExists)
+						bool isExists = true;
+						while (isExists)
 						{
-							isFilterExists = false;
+							isExists = false;
 							foreach (SqlFieldFilterModel filter in filters)
 							{
 								if (Filters.Contains(filter))
 								{
-									isFilterExists = true;
+									isExists = true;
 									Filters.Remove(filter);
 									break;
 								}
@@ -141,7 +125,7 @@ public class SqlCrudConfigModel
 						break;
 				}
 				break;
-			case EnumFilterAction.Add:
+			case EnumCrudAction.Add:
 				switch (Filters.Any())
 				{
 					case false:
@@ -161,11 +145,63 @@ public class SqlCrudConfigModel
 		}
 	}
 
-	public void SetFiltersIsResultShowMarked() => SetFilters(GetFiltersIsResultShowMarked(false), 
-		IsResultShowMarked ? EnumFilterAction.Remove : EnumFilterAction.Add);
+	private void SetFiltersIsResultShowMarked() => SetFilters(GetFiltersIsResultShowMarked(false), 
+		IsResultShowMarked ? EnumCrudAction.Remove : EnumCrudAction.Add);
 
-	public void SetFilters(string className, SqlTableBase? item, EnumFilterAction filterAction) =>
-		SetFilters(GetFilters(className, item), filterAction);
+	public void SetFilters(string className, SqlTableBase? item, EnumCrudAction crudAction = EnumCrudAction.Add) =>
+		SetFilters(GetFilters(className, item), crudAction);
+
+	#endregion
+
+	#region Public and private methods - Orders
+
+	private void SetOrders(List<SqlFieldOrderModel> orders, EnumCrudAction crudAction = EnumCrudAction.Add)
+	{
+		switch (crudAction)
+		{
+			case EnumCrudAction.Remove:
+				switch (Orders.Any())
+				{
+					case true:
+						bool isExists = true;
+						while (isExists)
+						{
+							isExists = false;
+							foreach (SqlFieldOrderModel order in orders)
+							{
+								if (Orders.Contains(order))
+								{
+									isExists = true;
+									Orders.Remove(order);
+									break;
+								}
+							}
+						}
+						break;
+				}
+				break;
+			case EnumCrudAction.Add:
+				switch (Orders.Any())
+				{
+					case false:
+						Orders = orders;
+						break;
+					case true:
+						foreach (SqlFieldOrderModel order in orders)
+						{
+							if (!Orders.Contains(order))
+							{
+								Orders.Add(order);
+							}
+						}
+						break;
+				}
+				break;
+		}
+	}
+
+	public void SetOrders(SqlFieldOrderModel order, EnumCrudAction crudAction = EnumCrudAction.Add) =>
+		SetOrders(new List<SqlFieldOrderModel>() { order }, crudAction);
 
 	#endregion
 }

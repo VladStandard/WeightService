@@ -26,7 +26,7 @@ public partial class SectionTemplateResources : RazorComponentSectionBase<Templa
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<TemplateResourceModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<TemplateResourceModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

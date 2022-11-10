@@ -25,7 +25,7 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

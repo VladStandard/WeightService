@@ -18,7 +18,7 @@ internal class DataContextTests
 	#region Public and private methods
 
 	[Test]
-	public void GetListNotNull_Exec_DoesNotThrow()
+	public void GetListNotNullable_Exec_DoesNotThrow()
 	{
 		DataCore.AssertAction(() =>
 		{
@@ -29,121 +29,121 @@ internal class DataContextTests
 				{
 					case var cls when cls == typeof(AccessModel):
 						// Arrange & Act.
-						GetListNotNull<AccessModel>();
+						GetListNotNullable<AccessModel>();
 						break;
 					case var cls when cls == typeof(AppModel):
 						// Arrange & Act.
-						GetListNotNull<AppModel>();
+						GetListNotNullable<AppModel>();
 						break;
 					case var cls when cls == typeof(BarCodeModel):
 						// Arrange & Act.
-						GetListNotNull<BarCodeModel>();
+						GetListNotNullable<BarCodeModel>();
 						break;
 					case var cls when cls == typeof(ContragentModel):
 						// Arrange & Act.
-						GetListNotNull<ContragentModel>();
+						GetListNotNullable<ContragentModel>();
 						break;
 					case var cls when cls == typeof(DeviceModel):
 						// Arrange & Act.
-						GetListNotNull<DeviceModel>();
+						GetListNotNullable<DeviceModel>();
 						break;
 					case var cls when cls == typeof(DeviceTypeModel):
 						// Arrange & Act.
-						GetListNotNull<DeviceTypeModel>();
+						GetListNotNullable<DeviceTypeModel>();
 						break;
 					case var cls when cls == typeof(DeviceTypeFkModel):
 						// Arrange & Act.
-						GetListNotNull<DeviceTypeFkModel>();
+						GetListNotNullable<DeviceTypeFkModel>();
 						break;
 					case var cls when cls == typeof(DeviceScaleFkModel):
 						// Arrange & Act.
-						GetListNotNull<DeviceScaleFkModel>();
+						GetListNotNullable<DeviceScaleFkModel>();
 						break;
 					case var cls when cls == typeof(LogModel):
 						// Arrange & Act.
-						GetListNotNull<LogModel>();
+						GetListNotNullable<LogModel>();
 						break;
 					case var cls when cls == typeof(LogTypeModel):
 						// Arrange & Act.
-						GetListNotNull<LogTypeModel>();
+						GetListNotNullable<LogTypeModel>();
 						break;
 					case var cls when cls == typeof(NomenclatureModel):
 						// Arrange & Act.
-						GetListNotNull<NomenclatureModel>();
+						GetListNotNullable<NomenclatureModel>();
 						break;
 					case var cls when cls == typeof(OrderModel):
-						GetListNotNull<OrderModel>();
+						GetListNotNullable<OrderModel>();
 						break;
 					case var cls when cls == typeof(OrganizationModel):
-						GetListNotNull<OrganizationModel>();
+						GetListNotNullable<OrganizationModel>();
 						break;
 					case var cls when cls == typeof(PackageModel):
-						GetListNotNull<PackageModel>();
+						GetListNotNullable<PackageModel>();
 						break;
 					case var cls when cls == typeof(PluLabelModel):
-						GetListNotNull<PluLabelModel>();
+						GetListNotNullable<PluLabelModel>();
 						break;
 					case var cls when cls == typeof(PluModel):
-						GetListNotNull<PluModel>();
+						GetListNotNullable<PluModel>();
 						break;
 					case var cls when cls == typeof(PluPackageModel):
-						GetListNotNull<PluPackageModel>();
+						GetListNotNullable<PluPackageModel>();
 						break;
 					case var cls when cls == typeof(PluScaleModel):
-						GetListNotNull<PluScaleModel>();
+						GetListNotNullable<PluScaleModel>();
 						break;
 					case var cls when cls == typeof(PluWeighingModel):
-						GetListNotNull<PluWeighingModel>();
+						GetListNotNullable<PluWeighingModel>();
 						break;
 					case var cls when cls == typeof(PrinterModel):
-						GetListNotNull<PrinterModel>();
+						GetListNotNullable<PrinterModel>();
 						break;
 					case var cls when cls == typeof(PrinterResourceModel):
-						GetListNotNull<PrinterResourceModel>();
+						GetListNotNullable<PrinterResourceModel>();
 						break;
 					case var cls when cls == typeof(PrinterTypeModel):
-						GetListNotNull<PrinterTypeModel>();
+						GetListNotNullable<PrinterTypeModel>();
 						break;
 					case var cls when cls == typeof(ProductionFacilityModel):
-						GetListNotNull<ProductionFacilityModel>();
+						GetListNotNullable<ProductionFacilityModel>();
 						break;
 					case var cls when cls == typeof(ProductSeriesModel):
-						GetListNotNull<ProductSeriesModel>();
+						GetListNotNullable<ProductSeriesModel>();
 						break;
 					case var cls when cls == typeof(ScaleModel):
-						GetListNotNull<ScaleModel>();
+						GetListNotNullable<ScaleModel>();
 						break;
 					case var cls when cls == typeof(ScaleScreenShotModel):
-						GetListNotNull<ScaleScreenShotModel>();
+						GetListNotNullable<ScaleScreenShotModel>();
 						break;
 					case var cls when cls == typeof(TaskModel):
-						GetListNotNull<TaskModel>();
+						GetListNotNullable<TaskModel>();
 						break;
 					case var cls when cls == typeof(TaskTypeModel):
-						GetListNotNull<TaskTypeModel>();
+						GetListNotNullable<TaskTypeModel>();
 						break;
 					case var cls when cls == typeof(TemplateModel):
-						GetListNotNull<TemplateModel>();
+						GetListNotNullable<TemplateModel>();
 						break;
 					case var cls when cls == typeof(TemplateResourceModel):
-						GetListNotNull<TemplateResourceModel>();
+						GetListNotNullable<TemplateResourceModel>();
 						break;
 					case var cls when cls == typeof(VersionModel):
-						GetListNotNull<VersionModel>();
+						GetListNotNullable<VersionModel>();
 						break;
 					case var cls when cls == typeof(WorkShopModel):
-						GetListNotNull<WorkShopModel>();
+						GetListNotNullable<WorkShopModel>();
 						break;
 				}
 			}
 		});
 	}
 
-	private void GetListNotNull<T>() where T : SqlTableBase, new()
+	private void GetListNotNullable<T>() where T : SqlTableBase, new()
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 		// Arrange & Act.
-		List<T> items = DataCore.DataContext.GetListNotNull<T>(sqlCrudConfig);
+		List<T> items = DataCore.DataContext.GetListNotNullable<T>(sqlCrudConfig);
 		TestContext.WriteLine($"Get {DataCore.DataContext.GetTableModelName<T>()} list: {items.Count}");
 		foreach (T item in items)
 		{

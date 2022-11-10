@@ -21,10 +21,10 @@ public partial class ItemPrinter : RazorComponentItemBase<PrinterModel>
 		{
 			() =>
 			{
-                SqlItemCast = DataContext.GetItemNotNull<PrinterModel>(IdentityId);
+                SqlItemCast = DataContext.GetItemNotNullable<PrinterModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<PrinterModel>();
-				DataContext.GetListNotNull<PrinterTypeModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<PrinterTypeModel>(SqlCrudConfigList);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

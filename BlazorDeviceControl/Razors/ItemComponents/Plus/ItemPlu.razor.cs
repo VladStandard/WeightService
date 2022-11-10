@@ -29,12 +29,12 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNull<PluModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNullable<PluModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
                     SqlItem = SqlItemNew<PluModel>();
 
-                DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigList);
-                DataContext.GetListNotNull<NomenclatureModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigList);
+                DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigList);
 
 	            //// Проверка шаблона.
 	            //if ((PluItem.Templates is null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault is not null)

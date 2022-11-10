@@ -39,9 +39,9 @@
 //            TestContext.WriteLine($@"{nameof(IsAdmin_AreEqual)} start.");
 //            var stopwatch = Stopwatch.StartNew();
 
-//            var hostName = System.Net.Dns.GetHostName();
-//            TestContext.WriteLine($"hostName: {hostName}");
-//            var actual = hostName.Equals("PC208") || hostName.Equals("PC0147");
+//            var deviceName = System.Net.Dns.GetHostName();
+//            TestContext.WriteLine($"deviceName: {deviceName}");
+//            var actual = deviceName.Equals("PC208") || deviceName.Equals("PC0147");
 //            var expected = UtilsApp.IsAdmin;
 //            TestContext.WriteLine($"actual/expected: {actual}");
 //            Assert.AreEqual(expected, actual);

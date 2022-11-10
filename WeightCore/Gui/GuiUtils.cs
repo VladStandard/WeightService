@@ -136,44 +136,44 @@ public static class GuiUtils
         /// <param name="isLog"></param>
         /// <param name="logType"></param>
         /// <param name="visibility"></param>
-        /// <param name="hostName"></param>
+        /// <param name="deviceName"></param>
         /// <param name="appName"></param>
         /// <returns></returns>
         public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, 
-	        LogTypeEnum logType, VisibilitySettingsModel visibility, string hostName, string appName)
+	        LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
         {
 			if (isLog)
-				ShowNewOperationControlLogType(message, logType, hostName, appName);
+				ShowNewOperationControlLogType(message, logType, deviceName, appName);
 			return ShowNew(owner, LocaleCore.Scales.OperationControl, message, visibility);
         }
 
         public static DialogResult ShowNewOperationControl(string message, bool isLog, 
-	        LogTypeEnum logType, VisibilitySettingsModel visibility, string hostName, string appName)
+	        LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
         {
             if (isLog)
-                ShowNewOperationControlLogType(message, logType, hostName, appName);
+                ShowNewOperationControlLogType(message, logType, deviceName, appName);
 	        return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
         }
 
-        private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType, string hostName,
+        private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType, string deviceName,
 	        string appName)
         {
 	        switch (logType)
 	        {
 		        case LogTypeEnum.None:
-			        DataAccess.LogInformation(message, hostName, appName);
+			        DataAccess.LogInformation(message, deviceName, appName);
 			        break;
 		        case LogTypeEnum.Error:
-			        DataAccess.LogError(message, hostName, appName);
+			        DataAccess.LogError(message, deviceName, appName);
 			        break;
 		        case LogTypeEnum.Question:
-			        DataAccess.LogQuestion(message, hostName, appName);
+			        DataAccess.LogQuestion(message, deviceName, appName);
 			        break;
 		        case LogTypeEnum.Warning:
-			        DataAccess.LogWarning(message, hostName, appName);
+			        DataAccess.LogWarning(message, deviceName, appName);
 			        break;
 		        case LogTypeEnum.Information:
-			        DataAccess.LogInformation(message, hostName, appName);
+			        DataAccess.LogInformation(message, deviceName, appName);
 			        break;
 		        default:
 			        throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
@@ -230,10 +230,10 @@ public static class GuiUtils
         //    return result;
         //}
 
-        public static DialogResult ShowNewHostSaveInDb(string hostName, string ip, string mac)
+        public static DialogResult ShowNewHostSaveInDb(string deviceName, string ip, string mac)
         {
             DialogResult result = ShowNewOperationControl(
-                LocaleCore.Scales.HostNotFound(hostName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
+                LocaleCore.Scales.HostNotFound(deviceName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
                 false, LogTypeEnum.Information,
                 new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
                 UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
@@ -241,8 +241,8 @@ public static class GuiUtils
             {
                 DeviceModel host = new()
                 {
-                    Name = hostName,
-                    PrettyName = hostName,
+                    Name = deviceName,
+                    PrettyName = deviceName,
                     Ipv4 = ip,
                     MacAddress = new(mac),
                     CreateDt = DateTime.Now,

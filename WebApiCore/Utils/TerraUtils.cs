@@ -66,7 +66,7 @@ public static class TerraUtils
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             if (parameters?.Count > 0)
             {
-                foreach (var parameter in parameters)
+                foreach (SqlParameter parameter in parameters)
                 {
                     sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
                 }

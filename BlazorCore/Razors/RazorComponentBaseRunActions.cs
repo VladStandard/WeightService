@@ -8,7 +8,6 @@ using DataCore.Localizations;
 using DataCore.Protocols;
 using Microsoft.AspNetCore.Components;
 using Radzen;
-using Environment = System.Environment;
 
 namespace BlazorCore.Razors;
 
@@ -70,7 +69,7 @@ public partial class RazorComponentBase
         }
 
         // SQL log.
-        BlazorAppSettings.DataAccess.LogError(ex, NetUtils.GetLocalHostName(false), nameof(BlazorCore));
+        BlazorAppSettings.DataAccess.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(BlazorCore));
     }
 
     private void RunActionsWithQeustion(string title, string questionAdd, Action action)

@@ -25,7 +25,7 @@ public partial class SectionContragents : RazorComponentSectionBase<ContragentMo
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<ContragentModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<ContragentModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

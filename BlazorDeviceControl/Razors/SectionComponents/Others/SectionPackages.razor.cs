@@ -25,7 +25,7 @@ public partial class SectionPackages : RazorComponentSectionBase<PackageModel, S
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<PackageModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<PackageModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

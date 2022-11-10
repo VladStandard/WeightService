@@ -26,7 +26,7 @@ public partial class SectionAccess : RazorComponentSectionBase<AccessModel, SqlT
         {
             () =>
             {
-                SqlSectionCast = DataContext.GetListNotNull<AccessModel>(SqlCrudConfigSection);
+                SqlSectionCast = DataContext.GetListNotNullable<AccessModel>(SqlCrudConfigSection);
 
 				ButtonSettings = new(true, true, true, true, true, false, false);
             }

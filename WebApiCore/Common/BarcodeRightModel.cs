@@ -55,13 +55,12 @@ public class BarcodeRightModel : SerializeDeprecatedModel<BarcodeRightModel>
 
     #region Public and private methods
 
-    public override string ToString()
-    {
-        return 
-            @$"{nameof(Const1)}: {Const1}. " + Environment.NewLine + 
-            @$"{nameof(ArmNumber)}: {ArmNumber}. " + Environment.NewLine +
-            @$"{nameof(Counter)}: {Counter}. ";
-    }
+    public override string ToString() =>
+        @$"{nameof(Const1)}: {Const1}. " + Environment.NewLine + 
+        @$"{nameof(ArmNumber)}: {ArmNumber}. " + Environment.NewLine +
+        @$"{nameof(Counter)}: {Counter}. ";
+
+    public string GetValue() => @$"{Const1}{ArmNumber}{Counter}";
 
     #endregion
 }

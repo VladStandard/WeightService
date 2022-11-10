@@ -25,7 +25,7 @@ public partial class SectionWorkshops : RazorComponentSectionBase<WorkShopModel,
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<WorkShopModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

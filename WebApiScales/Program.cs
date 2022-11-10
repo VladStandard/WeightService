@@ -3,6 +3,7 @@
 
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using NHibernate;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -37,21 +38,34 @@ Console.WriteLine($"connectionString: {connectionString}");
 ISessionFactory sessionFactory = GetSessionFactory(connectionString);
 builder.Services.AddSingleton(sessionFactory);
 builder.Services.AddScoped(factory => sessionFactory.OpenSession());
+// Allow body
+builder.Services.AddMvc(options =>
+{
+    options.RespectBrowserAcceptHeader = true;
+    options.AllowEmptyInputInBodyModelBinding = true;
+    //foreach (IInputFormatter formatter in options.InputFormatters)
+    //{
+    //    if (formatter.GetType() == typeof(SystemTextJsonInputFormatter))
+    //        ((SystemTextJsonInputFormatter)formatter).SupportedMediaTypes.Add(
+    //            Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("text/plain"));
+    //}
+    options.InputFormatters.Add(new XmlDataContractSerializerInputFormatter(options));
+    options.InputFormatters.Add(new XmlSerializerInputFormatter(options));
+});
+//builder.Services.AddJsonOptions(options =>
+//    {
+//        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+//    });
 
 WebApplication app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

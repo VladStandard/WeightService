@@ -33,19 +33,19 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		{
 			() =>
 			{
-				DataContext.GetListNotNull<DeviceModel>(SqlCrudConfigList);
-				DataContext.GetListNotNull<DeviceTypeModel>(SqlCrudConfigList);
-				DataContext.GetListNotNull<PrinterModel>(SqlCrudConfigList);
-				DataContext.GetListNotNull<TemplateModel>(SqlCrudConfigList);
-				DataContext.GetListNotNull<WorkShopModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<DeviceModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<PrinterModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<TemplateModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<WorkShopModel>(SqlCrudConfigList);
 
-				SqlItemCast = DataContext.GetItemNotNull<ScaleModel>(IdentityId);
+				SqlItemCast = DataContext.GetItemNotNullable<ScaleModel>(IdentityId);
 				SqlItemCast.PrinterMain ??= DataAccess.GetItemNew<PrinterModel>();
 				SqlItemCast.PrinterShipping ??= DataAccess.GetItemNew<PrinterModel>();
 				SqlItemCast.TemplateDefault ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.TemplateSeries ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.WorkShop ??= DataAccess.GetItemNew<WorkShopModel>();
-				//SqlItemCast.Device = DataAccess.GetItemDeviceNotNull(SqlItemCast);
+				//SqlItemCast.Device = DataAccess.GetItemDeviceNotNullable(SqlItemCast);
 				SqlItemCast.Device = DataAccess.GetItemNew<DeviceModel>();
 
 			    // ComPorts

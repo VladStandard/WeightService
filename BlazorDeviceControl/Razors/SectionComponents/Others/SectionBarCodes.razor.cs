@@ -25,7 +25,7 @@ public partial class SectionBarCodes : RazorComponentSectionBase<BarCodeModel, S
 		{
 			() =>
 			{
-				SqlSectionCast = DataContext.GetListNotNull<BarCodeModel>(SqlCrudConfigSection);
+				SqlSectionCast = DataContext.GetListNotNullable<BarCodeModel>(SqlCrudConfigSection);
 
 				ButtonSettings = new(false, true, true, true, false, false, false);
 			}

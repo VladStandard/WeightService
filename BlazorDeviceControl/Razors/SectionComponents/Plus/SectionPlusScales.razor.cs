@@ -28,8 +28,8 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 		{
 			() =>
 			{
-				SqlCrudConfigSection.SetFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem, EnumFilterAction.Add);
-				SqlSectionCast = DataContext.GetListNotNull<PluScaleModel>(SqlCrudConfigSection);
+				SqlCrudConfigSection.SetFilters(nameof(PluScaleModel.Scale), ParentRazor?.SqlItem);
+				SqlSectionCast = DataContext.GetListNotNullable<PluScaleModel>(SqlCrudConfigSection);
 			}
 		});
 	}
@@ -37,7 +37,7 @@ public partial class SectionPlusScales : RazorComponentSectionBase<PluScaleModel
 	private string GetPluPackagesCount(PluModel plu)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluScaleModel.Plu));
-		return DataContext.GetListNotNull<PluPackageModel>(sqlCrudConfig).Count.ToString();
+		return DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig).Count.ToString();
 	}
 
 	#endregion

@@ -70,18 +70,17 @@ public class BarcodeBottomModel : SerializeDeprecatedModel<BarcodeBottomModel>
 
     #region Public and private methods
 
-    public override string ToString()
-    {
-        return 
-            @$"{nameof(Const1)}: {Const1}. " + Environment.NewLine + 
-            @$"{nameof(Gtin)}: {Gtin}. " + Environment.NewLine +
-            @$"{nameof(Const2)}: {Const2}. " + Environment.NewLine +
-            @$"{nameof(Weight)}: {Weight}. " + Environment.NewLine +
-            @$"{nameof(Const3)}: {Const3}. " + Environment.NewLine +
-            @$"{nameof(Date)}: {Date}. " + Environment.NewLine +
-            @$"{nameof(Const4)}: {Const4}. " + Environment.NewLine +
-            @$"{nameof(PartNumber)}: {PartNumber}. ";
-    }
+    public override string ToString() =>
+        @$"{nameof(Const1)}: {Const1}. " + Environment.NewLine + 
+        @$"{nameof(Gtin)}: {Gtin}. " + Environment.NewLine +
+        @$"{nameof(Const2)}: {Const2}. " + Environment.NewLine +
+        @$"{nameof(Weight)}: {Weight}. " + Environment.NewLine +
+        @$"{nameof(Const3)}: {Const3}. " + Environment.NewLine +
+        @$"{nameof(Date)}: {Date}. " + Environment.NewLine +
+        @$"{nameof(Const4)}: {Const4}. " + Environment.NewLine +
+        @$"{nameof(PartNumber)}: {PartNumber}. ";
+
+    public string GetValue() => @$"{Const1}{Gtin}{Const2}{Weight}{Const3}{Date}{Const4}{PartNumber}";
 
     #endregion
 }

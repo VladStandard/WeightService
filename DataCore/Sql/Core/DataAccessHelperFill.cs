@@ -15,60 +15,60 @@ public partial class DataAccessHelper
 		switch (item)
 		{
 			case XmlDeviceModel xmlDevice:
-                xmlDevice.Scale = GetItemNotNull<ScaleModel>(xmlDevice.Scale.IdentityValueId);
+                xmlDevice.Scale = GetItemNotNullable<ScaleModel>(xmlDevice.Scale.IdentityValueId);
 				break;
 			case LogModel log:
-				log.App = GetItemNotNull<AppModel>(log.App?.IdentityValueUid);
+				log.App = GetItemNotNullable<AppModel>(log.App?.IdentityValueUid);
 				log.Device = GetItemNullable<DeviceModel>(log.Device?.IdentityValueUid);
-				log.LogType = GetItemNotNull<LogTypeModel>(log.LogType?.IdentityValueUid);
+				log.LogType = GetItemNotNullable<LogTypeModel>(log.LogType?.IdentityValueUid);
 				break;
 			// Scales.
 			case BarCodeModel barcode:
-				barcode.PluLabel = GetItemNotNull<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
+				barcode.PluLabel = GetItemNotNullable<PluLabelModel>(barcode.PluLabel.IdentityValueUid);
 				break;
 			case DeviceTypeFkModel deviceTypeFk:
-				deviceTypeFk.Device = GetItemNotNull<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
-				deviceTypeFk.DeviceType = GetItemNotNull<DeviceTypeModel>(deviceTypeFk.DeviceType.IdentityValueUid);
+				deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
+				deviceTypeFk.DeviceType = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.DeviceType.IdentityValueUid);
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
-				deviceScaleFk.Device = GetItemNotNull<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
-				deviceScaleFk.Scale = GetItemNotNull<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
+				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
+				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
 			case OrderWeighingModel orderWeighing:
-                orderWeighing.Order = GetItemNotNull<OrderModel>(orderWeighing.Order.IdentityValueUid);
-                orderWeighing.PluWeighing = GetItemNotNull<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
+                orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
+                orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
 				break;
 			case PluModel plu:
-                plu.Template = GetItemNotNull<TemplateModel>(plu.Template.IdentityValueId);
-                plu.Nomenclature = GetItemNotNull<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
+                plu.Template = GetItemNotNullable<TemplateModel>(plu.Template.IdentityValueId);
+                plu.Nomenclature = GetItemNotNullable<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
 			case PluLabelModel pluLabel:
 				pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
-                pluLabel.PluScale = GetItemNotNull<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
+                pluLabel.PluScale = GetItemNotNullable<PluScaleModel>(pluLabel.PluScale.IdentityValueUid);
                 break;
 			case PluPackageModel pluPackage:
-				pluPackage.Plu = GetItemNotNull<PluModel>(pluPackage.Plu.IdentityValueUid);
-                pluPackage.Package = GetItemNotNull<PackageModel>(pluPackage.Package.IdentityValueUid);
+				pluPackage.Plu = GetItemNotNullable<PluModel>(pluPackage.Plu.IdentityValueUid);
+                pluPackage.Package = GetItemNotNullable<PackageModel>(pluPackage.Package.IdentityValueUid);
 				break;
 			case PluScaleModel pluScale:
-                pluScale.Plu = GetItemNotNull<PluModel>(pluScale.Plu.IdentityValueUid);
-                pluScale.Scale = GetItemNotNull<ScaleModel>(pluScale.Scale.IdentityValueId);
+                pluScale.Plu = GetItemNotNullable<PluModel>(pluScale.Plu.IdentityValueUid);
+                pluScale.Scale = GetItemNotNullable<ScaleModel>(pluScale.Scale.IdentityValueId);
 				break;
 			case PluWeighingModel pluWeighing:
-                pluWeighing.PluScale = GetItemNotNull<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
+                pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);
 				pluWeighing.Series = GetItemNullable<ProductSeriesModel>(pluWeighing.Series?.IdentityValueId);
 				break;
 			case PrinterModel printer:
-                printer.PrinterType = GetItemNotNull<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
+                printer.PrinterType = GetItemNotNullable<PrinterTypeModel>(printer.PrinterType.IdentityValueId);
 				break;
 			case PrinterResourceModel printerResource:
-                printerResource.Printer = GetItemNotNull<PrinterModel>(printerResource.Printer.IdentityValueId);
-                printerResource.TemplateResource = GetItemNotNull<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueId);
+                printerResource.Printer = GetItemNotNullable<PrinterModel>(printerResource.Printer.IdentityValueId);
+                printerResource.TemplateResource = GetItemNotNullable<TemplateResourceModel>(printerResource.TemplateResource.IdentityValueId);
 				if (string.IsNullOrEmpty(printerResource.TemplateResource.Description))
 					printerResource.TemplateResource.Description = printerResource.TemplateResource.Name;
 				break;
 			case ProductSeriesModel product:
-                product.Scale = GetItemNotNull<ScaleModel>(product.Scale.IdentityValueId);
+                product.Scale = GetItemNotNullable<ScaleModel>(product.Scale.IdentityValueId);
 				break;
 			case ScaleModel scale:
 				scale.TemplateDefault = GetItemNullable<TemplateModel>(scale.TemplateDefault?.IdentityValueId);
@@ -78,14 +78,14 @@ public partial class DataAccessHelper
 				scale.WorkShop = GetItemNullable<WorkShopModel>(scale.WorkShop?.IdentityValueId);
 				break;
 			case ScaleScreenShotModel scaleScreenShot:
-				scaleScreenShot.Scale = GetItemNotNull<ScaleModel>(scaleScreenShot.Scale.IdentityValueId);
+				scaleScreenShot.Scale = GetItemNotNullable<ScaleModel>(scaleScreenShot.Scale.IdentityValueId);
 				break;
 			case TaskModel task:
-                task.TaskType = GetItemNotNull<TaskTypeModel>(task.TaskType.IdentityValueUid);
-                task.Scale = GetItemNotNull<ScaleModel>(task.Scale.IdentityValueId);
+                task.TaskType = GetItemNotNullable<TaskTypeModel>(task.TaskType.IdentityValueUid);
+                task.Scale = GetItemNotNullable<ScaleModel>(task.Scale.IdentityValueId);
 				break;
 			case WorkShopModel workshop:
-                workshop.ProductionFacility = GetItemNotNull<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
+                workshop.ProductionFacility = GetItemNotNullable<ProductionFacilityModel>(workshop.ProductionFacility.IdentityValueId);
 				break;
 		}
 	}

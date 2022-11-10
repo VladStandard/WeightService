@@ -9,7 +9,7 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
 {
 	#region Public and private fields, properties, constructor
 
-	public DeviceTypeFkModel DeviceTypeFk { get; set; }
+	private DeviceTypeFkModel DeviceTypeFk { get; set; }
 
 	#endregion
 
@@ -26,10 +26,12 @@ public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNull<DeviceModel>(IdentityUid);
+				DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigList);
+
+				SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
 				if (SqlItemCast.IdentityIsNew)
 					SqlItem = SqlItemNew<DeviceModel>();
-				DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNull(SqlItemCast);
+				DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

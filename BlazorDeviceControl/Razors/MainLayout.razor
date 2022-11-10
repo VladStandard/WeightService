@@ -17,53 +17,48 @@
     </div>
 
     <div class="main">
-        <div class="top-row px-4 auth">
+        @*<div class="top-row px-4 auth">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <RadzenMenu Style="margin-left: -20px; margin-top: 0; align-content: center; background-color: transparent; ">
-                    <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuSystem>
-                        <RadzenMenuItem Icon="home" Style="background-color: transparent; "
-                            Text=@LocaleCore.Menu.MenuMain Path=@LocaleCore.DeviceControl.RouteSystemRoot />
-                        <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                            Text=@StringUtils.FormatCurDtRus(true) Path=@LocaleCore.DeviceControl.RouteSystemRoot />
-                        <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                            Text=@BlazorAppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
-                            Click=@(_ => MemoryClear()) />
-                        @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
-		                {
+                    @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
+	                {
+	                    <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuSystem>
+	                        <RadzenMenuItem Icon="info" Style="background-color: transparent; "
+	                            Text=@BlazorAppSettings.MemoryInfo Path=@LocaleCore.DeviceControl.RouteSystemRoot
+	                            Click=@(_ => GC.Collect()) />
                             <RadzenMenuItem Icon="people" Style="background-color: transparent; "
                                 Text=@($"{UserSettings.UserName} [{BlazorAppSettings.DataAccess.GetAccessRightsDescription(UserSettings.AccessRights)}]")
                                 Path=@LocaleCore.DeviceControl.RouteSectionAccess
                                 Click=@(_ => OnChange()) />
-                            <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
-                            <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
-                            <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
-						}
-                        </RadzenMenuItem>
-                        @if (UserSettings is not null && UserSettings.AccessRightsIsRead)
-                        {
-							<RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuReports>
-		                        <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
-	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsNones Path=@LocaleCore.DeviceControl.RouteSectionLogsNones />
-	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleCore.DeviceControl.RouteSectionLogsInformations />
-	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleCore.DeviceControl.RouteSectionLogsErrors />
-	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleCore.DeviceControl.RouteSectionLogsQuestions />
-	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsStops Path=@LocaleCore.DeviceControl.RouteSectionLogsStops />
-	                            <RadzenMenuItem Icon="error" Style="background-color: transparent; "
-	                                Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleCore.DeviceControl.RouteSectionLogsWarnings />
-							</RadzenMenuItem>
-                        }
+	                    </RadzenMenuItem>
+						<RadzenMenuItem Icon="article" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuReports>
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsNones Path=@LocaleCore.DeviceControl.RouteSectionLogsNones />
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleCore.DeviceControl.RouteSectionLogsInformations />
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleCore.DeviceControl.RouteSectionLogsErrors />
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleCore.DeviceControl.RouteSectionLogsQuestions />
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsStops Path=@LocaleCore.DeviceControl.RouteSectionLogsStops />
+							<RadzenMenuItem Icon="article" Style="background-color: transparent; "
+                                Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleCore.DeviceControl.RouteSectionLogsWarnings />
+						</RadzenMenuItem>
+						<RadzenMenuItem Icon="info" Style="background-color: transparent; " Text=@LocaleCore.Menu.MenuHelp>
+			                <RadzenMenuItem Icon="info" Style="background-color: transparent; "
+			                    Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
+			                <RadzenMenuItem Icon="info" Style="background-color: transparent; "
+			                    Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
+			                <RadzenMenuItem Icon="info" Style="background-color: transparent; "
+			                    Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
+		                </RadzenMenuItem>
+					}
                 </RadzenMenu>
             </div>
-        </div>
+        </div>*@
         <div class="content px-4" style="margin-left: -25px; margin-top: -15px; margin-bottom: -15px; margin-right: -15px; background-color: transparent; ">
             @Body
         </div>

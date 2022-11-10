@@ -32,7 +32,7 @@ public partial class ItemAccess : RazorComponentItemBase<AccessModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNull<AccessModel>(IdentityUid);
+				SqlItemCast = DataContext.GetItemNotNullable<AccessModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<AccessModel>();
 				TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);

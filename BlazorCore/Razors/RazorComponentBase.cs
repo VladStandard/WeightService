@@ -141,7 +141,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 		string? userName = AuthenticationStateBase.User.Identity.Name;
 		if (string.IsNullOrEmpty(userName)) return;
 
-		AccessModel? access = DataAccessHelper.Instance.GetItemAccess(userName);
+		AccessModel? access = DataAccessHelper.Instance.GetItemAccessNullable(userName);
 		if (access is null) return;
         access.LoginDt = DateTime.Now;
         DataAccessHelper.Instance.Update(access);

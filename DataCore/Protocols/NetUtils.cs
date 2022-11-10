@@ -30,7 +30,7 @@ public static class NetUtils
 		return string.Empty;
 	}
 
-	public static string GetLocalHostName(bool isThrow)
+	public static string GetLocalDeviceName(bool isThrow)
 	{
 		try
 		{
@@ -39,7 +39,7 @@ public static class NetUtils
 		catch (Exception ex)
 		{
 			if (isThrow)
-				throw new($"Exception in {nameof(GetLocalHostName)}", ex);
+				throw new($"Exception in {nameof(GetLocalDeviceName)}", ex);
 		}
 		return string.Empty;
 	}

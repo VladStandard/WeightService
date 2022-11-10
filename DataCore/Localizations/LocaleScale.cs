@@ -68,8 +68,8 @@ public class LocaleScale
     public string FieldTime => Lang == LangEnum.English ? "Time" : "Время";
     public string FieldWeightNetto => Lang == LangEnum.English ? "Net weight" : "Вес нетто";
     public string FieldWeightTare => Lang == LangEnum.English ? "Tare weight" : "Вес тары";
-    public string HostNotFound(string hostName) => Lang == LangEnum.English ? $"Host '{hostName}' not detected." : $"Хост '{hostName}' не обнаружен.";
-    public string HostQuestionWriteToDb(string hostName) => Lang == LangEnum.English ? $"Add new host '{hostName}' into the DB?" : $"Добавить новый хост '{hostName}' в БД?";
+    public string HostNotFound(string deviceName) => Lang == LangEnum.English ? $"Host '{deviceName}' not detected." : $"Хост '{deviceName}' не обнаружен.";
+    public string HostQuestionWriteToDb(string deviceName) => Lang == LangEnum.English ? $"Add new host '{deviceName}' into the DB?" : $"Добавить новый хост '{deviceName}' в БД?";
     public string HostUidNotFound => Lang == LangEnum.English ? "Host UID not detected." : "УИД хоста не обнаружен.";
     public string HostUidQuestionWriteToDb => Lang == LangEnum.English ? "Write a new UID into the database table?" : "Записать новый УИД в таблицу БД?";
     public string HostUidQuestionWriteToFile => Lang == LangEnum.English ? "Write a new UID to the file?" : "Записать новый УИД в файл?";
@@ -121,10 +121,10 @@ public class LocaleScale
     public string QuestionRunApp => Lang == LangEnum.English ? "Run the app" : "Запустить приложение";
     public string QuestionWriteToDb => Lang == LangEnum.English ? "Add new record into the DB?" : "Добавить новую запись в БД?";
     public string Registration => Lang == LangEnum.English ? "Device registration" : "Регистрация устройства";
-    public string RegistrationSuccess(string hostName, string scaleName) => Lang == LangEnum.English ? $"Host '{hostName}' and ARM '{scaleName}' are found." : $"Хост '{hostName}' и АРМ '{scaleName}' найдены.";
+    public string RegistrationSuccess(string deviceName, string scaleName) => Lang == LangEnum.English ? $"Host '{deviceName}' and ARM '{scaleName}' are found." : $"Хост '{deviceName}' и АРМ '{scaleName}' найдены.";
     public string RegistrationWarning(Guid uid) => Lang == LangEnum.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
-    public string RegistrationWarningHostNotFound(string hostName) => Lang == LangEnum.English ? $"Host '{hostName}' not found!" : $"Хост '{hostName}' не найден!";
-    public string RegistrationWarningScaleNotFound(string hostName) => Lang == LangEnum.English ? $"ARM for host '{hostName}' not found!" : $"АРМ для хоста '{hostName}' не найден!";
+    public string RegistrationWarningHostNotFound(string deviceName) => Lang == LangEnum.English ? $"Host '{deviceName}' not found!" : $"Хост '{deviceName}' не найден!";
+    public string RegistrationWarningScaleNotFound(string deviceName) => Lang == LangEnum.English ? $"ARM for host '{deviceName}' not found!" : $"АРМ для хоста '{deviceName}' не найден!";
     public string RequestParameters => Lang == LangEnum.English ? "Request parameters" : "Запрос параметров";
     public string Restore => Lang == LangEnum.English ? "Restore" : "Восстановить";
     public string RestoreDevice => Lang == LangEnum.English ? "Restore device" : "Восстановить устроство";

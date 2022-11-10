@@ -26,37 +26,37 @@
 //		return result;
 //	}
 
-//	public static HostModel? GetHost(string hostName)
+//	public static HostModel? GetHost(string deviceName)
 //	{
 //		SqlCrudConfigModel sqlCrudConfig = new(
 //			new List<SqlFieldFilterModel>()
 //			{
-//				new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName),
+//				new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, deviceName),
 //				new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
 //			},
 //			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
 //		return DataAccess.GetItem<HostModel>(sqlCrudConfig);
 //	}
 
-//	public static HostModel GetHostNotNull(string hostName)
+//	public static HostModel GetHostNotNullable(string deviceName)
 //	{
 //		SqlCrudConfigModel sqlCrudConfig = new(
 //			new List<SqlFieldFilterModel>()
 //			{
-//				new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, hostName),
+//				new(nameof(HostModel.HostName), SqlFieldComparerEnum.Equal, deviceName),
 //				new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
 //			},
 //			new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
-//		return DataAccess.GetItemNotNull<HostModel>(sqlCrudConfig);
+//		return DataAccess.GetItemNotNullable<HostModel>(sqlCrudConfig);
 //	}
 
 //	public static HostDirect Load(Guid uid) =>
 //		SqlConnect.ExecuteReaderForItem<HostDirect>(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
 //			new SqlParameter("@idrref", SqlDbType.UniqueIdentifier) { Value = uid }, LoadReader);
 
-//	public static HostDirect Load(string hostName) =>
+//	public static HostDirect Load(string deviceName) =>
 //		SqlConnect.ExecuteReaderForItem(SqlQueries.DbScales.Tables.Hosts.GetHostByHostName,
-//			new SqlParameter("@HOST_NAME", SqlDbType.NVarChar, 255) { Value = hostName }, LoadReader);
+//			new SqlParameter("@HOST_NAME", SqlDbType.NVarChar, 255) { Value = deviceName }, LoadReader);
 
 //	public static HostDirect GetHostDirect()
 //	{
@@ -71,7 +71,7 @@
 //		return Load(idrref);
 //	}
 
-//	public static HostDirect GetHostDirect(string hostName) => Load(hostName);
+//	public static HostDirect GetHostDirect(string deviceName) => Load(deviceName);
 
 //	public static bool CheckHostUidInFile()
 //	{

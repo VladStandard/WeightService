@@ -32,7 +32,7 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluWeighingModel Width="13%" Title=@LocaleCore.Table.Host TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-				@if (DataAccess.GetItemDevice(itemCast.PluScale.Scale) is { } device)
+				@if (DataAccess.GetItemDeviceNullable(itemCast.PluScale.Scale) is { } device)
 		        {
 			        <RadzenLink
 				        Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{device.IdentityValueUid}")

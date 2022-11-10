@@ -99,13 +99,12 @@ public class UserSessionHelper : BaseViewModel
 			if (value.IdentityIsNotNew)
 				DataAccess.LogInformation(
 					$"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}",
-					//_scale.DeviceTypeFk.Device.Name);
-					Host.Device.Name);
+					Host.Device.Name, nameof(WeightCore));
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu),
 				new(), false, false, true, true, 0);
-			PluPackages = DataContext.GetListNotNull<PluPackageModel>(sqlCrudConfig);
+			PluPackages = DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
 			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.FirstOrDefault();
 			OnPropertyChanged();
 		}
@@ -284,8 +283,8 @@ public class UserSessionHelper : BaseViewModel
 	public void Setup(long scaleId, string areaName)
 	{
 		SetScale(scaleId, areaName);
-		Scales = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
-		Areas = DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
+		Scales = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
+		Areas = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
 	}
 
 	private void SetScale(long scaleId, string areaName)
@@ -293,17 +292,17 @@ public class UserSessionHelper : BaseViewModel
 		lock (_locker)
 		{
 			// Host.
-			string hostName = NetUtils.GetLocalHostName(false);
-			Host.Device = DataAccess.GetItemDeviceNotNull(hostName);
-			//Host = SqlUtils.GetHostNotNull(hostName);
-			Host = DataAccess.GetItemDeviceScaleFkNotNull(Host.Device);
+			string deviceName = NetUtils.GetLocalDeviceName(false);
+			Host.Device = DataAccess.GetItemDeviceNotNullable(deviceName);
+			//Host = SqlUtils.GetHostNotNullable(deviceName);
+			Host = DataAccess.GetItemDeviceScaleFkNotNullable(Host.Device);
 
 			// Scale.
-			//Scale = scaleId <= 0 ? SqlUtils.GetScaleFromDeviceTypeFkNotNull(Host) : SqlUtils.GetScaleNotNull(scaleId);
-			Scale = scaleId <= 0 ? Host.Scale : SqlUtils.GetScaleNotNull(scaleId);
+			//Scale = scaleId <= 0 ? SqlUtils.GetScaleFromDeviceTypeFkNotNullable(Host) : SqlUtils.GetScaleNotNullable(scaleId);
+			Scale = scaleId <= 0 ? Host.Scale : SqlUtils.GetScaleNotNullable(scaleId);
 
 			// Area.
-			Area = SqlUtils.GetAreaNotNull(areaName);
+			Area = SqlUtils.GetAreaNotNullable(areaName);
 
 			// Other.
 			AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
@@ -389,7 +388,9 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckWeightMassaDeviceExists(IWin32Window owner)
 	{
-		if (!PluScale.IdentityIsNew && !PluScale.Plu.IsCheckWeight) return true;
+        if (Debug.IsDebug) return true;
+
+        if (!PluScale.IdentityIsNew && !PluScale.Plu.IsCheckWeight) return true;
 		if (ManagerControl.Massa is null)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
@@ -408,7 +409,9 @@ public class UserSessionHelper : BaseViewModel
 	/// <returns></returns>
 	public bool CheckWeightMassaIsStable(IWin32Window owner)
 	{
-		if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
+        if (Debug.IsDebug) return true;
+
+        if (PluScale.Plu.IsCheckWeight && !ManagerControl.Massa.MassaStable.IsStable)
 		{
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
@@ -545,7 +548,7 @@ public class UserSessionHelper : BaseViewModel
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
 
-		TemplateModel? template = DataAccess.GetItemTemplate(PluScale);
+		TemplateModel? template = DataAccess.GetItemTemplateNullable(PluScale);
 		// Template exist.
 		if (template is not null && template.IdentityIsNotNew)
 		{
@@ -641,7 +644,7 @@ public class UserSessionHelper : BaseViewModel
 #nullable enable
 	public void NewPluWeighing()
 	{
-		ProductSeriesModel? productSeries = DataAccess.GetItemProductSeries(PluScale.Scale);
+		ProductSeriesModel? productSeries = DataAccess.GetItemProductSeriesNullable(PluScale.Scale);
 
 		PluWeighing = new()
 		{

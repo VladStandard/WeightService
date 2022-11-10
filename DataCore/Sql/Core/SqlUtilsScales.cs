@@ -37,18 +37,18 @@ public static partial class SqlUtils
 	//public static ScaleModel? GetScaleFromDevice(DeviceModel deviceModel)
 	//{
 	//	SqlCrudConfigModel sqlCrudConfig = new(
- //           new List<SqlFieldFilterModel>
- //           { 
- //               new($"{nameof(DeviceModel)}.{nameof(SqlTableBase.IdentityValueUid)}", 
+	//           new List<SqlFieldFilterModel>
+	//           { 
+	//               new($"{nameof(DeviceModel)}.{nameof(SqlTableBase.IdentityValueUid)}", 
 	//                SqlFieldComparerEnum.Equal, deviceModel.IdentityValueUid), 
- //               new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
- //           },
+	//               new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
+	//           },
 	//		new SqlFieldOrderModel(nameof(SqlTableBase.CreateDt), SqlFieldOrderEnum.Desc), 0);
 	//	DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItem<DeviceScaleFkModel>(sqlCrudConfig);
 	//	return deviceScaleFk?.Scale;
 	//}
 
-	//public static ScaleModel GetScaleFromDeviceNotNull(DeviceModel device)
+	//public static ScaleModel GetScaleFromDeviceNotNullable(DeviceModel device)
 	//{
 	//	ScaleModel? scale = GetScaleFromDevice(device);
 	//	return scale ?? new();
@@ -65,7 +65,7 @@ public static partial class SqlUtils
 	//	return DataAccess.GetItem<ScaleModel>(sqlCrudConfig);
 	//}
 
-	public static ScaleModel GetScaleNotNull(long id)
+	public static ScaleModel GetScaleNotNullable(long id)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
             new List<SqlFieldFilterModel>()
@@ -73,21 +73,10 @@ public static partial class SqlUtils
                 new(nameof(SqlTableBase.IdentityValueId), SqlFieldComparerEnum.Equal, id), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             }, false, false);
-		return DataAccessHelper.Instance.GetItemNotNull<ScaleModel>(sqlCrudConfig);
+		return DataAccessHelper.Instance.GetItemNotNullable<ScaleModel>(sqlCrudConfig);
 	}
 
-	//public static ScaleModel GetScaleNotNull(string description)
-	//{
-	//	SqlCrudConfigModel sqlCrudConfig = new(
- //           new List<SqlFieldFilterModel>()
- //           {
- //               new(nameof(SqlTableBase.Description), SqlFieldComparerEnum.Equal, description), 
- //               new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
- //           });
-	//	return DataAccess.GetItemNotNull<ScaleModel>(sqlCrudConfig);
-	//}
-
-	public static ProductionFacilityModel GetAreaNotNull(string name)
+	public static ProductionFacilityModel GetAreaNotNullable(string name)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			new List<SqlFieldFilterModel>()
@@ -95,7 +84,7 @@ public static partial class SqlUtils
                 new(nameof(ProductionFacilityModel.Name), SqlFieldComparerEnum.Equal, name), 
                 new(nameof(SqlTableBase.IsMarked), SqlFieldComparerEnum.Equal, false)
             }, false, false);
-		return DataAccessHelper.Instance.GetItemNotNull<ProductionFacilityModel>(sqlCrudConfig);
+		return DataAccessHelper.Instance.GetItemNotNullable<ProductionFacilityModel>(sqlCrudConfig);
 	}
 
 	#endregion

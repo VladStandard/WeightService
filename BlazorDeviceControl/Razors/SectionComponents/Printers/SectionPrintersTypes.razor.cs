@@ -25,7 +25,7 @@ public partial class SectionPrintersTypes : RazorComponentSectionBase<PrinterTyp
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<PrinterTypeModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<PrinterTypeModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

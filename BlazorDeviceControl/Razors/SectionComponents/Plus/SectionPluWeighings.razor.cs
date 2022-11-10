@@ -25,8 +25,8 @@ public partial class SectionPluWeighings : RazorComponentSectionBase<PluWeighing
 		{
 			() =>
 			{
-				SqlSectionCast = DataAccess.GetListPluWeighings(SqlCrudConfigSection);
-
+				SqlSectionCast = DataContext.GetListNotNullable<PluWeighingModel>(SqlCrudConfigSection);
+				
 				ButtonSettings = new(false, true, false, true, false, false, false);
 			}
 		});

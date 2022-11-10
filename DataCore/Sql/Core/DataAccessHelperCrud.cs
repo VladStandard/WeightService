@@ -34,16 +34,13 @@ public partial class DataAccessHelper
 
 		try
 		{
-			//if (SessionFactory is not null)
-			{
-				session = SessionFactory.OpenSession();
-				if (isTransaction)
-				    transaction = session.BeginTransaction();
-				callback.Invoke(session);
-				session.Flush();
-                if (isTransaction)
-                    transaction?.Commit();
-			}
+			session = SessionFactory.OpenSession();
+			if (isTransaction)
+				transaction = session.BeginTransaction();
+			callback.Invoke(session);
+			session.Flush();
+			if (isTransaction)
+				transaction?.Commit();
 		}
 		catch (Exception ex)
 		{
@@ -63,10 +60,9 @@ public partial class DataAccessHelper
                 session.Dispose();
             }
         }
+		
 		if (exception is not null)
-		{
-			LogError(exception);
-		}
+			LogError(exception, "", nameof(DataCore));
 	}
 
     private void ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);

@@ -68,29 +68,60 @@
                 </RadzenPanelMenuItem>
                 
 		        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionImport1C >
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                        Text=@LocaleCore.DeviceControl.SectionContragents Path=@LocaleCore.DeviceControl.RouteSectionContragents />
-                    <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
-                        Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionNomenclatures />
+1			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+			            Text=@LocaleCore.DeviceControl.SectionContragents Path=@LocaleCore.DeviceControl.RouteSectionContragents />
+			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
+			            Text=@LocaleCore.DeviceControl.SectionNomenclatures Path=@LocaleCore.DeviceControl.RouteSectionNomenclatures />
+		        </RadzenPanelMenuItem>
+
+		        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuHelp >
+			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
+			            Text=@LocaleCore.System.UserInfo Path=@($"{LocaleCore.DeviceControl.RouteSystemIdentityData}/true") />
+			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
+                        Text=@LocaleCore.Menu.MenuDbVersionHistory Path=@LocaleCore.DeviceControl.RouteSectionVersions />
+			        <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="info"
+                        Text=@LocaleCore.System.SystemInfo Path=@LocaleCore.DeviceControl.RouteSystemAppInfo />
                 </RadzenPanelMenuItem>
 			}
+
             @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin)
             {
 	            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionAdministering >
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="people"
+		                Text=@LocaleCore.System.Users
+		                Path=@LocaleCore.DeviceControl.RouteSectionAccess />
 		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings)
 		                Text=@LocaleCore.DeviceControl.SectionScreenShots Path=@LocaleCore.DeviceControl.RouteSectionScalesScreenShots />
 	            </RadzenPanelMenuItem>
-	            @if (IsDebug)
-	            {
-					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev >
-						<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Mud" 
-						    Path=@LocaleCore.DeviceControl.RouteExampleMud />
-						<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Radzen"
-	                        Path=@LocaleCore.DeviceControl.RouteExampleRadzen />
-						<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="NetBarcode" 
-						    Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
-	                </RadzenPanelMenuItem>
-	            }
+	            
+	            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.Menu.MenuReports>
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsAll Path=@LocaleCore.DeviceControl.RouteSectionLogs />
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsNones Path=@LocaleCore.DeviceControl.RouteSectionLogsNones />
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsInformations Path=@LocaleCore.DeviceControl.RouteSectionLogsInformations />
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsErrors Path=@LocaleCore.DeviceControl.RouteSectionLogsErrors />
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsQuestions Path=@LocaleCore.DeviceControl.RouteSectionLogsQuestions />
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsStops Path=@LocaleCore.DeviceControl.RouteSectionLogsStops />
+		            <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Icon="article"
+		                                 Text=@LocaleCore.System.SystemLogsWarnings Path=@LocaleCore.DeviceControl.RouteSectionLogsWarnings />
+	            </RadzenPanelMenuItem>
+            }
+
+            @if (UserSettings is not null && UserSettings.AccessRightsIsAdmin && IsDebug)
+            {
+				<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem(BlazorAppSettings) Text=@LocaleCore.DeviceControl.SectionReferencesDev >
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Mud" 
+					    Path=@LocaleCore.DeviceControl.RouteExampleMud />
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="Radzen"
+                        Path=@LocaleCore.DeviceControl.RouteExampleRadzen />
+					<RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem(BlazorAppSettings) Text="NetBarcode" 
+					    Path=@LocaleCore.DeviceControl.RouteExampleNetBarcode />
+                </RadzenPanelMenuItem>
             }
         </RadzenPanelMenu>
     </ul>

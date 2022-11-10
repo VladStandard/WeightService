@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Helpers;
 using DataCore.Models;
 
 namespace AssertCoreTests;
@@ -31,7 +30,7 @@ public class DataCoreHelper
 	public void SetupDebug()
 	{
 		JsonSettings.SetupForTestsDebug(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests));
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests));
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
@@ -39,7 +38,7 @@ public class DataCoreHelper
 	private void SetupRelease()
 	{
 		DataAccess.JsonSettings.SetupForTestsRelease(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalHostName(true), nameof(AssertCoreTests));
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests));
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
@@ -83,7 +82,7 @@ public class DataCoreHelper
 			{
 				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
 				// Arrange.
-				List<T> items = DataContext.GetListNotNull<T>(sqlCrudConfig);
+				List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
 				// Act.
 				if (!items.Any())
 				{

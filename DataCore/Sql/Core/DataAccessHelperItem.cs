@@ -4,6 +4,7 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
+using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.Core;
 
@@ -11,13 +12,13 @@ public partial class DataAccessHelper
 {
 	#region Public and public methods
 
-	public AccessModel? GetItemAccess(string? userName)
+	public AccessModel? GetItemAccessNullable(string? userName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), userName, false, false);
 		return GetItemNullable<AccessModel>(sqlCrudConfig);
 	}
 
-	public ProductSeriesModel? GetItemProductSeries(ScaleModel scale)
+	public ProductSeriesModel? GetItemProductSeriesNullable(ScaleModel scale)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			new List<SqlFieldFilterModel>
@@ -28,7 +29,7 @@ public partial class DataAccessHelper
 		return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
 	}
 
-	public TemplateModel? GetItemTemplate(PluScaleModel pluScale)
+	public TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
 	{
 		if (!pluScale.IdentityIsNotNew || !pluScale.Plu.IdentityIsNotNew) return null;
 
@@ -36,10 +37,10 @@ public partial class DataAccessHelper
 		return GetItemNullable<TemplateModel>(sqlCrudConfig);
 	}
 
-	public AppModel GetItemAppOrCreateNew(string appName)
+	private AppModel GetItemAppOrCreateNew(string appName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), appName, false, false);
-		AppModel app = GetItemNotNull<AppModel>(sqlCrudConfig);
+		AppModel app = GetItemNotNullable<AppModel>(sqlCrudConfig);
 		if (app.IdentityIsNew)
 		{
 			app = new()
@@ -47,23 +48,28 @@ public partial class DataAccessHelper
 				Name = appName,
 				CreateDt = DateTime.Now,
 				ChangeDt = DateTime.Now,
-				IsMarked = false,
 			};
 			Save(app);
+		}
+		else
+		{
+			app.ChangeDt = DateTime.Now;
+			Update(app);
 		}
 		return app;
 	}
 
-	public AppModel? GetItemApp(string appName)
+	public AppModel? GetItemAppNullable(string appName)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), appName, false, false);
 		return GetItemNullable<AppModel>(sqlCrudConfig);
 	}
 
-	public DeviceModel GetItemDeviceOrCreateNew(string name)
+	private DeviceModel GetItemDeviceOrCreateNew(string name)
 	{
-		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), name, false, false);
-		DeviceModel device = GetItemNotNull<DeviceModel>(sqlCrudConfig);
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+			nameof(SqlTableBase.Name), name, true, false);
+		DeviceModel device = GetItemNotNullable<DeviceModel>(sqlCrudConfig);
 		if (device.IdentityIsNew)
 		{
 			device = new()
@@ -72,75 +78,75 @@ public partial class DataAccessHelper
 				PrettyName = name,
 				CreateDt = DateTime.Now,
 				ChangeDt = DateTime.Now,
-				IsMarked = false,
-				Ipv4 = NetUtils.GetLocalIpAddress(),
 				LoginDt = DateTime.Now,
+				LogoutDt = DateTime.Now,
+				Ipv4 = NetUtils.GetLocalIpAddress(),
 			};
 			Save(device);
 		}
 		else
 		{
+			device.ChangeDt = DateTime.Now;
 			device.LoginDt = DateTime.Now;
 			Update(device);
 		}
 		return device;
 	}
 
-	private ScaleModel? GetItemScale(DeviceModel device)
+	private ScaleModel? GetItemScaleNullable(DeviceModel device)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceModel), device.IdentityValueUid), false, false);
-		return GetItemNotNull<DeviceScaleFkModel>(sqlCrudConfig).Scale;
+			SqlCrudConfigModel.GetFiltersIdentity($"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
+		return GetItemNotNullable<DeviceScaleFkModel>(sqlCrudConfig).Scale;
 	}
 
-	public ScaleModel GetItemScaleNotNull(DeviceModel device) =>
-		GetItemScale(device) ?? new();
+	public ScaleModel GetItemScaleNotNullable(DeviceModel device) => GetItemScaleNullable(device) ?? new();
 
-	private DeviceModel? GetItemDevice(string name)
+	private DeviceModel? GetItemDeviceNullable(string name)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.Name), name, false, false);
 		return GetItemNullable<DeviceModel>(sqlCrudConfig);
 	}
 
-	public DeviceModel? GetItemDevice(ScaleModel scale)
+	public DeviceModel? GetItemDeviceNullable(ScaleModel scale)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
 		return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig)?.Device;
 	}
 
-	public DeviceModel GetItemDeviceNotNull(string name) => GetItemDevice(name) ?? new();
+	public DeviceModel GetItemDeviceNotNullable(string name) => GetItemDeviceNullable(name) ?? new();
 
-	public DeviceModel GetItemDeviceNotNull(ScaleModel scale) => GetItemDevice(scale) ?? new();
+	public DeviceModel GetItemDeviceNotNullable(ScaleModel scale) => GetItemDeviceNullable(scale) ?? new();
 
-	public DeviceTypeFkModel? GetItemDeviceTypeFk(DeviceModel device)
+	public DeviceTypeFkModel? GetItemDeviceTypeFkNullable(DeviceModel device)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceTypeFkModel.Device), device.IdentityValueUid), false, false);
 		return GetItemNullable<DeviceTypeFkModel>(sqlCrudConfig);
 	}
 
-	public DeviceTypeFkModel GetItemDeviceTypeFkNotNull(DeviceModel device) =>
-		GetItemDeviceTypeFk(device) ?? new();
+	public DeviceTypeFkModel GetItemDeviceTypeFkNotNullable(DeviceModel device) =>
+		GetItemDeviceTypeFkNullable(device) ?? new();
 
-	public DeviceScaleFkModel? GetItemDeviceScaleFk(DeviceModel device)
+	public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(DeviceModel device)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceTypeFkModel.Device), device.IdentityValueUid), false, false);
 		return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
 	}
 
-	public DeviceScaleFkModel? GetItemDeviceScaleFk(ScaleModel scale)
+	public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(ScaleModel scale)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
 			SqlCrudConfigModel.GetFiltersIdentity(nameof(DeviceScaleFkModel.Scale), scale.IdentityValueId), false, false);
 		return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
 	}
 
-	public DeviceScaleFkModel GetItemDeviceScaleFkNotNull(DeviceModel device) =>
-		GetItemDeviceScaleFk(device) ?? new();
+	public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(DeviceModel device) =>
+		GetItemDeviceScaleFkNullable(device) ?? new();
 
-	public LogTypeModel? GetItemLogType(LogTypeEnum logType)
+	public LogTypeModel? GetItemLogTypeNullable(LogTypeEnum logType)
 	{
 		SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>
 			{ new(nameof(LogTypeModel.Number), SqlFieldComparerEnum.Equal, (byte)logType) },

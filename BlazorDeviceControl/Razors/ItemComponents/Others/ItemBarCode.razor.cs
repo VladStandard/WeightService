@@ -22,7 +22,7 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNull<BarCodeModel>(IdentityUid);
+				SqlItemCast = DataContext.GetItemNotNullable<BarCodeModel>(IdentityUid);
 				if (SqlItemCast.IdentityIsNew)
 					SqlItem = SqlItemNew<BarCodeModel>();
 

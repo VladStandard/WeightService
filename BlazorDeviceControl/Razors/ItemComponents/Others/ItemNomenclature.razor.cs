@@ -21,7 +21,7 @@ public partial class ItemNomenclature : RazorComponentItemBase<NomenclatureModel
 		{
 			() =>
 			{
-                SqlItemCast = DataAccess.GetItemNotNull<NomenclatureModel>(IdentityId);
+                SqlItemCast = DataAccess.GetItemNotNullable<NomenclatureModel>(IdentityId);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<NomenclatureModel>();
 

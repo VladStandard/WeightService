@@ -25,7 +25,7 @@ public partial class SectionOrganizations : RazorComponentSectionBase<Organizati
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNull<OrganizationModel>(SqlCrudConfigSection);
+	            SqlSectionCast = DataContext.GetListNotNullable<OrganizationModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }

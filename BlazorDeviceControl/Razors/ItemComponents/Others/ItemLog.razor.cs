@@ -21,7 +21,7 @@ public partial class ItemLog : RazorComponentItemBase<LogModel>
 		{
 			() =>
 			{
-                SqlItemCast = DataContext.GetItemNotNull<LogModel>(IdentityUid);
+                SqlItemCast = DataContext.GetItemNotNullable<LogModel>(IdentityUid);
                 if (SqlItemCast.IdentityIsNew)
 	                SqlItem = SqlItemNew<LogModel>();
 

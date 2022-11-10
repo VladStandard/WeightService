@@ -46,6 +46,7 @@ public class LocaleSystem
     public string SystemLogsWarnings => Lang == LangEnum.English ? "Warnings" : "Предупреждения";
     public string SystemWindowsUser => Lang == LangEnum.English ? "Windows-user" : "Windows-пользователь";
     public string UserInfo => Lang == LangEnum.English ? "User info" : "Информация о пользователе";
+    public string Users => Lang == LangEnum.English ? "Users" : "Пользователи";
 
     #endregion
 }

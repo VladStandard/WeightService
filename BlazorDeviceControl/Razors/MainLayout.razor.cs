@@ -9,11 +9,6 @@ public partial class MainLayout : RazorComponentBase
 {
 	#region Public and private methods
     
-	private void MemoryClear()
-    {
-        GC.Collect();
-    }
-
 	protected override void OnInitialized()
 	{
 		RunActionsInitialized(new()

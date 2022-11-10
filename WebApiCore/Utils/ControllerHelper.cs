@@ -3,8 +3,12 @@
 
 using System.Net;
 using System.Runtime.CompilerServices;
+using Azure;
 using DataCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using NHibernate;
+using NHibernate.Hql.Util;
 using WebApiCore.Common;
 
 namespace WebApiCore.Utils;
@@ -48,7 +52,47 @@ public class ControllerHelper
             GC.Collect();
         }
     }
-    
-    #endregion
 
+    public ContentResult GetResponse1C(ISessionFactory sessionFactory, string query, 
+        SqlParameter? sqlParameter, FormatTypeEnum format, bool isTransaction)
+    {
+        using ISession session = sessionFactory.OpenSession();
+        using ITransaction transaction = session.BeginTransaction();
+        List<Response1CRecordModel> success = new();
+        List<Response1CRecordModel> errors = new();
+        ResponseQueryModel responseQuery = new();
+        
+        try
+        {
+            if (!string.IsNullOrEmpty(query))
+            {
+                responseQuery.Query = query;
+                ISQLQuery sqlQuery = session.CreateSQLQuery(query);
+                sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
+                if (sqlParameter is not null)
+                {
+                    responseQuery.Parameters.Add(new(sqlParameter));
+                    sqlQuery.SetParameter(sqlParameter.ParameterName, sqlParameter.Value);
+                }
+                string response = sqlQuery.UniqueResult<string>();
+                success.Add(new(Guid.NewGuid(), response));
+            }
+            else
+                success.Add(new(Guid.NewGuid(), "Empty query. Try to make some select from any table."));
+            if (isTransaction)
+                transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            errors.Add(new(Guid.NewGuid(), ex.Message));
+            if (ex.InnerException is not null)
+                errors.Add(new(Guid.NewGuid(), ex.InnerException.Message));
+            if (isTransaction)
+                transaction.Rollback();
+        }
+        return new Response1CModel(success, errors, responseQuery)
+            .GetResult(format, HttpStatusCode.OK);
+    }
+
+    #endregion
 }

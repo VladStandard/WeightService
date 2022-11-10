@@ -196,7 +196,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 				}
 				catch (Exception ex)
 				{
-					DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalHostName(false), nameof(DataCore));
+					DataAccessHelper.Instance.LogError(ex);
 					Config.WaitSync(Config.WaitException);
 				}
 			}
@@ -323,7 +323,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 				}
 				catch (Exception ex)
 				{
-					DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalHostName(false), nameof(DataCore));
+					DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(DataCore));
 					Config.WaitSync(Config.WaitException);
 				}
 			}
@@ -450,7 +450,7 @@ public class ManagerBase : DisposableBase, IDisposableBase
 				}
 				catch (Exception ex)
 				{
-					DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalHostName(false), nameof(DataCore));
+					DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(DataCore));
 					Config.WaitSync(Config.WaitException);
 				}
 			}

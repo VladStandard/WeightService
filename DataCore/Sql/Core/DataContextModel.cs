@@ -83,42 +83,42 @@ public partial class DataContextModel
 
 	#region Public and private methods
 
-	public List<T> GetListNotNull<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
 	{
 		switch (typeof(T))
 		{
 			case var cls when cls == typeof(AccessModel):
-				Accesses = DataAccess.GetListNotNull<AccessModel>(sqlCrudConfig);
+				Accesses = DataAccess.GetListNotNullable<AccessModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Accesses = Accesses.OrderBy(item => item.Name).ToList();
 				return Accesses.Cast<T>().ToList();
 			case var cls when cls == typeof(AppModel):
-				Apps = DataAccess.GetListNotNull<AppModel>(sqlCrudConfig);
+				Apps = DataAccess.GetListNotNullable<AppModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Apps = Apps.OrderBy(item => item.Name).ToList();
 				return Apps.Cast<T>().ToList();
 			case var cls when cls == typeof(BarCodeModel):
-				BarCodes = DataAccess.GetListNotNull<BarCodeModel>(sqlCrudConfig);
+				BarCodes = DataAccess.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					BarCodes = BarCodes.OrderByDescending(item => item.ChangeDt).ToList();
 				return BarCodes.Cast<T>().ToList();
 			case var cls when cls == typeof(ContragentModel):
-				Contragents = DataAccess.GetListNotNull<ContragentModel>(sqlCrudConfig);
+				Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Contragents = Contragents.OrderBy(item => item.Name).ToList();
 				return Contragents.Cast<T>().ToList();
 			case var cls when cls == typeof(DeviceModel):
-				Devices = DataAccess.GetListNotNull<DeviceModel>(sqlCrudConfig);
+				Devices = DataAccess.GetListNotNullable<DeviceModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Devices = Devices.OrderBy(item => item.Name).ToList();
 				return Devices.Cast<T>().ToList();
 			case var cls when cls == typeof(DeviceTypeModel):
-				DeviceTypes = DataAccess.GetListNotNull<DeviceTypeModel>(sqlCrudConfig);
+				DeviceTypes = DataAccess.GetListNotNullable<DeviceTypeModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					DeviceTypes = DeviceTypes.OrderBy(item => item.Name).ToList();
 				return DeviceTypes.Cast<T>().ToList();
 			case var cls when cls == typeof(DeviceTypeFkModel):
-				DeviceTypeFks = DataAccess.GetListNotNull<DeviceTypeFkModel>(sqlCrudConfig);
+				DeviceTypeFks = DataAccess.GetListNotNullable<DeviceTypeFkModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
 					DeviceTypeFks = DeviceTypeFks.OrderBy(item => item.DeviceType.Name).ToList();
@@ -126,7 +126,7 @@ public partial class DataContextModel
 				}
 				return DeviceTypeFks.Cast<T>().ToList();
 			case var cls when cls == typeof(DeviceScaleFkModel):
-				DeviceScaleFks = DataAccess.GetListNotNull<DeviceScaleFkModel>(sqlCrudConfig);
+				DeviceScaleFks = DataAccess.GetListNotNullable<DeviceScaleFkModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
 					DeviceScaleFks = DeviceScaleFks.OrderBy(item => item.Device.Name).ToList();
@@ -134,47 +134,47 @@ public partial class DataContextModel
 				}
 				return DeviceScaleFks.Cast<T>().ToList();
 			case var cls when cls == typeof(LogModel):
-				Logs = DataAccess.GetListNotNull<LogModel>(sqlCrudConfig);
+				Logs = DataAccess.GetListNotNullable<LogModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Logs = Logs.OrderByDescending(item => item.ChangeDt).ToList();
 				return Logs.Cast<T>().ToList();
 			case var cls when cls == typeof(LogTypeModel):
-				LogTypes = DataAccess.GetListNotNull<LogTypeModel>(sqlCrudConfig);
+				LogTypes = DataAccess.GetListNotNullable<LogTypeModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					LogTypes = LogTypes.OrderBy(item => item.Name).ToList();
 				return LogTypes.Cast<T>().ToList();
 			case var cls when cls == typeof(NomenclatureModel):
-				Nomenclatures = DataAccess.GetListNotNull<NomenclatureModel>(sqlCrudConfig);
+				Nomenclatures = DataAccess.GetListNotNullable<NomenclatureModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Nomenclatures = Nomenclatures.OrderBy(item => item.Name).ToList();
 				return Nomenclatures.Cast<T>().ToList();
 			case var cls when cls == typeof(OrderModel):
-				Orders = DataAccess.GetListNotNull<OrderModel>(sqlCrudConfig);
+				Orders = DataAccess.GetListNotNullable<OrderModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Orders = Orders.OrderByDescending(item => item.ChangeDt).ToList();
 				return Orders.Cast<T>().ToList();
 			case var cls when cls == typeof(OrganizationModel):
-				Organizations = DataAccess.GetListNotNull<OrganizationModel>(sqlCrudConfig);
+				Organizations = DataAccess.GetListNotNullable<OrganizationModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Organizations = Organizations.OrderBy(item => item.Name).ToList();
 				return Organizations.Cast<T>().ToList();
 			case var cls when cls == typeof(PackageModel):
-				Packages = DataAccess.GetListNotNull<PackageModel>(sqlCrudConfig);
+				Packages = DataAccess.GetListNotNullable<PackageModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Packages = Packages.OrderBy(item => item.Name).ToList();
 				return Packages.Cast<T>().ToList();
 			case var cls when cls == typeof(PluLabelModel):
-				PluLabels = DataAccess.GetListNotNull<PluLabelModel>(sqlCrudConfig);
+				PluLabels = DataAccess.GetListNotNullable<PluLabelModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					PluLabels = PluLabels.OrderByDescending(item => item.ChangeDt).ToList();
 				return PluLabels.Cast<T>().ToList();
 			case var cls when cls == typeof(PluModel):
-				Plus = DataAccess.GetListNotNull<PluModel>(sqlCrudConfig);
+				Plus = DataAccess.GetListNotNullable<PluModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Plus = Plus.OrderBy(item => item.Name).ToList();
 				return Plus.Cast<T>().ToList();
 			case var cls when cls == typeof(PluPackageModel):
-				PluPackages = DataAccess.GetListNotNull<PluPackageModel>(sqlCrudConfig);
+				PluPackages = DataAccess.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
 					PluPackages = PluPackages.OrderBy(item => item.Package.Name).ToList();
@@ -182,7 +182,7 @@ public partial class DataContextModel
 				}
 				return PluPackages.Cast<T>().ToList();
 			case var cls when cls == typeof(PluScaleModel):
-				PluScales = DataAccess.GetListNotNull<PluScaleModel>(sqlCrudConfig);
+				PluScales = DataAccess.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
 					PluScales = PluScales.OrderBy(item => item.Scale.Name).ToList();
@@ -190,17 +190,17 @@ public partial class DataContextModel
 				}
 				return PluScales.Cast<T>().ToList();
 			case var cls when cls == typeof(PluWeighingModel):
-				PluWeighings = DataAccess.GetListNotNull<PluWeighingModel>(sqlCrudConfig);
+				PluWeighings = DataAccess.GetListNotNullable<PluWeighingModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					PluWeighings = PluWeighings.OrderByDescending(item => item.ChangeDt).ToList();
 				return PluWeighings.Cast<T>().ToList();
 			case var cls when cls == typeof(PrinterModel):
-				Printers = DataAccess.GetListNotNull<PrinterModel>(sqlCrudConfig);
+				Printers = DataAccess.GetListNotNullable<PrinterModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Printers = Printers.OrderBy(item => item.Name).ToList();
 				return Printers.Cast<T>().ToList();
 			case var cls when cls == typeof(PrinterResourceModel):
-				PrinterResources = DataAccess.GetListNotNull<PrinterResourceModel>(sqlCrudConfig);
+				PrinterResources = DataAccess.GetListNotNullable<PrinterResourceModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
 					PrinterResources = PrinterResources.OrderBy(item => item.Printer.Name).ToList();
@@ -208,57 +208,57 @@ public partial class DataContextModel
 				}
 				return PrinterResources.Cast<T>().ToList();
 			case var cls when cls == typeof(PrinterTypeModel):
-				PrinterTypes = DataAccess.GetListNotNull<PrinterTypeModel>(sqlCrudConfig);
+				PrinterTypes = DataAccess.GetListNotNullable<PrinterTypeModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					PrinterTypes = PrinterTypes.OrderBy(item => item.Name).ToList();
 				return PrinterTypes.Cast<T>().ToList();
 			case var cls when cls == typeof(ProductionFacilityModel):
-				ProductionFacilities = DataAccess.GetListNotNull<ProductionFacilityModel>(sqlCrudConfig);
+				ProductionFacilities = DataAccess.GetListNotNullable<ProductionFacilityModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					ProductionFacilities = ProductionFacilities.OrderBy(item => item.Name).ToList();
 				return ProductionFacilities.Cast<T>().ToList();
 			case var cls when cls == typeof(ProductSeriesModel):
-				ProductSeries = DataAccess.GetListNotNull<ProductSeriesModel>(sqlCrudConfig);
+				ProductSeries = DataAccess.GetListNotNullable<ProductSeriesModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					ProductSeries = ProductSeries.OrderByDescending(item => item.ChangeDt).ToList();
 				return ProductSeries.Cast<T>().ToList();
 			case var cls when cls == typeof(ScaleModel):
-				Scales = DataAccess.GetListNotNull<ScaleModel>(sqlCrudConfig);
+				Scales = DataAccess.GetListNotNullable<ScaleModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Scales = Scales.OrderBy(item => item.Name).ToList();
 				return Scales.Cast<T>().ToList();
 			case var cls when cls == typeof(ScaleScreenShotModel):
-				ScaleScreenShots = DataAccess.GetListNotNull<ScaleScreenShotModel>(sqlCrudConfig);
+				ScaleScreenShots = DataAccess.GetListNotNullable<ScaleScreenShotModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					ScaleScreenShots = ScaleScreenShots.OrderByDescending(item => item.ChangeDt).ToList();
 				return ScaleScreenShots.Cast<T>().ToList();
 			case var cls when cls == typeof(TaskModel):
-				Tasks = DataAccess.GetListNotNull<TaskModel>(sqlCrudConfig);
+				Tasks = DataAccess.GetListNotNullable<TaskModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Tasks = Tasks.OrderBy(item => item.Name).ToList();
 				return Tasks.Cast<T>().ToList();
 			case var cls when cls == typeof(TaskTypeModel):
-				TaskTypes = DataAccess.GetListNotNull<TaskTypeModel>(sqlCrudConfig);
+				TaskTypes = DataAccess.GetListNotNullable<TaskTypeModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					TaskTypes = TaskTypes.OrderBy(item => item.Name).ToList();
 				return TaskTypes.Cast<T>().ToList();
 			case var cls when cls == typeof(TemplateModel):
-				Templates = DataAccess.GetListNotNull<TemplateModel>(sqlCrudConfig);
+				Templates = DataAccess.GetListNotNullable<TemplateModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Templates = Templates.OrderBy(item => item.Name).ToList();
 				return Templates.Cast<T>().ToList();
 			case var cls when cls == typeof(TemplateResourceModel):
-				TemplateResources = DataAccess.GetListNotNull<TemplateResourceModel>(sqlCrudConfig);
+				TemplateResources = DataAccess.GetListNotNullable<TemplateResourceModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					TemplateResources = TemplateResources.OrderBy(item => item.Name).ToList();
 				return TemplateResources.Cast<T>().ToList();
 			case var cls when cls == typeof(VersionModel):
-				Versions = DataAccess.GetListNotNull<VersionModel>(sqlCrudConfig);
+				Versions = DataAccess.GetListNotNullable<VersionModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Versions = Versions.OrderByDescending(item => item.Version).ToList();
 				return Versions.Cast<T>().ToList();
 			case var cls when cls == typeof(WorkShopModel):
-				WorkShops = DataAccess.GetListNotNull<WorkShopModel>(sqlCrudConfig);
+				WorkShops = DataAccess.GetListNotNullable<WorkShopModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					WorkShops = WorkShops.OrderBy(item => item.Name).ToList();
 				return WorkShops.Cast<T>().ToList();
@@ -266,13 +266,9 @@ public partial class DataContextModel
 		return new();
 	}
 
-	public T? GetItem<T>(Guid? uid) where T : SqlTableBase, new() => DataAccess.GetItemNullable<T>(uid);
+	public T? GetItemNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNullable<T>(value);
 
-	public T GetItemNotNull<T>(Guid? uid) where T : SqlTableBase, new() => DataAccess.GetItemNotNull<T>(uid);
-
-	public T? GetItem<T>(long? id) where T : SqlTableBase, new() => DataAccess.GetItemNullable<T>(id);
-
-	public T GetItemNotNull<T>(long? id) where T : SqlTableBase, new() => DataAccess.GetItemNotNull<T>(id);
+	public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNotNullable<T>(value);
 
 	/// <summary>
 	/// List of models SqlTableBase.

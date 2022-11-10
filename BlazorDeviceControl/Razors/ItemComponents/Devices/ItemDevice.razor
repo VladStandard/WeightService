@@ -46,14 +46,14 @@
 			<td>@LocaleCore.Table.Name</td>
 			<td>
 				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.Name />
+					Style="width: 100%; text-align: left; background-color: transparent; "
+							   ReadOnly=false @bind-Value=@SqlItemCast.Name />
 			</td>
 			<td>@LocaleCore.Table.PrettyName</td>
 			<td>
 				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.PrettyName />
+					Style="width: 100%; text-align: left; background-color: transparent; "
+					ReadOnly=false @bind-Value=@SqlItemCast.PrettyName />
 			</td>
 		</tr>
 		<tr>
@@ -61,7 +61,7 @@
 			<td>
 				<RadzenTextBox 
 					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@SqlItemCast.Ipv4 />
+					ReadOnly=true @bind-Value=@SqlItemCast.Ipv4 />
 			</td>
 			<td>@LocaleCore.Table.DeviceMac</td>
 			<td>
@@ -75,22 +75,33 @@
 			<td colspan=3>
 				<RadzenTextArea 
 					Style="width: 100%; text-align: left; background-color: lightgray; " 
-					ReadOnly=true Value=@SqlItemCast.Description Rows=4 />
+					ReadOnly=true @bind-Value=@SqlItemCast.Description Rows=4 />
 			</td>
 		</tr>
 		<tr>
-			<td>@LocaleCore.Table.DeviceType</td>
 			<td>
 				<RadzenLink 
 					Style="width: 100%; "
-					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.IdentityValueUid)
-					Text=@DeviceTypeFk.DeviceType.Name />
+				    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.IdentityValueUid)
+					Text=@LocaleCore.Table.DeviceType />
+			</td>
+			<td>
+				<MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+					@bind-Value=@SqlItemCast>
+					@foreach (DeviceTypeModel item in DataContext.DeviceTypes)
+					{
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
 			</td>
 			<td colspan=2>
-				<RadzenLink 
-					Style="width: 100%; "
-					Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.DeviceType.IdentityValueUid)
-					Text=@DeviceTypeFk.DeviceType.IdentityValueUid.ToString() />
+				@if (DeviceTypeFk.IdentityIsNotNew)
+				{
+					<RadzenLink
+						Style="width: 100%;"
+						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.DeviceType.IdentityValueUid)
+						Text=@DeviceTypeFk.DeviceType.IdentityValueUid.ToString()/>
+				}
 			</td>
 		</tr>
 		<tr>

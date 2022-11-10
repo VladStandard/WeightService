@@ -21,10 +21,10 @@ public partial class ItemWorkshop : RazorComponentItemBase<WorkShopModel>
 		{
 			() =>
 			{
-				SqlItemCast = DataContext.GetItemNotNull<WorkShopModel>(IdentityId);
+				SqlItemCast = DataContext.GetItemNotNullable<WorkShopModel>(IdentityId);
 				//if (TableAction == DbTableAction.New)
 				//	SqlItemCast.IdentityValueId = (long)IdentityId;
-				DataContext.GetListNotNull<ProductionFacilityModel>(SqlCrudConfigList);
+				DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigList);
 
 				ButtonSettings = new(false, false, false, false, false, true, true);
 			}

@@ -27,8 +27,8 @@ public partial class SectionPlusPackages : RazorComponentSectionBase<PluPackageM
         {
             () =>
             {
-	            SqlCrudConfigSection.SetFilters(nameof(PluPackageModel.Plu), ParentRazor?.SqlItem, EnumFilterAction.Add);
-				SqlSectionCast = DataContext.GetListNotNull<PluPackageModel>(SqlCrudConfigSection);
+	            SqlCrudConfigSection.SetFilters(nameof(PluPackageModel.Plu), ParentRazor?.SqlItem);
+				SqlSectionCast = DataContext.GetListNotNullable<PluPackageModel>(SqlCrudConfigSection);
             }
         });
     }

@@ -2,17 +2,20 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net;
+using Azure.Core;
 using DataCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
+using NHibernate.Cfg.XmlHbmBinding;
 using WebApiCore.Common;
 using WebApiCore.Controllers;
+using WebApiCore.Utils;
 
 namespace WebApiScales.Controllers;
 
 /// <summary>
-/// Barcode controller v1.
+/// Barcode controller.
 /// </summary>
 public class BarCodeController : BaseController
 {
@@ -76,6 +79,44 @@ public class BarCodeController : BaseController
         return ControllerHelp.RunTask(new(() => 
             new BarcodeRightModel(barcode).GetResult(format, HttpStatusCode.OK)), format);
     }
+
+    [AllowAnonymous]
+    [HttpPost()]
+    [Route("api/v3/send_test/")]
+    public ContentResult SendTest(FormatTypeEnum format = FormatTypeEnum.Xml) =>
+        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(SessionFactory, string.Empty, 
+            null, format, false)), format);
+
+    [AllowAnonymous]
+    [HttpPost()]
+    [Route("api/v3/send_query")]
+    public ContentResult SendSqlquery([FromBody] string query, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(SessionFactory, query, 
+            null, format, false)), format);
+
+    [AllowAnonymous]
+    [HttpPost()]
+    [Route("api/v3/send_barcode/bottom/")]
+    public ContentResult SendBarcodeBottom([FromBody] BarcodeBottomModel barcodeBottom, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+            SessionFactory, SqlQueriesBarcodes.FindBottom,
+            new("VALUE_BOTTOM", barcodeBottom.GetValue()), format, true)), format);
+
+    [AllowAnonymous]
+    [HttpPost()]
+    [Route("api/v3/send_barcode/right/")]
+    public ContentResult SendBarcodeRight([FromBody] BarcodeRightModel barcodeRight, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+            SessionFactory, SqlQueriesBarcodes.FindRight,
+            new("VALUE_RIGHT", barcodeRight.GetValue()), format, true)), format);
+
+    [AllowAnonymous]
+    [HttpPost()]
+    [Route("api/v3/send_barcode/top/")]
+    public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+            SessionFactory, SqlQueriesBarcodes.FindTop,
+            new("VALUE_TOP", barcodeTop.GetValue()), format, true)), format);
 
     #endregion
 }

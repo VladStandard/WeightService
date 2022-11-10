@@ -92,5 +92,9 @@ public class BarcodeTopModel : SerializeDeprecatedModel<BarcodeTopModel>
         return result;
     }
 
+    public string GetValue() => string.IsNullOrEmpty(Crc) 
+        ? @$"{Const1}{ArmNumber}{Counter}{Date}{Time}{Plu}{Weight}{Zames}"
+        : @$"{Const1}{ArmNumber}{Counter}{Date}{Time}{Plu}{Weight}{Zames}{Crc}";
+
     #endregion
 }

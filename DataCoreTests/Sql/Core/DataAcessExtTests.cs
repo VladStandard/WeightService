@@ -21,7 +21,7 @@ internal class DataAcessExtTests
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<ScaleModel> scales = DataCore.DataContext.GetListNotNull<ScaleModel>(sqlCrudConfig);
+			List<ScaleModel> scales = DataCore.DataContext.GetListNotNullable<ScaleModel>(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);
@@ -31,7 +31,7 @@ internal class DataAcessExtTests
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
 					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(scale, nameof(PluScaleModel.Scale));
-					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNull<PluScaleModel>(sqlCrudConfig);
+					List<PluScaleModel> pluScales = DataCore.DataContext.GetListNotNullable<PluScaleModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
@@ -46,7 +46,7 @@ internal class DataAcessExtTests
 		{
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(true, true);
 			// Arrange.
-			List<PluModel> plus = DataCore.DataContext.GetListNotNull<PluModel>(sqlCrudConfig);
+			List<PluModel> plus = DataCore.DataContext.GetListNotNullable<PluModel>(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 			// Assert.
 			Assert.IsTrue(plus.Count > 0);
@@ -56,7 +56,7 @@ internal class DataAcessExtTests
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
 					sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(plu, nameof(PluPackageModel.Plu));
-					List<PluPackageModel> pluPackages = DataCore.DataContext.GetListNotNull<PluPackageModel>(sqlCrudConfig);
+					List<PluPackageModel> pluPackages = DataCore.DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}

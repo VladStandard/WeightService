@@ -41,7 +41,7 @@ public static class RazorFieldConfigUtils
 		public static RazorFieldConfigModel GetIpv4() => new(nameof(DeviceModel.Ipv4), TextAlign.Left, LocaleCore.Table.DeviceIp);
 		public static RazorFieldConfigModel GetMacAddress() => new(nameof(DeviceModel.MacAddress), TextAlign.Center, LocaleCore.Table.DeviceMac);
 		public static RazorFieldConfigModel GetTypePrettyName() => new(
-			$"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.PrettyName);
+			$"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}", TextAlign.Left, LocaleCore.Table.Type);
 	}
 
 	public static class DeviceScaleFk

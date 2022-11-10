@@ -47,7 +47,7 @@ public class JsonSettingsHelper
 
     private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
     private string _remoteDir;
-    public string RemoteDir
+	private string RemoteDir
     {
 	    get
 	    {
@@ -115,7 +115,7 @@ public class JsonSettingsHelper
 
 			DataAccessHelper.Instance.SetSessionFactory();
 			DataAccessHelper.Instance.SetupLog(deviceName, appName);
-			DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted);
+			DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", nameof(DataCore));
 		}
 		catch (Exception ex)
 		{

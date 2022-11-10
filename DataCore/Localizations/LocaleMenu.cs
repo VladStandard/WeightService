@@ -32,6 +32,7 @@ public class LocaleMenu
     public string MenuAccessDeny => Lang == LangEnum.English ? "Menu access denied" : "Доступ к меню запрещён";
     public string MenuDbVersionHistory => Lang == LangEnum.English ? "DB version history" : "История версий БД";
     public string MenuHome => Lang == LangEnum.English ? "Home" : "Домой";
+    public string MenuHelp => Lang == LangEnum.English ? "Help" : "Справка";
     public string MenuInfo => Lang == LangEnum.English ? "Info" : "Информация";
     public string MenuMain => Lang == LangEnum.English ? "Main" : "Главная";
     public string MenuReferences => Lang == LangEnum.English ? "References" : "Справочники";

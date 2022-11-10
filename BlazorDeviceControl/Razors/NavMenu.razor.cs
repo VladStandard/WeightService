@@ -26,7 +26,5 @@ public partial class NavMenu : RazorComponentBase
         CollapseNavMenu = !CollapseNavMenu;
     }
 
-    //
-
     #endregion
 }

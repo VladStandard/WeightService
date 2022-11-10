@@ -14,7 +14,7 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 {
 	#region Public and private fields and properties
 
-	public bool IsOpenPort => PortController.SerialPort.IsOpen == true;
+	public bool IsOpenPort => PortController.SerialPort.IsOpen;
 	public bool IsOpenResult { get; set; }
 	public bool IsCloseResult { get; set; }
 	public bool IsResponseResult { get; set; }
@@ -102,7 +102,7 @@ public class MassaDeviceModel : DisposableBase, IDisposableBase
 		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExceptionResult = true;
-		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalHostName(false), nameof(MassaDeviceModel), filePath, lineNumber, memberName);
+		DataAccessHelper.Instance.LogError(ex, NetUtils.GetLocalDeviceName(false), nameof(MassaDeviceModel), filePath, lineNumber, memberName);
 	}
 
 	#endregion

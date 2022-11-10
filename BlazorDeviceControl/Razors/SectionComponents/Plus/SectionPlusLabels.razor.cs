@@ -25,7 +25,7 @@ public partial class SectionPlusLabels : RazorComponentSectionBase<PluLabelModel
 		{
             () =>
             {
-                SqlSectionCast = DataContext.GetListNotNull<PluLabelModel>(SqlCrudConfigSection);
+                SqlSectionCast = DataContext.GetListNotNullable<PluLabelModel>(SqlCrudConfigSection);
 
 				ButtonSettings = new(false, true, false, true, false, false, false);
             }

@@ -25,7 +25,7 @@ public partial class SectionScales : RazorComponentSectionBase<ScaleModel, SqlTa
         {
             () =>
             {
-                SqlSectionCast = DataContext.GetListNotNull<ScaleModel>(SqlCrudConfigSection);
+                SqlSectionCast = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
