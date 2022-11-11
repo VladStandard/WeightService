@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>57639ce5-7a45-48db-a319-3545fdfae09d</UserSecretsId>
     <AssemblyName>WebApiTerra1000</AssemblyName>
     <RootNamespace>WebApiTerra1000</RootNamespace>
@@ -8,17 +8,17 @@
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
     <Authors />
-    <AssemblyVersion>0.7.470.0</AssemblyVersion>
-    <FileVersion>0.7.470.0</FileVersion>
+    <AssemblyVersion>0.7.485.0</AssemblyVersion>
+    <FileVersion>0.7.485.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>0.7.470.0</Version>
+    <Version>0.7.485.0</Version>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NHibernate" Version="5.3.13" />
+    <PackageReference Include="NHibernate" Version="5.3.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
   <ItemGroup>
