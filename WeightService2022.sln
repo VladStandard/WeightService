@@ -116,7 +116,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Publish resources.md = Publish resources.md
 		Publish tests.md = Publish tests.md
 		README.md = README.md
-		TROUBLE_SHOOTING.md = TROUBLE_SHOOTING.md
+		Technology Stack.md = Technology Stack.md
+		Web URLs.md = Web URLs.md
+		WebApiScales.md = WebApiScales.md
+		Trouble SHOOTING.md = Trouble SHOOTING.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorResourcesVs", "BlazorResourcesVs\BlazorResourcesVs.csproj", "{75EA4756-B7A3-4F1D-B034-AC6D1E6D98E6}"
@@ -921,7 +924,7 @@ Global
 		{C3D727DF-B6DC-4106-9116-9569A6BB587B} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
