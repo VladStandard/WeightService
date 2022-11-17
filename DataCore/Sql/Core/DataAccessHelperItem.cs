@@ -136,6 +136,9 @@ public partial class DataAccessHelper
 		return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
 	}
 
+	public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(DeviceModel device) =>
+		GetItemDeviceScaleFkNullable(device) ?? new();
+
 	public DeviceScaleFkModel? GetItemDeviceScaleFkNullable(ScaleModel scale)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
@@ -143,8 +146,8 @@ public partial class DataAccessHelper
 		return GetItemNullable<DeviceScaleFkModel>(sqlCrudConfig);
 	}
 
-	public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(DeviceModel device) =>
-		GetItemDeviceScaleFkNullable(device) ?? new();
+	public DeviceScaleFkModel GetItemDeviceScaleFkNotNullable(ScaleModel scale) =>
+		GetItemDeviceScaleFkNullable(scale) ?? new();
 
 	public LogTypeModel? GetItemLogTypeNullable(LogTypeEnum logType)
 	{

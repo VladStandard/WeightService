@@ -18,7 +18,7 @@
     <Columns>
         <RazorSectionFieldIsMarked TItem=@PrinterModel ParentRazor=@(this) />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetName() />
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Printer.GetPrinterType(GetRouteItemPathShort<PrinterTypeModel>()) />
         <RazorSectionField TItem=@PrinterModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))

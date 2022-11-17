@@ -1,0 +1,40 @@
+2022-11-15 20:04:45 filePath: C:\SourcesVS\VS.WeightService\DataCore\Files\JsonSettingsHelper.cs. lineNumber: 107. memberName: SetupBlazorApp
+2022-11-15 20:04:49 filePath: C:\SourcesVS\VS.WeightService\DataCore\Files\JsonSettingsHelper.cs. lineNumber: 107. memberName: SetupBlazorApp
+2022-11-15 20:04:49 SetupBlazorApp start
+2022-11-15 20:09:19 SetupBlazorApp start
+2022-11-15 20:11:55 Debug mode: True
+2022-11-15 20:32:26 Debug mode: True
+2022-11-15 21:09:09 Debug mode: False
+2022-11-15 21:10:10 Debug mode: True
+2022-11-15 21:14:30 Debug mode: True
+2022-11-15 21:15:46 Debug mode: True
+2022-11-15 21:18:33 Debug mode: True
+2022-11-15 21:37:21 Debug mode: True
+2022-11-15 22:02:24 Debug mode: True
+2022-11-15 22:07:07 Debug mode: True
+2022-11-15 22:12:05 Debug mode: True
+2022-11-15 22:14:33 Debug mode: True
+2022-11-15 22:15:47 Debug mode: True
+2022-11-15 22:16:37 Debug mode: True
+2022-11-15 22:17:25 Debug mode: True
+2022-11-15 22:18:26 Debug mode: True
+2022-11-15 22:19:18 Debug mode: True
+2022-11-15 22:20:04 Debug mode: True
+2022-11-15 22:24:37 Debug mode: True
+2022-11-15 22:29:41 Debug mode: True
+2022-11-15 22:35:36 Debug mode: True
+2022-11-15 22:44:37 Debug mode: True
+2022-11-15 22:47:09 Debug mode: True
+2022-11-17 17:32:31 Debug mode: True
+2022-11-17 17:40:30 Debug mode: True
+2022-11-17 17:51:27 Debug mode: True
+2022-11-17 18:15:49 Debug mode: True
+2022-11-17 18:43:51 Debug mode: True
+2022-11-17 18:45:47 Debug mode: True
+2022-11-17 19:53:19 Debug mode: True
+2022-11-17 19:56:43 Debug mode: True
+2022-11-17 20:00:00 Debug mode: True
+2022-11-17 20:07:28 Debug mode: True
+2022-11-17 20:14:48 Debug mode: True
+2022-11-17 20:20:08 Debug mode: True
+2022-11-17 20:22:58 Debug mode: True

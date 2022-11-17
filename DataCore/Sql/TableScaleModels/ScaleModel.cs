@@ -44,7 +44,7 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual bool IsShipping { get; set; }
 	[XmlElement] public virtual bool IsOrder { get; set; }
 	[XmlElement] public virtual bool IsKneading { get; set; }
-	[XmlIgnore] public virtual DeviceModel? Device { get; set; }
+	//[XmlIgnore] public virtual DeviceModel? Device { get; set; }
 
 	/// <summary>
 	/// Constructor.

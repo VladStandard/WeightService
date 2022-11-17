@@ -13,9 +13,9 @@ public partial class DataAccessHelper
 	{
 		List<DeviceTypeFkModel> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-			result.Add(new() { Device = GetItemNew<DeviceModel>(), DeviceType = GetItemNew<DeviceTypeModel>() });
+			result.Add(new() { Device = GetItemNew<DeviceModel>(), Type = GetItemNew<DeviceTypeModel>() });
 		List<DeviceTypeFkModel> list = GetListNotNullable<DeviceTypeFkModel>(sqlCrudConfig);
-		result = result.OrderBy(x => x.DeviceType.Name).ToList();
+		result = result.OrderBy(x => x.Type.Name).ToList();
 		result = result.OrderBy(x => x.Device.Name).ToList();
 		result.AddRange(list);
 		return result;

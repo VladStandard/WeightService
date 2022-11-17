@@ -99,7 +99,7 @@ public static class SqlTableBaseExt
 			nameof(DeviceModel.PrettyName) => device.PrettyName,
 			nameof(DeviceModel.Ipv4) => device.Ipv4,
 			nameof(DeviceModel.MacAddress) => device.MacAddress.ValuePrettyLookMinus,
-			$"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}" => DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).DeviceType.PrettyName,
+			$"{nameof(DeviceTypeModel)}.{nameof(DeviceTypeModel.PrettyName)}" => DataAccessHelper.Instance.GetItemDeviceTypeFkNotNullable(device).Type.PrettyName,
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}
@@ -126,8 +126,8 @@ public static class SqlTableBaseExt
 			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.Ipv4)}" => deviceTypeFk.Device.Ipv4,
 			$"{nameof(DeviceTypeFkModel.Device)}.{nameof(DeviceModel.MacAddress)}" => deviceTypeFk.Device.MacAddress
 				.ValuePrettyLookMinus,
-			$"{nameof(DeviceTypeFkModel.DeviceType)}.{nameof(DeviceTypeModel.Name)}" => deviceTypeFk.DeviceType.Name,
-			$"{nameof(DeviceTypeFkModel.DeviceType)}.{nameof(DeviceTypeModel.PrettyName)}" => deviceTypeFk.DeviceType
+			$"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.Name)}" => deviceTypeFk.Type.Name,
+			$"{nameof(DeviceTypeFkModel.Type)}.{nameof(DeviceTypeModel.PrettyName)}" => deviceTypeFk.Type
 				.PrettyName,
 			_ => LocaleCore.Table.FieldNotFound
 		};
@@ -250,10 +250,6 @@ public static class SqlTableBaseExt
 			$"{nameof(ScaleModel.PrinterMain)}.{nameof(ScaleModel.PrinterMain.Name)}" => scale.PrinterMain is not null ? scale.PrinterMain.Name : LocaleCore.Table.FieldNull,
 			$"{nameof(ScaleModel.PrinterShipping)}.{nameof(ScaleModel.PrinterShipping.Name)}" => scale.PrinterShipping is not null ? scale.PrinterShipping.Name : LocaleCore.Table.FieldNull,
 			$"{nameof(ScaleModel.WorkShop)}.{nameof(WorkShopModel.Name)}" => scale.WorkShop is not null ? scale.WorkShop.Name : LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.Device)}.{nameof(DeviceModel.Name)}" => DataAccessHelper.Instance.GetItemDeviceNullable(scale) is not null 
-				? DataAccessHelper.Instance.GetItemDeviceNotNullable(scale).Name : LocaleCore.Table.FieldNull,
-			$"{nameof(ScaleModel.Device)}.{nameof(DeviceModel.Ipv4)}" => DataAccessHelper.Instance.GetItemDeviceNullable(scale) is not null
-				? DataAccessHelper.Instance.GetItemDeviceNotNullable(scale).Ipv4 : LocaleCore.Table.FieldNull,
 			_ => LocaleCore.Table.FieldNotFound
 		};
 	}

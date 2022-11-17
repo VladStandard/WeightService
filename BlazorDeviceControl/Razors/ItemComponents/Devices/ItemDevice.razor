@@ -80,14 +80,21 @@
 		</tr>
 		<tr>
 			<td>
-				<RadzenLink 
-					Style="width: 100%; "
-				    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.IdentityValueUid)
-					Text=@LocaleCore.Table.DeviceType />
+				@if (DeviceTypeFk.IdentityIsNotNew)
+				{
+					<RadzenLink 
+						Style="width: 100%; "
+						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.Type, DeviceTypeFk.IdentityValueUid)
+						Text=@LocaleCore.Table.DeviceType />
+				}
+				else
+				{
+					@LocaleCore.Table.DeviceType
+				}
 			</td>
 			<td>
 				<MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-					@bind-Value=@SqlItemCast>
+					@bind-Value=@DeviceType>
 					@foreach (DeviceTypeModel item in DataContext.DeviceTypes)
 					{
 						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
@@ -99,32 +106,41 @@
 				{
 					<RadzenLink
 						Style="width: 100%;"
-						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.DeviceType, DeviceTypeFk.DeviceType.IdentityValueUid)
-						Text=@DeviceTypeFk.DeviceType.IdentityValueUid.ToString()/>
+						Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemDeviceType, DeviceTypeFk.Type, DeviceTypeFk.Type.IdentityValueUid)
+						Text=@DeviceTypeFk.Type.IdentityValueUid.ToString()/>
 				}
 			</td>
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.DeviceType</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@DeviceTypeFk.DeviceType.Name />
-			</td>
+			@if (DeviceTypeFk.IdentityIsNotNew)
+			{
+				<td>
+					<RadzenTextBox 
+						Style="width: 100%; text-align: center; background-color: lightgray; "
+						ReadOnly=true Value=@DeviceTypeFk.Type.Name />
+				</td>
+			}
 			<td>@LocaleCore.Table.PrettyName</td>
-			<td>
-				<RadzenTextBox 
-					Style="width: 100%; text-align: center; background-color: lightgray; "
-					ReadOnly=true Value=@DeviceTypeFk.DeviceType.PrettyName />
-			</td>
+			@if (DeviceTypeFk.IdentityIsNotNew)
+			{
+				<td>
+					<RadzenTextBox 
+						Style="width: 100%; text-align: center; background-color: lightgray; "
+						ReadOnly=true Value=@DeviceTypeFk.Type.PrettyName />
+				</td>
+			}
 		</tr>
 		<tr>
 			<td>@LocaleCore.Table.Description</td>
-			<td colspan=3>
-				<RadzenTextArea 
-					Style="width: 100%; text-align: left; background-color: lightgray; "
-					ReadOnly=true Value=@DeviceTypeFk.DeviceType.Description Rows=4 />
-			</td>
+			@if (DeviceTypeFk.IdentityIsNotNew)
+			{
+				<td colspan=3>
+					<RadzenTextArea 
+						Style="width: 100%; text-align: left; background-color: lightgray; "
+						ReadOnly=true Value=@DeviceTypeFk.Type.Description Rows=4 />
+				</td>
+			}
 		</tr>
 	</tbody>
 </MudSimpleTable>

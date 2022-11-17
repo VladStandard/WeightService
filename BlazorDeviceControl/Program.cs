@@ -56,6 +56,12 @@ app.UseAuthorization();
 // Last step.
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-JsonSettingsHelper.Instance.SetupForBlazorApp(app.Environment.ContentRootPath,
-    NetUtils.GetLocalDeviceName(false), nameof(BlazorDeviceControl));
-app.Run();
+JsonSettingsHelper.Instance.SetupBlazorApp(app.Environment.ContentRootPath, nameof(BlazorDeviceControl));
+try
+{
+    app.Run();
+}
+catch (Exception ex)
+{
+    FileLoggerHelper.Instance.StoreException(ex);
+}

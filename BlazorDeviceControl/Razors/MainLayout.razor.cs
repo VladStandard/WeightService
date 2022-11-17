@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Files;
 
 namespace BlazorDeviceControl.Razors;
 
@@ -11,7 +12,7 @@ public partial class MainLayout : RazorComponentBase
     
 	protected override void OnInitialized()
 	{
-		RunActionsInitialized(new()
+        RunActionsInitialized(new()
 		{
 			() =>
 			{
@@ -25,7 +26,7 @@ public partial class MainLayout : RazorComponentBase
 
 	protected override void OnParametersSet()
 	{
-		RunActionsParametersSet(new()
+        RunActionsParametersSet(new()
 		{
 			() =>
 			{

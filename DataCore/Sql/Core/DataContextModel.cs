@@ -121,7 +121,7 @@ public partial class DataContextModel
 				DeviceTypeFks = DataAccess.GetListNotNullable<DeviceTypeFkModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
-					DeviceTypeFks = DeviceTypeFks.OrderBy(item => item.DeviceType.Name).ToList();
+					DeviceTypeFks = DeviceTypeFks.OrderBy(item => item.Type.Name).ToList();
 					DeviceTypeFks = DeviceTypeFks.OrderBy(item => item.Device.Name).ToList();
 				}
 				return DeviceTypeFks.Cast<T>().ToList();

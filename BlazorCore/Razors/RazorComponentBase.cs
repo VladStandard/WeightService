@@ -4,12 +4,12 @@
 using BlazorCore.Settings;
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
-using DataCore.Sql.Models;
 
 namespace BlazorCore.Razors;
 
@@ -47,6 +47,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 	public SqlTableBase? SqlItem { get; set; }
 	public SqlTableBase? SqlItemFilter { get; set; }
 	public List<SqlTableBase>? SqlSection { get; set; }
+	public List<SqlTableBase>? SqlLinkedItems { get; set; }
 	public AuthorizeView? AuthorizeViewBase { get; set; }
 	public AuthenticationState? AuthenticationStateBase { get; set; }
 	public DataContextModel DataContext { get; } = new();
@@ -76,6 +77,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 		SqlItem = null;
 		SqlItemFilter = null;
 		SqlSection = null;
+		SqlLinkedItems = null;
 
 		RazorFieldConfig = new();
 		SqlCrudConfigItem = SqlCrudConfigUtils.GetCrudConfigItem(true);
@@ -103,35 +105,13 @@ public partial class RazorComponentBase : LayoutComponentBase
 			SqlItem = ParentRazor.SqlItem;
 		if (ParentRazor.SqlSection is not null)
 			SqlSection = ParentRazor.SqlSection;
+		if (ParentRazor.SqlLinkedItems is not null)
+			SqlLinkedItems = ParentRazor.SqlLinkedItems;
 		if (ParentRazor.ButtonSettings is not null)
 			ButtonSettings = ParentRazor.ButtonSettings;
 		SqlCrudConfigItem = ParentRazor.SqlCrudConfigItem;
 		SqlCrudConfigSection = ParentRazor.SqlCrudConfigSection;
 	}
-
-	//private void SetPropertiesToParent()
-	//{
-	//	if (HttpContext is not null)
-	//		ParentRazor.HttpContext = HttpContext;
-	//	if (AuthorizeViewBase is not null)
-	//		ParentRazor.AuthorizeViewBase = AuthorizeViewBase;
-	//	if (AuthenticationStateBase is not null)
-	//		ParentRazor.AuthenticationStateBase = AuthenticationStateBase;
-	//	if (UserSettings is not null)
-	//		ParentRazor.UserSettings = UserSettings;
-	//	if (IdentityId is not null)
-	//		ParentRazor.IdentityId = IdentityId;
-	//	if (IdentityUid is not null)
-	//		ParentRazor.IdentityUid = IdentityUid;
-	//	if (SqlItem is not null)
-	//		ParentRazor.SqlItem = SqlItem;
-	//	if (SqlItems is not null)
-	//		ParentRazor.SqlItems = SqlItems;
-	//	if (ButtonSettings is not null)
-	//		ParentRazor.ButtonSettings = ButtonSettings;
-	//	ParentRazor.SqlCrudConfigItem = SqlCrudConfigItem;
-	//	//ParentRazor.SqlCrudConfigSection = SqlCrudConfigSection;
-	//}
 
 	private void SetUserSettings(AuthenticationState? authenticationState)
 	{
@@ -143,16 +123,16 @@ public partial class RazorComponentBase : LayoutComponentBase
 
 		AccessModel? access = DataAccessHelper.Instance.GetItemAccessNullable(userName);
 		if (access is null) return;
-        access.LoginDt = DateTime.Now;
-        DataAccessHelper.Instance.Update(access);
+		access.LoginDt = DateTime.Now;
+		DataAccessHelper.Instance.Update(access);
 
-        UserSettings = new(userName, (AccessRightsEnum)access.Rights);
+		UserSettings = new(userName, (AccessRightsEnum)access.Rights);
 
-        if (ParentRazor is null) return;
+		if (ParentRazor is null) return;
 		bool isOnChange = ParentRazor.UserSettings is null;
-        ParentRazor.UserSettings = UserSettings;
-        if (isOnChange)
-	        ParentRazor.OnChange();
+		ParentRazor.UserSettings = UserSettings;
+		if (isOnChange)
+			ParentRazor.OnChange();
 	}
 
 	protected string SetAuthorizing()

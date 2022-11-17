@@ -46,7 +46,8 @@ public class JsonSettingsHelper
     }
 
     private AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-    private string _remoteDir;
+	public FileLoggerHelper FileLogger { get; private set; } = FileLoggerHelper.Instance;
+	private string _remoteDir;
 	private string RemoteDir
     {
 	    get
@@ -75,11 +76,17 @@ public class JsonSettingsHelper
     public string FileNameDebug => "appsettings.Debug.json";
     public string FileNameRelease => "appsettings.Release.json";
     public string ExceptionFileName(string localDir) => Path.Combine(localDir, $"{FileName}.log");
-    public const string BlazorSubDir =
+    public const string BlazorSubDir6 =
 #if DEBUG
 	    @"bin\x64\Debug\net6.0\";
 #else
         @"bin\x64\Release\net6.0\";
+#endif
+    public const string BlazorSubDir7 =
+#if DEBUG
+	    @"bin\x64\Debug\net7.0\";
+#else
+        @"bin\x64\Release\net7.0\";
 #endif
 
 	public JsonSettingsHelper()
@@ -92,71 +99,82 @@ public class JsonSettingsHelper
 
 	#region Public and private methods
 
-	public void SetupForBlazorApp(string localDir, string deviceName, string appName)
+	public void SetupBlazorApp(string localDir, string appName)
 	{
 		try
 		{
-			AppVersion.Setup(Assembly.GetExecutingAssembly());
-			string subDir = Path.Combine(localDir, BlazorSubDir);
+            AppVersion.Setup(Assembly.GetExecutingAssembly());
+            FileLogger.Setup(localDir, appName);
+            string subDir = Path.Combine(localDir, BlazorSubDir7);
 			if (Directory.Exists(subDir))
 			{
 				// Local folder.
+				FileLogger.Setup(subDir, appName);
 				CheckUpdates(subDir);
-				if (!Setup(subDir, false, ""))
+				if (!SetupJsonSettings(subDir, false, ""))
 					throw new(LocaleCore.System.JsonSettingsLocalFileException);
 			}
 			else
 			{
-				// IIS publish folder.
-				CheckUpdates(localDir);
-				if (!Setup(localDir, false, ""))
+                // IIS publish folder.
+                CheckUpdates(localDir);
+				if (!SetupJsonSettings(localDir, false, ""))
 					throw new(LocaleCore.System.JsonSettingsLocalFileException);
 			}
 
-			DataAccessHelper.Instance.SetSessionFactory();
-			DataAccessHelper.Instance.SetupLog(deviceName, appName);
-			DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", nameof(DataCore));
+            DataAccessHelper.Instance.SetSessionFactory();
+            DataAccessHelper.Instance.SetupLog("", appName);
+            DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", nameof(DataCore));
 		}
 		catch (Exception ex)
 		{
-			DataAccessHelper.Instance.LogToFile(ExceptionFileName(localDir), ex.Message);
-			if (ex.InnerException is not null)
-				DataAccessHelper.Instance.LogToFile(ExceptionFileName(localDir), ex.InnerException.Message);
-		}
+            FileLogger.StoreException(ex);
+        }
 	}
 
-	private void SetupForTests(string localDir, string deviceName, string appName, string fileName)
+	private void SetupTests(string localDir, string deviceName, string appName, string fileName)
 	{
 		CheckUpdates(localDir);
 
-		if (!Setup(localDir, false, fileName))
+		if (!SetupJsonSettings(localDir, false, fileName))
 			throw new(LocaleCore.System.JsonSettingsLocalFileException);
 		
 		DataAccessHelper.Instance.SetSessionFactory();
 		DataAccessHelper.Instance.SetupLog(deviceName, appName);
 	}
 
-	public void SetupForTestsDebug(string localDir, string deviceName, string appName) =>
-		SetupForTests(localDir, deviceName, appName, FileNameDebug);
+	public void SetupTestsDebug(string localDir, string deviceName, string appName) =>
+		SetupTests(localDir, deviceName, appName, FileNameDebug);
 
-	public void SetupForTestsRelease(string localDir, string deviceName, string appName) =>
-		SetupForTests(localDir, deviceName, appName, FileNameRelease);
+	public void SetupTestsRelease(string localDir, string deviceName, string appName) =>
+		SetupTests(localDir, deviceName, appName, FileNameRelease);
 
-	public void SetupForScales(string localDir)
-	{
-		CheckUpdates(localDir);
-
-		if (!Setup(localDir, false, ""))
+	public void SetupScales(string localDir, string appName)
+    {
+		try
 		{
-			//if (isFileLog)
-			//    FileLog.WriteMessage(LocaleCore.System.JsonSettingsLocalFileException);
-			throw new(LocaleCore.System.JsonSettingsLocalFileException);
-		}
-		
-		DataAccessHelper.Instance.SetSessionFactory();
-	}
+            FileLogger.Setup(localDir, appName);
+            CheckUpdates(localDir);
 
-	private bool Setup(string dir, bool isRemote, string fileName)
+			if (!SetupJsonSettings(localDir, false, ""))
+			{
+				//if (isFileLog)
+				//    FileLog.WriteMessage(LocaleCore.System.JsonSettingsLocalFileException);
+				throw new(LocaleCore.System.JsonSettingsLocalFileException);
+			}
+
+            FileLogger.StoreMessage($"DataAccessHelper start");
+            DataAccessHelper.Instance.SetSessionFactory();
+			DataAccessHelper.Instance.SetupLog("", appName);
+            FileLogger.StoreMessage($"complete");
+        }
+		catch (Exception ex)
+		{
+            FileLogger.StoreException(ex);
+        }
+    }
+
+	private bool SetupJsonSettings(string dir, bool isRemote, string fileName)
 	{
 		var file = Path.Combine(dir, !string.IsNullOrEmpty(fileName) ? fileName : FileName);
 		if (!File.Exists(file))
@@ -208,7 +226,7 @@ public class JsonSettingsHelper
 			throw new(LocaleCore.System.JsonSettingsRemoteFileNotFound);
 		}
 
-		Setup(RemoteDir, true, "");
+		SetupJsonSettings(RemoteDir, true, "");
 
 		ushort version = GetLocalVersion(localDir);
 		if (version == 0 || version < Remote.Version)

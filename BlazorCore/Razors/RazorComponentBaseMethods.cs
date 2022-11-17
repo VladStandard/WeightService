@@ -10,6 +10,7 @@ using DataCore.Sql.Models;
 using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorCore.Razors;
 
@@ -187,21 +188,58 @@ public partial class RazorComponentBase
 		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
 			SqlItemSave(SqlItem);
-			if (SqlItem is ScaleModel scale)
+			switch (SqlItem)
 			{
-				if (scale.Device is not null && scale.Device.IdentityIsNotNew)
-				{
-					DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale.Device);
-					if (deviceScaleFk is null)
-						deviceScaleFk = new() { Device = scale.Device, Scale = scale };
-					SqlItemSave(deviceScaleFk);
-				}
-				else
-				{
-					DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
-					if (deviceScaleFk is not null)
-						DataAccess.Delete(deviceScaleFk);
-				}
+				case DeviceModel device:
+                    if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+                    {
+                        foreach (SqlTableBase item in SqlLinkedItems)
+                        {
+                            if (item is DeviceTypeModel deviceType)
+                            {
+                                DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
+                                if (deviceType is not null && deviceType.IdentityIsNotNew)
+                                {
+									if (deviceTypeFk is null)
+										deviceTypeFk = new() { Type = deviceType, Device = device };
+									else
+										deviceTypeFk.Type = deviceType;
+                                    SqlItemSave(deviceTypeFk);
+                                }
+                                else
+                                {
+                                    if (deviceTypeFk is not null)
+                                        DataAccess.Delete(deviceTypeFk);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case ScaleModel scale:
+					if (SqlLinkedItems is not null && SqlLinkedItems.Any())
+					{
+						foreach (SqlTableBase item in SqlLinkedItems)
+						{
+							if (item is DeviceModel device)
+							{
+								DeviceScaleFkModel? deviceScaleFk = DataAccess.GetItemDeviceScaleFkNullable(scale);
+								if (device is not null && device.IdentityIsNotNew)
+								{
+									if (deviceScaleFk is null)
+										deviceScaleFk = new() { Device = device, Scale = scale };
+									else
+										deviceScaleFk.Device = device;
+                                    SqlItemSave(deviceScaleFk);
+								}
+								else
+								{
+									if (deviceScaleFk is not null)
+										DataAccess.Delete(deviceScaleFk);
+								}
+							}
+						}
+					}
+					break;
 			}
 			SetRouteSectionNavigate();
 			OnChangeAsync();

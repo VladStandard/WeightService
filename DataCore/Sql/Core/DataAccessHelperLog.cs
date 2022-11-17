@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Files;
 using DataCore.Models;
 using DataCore.Protocols;
 
@@ -13,6 +14,7 @@ public partial class DataAccessHelper
 	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
 	private static AppModel App { get; set; } = new();
 	private static DeviceModel Device { get; set; } = new();
+	public FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 
 	#endregion
 
@@ -22,22 +24,12 @@ public partial class DataAccessHelper
 	{
 		if (string.IsNullOrEmpty(deviceName))
 			deviceName = NetUtils.GetLocalDeviceName(false);
-		Device = GetItemDeviceOrCreateNew(deviceName);
+        Device = GetItemDeviceOrCreateNew(deviceName);
 
 		if (string.IsNullOrEmpty(appName))
 			appName = nameof(DataCore);
 		App = GetItemAppOrCreateNew(appName);
-	}
-
-	public void LogToFile(string localFileLog, string message,
-		[CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-	{
-		StreamWriter streamWriter = File.Exists(localFileLog) ? File.AppendText(localFileLog) : File.CreateText(localFileLog);
-		streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
-		streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(message)}: {message}");
-		streamWriter.Close();
-		streamWriter.Dispose();
-	}
+    }
 
 	public void LogError(Exception ex, [CallerFilePath] string filePath = "",
 		[CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>

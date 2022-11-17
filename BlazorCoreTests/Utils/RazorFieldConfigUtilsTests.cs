@@ -3,6 +3,7 @@
 
 using BlazorCore.Razors;
 using BlazorCore.Utils;
+using DataCore.Localizations;
 using DataCore.Sql.TableScaleModels;
 using NUnit.Framework;
 
@@ -45,7 +46,7 @@ internal class RazorFieldConfigUtilsTests
 			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Access.GetRights();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
-			razorFieldConfig = RazorFieldConfigUtils.Access.GetName();
+			razorFieldConfig = RazorFieldConfigUtils.Base.GetName(LocaleCore.Table.User);
 			TestContext.WriteLine(razorFieldConfig);
 		});
 	}
@@ -67,7 +68,7 @@ internal class RazorFieldConfigUtilsTests
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange & Act & Assert.
-			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Plu.GetName();
+			RazorFieldConfigModel razorFieldConfig = RazorFieldConfigUtils.Base.GetName();
 			TestContext.WriteLine(razorFieldConfig);
 			// Arrange & Act & Assert.
 			razorFieldConfig = RazorFieldConfigUtils.Plu.GetShelfLifeDays();

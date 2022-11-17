@@ -37,7 +37,7 @@ internal static class Program
 			// Setup.
 			AppVersion.Setup(Assembly.GetExecutingAssembly());
 			//FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
-			JsonSettingsHelper.Instance.SetupForScales(Directory.GetCurrentDirectory());
+			JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
 			// Host.
 			string deviceName = NetUtils.GetLocalDeviceName(false);

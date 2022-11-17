@@ -14,7 +14,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	#region Public and private fields, properties, constructor
 
 	[XmlElement] public virtual DeviceModel Device { get; set; }
-	[XmlElement] public virtual DeviceTypeModel DeviceType { get; set; }
+	[XmlElement] public virtual DeviceTypeModel Type { get; set; }
 
 	/// <summary>
 	/// Constructor.
@@ -22,7 +22,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public DeviceTypeFkModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Device = new();
-		DeviceType = new();
+		Type = new();
 	}
 
 	/// <summary>
@@ -33,7 +33,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	private DeviceTypeFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
-		DeviceType = (DeviceTypeModel)info.GetValue(nameof(DeviceTypeModel), typeof(DeviceTypeModel));
+		Type = (DeviceTypeModel)info.GetValue(nameof(DeviceTypeModel), typeof(DeviceTypeModel));
 	}
 
 	#endregion
@@ -47,7 +47,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public override string ToString() =>
 		$"{nameof(IsMarked)}: {IsMarked}. " +
 		$"{nameof(Device)}: {Device}. " +
-		$"{nameof(DeviceType)}: {DeviceType}. ";
+		$"{nameof(Type)}: {Type}. ";
 
 	public override bool Equals(object obj)
 	{
@@ -64,13 +64,13 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
 		Device.EqualsDefault() &&
-		DeviceType.EqualsDefault();
+		Type.EqualsDefault();
 
 	public override object Clone()
 	{
 		DeviceTypeFkModel item = new();
 		item.Device = Device.CloneCast();
-		item.DeviceType = DeviceType.CloneCast();
+		item.Type = Type.CloneCast();
 		item.CloneSetup(base.CloneCast());
 		return item;
 	}
@@ -84,14 +84,14 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	{
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Device), Device);
-		info.AddValue(nameof(DeviceType), DeviceType);
+		info.AddValue(nameof(Type), Type);
 	}
 
 	public override void FillProperties()
 	{
 		base.FillProperties();
 		Device.FillProperties();
-		DeviceType.FillProperties();
+		Type.FillProperties();
 	}
 
 	#endregion
@@ -101,7 +101,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
 	public virtual bool Equals(DeviceTypeFkModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 		Device.Equals(item.Device) &&
-		DeviceType.Equals(item.DeviceType);
+		Type.Equals(item.Type);
 
 	public new virtual DeviceTypeFkModel CloneCast() => (DeviceTypeFkModel)Clone();
 

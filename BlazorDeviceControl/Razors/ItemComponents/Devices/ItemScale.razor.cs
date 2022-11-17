@@ -12,6 +12,9 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 {
 	#region Public and private fields, properties, constructor
 
+	private DeviceModel _device;
+	private DeviceModel Device { get => _device; set { _device = value; SqlLinkedItems = new() { Device }; } }
+	private DeviceScaleFkModel DeviceScaleFk { get; set; }
 	private List<TypeModel<string>> ComPorts { get; set; }
 
 	public ItemScale()
@@ -19,6 +22,8 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 		SqlCrudConfigItem.IsGuiShowItemsCount = true;
 		SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
 		SqlCrudConfigItem.IsGuiShowFilterMarked = true;
+        _device = new();
+		DeviceScaleFk = new();
 		ComPorts = new();
 		ButtonSettings = new(false, false, false, false, false, true, true);
 	}
@@ -45,8 +50,8 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				SqlItemCast.TemplateDefault ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.TemplateSeries ??= DataAccess.GetItemNew<TemplateModel>();
 				SqlItemCast.WorkShop ??= DataAccess.GetItemNew<WorkShopModel>();
-				//SqlItemCast.Device = DataAccess.GetItemDeviceNotNullable(SqlItemCast);
-				SqlItemCast.Device = DataAccess.GetItemNew<DeviceModel>();
+				DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(SqlItemCast);
+				Device = DeviceScaleFk.Device.IdentityIsNotNew ? DeviceScaleFk.Device : DataAccess.GetItemNew<DeviceModel>();
 
 			    // ComPorts
 			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);

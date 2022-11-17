@@ -18,7 +18,7 @@
     <Columns >
         <RazorSectionFieldIsMarked TItem=@WorkShopModel ParentRazor=@(this) />
         <RazorSectionField TItem=@WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetName() />
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetName() />
         <RazorSectionField TItem=@WorkShopModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("40%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.WorkShop.GetProductionFacility(GetRouteItemPathShort<ProductionFacilityModel>()) />
     </Columns>

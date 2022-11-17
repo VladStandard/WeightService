@@ -29,7 +29,7 @@ public class DataCoreHelper
 
 	public void SetupDebug()
 	{
-		JsonSettings.SetupForTestsDebug(Directory.GetCurrentDirectory(),
+		JsonSettings.SetupTestsDebug(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests));
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
@@ -37,7 +37,7 @@ public class DataCoreHelper
 
 	private void SetupRelease()
 	{
-		DataAccess.JsonSettings.SetupForTestsRelease(Directory.GetCurrentDirectory(),
+		DataAccess.JsonSettings.SetupTestsRelease(Directory.GetCurrentDirectory(),
 			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests));
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
@@ -242,7 +242,7 @@ public class DataCoreHelper
 			case DeviceTypeFkModel deviceTypeFk:
 				//deviceTypeFk.FillProperties();
 				deviceTypeFk.Device = CreateNewSubstitute<DeviceModel>(isNotDefault);
-				deviceTypeFk.DeviceType = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
+				deviceTypeFk.Type = CreateNewSubstitute<DeviceTypeModel>(isNotDefault);
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
 				//deviceScaleFk.FillProperties();

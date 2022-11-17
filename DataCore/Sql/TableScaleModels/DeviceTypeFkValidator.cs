@@ -19,7 +19,7 @@ public class DeviceTypeFkValidator : SqlTableValidator<DeviceTypeFkModel>
             .NotEmpty()
             .NotNull()
 	        .SetValidator(new DeviceValidator());
-		RuleFor(item => item.DeviceType)
+		RuleFor(item => item.Type)
             .NotEmpty()
             .NotNull()
             .SetValidator(new DeviceTypeValidator());

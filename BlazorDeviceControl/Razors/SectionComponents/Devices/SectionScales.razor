@@ -18,15 +18,34 @@
     <Columns >
         <RazorSectionFieldIsMarked TItem=@ScaleModel ParentRazor=@(this) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("20%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetName() />
+            RazorFieldConfig=@RazorFieldConfigUtils.Base.GetDescription(LocaleCore.Table.Name) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("10%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetNumber() />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetPrinterMain(GetRouteItemPathShort<PrinterModel>()) />
         <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("25%", true))
             RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetWorkShop(GetRouteItemPathShort<WorkShopModel>()) />
-        <RazorSectionField TItem=@ScaleModel ParentRazor=@(this) CssStyleRadzenColumn=@(new("15%", true))
-            RazorFieldConfig=@RazorFieldConfigUtils.Scale.GetDeviceName(GetRouteItemPathShort<DeviceModel>()) />
+        <RadzenGridColumn TItem=@ScaleModel Width="15%" Title=@LocaleCore.Table.Device TextAlign=@TextAlign.Left>
+            <Template Context="itemCast">
+                @if (DataAccess.GetItemDeviceScaleFkNotNullable(itemCast).Device is DeviceModel device)
+                {
+                    @if (device.IdentityIsNew)
+                    {
+                        <RadzenText 
+                            Style="margin-top: 10px; "
+                            Text=@LocaleCore.Table.FieldNull
+                            TextStyle=@TextStyle.Body2
+                            TextAlign=@TextAlign.Left />
+                    }
+                    else
+                    {
+                        <RadzenLink 
+                            Path=@($"{LocaleCore.DeviceControl.RouteItemDevice}/{device.IdentityValueUid}")
+                            Text=@(device.Name) />
+                    }
+                }
+            </Template>
+        </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
 

@@ -21,6 +21,6 @@ public class DeviceTypeFkMap : ClassMap<DeviceTypeFkModel>
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
 		References(x => x.Device).Column("DEVICE_UID").Not.Nullable();
-		References(x => x.DeviceType).Column("TYPE_UID").Not.Nullable();
+		References(x => x.Type).Column("TYPE_UID").Not.Nullable();
 	}
 }

@@ -28,7 +28,7 @@ public partial class DataAccessHelper
 				break;
 			case DeviceTypeFkModel deviceTypeFk:
 				deviceTypeFk.Device = GetItemNotNullable<DeviceModel>(deviceTypeFk.Device.IdentityValueUid);
-				deviceTypeFk.DeviceType = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.DeviceType.IdentityValueUid);
+				deviceTypeFk.Type = GetItemNotNullable<DeviceTypeModel>(deviceTypeFk.Type.IdentityValueUid);
 				break;
 			case DeviceScaleFkModel deviceScaleFk:
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);

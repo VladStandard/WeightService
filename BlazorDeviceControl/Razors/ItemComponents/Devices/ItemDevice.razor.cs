@@ -7,36 +7,40 @@ namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
 public partial class ItemDevice : RazorComponentItemBase<DeviceModel>
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	private DeviceTypeFkModel DeviceTypeFk { get; set; }
+    private DeviceTypeModel _deviceType;
+    private DeviceTypeModel DeviceType { get => _deviceType; set { _deviceType = value; SqlLinkedItems = new() { DeviceType }; } }
+    private DeviceTypeFkModel DeviceTypeFk { get; set; }
 
-	#endregion
+    #endregion
 
-	public ItemDevice()
-	{
-		DeviceTypeFk = new();
-	}
+    public ItemDevice()
+    {
+        _deviceType = new();
+        DeviceTypeFk = new();
+    }
 
-	#region Public and private methods
+    #region Public and private methods
 
-	protected override void OnParametersSet()
-	{
-		RunActionsParametersSet(new()
-		{
-			() =>
-			{
-				DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigList);
+    protected override void OnParametersSet()
+    {
+        RunActionsParametersSet(new()
+        {
+            () =>
+            {
+                DataContext.GetListNotNullable<DeviceTypeModel>(SqlCrudConfigList);
 
-				SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
-				if (SqlItemCast.IdentityIsNew)
-					SqlItem = SqlItemNew<DeviceModel>();
-				DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
+                SqlItemCast = DataContext.GetItemNotNullable<DeviceModel>(IdentityUid);
+                if (SqlItemCast.IdentityIsNew)
+                    SqlItem = SqlItemNew<DeviceModel>();
+                DeviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(SqlItemCast);
+                DeviceType = DeviceTypeFk.Type.IdentityIsNotNew ? DeviceTypeFk.Type : DataAccess.GetItemNew<DeviceTypeModel>();
 
-				ButtonSettings = new(false, false, false, false, false, true, true);
-			}
-		});
-	}
+                ButtonSettings = new(false, false, false, false, false, true, true);
+            }
+        });
+    }
 
-	#endregion
+    #endregion
 }
