@@ -1,14 +1,14 @@
 # Publish resources
 
 ## Шаблон рассылки обновления
-Коллеги, выпустил обновление веб-приложения DeviceControl v.0.x.xxx.
+Коллеги, выпустил обновление веб-приложения "Управление устройствами" v.0.x.xxx.
 Прошу протестировать. Замечания слать на почту.
 Для тестирования использовать следующие ссылки:
-https://device-control-dev.kolbasa-vs.local/           ## стабильная версия веб-приложения DeviceControl для тестирования
-https://device-control-dev-preview.kolbasa-vs.local/   ## предварительная версия веб-приложения DeviceControl для тестирования
+- предварительная версия веб-приложения для тестирования	https://device-control-dev-preview.kolbasa-vs.local/
+- стабильная версия веб-приложения для тестирования			https://device-control-dev.kolbasa-vs.local/
 Для рабочей эксплуатации использовать следующие ссылки:
-https://device-control.kolbasa-vs.local/               ## стабильная версия веб-приложения DeviceControl для работы
-https://device-control-prod-preview.kolbasa-vs.local/  ## предварительная версия веб-приложения DeviceControl для работы
+- предварительная версия веб-приложения для работы			https://device-control-prod-preview.kolbasa-vs.local/
+- стабильная версия веб-приложения для работы				https://device-control.kolbasa-vs.local/
 
 ## Шаблон рассылки обновления
 Коллеги, выпустил обновление веб-приложения DeviceControl v.0.x.xxx.
