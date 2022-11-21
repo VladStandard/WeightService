@@ -9,6 +9,28 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
+	public List<DeviceModel> GetListDevices(SqlCrudConfigModel sqlCrudConfig)
+	{
+		List<DeviceModel> result = new();
+		if (sqlCrudConfig.IsResultAddFieldEmpty)
+			result.Add(GetItemNew<DeviceModel>());
+		List<DeviceModel> list = GetListNotNullable<DeviceModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.Name).ToList();
+		result.AddRange(list);
+		return result;
+	}
+
+	public List<DeviceTypeModel> GetListDevicesTypes(SqlCrudConfigModel sqlCrudConfig)
+	{
+		List<DeviceTypeModel> result = new();
+		if (sqlCrudConfig.IsResultAddFieldEmpty)
+			result.Add(GetItemNew<DeviceTypeModel>());
+		List<DeviceTypeModel> list = GetListNotNullable<DeviceTypeModel>(sqlCrudConfig);
+		result = result.OrderBy(x => x.Name).ToList();
+		result.AddRange(list);
+		return result;
+	}
+
 	public List<DeviceTypeFkModel> GetListDevicesTypesFks(SqlCrudConfigModel sqlCrudConfig)
 	{
 		List<DeviceTypeFkModel> result = new();
@@ -34,6 +56,27 @@ public partial class DataAccessHelper
 		return result;
 	}
 
+	public List<DeviceTypeModel> GetListDevicesTypes(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<DeviceTypeModel> deviceTypes = GetListDevicesTypes(sqlCrudConfig);
+		return deviceTypes;
+	}
+
+	public List<DeviceModel> GetListDevices(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+	{
+		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+		List<DeviceModel> devices = GetListDevices(sqlCrudConfig);
+		return devices;
+	}
+
+    public List<DeviceTypeFkModel> GetListDevicesTypesFks(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
+    {
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);
+        List<DeviceTypeFkModel> deviceTypesFks = GetListDevicesTypesFks(sqlCrudConfig);
+        return deviceTypesFks;
+    }
+    
 	public List<DeviceTypeFkModel> GetListDevicesTypesFkFree(bool isShowMarked, bool isShowOnlyTop, bool isAddFieldNull)
 	{
 		SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(isShowMarked, isShowOnlyTop, isAddFieldNull);

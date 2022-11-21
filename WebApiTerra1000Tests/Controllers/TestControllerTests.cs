@@ -13,29 +13,29 @@ namespace WebApiTerra1000Tests.Controllers;
 [TestFixture]
 internal class TestControllerTests
 {
-    [Test]
-    public void GetProdInfoV1_Execute_DoesNotThrow()
-    {
-        Assert.DoesNotThrowAsync(async () =>
-        {
-            foreach (string url in TestsUtils.GetProdListUrlInfoV1)
-            {
-                await GetInfoAsync(url);
-            }
-        });
-    }
+    //[Test]
+    //public void GetProdInfoV1_Execute_DoesNotThrow()
+    //{
+    //    Assert.DoesNotThrowAsync(async () =>
+    //    {
+    //        foreach (string url in TestsUtils.GetProdListUrlInfoV1)
+    //        {
+    //            await GetInfoAsync(url);
+    //        }
+    //    });
+    //}
 
-    [Test]
-    public void GetDevInfoV1_Execute_DoesNotThrow()
-    {
-        Assert.DoesNotThrowAsync(async () =>
-        {
-            foreach (string url in TestsUtils.GetDevListUrlInfoV1)
-            {
-                await GetInfoAsync(url);
-            }
-        });
-    }
+    //[Test]
+    //public void GetDevInfoV1_Execute_DoesNotThrow()
+    //{
+    //    Assert.DoesNotThrowAsync(async () =>
+    //    {
+    //        foreach (string url in TestsUtils.GetDevListUrlInfoV1)
+    //        {
+    //            await GetInfoAsync(url);
+    //        }
+    //    });
+    //}
 
     [Test]
     public void GetProdInfoV2_Execute_DoesNotThrow()

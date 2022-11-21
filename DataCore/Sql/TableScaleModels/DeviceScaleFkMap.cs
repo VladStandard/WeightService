@@ -20,7 +20,7 @@ public class DeviceScaleFkMap : ClassMap<DeviceScaleFkModel>
         Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
         Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
         Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-		References(x => x.Device).Column("DEVICE_UID").Not.Nullable();
-		References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
+        References(x => x.Device).Column("DEVICE_UID").Not.Nullable();
+        References(x => x.Scale).Column("SCALE_ID").Not.Nullable();
 	}
 }

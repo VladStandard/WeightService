@@ -67,11 +67,11 @@
             <ComboBox 
 	            Margin="2" Grid.Column="1" Grid.Row="3" x:Name="comboBoxArea"
                 HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
-                ItemsSource="{Binding Path=Areas, Mode=OneWay}" 
+                ItemsSource="{Binding Path=ProductionFacilities, Mode=OneWay}" 
 	            DisplayMemberPath="Name"
 	            SelectedValuePath="Name"
-	            SelectedValue="{Binding Path=Area.Name, Mode=OneWay}" 
-	            SelectedItem="{Binding Path=Area, Mode=TwoWay}" 
+	            SelectedValue="{Binding Path=ProductionFacility.Name, Mode=OneWay}" 
+	            SelectedItem="{Binding Path=ProductionFacility, Mode=TwoWay}" 
 	            />
                 
             <Button 

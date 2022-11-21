@@ -36,5 +36,4 @@ DEV1C\DVLP (10.0.204.20)		1C-PROD
 ✓ IIS: IIS-PROD (10.0.24.19)
 Предварительный релиз			https://device-control-prod-preview.kolbasa-vs.local/
 Рабочий релиз					https://device-control-prod.kolbasa-vs.local/
-x IIS: PALYCH (10.0.204.24) -> поменять на -> IIS-PROD (10.0.24.19)
 Рабочий релиз					https://device-control.kolbasa-vs.local/

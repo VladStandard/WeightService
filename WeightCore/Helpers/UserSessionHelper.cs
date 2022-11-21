@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Files;
 using DataCore.Helpers;
 using DataCore.Localizations;
 using DataCore.Models;
@@ -48,6 +49,7 @@ public class UserSessionHelper : BaseViewModel
 	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	public DataContextModel DataContext { get; } = new();
 	public DebugHelper Debug { get; } = DebugHelper.Instance;
+	private FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 	public ManagerControllerHelper ManagerControl { get; } = ManagerControllerHelper.Instance;
 
 	private ProductSeriesDirect _productSeries;
@@ -99,7 +101,7 @@ public class UserSessionHelper : BaseViewModel
 			if (value.IdentityIsNotNew)
 				DataAccess.LogInformation(
 					$"{LocaleCore.Scales.PluSet(value.Plu.IdentityValueId, value.Plu.Number, value.Plu.Name)}",
-					Host.Device.Name, nameof(WeightCore));
+					DeviceScaleFk.Device.Name, nameof(WeightCore));
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
 			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu),
@@ -139,14 +141,14 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	private DeviceScaleFkModel _host;
+	private DeviceScaleFkModel _deviceScaleFk;
 	[XmlElement]
-	public DeviceScaleFkModel Host
+	public DeviceScaleFkModel DeviceScaleFk
 	{
-		get => _host;
-		set
+		get => _deviceScaleFk;
+		private set
 		{
-			_host = value;
+			_deviceScaleFk = value;
 			OnPropertyChanged();
 		}
 	}
@@ -158,13 +160,11 @@ public class UserSessionHelper : BaseViewModel
 		set
 		{
 			_scale = value;
-			_ = Area;
+			_ = ProductionFacility;
 			PluScale = new();
 			OnPropertyChanged();
 		}
 	}
-	//public string HostName => Scale.DeviceTypeFk.Device.Name;
-
 	private List<ScaleModel> _scales;
 	[XmlElement]
 	public List<ScaleModel> Scales
@@ -176,33 +176,34 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	private ProductionFacilityModel _area;
+
+	private ProductionFacilityModel _productionFacility;
 	[XmlElement]
-	public ProductionFacilityModel Area
-	{
+	public ProductionFacilityModel ProductionFacility
+    {
 		get
 		{
-			if (_area.IdentityIsNotNew)
-				return _area;
+			if (_productionFacility.IdentityIsNotNew)
+				return _productionFacility;
 			if (Scale.WorkShop is not null)
 				return Scale.WorkShop.ProductionFacility;
-			return _area;
+			return _productionFacility;
 		}
 		set
 		{
 			if (value.IdentityIsNotNew)
-				_area = value;
+				_productionFacility = value;
 			OnPropertyChanged();
 		}
 	}
-	private List<ProductionFacilityModel> _areas;
+	private List<ProductionFacilityModel> _productionFacilities;
 	[XmlElement]
-	public List<ProductionFacilityModel> Areas
-	{
-		get => _areas;
+	public List<ProductionFacilityModel> ProductionFacilities
+    {
+		get => _productionFacilities;
 		set
 		{
-			_areas = value;
+			_productionFacilities = value;
 			OnPropertyChanged();
 		}
 	}
@@ -252,57 +253,72 @@ public class UserSessionHelper : BaseViewModel
 		}
 	}
 	private readonly object _locker = new();
+	public string DeviceName => NetUtils.GetLocalDeviceName(false);
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public UserSessionHelper()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public UserSessionHelper()
 	{
 		_pluScale = new();
 		_pluPackage = new();
 		_pluPackages = new();
 		_pluWeighing = new();
-		_host = new();
+		_deviceScaleFk = new();
 		_scale = new();
-		_scales = new();
-		_area = new();
-		_areas = new();
+		_productionFacility = new();
+		_productionFacilities = new();
 		_productSeries = new();
 		_weighingSettings = new();
 		_publishDescription = string.Empty;
 		_sqlInstance = string.Empty;
-
-		SetupPublish();
-		Setup(-1, "");
 	}
 
 	#endregion
 
 	#region Public and private methods
 
-	public void Setup(long scaleId, string areaName)
+	public void Setup(long scaleId = -1, string productionFacilityName = "")
 	{
-		SetScale(scaleId, areaName);
+        SetSqlPublish();
+        SetScale(scaleId, productionFacilityName);
 		Scales = DataContext.GetListNotNullable<ScaleModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
-		Areas = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
+		ProductionFacilities = DataContext.GetListNotNullable<ProductionFacilityModel>(SqlCrudConfigUtils.GetCrudConfigSection(false));
 	}
 
-	private void SetScale(long scaleId, string areaName)
+	private void SetScale(long scaleId, string productionFacilityName)
 	{
 		lock (_locker)
 		{
-			// Host.
-			string deviceName = NetUtils.GetLocalDeviceName(false);
-			Host.Device = DataAccess.GetItemDeviceNotNullable(deviceName);
-			//Host = SqlUtils.GetHostNotNullable(deviceName);
-			Host = DataAccess.GetItemDeviceScaleFkNotNullable(Host.Device);
+            // Device.
+            DeviceModel device = GuiUtils.WpfForm.SetNewDeviceWithQuestion(
+				DeviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
 
+            // DeviceTypeFk.
+            DeviceTypeFkModel deviceTypeFk = DataAccess.GetItemDeviceTypeFkNotNullable(device);
+            if (deviceTypeFk.IdentityIsNew)
+            {
+                // DeviceType.
+                DeviceTypeModel deviceType = DataAccess.GetItemDeviceTypeNotNullable("Monoblock");
+                //FileLogger.StoreMessage($"{nameof(deviceType)}: {deviceType}");
+                // DeviceTypeFk.
+                deviceTypeFk.Device = device;
+                deviceTypeFk.Type = deviceType;
+                DataAccess.Save(deviceTypeFk);
+            }
+			FileLogger.StoreMessage($"{nameof(deviceTypeFk)}: {deviceTypeFk}");
+			FileLogger.StoreMessage($"{nameof(deviceTypeFk.Device)}: {deviceTypeFk.Device}");
+
+			// DeviceTypeFk.
+            DeviceScaleFk = DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+            FileLogger.StoreMessage($"{nameof(DeviceScaleFk)}: {DeviceScaleFk}");
+            FileLogger.StoreMessage($"{nameof(DeviceScaleFk.Scale)}: {DeviceScaleFk.Scale}");
+            
 			// Scale.
-			//Scale = scaleId <= 0 ? SqlUtils.GetScaleFromDeviceTypeFkNotNullable(Host) : SqlUtils.GetScaleNotNullable(scaleId);
-			Scale = scaleId <= 0 ? Host.Scale : SqlUtils.GetScaleNotNullable(scaleId);
+			Scale = scaleId <= 0 ? DeviceScaleFk.Scale : DataAccess.GetScaleNotNullable(scaleId);
 
-			// Area.
-			Area = SqlUtils.GetAreaNotNullable(areaName);
+            // Area.
+            ProductionFacility = DataAccess.GetProductionFacilityNotNullable(productionFacilityName);
 
 			// Other.
 			AppVersion.AppDescription = $"{AppVersion.AppTitle}.  {Scale.Description}.";
@@ -357,7 +373,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluPackageNotSelect, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -375,7 +391,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -396,7 +412,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.MassaIsNotFound, true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -417,7 +433,7 @@ public class UserSessionHelper : BaseViewModel
 				LocaleCore.Scales.MassaIsNotCalc + Environment.NewLine + LocaleCore.Scales.MassaWaitStable,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -437,7 +453,7 @@ public class UserSessionHelper : BaseViewModel
 				: LocaleCore.Print.DeviceShippingIsUnavailable + Environment.NewLine + LocaleCore.Print.DeviceCheckConnect,
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -459,7 +475,7 @@ public class UserSessionHelper : BaseViewModel
 				: LocaleCore.Print.DeviceShippingCheckStatus + Environment.NewLine + managerPrint.GetDeviceStatus(),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -480,7 +496,7 @@ public class UserSessionHelper : BaseViewModel
 			GuiUtils.WpfForm.ShowNewOperationControl(owner,
 				LocaleCore.Scales.CheckWeightThreshold(weight), true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -501,7 +517,7 @@ public class UserSessionHelper : BaseViewModel
 			DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, LocaleCore.Scales.CheckWeightThreshold(weight),
 				true, LogTypeEnum.Warning,
 				new() { ButtonCancelVisibility = Visibility.Visible },
-				Host.Device.Name, nameof(WeightCore));
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return result == DialogResult.Cancel;
 		}
 		return true;
@@ -533,7 +549,7 @@ public class UserSessionHelper : BaseViewModel
 					PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
 					true, LogTypeEnum.Warning,
 					new() { ButtonCancelVisibility = Visibility.Visible },
-					Host.Device.Name, nameof(WeightCore));
+					DeviceScaleFk.Device.Name, nameof(WeightCore));
 			return false;
 		}
 		return true;
@@ -674,7 +690,7 @@ public class UserSessionHelper : BaseViewModel
 			LocaleCore.Print.QuestionUseFakeData,
 			true, LogTypeEnum.Question,
 			new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-			Host.Device.Name, nameof(WeightCore));
+			DeviceScaleFk.Device.Name, nameof(WeightCore));
 		if (dialogResult is DialogResult.Yes)
 		{
 			ManagerControl.Massa.WeightNet = StringUtils.NextDecimal(PluScale.Plu.LowerThreshold, PluScale.Plu.UpperThreshold);
@@ -708,7 +724,7 @@ public class UserSessionHelper : BaseViewModel
 				DialogResult dialogResult = GuiUtils.WpfForm.ShowNewOperationControl(
 					LocaleCore.Print.QuestionPrintSendCmd, true, LogTypeEnum.Question,
 					new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-					Host.Device.Name, nameof(WeightCore));
+					DeviceScaleFk.Device.Name, nameof(WeightCore));
 				if (dialogResult != DialogResult.Yes)
 					return;
 			}
@@ -749,7 +765,7 @@ public class UserSessionHelper : BaseViewModel
 			ProductDt = ProductDate,
 		};
 
-		XmlDocument xmlArea = Area.SerializeAsXmlDocument<ProductionFacilityModel>(true);
+		XmlDocument xmlArea = ProductionFacility.SerializeAsXmlDocument<ProductionFacilityModel>(true);
 		pluLabel.Xml = pluLabel.SerializeAsXmlDocument<PluLabelModel>(true);
 		pluLabel.Xml = XmlUtils.XmlMerge(pluLabel.Xml, xmlArea);
 		pluLabel.Zpl = XmlUtils.XsltTransformation(template.ImageData.ValueUnicode, pluLabel.Xml.OuterXml);
@@ -775,15 +791,15 @@ public class UserSessionHelper : BaseViewModel
 		DataAccess.Save(barCode);
 	}
 
-	private void SetupPublish()
+	private void SetSqlPublish()
 	{
 		PublishType = PublishTypeEnum.Default;
 		PublishDescription = "Неизвестный сервер";
 		SqlInstance = GetSqlInstanceString();
-		SetPublishFromInstance();
+		SetSqlPublishFromInstance();
 	}
 
-	private void SetPublishFromInstance()
+	private void SetSqlPublishFromInstance()
 	{
 		switch (SqlInstance)
 		{
@@ -823,7 +839,7 @@ public class UserSessionHelper : BaseViewModel
 
 		if (owner is null)
 		{
-			System.Drawing.Rectangle bounds = Screen.GetBounds(System.Drawing.Point.Empty);
+            Rectangle bounds = Screen.GetBounds(System.Drawing.Point.Empty);
 			using Bitmap bitmap = new(bounds.Width, bounds.Height);
 			using Graphics graphics = Graphics.FromImage(bitmap);
 			graphics.CopyFromScreen(System.Drawing.Point.Empty, System.Drawing.Point.Empty, bounds.Size);

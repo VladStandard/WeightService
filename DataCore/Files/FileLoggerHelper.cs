@@ -54,5 +54,15 @@ public class FileLoggerHelper
         });
     }
 
+    public void StoreExceptionWithParams(Exception ex, string filePath, int lineNumber, string memberName)
+    {
+        StoreCore(streamWriter => {
+            streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
+            streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {ex.Message}");
+            if (ex.InnerException is not null)
+                streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {ex.InnerException.Message}");
+        });
+    }
+
     #endregion
 }

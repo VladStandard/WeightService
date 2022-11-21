@@ -1,20 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Files;
 using DataCore.Localizations;
-using DataCore.Protocols;
+using DataCore.Models;
 using DataCore.Sql.Core;
 using DataCore.Sql.TableScaleModels;
-using Microsoft.Data.SqlClient;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using DataCore.Models;
 using WeightCore.Helpers;
 
 namespace WeightCore.Gui;
@@ -23,15 +20,22 @@ namespace WeightCore.Gui;
 /// GUI utils.
 /// </summary>
 [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
-public static class GuiUtils
+public static partial class GuiUtils
 {
     /// <summary>
     /// Show WPF form inside WinForm.
     /// </summary>
     public static class WpfForm
     {
+        #region Public and private fields, properties, constructor
+
         private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
         public static WpfPageLoader WpfPage { get; private set; }
+        private static FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
+
+        #endregion
+
+        #region Public and private methods
 
         /// <summary>
         /// Show pin-code form.
@@ -63,7 +67,7 @@ public static class GuiUtils
 
         public static void Dispose()
         {
-	        if (WpfPage is not null)
+            if (WpfPage is not null)
             {
                 WpfPage.Close();
                 WpfPage.Dispose();
@@ -77,8 +81,8 @@ public static class GuiUtils
         /// <param name="caption"></param>
         /// <param name="message"></param>
         /// <param name="visibilitySettings"></param>
-        private static DialogResult ShowNew(IWin32Window owner, string caption, string message, 
-	        VisibilitySettingsModel visibilitySettings)
+        private static DialogResult ShowNew(IWin32Window owner, string caption, string message,
+            VisibilitySettingsModel visibilitySettings)
         {
             Dispose();
 
@@ -88,7 +92,7 @@ public static class GuiUtils
             WpfPage.MessageBox.VisibilitySettings = visibilitySettings;
             WpfPage.MessageBox.VisibilitySettings.Localization();
             DialogResult resultWpf = owner is not null ? WpfPage.ShowDialog(owner) : WpfPage.ShowDialog();
-			WpfPage.Close();
+            WpfPage.Close();
             WpfPage.Dispose();
             return resultWpf;
         }
@@ -139,45 +143,45 @@ public static class GuiUtils
         /// <param name="deviceName"></param>
         /// <param name="appName"></param>
         /// <returns></returns>
-        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog, 
-	        LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
-        {
-			if (isLog)
-				ShowNewOperationControlLogType(message, logType, deviceName, appName);
-			return ShowNew(owner, LocaleCore.Scales.OperationControl, message, visibility);
-        }
-
-        public static DialogResult ShowNewOperationControl(string message, bool isLog, 
-	        LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
+        public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, bool isLog,
+            LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
         {
             if (isLog)
                 ShowNewOperationControlLogType(message, logType, deviceName, appName);
-	        return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
+            return ShowNew(owner, LocaleCore.Scales.OperationControl, message, visibility);
+        }
+
+        public static DialogResult ShowNewOperationControl(string message, bool isLog,
+            LogTypeEnum logType, VisibilitySettingsModel visibility, string deviceName, string appName)
+        {
+            if (isLog)
+                ShowNewOperationControlLogType(message, logType, deviceName, appName);
+            return ShowNew(null, LocaleCore.Scales.OperationControl, message, visibility);
         }
 
         private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType, string deviceName,
-	        string appName)
+            string appName)
         {
-	        switch (logType)
-	        {
-		        case LogTypeEnum.None:
-			        DataAccess.LogInformation(message, deviceName, appName);
-			        break;
-		        case LogTypeEnum.Error:
-			        DataAccess.LogError(message, deviceName, appName);
-			        break;
-		        case LogTypeEnum.Question:
-			        DataAccess.LogQuestion(message, deviceName, appName);
-			        break;
-		        case LogTypeEnum.Warning:
-			        DataAccess.LogWarning(message, deviceName, appName);
-			        break;
-		        case LogTypeEnum.Information:
-			        DataAccess.LogInformation(message, deviceName, appName);
-			        break;
-		        default:
-			        throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
-	        }
+            switch (logType)
+            {
+                case LogTypeEnum.None:
+                    DataAccess.LogInformation(message, deviceName, appName);
+                    break;
+                case LogTypeEnum.Error:
+                    DataAccess.LogError(message, deviceName, appName);
+                    break;
+                case LogTypeEnum.Question:
+                    DataAccess.LogQuestion(message, deviceName, appName);
+                    break;
+                case LogTypeEnum.Warning:
+                    DataAccess.LogWarning(message, deviceName, appName);
+                    break;
+                case LogTypeEnum.Information:
+                    DataAccess.LogInformation(message, deviceName, appName);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
+            }
         }
 
         //public static Guid ShowNewHostSaveInFile()
@@ -230,29 +234,41 @@ public static class GuiUtils
         //    return result;
         //}
 
-        public static DialogResult ShowNewHostSaveInDb(string deviceName, string ip, string mac)
+        public static DeviceModel SetNewDeviceWithQuestion(string deviceName, string ip, string mac)
         {
-            DialogResult result = ShowNewOperationControl(
-                LocaleCore.Scales.HostNotFound(deviceName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
-                false, LogTypeEnum.Information,
-                new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
-            if (result == DialogResult.Yes)
+            DeviceModel device = DataAccess.GetItemDeviceNotNullable(deviceName);
+            if (device.IdentityIsNew)
             {
-                DeviceModel host = new()
+                DialogResult result = ShowNewOperationControl(
+                    LocaleCore.Scales.HostNotFound(deviceName) + Environment.NewLine + LocaleCore.Scales.QuestionWriteToDb,
+                    false, LogTypeEnum.Information,
+                    new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
+                    UserSessionHelper.Instance.DeviceScaleFk.Device.Name, nameof(WeightCore));
+                if (result == DialogResult.Yes)
                 {
-                    Name = deviceName,
-                    PrettyName = deviceName,
-                    Ipv4 = ip,
-                    MacAddress = new(mac),
-                    CreateDt = DateTime.Now,
-                    ChangeDt = DateTime.Now,
-                    LoginDt = DateTime.Now,
-                    IsMarked = false,
-                };
-                DataAccess.Save(host);
+                    device = new()
+                    {
+                        Name = deviceName,
+                        PrettyName = deviceName,
+                        Ipv4 = ip,
+                        MacAddress = new(mac),
+                        CreateDt = DateTime.Now,
+                        ChangeDt = DateTime.Now,
+                        LoginDt = DateTime.Now,
+                        IsMarked = false,
+                    };
+                    DataAccess.Save(device);
+                }
             }
-            return result;
+            else {
+                device.Ipv4 = ip;
+                device.MacAddress = new(mac);
+                device.ChangeDt = DateTime.Now;
+                device.LoginDt = DateTime.Now;
+                device.IsMarked = false;
+                DataAccess.Update(device);
+            }
+            return device;
         }
 
         /// <summary>
@@ -281,18 +297,20 @@ public static class GuiUtils
         /// </summary>
         /// <param name="owner"></param>
         /// <param name="ex"></param>
-        /// <param name="isLog"></param>
+        /// <param name="isDbLog"></param>
         /// <param name="isShowWindow"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <param name="memberName"></param>
         /// <returns></returns>
-        public static DialogResult CatchException(IWin32Window owner, Exception ex, bool isLog = true, 
-	        bool isShowWindow = true, [CallerFilePath] string filePath = "", 
-	        [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public static DialogResult CatchException(IWin32Window owner, Exception ex, bool isDbLog = true,
+            bool isShowWindow = true, [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            if (isLog)
-                DataAccess.LogError(ex, UserSessionHelper.Instance.Host.Device.Name, null, filePath, lineNumber, memberName);
+            FileLogger.StoreExceptionWithParams(ex, filePath, lineNumber, memberName);
+            if (isDbLog)
+                DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, null, filePath, lineNumber, memberName);
+
             string message = ex.Message;
             if (ex.InnerException is not null)
                 message += ex.InnerException.Message;
@@ -315,98 +333,9 @@ public static class GuiUtils
         /// <param name="memberName"></param>
         /// <returns></returns>
         public static DialogResult CatchException(Exception ex,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            return CatchException(null, ex, true, true, filePath, lineNumber, memberName);
-        }
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+            CatchException(null, ex, true, true, filePath, lineNumber, memberName);
+
+        #endregion
     }
-
-    public static class WinForm
-    {
-	    /// <summary>
-	    /// Create a TableLayoutPanel.
-	    /// </summary>
-	    /// <param name="tableLayoutPanelParent"></param>
-	    /// <param name="name"></param>
-	    /// <param name="column"></param>
-	    /// <param name="row"></param>
-	    /// <param name="columnSpan"></param>
-	    /// <param name="tabIndex"></param>
-	    /// <returns></returns>
-	    public static TableLayoutPanel NewTableLayoutPanel(TableLayoutPanel tableLayoutPanelParent, string name, 
-	        int column, int row, int columnSpan, int tabIndex)
-        {
-            TableLayoutPanel tableLayoutPanel = new()
-            {
-                Name = name,
-                Dock = DockStyle.Fill,
-                ColumnCount = 1,
-                RowCount = 1,
-                TabIndex = tabIndex,
-            };
-            tableLayoutPanel.ColumnStyles.Clear();
-            tableLayoutPanel.ColumnStyles.Add(new(SizeType.Percent, 100F));
-            tableLayoutPanel.RowStyles.Clear();
-            tableLayoutPanel.RowStyles.Add(new(SizeType.Percent, 100F));
-            tableLayoutPanelParent.Controls.Add(tableLayoutPanel, column, row);
-            tableLayoutPanelParent.SetColumnSpan(tableLayoutPanel, columnSpan);
-            return tableLayoutPanel;
-        }
-
-        /// <summary>
-        /// Create a Button.
-        /// </summary>
-        /// <param name="tableLayoutPanel"></param>
-        /// <param name="name"></param>
-        /// <param name="column"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
-        public static Button NewTableLayoutPanelButton(TableLayoutPanel tableLayoutPanel, string name, int column, int row)
-        {
-            Button button = new()
-            {
-                Name = name,
-                Enabled = false,
-                Visible = false,
-                BackColor = Color.Transparent,
-                Dock = DockStyle.Fill,
-                ForeColor = System.Drawing.SystemColors.ControlText,
-                Margin = new(5, 2, 5, 2),
-                Size = new(100, 100),
-                UseVisualStyleBackColor = false,
-                TabIndex = 100 + column,
-                //Location = new(2, 2),
-            };
-            tableLayoutPanel.Controls.Add(button, column - 1, row > 0 ? row : 0);
-            return button;
-        }
-
-        /// <summary>
-        /// Set the ColumnStyles for TableLayoutPanel.
-        /// </summary>
-        /// <param name="tableLayoutPanel"></param>
-        public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel tableLayoutPanel)
-        {
-			float columnSize = (float)100 / tableLayoutPanel.ColumnCount;
-	        tableLayoutPanel.ColumnStyles.Clear();
-			for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
-            {
-                tableLayoutPanel.ColumnStyles.Add(new(SizeType.Percent, columnSize));
-            }
-        }
-
-        /// <summary>
-        /// Set the ColumnStyles for TableLayoutPanel.
-        /// </summary>
-        /// <param name="tableLayoutPanel"></param>
-        public static void SetTableLayoutPanelRowStyles(TableLayoutPanel tableLayoutPanel)
-        {
-            float size = (float)100 / tableLayoutPanel.RowCount;
-            tableLayoutPanel.RowStyles.Clear();
-            for (int i = 0; i < tableLayoutPanel.RowCount; i++)
-            {
-                tableLayoutPanel.RowStyles.Add(new(SizeType.Percent, size));
-            }
-        }
-	}
 }

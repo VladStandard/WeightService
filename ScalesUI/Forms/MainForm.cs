@@ -111,11 +111,11 @@ public partial class MainForm : Form
                     MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                     SetComboBoxItems(fieldLang, FieldLang_SelectedIndexChanged, LocaleCore.Scales.ListLanguages);
                     UserSession.DataAccess.LogInformation($"{LocaleCore.Scales.ScreenResolution}: {Width} x {Height}",
-                        UserSession.Host.Device.Name, nameof(ScalesUI));
+                        UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                     UserSession.DataAccess.LogInformation(
                         LocaleData.Program.IsLoaded +
                         $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                        UserSession.Host.Device.Name, nameof(ScalesUI));
+                        UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
 
                     UserSession.StopwatchMain.Stop();
                     ActionMakeScreenShot();
@@ -211,7 +211,7 @@ public partial class MainForm : Form
             {
                 UserSession.DataAccess.LogInformation(
                     LocaleData.Program.IsClosed + $" {nameof(UserSession.StopwatchMain.Elapsed)}: {UserSession.StopwatchMain.Elapsed}.",
-                    UserSession.Host.Device.Name, nameof(ScalesUI));
+                    UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 UserSession.StopwatchMain.Stop();
                 ActionMakeScreenShot();
             }
@@ -620,7 +620,7 @@ public partial class MainForm : Form
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => LangEnum.English, _ => LangEnum.Russian, };
                 string area = UserSession.Scale.WorkShop is null
-                    ? LocaleCore.Table.FieldNull : UserSession.Area.Name;
+                    ? LocaleCore.Table.FieldNull : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,
                     UserSession.Scale.Description + Environment.NewLine + area);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPackage, UserSession.PluPackage.IdentityIsNew
@@ -664,7 +664,7 @@ public partial class MainForm : Form
                 wpfPageLoader.Close();
                 if (dialogResult == DialogResult.OK)
                 {
-                    UserSession.Setup(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.Area.Name);
+                    UserSession.Setup(wpfPageLoader.PageDevice.UserSession.Scale.IdentityValueId, UserSession.ProductionFacility.Name);
                 }
                 FieldLang_SelectedIndexChanged(sender, e);
 
@@ -728,7 +728,7 @@ public partial class MainForm : Form
                     $"{LocaleCore.Scales.QuestionRunApp} ScalesTerminal?",
                     true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Host.Device.Name, nameof(ScalesUI));
+                    UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 if (result is not DialogResult.Yes)
                     return;
 
@@ -744,7 +744,7 @@ public partial class MainForm : Form
                         LocaleCore.Scales.ProgramNotFound(
                             LocaleData.Paths.ScalesTerminal), true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
-                        UserSession.Host.Device.Name, nameof(ScalesUI));
+                        UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 }
                 UserSession.ManagerControl.Open();
             },
@@ -762,21 +762,21 @@ public partial class MainForm : Form
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelectWeight, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
-                        UserSession.Host.Device.Name, nameof(ScalesUI));
+                        UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                     return;
                 }
                 if (!UserSession.ManagerControl.Massa.MassaDevice.IsOpenPort)
                 {
                     GuiUtils.WpfForm.ShowNewOperationControl(this, LocaleCore.Scales.MassaIsNotRespond, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
-                        UserSession.Host.Device.Name, nameof(ScalesUI));
+                        UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                     return;
                 }
 
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
                     LocaleCore.Scales.QuestionPerformOperation, true, LogTypeEnum.Question,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-                    UserSession.Host.Device.Name, nameof(ScalesUI));
+                    UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                 if (result is not DialogResult.Yes)
                     return;
 
@@ -932,7 +932,7 @@ public partial class MainForm : Form
                     GuiUtils.WpfForm.ShowNewOperationControl(this,
                         LocaleCore.Scales.PluNotSelect, true, LogTypeEnum.Warning,
                         new() { ButtonOkVisibility = Visibility.Visible },
-                        UserSession.Host.Device.Name, nameof(ScalesUI));
+                        UserSession.DeviceScaleFk.Device.Name, nameof(ScalesUI));
                     return;
                 }
 

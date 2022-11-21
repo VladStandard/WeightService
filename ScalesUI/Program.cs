@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Helpers;
 
 namespace ScalesUI;
 
@@ -23,6 +24,7 @@ internal static class Program
 
 	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
 	private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	private static FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 
 	#endregion
 
@@ -39,48 +41,31 @@ internal static class Program
 			//FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
 			JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
-			// Host.
-			string deviceName = NetUtils.GetLocalDeviceName(false);
-			DeviceModel device = DataAccess.GetItemDeviceNotNullable(deviceName);
-			DeviceTypeFkModel? deviceTypeFk = DataAccess.GetItemDeviceTypeFkNullable(device);
-			if (deviceTypeFk is null)
-			{
-				GuiUtils.WpfForm.ShowNewHostSaveInDb(deviceName, NetUtils.GetLocalIpAddress(), NetUtils.GetLocalMacAddress());
-				deviceTypeFk = new() { Device = { Name = deviceName } };
-			}
-			if (deviceTypeFk.IdentityIsNew)
-			{
-				string message = LocaleCore.Scales.RegistrationWarningHostNotFound(deviceName);
-				GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-				//DataAccess.LogError(new Exception(message), deviceName, nameof(ScalesUI));
-				Application.Exit();
-				return;
-			}
+			// User
+			UserSessionHelper.Instance.Setup();
+			if (UserSessionHelper.Instance.DeviceScaleFk.IdentityIsNew)
+            {
+                string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
+                GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
+                DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                Application.Exit();
+                return;
+            }
 
-			// Scale.
-			ScaleModel scale = DataAccess.GetItemScaleNotNullable(deviceTypeFk.Device);
-			if (scale.IdentityIsNew)
-			{
-				string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(deviceName);
-				GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
-				DataAccess.LogError(new Exception(message), deviceName, nameof(ScalesUI));
-				Application.Exit();
-				return;
-			}
-
-			// Mutex.
-			_ = new Mutex(true, Application.ProductName, out bool createdNew);
+            // Mutex.
+            _ = new Mutex(true, Application.ProductName, out bool createdNew);
 			if (!createdNew)
 			{
 				string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
 				GuiUtils.WpfForm.ShowNewRegistration(message);
-				DataAccess.LogError(new Exception(message), deviceName, nameof(ScalesUI));
+				DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
 				Application.Exit();
 			}
 			else
 			{
-				DataAccess.LogInformation(LocaleCore.Scales.RegistrationSuccess(deviceTypeFk.Device.Name, scale.Description),
-					deviceName, nameof(ScalesUI));
+				DataAccess.LogInformation(
+					LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description), 
+					UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
 				Application.Run(new MainForm());
@@ -88,8 +73,8 @@ internal static class Program
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(null!, ex, false);
-			throw new(ex.Message);
+			GuiUtils.WpfForm.CatchException(null!, ex, true, true);
+			//throw new(ex.Message);
 		}
 	}
 #nullable disable
