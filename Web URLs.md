@@ -13,6 +13,11 @@ PALYCH\LUTON (10.0.204.24)		ScalesDB
 SQLSRSP01\LEEDS (10.0.204.15)	VSDWH
 DEV1C\DVLP (10.0.204.20)		1C-PROD
 
+## Десктоп-приложение "Печать этикеток" / ScalesUI
+Разработка						\\palych\Install\VSSoft\Scales-1-Develop\
+Предварительное тестирование	\\palych\Install\VSSoft\Scales-2-Preview\
+Рабочий релиз					\\palych\Install\VSSoft\Scales-3-Release\
+
 ## Веб-сервис "Обмен с весовыми постами" / WebApiScales
 ✓ IIS-DEV (10.0.204.17)
 Предварительное тестирование	https://scales-dev-preview.kolbasa-vs.local:443/
