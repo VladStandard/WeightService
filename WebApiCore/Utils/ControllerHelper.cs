@@ -52,7 +52,79 @@ public class ControllerHelper
         }
     }
 
-    public ContentResult NewResponse1C(ISessionFactory sessionFactory, string query, 
+    private ContentResult NewResponse1CCore(ISessionFactory sessionFactory, 
+        Action<ISession, ResponseQueryModel?, List<Response1CRecordModel>> action, 
+        FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+    {
+        using ISession session = sessionFactory.OpenSession();
+        using ITransaction transaction = session.BeginTransaction();
+        List<Response1CRecordModel> errors = new();
+        HttpStatusCode httpStatusCode = HttpStatusCode.OK;
+        ResponseQueryModel? responseQuery = isShowQuery ? new() : null;
+        List<Response1CRecordModel> success = new();
+
+        try
+        {
+            action(session, responseQuery, success);
+            if (isTransaction)
+                transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            httpStatusCode = HttpStatusCode.InternalServerError;
+            errors.Add(new(Guid.NewGuid(), ex.Message));
+            if (ex.InnerException is not null)
+                errors.Add(new(Guid.NewGuid(), ex.InnerException.Message));
+            if (isTransaction)
+                transaction.Rollback();
+        }
+        
+        return new Response1CModel(success, errors, responseQuery).GetResult<Response1CModel>(format, httpStatusCode);
+    }
+
+    public ContentResult NewResponse1CFromQuery(ISessionFactory sessionFactory, string query, 
+        SqlParameter? sqlParameter, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+    {
+        return NewResponse1CCore(sessionFactory, (session, responseQuery, success) => {
+            if (!string.IsNullOrEmpty(query))
+            {
+                if (responseQuery is not null)
+                    responseQuery.Query = query;
+                ISQLQuery sqlQuery = session.CreateSQLQuery(query);
+                sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
+                if (sqlParameter is not null)
+                {
+                    if (responseQuery is not null)
+                        responseQuery.Parameters.Add(new(sqlParameter));
+                    sqlQuery.SetParameter(sqlParameter.ParameterName, sqlParameter.Value);
+                }
+
+                IList? list = sqlQuery.List();
+                object?[] result = new object?[list.Count];
+                if (list.Count == 1 && list[0] is object[] records)
+                {
+                    result = records;
+                }
+                else
+                {
+                    for (int i = 0; i < result.Length; i++)
+                    {
+                        if (list[i] is object[] records2)
+                            result[i] = records2;
+                        else
+                            result[i] = list[i];
+                    }
+                }
+                string response = result[^1] as string ?? string.Empty;
+                //string response = result[result.Count() - 1] is not null ? result[result.Count() - 1].ToString() : string.Empty;
+                success.Add(new(Guid.NewGuid(), response));
+            }
+            else
+                success.Add(new(Guid.NewGuid(), "Empty query. Try to make some select from any table."));
+        }, format, isShowQuery, isTransaction);
+    }
+
+    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, string query, 
         SqlParameter? sqlParameter, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
     {
         using ISession session = sessionFactory.OpenSession();

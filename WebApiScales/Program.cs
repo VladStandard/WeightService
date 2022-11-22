@@ -24,7 +24,7 @@ builder.Services.AddSwaggerGen(options =>
 //    options.FallbackPolicy = options.DefaultPolicy;
 //});
 
-ISessionFactory GetSessionFactory(string connectionString)
+ISessionFactory GetSessionFactory(string? connectionString)
 {
     FluentConfiguration configuration = Fluently
         .Configure()
@@ -35,9 +35,9 @@ ISessionFactory GetSessionFactory(string connectionString)
     configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
     return configuration.BuildSessionFactory();
 }
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine($"builder.Configuration: {builder.Configuration}");
-Console.WriteLine($"connectionString: {connectionString}");
+string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//Console.WriteLine($"builder.Configuration: {builder.Configuration}");
+//Console.WriteLine($"connectionString: {connectionString}");
 ISessionFactory sessionFactory = GetSessionFactory(connectionString);
 builder.Services.AddSingleton(sessionFactory);
 builder.Services.AddScoped(factory => sessionFactory.OpenSession());
@@ -51,7 +51,6 @@ builder.Services.AddMvc(options =>
     //options.FormatterMappings.SetMediaTypeMappingForFormat("string", MediaTypeHeaderValue.Parse("text/plain"));
     options.FormatterMappings.SetMediaTypeMappingForFormat("string", MediaTypeHeaderValue.Parse("application/xml"));
     //options.FormatterMappings.SetMediaTypeMappingForFormat("XDocument", MediaTypeHeaderValue.Parse("application/xml"));
-    //options.FormatterMappings.SetMediaTypeMappingForFormat();
     //options.FormatterMappings.SetMediaTypeMappingForFormat("config", MediaTypeHeaderValue.Parse("application/xml"));
     //options.FormatterMappings.SetMediaTypeMappingForFormat("js", MediaTypeHeaderValue.Parse("application/json"));
 }).AddXmlSerializerFormatters();

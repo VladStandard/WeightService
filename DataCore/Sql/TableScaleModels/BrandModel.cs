@@ -11,8 +11,8 @@ namespace DataCore.Sql.TableScaleModels;
 [Serializable]
 public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
-	#region Public and private fields, properties, constructor
-
+    #region Public and private fields, properties, constructor
+    
 	[XmlElement] public virtual string Code { get; set; }
 
 	/// <summary>

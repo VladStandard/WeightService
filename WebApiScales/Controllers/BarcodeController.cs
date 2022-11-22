@@ -2,22 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using System.Net;
-using System.Text;
-using System.Xml.Linq;
 using WebApiCore.Controllers;
 using WebApiCore.Models;
 using WebApiCore.Utils;
-
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Xml;
-using DataCore.Sql.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiScales.Controllers;
 
@@ -91,14 +82,14 @@ public class BarCodeController : BaseController //ApiController
     [HttpPost()]
     [Route("api/v3/send_test/")]
     public ContentResult SendTest(FormatTypeEnum format = FormatTypeEnum.Xml, bool showQuery = false) =>
-        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(SessionFactory, string.Empty,
+        ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromQuery(SessionFactory, string.Empty,
             null, format, showQuery, false)), format);
 
     [AllowAnonymous]
     [HttpPost()]
     [Route("api/v3/send_query")]
     public ContentResult SendSqlquery([FromBody] string query, FormatTypeEnum format = FormatTypeEnum.Xml, bool showQuery = false) =>
-        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(SessionFactory, query,
+        ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromQuery(SessionFactory, query,
             null, format, showQuery, false)), format);
 
     [AllowAnonymous]
@@ -107,7 +98,7 @@ public class BarCodeController : BaseController //ApiController
     [Route("api/v3/send_barcode/bottom/")]
     public ContentResult SendBarcodeBottom([FromBody] BarcodeBottomModel barcodeBottom, FormatTypeEnum format = FormatTypeEnum.Xml,
         bool showQuery = false) =>
-        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+        ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromQuery(
             SessionFactory, SqlQueriesBarcodes.FindBottom,
             new("VALUE_BOTTOM", barcodeBottom.GetValue()), format, showQuery, false)), format);
 
@@ -117,7 +108,7 @@ public class BarCodeController : BaseController //ApiController
     [Route("api/v3/send_barcode/right/")]
     public ContentResult SendBarcodeRight([FromBody] BarcodeRightModel barcodeRight, FormatTypeEnum format = FormatTypeEnum.Xml,
         bool showQuery = false) =>
-        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+        ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromQuery(
             SessionFactory, SqlQueriesBarcodes.FindRight,
             new("VALUE_RIGHT", barcodeRight.GetValue()), format, showQuery, false)), format);
 
@@ -125,7 +116,7 @@ public class BarCodeController : BaseController //ApiController
     [HttpPost()]
     [Route("api/v3/send_barcode/top/")]
     public ContentResult SendBarcodeTop([FromBody] BarcodeTopModel barcodeTop, FormatTypeEnum format = FormatTypeEnum.Xml, bool showQuery = false) =>
-        ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+        ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromQuery(
             SessionFactory, SqlQueriesBarcodes.FindTop,
             new("VALUE_TOP", barcodeTop.GetValue()), format, showQuery, false)), format);
 
@@ -142,7 +133,7 @@ public class BarCodeController : BaseController //ApiController
         //StringContent content = new StringContent(xdoc.ToString(), Encoding.Unicode, "application/xml");
         //string xml = content.ToString() ?? string.Empty;
         //BarcodeTopModel barcodeTop1 = new BarcodeTopModel().DeserializeFromXml<BarcodeTopModel>(xml);
-        return ControllerHelp.RunTask(new(() => ControllerHelp.GetResponse1C(
+        return ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromQuery(
             SessionFactory, SqlQueriesBarcodes.FindTop,
             new("VALUE_TOP", barcodeTop1.GetValue()), format, showQuery, false)), format);
     }
