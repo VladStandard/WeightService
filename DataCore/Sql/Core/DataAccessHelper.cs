@@ -143,6 +143,7 @@ public partial class DataAccessHelper
 	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
 	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());

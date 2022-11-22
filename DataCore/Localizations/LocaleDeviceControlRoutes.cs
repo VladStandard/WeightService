@@ -11,6 +11,7 @@ public partial class LocaleDeviceControl
     public string RouteItemAccess => "/item/access";
     public string RouteItemApps => "/item/app";
     public string RouteItemBarCode => "/item/barcode";
+    public string RouteItemBrand => "/item/brand";
 	public string RouteItemContragent => "/item/contragent";
 	public string RouteItemDevice => "/item/device";
 	public string RouteItemDeviceType => "/item/device_type";
@@ -47,6 +48,7 @@ public partial class LocaleDeviceControl
     public string RouteSectionAccess => "/section/access";
     public string RouteSectionApps => "/section/apps";
     public string RouteSectionBarCodes => "/section/barcodes";
+    public string RouteSectionBrands => "/section/brands";
     public string RouteSectionContragents => "/section/contragents";
 	public string RouteSectionDevices => "/section/devices";
 	public string RouteSectionDevicesTypes => "/section/devices_types";

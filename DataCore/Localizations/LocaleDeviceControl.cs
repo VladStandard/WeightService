@@ -75,6 +75,7 @@ public partial class LocaleDeviceControl
 	public string SectionBarCodesShort => Lang == LangEnum.English ? "BC" : "ШК";
 	public string SectionBarCodeTypes => Lang == LangEnum.English ? "Barcodes types" : "Типы штрихкодов";
 	public string SectionBarCodeTypesShort => Lang == LangEnum.English ? "BC types" : "Типы ШК";
+	public string SectionBrands => Lang == LangEnum.English ? "Brands" : "Бренды";
 	public string SectionContragents => Lang == LangEnum.English ? "Counterparties" : "Контрагенты";
 	public string SectionDevices => Lang == LangEnum.English ? "Devices" : "Устройства";
 	public string SectionDevicesTypes => Lang == LangEnum.English ? "Device types " : "Типы устройств";

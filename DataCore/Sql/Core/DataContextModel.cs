@@ -13,6 +13,7 @@ public partial class DataContextModel
 	public List<AccessModel> Accesses { get; set; }
 	public List<AppModel> Apps { get; set; }
 	public List<BarCodeModel> BarCodes { get; set; }
+	public List<BrandModel> Brands { get; set; }
 	public List<ContragentModel> Contragents { get; set; }
 	public List<DeviceModel> Devices { get; set; }
 	public List<DeviceTypeModel> DeviceTypes { get; set; }
@@ -48,6 +49,7 @@ public partial class DataContextModel
 		Accesses = new();
 		Apps = new();
 		BarCodes = new();
+		Brands = new();
 		Contragents = new();
 		Devices = new();
 		DeviceTypes = new();
@@ -102,6 +104,11 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
 					BarCodes = BarCodes.OrderByDescending(item => item.ChangeDt).ToList();
 				return BarCodes.Cast<T>().ToList();
+			case var cls when cls == typeof(BrandModel):
+				Brands = DataAccess.GetListNotNullable<BrandModel>(sqlCrudConfig);
+				if (sqlCrudConfig.IsResultOrder)
+                    Brands = Brands.OrderBy(item => item.Name).ToList();
+				return Brands.Cast<T>().ToList();
 			case var cls when cls == typeof(ContragentModel):
 				Contragents = DataAccess.GetListNotNullable<ContragentModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -279,6 +286,7 @@ public partial class DataContextModel
 		new AccessModel(),
 		new AppModel(),
 		new BarCodeModel(),
+		new BrandModel(),
 		new ContragentModel(),
 		new DeviceModel(),
 		new DeviceTypeModel(),
@@ -319,6 +327,7 @@ public partial class DataContextModel
 		typeof(AccessModel),
 		typeof(AppModel),
 		typeof(BarCodeModel),
+		typeof(BrandModel),
 		typeof(ContragentModel),
 		typeof(DeviceModel),
 		typeof(DeviceTypeModel),
@@ -357,6 +366,7 @@ public partial class DataContextModel
 			var cls when cls == typeof(AccessModel) => nameof(AccessModel),
 			var cls when cls == typeof(AppModel) => nameof(AppModel),
 			var cls when cls == typeof(BarCodeModel) => nameof(BarCodeModel),
+			var cls when cls == typeof(BrandModel) => nameof(BrandModel),
 			var cls when cls == typeof(ContragentModel) => nameof(ContragentModel),
 			var cls when cls == typeof(DeviceModel) => nameof(DeviceModel),
 			var cls when cls == typeof(DeviceTypeModel) => nameof(DeviceTypeModel),
