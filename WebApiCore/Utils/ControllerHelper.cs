@@ -52,7 +52,7 @@ public class ControllerHelper
         }
     }
 
-    public ContentResult GetResponse1C(ISessionFactory sessionFactory, string query, 
+    public ContentResult NewResponse1C(ISessionFactory sessionFactory, string query, 
         SqlParameter? sqlParameter, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
     {
         using ISession session = sessionFactory.OpenSession();

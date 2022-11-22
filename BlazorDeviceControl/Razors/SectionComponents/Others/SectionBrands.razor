@@ -1,0 +1,43 @@
+﻿@inherits RazorComponentSectionBase<BrandModel, SqlTableBase>
+@page "/section/brands"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@BrandModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionBarCodeTypes />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px;" 
+    Data=@SqlSectionCast TItem=@BrandModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=@BrandModel ParentRazor=@(this) />
+        <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.ChangeDt Width="12%">
+	        <Template Context="itemCast" >
+		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
+					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Name Width="42%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+			        Text=@itemCast.Name />
+	        </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.Code Width="41%">
+	        <Template Context="itemCast" >
+		        <RadzenLink 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
+			        Text=@itemCast.Code />
+	        </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@BrandModel ParentRazor=@(this) />

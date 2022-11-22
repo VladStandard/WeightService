@@ -12,9 +12,9 @@ public class Response1CRecordModel : SerializeBase
 {
     #region Public and private fields and properties
 
-    [XmlElement("Guid", IsNullable = false)]
+    [XmlAttribute("Guid")]
     public Guid Uid { get; set; }
-    [XmlElement("Message", IsNullable = false)]
+    [XmlAttribute(nameof(Message))]
     public string Message { get; set; }
 
     public Response1CRecordModel(Guid uid, string message)
