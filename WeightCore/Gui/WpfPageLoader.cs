@@ -55,7 +55,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -136,7 +136,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -148,7 +148,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
     }
 
@@ -168,7 +168,7 @@ public partial class WpfPageLoader : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
     }
 

@@ -107,7 +107,7 @@ public class ManagerLabels : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(null, ex, true, false);
+			GuiUtils.WpfForm.CatchException(ex);
 		}
 	}
 
@@ -131,7 +131,7 @@ public class ManagerLabels : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(null, ex, true, false);
+			GuiUtils.WpfForm.CatchException(ex);
 		}
 	}
 

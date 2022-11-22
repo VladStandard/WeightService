@@ -184,56 +184,6 @@ public static partial class GuiUtils
             }
         }
 
-        //public static Guid ShowNewHostSaveInFile()
-        //{
-        //    Dispose();
-
-        //    Guid uid = Guid.NewGuid();
-        //    XDocument doc = new();
-        //    XElement root = new("root");
-        //    root.Add(new XElement("ID", uid));
-        //    // new XElement("EncryptConnectionString", new XCData(EncryptDecryptUtils.Encrypt(connectionString)))
-        //    doc.Add(root);
-
-        //    DialogResult resultWpf = new();
-        //    WpfPage = new(PageEnum.MessageBox, false) { Width = 700, Height = 400 };
-        //    WpfPage.MessageBox.Caption = LocaleCore.Scales.Registration;
-        //    WpfPage.MessageBox.Message = LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToFile;
-        //    WpfPage.MessageBox.VisibilitySettings.ButtonYesVisibility = Visibility.Visible;
-        //    WpfPage.MessageBox.VisibilitySettings.ButtonNoVisibility = Visibility.Visible;
-        //    WpfPage.MessageBox.VisibilitySettings.Localization();
-        //    WpfPage.ShowDialog();
-        //    if (resultWpf == DialogResult.Yes)
-        //    {
-        //        doc.Save(SqlUtils.FilePathToken);
-        //    }
-        //    WpfPage.Close();
-        //    WpfPage.Dispose();
-        //    return uid;
-        //}
-
-        //public static DialogResult ShowNewHostSaveInDb(Guid uid)
-        //{
-        //    DialogResult result = ShowNewOperationControl(
-        //        LocaleCore.Scales.HostUidNotFound + Environment.NewLine + LocaleCore.Scales.HostUidQuestionWriteToDb,
-        //        false, LogTypeEnum.Information,
-        //        new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible },
-        //        UserSessionHelper.Instance.Host.Device.Name, nameof(WeightCore));
-        //    if (result == DialogResult.Yes)
-        //    {
-        //        SqlUtils.SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Hosts.InsertNew,
-        //           new SqlParameter[]
-        //           {
-        //            new("@uid", System.Data.SqlDbType.UniqueIdentifier) { Value = uid.ToString() },
-        //            new("@name", System.Data.SqlDbType.NVarChar, 150) { Value = Environment.MachineName },
-        //            new("@ip", System.Data.SqlDbType.VarChar, 15) { Value = NetUtils.GetLocalIpAddress() },
-        //            new("@mac", System.Data.SqlDbType.VarChar, 35) { Value = NetUtils.GetLocalMacAddress() },
-        //           }
-        //       );
-        //    }
-        //    return result;
-        //}
-
         public static DeviceModel SetNewDeviceWithQuestion(string deviceName, string ip, string mac)
         {
             DeviceModel device = DataAccess.GetItemDeviceNotNullable(deviceName);
@@ -292,49 +242,61 @@ public static partial class GuiUtils
             return result;
         }
 
+        public static DialogResult CatchExceptionCore(Exception ex, IWin32Window owner, 
+            bool isFileLog, bool isDbLog, bool isShowWindow, 
+            string filePath, int lineNumber, string memberName)
+        {
+            if (isFileLog)
+                FileLogger.StoreExceptionWithParams(ex, filePath, lineNumber, memberName);
+
+            if (isDbLog)
+                DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, null, filePath, lineNumber, memberName);
+
+
+            if (isShowWindow)
+            {
+                string message = ex.InnerException is null ? ex.Message : ex.Message + Environment.NewLine + ex.InnerException.Message;
+                return ShowNew(owner, LocaleCore.Scales.Exception,
+                $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
+                $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message,
+                new() { ButtonOkVisibility = Visibility.Visible });
+            }
+            
+            return DialogResult.OK;
+        }
+
         /// <summary>
-        /// Show catch exception window.
+        /// Show catch exception window..
         /// </summary>
-        /// <param name="owner"></param>
         /// <param name="ex"></param>
+        /// <param name="owner"></param>
+        /// <param name="isFileLog"></param>
         /// <param name="isDbLog"></param>
         /// <param name="isShowWindow"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <param name="memberName"></param>
         /// <returns></returns>
-        public static DialogResult CatchException(IWin32Window owner, Exception ex, bool isDbLog = true,
-            bool isShowWindow = true, [CallerFilePath] string filePath = "",
-            [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            FileLogger.StoreExceptionWithParams(ex, filePath, lineNumber, memberName);
-            if (isDbLog)
-                DataAccess.LogError(ex, UserSessionHelper.Instance.DeviceScaleFk.Device.Name, null, filePath, lineNumber, memberName);
-
-            string message = ex.Message;
-            if (ex.InnerException is not null)
-                message += ex.InnerException.Message;
-            if (isShowWindow)
-                return ShowNew(owner, LocaleCore.Scales.Exception,
-                    $"{LocaleCore.Scales.Method}: {memberName}." + Environment.NewLine +
-                    $"{LocaleCore.Scales.Line}: {lineNumber}." + Environment.NewLine + message,
-                    new() { ButtonOkVisibility = Visibility.Visible });
-            return DialogResult.OK;
-        }
+        public static DialogResult CatchException(Exception ex, IWin32Window owner,
+            bool isFileLog = false, bool isDbLog = false, bool isShowWindow = false,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+            CatchExceptionCore(ex, owner, isFileLog, isDbLog, isShowWindow, filePath, lineNumber, memberName);
 
         /// <summary>
         /// Show catch exception window.
         /// </summary>
-        /// <param name="owner"></param>
         /// <param name="ex"></param>
-        /// <param name="isLog"></param>
+        /// <param name="isFileLog"></param>
+        /// <param name="isDbLog"></param>
+        /// <param name="isShowWindow"></param>
         /// <param name="filePath"></param>
         /// <param name="lineNumber"></param>
         /// <param name="memberName"></param>
         /// <returns></returns>
         public static DialogResult CatchException(Exception ex,
+            bool isFileLog = false, bool isDbLog = false, bool isShowWindow = false,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-            CatchException(null, ex, true, true, filePath, lineNumber, memberName);
+            CatchExceptionCore(ex, null, isFileLog, isDbLog, isShowWindow, filePath, lineNumber, memberName);
 
         #endregion
     }

@@ -92,7 +92,7 @@ public class ManagerMassa : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(null, ex, true, false);
+			GuiUtils.WpfForm.CatchException(ex);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class ManagerMassa : ManagerBase
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(null, ex, true, false);
+			GuiUtils.WpfForm.CatchException(ex);
 		}
 	}
 

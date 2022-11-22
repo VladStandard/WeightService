@@ -734,7 +734,7 @@ public class UserSessionHelper : BaseViewModel
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(ex);
+			GuiUtils.WpfForm.CatchException(ex, true, true, true);
 		}
 	}
 

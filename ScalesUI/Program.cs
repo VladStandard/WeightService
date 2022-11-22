@@ -31,7 +31,6 @@ internal static class Program
 	#region Public and private methods
 
 	[STAThread]
-#nullable enable
 	internal static void Main()
 	{
 		try
@@ -73,11 +72,9 @@ internal static class Program
 		}
 		catch (Exception ex)
 		{
-			GuiUtils.WpfForm.CatchException(null!, ex, true, true);
-			//throw new(ex.Message);
+			GuiUtils.WpfForm.CatchException(ex, true, true, true);
 		}
 	}
-#nullable disable
 
 	#endregion
 }

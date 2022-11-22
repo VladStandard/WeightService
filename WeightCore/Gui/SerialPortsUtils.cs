@@ -49,7 +49,7 @@ public static class SerialPortsUtils
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(null, ex);
+            GuiUtils.WpfForm.CatchException(ex, true, true, true);
         }
     }
 }

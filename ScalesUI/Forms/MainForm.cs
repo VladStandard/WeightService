@@ -871,7 +871,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
         finally
         {
@@ -1021,7 +1021,7 @@ public partial class MainForm : Form
         catch (Exception ex)
         {
             ActionMakeScreenShot();
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
             //if (UserSession.PluScale.IdentityIsNotNew)
             // UserSession.DataAccess.LogError(new Exception(
             //   $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
@@ -1042,7 +1042,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            GuiUtils.WpfForm.CatchException(this, ex);
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
         //finally
         //{
