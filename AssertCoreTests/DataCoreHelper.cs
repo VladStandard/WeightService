@@ -222,6 +222,10 @@ public class DataCoreHelper
 				barCode.TypeBottom = BarcodeTypeEnum.Default.ToString();
 				barCode.ValueBottom = LocaleCore.Sql.SqlItemFieldValue;
 				break;
+			case BrandModel brand:
+                brand.Name = LocaleCore.Sql.SqlItemFieldName;
+                brand.Code = LocaleCore.Sql.SqlItemFieldCode;
+				break;
 			case ContragentModel contragent:
 				contragent.Name = LocaleCore.Sql.SqlItemFieldName;
 				break;

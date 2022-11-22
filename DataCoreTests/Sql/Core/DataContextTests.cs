@@ -39,6 +39,10 @@ internal class DataContextTests
 						// Arrange & Act.
 						GetListNotNullable<BarCodeModel>();
 						break;
+					case var cls when cls == typeof(BrandModel):
+						// Arrange & Act.
+						GetListNotNullable<BrandModel>();
+						break;
 					case var cls when cls == typeof(ContragentModel):
 						// Arrange & Act.
 						GetListNotNullable<ContragentModel>();
