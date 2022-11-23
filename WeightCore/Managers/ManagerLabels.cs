@@ -11,6 +11,7 @@ using DataCore.Helpers;
 using DataCore.Managers;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using DataCore.Enums;
 
 namespace WeightCore.Managers;
 
@@ -141,7 +142,7 @@ public class ManagerLabels : ManagerBase
 			FieldTitle, AppVersionHelper.Instance.AppTitle + //$". {UserSessionHelper.Instance.Scale.Description}" +
 			$". {UserSessionHelper.Instance.PublishDescription}.");
 		MDSoft.WinFormsUtils.InvokeControl.SetBackColor(FieldTitle,
-			UserSessionHelper.Instance.PublishType == PublishTypeEnum.Default ? Color.IndianRed : Color.Transparent);
+			UserSessionHelper.Instance.PublishType == PublishType.Unknown ? Color.IndianRed : Color.Transparent);
 		MDSoft.WinFormsUtils.InvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {UserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
 	}
 

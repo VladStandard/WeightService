@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Enums;
 
 namespace BlazorDeviceControl.Razors.ExampleComponents;
 
@@ -33,8 +34,8 @@ public partial class ExampleMud : RazorComponentBase
 		{
 			() =>
 			{
-		        ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.Russian);
-		        ListComPorts = SerialPortsUtils.GetListComPorts(LangEnum.Russian);
+		        ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.Russian);
+		        ListComPorts = SerialPortsUtils.GetListComPorts(Lang.Russian);
 			}
 		});
 	}

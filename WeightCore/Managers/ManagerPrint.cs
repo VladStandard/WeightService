@@ -19,6 +19,7 @@ using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
+using DataCore.Enums;
 
 namespace WeightCore.Managers;
 
@@ -451,11 +452,11 @@ public class ManagerPrint : ManagerBase
 		return new WmiWin32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
 	}
 
-	public string GetPrinterStatusDescription(LangEnum lang, Win32PrinterStatusEnum printerStatus)
+	public string GetPrinterStatusDescription(Lang lang, Win32PrinterStatusEnum printerStatus)
 	{
 		return lang switch
 		{
-			LangEnum.Russian => printerStatus switch
+			Lang.Russian => printerStatus switch
 			{
 				Win32PrinterStatusEnum.Idle => "Бездействие",
 				Win32PrinterStatusEnum.Paused => "Пауза",

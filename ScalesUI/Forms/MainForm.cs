@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Helpers;
 using DataCore.Localizations;
 using DataCore.Models;
@@ -618,7 +619,7 @@ public partial class MainForm : Form
         ActionTryCatch(
             () =>
             {
-                LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => LangEnum.English, _ => LangEnum.Russian, };
+                LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
                 string area = UserSession.Scale.WorkShop is null
                     ? LocaleCore.Table.FieldNull : UserSession.ProductionFacility.Name;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonDevice,

@@ -6,7 +6,7 @@ using DataCore.Sql.Models;
 using Microsoft.Data.SqlClient;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Models.Responses;
+namespace WebApiCore.Models.WebResponses;
 
 [XmlRoot(WebConstants.QueryParameter, Namespace = "", IsNullable = false)]
 public class ResponseQueryParameterModel : SerializeBase

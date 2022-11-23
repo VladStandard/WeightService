@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Files;
 using DataCore.Helpers;
 using DataCore.Localizations;
@@ -207,9 +208,9 @@ public class UserSessionHelper : BaseViewModel
 			OnPropertyChanged();
 		}
 	}
-	private PublishTypeEnum _publishType = PublishTypeEnum.Default;
+	private PublishType _publishType = PublishType.Unknown;
 	[XmlElement]
-	public PublishTypeEnum PublishType
+	public PublishType PublishType
 	{
 		get => _publishType;
 		set
@@ -793,7 +794,7 @@ public class UserSessionHelper : BaseViewModel
 
 	private void SetSqlPublish()
 	{
-		PublishType = PublishTypeEnum.Default;
+		PublishType = PublishType.Unknown;
 		PublishDescription = "Неизвестный сервер";
 		SqlInstance = GetSqlInstanceString();
 		SetSqlPublishFromInstance();
@@ -804,15 +805,15 @@ public class UserSessionHelper : BaseViewModel
 		switch (SqlInstance)
 		{
 			case "INS1":
-				PublishType = PublishTypeEnum.Debug;
+				PublishType = PublishType.Debug;
 				PublishDescription = LocaleCore.Sql.SqlServerTest;
 				break;
 			case "SQL2019":
-				PublishType = PublishTypeEnum.Dev;
+				PublishType = PublishType.Develop;
 				PublishDescription = LocaleCore.Sql.SqlServerDev;
 				break;
 			case "LUTON":
-				PublishType = PublishTypeEnum.Release;
+				PublishType = PublishType.Release;
 				PublishDescription = LocaleCore.Sql.SqlServerProd;
 				break;
 		}

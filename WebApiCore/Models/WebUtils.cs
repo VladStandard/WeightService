@@ -1,21 +1,21 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Xml.Linq;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using NHibernate;
-using WebApiCore.Models;
+using System.Xml.Linq;
+using WebApiCore.Utils;
 
-namespace WebApiCore.Utils;
+namespace WebApiCore.Models;
 
 public static class WebUtils
 {
     public static class Xml
     {
-        public static XDocument GetNullOrEmpty(string response)
+        public static XDocument? GetNullOrEmpty(string response)
         {
-            XDocument doc = null;
+            XDocument? doc = null;
             if (string.IsNullOrEmpty(response))
             {
                 doc = new(
@@ -26,15 +26,16 @@ public static class WebUtils
             return doc;
         }
 
-        public static XDocument GetError(string response)
+        public static XDocument? GetError(string response)
         {
-            XDocument doc = null;
+            XDocument? doc = null;
             if (response.Contains("<Error "))
             {
-                SqlSimpleV1Model error = JsonConvert.DeserializeObject<SqlSimpleV1Model>(response);
+                SqlSimpleV1Model? error = JsonConvert.DeserializeObject<SqlSimpleV1Model>(response);
                 doc = new(
                     new XElement(WebConstants.Response,
-                        new XElement(WebConstants.Error, new XAttribute(WebConstants.Description, error.Description))
+                        new XElement(WebConstants.Error, new XAttribute(
+                            WebConstants.Description, error is null ? string.Empty : error.Description))
                     ));
             }
             return doc;
@@ -57,7 +58,7 @@ public static class WebUtils
             transaction.Commit();
             return response;
         }
-        
+
         public static T GetResponse<T>(ISessionFactory sessionFactory, string query, List<SqlParameter> parameters)
         {
             using ISession session = sessionFactory.OpenSession();
@@ -75,7 +76,7 @@ public static class WebUtils
             transaction.Commit();
             return response;
         }
-        
+
         public static T GetResponse<T>(ISessionFactory sessionFactory, string query, SqlParameter parameter)
         {
             using ISession session = sessionFactory.OpenSession();
@@ -134,7 +135,7 @@ public static class WebUtils
             {
                 new("code", code == null ? DBNull.Value : code),
             };
-        
+
         public static List<SqlParameter> GetParametersV2(long? id) => new()
             {
                 new("id", id == null ? DBNull.Value : id),

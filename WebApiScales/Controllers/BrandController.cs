@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using WebApiCore.Controllers;
 using WebApiCore.Models;
-using WebApiCore.Utils;
 
 namespace WebApiScales.Controllers;
 
@@ -35,13 +34,22 @@ public class BrandController : BaseController //ApiController
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost()]
-    [Route("api/send_brands/")]
-    [Route("api/v3/send_brands/")]
-    public ContentResult SendBrands([FromBody] BrandModel brand, FormatTypeEnum format = FormatTypeEnum.Xml,
+    [Route("api/send_brand/")]
+    [Route("api/v3/send_brand/")]
+    public ContentResult SendBrand([FromBody] BrandModel brand, FormatTypeEnum format = FormatTypeEnum.Xml,
         bool showQuery = false) =>
         ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromAction(
-            SessionFactory, SqlQueriesBarcodes.FindBottom,
-            new("VALUE_BOTTOM", barcodeBottom.GetValue()), format, showQuery, false)), format);
+            SessionFactory, brand, format, showQuery, false)), format);
+
+    [AllowAnonymous]
+    [Produces("application/xml")]
+    [HttpPost()]
+    [Route("api/send_brands/")]
+    [Route("api/v3/send_brands/")]
+    public ContentResult SendBrands([FromBody] BrandListModel brands, FormatTypeEnum format = FormatTypeEnum.Xml,
+        bool showQuery = false) =>
+        ControllerHelp.RunTask(new(() => ControllerHelp.NewResponse1CFromAction(
+            SessionFactory, brands, format, showQuery, false)), format);
 
     #endregion
 }

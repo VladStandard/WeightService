@@ -2,14 +2,18 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections;
+using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Net;
 using System.Runtime.CompilerServices;
 using DataCore.Models;
+using DataCore.Sql.TableScaleModels;
+using FluentNHibernate.Testing.Values;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using NHibernate;
 using WebApiCore.Models;
-using WebApiCore.Models.Responses;
+using WebApiCore.Models.WebResponses;
 
 namespace WebApiCore.Utils;
 
@@ -116,7 +120,6 @@ public class ControllerHelper
                     }
                 }
                 string response = result[^1] as string ?? string.Empty;
-                //string response = result[result.Count() - 1] is not null ? result[result.Count() - 1].ToString() : string.Empty;
                 success.Add(new(Guid.NewGuid(), response));
             }
             else
@@ -124,65 +127,30 @@ public class ControllerHelper
         }, format, isShowQuery, isTransaction);
     }
 
-    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, string query, 
-        SqlParameter? sqlParameter, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, BrandModel brand, 
+        FormatTypeEnum format, bool isShowQuery, bool isTransaction)
     {
-        using ISession session = sessionFactory.OpenSession();
-        using ITransaction transaction = session.BeginTransaction();
-        List<Response1CRecordModel> success = new();
-        List<Response1CRecordModel> errors = new();
-        ResponseQueryModel? responseQuery = isShowQuery ? new() : null;
-        
-        try
-        {
-            if (!string.IsNullOrEmpty(query))
+        return NewResponse1CCore(sessionFactory, (session, responseQuery, success) => {
+            string response = brand.SerializeAsXmlString<BrandModel>(false);
+            success.Add(new(Guid.NewGuid(), response));
+        }, format, isShowQuery, isTransaction);
+    }
+
+    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, BrandListModel brands, 
+        FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+    {
+        return NewResponse1CCore(sessionFactory, (session, responseQuery, success) => {
+            string response = string.Empty;
+            response = $"{nameof(brands.Brands)}.{nameof(brands.Brands.Count)}: {brands.Brands.Count}";
+            foreach (BrandModel brand in brands.Brands)
             {
-                if (responseQuery is not null)
-                    responseQuery.Query = query;
-                ISQLQuery sqlQuery = session.CreateSQLQuery(query);
-                sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
-                if (sqlParameter is not null)
-                {
-                    if (responseQuery is not null)
-                        responseQuery.Parameters.Add(new(sqlParameter));
-                    sqlQuery.SetParameter(sqlParameter.ParameterName, sqlParameter.Value);
-                }
-                
-                IList? list = sqlQuery.List();
-                object?[] result = new object?[list.Count];
-                if (list.Count == 1 && list[0] is object[] records)
-                {
-                    result = records;
-                }
+                if (string.IsNullOrEmpty(response))
+                    response = brand.SerializeAsXmlString<BrandModel>(false);
                 else
-                {
-                    for (int i = 0; i < result.Length; i++)
-                    {
-                        if (list[i] is object[] records2)
-                            result[i] = records2;
-                        else
-                            result[i] = list[i];
-                    }
-                }
-                string response = result[^1] as string ?? string.Empty;
-                //string response = result[result.Count() - 1] is not null ? result[result.Count() - 1].ToString() : string.Empty;
-                success.Add(new(Guid.NewGuid(), response));
+                    response += Environment.NewLine + brand.SerializeAsXmlString<BrandModel>(false);
             }
-            else
-                success.Add(new(Guid.NewGuid(), "Empty query. Try to make some select from any table."));
-            if (isTransaction)
-                transaction.Commit();
-        }
-        catch (Exception ex)
-        {
-            errors.Add(new(Guid.NewGuid(), ex.Message));
-            if (ex.InnerException is not null)
-                errors.Add(new(Guid.NewGuid(), ex.InnerException.Message));
-            if (isTransaction)
-                transaction.Rollback();
-        }
-        return new Response1CModel(success, errors, responseQuery)
-            .GetResult<Response1CModel>(format, HttpStatusCode.OK);
+            success.Add(new(Guid.NewGuid(), response));
+        }, format, isShowQuery, isTransaction);
     }
 
     #endregion

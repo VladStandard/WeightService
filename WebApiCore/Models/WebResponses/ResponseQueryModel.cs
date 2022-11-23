@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Models.Responses;
+namespace WebApiCore.Models.WebResponses;
 
 [XmlRoot(WebConstants.Query, Namespace = "", IsNullable = false)]
 public class ResponseQueryModel : SerializeBase

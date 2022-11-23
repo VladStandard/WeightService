@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
 
-namespace WebApiCore.Models.Responses;
+namespace WebApiCore.Models.WebResponses;
 
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
 public class Response1CModel : SerializeBase

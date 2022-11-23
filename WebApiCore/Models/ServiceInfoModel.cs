@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
@@ -80,6 +81,27 @@ public class ServiceInfoModel : SerializeBase
             @$"{nameof(Database)}: {Database}. " + Environment.NewLine + 
             @$"{nameof(PhysicalMegaBytes)}: {PhysicalMegaBytes}. " + Environment.NewLine + 
             @$"{nameof(VirtualMegaBytes)}: {VirtualMegaBytes}. ";
+    }
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public new void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(App), App);
+        info.AddValue(nameof(Version), Version);
+        info.AddValue(nameof(WinCurrentDate), WinCurrentDate);
+        info.AddValue(nameof(SqlCurrentDate), SqlCurrentDate);
+        info.AddValue(nameof(ConnectionString), ConnectionString);
+        info.AddValue(nameof(ConnectTimeout), ConnectTimeout);
+        info.AddValue(nameof(DataSource), DataSource);
+        info.AddValue(nameof(ServerVersion), ServerVersion);
+        info.AddValue(nameof(Database), Database);
+        info.AddValue(nameof(PhysicalMegaBytes), PhysicalMegaBytes);
+        info.AddValue(nameof(VirtualMegaBytes), VirtualMegaBytes);
     }
 
     #endregion

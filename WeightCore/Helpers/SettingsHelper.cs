@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using DataCore.Enums;
 using DataCore.Helpers;
 using DataCore.Models;
 
@@ -28,7 +29,7 @@ public class SettingsHelper
 
 	public SettingsHelper()
 	{
-		CurrentLanguage = LangEnum.Russian;
+		CurrentLanguage = Lang.Russian;
 		DirMain = string.Empty;
 		DirDocs = string.Empty;
 		DirDrivers = string.Empty;
@@ -74,7 +75,7 @@ public class SettingsHelper
 	/// <summary>
 	/// Current language.
 	/// </summary>
-	private LangEnum CurrentLanguage { get; }
+	private Lang CurrentLanguage { get; }
 
 	/// <summary>
 	/// Исходный каталог документации.
@@ -133,7 +134,7 @@ public class SettingsHelper
 	/// <param name="silentUI"></param>
 	/// <param name="language"></param>
 	/// <returns></returns>
-	public bool SetupAndCheckDirs(string installDir, SilentUiEnum silentUI, LangEnum language)
+	public bool SetupAndCheckDirs(string installDir, SilentUiEnum silentUI, Lang language)
 	{
 		if (string.IsNullOrEmpty(installDir))
 			return false;
@@ -146,7 +147,7 @@ public class SettingsHelper
 
 		if (!Directory.Exists(DirMain))
 		{
-			string message = language == LangEnum.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
+			string message = language == Lang.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
 			Console.WriteLine(message);
 			if (silentUI == SilentUiEnum.False)
 				MessageBox.Show(message);

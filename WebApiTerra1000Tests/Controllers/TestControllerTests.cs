@@ -1,89 +1,73 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Net;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
-using WebApiCore.Models;
+using WebApiCore.Enums;
+using WebApiCore.Models.WebRequests;
 
 namespace WebApiTerra1000Tests.Controllers;
 
 [TestFixture]
 internal class TestControllerTests
 {
-    //[Test]
-    //public void GetProdInfoV1_Execute_DoesNotThrow()
-    //{
-    //    Assert.DoesNotThrowAsync(async () =>
-    //    {
-    //        foreach (string url in TestsUtils.GetProdListUrlInfoV1)
-    //        {
-    //            await GetInfoAsync(url);
-    //        }
-    //    });
-    //}
-
-    //[Test]
-    //public void GetDevInfoV1_Execute_DoesNotThrow()
-    //{
-    //    Assert.DoesNotThrowAsync(async () =>
-    //    {
-    //        foreach (string url in TestsUtils.GetDevListUrlInfoV1)
-    //        {
-    //            await GetInfoAsync(url);
-    //        }
-    //    });
-    //}
-
     [Test]
-    public void GetProdInfoV2_Execute_DoesNotThrow()
+    public void GetListInfo_Execute_DoesNotThrow()
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in TestsUtils.GetProdListUrlInfoV2)
+            foreach (string url in new WebRequestTerra1000().GetListInfo(ServerType.All))
             {
-                await GetInfoAsync(url);
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetInfoAsync(url, request);
+                }
             }
         });
     }
-
+    
     [Test]
-    public void GetDevInfoV2_Execute_DoesNotThrow()
+    public void GetListInfoV1_Execute_DoesNotThrow()
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in TestsUtils.GetDevListUrlInfoV2)
+            foreach (string url in new WebRequestTerra1000().GetListInfoV1(ServerType.All))
             {
-                await GetInfoAsync(url);
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetInfoAsync(url, request);
+                }
             }
         });
     }
-
-    private async Task GetInfoAsync(string url)
+    
+    [Test]
+    public void GetListInfoV2_Execute_DoesNotThrow()
     {
-        RestClientOptions options = new(url)
+        Assert.DoesNotThrowAsync(async () =>
         {
-            UseDefaultCredentials = true,
-            ThrowOnAnyError = true,
-            MaxTimeout = 60_000,
-				RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-			};
-			using RestClient client = new(options);
-        RestRequest request = new RestRequest()
-            .AddQueryParameter("format", "json");
-        RestResponse response = await client.GetAsync(request);
-
-        TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
-        TestContext.WriteLine($"{nameof(response)}: {response.Content}");
-        Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
-        if (!string.IsNullOrEmpty(response.Content))
+            foreach (string url in new WebRequestTerra1000().GetListInfoV2(ServerType.All))
+            {
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetInfoAsync(url, request);
+                }
+            }
+        });
+    }
+    
+    [Test]
+    public void GetListInfoV3_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
         {
-            ServiceInfoModel? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoModel>(response.Content);
-            Assert.IsTrue(serviceInfo != null);
-            Assert.IsTrue(serviceInfo?.App.StartsWith("WebApi", System.StringComparison.InvariantCultureIgnoreCase));
-        }
-        TestContext.WriteLine();
+            foreach (string url in new WebRequestTerra1000().GetListInfoV3(ServerType.All))
+            {
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetInfoAsync(url, request);
+                }
+            }
+        });
     }
 }

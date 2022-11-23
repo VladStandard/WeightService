@@ -8,7 +8,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// <summary>
 /// Table "BRANDS".
 /// </summary>
-[Serializable]
+[XmlRoot("Brand", Namespace = "", IsNullable = false)]
 public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor

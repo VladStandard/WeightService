@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
+using DataCore.Enums;
 
 namespace DataCore.Localizations;
 
@@ -16,20 +16,20 @@ public class LocaleAction
 
     #endregion
 
-    public LangEnum Lang { get; set; } = LangEnum.Russian;
+    public Lang Lang { get; set; } = Lang.Russian;
 
     #region Public and private fields, properties, constructor
 
-    public string ActionAccessAllow => Lang == LangEnum.English ? "Access to actions allowed" : "Доступ к действиям разрешён";
-    public string ActionAccessDeny => Lang == LangEnum.English ? "Access to actions denied" : "Доступ к действиям запрещён";
-    public string ActionAccessNone => Lang == LangEnum.English ? "No access to the actions" : "Доступ к действиям не предусмотрен";
-    public string ActionDataControl => Lang == LangEnum.English ? "Data control" : "Контроль данных";
-    public string ActionInfo => Lang == LangEnum.English ? "Information" : "Информация";
-    public string ActionSaveSuccess => Lang == LangEnum.English ? "Saving was successful" : "Сохранение выполнено успешно";
-    public string ActionDataControlField => Lang == LangEnum.English ? "Need to fill in the field" : "Необходимо заполнить поле";
-    public string ActionIsShowMarked => Lang == LangEnum.English ? "Archive records" : "Архивные записи";
-    public string ActionIsSelectTopRowsCount(int count) => Lang == LangEnum.English ? $"First {count} records" : $"Первые {count} записей";
-    public string ActionMethod => Lang == LangEnum.English ? "Method" : "Метод";
+    public string ActionAccessAllow => Lang == Lang.English ? "Access to actions allowed" : "Доступ к действиям разрешён";
+    public string ActionAccessDeny => Lang == Lang.English ? "Access to actions denied" : "Доступ к действиям запрещён";
+    public string ActionAccessNone => Lang == Lang.English ? "No access to the actions" : "Доступ к действиям не предусмотрен";
+    public string ActionDataControl => Lang == Lang.English ? "Data control" : "Контроль данных";
+    public string ActionInfo => Lang == Lang.English ? "Information" : "Информация";
+    public string ActionSaveSuccess => Lang == Lang.English ? "Saving was successful" : "Сохранение выполнено успешно";
+    public string ActionDataControlField => Lang == Lang.English ? "Need to fill in the field" : "Необходимо заполнить поле";
+    public string ActionIsShowMarked => Lang == Lang.English ? "Archive records" : "Архивные записи";
+    public string ActionIsSelectTopRowsCount(int count) => Lang == Lang.English ? $"First {count} records" : $"Первые {count} записей";
+    public string ActionMethod => Lang == Lang.English ? "Method" : "Метод";
 
     #endregion
 }

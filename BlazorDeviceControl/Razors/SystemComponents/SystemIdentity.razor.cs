@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
-using Microsoft.AspNetCore.Components.Authorization;
+using DataCore.Enums;
 
 namespace BlazorDeviceControl.Razors.SystemComponents;
 
@@ -10,13 +10,13 @@ public partial class SystemIdentity : RazorComponentBase
 {
 	#region Public and private fields, properties, constructor
 
-	private List<TypeModel<LangEnum>>? TemplateLanguages { get; set; }
-	private List<LangEnum> Langs { get; set; }
+	private List<TypeModel<Lang>>? TemplateLanguages { get; set; }
+	private List<Lang> Langs { get; set; }
 
 	public SystemIdentity()
 	{
 		Langs = new();
-		foreach (LangEnum lang in Enum.GetValues(typeof(LangEnum)))
+		foreach (Lang lang in Enum.GetValues(typeof(Lang)))
 			Langs.Add(lang);
 		TemplateLanguages = BlazorAppSettings.DataSourceDics.GetTemplateLanguages();
 	}

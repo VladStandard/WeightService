@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
+using DataCore.Enums;
 
 namespace DataCore.Localizations;
 
@@ -16,17 +16,17 @@ public class LocaleDialog
 
     #endregion
 
-    public LangEnum Lang { get; set; } = LangEnum.Russian;
+    public Lang Lang { get; set; } = Lang.Russian;
 
     #region Public and private fields, properties, constructor
 
-    public string DialogButtonCancel => Lang == LangEnum.English ? "Cancel" : "Отмена";
-    public string DialogButtonNo => Lang == LangEnum.English ? "No" : "Нет";
-    public string DialogButtonYes => Lang == LangEnum.English ? "Yes" : "Да";
-    public string DialogQuestion => Lang == LangEnum.English ? "Perform the operation?" : "Выполнить операцию?";
-    public string DialogResultCancel => Lang == LangEnum.English ? "Cancel operation. The necessary conditions may not have been met." : "Отмена операции. Возможно, не выполнены необходимые условия.";
-    public string DialogResultFail => Lang == LangEnum.English ? "Operation error!" : "Ошибка выполнения операции!";
-    public string DialogResultSuccess => Lang == LangEnum.English ? "The operation was performed successfully." : "Операция выполнена успешно.";
+    public string DialogButtonCancel => Lang == Lang.English ? "Cancel" : "Отмена";
+    public string DialogButtonNo => Lang == Lang.English ? "No" : "Нет";
+    public string DialogButtonYes => Lang == Lang.English ? "Yes" : "Да";
+    public string DialogQuestion => Lang == Lang.English ? "Perform the operation?" : "Выполнить операцию?";
+    public string DialogResultCancel => Lang == Lang.English ? "Cancel operation. The necessary conditions may not have been met." : "Отмена операции. Возможно, не выполнены необходимые условия.";
+    public string DialogResultFail => Lang == Lang.English ? "Operation error!" : "Ошибка выполнения операции!";
+    public string DialogResultSuccess => Lang == Lang.English ? "The operation was performed successfully." : "Операция выполнена успешно.";
 
     #endregion
 }

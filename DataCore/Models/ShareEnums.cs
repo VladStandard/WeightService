@@ -3,12 +3,6 @@
 
 namespace DataCore.Models;
 
-public enum LangEnum
-{
-    English,
-    Russian
-}
-
 /// <summary>
 /// Access rights.
 /// </summary>
@@ -51,14 +45,6 @@ public enum AppVerCountDigitsEnum
     Use2,
     Use3,
     Use4,
-}
-
-public enum PublishTypeEnum
-{
-    Default,
-    Dev,
-    Debug,
-    Release
 }
 
 public enum MemoryLimitActionEnum

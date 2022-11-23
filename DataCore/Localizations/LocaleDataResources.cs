@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
+using DataCore.Enums;
 
 namespace DataCore.Localizations;
 
@@ -10,26 +10,26 @@ public static partial class LocaleData
     public static class Resources
     {
         #region Main
-        public static string AppTitle => Lang == LangEnum.English ? "Resources VS" : "Ресурсы ВС";
+        public static string AppTitle => Lang == Lang.English ? "Resources VS" : "Ресурсы ВС";
         public static string CallbackEmail => "mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
         public static string SupportCreatio => "https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
-        public static string SysAdmin => Lang == LangEnum.English ? "Administration" : "Администрирование";
+        public static string SysAdmin => Lang == Lang.English ? "Administration" : "Администрирование";
         #endregion
         #region Support
-        public static string SupportLinkCreatioText => Lang == LangEnum.English ? "Creatio appeals" : "Creatio обращения";
-        public static string SupportLinkHelpPath => Lang == LangEnum.English ? "mailto:helpdesk@kolbasa-vs.ru?subject=Appeal" : "mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
-        public static string SupportLinkHelpText => Lang == LangEnum.English ? "Write a letter" : "Написать письмо";
-        public static string SupportTitle => Lang == LangEnum.English ? "Support service" : "Служба поддержки";
+        public static string SupportLinkCreatioText => Lang == Lang.English ? "Creatio appeals" : "Creatio обращения";
+        public static string SupportLinkHelpPath => Lang == Lang.English ? "mailto:helpdesk@kolbasa-vs.ru?subject=Appeal" : "mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
+        public static string SupportLinkHelpText => Lang == Lang.English ? "Write a letter" : "Написать письмо";
+        public static string SupportTitle => Lang == Lang.English ? "Support service" : "Служба поддержки";
         #endregion
         #region Contacts
         public static string ContactsCreatioPath => "https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
-        public static string ContactsCreatioText => Lang == LangEnum.English ? "Creatio contacts" : "Creatio контакты";
+        public static string ContactsCreatioText => Lang == Lang.English ? "Creatio contacts" : "Creatio контакты";
         public static string ContactsPhonePath => "http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
-        public static string ContactsPhoneText => Lang == LangEnum.English ? "Phone directory" : "Телефонный справочник";
-        public static string ContactsTitle => Lang == LangEnum.English ? "Contacts" : "Контакты";
+        public static string ContactsPhoneText => Lang == Lang.English ? "Phone directory" : "Телефонный справочник";
+        public static string ContactsTitle => Lang == Lang.English ? "Contacts" : "Контакты";
         #endregion
         #region IT department
-        public static string DepartmentItTitle => Lang == LangEnum.English ? "IT department" : "ИТ отдел";
+        public static string DepartmentItTitle => Lang == Lang.English ? "IT department" : "ИТ отдел";
         #endregion
         #region Redmine
         public const string RedmineGooglePath = "http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
@@ -42,12 +42,12 @@ public static partial class LocaleData
         #endregion
         #region Zabbix
         public static string ZabbixGlobalPath => "http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
-        public static string ZabbixGlobalText => Lang == LangEnum.English ? "Global view" : "Глобальное представление";
+        public static string ZabbixGlobalText => Lang == Lang.English ? "Global view" : "Глобальное представление";
         public static string ZabbixKolbasaPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
         public static string ZabbixKolbasaText => "kolbasa-vs-terrasoft";
         public static string ZabbixTitle => "Zabbix";
         public static string ZabbixWebPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
-        public static string ZabbixWebText => Lang == LangEnum.English ? "Web monitoring" : "Веб-мониторинг";
+        public static string ZabbixWebText => Lang == Lang.English ? "Web monitoring" : "Веб-мониторинг";
         #endregion
         #region Creatio
         public const string CreatioAcademyPath = "https://academy.terrasoft.ru/";
@@ -70,30 +70,30 @@ public static partial class LocaleData
         public const string CreatioTerrasoftPreDevPath = "https://dev-kolbasa-vs.terrasoft.ru/0/dev";
         public const string CreatioTerrasoftPrePath = "https://dev-kolbasa-vs.terrasoft.ru/";
         public const string CreatioWebinarsPath = "\\isexcd02\\Webinars\\";
-        public static string CreatioAcademyText => Lang == LangEnum.English ? "Academy" : "Академия";
-        public static string CreatioCommunityText => Lang == LangEnum.English ? "Community" : "Сообщество";
-        public static string CreatioCreDevDmName => Lang == LangEnum.English ? "Website development Morozov D.V." : "Сайт разработки Морозов Д.В.";
-        public static string CreatioCreDevIaName => Lang == LangEnum.English ? "Website development Andreev I.A." : "Сайт разработки Андреев И.А.";
-        public static string CreatioCreStudyDevText => Lang == LangEnum.English ? "cre-study | Training Configuration" : "cre-study | Конфигурация обучения";
-        public static string CreatioCreStudyText => Lang == LangEnum.English ? "cre-study | Training site" : "cre-study | Сайт обучения";
-        public static string CreatioCreTestName => Lang == LangEnum.English ? "Website testing" : "Сайт тестирования";
-        public static string CreatioCreUpgradeDevText => Lang == LangEnum.English ? "Cre-upgrade | Upgrade Configuration" : "cre-upgrade | Конфигурация обновления";
-        public static string CreatioCreUpgradeText => Lang == LangEnum.English ? "Cre-upgrade | update site" : "cre-upgrade | Сайт обновления";
-        public static string CreatioMarketplaceText => Lang == LangEnum.English ? "Marketplace" : "Маркетплейс";
-        public static string CreatioOfficialTitle => Lang == LangEnum.English ? "The official sites of Terrasoft Creatio" : "Официальные сайты Terrasoft Creatio";
-        public static string CreatioRemoteTitle => Lang == LangEnum.English ? "Public sites" : "Публичные сайты";
-        public static string CreatioTableFieldDev => Lang == LangEnum.English ? "Configuration" : "Конфигурация";
-        public static string CreatioTableFieldLink => Lang == LangEnum.English ? "Link" : "Ссылка";
-        public static string CreatioTableFieldName => Lang == LangEnum.English ? "Site" : "Сайт";
-        public static string CreatioTableTitle => Lang == LangEnum.English ? "Local sites" : "Локальные сайты";
-        public static string CreatioTerrasoftDevText => Lang == LangEnum.English ? "kolbasa-vs.terrasoft.ru | Configuration of the product environment" : "kolbasa-vs.terrasoft.ru | Конфигурация продуктовой среды";
-        public static string CreatioTerrasoftPre2DevText => Lang == LangEnum.English ? "dev2-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
-        public static string CreatioTerrasoftPre2Text => Lang == LangEnum.English ? "dev2-kolbasa-vs.terrasoft.ru | Pre-prod 2 website" : "dev2-kolbasa-vs.terrasoft.ru | Сайт пре-прод 2";
-        public static string CreatioTerrasoftPreDevText => Lang == LangEnum.English ? "dev-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
-        public static string CreatioTerrasoftPreText => Lang == LangEnum.English ? "dev-kolbasa-vs.terrasoft.ru | Site pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Сайт пре-прод 1";
-        public static string CreatioTerrasoftText => Lang == LangEnum.English ? "kolbasa-vs.terrasoft.ru | Product environment" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
-        public static string CreatioTitle => Lang == LangEnum.English ? "Creatio-server" : "Creatio-сервер";
-        public static string CreatioWebinarsText => Lang == LangEnum.English ? "Webinars" : "Вебинары";
+        public static string CreatioAcademyText => Lang == Lang.English ? "Academy" : "Академия";
+        public static string CreatioCommunityText => Lang == Lang.English ? "Community" : "Сообщество";
+        public static string CreatioCreDevDmName => Lang == Lang.English ? "Website development Morozov D.V." : "Сайт разработки Морозов Д.В.";
+        public static string CreatioCreDevIaName => Lang == Lang.English ? "Website development Andreev I.A." : "Сайт разработки Андреев И.А.";
+        public static string CreatioCreStudyDevText => Lang == Lang.English ? "cre-study | Training Configuration" : "cre-study | Конфигурация обучения";
+        public static string CreatioCreStudyText => Lang == Lang.English ? "cre-study | Training site" : "cre-study | Сайт обучения";
+        public static string CreatioCreTestName => Lang == Lang.English ? "Website testing" : "Сайт тестирования";
+        public static string CreatioCreUpgradeDevText => Lang == Lang.English ? "Cre-upgrade | Upgrade Configuration" : "cre-upgrade | Конфигурация обновления";
+        public static string CreatioCreUpgradeText => Lang == Lang.English ? "Cre-upgrade | update site" : "cre-upgrade | Сайт обновления";
+        public static string CreatioMarketplaceText => Lang == Lang.English ? "Marketplace" : "Маркетплейс";
+        public static string CreatioOfficialTitle => Lang == Lang.English ? "The official sites of Terrasoft Creatio" : "Официальные сайты Terrasoft Creatio";
+        public static string CreatioRemoteTitle => Lang == Lang.English ? "Public sites" : "Публичные сайты";
+        public static string CreatioTableFieldDev => Lang == Lang.English ? "Configuration" : "Конфигурация";
+        public static string CreatioTableFieldLink => Lang == Lang.English ? "Link" : "Ссылка";
+        public static string CreatioTableFieldName => Lang == Lang.English ? "Site" : "Сайт";
+        public static string CreatioTableTitle => Lang == Lang.English ? "Local sites" : "Локальные сайты";
+        public static string CreatioTerrasoftDevText => Lang == Lang.English ? "kolbasa-vs.terrasoft.ru | Configuration of the product environment" : "kolbasa-vs.terrasoft.ru | Конфигурация продуктовой среды";
+        public static string CreatioTerrasoftPre2DevText => Lang == Lang.English ? "dev2-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
+        public static string CreatioTerrasoftPre2Text => Lang == Lang.English ? "dev2-kolbasa-vs.terrasoft.ru | Pre-prod 2 website" : "dev2-kolbasa-vs.terrasoft.ru | Сайт пре-прод 2";
+        public static string CreatioTerrasoftPreDevText => Lang == Lang.English ? "dev-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
+        public static string CreatioTerrasoftPreText => Lang == Lang.English ? "dev-kolbasa-vs.terrasoft.ru | Site pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Сайт пре-прод 1";
+        public static string CreatioTerrasoftText => Lang == Lang.English ? "kolbasa-vs.terrasoft.ru | Product environment" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
+        public static string CreatioTitle => Lang == Lang.English ? "Creatio-server" : "Creatio-сервер";
+        public static string CreatioWebinarsText => Lang == Lang.English ? "Webinars" : "Вебинары";
         #endregion
         #region Контроль версий
         public const string VersionControlSvnVisualStudioPath = "http://192.168.0.50/svn/visualstudio/";

@@ -3,6 +3,7 @@
 @page "/system/identity/{IsShowReloadStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.ItemComponents
+@using DataCore.Enums;
 
 <AuthorizeView>
 	<Authorizing>
@@ -62,7 +63,7 @@
 				<td>
 					<MudSelect Class=@BlazorCoreUtuls.GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
 						@bind-Value=@LocaleCore.Lang>
-						@foreach (LangEnum lang in Langs)
+						@foreach (Lang lang in Langs)
 						{
 							<MudSelectItem Value=@lang>@lang.ToString()</MudSelectItem>
 						}

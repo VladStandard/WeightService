@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Enums;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 
@@ -54,7 +55,7 @@ public partial class ItemScale : RazorComponentItemBase<ScaleModel>
 				Device = DeviceScaleFk.Device.IdentityIsNotNew ? DeviceScaleFk.Device : DataAccess.GetItemNew<DeviceModel>();
 
 			    // ComPorts
-			    ComPorts = SerialPortsUtils.GetListTypeComPorts(LangEnum.English);
+			    ComPorts = SerialPortsUtils.GetListTypeComPorts(Lang.English);
 			    // ScaleFactor
 			    SqlItemCast.ScaleFactor ??= 1000;
 			}
