@@ -24,6 +24,7 @@ builder.Services.AddSwaggerGen(options =>
 //    options.FallbackPolicy = options.DefaultPolicy;
 //});
 
+// NHibernate.
 ISessionFactory GetSessionFactory(string? connectionString)
 {
     FluentConfiguration configuration = Fluently
@@ -42,7 +43,7 @@ ISessionFactory sessionFactory = GetSessionFactory(connectionString);
 builder.Services.AddSingleton(sessionFactory);
 builder.Services.AddScoped(factory => sessionFactory.OpenSession());
 
-// Allow body
+// POST XML from body.
 builder.Services.AddMvc(options =>
 {
     options.RespectBrowserAcceptHeader = true;
@@ -54,6 +55,7 @@ builder.Services.AddMvc(options =>
     //options.FormatterMappings.SetMediaTypeMappingForFormat("config", MediaTypeHeaderValue.Parse("application/xml"));
     //options.FormatterMappings.SetMediaTypeMappingForFormat("js", MediaTypeHeaderValue.Parse("application/json"));
 }).AddXmlSerializerFormatters();
+//GlobalConfiguration.Configuration.Formatters.XmlFormatter.UseXmlSerializer = true;
 
 builder.Services.AddControllers();
 builder.Services.AddControllers(options =>

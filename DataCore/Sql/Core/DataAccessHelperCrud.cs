@@ -10,7 +10,7 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.ResultMaxCount > 0)

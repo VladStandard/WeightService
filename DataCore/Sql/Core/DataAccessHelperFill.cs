@@ -10,7 +10,7 @@ public partial class DataAccessHelper
 {
 	#region Public and private methods
 
-	public void FillReferences<T>(T? item) where T : SqlTableBase, new()
+	public void FillReferences<T>(T? item) where T : class, new()
 	{
 		switch (item)
 		{

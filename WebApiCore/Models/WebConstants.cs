@@ -8,6 +8,7 @@ public static class WebConstants
     public const string BarcodeBottom = @"BarcodeBottom";
     public const string BarcodeRight = @"BarcodeRight";
     public const string BarcodeTop = @"BarcodeTop";
+    public const string Brand = @"Brand";
     public const string Brands = @"Brands";
     public const string Contragents = @"Contragents";
     public const string DeliveryPlaces = @"DeliveryPlaces";

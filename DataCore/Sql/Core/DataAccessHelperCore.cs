@@ -18,7 +18,7 @@ public partial class DataAccessHelper
 	/// <param name="session"></param>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	private T? GetItemCoreNullable<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	private T? GetItemCoreNullable<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		sqlCrudConfig.ResultMaxCount = 1;
 		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
@@ -35,7 +35,7 @@ public partial class DataAccessHelper
 	/// <typeparam name="T"></typeparam>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	private T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	private T? GetItemNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		T? item = null;
 		ExecuteSelect(session =>
@@ -52,7 +52,7 @@ public partial class DataAccessHelper
 	/// <param name="value"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
-	public T? GetItemNullable<T>(object? value) where T : SqlTableBase, new()
+	public T? GetItemNullable<T>(object? value) where T : class, new()
 	{
 		SqlCrudConfigModel? sqlCrudConfig = value switch
 		{
@@ -73,7 +73,7 @@ public partial class DataAccessHelper
 	/// <typeparam name="T"></typeparam>
 	/// <param name="sqlCrudConfig"></param>
 	/// <returns></returns>
-	public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public T GetItemNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		T? item = GetItemNullable<T>(sqlCrudConfig);
 		return item ?? new();
@@ -85,7 +85,7 @@ public partial class DataAccessHelper
 	/// <typeparam name="T"></typeparam>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new()
+	public T GetItemNotNullable<T>(object? value) where T : class, new()
 	{
 		T? item = value switch
 		{
@@ -96,7 +96,7 @@ public partial class DataAccessHelper
 		return item ?? new();
 	}
 
-	public bool IsItemExists<T>(T? item) where T : SqlTableBase, new()
+	public bool IsItemExists<T>(T? item) where T : class, new()
 	{
 		if (item is null)
 			return false;
@@ -109,7 +109,7 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public bool IsItemExists<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		bool result = false;
 		sqlCrudConfig.ResultMaxCount = 1;
@@ -120,20 +120,23 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public T GetItemNew<T>() where T : SqlTableBase, new() =>
-		new() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
+    public T GetItemNew<T>() where T : SqlTableBase, new() => 
+		(T)new SqlTableBase() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
 
-	#endregion
+    //  public T GetItemNewAttributes<T>() where T : SqlTableAtributesBase, new() =>
+    //new() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
 
-	#region Public and private methods - GetArray
+    #endregion
 
-	private T[] GetArrayCore<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+    #region Public and private methods - GetArray
+
+    private T[] GetArrayCore<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
 		return criteria.List<T>().ToArray();
 	}
 
-	public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public T[]? GetArrayNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		T[]? items = null;
 		ExecuteSelect(session =>
@@ -147,7 +150,7 @@ public partial class DataAccessHelper
 		return items;
 	}
 
-	private T[]? GetArrayNullable<T>(string query) where T : SqlTableBase, new()
+	private T[]? GetArrayNullable<T>(string query) where T : class, new()
 	{
 		T[]? result = null;
 		ExecuteSelect(session =>
@@ -195,7 +198,9 @@ public partial class DataAccessHelper
 	{
 		List<T> result = new();
 		if (sqlCrudConfig.IsResultAddFieldEmpty)
-			result.Add(GetItemNew<T>());
+		{
+            result.Add(GetItemNew<T>());
+		}
 
 		List<T> list = new();
 		T[]? items = GetArrayNullable<T>(sqlCrudConfig);
@@ -205,6 +210,23 @@ public partial class DataAccessHelper
 		result.AddRange(list);
 		return result;
 	}
+
+	//public List<T> GetListNotNullableAttributes<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableAtributesBase, new()
+	//{
+	//	List<T> result = new();
+	//	if (sqlCrudConfig.IsResultAddFieldEmpty)
+	//	{
+	//		result.Add(GetItemNewAttributes<T>());
+	//	}
+
+	//	List<T> list = new();
+	//	T[]? items = GetArrayNullable<T>(sqlCrudConfig);
+	//	if (items is not null && items.Length > 0)
+	//		list = items.ToList();
+		
+	//	result.AddRange(list);
+	//	return result;
+	//}
 
 	#endregion
 }

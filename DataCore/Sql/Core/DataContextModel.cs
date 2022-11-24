@@ -85,7 +85,7 @@ public partial class DataContextModel
 
 	#region Public and private methods
 
-	public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableBase, new()
+	public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		switch (typeof(T))
 		{
@@ -273,9 +273,9 @@ public partial class DataContextModel
 		return new();
 	}
 
-	public T? GetItemNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNullable<T>(value);
+	public T? GetItemNullable<T>(object? value) where T : class, new() => DataAccess.GetItemNullable<T>(value);
 
-	public T GetItemNotNullable<T>(object? value) where T : SqlTableBase, new() => DataAccess.GetItemNotNullable<T>(value);
+	public T GetItemNotNullable<T>(object? value) where T : class, new() => DataAccess.GetItemNotNullable<T>(value);
 
 	/// <summary>
 	/// List of models SqlTableBase.
@@ -286,8 +286,8 @@ public partial class DataContextModel
 		new AccessModel(),
 		new AppModel(),
 		new BarCodeModel(),
-		new BrandModel(),
-		new ContragentModel(),
+        new BrandModel(),
+        new ContragentModel(),
 		new DeviceModel(),
 		new DeviceTypeModel(),
 		new DeviceTypeFkModel(),
@@ -359,7 +359,7 @@ public partial class DataContextModel
 		typeof(WorkShopModel),
 	};
 
-	public string GetTableModelName<T>() where T : SqlTableBase, new()
+	public string GetTableModelName<T>() where T : class, new()
 	{
 		return typeof(T) switch
 		{

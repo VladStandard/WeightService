@@ -35,19 +35,4 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	}
 
 	#endregion
-
-	#region Public and private methods
-
-	//protected override void OnParametersSet()
-	//{
-	//	RunActionsParametersSet(new()
-	//	{
-	//		() =>
-	//		{
-	//			//
-	//		}
-	//	});
-	//}
-
-	#endregion
 }
