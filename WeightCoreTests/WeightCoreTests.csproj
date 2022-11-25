@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AssertCoreTests\AssertCoreTests.csproj" />
+    <ProjectReference Include="..\MDSoft.SerialPorts\MDSoft.SerialPorts.csproj" />
     <ProjectReference Include="..\WeightCore\WeightCore.csproj" />
   </ItemGroup>
 

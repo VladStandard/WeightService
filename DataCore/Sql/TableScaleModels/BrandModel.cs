@@ -24,7 +24,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		Code = string.Empty;
 		ParseResult = new();
-
     }
 
 	/// <summary>
@@ -65,7 +64,8 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Code, string.Empty);
+		Equals(Code, string.Empty) &&
+        ParseResult.EqualsDefault();
 
 	public override object Clone()
 	{

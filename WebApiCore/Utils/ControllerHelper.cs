@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,6 @@ using System.Xml;
 using System.Xml.Linq;
 using WebApiCore.Models;
 using WebApiCore.Models.WebResponses;
-using static Azure.Core.HttpHeader;
 
 namespace WebApiCore.Utils;
 
@@ -136,14 +136,13 @@ public class ControllerHelper
                 string xml = brand.SerializeAsXmlString<BrandModel>(false);
                 switch (brand.ParseResult.Status)
                 {
-                    case ParseStatusEnum.Success:
+                    case ParseStatus.Success:
                         response.Successes.Add(new(brand.IdentityValueUid, brand.ParseResult.Message));
                         break;
-                    case ParseStatusEnum.Error:
-                        Response1CRecordModel response1CRecord = new(
-                            brand.IdentityValueUid, brand.ParseResult.Exception.Message);
-                        if (brand.ParseResult.Exception.InnerException is not null)
-                            response1CRecord.InnerMessage = brand.ParseResult.Exception.InnerException.Message;
+                    case ParseStatus.Error:
+                        Response1CRecordModel response1CRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception);
+                        if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
+                            response1CRecord.InnerMessage = brand.ParseResult.InnerException;
                         response.Errors.Add(response1CRecord);
                         break;
                 }
@@ -181,14 +180,14 @@ public class ControllerHelper
         //{
         //    response.Errors.Add(new(ex));
         //}
-        
+
         XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("Brand");
         foreach (XmlNode node in list)
         {
             BrandModel brand = new();
             try
             {
-                brand.ParseResult.Status = ParseStatusEnum.Success;
+                brand.ParseResult.Status = ParseStatus.Success;
                 // Guid.
                 if (Guid.TryParse(GetAttributeValue(node, "Guid"), out Guid uid))
                 {
@@ -196,49 +195,64 @@ public class ControllerHelper
                 }
                 else
                 {
-                    brand.ParseResult.Status = ParseStatusEnum.Error;
-                    brand.ParseResult.Exception = new ArgumentException($"Guid is Empty!");
-                    continue;
+                    brand.ParseResult.Status = ParseStatus.Error;
+                    brand.ParseResult.Exception = $"Guid is Empty!";
+                    //continue;
                 }
                 if (brand.IdentityValueUid.Equals(Guid.Empty))
                 {
-                    brand.ParseResult.Status = ParseStatusEnum.Error;
-                    brand.ParseResult.Exception = new ArgumentException($"Guid is Empty!");
-                    continue;
+                    brand.ParseResult.Status = ParseStatus.Error;
+                    brand.ParseResult.Exception = $"Guid is Empty!";
+                    //continue;
                 }
-                //
-                if (bool.TryParse(GetAttributeValue(node, nameof(brand.IsMarked)), out bool isMarked))
+                
+                // IsMarked.
+                string isMarkedStr = GetAttributeValue(node, nameof(brand.IsMarked));
+                if (bool.TryParse(isMarkedStr, out bool isMarked))
                 {
                     brand.IsMarked = isMarked;
                 }
                 else
                 {
-                    brand.ParseResult.Status = ParseStatusEnum.Error;
-                    brand.ParseResult.Exception = new ArgumentException($"IsMarked is Empty!");
-                    continue;
+                    if (isMarkedStr == "1" || isMarkedStr == "0")
+                    {
+                        brand.IsMarked = isMarked;
+                    }
+                    else
+                    {
+                        brand.ParseResult.Status = ParseStatus.Error;
+                        brand.ParseResult.Exception = $"IsMarked is Empty!";
+                        //continue;
+                    }
                 }
+
+                // Name.
                 brand.Name = GetAttributeValue(node, nameof(brand.Name));
                 if (string.IsNullOrEmpty(brand.Name))
                 {
-                    brand.ParseResult.Status = ParseStatusEnum.Error;
-                    brand.ParseResult.Exception = new ArgumentException($"Name is Empty!");
-                    continue;
+                    brand.ParseResult.Status = ParseStatus.Error;
+                    brand.ParseResult.Exception = $"Name is Empty!";
+                    //continue;
                 }
+
+                // Code.
                 brand.Code = GetAttributeValue(node, nameof(brand.Code));
                 if (string.IsNullOrEmpty(brand.Code))
                 {
-                    brand.ParseResult.Status = ParseStatusEnum.Error;
-                    brand.ParseResult.Exception = new ArgumentException($"Code is Empty!");
-                    continue;
+                    brand.ParseResult.Status = ParseStatus.Error;
+                    brand.ParseResult.Exception = $"Code is Empty!";
+                    //continue;
                 }
 
-                if (string.IsNullOrEmpty(brand.ParseResult.Exception.Message))
+                if (string.IsNullOrEmpty(brand.ParseResult.Exception))
                     brand.ParseResult.Message = $"Is success";
             }
             catch (Exception ex)
             {
-                brand.ParseResult.Status = ParseStatusEnum.Error;
-                brand.ParseResult.Exception = ex;
+                brand.ParseResult.Status = ParseStatus.Error;
+                brand.ParseResult.Exception = ex.Message;
+                if (ex.InnerException is not null)
+                    brand.ParseResult.InnerException = ex.InnerException.Message;
             }
             brands.Add(brand);
         }

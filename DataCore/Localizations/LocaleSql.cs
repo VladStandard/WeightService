@@ -57,6 +57,8 @@ public class LocaleSql
     public string SqlItemDoSelect => Lang == Lang.English ? "Select the record" : "Выберите запись";
     public string SqlItemFieldAddress => Lang == Lang.English ? "Address" : "Адрес";
     public string SqlItemFieldEan13 => Lang == Lang.English ? "EAN 13" : "ЕАН 13";
+    public string SqlItemFieldException => Lang == Lang.English ? "Exception" : "Исключение";
+    public string SqlItemFieldInnerException => Lang == Lang.English ? "Inner exception" : "Вложенное исключение";
     public string SqlItemFieldItf14 => Lang == Lang.English ? "ITF 14" : "ИТФ 14";
     public string SqlItemFieldSscc => Lang == Lang.English ? "SSCC code" : "SSCC код";
     public string SqlItemFieldZpl => Lang == Lang.English ? "ZPL" : "ЗПЛ";

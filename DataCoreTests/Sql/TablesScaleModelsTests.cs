@@ -21,7 +21,7 @@ internal class TablesScaleModelsTests
 	{
 		DataCore.AssertAction(() =>
 		{
-			List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
+            List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
 			foreach (SqlTableBase sqlTable in sqlTables)
 			{
 				TestContext.WriteLine(sqlTable.GetType());

@@ -1,35 +1,30 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using DataCore.Sql.Tables;
-using NHibernate.Engine;
 
 namespace DataCore.Models;
-
-public enum ParseStatusEnum
-{
-    Unknown,
-    Success,
-    Error,
-}
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
 public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlAttribute] public virtual ParseStatusEnum Status { get; set; }
+    [XmlAttribute] public virtual ParseStatus Status { get; set; }
     [XmlAttribute] public virtual string Message { get; set; }
-    [XmlAttribute] public virtual Exception Exception { get; set; }
+    [XmlAttribute] public virtual string Exception { get; set; }
+    [XmlAttribute] public virtual string InnerException { get; set; }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public ParseResultModel() : base(SqlFieldIdentityEnum.Uid)
     {
-        Status = ParseStatusEnum.Unknown;
+        Status = ParseStatus.Unknown;
         Message = string.Empty;
-        Exception = new Exception();
+        Exception = string.Empty;
+        InnerException = string.Empty;
     }
 
     /// <summary>
@@ -39,9 +34,10 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     /// <param name="context"></param>
     private ParseResultModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Status = (ParseStatusEnum)info.GetValue(nameof(Status), typeof(ParseStatusEnum));
+        Status = (ParseStatus)info.GetValue(nameof(Status), typeof(ParseStatus));
         Message = info.GetString(nameof(Message));
-        Exception = (Exception)info.GetValue(nameof(Exception), typeof(Exception));
+        Exception = info.GetString(nameof(Exception));
+        InnerException = info.GetString(nameof(InnerException));
     }
 
     #endregion
@@ -55,8 +51,10 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Status)}: {Status}. " + 
-        $"{nameof(Message)}: {Message}. ";
+        $"{nameof(Status)}: {Status}. " +
+        $"{nameof(Message)}: {Message}. " + 
+        $"{nameof(Exception)}: {Exception}. " + 
+        $"{nameof(InnerException)}: {InnerException}. ";
 
     public override bool Equals(object obj)
     {
@@ -70,11 +68,15 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Status, ParseStatusEnum.Unknown) &&
-        Equals(Message, string.Empty) &&
-        Equals(Exception, new Exception());
+    public override bool EqualsDefault()
+    {
+        bool foo1 = base.EqualsDefault();
+        bool foo2 = Equals(Status, ParseStatus.Unknown);
+        bool foo3 = Equals(Message, string.Empty);
+        bool foo4 = Equals(Exception, string.Empty);
+        bool foo5 = Equals(InnerException, string.Empty);
+        return foo1 && foo2 && foo3 && foo4;
+    }
 
     public override object Clone()
     {
@@ -82,6 +84,7 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         item.Status = Status;
         item.Message = Message;
         item.Exception = Exception;
+        item.InnerException = InnerException;
         item.CloneSetup(base.CloneCast());
         return item;
     }
@@ -97,12 +100,15 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         info.AddValue(nameof(Status), Status);
         info.AddValue(nameof(Message), Message);
         info.AddValue(nameof(Exception), Exception);
+        info.AddValue(nameof(InnerException), InnerException);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
         Message = LocaleCore.Sql.SqlItemFieldMessage;
+        Exception = LocaleCore.Sql.SqlItemFieldException;
+        InnerException = LocaleCore.Sql.SqlItemFieldInnerException;
     }
 
     #endregion
@@ -113,7 +119,8 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Status, item.Status) &&
         Equals(Message, item.Message) &&
-        Equals(Exception, item.Exception);
+        Equals(Exception, item.Exception) &&
+        Equals(InnerException, item.InnerException);
 
     public new virtual ParseResultModel CloneCast() => (ParseResultModel)Clone();
 
