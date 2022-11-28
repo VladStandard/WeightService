@@ -5,21 +5,20 @@ using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
+using DataCore.Enums;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ShipmentController : BaseController
+public class ShipmentController : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -35,9 +34,9 @@ public class ShipmentController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/shipment/")]
-    public ContentResult GetShipment(long id, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WebConstants.Shipments} />", LoadOptions.None);
@@ -66,17 +65,18 @@ public class ShipmentController : BaseController
                 }
             }
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/shipmentsbydocdate/")]
     [Route("api/shipments/")]
-    public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments,
                 WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
@@ -106,8 +106,8 @@ public class ShipmentController : BaseController
                 }
             }
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc.ToString(), HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

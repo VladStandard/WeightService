@@ -4,20 +4,18 @@
 using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
 
 namespace WebApiTerra1000.Controllers;
 
-public class DeliveryPlaceControllerV2 : BaseController
+public class DeliveryPlaceControllerV2 : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -33,28 +31,28 @@ public class DeliveryPlaceControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/deliveryplaces/")]
-    public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatTypeEnum format = FormatTypeEnum.Xml) =>
-        GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, format);
+    public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0,
+        [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "") =>
+        GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlaces, startDate, endDate, offset, rowCount, formatString);
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/deliveryplaces_preview/")]
-    public ContentResult GetDeliveryPlacesPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatTypeEnum format = FormatTypeEnum.Xml) =>
-        GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, format);
+    public ContentResult GetDeliveryPlacesPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
+        [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "") =>
+        GetDeliveryPlacesWork(SqlQueriesV2.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, formatString);
 
-    private ContentResult GetDeliveryPlacesWork(string url, DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatTypeEnum format = FormatTypeEnum.Xml)
+    private ContentResult GetDeliveryPlacesWork([FromQuery] string url, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
                 WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.DeliveryPlaces} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

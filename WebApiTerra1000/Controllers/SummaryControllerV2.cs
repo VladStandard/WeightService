@@ -4,20 +4,19 @@
 using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
+using DataCore.Enums;
 
 namespace WebApiTerra1000.Controllers;
 
-public class SummaryControllerV2 : BaseController
+public class SummaryControllerV2 : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -33,30 +32,26 @@ public class SummaryControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/summary/")]
-    public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatTypeEnum format = FormatTypeEnum.Xml)
-    {
-        return GetSummaryWork(SqlQueriesV2.GetSummary, startDate, endDate, format);
-    }
+    public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
+        [FromQuery(Name = "format")] string formatString = "") =>
+        GetSummaryCore(SqlQueriesV2.GetSummary, startDate, endDate, formatString);
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/summary_preview/")]
-    public ContentResult GetSummaryPreview(DateTime startDate, DateTime endDate, FormatTypeEnum format = FormatTypeEnum.Xml)
-    {
-        return GetSummaryWork(SqlQueriesV2.GetSummaryPreview, startDate, endDate, format);
-    }
+    public ContentResult GetSummaryPreview([FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
+        [FromQuery(Name = "format")] string formatString = "") =>
+        GetSummaryCore(SqlQueriesV2.GetSummaryPreview, startDate, endDate, formatString);
 
-    private ContentResult GetSummaryWork(string url, DateTime startDate, DateTime endDate, FormatTypeEnum format = FormatTypeEnum.Xml)
-    {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+    private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string formatString) => 
+        ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
                 WebUtils.Sql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
-    }
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
 
     #endregion
 }

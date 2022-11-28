@@ -10,6 +10,68 @@ namespace WebApiScalesTests.Controllers;
 [TestFixture]
 internal class TestControllerTests
 {
+
+    [Test]
+    public void GetListException_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in new WebRequestScales().GetListException(ServerType.All))
+            {
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetExceptionAsync(url, request);
+                }
+            }
+        });
+    }
+
+
+    [Test]
+    public void GetListExceptionV1_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in new WebRequestScales().GetListExceptionV1(ServerType.All))
+            {
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetExceptionAsync(url, request);
+                }
+            }
+        });
+    }
+
+    [Test]
+    public void GetListExceptionV2_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in new WebRequestScales().GetListExceptionV2(ServerType.All))
+            {
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetExceptionAsync(url, request);
+                }
+            }
+        });
+    }
+
+    [Test]
+    public void GetListExceptionV3_Execute_DoesNotThrow()
+    {
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            foreach (string url in new WebRequestScales().GetListExceptionV3(ServerType.All))
+            {
+                foreach (RestRequest request in WebRequestUtils.GetRequestFormats())
+                {
+                    await WebResponseUtils.GetExceptionAsync(url, request);
+                }
+            }
+        });
+    }
+
     [Test]
     public void GetListInfo_Execute_DoesNotThrow()
     {

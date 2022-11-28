@@ -13,7 +13,7 @@ namespace WebApiScales.Controllers;
 /// WeatherForecast controller.
 /// </summary>
 //[Route("[controller]")]
-public class WeatherForecastController : BaseController
+public class WeatherForecastController : WebControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
@@ -28,18 +28,16 @@ public class WeatherForecastController : BaseController
     {
 	    //
     }
-    
+
     [AllowAnonymous]
     [HttpGet()]
-    [Route("api/v3/WeatherForecast/")]
-    public IEnumerable<WeatherForecast> Get()
+    [Route("api/weatherforecast/")]
+    [Route("api/weather_forecast/")]
+    [Route("api/v3/weatherforecast/")]
+    public IEnumerable<WeatherForecast> Get() => Enumerable.Range(1, 5).Select(index => new WeatherForecast
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        });
-        //.ToArray();
-    }
+        Date = DateTime.Now.AddDays(index),
+        TemperatureC = Random.Shared.Next(-20, 55),
+        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+    });
 }

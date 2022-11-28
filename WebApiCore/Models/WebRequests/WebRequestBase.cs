@@ -60,13 +60,15 @@ public class WebRequestBase
     public List<string> GetListExceptionV3(ServerType serverType) => GetListCore(serverType, "v3/exception/");
 
     
-    public List<string> GetListWeatherForecast(ServerType serverType) => GetListCore(serverType, "WeatherForecast/");
+    public List<string> GetListWeatherForecast(ServerType serverType) => GetListCore(serverType, "weatherforecast/");
     
-    public List<string> GetListWeatherForecastV1(ServerType serverType) => GetListCore(serverType, "v1/WeatherForecast/");
+    public List<string> GetListWeatherForecastSpace(ServerType serverType) => GetListCore(serverType, "weather_forecast/");
     
-    public List<string> GetListWeatherForecastV2(ServerType serverType) => GetListCore(serverType, "v2/WeatherForecast/");
+    public List<string> GetListWeatherForecastV1(ServerType serverType) => GetListCore(serverType, "v1/weatherforecast/");
     
-    public List<string> GetListWeatherForecastV3(ServerType serverType) => GetListCore(serverType, "v3/WeatherForecast/");
+    public List<string> GetListWeatherForecastV2(ServerType serverType) => GetListCore(serverType, "v2/weatherforecast/");
+    
+    public List<string> GetListWeatherForecastV3(ServerType serverType) => GetListCore(serverType, "v3/weatherforecast/");
 
     #endregion
 }

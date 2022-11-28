@@ -1,11 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Enums;
 using System.Drawing;
 
 namespace DataCore.Utils;
 
-public class DataUtils
+public static partial class DataUtils
 {
     public static bool ByteEquals(byte[] a1, byte[] a2)
     {
@@ -90,4 +91,29 @@ public class DataUtils
         ms.Write(useBase64 ? Convert.FromBase64String(bytes.ToString()) : bytes, 0, bytes.Length);
         return Image.FromStream(ms, true);
     }
+
+    public static FormatType GetFormatType(string formatString) => formatString.ToUpper() switch
+    {
+        "TEXT" => FormatType.Text,
+        "JAVASCRIPT" => FormatType.JavaScript,
+        "JSON" => FormatType.Json,
+        "HTML" => FormatType.Html,
+        "XML" or "" => FormatType.Xml,
+        _ => throw GetArgumentException(nameof(formatString)),
+    };
+
+    public static string GetContentType(FormatType formatType) => formatType switch
+    {
+        FormatType.Text => "application/text",
+        FormatType.JavaScript => "application/js",
+        FormatType.Json => "application/json",
+        FormatType.Html => "application/html",
+        FormatType.Xml => "application/xml",
+        _ => throw GetArgumentException(nameof(formatType)),
+    };
+
+    public static string GetContentType(string formatString) => 
+        GetContentType(GetFormatType(formatString));
+
+    public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
 }

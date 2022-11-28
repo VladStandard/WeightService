@@ -174,6 +174,39 @@ public class JsonSettingsHelper
         }
     }
 
+    public void SetupWebService(string localDir, string appName)
+    {
+        //try
+        //{
+        //    AppVersion.Setup(Assembly.GetExecutingAssembly());
+        //    FileLogger.Setup(localDir, appName);
+        //    string subDir = Path.Combine(localDir, BlazorSubDir7);
+        //    if (Directory.Exists(subDir))
+        //    {
+        //        // Local folder.
+        //        FileLogger.Setup(subDir, appName);
+        //        CheckUpdates(subDir);
+        //        if (!SetupJsonSettings(subDir, false, ""))
+        //            throw new(LocaleCore.System.JsonSettingsLocalFileException);
+        //    }
+        //    else
+        //    {
+        //        // IIS publish folder.
+        //        CheckUpdates(localDir);
+        //        if (!SetupJsonSettings(localDir, false, ""))
+        //            throw new(LocaleCore.System.JsonSettingsLocalFileException);
+        //    }
+
+        //    DataAccessHelper.Instance.SetSessionFactory();
+        //    DataAccessHelper.Instance.SetupLog("", appName);
+        //    DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", nameof(DataCore));
+        //}
+        //catch (Exception ex)
+        //{
+        //    FileLogger.StoreException(ex);
+        //}
+    }
+    
 	private bool SetupJsonSettings(string dir, bool isRemote, string fileName)
 	{
 		var file = Path.Combine(dir, !string.IsNullOrEmpty(fileName) ? fileName : FileName);

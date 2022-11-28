@@ -12,7 +12,7 @@ namespace WebApiCore.Controllers;
 /// Base controller.
 /// </summary>
 [ApiController]
-public class BaseController : ControllerBase // ApiController
+public class WebControllerBase : ControllerBase // ApiController
 {
     #region Public and private fields and properties
 
@@ -34,7 +34,7 @@ public class BaseController : ControllerBase // ApiController
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public BaseController(ISessionFactory sessionFactory)
+    public WebControllerBase(ISessionFactory sessionFactory)
     {
         SessionFactory = sessionFactory;
     }

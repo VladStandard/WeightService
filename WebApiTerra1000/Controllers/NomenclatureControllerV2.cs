@@ -11,14 +11,13 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Models;
 using WebApiCore.Utils;
 
 namespace WebApiTerra1000.Controllers;
 
-public class NomenclatureControllerV2 : BaseController
+public class NomenclatureControllerV2 : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -34,96 +33,99 @@ public class NomenclatureControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclature/")]
-    public ContentResult GetNomenclatureFromCodeIdProd(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+    public ContentResult GetNomenclatureFromCodeIdProd([FromQuery] string code, [FromQuery] long id,
+        [FromQuery(Name = "format")] string formatString = "") =>
         GetNomenclatureFromCodeIdWork(code != null 
             ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodeProd : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdProd,
-            code, id, format);
+            code, id, formatString);
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclature_preview/")]
-    public ContentResult GetNomenclatureFromCodeIdPreview(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+    public ContentResult GetNomenclatureFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
+        [FromQuery(Name = "format")] string formatString = "") =>
         GetNomenclatureFromCodeIdWork(code != null 
             ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodePreview : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdPreview,
-            code, id, format);
+            code, id, formatString);
 
-    private ContentResult GetNomenclatureFromCodeIdWork(string url, string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml)
+    private ContentResult GetNomenclatureFromCodeIdWork([FromQuery] string url, [FromQuery] string code, [FromQuery] long id,
+        [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
                 code != null ? WebUtils.Sql.GetParametersV2(code) : WebUtils.Sql.GetParametersV2(id));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclatures/")]
-    public ContentResult GetNomenclaturesProd(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetNomenclaturesProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
+        [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate != null)
-            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesProd, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesProd, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate == null)
-            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDateProd, startDate, endDate, offset, rowCount, format);
-        return GetNomenclaturesEmptyWork(SqlQueriesNomenclaturesV2.GetNomenclaturesEmptyProd, format);
+            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDateProd, startDate, endDate, offset, rowCount, formatString);
+        return GetNomenclaturesEmptyWork(SqlQueriesNomenclaturesV2.GetNomenclaturesEmptyProd, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclaturescosts/")]
-    public ContentResult GetNomenclaturesProdDeprecated(FormatTypeEnum format = FormatTypeEnum.Xml) =>
-        ControllerHelp.RunTask(new Task<ContentResult>(() =>
+    public ContentResult GetNomenclaturesProdDeprecated([FromQuery(Name = "format")] string formatString = "") =>
+        ControllerHelp.GetContentResult(() =>
         {
             return new ServiceReplyModel("Deprecated method. Use: api/nomenclatures/")
-            .GetResult<ServiceReplyModel>(format, HttpStatusCode.OK);
-        }), format);
+            .GetContentResult<ServiceReplyModel>(formatString, HttpStatusCode.OK);
+        }, formatString);
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclatures_preview/")]
-    public ContentResult GetNomenclaturesPreview(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetNomenclaturesPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
+        [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate != null)
-            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesPreview, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesPreview, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate == null)
-            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDatePreview, startDate, endDate, offset, rowCount, format);
-        return GetNomenclaturesEmptyWork(SqlQueriesNomenclaturesV2.GetNomenclaturesEmptyPreview, format);
+            return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDatePreview, startDate, endDate, offset, rowCount, formatString);
+        return GetNomenclaturesEmptyWork(SqlQueriesNomenclaturesV2.GetNomenclaturesEmptyPreview, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/nomenclaturescosts_preview/")]
-    public ContentResult GetNomenclaturesPreviewDeprecated(FormatTypeEnum format = FormatTypeEnum.Xml) =>
-        ControllerHelp.RunTask(new Task<ContentResult>(() =>
+    public ContentResult GetNomenclaturesPreviewDeprecated([FromQuery(Name = "format")] string formatString = "") =>
+        ControllerHelp.GetContentResult(() =>
         {
             return new ServiceReplyModel("Deprecated method. Use: api/nomenclatures_preview/")
-            .GetResult<ServiceReplyModel>(format, HttpStatusCode.OK);
-        }), format);
+            .GetContentResult<ServiceReplyModel>(formatString, HttpStatusCode.OK);
+        }, formatString);
 
-    private ContentResult GetNomenclaturesEmptyWork(string url, FormatTypeEnum format = FormatTypeEnum.Xml)
+    private ContentResult GetNomenclaturesEmptyWork(string url, string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     private ContentResult GetNomenclaturesWork(string url, DateTime? startDate = null, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
+        int? offset = null, int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)
@@ -135,8 +137,8 @@ public class NomenclatureControllerV2 : BaseController
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

@@ -68,5 +68,38 @@ public static class WebResponseUtils
         });
     }
 
+    public static async Task GetExceptionAsync(string url, RestRequest request)
+    {
+        await GetResponseAsync(url, request, (response) =>
+        {
+            TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
+            Assert.IsNotEmpty(response.Content);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+
+            if (!string.IsNullOrEmpty(response.Content))
+            {
+                ServiceExceptionModel? serviceException = null;
+                if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatJson()))
+                {
+                    serviceException = JsonConvert.DeserializeObject<ServiceExceptionModel>(response.Content);
+                    Assert.IsTrue(serviceException is not null);
+                }
+                else if (request.Parameters.Contains(WebRequestUtils.GetQueryParameterFormatXml()))
+                {
+                    serviceException = new ServiceExceptionModel().DeserializeFromXml<ServiceExceptionModel>(response.Content);
+                    Assert.IsTrue(serviceException is not null);
+                }
+                if (serviceException is not null)
+                {
+                    Assert.IsNotEmpty(serviceException.FilePath);
+                    Assert.Greater(serviceException.LineNumber, 0);
+                    Assert.IsNotEmpty(serviceException.MemberName);
+                    Assert.IsNotEmpty(serviceException.Exception);
+                    Assert.IsNotEmpty(serviceException.InnerException);
+                }
+            }
+        });
+    }
+
     #endregion
 }

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Enums;
 using WebApiCore.Models;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
@@ -31,14 +32,23 @@ public partial class ItemBarCode : RazorComponentItemBase<BarCodeModel>
 		});
 	}
 
-	private string GetBarcodeTop(FormatTypeEnum format) =>
-		new BarcodeTopModel(SqlItemCast.ValueTop, false).GetContent<BarcodeTopModel>(format);
+	private string GetBarcodeTop(FormatType formatType) =>
+		new BarcodeTopModel(SqlItemCast.ValueTop, false).GetContent<BarcodeTopModel>(formatType);
 
-	private string GetBarcodeRight(FormatTypeEnum format) =>
-		new BarcodeRightModel(SqlItemCast.ValueRight).GetContent<BarcodeRightModel>(format);
+	private string GetBarcodeTop(string formatString) =>
+		GetBarcodeTop(DataUtils.GetFormatType(formatString));
 
-	private string GetBarcodeBottom(FormatTypeEnum format) =>
-		new BarcodeBottomModel(SqlItemCast.ValueBottom).GetContent<BarcodeBottomModel>(format);
+	private string GetBarcodeRight(FormatType formatType) =>
+		new BarcodeRightModel(SqlItemCast.ValueRight).GetContent<BarcodeRightModel>(formatType);
+
+	private string GetBarcodeRight(string formatString) =>
+        GetBarcodeRight(DataUtils.GetFormatType(formatString));
+
+	private string GetBarcodeBottom(FormatType formatType) =>
+		new BarcodeBottomModel(SqlItemCast.ValueBottom).GetContent<BarcodeBottomModel>(formatType);
+
+	private string GetBarcodeBottom(string formatString) =>
+        GetBarcodeBottom(DataUtils.GetFormatType(formatString));
 
 	#endregion
 }

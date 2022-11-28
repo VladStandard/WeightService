@@ -208,15 +208,6 @@ public enum StringTemplateEnum
     EndsWith = 3,
 }
 
-public enum FormatTypeEnum
-{
-    Json,
-    Xml,
-    Html,
-    Text,
-    Raw
-}
-
 public enum ProgramStateEnum
 {
     Default,

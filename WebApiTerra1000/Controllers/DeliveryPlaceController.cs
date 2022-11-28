@@ -9,14 +9,13 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
 
 namespace WebApiTerra1000.Controllers;
 
-public class DeliveryPlaceController : BaseController
+public class DeliveryPlaceController : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -32,17 +31,17 @@ public class DeliveryPlaceController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/deliveryplaces/")]
-    public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-        FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
+        [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetDeliveryPlaces,
                 WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.DeliveryPlaces} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

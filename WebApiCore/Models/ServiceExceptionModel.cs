@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
 using WebApiCore.Utils;
@@ -21,39 +22,77 @@ public class ServiceExceptionModel : SerializeBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
-    /// <param name="ex"></param>
-    public ServiceExceptionModel(string filePath, int lineNumber, string memberName, Exception ex)
+    public ServiceExceptionModel()
     {
-        FilePath = filePath;
-        LineNumber = lineNumber;
-        MemberName = memberName;
-        Exception = ex.Message;
-        InnerException = ex.InnerException is not null ? ex.InnerException.Message : string.Empty;
+        //
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ServiceExceptionModel()
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
+    /// <param name="exception"></param>
+    /// <param name="innerException"></param>
+    public ServiceExceptionModel(string filePath, int lineNumber, string memberName, string exception, string innerException)
     {
-        //
+        FilePath = filePath;
+        LineNumber = lineNumber;
+        MemberName = memberName;
+        Exception = exception;
+        InnerException = innerException;
+    }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
+    /// <param name="ex"></param>
+    public ServiceExceptionModel(string filePath, int lineNumber, string memberName, Exception ex) :
+        this(filePath, lineNumber, memberName, ex.Message, ex.InnerException is not null ? ex.InnerException.Message : string.Empty)
+    { }
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    private ServiceExceptionModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+        FilePath = info.GetString(nameof(FilePath)) ?? string.Empty;
+        LineNumber = info.GetInt32(nameof(LineNumber));
+        MemberName = info.GetString(nameof(MemberName)) ?? string.Empty;
+        Exception = info.GetString(nameof(Exception)) ?? string.Empty;
+        InnerException = info.GetString(nameof(InnerException)) ?? string.Empty;
     }
 
     #endregion
 
     #region Public and private methods
 
-    public override string ToString()
+    public override string ToString() => 
+        @$"{nameof(FilePath)}: {FilePath}. " + Environment.NewLine +
+        @$"{nameof(LineNumber)}: {LineNumber}. " + Environment.NewLine +
+        @$"{nameof(MemberName)}: {MemberName}. " + Environment.NewLine +
+        @$"{nameof(Exception)}: {Exception}. " + Environment.NewLine +
+        @$"{nameof(InnerException)}: {InnerException}. ";
+
+    /// <summary>
+    /// Get object data for serialization info.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        return
-            @$"{nameof(FilePath)}: {FilePath}. " + Environment.NewLine +
-            @$"{nameof(LineNumber)}: {LineNumber}. " + Environment.NewLine +
-            @$"{nameof(MemberName)}: {MemberName}. " + Environment.NewLine +
-            @$"{nameof(Exception)}: {Exception}. " + Environment.NewLine +
-            @$"{nameof(InnerException)}: {InnerException}. ";
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(FilePath), FilePath);
+        info.AddValue(nameof(LineNumber), LineNumber);
+        info.AddValue(nameof(MemberName), MemberName);
+        info.AddValue(nameof(Exception), Exception);
+        info.AddValue(nameof(InnerException), InnerException);
     }
 
     #endregion

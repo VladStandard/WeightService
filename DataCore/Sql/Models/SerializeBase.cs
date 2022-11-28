@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
-using DataCore.Models;
+using DataCore.Enums;
 
 namespace DataCore.Sql.Models;
 
@@ -157,39 +157,44 @@ public class SerializeBase : ISerializable
 
     public virtual string SerializeAsText() => ToString();
 
-    public virtual ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
-
-    public virtual string GetContentType(FormatTypeEnum format) => format switch
+    public virtual ContentResult GetContentResultCore(FormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
-        FormatTypeEnum.Xml => "application/xml",
-        FormatTypeEnum.Json => "application/json",
-        FormatTypeEnum.Html => "application/html",
-        FormatTypeEnum.Text => "application/text",
-        FormatTypeEnum.Raw => "application/text",
-        _ => throw GetArgumentException(nameof(format)),
-    };
-
-    public virtual ContentResult GetResultCore(FormatTypeEnum format, object content, HttpStatusCode statusCode) => new()
-    {
-        ContentType = GetContentType(format),
+        ContentType = DataUtils.GetContentType(formatType),
         StatusCode = (int)statusCode,
         Content = content as string ?? content.ToString()
     };
 
-    public virtual ContentResult GetResult(FormatTypeEnum format, object content, HttpStatusCode statusCode) => 
-        GetResultCore(format, content, statusCode);
+    public virtual ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) => 
+        GetContentResultCore(DataUtils.GetFormatType(formatString), content, statusCode);
 
-    public virtual ContentResult GetResult<T>(FormatTypeEnum format, HttpStatusCode statusCode) where T : new()
+    public virtual ContentResult GetContentResult(FormatType formatType, object content, HttpStatusCode statusCode) => 
+        GetContentResultCore(formatType, content, statusCode);
+
+    public virtual ContentResult GetContentResult(string formatString, object content, HttpStatusCode statusCode) => 
+        GetContentResultCore(formatString, content, statusCode);
+
+    public virtual ContentResult GetContentResult<T>(FormatType formatType, HttpStatusCode statusCode) where T : new() => formatType switch
     {
-        return format switch
-        {
-            FormatTypeEnum.Json => GetResult(format, SerializeAsJson(), statusCode),
-            FormatTypeEnum.Xml => GetResult(format, SerializeAsXmlString<T>(false), statusCode),
-            FormatTypeEnum.Html => GetResult(format, SerializeAsHtml(), statusCode),
-            FormatTypeEnum.Text or FormatTypeEnum.Raw => GetResult(format, SerializeAsText(), statusCode),
-            _ => throw GetArgumentException(nameof(format)),
-        };
-    }
+        FormatType.Text => GetContentResult(formatType, SerializeAsText(), statusCode),
+        FormatType.JavaScript => GetContentResult(formatType, SerializeAsText(), statusCode),
+        FormatType.Json => GetContentResult(formatType, SerializeAsJson(), statusCode),
+        FormatType.Html => GetContentResult(formatType, SerializeAsHtml(), statusCode),
+        FormatType.Xml => GetContentResult(formatType, SerializeAsXmlString<T>(false), statusCode),
+        _ => throw DataUtils.GetArgumentException(nameof(formatType)),
+    };
+
+    public virtual ContentResult GetContentResult<T>(string formatString, HttpStatusCode statusCode) where T : new() => 
+        GetContentResult<T>(GetFormatType(formatString), statusCode);
+
+    public virtual FormatType GetFormatType(string formatType) => formatType.ToUpper() switch
+    {
+        "TEXT" => FormatType.Text,
+        "JAVASCRIPT" => FormatType.JavaScript,
+        "JSON" => FormatType.Json,
+        "HTML" => FormatType.Html,
+        "XML" or "" => FormatType.Xml,
+        _ => throw DataUtils.GetArgumentException(nameof(formatType)),
+    };
 
     public virtual T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : new()
     {
@@ -233,15 +238,16 @@ public class SerializeBase : ISerializable
 
     #endregion
 
-    public virtual string GetContent<T>(FormatTypeEnum format) where T : new()
+    public virtual string GetContent<T>(FormatType formatType) where T : new()
     {
-        return format switch
+        return formatType switch
         {
-            FormatTypeEnum.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
-            FormatTypeEnum.Xml => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true)),
-            FormatTypeEnum.Html => SerializeAsHtml(),
-            FormatTypeEnum.Text or FormatTypeEnum.Raw => SerializeAsText(),
-            _ => throw GetArgumentException(nameof(format)),
+            FormatType.Text => SerializeAsText(),
+            FormatType.JavaScript => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
+            FormatType.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
+            FormatType.Html => SerializeAsHtml(),
+            FormatType.Xml => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true)),
+            _ => throw DataUtils.GetArgumentException(nameof(formatType)),
         };
     }
 }

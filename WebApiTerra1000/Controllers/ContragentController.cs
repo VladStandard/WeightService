@@ -10,14 +10,13 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ContragentController : BaseController
+public class ContragentController : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -33,32 +32,32 @@ public class ContragentController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/contragent/")]
-    public ContentResult GetContragent(long id, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
             //return SerializeBase.GetResult<XDocument>(format, doc, HttpStatusCode.OK);
-        }), format);
+        }, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/contragents/")]
-    public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
-        FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetContragents([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int offset = 0, 
+        [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
                 WebUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

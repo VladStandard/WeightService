@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.Core;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.Net.Http.Headers;
@@ -8,15 +9,6 @@ using Microsoft.OpenApi.Models;
 using NHibernate;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-// Swagger documentaion.
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Documentaion", Version = "v1" } );
-});
-
 //builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 //builder.Services.AddAuthorization(options =>
 //{
@@ -77,13 +69,38 @@ builder.Services.AddControllers(options =>
 //    jsonFormatter.SerializerOptions.WriteIndented = prettyPrintJson;
 //});
 
-WebApplication app = builder.Build();
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+// Swagger documentaion.
+builder.Services.AddSwaggerGen(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "WEB API Scales Documentaion",
+        Description = "An ASP.NET Core Web API for managing ToDo items",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Example Contact",
+            Url = new Uri("https://example.com/contact")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
+        }
+    });
+});
+
+WebApplication app = builder.Build();
+// Swagger documentaion.
+app.UseSwagger();
+app.UseSwaggerUI(options => {
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
+// Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

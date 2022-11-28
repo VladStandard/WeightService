@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
-using DataCore.Models;
+using DataCore.Sql.Core;
+using DataCore.Sql.Fields;
+using DataCore.Sql.Models;
 using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -28,7 +30,9 @@ public class ControllerHelper
 
     #endregion
 
-    #region Constructor and destructor
+    #region Public and private fields, properties, constructor
+
+    public DataContextModel DataContext { get; } = new();
 
     public ControllerHelper() { }
 
@@ -36,19 +40,40 @@ public class ControllerHelper
 
     #region Public and private methods
 
-    public ContentResult RunTask(Task<ContentResult>? task, FormatTypeEnum format,
+    public ContentResult GetContentResult(Task<ContentResult> task, string formatString,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
-            task?.Start();
-            return task is not null ? task.GetAwaiter().GetResult() : new();
+            task.Start();
+            return task.GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
             filePath = Path.GetFileName(filePath);
             ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
-            return serviceException.GetResult<ServiceExceptionModel>(format, HttpStatusCode.OK);
+            return serviceException.GetContentResult<ServiceExceptionModel>(formatString, HttpStatusCode.OK);
+        }
+        finally
+        {
+            GC.Collect();
+        }
+    }
+
+    public delegate ContentResult GetContentResultDelegate();
+
+    public ContentResult GetContentResult(GetContentResultDelegate getContentResult, string formatString,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        try
+        {
+            return getContentResult();
+        }
+        catch (Exception ex)
+        {
+            filePath = Path.GetFileName(filePath);
+            ServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
+            return serviceException.GetContentResult<ServiceExceptionModel>(formatString, HttpStatusCode.OK);
         }
         finally
         {
@@ -57,7 +82,7 @@ public class ControllerHelper
     }
 
     private ContentResult NewResponse1CCore(ISessionFactory sessionFactory, Action<ISession, Response1CModel> action,
-        FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+        string formatString, bool isTransaction)
     {
         using ISession session = sessionFactory.OpenSession();
         using ITransaction transaction = session.BeginTransaction();
@@ -67,7 +92,6 @@ public class ControllerHelper
         try
         {
             action(session, response);
-            //response.ResponseQuery = isShowQuery ? new() : null;
             if (isTransaction)
                 transaction.Commit();
         }
@@ -79,15 +103,14 @@ public class ControllerHelper
                 transaction.Rollback();
         }
 
-        return response.GetResult<Response1CModel>(format, httpStatusCode);
+        return response.GetContentResult<Response1CModel>(formatString, httpStatusCode);
     }
 
     public ContentResult NewResponse1CFromQuery(ISessionFactory sessionFactory, string query,
-        SqlParameter? sqlParameter, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+        SqlParameter? sqlParameter, string formatString, bool isTransaction)
     {
         return NewResponse1CCore(sessionFactory, (session, response) =>
         {
-            //response.ResponseQuery?.Query = "";
             if (!string.IsNullOrEmpty(query))
             {
                 if (response.ResponseQuery is not null)
@@ -122,43 +145,46 @@ public class ControllerHelper
             }
             else
                 response.Infos.Add(new("Empty query. Try to make some select from any table."));
-        }, format, isShowQuery, isTransaction);
+        }, formatString, isTransaction);
     }
 
     public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory,
-        XElement request, FormatTypeEnum format, bool isShowQuery, bool isTransaction)
+        XElement request, string formatString, bool isTransaction)
     {
         return NewResponse1CCore(sessionFactory, (session, response) =>
         {
-            List<BrandModel> brands = GetBrandList(request);
-            foreach (BrandModel brand in brands)
+            DataAccessHelper.Instance.SetSessionFactory(sessionFactory);
+            List<BrandModel> brandsInput = GetBrandList(request);
+            foreach (BrandModel brandInput in brandsInput)
             {
-                string xml = brand.SerializeAsXmlString<BrandModel>(false);
-                switch (brand.ParseResult.Status)
+                string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
+                switch (brandInput.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        response.Successes.Add(new(brand.IdentityValueUid, brand.ParseResult.Message));
+                        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
+                        List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
+                        response.Successes.Add(new(brandInput.IdentityValueUid, brandInput.ParseResult.Message));
                         break;
                     case ParseStatus.Error:
-                        Response1CRecordModel response1CRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception);
-                        if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
-                            response1CRecord.InnerMessage = brand.ParseResult.InnerException;
+                        Response1CRecordModel response1CRecord = new(brandInput.IdentityValueUid, brandInput.ParseResult.Exception);
+                        if (!string.IsNullOrEmpty(brandInput.ParseResult.InnerException))
+                            response1CRecord.InnerMessage = brandInput.ParseResult.InnerException;
                         response.Errors.Add(response1CRecord);
                         break;
                 }
             }
             //response.Infos.Add(new($"Parse attribute {nameof(response.Count)}: {response.Count}"));
-            response.Infos.Add(new($"Proced input {brands.Count} items of {nameof(brands)}"));
-        }, format, isShowQuery, isTransaction);
+            response.Infos.Add(new($"Proced input {brandsInput.Count} items of {nameof(brandsInput)}"));
+        }, formatString, isTransaction);
     }
 
     //public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, BrandModel brand,
-    //    FormatTypeEnum format, bool isShowQuery, bool isTransaction) => 
-    //    NewResponse1CFromAction(sessionFactory, new BrandListModel(new List<BrandModel>() { brand }), format, isShowQuery, isTransaction);
+    //    FormatTypeEnum formatType, bool isShowQuery, bool isTransaction) => 
+    //    NewResponse1CFromAction(sessionFactory, new BrandListModel(new List<BrandModel>() { brand }), formatType, isShowQuery, isTransaction);
 
     //public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, List<BrandModel> brands, 
-    //    FormatTypeEnum format, bool isShowQuery, bool isTransaction) =>
-    //    NewResponse1CFromAction(sessionFactory, new BrandListModel(brands), format, isShowQuery, isTransaction);
+    //    FormatTypeEnum formatType, bool isShowQuery, bool isTransaction) =>
+    //    NewResponse1CFromAction(sessionFactory, new BrandListModel(brands), formatType, isShowQuery, isTransaction);
 
     public List<BrandModel> GetBrandList(BrandModel brand) =>
         new List<BrandModel>() { brand };
@@ -205,7 +231,7 @@ public class ControllerHelper
                     brand.ParseResult.Exception = $"Guid is Empty!";
                     //continue;
                 }
-                
+
                 // IsMarked.
                 string isMarkedStr = GetAttributeValue(node, nameof(brand.IsMarked));
                 if (bool.TryParse(isMarkedStr, out bool isMarked))

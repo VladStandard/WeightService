@@ -86,7 +86,7 @@ public class SqlConnectFactory
         using SqlDataReader reader = cmd.ExecuteReader();
         if (reader.HasRows)
         {
-            action.Invoke(reader);
+            action(reader);
         }
         reader.Close();
         con.Close();

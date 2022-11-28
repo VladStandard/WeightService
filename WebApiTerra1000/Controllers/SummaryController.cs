@@ -4,20 +4,19 @@
 using DataCore.Sql.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
+using DataCore.Enums;
 
 namespace WebApiTerra1000.Controllers;
 
-public class SummaryController : BaseController
+public class SummaryController : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -33,16 +32,17 @@ public class SummaryController : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/summary/")]
-    public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
+        [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
                 WebUtils.Sql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

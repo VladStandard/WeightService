@@ -11,14 +11,13 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using DataCore.Models;
 using WebApiCore.Controllers;
 using WebApiCore.Utils;
 using WebApiCore.Models;
 
 namespace WebApiTerra1000.Controllers;
 
-public class ContragentControllerV2 : BaseController
+public class ContragentControllerV2 : WebControllerBase
 {
     #region Constructor and destructor
 
@@ -34,76 +33,80 @@ public class ContragentControllerV2 : BaseController
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/contragent/")]
-    public ContentResult GetContragentFromCodeIdProd(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+    public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id, 
+        [FromQuery(Name = "format")] string formatString = "") =>
         GetContragentFromCodeIdWork(code != null
             ? SqlQueriesContragentsV2.GetContragentFromCodeProd : SqlQueriesContragentsV2.GetContragentFromIdProd,
-            code, id, format);
+            code, id, formatString);
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/contragent_preview/")]
-    public ContentResult GetContragentFromCodeIdPreview(string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml) =>
+    public ContentResult GetContragentFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
+        [FromQuery(Name = "format")] string formatString = "") =>
         GetContragentFromCodeIdWork(code != null
             ? SqlQueriesContragentsV2.GetContragentFromCodePreview : SqlQueriesContragentsV2.GetContragentFromIdPreview,
-            code, id, format);
+            code, id, formatString);
 
-    private ContentResult GetContragentFromCodeIdWork(string url, string code, long id, FormatTypeEnum format = FormatTypeEnum.Xml)
+    private ContentResult GetContragentFromCodeIdWork([FromQuery] string url, [FromQuery] string code, 
+        [FromQuery] long id, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url,
                 code != null ? WebUtils.Sql.GetParametersV2(code) : WebUtils.Sql.GetParametersV2(id));
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/contragents/")]
-    public ContentResult GetContragentsProd(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetContragentsProd([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
+        [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesOffsetProd, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate != null)
-            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesProd, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesProd, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate == null)
-            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromStartDateProd, startDate, endDate, offset, rowCount, format);
-        return GetContragentsEmptyWork(SqlQueriesContragentsV2.GetContragentsEmptyProd, format);
+            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromStartDateProd, startDate, endDate, offset, rowCount, formatString);
+        return GetContragentsEmptyWork(SqlQueriesContragentsV2.GetContragentsEmptyProd, formatString);
     }
 
     [AllowAnonymous]
     [HttpGet()]
     [Route("api/v2/contragents_preview/")]
-    public ContentResult GetContragentsPreview(DateTime? startDate, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
+    public ContentResult GetContragentsPreview([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate = null,
+        [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string formatString = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesOffsetPreview, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate != null)
-            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesPreview, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromDatesPreview, startDate, endDate, offset, rowCount, formatString);
         else if (startDate != null && endDate == null)
-            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromStartDatePreview, startDate, endDate, offset, rowCount, format);
-        return GetContragentsEmptyWork(SqlQueriesContragentsV2.GetContragentsEmptyPreview, format);
+            return GetContragentsWork(SqlQueriesContragentsV2.GetContragentsFromStartDatePreview, startDate, endDate, offset, rowCount, formatString);
+        return GetContragentsEmptyWork(SqlQueriesContragentsV2.GetContragentsEmptyPreview, formatString);
     }
 
-    private ContentResult GetContragentsEmptyWork(string url, FormatTypeEnum format = FormatTypeEnum.Xml)
+    private ContentResult GetContragentsEmptyWork([FromQuery] string url, [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
-    private ContentResult GetContragentsWork(string url, DateTime? startDate = null, DateTime? endDate = null,
-        int? offset = null, int? rowCount = null, FormatTypeEnum format = FormatTypeEnum.Xml)
+    private ContentResult GetContragentsWork([FromQuery] string url, [FromQuery] DateTime? startDate = null, 
+        [FromQuery] DateTime? endDate = null, [FromQuery] int? offset = null, [FromQuery] int? rowCount = null,
+        [FromQuery(Name = "format")] string formatString = "")
     {
-        return ControllerHelp.RunTask(new Task<ContentResult>(() =>
+        return ControllerHelp.GetContentResult(() =>
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)
@@ -115,8 +118,8 @@ public class ContragentControllerV2 : BaseController
             string response = WebUtils.Sql.GetResponse<string>(SessionFactory, url, parameters);
             XDocument xml = XDocument.Parse(response ?? $"<{WebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WebConstants.Response, xml.Root));
-            return SerializeDeprecatedModel<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
-        }), format);
+            return SerializeDeprecatedModel<XDocument>.GetContentResult(formatString, doc, HttpStatusCode.OK);
+        }, formatString);
     }
 
     #endregion

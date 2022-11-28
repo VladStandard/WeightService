@@ -86,6 +86,14 @@ public partial class DataAccessHelper
         }
     }
 
+    public void SetSessionFactory(ISessionFactory sessionFactory)
+    {
+	    lock (_locker)
+	    {
+            SessionFactory = sessionFactory;
+        }
+    }
+
     //public void CloseSessionFactory()
     //{
     //    using NHibernate.ISessionFactory session = SessionFactory;
