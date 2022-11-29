@@ -1,0 +1,35 @@
+﻿@inherits RazorComponentItemBase<BrandModel>
+@page "/item/brand"
+@page "/item/brand/new"
+@page "/item/brand/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Enums;
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@BrandModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemBarCodeType />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <RazorItemTableHead TItem=@BrandModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+        <RazorItemTableBody TItem=@BrandModel ParentRazor=@(this) />
+    <tr>
+            <td>@LocaleCore.Table.Name</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; background-color: transparent; "
+                    ReadOnly=false @bind-Value=@SqlItemCast.Name />
+            </td>
+            <td>@LocaleCore.Table.Code</td>
+            <td>
+                <RadzenTextBox 
+                    Style="width: 100%; text-align: left; "
+                    ReadOnly=false @bind-Value=@SqlItemCast.Code />
+            </td>
+        </tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@BrandModel ParentRazor=@(this) />
+<RazorItemDates TItem=@BrandModel ParentRazor=@(this) />

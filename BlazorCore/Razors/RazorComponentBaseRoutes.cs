@@ -115,6 +115,7 @@ public partial class RazorComponentBase
 		    AccessModel => LocaleCore.DeviceControl.RouteSectionAccess,
 		    AppModel => LocaleCore.DeviceControl.RouteSectionApps,
 		    BarCodeModel => LocaleCore.DeviceControl.RouteSectionBarCodes,
+		    BrandModel => LocaleCore.DeviceControl.RouteSectionBrands,
 			ContragentModel => LocaleCore.DeviceControl.RouteSectionContragents,
 		    DeviceModel => LocaleCore.DeviceControl.RouteSectionDevices,
 		    DeviceTypeModel => LocaleCore.DeviceControl.RouteSectionDevicesTypes,
