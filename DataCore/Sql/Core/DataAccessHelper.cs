@@ -4,6 +4,7 @@
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
 using DataCore.Files;
+using DataCore.Helpers;
 using NHibernate;
 
 namespace DataCore.Sql.Core;
@@ -23,21 +24,22 @@ public partial class DataAccessHelper
 
     private readonly object _locker = new();
 
-    public delegate void ExecCallback(NHibernate.ISession session);
+    public delegate void ExecCallback(ISession session);
     public JsonSettingsHelper JsonSettings { get; } = JsonSettingsHelper.Instance;
 
     private FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; set; }
 
 	// Be careful. If setup SqlConfiguration.DefaultSchema, this line will make an Exception!
-	private void SetSqlConfiguration()
+	private void SetSqlConfiguration(bool isShowSql)
     {
         string connectionString = GetConnectionString();
         if (string.IsNullOrEmpty(connectionString))
             throw new ArgumentNullException(nameof(connectionString));
 
         SqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
+        if (isShowSql)
+            SqlConfiguration.ShowSql();
         SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
-        //_sqlConfiguration.DefaultSchema(JsonSettings.Sql.Schema);
     }
 
     private FluentNHibernate.Cfg.FluentConfiguration? _fluentConfiguration;
@@ -52,7 +54,7 @@ public partial class DataAccessHelper
 	    set => _fluentConfiguration = value;
     }
     private ISessionFactory? _sessionFactory;
-    private ISessionFactory SessionFactory
+    public ISessionFactory SessionFactory
     {
 	    get
 	    {
@@ -60,7 +62,7 @@ public partial class DataAccessHelper
 			    throw new ArgumentNullException(nameof(SessionFactory));
 		    return _sessionFactory;
 	    }
-	    set => _sessionFactory = value;
+	    private set => _sessionFactory = value;
     }
 
 	// Be careful. If there are errors in the mapping, this line will make an Exception!
@@ -74,23 +76,23 @@ public partial class DataAccessHelper
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
+        /*
+        FluentConfiguration configuration = Fluently
+            .Configure().Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
+            .ShowSql()
+            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+        );
+    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+         */
     }
 
-    public void SetSessionFactory()
+    public void SetSessionFactory(ISessionFactory? sessionFactory = null)
     {
 	    lock (_locker)
 	    {
-            SetSqlConfiguration();
+            SetSqlConfiguration(DebugHelper.Instance.IsDebug);
             SetFluentConfiguration();
-            SessionFactory = FluentConfiguration.BuildSessionFactory();
-        }
-    }
-
-    public void SetSessionFactory(ISessionFactory sessionFactory)
-    {
-	    lock (_locker)
-	    {
-            SessionFactory = sessionFactory;
+            SessionFactory = sessionFactory is null ? FluentConfiguration.BuildSessionFactory() : sessionFactory;
         }
     }
 

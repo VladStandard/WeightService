@@ -10,7 +10,7 @@ public partial class DataContextModel
 {
 	#region Public and private fields, properties, constructor
 
-	private DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+	public DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
 	public List<AccessModel> Accesses { get; set; }
 	public List<AppModel> Apps { get; set; }
 	public List<BarCodeModel> BarCodes { get; set; }

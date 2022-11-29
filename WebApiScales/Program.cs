@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Files;
 using DataCore.Sql.Core;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -16,24 +17,25 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //    options.FallbackPolicy = options.DefaultPolicy;
 //});
 
-// NHibernate.
-ISessionFactory GetSessionFactory(string? connectionString)
-{
-    FluentConfiguration configuration = Fluently
-        .Configure()
-        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
-            .ShowSql()
-            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-        );
-    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
-    return configuration.BuildSessionFactory();
-}
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//Console.WriteLine($"builder.Configuration: {builder.Configuration}");
-//Console.WriteLine($"connectionString: {connectionString}");
-ISessionFactory sessionFactory = GetSessionFactory(connectionString);
-builder.Services.AddSingleton(sessionFactory);
-builder.Services.AddScoped(factory => sessionFactory.OpenSession());
+// NHibernate & JsonSettings & DataAccess.
+JsonSettingsHelper.Instance.SetupWebApp(builder.Environment.ContentRootPath, nameof(WebApiScales));
+builder.Services.AddSingleton(DataAccessHelper.Instance.SessionFactory);
+builder.Services.AddScoped(factory => DataAccessHelper.Instance.SessionFactory.OpenSession());
+//ISessionFactory GetSessionFactory(string? connectionString)
+//{
+//    FluentConfiguration configuration = Fluently
+//        .Configure()
+//        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
+//            .ShowSql()
+//            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+//        );
+//    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+//    return configuration.BuildSessionFactory();
+//}
+//string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//ISessionFactory sessionFactory = GetSessionFactory(connectionString);
+//builder.Services.AddSingleton(sessionFactory);
+//builder.Services.AddScoped(factory => sessionFactory.OpenSession());
 
 // POST XML from body.
 builder.Services.AddMvc(options =>
@@ -96,7 +98,8 @@ builder.Services.AddSwaggerGen(options =>
 WebApplication app = builder.Build();
 // Swagger documentaion.
 app.UseSwagger();
-app.UseSwaggerUI(options => {
+app.UseSwaggerUI(options =>
+{
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = string.Empty;
 });

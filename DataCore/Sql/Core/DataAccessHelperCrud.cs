@@ -3,6 +3,7 @@
 
 using DataCore.Sql.Tables;
 using NHibernate;
+using System;
 
 namespace DataCore.Sql.Core;
 
@@ -26,10 +27,10 @@ public partial class DataAccessHelper
 		return criteria;
 	}
 
-	private void ExecuteCore(ExecCallback callback, bool isTransaction)
+	private (bool isOk, Exception? exception) ExecuteCore(ExecCallback callback, bool isTransaction)
 	{
 		ISession? session = null;
-		Exception? exception = null;
+        Exception? exception = null;
 		ITransaction? transaction = null;
 
 		try
@@ -62,12 +63,16 @@ public partial class DataAccessHelper
         }
 		
 		if (exception is not null)
+		{
 			LogError(exception, "", nameof(DataCore));
+			return (false, exception);
+		}
+		return (true, null);
 	}
 
-    private void ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);
+    private (bool isOk, Exception? exception) ExecuteTransaction(ExecCallback callback) => ExecuteCore(callback, true);
 
-    private void ExecuteSelect(ExecCallback callback) => ExecuteCore(callback, false);
+    private (bool isOk, Exception? exception) ExecuteSelect(ExecCallback callback) => ExecuteCore(callback, false);
 
     public bool IsConnected()
 	{
@@ -107,23 +112,23 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-	public void Save<T>(T? item) where T : SqlTableBase, new()
+	public (bool isOk, Exception? exception) Save<T>(T? item) where T : SqlTableBase, new()
 	{
-		if (item is null) return;
+		if (item is null) return (false, null);
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
 		item.ChangeDt = DateTime.Now;
-		ExecuteTransaction(session => { session.Save(item); });
+		return ExecuteTransaction(session => { session.Save(item); });
 	}
 
-	public void Update<T>(T? item) where T : SqlTableBase, new()
+	public (bool isOk, Exception? exception) Update<T>(T? item) where T : SqlTableBase, new()
 	{
-		if (item is null) return;
+		if (item is null) return (false, null);
         
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-		ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+		return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
 	}
 
 	public void Delete<T>(T? item) where T : SqlTableBase, new()

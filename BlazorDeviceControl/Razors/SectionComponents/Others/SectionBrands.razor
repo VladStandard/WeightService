@@ -19,7 +19,8 @@
         <RazorSectionFieldIsMarked TItem=@BrandModel ParentRazor=@(this) />
         <RadzenGridColumn TItem=@BrandModel Title=@LocaleCore.Table.ChangeDt Width="12%">
 	        <Template Context="itemCast" >
-		        <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemBarCode}/{itemCast.IdentityValueUid}")
+		        <RadzenLink 
+					Path=@($"{LocaleCore.DeviceControl.RouteItemBrand}/{itemCast.IdentityValueUid}")
 					Text=@(StringUtils.FormatDtRus(itemCast.ChangeDt, true)) />
 	        </Template>
         </RadzenGridColumn>

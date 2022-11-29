@@ -153,7 +153,9 @@ public class ControllerHelper
     {
         return NewResponse1CCore(sessionFactory, (session, response) =>
         {
-            DataAccessHelper.Instance.SetSessionFactory(sessionFactory);
+            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
+            List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
+
             List<BrandModel> brandsInput = GetBrandList(request);
             foreach (BrandModel brandInput in brandsInput)
             {
@@ -161,21 +163,49 @@ public class ControllerHelper
                 switch (brandInput.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
-                        List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
-                        response.Successes.Add(new(brandInput.IdentityValueUid, brandInput.ParseResult.Message));
+                        try
+                        {
+                            if (brandsDb.Select(x => x.IdentityValueUid).Equals(brandInput.IdentityValueUid))
+                            {
+                                (bool isOk, Exception? exception) resultUpdate = DataContext.DataAccess.Update(brandInput);
+                                if (resultUpdate.isOk)
+                                    response.Successes.Add(new(brandInput.IdentityValueUid, "Update was success"));
+                                else
+                                    SetResponseException(brandInput.IdentityValueUid, response, resultUpdate.exception);
+                            }
+                            else
+                            {
+                                (bool isOk, Exception? exception) resultSave = DataContext.DataAccess.Save(brandInput);
+                                if (resultSave.isOk)
+                                    response.Successes.Add(new(brandInput.IdentityValueUid, "Add was success"));
+                                else
+                                    SetResponseException(brandInput.IdentityValueUid, response, resultSave.exception);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            SetResponseException(brandInput.IdentityValueUid, response, ex);
+                        }
                         break;
                     case ParseStatus.Error:
-                        Response1CRecordModel response1CRecord = new(brandInput.IdentityValueUid, brandInput.ParseResult.Exception);
-                        if (!string.IsNullOrEmpty(brandInput.ParseResult.InnerException))
-                            response1CRecord.InnerMessage = brandInput.ParseResult.InnerException;
-                        response.Errors.Add(response1CRecord);
+                        SetResponseException(brandInput.IdentityValueUid, response, brandInput.ParseResult.Exception, brandInput.ParseResult.InnerException);
                         break;
                 }
             }
             //response.Infos.Add(new($"Parse attribute {nameof(response.Count)}: {response.Count}"));
             response.Infos.Add(new($"Proced input {brandsInput.Count} items of {nameof(brandsInput)}"));
         }, formatString, isTransaction);
+    }
+
+    private void SetResponseException(Guid uid, Response1CModel response, Exception? ex) =>
+        SetResponseException(uid, response, ex?.Message, ex?.InnerException?.Message);
+
+    private void SetResponseException(Guid uid, Response1CModel response, string? errorMessage, string? innerErrorMessage = null)
+    {
+        Response1CRecordModel responseRecord = new(uid, errorMessage ?? string.Empty);
+        if (!string.IsNullOrEmpty(innerErrorMessage))
+            responseRecord.InnerMessage = innerErrorMessage;
+        response.Errors.Add(responseRecord);
     }
 
     //public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, BrandModel brand,
