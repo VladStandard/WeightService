@@ -68,17 +68,14 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault()
-    {
-        bool foo1 = base.EqualsDefault();
-        bool foo2 = Equals(Status, ParseStatus.Unknown);
-        bool foo3 = Equals(Message, string.Empty);
-        bool foo4 = Equals(Exception, string.Empty);
-        bool foo5 = Equals(InnerException, string.Empty);
-        return foo1 && foo2 && foo3 && foo4;
-    }
+    public override bool EqualsDefault() => 
+        base.EqualsDefault() &&
+        Equals(Status, ParseStatus.Unknown) &&
+        Equals(Message, string.Empty) &&
+        Equals(Exception, string.Empty) &&
+        Equals(InnerException, string.Empty);
 
-    public override object Clone()
+    public new virtual object Clone()
     {
         ParseResultModel item = new();
         item.Status = Status;

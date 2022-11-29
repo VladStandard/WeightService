@@ -163,50 +163,70 @@ public class ControllerHelper
                 switch (brandInput.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        try
-                        {
-                            if (brandsDb.Select(x => x.IdentityValueUid).Equals(brandInput.IdentityValueUid))
-                            {
-                                (bool isOk, Exception? exception) resultUpdate = DataContext.DataAccess.Update(brandInput);
-                                if (resultUpdate.isOk)
-                                    response.Successes.Add(new(brandInput.IdentityValueUid, "Update was success"));
-                                else
-                                    SetResponseException(brandInput.IdentityValueUid, response, resultUpdate.exception);
-                            }
-                            else
-                            {
-                                (bool isOk, Exception? exception) resultSave = DataContext.DataAccess.Save(brandInput);
-                                if (resultSave.isOk)
-                                    response.Successes.Add(new(brandInput.IdentityValueUid, "Add was success"));
-                                else
-                                    SetResponseException(brandInput.IdentityValueUid, response, resultSave.exception);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            SetResponseException(brandInput.IdentityValueUid, response, ex);
-                        }
+                        AddResponseRecord(response, brandsDb, brandInput);
                         break;
                     case ParseStatus.Error:
-                        SetResponseException(brandInput.IdentityValueUid, response, brandInput.ParseResult.Exception, brandInput.ParseResult.InnerException);
+                        AddResponseException(brandInput.IdentityValueUid, response, brandInput.ParseResult.Exception, brandInput.ParseResult.InnerException);
                         break;
                 }
             }
-            //response.Infos.Add(new($"Parse attribute {nameof(response.Count)}: {response.Count}"));
             response.Infos.Add(new($"Proced input {brandsInput.Count} items of {nameof(brandsInput)}"));
         }, formatString, isTransaction);
     }
 
-    private void SetResponseException(Guid uid, Response1CModel response, Exception? ex) =>
-        SetResponseException(uid, response, ex?.Message, ex?.InnerException?.Message);
+    private void AddResponseRecord(Response1CModel response, List<BrandModel> brandsDb, BrandModel brandInput)
+    {
+        try
+        {
+            (bool isOk, Exception? exception) resultDbStore;
+            BrandModel? brandDb = brandsDb.Where(x => x.IdentityValueUid.Equals(brandInput.IdentityValueUid)).FirstOrDefault();
+            // Find duplicate field "GUID".
+            if (brandDb is not null && brandDb.IdentityIsNotNew)
+            {
+                brandDb.UpdateProperties(brandInput);
+                resultDbStore = DataContext.DataAccess.Update(brandDb);
+                if (resultDbStore.isOk)
+                    response.Successes.Add(new(brandInput.IdentityValueUid, "Update was success"));
+                else
+                    AddResponseException(brandInput.IdentityValueUid, response, resultDbStore.exception);
+            }
+            else
+            {
+                // Find the duplicate field "Code".
+                brandDb = brandsDb.Where(x => x.Code.Equals(brandInput.Code)).FirstOrDefault();
+                if (brandDb is not null && brandDb.IdentityIsNotNew)
+                {
+                    resultDbStore = DataContext.DataAccess.Delete(brandDb);
+                    if (resultDbStore.isOk)
+                        response.Successes.Add(
+                            new(brandDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {brandInput.Code}"));
+                    else
+                        AddResponseException(brandDb.IdentityValueUid, response, resultDbStore.exception);
+                }
+                // Not find the duplicate field "Code".
+                resultDbStore = DataContext.DataAccess.Save(brandInput, brandInput.Identity);
+                if (resultDbStore.isOk)
+                    response.Successes.Add(new(brandInput.IdentityValueUid, "Add was success"));
+                else
+                    AddResponseException(brandInput.IdentityValueUid, response, resultDbStore.exception);
+            }
+        }
+        catch (Exception ex)
+        {
+            AddResponseException(brandInput.IdentityValueUid, response, ex);
+        }
+    }
 
-    private void SetResponseException(Guid uid, Response1CModel response, string? errorMessage, string? innerErrorMessage = null)
+    private void AddResponseException(Guid uid, Response1CModel response, string? errorMessage, string? innerErrorMessage = null)
     {
         Response1CRecordModel responseRecord = new(uid, errorMessage ?? string.Empty);
         if (!string.IsNullOrEmpty(innerErrorMessage))
             responseRecord.InnerMessage = innerErrorMessage;
         response.Errors.Add(responseRecord);
     }
+
+    private void AddResponseException(Guid uid, Response1CModel response, Exception? ex) =>
+        AddResponseException(uid, response, ex?.Message, ex?.InnerException?.Message);
 
     //public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, BrandModel brand,
     //    FormatTypeEnum formatType, bool isShowQuery, bool isTransaction) => 

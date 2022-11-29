@@ -3,11 +3,8 @@
 
 using DataCore.Files;
 using DataCore.Sql.Core;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using NHibernate;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();

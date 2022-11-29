@@ -163,5 +163,16 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		Description = LocaleCore.Sql.SqlItemFieldDescription;
 	}
 
-	#endregion
+    public virtual void UpdateProperties(SqlTableBase item)
+    {
+		if (!item.CreateDt.Equals(DateTime.MinValue))
+			CreateDt = item.CreateDt;
+        if (!item.ChangeDt.Equals(DateTime.MinValue))
+            ChangeDt = item.ChangeDt;
+		IsMarked = item.IsMarked;
+        Name = item.Name;
+		Description = item.Description;
+    }
+
+    #endregion
 }

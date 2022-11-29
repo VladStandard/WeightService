@@ -13,4 +13,5 @@ public interface ISqlDbBase
     void GetObjectData(SerializationInfo info, StreamingContext context);
     void ClearNullProperties();
     void FillProperties();
+    //void UpdateProperties(object obj);
 }

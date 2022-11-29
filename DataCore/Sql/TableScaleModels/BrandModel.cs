@@ -105,5 +105,12 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
+    public virtual void UpdateProperties(BrandModel brand)
+    {
+		base.UpdateProperties(brand);
+        Code = brand.Code;
+        ParseResult = brand.ParseResult.CloneCast();
+    }
+    
 	#endregion
 }

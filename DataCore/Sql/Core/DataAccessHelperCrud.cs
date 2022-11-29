@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using Lextm.SharpSnmpLib.Messaging;
 using NHibernate;
 using System;
 
@@ -122,6 +123,20 @@ public partial class DataAccessHelper
 		return ExecuteTransaction(session => { session.Save(item); });
 	}
 
+	public (bool isOk, Exception? exception) Save<T>(T? item, SqlFieldIdentityModel? identity) where T : SqlTableBase, new()
+    {
+		if (item is null) return (false, null);
+
+        item.ClearNullProperties();
+        item.CreateDt = DateTime.Now;
+		item.ChangeDt = DateTime.Now;
+		object? id = identity?.GetValueAsObjectNullable();
+		if (id is null)
+			return ExecuteTransaction(session => { session.Save(item); });
+		else
+            return ExecuteTransaction(session => { session.Save(item, id); });
+    }
+
 	public (bool isOk, Exception? exception) Update<T>(T? item) where T : SqlTableBase, new()
 	{
 		if (item is null) return (false, null);
@@ -131,19 +146,19 @@ public partial class DataAccessHelper
 		return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
 	}
 
-	public void Delete<T>(T? item) where T : SqlTableBase, new()
+	public (bool isOk, Exception? exception) Delete<T>(T? item) where T : SqlTableBase, new()
 	{
-		if (item is null) return;
+        if (item is null) return (false, null);
 
-		ExecuteTransaction(session => { session.Delete(item); });
+        return ExecuteTransaction(session => { session.Delete(item); });
 	}
 
-	public void Mark<T>(T? item) where T : SqlTableBase, new()
+	public (bool isOk, Exception? exception) Mark<T>(T? item) where T : SqlTableBase, new()
 	{
-		if (item is null) return;
+		if (item is null) return (false, null);
 
 		item.IsMarked = !item.IsMarked;
-		ExecuteTransaction(session => { session.SaveOrUpdate(item); });
+		return ExecuteTransaction(session => { session.SaveOrUpdate(item); });
 	}
 
 	#endregion

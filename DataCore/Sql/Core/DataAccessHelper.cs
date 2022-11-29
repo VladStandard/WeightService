@@ -76,14 +76,6 @@ public partial class DataAccessHelper
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
-        /*
-        FluentConfiguration configuration = Fluently
-            .Configure().Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
-            .ShowSql()
-            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-        );
-    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
-         */
     }
 
     public void SetSessionFactory(ISessionFactory? sessionFactory = null)

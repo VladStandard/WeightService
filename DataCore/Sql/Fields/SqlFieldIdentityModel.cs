@@ -53,7 +53,7 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 	{
 		Name = (SqlFieldIdentityEnum)info.GetValue(nameof(Name), typeof(SqlFieldIdentityEnum));
 		Id = info.GetInt64(nameof(Id));
-		Uid = Guid.Parse(info.GetString(nameof(Uid)));
+		Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
 	}
 
 	#endregion
@@ -75,17 +75,21 @@ public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISeri
 		return strIdentityValue;
 	}
 
-	public virtual string GetValueAsString()
-	{
-		return Name switch
-		{
-			SqlFieldIdentityEnum.Id => Id.ToString(),
-			SqlFieldIdentityEnum.Uid => Uid.ToString(),
-			_ => string.Empty
-		};
-	}
+    public virtual string GetValueAsString() => Name switch
+    {
+        SqlFieldIdentityEnum.Id => Id.ToString(),
+        SqlFieldIdentityEnum.Uid => Uid.ToString(),
+        _ => string.Empty
+    };
 
-	public override bool Equals(object obj)
+    public virtual object? GetValueAsObjectNullable() => Name switch
+    {
+        SqlFieldIdentityEnum.Id => Id,
+        SqlFieldIdentityEnum.Uid => Uid,
+        _ => null
+    };
+
+    public override bool Equals(object obj)
 	{
 		if (ReferenceEquals(null, obj)) return false;
 		if (ReferenceEquals(this, obj)) return true;
