@@ -5,7 +5,11 @@
 
 # User-specific files
 
+
+# trash logs
 /BlazorDeviceControl/BlazorDeviceControl.txt
+/WebApiScales/WebApiScales.txt
+
 
 .idea
 *.msi
