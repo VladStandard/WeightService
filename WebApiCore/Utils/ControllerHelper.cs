@@ -284,22 +284,20 @@ public class ControllerHelper
 
                 // IsMarked.
                 string isMarkedStr = GetAttributeValue(node, nameof(brand.IsMarked));
-                if (bool.TryParse(isMarkedStr, out bool isMarked))
+                switch (isMarkedStr)
                 {
-                    brand.IsMarked = isMarked;
-                }
-                else
-                {
-                    if (isMarkedStr == "1" || isMarkedStr == "0")
-                    {
-                        brand.IsMarked = isMarked;
-                    }
-                    else
-                    {
+                    case "0":
+                    case "false":
+                        brand.IsMarked = false;
+                        break;
+                    case "1":
+                    case "true":
+                        brand.IsMarked = true;
+                        break;
+                    default:
                         brand.ParseResult.Status = ParseStatus.Error;
                         brand.ParseResult.Exception = $"IsMarked is Empty!";
-                        //continue;
-                    }
+                        break;
                 }
 
                 // Name.
