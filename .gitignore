@@ -4,6 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+
+/BlazorDeviceControl/BlazorDeviceControl.txt
+
+.idea
 *.msi
 *.rsuser
 *.suo
