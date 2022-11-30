@@ -105,8 +105,8 @@ public class UserSessionHelper : BaseViewModel
 					DeviceScaleFk.Device.Name, nameof(WeightCore));
 			ManagerControl.PrintMain.LabelsCount = 1;
 			ManagerControl.PrintShipping.LabelsCount = 1;
-			SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(value.Plu, nameof(PluScaleModel.Plu),
-				new(), false, false, true, true, 0);
+            SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+				value.Plu, nameof(PluScaleModel.Plu), new(), false, false, true, true, 0);
 			PluPackages = DataContext.GetListNotNullable<PluPackageModel>(sqlCrudConfig);
 			PluPackage = PluPackages.Count > 1 ? PluPackages[1] : PluPackages.FirstOrDefault();
 			OnPropertyChanged();

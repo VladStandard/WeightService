@@ -22,10 +22,6 @@ public partial class DataAccessHelper
 	{
 		sqlCrudConfig.ResultMaxCount = 1;
 		ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-		//IList<T>? list = criteria.List<T>();
-		//if (list is not null && list.Count > 0)
-		//	return list.FirstOrDefault();
-		//return null;
 		return criteria.UniqueResult<T>();
 	}
 
@@ -120,11 +116,8 @@ public partial class DataAccessHelper
 		return result;
 	}
 
-    public T GetItemNew<T>() where T : SqlTableBase, new() => 
-		(T)new SqlTableBase() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
-
-    //  public T GetItemNewAttributes<T>() where T : SqlTableAtributesBase, new() =>
-    //new() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
+    public T GetItemNew<T>() where T : SqlTableBase, new() =>
+        new() { Name = LocaleCore.Table.FieldNull, Description = LocaleCore.Table.FieldNull };
 
     #endregion
 
@@ -210,23 +203,6 @@ public partial class DataAccessHelper
 		result.AddRange(list);
 		return result;
 	}
-
-	//public List<T> GetListNotNullableAttributes<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlTableAtributesBase, new()
-	//{
-	//	List<T> result = new();
-	//	if (sqlCrudConfig.IsResultAddFieldEmpty)
-	//	{
-	//		result.Add(GetItemNewAttributes<T>());
-	//	}
-
-	//	List<T> list = new();
-	//	T[]? items = GetArrayNullable<T>(sqlCrudConfig);
-	//	if (items is not null && items.Length > 0)
-	//		list = items.ToList();
-		
-	//	result.AddRange(list);
-	//	return result;
-	//}
 
 	#endregion
 }

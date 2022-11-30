@@ -3,10 +3,8 @@
 
 using DataCore.Files;
 using DataCore.Localizations;
-using DataCore.Protocols;
 using DataCore.Settings;
 using DataCore.Sql.Core;
-using DataCore.Sql.TableScaleModels;
 using ScalesUI.Forms;
 using System;
 using System.IO;
@@ -20,29 +18,29 @@ namespace ScalesUI;
 
 internal static class Program
 {
-	#region Public and private fields and properties
+    #region Public and private fields and properties
 
-	private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
-	private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
-	private static FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
+    private static AppVersionHelper AppVersion { get; } = AppVersionHelper.Instance;
+    private static DataAccessHelper DataAccess { get; } = DataAccessHelper.Instance;
+    private static FileLoggerHelper FileLogger { get; } = FileLoggerHelper.Instance;
 
-	#endregion
+    #endregion
 
-	#region Public and private methods
+    #region Public and private methods
 
-	[STAThread]
-	internal static void Main()
-	{
-		try
-		{
-			// Setup.
-			AppVersion.Setup(Assembly.GetExecutingAssembly());
-			//FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
-			JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
+    [STAThread]
+    internal static void Main()
+    {
+        try
+        {
+            // Setup.
+            AppVersion.Setup(Assembly.GetExecutingAssembly());
+            //FileLogHelper.Instance.FileName = SqlUtils.FilePathLog;
+            JsonSettingsHelper.Instance.SetupScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
 
-			// User
-			UserSessionHelper.Instance.Setup();
-			if (UserSessionHelper.Instance.DeviceScaleFk.IdentityIsNew)
+            // User
+            UserSessionHelper.Instance.Setup();
+            if (UserSessionHelper.Instance.DeviceScaleFk.IdentityIsNew)
             {
                 string message = LocaleCore.Scales.RegistrationWarningScaleNotFound(UserSessionHelper.Instance.DeviceName);
                 GuiUtils.WpfForm.ShowNewRegistration(message + Environment.NewLine + Environment.NewLine + LocaleCore.Scales.CommunicateWithAdmin);
@@ -53,28 +51,28 @@ internal static class Program
 
             // Mutex.
             _ = new Mutex(true, Application.ProductName, out bool createdNew);
-			if (!createdNew)
-			{
-				string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
-				GuiUtils.WpfForm.ShowNewRegistration(message);
-				DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
-				Application.Exit();
-			}
-			else
-			{
-				DataAccess.LogInformation(
-					LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description), 
-					UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new MainForm());
-			}
-		}
-		catch (Exception ex)
-		{
-			GuiUtils.WpfForm.CatchException(ex, true, true, true);
-		}
-	}
+            if (!createdNew)
+            {
+                string message = $"{LocaleCore.Strings.Application} {Application.ProductName} {LocaleCore.Scales.AlreadyRunning}!";
+                GuiUtils.WpfForm.ShowNewRegistration(message);
+                DataAccess.LogError(new Exception(message), UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                Application.Exit();
+            }
+            else
+            {
+                DataAccess.LogInformation(
+                    LocaleCore.Scales.RegistrationSuccess(UserSessionHelper.Instance.DeviceName, UserSessionHelper.Instance.DeviceScaleFk.Scale.Description),
+                    UserSessionHelper.Instance.DeviceName, nameof(ScalesUI));
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            }
+        }
+        catch (Exception ex)
+        {
+            GuiUtils.WpfForm.CatchException(ex, true, true, true);
+        }
+    }
 
-	#endregion
+    #endregion
 }
