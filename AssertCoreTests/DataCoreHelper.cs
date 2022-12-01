@@ -270,6 +270,12 @@ public class DataCoreHelper
 				nomenclature.Xml = LocaleCore.Sql.SqlItemFieldProductXml;
 				nomenclature.Weighted = false;
 				break;
+			case NomenclatureV2Model nomenclatureV2:
+                nomenclatureV2.Name = LocaleCore.Sql.SqlItemFieldName;
+                nomenclatureV2.FullName = LocaleCore.Sql.SqlItemFieldFullName;
+                nomenclatureV2.Code = LocaleCore.Sql.SqlItemFieldCode;
+                nomenclatureV2.MeasurementType = LocaleCore.Sql.SqlItemFieldMeasurementTypeKg;
+                break;
 			case OrderModel order:
 				order.Name = LocaleCore.Sql.SqlItemFieldName;
 				order.BoxCount = 1;

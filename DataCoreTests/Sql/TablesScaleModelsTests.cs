@@ -74,6 +74,9 @@ internal class TablesScaleModelsTests
 					case var cls when cls == typeof(NomenclatureModel):
 						CreateNewSubstitute<NomenclatureModel>();
 						break;
+					case var cls when cls == typeof(NomenclatureV2Model):
+						CreateNewSubstitute<NomenclatureV2Model>();
+						break;
 					case var cls when cls == typeof(OrderModel):
 						CreateNewSubstitute<OrderModel>();
 						break;
