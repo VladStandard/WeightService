@@ -15,9 +15,11 @@ public enum SqlFieldComparerEnum
 {
 	Empty,
 	Equal,
-	NotEqual,
-	More,
+    NotEqual,
+    More,
 	Less,
+    MoreOrEqual,
+    LessOrEqual,
 }
 
 public enum SqlFieldOrderEnum

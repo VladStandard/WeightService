@@ -3,6 +3,7 @@
 
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.SqlCommand;
 
 namespace DataCore.Sql.Core;
 
@@ -37,10 +38,14 @@ public static class SqlExtensions
 		{
 			AbstractCriterion? criterion = filter.Comparer switch
 			{
-				SqlFieldComparerEnum.Equal => Restrictions.Eq(filter.Name, filter.Value),
+                SqlFieldComparerEnum.Less => Restrictions.Lt(filter.Name, filter.Value),
+                SqlFieldComparerEnum.More => Restrictions.Gt(filter.Name, filter.Value),
+                SqlFieldComparerEnum.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
+                SqlFieldComparerEnum.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
+                SqlFieldComparerEnum.Equal => Restrictions.Eq(filter.Name, filter.Value),
 				SqlFieldComparerEnum.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
-				_ => throw new ArgumentOutOfRangeException()
-			};
+				_ => throw new ArgumentOutOfRangeException(),
+            };
 			if (criterion is not null)
 				criteria.Add(criterion);
 		}
