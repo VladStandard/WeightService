@@ -23,6 +23,7 @@ public partial class DataContextModel
 	public List<LogModel> Logs { get; set; }
 	public List<LogTypeModel> LogTypes { get; set; }
 	public List<NomenclatureModel> Nomenclatures { get; set; }
+	public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
 	public List<OrderModel> Orders { get; set; }
 	public List<OrganizationModel> Organizations { get; set; }
 	public List<PackageModel> Packages { get; set; }
@@ -59,7 +60,8 @@ public partial class DataContextModel
 		Logs = new();
 		LogTypes = new();
 		Nomenclatures = new();
-		Orders = new();
+        NomenclaturesV2 = new();
+        Orders = new();
 		Organizations = new();
 		Packages = new();
 		PluLabels = new();
@@ -156,6 +158,11 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
 					Nomenclatures = Nomenclatures.OrderBy(item => item.Name).ToList();
 				return Nomenclatures.Cast<T>().ToList();
+			case var cls when cls == typeof(NomenclatureV2Model):
+				NomenclaturesV2 = DataAccess.GetListNotNullable<NomenclatureV2Model>(sqlCrudConfig);
+				if (sqlCrudConfig.IsResultOrder)
+                    NomenclaturesV2 = NomenclaturesV2.OrderBy(item => item.Name).ToList();
+				return NomenclaturesV2.Cast<T>().ToList();
 			case var cls when cls == typeof(OrderModel):
 				Orders = DataAccess.GetListNotNullable<OrderModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -299,6 +306,7 @@ public partial class DataContextModel
 		new LogModel(),
 		new LogTypeModel(),
 		new NomenclatureModel(),
+		new NomenclatureV2Model(),
 		new OrderModel(),
 		new OrganizationModel(),
 		new PackageModel(),
@@ -340,6 +348,7 @@ public partial class DataContextModel
 		typeof(LogModel),
 		typeof(LogTypeModel),
 		typeof(NomenclatureModel),
+		typeof(NomenclatureV2Model),
 		typeof(OrderModel),
 		typeof(OrganizationModel),
 		typeof(PackageModel),
@@ -379,6 +388,7 @@ public partial class DataContextModel
 			var cls when cls == typeof(LogModel) => nameof(LogModel),
 			var cls when cls == typeof(LogTypeModel) => nameof(LogTypeModel),
 			var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
+			var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
 			var cls when cls == typeof(OrderModel) => nameof(OrderModel),
 			var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
 			var cls when cls == typeof(PackageModel) => nameof(PackageModel),

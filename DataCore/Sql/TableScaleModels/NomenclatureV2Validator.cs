@@ -6,14 +6,14 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "Nomenclature".
+/// Table validation "NOMENCLATURES".
 /// </summary>
-public class NomenclatureValidator : SqlTableValidator<NomenclatureModel>
+public class NomenclatureV2Validator : SqlTableValidator<NomenclatureV2Model>
 {
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public NomenclatureValidator()
+	public NomenclatureV2Validator()
 	{
 		RuleFor(item => item.CreateDt)
 			.NotEmpty()
@@ -25,7 +25,10 @@ public class NomenclatureValidator : SqlTableValidator<NomenclatureModel>
 			.GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
 		RuleFor(item => item.Name)
 			.NotNull();
-		RuleFor(item => item.Xml)
+		RuleFor(item => item.FullName)
+			.NotEmpty()
+			.NotNull();
+		RuleFor(item => item.Code)
 			.NotEmpty()
 			.NotNull();
 	}

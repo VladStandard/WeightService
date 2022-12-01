@@ -36,7 +36,6 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual string TypeBottom { get; set; }
 	[XmlElement] public virtual string ValueBottom { get; set; }
 	[XmlElement] public virtual PluLabelModel PluLabel { get; set; }
-
 	[XmlIgnore] public virtual string TemplateBarCodeTop => "^BY3  ^B2R,120,Y,N,Y";
 	[XmlIgnore] public virtual string TemplateFd => "^FD";
 	[XmlIgnore] public virtual string TemplateFs => "^FS";
