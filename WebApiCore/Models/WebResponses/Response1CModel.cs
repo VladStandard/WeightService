@@ -16,14 +16,19 @@ public class Response1CModel : SerializeBase
 
     [XmlAttribute] 
     public int SuccessesCount { get; set; }
+
     [XmlAttribute] 
     public int ErrorsCount { get; set; }
+
     [XmlElement("SqlQuery")]
     public ResponseQueryModel? ResponseQuery { get; set; }
+
     [XmlArray, XmlArrayItem(WebConstants.Info)]
     public List<Response1CInfoModel> Infos { get; set; }
+
     [XmlArray, XmlArrayItem(WebConstants.Record)]
     public List<Response1CRecordModel> Successes { get; set; }
+
     [XmlArray, XmlArrayItem(WebConstants.Record)]
     public List<Response1CRecordModel> Errors { get; set; }
 

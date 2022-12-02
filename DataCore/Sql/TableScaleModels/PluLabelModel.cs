@@ -19,28 +19,32 @@ public class PluLabelModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	[XmlElement] public virtual string Zpl { get; set; }
 	[XmlElement(IsNullable = true)] public virtual XmlDocument? Xml { get; set; }
 	[XmlElement] public virtual DateTime ProductDt { get; set; }
-	[XmlElement]
+	
+    [XmlElement]
 	public virtual string ProductDtFormat
 	{
 		get => $"{ProductDt:dd.MM.yyyy}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlElement]
+	
+    [XmlElement]
 	public virtual string LotNumberFormat
 	{
 		get => $"{ProductDt:yyMM}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlElement]
+	
+    [XmlElement]
 	public virtual string ProductDateBarCodeFormat
 	{
 		get => $"{ProductDt:yyMMdd}";
 		// This code need for print labels.
 		set => _ = value;
 	}
-	[XmlElement]
+	
+    [XmlElement]
 	public virtual string ProductTimeBarCodeFormat
 	{
 		get => $"{ProductDt:HHmmss}";
