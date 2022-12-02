@@ -1,10 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleModels;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 using System.Net;
+using WebApiCore.Models.WebResponses;
 
 namespace WebApiCore.Models.WebRequests;
 
@@ -67,7 +69,6 @@ public static class WebResponseUtils
             }
         });
     }
-
     public static async Task GetExceptionAsync(string url, RestRequest request)
     {
         await GetResponseAsync(url, request, (response) =>
@@ -100,6 +101,23 @@ public static class WebResponseUtils
             }
         });
     }
+    public static ResponseSingleBarCodeModel CastFromBarCodeModel(BarCodeModel barCodeModel)
+    {
+        // var barCodeTmp = barCodeModel.CloneCast();
+
+        ResponseSingleBarCodeModel item = new()
+        {
+            TypeTop = barCodeModel.TypeTop,
+            ValueTop = barCodeModel.ValueTop,
+            TypeRight = barCodeModel.TypeRight,
+            ValueRight = barCodeModel.ValueRight,
+            TypeBottom = barCodeModel.TypeBottom,
+            ValueBottom = barCodeModel.ValueBottom,
+            // PluLabel = barCodeModel.PluLabel,
+        };
+        return item;
+    }
+
 
     #endregion
 }
