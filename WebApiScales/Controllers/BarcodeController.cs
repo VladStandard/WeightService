@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Lextm.SharpSnmpLib.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
@@ -85,7 +86,7 @@ public class BarCodeController : WebControllerBase //ApiController
     public ContentResult SendTest([FromQuery(Name = "format")] string formatString = "") =>
         ControllerHelp.GetContentResult(() => {
             return ControllerHelp.NewResponse1CFromQuery(SessionFactory, string.Empty, null, formatString, false);
-        } , formatString);
+        }, formatString);
 
     [AllowAnonymous]
     [HttpPost()]
@@ -142,6 +143,8 @@ public class BarCodeController : WebControllerBase //ApiController
             return ControllerHelp.NewResponse1CFromQuery(SessionFactory, SqlQueriesBarcodes.FindTop,
                 new("VALUE_TOP", new BarcodeTopModel().DeserializeFromXml<BarcodeTopModel>(barcodeTop).GetValue()), formatString, false);
         }, formatString);
+
+    #endregion
 
     #endregion
 }

@@ -10,15 +10,14 @@
 
 .SidebarRelease {
     background-image: linear-gradient(90deg, blue 0, blue 50%);
-    width: 13%;
 }
+
 .SidebarDebug {
     background-image: linear-gradient(90deg, grey 0, grey 50%);
-    width: 13%;
 }
+
 .SidebarDefault {
     background-image: linear-gradient(0, transparent 0, transparent 50%);
-    width: 13%;
 }
 
 .top-row {

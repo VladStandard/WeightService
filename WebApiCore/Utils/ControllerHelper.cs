@@ -174,6 +174,21 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
+    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory,
+        DateTime start, DateTime end, string formatString, bool isTransaction)
+    {
+        return NewResponse1CCore(sessionFactory, (session, response) =>
+        {
+            List<SqlFieldFilterModel> sqlFilters = new List<SqlFieldFilterModel>() {
+                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
+                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
+            };
+            SqlCrudConfigModel sqlCrudConfig = new SqlCrudConfigModel(sqlFilters, true, false, false, true);
+            List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
+            response.Infos.Add(new($"{barcodesDb.Count}-{start}"));
+        }, formatString, isTransaction);
+    }
+
     private void AddResponseRecord(Response1CModel response, List<BrandModel> brandsDb, BrandModel brandInput)
     {
         try
