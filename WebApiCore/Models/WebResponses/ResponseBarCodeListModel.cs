@@ -14,7 +14,7 @@ public class ResponseBarCodeListModel : SerializeBase, ISerializable //ICloneabl
 {
     #region Public and private fields, properties, constructor
 
-    [XmlArray(WebConstants.Barcodes), XmlArrayItem(WebConstants.Barcode, typeof(ResponseBarCodeModel))]
+    [XmlArray(WebConstants.Barcodes), XmlArrayItem(WebConstants.Barcode)]
     public List<ResponseBarCodeModel> ResponseBarCodes { get; set; }
 
     public ResponseBarCodeListModel()
