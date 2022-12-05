@@ -1,14 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Newtonsoft.Json;
 using NUnit.Framework;
-using RestSharp;
 using System.Net;
 using System.Threading.Tasks;
 using WebApiCore.Enums;
-using WebApiCore.Models;
 using WebApiCore.Models.WebRequests;
+using WebApiCore.Models.WebResponses;
 using WebApiCore.Utils;
 
 namespace WebApiTerra1000Tests.Controllers;

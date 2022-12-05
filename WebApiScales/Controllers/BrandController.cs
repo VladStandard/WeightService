@@ -38,9 +38,7 @@ public class BrandController : WebControllerBase //ApiController
     [Route("api/v3/send_brands/")]
     public ContentResult SendBrandList([FromBody] XElement request, 
         [FromQuery(Name = "format")] string formatString = "") =>
-        ControllerHelp.GetContentResult(() => {
-            return ControllerHelp.NewResponse1CFromAction(SessionFactory, request, formatString, false);
-        }, formatString);
+        ControllerHelp.GetContentResult(() => ControllerHelp.NewResponse1CFromAction(SessionFactory, request, formatString), formatString);
 
     #endregion
 }

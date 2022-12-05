@@ -73,7 +73,7 @@ public class TestControllerV2 : WebControllerBase
     /// <summary>
     /// Get exception.
     /// </summary>
-    /// <param name="format"></param>
+    /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]
@@ -89,8 +89,8 @@ public class TestControllerV2 : WebControllerBase
     /// <summary>
     /// Get simple.
     /// </summary>
-    /// <param name="format"></param>
     /// <param name="version"></param>
+    /// <param name="formatString"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet()]

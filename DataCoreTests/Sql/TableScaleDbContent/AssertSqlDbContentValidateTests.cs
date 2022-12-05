@@ -87,6 +87,12 @@ internal class AssertSqlDbContentValidateTests
     }
 
     [Test]
+    public void DbContent_Validate_NomenclatureGroupModel()
+    {
+        DataCore.AssertSqlDbContentValidate<NomenclatureGroupModel>();
+    }
+
+    [Test]
     public void DbContent_Validate_OrderModel()
     {
         DataCore.AssertSqlDbContentValidate<OrderModel>();

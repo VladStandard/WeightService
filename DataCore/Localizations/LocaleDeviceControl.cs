@@ -109,6 +109,7 @@ public partial class LocaleDeviceControl
     public string SectionProductionFacilitiesShort => Lang == Lang.English ? "Facilities" : "Площадки";
     public string SectionProductSeries => Lang == Lang.English ? "Product series" : "Серии продуктов";
     public string SectionReferences => Lang == Lang.English ? "References" : "Справочники";
+    public string SectionReferences1C => Lang == Lang.English ? "References 1C" : "Справочники 1C";
     public string SectionReferencesAdditional => Lang == Lang.English ? "Add. references" : "Доп. справочники";
     public string SectionReferencesDev => Lang == Lang.English ? "Development" : "Разработка";
     public string SectionResources => Lang == Lang.English ? "Resources" : "Ресурсы";

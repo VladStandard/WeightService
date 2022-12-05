@@ -4,13 +4,13 @@
 using RestSharp;
 using WebApiCore.Enums;
 using WebApiCore.Models.WebRequests;
+using WebApiCore.Models.WebResponses;
 
 namespace WebApiScalesTests.Controllers;
 
 [TestFixture]
 internal class TestControllerTests
 {
-
     [Test]
     public void GetListException_Execute_DoesNotThrow()
     {

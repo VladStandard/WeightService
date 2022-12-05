@@ -81,42 +81,44 @@ public class ControllerHelper
         }
     }
 
-    private ContentResult NewResponse1CCore(ISessionFactory sessionFactory, Action<ISession, Response1CModel> action,
-        string formatString, bool isTransaction)
+    //private ContentResult NewResponse1CCore(ISessionFactory sessionFactory, Action<Response1CModel> action,
+    //        string formatString, bool isTransaction)
+    private ContentResult NewResponse1CCore<T>(ISessionFactory sessionFactory, Action<T> action,
+            string formatString, bool isTransaction) where T : SerializeBase, new()
     {
         using ISession session = sessionFactory.OpenSession();
         using ITransaction transaction = session.BeginTransaction();
         HttpStatusCode httpStatusCode = HttpStatusCode.OK;
-        Response1CModel response = new();
+        T response = new();
 
         try
         {
-            action(session, response);
+            action(response);
             if (isTransaction)
                 transaction.Commit();
         }
         catch (Exception ex)
         {
             httpStatusCode = HttpStatusCode.InternalServerError;
-            response.Errors.Add(new Response1CRecordModel(ex));
+            if (response is Response1CModel response1C)
+                response1C.Errors.Add(new(ex));
             if (isTransaction)
                 transaction.Rollback();
         }
 
-        return response.GetContentResult<Response1CModel>(formatString, httpStatusCode);
+        return response.GetContentResult<T>(formatString, httpStatusCode);
     }
 
     public ContentResult NewResponse1CFromQuery(ISessionFactory sessionFactory, string query,
         SqlParameter? sqlParameter, string formatString, bool isTransaction)
     {
-        return NewResponse1CCore(sessionFactory, (session, response) =>
+        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
         {
             if (!string.IsNullOrEmpty(query))
             {
                 if (response.ResponseQuery is not null)
                     response.ResponseQuery.Query = query;
-                ISQLQuery sqlQuery = session.CreateSQLQuery(query);
-                sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
+                ISQLQuery sqlQuery = DataContext.Session.CreateSQLQuery(query);
                 if (sqlParameter is not null)
                 {
                     if (response.ResponseQuery is not null)
@@ -148,10 +150,9 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory,
-        XElement request, string formatString, bool isTransaction)
+    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
     {
-        return NewResponse1CCore(sessionFactory, (session, response) =>
+        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
         {
             SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
             List<BrandModel> brandsDb = DataContext.GetListNotNullable<BrandModel>(sqlCrudConfig);
@@ -163,29 +164,29 @@ public class ControllerHelper
                 switch (brandInput.ParseResult.Status)
                 {
                     case ParseStatus.Success:
-                        AddResponseRecord(response, brandsDb, brandInput);
+                        AddResponse1CBrand(response, brandsDb, brandInput);
                         break;
                     case ParseStatus.Error:
-                        AddResponseException(brandInput.IdentityValueUid, response, brandInput.ParseResult.Exception, brandInput.ParseResult.InnerException);
+                        AddResponse1CException(brandInput.IdentityValueUid, response, brandInput.ParseResult.Exception, brandInput.ParseResult.InnerException);
                         break;
                 }
             }
             response.Infos.Add(new($"Proced input {brandsInput.Count} items of {nameof(brandsInput)}"));
-        }, formatString, isTransaction);
+        }, formatString, false);
     }
 
     public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end,  string formatString, bool isTransaction)
     {
-        return NewResponse1CCore(sessionFactory, (session, response) =>
+        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
         {
             
-            List<SqlFieldFilterModel> sqlFilters = new List<SqlFieldFilterModel>()
+            List<SqlFieldFilterModel> sqlFilters = new()
             {
                 new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
                 new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
             };
 
-            SqlCrudConfigModel sqlCrudConfig = new SqlCrudConfigModel(sqlFilters, true, false, false, true);
+            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
             List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
 
            // ResponseBarCodeModels barCodes = new(barcodesDb);
@@ -194,7 +195,7 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    private void AddResponseRecord(Response1CModel response, List<BrandModel> brandsDb, BrandModel brandInput)
+    private void AddResponse1CBrand(Response1CModel response, List<BrandModel> brandsDb, BrandModel brandInput)
     {
         try
         {
@@ -208,7 +209,7 @@ public class ControllerHelper
                 if (resultDbStore.isOk)
                     response.Successes.Add(new(brandInput.IdentityValueUid, "Update was success"));
                 else
-                    AddResponseException(brandInput.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1CException(brandInput.IdentityValueUid, response, resultDbStore.exception);
             }
             else
             {
@@ -221,23 +222,23 @@ public class ControllerHelper
                         response.Successes.Add(
                             new(brandDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {brandInput.Code}"));
                     else
-                        AddResponseException(brandDb.IdentityValueUid, response, resultDbStore.exception);
+                        AddResponse1CException(brandDb.IdentityValueUid, response, resultDbStore.exception);
                 }
                 // Not find the duplicate field "Code".
                 resultDbStore = DataContext.DataAccess.Save(brandInput, brandInput.Identity);
                 if (resultDbStore.isOk)
                     response.Successes.Add(new(brandInput.IdentityValueUid, "Add was success"));
                 else
-                    AddResponseException(brandInput.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1CException(brandInput.IdentityValueUid, response, resultDbStore.exception);
             }
         }
         catch (Exception ex)
         {
-            AddResponseException(brandInput.IdentityValueUid, response, ex);
+            AddResponse1CException(brandInput.IdentityValueUid, response, ex);
         }
     }
 
-    private void AddResponseException(Guid uid, Response1CModel response, string? errorMessage, string? innerErrorMessage = null)
+    private void AddResponse1CException(Guid uid, Response1CModel response, string? errorMessage, string? innerErrorMessage = null)
     {
         Response1CRecordModel responseRecord = new(uid, errorMessage ?? string.Empty);
         if (!string.IsNullOrEmpty(innerErrorMessage))
@@ -245,28 +246,19 @@ public class ControllerHelper
         response.Errors.Add(responseRecord);
     }
 
-    private void AddResponseException(Guid uid, Response1CModel response, Exception? ex) =>
-        AddResponseException(uid, response, ex?.Message, ex?.InnerException?.Message);
+    private void AddResponse1CException(Guid uid, Response1CModel response, Exception? ex) =>
+        AddResponse1CException(uid, response, ex?.Message, ex?.InnerException?.Message);
 
-    //public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, BrandModel brand,
-    //    FormatTypeEnum formatType, bool isShowQuery, bool isTransaction) => 
-    //    NewResponse1CFromAction(sessionFactory, new BrandListModel(new List<BrandModel>() { brand }), formatType, isShowQuery, isTransaction);
+    public List<BrandModel> GetBrandList(BrandModel brand) => new() { brand };
 
-    //public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, List<BrandModel> brands, 
-    //    FormatTypeEnum formatType, bool isShowQuery, bool isTransaction) =>
-    //    NewResponse1CFromAction(sessionFactory, new BrandListModel(brands), formatType, isShowQuery, isTransaction);
-
-    public List<BrandModel> GetBrandList(BrandModel brand) =>
-        new List<BrandModel>() { brand };
-
-    public List<BrandModel> GetBrandList(XElement xml)
+    private List<BrandModel> GetBrandList(XElement xml)
     {
         List<BrandModel> brands = new();
         XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml.ToString());
         if (xmlDocument.DocumentElement is null) return brands;
 
-        //// Root node.
+        // Root node.
         //try
         //{
         //    if (int.TryParse(GetAttributeValue(xmlDocument.DocumentElement, "Count"), out int count))
@@ -390,6 +382,21 @@ public class ControllerHelper
             }
         }
         return result;
+    }
+    
+    public ContentResult NewResponseBarCodes(ISessionFactory sessionFactory, DateTime dtStart, DateTime dtEnd, string formatString)
+    {
+        return NewResponse1CCore<ResponseBarCodeListModel>(sessionFactory, (response) =>
+        {
+            List<SqlFieldFilterModel> sqlFilters = new()
+            {
+                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, dtStart),
+                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, dtEnd),
+            };
+            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
+            List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
+            response.ResponseBarCodes = WebResponseUtils.CastBarCodes(barcodesDb);
+        }, formatString, false);
     }
 
     #endregion

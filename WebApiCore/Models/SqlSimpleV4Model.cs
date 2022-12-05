@@ -12,8 +12,7 @@ public class SqlSimpleV4Model : SerializeBase
 {
     #region Public and private fields and properties
 
-    [XmlArray(WebConstants.Items)]
-    [XmlArrayItem(WebConstants.Simple, typeof(SqlSimpleV1Model))]
+    [XmlArray(WebConstants.Items), XmlArrayItem(WebConstants.Simple, typeof(SqlSimpleV1Model))]
     public List<SqlSimpleV1Model> Simples { get; set; }
 
     /// <summary>
@@ -21,7 +20,7 @@ public class SqlSimpleV4Model : SerializeBase
     /// </summary>
     public SqlSimpleV4Model()
     {
-        //
+        Simples = new();
     }
 
     #endregion

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using RestSharp;
 using WebApiCore.Enums;
 using WebApiCore.Models.WebRequests;
+using WebApiCore.Models.WebResponses;
 
 namespace WebApiTerra1000Tests.Controllers;
 

@@ -2,12 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using NUnit.Framework;
-using RestSharp;
 using System.Net;
 using System.Threading.Tasks;
 using WebApiCore.Enums;
-using WebApiCore.Models;
 using WebApiCore.Models.WebRequests;
+using WebApiCore.Models.WebResponses;
 using WebApiCore.Utils;
 
 namespace WebApiTerra1000Tests.Controllers;
@@ -54,7 +53,7 @@ internal class ContragentControllerTests
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
-            
+
             if (!string.IsNullOrEmpty(response.Content))
             {
                 if (code is not null)

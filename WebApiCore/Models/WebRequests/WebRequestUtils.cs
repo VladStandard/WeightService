@@ -9,16 +9,15 @@ public static class WebRequestUtils
 {
     #region Public and private methods
 
-    public static QueryParameter GetQueryParameterFormatJson() => new QueryParameter("format", "json");
+    public static QueryParameter GetQueryParameterFormatJson() => new("format", "json");
     
-    public static QueryParameter GetQueryParameterFormatXml() => new QueryParameter("format", "xml");
+    public static QueryParameter GetQueryParameterFormatXml() => new("format", "xml");
     
     public static RestRequest GetRequestFormatJson() => new RestRequest().AddQueryParameter("format", "json");
     
     public static RestRequest GetRequestFormatXml() => new RestRequest().AddQueryParameter("format", "xml");
 
-    public static List<RestRequest> GetRequestFormats() =>
-        new List<RestRequest>() { GetRequestFormatJson(), GetRequestFormatXml() };
+    public static List<RestRequest> GetRequestFormats() => new() { GetRequestFormatJson(), GetRequestFormatXml() };
 
     public static RestRequest GetRequestCodeOrId(string? code, long? id)
     {

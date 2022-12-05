@@ -65,7 +65,7 @@ public static class WebUtils
             using ITransaction transaction = session.BeginTransaction();
             ISQLQuery sqlQuery = session.CreateSQLQuery(query);
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
-            if (parameters?.Count > 0)
+            if (parameters.Count > 0)
             {
                 foreach (SqlParameter parameter in parameters)
                 {
@@ -77,7 +77,7 @@ public static class WebUtils
             return response;
         }
 
-        public static T GetResponse<T>(ISessionFactory sessionFactory, string query, SqlParameter parameter)
+        public static T GetResponse<T>(ISessionFactory sessionFactory, string query, SqlParameter? parameter)
         {
             using ISession session = sessionFactory.OpenSession();
             using ITransaction transaction = session.BeginTransaction();
@@ -90,6 +90,39 @@ public static class WebUtils
             T response = sqlQuery.UniqueResult<T>();
             transaction.Commit();
             return response;
+        }
+
+        public static List<T> GetResponseList<T>(ISessionFactory sessionFactory, string query, List<SqlParameter> parameters)
+        {
+            using ISession session = sessionFactory.OpenSession();
+            using ITransaction transaction = session.BeginTransaction();
+            ISQLQuery sqlQuery = session.CreateSQLQuery(query);
+            sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
+            if (parameters.Count > 0)
+            {
+                foreach (SqlParameter parameter in parameters)
+                {
+                    sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
+                }
+            }
+            IList<T> response = sqlQuery.List<T>();
+            transaction.Commit();
+            return response.Where(item => item is not null).ToList();
+        }
+
+        public static List<T> GetResponseList<T>(ISessionFactory sessionFactory, string query, SqlParameter? parameter)
+        {
+            using ISession session = sessionFactory.OpenSession();
+            using ITransaction transaction = session.BeginTransaction();
+            ISQLQuery sqlQuery = session.CreateSQLQuery(query);
+            sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
+            if (parameter is not null)
+            {
+                sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
+            }
+            IList<T> response = sqlQuery.List<T>();
+            transaction.Commit();
+            return response.Where(item => item is not null).ToList();
         }
 
         public static List<SqlParameter> GetParameters(DateTime startDate, DateTime endDate, int offset, int rowCount) => new()

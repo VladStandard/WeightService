@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Net;
 using DataCore.Sql.TableScaleModels;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
-using System.Net;
-using WebApiCore.Models.WebResponses;
+using WebApiCore.Models.WebRequests;
 
-namespace WebApiCore.Models.WebRequests;
+namespace WebApiCore.Models.WebResponses;
 
 public static class WebResponseUtils
 {
@@ -21,7 +21,7 @@ public static class WebResponseUtils
             UseDefaultCredentials = true,
             ThrowOnAnyError = true,
             MaxTimeout = 60_000,
-            RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+            RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
         };
         using RestClient client = new(options);
         RestResponse response = await client.GetAsync(request);
@@ -69,6 +69,7 @@ public static class WebResponseUtils
             }
         });
     }
+    
     public static async Task GetExceptionAsync(string url, RestRequest request)
     {
         await GetResponseAsync(url, request, (response) =>
@@ -101,23 +102,12 @@ public static class WebResponseUtils
             }
         });
     }
-    public static ResponseSingleBarCodeModel CastFromBarCodeModel(BarCodeModel barCodeModel)
-    {
-        // var barCodeTmp = barCodeModel.CloneCast();
 
-        ResponseSingleBarCodeModel item = new()
-        {
-            TypeTop = barCodeModel.TypeTop,
-            ValueTop = barCodeModel.ValueTop,
-            TypeRight = barCodeModel.TypeRight,
-            ValueRight = barCodeModel.ValueRight,
-            TypeBottom = barCodeModel.TypeBottom,
-            ValueBottom = barCodeModel.ValueBottom,
-            // PluLabel = barCodeModel.PluLabel,
-        };
-        return item;
-    }
-
+    public static ResponseBarCodeModel CastBarCode(BarCodeModel barCode) =>
+        new ResponseBarCodeModel().CloneCast(barCode);
+    
+    public static List<ResponseBarCodeModel> CastBarCodes(IEnumerable<BarCodeModel> barCodes) => 
+        barCodes.Select(CastBarCode).ToList();
 
     #endregion
 }

@@ -5,8 +5,10 @@ namespace WebApiCore.Utils;
 
 public static class WebConstants
 {
+    public const string Barcode = @"Barcode";
     public const string BarcodeBottom = @"BarcodeBottom";
     public const string BarcodeRight = @"BarcodeRight";
+    public const string Barcodes = @"Barcodes";
     public const string BarcodeTop = @"BarcodeTop";
     public const string Brand = @"Brand";
     public const string Brands = @"Brands";

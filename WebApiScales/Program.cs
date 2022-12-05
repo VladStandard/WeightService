@@ -4,7 +4,6 @@
 using DataCore.Files;
 using DataCore.Sql.Core;
 using Microsoft.Net.Http.Headers;
-using Microsoft.OpenApi.Models;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
@@ -73,21 +72,21 @@ builder.Services.AddEndpointsApiExplorer();
 // Swagger documentaion.
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
+    options.SwaggerDoc("v1", new()
     {
         Version = "v1",
         Title = "WEB API Scales Documentaion",
         Description = "An ASP.NET Core Web API for managing ToDo items",
-        TermsOfService = new Uri("https://example.com/terms"),
-        Contact = new OpenApiContact
+        TermsOfService = new("https://example.com/terms"),
+        Contact = new()
         {
             Name = "Example Contact",
-            Url = new Uri("https://example.com/contact")
+            Url = new("https://example.com/contact")
         },
-        License = new OpenApiLicense
+        License = new()
         {
             Name = "Example License",
-            Url = new Uri("https://example.com/license")
+            Url = new("https://example.com/license")
         }
     });
 });
