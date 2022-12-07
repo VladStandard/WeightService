@@ -175,26 +175,6 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end,  string formatString, bool isTransaction)
-    {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
-        {
-            
-            List<SqlFieldFilterModel> sqlFilters = new()
-            {
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
-            };
-
-            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
-            List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
-
-           // ResponseBarCodeModels barCodes = new(barcodesDb);
-            // response.SerializeAsXmlString<BarCodeModel>(false);
-
-        }, formatString, isTransaction);
-    }
-
     private void AddResponse1CBrand(Response1CModel response, List<BrandModel> brandsDb, BrandModel brandInput)
     {
         try
@@ -396,6 +376,9 @@ public class ControllerHelper
             SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
             List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
             response.ResponseBarCodes = WebResponseUtils.CastBarCodes(barcodesDb);
+            response.StartDate = dtStart;
+            response.EndDate = dtEnd;
+            response.Count = response.ResponseBarCodes.Count;
         }, formatString, false);
     }
 
