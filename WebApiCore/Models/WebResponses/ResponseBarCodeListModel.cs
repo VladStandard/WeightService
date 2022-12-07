@@ -14,8 +14,16 @@ public class ResponseBarCodeListModel : SerializeBase, ISerializable //ICloneabl
 {
     #region Public and private fields, properties, constructor
 
-    [XmlArray(WebConstants.Barcodes), XmlArrayItem(WebConstants.Barcode, typeof(ResponseBarCodeModel))]
+    [XmlArray(WebConstants.Barcodes), XmlArrayItem(WebConstants.Barcode)]
     public List<ResponseBarCodeModel> ResponseBarCodes { get; set; }
+
+    [XmlAttribute(nameof(StartDate))] public DateTime StartDate { get; set; }
+
+    [XmlAttribute(nameof(EndDate))] public DateTime EndDate { get; set; }
+
+    [XmlAttribute(nameof(Count))]
+    public int Count { get; set; }
+
 
     public ResponseBarCodeListModel()
     {
@@ -31,6 +39,9 @@ public class ResponseBarCodeListModel : SerializeBase, ISerializable //ICloneabl
     {
         object? barCodes = info.GetValue(nameof(ResponseBarCodes), typeof(List<ResponseBarCodeModel>));
         ResponseBarCodes = barCodes is not null ? (List<ResponseBarCodeModel>)barCodes : new();
+        StartDate = info.GetDateTime(nameof(StartDate));
+        EndDate = info.GetDateTime(nameof(EndDate));
+        Count = info.GetInt32(nameof(Count));
     }
 
     #endregion
@@ -46,6 +57,9 @@ public class ResponseBarCodeListModel : SerializeBase, ISerializable //ICloneabl
     {
         base.GetObjectData(info, context);
         info.AddValue(nameof(ResponseBarCodes), ResponseBarCodes, typeof(ResponseBarCodeModel));
+        info.AddValue(nameof(StartDate), StartDate);
+        info.AddValue(nameof(EndDate), EndDate);
+        info.AddValue(nameof(Count), Count);
     }
 
     #endregion

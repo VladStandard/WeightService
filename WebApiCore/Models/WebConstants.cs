@@ -19,6 +19,7 @@ public static class WebConstants
     public const string Exception = @"Exception";
     public const string FilePath = @"FilePath";
     public const string Goods = @"Goods";
+    public const string Guid = @"Guid";
     public const string Info = @"Info";
     public const string InnerException = @"InnerException";
     public const string Items = @"Items";

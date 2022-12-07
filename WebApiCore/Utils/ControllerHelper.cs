@@ -555,6 +555,9 @@ public class ControllerHelper
             SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
             List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
             response.ResponseBarCodes = WebResponseUtils.CastBarCodes(barcodesDb);
+            response.StartDate = dtStart;
+            response.EndDate = dtEnd;
+            response.Count = response.ResponseBarCodes.Count;
         }, formatString, false);
     }
 
