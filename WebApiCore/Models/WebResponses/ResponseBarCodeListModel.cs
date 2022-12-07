@@ -9,8 +9,9 @@ using WebApiCore.Utils;
 
 namespace WebApiCore.Models.WebResponses;
 
+[Serializable]
 [XmlRoot(WebConstants.Response, Namespace = "", IsNullable = false)]
-public class ResponseBarCodeListModel : SerializeBase, ISerializable //ICloneable, ISqlDbBase, 
+public class ResponseBarCodeListModel : SerializeBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
