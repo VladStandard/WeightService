@@ -92,6 +92,7 @@ public partial class LocaleDeviceControl
     public string SectionMeasurements => Lang == Lang.English ? "Measurements" : "Измерения";
     public string SectionModules => Lang == Lang.English ? "Modules" : "Модули";
     public string SectionNomenclatures => Lang == Lang.English ? "Nomenclatures" : "Номенклатура";
+    public string SectionNomenclaturesGroups => Lang == Lang.English ? "Nomenclatures groups" : "Номенклатурные группы";
     public string SectionNomenclatureUnits => Lang == Lang.English ? "Packages" : "Упаковки";
     public string SectionObsoletes => Lang == Lang.English ? "Obsoletes" : "Устаревшие";
     public string SectionOperations => Lang == Lang.English ? "Operations" : "Операции";

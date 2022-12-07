@@ -3,13 +3,17 @@
 
 using BlazorCore.Razors;
 
-namespace BlazorDeviceControl.Razors.ItemComponents.Others;
+namespace BlazorDeviceControl.Razors.SectionComponents.References1C;
 
-public partial class ItemBrand : RazorComponentItemBase<BrandModel>
+public partial class SectionNomenclatures : RazorComponentSectionBase<NomenclatureModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
-    //
+    public SectionNomenclatures()
+    {
+		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+    }
 
     #endregion
 
@@ -21,11 +25,9 @@ public partial class ItemBrand : RazorComponentItemBase<BrandModel>
         {
             () =>
             {
-                SqlItemCast = DataContext.GetItemNotNullable<BrandModel>(IdentityUid);
-                if (SqlItemCast.IdentityIsNew)
-                    SqlItem = SqlItemNew<BrandModel>();
+	            SqlSectionCast = DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigSection);
 
-                ButtonSettings = new(false, false, false, false, false, true, true);
+                ButtonSettings = new(true, true, true, true, true, false, false);
             }
         });
     }

@@ -44,8 +44,6 @@
     <None Remove="Upload\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Razors\ItemComponents\References1C\" />
-    <Folder Include="Razors\SectionComponents\References1C\" />
     <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>

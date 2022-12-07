@@ -3,15 +3,15 @@
 
 using BlazorCore.Razors;
 
-namespace BlazorDeviceControl.Razors.SectionComponents.Others;
+namespace BlazorDeviceControl.Razors.SectionComponents.References1C;
 
-public partial class SectionNomenclatures : RazorComponentSectionBase<NomenclatureModel, SqlTableBase>
+public partial class SectionContragents : RazorComponentSectionBase<ContragentModel, SqlTableBase>
 {
     #region Public and private fields, properties, constructor
 
-    public SectionNomenclatures()
+    public SectionContragents()
     {
-		SqlCrudConfigSection.IsGuiShowItemsCount = true;
+        SqlCrudConfigSection.IsGuiShowItemsCount = true;
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
     }
 
@@ -25,7 +25,7 @@ public partial class SectionNomenclatures : RazorComponentSectionBase<Nomenclatu
         {
             () =>
             {
-	            SqlSectionCast = DataContext.GetListNotNullable<NomenclatureModel>(SqlCrudConfigSection);
+                SqlSectionCast = DataContext.GetListNotNullable<ContragentModel>(SqlCrudConfigSection);
 
                 ButtonSettings = new(true, true, true, true, true, false, false);
             }
