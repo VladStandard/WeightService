@@ -4,7 +4,6 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
-using NHibernate.Dialect;
 
 namespace DataCore.Sql.Core;
 

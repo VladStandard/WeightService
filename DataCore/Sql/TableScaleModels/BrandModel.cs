@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
 using DataCore.Sql.Tables;
 
 namespace DataCore.Sql.TableScaleModels;
@@ -10,12 +9,11 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "BRANDS".
 /// </summary>
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
-public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class BrandModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
     
 	[XmlAttribute] public virtual string Code { get; set; }
-	[XmlIgnore] public virtual ParseResultModel ParseResult { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -23,7 +21,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     public BrandModel() : base(SqlFieldIdentityEnum.Uid)
 	{
 		Code = string.Empty;
-		ParseResult = new();
     }
 
 	/// <summary>
@@ -34,7 +31,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	private BrandModel(SerializationInfo info, StreamingContext context) : base(info, context)
 	{
 		Code = info.GetString(nameof(Code));
-        ParseResult = (ParseResultModel)info.GetValue(nameof(ParseResult), typeof(ParseResultModel));
     }
 
 	#endregion
@@ -64,14 +60,12 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public override bool EqualsDefault() =>
 		base.EqualsDefault() &&
-		Equals(Code, string.Empty) &&
-        ParseResult.EqualsDefault();
+		Equals(Code, string.Empty);
 
 	public override object Clone()
 	{
 		BrandModel item = new();
 		item.Code = Code;
-		item.ParseResult = ParseResult.CloneCast();
         item.CloneSetup(base.CloneCast());
 		return item;
 	}
@@ -85,7 +79,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	{
 		base.GetObjectData(info, context);
 		info.AddValue(nameof(Code), Code);
-		info.AddValue(nameof(ParseResult), ParseResult);
 	}
 
 	public override void FillProperties()
@@ -100,8 +93,7 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 
 	public virtual bool Equals(BrandModel item) =>
 		ReferenceEquals(this, item) || base.Equals(item) && //-V3130
-		Equals(Code, item.Code) &&
-		Equals(ParseResult, item.ParseResult);
+		Equals(Code, item.Code);
 
 	public new virtual BrandModel CloneCast() => (BrandModel)Clone();
 
@@ -109,7 +101,6 @@ public class BrandModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     {
 		base.UpdateProperties(brand);
         Code = brand.Code;
-        ParseResult = brand.ParseResult.CloneCast();
     }
     
 	#endregion

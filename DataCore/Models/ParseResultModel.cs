@@ -2,12 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Enums;
-using DataCore.Sql.Tables;
 
 namespace DataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
-public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+[Serializable]
+public class ParseResultModel : SerializeBase, ICloneable // SqlTableBase, ISqlDbBase
 {
     #region Public and private fields, properties, constructor
 
@@ -19,7 +19,7 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     /// <summary>
     /// Constructor.
     /// </summary>
-    public ParseResultModel() : base(SqlFieldIdentityEnum.Uid)
+    public ParseResultModel() : base()
     {
         Status = ParseStatus.Unknown;
         Message = string.Empty;
@@ -49,11 +49,9 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     /// </summary>
     /// <returns></returns>
     public override string ToString() =>
-        $"{nameof(IsMarked)}: {IsMarked}. " +
-        $"{nameof(Name)}: {Name}. " +
         $"{nameof(Status)}: {Status}. " +
-        $"{nameof(Message)}: {Message}. " + 
-        $"{nameof(Exception)}: {Exception}. " + 
+        $"{nameof(Message)}: {Message}. " +
+        $"{nameof(Exception)}: {Exception}. " +
         $"{nameof(InnerException)}: {InnerException}. ";
 
     public override bool Equals(object obj)
@@ -66,23 +64,21 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
+    public bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() => 
-        base.EqualsDefault() &&
+    public bool EqualsDefault() =>
         Equals(Status, ParseStatus.Unknown) &&
         Equals(Message, string.Empty) &&
         Equals(Exception, string.Empty) &&
         Equals(InnerException, string.Empty);
 
-    public new virtual object Clone()
+    public virtual object Clone()
     {
         ParseResultModel item = new();
         item.Status = Status;
         item.Message = Message;
         item.Exception = Exception;
         item.InnerException = InnerException;
-        item.CloneSetup(base.CloneCast());
         return item;
     }
 
@@ -100,9 +96,8 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
         info.AddValue(nameof(InnerException), InnerException);
     }
 
-    public override void FillProperties()
+    public void FillProperties()
     {
-        base.FillProperties();
         Message = LocaleCore.Sql.SqlItemFieldMessage;
         Exception = LocaleCore.Sql.SqlItemFieldException;
         InnerException = LocaleCore.Sql.SqlItemFieldInnerException;
@@ -113,13 +108,13 @@ public class ParseResultModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     #region Public and private methods - virtual
 
     public virtual bool Equals(ParseResultModel item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || 
         Equals(Status, item.Status) &&
         Equals(Message, item.Message) &&
         Equals(Exception, item.Exception) &&
         Equals(InnerException, item.InnerException);
 
-    public new virtual ParseResultModel CloneCast() => (ParseResultModel)Clone();
+    public virtual ParseResultModel CloneCast() => (ParseResultModel)Clone();
 
     #endregion
 }

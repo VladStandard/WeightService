@@ -3,7 +3,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
 using DataCore.Sql.Tables;
-using Zebra.Sdk.Device;
 
 namespace DataCore.Sql.TableScaleModels;
 
@@ -11,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels;
 /// Table "PLUS_WEIGHINGS".
 /// </summary>
 [Serializable]
-public class PluWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PluWeighingModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 

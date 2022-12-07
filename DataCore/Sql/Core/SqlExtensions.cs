@@ -3,7 +3,6 @@
 
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.SqlCommand;
 
 namespace DataCore.Sql.Core;
 

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable MissingXmlDoc
+
+using DataCore.Models;
 
 namespace DataCore.Sql.Tables;
 
@@ -8,7 +9,7 @@ namespace DataCore.Sql.Tables;
 /// DB table model.
 /// </summary>
 [Serializable]
-public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,17 +23,19 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
     [XmlElement] public virtual bool IsMarked { get; set; }
     [XmlElement] public virtual string Name { get; set; }
     [XmlElement] public virtual string Description { get; set; }
+    [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public SqlTableBase()
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public SqlTableBase()
     {
 	    Identity = new(SqlFieldIdentityEnum.Empty);
 	    ChangeDt = CreateDt = DateTime.MinValue;
 	    IsMarked = false;
 	    Name = string.Empty;
 		Description = string.Empty;
+        ParseResult = new();
     }
 
 	/// <summary>
@@ -62,6 +65,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
         IsMarked = info.GetBoolean(nameof(IsMarked));
 		Name = info.GetString(nameof(Name));
         Description = info.GetString(nameof(Description));
+        ParseResult = (ParseResultModel)info.GetValue(nameof(ParseResult), typeof(ParseResultModel));
     }
 
 	#endregion
@@ -84,7 +88,8 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 	    Equals(ChangeDt, item.ChangeDt) &&
 	    Equals(IsMarked, item.IsMarked) &&
 	    Equals(Name, item.Name) &&
-	    Equals(Description, item.Description);
+	    Equals(Description, item.Description) &&
+        Equals(ParseResult, item.ParseResult);
 
     public override bool Equals(object obj)
     {
@@ -110,6 +115,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
         info.AddValue(nameof(IsMarked), IsMarked);
         info.AddValue(nameof(Name), Name);
         info.AddValue(nameof(Description), Description);
+        info.AddValue(nameof(ParseResult), ParseResult);
     }
 
 	#endregion
@@ -124,7 +130,8 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		Equals(ChangeDt, DateTime.MinValue) &&
 		Equals(IsMarked, false) &&
 		Equals(Name, string.Empty) &&
-		Equals(Description, string.Empty);
+		Equals(Description, string.Empty) &&
+        ParseResult.EqualsDefault();
 
 	public virtual object Clone() => new SqlTableBase(Identity)
 	{
@@ -133,6 +140,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		IsMarked = IsMarked,
 		Name = Name,
 		Description = Description,
+        ParseResult = ParseResult.CloneCast(),
 	};
 
 	public virtual SqlTableBase CloneCast() => (SqlTableBase)Clone();
@@ -172,6 +180,7 @@ public class SqlTableBase : SerializeBase, ICloneable, ISqlDbBase, ISerializable
 		IsMarked = item.IsMarked;
         Name = item.Name;
 		Description = item.Description;
+        ParseResult = item.ParseResult.CloneCast();
     }
 
     #endregion

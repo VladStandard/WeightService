@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Models;
 using DataCore.Sql.Tables;
-using Microsoft.AspNetCore.Http;
 
 namespace DataCore.Sql.Core;
 
@@ -300,8 +298,6 @@ public partial class DataContextModel
 	/// <returns></returns>
 	public List<SqlTableBase> GetTableModels() => new()
 	{
-		// Data models.
-		new ParseResultModel(),
 		// Sql models.
 		new AccessModel(),
 		new AppModel(),
