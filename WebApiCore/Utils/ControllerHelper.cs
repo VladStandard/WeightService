@@ -14,8 +14,10 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Linq;
+using DataCore.Sql.Tables;
 using WebApiCore.Models;
 using WebApiCore.Models.WebResponses;
+using System.Drawing.Drawing2D;
 
 namespace WebApiCore.Utils;
 
@@ -150,7 +152,7 @@ public class ControllerHelper
         }, formatString, isTransaction);
     }
 
-    public ContentResult NewResponse1CFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
+    public ContentResult NewResponse1CBrandsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
     {
         return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
         {
@@ -175,66 +177,133 @@ public class ControllerHelper
         }, formatString, false);
     }
 
-    public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end,  string formatString, bool isTransaction)
-    {
-        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
-        {
+    //public ContentResult NewResponseBarcodeFromAction(ISessionFactory sessionFactory, DateTime start, DateTime end,  string formatString, bool isTransaction)
+    //{
+    //    return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
+    //    {
             
-            List<SqlFieldFilterModel> sqlFilters = new()
-            {
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
-                new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
-            };
+    //        List<SqlFieldFilterModel> sqlFilters = new()
+    //        {
+    //            new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.MoreOrEqual, start),
+    //            new(nameof(BarCodeModel.CreateDt), SqlFieldComparerEnum.LessOrEqual, end),
+    //        };
 
-            SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
-            List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
+    //        SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
+    //        List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
 
-           // ResponseBarCodeModels barCodes = new(barcodesDb);
-            // response.SerializeAsXmlString<BarCodeModel>(false);
+    //       // ResponseBarCodeModels barCodes = new(barcodesDb);
+    //        // response.SerializeAsXmlString<BarCodeModel>(false);
 
-        }, formatString, isTransaction);
-    }
+    //    }, formatString, isTransaction);
+    //}
 
-    private void AddResponse1CBrand(Response1CModel response, List<BrandModel> brandsDb, BrandModel brandInput)
+    private void AddResponse1CBrand(Response1CModel response, List<BrandModel> listDb, BrandModel itemInput)
     {
         try
         {
             (bool isOk, Exception? exception) resultDbStore;
-            BrandModel? brandDb = brandsDb.Where(x => x.IdentityValueUid.Equals(brandInput.IdentityValueUid)).FirstOrDefault();
+            BrandModel? itemDb = listDb.Where(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid)).FirstOrDefault();
             // Find duplicate field "GUID".
-            if (brandDb is not null && brandDb.IdentityIsNotNew)
+            if (itemDb is not null && itemDb.IdentityIsNotNew)
             {
-                brandDb.UpdateProperties(brandInput);
-                resultDbStore = DataContext.DataAccess.Update(brandDb);
+                itemDb.UpdateProperties(itemInput);
+                resultDbStore = DataContext.DataAccess.Update(itemDb);
                 if (resultDbStore.isOk)
-                    response.Successes.Add(new(brandInput.IdentityValueUid, "Update was success"));
+                    response.Successes.Add(new(itemInput.IdentityValueUid, "Update was success"));
                 else
-                    AddResponse1CException(brandInput.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
             }
             else
             {
                 // Find the duplicate field "Code".
-                brandDb = brandsDb.Where(x => x.Code.Equals(brandInput.Code)).FirstOrDefault();
-                if (brandDb is not null && brandDb.IdentityIsNotNew)
+                itemDb = listDb.Where(x => x.Code.Equals(itemInput.Code)).FirstOrDefault();
+                if (itemDb is not null && itemDb.IdentityIsNotNew)
                 {
-                    resultDbStore = DataContext.DataAccess.Delete(brandDb);
+                    resultDbStore = DataContext.DataAccess.Delete(itemDb);
                     if (resultDbStore.isOk)
                         response.Successes.Add(
-                            new(brandDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {brandInput.Code}"));
+                            new(itemDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {itemInput.Code}"));
                     else
-                        AddResponse1CException(brandDb.IdentityValueUid, response, resultDbStore.exception);
+                        AddResponse1CException(itemDb.IdentityValueUid, response, resultDbStore.exception);
                 }
                 // Not find the duplicate field "Code".
-                resultDbStore = DataContext.DataAccess.Save(brandInput, brandInput.Identity);
+                resultDbStore = DataContext.DataAccess.Save(itemInput, itemInput.Identity);
                 if (resultDbStore.isOk)
-                    response.Successes.Add(new(brandInput.IdentityValueUid, "Add was success"));
+                    response.Successes.Add(new(itemInput.IdentityValueUid, "Add was success"));
                 else
-                    AddResponse1CException(brandInput.IdentityValueUid, response, resultDbStore.exception);
+                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
             }
         }
         catch (Exception ex)
         {
-            AddResponse1CException(brandInput.IdentityValueUid, response, ex);
+            AddResponse1CException(itemInput.IdentityValueUid, response, ex);
+        }
+    }
+
+    private void AddResponse1CItem<T>(Response1CModel response, List<T> listDb, T itemInput) where T : SqlTableBase, new()
+    {
+        try
+        {
+            (bool isOk, Exception? exception) resultDbStore;
+            T? itemDb = listDb.Where(x => x.IdentityValueUid.Equals(itemInput.IdentityValueUid)).FirstOrDefault();
+            // Find duplicate field "GUID".
+            if (itemDb is not null && itemDb.IdentityIsNotNew)
+            {
+                itemDb.UpdateProperties(itemInput);
+                resultDbStore = DataContext.DataAccess.Update(itemDb);
+                if (resultDbStore.isOk)
+                    response.Successes.Add(new(itemInput.IdentityValueUid, "Update was success"));
+                else
+                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
+            }
+            else
+            {
+                // Find the duplicate field "Code".
+                //itemDb = listDb.Where(x => x.Code.Equals(itemInput.Code)).FirstOrDefault();
+                string itemInputCode = string.Empty;
+                switch(typeof(T))
+                {
+                    case var cls when cls == typeof(BrandModel):
+                        if (itemInput is BrandModel brandInput)
+                        {
+                            itemInputCode = brandInput.Code;
+                            BrandModel? itemCast = listDb.Cast<BrandModel>()
+                                .Where(x => x.Code.Equals(itemInputCode)).FirstOrDefault();
+                            if (itemCast is T itemT)
+                                itemDb = itemT;
+                        }
+                        break;
+                    case var cls when cls == typeof(NomenclatureGroupModel):
+                        if (itemInput is NomenclatureGroupModel nomenclatureGroupInput)
+                        {
+                            itemInputCode = nomenclatureGroupInput.Code;
+                            NomenclatureGroupModel? itemCast = listDb.Cast<NomenclatureGroupModel>()
+                                .Where(x => x.Code.Equals(itemInputCode)).FirstOrDefault();
+                            if (itemCast is T itemT)
+                                itemDb = itemT;
+                        }
+                        break;
+                }
+                if (itemDb is not null && itemDb.IdentityIsNotNew)
+                {
+                    resultDbStore = DataContext.DataAccess.Delete(itemDb);
+                    if (resultDbStore.isOk)
+                        response.Successes.Add(
+                            new(itemDb.IdentityValueUid, "Delete was success", $"Duplicate field Code: {itemInputCode}"));
+                    else
+                        AddResponse1CException(itemDb.IdentityValueUid, response, resultDbStore.exception);
+                }
+                // Not find the duplicate field "Code".
+                resultDbStore = DataContext.DataAccess.Save(itemInput, itemInput.Identity);
+                if (resultDbStore.isOk)
+                    response.Successes.Add(new(itemInput.IdentityValueUid, "Add was success"));
+                else
+                    AddResponse1CException(itemInput.IdentityValueUid, response, resultDbStore.exception);
+            }
+        }
+        catch (Exception ex)
+        {
+            AddResponse1CException(itemInput.IdentityValueUid, response, ex);
         }
     }
 
@@ -248,8 +317,6 @@ public class ControllerHelper
 
     private void AddResponse1CException(Guid uid, Response1CModel response, Exception? ex) =>
         AddResponse1CException(uid, response, ex?.Message, ex?.InnerException?.Message);
-
-    public List<BrandModel> GetBrandList(BrandModel brand) => new() { brand };
 
     private List<BrandModel> GetBrandList(XElement xml)
     {
@@ -295,22 +362,7 @@ public class ControllerHelper
                 }
 
                 // IsMarked.
-                string isMarkedStr = GetAttributeValue(node, nameof(brand.IsMarked));
-                switch (isMarkedStr)
-                {
-                    case "0":
-                    case "false":
-                        brand.IsMarked = false;
-                        break;
-                    case "1":
-                    case "true":
-                        brand.IsMarked = true;
-                        break;
-                    default:
-                        brand.ParseResult.Status = ParseStatus.Error;
-                        brand.ParseResult.Exception = $"IsMarked is Empty!";
-                        break;
-                }
+                SetItemPropertyFromAttribute(node, brand, nameof(brand.IsMarked));
 
                 // Name.
                 brand.Name = GetAttributeValue(node, nameof(brand.Name));
@@ -344,6 +396,113 @@ public class ControllerHelper
         }
 
         return brands;
+    }
+
+    private List<NomenclatureGroupModel> GetNomenclatureGroupList(XElement xml)
+    {
+        List<NomenclatureGroupModel> nomenclatureGroups = new();
+        XmlDocument xmlDocument = new();
+        xmlDocument.LoadXml(xml.ToString());
+        if (xmlDocument.DocumentElement is null) return nomenclatureGroups;
+
+        XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("NomenclatureGroup");
+        foreach (XmlNode node in list)
+        {
+            NomenclatureGroupModel nomenclatureGroup = new();
+            try
+            {
+                nomenclatureGroup.ParseResult.Status = ParseStatus.Success;
+                // Guid.
+                if (Guid.TryParse(GetAttributeValue(node, "Guid"), out Guid uid))
+                {
+                    nomenclatureGroup.IdentityValueUid = uid;
+                }
+                else
+                {
+                    nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
+                    nomenclatureGroup.ParseResult.Exception = $"Guid is Empty!";
+                    //continue;
+                }
+                if (nomenclatureGroup.IdentityValueUid.Equals(Guid.Empty))
+                {
+                    nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
+                    nomenclatureGroup.ParseResult.Exception = $"Guid is Empty!";
+                    //continue;
+                }
+
+                // Set properties.
+                SetItemPropertyFromAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.IsMarked));
+                SetItemPropertyFromAttribute(node, nomenclatureGroup, nameof(nomenclatureGroup.Name));
+                SetItemPropertyFromAttribute(node, nomenclatureGroup, "Code");
+
+                if (string.IsNullOrEmpty(nomenclatureGroup.ParseResult.Exception))
+                    nomenclatureGroup.ParseResult.Message = $"Is success";
+            }
+            catch (Exception ex)
+            {
+                nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
+                nomenclatureGroup.ParseResult.Exception = ex.Message;
+                if (ex.InnerException is not null)
+                    nomenclatureGroup.ParseResult.InnerException = ex.InnerException.Message;
+            }
+            nomenclatureGroups.Add(nomenclatureGroup);
+        }
+
+        return nomenclatureGroups;
+    }
+
+    private void SetItemPropertyFromAttribute<T>(XmlNode node, T item, string property) where T : SqlTableBase, new()
+    {
+        switch (property)
+        {
+            case nameof(item.IsMarked):
+                string isMarkedStr = GetAttributeValue(node, property);
+                switch (isMarkedStr)
+                {
+                    case "0":
+                    case "false":
+                        item.IsMarked = false;
+                        break;
+                    case "1":
+                    case "true":
+                        item.IsMarked = true;
+                        break;
+                    default:
+                        item.ParseResult.Status = ParseStatus.Error;
+                        item.ParseResult.Exception = "IsMarked is Empty!";
+                        break;
+                }
+                break;
+            case nameof(item.Name):
+                item.Name = GetAttributeValue(node, property);
+                if (string.IsNullOrEmpty(item.Name))
+                {
+                    item.ParseResult.Status = ParseStatus.Error;
+                    item.ParseResult.Exception = "Name is Empty!";
+                }
+                break;
+            case "Code":
+                switch (item)
+                {
+                    case BrandModel brand:
+                        brand.Code = GetAttributeValue(node, property);
+                        if (string.IsNullOrEmpty(brand.Code))
+                        {
+                            brand.ParseResult.Status = ParseStatus.Error;
+                            brand.ParseResult.Exception = "Code is Empty!";
+                        }
+                        break;
+                    case NomenclatureGroupModel nomenclatureGroup:
+                        nomenclatureGroup.Code = GetAttributeValue(node, property);
+                        if (string.IsNullOrEmpty(nomenclatureGroup.Code))
+                        {
+                            nomenclatureGroup.ParseResult.Status = ParseStatus.Error;
+                            nomenclatureGroup.ParseResult.Exception = "Code is Empty!";
+                        }
+                        break;
+                }
+                break;
+        }
     }
 
     private string GetAttributeValue(XmlElement? xmlElement, string nameAttribute)
@@ -396,6 +555,31 @@ public class ControllerHelper
             SqlCrudConfigModel sqlCrudConfig = new(sqlFilters, true, false, false, true);
             List<BarCodeModel> barcodesDb = DataContext.GetListNotNullable<BarCodeModel>(sqlCrudConfig);
             response.ResponseBarCodes = WebResponseUtils.CastBarCodes(barcodesDb);
+        }, formatString, false);
+    }
+
+    public ContentResult NewResponse1CNomenclaturesGroupsFromAction(ISessionFactory sessionFactory, XElement request, string formatString)
+    {
+        return NewResponse1CCore<Response1CModel>(sessionFactory, (response) =>
+        {
+            SqlCrudConfigModel sqlCrudConfig = new(new List<SqlFieldFilterModel>(), true, false, false, true);
+            List<NomenclatureGroupModel> nomenclaturesGroupsDb = DataContext.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
+
+            List<NomenclatureGroupModel> nomenclaturesGroupsInput = GetNomenclatureGroupList(request);
+            foreach (NomenclatureGroupModel nomenclatureGroupInput in nomenclaturesGroupsInput)
+            {
+                // string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
+                switch (nomenclatureGroupInput.ParseResult.Status)
+                {
+                    case ParseStatus.Success:
+                        AddResponse1CItem(response, nomenclaturesGroupsDb, nomenclatureGroupInput);
+                        break;
+                    case ParseStatus.Error:
+                        AddResponse1CException(nomenclatureGroupInput.IdentityValueUid, response, nomenclatureGroupInput.ParseResult.Exception, nomenclatureGroupInput.ParseResult.InnerException);
+                        break;
+                }
+            }
+            response.Infos.Add(new($"Proced input {nomenclaturesGroupsInput.Count} items of {nameof(nomenclaturesGroupsInput)}"));
         }, formatString, false);
     }
 

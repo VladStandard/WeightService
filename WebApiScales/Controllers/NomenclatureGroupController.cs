@@ -10,9 +10,9 @@ using WebApiCore.Controllers;
 namespace WebApiScales.Controllers;
 
 /// <summary>
-/// Brand controller.
+/// Nomenclature Group controller.
 /// </summary>
-public class BrandController : WebControllerBase //ApiController
+public class NomenclatureGroupController : WebControllerBase //ApiController
 {
     #region Public and private fields and properties
 
@@ -20,7 +20,7 @@ public class BrandController : WebControllerBase //ApiController
     /// Constructor.
     /// </summary>
     /// <param name="sessionFactory"></param>
-    public BrandController(ISessionFactory sessionFactory) : base(sessionFactory)
+    public NomenclatureGroupController(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
     }
@@ -32,13 +32,14 @@ public class BrandController : WebControllerBase //ApiController
     [AllowAnonymous]
     [Produces("application/xml")]
     [HttpPost()]
-    [Route("api/send_brands/")]
-    [Route("api/v1/send_brands/")]
-    [Route("api/v2/send_brands/")]
-    [Route("api/v3/send_brands/")]
-    public ContentResult SendBrandList([FromBody] XElement request, 
+    [Route("api/send_nomenclatures_groups/")]
+    [Route("api/v1/send_nomenclatures_groups/")]
+    [Route("api/v2/send_nomenclatures_groups/")]
+    [Route("api/v3/send_nomenclatures_groups/")]
+    public ContentResult SendNomenclaturesGroupsList([FromBody] XElement request, 
         [FromQuery(Name = "format")] string formatString = "") =>
-        ControllerHelp.GetContentResult(() => ControllerHelp.NewResponse1CBrandsFromAction(SessionFactory, request, formatString), formatString);
+        ControllerHelp.GetContentResult(() => ControllerHelp
+            .NewResponse1CNomenclaturesGroupsFromAction(SessionFactory, request, formatString), formatString);
 
     #endregion
 }

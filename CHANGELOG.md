@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Обновить таблицу LOGS
 - Распространиить метод UpdateProperties (см. BrandModel).
 
-## [0.7.585] - 2022-12-06
+## [0.7.590] - 2022-12-07
 ### Описание обновления:
 - WS-T-582. REST API. Добавить метод отправки номенклатурных групп
 
