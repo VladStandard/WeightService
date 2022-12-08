@@ -1,0 +1,41 @@
+﻿@inherits RazorComponentSectionBase<NomenclatureGroupModel, SqlTableBase>
+@page "/section/nomenclatures_groups"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorSectionReload TItem=@NomenclatureGroupModel TItemFilter=@SqlTableBase ParentRazor=@(this) Title=@LocaleCore.DeviceControl.SectionNomenclatures />
+
+<RadzenGrid 
+	PagerHorizontalAlign=@HorizontalAlign.Justify 
+	Style="margin-top: 5px;" 
+	Data=@SqlSectionCast TItem=@NomenclatureGroupModel 
+	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowDoubleClick=@(_ => SqlItemEditAsync())
+    AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+    AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >
+    <Columns >
+        <RazorSectionFieldIsMarked TItem=@NomenclatureGroupModel ParentRazor=@(this) />
+        <RadzenGridColumn TItem=@NomenclatureGroupModel Title=@LocaleCore.Table.Name Width="45%" >
+            <Template Context="itemCast" >
+	            <RadzenLink Style="width: 100%; margin-left: 0; "
+                            Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{itemCast.IdentityValueUid}")
+	                        Text=@itemCast.Name />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem=@NomenclatureGroupModel Property="Code" 
+            Title=@LocaleCore.Table.Code
+            Type="string" Width="20%" />
+        <RadzenGridColumn 
+            TItem=@NomenclatureGroupModel TextAlign=@TextAlign.Center Width="5%" 
+            Title=@LocaleCore.Table.Weighted >
+            <Template Context="itemCast" >
+                <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+<RazorSectionActions TItem=@NomenclatureGroupModel ParentRazor=@(this) />

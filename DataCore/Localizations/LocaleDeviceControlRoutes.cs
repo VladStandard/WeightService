@@ -21,6 +21,7 @@ public partial class LocaleDeviceControl
     public string RouteItemLog => "/item/log";
     public string RouteItemLogType => "/item/logtype";
     public string RouteItemNomenclature => "/item/nomenclature";
+    public string RouteItemNomenclatureGroup => "/item/nomenclature_group";
     public string RouteItemOrder => "/item/order";
     public string RouteItemOrderWeighing => "/item/order_weighing";
     public string RouteItemOrganization => "/item/organization";

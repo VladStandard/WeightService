@@ -1,5 +1,6 @@
 # WeightService - Weight service
 
+## Main info
 - [CHANGELOG](CHANGELOG.md)
 - [LICENSE](LICENSE.md)
 - [Publish lifecycle](Publish%20lifecycle.md)

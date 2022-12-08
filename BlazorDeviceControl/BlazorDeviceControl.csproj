@@ -136,6 +136,7 @@
     <Watch Remove="Razors\SectionComponents\RazorSectionFieldIsMarked.razor" />
     <Watch Remove="Razors\SectionComponents\RazorSectionFilter.razor" />
     <Watch Remove="Razors\SectionComponents\RazorSectionReload.razor" />
+    <Watch Remove="Razors\SectionComponents\References1C\SectionNomenclaturesGroups.razor" />
     <Watch Remove="Razors\SectionComponents\SectionAccess.razor" />
     <Watch Remove="Razors\SectionComponents\SectionBarCodes.razor" />
     <Watch Remove="Razors\SectionComponents\SectionBarCodeTypes.razor" />
