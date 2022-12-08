@@ -162,7 +162,6 @@ public class ControllerHelper
             List<BrandModel> brandsInput = GetBrandList(request);
             foreach (BrandModel brandInput in brandsInput)
             {
-                // string xml = brandInput.SerializeAsXmlString<BrandModel>(false);
                 switch (brandInput.ParseResult.Status)
                 {
                     case ParseStatus.Success:
@@ -336,7 +335,7 @@ public class ControllerHelper
         //    response.Errors.Add(new(ex));
         //}
 
-        XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("Brand");
+        XmlNodeList list = xmlDocument.DocumentElement.GetElementsByTagName("brand");
         foreach (XmlNode node in list)
         {
             BrandModel brand = new();
