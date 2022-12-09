@@ -4,6 +4,7 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleModels;
 
 namespace DataCore.Sql.Core;
 
@@ -94,12 +95,13 @@ public partial class DataAccessHelper
 
     private ScaleModel? GetItemScaleNullable(DeviceModel device)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
-            SqlCrudConfigModel.GetFiltersIdentity($"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
+            $"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
         return GetItemNotNullable<DeviceScaleFkModel>(sqlCrudConfig).Scale;
     }
 
-    public ScaleModel GetItemScaleNotNullable(DeviceModel device) => GetItemScaleNullable(device) ?? new();
+    public ScaleModel GetItemScaleNotNullable(DeviceModel device) => 
+        GetItemScaleNullable(device) ?? new();
 
     private DeviceModel? GetItemDeviceNullable(string name)
     {
@@ -193,6 +195,26 @@ public partial class DataAccessHelper
             nameof(ProductionFacilityModel.Name), name, false, false);
         return DataAccessHelper.Instance.GetItemNotNullable<ProductionFacilityModel>(sqlCrudConfig);
     }
+
+    //private ScaleModel? GetItemScaleNullable(DeviceModel device)
+    //{
+    //    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
+    //        $"{nameof(DeviceScaleFkModel.Device)}", device.IdentityValueUid), false, false);
+    //    return GetItemNotNullable<DeviceScaleFkModel>(sqlCrudConfig).Scale;
+    //}
+    public NomenclatureGroupModel? GetItemNomenclatureGroupParentNullable(NomenclatureGroupModel nomenclatureGroup)
+    {
+        ////SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
+        ////        $"{nameof(NomenclatureGroupModel.Name)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
+        ////    false, false);
+        //SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFiltersIdentity(
+        //    $"{nameof(NomenclatureGroupFkModel.Device)}", nomenclatureGroup.IdentityValueUid), false, false);
+        //return GetItemNotNullable<NomenclatureGroupModel>(sqlCrudConfig).NomenclatureGroup;
+        return new();
+    }
+
+    public NomenclatureGroupModel GetItemNomenclatureGroupParentNotNullable(NomenclatureGroupModel nomenclatureGroup) => 
+        GetItemNomenclatureGroupParentNullable(nomenclatureGroup) ?? new();
 
     #endregion
 }

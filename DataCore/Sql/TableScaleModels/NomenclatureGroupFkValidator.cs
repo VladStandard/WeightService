@@ -6,22 +6,22 @@ using DataCore.Sql.Tables;
 namespace DataCore.Sql.TableScaleModels;
 
 /// <summary>
-/// Table validation "DEVICES_SCALES_FK".
+/// Table validation "NOMENCLATURES_GROUPS_FK".
 /// </summary>
-public class DeviceScaleFkValidator : SqlTableValidator<DeviceScaleFkModel>
+public class NomenclatureGroupFkValidator : SqlTableValidator<NomenclatureGroupFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public DeviceScaleFkValidator()
+    public NomenclatureGroupFkValidator()
     {
-        RuleFor(item => item.Device)
+        RuleFor(item => item.NomenclatureGroup)
             .NotEmpty()
             .NotNull()
-	        .SetValidator(new DeviceValidator());
-		RuleFor(item => item.Scale)
+	        .SetValidator(new NomenclatureGroupValidator());
+		RuleFor(item => item.NomenclatureGroupParent)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new ScaleValidator());
+            .SetValidator(new NomenclatureGroupValidator());
     }
 }
