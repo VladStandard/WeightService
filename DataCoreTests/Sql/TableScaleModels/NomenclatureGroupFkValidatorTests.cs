@@ -12,7 +12,7 @@ internal class NomenclatureGroupFkValidatorTests
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		DeviceScaleFkModel item = DataCore.CreateNewSubstitute<DeviceScaleFkModel>(false);
+		NomenclatureGroupFkModel item = DataCore.CreateNewSubstitute<NomenclatureGroupFkModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class NomenclatureGroupFkValidatorTests
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		DeviceScaleFkModel item = DataCore.CreateNewSubstitute<DeviceScaleFkModel>(true);
+		NomenclatureGroupFkModel item = DataCore.CreateNewSubstitute<NomenclatureGroupFkModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}

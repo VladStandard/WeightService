@@ -33,6 +33,10 @@ public partial class DataAccessHelper
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
+			case NomenclatureGroupFkModel nomenclatureGroupFk:
+                nomenclatureGroupFk.NomenclatureGroup = GetItemNotNullable<NomenclatureGroupModel>(nomenclatureGroupFk.NomenclatureGroup.IdentityValueUid);
+                nomenclatureGroupFk.NomenclatureGroupParent = GetItemNotNullable<NomenclatureGroupModel>(nomenclatureGroupFk.NomenclatureGroupParent.IdentityValueUid);
+				break;
 			case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
                 orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);

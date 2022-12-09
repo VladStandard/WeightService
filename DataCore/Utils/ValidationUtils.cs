@@ -80,6 +80,7 @@ public class ValidationUtils
             NomenclatureModel nomenclature => new NomenclatureValidator().Validate(nomenclature),
             NomenclatureV2Model nomenclatureV2 => new NomenclatureV2Validator().Validate(nomenclatureV2),
             NomenclatureGroupModel nomenclatureGroup => new NomenclatureGroupValidator().Validate(nomenclatureGroup),
+            NomenclatureGroupFkModel nomenclatureGroupFk => new NomenclatureGroupFkValidator().Validate(nomenclatureGroupFk),
             OrderModel order => new OrderValidator().Validate(order),
             OrderWeighingModel orderWeighing => new OrderWeighingValidator().Validate(orderWeighing),
             OrganizationModel organization => new OrganizationValidator().Validate(organization),

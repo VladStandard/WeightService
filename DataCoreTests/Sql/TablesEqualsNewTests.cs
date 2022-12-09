@@ -81,6 +81,18 @@ internal class TablesEqualsNewTests
     }
 
     [Test]
+    public void DbTable_Validate_NomenclatureGroupModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<NomenclatureGroupModel>();
+    }
+
+    [Test]
+    public void DbTable_Validate_NomenclatureGroupFkModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<NomenclatureGroupFkModel>();
+    }
+
+    [Test]
     public void DbTable_Validate_OrderModel()
     {
         DataCore.TableBaseModelAssertEqualsNew<OrderModel>();
