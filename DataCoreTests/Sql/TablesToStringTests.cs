@@ -6,7 +6,7 @@ namespace DataCoreTests.Sql;
 [TestFixture]
 internal class TablesToStringTests
 {
-    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
     public void DbTable_Validate_AccessModel()
