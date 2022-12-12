@@ -1,13 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using NHibernate.Criterion;
+
 namespace DataCore.Sql.Fields;
 
 /// <summary>
 /// DB table field comparing model.
 /// </summary>
 [Serializable]
-public class SqlFieldFilterModel
+public class SqlFieldFilterModel : ICloneable
 {
     #region Public and private fields, properties, constructor
 
@@ -91,6 +93,10 @@ public class SqlFieldFilterModel
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Comparer)}: {Comparer}. " +
         $"{nameof(Value)}: {Value}. ";
+
+    public object Clone() => new SqlFieldFilterModel(Name, Comparer, Value);
+
+    public SqlFieldFilterModel CloneCast() => (SqlFieldFilterModel)Clone();
 
     #endregion
 }
