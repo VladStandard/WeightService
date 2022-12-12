@@ -12,7 +12,7 @@ public enum EnumCrudAction
 	Remove
 }
 
-public class SqlCrudConfigModel
+public class SqlCrudConfigModel : ICloneable
 {
 	#region Public and private fields, properties, constructor
 
@@ -24,7 +24,7 @@ public class SqlCrudConfigModel
 	public bool IsGuiShowFilterOnlyTop { get; set; }
 	public bool IsGuiShowItemsCount { get; set; }
 	public bool IsResultAddFieldEmpty { get; }
-	public bool IsResultOrder { get; }
+	public bool IsResultOrder { get; set; }
 	private bool _isResultShowMarked;
 	public bool IsResultShowMarked
 	{
@@ -35,7 +35,6 @@ public class SqlCrudConfigModel
 			SetFiltersIsResultShowMarked();
 		}
 	}
-
 	public bool IsResultShowOnlyTop { get; set; }
 	private int _resultMaxCount;
 	public int ResultMaxCount
@@ -43,6 +42,24 @@ public class SqlCrudConfigModel
 		get => _resultMaxCount;
 		set => _resultMaxCount = value == 1 ? 1
 			: IsResultShowOnlyTop ? JsonSettings.Local.SelectTopRowsCount : value;
+	}
+
+	public SqlCrudConfigModel()
+	{
+		Filters = new();
+		Orders = new();
+
+		IsGuiShowFilterAdditional = false;
+		IsGuiShowFilterMarked = false;
+		IsGuiShowFilterOnlyTop = true;
+		IsGuiShowItemsCount = false;
+
+		IsResultShowMarked = false;
+		IsResultShowOnlyTop = false;
+		IsResultAddFieldEmpty = false;
+		IsResultOrder = false;
+
+		ResultMaxCount = 0;
 	}
 
 	public SqlCrudConfigModel(List<SqlFieldFilterModel> filters, List<SqlFieldOrderModel> orders,
@@ -203,5 +220,22 @@ public class SqlCrudConfigModel
 	public void SetOrders(SqlFieldOrderModel order, EnumCrudAction crudAction = EnumCrudAction.Add) =>
 		SetOrders(new List<SqlFieldOrderModel>() { order }, crudAction);
 
-	#endregion
+    public object Clone()
+    {
+        SqlCrudConfigModel item = new();
+        item.Filters = new(Filters);
+        item.Orders = new(Orders);
+        item.IsGuiShowFilterAdditional = IsGuiShowFilterAdditional;
+        item.IsGuiShowFilterMarked = IsGuiShowFilterMarked;
+        item.IsGuiShowFilterOnlyTop = IsGuiShowFilterOnlyTop;
+        item.IsGuiShowItemsCount = IsGuiShowItemsCount;
+        item.IsResultShowMarked = IsResultShowMarked;
+        item.IsResultShowOnlyTop = IsResultShowOnlyTop;
+        item.ResultMaxCount = ResultMaxCount;
+        return item;
+    }
+
+    public SqlCrudConfigModel CloneCast() => (SqlCrudConfigModel)Clone();
+
+    #endregion
 }

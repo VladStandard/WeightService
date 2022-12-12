@@ -6,7 +6,7 @@ namespace DataCoreTests.Sql.TableScaleModels;
 [TestFixture]
 internal class BarCodeValidatorTests
 {
-	private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
 	[Test]
 	public void Model_Validate_IsFalse()

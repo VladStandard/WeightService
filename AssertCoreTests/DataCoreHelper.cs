@@ -280,6 +280,11 @@ public class DataCoreHelper
                 nomenclatureGroup.Name = LocaleCore.Sql.SqlItemFieldName;
                 nomenclatureGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
                 break;
+            case NomenclatureGroupFkModel nomenclatureGroupFk:
+                //nomenclatureGroupFk.FillProperties();
+                nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
+                nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
+                break;
 			case OrderModel order:
 				order.Name = LocaleCore.Sql.SqlItemFieldName;
 				order.BoxCount = 1;

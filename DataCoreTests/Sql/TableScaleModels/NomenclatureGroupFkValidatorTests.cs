@@ -4,15 +4,15 @@
 namespace DataCoreTests.Sql.TableScaleModels;
 
 [TestFixture]
-internal class TemplateResourceValidatorTests
+internal class NomenclatureGroupFkValidatorTests
 {
-	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
+    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
-	[Test]
+    [Test]
 	public void Model_Validate_IsFalse()
 	{
 		// Arrange & Act.
-		TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(false);
+		NomenclatureGroupFkModel item = DataCore.CreateNewSubstitute<NomenclatureGroupFkModel>(false);
 		// Assert.
 		DataCore.AssertSqlValidate(item, false);
 	}
@@ -21,7 +21,7 @@ internal class TemplateResourceValidatorTests
 	public void Model_Validate_IsTrue()
 	{
 		// Arrange & Act.
-		TemplateResourceModel item = DataCore.CreateNewSubstitute<TemplateResourceModel>(true);
+		NomenclatureGroupFkModel item = DataCore.CreateNewSubstitute<NomenclatureGroupFkModel>(true);
 		// Assert.
 		DataCore.AssertSqlValidate(item, true);
 	}

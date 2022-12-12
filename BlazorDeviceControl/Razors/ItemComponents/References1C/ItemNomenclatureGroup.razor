@@ -1,0 +1,39 @@
+﻿@inherits RazorComponentItemBase<NomenclatureGroupModel>
+@page "/item/nomenclature_group"
+@page "/item/nomenclature_group/new"
+@page "/item/nomenclature_group/{IdentityUidStr}"
+@using BlazorCore.Razors
+@using BlazorDeviceControl.Razors.SystemComponents
+
+<SystemIdentity ParentRazor=@(this) />
+
+<RazorItemReload TItem=@NomenclatureGroupModel ParentRazor=@(this) Title=@LocaleCore.DeviceControl.ItemNomenclature />
+
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <RazorItemTableHead TItem=@NomenclatureGroupModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
+    <tbody>
+		<RazorItemTableBody TItem=@NomenclatureGroupModel ParentRazor=@(this) />
+        <tr>
+            <td>@LocaleCore.Table.Name</td>
+            <td>
+                <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Name />
+			</td>
+            <td>@LocaleCore.Table.Code</td>
+            <td>
+                <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Code />
+			</td>
+        </tr>
+        <tr >
+            <td>@LocaleCore.Table.Parent</td>
+            <td >
+                <RadzenLink 
+                    Style="width: 100%; "
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemNomenclatureGroup}/{DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).IdentityValueUid}")
+                    Text=@(DataAccess.GetItemNomenclatureGroupParentNotNullable(SqlItemCast).Name) />
+            </td>
+        </tr>
+    </tbody>
+</MudSimpleTable>
+
+<RazorItemActions TItem=@NomenclatureGroupModel ParentRazor=@(this) />
+<RazorItemDates TItem=@NomenclatureGroupModel ParentRazor=@(this) />

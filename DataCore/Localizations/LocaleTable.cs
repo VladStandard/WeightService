@@ -49,7 +49,6 @@ public class LocaleTable
     public string DeactiveShort => Lang == Lang.English ? "Deact" : "Деакт";
     public string Description => Lang == Lang.English ? "Description" : "Описание";
     public string Device => Lang == Lang.English ? "Device" : "Устройство";
-    public string DeviceType => Lang == Lang.English ? "Device type" : "Тип устройства";
     public string DeviceComPort => Lang == Lang.English ? "COM-port" : "COM-порт";
     public string DeviceIp => Lang == Lang.English ? "IP-address" : "IP-адрес";
     public string DeviceMac => Lang == Lang.English ? "MAC-address" : "MAC-адрес";
@@ -57,6 +56,7 @@ public class LocaleTable
     public string DevicePort => Lang == Lang.English ? "Device port" : "Порт устройства";
     public string DeviceReceiveTimeout => Lang == Lang.English ? "Receive timeout" : "Таймаут приёма";
     public string DeviceSendTimeout => Lang == Lang.English ? "Send timeout" : "Таймаут отправки";
+    public string DeviceType => Lang == Lang.English ? "Device type" : "Тип устройства";
     public string Ean13 => Lang == Lang.English ? "EAN13" : "ШК ЕАН13";
     public string Enabled => Lang == Lang.English ? "Enabled" : "Активно";
     public string Exception => Lang == Lang.English ? "Exception" : "Исключение";
@@ -89,6 +89,7 @@ public class LocaleTable
     public string GoodsBruttoWeight => Lang == Lang.English ? "Gross weight" : "Вес брутто";
     public string GoodsDescription => Lang == Lang.English ? "Good description" : "Описание товара";
     public string GoodsName => Lang == Lang.English ? "Product" : "Товар";
+    public string Group => Lang == Lang.English ? "Group" : "Группа";
     public string Gtin => Lang == Lang.English ? "BC GTIN" : "ШК ГТИН";
     public string GuidMercury => Lang == Lang.English ? "GUID Mercury" : "ГУИД Меркурий";
     public string Host => Lang == Lang.English ? "Host" : "Хост";
@@ -144,6 +145,8 @@ public class LocaleTable
     public string PackageWeightShort => Lang == Lang.English ? "Weight" : "Вес";
     public string PackQuantly => Lang == Lang.English ? "Pack quantly" : "Быстрота упаковки";
     public string PackTypeId => Lang == Lang.English ? "Package type ID" : "ID типа упаковки";
+    public string Parent => Lang == Lang.English ? "Parent" : "Родитель";
+    public string ParentGroup => Lang == Lang.English ? "Parent group" : "Родительская группа";
     public string Plu => Lang == Lang.English ? "PLU" : "ПЛУ";
     public string PluDescription => Lang == Lang.English ? "Use the `|` symbol to move the line." : "Для переноса строки используйте символ `|`";
     public string PluId => Lang == Lang.English ? "ID PLU" : "ИД ПЛУ";

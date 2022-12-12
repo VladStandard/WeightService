@@ -8,7 +8,7 @@ internal class SqlConnectFactoryTests
 {
     #region Public and private fields, properties, constructor
 
-    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     #endregion
 

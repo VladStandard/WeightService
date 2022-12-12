@@ -8,7 +8,7 @@ internal class TablesEqualsNewTests
 {
     #region Public and private fields, properties, constructor
 
-    private DataCoreHelper DataCore { get; } = DataCoreHelper.Instance;
+    private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     #endregion
 
@@ -78,6 +78,18 @@ internal class TablesEqualsNewTests
     public void DbTable_Validate_NomenclatureModel()
     {
         DataCore.TableBaseModelAssertEqualsNew<NomenclatureModel>();
+    }
+
+    [Test]
+    public void DbTable_Validate_NomenclatureGroupModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<NomenclatureGroupModel>();
+    }
+
+    [Test]
+    public void DbTable_Validate_NomenclatureGroupFkModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<NomenclatureGroupFkModel>();
     }
 
     [Test]

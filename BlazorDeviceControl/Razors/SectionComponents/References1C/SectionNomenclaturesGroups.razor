@@ -28,11 +28,11 @@
             TItem=@NomenclatureGroupModel Property="Code" 
             Title=@LocaleCore.Table.Code
             Type="string" Width="20%" />
-        <RadzenGridColumn 
-            TItem=@NomenclatureGroupModel TextAlign=@TextAlign.Center Width="5%" 
-            Title=@LocaleCore.Table.Weighted >
+        <RadzenGridColumn TItem=@NomenclatureGroupModel 
+            Title=@LocaleCore.Table.Group Width="30%" >
             <Template Context="itemCast" >
-                <RadzenCheckBox Disabled=true ReadOnly=true TValue="bool" @bind-Value=@itemCast.Weighted />
+                <RadzenText Text=@(DataAccess.GetItemNomenclatureGroupParentNotNullable(itemCast).Name)
+                    TextStyle=@TextStyle.Body2 TextAlign=@TextAlign.Left />
             </Template>
         </RadzenGridColumn>
     </Columns>
