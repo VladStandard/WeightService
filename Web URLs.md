@@ -26,6 +26,15 @@ DEV1C\DVLP (10.0.204.20)		1C-PROD
 Предварительный релиз			https://scales-prod-preview.kolbasa-vs.local:443/
 Рабочий релиз					https://scales-prod.kolbasa-vs.local:443/
 
+## Веб-сервис "Демо погода" / WebApiDemo
+✓ IIS-DEV (10.0.204.17)
+Предварительное тестирование	https://web-api-demo-dev-preview.kolbasa-vs.local:443/
+Рабочее тестирование			https://web-api-demo-dev.kolbasa-vs.local:443/
+
+✓ IIS: IIS-PROD (10.0.24.19)
+Предварительный релиз			https://web-api-demo-prod-preview.kolbasa-vs.local:443/
+Рабочий релиз					https://web-api-demo-prod.kolbasa-vs.local:443/
+
 ## Веб-сервис "Обмен с DWH" / WebApiTerra1000
 ✓ IIS-DEV (10.0.204.17)
 Предварительное тестирование	https://t1000-dev-preview.kolbasa-vs.local:443/
