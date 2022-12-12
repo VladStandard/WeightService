@@ -74,7 +74,7 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 UserSession.StopwatchMain = Stopwatch.StartNew();
@@ -96,7 +96,7 @@ public partial class MainForm : Form
         _ = Task.Run(async () =>
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            ActionTryCatch(
+            ActionTryCatchFinally(
                 () =>
                 {
                     Quartz.AddJob(QuartzUtils.CronExpression.EveryHours(), ScheduleEveryHours,
@@ -127,7 +127,7 @@ public partial class MainForm : Form
 
     private void MainForm_LoadResources()
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 System.Resources.ResourceManager resourceManager = new("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
@@ -147,7 +147,7 @@ public partial class MainForm : Form
 
     private void LoadManagerControl()
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             { // Labels.
                 UserSession.ManagerControl.Labels.Init(fieldTitle, fieldPlu, fieldSscc,
@@ -189,7 +189,7 @@ public partial class MainForm : Form
 
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 KeyboardMouseUnsubscribe();
@@ -398,8 +398,7 @@ public partial class MainForm : Form
                 {
                     if (Quartz is null) return;
                     ActionMakeScreenShot();
-                },
-                () => { }
+                }
             );
         }
     }
@@ -577,7 +576,7 @@ public partial class MainForm : Form
 
     private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 switch (fieldResolution.Items[fieldResolution.SelectedIndex])
@@ -616,7 +615,7 @@ public partial class MainForm : Form
 
     private void FieldLang_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 LocaleCore.Lang = LocaleData.Lang = fieldLang.SelectedIndex switch { 1 => Lang.English, _ => Lang.Russian, };
@@ -655,7 +654,7 @@ public partial class MainForm : Form
 
     private void ActionDevice(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 UserSession.ManagerControl.Massa.Close();
@@ -677,7 +676,7 @@ public partial class MainForm : Form
 
     private void ActionPackage(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 if (!ActionPackageCheckPlu()) return;
@@ -722,7 +721,7 @@ public partial class MainForm : Form
 
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(this,
@@ -755,7 +754,7 @@ public partial class MainForm : Form
 
     private void ActionScalesInit(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 if (!UserSession.PluScale.Plu.IsCheckWeight)
@@ -853,7 +852,7 @@ public partial class MainForm : Form
 
     private void ActionNewPallet(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () => { UserSession.NewPallet(); },
             () => { MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint); }
         );
@@ -882,7 +881,7 @@ public partial class MainForm : Form
 
     private void ActionPlu(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 KeyboardMouseUnsubscribe();
@@ -925,7 +924,7 @@ public partial class MainForm : Form
 
     private void ActionMore(object sender, EventArgs e)
     {
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 if (UserSession.PluScale.IdentityIsNew)
@@ -959,7 +958,7 @@ public partial class MainForm : Form
     {
         ActionTryCatch(() => { UserSession.SetNewScaleCounter(); });
 
-        ActionTryCatch(
+        ActionTryCatchFinally(
             () =>
             {
                 UserSession.ManagerControl.PrintMain.IsPrintBusy = true;
@@ -1012,8 +1011,7 @@ public partial class MainForm : Form
             });
     }
 
-#nullable enable
-    private void ActionTryCatch(Action action, Action? actionFinally = null)
+    private void ActionTryCatchFinally(Action action, Action actionFinally)
     {
         try
         {
@@ -1023,17 +1021,25 @@ public partial class MainForm : Form
         {
             ActionMakeScreenShot();
             GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
-            //if (UserSession.PluScale.IdentityIsNotNew)
-            // UserSession.DataAccess.LogError(new Exception(
-            //   $"{LocaleCore.Print.ErrorPlu(UserSession.PluScale.Plu.Number, UserSession.PluScale.Plu.Name)}"),
-            //  UserSession.HostName);
         }
         finally
         {
-            actionFinally?.Invoke();
+            actionFinally.Invoke();
         }
     }
-#nullable disable
+    
+    private void ActionTryCatch(Action action)
+    {
+        try
+        {
+            action.Invoke();
+        }
+        catch (Exception ex)
+        {
+            ActionMakeScreenShot();
+            GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
+        }
+    }
 
     private void ActionMakeScreenShot()
     {
@@ -1045,10 +1051,6 @@ public partial class MainForm : Form
         {
             GuiUtils.WpfForm.CatchException(ex, this, true, true, true);
         }
-        //finally
-        //{
-        // MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
-        //}
     }
 
     #endregion
