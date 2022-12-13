@@ -6,6 +6,7 @@ Tools -> Version changer
 ```
 git add *.csproj && git add *AssemblyInfo.cs
 git commit -m "Updated version to v0.x.xxx"
+git commit -m "#Version update to v0.x.xxx"
 ```
 Make changes
 ```
