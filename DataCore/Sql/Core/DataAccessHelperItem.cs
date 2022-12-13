@@ -4,6 +4,7 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
 using DataCore.Sql.TableScaleModels;
 
 namespace DataCore.Sql.Core;
@@ -29,13 +30,40 @@ public partial class DataAccessHelper
         return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
     }
 
-    public TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
+    private PluModel? GetItemPluNullable(PluScaleModel pluScale)
     {
         if (!pluScale.IdentityIsNotNew || !pluScale.Plu.IdentityIsNotNew) return null;
-
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.IdentityValueId), pluScale.Plu.Template.IdentityValueId, false, false);
-        return GetItemNullable<TemplateModel>(sqlCrudConfig);
+        
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            nameof(SqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
+        return GetItemNullable<PluModel>(sqlCrudConfig);
     }
+
+    public PluModel GetItemPluNotNullable(PluScaleModel pluScale) =>
+        GetItemPluNullable(pluScale) ?? new();
+
+    private PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
+    {
+	    if (plu.IdentityIsNew) return null;
+
+	    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+		    $"{nameof(PluTemplateFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
+		    false, false);
+	    return GetItemNullable<PluTemplateFkModel>(sqlCrudConfig);
+    }
+
+    public PluTemplateFkModel GetItemPluTemplateFkNotNullable(PluModel plu) =>
+	    GetItemPluTemplateFkNullable(plu) ?? new();
+
+    private TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
+    {
+        if (pluScale.IdentityIsNew || pluScale.Plu.IdentityIsNew) return null;
+        PluModel plu = GetItemPluNotNullable(pluScale);
+        return GetItemPluTemplateFkNullable(plu)?.Template;
+    }
+
+    public TemplateModel GetItemTemplateNotNullable(PluScaleModel pluScale) =>
+        GetItemTemplateNullable(pluScale) ?? new();
 
     private AppModel GetItemAppOrCreateNew(string appName)
     {

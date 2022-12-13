@@ -565,9 +565,9 @@ public class UserSessionHelper : BaseViewModel
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
 
-		TemplateModel? template = DataAccess.GetItemTemplateNullable(PluScale);
+		TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
 		// Template exist.
-		if (template is not null && template.IdentityIsNotNew)
+		if (template.IdentityIsNotNew)
 		{
 			switch (PluScale.Plu.IsCheckWeight)
 			{

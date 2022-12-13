@@ -46,7 +46,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     [XmlElement] public virtual decimal NominalWeight { get; set; }
     [XmlElement] public virtual decimal LowerThreshold { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
-    [XmlElement] public virtual TemplateModel Template { get; set; }
     [XmlElement] public virtual NomenclatureModel Nomenclature { get; set; }
 
 	/// <summary>
@@ -65,7 +64,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		NominalWeight = 0;
 		LowerThreshold = 0;
 		IsCheckWeight = false;
-		Template = new();
 		Nomenclature = new();
 	}
 
@@ -87,7 +85,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    NominalWeight = info.GetDecimal(nameof(NominalWeight));
 	    LowerThreshold = info.GetDecimal(nameof(LowerThreshold));
 	    IsCheckWeight = info.GetBoolean(nameof(IsCheckWeight));
-	    Template = (TemplateModel)info.GetValue(nameof(Template), typeof(TemplateModel));
 	    Nomenclature = (NomenclatureModel)info.GetValue(nameof(Nomenclature), typeof(NomenclatureModel));
     }
 
@@ -125,7 +122,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Equals(NominalWeight, default(decimal)) &&
 		Equals(LowerThreshold, default(decimal)) &&
 		Equals(IsCheckWeight, false) &&
-		Template.EqualsDefault() &&
 		Nomenclature.EqualsDefault();
 
 	public override object Clone()
@@ -142,7 +138,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         item.NominalWeight = NominalWeight;
         item.LowerThreshold = LowerThreshold;
         item.IsCheckWeight = IsCheckWeight;
-        item.Template = Template.CloneCast();
         item.Nomenclature = Nomenclature.CloneCast();
 		item.CloneSetup(base.CloneCast());
 		return item;
@@ -162,7 +157,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 	    info.AddValue(nameof(NominalWeight), NominalWeight);
 	    info.AddValue(nameof(LowerThreshold), LowerThreshold);
 	    info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
-	    info.AddValue(nameof(Template), Template);
 	    info.AddValue(nameof(Nomenclature), Nomenclature);
     }
 
@@ -174,7 +168,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Gtin = LocaleCore.Sql.SqlItemFieldGtin;
 		Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 		Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-		Template.FillProperties();
 		Nomenclature.FillProperties();
 	}
 
@@ -195,7 +188,6 @@ public class PluModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
 		Equals(NominalWeight, item.NominalWeight) &&
 		Equals(LowerThreshold, item.LowerThreshold) &&
 		Equals(IsCheckWeight, item.IsCheckWeight) &&
-		Template.Equals(item.Template) &&
 		Nomenclature.Equals(item.Nomenclature);
 
 	public new virtual PluModel CloneCast() => (PluModel)Clone();

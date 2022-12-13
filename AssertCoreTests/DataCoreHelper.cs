@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
 
 namespace AssertCoreTests;
 
@@ -314,7 +315,6 @@ public class DataCoreHelper
 				plu.Gtin = LocaleCore.Sql.SqlItemFieldGtin;
 				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-				plu.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
 				break;
 			case PluLabelModel pluLabel:
@@ -328,6 +328,10 @@ public class DataCoreHelper
 				pluScale.IsActive = true;
 				pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
 				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+				break;
+			case PluTemplateFkModel pluTemplateFk:
+                pluTemplateFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluTemplateFk.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				break;
 			case PluWeighingModel pluWeighing:
 				pluWeighing.Sscc = LocaleCore.Sql.SqlItemFieldSscc;

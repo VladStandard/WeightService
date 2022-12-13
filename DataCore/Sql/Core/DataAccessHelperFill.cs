@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
 using DataCore.Sql.Xml;
 
 namespace DataCore.Sql.Core;
@@ -42,7 +43,6 @@ public partial class DataAccessHelper
                 orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
 				break;
 			case PluModel plu:
-                plu.Template = GetItemNotNullable<TemplateModel>(plu.Template.IdentityValueId);
                 plu.Nomenclature = GetItemNotNullable<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
 			case PluLabelModel pluLabel:
@@ -56,6 +56,10 @@ public partial class DataAccessHelper
 			case PluScaleModel pluScale:
                 pluScale.Plu = GetItemNotNullable<PluModel>(pluScale.Plu.IdentityValueUid);
                 pluScale.Scale = GetItemNotNullable<ScaleModel>(pluScale.Scale.IdentityValueId);
+				break;
+			case PluTemplateFkModel pluTemplateFk:
+                pluTemplateFk.Plu = GetItemNotNullable<PluModel>(pluTemplateFk.Plu.IdentityValueUid);
+                pluTemplateFk.Template = GetItemNotNullable<TemplateModel>(pluTemplateFk.Template.IdentityValueId);
 				break;
 			case PluWeighingModel pluWeighing:
                 pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);

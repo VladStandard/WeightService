@@ -56,8 +56,8 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Template Width="16%" TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.PluScale.Plu.Template.IdentityValueId}")
-                    Text=@(itemCast.PluScale.Plu.Template.Title) />
+                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).IdentityValueId}")
+	   Text=@(DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title) />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Weighing Width="12%" TextAlign=@TextAlign.Center >

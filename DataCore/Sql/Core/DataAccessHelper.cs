@@ -5,6 +5,7 @@
 
 using DataCore.Files;
 using DataCore.Helpers;
+using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
 using NHibernate;
 
 namespace DataCore.Sql.Core;
@@ -142,21 +143,16 @@ public partial class DataAccessHelper
 
     private void AddConfigurationMappingsForScale(FluentNHibernate.Cfg.FluentConfiguration fluentConfiguration)
     {
-	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<AppMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BarCodeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<BrandMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
-	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
-	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
-	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
-	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceScaleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureV2Map>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());
@@ -165,6 +161,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluPackageMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluScaleMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<PrinterResourceMap>());
@@ -179,6 +176,11 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<TemplateResourceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<VersionMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WorkShopMap>());
+	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<AccessMap>());
+	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceMap>());
+	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceScaleFkMap>());
+	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeFkMap>());
+	    fluentConfiguration.Mappings(m => m.FluentMappings.Add<DeviceTypeMap>());
     }
 
     #endregion

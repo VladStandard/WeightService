@@ -30,12 +30,14 @@
 		<tr>
             <td>
                 <RadzenLink Style="width: 100%; margin-left: 0; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, SqlItemCast.Template, SqlItemCast.Template.IdentityValueId)
+                    Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemTemplate, 
+                        DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast).Template, 
+                        DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast).Template.IdentityValueId)
                     Text=@LocaleCore.Table.Template />
             </td>
             <td>
                 <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-                    @bind-Value=@SqlItemCast.Template>
+                    @bind-Value=@Template>
                     @foreach (TemplateModel item in DataContext.Templates)
                     {
                         <MudSelectItem Value=@item>@item.Title</MudSelectItem>

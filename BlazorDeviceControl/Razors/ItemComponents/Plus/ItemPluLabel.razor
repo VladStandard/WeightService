@@ -36,8 +36,9 @@
 	        </td>
             <td>@LocaleCore.Table.Template</td>
             <td>
-                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{SqlItemCast.PluScale.Plu.Template.IdentityValueId}")
-	                Text=@(SqlItemCast.PluScale.Plu.Template.Title) />
+                <RadzenLink 
+                    Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale).IdentityValueId}")
+	                Text=@(DataAccess.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title) />
             </td>
         </tr>
 	    <tr>

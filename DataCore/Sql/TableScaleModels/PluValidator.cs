@@ -70,10 +70,6 @@ public class PluValidator : SqlTableValidator<PluModel>
 			.LessThanOrEqualTo(item => item.NominalWeight);
 		RuleFor(item => item.IsCheckWeight)
 			.NotNull();
-		RuleFor(item => item.Template)
-			.NotEmpty()
-			.NotNull()
-			.SetValidator(new TemplateValidator());
 		RuleFor(item => item.Nomenclature)
 			.NotEmpty()
 			.NotNull()

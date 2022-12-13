@@ -3,6 +3,8 @@
 
 using DataCore.CssStyles;
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels;
+using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
 using FluentValidation.Results;
 
 namespace DataCore.Utils;
@@ -89,6 +91,7 @@ public class ValidationUtils
             PluModel plu => new PluValidator().Validate(plu),
             PluPackageModel package => new PluPackageValidator().Validate(package),
             PluScaleModel pluScale => new PluScaleValidator().Validate(pluScale),
+            PluTemplateFkModel pluTemplate => new PluTemplateFkValidator().Validate(pluTemplate),
             PluWeighingModel pluWeighing => new PluWeighingValidator().Validate(pluWeighing),
             PrinterModel printer => new PrinterValidator().Validate(printer),
             PrinterResourceModel printerResource => new PrinterResourceValidator().Validate(printerResource),

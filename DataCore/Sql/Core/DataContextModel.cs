@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
 
 namespace DataCore.Sql.Core;
 
@@ -32,6 +33,7 @@ public partial class DataContextModel
 	public List<PluModel> Plus { get; set; }
 	public List<PluPackageModel> PluPackages { get; set; }
 	public List<PluScaleModel> PluScales { get; set; }
+	public List<PluTemplateFkModel> PluTemplateFks { get; set; }
 	public List<PluWeighingModel> PluWeighings { get; set; }
 	public List<PrinterModel> Printers { get; set; }
 	public List<PrinterResourceModel> PrinterResources { get; set; }
@@ -72,7 +74,8 @@ public partial class DataContextModel
 		Plus = new();
 		PluPackages = new();
 		PluScales = new();
-		PluWeighings = new();
+        PluTemplateFks = new();
+        PluWeighings = new();
 		Printers = new();
 		PrinterResources = new();
 		PrinterTypes = new();
@@ -222,6 +225,14 @@ public partial class DataContextModel
 					PluScales = PluScales.OrderBy(item => item.Plu.Name).ToList();
 				}
 				return PluScales.Cast<T>().ToList();
+			case var cls when cls == typeof(PluTemplateFkModel):
+				PluTemplateFks = DataAccess.GetListNotNullable<PluTemplateFkModel>(sqlCrudConfig);
+				if (sqlCrudConfig.IsResultOrder)
+				{
+                    PluTemplateFks = PluTemplateFks.OrderBy(item => item.Template.Title).ToList();
+                    PluTemplateFks = PluTemplateFks.OrderBy(item => item.Plu.Name).ToList();
+				}
+				return PluTemplateFks.Cast<T>().ToList();
 			case var cls when cls == typeof(PluWeighingModel):
 				PluWeighings = DataAccess.GetListNotNullable<PluWeighingModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -332,6 +343,7 @@ public partial class DataContextModel
 		new PluModel(),
 		new PluPackageModel(),
 		new PluScaleModel(),
+		new PluTemplateFkModel(),
 		new PluWeighingModel(),
 		new PrinterModel(),
 		new PrinterResourceModel(),
@@ -376,6 +388,7 @@ public partial class DataContextModel
 		typeof(PluModel),
 		typeof(PluPackageModel),
 		typeof(PluScaleModel),
+		typeof(PluTemplateFkModel),
 		typeof(PluWeighingModel),
 		typeof(PrinterModel),
 		typeof(PrinterResourceModel),
@@ -418,6 +431,7 @@ public partial class DataContextModel
 			var cls when cls == typeof(PluModel) => nameof(PluModel),
 			var cls when cls == typeof(PluPackageModel) => nameof(PluPackageModel),
 			var cls when cls == typeof(PluScaleModel) => nameof(PluScaleModel),
+			var cls when cls == typeof(PluTemplateFkModel) => nameof(PluTemplateFkModel),
 			var cls when cls == typeof(PluWeighingModel) => nameof(PluWeighingModel),
 			var cls when cls == typeof(PrinterModel) => nameof(PrinterModel),
 			var cls when cls == typeof(PrinterResourceModel) => nameof(PrinterResourceModel),

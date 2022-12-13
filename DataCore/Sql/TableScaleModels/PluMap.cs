@@ -25,7 +25,6 @@ public class PluMap : ClassMap<PluModel>
 		Map(x => x.FullName).CustomSqlType("NVARCHAR").Column("FULL_NAME").Not.Nullable();
 		Map(x => x.Description).CustomSqlType("NVARCHAR").Column("DESCRIPTION").Not.Nullable();
 		Map(x => x.ShelfLifeDays).CustomSqlType("TINYINT").Column("SHELF_LIFE_DAYS").Not.Nullable();
-		//Map(x => x.TareWeight).CustomSqlType("DECIMAL(10,3)").Column("TARE_WEIGHT").Not.Nullable();
 		Map(x => x.BoxQuantly).CustomSqlType("INT").Column("BOX_QUANTLY").Not.Nullable();
 		Map(x => x.Gtin).CustomSqlType("NVARCHAR").Column("GTIN").Length(150).Not.Nullable().Default(string.Empty);
         Map(x => x.Ean13).CustomSqlType("NVARCHAR").Column("EAN13").Length(150).Not.Nullable().Default(string.Empty);
@@ -34,7 +33,6 @@ public class PluMap : ClassMap<PluModel>
 		Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NOMINAL_WEIGHT").Not.Nullable();
 		Map(x => x.LowerThreshold).CustomSqlType("DECIMAL(10,3)").Column("LOWER_THRESHOLD").Not.Nullable();
 		Map(x => x.IsCheckWeight).CustomSqlType("BIT").Column("IS_CHECK_WEIGHT").Not.Nullable().Default("1");
-        References(x => x.Template).Column("TEMPLATE_ID").Not.Nullable();
         References(x => x.Nomenclature).Column("NOMENCLATURE_ID").Not.Nullable();
     }
 }
