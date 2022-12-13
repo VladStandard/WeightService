@@ -41,7 +41,7 @@ internal class DataAcessExtTests
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
 				}
 			}
-		});
+		}, false);
 	}
 
 	[Test]
@@ -66,7 +66,7 @@ internal class DataAcessExtTests
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
 				}
 			}
-		});
+		}, false);
 	}
 
 	#endregion

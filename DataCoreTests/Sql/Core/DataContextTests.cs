@@ -173,7 +173,7 @@ internal class DataContextTests
 						break;
 				}
 			}
-		});
+		}, false);
 	}
 
 	private void GetListNotNullable<T>() where T : SqlTableBase, new()

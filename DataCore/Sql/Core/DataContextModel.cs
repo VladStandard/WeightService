@@ -18,6 +18,7 @@ using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
+using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
 using DataCore.Sql.TableScaleModels.Packages;
 using DataCore.Sql.TableScaleModels.Plus;
@@ -62,6 +63,7 @@ public partial class DataContextModel
 	public List<NomenclatureGroupModel> NomenclaturesGroups { get; set; }
 	public List<NomenclatureGroupFkModel> NomenclaturesGroupsFk { get; set; }
 	public List<OrderModel> Orders { get; set; }
+	public List<OrderWeighingModel> OrderWeighings { get; set; }
 	public List<OrganizationModel> Organizations { get; set; }
 	public List<PackageModel> Packages { get; set; }
 	public List<PluLabelModel> PluLabels { get; set; }
@@ -224,6 +226,11 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
 					Orders = Orders.OrderByDescending(item => item.ChangeDt).ToList();
 				return Orders.Cast<T>().ToList();
+			case var cls when cls == typeof(OrderWeighingModel):
+				OrderWeighings = DataAccess.GetListNotNullable<OrderWeighingModel>(sqlCrudConfig);
+				if (sqlCrudConfig.IsResultOrder)
+					OrderWeighings = OrderWeighings.OrderByDescending(item => item.ChangeDt).ToList();
+				return OrderWeighings.Cast<T>().ToList();
 			case var cls when cls == typeof(OrganizationModel):
 				Organizations = DataAccess.GetListNotNullable<OrganizationModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -372,6 +379,7 @@ public partial class DataContextModel
 		new NomenclatureGroupModel(),
 		new NomenclatureGroupFkModel(),
 		new OrderModel(),
+		new OrderWeighingModel(),
 		new OrganizationModel(),
 		new PackageModel(),
 		new PluLabelModel(),
@@ -417,6 +425,7 @@ public partial class DataContextModel
 		typeof(NomenclatureGroupModel),
 		typeof(NomenclatureGroupFkModel),
 		typeof(OrderModel),
+		typeof(OrderWeighingModel),
 		typeof(OrganizationModel),
 		typeof(PackageModel),
 		typeof(PluLabelModel),
@@ -460,6 +469,7 @@ public partial class DataContextModel
 			var cls when cls == typeof(NomenclatureGroupModel) => nameof(NomenclatureGroupModel),
 			var cls when cls == typeof(NomenclatureGroupFkModel) => nameof(NomenclatureGroupFkModel),
 			var cls when cls == typeof(OrderModel) => nameof(OrderModel),
+			var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
 			var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
 			var cls when cls == typeof(PackageModel) => nameof(PackageModel),
 			var cls when cls == typeof(PluLabelModel) => nameof(PluLabelModel),

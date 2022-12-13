@@ -18,9 +18,9 @@ public class JsonSettingsFileModelTests
     {
         DataCore.AssertAction(() =>
         {
-            //
-        });
-    }
+			//
+		}, false);
+	}
 
     #endregion
 }

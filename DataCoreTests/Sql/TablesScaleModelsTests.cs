@@ -55,14 +55,14 @@ internal class TablesScaleModelsTests
 	{
 		DataCore.AssertAction(() =>
 		{
-            List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
+			List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
 			foreach (SqlTableBase sqlTable in sqlTables)
 			{
 				TestContext.WriteLine(sqlTable.GetType());
 				Assert.AreEqual(true, sqlTable.EqualsNew());
 				Assert.AreEqual(true, sqlTable.EqualsDefault());
 			}
-		});
+		}, false);
 	}
 
 	[Test]
@@ -108,15 +108,15 @@ internal class TablesScaleModelsTests
 					case var cls when cls == typeof(NomenclatureModel):
 						CreateNewSubstitute<NomenclatureModel>();
 						break;
-                    case var cls when cls == typeof(NomenclatureV2Model):
-                        CreateNewSubstitute<NomenclatureV2Model>();
-                        break;
-                    case var cls when cls == typeof(NomenclatureGroupModel):
-                        CreateNewSubstitute<NomenclatureGroupModel>();
-                        break;
-                    case var cls when cls == typeof(NomenclatureGroupFkModel):
-                        CreateNewSubstitute<NomenclatureGroupFkModel>();
-                        break;
+					case var cls when cls == typeof(NomenclatureV2Model):
+						CreateNewSubstitute<NomenclatureV2Model>();
+						break;
+					case var cls when cls == typeof(NomenclatureGroupModel):
+						CreateNewSubstitute<NomenclatureGroupModel>();
+						break;
+					case var cls when cls == typeof(NomenclatureGroupFkModel):
+						CreateNewSubstitute<NomenclatureGroupFkModel>();
+						break;
 					case var cls when cls == typeof(OrderModel):
 						CreateNewSubstitute<OrderModel>();
 						break;
@@ -182,7 +182,7 @@ internal class TablesScaleModelsTests
 						break;
 				}
 			}
-		});
+		}, false);
 	}
 
 	private void CreateNewSubstitute<T>() where T : SqlTableBase, new()
@@ -223,7 +223,7 @@ internal class TablesScaleModelsTests
 						break;
 				}
 			}
-		});
+		}, false);
 	}
 
 	#endregion

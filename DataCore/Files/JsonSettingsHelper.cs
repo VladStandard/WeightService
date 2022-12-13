@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Helpers;
+
 namespace DataCore.Files;
 
 public class JsonSettingsHelper
@@ -122,7 +124,7 @@ public class JsonSettingsHelper
 					throw new(LocaleCore.System.JsonSettingsLocalFileException);
 			}
 
-            DataAccessHelper.Instance.SetSessionFactory();
+            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
             DataAccessHelper.Instance.SetupLog("", appName);
             DataAccessHelper.Instance.LogInformation(LocaleCore.DeviceControl.WebAppIsStarted, "", nameof(DataCore));
 		}
@@ -132,22 +134,22 @@ public class JsonSettingsHelper
         }
 	}
 
-	private void SetupTests(string localDir, string deviceName, string appName, string fileName)
+	private void SetupTests(string localDir, string deviceName, string appName, string fileName, bool isSqlDebug)
 	{
 		CheckUpdates(localDir);
 
 		if (!SetupJsonSettings(localDir, false, fileName))
 			throw new(LocaleCore.System.JsonSettingsLocalFileException);
 		
-		DataAccessHelper.Instance.SetSessionFactory();
+		DataAccessHelper.Instance.SetSessionFactory(isSqlDebug);
 		DataAccessHelper.Instance.SetupLog(deviceName, appName);
 	}
 
-	public void SetupTestsDebug(string localDir, string deviceName, string appName) =>
-		SetupTests(localDir, deviceName, appName, FileNameDebug);
+	public void SetupTestsDebug(string localDir, string deviceName, string appName, bool isSqlDebug) =>
+		SetupTests(localDir, deviceName, appName, FileNameDebug, isSqlDebug);
 
-	public void SetupTestsRelease(string localDir, string deviceName, string appName) =>
-		SetupTests(localDir, deviceName, appName, FileNameRelease);
+	public void SetupTestsRelease(string localDir, string deviceName, string appName, bool isSqlDebug) =>
+		SetupTests(localDir, deviceName, appName, FileNameRelease, isSqlDebug);
 
 	public void SetupScales(string localDir, string appName)
     {
@@ -164,7 +166,7 @@ public class JsonSettingsHelper
 			}
 
             FileLogger.StoreMessage($"DataAccessHelper start");
-            DataAccessHelper.Instance.SetSessionFactory();
+            DataAccessHelper.Instance.SetSessionFactory(DebugHelper.Instance.IsDebug);
 			DataAccessHelper.Instance.SetupLog("", appName);
             FileLogger.StoreMessage($"complete");
         }

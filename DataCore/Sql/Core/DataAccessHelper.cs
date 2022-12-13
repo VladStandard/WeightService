@@ -67,14 +67,14 @@ public partial class DataAccessHelper
     private FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; set; }
 
 	// Be careful. If setup SqlConfiguration.DefaultSchema, this line will make an Exception!
-	private void SetSqlConfiguration(bool isShowSql)
+	private void SetSqlConfiguration(bool isSqlDebug)
     {
         string connectionString = GetConnectionString();
         if (string.IsNullOrEmpty(connectionString))
             throw new ArgumentNullException(nameof(connectionString));
 
         SqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
-        if (isShowSql)
+        if (isSqlDebug)
             SqlConfiguration.ShowSql();
         SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
     }
@@ -115,13 +115,13 @@ public partial class DataAccessHelper
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
-    public void SetSessionFactory(ISessionFactory? sessionFactory = null)
+    public void SetSessionFactory(bool isSqlDebug, ISessionFactory? sessionFactory = null)
     {
 	    lock (_locker)
 	    {
-            SetSqlConfiguration(DebugHelper.Instance.IsDebug);
+            SetSqlConfiguration(isSqlDebug);
             SetFluentConfiguration();
-            SessionFactory = sessionFactory is null ? FluentConfiguration.BuildSessionFactory() : sessionFactory;
+            SessionFactory = sessionFactory ?? FluentConfiguration.BuildSessionFactory();
         }
     }
 
