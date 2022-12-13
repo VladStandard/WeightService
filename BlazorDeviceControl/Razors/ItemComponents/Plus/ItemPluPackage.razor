@@ -1,10 +1,13 @@
-﻿@inherits RazorComponentItemBase<PluPackageModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PlusPackages.PluPackageModel>
 @page "/item/plu_package"
 @page "/item/plu_package/new"
 @page "/item/plu_package/{IdentityUidStr}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Packages
+@using DataCore.Sql.TableScaleModels.Plus
+@using DataCore.Sql.TableScaleModels.PlusPackages
 
 <SystemIdentity ParentRazor=@(this) />
 

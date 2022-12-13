@@ -3,6 +3,15 @@
 
 using DataCore.Localizations;
 using DataCore.Models;
+using DataCore.Sql.TableScaleModels.Access;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.PrintersResources;
+using DataCore.Sql.TableScaleModels.PrintersTypes;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
+using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace BlazorCore.Razors;
 

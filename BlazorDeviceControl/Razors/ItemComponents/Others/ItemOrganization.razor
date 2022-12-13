@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<OrganizationModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Organizations.OrganizationModel>
 @page "/item/organization"
 @page "/item/organization/new"
 @page "/item/organization/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Organizations
 
 <SystemIdentity ParentRazor=@(this) />
 

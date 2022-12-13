@@ -3,7 +3,9 @@
 
 using DataCore.Helpers;
 using DataCore.Localizations;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.Templates;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

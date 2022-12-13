@@ -3,7 +3,6 @@
 
 using DataCore.Localizations;
 using DataCore.Protocols;
-using DataCore.Sql.TableScaleModels;
 using MDSoft.BarcodePrintUtils;
 using MDSoft.BarcodePrintUtils.Tsc;
 using MDSoft.BarcodePrintUtils.Wmi;
@@ -20,6 +19,8 @@ using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 using DataCore.Enums;
+using DataCore.Sql.TableScaleModels.PlusLabels;
+using DataCore.Sql.TableScaleModels.Printers;
 
 namespace WeightCore.Managers;
 

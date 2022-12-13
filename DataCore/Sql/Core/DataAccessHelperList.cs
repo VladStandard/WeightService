@@ -2,6 +2,19 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Sql.Tables;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.PlusLabels;
+using DataCore.Sql.TableScaleModels.PlusPackages;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusWeighings;
+using DataCore.Sql.TableScaleModels.PrintersResources;
+using DataCore.Sql.TableScaleModels.PrintersTypes;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.ScalesScreenshots;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace DataCore.Sql.Core;
 

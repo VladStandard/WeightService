@@ -1,9 +1,11 @@
-﻿@inherits RazorComponentItemBase<DeviceModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Devices.DeviceModel>
 @page "/item/device"
 @page "/item/device/new"
 @page "/item/device/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Devices
+@using DataCore.Sql.TableScaleModels.DeviceTypes
 
 <SystemIdentity ParentRazor=@(this) />
 

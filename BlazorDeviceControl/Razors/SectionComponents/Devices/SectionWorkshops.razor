@@ -1,7 +1,9 @@
-﻿@inherits RazorComponentSectionBase<WorkShopModel, SqlTableBase>
+﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel, SqlTableBase>
 @page "/section/workshops"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using DataCore.Sql.TableScaleModels.WorkShops
 
 <SystemIdentity ParentRazor=@(this) />
 

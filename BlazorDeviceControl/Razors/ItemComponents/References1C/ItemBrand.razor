@@ -1,10 +1,12 @@
-﻿@inherits RazorComponentItemBase<BrandModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Brands.BrandModel>
 @page "/item/brand"
 @page "/item/brand/new"
 @page "/item/brand/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Enums;
+@using DataCore.Sql.TableScaleModels.Brands
+    using DataCore.Sql.TableScaleModels.Brands;
 
 <SystemIdentity ParentRazor=@(this) />
 

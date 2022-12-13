@@ -2,6 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusPackages;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.Scales;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 

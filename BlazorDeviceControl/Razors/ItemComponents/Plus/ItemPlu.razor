@@ -1,4 +1,4 @@
-﻿@inherits RazorComponentItemBase<PluModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Plus.PluModel>
 @page "/item/plu"
 @page "/item/plu/new"
 @page "/item/plu/{IdentityUidStr}"
@@ -6,6 +6,9 @@
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SectionComponents.Plus
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Nomenclatures
+@using DataCore.Sql.TableScaleModels.Plus
+@using DataCore.Sql.TableScaleModels.Templates
 
 <SystemIdentity ParentRazor=@(this) />
 

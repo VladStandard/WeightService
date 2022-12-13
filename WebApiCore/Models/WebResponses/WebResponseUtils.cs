@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Net;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.BarCodes;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;

@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<ProductionFacilityModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.ProductionFacilities.ProductionFacilityModel>
 @page "/item/production_facility"
 @page "/item/production_facility/new"
 @page "/item/production_facility/{IdentityId:long}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
 
 <SystemIdentity ParentRazor=@(this) />
 

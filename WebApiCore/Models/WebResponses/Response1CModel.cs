@@ -4,7 +4,7 @@
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.Brands;
 using WebApiCore.Utils;
 
 namespace WebApiCore.Models.WebResponses;

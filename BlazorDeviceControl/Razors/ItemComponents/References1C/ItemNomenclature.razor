@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<NomenclatureModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Nomenclatures.NomenclatureModel>
 @page "/item/nomenclature"
 @page "/item/nomenclature/new"
 @page "/item/nomenclature/{IdentityId:long}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Nomenclatures
 
 <SystemIdentity ParentRazor=@(this) />
 

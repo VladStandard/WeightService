@@ -3,7 +3,7 @@
 
 using System.Windows;
 using System.Linq;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.PlusPackages;
 
 namespace WeightCore.XamlPages;
 

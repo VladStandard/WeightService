@@ -4,6 +4,10 @@
 using DataCore.Files;
 using DataCore.Models;
 using DataCore.Protocols;
+using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.Logs;
+using DataCore.Sql.TableScaleModels.LogsTypes;
 
 namespace DataCore.Sql.Core;
 

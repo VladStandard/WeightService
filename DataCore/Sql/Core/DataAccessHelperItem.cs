@@ -4,8 +4,22 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleFkModels.PluTemplateFk;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleModels.Access;
+using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.ProductSeries;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.Templates;
 
 namespace DataCore.Sql.Core;
 

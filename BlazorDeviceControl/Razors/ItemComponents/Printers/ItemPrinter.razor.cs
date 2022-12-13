@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.PrintersTypes;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Printers;
 

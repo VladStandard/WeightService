@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<LogModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Logs.LogModel>
 @page "/item/log"
 @page "/item/log/new"
 @page "/item/log/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Logs
 
 <SystemIdentity ParentRazor=@(this) />
 

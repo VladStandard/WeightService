@@ -2,6 +2,23 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable MissingXmlDoc
 
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleModels.Access;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.Organizations;
+using DataCore.Sql.TableScaleModels.Packages;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.PrintersResources;
+using DataCore.Sql.TableScaleModels.PrintersTypes;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
+using DataCore.Sql.TableScaleModels.Versions;
+using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 using System.Globalization;
 

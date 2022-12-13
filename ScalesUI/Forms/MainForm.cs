@@ -7,7 +7,7 @@ using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Schedulers;
 using DataCore.Settings;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Wmi;
 using Gma.System.MouseKeyHook;
 using MDSoft.BarcodePrintUtils.Wmi;
