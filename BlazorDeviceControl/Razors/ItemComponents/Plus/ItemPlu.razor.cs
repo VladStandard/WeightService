@@ -2,6 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Razors;
+using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.Xml;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Plus;
@@ -12,11 +16,16 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 
     private BarcodeHelper Barcode { get; } = BarcodeHelper.Instance;
     private XmlProductHelper ProductHelper { get; } = XmlProductHelper.Instance;
+    private TemplateModel _template;
+    private TemplateModel Template { get => _template; set { _template = value; SqlLinkedItems = new() { Template }; } }
+    private PluTemplateFkModel PluTemplateFk { get; set; }
 
     public ItemPlu()
     {
 	    SqlCrudConfigItem.IsGuiShowFilterAdditional = true;
 	    SqlCrudConfigItem.IsGuiShowFilterMarked = true;
+	    _template = new();
+	    PluTemplateFk = new();
     }
 
     #endregion
@@ -51,8 +60,10 @@ public partial class ItemPlu : RazorComponentItemBase<PluModel>
 	            //    {
 	            //        PluItem.Plu = plu.Plu + 1;
 	            //    }
+	            PluTemplateFk = DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast);
+	            Template = PluTemplateFk.Template.IdentityIsNotNew ? PluTemplateFk.Template : DataAccess.GetItemNew<TemplateModel>();
 
-	            ButtonSettings = new(true, true, true, true, true, true, false);
+				ButtonSettings = new(true, true, true, true, true, true, false);
             }
         });
     }

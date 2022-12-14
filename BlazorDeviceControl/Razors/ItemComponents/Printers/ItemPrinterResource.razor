@@ -1,10 +1,13 @@
-﻿@inherits RazorComponentItemBase<PrinterResourceModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel>
 @page "/item/printer_resource"
 @page "/item/printer_resource/new"
 @page "/item/printer_resource/{IdentityId:long}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Printers
+@using DataCore.Sql.TableScaleModels.PrintersResources
+@using DataCore.Sql.TableScaleModels.TemplatesResources
 
 <SystemIdentity ParentRazor=@(this) />
 

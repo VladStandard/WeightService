@@ -4,7 +4,8 @@
 using BlazorCore.Razors;
 using BlazorCore.Utils;
 using DataCore.Localizations;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.WorkShops;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.Utils;

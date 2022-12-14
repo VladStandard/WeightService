@@ -4,7 +4,22 @@
 using DataCore.Models;
 using DataCore.Protocols;
 using DataCore.Sql.Tables;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleModels.Access;
+using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.ProductSeries;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.Templates;
 
 namespace DataCore.Sql.Core;
 
@@ -29,13 +44,40 @@ public partial class DataAccessHelper
         return GetItemNullable<ProductSeriesModel>(sqlCrudConfig);
     }
 
-    public TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
+    private PluModel? GetItemPluNullable(PluScaleModel pluScale)
     {
         if (!pluScale.IdentityIsNotNew || !pluScale.Plu.IdentityIsNotNew) return null;
-
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(nameof(SqlTableBase.IdentityValueId), pluScale.Plu.Template.IdentityValueId, false, false);
-        return GetItemNullable<TemplateModel>(sqlCrudConfig);
+        
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+            nameof(SqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, false, false);
+        return GetItemNullable<PluModel>(sqlCrudConfig);
     }
+
+    public PluModel GetItemPluNotNullable(PluScaleModel pluScale) =>
+        GetItemPluNullable(pluScale) ?? new();
+
+    private PluTemplateFkModel? GetItemPluTemplateFkNullable(PluModel plu)
+    {
+	    if (plu.IdentityIsNew) return null;
+
+	    SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(
+		    $"{nameof(PluTemplateFkModel.Plu)}.{nameof(SqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
+		    false, false);
+	    return GetItemNullable<PluTemplateFkModel>(sqlCrudConfig);
+    }
+
+    public PluTemplateFkModel GetItemPluTemplateFkNotNullable(PluModel plu) =>
+	    GetItemPluTemplateFkNullable(plu) ?? new();
+
+    private TemplateModel? GetItemTemplateNullable(PluScaleModel pluScale)
+    {
+        if (pluScale.IdentityIsNew || pluScale.Plu.IdentityIsNew) return null;
+        PluModel plu = GetItemPluNotNullable(pluScale);
+        return GetItemPluTemplateFkNullable(plu)?.Template;
+    }
+
+    public TemplateModel GetItemTemplateNotNullable(PluScaleModel pluScale) =>
+        GetItemTemplateNullable(pluScale) ?? new();
 
     private AppModel GetItemAppOrCreateNew(string appName)
     {

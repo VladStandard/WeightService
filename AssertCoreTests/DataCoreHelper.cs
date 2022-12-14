@@ -2,6 +2,43 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.Models;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleModels.Access;
+using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.Contragents;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.Logs;
+using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.Orders;
+using DataCore.Sql.TableScaleModels.OrdersWeighings;
+using DataCore.Sql.TableScaleModels.Organizations;
+using DataCore.Sql.TableScaleModels.Packages;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusLabels;
+using DataCore.Sql.TableScaleModels.PlusPackages;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusWeighings;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.PrintersResources;
+using DataCore.Sql.TableScaleModels.PrintersTypes;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.ProductSeries;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.ScalesScreenshots;
+using DataCore.Sql.TableScaleModels.Tasks;
+using DataCore.Sql.TableScaleModels.TasksTypes;
+using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
+using DataCore.Sql.TableScaleModels.Versions;
+using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace AssertCoreTests;
 
@@ -27,34 +64,34 @@ public class DataCoreHelper
 
 	#region Public and private methods
 
-	public void SetupDebug()
+	public void SetupDebug(bool isSqlDebug)
 	{
 		JsonSettings.SetupTestsDebug(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests));
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isSqlDebug);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
-	private void SetupRelease()
+	private void SetupRelease(bool isSqlDebug)
 	{
 		DataAccess.JsonSettings.SetupTestsRelease(Directory.GetCurrentDirectory(),
-			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests));
+			NetUtils.GetLocalDeviceName(true), nameof(AssertCoreTests), isSqlDebug);
 		TestContext.WriteLine($"{nameof(DataAccess.JsonSettings.IsRemote)}: {DataAccess.JsonSettings.IsRemote}");
 		TestContext.WriteLine(DataAccess.JsonSettings.IsRemote ? DataAccess.JsonSettings.Remote : DataAccess.JsonSettings.Local);
 	}
 
-	public void AssertAction(Action action, bool isSkipDbRelease = false)
+	public void AssertAction(Action action, bool isSqlDebug, bool isSkipDbRelease = false)
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			if (!isSkipDbRelease)
 			{
-				SetupRelease();
+				SetupRelease(isSqlDebug);
 				action.Invoke();
 				TestContext.WriteLine();
 			}
 
-			SetupDebug();
+			SetupDebug(isSqlDebug);
 			action.Invoke();
 		});
 	}
@@ -104,7 +141,7 @@ public class DataCoreHelper
 					}
 				}
 			}
-		});
+		}, false);
 	}
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
@@ -318,7 +355,6 @@ public class DataCoreHelper
 				plu.Gtin = LocaleCore.Sql.SqlItemFieldGtin;
 				plu.Ean13 = LocaleCore.Sql.SqlItemFieldEan13;
 				plu.Itf14 = LocaleCore.Sql.SqlItemFieldItf14;
-				plu.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				plu.Nomenclature = CreateNewSubstitute<NomenclatureModel>(isNotDefault);
 				break;
 			case PluLabelModel pluLabel:
@@ -332,6 +368,10 @@ public class DataCoreHelper
 				pluScale.IsActive = true;
 				pluScale.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
 				pluScale.Scale = CreateNewSubstitute<ScaleModel>(isNotDefault);
+				break;
+			case PluTemplateFkModel pluTemplateFk:
+                pluTemplateFk.Plu = CreateNewSubstitute<PluModel>(isNotDefault);
+                pluTemplateFk.Template = CreateNewSubstitute<TemplateModel>(isNotDefault);
 				break;
 			case PluWeighingModel pluWeighing:
 				pluWeighing.Sscc = LocaleCore.Sql.SqlItemFieldSscc;
@@ -432,73 +472,21 @@ public class DataCoreHelper
 	{
 		Assert.DoesNotThrow(() =>
 		{
-#pragma warning disable SYSLIB0011
 			// Arrange.
 			T item1 = new();
 			SqlTableBase base1 = new();
-			BinaryFormatter binaryFormatterItem = new();
-			BinaryFormatter binaryFormatterBase = new();
-			MemoryStream memoryStreamItem = new();
-			MemoryStream memoryStreamBase = new();
 			// Act.
-			binaryFormatterItem.Serialize(memoryStreamItem, item1);
-			binaryFormatterBase.Serialize(memoryStreamBase, base1);
-			TestContext.WriteLine($"{nameof(item1)}: {item1}");
-			TestContext.WriteLine($"{nameof(base1)}: {base1}");
+			string xml1 = item1.SerializeAsXmlString<T>(false);
+			string xml2 = base1.SerializeAsXmlString<SqlTableBase>(false);
 			// Assert.
-			Assert.AreNotEqual(memoryStreamItem, memoryStreamBase);
+			Assert.AreNotEqual(xml1, xml2);
 			// Act.
-			memoryStreamItem.Position = 0;
-			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
+			T item2 = (T)item1.DeserializeFromXml<T>(xml1);
 			TestContext.WriteLine($"{nameof(item2)}: {item2}");
-			memoryStreamBase.Position = 0;
-			SqlTableBase base2 = (SqlTableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
+			SqlTableBase base2 = (SqlTableBase)item2.DeserializeFromXml<SqlTableBase>(xml2);
 			TestContext.WriteLine($"{nameof(base2)}: {base2}");
 			// Assert.
 			Assert.AreNotEqual(item2, base2);
-#pragma warning restore SYSLIB0011
-			// Finally.
-			memoryStreamItem.Close();
-			memoryStreamItem.Dispose();
-			memoryStreamBase.Close();
-			memoryStreamBase.Dispose();
-		});
-	}
-
-	public void FieldBaseModelAssertSerialize<T>() where T : SqlFieldBase, new()
-	{
-		Assert.DoesNotThrow(() =>
-		{
-#pragma warning disable SYSLIB0011
-			// Arrange.
-			T item1 = new();
-			SqlFieldBase base1 = new();
-			BinaryFormatter binaryFormatterItem = new();
-			BinaryFormatter binaryFormatterBase = new();
-			MemoryStream memoryStreamItem = new();
-			MemoryStream memoryStreamBase = new();
-			// Act.
-			binaryFormatterItem.Serialize(memoryStreamItem, item1);
-			binaryFormatterBase.Serialize(memoryStreamBase, base1);
-			TestContext.WriteLine($"{nameof(item1)}: {item1}");
-			TestContext.WriteLine($"{nameof(base1)}: {base1}");
-			// Assert.
-			Assert.AreNotEqual(memoryStreamItem, memoryStreamBase);
-			// Act.
-			memoryStreamItem.Position = 0;
-			T item2 = (T)binaryFormatterItem.Deserialize(memoryStreamItem);
-			TestContext.WriteLine($"{nameof(item2)}: {item2}");
-			memoryStreamBase.Position = 0;
-			SqlTableBase base2 = (SqlTableBase)binaryFormatterBase.Deserialize(memoryStreamBase);
-			TestContext.WriteLine($"{nameof(base2)}: {base2}");
-			// Assert.
-			Assert.AreNotEqual(item2, base2);
-#pragma warning restore SYSLIB0011
-			// Finally.
-			memoryStreamItem.Close();
-			memoryStreamItem.Dispose();
-			memoryStreamBase.Close();
-			memoryStreamBase.Dispose();
 		});
 	}
 

@@ -1,6 +1,38 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
+using DataCore.Sql.TableScaleModels.Apps;
+using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.Logs;
+using DataCore.Sql.TableScaleModels.LogsTypes;
+using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
+using DataCore.Sql.TableScaleModels.Orders;
+using DataCore.Sql.TableScaleModels.OrdersWeighings;
+using DataCore.Sql.TableScaleModels.Packages;
+using DataCore.Sql.TableScaleModels.Plus;
+using DataCore.Sql.TableScaleModels.PlusLabels;
+using DataCore.Sql.TableScaleModels.PlusPackages;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusWeighings;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.PrintersResources;
+using DataCore.Sql.TableScaleModels.PrintersTypes;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.ProductSeries;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.ScalesScreenshots;
+using DataCore.Sql.TableScaleModels.Tasks;
+using DataCore.Sql.TableScaleModels.TasksTypes;
+using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
+using DataCore.Sql.TableScaleModels.WorkShops;
 using DataCore.Sql.Xml;
 
 namespace DataCore.Sql.Core;
@@ -42,8 +74,7 @@ public partial class DataAccessHelper
                 orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
 				break;
 			case PluModel plu:
-                plu.Template = GetItemNotNullable<TemplateModel>(plu.Template.IdentityValueId);
-                plu.Nomenclature = GetItemNotNullable<TableScaleModels.NomenclatureModel>(plu.Nomenclature.IdentityValueId);
+                plu.Nomenclature = GetItemNotNullable<NomenclatureModel>(plu.Nomenclature.IdentityValueId);
 				break;
 			case PluLabelModel pluLabel:
 				pluLabel.PluWeighing = GetItemNullable<PluWeighingModel>(pluLabel.PluWeighing?.IdentityValueUid);
@@ -56,6 +87,10 @@ public partial class DataAccessHelper
 			case PluScaleModel pluScale:
                 pluScale.Plu = GetItemNotNullable<PluModel>(pluScale.Plu.IdentityValueUid);
                 pluScale.Scale = GetItemNotNullable<ScaleModel>(pluScale.Scale.IdentityValueId);
+				break;
+			case PluTemplateFkModel pluTemplateFk:
+                pluTemplateFk.Plu = GetItemNotNullable<PluModel>(pluTemplateFk.Plu.IdentityValueUid);
+                pluTemplateFk.Template = GetItemNotNullable<TemplateModel>(pluTemplateFk.Template.IdentityValueId);
 				break;
 			case PluWeighingModel pluWeighing:
                 pluWeighing.PluScale = GetItemNotNullable<PluScaleModel>(pluWeighing.PluScale.IdentityValueUid);

@@ -21,14 +21,14 @@ internal class TablesScaleModelsTests
 	{
 		DataCore.AssertAction(() =>
 		{
-            List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
+			List<SqlTableBase> sqlTables = DataCore.DataContext.GetTableModels();
 			foreach (SqlTableBase sqlTable in sqlTables)
 			{
 				TestContext.WriteLine(sqlTable.GetType());
 				Assert.AreEqual(true, sqlTable.EqualsNew());
 				Assert.AreEqual(true, sqlTable.EqualsDefault());
 			}
-		});
+		}, false);
 	}
 
 	[Test]
@@ -151,7 +151,7 @@ internal class TablesScaleModelsTests
 						break;
 				}
 			}
-		});
+		}, false);
 	}
 
 	private void CreateNewSubstitute<T>() where T : SqlTableBase, new()
@@ -192,7 +192,7 @@ internal class TablesScaleModelsTests
 						break;
 				}
 			}
-		});
+		}, false);
 	}
 
 	#endregion

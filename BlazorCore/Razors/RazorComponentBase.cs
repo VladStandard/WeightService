@@ -5,6 +5,7 @@ using BlazorCore.Settings;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.Models;
+using DataCore.Sql.TableScaleModels.Access;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;

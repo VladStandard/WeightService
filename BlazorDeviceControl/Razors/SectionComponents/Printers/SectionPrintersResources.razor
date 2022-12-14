@@ -1,7 +1,10 @@
-﻿@inherits RazorComponentSectionBase<PrinterResourceModel, SqlTableBase>
+﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PrintersResources.PrinterResourceModel, SqlTableBase>
 @page "/section/printers_resources"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Printers
+@using DataCore.Sql.TableScaleModels.PrintersResources
+@using DataCore.Sql.TableScaleModels.TemplatesResources
 
 <SystemIdentity ParentRazor=@(this) />
 

@@ -121,9 +121,11 @@ public class SerializeBase : ISerializable
 
     public virtual T DeserializeFromMemoryStream<T>(MemoryStream memoryStream) where T : new()
     {
-        IFormatter formatter = new BinaryFormatter();
+	    memoryStream.Position = 0;
+		IFormatter formatter = new BinaryFormatter();
         memoryStream.Seek(0, SeekOrigin.Begin);
-        return (T)formatter.Deserialize(memoryStream);
+        object? obj = formatter.Deserialize(memoryStream);
+        return obj is null ? new() : (T)obj;
     }
 
     public virtual T DeserializeFromXml<T>(string xml) where T : new()

@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<PrinterTypeModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.PrintersTypes.PrinterTypeModel>
 @page "/item/printer_type"
 @page "/item/printer_type/new"
 @page "/item/printer_type/{IdentityId:long}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.PrintersTypes
 
 <SystemIdentity ParentRazor=@(this) />
 

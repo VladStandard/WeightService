@@ -3,6 +3,13 @@
 
 using BlazorCore.Razors;
 using DataCore.Enums;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.Printers;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.Templates;
+using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Devices;
 

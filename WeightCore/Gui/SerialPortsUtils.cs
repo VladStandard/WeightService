@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.Scales;
 
 namespace WeightCore.Gui;
 

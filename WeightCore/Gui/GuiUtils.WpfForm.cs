@@ -5,7 +5,7 @@ using DataCore.Files;
 using DataCore.Localizations;
 using DataCore.Models;
 using DataCore.Sql.Core;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleModels.Devices;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;

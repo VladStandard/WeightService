@@ -1,10 +1,12 @@
-﻿@inherits RazorComponentItemBase<WorkShopModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.WorkShops.WorkShopModel>
 @page "/item/workshop"
 @page "/item/workshop/new"
 @page "/item/workshop/{IdentityId:long}"
 @using static BlazorCore.Utils.BlazorCoreUtuls
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.ProductionFacilities
+@using DataCore.Sql.TableScaleModels.WorkShops
 
 <SystemIdentity ParentRazor=@(this) />
 

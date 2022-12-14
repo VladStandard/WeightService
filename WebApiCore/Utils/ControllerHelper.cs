@@ -5,7 +5,6 @@ using DataCore.Enums;
 using DataCore.Sql.Core;
 using DataCore.Sql.Fields;
 using DataCore.Sql.Models;
-using DataCore.Sql.TableScaleModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using NHibernate;
@@ -18,6 +17,9 @@ using DataCore.Sql.Tables;
 using WebApiCore.Models;
 using WebApiCore.Models.WebResponses;
 using System.Drawing.Drawing2D;
+using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Brands;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 
 namespace WebApiCore.Utils;
 

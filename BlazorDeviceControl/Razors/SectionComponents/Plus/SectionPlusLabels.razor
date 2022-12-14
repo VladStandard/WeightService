@@ -1,7 +1,8 @@
-﻿@inherits RazorComponentSectionBase<PluLabelModel, SqlTableBase>
+﻿@inherits RazorComponentSectionBase<DataCore.Sql.TableScaleModels.PlusLabels.PluLabelModel, SqlTableBase>
 @page "/section/plus_labels"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.PlusLabels
 
 <SystemIdentity ParentRazor=@(this) />
 
@@ -56,8 +57,8 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Template Width="16%" TextAlign=@TextAlign.Left >
 	        <Template Context="itemCast">
-                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{itemCast.PluScale.Plu.Template.IdentityValueId}")
-                    Text=@(itemCast.PluScale.Plu.Template.Title) />
+                <RadzenLink Path=@($"{LocaleCore.DeviceControl.RouteItemTemplate}/{DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).IdentityValueId}")
+	   Text=@(DataAccess.GetItemTemplateNotNullable(itemCast.PluScale).Title) />
 	        </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem=@PluLabelModel Title=@LocaleCore.Table.Weighing Width="12%" TextAlign=@TextAlign.Center >

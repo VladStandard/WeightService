@@ -3,6 +3,7 @@
 
 using BlazorCore.Razors;
 using BlazorCore.Settings;
+using DataCore.Sql.TableScaleModels.TemplatesResources;
 
 namespace BlazorDeviceControl.Razors.ItemComponents.Others;
 

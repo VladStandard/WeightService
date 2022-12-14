@@ -11,7 +11,20 @@ using DataCore.Settings;
 using DataCore.Sql.Core;
 using DataCore.Sql.Models;
 using DataCore.Sql.TableDirectModels;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleModels.BarCodes;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+using DataCore.Sql.TableScaleModels.PlusLabels;
+using DataCore.Sql.TableScaleModels.PlusPackages;
+using DataCore.Sql.TableScaleModels.PlusScales;
+using DataCore.Sql.TableScaleModels.PlusWeighings;
+using DataCore.Sql.TableScaleModels.ProductionFacilities;
+using DataCore.Sql.TableScaleModels.ProductSeries;
+using DataCore.Sql.TableScaleModels.Scales;
+using DataCore.Sql.TableScaleModels.ScalesScreenshots;
+using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Utils;
 using MDSoft.BarcodePrintUtils;
 using MvvmHelpers;
@@ -565,9 +578,9 @@ public class UserSessionHelper : BaseViewModel
 			//Order.FactBoxCount = Order.FactBoxCount >= 100 ? 1 : Order.FactBoxCount + 1;
 		}
 
-		TemplateModel? template = DataAccess.GetItemTemplateNullable(PluScale);
+		TemplateModel template = DataAccess.GetItemTemplateNotNullable(PluScale);
 		// Template exist.
-		if (template is not null && template.IdentityIsNotNew)
+		if (template.IdentityIsNotNew)
 		{
 			switch (PluScale.Plu.IsCheckWeight)
 			{

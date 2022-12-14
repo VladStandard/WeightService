@@ -1,10 +1,12 @@
-﻿@inherits RazorComponentItemBase<BarCodeModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.BarCodes.BarCodeModel>
 @page "/item/barcode"
 @page "/item/barcode/new"
 @page "/item/barcode/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
 @using DataCore.Enums;
+@using DataCore.Sql.TableScaleModels.BarCodes
+    using DataCore.Sql.TableScaleModels.BarCodes;
 
 <SystemIdentity ParentRazor=@(this) />
 

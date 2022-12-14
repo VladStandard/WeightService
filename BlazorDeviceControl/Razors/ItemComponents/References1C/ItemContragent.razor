@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<ContragentModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Contragents.ContragentModel>
 @page "/item/contragent"
 @page "/item/contragent/new"
 @page "/item/contragent/{IdentityUidStr}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Contragents
 
 <SystemIdentity ParentRazor=@(this) />
 

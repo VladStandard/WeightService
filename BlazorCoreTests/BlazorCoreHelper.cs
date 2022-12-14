@@ -4,7 +4,7 @@
 using AssertCoreTests;
 using BlazorCore.Razors;
 using DataCore.CssStyles;
-using DataCore.Sql.TableScaleModels;
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using FluentValidation;
 using NSubstitute;
 using NUnit.Framework;

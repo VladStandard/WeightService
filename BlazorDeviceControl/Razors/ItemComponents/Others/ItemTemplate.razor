@@ -1,9 +1,10 @@
-﻿@inherits RazorComponentItemBase<TemplateModel>
+﻿@inherits RazorComponentItemBase<DataCore.Sql.TableScaleModels.Templates.TemplateModel>
 @page "/item/template"
 @page "/item/template/new"
 @page "/item/template/{IdentityId:long}"
 @using BlazorCore.Razors
 @using BlazorDeviceControl.Razors.SystemComponents
+@using DataCore.Sql.TableScaleModels.Templates
 
 <SystemIdentity ParentRazor=@(this) />
 

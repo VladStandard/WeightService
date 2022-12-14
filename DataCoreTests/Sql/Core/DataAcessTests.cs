@@ -1,6 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
+using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleModels.Devices;
+using DataCore.Sql.TableScaleModels.DeviceTypes;
+
 namespace DataCoreTests.Sql.Core;
 
 [TestFixture]
@@ -23,7 +28,7 @@ internal class DataAcessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCore.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-		});
+		}, false);
 	}
 
 	[Test]
@@ -35,7 +40,7 @@ internal class DataAcessTests
 			{
 				List<DeviceTypeFkModel> deviceTypeFks = DataCore.DataAccess.GetListDevicesTypesFkFree(isMarked, false, false);
 			}
-		});
+		}, false);
 	}
 
     private IEnumerable<string> GetDeviceTypesEnums() => 
@@ -53,12 +58,12 @@ internal class DataAcessTests
     {
         DataCore.AssertAction(() =>
         {
-            List<DeviceTypeModel> deviceTypes = DataCore.DataAccess.GetListDevicesTypes(true, false, false);
-			foreach (DeviceTypeModel deviceType in deviceTypes)
-			{
-				Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
-			}
-        });
+	        List<DeviceTypeModel> deviceTypes = DataCore.DataAccess.GetListDevicesTypes(true, false, false);
+	        foreach (DeviceTypeModel deviceType in deviceTypes)
+	        {
+		        Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
+	        }
+        }, false);
     }
 
     [Test]
@@ -66,13 +71,13 @@ internal class DataAcessTests
     {
         DataCore.AssertAction(() =>
         {
-            List<DeviceTypeModel> deviceTypes = DataCore.DataAccess.GetListDevicesTypes(true, false, false);
-			foreach (DeviceTypeModel deviceType1 in deviceTypes)
-			{
-				DeviceTypeModel deviceType2 = DataCore.DataAccess.GetItemDeviceTypeNotNullable(deviceType1.Name);
-                Assert.AreEqual(deviceType1, deviceType2);
-			}
-        });
+	        List<DeviceTypeModel> deviceTypes = DataCore.DataAccess.GetListDevicesTypes(true, false, false);
+	        foreach (DeviceTypeModel deviceType1 in deviceTypes)
+	        {
+		        DeviceTypeModel deviceType2 = DataCore.DataAccess.GetItemDeviceTypeNotNullable(deviceType1.Name);
+		        Assert.AreEqual(deviceType1, deviceType2);
+	        }
+        }, false);
     }
 
     [Test]
@@ -80,13 +85,13 @@ internal class DataAcessTests
     {
         DataCore.AssertAction(() =>
         {
-            List<DeviceModel> devices = DataCore.DataAccess.GetListDevices(true, false, false);
-            foreach (DeviceModel device in devices)
-            {
-                TestContext.WriteLine(device);
-                //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
-            }
-        });
+	        List<DeviceModel> devices = DataCore.DataAccess.GetListDevices(true, false, false);
+	        foreach (DeviceModel device in devices)
+	        {
+		        TestContext.WriteLine(device);
+		        //Assert.AreEqual(GetDeviceTypesEnums().Contains(deviceType.Name), true);
+	        }
+        }, false);
     }
 
     [Test]
@@ -94,14 +99,14 @@ internal class DataAcessTests
     {
         DataCore.AssertAction(() =>
         {
-            List<DeviceModel> devices = DataCore.DataAccess.GetListDevices(true, false, false);
-            foreach (DeviceModel device in devices)
-            {
-                DeviceScaleFkModel deviceScaleFks = DataCore.DataAccess.GetItemDeviceScaleFkNotNullable(device);
-                TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
-                TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
-            }
-        });
+	        List<DeviceModel> devices = DataCore.DataAccess.GetListDevices(true, false, false);
+	        foreach (DeviceModel device in devices)
+	        {
+		        DeviceScaleFkModel deviceScaleFks = DataCore.DataAccess.GetItemDeviceScaleFkNotNullable(device);
+		        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
+		        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
+	        }
+        }, false);
     }
 
     [Test]
@@ -109,21 +114,21 @@ internal class DataAcessTests
     {
         DataCore.AssertAction(() =>
         {
-            List<DeviceTypeFkModel> deviceTypesFks = DataCore.DataAccess.GetListDevicesTypesFks(true, false, false);
-            foreach (DeviceTypeFkModel deviceTypeFk in deviceTypesFks)
-            {
-                if (deviceTypeFk.Device.IdentityIsNotNew)
-                {
-                    DeviceScaleFkModel deviceScaleFks = DataCore.DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
-                    if (deviceTypeFk.Device.Name.Equals("SCALES-MON-101"))
-                    {
-                        TestContext.WriteLine($"{nameof(deviceTypeFk.Device)}: {deviceTypeFk.Device}");
-                        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
-                        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
-                    }
-                }
-            }
-        });
+	        List<DeviceTypeFkModel> deviceTypesFks = DataCore.DataAccess.GetListDevicesTypesFks(true, false, false);
+	        foreach (DeviceTypeFkModel deviceTypeFk in deviceTypesFks)
+	        {
+		        if (deviceTypeFk.Device.IdentityIsNotNew)
+		        {
+			        DeviceScaleFkModel deviceScaleFks = DataCore.DataAccess.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+			        if (deviceTypeFk.Device.Name.Equals("SCALES-MON-101"))
+			        {
+				        TestContext.WriteLine($"{nameof(deviceTypeFk.Device)}: {deviceTypeFk.Device}");
+				        TestContext.WriteLine($"{nameof(deviceScaleFks)}: {deviceScaleFks}");
+				        TestContext.WriteLine($"{nameof(deviceScaleFks.Scale)}: {deviceScaleFks.Scale}");
+			        }
+		        }
+	        }
+        }, false);
     }
 
     #endregion

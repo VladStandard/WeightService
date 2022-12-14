@@ -25,14 +25,16 @@ public partial class DataContextModel
 	public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
 	public List<NomenclatureGroupModel> NomenclaturesGroups { get; set; }
 	public List<NomenclatureGroupFkModel> NomenclaturesGroupsFk { get; set; }
-    public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristicsModel { get; set; }
-    public List<OrderModel> Orders { get; set; }
+	public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristicsModel { get; set; }
+	public List<OrderModel> Orders { get; set; }
+	public List<OrderWeighingModel> OrderWeighings { get; set; }
 	public List<OrganizationModel> Organizations { get; set; }
 	public List<PackageModel> Packages { get; set; }
 	public List<PluLabelModel> PluLabels { get; set; }
 	public List<PluModel> Plus { get; set; }
 	public List<PluPackageModel> PluPackages { get; set; }
 	public List<PluScaleModel> PluScales { get; set; }
+	public List<PluTemplateFkModel> PluTemplateFks { get; set; }
 	public List<PluWeighingModel> PluWeighings { get; set; }
 	public List<PrinterModel> Printers { get; set; }
 	public List<PrinterResourceModel> PrinterResources { get; set; }
@@ -74,7 +76,8 @@ public partial class DataContextModel
 		Plus = new();
 		PluPackages = new();
 		PluScales = new();
-		PluWeighings = new();
+        PluTemplateFks = new();
+        PluWeighings = new();
 		Printers = new();
 		PrinterResources = new();
 		PrinterTypes = new();
@@ -193,6 +196,11 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
 					Orders = Orders.OrderByDescending(item => item.ChangeDt).ToList();
 				return Orders.Cast<T>().ToList();
+			case var cls when cls == typeof(OrderWeighingModel):
+				OrderWeighings = DataAccess.GetListNotNullable<OrderWeighingModel>(sqlCrudConfig);
+				if (sqlCrudConfig.IsResultOrder)
+					OrderWeighings = OrderWeighings.OrderByDescending(item => item.ChangeDt).ToList();
+				return OrderWeighings.Cast<T>().ToList();
 			case var cls when cls == typeof(OrganizationModel):
 				Organizations = DataAccess.GetListNotNullable<OrganizationModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -229,6 +237,14 @@ public partial class DataContextModel
 					PluScales = PluScales.OrderBy(item => item.Plu.Name).ToList();
 				}
 				return PluScales.Cast<T>().ToList();
+			case var cls when cls == typeof(PluTemplateFkModel):
+				PluTemplateFks = DataAccess.GetListNotNullable<PluTemplateFkModel>(sqlCrudConfig);
+				if (sqlCrudConfig.IsResultOrder)
+				{
+                    PluTemplateFks = PluTemplateFks.OrderBy(item => item.Template.Title).ToList();
+                    PluTemplateFks = PluTemplateFks.OrderBy(item => item.Plu.Name).ToList();
+				}
+				return PluTemplateFks.Cast<T>().ToList();
 			case var cls when cls == typeof(PluWeighingModel):
 				PluWeighings = DataAccess.GetListNotNullable<PluWeighingModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
@@ -334,12 +350,14 @@ public partial class DataContextModel
 		new NomenclatureGroupFkModel(),
 		new NomenclaturesCharacteristicsModel(),
 		new OrderModel(),
+		new OrderWeighingModel(),
 		new OrganizationModel(),
 		new PackageModel(),
 		new PluLabelModel(),
 		new PluModel(),
 		new PluPackageModel(),
 		new PluScaleModel(),
+		new PluTemplateFkModel(),
 		new PluWeighingModel(),
 		new PrinterModel(),
 		new PrinterResourceModel(),
@@ -377,14 +395,16 @@ public partial class DataContextModel
 		typeof(NomenclatureV2Model),
 		typeof(NomenclatureGroupModel),
 		typeof(NomenclatureGroupFkModel),
-        typeof(NomenclaturesCharacteristicsModel),
-        typeof(OrderModel),
+		typeof(NomenclaturesCharacteristicsModel),
+		typeof(OrderModel),
+		typeof(OrderWeighingModel),
 		typeof(OrganizationModel),
 		typeof(PackageModel),
 		typeof(PluLabelModel),
 		typeof(PluModel),
 		typeof(PluPackageModel),
 		typeof(PluScaleModel),
+		typeof(PluTemplateFkModel),
 		typeof(PluWeighingModel),
 		typeof(PrinterModel),
 		typeof(PrinterResourceModel),
@@ -420,14 +440,16 @@ public partial class DataContextModel
 			var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
 			var cls when cls == typeof(NomenclatureGroupModel) => nameof(NomenclatureGroupModel),
 			var cls when cls == typeof(NomenclatureGroupFkModel) => nameof(NomenclatureGroupFkModel),
-            var cls when cls == typeof(NomenclaturesCharacteristicsModel) => nameof(NomenclaturesCharacteristicsModel),
-            var cls when cls == typeof(OrderModel) => nameof(OrderModel),
+			var cls when cls == typeof(NomenclaturesCharacteristicsModel) => nameof(NomenclaturesCharacteristicsModel),
+			var cls when cls == typeof(OrderModel) => nameof(OrderModel),
+			var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
 			var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
 			var cls when cls == typeof(PackageModel) => nameof(PackageModel),
 			var cls when cls == typeof(PluLabelModel) => nameof(PluLabelModel),
 			var cls when cls == typeof(PluModel) => nameof(PluModel),
 			var cls when cls == typeof(PluPackageModel) => nameof(PluPackageModel),
 			var cls when cls == typeof(PluScaleModel) => nameof(PluScaleModel),
+			var cls when cls == typeof(PluTemplateFkModel) => nameof(PluTemplateFkModel),
 			var cls when cls == typeof(PluWeighingModel) => nameof(PluWeighingModel),
 			var cls when cls == typeof(PrinterModel) => nameof(PrinterModel),
 			var cls when cls == typeof(PrinterResourceModel) => nameof(PrinterResourceModel),
