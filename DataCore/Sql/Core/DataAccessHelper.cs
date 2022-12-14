@@ -5,6 +5,7 @@
 
 using DataCore.Files;
 using DataCore.Helpers;
+using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using NHibernate;
 
 namespace DataCore.Sql.Core;

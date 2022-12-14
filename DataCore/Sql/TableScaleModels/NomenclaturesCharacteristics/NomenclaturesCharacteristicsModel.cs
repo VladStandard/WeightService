@@ -3,7 +3,7 @@
 
 using DataCore.Sql.Tables;
 
-namespace DataCore.Sql.TableScaleModels;
+namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 
 /// <summary>
 /// Table "NOMENCLATURES_CHARACTERISTICS".
