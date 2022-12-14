@@ -21,7 +21,7 @@ IF (@IS_TRUNC = 1) BEGIN
 		END ELSE BEGIN
 			PRINT N'[i] CURRENT DB IS CORRECT: ' + @DB_NAME_CURRENT;
 			-- CHECK TABLE
-			IF NOT EXISTS (SELECT 1 FROM [sys].[tables] WHERE [name] = N'{table_name}]') BEGIN
+			IF NOT EXISTS (SELECT 1 FROM [sys].[tables] WHERE [name] = N'{table_name}') BEGIN
 				PRINT N'[!] TABLE [{table_name}] IS NOT EXISTS';
 			END ELSE BEGIN
 			    -- TRUNC TABLE

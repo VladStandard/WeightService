@@ -157,6 +157,7 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureV2Map>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesCharacteristicsMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());

@@ -73,11 +73,17 @@ internal class TablesToStringTests
     {
         DataCore.TableBaseModelAssertToString<LogTypeModel>();
     }
-
+    
     [Test]
     public void DbTable_Validate_NomenclatureModel()
     {
         DataCore.TableBaseModelAssertToString<NomenclatureModel>();
+    }
+    
+    [Test]
+    public void DbTable_Validate_NomenclatureCharacteristicsModel()
+    {
+        DataCore.TableBaseModelAssertToString<NomenclaturesCharacteristicsModel>();
     }
 
     [Test]

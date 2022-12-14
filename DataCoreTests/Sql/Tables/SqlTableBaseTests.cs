@@ -122,7 +122,15 @@ internal class SqlTableBaseTests
 		DataCore.AssertSqlPropertyCheckBool<NomenclatureModel>(nameof(SqlTableBase.IsMarked));
 	}
 
-	[Test]
+    [Test]
+    public void NomenclaturesCharacteristics_AssertSqlFields_Check()
+    {
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.CreateDt));
+        DataCore.AssertSqlPropertyCheckDt<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.ChangeDt));
+        DataCore.AssertSqlPropertyCheckBool<NomenclaturesCharacteristicsModel>(nameof(NomenclaturesCharacteristicsModel.IsMarked));
+    }
+
+    [Test]
 	public void OrderModel_AssertSqlFields_Check()
 	{
 		// Arrange & Act & Assert.

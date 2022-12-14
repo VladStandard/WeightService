@@ -218,5 +218,11 @@ internal class AssertSqlDbContentValidateTests
         DataCore.AssertSqlDbContentValidate<WorkShopModel>();
     }
 
+    [Test]
+    public void DbContent_Validate_NomenclaturesCharacteristicsModel()
+    {
+        DataCore.AssertSqlDbContentValidate<NomenclaturesCharacteristicsModel>();
+    }
+
     #endregion
 }

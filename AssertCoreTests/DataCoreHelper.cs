@@ -280,6 +280,10 @@ public class DataCoreHelper
                 nomenclatureGroup.Name = LocaleCore.Sql.SqlItemFieldName;
                 nomenclatureGroup.Code = LocaleCore.Sql.SqlItemFieldCode;
                 break;
+            case NomenclaturesCharacteristicsModel nomenclatureCharacteristic:
+                nomenclatureCharacteristic.Name = LocaleCore.Sql.SqlItemFieldName;
+                nomenclatureCharacteristic.AttachmentsCount = 3;
+                break;
             case NomenclatureGroupFkModel nomenclatureGroupFk:
                 //nomenclatureGroupFk.FillProperties();
                 nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);

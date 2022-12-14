@@ -83,7 +83,10 @@ internal class TablesScaleModelsTests
                     case var cls when cls == typeof(NomenclatureGroupFkModel):
                         CreateNewSubstitute<NomenclatureGroupFkModel>();
                         break;
-					case var cls when cls == typeof(OrderModel):
+                    case var cls when cls == typeof(NomenclaturesCharacteristicsModel):
+                        CreateNewSubstitute<NomenclaturesCharacteristicsModel>();
+                        break;
+                    case var cls when cls == typeof(OrderModel):
 						CreateNewSubstitute<OrderModel>();
 						break;
 					case var cls when cls == typeof(OrganizationModel):

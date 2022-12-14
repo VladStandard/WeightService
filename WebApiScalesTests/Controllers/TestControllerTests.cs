@@ -26,7 +26,6 @@ internal class TestControllerTests
         });
     }
 
-
     [Test]
     public void GetListExceptionV1_Execute_DoesNotThrow()
     {

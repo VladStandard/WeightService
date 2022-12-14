@@ -25,7 +25,8 @@ public partial class DataContextModel
 	public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
 	public List<NomenclatureGroupModel> NomenclaturesGroups { get; set; }
 	public List<NomenclatureGroupFkModel> NomenclaturesGroupsFk { get; set; }
-	public List<OrderModel> Orders { get; set; }
+    public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristicsModel { get; set; }
+    public List<OrderModel> Orders { get; set; }
 	public List<OrganizationModel> Organizations { get; set; }
 	public List<PackageModel> Packages { get; set; }
 	public List<PluLabelModel> PluLabels { get; set; }
@@ -65,6 +66,7 @@ public partial class DataContextModel
         NomenclaturesV2 = new();
         NomenclaturesGroups = new();
         NomenclaturesGroupsFk = new();
+        NomenclaturesCharacteristicsModel = new();
         Orders = new();
 		Organizations = new();
 		Packages = new();
@@ -167,7 +169,12 @@ public partial class DataContextModel
 				if (sqlCrudConfig.IsResultOrder)
                     NomenclaturesV2 = NomenclaturesV2.OrderBy(item => item.Name).ToList();
 				return NomenclaturesV2.Cast<T>().ToList();
-			case var cls when cls == typeof(NomenclatureGroupModel):
+            case var cls when cls == typeof(NomenclaturesCharacteristicsModel):
+                NomenclaturesCharacteristicsModel = DataAccess.GetListNotNullable<NomenclaturesCharacteristicsModel>(sqlCrudConfig);
+                if (sqlCrudConfig.IsResultOrder)
+                    NomenclaturesCharacteristicsModel = NomenclaturesCharacteristicsModel.OrderBy(item => item.Name).ToList();
+                return NomenclaturesCharacteristicsModel.Cast<T>().ToList();
+            case var cls when cls == typeof(NomenclatureGroupModel):
 				NomenclaturesGroups = DataAccess.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
                     NomenclaturesGroups = NomenclaturesGroups.OrderBy(item => item.Name).ToList();
@@ -325,6 +332,7 @@ public partial class DataContextModel
 		new NomenclatureV2Model(),
 		new NomenclatureGroupModel(),
 		new NomenclatureGroupFkModel(),
+		new NomenclaturesCharacteristicsModel(),
 		new OrderModel(),
 		new OrganizationModel(),
 		new PackageModel(),
@@ -369,7 +377,8 @@ public partial class DataContextModel
 		typeof(NomenclatureV2Model),
 		typeof(NomenclatureGroupModel),
 		typeof(NomenclatureGroupFkModel),
-		typeof(OrderModel),
+        typeof(NomenclaturesCharacteristicsModel),
+        typeof(OrderModel),
 		typeof(OrganizationModel),
 		typeof(PackageModel),
 		typeof(PluLabelModel),
@@ -411,7 +420,8 @@ public partial class DataContextModel
 			var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
 			var cls when cls == typeof(NomenclatureGroupModel) => nameof(NomenclatureGroupModel),
 			var cls when cls == typeof(NomenclatureGroupFkModel) => nameof(NomenclatureGroupFkModel),
-			var cls when cls == typeof(OrderModel) => nameof(OrderModel),
+            var cls when cls == typeof(NomenclaturesCharacteristicsModel) => nameof(NomenclaturesCharacteristicsModel),
+            var cls when cls == typeof(OrderModel) => nameof(OrderModel),
 			var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
 			var cls when cls == typeof(PackageModel) => nameof(PackageModel),
 			var cls when cls == typeof(PluLabelModel) => nameof(PluLabelModel),
