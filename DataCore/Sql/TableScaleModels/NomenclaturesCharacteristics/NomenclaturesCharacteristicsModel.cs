@@ -85,4 +85,3 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase, ICloneable, ISqlD
 
     #endregion
 }
-

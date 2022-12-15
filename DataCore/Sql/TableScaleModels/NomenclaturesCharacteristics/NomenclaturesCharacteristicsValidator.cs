@@ -18,7 +18,7 @@ public class NomenclaturesCharacteristicsValidator : SqlTableValidator<Nomenclat
             .NotNull()
             .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.AttachmentsCount)
-            .NotNull();
+            .NotNull()
+            .GreaterThan(0);
     }
 }
-
