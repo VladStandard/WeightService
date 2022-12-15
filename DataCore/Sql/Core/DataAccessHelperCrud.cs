@@ -14,7 +14,12 @@ public partial class DataAccessHelper
 	{
 		ICriteria criteria = session.CreateCriteria(typeof(T));
 		if (sqlCrudConfig.ResultMaxCount > 0)
-			criteria.SetMaxResults(sqlCrudConfig.ResultMaxCount);
+		{
+			if (sqlCrudConfig.IsResultShowOnlyTop)
+				criteria.SetMaxResults(sqlCrudConfig.ResultMaxCount);
+			else if (sqlCrudConfig.ResultMaxCount == 1)
+				criteria.SetMaxResults(sqlCrudConfig.ResultMaxCount);
+		}
 		if (sqlCrudConfig.Filters.Any())
 			criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
 		if (sqlCrudConfig.Orders.Any())
