@@ -9,16 +9,16 @@ https://discord.com/channels/917316972818092073/1026439309731057724/104025236784
 [Рабочий релиз](https://scales-prod.kolbasa-vs.local:443/api/v3/)
 
 ## GET-запросы
-[Инфо](https://<url>.kolbasa-vs.local:443/api/v3/info/)
-[Нижний ШК](https://<url>.kolbasa-vs.local:443/api/v3/get_barcode/bottom?barcode=0112600076000000310300280011221109102211)
-[Правый ШК](https://<url>.kolbasa-vs.local:443/api/v3/get_barcode/right/?barcode=2999876500000115)
-[Верхний ШК](https://<url>.kolbasa-vs.local:443/api/v3/get_barcode/top?barcode=298987650000011522110911430111302800001)
+[Инфо](https://{{serv}}/api/info/)
+[Нижний ШК](https://{{serv}}/api/get_barcode/bottom?barcode=0112600076000000310300280011221109102211)
+[Правый ШК](https://{{serv}}/api/get_barcode/right/?barcode=2999876500000115)
+[Верхний ШК](https://{{serv}}/api/get_barcode/top?barcode=298987650000011522110911430111302800001)
 
 ## POST-запросы
-Обмен справочником "Бренды": [https://<url>.kolbasa-vs.local:443/apiv3/send_brands/](https://<url>.kolbasa-vs.local:443/apiv3/send_brands/)
-Обмен справочником "Номенклатура": [https://<url>.kolbasa-vs.local:443/apiv3/send_nomenclatures/](https://<url>.kolbasa-vs.local:443/apiv3/send_nomenclatures/)
-Обмен справочником "Группы номенклатуры": [https://<url>.kolbasa-vs.local:443/apiv3/send_nomenclatures_groups/](https://<url>.kolbasa-vs.local:443/apiv3/send_nomenclatures_groups/)
-Обмен справочником "Характеристики номенклатуры": [https://<url>.kolbasa-vs.local:443/apiv3/send_nomenclatures_characteristics/](https://<url>.kolbasa-vs.local:443/apiv3/send_nomenclatures_characteristics/)
+[Обмен справочником "Бренды"](https://{{serv}}/api/send_brands/)
+[Обмен справочником "Номенклатура"](https://{{serv}}/api/send_nomenclatures/)
+[Обмен справочником "Группы номенклатуры"](https://{{serv}}/api/send_nomenclatures_groups/)
+[Обмен справочником "Характеристики номенклатуры"](https://{{serv}}/api/send_nomenclatures_characteristics/)
 
 
 ## Шаблон ответа
@@ -36,7 +36,7 @@ https://discord.com/channels/917316972818092073/1026439309731057724/104025236784
 
 
 ## Пример POST-запроса "Пустой тест без тела"
-URL: 'https://<url>.kolbasa-vs.local:443/api/v3/send_test'
+URL: 'https://{{serv}}/api/send_test'
 Content-Type: application/xml
 ## Пример ответа
 ```
@@ -54,7 +54,7 @@ Content-Type: application/xml
 
 
 ## Пример POST-запроса "ZPL-код этикетки по нижнему ШК"
-URL: 'https://<url>.kolbasa-vs.local:443/api/v3/send_barcode/bottom/'
+URL: 'https://{{serv}}/api/send_barcode/bottom/'
 Content-Type: application/xml
 Query body: 
 ```
@@ -72,7 +72,7 @@ Query body:
 ```
 
 ## Пример POST-запроса "ZPL-код этикетки по правому ШК"
-URL: 'https://<url>.kolbasa-vs.local:443/api/v3/send_barcode/right/'
+URL: 'https://{{serv}}/api/send_barcode/right/'
 Content-Type: application/xml
 Query body: 
 ```
@@ -86,7 +86,7 @@ Query body:
 
 
 ## Пример POST-запроса "ZPL-код этикетки по правому ШК"
-URL: 'https://<url>.kolbasa-vs.local:443/api/v3/send_barcode/top/'
+URL: 'https://{{serv}}/api/send_barcode/top/'
 Content-Type: application/xml
 Query body: 
 ```
