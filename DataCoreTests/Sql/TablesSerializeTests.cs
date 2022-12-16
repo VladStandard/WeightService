@@ -38,7 +38,6 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
-using Org.BouncyCastle.Asn1.X509.Qualified;
 
 namespace DataCoreTests.Sql;
 

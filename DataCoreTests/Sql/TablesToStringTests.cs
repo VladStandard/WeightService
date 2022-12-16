@@ -32,13 +32,12 @@ using DataCore.Sql.TableScaleModels.Templates;
 using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
-using System;
 
 namespace DataCoreTests.Sql;
 
 [Obsolete(@"Deprecated method -> move tests to the DataCoreTests.Sql.TableScaleModels.Directory")]
 [TestFixture]
-internal class BarCodeModelTests
+internal class TablesToStringTests
 {
 	private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
