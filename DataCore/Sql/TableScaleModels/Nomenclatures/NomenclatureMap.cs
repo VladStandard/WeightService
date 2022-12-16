@@ -6,6 +6,7 @@ namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 /// <summary>
 /// Table map "Nomenclature".
 /// </summary>
+[Obsolete(@"Use NomenclatureV2Map")]
 public class NomenclatureMap : ClassMap<NomenclatureModel>
 {
     /// <summary>

@@ -11,8 +11,14 @@ internal class BarCodeModelTests
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
     [Test]
-    public void DbTable_Validate_BarCodeModel()
+    public void Model_ToString()
     {
         DataCore.TableBaseModelAssertToString<BarCodeModel>();
+    }
+
+    [Test]
+    public void Model_EqualsNew()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<BarCodeModel>();
     }
 }

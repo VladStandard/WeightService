@@ -8,6 +8,7 @@ namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 /// <summary>
 /// Table validation "Nomenclature".
 /// </summary>
+[Obsolete(@"Use NomenclatureV2Validator")]
 public class NomenclatureValidator : SqlTableValidator<NomenclatureModel>
 {
     /// <summary>
