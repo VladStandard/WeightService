@@ -26,7 +26,11 @@ public enum BarcodeTypeEnum
 /// Table "BARCODES".
 /// </summary>
 [Serializable]
-public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+[DebuggerDisplay("Type = {nameof(BarCodeModel)} | " +
+                 "{nameof(ValueTop)} = {ValueTop} | {nameof(ValueRight)} = {ValueRight} | " +
+                 "{nameof(ValueBottom)} = {ValueBottom} | " +
+                 "{nameof(PluLabel)} = {PluLabel}")]
+public class BarCodeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -37,14 +41,14 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     [XmlElement] public virtual string TypeBottom { get; set; }
     [XmlElement] public virtual string ValueBottom { get; set; }
     [XmlElement] public virtual PluLabelModel PluLabel { get; set; }
-    [XmlIgnore] public virtual string TemplateBarCodeTop => "^BY3  ^B2R,120,Y,N,Y";
-    [XmlIgnore] public virtual string TemplateFd => "^FD";
-    [XmlIgnore] public virtual string TemplateFs => "^FS";
-    [XmlIgnore] public virtual string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
-    [XmlIgnore] public virtual string TemplateBarCodeRight => "^BY4  ^BCN,90,Y,Y,N";
-    [XmlIgnore] public virtual string TypeBarCodeRight => "GS1-128"; // ""Code 128 Bar Code";
-    [XmlIgnore] public virtual string TemplateBarCodeBottom => "^BY4  ^BCR,120,N,N,D";
-    [XmlIgnore] public virtual string TypeBarCodeBottom => "Code 128 Bar Code";
+    [XmlIgnore] private protected virtual string TemplateBarCodeTop => "^BY3  ^B2R,120,Y,N,Y";
+    [XmlIgnore] private protected virtual string TemplateFd => "^FD";
+    [XmlIgnore] private protected virtual string TemplateFs => "^FS";
+    [XmlIgnore] private protected virtual string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
+    [XmlIgnore] private protected virtual string TemplateBarCodeRight => "^BY4  ^BCN,90,Y,Y,N";
+    [XmlIgnore] private protected virtual string TypeBarCodeRight => "GS1-128"; // ""Code 128 Bar Code";
+    [XmlIgnore] private protected virtual string TemplateBarCodeBottom => "^BY4  ^BCR,120,N,N,D";
+    [XmlIgnore] private protected virtual string TypeBarCodeBottom => "Code 128 Bar Code";
 
     /// <summary>
     /// Constructor.
@@ -60,12 +64,12 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         PluLabel = new();
     }
 
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected BarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	/// <summary>
+	/// Constructor for serialization.
+	/// </summary>
+	/// <param name="info"></param>
+	/// <param name="context"></param>
+	protected BarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         TypeTop = info.GetString(nameof(TypeTop));
         ValueTop = info.GetString(nameof(ValueTop));
@@ -76,11 +80,11 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         PluLabel = (PluLabelModel)info.GetValue(nameof(PluLabel), typeof(PluLabelModel));
     }
 
-    #endregion
+	#endregion
 
-    #region Public and private methods - override
+	#region Public and private methods - override
 
-    public override string ToString() =>
+	public override string ToString() =>
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(TypeTop)}: {TypeTop}. " +
         $"{nameof(ValueTop)}: {ValueTop}. " +
@@ -88,7 +92,7 @@ public class BarCodeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
         $"{nameof(ValueRight)}: {ValueRight}. " +
         $"{nameof(TypeBottom)}: {TypeBottom}. " +
         $"{nameof(ValueBottom)}: {ValueBottom}. " +
-        $"{nameof(PluLabel)}: {PluLabel.ToString() ?? "null"}. ";
+        $"{nameof(PluLabel)}: {PluLabel}. ";
 
     public override bool Equals(object obj)
     {

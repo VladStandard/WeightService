@@ -38,6 +38,7 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 
 namespace DataCoreTests.Sql.TableScaleDbContent;
 
+[Obsolete(@"Deprecated method -> move tests to the DataCoreTests.Sql.TableScaleModels.Directory")]
 [TestFixture]
 internal class AssertSqlDbContentValidateTests
 {
@@ -59,12 +60,6 @@ internal class AssertSqlDbContentValidateTests
     public void DbContent_Validate_AppModel()
     {
         DataCore.AssertSqlDbContentValidate<AppModel>();
-    }
-
-    [Test]
-    public void DbContent_Validate_BarCodeModel()
-    {
-        DataCore.AssertSqlDbContentValidate<BarCodeModel>();
     }
 
     [Test]

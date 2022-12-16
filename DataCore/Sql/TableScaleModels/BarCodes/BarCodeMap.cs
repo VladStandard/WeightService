@@ -6,6 +6,7 @@ namespace DataCore.Sql.TableScaleModels.BarCodes;
 /// <summary>
 /// Table map "BARCODES".
 /// </summary>
+[DebuggerDisplay("Type = {nameof(BarCodeMap)}")]
 public class BarCodeMap : ClassMap<BarCodeModel>
 {
     /// <summary>
