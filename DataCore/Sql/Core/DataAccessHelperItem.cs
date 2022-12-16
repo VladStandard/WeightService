@@ -241,9 +241,9 @@ public partial class DataAccessHelper
     public NomenclatureGroupModel? GetItemNomenclatureGroupParentNullable(NomenclatureGroupModel nomenclatureGroup)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfig(SqlCrudConfigModel.GetFilters(
-            $"{nameof(NomenclatureGroupFkModel.NomenclatureGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
+            $"{nameof(NomenclaturesGroupFkModel.NomenclatureGroup)}.{nameof(SqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
             false, false);
-        NomenclatureGroupModel? result = GetItemNullable<NomenclatureGroupFkModel>(sqlCrudConfig)?.NomenclatureGroupParent;
+        NomenclatureGroupModel? result = GetItemNullable<NomenclaturesGroupFkModel>(sqlCrudConfig)?.NomenclatureGroupParent;
         return result;
     }
 

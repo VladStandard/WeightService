@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.BarCodes;
@@ -257,6 +258,12 @@ internal class AssertSqlDbContentValidateTests
     public void DbContent_Validate_NomenclaturesCharacteristicsModel()
     {
         DataCore.AssertSqlDbContentValidate<NomenclaturesCharacteristicsModel>();
+    }
+
+    [Test]
+    public void DbContent_Validate_NomenclaturesCharacteristicsFkModel()
+    {
+        DataCore.AssertSqlDbContentValidate<NomenclaturesCharacteristicsFkModel>();
     }
 
     #endregion

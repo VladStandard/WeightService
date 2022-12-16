@@ -6,12 +6,12 @@ namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 /// <summary>
 /// Table map "NOMENCLATURES_GROUPS_FK".
 /// </summary>
-public class NomenclatureGroupFkMap : ClassMap<NomenclatureGroupFkModel>
+public class NomenclaturesGroupFkMap : ClassMap<NomenclaturesGroupFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureGroupFkMap()
+    public NomenclaturesGroupFkMap()
     {
         Schema("db_scales");
         Table("NOMENCLATURES_GROUPS_FK");

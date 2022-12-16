@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -12,6 +13,7 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
@@ -65,11 +67,15 @@ public partial class DataAccessHelper
 				deviceScaleFk.Device = GetItemNotNullable<DeviceModel>(deviceScaleFk.Device.IdentityValueUid);
 				deviceScaleFk.Scale = GetItemNotNullable<ScaleModel>(deviceScaleFk.Scale.IdentityValueId);
 				break;
-			case NomenclatureGroupFkModel nomenclatureGroupFk:
+			case NomenclaturesGroupFkModel nomenclatureGroupFk:
                 nomenclatureGroupFk.NomenclatureGroup = GetItemNotNullable<NomenclatureGroupModel>(nomenclatureGroupFk.NomenclatureGroup.IdentityValueUid);
                 nomenclatureGroupFk.NomenclatureGroupParent = GetItemNotNullable<NomenclatureGroupModel>(nomenclatureGroupFk.NomenclatureGroupParent.IdentityValueUid);
 				break;
-			case OrderWeighingModel orderWeighing:
+            case NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicsFk:
+                nomenclatureCharacteristicsFk.Nomenclature = GetItemNotNullable<NomenclatureV2Model>(nomenclatureCharacteristicsFk.Nomenclature.IdentityValueUid);
+                nomenclatureCharacteristicsFk.NomenclaturesCharacteristics = GetItemNotNullable<NomenclaturesCharacteristicsModel>(nomenclatureCharacteristicsFk.NomenclaturesCharacteristics.IdentityValueUid);
+                break;
+            case OrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<OrderModel>(orderWeighing.Order.IdentityValueUid);
                 orderWeighing.PluWeighing = GetItemNotNullable<PluWeighingModel>(orderWeighing.PluWeighing.IdentityValueUid);
 				break;

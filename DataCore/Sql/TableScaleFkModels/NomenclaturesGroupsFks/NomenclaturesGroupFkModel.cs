@@ -10,9 +10,9 @@ namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 /// Table "NOMENCLATURES_GROUPS_FK".
 /// </summary>
 [Serializable]
-public class NomenclatureGroupFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class NomenclaturesGroupFkModel : SqlTableBase
 {
-    #region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
     [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroup { get; set; }
     [XmlElement] public virtual NomenclatureGroupModel NomenclatureGroupParent { get; set; }
@@ -20,7 +20,7 @@ public class NomenclatureGroupFkModel : SqlTableBase, ICloneable, ISqlDbBase, IS
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureGroupFkModel() : base(SqlFieldIdentityEnum.Uid)
+    public NomenclaturesGroupFkModel() : base(SqlFieldIdentityEnum.Uid)
     {
         NomenclatureGroup = new();
         NomenclatureGroupParent = new();
@@ -31,7 +31,7 @@ public class NomenclatureGroupFkModel : SqlTableBase, ICloneable, ISqlDbBase, IS
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclatureGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private NomenclaturesGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         NomenclatureGroup = (NomenclatureGroupModel)info.GetValue(nameof(NomenclatureGroup), typeof(NomenclatureGroupModel));
         NomenclatureGroupParent = (NomenclatureGroupModel)info.GetValue(nameof(NomenclatureGroupParent), typeof(NomenclatureGroupModel));
@@ -55,7 +55,7 @@ public class NomenclatureGroupFkModel : SqlTableBase, ICloneable, ISqlDbBase, IS
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((NomenclatureGroupFkModel)obj);
+        return Equals((NomenclaturesGroupFkModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -69,7 +69,7 @@ public class NomenclatureGroupFkModel : SqlTableBase, ICloneable, ISqlDbBase, IS
 
     public override object Clone()
     {
-        NomenclatureGroupFkModel item = new();
+        NomenclaturesGroupFkModel item = new();
         item.NomenclatureGroup = NomenclatureGroup.CloneCast();
         item.NomenclatureGroupParent = NomenclatureGroupParent.CloneCast();
         item.CloneSetup(base.CloneCast());
@@ -99,12 +99,12 @@ public class NomenclatureGroupFkModel : SqlTableBase, ICloneable, ISqlDbBase, IS
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(NomenclatureGroupFkModel item) =>
+    public virtual bool Equals(NomenclaturesGroupFkModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         NomenclatureGroup.Equals(item.NomenclatureGroup) &&
         NomenclatureGroupParent.Equals(item.NomenclatureGroupParent);
 
-    public new virtual NomenclatureGroupFkModel CloneCast() => (NomenclatureGroupFkModel)Clone();
+    public new virtual NomenclaturesGroupFkModel CloneCast() => (NomenclaturesGroupFkModel)Clone();
 
     #endregion
 }

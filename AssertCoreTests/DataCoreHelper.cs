@@ -4,6 +4,7 @@
 using DataCore.Models;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -113,37 +114,37 @@ public class DataCoreHelper
 	}
 
 	public void AssertSqlDbContentValidate<T>() where T : SqlTableBase, new()
-	{
-		AssertAction(() =>
-		{
-			foreach (bool isShowMarked in DataCoreEnums.GetBool())
-			{
-				SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
-				// Arrange.
-				List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
-				// Act.
-				if (!items.Any())
-				{
-					TestContext.WriteLine($"{nameof(items)} is null or empty!");
-				}
-				else
-				{
-					TestContext.WriteLine($"Found {items.Count} items. Print top 10.");
-					int i = 0;
-					foreach (T item in items)
-					{
-						if (i < 10)
-							TestContext.WriteLine(item);
-						i++;
-						ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
-						FailureWriteLine(validationResult);
-						// Assert.
-						Assert.IsTrue(validationResult.IsValid);
-					}
-				}
-			}
-		}, false);
-	}
+    {
+        AssertAction(() =>
+        {
+            foreach (bool isShowMarked in DataCoreEnums.GetBool())
+            {
+                SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigUtils.GetCrudConfigSection(isShowMarked);
+                // Arrange.
+                List<T> items = DataContext.GetListNotNullable<T>(sqlCrudConfig);
+                // Act.
+                if (!items.Any())
+                {
+                    TestContext.WriteLine($"{nameof(items)} is null or empty!");
+                }
+                else
+                {
+                    TestContext.WriteLine($"Found {items.Count} items. Print top 10.");
+                    int i = 0;
+                    foreach (T item in items)
+                    {
+                        if (i < 10)
+                            TestContext.WriteLine(item);
+                        i++;
+                        ValidationResult validationResult = ValidationUtils.GetValidationResult(item);
+                        FailureWriteLine(validationResult);
+                        // Assert.
+                        Assert.IsTrue(validationResult.IsValid);
+                    }
+                }
+            }
+        }, false, true);
+    }
 
 	public void AssertSqlValidate<T>(T item, bool assertResult) where T : SqlTableBase, new() =>
 		AssertValidate(item, assertResult);
@@ -322,7 +323,11 @@ public class DataCoreHelper
                 nomenclatureCharacteristic.Name = LocaleCore.Sql.SqlItemFieldName;
                 nomenclatureCharacteristic.AttachmentsCount = 3;
                 break;
-            case NomenclatureGroupFkModel nomenclatureGroupFk:
+            case NomenclaturesCharacteristicsFkModel nomenclatureCharacteristicFk:
+                nomenclatureCharacteristicFk.Nomenclature = CreateNewSubstitute<NomenclatureV2Model>(isNotDefault);
+                nomenclatureCharacteristicFk.NomenclaturesCharacteristics = CreateNewSubstitute<NomenclaturesCharacteristicsModel>(isNotDefault);
+                break;
+            case NomenclaturesGroupFkModel nomenclatureGroupFk:
                 //nomenclatureGroupFk.FillProperties();
                 nomenclatureGroupFk.NomenclatureGroup = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);
                 nomenclatureGroupFk.NomenclatureGroupParent = CreateNewSubstitute<NomenclatureGroupModel>(isNotDefault);

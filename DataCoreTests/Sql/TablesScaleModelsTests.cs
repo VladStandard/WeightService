@@ -4,6 +4,7 @@
 using DataCore.Models;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -115,11 +116,14 @@ internal class TablesScaleModelsTests
                     case var cls when cls == typeof(NomenclatureGroupModel):
                         CreateNewSubstitute<NomenclatureGroupModel>();
                         break;
-                    case var cls when cls == typeof(NomenclatureGroupFkModel):
-                        CreateNewSubstitute<NomenclatureGroupFkModel>();
+                    case var cls when cls == typeof(NomenclaturesGroupFkModel):
+                        CreateNewSubstitute<NomenclaturesGroupFkModel>();
                         break;
                     case var cls when cls == typeof(NomenclaturesCharacteristicsModel):
                         CreateNewSubstitute<NomenclaturesCharacteristicsModel>();
+                        break;
+                    case var cls when cls == typeof(NomenclaturesCharacteristicsFkModel):
+                        CreateNewSubstitute<NomenclaturesCharacteristicsFkModel>();
                         break;
                     case var cls when cls == typeof(OrderModel):
 						CreateNewSubstitute<OrderModel>();

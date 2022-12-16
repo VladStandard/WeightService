@@ -6,6 +6,7 @@
 using DataCore.Files;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -185,11 +186,12 @@ public partial class DataAccessHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<ContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<LogTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesGroupFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesCharacteristicsMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclatureV2Map>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesCharacteristicsMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<NomenclaturesCharacteristicsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<OrganizationMap>());

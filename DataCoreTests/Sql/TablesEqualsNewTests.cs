@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
@@ -124,9 +125,8 @@ internal class TablesEqualsNewTests
     [Test]
     public void DbTable_Validate_NomenclatureGroupFkModel()
     {
-        DataCore.TableBaseModelAssertEqualsNew<NomenclatureGroupFkModel>();
+        DataCore.TableBaseModelAssertEqualsNew<NomenclaturesGroupFkModel>();
     }
-
 
     [Test]
     public void DbTable_Validate_NomenclatureCharacteristicsModel()
@@ -134,6 +134,11 @@ internal class TablesEqualsNewTests
         DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsModel>();
     }
 
+    [Test]
+    public void DbTable_Validate_NomenclatureCharacteristicsFkModel()
+    {
+        DataCore.TableBaseModelAssertEqualsNew<NomenclaturesCharacteristicsFkModel>();
+    }
 
     [Test]
     public void DbTable_Validate_OrderModel()

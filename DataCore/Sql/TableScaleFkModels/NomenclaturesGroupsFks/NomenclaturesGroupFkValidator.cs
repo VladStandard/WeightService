@@ -9,12 +9,12 @@ namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 /// <summary>
 /// Table validation "NOMENCLATURES_GROUPS_FK".
 /// </summary>
-public class NomenclatureGroupFkValidator : SqlTableValidator<NomenclatureGroupFkModel>
+public class NomenclaturesGroupFkValidator : SqlTableValidator<NomenclaturesGroupFkModel>
 {
     /// <summary>
     /// Constructor.
     /// </summary>
-    public NomenclatureGroupFkValidator()
+    public NomenclaturesGroupFkValidator()
     {
         RuleFor(item => item.NomenclatureGroup)
             .NotEmpty()
