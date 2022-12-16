@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Contragents;
 /// Table "CONTRAGENTS_V2".
 /// </summary>
 [Serializable]
-public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class ContragentModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -35,7 +35,7 @@ public class ContragentModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private ContragentModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected ContragentModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         FullName = info.GetString(nameof(FullName));
         IdRRef = (Guid)info.GetValue(nameof(IdRRef), typeof(Guid));

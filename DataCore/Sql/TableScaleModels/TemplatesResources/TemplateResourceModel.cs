@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.TemplatesResources;
 /// Table "TemplateResources".
 /// </summary>
 [Serializable]
-public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class TemplateResourceModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -33,7 +33,7 @@ public class TemplateResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeri
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private TemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected TemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Type = info.GetString(nameof(Type));
         ImageData = (SqlFieldBinaryModel)info.GetValue(nameof(ImageData), typeof(SqlFieldBinaryModel));

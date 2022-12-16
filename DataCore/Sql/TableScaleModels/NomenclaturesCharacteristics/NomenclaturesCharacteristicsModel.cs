@@ -25,8 +25,7 @@ public class NomenclaturesCharacteristicsModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclaturesCharacteristicsModel(SerializationInfo info, StreamingContext context) : base(info,
-        context)
+    protected NomenclaturesCharacteristicsModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         AttachmentsCount = info.GetDecimal(nameof(AttachmentsCount));
     }

@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Printers;
 /// Table "ZebraPrinter".
 /// </summary>
 [Serializable]
-public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PrinterModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -50,7 +50,7 @@ public class PrinterModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public PrinterModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PrinterModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Ip = info.GetString(nameof(Ip));
         Port = info.GetInt16(nameof(Port));

@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.OrdersWeighings;
 /// Table "ORDERS_WEIGHINGS".
 /// </summary>
 [Serializable]
-public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class OrderWeighingModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -32,7 +32,7 @@ public class OrderWeighingModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private OrderWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected OrderWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Order = (OrderModel)info.GetValue(nameof(Order), typeof(OrderModel));
         PluWeighing = (PluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(PluWeighingModel));

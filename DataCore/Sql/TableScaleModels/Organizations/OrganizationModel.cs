@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Organizations;
 /// Table "ORGANIZATIONS".
 /// </summary>
 [Serializable]
-public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class OrganizationModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -28,7 +28,7 @@ public class OrganizationModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private OrganizationModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected OrganizationModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Gln = info.GetInt32(nameof(Gln));
     }

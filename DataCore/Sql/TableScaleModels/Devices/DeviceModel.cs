@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Devices;
 /// Table "DEVICES".
 /// </summary>
 [Serializable]
-public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class DeviceModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -42,7 +42,7 @@ public class DeviceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private DeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected DeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         LoginDt = info.GetDateTime(nameof(LoginDt));
         LogoutDt = info.GetDateTime(nameof(LogoutDt));

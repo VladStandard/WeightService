@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.ScalesScreenshots;
 /// Table "SCALES_SCREENSHOTS".
 /// </summary>
 [Serializable]
-public class ScaleScreenShotModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class ScaleScreenShotModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 

@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.TasksTypes;
 /// Table "TASKS_TYPES".
 /// </summary>
 [Serializable]
-public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class TaskTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,7 @@ public class TaskTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private TaskTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected TaskTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //
     }

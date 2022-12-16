@@ -28,7 +28,7 @@ public class BrandModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private BrandModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected BrandModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Code = info.GetString(nameof(Code));
     }

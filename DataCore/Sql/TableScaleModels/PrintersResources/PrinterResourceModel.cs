@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.PrintersResources;
 /// Table "ZebraPrinterResourceRef".
 /// </summary>
 [Serializable]
-public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PrinterResourceModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -32,7 +32,7 @@ public class PrinterResourceModel : SqlTableBase, ICloneable, ISqlDbBase, ISeria
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private PrinterResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PrinterResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Printer = (PrinterModel)info.GetValue(nameof(Printer), typeof(PrinterModel));
         TemplateResource = (TemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(TemplateResourceModel));

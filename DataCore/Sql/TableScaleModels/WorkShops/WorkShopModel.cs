@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.WorkShops;
 /// Table "WorkShop".
 /// </summary>
 [Serializable]
-public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class WorkShopModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public class WorkShopModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private WorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         ProductionFacility = (ProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(ProductionFacilityModel));
     }

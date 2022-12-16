@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.LogsTypes;
 /// Table "LOG_TYPES".
 /// </summary>
 [Serializable]
-public class LogTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class LogTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -30,7 +30,7 @@ public class LogTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private LogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected LogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Number = info.GetByte(nameof(Number));
         Icon = info.GetString(nameof(Icon));

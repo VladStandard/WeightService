@@ -32,7 +32,7 @@ public class NomenclaturesCharacteristicsFkModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclaturesCharacteristicsFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected NomenclaturesCharacteristicsFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Nomenclature = (NomenclatureV2Model)info.GetValue(nameof(Nomenclature), typeof(NomenclatureV2Model));
         NomenclaturesCharacteristics = (NomenclaturesCharacteristicsModel)info.GetValue(nameof(NomenclaturesCharacteristics),  typeof(NomenclaturesCharacteristicsModel));

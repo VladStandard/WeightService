@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.ProductionFacilities;
 /// Table "ProductionFacility".
 /// </summary>
 [Serializable]
-public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class ProductionFacilityModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public class ProductionFacilityModel : SqlTableBase, ICloneable, ISqlDbBase, ISe
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private ProductionFacilityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected ProductionFacilityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Address = info.GetString(nameof(Address));
     }

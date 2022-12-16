@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Access;
 /// Table "ACCESS".
 /// </summary>
 [Serializable]
-public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class AccessModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -32,7 +32,7 @@ public class AccessModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
 	/// <param name="context"></param>
-	private AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	protected AccessModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         LoginDt = info.GetDateTime(nameof(LoginDt));
         Rights = info.GetByte(nameof(Rights));

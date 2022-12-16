@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Scales;
 /// Table "SCALES".
 /// </summary>
 [Serializable]
-public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class ScaleModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -77,7 +77,7 @@ public class ScaleModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public ScaleModel(SerializationInfo info, StreamingContext context) : this()
+    protected ScaleModel(SerializationInfo info, StreamingContext context) : this()
     {
         TemplateDefault = (TemplateModel?)info.GetValue(nameof(TemplateDefault), typeof(TemplateModel));
         TemplateSeries = (TemplateModel?)info.GetValue(nameof(TemplateSeries), typeof(TemplateModel));

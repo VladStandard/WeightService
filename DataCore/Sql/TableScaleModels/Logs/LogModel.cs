@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Logs;
 /// Table "LOGS".
 /// </summary>
 [Serializable]
-public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class LogModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -45,7 +45,7 @@ public class LogModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private LogModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected LogModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Device = (DeviceModel?)info.GetValue(nameof(Device), typeof(DeviceModel));
         App = (AppModel?)info.GetValue(nameof(App), typeof(AppModel));

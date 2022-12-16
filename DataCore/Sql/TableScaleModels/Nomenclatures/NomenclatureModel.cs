@@ -35,7 +35,7 @@ public class NomenclatureModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclatureModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected NomenclatureModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Code = info.GetString(nameof(Code));
         Xml = (string?)info.GetValue(nameof(Xml), typeof(string));

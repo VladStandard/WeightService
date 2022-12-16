@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleModels.Tasks;
 /// Table "TASKS".
 /// </summary>
 [Serializable]
-public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class TaskModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -34,7 +34,7 @@ public class TaskModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private TaskModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected TaskModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         TaskType = (TaskTypeModel)info.GetValue(nameof(TaskType), typeof(TaskTypeModel));
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));

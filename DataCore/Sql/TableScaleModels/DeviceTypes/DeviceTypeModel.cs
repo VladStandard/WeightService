@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.DeviceTypes;
 /// Table "DEVICES_TYPES".
 /// </summary>
 [Serializable]
-public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class DeviceTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -28,7 +28,7 @@ public class DeviceTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializab
     /// </summary>
     /// <param name="info"></param>
 	/// <param name="context"></param>
-	private DeviceTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+	protected DeviceTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PrettyName = info.GetString(nameof(PrettyName));
     }

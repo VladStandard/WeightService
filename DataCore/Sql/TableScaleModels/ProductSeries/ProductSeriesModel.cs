@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.ProductSeries;
 /// Table "ProductSeries".
 /// </summary>
 [Serializable]
-public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class ProductSeriesModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -35,7 +35,7 @@ public class ProductSeriesModel : SqlTableBase, ICloneable, ISqlDbBase, ISeriali
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private ProductSeriesModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected ProductSeriesModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Scale = (ScaleModel)info.GetValue(nameof(Scale), typeof(ScaleModel));
         IsClose = info.GetBoolean(nameof(IsClose));

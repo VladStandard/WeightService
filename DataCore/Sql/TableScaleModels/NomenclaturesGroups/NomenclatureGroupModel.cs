@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 /// Table "NOMENCLATURES_GROUPS".
 /// </summary>
 [Serializable]
-public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class NomenclatureGroupModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -30,7 +30,7 @@ public class NomenclatureGroupModel : SqlTableBase, ICloneable, ISqlDbBase, ISer
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclatureGroupModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected NomenclatureGroupModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
         Code = info.GetString(nameof(Code));

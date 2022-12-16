@@ -39,7 +39,7 @@ public class NomenclatureV2Model : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclatureV2Model(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected NomenclatureV2Model(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));
         FullName = info.GetString(nameof(FullName));

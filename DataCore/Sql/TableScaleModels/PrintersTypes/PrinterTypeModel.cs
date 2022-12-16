@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.PrintersTypes;
 /// Table "ZebraPrinterType".
 /// </summary>
 [Serializable]
-public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PrinterTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,7 +26,7 @@ public class PrinterTypeModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializa
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private PrinterTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PrinterTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //
     }

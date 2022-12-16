@@ -10,7 +10,7 @@ namespace DataCore.Sql.TableScaleModels.Packages;
 /// Table "PACKAGES".
 /// </summary>
 [Serializable]
-public class PackageModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PackageModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 

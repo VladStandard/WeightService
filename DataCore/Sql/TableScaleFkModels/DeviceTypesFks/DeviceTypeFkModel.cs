@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
 /// Table "DEVICES_TYPES_FK".
 /// </summary>
 [Serializable]
-public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class DeviceTypeFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -32,7 +32,7 @@ public class DeviceTypeFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializ
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private DeviceTypeFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected DeviceTypeFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Device = (DeviceModel)info.GetValue(nameof(Device), typeof(DeviceModel));
         Type = (DeviceTypeModel)info.GetValue(nameof(DeviceTypeModel), typeof(DeviceTypeModel));

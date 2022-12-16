@@ -31,7 +31,7 @@ public class NomenclaturesGroupFkModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private NomenclaturesGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected NomenclaturesGroupFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         NomenclatureGroup = (NomenclatureGroupModel)info.GetValue(nameof(NomenclatureGroup), typeof(NomenclatureGroupModel));
         NomenclatureGroupParent = (NomenclatureGroupModel)info.GetValue(nameof(NomenclatureGroupParent), typeof(NomenclatureGroupModel));

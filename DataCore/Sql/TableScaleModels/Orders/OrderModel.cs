@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Orders;
 /// Table "ORDERS".
 /// </summary>
 [Serializable]
-public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class OrderModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 
@@ -36,7 +36,7 @@ public class OrderModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private OrderModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected OrderModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         BeginDt = info.GetDateTime(nameof(BeginDt));
         EndDt = info.GetDateTime(nameof(EndDt));

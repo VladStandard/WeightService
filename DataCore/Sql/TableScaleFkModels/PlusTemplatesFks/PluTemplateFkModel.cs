@@ -32,7 +32,7 @@ public class PluTemplateFkModel : SqlTableBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private PluTemplateFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected PluTemplateFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
         Template = (TemplateModel)info.GetValue(nameof(Template), typeof(TemplateModel));
