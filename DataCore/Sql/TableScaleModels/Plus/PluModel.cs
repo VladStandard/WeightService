@@ -12,6 +12,7 @@ namespace DataCore.Sql.TableScaleModels.Plus;
 /// Table "PLUS".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(PluModel)}")]
 public class PluModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

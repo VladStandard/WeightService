@@ -11,6 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 /// Table "NOMENCLATURES_CHARACTERISTICS_FK".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(NomenclaturesCharacteristicsFkModel)}")]
 public class NomenclaturesCharacteristicsFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

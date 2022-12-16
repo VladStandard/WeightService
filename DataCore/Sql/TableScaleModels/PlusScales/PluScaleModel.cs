@@ -12,6 +12,7 @@ namespace DataCore.Sql.TableScaleModels.PlusScales;
 /// Table "PLUS_SCALES".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(PluScaleModel)}")]
 public class PluScaleModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

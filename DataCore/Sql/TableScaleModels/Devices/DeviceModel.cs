@@ -9,6 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Devices;
 /// Table "DEVICES".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(DeviceModel)}")]
 public class DeviceModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

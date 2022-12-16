@@ -9,6 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Orders;
 /// Table "ORDERS".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(OrderModel)}")]
 public class OrderModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

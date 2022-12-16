@@ -9,6 +9,7 @@ namespace DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 /// Table "NOMENCLATURES_CHARACTERISTICS".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(NomenclaturesCharacteristicsModel)}")]
 public class NomenclaturesCharacteristicsModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

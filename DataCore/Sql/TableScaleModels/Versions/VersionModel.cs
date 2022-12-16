@@ -9,6 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Versions;
 /// Table "VERSIONS".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(VersionModel)}")]
 public class VersionModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

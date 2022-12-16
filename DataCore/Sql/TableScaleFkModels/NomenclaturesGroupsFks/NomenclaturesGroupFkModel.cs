@@ -10,6 +10,7 @@ namespace DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 /// Table "NOMENCLATURES_GROUPS_FK".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(NomenclaturesGroupFkModel)}")]
 public class NomenclaturesGroupFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk

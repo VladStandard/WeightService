@@ -9,6 +9,7 @@ namespace DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 /// Table "NOMENCLATURES_GROUPS".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(NomenclatureGroupModel)}")]
 public class NomenclatureGroupModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor

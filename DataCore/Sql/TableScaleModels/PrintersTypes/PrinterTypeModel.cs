@@ -9,6 +9,7 @@ namespace DataCore.Sql.TableScaleModels.PrintersTypes;
 /// Table "ZebraPrinterType".
 /// </summary>
 [Serializable]
+[DebuggerDisplay("Type = {nameof(PrinterTypeModel)}")]
 public class PrinterTypeModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
