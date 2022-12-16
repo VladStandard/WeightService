@@ -11,7 +11,7 @@ namespace DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 /// Table "PLUS_TEMPLATES_FK".
 /// </summary>
 [Serializable]
-public class PluTemplateFkModel : SqlTableBase, ICloneable, ISqlDbBase, ISerializable
+public class PluTemplateFkModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
 

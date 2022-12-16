@@ -4,6 +4,7 @@
 using DataCore.Sql.Tables;
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -62,9 +63,10 @@ public partial class DataContextModel
 	public List<NomenclatureModel> Nomenclatures { get; set; }
 	public List<NomenclatureV2Model> NomenclaturesV2 { get; set; }
 	public List<NomenclatureGroupModel> NomenclaturesGroups { get; set; }
-	public List<NomenclatureGroupFkModel> NomenclaturesGroupsFk { get; set; }
-	public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristicsModel { get; set; }
-	public List<OrderModel> Orders { get; set; }
+	public List<NomenclaturesGroupFkModel> NomenclaturesGroupsFk { get; set; }
+	public List<NomenclaturesCharacteristicsModel> NomenclaturesCharacteristics { get; set; }
+    public List<NomenclaturesCharacteristicsFkModel> NomenclaturesCharacteristicsFk { get; set; }
+    public List<OrderModel> Orders { get; set; }
 	public List<OrderWeighingModel> OrderWeighings { get; set; }
 	public List<OrganizationModel> Organizations { get; set; }
 	public List<PackageModel> Packages { get; set; }
@@ -106,7 +108,8 @@ public partial class DataContextModel
         NomenclaturesV2 = new();
         NomenclaturesGroups = new();
         NomenclaturesGroupsFk = new();
-        NomenclaturesCharacteristicsModel = new();
+        NomenclaturesCharacteristics = new();
+        NomenclaturesCharacteristicsFk = new();
         Orders = new();
 		Organizations = new();
 		Packages = new();
@@ -138,8 +141,8 @@ public partial class DataContextModel
 	public List<T> GetListNotNullable<T>(SqlCrudConfigModel sqlCrudConfig) where T : class, new()
 	{
 		switch (typeof(T))
-		{
-			case var cls when cls == typeof(AccessModel):
+        { 
+            case var cls when cls == typeof(AccessModel):
 				Accesses = DataAccess.GetListNotNullable<AccessModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 					Accesses = Accesses.OrderBy(item => item.Name).ToList();
@@ -211,17 +214,19 @@ public partial class DataContextModel
                     NomenclaturesV2 = NomenclaturesV2.OrderBy(item => item.Name).ToList();
 				return NomenclaturesV2.Cast<T>().ToList();
             case var cls when cls == typeof(NomenclaturesCharacteristicsModel):
-                NomenclaturesCharacteristicsModel = DataAccess.GetListNotNullable<NomenclaturesCharacteristicsModel>(sqlCrudConfig);
+                NomenclaturesCharacteristics = DataAccess.GetListNotNullable<NomenclaturesCharacteristicsModel>(sqlCrudConfig);
                 if (sqlCrudConfig.IsResultOrder)
-                    NomenclaturesCharacteristicsModel = NomenclaturesCharacteristicsModel.OrderBy(item => item.Name).ToList();
-                return NomenclaturesCharacteristicsModel.Cast<T>().ToList();
+                    NomenclaturesCharacteristics = NomenclaturesCharacteristics.OrderBy(item => item.Name).ToList();
+                return NomenclaturesCharacteristics.Cast<T>().ToList();
+            case var cls when cls == typeof(NomenclaturesCharacteristicsFkModel):
+                return DataAccess.GetListNotNullable<NomenclaturesCharacteristicsFkModel>(sqlCrudConfig).Cast<T>().ToList();
             case var cls when cls == typeof(NomenclatureGroupModel):
 				NomenclaturesGroups = DataAccess.GetListNotNullable<NomenclatureGroupModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
                     NomenclaturesGroups = NomenclaturesGroups.OrderBy(item => item.Name).ToList();
 				return NomenclaturesGroups.Cast<T>().ToList();
-			case var cls when cls == typeof(NomenclatureGroupFkModel):
-                NomenclaturesGroupsFk = DataAccess.GetListNotNullable<NomenclatureGroupFkModel>(sqlCrudConfig);
+			case var cls when cls == typeof(NomenclaturesGroupFkModel):
+                NomenclaturesGroupsFk = DataAccess.GetListNotNullable<NomenclaturesGroupFkModel>(sqlCrudConfig);
 				if (sqlCrudConfig.IsResultOrder)
 				{
 					NomenclaturesGroupsFk = NomenclaturesGroupsFk
@@ -385,9 +390,10 @@ public partial class DataContextModel
 		new NomenclatureModel(),
 		new NomenclatureV2Model(),
 		new NomenclatureGroupModel(),
-		new NomenclatureGroupFkModel(),
+		new NomenclaturesGroupFkModel(),
 		new NomenclaturesCharacteristicsModel(),
-		new OrderModel(),
+        new NomenclaturesCharacteristicsFkModel(),
+        new OrderModel(),
 		new OrderWeighingModel(),
 		new OrganizationModel(),
 		new PackageModel(),
@@ -432,9 +438,10 @@ public partial class DataContextModel
 		typeof(NomenclatureModel),
 		typeof(NomenclatureV2Model),
 		typeof(NomenclatureGroupModel),
-		typeof(NomenclatureGroupFkModel),
+		typeof(NomenclaturesGroupFkModel),
 		typeof(NomenclaturesCharacteristicsModel),
-		typeof(OrderModel),
+        typeof(NomenclaturesCharacteristicsFkModel),
+        typeof(OrderModel),
 		typeof(OrderWeighingModel),
 		typeof(OrganizationModel),
 		typeof(PackageModel),
@@ -477,9 +484,10 @@ public partial class DataContextModel
 			var cls when cls == typeof(NomenclatureModel) => nameof(NomenclatureModel),
 			var cls when cls == typeof(NomenclatureV2Model) => nameof(NomenclatureV2Model),
 			var cls when cls == typeof(NomenclatureGroupModel) => nameof(NomenclatureGroupModel),
-			var cls when cls == typeof(NomenclatureGroupFkModel) => nameof(NomenclatureGroupFkModel),
+			var cls when cls == typeof(NomenclaturesGroupFkModel) => nameof(NomenclaturesGroupFkModel),
 			var cls when cls == typeof(NomenclaturesCharacteristicsModel) => nameof(NomenclaturesCharacteristicsModel),
-			var cls when cls == typeof(OrderModel) => nameof(OrderModel),
+            var cls when cls == typeof(NomenclaturesCharacteristicsFkModel) => nameof(NomenclaturesCharacteristicsFkModel),
+            var cls when cls == typeof(OrderModel) => nameof(OrderModel),
 			var cls when cls == typeof(OrderWeighingModel) => nameof(OrderWeighingModel),
 			var cls when cls == typeof(OrganizationModel) => nameof(OrganizationModel),
 			var cls when cls == typeof(PackageModel) => nameof(PackageModel),

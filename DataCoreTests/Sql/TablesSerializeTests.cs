@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
 using DataCore.Sql.TableScaleFkModels.PlusTemplatesFks;
 using DataCore.Sql.TableScaleModels.Access;
@@ -15,6 +16,7 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.NomenclaturesCharacteristics;
 using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
@@ -101,11 +103,17 @@ internal class TablesSerializeTests
 					case var cls when cls == typeof(NomenclatureV2Model):
 						DataCore.TableBaseModelAssertSerialize<NomenclatureV2Model>();
 						break;
-					case var cls when cls == typeof(NomenclatureGroupModel):
+                    case var cls when cls == typeof(NomenclaturesCharacteristicsModel):
+                        DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsModel>();
+                        break;
+                    case var cls when cls == typeof(NomenclaturesCharacteristicsFkModel):
+                        DataCore.TableBaseModelAssertSerialize<NomenclaturesCharacteristicsFkModel>();
+                        break;
+                    case var cls when cls == typeof(NomenclatureGroupModel):
 						DataCore.TableBaseModelAssertSerialize<NomenclatureGroupModel>();
 						break;
-					case var cls when cls == typeof(NomenclatureGroupFkModel):
-						DataCore.TableBaseModelAssertSerialize<NomenclatureGroupFkModel>();
+					case var cls when cls == typeof(NomenclaturesGroupFkModel):
+						DataCore.TableBaseModelAssertSerialize<NomenclaturesGroupFkModel>();
 						break;
 					case var cls when cls == typeof(OrderModel):
 						DataCore.TableBaseModelAssertSerialize<OrderModel>();

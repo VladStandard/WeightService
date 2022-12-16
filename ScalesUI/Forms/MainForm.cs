@@ -975,8 +975,8 @@ public partial class MainForm : Form
                 // Set fake data for PLU weighing.
                 UserSession.SetPluWeighingFake(this);
                 if (!UserSession.CheckWeightIsNegative(this)) return;
-                if (!UserSession.CheckWeightThresholds(this)) return;
                 UserSession.NewPluWeighing();
+                if (!UserSession.CheckWeightThresholds(this)) return;
 
                 // Check printers connections.
                 if (!UserSession.CheckPrintIsConnect(this, UserSession.ManagerControl.PrintMain, true)) return;

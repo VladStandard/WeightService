@@ -3,6 +3,7 @@
 
 using DataCore.Sql.TableScaleFkModels.DeviceScalesFks;
 using DataCore.Sql.TableScaleFkModels.DeviceTypesFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 using DataCore.Sql.TableScaleModels.Access;
 using DataCore.Sql.TableScaleModels.Apps;
 using DataCore.Sql.TableScaleModels.Contragents;
@@ -89,29 +90,36 @@ internal class TablesToStringTests
 		DataCore.TableBaseModelAssertToString<LogModel>();
 	}
 
-	[Test]
-	public void DbTable_Validate_LogTypeModel()
-	{
-		DataCore.TableBaseModelAssertToString<LogTypeModel>();
-	}
+    [Test]
+    public void DbTable_Validate_LogTypeModel()
+    {
+        DataCore.TableBaseModelAssertToString<LogTypeModel>();
+    }
+    
+    [Test]
+    public void DbTable_Validate_NomenclatureModel()
+    {
+        DataCore.TableBaseModelAssertToString<NomenclatureModel>();
+    }
+    
+    [Test]
+    public void DbTable_Validate_NomenclatureCharacteristicsModel()
+    {
+        DataCore.TableBaseModelAssertToString<NomenclaturesCharacteristicsModel>();
+    }
 
-	[Test]
-	public void DbTable_Validate_NomenclatureModel()
-	{
-		DataCore.TableBaseModelAssertToString<NomenclatureModel>();
-	}
+    [Test]
+    public void DbTable_Validate_NomenclatureCharacteristicsFkModel()
+    {
+        DataCore.TableBaseModelAssertToString<NomenclaturesCharacteristicsFkModel>();
+    }
 
-	[Test]
-	public void DbTable_Validate_NomenclatureCharacteristicsModel()
-	{
-		DataCore.TableBaseModelAssertToString<NomenclaturesCharacteristicsModel>();
-	}
 
-	[Test]
-	public void DbTable_Validate_OrderModel()
-	{
-		DataCore.TableBaseModelAssertToString<OrderModel>();
-	}
+    [Test]
+    public void DbTable_Validate_OrderModel()
+    {
+        DataCore.TableBaseModelAssertToString<OrderModel>();
+    }
 
 	[Test]
 	public void DbTable_Validate_OrderWeighingModel()

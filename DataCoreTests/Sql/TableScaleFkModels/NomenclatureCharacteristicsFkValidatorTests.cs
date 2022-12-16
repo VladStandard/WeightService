@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore.Sql.TableScaleFkModels.NomenclaturesGroupsFks;
+using DataCore.Sql.TableScaleFkModels.NomenclaturesCharacteristicsFks;
 
 namespace DataCoreTests.Sql.TableScaleFkModels;
 
 [TestFixture]
-internal class NomenclatureGroupFkValidatorTests
+internal class NomenclatureCharacteristicsFkValidatorTests
 {
     private static DataCoreHelper DataCore => DataCoreHelper.Instance;
 
@@ -14,7 +14,7 @@ internal class NomenclatureGroupFkValidatorTests
     public void Model_Validate_IsFalse()
     {
         // Arrange & Act.
-        NomenclaturesGroupFkModel item = DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(false);
+        NomenclaturesCharacteristicsFkModel item = DataCore.CreateNewSubstitute<NomenclaturesCharacteristicsFkModel>(false);
         // Assert.
         DataCore.AssertSqlValidate(item, false);
     }
@@ -23,7 +23,7 @@ internal class NomenclatureGroupFkValidatorTests
     public void Model_Validate_IsTrue()
     {
         // Arrange & Act.
-        NomenclaturesGroupFkModel item = DataCore.CreateNewSubstitute<NomenclaturesGroupFkModel>(true);
+        NomenclaturesCharacteristicsFkModel item = DataCore.CreateNewSubstitute<NomenclaturesCharacteristicsFkModel>(true);
         // Assert.
         DataCore.AssertSqlValidate(item, true);
     }
