@@ -116,6 +116,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Publish resources.md = Publish resources.md
 		Publish tests.md = Publish tests.md
 		README.md = README.md
+		Review preview-release.md = Review preview-release.md
 		Technology stack.md = Technology stack.md
 		To-do list.md = To-do list.md
 		Trouble SHOOTING.md = Trouble SHOOTING.md
@@ -265,7 +266,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCore", "WpfCore\WpfCore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiScalesTests", "WebApiScalesTests\WebApiScalesTests.csproj", "{6937F1F1-7419-4C4A-AE38-0075191A165D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiDemo", "WebApiDemo\WebApiDemo.csproj", "{5C2A1A1D-0986-4F08-812B-E27BED5DEB5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiDemo", "WebApiDemo\WebApiDemo.csproj", "{5C2A1A1D-0986-4F08-812B-E27BED5DEB5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -946,7 +947,7 @@ Global
 		{5C2A1A1D-0986-4F08-812B-E27BED5DEB5F} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

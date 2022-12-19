@@ -3,19 +3,16 @@ from main import SqlConverter, ActionEnum
 
 
 def main():
-    templates = []
-    for action in ActionEnum:
-        templates.append(action.name)
+    templates = [action.name for action in ActionEnum]
 
-    table_name = input('Insert table name: ')
-    path = input(f'Insert path (/results/{table_name.upper()}/): ')
-    menu = MultiSelectorMenu(templates, title='Select sql template', count=len(templates))
+    table_name = input('Insert table name: ').upper()
+    path = input(f'Insert path (/results/{table_name}/): ')
+
+    menu = MultiSelectorMenu(templates, title='Select sql template')
     ans = menu.input()
-
+    
     for i in ans:
         SqlConverter(i.name, table_name, path).run()
-
-    # SqlConverter(ActionEnum.DROP.name, "access").run()
 
 
 if __name__ == "__main__":

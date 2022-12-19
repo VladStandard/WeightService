@@ -25,8 +25,8 @@ IF (@IS_INSERT = 1) BEGIN
 			END ELSE BEGIN
 			    -- INSERT TO TABLE
 				PRINT N'[i] TABLE [{table_name}] IS EXISTS';
---                 INSERT INTO [db_scales].[{table_name}] ([NAME])
---                     VALUES ("NAME");
+                INSERT INTO [db_scales].[{table_name}] ([IS_MARKED])
+                    VALUES (1);
 			END;
 		END;
         IF (@IS_COMMIT = 1) BEGIN

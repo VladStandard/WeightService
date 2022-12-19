@@ -546,15 +546,18 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-		bool isCheck = false;
-		if (PluScale.Plu.NominalWeight > 0)
-		{
-			if (PluWeighing.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing.NettoWeight <= PluScale.Plu.UpperThreshold)
-				isCheck = true;
-		}
-		else
-			isCheck = true;
-		if (!isCheck)
+
+		bool isCheck = true;
+
+        if (PluScale.Plu.LowerThreshold == 0 && PluScale.Plu.UpperThreshold == 0 && PluScale.Plu.NominalWeight == 0)
+            return true;
+
+        if (PluScale.Plu.NominalWeight > 0)
+        {
+            isCheck = (PluWeighing.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing.NettoWeight <= PluScale.Plu.UpperThreshold);
+        }
+
+        if (!isCheck)
 		{
 			if (PluWeighing.IdentityIsNotNew)
 				GuiUtils.WpfForm.ShowNewOperationControl(owner,
