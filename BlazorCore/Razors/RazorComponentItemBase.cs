@@ -3,7 +3,6 @@
 
 using DataCore.CssStyles;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 
 namespace BlazorCore.Razors;
 
@@ -11,7 +10,18 @@ public class RazorComponentItemBase<TItem> : RazorComponentBase where TItem : Sq
 {
 	#region Public and private fields, properties, constructor
 
-	protected TItem SqlItemCast { get => SqlItem is null ? new() : (TItem)SqlItem; set => SqlItem = value; }
+	protected TItem SqlItemCast
+	{
+		get => SqlItem is null ? new() : (TItem)SqlItem;
+		set => SqlItem = value;
+	}
+
+	protected TItem SqlItemChangedCast
+	{
+		get => SqlItem is null ? new() : (TItem)SqlItem;
+		set => SqlItemOnTable = value;
+	}
+
 	[Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
 	[Parameter] public CssStyleTableBodyModel CssTableStyleBody { get; set; }
 
