@@ -134,6 +134,7 @@ public class LocaleTable
     public string NomenclatureId => Lang == Lang.English ? "Nomenclature ID" : "ID номенклатуры";
     public string NomenclatureType => Lang == Lang.English ? "Type of nomenclature" : "Тип номенклатуры";
     public string NomenclatureUnitId => Lang == Lang.English ? "Nomenclature unit ID" : "ID юнита номенклатуры";
+    public string NomenclatureCode => Lang == Lang.English ? "Nomenclature code" : "Код номенклатуры";
     public string NominalWeight => Lang == Lang.English ? "Nominal box weight, kg" : "Номинальный вес короба, кг";
     public string Number => Lang == Lang.English ? "Number" : "Номер";
     public string NumberShort => Lang == Lang.English ? "#" : "№";

@@ -38,36 +38,41 @@
                         DataAccess.GetItemPluTemplateFkNotNullable(SqlItemCast).Template.IdentityValueId)
                     Text=@LocaleCore.Table.Template />
             </td>
-            <td>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
                     @bind-Value=@Template>
-                    @foreach (TemplateModel item in DataContext.Templates)
-                    {
-                        <MudSelectItem Value=@item>@item.Title</MudSelectItem>
-                    }
-                </MudSelect>
-            </td>
+					@foreach (TemplateModel item in DataContext.Templates)
+					{
+						<MudSelectItem Value=@item>@item.Title</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
+			<td>
+				<RadzenLink Style="width: 100%; margin-left: 0; "
+				            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.Nomenclature, SqlItemCast.Nomenclature.IdentityValueId)
+				            Text=@LocaleCore.Table.Nomenclature />
+			</td>
+			<td>
+				<MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+				           ReadOnly=true Disabled=true
+				           @bind-Value=@SqlItemCast.Nomenclature>
+					@foreach (NomenclatureModel item in DataContext.Nomenclatures)
+					{
+						<MudSelectItem Value=@item>@item.Name</MudSelectItem>
+					}
+				</MudSelect>
+			</td>
         </tr>
         <tr>
             <td>@LocaleCore.Table.CheckWeight</td>
             <td>
                 <RadzenCheckBox TValue="bool" @bind-Value=@SqlItemCast.IsCheckWeight />
             </td>
-            <td>
-                <RadzenLink Style="width: 100%; margin-left: 0; "
-                            Path=@GetRouteItemPath(LocaleCore.DeviceControl.RouteItemNomenclature, SqlItemCast.Nomenclature, SqlItemCast.Nomenclature.IdentityValueId)
-                    Text=@LocaleCore.Table.Nomenclature />
-            </td>
-            <td>
-                <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
-					ReadOnly=true Disabled=true
-                    @bind-Value=@SqlItemCast.Nomenclature>
-                    @foreach (NomenclatureModel item in DataContext.Nomenclatures)
-                    {
-                        <MudSelectItem Value=@item>@item.Name</MudSelectItem>
-                    }
-                </MudSelect>
-			</td>
+	        <td>@LocaleCore.Table.NomenclatureCode</td>
+	        <td>
+		        <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
+		                       ReadOnly=true Value=@SqlItemCast.Nomenclature.Code.ToString() />
+	        </td>
         </tr>
         <tr>
             <td>@LocaleCore.Table.UpperWeightThreshold</td>
