@@ -36,7 +36,6 @@ using DataCore.Sql.TableScaleModels.WorkShops;
 using Radzen;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using static BlazorCore.Utils.RazorFieldConfigUtils;
 
 namespace BlazorCore.Razors;
 
@@ -278,7 +277,7 @@ public partial class RazorComponentBase
 
 		RunActionsWithQeustion(LocaleCore.Table.TableSave, GetQuestionAdd(), () =>
 		{
-			SqlItemsSave(SqlSection);
+			SqlItemsSave(SqlSectionOnTable);
 			OnChangeAsync();
 		});
 	}
@@ -353,7 +352,6 @@ public partial class RazorComponentBase
 		RunActionsSafe(string.Empty, () =>
 		{
 			SqlItem = item;
-			//OnChangeAsync();
 		});
 	}
 

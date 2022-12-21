@@ -22,7 +22,6 @@ using DataCore.Sql.TableScaleModels.TemplatesResources;
 using DataCore.Sql.TableScaleModels.Versions;
 using DataCore.Sql.TableScaleModels.WorkShops;
 using Radzen;
-using System.Security.Policy;
 
 namespace BlazorCore.Utils;
 

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
 using System.Collections.Generic;
+using DataCore.Sql.Fields;
 
 namespace BlazorCore.Razors;
 
@@ -46,8 +47,10 @@ public partial class RazorComponentBase : LayoutComponentBase
 	protected string HttpIdDescription => $"{LocaleCore.Strings.AuthorizingId}: {HttpId}";
 	protected string IpAddressDescription => $"{LocaleCore.Strings.AuthorizingApAddress}: {IpAddress}";
 	public SqlTableBase? SqlItem { get; set; }
+	protected SqlTableBase? SqlItemOnTable { get; set; }
 	public SqlTableBase? SqlItemFilter { get; set; }
 	public List<SqlTableBase>? SqlSection { get; set; }
+	public List<SqlTableBase>? SqlSectionOnTable { get; set; }
 	public List<SqlTableBase>? SqlLinkedItems { get; set; }
 	public AuthorizeView? AuthorizeViewBase { get; set; }
 	public AuthenticationState? AuthenticationStateBase { get; set; }
@@ -76,8 +79,10 @@ public partial class RazorComponentBase : LayoutComponentBase
 		Title = string.Empty;
 
 		SqlItem = null;
+		SqlItemOnTable = null;
 		SqlItemFilter = null;
 		SqlSection = null;
+		SqlSectionOnTable = null;
 		SqlLinkedItems = null;
 
 		RazorFieldConfig = new();
@@ -104,8 +109,12 @@ public partial class RazorComponentBase : LayoutComponentBase
 			IdentityUid = ParentRazor.IdentityUid;
 		if (ParentRazor.SqlItem is not null)
 			SqlItem = ParentRazor.SqlItem;
+		if (ParentRazor.SqlItemOnTable is not null)
+			SqlItemOnTable = ParentRazor.SqlItemOnTable;
 		if (ParentRazor.SqlSection is not null)
 			SqlSection = ParentRazor.SqlSection;
+		if (ParentRazor.SqlSectionOnTable is not null)
+			SqlSectionOnTable = ParentRazor.SqlSectionOnTable;
 		if (ParentRazor.SqlLinkedItems is not null)
 			SqlLinkedItems = ParentRazor.SqlLinkedItems;
 		if (ParentRazor.ButtonSettings is not null)
@@ -152,6 +161,48 @@ public partial class RazorComponentBase : LayoutComponentBase
 	{
 		SetUserSettings(null);
 		return LocaleCore.System.SystemIdentityNotAuthorized;
+	}
+
+	/// <summary>
+	/// Add item to items table list.
+	/// </summary>
+	/// <param name="item"></param>
+	protected void AddSqlItemOnTable(SqlTableBase? item)
+	{
+		SqlSectionOnTable ??= new();
+		if (item is not null)
+		{
+			if (!SqlSectionOnTable.Any(i => i.Identity.Equals(item.Identity)))
+				SqlSectionOnTable.Add(item);
+		}
+	}
+
+	/// <summary>
+	/// Remove item from items table list.
+	/// </summary>
+	/// <param name="item"></param>
+	protected void RemoveSqlItemOnTable(SqlTableBase? item)
+	{
+		if (SqlSectionOnTable is null || !SqlSectionOnTable.Any()) return;
+		if (item is not null)
+		{
+			if (SqlSectionOnTable.Any(i => i.Identity.Equals(item.Identity)))
+				SqlSectionOnTable.Remove(item);
+		}
+	}
+
+
+	protected void ChangeSqlItemOnTable(SqlTableBase? item, bool isAdd)
+	{
+		switch (isAdd)
+		{
+			case true:
+				AddSqlItemOnTable(item);
+				break;
+			default:
+				RemoveSqlItemOnTable(item);
+				break;
+		}
 	}
 
 	#endregion

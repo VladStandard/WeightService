@@ -1,4 +1,4 @@
-# Review preview-release (0.7.635)
+# Review preview-release v0.7.635
 
 ## 80-100 + вес (пустой ArmNumber)
 - https://device-control-dev-preview.kolbasa-vs.local/item/barcode/4a24be95-a627-4eab-a116-0f7c94277147
