@@ -76,8 +76,8 @@
 			<td>@LocaleCore.Table.Description</td>
 			<td colspan=3>
 				<RadzenTextArea 
-					Style="width: 100%; text-align: left; background-color: lightgray; " 
-					ReadOnly=true @bind-Value=@SqlItemCast.Description Rows=4 />
+					Style="width: 100%; text-align: left; background-color: transparent; " 
+					ReadOnly=false @bind-Value=@SqlItemCast.Description Rows=4 />
 			</td>
 		</tr>
 		<tr>
@@ -130,17 +130,6 @@
 					<RadzenTextBox 
 						Style="width: 100%; text-align: center; background-color: lightgray; "
 						ReadOnly=true Value=@DeviceTypeFk.Type.PrettyName />
-				</td>
-			}
-		</tr>
-		<tr>
-			<td>@LocaleCore.Table.Description</td>
-			@if (DeviceTypeFk.IdentityIsNotNew)
-			{
-				<td colspan=3>
-					<RadzenTextArea 
-						Style="width: 100%; text-align: left; background-color: lightgray; "
-						ReadOnly=true Value=@DeviceTypeFk.Type.Description Rows=4 />
 				</td>
 			}
 		</tr>
