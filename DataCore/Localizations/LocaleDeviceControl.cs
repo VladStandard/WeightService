@@ -43,6 +43,7 @@ public partial class LocaleDeviceControl
     public string ItemLogo => Lang == Lang.English ? "Logo" : "Логотип";
     public string ItemModule => Lang == Lang.English ? "Module" : "Модуль";
     public string ItemNomenclature => Lang == Lang.English ? "Nomenclature" : "Номенклатура";
+    public string ItemNomenclatureGroup => Lang == Lang.English ? "Nomenclature group" : "Номенклатурная группа";
     public string ItemNomenclatureUnit => Lang == Lang.English ? "Package" : "Упаковка";
     public string ItemOrder => Lang == Lang.English ? "Order" : "Заказ";
     public string ItemOrderStatus => Lang == Lang.English ? "Order status" : "Статус заказа";
