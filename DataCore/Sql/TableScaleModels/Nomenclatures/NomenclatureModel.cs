@@ -9,7 +9,7 @@ namespace DataCore.Sql.TableScaleModels.Nomenclatures;
 /// Table "Nomenclature".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(NomenclatureModel)}")]
+[DebuggerDisplay("Type = {nameof(NomenclatureModel)} | Code = {Code}")]
 [Obsolete(@"Use NomenclatureV2Model")]
 public class NomenclatureModel : SqlTableBase
 {

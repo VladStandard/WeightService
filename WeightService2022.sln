@@ -268,6 +268,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiScalesTests", "WebApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiDemo", "WebApiDemo\WebApiDemo.csproj", "{5C2A1A1D-0986-4F08-812B-E27BED5DEB5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZPL", "ZPL", "{D6246DA8-3A49-4683-97B8-C62C333C4CB2}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\ZPL\GS1-128.zpl = Resources\ZPL\GS1-128.zpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Labels", "Labels", "{896D3900-B79A-4066-9456-8EE616307A9F}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\ZPL\Labels\FISH 115x94.zpl = Resources\ZPL\Labels\FISH 115x94.zpl
+		Resources\ZPL\Labels\Test.nlbl = Resources\ZPL\Labels\Test.nlbl
+		Resources\ZPL\Labels\Test.zpl = Resources\ZPL\Labels\Test.zpl
+		Resources\ZPL\Labels\Чудо-печка тест.nlbl = Resources\ZPL\Labels\Чудо-печка тест.nlbl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -945,6 +958,8 @@ Global
 		{C3D727DF-B6DC-4106-9116-9569A6BB587B} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 		{6937F1F1-7419-4C4A-AE38-0075191A165D} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{5C2A1A1D-0986-4F08-812B-E27BED5DEB5F} = {604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}
+		{D6246DA8-3A49-4683-97B8-C62C333C4CB2} = {94C4EB53-BC8E-45A4-9ACA-B8A2CE45E497}
+		{896D3900-B79A-4066-9456-8EE616307A9F} = {D6246DA8-3A49-4683-97B8-C62C333C4CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

@@ -24,7 +24,7 @@ public partial class RazorComponentBase
         RunActionsSafe(string.Empty, actionsParametersSet);
     }
 
-    private void RunActionsSafe(string title, List<Action> actions, [CallerMemberName] string memberName = "")
+    protected void RunActionsSafe(string title, List<Action> actions, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -46,7 +46,7 @@ public partial class RazorComponentBase
         }
     }
 
-    private void RunActionsSafe(string title, Action action) => 
+    protected void RunActionsSafe(string title, Action action) => 
 	    RunActionsSafe(title, new List<Action> { action });
 
     protected void CatchException(Exception ex, string title, string fail)

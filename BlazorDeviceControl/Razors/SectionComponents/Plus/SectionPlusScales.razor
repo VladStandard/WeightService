@@ -12,7 +12,7 @@
 <RadzenGrid PagerHorizontalAlign=@HorizontalAlign.Justify
 			Style="margin-top: 5px;"
 	Data=@SqlSectionCast TItem=@PluScaleModel
-	RowClick=@(SqlItemSetAsync) RowRender=@(args => RowRender(args))
+	RowClick=@(RowClick) RowRender=@(RowRender)
 	RowDoubleClick=@(_ => SqlItemEditAsync())
     AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
     AllowPaging=true PageSize=@DataAccess.JsonSettings.Local.SectionRowsCount AllowSorting=true >

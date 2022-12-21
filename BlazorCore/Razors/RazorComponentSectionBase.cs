@@ -5,6 +5,7 @@ using DataCore.Localizations;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using DataCore.CssStyles;
+using DataCore.Sql.TableScaleModels.PlusScales;
 
 namespace BlazorCore.Razors;
 
@@ -18,6 +19,11 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 	{
 		get => SqlSection is null ? new() : SqlSection.Select(x => (TItem)x).ToList();
 		set => SqlSection = !value.Any() ? null : new(value);
+	}
+	protected List<TItem> SqlSectionChangedCast
+	{
+		get => SqlSectionOnTable is null ? new() : SqlSectionOnTable.Select(x => (TItem)x).ToList();
+		set => SqlSectionOnTable = !value.Any() ? null : new(value);
 	}
 	protected TItemFilter SqlItemFilterCast
 	{
@@ -33,6 +39,29 @@ public class RazorComponentSectionBase<TItem, TItemFilter> : RazorComponentBase
 		SqlItemFilterCast = new();
 		SqlSectionFilterCast = new();
 	}
+
+	#endregion
+
+	protected async Task RowClick(TItem item)
+	{
+		await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+		await SqlItemSetAsync(item);
+
+		RunActionsSafe(string.Empty, () =>
+		{
+			SqlItemOnTable = item;
+			switch (typeof(TItem))
+			{
+				case var cls when cls == typeof(PluScaleModel):
+					if (SqlItemOnTable is PluScaleModel pluScale)
+						ChangeSqlItemOnTable(pluScale, pluScale.IsActive);
+					break;
+			}
+		});
+	}
+
+	#region Public and private methods
 
 	#endregion
 }

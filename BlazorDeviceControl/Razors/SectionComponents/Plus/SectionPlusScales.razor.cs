@@ -6,6 +6,7 @@ using DataCore.Sql.TableScaleModels.Plus;
 using DataCore.Sql.TableScaleModels.PlusPackages;
 using DataCore.Sql.TableScaleModels.PlusScales;
 using DataCore.Sql.TableScaleModels.Scales;
+using System;
 
 namespace BlazorDeviceControl.Razors.SectionComponents.Plus;
 
