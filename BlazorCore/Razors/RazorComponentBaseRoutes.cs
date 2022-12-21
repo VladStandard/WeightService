@@ -14,6 +14,7 @@ using DataCore.Sql.TableScaleModels.DeviceTypes;
 using DataCore.Sql.TableScaleModels.Logs;
 using DataCore.Sql.TableScaleModels.LogsTypes;
 using DataCore.Sql.TableScaleModels.Nomenclatures;
+using DataCore.Sql.TableScaleModels.NomenclaturesGroups;
 using DataCore.Sql.TableScaleModels.Orders;
 using DataCore.Sql.TableScaleModels.OrdersWeighings;
 using DataCore.Sql.TableScaleModels.Organizations;
@@ -159,6 +160,7 @@ public partial class RazorComponentBase
 		    LogQuickModel => LocaleCore.DeviceControl.RouteSectionLogs,
 		    LogTypeModel => LocaleCore.DeviceControl.RouteSectionLogTypes,
 		    NomenclatureModel => LocaleCore.DeviceControl.RouteSectionNomenclatures,
+			NomenclatureGroupModel => LocaleCore.DeviceControl.RouteSectionNomenclaturesGroups,
 		    OrderModel => LocaleCore.DeviceControl.RouteSectionOrders,
 		    OrderWeighingModel => LocaleCore.DeviceControl.RouteSectionOrdersWeighings,
 		    OrganizationModel => LocaleCore.DeviceControl.RouteSectionOrganizations,
