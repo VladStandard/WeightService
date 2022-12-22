@@ -546,29 +546,21 @@ public class UserSessionHelper : BaseViewModel
 	{
 		if (!PluScale.Plu.IsCheckWeight) return true;
 
-
-		bool isCheck = true;
-
-        if (PluScale.Plu.LowerThreshold == 0 && PluScale.Plu.UpperThreshold == 0 && PluScale.Plu.NominalWeight == 0)
-            return true;
-
-        if (PluScale.Plu.NominalWeight > 0)
+        if (PluScale.Plu.NominalWeight > 0 && PluScale.Plu.LowerThreshold is not 0 && PluScale.Plu.UpperThreshold is not 0)
         {
-            isCheck = (PluWeighing.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing.NettoWeight <= PluScale.Plu.UpperThreshold);
+            if (!(PluWeighing.NettoWeight >= PluScale.Plu.LowerThreshold && PluWeighing.NettoWeight <= PluScale.Plu.UpperThreshold))
+			{
+				if (PluWeighing.IdentityIsNotNew)
+					GuiUtils.WpfForm.ShowNewOperationControl(owner,
+						LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluScale.Plu.UpperThreshold,
+						PluScale.IdentityIsNew ? 0 : PluScale.Plu.NominalWeight,
+						PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
+						true, LogTypeEnum.Warning,
+						new() { ButtonCancelVisibility = Visibility.Visible },
+						DeviceScaleFk.Device.Name, nameof(WeightCore));
+				return false;
+			}
         }
-
-        if (!isCheck)
-		{
-			if (PluWeighing.IdentityIsNotNew)
-				GuiUtils.WpfForm.ShowNewOperationControl(owner,
-					LocaleCore.Scales.CheckWeightThresholds(PluWeighing.NettoWeight, PluScale.IdentityIsNew ? 0 : PluScale.Plu.UpperThreshold,
-					PluScale.IdentityIsNew ? 0 : PluScale.Plu.NominalWeight,
-					PluScale.IdentityIsNew ? 0 : PluScale.Plu.LowerThreshold),
-					true, LogTypeEnum.Warning,
-					new() { ButtonCancelVisibility = Visibility.Visible },
-					DeviceScaleFk.Device.Name, nameof(WeightCore));
-			return false;
-		}
 		return true;
 	}
 
