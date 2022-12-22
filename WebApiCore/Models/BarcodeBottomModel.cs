@@ -63,6 +63,9 @@ public class BarcodeBottomModel : SerializeBase
     {
         // 0 -2             -16  -20    -26-28    -34-36
         // 01-12600076000000-3103-007440-11-221021-10-2210
+        if (barcode.Length == 41 && barcode[0] == '8')
+            barcode = barcode.Substring(1, barcode.Length-1);
+
         if (barcode.Length is not 40)
             return;
         Const1 = barcode.Substring(0, 2);
@@ -80,7 +83,7 @@ public class BarcodeBottomModel : SerializeBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    private BarcodeBottomModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected BarcodeBottomModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;
         Gtin = info.GetString(nameof(Gtin)) ?? string.Empty;
