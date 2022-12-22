@@ -12,7 +12,7 @@ namespace DataCore.Sql.TableScaleModels.PlusScales;
 /// Table "PLUS_SCALES".
 /// </summary>
 [Serializable]
-[DebuggerDisplay("Type = {nameof(PluScaleModel)} | Scale = {Scale.Description} | Plu = {Plu.Name}")]
+[DebuggerDisplay("Type = {nameof(PluScaleModel)} | Scale = {Scale.Description} | Plu.Number = {Plu.Number} | Plu = {Plu.Name}")]
 public class PluScaleModel : SqlTableBase
 {
     #region Public and private fields, properties, constructor
