@@ -454,6 +454,25 @@ public class UserSessionHelper : BaseViewModel
 	}
 
 	/// <summary>
+	/// Check PLU GTIN.
+	/// </summary>
+	/// <param name="owner"></param>
+	/// <returns></returns>
+	public bool CheckPluGtin(IWin32Window owner)
+	{
+        if (string.IsNullOrEmpty(PluScale.Plu.Gtin))
+		{
+			GuiUtils.WpfForm.ShowNewOperationControl(owner,
+				LocaleCore.Scales.PluGtinIsNotSet,
+				true, LogTypeEnum.Warning,
+				new() { ButtonCancelVisibility = Visibility.Visible },
+				DeviceScaleFk.Device.Name, nameof(WeightCore));
+			return false;
+		}
+		return true;
+	}
+
+	/// <summary>
 	/// Check printer connection.
 	/// </summary>
 	/// <param name="owner"></param>

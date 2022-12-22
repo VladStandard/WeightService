@@ -971,6 +971,7 @@ public partial class MainForm : Form
                 if (!UserSession.CheckPluPackageIsEmpty(this)) return;
                 if (!UserSession.CheckWeightMassaDeviceExists(this)) return;
                 if (!UserSession.CheckWeightMassaIsStable(this)) return;
+                if (!UserSession.CheckPluGtin(this)) return;
 
                 // Set fake data for PLU weighing.
                 UserSession.SetPluWeighingFake(this);
