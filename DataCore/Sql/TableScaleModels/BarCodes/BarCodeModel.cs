@@ -46,9 +46,8 @@ public class BarCodeModel : SqlTableBase
     [XmlIgnore] private protected virtual string TemplateFs => "^FS";
     [XmlIgnore] private protected virtual string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
     [XmlIgnore] private protected virtual string TemplateBarCodeRight => "^BY4  ^BCN,90,Y,Y,N";
-    [XmlIgnore] private protected virtual string TypeBarCodeRight => "GS1-128"; // ""Code 128 Bar Code";
+    [XmlIgnore] private protected virtual string TypeBarCodeGs128 => "GS1-128";
     [XmlIgnore] private protected virtual string TemplateBarCodeBottom => "^BY4  ^BCR,120,N,N,D";
-    [XmlIgnore] private protected virtual string TypeBarCodeBottom => "Code 128 Bar Code";
 
     /// <summary>
     /// Constructor.
@@ -199,7 +198,7 @@ public class BarCodeModel : SqlTableBase
         string value = SetBarCodeInside(pluLabel, TemplateBarCodeRight);
         if (!string.IsNullOrEmpty(value))
         {
-            TypeRight = TypeBarCodeRight;
+            TypeRight = TypeBarCodeGs128;
             ValueRight = value;
         }
     }
@@ -213,7 +212,7 @@ public class BarCodeModel : SqlTableBase
         string value = SetBarCodeInside(pluLabel, TemplateBarCodeBottom);
         if (!string.IsNullOrEmpty(value))
         {
-            TypeBottom = TypeBarCodeBottom;
+            TypeBottom = TypeBarCodeGs128;
             ValueBottom = value;
         }
     }
