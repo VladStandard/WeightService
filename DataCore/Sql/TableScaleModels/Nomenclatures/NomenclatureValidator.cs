@@ -26,8 +26,7 @@ public class NomenclatureValidator : SqlTableValidator<NomenclatureModel>
             .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.Name)
             .NotNull();
-        RuleFor(item => item.Xml)
-            .NotEmpty()
-            .NotNull();
+        //RuleFor(item => item.Xml)
+        //    .NotNull();
     }
 }

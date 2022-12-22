@@ -20,7 +20,7 @@ public class PluValidator : SqlTableValidator<PluModel>
             .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo(100)
-            .LessThanOrEqualTo(999);
+            .LessThanOrEqualTo(10999);
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
