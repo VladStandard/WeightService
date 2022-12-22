@@ -34,9 +34,11 @@
             <td>@LocaleCore.Table.Xml</td>
             <td colspan=3>
 	            <RadzenTextArea
-		            Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+		            Disabled=false 
+		            ReadOnly=true
+		            Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
 		            Rows=15
-		            @bind-Value=@(SqlItemCast.Xml) />
+		            Value=@(XmlUtils.GetPrettyXmlOrJson(SqlItemCast.Xml)) />
 			</td>
         </tr>
     </tbody>
