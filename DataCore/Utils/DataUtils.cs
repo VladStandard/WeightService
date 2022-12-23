@@ -98,7 +98,8 @@ public static partial class DataUtils
         "JAVASCRIPT" => FormatType.JavaScript,
         "JSON" => FormatType.Json,
         "HTML" => FormatType.Html,
-        "XML" or "" => FormatType.Xml,
+        "XML" or "" or "XMLUTF8" => FormatType.Xml,
+        "XMLUTF16" => FormatType.XmlUtf16,
         _ => throw GetArgumentException(nameof(formatString)),
     };
 
@@ -108,7 +109,7 @@ public static partial class DataUtils
         FormatType.JavaScript => "application/js",
         FormatType.Json => "application/json",
         FormatType.Html => "application/html",
-        FormatType.Xml => "application/xml",
+        FormatType.Xml or FormatType.XmlUtf8 or FormatType.XmlUtf16 => "application/xml",
         _ => throw GetArgumentException(nameof(formatType)),
     };
 

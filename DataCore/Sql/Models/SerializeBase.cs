@@ -8,6 +8,12 @@ using System.ComponentModel;
 
 namespace DataCore.Sql.Models;
 
+
+public class Utf8StringWriter : StringWriter
+{
+    public override Encoding Encoding => Encoding.UTF8;
+}
+
 [Serializable]
 public class SerializeBase : ISerializable
 {
@@ -59,22 +65,22 @@ public class SerializeBase : ISerializable
     {
         ConformanceLevel = ConformanceLevel.Document,
         OmitXmlDeclaration = false, // не подавлять xml заголовок
-        //Encoding = Encoding.UTF32,   // кодировка // настройка не работает и UTF16 записывается в шапку XML, типа Visual Studio работает только с UTF16
-        Encoding = Encoding.Unicode,
         Indent = true,              // добавлять отступы
         IndentChars = "\t"          // сиволы отступа
     };
 
     public virtual string SerializeAsJson() => JsonConvert.SerializeObject(this);
 
-    public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace) where T : new()
+    public virtual string SerializeAsXmlString<T>(bool isAddEmptyNamespace, bool isUtf16 = false) where T : new()
     {
         // Don't use it.
         // XmlSerializer xmlSerializer = new(typeof(T));
         // Use it.
         XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
         // The T object must have properties with { get; set; }.
-        using StringWriter stringWriter = new();
+
+        using var stringWriter =  isUtf16? new StringWriter() : new Utf8StringWriter();
+
         switch (isAddEmptyNamespace)
         {
             case true:
@@ -182,7 +188,8 @@ public class SerializeBase : ISerializable
         FormatType.JavaScript => GetContentResult(formatType, SerializeAsText(), statusCode),
         FormatType.Json => GetContentResult(formatType, SerializeAsJson(), statusCode),
         FormatType.Html => GetContentResult(formatType, SerializeAsHtml(), statusCode),
-        FormatType.Xml => GetContentResult(formatType, SerializeAsXmlString<T>(true), statusCode),
+        FormatType.Xml or FormatType.XmlUtf8 => GetContentResult(formatType, SerializeAsXmlString<T>(true), statusCode),
+        FormatType.XmlUtf16 => GetContentResult(formatType, SerializeAsXmlString<T>(true, true), statusCode),
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
 
@@ -195,7 +202,8 @@ public class SerializeBase : ISerializable
         "JAVASCRIPT" => FormatType.JavaScript,
         "JSON" => FormatType.Json,
         "HTML" => FormatType.Html,
-        "XML" or "" => FormatType.Xml,
+        "XML" or "" or "XMLUTF8"=> FormatType.Xml,
+        "XMLUTF16" => FormatType.XmlUtf16,
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
 
@@ -247,7 +255,8 @@ public class SerializeBase : ISerializable
             FormatType.JavaScript => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
             FormatType.Json => XmlUtils.GetPrettyXmlOrJson(SerializeAsJson()),
             FormatType.Html => SerializeAsHtml(),
-            FormatType.Xml => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true)),
+            FormatType.Xml or FormatType.XmlUtf8 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true)),
+            FormatType.XmlUtf16 => XmlUtils.GetPrettyXml(SerializeAsXmlString<T>(true, true)),
             _ => throw DataUtils.GetArgumentException(nameof(formatType)),
         };
     }

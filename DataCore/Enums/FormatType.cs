@@ -10,4 +10,6 @@ public enum FormatType
     Json,
     Html,
     Xml,
+    XmlUtf8,
+    XmlUtf16,
 }

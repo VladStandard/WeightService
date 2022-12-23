@@ -116,11 +116,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Publish resources.md = Publish resources.md
 		Publish tests.md = Publish tests.md
 		README.md = README.md
-		Technology stack.md = Technology stack.md
 		Review preview.md = Review preview.md
+		Technology stack.md = Technology stack.md
 		To-do list.md = To-do list.md
-		Trouble SHOOTING.md = Trouble SHOOTING.md
 		Web URLs.md = Web URLs.md
+		TroubleShooting.md = TroubleShooting.md
 		WebApiScales.md = WebApiScales.md
 	EndProjectSection
 EndProject
@@ -962,7 +962,7 @@ Global
 		{896D3900-B79A-4066-9456-8EE616307A9F} = {D6246DA8-3A49-4683-97B8-C62C333C4CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
