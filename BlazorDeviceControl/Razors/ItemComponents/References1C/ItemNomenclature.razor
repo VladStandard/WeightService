@@ -13,14 +13,19 @@
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
     <RazorItemTableHead TItem=@NomenclatureModel ParentRazor=@(this) CssTableStyleHead=@RazorComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 }) />
     <tbody>
-		<RazorItemTableBody TItem=@NomenclatureModel ParentRazor=@(this) />
-        <tr>
-            <td>@LocaleCore.Table.Weighted</td>
-            <td>
-                <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.Weighted />
-            </td>
-        </tr>
-        <tr>
+	    <RazorItemTableBody TItem=@NomenclatureModel ParentRazor=@(this) />
+	    <tr>
+		    <td>@LocaleCore.Table.Uid</td>
+		    <td>
+			    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
+			                   ReadOnly=true Value=@SqlItemCast.IdentityValueUid.ToString()/>
+		    </td>
+		    <td>@LocaleCore.Table.Weighted</td>
+		    <td>
+			    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@SqlItemCast.Weighted />
+		    </td>
+	    </tr>
+		 <tr>
             <td>@LocaleCore.Table.Name</td>
             <td>
                 <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value=@SqlItemCast.Name />

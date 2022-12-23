@@ -7,7 +7,7 @@ namespace DataCore.Sql.Fields;
 /// DB field Identity model.
 /// </summary>
 [Serializable]
-public class SqlFieldIdentityModel : SqlFieldBase, ICloneable, ISqlDbBase, ISerializable
+public class SqlFieldIdentityModel : SqlFieldBase
 {
 	#region Public and private fields, properties, constructor
 

@@ -39,6 +39,7 @@ public class NomenclatureModel : SqlTableBase
     /// <param name="context"></param>
     protected NomenclatureModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
+        IdentityValueUid = Guid.Parse(info.GetString(nameof(IdentityValueUid)));
         Code = info.GetString(nameof(Code));
         Xml = (string?)info.GetValue(nameof(Xml), typeof(string));
         Weighted = info.GetBoolean(nameof(Weighted));
@@ -49,6 +50,7 @@ public class NomenclatureModel : SqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
+        $"{nameof(IdentityValueUid)}: {IdentityValueUid}  ." +
         $"{nameof(IsMarked)}: {IsMarked}. " +
         $"{nameof(Code)}: {Code}. " +
         $"{nameof(Xml)}.Length: {Xml?.Length ?? 0}. " +
@@ -90,6 +92,7 @@ public class NomenclatureModel : SqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
+        info.AddValue(nameof(IdentityValueUid), IdentityValueUid);
         info.AddValue(nameof(Code), Code);
         info.AddValue(nameof(Xml), Xml);
         info.AddValue(nameof(Weighted), Weighted);
