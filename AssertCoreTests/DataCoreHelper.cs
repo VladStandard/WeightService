@@ -482,8 +482,8 @@ public class DataCoreHelper
 			T item1 = new();
 			SqlTableBase base1 = new();
 			// Act.
-			string xml1 = item1.SerializeAsXmlString<T>(false);
-			string xml2 = base1.SerializeAsXmlString<SqlTableBase>(false);
+			string xml1 = item1.SerializeAsXmlString<T>(true);
+			string xml2 = base1.SerializeAsXmlString<SqlTableBase>(true);
 			// Assert.
 			Assert.AreNotEqual(xml1, xml2);
 			// Act.

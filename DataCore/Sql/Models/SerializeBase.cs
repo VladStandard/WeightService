@@ -182,7 +182,7 @@ public class SerializeBase : ISerializable
         FormatType.JavaScript => GetContentResult(formatType, SerializeAsText(), statusCode),
         FormatType.Json => GetContentResult(formatType, SerializeAsJson(), statusCode),
         FormatType.Html => GetContentResult(formatType, SerializeAsHtml(), statusCode),
-        FormatType.Xml => GetContentResult(formatType, SerializeAsXmlString<T>(false), statusCode),
+        FormatType.Xml => GetContentResult(formatType, SerializeAsXmlString<T>(true), statusCode),
         _ => throw DataUtils.GetArgumentException(nameof(formatType)),
     };
 
